@@ -1,0 +1,3 @@
+[submodule "source/server/libfelix"]
+	path = source/server/libfelix
+	url = git@git.bbtechgroup.com:felixonmars/libfelix.git
