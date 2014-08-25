@@ -49,16 +49,18 @@ def user_login(params):
 def register(params):
     """
     Basic user register
-
     ``password`` must be base64 encoded.
     """
+    if "nickname" not in params:
+        params["nickname"] = params["first_name"] + " " + params["last_name"]
+
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40325)
 
     if "email" in params:
         if "@" not in params["email"]:
-            abort(40095, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
+            abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
         if f_app.user.get_id_by_email(params["email"]):
             abort(40325)
 
@@ -104,10 +106,19 @@ def current_user_edit(user, params):
     ``gender`` should be in "male", "female", "other".
     ``intention`` should be combination of "cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"
     """
+    user_info = f_app.user.get(user["id"])
+    if "last_name" in params and "first_name" not in params:
+        params["nickname"] = "%s %s" % (user_info.get("first_name", None), params["last_name"])
+
+    elif "first_name" in params and "last_name" not in params:
+        params["nickname"] = "%s %s" % (params["first_name"], user_info.get("last_name", None))
+
+    elif "first_name" in params and "last_name" in params:
+        params["nickname"] = "%s %s" % (params["first_name"], params["last_name"])
 
     if "email" in params:
         if "@" not in params["email"]:
-            abort(40095, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
+            abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
         if f_app.user.get_id_by_email(params["email"]):
             abort(40325)
 
@@ -115,13 +126,13 @@ def current_user_edit(user, params):
         user = f_app.user.get(user["id"])
 
         if "old_password" not in params:
-            abort(40080, logger.warning("Invalid params: current password not provided", exc_info=False))
+            abort(40000, logger.warning("Invalid params: current password not provided", exc_info=False))
 
         if "password" in user and "email" in user:
             f_app.user.login.auth(user["email"], params.pop("old_password"), auth_only=True)
 
     elif "old_password" in params:
-        abort(40079, "Invalid params: old_password not needed")
+        abort(40000, "Invalid params: old_password not needed")
 
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params, retain_country=True)
@@ -153,25 +164,20 @@ def admin_user_list(user, params):
     return f_app.user.output(f_app.user.custom_search(params={"role": {"$not": {"$size": 0}}}, per_page=per_page))
 
 
-@f_api('/user/admin/add', params=dict(
+@f_api('/user/admin/add_admin', params=dict(
     nolog="password",
     email=(str, True),
     first_name=(str, True),
     last_name=(str, True),
     password=(str, True, "notrim", "base64"),
-    phone=str,
+    phone=(str, True),
+    role=(str, True),
     country=str,
-    city=str,
-    address1=str,
-    address2=str,
-    state=str,
-    zip=str,
-    description=str,
 ))
 @f_app.user.login.check(force=30)
 def admin_user_add(user, params):
     """
-    Basic user add
+    New or add existing user as admin.
 
     ``password`` must be base64 encoded.
     """
@@ -180,17 +186,19 @@ def admin_user_add(user, params):
         params["nickname"] = params["first_name"] + " " + params["last_name"]
 
     if "@" not in params["email"]:
-        abort(40093, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
+        abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
 
-    if "phone" in params:
-        params["phone"] = f_app.util.parse_phone(params)
+    params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
     with f_app.mongo() as m:
-        user_id = f_app.user.get_database(m).find_one({"email": params["email"]})
+        user_id = f_app.user.get_database(m).find_one({"phone": params["phone"]})
         if user_id:
             abort(40325)
 
     user_id = f_app.user.add(params)
+    roles = f_app.user.get_role(user_id)
+    if params["role"] not in roles:
+        f_app.user.add_role(user_id, params["role"])
 
     f_app.log.add("add", user_id=user_id)
 
@@ -271,7 +279,7 @@ def admin_user_edit(user, user_id, params):
     """
     if "email" in params:
         if "@" not in params["email"]:
-            abort(40095, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
+            abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
 
     f_app.user.update_set(user_id, params)
 
@@ -305,7 +313,7 @@ def user_search(user, params):
     """
     if "email" in params:
         if "@" not in params["email"]:
-            abort(40095, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
+            abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
 
     per_page = params.pop("per_page", 0)
     notime = False if "sort" not in params else True
@@ -385,5 +393,3 @@ def user_sms_reset_password(user_id, params):
 
     result = f_app.user.output([str(user_id)], user=user)[0]
     return result
-
-
