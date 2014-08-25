@@ -3,6 +3,7 @@ from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from app import f_app
 from libfelix.f_interface import f_api, abort, rate_limit
+import random
 import logging
 logger = logging.getLogger(__name__)
 
@@ -164,84 +165,59 @@ def admin_user_list(user, params):
     return f_app.user.output(f_app.user.custom_search(params={"role": {"$not": {"$size": 0}}}, per_page=per_page))
 
 
-@f_api('/user/admin/add_admin', params=dict(
+@f_api('/user/admin/add', params=dict(
     nolog="password",
     email=(str, True),
     first_name=(str, True),
     last_name=(str, True),
-    password=(str, True, "notrim", "base64"),
     phone=(str, True),
     role=(str, True),
     country=str,
 ))
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_add(user, params):
     """
     New or add existing user as admin.
-
-    ``password`` must be base64 encoded.
+    Password is generated randomly.
     """
-
-    if "nickname" not in params:
-        params["nickname"] = params["first_name"] + " " + params["last_name"]
+    if not f_app.user.check_set_role_permission(user["id"], params["role"]):
+        abort(40300, logger.warning('Permission denied.', exc_info=False))
 
     if "@" not in params["email"]:
         abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
 
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
-    with f_app.mongo() as m:
-        user_id = f_app.user.get_database(m).find_one({"phone": params["phone"]})
-        if user_id:
-            abort(40325)
+    if f_app.user.get_id_by_email(params["email"]) or f_app.user.get_id_by_phone(params["phone"]):
+        abort(40325)
+
+    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
+    params["password"] = password
+
+    params["nickname"] = params["first_name"] + " " + params["last_name"]
 
     user_id = f_app.user.add(params)
-    roles = f_app.user.get_role(user_id)
-    if params["role"] not in roles:
-        f_app.user.add_role(user_id, params["role"])
-
     f_app.log.add("add", user_id=user_id)
 
-    result = f_app.user.output([str(user_id)])[0]
+    result = f_app.user.output([str(user_id)], custom_fields=f_app.common.user_custom_fields)[0]
     return result
-
-
-@f_api("/user/admin/<user_id>/set_admin/<admin_level>")
-@f_app.user.login.check(force=30)
-def admin_user_set_admin(user_id, admin_level, user):
-    admin_level = int(admin_level)
-    if admin_level > user["admin"]:
-        logger.debug("Current user admin_level:", user["admin"], "Target admin_level:", admin_level)
-        abort(40105)
-
-    target_user = f_app.user.get(user_id, simple=True)
-    target_user_admin_level = f_app.user.login.get_admin_level(target_user)
-
-    if target_user_admin_level > user["admin"]:
-        logger.debug("Current user admin_level:", user["admin"], "Target user admin_level:", target_user_admin_level)
-        abort(40105)
-
-    return f_app.user.admin.set(user_id, admin_level)
-
-
-@f_api("/user/admin/<user_id>/remove_admin")
-@f_app.user.login.check(force=30)
-def admin_user_admin_remove(user, user_id):
-    target_user = f_app.user.get(user_id)
-    if target_user["admin_level"] > user["admin"]:
-        logger.debug("Current user admin_level:", user["admin"], "Target admin_level:", target_user["admin_level"])
-        abort(40105)
-    return f_app.user.admin.remove(user_id)
 
 
 @f_api("/user/admin/<user_id>/set_role", params=dict(
     role=(str, True)
 ))
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_set_role(user, user_id, params):
     """
-        If you want to set user to global admin, use /user/admin/<user_id>/set_admin/<admin_level> .
+    *admin* can set any role.
+    *jr_admin*, *agency* and *developer* can only be set by *admin*.
+    *sales* can set *sales* and *jr_sales*.
+    *operation" can set *operation* and *jr_operation*.
+    *support* can set *support* and *jr_support*.
     """
+    if not f_app.user.check_set_role_permission(user["id"], params["role"]):
+        abort(40300, logger.warning('Permission denied.', exc_info=False))
+
     roles = f_app.user.get_role(user_id)
 
     if params["role"] not in roles:
@@ -251,8 +227,10 @@ def admin_user_set_role(user, user_id, params):
 @f_api("/user/admin/<user_id>/unset_role", params=dict(
     role=(str, True)
 ))
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_unset_role(user, user_id, params):
+    if not f_app.user.check_set_role_permission(user["id"], params["role"]):
+        abort(40300, logger.warning('Permission denied.', exc_info=False))
     f_app.user.remove_role(user_id, params["role"])
 
 
@@ -284,21 +262,6 @@ def admin_user_edit(user, user_id, params):
     f_app.user.update_set(user_id, params)
 
 
-@f_api("/user/get_id_by_email", force_ssl=True, params=dict(
-    email=(str, True),
-))
-@f_app.user.login.check(force=30)
-def user_get_id_by_email(user, params):
-    """
-    Only for *global admin*. Do not use it to test if email is already in use. Use /user/check_exist instead.
-    """
-    user_id = f_app.user.get_id_by_email(params["email"])
-    if not user_id:
-        abort(40324)
-
-    return user_id
-
-
 @f_api("/user/search", params=dict(
     email=str,
     first_name=str,
@@ -306,11 +269,14 @@ def user_get_id_by_email(user, params):
     role=(list, None, str),
     per_page=int,
     register_time=datetime,
+    phone=str,
+    country=str,
 ))
 @f_app.user.login.check(force=30)
 def user_search(user, params):
     """
     """
+    params["phone"] = f_app.util.parse_phone(params)
     if "email" in params:
         if "@" not in params["email"]:
             abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
@@ -318,10 +284,7 @@ def user_search(user, params):
     per_page = params.pop("per_page", 0)
     notime = False if "sort" not in params else True
     result = f_app.user.custom_search(params, per_page=per_page, notime=notime)
-    if len(result) > 0:
-        return f_app.user.output(result, custom_fields=f_app.common.user_custom_fields)[0]
-    else:
-        return None
+    return f_app.user.output(result, custom_fields=f_app.common.user_custom_fields)[0]
 
 
 @f_api("/user/check_exist", force_ssl=True, params=dict(

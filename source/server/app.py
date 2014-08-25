@@ -14,9 +14,10 @@ import libfelix.f_message
 import libfelix.f_mongo
 import libfelix.f_user
 
-
+import f_currant
 
 libfelix.f_message.f_message_push_plugin()
+
 
 def error_codes():
     # 2013110102 this timestamp is for ci to generate correct general resources docs
