@@ -29,8 +29,9 @@ class common(f_common):
     memcache_server = ["172.20.1.1:11211"]
     memcache_lib = "memcache"
 
-    user_custom_fields = ["email", "register_time", "phone", "address1", "address2", "city", "country", "state", "company", "title", "zip", "gender", "date_of_birth", "face"]
-    private_custom_fields = ["email", "register_time", "address0", "address2", "city", "country", "state", "company", "title", "zip", "gender", "face"]
+    user_login_type = "phone"
+    user_custom_fields = ["email", "register_time", "phone", "city", "country", "state", "zip", "gender", "date_of_birth", "intention"]
+    user_intention = ["cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"]
    
     version_more_dimension = ["channel", "platform"]
 
@@ -38,5 +39,6 @@ class common(f_common):
     parse_delay = 5
 
     i18n_locales = ['zh_Hans_CN', 'zh_Hant_HK', 'en_GB']
+
 
 common()
