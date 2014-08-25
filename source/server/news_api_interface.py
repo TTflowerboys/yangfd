@@ -19,7 +19,7 @@ def blog_add(user):
     blogs = f_app.blog.get_all()
     if len(blogs) > 0:
         abort(40000, logger.warning("Blog already exists"))
-    return f_app.blog.add({"name": "bbg"})
+    return f_app.blog.add({"name": "currant"})
 
 
 @f_api('/news', params=dict(
