@@ -9,6 +9,8 @@ class common(f_common):
     name = "currant"
     debug = True
 
+    blog_name = "currant"
+
     newrelic = False
     newrelic_config = "conf/currant_newrelic.ini"
 
@@ -32,6 +34,7 @@ class common(f_common):
     user_login_type = "phone"
     user_custom_fields = ["email", "register_time", "phone", "city", "country", "state", "zip", "gender", "date_of_birth", "intention"]
     user_intention = ["cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"]
+    admin_roles = ["admin"]
    
     version_more_dimension = ["channel", "platform"]
 
