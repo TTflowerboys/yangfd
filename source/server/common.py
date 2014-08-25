@@ -29,10 +29,14 @@ class common(f_common):
     memcache_server = ["172.20.1.1:11211"]
     memcache_lib = "memcache"
 
+    user_custom_fields = ["email", "register_time", "phone", "address1", "address2", "city", "country", "state", "company", "title", "zip", "gender", "date_of_birth", "face"]
+    private_custom_fields = ["email", "register_time", "address0", "address2", "city", "country", "state", "company", "title", "zip", "gender", "face"]
    
     version_more_dimension = ["channel", "platform"]
 
     message_self_hosted_push_port = 8286
     parse_delay = 5
+
+    i18n_locales = ['zh_Hans_CN', 'zh_Hant_HK', 'en_GB']
 
 common()
