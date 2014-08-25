@@ -34,9 +34,9 @@ def news_list(params):
 
 
 @f_api('/news/add', params=dict(
-    title=('i18n', ['zh_Hans_CN', 'zh_Hans_HK'], True),
+    title=('i18n', ['zh_Hans_CN', 'zh_Hant_HK'], True),
     link=(str, True),
-    content=('i18n', ['zh_Hans_CN', 'zh_Hans_HK'], True),
+    content=('i18n', ['zh_Hans_CN', 'zh_Hant_HK'], True),
     category=(str, "news"),
 ))
 @f_app.user.login.check(force=30)
