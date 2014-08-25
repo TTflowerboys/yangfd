@@ -43,5 +43,6 @@ class common(f_common):
 
     i18n_locales = ['zh_Hans_CN', 'zh_Hant_HK', 'en_GB']
 
+    email_default_method = "aws_ses"
 
 common()
