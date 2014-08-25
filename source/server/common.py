@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from datetime import timedelta
 from libfelix.f_common import f_app, f_plugin, f_common
 
 
 class common(f_common):
-  
+
     name = "currant"
     debug = True
 
@@ -35,7 +34,7 @@ class common(f_common):
     user_custom_fields = ["email", "register_time", "phone", "city", "country", "state", "zip", "gender", "date_of_birth", "intention"]
     user_intention = ["cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"]
     admin_roles = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
-   
+
     version_more_dimension = ["channel", "platform"]
 
     message_self_hosted_push_port = 8286
@@ -44,5 +43,9 @@ class common(f_common):
     i18n_locales = ['zh_Hans_CN', 'zh_Hant_HK', 'en_GB']
 
     email_default_method = "aws_ses"
+    email_default_sender = "developer+currant@bbtechgroup.com"
+
+    aws_access_key_id = "AKIAIYCSNRQ46N6GPZQA"
+    aws_secret_access_key = "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"
 
 common()
