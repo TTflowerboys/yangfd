@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from app import f_app
-from libfelix.f_interface import f_api, abort, rate_limit
+from libfelix.f_interface import f_api, abort, rate_limit, template
 import random
 import logging
 logger = logging.getLogger(__name__)
@@ -177,7 +177,7 @@ def admin_user_list(user, params):
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_add(user, params):
     """
-    New or add existing user as admin.
+    Add a new admin.
     Password is generated randomly.
     """
     if not f_app.user.check_set_role_permission(user["id"], params["role"]):
@@ -200,6 +200,14 @@ def admin_user_add(user, params):
     f_app.log.add("add", user_id=user_id)
 
     result = f_app.user.output([str(user_id)], custom_fields=f_app.common.user_custom_fields)[0]
+
+    f_app.email.schedule(
+        target=params["email"],
+        subject="Your admin console access password",
+        text=template("static/templates/new_admin", password=params["password"], email=params["email"], admin_console_url=f_app.common.admin_console_url),
+        display="html",
+    )
+
     return result
 
 
@@ -209,6 +217,7 @@ def admin_user_add(user, params):
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_set_role(user, user_id, params):
     """
+    Use this API to add an existing user as admin. 
     *admin* can set any role.
     *jr_admin*, *agency* and *developer* can only be set by *admin*.
     *sales* can set *sales* and *jr_sales*.
@@ -229,6 +238,9 @@ def admin_user_set_role(user, user_id, params):
 ))
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_unset_role(user, user_id, params):
+    """
+    Use this API to remove (a role of an) admin
+    """
     if not f_app.user.check_set_role_permission(user["id"], params["role"]):
         abort(40300, logger.warning('Permission denied.', exc_info=False))
     f_app.user.remove_role(user_id, params["role"])
