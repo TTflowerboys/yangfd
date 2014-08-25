@@ -34,7 +34,7 @@ class common(f_common):
     user_login_type = "phone"
     user_custom_fields = ["email", "register_time", "phone", "city", "country", "state", "zip", "gender", "date_of_birth", "intention"]
     user_intention = ["cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"]
-    admin_roles = ["admin"]
+    admin_roles = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
    
     version_more_dimension = ["channel", "platform"]
 
