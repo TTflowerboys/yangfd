@@ -293,7 +293,7 @@ def user_search(user, params):
             abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
 
     per_page = params.pop("per_page", 0)
-    params["role"] = {"$exists": False}
+    params["$or"] = [{"role": {"$exists": False}}, {"role": {"$size": 0}}]
     result = f_app.user.custom_search(params, per_page=per_page)
     return f_app.user.output(result, custom_fields=f_app.common.user_custom_fields)
 
