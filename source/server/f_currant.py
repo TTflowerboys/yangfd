@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 class f_currant_user(f_user):
-    def custom_search(params, count=False, notime=False, per_page=10, sort=['register_time', 'desc']):
+    def custom_search(self, params, count=False, notime=False, per_page=10, sort=['register_time', 'desc']):
         params.setdefault("status", {"$ne": "deleted"})
         if sort is not None:
             try:
