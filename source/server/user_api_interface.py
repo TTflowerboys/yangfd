@@ -211,7 +211,7 @@ def admin_user_add(user, params):
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_set_role(user, user_id, params):
     """
-    Use this API to add an existing user as admin. 
+    Use this API to add an existing user as admin.
     *admin* can set any role.
     *jr_admin*, *agency* and *developer* can only be set by *admin*.
     *sales* can set *sales* and *jr_sales*.
@@ -238,6 +238,7 @@ def admin_user_set_role(user, user_id, params):
 
     return f_app.user.output([user_id], custom_fields=f_app.common.admin_custom_fields)[0]
 
+
 @f_api("/user/admin/<user_id>/unset_role", params=dict(
     role=(str, True)
 ))
@@ -251,34 +252,6 @@ def admin_user_unset_role(user, user_id, params):
     f_app.user.remove_role(user_id, params["role"])
 
 
-@f_api('/user/admin/<user_id>/edit', force_ssl=True, params=dict(
-    nolog=("password"),
-    first_name=(str, None),
-    last_name=(str, None),
-    nickname=(str, None),
-    phone=(str, None),
-    city=(str, None),
-    address1=(str, None),
-    address2=(str, None),
-    state=(str, None),
-    country=(str, None),
-    zip=(str, None),
-    email=(str, None),
-    password=(str, None, "notrim", "base64"),
-    company=(str, None),
-))
-@f_app.user.login.check(force=30)
-def admin_user_edit(user, user_id, params):
-    """
-    Edit specific user basic information.
-    """
-    if "email" in params:
-        if "@" not in params["email"]:
-            abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
-
-    f_app.user.update_set(user_id, params)
-
-
 @f_api("/user/search", params=dict(
     email=str,
     first_name=str,
@@ -289,7 +262,7 @@ def admin_user_edit(user, user_id, params):
     phone=str,
     country=str,
 ))
-@f_app.user.login.check(force=True, role=['admin'])
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales'])
 def user_search(user, params):
     """
     """
@@ -300,8 +273,10 @@ def user_search(user, params):
             abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
 
     per_page = params.pop("per_page", 0)
-    notime = False if "sort" not in params else True
-    result = f_app.user.custom_search(params, per_page=per_page, notime=notime)
+    result = f_app.user.custom_search(params, per_page=per_page)
+    params["role"] = {
+        "$exists": False
+    }
     return f_app.user.output(result, custom_fields=f_app.common.user_custom_fields)[0]
 
 
