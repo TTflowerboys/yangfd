@@ -74,7 +74,7 @@ def register(params):
 
 
 @f_api("/user/<user_id>")
-@f_app.user.login.check(force=True)
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales'])
 def user_get(user, user_id):
     """
     Get specific user information.
@@ -155,10 +155,30 @@ def current_user_edit(user, params):
     time=datetime,
     register_time=datetime,
 ))
-@f_app.user.login.check(force=True, role=['admin'])
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_list(user, params):
+    """
+    Use this to search for users with roles.
+    *admin* can search for everyone.
+    *jr_admin* can search for every role except *admin*.
+    All senior roles can search for themselves and their junior roles.
+    """
+    user_roles = f_app.user.get_role(user["d"])
+    params["role"] = {"$not": {"$size": 0}}
+    if "admin" in user_roles:
+        pass
+    elif "jr_admin" in user_roles:
+        params["role"]["$nin"] = ["admin"]
+    elif "sales" in user_roles:
+        params["role"]["$nin"] = ["admin", "jr_admin", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
+    elif "operation" in user_roles:
+        params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "support", "jr_support", "developer", "agency"]
+    else:
+        # support
+        params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "developer", "agency"]
+
     per_page = params.pop("per_page", 0)
-    return f_app.user.output(f_app.user.custom_search(params={"role": {"$not": {"$size": 0}}}, per_page=per_page), custom_fields=f_app.common.admin_custom_fields)
+    return f_app.user.output(f_app.user.custom_search(params=params, per_page=per_page), custom_fields=f_app.common.user_custom_fields)
 
 
 @f_api('/user/admin/add', params=dict(
@@ -202,7 +222,7 @@ def admin_user_add(user, params):
         display="html",
     )
 
-    return f_app.user.output([user_id], custom_fields=f_app.common.admin_custom_fields)[0]
+    return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
 @f_api("/user/admin/<user_id>/set_role", params=dict(
@@ -236,7 +256,7 @@ def admin_user_set_role(user, user_id, params):
     else:
         abort(40000, logger.warning('Invalid admin: email not provided.', exc_info=False))
 
-    return f_app.user.output([user_id], custom_fields=f_app.common.admin_custom_fields)[0]
+    return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
 @f_api("/user/admin/<user_id>/unset_role", params=dict(
@@ -252,59 +272,6 @@ def admin_user_unset_role(user, user_id, params):
     f_app.user.remove_role(user_id, params["role"])
 
 
-@f_api('/user/admin/<user_id>/edit', force_ssl=True, params=dict(
-    first_name=(str, None),
-    last_name=(str, None),
-    phone=(str, None),
-    city=(str, None),
-    state=(str, None),
-    country=(str, None),
-    zip=(str, None),
-    email=(str, None),
-    gender=(str, None),
-    date_of_birth=datetime,
-    intention=(list, None, str),
-))
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
-def user_admin_edit(user, user_id, params):
-    """
-    Edit user basic information called by admin.
-    ``gender`` should be in "male", "female", "other".
-    ``intention`` should be combination of "cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"
-    """
-    user_info = f_app.user.get(user_id)
-    if "last_name" in params and "first_name" not in params:
-        params["nickname"] = "%s %s" % (user_info.get("first_name", None), params["last_name"])
-
-    elif "first_name" in params and "last_name" not in params:
-        params["nickname"] = "%s %s" % (params["first_name"], user_info.get("last_name", None))
-
-    elif "first_name" in params and "last_name" in params:
-        params["nickname"] = "%s %s" % (params["first_name"], params["last_name"])
-
-    if "email" in params:
-        if "@" not in params["email"]:
-            abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
-        if f_app.user.get_id_by_email(params["email"]):
-            abort(40325)
-
-    if "phone" in params:
-        params["phone"] = f_app.util.parse_phone(params, retain_country=True)
-        if f_app.user.get_id_by_phone(params["phone"]):
-            abort(40325)
-
-    if "gender" in params:
-        if params["gender"] not in ("male", "female", "other"):
-            abort(40000, logger.warning("Invalid params: gender", params["gender"], exc_info=False))
-
-    if "intention" in params:
-        if not set(params["intention"]) <= set(f_app.common.user_intention):
-            abort(40000, logger.warning("Invalid params: intention", params["intention"], exc_info=False))
-
-    f_app.user.update_set(user_id, params)
-    return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
-
-
 @f_api("/user/search", params=dict(
     email=str,
     first_name=str,
@@ -315,7 +282,7 @@ def user_admin_edit(user, user_id, params):
     phone=str,
     country=str,
 ))
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'support'])
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def user_search(user, params):
     """
     """
@@ -326,9 +293,9 @@ def user_search(user, params):
             abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
 
     per_page = params.pop("per_page", 0)
-    result = f_app.user.custom_search(params, per_page=per_page)
     params["role"] = {"$exists": False}
-    return f_app.user.output(result, custom_fields=f_app.common.user_custom_fields)[0]
+    result = f_app.user.custom_search(params, per_page=per_page)
+    return f_app.user.output(result, custom_fields=f_app.common.user_custom_fields)
 
 
 @f_api("/user/check_exist", force_ssl=True, params=dict(

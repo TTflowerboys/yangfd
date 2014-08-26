@@ -46,6 +46,11 @@ class f_currant_user(f_user):
         user_roles = f_app.user.get_role(user_id)
         if "admin" in user_roles:
             return True
+        elif "jr_admin" in user_roles:
+            if target_role == "admin":
+                return False
+            else:
+                return True
         elif any((
             target_role in ("sales", "jr_sales") and "sales" in user_roles,
             target_role in ("operation", "jr_operation") and "operation" in user_roles,
