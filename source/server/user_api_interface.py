@@ -252,6 +252,59 @@ def admin_user_unset_role(user, user_id, params):
     f_app.user.remove_role(user_id, params["role"])
 
 
+@f_api('/user/admin/<user_id>/edit', force_ssl=True, params=dict(
+    first_name=(str, None),
+    last_name=(str, None),
+    phone=(str, None),
+    city=(str, None),
+    state=(str, None),
+    country=(str, None),
+    zip=(str, None),
+    email=(str, None),
+    gender=(str, None),
+    date_of_birth=datetime,
+    intention=(list, None, str),
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
+def user_admin_edit(user, user_id, params):
+    """
+    Edit user basic information called by admin.
+    ``gender`` should be in "male", "female", "other".
+    ``intention`` should be combination of "cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"
+    """
+    user_info = f_app.user.get(user_id)
+    if "last_name" in params and "first_name" not in params:
+        params["nickname"] = "%s %s" % (user_info.get("first_name", None), params["last_name"])
+
+    elif "first_name" in params and "last_name" not in params:
+        params["nickname"] = "%s %s" % (params["first_name"], user_info.get("last_name", None))
+
+    elif "first_name" in params and "last_name" in params:
+        params["nickname"] = "%s %s" % (params["first_name"], params["last_name"])
+
+    if "email" in params:
+        if "@" not in params["email"]:
+            abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
+        if f_app.user.get_id_by_email(params["email"]):
+            abort(40325)
+
+    if "phone" in params:
+        params["phone"] = f_app.util.parse_phone(params, retain_country=True)
+        if f_app.user.get_id_by_phone(params["phone"]):
+            abort(40325)
+
+    if "gender" in params:
+        if params["gender"] not in ("male", "female", "other"):
+            abort(40000, logger.warning("Invalid params: gender", params["gender"], exc_info=False))
+
+    if "intention" in params:
+        if not set(params["intention"]) <= set(f_app.common.user_intention):
+            abort(40000, logger.warning("Invalid params: intention", params["intention"], exc_info=False))
+
+    f_app.user.update_set(user_id, params)
+    return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
+
+
 @f_api("/user/search", params=dict(
     email=str,
     first_name=str,
@@ -262,7 +315,7 @@ def admin_user_unset_role(user, user_id, params):
     phone=str,
     country=str,
 ))
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales'])
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'support'])
 def user_search(user, params):
     """
     """
@@ -274,9 +327,7 @@ def user_search(user, params):
 
     per_page = params.pop("per_page", 0)
     result = f_app.user.custom_search(params, per_page=per_page)
-    params["role"] = {
-        "$exists": False
-    }
+    params["role"] = {"$exists": False}
     return f_app.user.output(result, custom_fields=f_app.common.user_custom_fields)[0]
 
 
@@ -330,7 +381,7 @@ def user_sms_verification_verify(user_id, params):
     user = f_app.user.login.success(user_id)
     f_app.log.add("login", user_id=user_id)
 
-    result = f_app.user.output([str(user_id)], user=user)[0]
+    result = f_app.user.output([str(user_id)], user=user, custom_fields=f_app.common.user_custom_fields)[0]
     return result
 
 
@@ -347,5 +398,5 @@ def user_sms_reset_password(user_id, params):
     user = f_app.user.login.success(user_id)
     f_app.log.add("login", user_id=user_id)
 
-    result = f_app.user.output([str(user_id)], user=user)[0]
+    result = f_app.user.output([str(user_id)], user=user, custom_fields=f_app.common.user_custom_fields)[0]
     return result
