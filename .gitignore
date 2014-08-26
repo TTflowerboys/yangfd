@@ -114,5 +114,3 @@ gen-external-apklibs/
 project.properties
 
 # Web Development
-source/web/*
-!source/web/src
