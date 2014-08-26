@@ -1,0 +1,31 @@
+<div ui-view>
+    <div class="row" style="min-height: 400px;">
+
+        <div class="col-lg-4 col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="ui-elements.html#collapseOne">
+                            All channels
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <a ng-repeat="channel in channels" href ui-sref="dashboard.ad({channel:channel})" class="list-group-item">{% channel | convert2space : '_' %}</a>
+                        </div>
+                        <button class="btn btn-primary" ui-sref="dashboard.allAds.createOnAnyChannel">Add new ad</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!--/col-->
+
+
+    </div>
+
+    <!--/container-->
+</div>

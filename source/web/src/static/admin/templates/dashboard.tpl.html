@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+        <header id="header" class="navbar">
+            <div class="container">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".sidebar-nav.nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a id="main-menu-toggle" class="hidden-xs open"><i class="fa fa-bars"></i></a>
+                <a class="navbar-brand col-md-2 col-sm-1 col-xs-2" ui-sref="dashboard"><span>Dashboard</span></a>
+                <!-- start: Header Menu -->
+                <div class="nav-no-collapse header-nav">
+                    <ul class="nav navbar-nav pull-right">
+                        <!-- start: User Dropdown -->
+                        <li class="dropdown">
+                            <a class="btn btn-primary" ui-sref="signIn({from:$state.current.name})">
+                                Logout
+                            </a>
+                        </li>
+                        <!-- end: User Dropdown -->
+                    </ul>
+                </div>
+                <!-- end: Header Menu -->
+
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="row">
+
+                <div id="sidebar-left" class="col-lg-2 col-sm-1 " style="display: block;">
+
+                    <div class="sidebar-nav nav-collapse collapse navbar-collapse">
+                        <ul class="nav main-menu">
+                            <!-- http://stackoverflow.com/questions/22054391/angular-ui-router-how-do-i-get-parent-view-to-be-active-when-navigating-to-ne -->
+                            <li ng-class="{active:$state.includes('dashboard.projects')}">
+                                <a href ui-sref="dashboard.projects"><i class="fa fa-home"></i><span class="hidden-sm text">Projects</span></a>
+                            </li>
+                            <li ng-class="{active:$state.includes('dashboard.news')}">
+                                <a href ui-sref="dashboard.news" ui-sref-active="active"><i class="fa fa-picture-o"></i><span class="hidden-sm text">News</span></a>
+                            </li>
+                            <li ng-class="{active:$state.includes('dashboard.team')}">
+                                <a href ui-sref="dashboard.team" ui-sref-active="active"><i class="fa fa-picture-o"></i><span class="hidden-sm text">Team</span></a>
+                            </li>
+                            <li ng-class="{active:$state.includes('dashboard.partners')}">
+                                <a href ui-sref="dashboard.partners" ui-sref-active="active"><i class="fa fa-picture-o"></i><span class="hidden-sm text">Partners</span></a>
+                            </li>
+                            <li ng-class="{active:customizeOpen}">
+                                <a class="dropmenu" href ui-sref="dashboard.allAds"><i class="fa fa-puzzle-piece"></i><span class="hidden-sm text">Customize</span>
+                                    <span class="chevron closed"></span>
+                                </a>
+                                <ul>
+                                    <li ng-repeat="channel in channels" ng-class="{active:$state.includes('dashboard.ad',{channel:channel})}">
+                                        <a class="submenu" href ui-sref="dashboard.ad({channel:channel})">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text"> {%channel | convert2space : '_' %}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="content" class="col-lg-10 col-sm-11" ui-view one-screen style="min-height: 400px;">
+                    Welcome, {%user.nickname || user.email%}
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>

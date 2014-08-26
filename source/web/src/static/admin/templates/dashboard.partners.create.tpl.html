@@ -1,0 +1,43 @@
+<div class="buttons">
+    <span class="btn-group">
+        <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> Back</button>
+    </span>
+</div>
+<form name="partnerCreateForm" class="form-horizontal" ng-class="{submitted:submitted}"
+    style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,partnerCreateForm)"
+    novalidate>
+    <div class="form-group">
+        <label class="control-label">Name *</label>
+        <div class="controls" style="max-width: 20em;">
+            <input name="name" class="form-control" type="text" ng-model="item.name" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Image *</label>
+        <div class="controls">
+            <single-image-edit class="imageEdit" ng-model="item.image" width-limit="800" ratio="1" thumbnail-size="400,400" required></single-image-edit>
+            <div class="help-block">Please upload one image.</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Description *</label>
+        <div class="controls">
+            <textarea ng-model="item.description" class="form-control" rows="3" style="resize: none;" required></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Link *</label>
+        <div class="controls">
+            <input name="link" class="form-control" type="text" ng-model="item.link" required>
+        </div>
+    </div>
+
+    <div class="form-actions" style="margin-bottom: 80px;">
+        <input type="submit" class="btn btn-primary" bbg-disabler="loading" value="Submit">
+        <input type="button" ng-click="$state.go('^')" class="btn" value="Cancel">
+    </div>
+    <div class="help-block">* Required</div>
+</form>

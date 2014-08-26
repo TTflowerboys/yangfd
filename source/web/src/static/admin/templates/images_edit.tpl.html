@@ -1,0 +1,13 @@
+<div>
+    <div class="row">
+        <div ng-repeat="image in images" style="" class="col-sm-3 col-xs-6">
+            <div style="margin-bottom:8px; position: relative;">
+                <a target="_blank" ng-href="{% image %}"><img class="img-thumbnail" ng-src="{% image | thumbnail %}"></a>
+                <button class="btn btn-sm" style="position: absolute; bottom:0; right: 0;" ng-click="removeImage($index)"
+                    type="button">Remove
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-file-select="onFileSelected($files)" title="select file" onclick="this.value = null" class="btn btn-primary">Add new images</div>
+</div>
