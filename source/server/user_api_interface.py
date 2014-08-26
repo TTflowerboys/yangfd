@@ -150,19 +150,15 @@ def current_user_edit(user, params):
     return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
 
 
-@f_api(
-    "/user/admin",
-    "/user/admin/list",
-    "/user/admin/search", params=dict(
-        per_page=int,
-        time=datetime,
-        register_time=datetime,
-    )
-)
-@f_app.user.login.check(force=30)
+@f_api("/user/admin/search", params=dict(
+    per_page=int,
+    time=datetime,
+    register_time=datetime,
+))
+@f_app.user.login.check(force=True, role=['admin'])
 def admin_user_list(user, params):
     per_page = params.pop("per_page", 0)
-    return f_app.user.output(f_app.user.custom_search(params={"role": {"$not": {"$size": 0}}}, per_page=per_page))
+    return f_app.user.output(f_app.user.custom_search(params={"role": {"$not": {"$size": 0}}}, per_page=per_page), custom_fields=f_app.common.admin_custom_fields)
 
 
 @f_api('/user/admin/add', params=dict(
@@ -199,8 +195,6 @@ def admin_user_add(user, params):
     user_id = f_app.user.add(params)
     f_app.log.add("add", user_id=user_id)
 
-    result = f_app.user.output([str(user_id)], custom_fields=f_app.common.user_custom_fields)[0]
-
     f_app.email.schedule(
         target=params["email"],
         subject="Your admin console access password",
@@ -208,7 +202,7 @@ def admin_user_add(user, params):
         display="html",
     )
 
-    return result
+    return f_app.user.output([user_id], custom_fields=f_app.common.admin_custom_fields)[0]
 
 
 @f_api("/user/admin/<user_id>/set_role", params=dict(
@@ -227,11 +221,22 @@ def admin_user_set_role(user, user_id, params):
     if not f_app.user.check_set_role_permission(user["id"], params["role"]):
         abort(40300, logger.warning('Permission denied.', exc_info=False))
 
-    roles = f_app.user.get_role(user_id)
+    user_info = f_app.user.get(user_id)
 
-    if params["role"] not in roles:
+    if params["role"] not in user_info.get("role", []):
         f_app.user.add_role(user_id, params["role"])
 
+    if user_info.get("email") is not None:
+        f_app.email.schedule(
+            target=params["email"],
+            subject="You are now set as admin",
+            text=template("static/templates/set_as_admin", email=user_info, admin_console_url=f_app.common.admin_console_url),
+            display="html",
+        )
+    else:
+        abort(40000, logger.warning('Invalid admin: email not provided.', exc_info=False))
+
+    return f_app.user.output([user_id], custom_fields=f_app.common.admin_custom_fields)[0]
 
 @f_api("/user/admin/<user_id>/unset_role", params=dict(
     role=(str, True)
@@ -284,11 +289,12 @@ def admin_user_edit(user, user_id, params):
     phone=str,
     country=str,
 ))
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(force=True, role=['admin'])
 def user_search(user, params):
     """
     """
-    params["phone"] = f_app.util.parse_phone(params)
+    if "phone" in params:
+        params["phone"] = f_app.util.parse_phone(params)
     if "email" in params:
         if "@" not in params["email"]:
             abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
