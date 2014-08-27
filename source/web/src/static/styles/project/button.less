@@ -6,6 +6,7 @@
 //
 // Markup:
 // <button class="button {$modifiers}">登 录</button>
+// <button disabled class="button {$modifiers}">登 录</button>
 // <a href=# class="button {$modifiers}">成为会员</a>
 // <button class="button {$modifiers}" style="width: 280px;">注 册</button>
 // <a href=# class="button {$modifiers}" style="width: 260px">成为会员</a>
@@ -13,8 +14,6 @@
 //
 // .orange          - Indicate that the feed is selected.
 // .red          - Indicate that the feed is selected.
-// .mute            - Indicate that the feed is not up to date or something else.
-// .highlight       - Indicate that the feed contains unread articles.
 // :hover           - hover
 // :disabled        - disabled
 //
@@ -44,6 +43,9 @@
         &:hover, &.pseudo-class-hover {
             background: lighten(@red, 5%);
         }
+    }
+    &:disabled{
+
     }
 
     > span { display: block;

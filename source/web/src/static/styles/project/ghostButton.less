@@ -32,14 +32,18 @@
     padding: 2px 24px;
     line-height: 24px;
     font-size: 12px;
-    font-weight: bold;
-    font-family: STSong, sans-serif;
+    &:active, &:visited {
+        color: @default-color;
+    }
     &:hover {
         color: lighten(@default-color, 10%);
     }
 
     &.red {
         color: lighten(@red, 10%);
+        &:active, &:visited {
+            color: lighten(@red, 10%);
+        }
         &:hover {
             color: lighten(@red, 20%);
         }
