@@ -26,18 +26,18 @@
     }
 }
 
-.wrapped(@width:@max-width) {
+.wrapped(@max-width:@max-width) {
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-    max-width: @width;
+    max-width: @max-width;
 }
 
 .horizontalList(@padding: 16px;) {
     list-style: none; padding: 0; margin: 0;
     .clearfix();
-    > li { float: left; margin-left: @padding * 2;
-        &:first-child { margin-left: 0; }
+    > li { float: left; padding-left: @padding * 2;
+        &:first-child { padding-left: 0; }
     }
 }
 
@@ -47,6 +47,6 @@
 }
 
 .no-smooth() {
-    -webkit-font-smoothing: never; -moz-osx-font-smoothing: nonee;
+    -webkit-font-smoothing: never; -moz-osx-font-smoothing: none;
     font-smoothing: none;
 }
