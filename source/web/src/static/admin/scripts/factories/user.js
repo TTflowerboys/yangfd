@@ -5,9 +5,9 @@
     function userApi($http, $state, $q) {
         var user
         return {
-            signIn: function (phone, password) {
+            signIn: function (country, phone, password) {
                 var data = {}
-                data.country='CN'
+                data.country = country
                 data.phone = phone
                 data.password = Base64.encode(password)
 
@@ -23,8 +23,8 @@
                     deferred.resolve(user)
                 } else {
                     $http.get('/api/1/user')
-                        .success(function (data) {
-                            user = data
+                        .success(function (data, status, headers, config) {
+                            user = data.val
                             deferred.resolve(user)
                         })
                         .error(function () {
@@ -33,6 +33,34 @@
                 }
 
                 return deferred.promise
+            },
+            smsVerificationSend: function (country, phone) {
+                var data = {}
+                data.country = country
+                data.email = phone
+
+                return $http.post('/api/1/user/sms_verification/send', data)
+                    .success(function (data, status, headers, config) {
+                        user = data.val
+                        deferred.resolve(user)
+                    })
+                    .error(function () {
+                        deferred.reject()
+                    })
+            },
+            smsResetPassword: function (id, code, password) {
+                var data = {}
+                data.code = code
+                data.new_password = Base64.encode(password)
+
+                return $http.post('/api/1/user/' + id + '/sms_reset_password', data)
+                    .success(function (data, status, headers, config) {
+                        user = data.val
+                        deferred.resolve(user)
+                    })
+                    .error(function () {
+                        deferred.reject()
+                    })
             }
         }
 

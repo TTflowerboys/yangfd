@@ -216,4 +216,9 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/signUp.tpl.html',
                 controller: 'ctrlSignUp'
             })
+            .state('forgot', {
+                url: '/forgot?from',
+                templateUrl: '/static/admin/templates/forgotPassword.tpl.html',
+                controller: 'ctrlForgotPassword'
+            })
     })

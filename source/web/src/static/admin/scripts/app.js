@@ -13,5 +13,5 @@ angular.module('app',
         $rootScope.alert = function (html) {
             return alert(html);
         }
-
+        $rootScope.defaultCountry = 'CN';
     })
