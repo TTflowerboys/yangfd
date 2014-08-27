@@ -110,8 +110,6 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
     def ticket_get(self, ticket):
-        if "creator_user_id" in ticket:
-            ticket["creator_user_id"] = str(ticket.pop("creator_user_id", None))
         if "assignee" in ticket:
             ticket["assignee"] = map(str, ticket.pop("assignee", []))
 
@@ -122,6 +120,10 @@ f_currant_plugins()
 
 class f_house(f_app.module_base):
     house_database = "houses"
+
+    def __init__(self):
+        f_app.module_install("house", self)
+        f_app.dependency_register("pymongo", race="python")
 
     def get_database(self, m):
         return getattr(m, self.house_database)

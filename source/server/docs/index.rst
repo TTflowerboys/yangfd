@@ -30,3 +30,4 @@ API Reference
    news_api
    ticket_api
    user_api
+   house_api
