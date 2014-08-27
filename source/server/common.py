@@ -16,10 +16,10 @@ class common(f_common):
     admin_console_url = ""
 
     static_file_debug_enabled = True
-    static_file_debug = lambda self, filepath, root: (filepath, "views/src/.tmp/static/")
+    static_file_debug = lambda self, filepath, root: (filepath, "views/static/")
 
     tpl_debug_enabled = True
-    tpl_debug = lambda self, tplname: "src/.tmp/" + tplname
+    tpl_debug = lambda self, tplname: "" + tplname
 
     log_file = "currant.log"
 
