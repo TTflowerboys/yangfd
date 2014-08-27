@@ -5,19 +5,31 @@
                 <div class="login-box">
 
                     <div class="header">
-                        Login to Dashboard
+                        管理员登录
                     </div>
 
                     <form class="form-horizontal login" method="post" autocomplete="on"
-                        ng-submit="submit($event,signIn)" name="signIn" novalidate>
+                          ng-submit="submit($event,signIn)" name="signIn" novalidate>
 
                         <fieldset class="col-sm-12">
                             <div class="form-group">
                                 <div class="controls row">
                                     <div class="input-group col-sm-12">
+                                        <label class="input-group-addon">国家:</label>
+                                        <select name="country" ng-model="user.country"
+                                                ng-options="country.value as country.name for country in countries"
+                                                class="form-control" >
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="controls row">
+                                    <div class="input-group col-sm-12">
                                         <input ng-model="user.phone" name="phone"
-                                            type="text" class="form-control" placeholder="Your Telephone Number"/>
-                                        <span class="input-group-addon" style="width: 40px"><i class="fa fa-user"></i></span>
+                                               type="text" class="form-control" placeholder="电话号码" required>
+                                        <span class="input-group-addon" style="width: 40px"><i
+                                                class="fa fa-mobile-phone"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -26,15 +38,16 @@
                                 <div class="controls row">
                                     <div class="input-group col-sm-12">
                                         <input ng-model="user.password"
-                                            type="password" class="form-control" id="password" placeholder="Password"/>
-                                        <span class="input-group-addon" style="width: 40px"><i class="fa fa-key"></i></span>
+                                               type="password" class="form-control" name="password" placeholder="密码" required>
+                                        <span class="input-group-addon" style="width: 40px"><i
+                                                class="fa fa-key"></i></span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
 
-                                <button type="submit" class="btn btn-lg btn-primary col-xs-12">Login</button>
+                                <button type="submit" class="btn btn-lg btn-primary col-xs-12">登录</button>
 
                             </div>
 
@@ -43,8 +56,7 @@
                     </form>
 
 
-                    <a class="pull-left" ui-sref="forgot">Forgot Password?</a>
-                    <a class="pull-right" ui-sref="signUp">Sign Up!</a>
+                    <a class="pull-left" ui-sref="forgot">忘记密码</a>
 
                     <div class="clearfix"></div>
 
