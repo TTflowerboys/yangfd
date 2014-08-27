@@ -42,10 +42,11 @@
     
       
 
-      <h1 class="kss-title"><span class="kss-ref">1.0</span> - Button</h1>
+      <h1 class="kss-title"><span class="kss-ref">3.0</span> - Form</h1>
 
       
-        <div class="kss-box"><p>button styles</p>
+        <div class="kss-box"><p>form styles
+See <a href="http://www.onextrapixel.com/2014/04/28/ghost-buttons-the-brand-new-design-trend/">http://www.onextrapixel.com/2014/04/28/ghost-buttons-the-brand-new-design-trend/</a></p>
 </div>
       
 
@@ -56,55 +57,58 @@
             <td class="kss-mod-name"></td>
           </tr>
           <tr class="kss-mod-example">
-            <td colspan="2"><button class="button {$modifiers}">登 录</button>
-<a href=# class="button {$modifiers}">成为会员</a>
-<a href=# class="button {$modifiers}" style="width: 360px"><span class=big>立即购买</span><span class=small>太平洋保险保障财产安全</span></a>
-<button disabled class="button {$modifiers}">禁 用</button></td>
+            <td colspan="2"><div style="background:#444957; display:inline-block;padding: 48px; ">
+<div style="background:#f0f0f0; border-radius:6px; display:inline-block;padding: 48px; box-shadow: 0 0 3px hsla(0,0%,0%,0.2);">
+<form class="form {$modifiers}" style="width: 280px;">
+ <div class="form_row active">
+     <i>⌘</i> <input placeholder=手机号码 size=20>
+ </div>
+ <hr>
+ <div class="form_row">
+     <i>⌘</i> <input placeholder=短信验证码 size=10> <a href=# style="float:right;font-size:12px; color:#aaa;">获取验证码</a>
+ </div>
+</form>
+</div>
+</div></td>
           </tr>
         
           <tr class="kss-mod-desc-group">
             <td class="kss-mod-desc"><p>Indicate that the feed is selected.</p>
 </td>
-            <td class="kss-mod-name"><p>.orange</p></td>
+            <td class="kss-mod-name"><p>.bordered</p></td>
           </tr>
           <tr class="kss-mod-example">
-            <td colspan="2"><button class="button orange">登 录</button>
-<a href=# class="button orange">成为会员</a>
-<a href=# class="button orange" style="width: 360px"><span class=big>立即购买</span><span class=small>太平洋保险保障财产安全</span></a>
-<button disabled class="button orange">禁 用</button></td>
-          </tr>
-        
-          <tr class="kss-mod-desc-group">
-            <td class="kss-mod-desc"><p>Indicate that the feed is selected.</p>
-</td>
-            <td class="kss-mod-name"><p>.red</p></td>
-          </tr>
-          <tr class="kss-mod-example">
-            <td colspan="2"><button class="button red">登 录</button>
-<a href=# class="button red">成为会员</a>
-<a href=# class="button red" style="width: 360px"><span class=big>立即购买</span><span class=small>太平洋保险保障财产安全</span></a>
-<button disabled class="button red">禁 用</button></td>
-          </tr>
-        
-          <tr class="kss-mod-desc-group">
-            <td class="kss-mod-desc"><p>hover</p>
-</td>
-            <td class="kss-mod-name"><p>:hover</p></td>
-          </tr>
-          <tr class="kss-mod-example">
-            <td colspan="2"><button class="button pseudo-class-hover">登 录</button>
-<a href=# class="button pseudo-class-hover">成为会员</a>
-<a href=# class="button pseudo-class-hover" style="width: 360px"><span class=big>立即购买</span><span class=small>太平洋保险保障财产安全</span></a>
-<button disabled class="button pseudo-class-hover">禁 用</button></td>
+            <td colspan="2"><div style="background:#444957; display:inline-block;padding: 48px; ">
+<div style="background:#f0f0f0; border-radius:6px; display:inline-block;padding: 48px; box-shadow: 0 0 3px hsla(0,0%,0%,0.2);">
+<form class="form bordered" style="width: 280px;">
+ <div class="form_row active">
+     <i>⌘</i> <input placeholder=手机号码 size=20>
+ </div>
+ <hr>
+ <div class="form_row">
+     <i>⌘</i> <input placeholder=短信验证码 size=10> <a href=# style="float:right;font-size:12px; color:#aaa;">获取验证码</a>
+ </div>
+</form>
+</div>
+</div></td>
           </tr>
         
         </table>
 
         <div class="kss-markup">
-          <pre class="prettyprint lang-html">&lt;button class=&quot;button {$modifiers}&quot;&gt;登 录&lt;/button&gt;
-&lt;a href=# class=&quot;button {$modifiers}&quot;&gt;成为会员&lt;/a&gt;
-&lt;a href=# class=&quot;button {$modifiers}&quot; style=&quot;width: 360px&quot;&gt;&lt;span class=big&gt;立即购买&lt;/span&gt;&lt;span class=small&gt;太平洋保险保障财产安全&lt;/span&gt;&lt;/a&gt;
-&lt;button disabled class=&quot;button {$modifiers}&quot;&gt;禁 用&lt;/button&gt;</pre>
+          <pre class="prettyprint lang-html">&lt;div style=&quot;background:#444957; display:inline-block;padding: 48px; &quot;&gt;
+&lt;div style=&quot;background:#f0f0f0; border-radius:6px; display:inline-block;padding: 48px; box-shadow: 0 0 3px hsla(0,0%,0%,0.2);&quot;&gt;
+&lt;form class=&quot;form {$modifiers}&quot; style=&quot;width: 280px;&quot;&gt;
+ &lt;div class=&quot;form_row active&quot;&gt;
+     &lt;i&gt;⌘&lt;/i&gt; &lt;input placeholder=手机号码 size=20&gt;
+ &lt;/div&gt;
+ &lt;hr&gt;
+ &lt;div class=&quot;form_row&quot;&gt;
+     &lt;i&gt;⌘&lt;/i&gt; &lt;input placeholder=短信验证码 size=10&gt; &lt;a href=# style=&quot;float:right;font-size:12px; color:#aaa;&quot;&gt;获取验证码&lt;/a&gt;
+ &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;/div&gt;</pre>
         </div>
       
 
