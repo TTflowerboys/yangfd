@@ -139,6 +139,7 @@ def current_user_edit(user, params):
     per_page=int,
     time=datetime,
     register_time=datetime,
+    role=str,
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_list(user, params):
@@ -149,18 +150,22 @@ def admin_user_list(user, params):
     All senior roles can search for themselves and their junior roles.
     """
     user_roles = f_app.user.get_role(user["d"])
-    params["role"] = {"$not": {"$size": 0}}
-    if "admin" in user_roles:
-        pass
-    elif "jr_admin" in user_roles:
-        params["role"]["$nin"] = ["admin"]
-    elif "sales" in user_roles:
-        params["role"]["$nin"] = ["admin", "jr_admin", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
-    elif "operation" in user_roles:
-        params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "support", "jr_support", "developer", "agency"]
+    if "role" in params:
+        if not f_app.user.check_set_role_permission(params["role"]):
+            abort(40300, logger.warning("Permission denied", exc_info=False))
     else:
-        # support
-        params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "developer", "agency"]
+        params["role"] = {"$not": {"$size": 0}}
+        if "admin" in user_roles:
+            pass
+        elif "jr_admin" in user_roles:
+            params["role"]["$nin"] = ["admin"]
+        elif "sales" in user_roles:
+            params["role"]["$nin"] = ["admin", "jr_admin", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
+        elif "operation" in user_roles:
+            params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "support", "jr_support", "developer", "agency"]
+        else:
+            # support
+            params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "developer", "agency"]
 
     per_page = params.pop("per_page", 0)
     return f_app.user.output(f_app.user.custom_search(params=params, per_page=per_page), custom_fields=f_app.common.user_custom_fields)
