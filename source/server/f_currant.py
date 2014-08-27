@@ -121,6 +121,10 @@ f_currant_plugins()
 class f_house(f_app.module_base):
     house_database = "houses"
 
+    def __init__(self):
+        f_app.module_install("house", self)
+        f_app.dependency_register("pymongo", race="python")
+
     def get_database(self, m):
         return getattr(m, self.house_database)
 
