@@ -15,7 +15,11 @@ logger = logging.getLogger(__name__)
     country=(str, True),
     noregister=bool,
     description=str,
-    custom_fields=(list, None, {})
+    custom_fields=(list, None, dict(
+        key=str,
+        value=str,
+        index=int,
+    ))
 ))
 def ticket_add(params):
     """
@@ -41,24 +45,23 @@ def ticket_add(params):
     else:
         user_info = f_app.user.get(user["id"])
         creator_user_id = ObjectId(user["id"])
-        params["phone"], params["nickname"], params["country"] = user_info["phone"], user_info["nickname"], user_info.get("country")
-        
+        params["phone"], params["nickname"], params["country"] = user_info["phone"], user_info.get("nickname"), user_info.get("country")
+
     params["creator_user_id"] = creator_user_id
 
-    ticket_id = f_app.ticket.add(params)
     ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
-    # Send mail to every senior sales
-    sales_list = f_app.user.get(f_app.user.search({"role": {"$nin": ["sales"]}}))
-    for sales in sales_list:
-        if "email" in sales:
-            f_app.email.schedule(
-                target=sales["email"],
-                subject="New ticket has been submitted.",
-                text=template("static/templates/new_ticket", ticket_admin_url=ticket_admin_url),
-                display="html",
-            )
+    #  Send mail to every senior sales
+    # sales_list = f_app.user.get(f_app.user.search({"role": {"$nin": ["sales"]}}))
+    # for sales in sales_list:
+    #     if "email" in sales:
+    #         f_app.email.schedule(
+    #             target=sales["email"],
+    #             subject="New ticket has been submitted.",
+    #             text=template("static/templates/new_ticket", ticket_admin_url=ticket_admin_url),
+    #             display="html",
+    #         )
 
-    return ticket_id
+    return f_app.ticket.add(params)
 
 
 @f_api('/ticket/<ticket_id>')
@@ -103,7 +106,11 @@ def ticket_assign(user, ticket_id, user_id):
 @f_api('/ticket/<ticket_id>/edit', params=dict(
     budget=(float, None),
     description=(str, None),
-    custom_fields=(list, None, {}),
+    custom_fields=(list, None, dict(
+        key=str,
+        value=str,
+        index=int,
+    )),
     status=(str, None),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
@@ -142,14 +149,13 @@ def ticket_search(user, params):
     elif len(user_roles) == 0:
         # General users
         params["creator_user_id"] = ObjectId(user["id"])
-
-    params.setdefault("sort", ["time", "desc"])
+    sort = params.pop("sort", ["time", 'desc'])
     per_page = params.pop("per_page", 0)
-    
+
     if "status" in params:
         if set(params["status"]) <= f_app.common.ticket_statuses:
             params["status"] = {"$in": params["status"]}
         else:
             abort(40000, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page))
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))

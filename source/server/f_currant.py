@@ -110,8 +110,6 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
     def ticket_get(self, ticket):
-        if "creator_user_id" in ticket:
-            ticket["creator_user_id"] = str(ticket.pop("creator_user_id", None))
         if "assignee" in ticket:
             ticket["assignee"] = map(str, ticket.pop("assignee", []))
 
