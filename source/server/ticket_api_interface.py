@@ -12,13 +12,16 @@ logger = logging.getLogger(__name__)
     phone=(str, True),
     nickname=(str, True),
     budget=(float, True),
+    country=(str, True),
+    noregister=bool,
     description=str,
-    noregister=(bool, True),
-    country=str,
     custom_fields=(list, None, {})
-
 ))
 def ticket_add(params):
+    """
+    ``noregister`` is default to *False*, which means if ``noregister`` is not given, the visitor will *be registered*.
+    """
+    noregister = params.pop("noregister", False)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     user = f_app.user.login_get()
     user_id_by_phone = f_app.user.get_id_by_phone(params["phone"])
@@ -34,12 +37,12 @@ def ticket_add(params):
             if "country" in params:
                 user_params["country"] = params["country"]
 
-            if params["noregister"]:
-                creator_user_id = ObjectId(f_app.user.add(user_params, noregister=True))
-            else:
-                creator_user_id = ObjectId(f_app.user.add(user_params))
+            creator_user_id = ObjectId(f_app.user.add(user_params, noregister=noregister))
     else:
+        user_info = f_app.user.get(user["id"])
         creator_user_id = ObjectId(user["id"])
+        params["phone"], params["nickname"], params["country"] = user_info["phone"], user_info["nickname"], user_info.get("country")
+        
     params["creator_user_id"] = creator_user_id
 
     ticket_id = f_app.ticket.add(params)
@@ -98,10 +101,10 @@ def ticket_assign(user, ticket_id, user_id):
 
 
 @f_api('/ticket/<ticket_id>/edit', params=dict(
-    budget=float,
-    description=str,
+    budget=(float, None),
+    description=(str, None),
     custom_fields=(list, None, {}),
-    status=str,
+    status=(str, None),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
 def ticket_edit(user, ticket_id, params):

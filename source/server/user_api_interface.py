@@ -42,7 +42,7 @@ def user_login(params):
     nickname=(str, True),
     password=(str, True, "notrim", "base64"),
     phone=(str, True),
-    country=str,
+    country=(str, True),
     email=str,
 ))
 @rate_limit("register", ip=10)
@@ -177,7 +177,7 @@ def admin_user_list(user, params):
     nickname=(str, True),
     phone=(str, True),
     role=(str, True),
-    country=str,
+    country=(str, True),
 ))
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_add(user, params):
