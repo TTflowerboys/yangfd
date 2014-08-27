@@ -39,8 +39,7 @@ def user_login(params):
 
 @f_api('/user/register', params=dict(
     nolog="password",
-    first_name=(str, True),
-    last_name=(str, True),
+    nickname=(str, True),
     password=(str, True, "notrim", "base64"),
     phone=(str, True),
     country=str,
@@ -52,9 +51,6 @@ def register(params):
     Basic user register
     ``password`` must be base64 encoded.
     """
-    if "nickname" not in params:
-        params["nickname"] = params["first_name"] + " " + params["last_name"]
-
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40325)
@@ -86,8 +82,7 @@ def user_get(user, user_id):
 
 @f_api('/user/edit', force_ssl=True, params=dict(
     nolog=("password", "old_password"),
-    first_name=(str, None),
-    last_name=(str, None),
+    nickname=(str, None),
     phone=(str, None),
     city=(str, None),
     state=(str, None),
@@ -107,16 +102,6 @@ def current_user_edit(user, params):
     ``gender`` should be in "male", "female", "other".
     ``intention`` should be combination of "cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"
     """
-    user_info = f_app.user.get(user["id"])
-    if "last_name" in params and "first_name" not in params:
-        params["nickname"] = "%s %s" % (user_info.get("first_name", None), params["last_name"])
-
-    elif "first_name" in params and "last_name" not in params:
-        params["nickname"] = "%s %s" % (params["first_name"], user_info.get("last_name", None))
-
-    elif "first_name" in params and "last_name" in params:
-        params["nickname"] = "%s %s" % (params["first_name"], params["last_name"])
-
     if "email" in params:
         if "@" not in params["email"]:
             abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
@@ -184,8 +169,7 @@ def admin_user_list(user, params):
 @f_api('/user/admin/add', params=dict(
     nolog="password",
     email=(str, True),
-    first_name=(str, True),
-    last_name=(str, True),
+    nickname=(str, True),
     phone=(str, True),
     role=(str, True),
     country=str,
@@ -210,7 +194,6 @@ def admin_user_add(user, params):
     password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
     params["password"] = password
 
-    params["nickname"] = params["first_name"] + " " + params["last_name"]
 
     user_id = f_app.user.add(params)
     f_app.log.add("add", user_id=user_id)
@@ -274,8 +257,7 @@ def admin_user_unset_role(user, user_id, params):
 
 @f_api("/user/search", params=dict(
     email=str,
-    first_name=str,
-    last_name=str,
+    nickname=str,
     role=(list, None, str),
     per_page=int,
     register_time=datetime,
