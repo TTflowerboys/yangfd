@@ -1,0 +1,197 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | BBT</title>
+    <meta name="description" content="Sign in, Sign Up">
+    <meta name="author" content="Frank Fang">
+    <meta name="keyword" content="">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Lato:300);
+        @import url(http://fonts.googleapis.com/css?family=Lato:400);
+        @import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
+    </style>
+
+    <!--build:css /static/themes/genius_dashboard/css/bundle.css-->
+
+    <link rel="stylesheet" href="/static/themes/genius_dashboard/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome-ie7.min.css">
+
+    <link rel="stylesheet" href="/static/themes/genius_dashboard/css/style.min.css">
+    <link rel="stylesheet" href="/static/themes/genius_dashboard/css/retina.min.css">
+
+    <link rel="stylesheet" href="/static/vendors/loading_bar/loading-bar.css"/>
+    <link rel="stylesheet" href="/static/vendors/angular-growl/angular-growl.min.css"/>
+    <!-- endbuild -->
+
+    <link rel="stylesheet" href="/static/themes/genius_dashboard/css/print.css" media="print"/>
+
+
+    <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="/static/themes/genius_dashboard/js/respond.min.js"></script>
+    <script src="/static/vendors/es5-shim.min.js"></script>
+
+    <![endif]-->
+
+    <link rel="shortcut icon" href="/static/images/favicon.png">
+
+    <style>
+        .submitted input.ng-invalid,
+        .submitted textarea.ng-invalid,
+        .submitted div.ng-invalid [contenteditable] {
+            border-color: #a94442;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        }
+        .submitted .imageEdit.ng-invalid .btn {
+            background-color: #a94442;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        }
+
+        .submitted input.ng-invalid:focus,
+        .submitted textarea.ng-invalid:focus,
+        .submitted div.ng-invalid [contenteditable]:focus {
+            border-color: #ce8483;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+        }
+        .submitted .imageEdit.ng-invalid .btn:active {
+            background-color: #ce8483;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+        }
+
+        .controls .help-block { display: none; color: #a94442; }
+        .submitted .ng-invalid ~ .help-block { display: block; }
+
+        /*input.ng-valid.ng-dirty {*/
+        /*background-color: #78FA89;*/
+        /*}*/
+        body:after { display: none; }
+        body:before { display: none; }
+        #content { background: white; overflow: auto; }
+        td { vertical-align: middle !important; }
+        col.status { width: 200px; }
+        col.actions { width: 200px; }
+
+        .header-nav a.btn { padding: 5px 8px !important; width: auto; }
+    </style>
+
+</head>
+<body>
+
+<div ui-view>
+</div>
+
+<div growl></div>
+
+<div class="modal fade" id="myModal" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Warning</h4>
+            </div>
+            <div class="modal-body">
+                <p>Here settings can be configured...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- jQuery -->
+<!--[if !IE]>-->
+<script src="/static/themes/genius_dashboard/js/jquery-2.1.0.min.js"></script>
+<!--<![endif]-->
+<!--[if IE]>
+<script src="/static/themes/genius_dashboard/js/jquery-1.11.0.min.js"></script>
+<![endif]-->
+<script src="/static/themes/genius_dashboard/js/jquery-migrate-1.2.1.min.js"></script>
+<!-- /jQuery -->
+
+<!-- build:js /static/admin/vendors.js -->
+<!-- theme -->
+<script src="/static/themes/genius_dashboard/js/core.min.js"></script>
+<!-- /theme -->
+
+<!-- angular -->
+<script src="/static/vendors/angular.min.js"></script>
+<script src="/static/vendors/angular-ui-router.min.js"></script>
+<script src="/static/vendors/ui-bootstrap-tpls.min.js"></script>
+
+<script src="/static/vendors/loading_bar/loading-bar.min.js"></script>
+<script src="/static/vendors/angular-file-upload.min.js"></script>
+<script src="/static/vendors/angular-growl/angular-growl.min.js"></script>
+<script src="/static/vendors/angular-wysiwyg.js"></script>
+<!-- /angular -->
+
+<!-- endbuild -->
+
+
+<!-- application start -->
+
+<!-- build:js /static/admin/application.js -->
+
+<script src="/static/admin/scripts/app.js"></script>
+
+<!-- config -->
+<script src="/static/admin/scripts/config/config.js"></script>
+<script src="/static/admin/scripts/config/states.js"></script>
+<script src="/static/admin/scripts/config/errors.js"></script>
+<script src="/static/admin/scripts/config/http_interceptor.js"></script>
+<!-- /config -->
+
+<!-- directives -->
+<script src="/static/admin/scripts/directives/email.js"></script>
+<script src="/static/admin/scripts/directives/date.js"></script>
+<script src="/static/admin/scripts/directives/disabler.js"></script>
+<script src="/static/admin/scripts/directives/one_screen.js"></script>
+<script src="/static/admin/scripts/directives/images_edit.js"></script>
+<script src="/static/admin/scripts/directives/single_image_edit.js"></script>
+<script src="/static/admin/scripts/directives/date_edit.js"></script>
+<script src="/static/admin/scripts/directives/text_array_edit.js"></script>
+<script src="/static/admin/scripts/directives/no_space.js"></script>
+<!-- /directives -->
+
+
+
+<script src="/static/admin/scripts/filters/thumbnail.js"></script>
+
+<script src="/static/admin/scripts/factories/user.js"></script>
+<script src="/static/admin/scripts/factories/upload.js"></script>
+<script src="/static/admin/scripts/factories/misc.js"></script>
+<script src="/static/admin/scripts/factories/api.js"></script>
+<script src="/static/admin/scripts/factories/ad.js"></script>
+<script src="/static/admin/scripts/factories/channel_api.js"></script>
+
+<script src="/static/admin/scripts/modal/controller.js"></script>
+<script src="/static/admin/scripts/modal/factory.js"></script>
+
+<script src="/static/admin/scripts/sign_in/controller.js"></script>
+<script src="/static/admin/scripts/dashboard/controller.js"></script>
+<script src="/static/admin/scripts/controllers/all_ads.js"></script>
+<script src="/static/admin/scripts/controllers/create_ad_on_any_channel.js"></script>
+
+
+<script src="/static/admin/scripts/controllers/list.js"></script>
+<script src="/static/admin/scripts/controllers/detail.js"></script>
+<script src="/static/admin/scripts/controllers/edit.js"></script>
+<script src="/static/admin/scripts/controllers/create.js"></script>
+
+<!-- endbuild -->
+
+<script src="/static/vendors/base64.min.js" defer></script>
+
+</body>
+
+</html>

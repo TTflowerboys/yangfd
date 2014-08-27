@@ -7,3 +7,6 @@ from libfelix.f_interface import f_get, static_file, template
 @f_get('/')
 def default():
     return "Hello, world!"
+@f_get('/admin')
+def admin():
+    return template("admin")
