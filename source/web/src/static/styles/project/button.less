@@ -1,0 +1,60 @@
+@import "_imports";
+
+// Button
+//
+// button styles
+//
+// Markup:
+// <button class="button {$modifiers}">登 录</button>
+// <a href=# class="button {$modifiers}">成为会员</a>
+// <button class="button {$modifiers}" style="width: 280px;">注 册</button>
+// <a href=# class="button {$modifiers}" style="width: 260px">成为会员</a>
+// <a href=# class="button {$modifiers}" style="width: 360px"><span class=big>立即购买</span><span class=small>太平洋保险保障财产安全</span></a>
+//
+// .orange          - Indicate that the feed is selected.
+// .red          - Indicate that the feed is selected.
+// .mute            - Indicate that the feed is not up to date or something else.
+// .highlight       - Indicate that the feed contains unread articles.
+// :hover           - hover
+// :disabled        - disabled
+//
+// Styleguide 1
+
+@border-radius: 6px;
+@default-bg: #3a3a3a;
+@orange: #dd4117;
+@red: #e60012;
+
+.button { border: none; border-radius: @border-radius; background: @default-bg; display: inline-block; font-size: 20px;
+    line-height: 30px; color: white; padding: 10px 32px; .smooth(); font-weight: bold; text-align: center; vertical-align: middle;
+
+    &:hover, &.pseudo-class-hover {
+        color: white;
+        background: darken(@default-bg, 10%);
+    }
+
+    &.orange {
+        background: @orange;
+        &:hover, &.pseudo-class-hover {
+            background: lighten(@orange, 5%);
+        }
+    }
+    &.red {
+        background: @red;
+        &:hover, &.pseudo-class-hover {
+            background: lighten(@red, 5%);
+        }
+    }
+
+    > span { display: block;
+        &.big { font-size: 24px; }
+        &.small { font-size: 14px; font-weight: normal; }
+    }
+}
+
+// See http://www.onextrapixel.com/2014/04/28/ghost-buttons-the-brand-new-design-trend/
+.ghostButton {
+    color: @red;
+    border: 2px solid;
+}
+

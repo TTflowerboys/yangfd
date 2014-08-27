@@ -1,0 +1,52 @@
+@root-line-height: 1.5;
+
+@white: white;
+@red: hsl(0, 80%, 50%);
+@light-blue: hsl(190, 80%, 97%);
+
+@color: hsl(0, 0%, 47%);
+@border-color: hsl(0, 0%, 76%);
+@light-color: hsl(0, 0%, 98%);
+@mute-color: hsl(0, 0%, 73%);
+@dark-color: hsl(0, 0%, 7%);
+
+@root-font-size: 16px;
+@normal-font-size: 20/16rem;
+@small-font-size: 14/16rem;
+@largest-font-size: 50/16rem;
+
+@font-normal: Helvetica Neue, Helvetica, Arial, sans-serif;
+@font-mono: Monaco, 'Ubuntu Mono', 'Lucida Console', 'Courier New', Courier, monospace;
+
+.clearfix() {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+.wrapped(@width:@max-width) {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: @width;
+}
+
+.horizontalList(@padding: 16px;) {
+    list-style: none; padding: 0; margin: 0;
+    .clearfix();
+    > li { float: left; margin-left: @padding * 2;
+        &:first-child { margin-left: 0; }
+    }
+}
+
+.smooth() {
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+}
+
+.no-smooth() {
+    -webkit-font-smoothing: never; -moz-osx-font-smoothing: nonee;
+    font-smoothing: none;
+}

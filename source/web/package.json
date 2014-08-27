@@ -6,7 +6,9 @@
     "debug": "gulp clean && gulp debug",
     "dev": "gulp clean && gulp debug",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install --production && gulp build"
+    "build": "npm install --production && gulp build",
+    "styleguideinit": "kss-node --init",
+    "styleguide": "kss-node ./src/static/styles/project/ --less ./src/static/styles/project/_styleguide.less"
   },
   "repository": {
     "type": "git",
