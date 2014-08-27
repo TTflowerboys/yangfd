@@ -29,27 +29,27 @@ def house_add(house_id, user, params):
 
     1. If the house has ``status`` in (``draft``, ``not translated``, ``translating``, ``rejected``), the changes will be saved immediately.
 
-    1.1. If the ``status`` is ``rejected``, it will be automatically changed to ``draft`` upon any edit.
+     a. If the ``status`` is ``rejected``, it will be automatically changed to ``draft`` upon any edit.
 
     2. If ``status`` is ``not reviewed``, the edit will be rejected. Cancel the review process before you can do any more edit.
 
     3. Otherwise this API will actually create a partial house with only the changes. After approval:
 
-    3.1. If ``target_house_id`` present, the changes and the ``status`` will be applied together to that house if the ``status`` was submitted within (``selling``, ``hidden``, ``sold out``, ``deleted``) and the partial house will be removed.
+     a. If ``target_house_id`` present, the changes and the ``status`` will be applied together to that house if the ``status`` was submitted within (``selling``, ``hidden``, ``sold out``, ``deleted``) and the partial house will be removed.
 
-    3.2. Otherwise, the status of _this_ partial house will be updated to whatever the reviewer submitted, so it reforms a "real" new house.
+     b. Otherwise, the status of *this* partial house will be updated to whatever the reviewer submitted, so it reforms a "real" new house.
 
     Edit ``status`` to advance the process. For ``status``-only submits, the following rules are followed:
 
     4. If ``status`` in (``draft``, ``not translated``, ``translating``, ``rejected``, ``not reviewed``)
 
-    4.1. Anyone could submit ``status``-only edits and they will be saved immediately. But only ``admin``, ``jr_admin`` and ``operation`` could advance the status beyond "not reviewed".
+     a. Anyone could submit ``status``-only edits and they will be saved immediately. But only ``admin``, ``jr_admin`` and ``operation`` could advance the status beyond "not reviewed".
 
     5. Otherwise, only ``admin``, ``jr_admin`` and ``operation`` could send ``status``-only edits, and the ``status`` is limited to (``selling``, ``hidden``, ``sold out``, ``deleted``). If you need to edit it in any way, go with the previous process.
 
     When submitting a (partial or full) house for reviewing:
 
-    6. A house without all needed fields _and_ ``target_house_id`` will raise an error here.
+    6. A house without all needed fields *and* ``target_house_id`` will raise an error here.
 
     After discussion, we've decided that only one "draft" was allowed for the same "target_house_id" at the same time. This means:
 
