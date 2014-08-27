@@ -3,8 +3,9 @@
 
 (function () {
 
-    function ctrlSignIn($scope, $state, $http, $rootScope, userApi, $stateParams) {
+    function ctrlSignUp($scope, $state, $http, $rootScope, userApi, $stateParams) {
         $scope.submit = function ($event, form) {
+            alert('sign up')
             $event.preventDefault()
             if (form.$invalid) {
                 return
@@ -18,6 +19,6 @@
         }
     }
 
-    angular.module('app').controller('ctrlSignIn', ctrlSignIn)
+    angular.module('app').controller('ctrlSignUp', ctrlSignUp)
 
 })()

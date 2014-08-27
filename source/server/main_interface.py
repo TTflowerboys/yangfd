@@ -12,3 +12,6 @@ def default():
 @f_get("/static/<filepath:path>")
 def static_route(filepath):
     return static_file(filepath, root="views/static")
+@f_get('/admin')
+def admin():
+    return template("admin")
