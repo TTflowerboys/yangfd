@@ -40,13 +40,7 @@
                 data.email = phone
 
                 return $http.post('/api/1/user/sms_verification/send', data)
-                    .success(function (data, status, headers, config) {
-                        user = data.val
-                        deferred.resolve(user)
-                    })
-                    .error(function () {
-                        deferred.reject()
-                    })
+
             },
             smsResetPassword: function (id, code, password) {
                 var data = {}
@@ -54,13 +48,7 @@
                 data.new_password = Base64.encode(password)
 
                 return $http.post('/api/1/user/' + id + '/sms_reset_password', data)
-                    .success(function (data, status, headers, config) {
-                        user = data.val
-                        deferred.resolve(user)
-                    })
-                    .error(function () {
-                        deferred.reject()
-                    })
+                
             }
         }
 
