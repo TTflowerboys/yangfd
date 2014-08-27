@@ -5,9 +5,10 @@
     function userApi($http, $state, $q) {
         var user
         return {
-            signIn: function (email, password) {
+            signIn: function (phone, password) {
                 var data = {}
-                data.email = email
+                data.country='CN'
+                data.phone = phone
                 data.password = Base64.encode(password)
 
                 return $http.post('/api/1/user/login', data)
