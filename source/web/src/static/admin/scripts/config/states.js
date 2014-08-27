@@ -214,6 +214,6 @@ angular.module('app')
             .state('signUp', {
                 url: '/signUp?from',
                 templateUrl: '/static/admin/templates/signUp.tpl.html',
-                controller: 'ctrlSignIn'
+                controller: 'ctrlSignUp'
             })
     })
