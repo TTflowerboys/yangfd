@@ -28,4 +28,5 @@ API Reference
    :maxdepth: 2
 
    news_api
+   ticket_api
    user_api
