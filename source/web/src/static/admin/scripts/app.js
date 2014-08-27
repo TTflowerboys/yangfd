@@ -10,8 +10,5 @@ angular.module('app',
         $rootScope.renderHtml = function (html) {
             return $sce.trustAsHtml(html);
         }
-        $rootScope.alert = function (html) {
-            return alert(html);
-        }
 
     })

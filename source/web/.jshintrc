@@ -17,11 +17,11 @@
   "forin":         false,
   "funcscope":     false,
   "globals":       {
-      angular:     true,
-      Base64:      true,
-      console:     true,
-      $:           true,
-      jQuery:      true
+      "angular":   true,
+      "Base64":    true,
+      "console":   true,
+      "$":         true,
+      "jQuery":    true
   },
   "globalstrict":  false,
   "immed":         false,

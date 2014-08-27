@@ -17,6 +17,8 @@ var rimraf = require('gulp-rimraf')
 var symlink = require('gulp-sym')
 var usemin = require('gulp-usemin')
 var footer = require('gulp-footer')
+var jshint = require('gulp-jshint')
+var stylish = require('jshint-stylish')
 
 
 var myPaths = {
@@ -26,16 +28,25 @@ var myPaths = {
     symlink: './src/static/{themes,fonts,images,scripts,vendors,templates,admin/scripts,admin/templates}',
     static: './src/static/**/*.*',
     less: './src/static/styles/**/*.less',
-    css: './src/static/styles/**/*.css'
+    css: './src/static/styles/**/*.css',
+    js: ['./src/static/scripts/**/*.js', './src/static/admin/scripts/**/*.js']
 }
 
-gulp.task('debug', [ 'symlink', 'less2css', 'html-extend', 'watch'], function () {
+gulp.task('debug', ['lint', 'symlink', 'less2css', 'html-extend', 'watch'], function () {
     console.info(chalk.black.bgWhite.bold('You can debug now!'))
 })
 
-gulp.task('build', ['clean', 'build:copy', 'build:less2css', 'build:html-extend', 'build:ngAnnotate'], function () {
-    console.info(chalk.black.bgWhite.bold('Building tasks done!'))
-})
+gulp.task('build', ['lint', 'clean', 'build:copy', 'build:less2css', 'build:html-extend', 'build:ngAnnotate'],
+    function () {
+        console.info(chalk.black.bgWhite.bold('Building tasks done!'))
+    })
+
+gulp.task('lint', function () {
+    return gulp.src(myPaths.js)
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(jshint.reporter('fail'));
+});
 
 gulp.task('build:copy', ['clean'], function () {
     return gulp.src(myPaths.static)

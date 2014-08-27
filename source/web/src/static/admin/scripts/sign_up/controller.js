@@ -5,7 +5,6 @@
 
     function ctrlSignUp($scope, $state, $http, $rootScope, userApi, $stateParams) {
         $scope.submit = function ($event, form) {
-            alert('sign up')
             $event.preventDefault()
             if (form.$invalid) {
                 return

@@ -4,15 +4,15 @@
     window.team = window.team || {}
     window.team.utils = {
         wrapErrors: function (jQueryAjax) {
-            jQueryAjax
-                .done(function (response) {
-                    if (response.ret !== 0) {
-                        alert(response.ret)
-                    }
-                })
-                .fail(function (xhr) {
-                    alert(xhr.status)
-                })
+//            jQueryAjax
+//                .done(function (response) {
+//                    if (response.ret !== 0) {
+//                        //alert(response.ret)
+//                    }
+//                })
+//                .fail(function (xhr) {
+//                    //alert(xhr.status)
+//                })
 
             return jQueryAjax
         }
