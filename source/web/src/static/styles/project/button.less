@@ -24,6 +24,9 @@
 .button { border: none; border-radius: @border-radius; background: @default-bg; display: inline-block; font-size: 20px;
     line-height: 30px; color: white; padding: 10px 32px; .smooth(); font-weight: bold; text-align: center; vertical-align: middle;
 
+    &:active, &:visited {
+        color: white;
+    }
     &:hover, &.pseudo-class-hover {
         color: white;
         background: darken(@default-bg, 10%);
