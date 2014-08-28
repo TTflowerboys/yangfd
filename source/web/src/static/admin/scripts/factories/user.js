@@ -48,7 +48,7 @@
                 data.new_password = Base64.encode(password)
 
                 return $http.post('/api/1/user/' + id + '/sms_reset_password', data)
-                
+
             }
         }
 
