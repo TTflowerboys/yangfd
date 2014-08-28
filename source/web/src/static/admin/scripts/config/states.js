@@ -31,7 +31,7 @@ angular.module('app')
          */
             .state('dashboard.admins', {
                 url: '/admins',
-                templateUrl: '/static/admin/templates/dashboard.users.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.admins.tpl.html',
                 controller: 'ctrlList',
                 resolve: {
                     api: function (adminApi) {
@@ -39,11 +39,15 @@ angular.module('app')
                     }
                 }
             })
-//            .state('dashboard.projects.create', {
-//                url: '/create',
-//                templateUrl: '/static/admin/templates/dashboard.projects.create.tpl.html',
-//                controller: 'ctrlCreate',
-//                resolve: projectResolve
-//            })
+            .state('dashboard.admins.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.admins.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: {
+                    api: function (adminApi) {
+                        return adminApi
+                    }
+                }
+            })
 
     })

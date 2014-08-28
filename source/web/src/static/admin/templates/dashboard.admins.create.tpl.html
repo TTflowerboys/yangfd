@@ -1,0 +1,46 @@
+<div class="buttons">
+    <span class="btn-group">
+        <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> Back</button>
+    </span>
+</div>
+<form name="partnerCreateForm" class="form-horizontal" ng-class="{submitted:submitted}"
+    style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,partnerCreateForm)"
+    novalidate>
+
+    <div class="form-group">
+        <label class="control-label">手机号码 *</label>
+        <div class="controls">
+            <input class="form-control" ng-model="item.phone" type="text" style="width: 20em"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">姓名 *</label>
+        <div class="controls">
+            <input class="form-control" ng-model="item.nickname" type="text" style="width: 20em"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">邮箱 *</label>
+        <div class="controls">
+            <input class="form-control" ng-model="item.email" type="email" style="width: 30em"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">权限 *</label>
+        <div class="controls">
+            <select class="form-control" ng-model="item.role" style="width: 185px;" ng-options="p.value as p.name for p in permissions">
+                <option value="">-- 选择 --</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-actions" style="margin-bottom: 80px;">
+        <input type="submit" class="btn btn-primary" bbg-disabler="loading" value="提交">
+        <input type="button" ng-click="$state.go('^')" class="btn" value="Cancel">
+    </div>
+    <div class="help-block">* 必填</div>
+</form>
