@@ -51,12 +51,8 @@
                                 {%role | permissionName %}
                             </div>
                         </td>
-                        <td class="form-inline">
-                            <select ng-options="p.value as p.name for p in item.role | permissionCanAdd" ng-model="roleToAdd"
-                                class="form-control input-sm" style="width: 130px;">
-                                <option value="">-- 选择权限 --</option>
-                            </select>
-                            <button ng-show="roleToAdd" class="btn btn-sm btn-primary" ng-click="onAddRole(item,roleToAdd)">提交</button>
+                        <td>
+                            <add-role ng-model="item"></add-role>
                         </td>
                         <td class="form-inline">
                             <select ng-options="p | permissionName for p in item.role" ng-model="roleToRemove"
