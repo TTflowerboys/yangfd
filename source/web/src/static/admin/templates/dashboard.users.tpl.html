@@ -6,7 +6,7 @@
 
                 <span class="btn-group">
                     <button class="btn" ui-sref=".create">
-                        <span class="fa fa-plus-circle"></span> 添加管理员
+                        <span class="fa fa-plus-circle"></span> 添加人员
                     </button>
                 </span>
 
@@ -52,14 +52,10 @@
                             </div>
                         </td>
                         <td>
-                            <add-role ng-model="item"></add-role>
+                            <div add-role ng-model="item"></div>
                         </td>
-                        <td class="form-inline">
-                            <select ng-options="p | permissionName for p in item.role" ng-model="roleToRemove"
-                                class="form-control input-sm" style="width: 130px;">
-                                <option value="">-- 选择权限 --</option>
-                            </select>
-                            <button ng-show="roleToRemove" class="btn btn-sm btn-danger" ng-click="onRemoveRole(item,roleToRemove)">提交</button>
+                        <td>
+                            <div remove-role ng-model="item"></div>
                         </td>
                     </tr>
                 </tbody>

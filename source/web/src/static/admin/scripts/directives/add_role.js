@@ -4,7 +4,7 @@ angular.module('app')
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/add_role.tpl.html',
-            replace: true,
+            replace: false,
             scope: {
                 item: '=ngModel'
             },
