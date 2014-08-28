@@ -36,7 +36,6 @@ angular.module('app')
                 resolve: {
                     api: function (adminApi) {
                         return adminApi
-
                     }
                 }
             })
