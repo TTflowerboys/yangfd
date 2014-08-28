@@ -29,15 +29,21 @@ angular.module('app')
         /**
          * users
          */
-            .state('dashboard.users', {
-                url: '/projects',
+            .state('dashboard.admins', {
+                url: '/admins',
                 templateUrl: '/static/admin/templates/dashboard.users.tpl.html',
-                controller: 'ctrlUserSearch',
+                controller: 'ctrlList',
                 resolve: {
                     api: function (adminApi) {
                         return adminApi
                     }
                 }
             })
+//            .state('dashboard.projects.create', {
+//                url: '/create',
+//                templateUrl: '/static/admin/templates/dashboard.projects.create.tpl.html',
+//                controller: 'ctrlCreate',
+//                resolve: projectResolve
+//            })
 
     })
