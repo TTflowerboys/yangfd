@@ -10,9 +10,10 @@ angular.module('app')
                 errorCode = response.data.ret
             }
             if (errorCode === 0) { return }
+            if (!response.config.errorMessage) {return}
 
             return errors[errorCode] ||
-                response.config.errorMessage ||
+                response.config.errorMessage[errorCode] ||
                 errors.unknown
         }
 
@@ -25,7 +26,11 @@ angular.module('app')
                     if (response.data.ret !== undefined) {
 
                         if (response.data.ret !== 0) {
+                            console.log("response:")
+                            console.log(response)
                             var errorMessage = getErrorMessage(response)
+                            console.log("errorMessage:")
+                            console.log(errorMessage)
                             if (errorMessage) {
                                 growl.addErrorMessage($rootScope.renderHtml(errorMessage), {enableHtml: true})
                             }

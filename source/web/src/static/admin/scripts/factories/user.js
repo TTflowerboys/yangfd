@@ -22,7 +22,7 @@
                 if (user) {
                     deferred.resolve(user)
                 } else {
-                    $http.get('/api/1/user')
+                    $http.get('/api/1/user', {errorMessage: true})
                         .success(function (data, status, headers, config) {
                             user = data.val
                             deferred.resolve(user)

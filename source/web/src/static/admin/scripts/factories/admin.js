@@ -1,7 +1,7 @@
 /* Created by frank on 14-8-23. */
 (function () {
 
-    function adApi($http) {
+    function adminApi($http) {
 
         return {
             getAll: function (config) {
@@ -13,12 +13,18 @@
             create: function (data, config) {
                 return $http.post('/api/1/user/admin/add', data, config)
             },
+            addRole: function (data, config) {
+                return $http.post('/api/1/user/admin/' + data.id + '/set_role', data)
+            },
             setRole: function () {
-
+                throw 'not implemented'
+            },
+            removeRole: function (data, config) {
+                return $http.post('/api/1/user/admin/' + data.id + '/unset_role', data)
             }
         }
 
     }
 
-    angular.module('app').factory('adApi', adApi)
+    angular.module('app').factory('adminApi', adminApi)
 })()

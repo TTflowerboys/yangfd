@@ -25,4 +25,19 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/forgotPassword.tpl.html',
                 controller: 'ctrlForgotPassword'
             })
+
+        /**
+         * users
+         */
+            .state('dashboard.users', {
+                url: '/projects',
+                templateUrl: '/static/admin/templates/dashboard.users.tpl.html',
+                controller: 'ctrlUserSearch',
+                resolve: {
+                    api: function (adminApi) {
+                        return adminApi
+                    }
+                }
+            })
+
     })
