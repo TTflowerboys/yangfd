@@ -28,7 +28,7 @@ def ticket_add(params):
     noregister = params.pop("noregister", False)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     user = f_app.user.login_get()
-    user_id_by_phone = f_app.user.get_id_by_phone(params["phone"], force_register=True)
+    user_id_by_phone = f_app.user.get_id_by_phone(params["phone"], force_registered=True)
     shadow_user_id = f_app.user.get_id_by_phone(params["phone"])
     if not user:
         if user_id_by_phone:
@@ -74,14 +74,17 @@ def ticket_add(params):
 
 
 @f_api('/ticket/<ticket_id>')
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
+@f_app.user.login.check(force=True)
 def ticket_get(user, ticket_id):
     """
     View single ticket.
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
-    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
+    if len(user_roles) == 0:
+        if ticket.get("creator_user_id") != user["id"]:
+            abort(40399, logger.warning("Permission denied.", exc_info=False))
+    elif "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
