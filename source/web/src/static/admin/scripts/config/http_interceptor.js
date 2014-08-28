@@ -26,11 +26,7 @@ angular.module('app')
                     if (response.data.ret !== undefined) {
 
                         if (response.data.ret !== 0) {
-                            console.log("response:")
-                            console.log(response)
                             var errorMessage = getErrorMessage(response)
-                            console.log("errorMessage:")
-                            console.log(errorMessage)
                             if (errorMessage) {
                                 growl.addErrorMessage($rootScope.renderHtml(errorMessage), {enableHtml: true})
                             }

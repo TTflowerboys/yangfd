@@ -151,7 +151,7 @@ def admin_user_list(user, params):
     """
     user_roles = f_app.user.get_role(user["id"])
     if "role" in params:
-        if not f_app.user.check_set_role_permission(params["role"]):
+        if not f_app.user.check_set_role_permission(user["id"], params["role"]):
             abort(40399, logger.warning("Permission denied", exc_info=False))
     else:
         params["role"] = {"$not": {"$size": 0}}

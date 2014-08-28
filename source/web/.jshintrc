@@ -21,7 +21,8 @@
       "Base64":    true,
       "console":   true,
       "$":         true,
-      "jQuery":    true
+      "jQuery":    true,
+      "_":         true
   },
   "globalstrict":  false,
   "immed":         false,

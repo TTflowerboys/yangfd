@@ -46,6 +46,7 @@
     "gulp-util": "~3.0.0",
     "gulp-footer": "~1.0.5",
     "gulp-jshint": "~1.8.4",
-    "jshint-stylish": "~0.4.0"
+    "jshint-stylish": "~0.4.0",
+    "underscore": "~1.7.0"
   }
 }

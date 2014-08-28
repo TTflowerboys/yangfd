@@ -10,16 +10,21 @@
 
         api.getAll({ params: {per_page: $scope.perPage} }).success(onGetList)
 
-        $scope.refreshList = function () {
-            api.getAll({ params: {per_page: $scope.perPage}}).success(onGetList)
+        $scope.onAddRole = function (item, roleToAdd) {
+            api.addRole(item.id, roleToAdd, {successMessage: 'done', errorMessage: true})
+                .success(function () {
+                    item.role.push(roleToAdd)
+                })
+        }
+        $scope.onRemoveRole = function (item, roleToRemove) {
+            api.removeRole(item.id, roleToRemove, {successMessage: 'done', errorMessage: true})
+                .success(function () {
+                    item.role.splice(item.role.indexOf(roleToRemove), 1)
+                })
         }
 
-        $scope.onRemove = function (item) {
-            fctModal.show('Do you want to remove it?', undefined, function () {
-                api.remove(item.id).success(function () {
-                    $scope.list.splice($scope.list.indexOf(item), 1)
-                })
-            })
+        $scope.refreshList = function () {
+            api.getAll({ params: {per_page: $scope.perPage}}).success(onGetList)
         }
 
         $scope.nextPage = function () {
@@ -33,6 +38,7 @@
                 .success(onGetList)
 
         }
+
         $scope.prevPage = function () {
 
             var prevPrevPageNumber = $scope.currentPageNumber - 2

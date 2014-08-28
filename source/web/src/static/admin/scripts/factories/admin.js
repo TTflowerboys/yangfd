@@ -13,14 +13,14 @@
             create: function (data, config) {
                 return $http.post('/api/1/user/admin/add', data, config)
             },
-            addRole: function (data, config) {
-                return $http.post('/api/1/user/admin/' + data.id + '/set_role', data)
+            addRole: function (id, role, config) {
+                return $http.post('/api/1/user/admin/' + id + '/set_role', {role: role}, config)
             },
             setRole: function () {
                 throw 'not implemented'
             },
-            removeRole: function (data, config) {
-                return $http.post('/api/1/user/admin/' + data.id + '/unset_role', data)
+            removeRole: function (id, role, config) {
+                return $http.post('/api/1/user/admin/' + id + '/unset_role', {role: role}, config)
             }
         }
 

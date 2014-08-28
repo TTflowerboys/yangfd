@@ -18,9 +18,12 @@
             </div>
             <table class="table table-bordered table-striped table-condensed">
                 <colgroup>
-                    <col class="name">
-                    <col class="status">
-                    <col class="actions">
+                    <col class="nickname">
+                    <col class="email">
+                    <col class="phone">
+                    <col class="roles">
+                    <col class="addRole">
+                    <col class="removeRole">
                 </colgroup>
                 <thead>
                     <tr>
@@ -30,7 +33,6 @@
                         <th>权限</th>
                         <th>增加权限</th>
                         <th>取消权限</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,21 +47,23 @@
                             {%item.phone%}
                         </td>
                         <td>
-                            {%item.role.toString()%}
+                            <div ng-repeat="role in item.role">
+                                {%role | permissionName %}
+                            </div>
                         </td>
-                        <td>
-                            {%item.role.toString()%}
+                        <td class="form-inline">
+                            <select ng-options="p.value as p.name for p in item.role | permissionCanAdd" ng-model="roleToAdd"
+                                class="form-control input-sm" style="width: 130px;">
+                                <option value="">-- 选择权限 --</option>
+                            </select>
+                            <button ng-show="roleToAdd" class="btn btn-sm btn-primary" ng-click="onAddRole(item,roleToAdd)">提交</button>
                         </td>
-                        <td>
-                            {%item.role.toString()%}
-                        </td>
-                        <td style="text-align:center;">
-                            <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
-                                <i class="fa fa-edit "></i>
-                            </a>
-                            <span class="btn btn-danger" ng-click="onRemove(item,$index)" title="Remove">
-                                <i class="fa fa-trash-o"></i>
-                            </span>
+                        <td class="form-inline">
+                            <select ng-options="p | permissionName for p in item.role" ng-model="roleToRemove"
+                                class="form-control input-sm" style="width: 130px;">
+                                <option value="">-- 选择权限 --</option>
+                            </select>
+                            <button ng-show="roleToRemove" class="btn btn-sm btn-danger" ng-click="onRemoveRole(item,roleToRemove)">提交</button>
                         </td>
                     </tr>
                 </tbody>
