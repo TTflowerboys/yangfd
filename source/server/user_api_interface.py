@@ -57,7 +57,7 @@ def register(params):
 
     if "email" in params:
         if "@" not in params["email"]:
-            abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
+            abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
         if f_app.user.get_id_by_email(params["email"]):
             abort(40325)
 
@@ -104,7 +104,7 @@ def current_user_edit(user, params):
     """
     if "email" in params:
         if "@" not in params["email"]:
-            abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
+            abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
         if f_app.user.get_id_by_email(params["email"]):
             abort(40325)
 
@@ -112,24 +112,24 @@ def current_user_edit(user, params):
         user = f_app.user.get(user["id"])
 
         if "old_password" not in params:
-            abort(40000, logger.warning("Invalid params: current password not provided", exc_info=False))
+            abort(40098, logger.warning("Invalid params: current password not provided", exc_info=False))
 
         if "password" in user and "email" in user:
             f_app.user.login.auth(user["email"], params.pop("old_password"), auth_only=True)
 
     elif "old_password" in params:
-        abort(40000, "Invalid params: old_password not needed")
+        abort(40097, "Invalid params: old_password not needed")
 
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
     if "gender" in params:
         if params["gender"] not in ("male", "female", "other"):
-            abort(40000, logger.warning("Invalid params: gender", params["gender"], exc_info=False))
+            abort(40096, logger.warning("Invalid params: gender", params["gender"], exc_info=False))
 
     if "intention" in params:
         if not set(params["intention"]) <= set(f_app.common.user_intention):
-            abort(40000, logger.warning("Invalid params: intention", params["intention"], exc_info=False))
+            abort(40095, logger.warning("Invalid params: intention", params["intention"], exc_info=False))
 
     f_app.user.update_set(user["id"], params)
     return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
@@ -152,7 +152,7 @@ def admin_user_list(user, params):
     user_roles = f_app.user.get_role(user["id"])
     if "role" in params:
         if not f_app.user.check_set_role_permission(params["role"]):
-            abort(40300, logger.warning("Permission denied", exc_info=False))
+            abort(40399, logger.warning("Permission denied", exc_info=False))
     else:
         params["role"] = {"$not": {"$size": 0}}
         if "admin" in user_roles:
@@ -186,10 +186,10 @@ def admin_user_add(user, params):
     Password is generated randomly.
     """
     if not f_app.user.check_set_role_permission(user["id"], params["role"]):
-        abort(40300, logger.warning('Permission denied.', exc_info=False))
+        abort(40399, logger.warning('Permission denied.', exc_info=False))
 
     if "@" not in params["email"]:
-        abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
+        abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
 
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
@@ -227,7 +227,7 @@ def admin_user_set_role(user, user_id, params):
     *support* can set *support* and *jr_support*.
     """
     if not f_app.user.check_set_role_permission(user["id"], params["role"]):
-        abort(40300, logger.warning('Permission denied.', exc_info=False))
+        abort(40399, logger.warning('Permission denied.', exc_info=False))
 
     user_info = f_app.user.get(user_id)
 
@@ -242,7 +242,7 @@ def admin_user_set_role(user, user_id, params):
             display="html",
         )
     else:
-        abort(40000, logger.warning('Invalid admin: email not provided.', exc_info=False))
+        abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
@@ -256,7 +256,7 @@ def admin_user_unset_role(user, user_id, params):
     Use this API to remove (a role of an) admin
     """
     if not f_app.user.check_set_role_permission(user["id"], params["role"]):
-        abort(40300, logger.warning('Permission denied.', exc_info=False))
+        abort(40399, logger.warning('Permission denied.', exc_info=False))
     f_app.user.remove_role(user_id, params["role"])
 
 
@@ -277,7 +277,7 @@ def user_search(user, params):
         params["phone"] = f_app.util.parse_phone(params)
     if "email" in params:
         if "@" not in params["email"]:
-            abort(40000, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
+            abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
 
     per_page = params.pop("per_page", 0)
     params["$or"] = [{"role": {"$exists": False}}, {"role": {"$size": 0}}]

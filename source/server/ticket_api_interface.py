@@ -74,7 +74,7 @@ def ticket_get(user, ticket_id):
     ticket = f_app.ticket.output([ticket_id])[0]
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
         if user["id"] not in ticket.get("assignee", []):
-            abort(40300, logger.warning("Permission denied.", exc_info=False))
+            abort(40399, logger.warning("Permission denied.", exc_info=False))
 
     return ticket
 
@@ -89,7 +89,7 @@ def ticket_get_history(user, ticket_id):
     ticket = f_app.ticket.output([ticket_id])[0]
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
         if user["id"] not in ticket.get("assignee", []):
-            abort(40300, logger.warning("Permission denied.", exc_info=False))
+            abort(40399, logger.warning("Permission denied.", exc_info=False))
 
     return f_app.ticket.history_get(f_app.ticket.history_get_by_ticket(ticket_id))
 
@@ -122,11 +122,11 @@ def ticket_edit(user, ticket_id, params):
     ticket = f_app.ticket.output([ticket_id])[0]
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
         if user["id"] not in ticket.get("assignee", []):
-            abort(40300, logger.warning("Permission denied.", exc_info=False))
+            abort(40399, logger.warning("Permission denied.", exc_info=False))
 
     if "status" in params:
         if params["status"] not in f_app.common.ticket_statuses:
-            abort(40000, logger.warning("Invalid params: status", params["status"], exc_info=False))
+            abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
     return f_app.ticket.update_set(ticket_id, params)
 
@@ -156,6 +156,6 @@ def ticket_search(user, params):
         if set(params["status"]) <= f_app.common.ticket_statuses:
             params["status"] = {"$in": params["status"]}
         else:
-            abort(40000, logger.warning("Invalid params: status", params["status"], exc_info=False))
+            abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
     return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
