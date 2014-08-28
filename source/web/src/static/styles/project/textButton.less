@@ -1,0 +1,34 @@
+@import "_imports";
+
+@orange: #dd4117;
+@red: #e60012;
+@grey: #ccc;
+@default-color: @grey;
+
+.textButton {
+  vertical-align: middle;
+  color: @default-color;
+  border: 0px solid;
+  display: inline-block;
+  background: transparent;
+  padding: 2px 24px;
+  line-height: 24px;
+  font-size: 12px;
+  &:active, &:visited {
+    color: @default-color;
+  }
+  &:hover {
+    color: lighten(@default-color, 10%);
+  }
+
+  &.red {
+    color: lighten(@red, 10%);
+    &:active, &:visited {
+      color: lighten(@red, 10%);
+    }
+    &:hover {
+      color: lighten(@red, 20%);
+    }
+  }
+}
+

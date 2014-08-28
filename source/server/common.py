@@ -53,6 +53,11 @@ class common(f_common):
     aws_access_key_id = "AKIAIYCSNRQ46N6GPZQA"
     aws_secret_access_key = "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"
 
+    sms_default_method ="clickatell"
+    clickatell_api_id=3425954
+    clickatell_user="marco388"
+    clickatell_password="EaSeURGSXGXNbM"
+
     custom_error_codes = {
         40099: "Invalid params: No '@' in email address supplied:",
         40098: "Invalid params: current password not provided",

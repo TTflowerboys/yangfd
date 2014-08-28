@@ -6,12 +6,13 @@ from libfelix.f_interface import f_get, static_file, template
 
 @f_get('/')
 def default():
-    return "Hello, world!"
+    return template("index")
 
+@f_get('/admin')
+def admin():
+    return template("admin")
 
 @f_get("/static/<filepath:path>")
 def static_route(filepath):
     return static_file(filepath, root="views/static")
-@f_get('/admin')
-def admin():
-    return template("admin")
+
