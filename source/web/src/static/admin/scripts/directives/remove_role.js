@@ -10,7 +10,7 @@ angular.module('app')
             },
             link: function (scope, elm, attrs) {
                 scope.onRemoveRole = function (item, roleToRemove) {
-                    adminApi.removeRole(item.id, roleToRemove, {successMessage: 'done', errorMessage: true})
+                    adminApi.removeRole(item.id, roleToRemove, {successMessage: '取消权限操作成功', errorMessage: true})
                         .success(function () {
                             item.role.splice(item.role.indexOf(roleToRemove), 1)
                             scope.roleToRemove = ''

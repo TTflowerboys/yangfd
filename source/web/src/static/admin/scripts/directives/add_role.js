@@ -10,7 +10,7 @@ angular.module('app')
             },
             link: function ($scope, elm, attrs) {
                 $scope.onAddRole = function (item, roleToAdd) {
-                    adminApi.addRole(item.id, roleToAdd, {successMessage: 'done', errorMessage: true})
+                    adminApi.addRole(item.id, roleToAdd, {successMessage: '增加权限操作成功', errorMessage: true})
                         .success(function () {
                             item.role.push(roleToAdd)
                             $scope.roleToAdd = ''

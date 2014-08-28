@@ -8,4 +8,5 @@ angular.module('app')
     .config(['growlProvider', function (growlProvider) {
         growlProvider.globalTimeToLive(5000)
         growlProvider.globalEnableHtml(false)
+        growlProvider.onlyUniqueMessages(false)
     }])
