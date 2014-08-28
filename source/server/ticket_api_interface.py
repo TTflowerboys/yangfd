@@ -28,24 +28,33 @@ def ticket_add(params):
     noregister = params.pop("noregister", False)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     user = f_app.user.login_get()
-    user_id_by_phone = f_app.user.get_id_by_phone(params["phone"])
+    user_id_by_phone = f_app.user.get_id_by_phone(params["phone"], force_registered=True)
+    shadow_user_id = f_app.user.get_id_by_phone(params["phone"])
     if not user:
         if user_id_by_phone:
-            abort(40324)
+            abort(40351)
         else:
-            # Add shadow account for noregister user
-            user_params = {
-                "nickname": params["nickname"],
-                "phone": params["phone"]
-            }
-            if "country" in params:
-                user_params["country"] = params["country"]
+            if shadow_user_id:
+                creator_user_id = ObjectId(shadow_user_id)
+            else:
+                # Add shadow account for noregister user
+                user_params = {
+                    "nickname": params["nickname"],
+                    "phone": params["phone"]
+                }
+                if "country" in params:
+                    user_params["country"] = params["country"]
 
-            creator_user_id = ObjectId(f_app.user.add(user_params, noregister=noregister))
+                creator_user_id = ObjectId(f_app.user.add(user_params, noregister=noregister))
+                # Log in for newly registered user
+                if not noregister:
+                    f_app.user.login.success(creator_user_id)
     else:
-        user_info = f_app.user.get(user["id"])
+        if not shadow_user_id:
+            abort(40324)
+        user_info = f_app.user.get(shadow_user_id)
         creator_user_id = ObjectId(user["id"])
-        params["phone"], params["nickname"], params["country"] = user_info["phone"], user_info.get("nickname"), user_info.get("country")
+        params["country"], params["email"] = user_info.get("country"), user_info.get("email")
 
     params["creator_user_id"] = creator_user_id
 
@@ -65,18 +74,35 @@ def ticket_add(params):
 
 
 @f_api('/ticket/<ticket_id>')
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
+@f_app.user.login.check(force=True)
 def ticket_get(user, ticket_id):
     """
     View single ticket.
     """
     user_roles = f_app.user.get_role(user["id"])
-    ticket = f_app.ticket.output([ticket_id])[0]
-    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
+    ticket = f_app.ticket.get(ticket_id)
+    if len(user_roles) == 0:
+        if ticket.get("creator_user_id") != user["id"]:
+            abort(40399, logger.warning("Permission denied.", exc_info=False))
+    elif "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
     return ticket
+
+
+@f_api('/ticket/<ticket_id>/remove')
+@f_app.user.login.check(force=True)
+def ticket_remove(user, ticket_id):
+    """
+    Remove single ticket.
+    """
+    user_roles = f_app.user.get_role(user["id"])
+    ticket = f_app.ticket.get(ticket_id)
+    if len(set(user_roles) & set(['admin', 'jr_admin', 'sales'])) > 0 or user["id"] == ticket.get("creator_user_id"):
+        f_app.ticket.update_set_status(ticket_id, "deleted")
+    else:
+        abort(40399)
 
 
 @f_api('/ticket/<ticket_id>/history')
@@ -86,7 +112,7 @@ def ticket_get_history(user, ticket_id):
     View ticket history.
     """
     user_roles = f_app.user.get_role(user["id"])
-    ticket = f_app.ticket.output([ticket_id])[0]
+    ticket = f_app.ticket.get(ticket_id)
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
@@ -100,7 +126,9 @@ def ticket_assign(user, ticket_id, user_id):
     """
     Assign ticket to jr_sales. Only admin, jr_admin, sales can do this.
     """
-    return f_app.ticket.assign(ticket_id, ObjectId(user_id))
+    f_app.ticket.get(ticket_id)
+    f_app.user.get(user_id)
+    return f_app.ticket.update_set(ticket_id, {"assignee": [ObjectId(user_id)]})
 
 
 @f_api('/ticket/<ticket_id>/edit', params=dict(
@@ -119,7 +147,7 @@ def ticket_edit(user, ticket_id, params):
     ``status`` must be one of these values: "new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"
     """
     user_roles = f_app.user.get_role(user["id"])
-    ticket = f_app.ticket.output([ticket_id])[0]
+    ticket = f_app.ticket.get(ticket_id)
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
