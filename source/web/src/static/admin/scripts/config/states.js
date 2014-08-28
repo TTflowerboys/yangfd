@@ -2,27 +2,6 @@
 
 angular.module('app')
     .config(function ($stateProvider) {
-        var projectResolve = {
-            api: function (apiFactory) {
-                return apiFactory('project')
-            }
-        }
-        var newsResolve = {
-            api: function (apiFactory) {
-                return apiFactory('news')
-            }
-        }
-        var teamResolve = {
-            api: function (apiFactory) {
-                return apiFactory('member')
-            }
-        }
-
-        var partnersResolve = {
-            api: function (apiFactory) {
-                return apiFactory('partner')
-            }
-        }
 
         $stateProvider
             .state('dashboard', {
