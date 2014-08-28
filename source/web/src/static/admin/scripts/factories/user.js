@@ -49,6 +49,14 @@
 
                 return $http.post('/api/1/user/' + id + '/sms_reset_password', data)
 
+            }, adminUserAdd: function (country, phone, role, nickname, email) {
+                var data = {}
+                data.country = country
+                data.phone = phone
+                data.role = role
+                data.nickname = nickname
+                data.email = email
+                return $http.post('/api/1/user/admin/add', data)
             }
         }
 
