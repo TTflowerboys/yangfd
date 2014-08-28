@@ -9,16 +9,21 @@ logger = logging.getLogger(__name__)
 
 
 @f_api('/ticket/add', params=dict(
-    phone=(str, True),
     nickname=(str, True),
+    phone=(str, True),
+    email=(str, True),
     budget=(float, True),
     country=(str, True),
+    description=(str, True),
+    state=str,
+    city=str,
+    block=str,
+    property_type=str,
+    intention=str,
     noregister=bool,
-    description=str,
     custom_fields=(list, None, dict(
         key=str,
         value=str,
-        index=int,
     ))
 ))
 def ticket_add(params):
@@ -27,6 +32,10 @@ def ticket_add(params):
     """
     noregister = params.pop("noregister", False)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
+    if "intention" in params:
+        if not set(params["intention"]) <= set(f_app.common.user_intention):
+            abort(40095, logger.warning("Invalid params: intention", params["intention"], exc_info=False))
+
     user = f_app.user.login_get()
     user_id_by_phone = f_app.user.get_id_by_phone(params["phone"], force_registered=True)
     shadow_user_id = f_app.user.get_id_by_phone(params["phone"])
@@ -40,7 +49,9 @@ def ticket_add(params):
                 # Add shadow account for noregister user
                 user_params = {
                     "nickname": params["nickname"],
-                    "phone": params["phone"]
+                    "phone": params["phone"],
+                    "email": params["email"],
+                    "intention": params.get("intention", [])
                 }
                 if "country" in params:
                     user_params["country"] = params["country"]
@@ -132,8 +143,13 @@ def ticket_assign(user, ticket_id, user_id):
 
 
 @f_api('/ticket/<ticket_id>/edit', params=dict(
-    budget=(float, None),
+    country=(str, None),
     description=(str, None),
+    state=(str, None),
+    city=(str, None),
+    block=(str, None),
+    property_type=(str, None),
+    intention=(str, None),
     custom_fields=(list, None, dict(
         key=str,
         value=str,
@@ -146,6 +162,10 @@ def ticket_edit(user, ticket_id, params):
     """
     ``status`` must be one of these values: "new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"
     """
+    if "intention" in params:
+        if not set(params["intention"]) <= set(f_app.common.user_intention):
+            abort(40095, logger.warning("Invalid params: intention", params["intention"], exc_info=False))
+
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:

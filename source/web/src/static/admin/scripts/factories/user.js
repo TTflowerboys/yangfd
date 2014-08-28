@@ -37,7 +37,7 @@
             smsVerificationSend: function (country, phone) {
                 var data = {}
                 data.country = country
-                data.email = phone
+                data.phone = phone
 
                 return $http.post('/api/1/user/sms_verification/send', data)
 
