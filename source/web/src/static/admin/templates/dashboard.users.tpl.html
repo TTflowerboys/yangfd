@@ -30,7 +30,6 @@
                         <th>权限</th>
                         <th>增加权限</th>
                         <th>取消权限</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,21 +44,19 @@
                             {%item.phone%}
                         </td>
                         <td>
-                            {%item.role.toString()%}
-                        </td>
-                        <td>
-                            {%item.role.toString()%}
-                        </td>
-                        <td>
-                            {%item.role.toString()%}
-                        </td>
-                        <td style="text-align:center;">
-                            <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
-                                <i class="fa fa-edit "></i>
-                            </a>
-                            <span class="btn btn-danger" ng-click="onRemove(item,$index)" title="Remove">
-                                <i class="fa fa-trash-o"></i>
+                            <span ng-repeat="role in item.role">
+                                {%role | permissionName %}
                             </span>
+                        </td>
+                        <td>
+                            <select ng-options="p.value as p.name for p in item.role | permissionCanAdd" ng-model="newRole">
+                                <option value="">-- 选择权限 --</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select ng-options="p.value as p.name for p in permissions" ng-model="newRole">
+                                <option value="">-- 选择权限 --</option>
+                            </select>
                         </td>
                     </tr>
                 </tbody>

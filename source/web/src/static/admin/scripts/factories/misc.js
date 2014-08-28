@@ -3,6 +3,16 @@
 angular.module('app')
     .factory('misc', function () {
         return{
+            findBy: function (array, by, value) {
+                var found
+                angular.forEach(array, function (item, key) {
+                    if (item[by] === value) {
+                        found = item
+                        return false
+                    }
+                })
+                return found
+            },
             findById: function (array, id) {
                 var found
                 angular.forEach(array, function (value, key) {
@@ -16,8 +26,11 @@ angular.module('app')
             getChangedAttributes: function (newJson, oldJson) {
                 var result = null
                 for (var key in newJson) {
-                    if (newJson.hasOwnProperty(key) && newJson[key].toString() !== oldJson[key].toString()) {
-                        result = result || {}
+                    if (oldJson[key] === undefined) {
+                        if (!result) { result = {} }
+                        result[key] = newJson[key]
+                    } else if (newJson.hasOwnProperty(key) && newJson[key].toString() !== oldJson[key].toString()) {
+                        if (!result) { result = {} }
                         result[key] = newJson[key]
                     }
                 }
