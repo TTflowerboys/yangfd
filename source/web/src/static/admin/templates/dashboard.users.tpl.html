@@ -6,13 +6,13 @@
 
                 <span class="btn-group">
                     <button class="btn" ui-sref=".create">
-                        <span class="fa fa-plus-circle"></span> New Project
+                        <span class="fa fa-plus-circle"></span> 添加管理员
                     </button>
                 </span>
 
                 <span class="btn-group pull-right">
-                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← Prev Page</button>
-                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">Next Page →</button>
+                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
+                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
                 </span>
 
             </div>
@@ -24,23 +24,36 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th style="text-align:center;">Status</th>
+                        <th>姓名</th>
+                        <th>邮箱</th>
+                        <th>手机</th>
+                        <th>权限</th>
+                        <th>增加权限</th>
+                        <th>取消权限</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="item in list">
                         <td>
-                            {%item.name%}
+                            {%item.nickname%}
                         </td>
-                        <td style="text-align:center;text-transform:capitalize;">
-                            {%item.status%}
+                        <td>
+                            {%item.email%}
+                        </td>
+                        <td>
+                            {%item.phone%}
+                        </td>
+                        <td>
+                            {%item.role.toString()%}
+                        </td>
+                        <td>
+                            {%item.role.toString()%}
+                        </td>
+                        <td>
+                            {%item.role.toString()%}
                         </td>
                         <td style="text-align:center;">
-                            <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
-                                <i class="fa fa-search-plus "></i>
-                            </a>
                             <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
                                 <i class="fa fa-edit "></i>
                             </a>
