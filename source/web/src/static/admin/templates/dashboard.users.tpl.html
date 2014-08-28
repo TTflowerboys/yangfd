@@ -18,9 +18,12 @@
             </div>
             <table class="table table-bordered table-striped table-condensed">
                 <colgroup>
-                    <col class="name">
-                    <col class="status">
-                    <col class="actions">
+                    <col class="nickname">
+                    <col class="email">
+                    <col class="phone">
+                    <col class="roles">
+                    <col class="addRole">
+                    <col class="removeRole">
                 </colgroup>
                 <thead>
                     <tr>
@@ -44,19 +47,23 @@
                             {%item.phone%}
                         </td>
                         <td>
-                            <span ng-repeat="role in item.role">
+                            <div ng-repeat="role in item.role">
                                 {%role | permissionName %}
-                            </span>
+                            </div>
                         </td>
-                        <td>
-                            <select ng-options="p.value as p.name for p in item.role | permissionCanAdd" ng-model="newRole">
+                        <td class="form-inline">
+                            <select ng-options="p.value as p.name for p in item.role | permissionCanAdd" ng-model="roleToAdd"
+                                class="form-control input-sm" style="width: 130px;">
                                 <option value="">-- 选择权限 --</option>
                             </select>
+                            <button ng-show="roleToAdd" class="btn btn-sm btn-primary" ng-click="onAddRole(item,roleToAdd)">提交</button>
                         </td>
-                        <td>
-                            <select ng-options="p.value as p.name for p in permissions" ng-model="newRole">
+                        <td class="form-inline">
+                            <select ng-options="p | permissionName for p in item.role" ng-model="roleToRemove"
+                                class="form-control input-sm" style="width: 130px;">
                                 <option value="">-- 选择权限 --</option>
                             </select>
+                            <button ng-show="roleToRemove" class="btn btn-sm btn-danger" ng-click="onRemoveRole(item,roleToRemove)">提交</button>
                         </td>
                     </tr>
                 </tbody>
