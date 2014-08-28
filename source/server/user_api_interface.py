@@ -149,7 +149,7 @@ def admin_user_list(user, params):
     *jr_admin* can search for every role except *admin*.
     All senior roles can search for themselves and their junior roles.
     """
-    user_roles = f_app.user.get_role(user["d"])
+    user_roles = f_app.user.get_role(user["id"])
     if "role" in params:
         if not f_app.user.check_set_role_permission(params["role"]):
             abort(40300, logger.warning("Permission denied", exc_info=False))
