@@ -2,15 +2,37 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="/static/styles/team/reset.css"/>
+        <link rel="stylesheet" href="/static/styles/project/layout.css"/>
+        <link rel="stylesheet" href="/static/styles/project/navbar.css"/>
         <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome.min.css">
         <!-- @@placeholder = head -->
     </head>
     <body>
-            <main>
-                <!-- @@placeholder = main -->
-            </main>
 
+    <div class="page">
+        <div class="header_wrapper">
+            <header>
+                <img class="logo" src="http://designyoutrust.com/wp-content/uploads/2013/09/g695.gif" alt=""/>
+                <div class="country">England</div>
+                <ul class="navbar">
+                    <li class="selected"><a href="">我的海投</a></li>
+                    <li><a href="">海外房产</a></li>
+                    <li><a href="">项目开发</a></li>
+                    <li><a href="">业务模式</a></li>
+                </ul>
+                <button class="login ghostButton red">登录</button>
+                <button class="register textButton">免费注册</button>
+            </header>
+        </div>
+        <main>
+            <!-- @@placeholder = main -->
+        </main>
+
+        <div class="footer_wrapper">
+            <footer>
+            </footer>
+        </div>
+    </div>
         <!-- jQuery-->
         <!--[if !IE]>-->
         <script src="/static/themes/genius_dashboard/js/jquery-2.1.0.min.js"></script>
@@ -25,7 +47,7 @@
 
         <script>
             $(function () {
-                $('main').css({minHeight: $(window).height() - $('.page > header').height() - $('.page > footer').height()})
+                $('main').css({minHeight: $(window).height() - $('.page  .header_wrapper').height() - $('.page .footer_wrapper').height()})
             })
         </script>
         <!--@@placeholder=scripts-->

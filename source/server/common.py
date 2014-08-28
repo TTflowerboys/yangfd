@@ -53,4 +53,30 @@ class common(f_common):
     aws_access_key_id = "AKIAIYCSNRQ46N6GPZQA"
     aws_secret_access_key = "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"
 
+    sms_default_method ="clickatell"
+    clickatell_api_id=3425954
+    clickatell_user="marco388"
+    clickatell_password="EaSeURGSXGXNbM"
+
+    custom_error_codes = {
+        40099: "Invalid params: No '@' in email address supplied:",
+        40098: "Invalid params: current password not provided",
+        40097: "Invalid params: old_password not needed",
+        40096: "Invalid params: gender",
+        40095: "Invalid params: intention",
+        40094: "Invalid admin: email not provided.",
+        40093: "Invalid params: status",
+
+        40399: "Permission denied",
+    }
+
 common()
+
+f_app.common.register_error_code(40499)
+f_app.common.register_error_code(40498)
+f_app.common.register_error_code(40497)
+f_app.common.register_error_code(40496)
+f_app.common.register_error_code(40495)
+f_app.common.register_error_code(40494)
+f_app.common.register_error_code(40493)
+f_app.common.register_error_code(40399)
