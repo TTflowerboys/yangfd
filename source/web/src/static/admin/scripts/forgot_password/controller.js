@@ -7,7 +7,7 @@
         $scope.countries = countries
         $scope.user = {}
         $scope.user.country = defaultCountry
-        sendText = '发送'
+        var sendText = '发送'
         $scope.send = sendText
         $scope.sendable = false
         $scope.submit = function ($event, form) {
@@ -26,10 +26,10 @@
         $scope.sendVerification = function () {
             userApi.smsVerificationSend($scope.user.country, $scope.user.phone)
                 .success(function (data, status, headers, config) {
-                    $scope.user.id = $data.val
+                    $scope.user.id = data.val
                 })
             $scope.onTimeout = function () {
-                $scope.send--;
+                $scope.send -= 1;
                 if ($scope.send <= 0) {
                     $scope.send = sendText
                     $scope.sendable = false;
@@ -37,7 +37,7 @@
                 }
                 $timeout($scope.onTimeout, 1000);
             }
-            if ($scope.send == sendText) {
+            if ($scope.send === sendText) {
                 $scope.send = 60;
                 $scope.sendable = true;
                 $timeout($scope.onTimeout, 1000);
