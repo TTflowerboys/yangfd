@@ -10,5 +10,4 @@ angular.module('app',
         $rootScope.renderHtml = function (html) {
             return $sce.trustAsHtml(html);
         }
-        $rootScope.defaultCountry = 'CN';
     })
