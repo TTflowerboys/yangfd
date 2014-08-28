@@ -126,7 +126,9 @@ def ticket_assign(user, ticket_id, user_id):
     """
     Assign ticket to jr_sales. Only admin, jr_admin, sales can do this.
     """
-    return f_app.ticket.assign(ticket_id, ObjectId(user_id))
+    f_app.ticket.get(ticket_id)
+    f_app.user.get(user_id)
+    return f_app.ticket.update_set(ticket_id, {"assignee": [ObjectId(user_id)]})
 
 
 @f_api('/ticket/<ticket_id>/edit', params=dict(
