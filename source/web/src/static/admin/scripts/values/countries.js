@@ -4,4 +4,9 @@ angular.module('app')
         {name: '英国', value: 'UK'},
         {name: '香港', value: 'HK'},
         {name: '美国', value: 'US'}
-    ]).constant('defaultCountry', 'CN')
+    ])
+    .constant('defaultCountry', 'CN')
+    .run(function ($rootScope, countries, defaultCountry) {
+        $rootScope.countries = countries
+        $rootScope.defaultCountry = defaultCountry
+    })
