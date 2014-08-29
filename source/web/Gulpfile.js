@@ -36,7 +36,7 @@ gulp.task('debug', ['debug:lint', 'symlink', 'less2css', 'html-extend', 'watch']
     console.info(chalk.black.bgWhite.bold('You can debug now!'))
 })
 
-gulp.task('build', ['lint', 'clean', 'build:copy', 'build:less2css', 'build:html-extend', 'build:ngAnnotate'],
+gulp.task('build', ['lint', 'clean', 'build:html-extend'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -99,6 +99,13 @@ gulp.task('build:less2css', ['build:copy'], function (done) {
     done()
 })
 
+gulp.task('styleless2css', function () {
+    gulp.src(myPaths.src + 'static/themes/genius_dashboard/css/style.less')
+        .pipe(less())
+        .pipe(minifyCss())
+        .pipe(gulp.dest(myPaths.dist + 'static/themes/genius_dashboard/css/'))
+})
+
 
 gulp.task('html-include', function () {
     return gulp.src(myPaths.html)
@@ -111,7 +118,7 @@ gulp.task('html-extend', function () {
         .pipe(extender())
         .pipe(gulp.dest(myPaths.dist))
 })
-gulp.task('build:html-extend', ['build:copy', 'build:less2css', 'build:ngAnnotate'], function () {
+gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
     return gulp.src(myPaths.html)
         .pipe(extender())
         .pipe(usemin({

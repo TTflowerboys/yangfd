@@ -8,11 +8,13 @@
         .clearfix(); background: @header-bg; position: relative; height: @header-height;  z-index: 1;
         > header { margin: 0 auto; height: 100%; width: @max-width;
             .logo { float: left; margin-top: 12px; margin-left: 32px; width: 260px; height: 50px; }
-            .navbar {.horizontalList(@padding: 8px); float: left; margin-top: 16px; margin-left: 170px;
+            .country {display: none;}
+            .navbar {.horizontalList(@padding: 8px); float: left; margin-top: 32px; margin-left: 170px;
                 > li {
                     > a {
                         color: @mute-color;
                         text-decoration: none;
+                        font-size: 16px;
                     }
                     &.selected {
                         > a {
@@ -23,8 +25,8 @@
                 }
             }
 
-            .login {float: left; margin-top: 8px;  margin-left: 112px;}
-            .register {float: left; margin-top: 10px; margin-left: 16px;}
+            .login {float: left; margin-top: 24px;  margin-left: 112px;}
+            .register {float: left; margin-top: 26px; margin-left: 16px;}
         }
     }
 

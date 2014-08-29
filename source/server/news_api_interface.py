@@ -14,7 +14,7 @@ _blog_id = "53f839246b80992f831b2269"
 
 
 @f_api('/blog/add')
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def blog_add(user):
     blogs = f_app.blog.get_all()
     if len(blogs) > 0:
@@ -42,7 +42,7 @@ def news_list(params):
     content=('i18n', ['zh_Hans_CN', 'zh_Hant_HK'], str),
     category=(str, "news"),
 ))
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_add(user, params):
     """
     ``blog_id`` is a constant "53f839246b80992f831b2269".
@@ -64,7 +64,7 @@ def news_get(news_id):
     content=('i18n', None, str),
     category=(str, None),
 ))
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_edit(user, news_id, params):
     if "category" in params:
         if params.get("category") not in ("announcement", "news"):
@@ -73,6 +73,6 @@ def news_edit(user, news_id, params):
 
 
 @f_api('/news/<news_id>/remove')
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_remove(user, news_id):
     return f_app.blog.post.remove(news_id)
