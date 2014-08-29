@@ -9,7 +9,7 @@
         $scope.user.country = defaultCountry
         var sendText = '发送'
         $scope.send = sendText
-        $scope.sendable = false
+        $scope.sendable = false // TODO: disabled
         $scope.submit = function ($event, form) {
             $event.preventDefault()
             if (form.$invalid) {

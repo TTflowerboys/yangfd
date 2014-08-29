@@ -5,24 +5,28 @@
     function userApi($http, $state, $q) {
         var user
         return {
-            signIn: function (country, phone, password) {
-                var data = {}
-                data.country = country
-                data.phone = phone
-                data.password = Base64.encode(password)
+            signIn: function (user) {
+//                var data = {}
+//                data.country = country
+//                data.phone = phone
+//                data.password = Base64.encode(password)
 
-                return $http.post('/api/1/user/login', data)
+
+
+                user.password = Base64.encode(user.password)
+
+                return $http.post('/api/1/user/login', user)
                     .success(function (data, status, headers, config) {
                         user = data.val
                     })
             },
             checkLogin: function () {
-                var deferred = $q.defer()
+                var deferred = $q.defer() //Promise
 
                 if (user) {
                     deferred.resolve(user)
                 } else {
-                    $http.get('/api/1/user', {errorMessage: true})
+                    $http.get('/api/1/user', {errorMessage: {40000:'fail'}})
                         .success(function (data, status, headers, config) {
                             user = data.val
                             deferred.resolve(user)

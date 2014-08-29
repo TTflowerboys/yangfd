@@ -14,12 +14,12 @@
                 return
             }
 
-            userApi.signIn($scope.user.country, $scope.user.phone, $scope.user.password)
+            userApi.signIn($scope.user)
                 .success(function (data, status, headers, config) {
                     $state.go($stateParams.from || 'dashboard')
                 })
                 .error(function (data, status, headers, config) {
-                    $state.go($stateParams.from || 'dashboard')
+                    throw 'not done'
                 })
 
         }
