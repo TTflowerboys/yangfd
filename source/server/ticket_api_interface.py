@@ -8,7 +8,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-@f_api('/ticket/add', params=dict(
+@f_api('/intention_ticket/add', params=dict(
     nickname=(str, True),
     phone=(str, True),
     email=(str, True),
@@ -26,10 +26,11 @@ logger = logging.getLogger(__name__)
         value=str,
     ))
 ))
-def ticket_add(params):
+def intention_ticket_add(params):
     """
     ``noregister`` is default to **False**, which means if ``noregister`` is not given, the visitor will *be registered*.
     """
+    params.setdefault("type", "intention")
     noregister = params.pop("noregister", False)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     if "intention" in params:
@@ -84,9 +85,9 @@ def ticket_add(params):
     return f_app.ticket.add(params)
 
 
-@f_api('/ticket/<ticket_id>')
+@f_api('/intention_ticket/<ticket_id>')
 @f_app.user.login.check(force=True)
-def ticket_get(user, ticket_id):
+def intention_ticket_get(user, ticket_id):
     """
     View single ticket.
     """
@@ -102,11 +103,11 @@ def ticket_get(user, ticket_id):
     return ticket
 
 
-@f_api('/ticket/<ticket_id>/remove')
+@f_api('/intention_ticket/<ticket_id>/remove')
 @f_app.user.login.check(force=True)
-def ticket_remove(user, ticket_id):
+def intention_ticket_remove(user, ticket_id):
     """
-    Remove single ticket.
+    Remove single intention ticket.
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
@@ -116,11 +117,11 @@ def ticket_remove(user, ticket_id):
         abort(40399)
 
 
-@f_api('/ticket/<ticket_id>/history')
+@f_api('/intention_ticket/<ticket_id>/history')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
-def ticket_get_history(user, ticket_id):
+def intention_ticket_get_history(user, ticket_id):
     """
-    View ticket history.
+    View intention ticket history.
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
@@ -131,18 +132,18 @@ def ticket_get_history(user, ticket_id):
     return f_app.ticket.history_get(f_app.ticket.history_get_by_ticket(ticket_id))
 
 
-@f_api('/ticket/<ticket_id>/assign/<user_id>')
+@f_api('/intention_ticket/<ticket_id>/assign/<user_id>')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales'])
-def ticket_assign(user, ticket_id, user_id):
+def intention_ticket_assign(user, ticket_id, user_id):
     """
-    Assign ticket to ``jr_sales``. Only ``admin``, ``jr_admin``, ``sales`` can do this.
+    Assign intention ticket to ``jr_sales``. Only ``admin``, ``jr_admin``, ``sales`` can do this.
     """
     f_app.ticket.get(ticket_id)
     f_app.user.get(user_id)
     return f_app.ticket.update_set(ticket_id, {"assignee": [ObjectId(user_id)]})
 
 
-@f_api('/ticket/<ticket_id>/edit', params=dict(
+@f_api('/intention_ticket/<ticket_id>/edit', params=dict(
     country=(str, None),
     description=(str, None),
     state=(str, None),
@@ -158,7 +159,7 @@ def ticket_assign(user, ticket_id, user_id):
     status=(str, None),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
-def ticket_edit(user, ticket_id, params):
+def intention_ticket_edit(user, ticket_id, params):
     """
     ``status`` must be one of these values: "new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"
     """
@@ -179,7 +180,7 @@ def ticket_edit(user, ticket_id, params):
     return f_app.ticket.update_set(ticket_id, params)
 
 
-@f_api('/ticket/search', params=dict(
+@f_api('/intention_ticket/search', params=dict(
     assignee=ObjectId,
     status=(list, None, str),
     per_page=int,
@@ -187,10 +188,11 @@ def ticket_edit(user, ticket_id, params):
     sort=(list, None, str),
 ))
 @f_app.user.login.check(force=True)
-def ticket_search(user, params):
+def intention_ticket_search(user, params):
     """
     ``status`` must be one of these values: ``new``, ``assigned``, ``in_progress``, ``deposit``, ``suspended``, ``bought``, ``canceled``
     """
+    params.setdefault("type", "intention")
     user_roles = f_app.user.get_role(user["id"])
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
         params["assignee"] = ObjectId(user["id"])
