@@ -6,7 +6,6 @@
         .clearfix();  overflow: hidden;  background: @footer-bg; height: @footer-height;
         > footer {
             margin: 0 auto; height: 100%; width: @max-width;
-
             .contact { float: left;
                 .logo {
                     margin: 40px 0 0 32px; width: 264px; height: 48px;
@@ -16,13 +15,19 @@
                     color: #dcdcdc;
                     &.address {
                         margin-left: @content-margin-left;
+                        margin-top: 24px;
+                        margin-bottom: 0px;
                         max-width: 180px;
+                        font-size: 14px;
                     }
                     &.postalCode {
                         margin-left: @content-margin-left;
+                        margin-top: 0px;
+                        font-size: 14px;
                     }
                     &.phoneAndEmail {
                         margin-left: @content-margin-left;
+                        font-size: 14px;
                     }
                 }
             }
@@ -30,41 +35,50 @@
             @support-margin-top: 72px;
             .social {
                 float: left;
+                width: 330px;
+                height: 120px;
                 margin-left: 74px;
                 margin-top: @support-margin-top;
-                > h3 { color: #aaaaaa}
+                > h3 { position: absolute; margin-top: 0px; color: #aaaaaa; font-size: 16px;}
                 > img {
+                    @social-icon-size: 50px;
+                    @social-icon-margin: 16px;
+                    @social-icon-margin-top: 72px;
+                    @social-icon-big-margin-top: 0px;
                     .social-icon-size-small() {
-                        width: 50px;
-                        height: 50px;
+                        width: @social-icon-size;
                     }
                     .social-icon-size-big() {
                         width: 122px;
-                        height: 122px;
                     }
 
                     &.weibo {
-                        .round-corner();
-                        margin-top: 56px;
-                        margin-right:16px;
+                        position: absolute;
+                        margin-top: @social-icon-margin-top;
+                        margin-right:@social-icon-margin;
                         .social-icon-size-small();
                     }
                     &.twitter {
-                        .round-corner();
-                        margin-top: 56px;
-                        margin-right:16px;
+                        position: absolute;
+                        margin-top: @social-icon-margin-top;
+                        margin-left: @social-icon-size + @social-icon-margin;
+                        margin-right:@social-icon-margin;
                         .social-icon-size-small();
 
                     }
                     &.facebook {
-                        .round-corner();
-                        margin-top: 56px;
-                        margin-right:16px;
+                        position: absolute;
+                        margin-top: @social-icon-margin-top;
+                        margin-left: @social-icon-size * 2 + @social-icon-margin * 2;
+                        margin-right:@social-icon-margin;
                         .social-icon-size-small();
                     }
                     &.weixin {
-                        .round-corner();
+                        position: absolute;
                         .social-icon-size-big();
+                        margin-top: @social-icon-big-margin-top;
+                        margin-left: @social-icon-size * 3 + @social-icon-margin * 3;
+                        margin-right:@social-icon-margin;
                     }
                 }
             }
@@ -74,29 +88,28 @@
                 margin-top: @support-margin-top;
                 margin-left: 40px;
                 max-width: 80px;
-                > h3 { color: #aaaaaa; margin-bottom: 30px;}
-                > a {color: #EEEEEE; text-decoration: none; margin-bottom: 12px; display: inline-block;}
+                > h3 { color: #aaaaaa; margin-top: 0px;  margin-bottom: 30px; font-size: 16px;}
+                > a {color: #EEEEEE; text-decoration: none; font-size: 14px; margin-bottom: 12px; display: inline-block;}
             }
             .feature {
                 float: left;
                 margin-top: @support-margin-top;
                 margin-left: 30px;
                 max-width: 75px;
-                > h3 { color: #aaaaaa; margin-bottom: 30px;}
-                > a {color: #EEEEEE; text-decoration: none; margin-bottom: 12px; display: inline-block;}
+                > h3 { color: #aaaaaa; margin-top: 0px;  margin-bottom: 30px; font-size: 16px;}
+                > a {color: #EEEEEE; text-decoration: none; font-size: 14px; margin-bottom: 12px; display: inline-block;}
             }
             .language {
                 float: left;
                 margin-top: @support-margin-top;
                 margin-left: 30px;
                 max-width: 96px;
-                > h3 { color: #aaaaaa; margin-bottom: 30px;}
-                > a {color: #EEEEEE; text-decoration: none; margin-bottom: 12px; display: inline-block;}
+                > h3 { color: #aaaaaa; margin-top: 0px; margin-bottom: 16px; font-size: 16px;}
             }
         }
     }
 }
 
-.copyright{ .clearfix(); overflow: hidden; background: @copyright-bg; height:48px; width: 100%;
-    > p{margin: 16px auto; height: 100%; width: @max-width; text-align: center; color: #ffffff;}
+.copyright{ .clearfix(); overflow: hidden; background: @copyright-bg; height:40px; width: 100%;
+    > p{margin: 12px auto; height: 100%; width: @max-width; font-size: 14px; text-align: center; color: #ffffff;}
 }
