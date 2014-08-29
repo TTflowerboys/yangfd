@@ -100,6 +100,35 @@ class f_currant_ticket(f_ticket):
 
         return ticket_list
 
+    def history_single_output(self, ticket_id):
+        user_id_set = set([])
+        ticket_history_list = f_app.ticket.history_get(f_app.ticket.history_get_by_ticket(ticket_id))
+
+        for history in ticket_history_list:
+            if history.get("operator_user_id") is not None:
+                user_id_set.add(history["operator_user_id"])
+                if "_set" in history:
+                    if "assignee" in history["_set"]:
+                        user_id_set |= set(history["_set"].get("assignee", []))
+                if "_push" in history:
+                    if "assignee" in history["_push"]:
+                        user_id_set.add(history["_push"].get("assignee"))
+
+        user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields)
+        user_dict = {i["id"]: i for i in user_list}
+
+        for history in ticket_history_list:
+            if history.get("operator_user_id") is not None:
+                history["operator_user"] = user_dict.get(history.pop("operator_user_id"))
+                if "_set" in history:
+                    if "assignee" in history["_set"]:
+                        history["_set"]["assignee"] = [user_dict.get(user) for user in history.pop("assignee", [])]
+                if "_push" in history:
+                    if "assignee" in history["_push"]:
+                        history["_push"]["assignee"] = user_dict.get(history["_push"].pop("assignee"))
+
+        return ticket_history_list
+
 f_currant_ticket()
 
 
