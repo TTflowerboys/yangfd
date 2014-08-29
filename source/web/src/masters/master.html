@@ -11,9 +11,9 @@
     <body>
 
     <div class="page">
-        <div class="siteHeader_wrapper">
+        <div id="header" class="siteHeader_wrapper">
             <header class="siteHeader">
-                <img class="logo" src="http://designyoutrust.com/wp-content/uploads/2013/09/g695.gif" alt=""/>
+                <img class="logo" src="/static/images/logo.png" alt=""/>
                 <div class="country">England</div>
                 <ul class="navbar">
                     <li class="selected"><a href="">我的海投</a></li>
@@ -25,15 +25,16 @@
                 <button class="register textButton">免费注册</button>
             </header>
         </div>
-        <main>
+        <main id="main">
             <!-- @@placeholder = main -->
         </main>
 
-        <div class="siteFooter_wrapper">
+        <div id="footer" class="siteFooter_wrapper">
             <footer class="siteFooter">
                 <div class="contact">
-                    <img class="logo" src="http://designyoutrust.com/wp-content/uploads/2013/09/g695.gif" alt=""/>
-                    <p class="address">INTERNATIONAL BUSINESS CENTRE GUANG GU DA DAO WUHAN, HUBEI CHINA</p>
+                    <img class="logo" src="/static/images/logo-grey.png" alt=""/>
+                    <p class="address">Optics Valley Road, Wuhan,
+                        Hubei, China, </p>
                     <p class="postalCode">430000</p>
                     <p class="phoneAndEmail">
                         400-777-8888 | contact@bbtechgroup.com
@@ -41,10 +42,10 @@
                 </div>
                 <div class="social">
                     <h3>SOCIAL</h3>
-                    <img class="weibo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSETzsL80VihjpoSptM4j-rAY28mrBkWrvSSr-jJo5Id_pPpjcV" alt=""/>
-                    <img class="twitter" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSETzsL80VihjpoSptM4j-rAY28mrBkWrvSSr-jJo5Id_pPpjcV" alt=""/>
-                    <img class="facebook" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSETzsL80VihjpoSptM4j-rAY28mrBkWrvSSr-jJo5Id_pPpjcV" alt=""/>
-                    <img class="weixin" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRKwkP34VwJHcXUBqp7_EdUOAqPTEa2ChVKpWjIGyWvqPSIwFBx" alt=""/>
+                    <img class="weibo" src="/static/images/media/weibo.png" alt=""/>
+                    <img class="twitter" src="/static/images/media/twitter.png" alt=""/>
+                    <img class="facebook" src="/static/images/media/facebook.png" alt=""/>
+                    <img class="weixin" src="/static/images/media/wechat.png" alt=""/>
                 </div>
                 <div class="support">
                     <h3>SUPPORT</h3>
@@ -64,7 +65,7 @@
                 </div>
             </footer>
         </div>
-        <div class="copyright">
+        <div id="copyright" class="copyright">
             <p>&copy;<script>document.write(new Date().getFullYear())</script>Brothers Bridge Group</p>
         </div>
     </div>
@@ -82,7 +83,7 @@
 
         <script>
             $(function () {
-                $('main').css({minHeight: $(window).height() - $('.page  .siteHeader_wrapper').height() - $('.page .siteFooter_wrapper').height()})
+                $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
             })
         </script>
         <!--@@placeholder=scripts-->
