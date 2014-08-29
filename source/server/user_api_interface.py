@@ -49,6 +49,7 @@ def user_login(params):
 def register(params):
     """
     Basic user register
+
     ``password`` must be base64 encoded.
     """
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
@@ -99,7 +100,9 @@ def user_get(user, user_id):
 def current_user_edit(user, params):
     """
     Edit current user basic information.
+
     ``gender`` should be in ``male``, ``female``, ``other``.
+
     ``intention`` should be combination of ``cash_flow_protection``, ``forex``, ``study_abroad``, ``immigration_investment``, ``excess_returns``, ``fixed_income``, ``asset_preservation``, ``immigration_only``, ``holiday_travel``
     """
     if "email" in params:
@@ -122,8 +125,8 @@ def current_user_edit(user, params):
 
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params, retain_country=True)
-        user_id=f_app.user.get_id_by_phone(params["phone"])
-        if user_id and user_id!=user["id"]:
+        user_id = f_app.user.get_id_by_phone(params["phone"])
+        if user_id and user_id != user["id"]:
             abort(40351)
 
     if "gender" in params:
@@ -148,8 +151,11 @@ def current_user_edit(user, params):
 def admin_user_list(user, params):
     """
     Use this to search for users with roles.
+
     ``admin`` can search for everyone.
+
     ``jr_admin`` can search for every role except ``admin``.
+
     All senior roles can search for themselves and their junior roles.
     """
     user_roles = f_app.user.get_role(user["id"])
@@ -186,6 +192,7 @@ def admin_user_list(user, params):
 def admin_user_add(user, params):
     """
     Add a new admin.
+
     Password is generated randomly.
     """
     if not f_app.user.check_set_role_permission(user["id"], params["role"]):
@@ -196,7 +203,7 @@ def admin_user_add(user, params):
 
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
-    if f_app.user.get_id_by_email(params["email"]) :
+    if f_app.user.get_id_by_email(params["email"]):
         abort(40325)
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
@@ -224,10 +231,15 @@ def admin_user_add(user, params):
 def admin_user_set_role(user, user_id, params):
     """
     Use this API to add an existing user as admin.
+
     ``admin`` can set any role.
+
     ``jr_admin``, ``agency`` and ``developer`` can only be set by ``admin``.
+
     ``sales`` can set ``sales`` and ``jr_sales``.
+
     ``operation`` can set ``operation`` and ``jr_operation``.
+
     ``support`` can set ``support`` and ``jr_support``.
     """
     if not f_app.user.check_set_role_permission(user["id"], params["role"]):

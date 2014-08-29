@@ -28,6 +28,6 @@ API Reference
    :maxdepth: 2
 
    news_api
-   ticket_api
+   intention_api
    user_api
    house_api
