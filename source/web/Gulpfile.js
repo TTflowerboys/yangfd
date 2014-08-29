@@ -99,6 +99,13 @@ gulp.task('build:less2css', ['build:copy'], function (done) {
     done()
 })
 
+gulp.task('styleless2css', function () {
+    gulp.src(myPaths.src + 'static/themes/genius_dashboard/css/style.less')
+        .pipe(less())
+        .pipe(minifyCss())
+        .pipe(gulp.dest(myPaths.dist + 'static/themes/genius_dashboard/css/'))
+})
+
 
 gulp.task('html-include', function () {
     return gulp.src(myPaths.html)

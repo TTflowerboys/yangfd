@@ -3,29 +3,25 @@
 (function () {
 
     function userApi($http, $state, $q) {
-        var user
+        var _user
         return {
-            signIn: function (country, phone, password) {
-                var data = {}
-                data.country = country
-                data.phone = phone
-                data.password = Base64.encode(password)
-
-                return $http.post('/api/1/user/login', data)
+            signIn: function (user) {
+                var params = _.pick(user, 'country', 'phone', 'password')
+                params.password = Base64.encode(params.password)
+                return $http.post('/api/1/user/login', params, {errorMessage: true})
                     .success(function (data, status, headers, config) {
-                        user = data.val
+                        _user = data.val
                     })
             },
             checkLogin: function () {
                 var deferred = $q.defer()
-
-                if (user) {
-                    deferred.resolve(user)
+                if (_user) {
+                    deferred.resolve(_user)
                 } else {
                     $http.get('/api/1/user', {errorMessage: true})
                         .success(function (data, status, headers, config) {
-                            user = data.val
-                            deferred.resolve(user)
+                            _user = data.val
+                            deferred.resolve(_user)
                         })
                         .error(function () {
                             deferred.reject()
@@ -34,29 +30,21 @@
 
                 return deferred.promise
             },
-            smsVerificationSend: function (country, phone) {
-                var data = {}
-                data.country = country
-                data.phone = phone
-
-                return $http.post('/api/1/user/sms_verification/send', data)
+            sendVerification: function (user) {
+                var params = _.pick(user, 'country', 'phone')
+                return $http.post('/api/1/user/sms_verification/send', params)
 
             },
-            smsResetPassword: function (id, code, password) {
-                var data = {}
-                data.code = code
-                data.new_password = Base64.encode(password)
+            resetPassword: function (id, code, password) {
+                var params = {}
+                params.code = code
+                params.new_password = Base64.encode(password)
 
-                return $http.post('/api/1/user/' + id + '/sms_reset_password', data)
+                return $http.post('/api/1/user/' + id + '/sms_reset_password', params)
 
-            }, adminUserAdd: function (country, phone, role, nickname, email) {
-                var data = {}
-                data.country = country
-                data.phone = phone
-                data.role = role
-                data.nickname = nickname
-                data.email = email
-                return $http.post('/api/1/user/admin/add', data)
+            }, addAdminUser: function (user) {
+                var params = _.pick(user, 'country', 'phone', 'role', 'nickname', 'email')
+                return $http.post('/api/1/user/admin/add', params)
             }
         }
 
