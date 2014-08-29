@@ -16,7 +16,7 @@ import libfelix.f_message
 import libfelix.f_mongo
 import libfelix.f_ticket
 import libfelix.f_user
-
+import libfelix.f_sms
 import f_currant
 
 libfelix.f_message.f_message_push_plugin()
