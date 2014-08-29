@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
     state=str,
     city=str,
     block=str,
-    property_type=str,
+    equity_type=str,
     intention=str,
     noregister=bool,
     custom_fields=(list, None, dict(
@@ -148,7 +148,7 @@ def ticket_assign(user, ticket_id, user_id):
     state=(str, None),
     city=(str, None),
     block=(str, None),
-    property_type=(str, None),
+    equity_type=(str, None),
     intention=(str, None),
     custom_fields=(list, None, dict(
         key=str,
