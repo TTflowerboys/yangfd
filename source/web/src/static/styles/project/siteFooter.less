@@ -3,13 +3,13 @@
 
 .siteFooter {
     &_wrapper {
-        .clearfix(); background: @footer-bg; height: @footer-height;
+        .clearfix();  overflow: hidden;  background: @footer-bg; height: @footer-height;
         > footer {
             margin: 0 auto; height: 100%; width: @max-width;
 
             .contact { float: left;
                 .logo {
-                    margin: 40px 0 0 40px; width: 264px; height: 48px;
+                    margin: 40px 0 0 32px; width: 264px; height: 48px;
                 }
                 @content-margin-left: 130px;
                 > p {
@@ -27,10 +27,11 @@
                 }
             }
 
+            @support-margin-top: 72px;
             .social {
                 float: left;
                 margin-left: 74px;
-                margin-top: 80px;
+                margin-top: @support-margin-top;
                 > h3 { color: #aaaaaa}
                 > img {
                     .social-icon-size-small() {
@@ -44,15 +45,21 @@
 
                     &.weibo {
                         .round-corner();
+                        margin-top: 56px;
+                        margin-right:16px;
                         .social-icon-size-small();
                     }
                     &.twitter {
                         .round-corner();
+                        margin-top: 56px;
+                        margin-right:16px;
                         .social-icon-size-small();
 
                     }
                     &.facebook {
                         .round-corner();
+                        margin-top: 56px;
+                        margin-right:16px;
                         .social-icon-size-small();
                     }
                     &.weixin {
@@ -62,7 +69,6 @@
                 }
             }
 
-            @support-margin-top: 80px;
             .support {
                 float: left;
                 margin-top: @support-margin-top;
@@ -83,9 +89,14 @@
                 float: left;
                 margin-top: @support-margin-top;
                 margin-left: 30px;
+                max-width: 96px;
                 > h3 { color: #aaaaaa; margin-bottom: 30px;}
                 > a {color: #EEEEEE; text-decoration: none; margin-bottom: 12px; display: inline-block;}
             }
         }
     }
+}
+
+.copyright{ .clearfix(); overflow: hidden; background: @copyright-bg; height:48px; width: 100%;
+    > p{margin: 16px auto; height: 100%; width: @max-width; text-align: center; color: #ffffff;}
 }
