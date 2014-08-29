@@ -9,9 +9,9 @@ var gulp = require('gulp')
 var include = require('gulp-file-include')
 var less = require('gulp-less')
 var minifyCss = require('gulp-minify-css')
+var newer = require('gulp-newer')
 var ngAnnotate = require('gulp-ng-annotate')
 var notify = require('gulp-notify')
-var plumber = require('gulp-plumber')
 var prefix = require('gulp-autoprefixer')
 var rimraf = require('gulp-rimraf')
 var symlink = require('gulp-sym')
@@ -29,10 +29,10 @@ var myPaths = {
     static: './src/static/**/*.*',
     less: './src/static/styles/**/*.less',
     css: './src/static/styles/**/*.css',
-    js: ['./src/static/scripts/**/*.js', './src/static/admin/scripts/**/*.js']
+    js: './src/static/{,admin/}scripts/**/*.js'
 }
 
-gulp.task('debug', ['lint', 'symlink', 'less2css', 'html-extend', 'watch'], function () {
+gulp.task('debug', ['debug:lint', 'symlink', 'less2css', 'html-extend', 'watch'], function () {
     console.info(chalk.black.bgWhite.bold('You can debug now!'))
 })
 
@@ -46,7 +46,13 @@ gulp.task('lint', function () {
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(jshint.reporter('fail'));
-});
+})
+gulp.task('debug:lint', function () {
+    return gulp.src(myPaths.js)
+        .pipe(cache('linting'))
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'))
+})
 
 gulp.task('build:copy', ['clean'], function () {
     return gulp.src(myPaths.static)
@@ -69,7 +75,6 @@ gulp.task('symlink', function () {
 
 gulp.task('clean', function () {
     return gulp.src(myPaths.dist, {read: false})
-        .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
         .pipe(rimraf({force: true, verbose: true}))
 })
 
@@ -78,7 +83,6 @@ gulp.task('less2css', function (done) {
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     gulp.src(myPaths.less)
-        .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
         .pipe(less())
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
@@ -89,7 +93,6 @@ gulp.task('build:less2css', ['build:copy'], function (done) {
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     gulp.src(myPaths.less)
-        .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
         .pipe(less())
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
@@ -99,20 +102,17 @@ gulp.task('build:less2css', ['build:copy'], function (done) {
 
 gulp.task('html-include', function () {
     return gulp.src(myPaths.html)
-        .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
         .pipe(include())
         .pipe(gulp.dest(myPaths.dist))
 })
 
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
-        .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
         .pipe(extender())
         .pipe(gulp.dest(myPaths.dist))
 })
 gulp.task('build:html-extend', ['build:copy', 'build:less2css', 'build:ngAnnotate'], function () {
     return gulp.src(myPaths.html)
-        .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
         .pipe(extender())
         .pipe(usemin({
             css: [footer('/*EOF*/'), 'concat'],
@@ -124,5 +124,6 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css', 'build:ngAnnotat
 gulp.task('watch', function () {
     gulp.watch(myPaths.less, ['less2css'])
     gulp.watch(myPaths.html, ['html-extend'])
+    gulp.watch(myPaths.js, ['debug:lint'])
 })
 
