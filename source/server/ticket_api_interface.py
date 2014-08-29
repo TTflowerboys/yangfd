@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 ))
 def ticket_add(params):
     """
-    ``noregister`` is default to *False*, which means if ``noregister`` is not given, the visitor will *be registered*.
+    ``noregister`` is default to **False**, which means if ``noregister`` is not given, the visitor will *be registered*.
     """
     noregister = params.pop("noregister", False)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
@@ -135,7 +135,7 @@ def ticket_get_history(user, ticket_id):
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales'])
 def ticket_assign(user, ticket_id, user_id):
     """
-    Assign ticket to jr_sales. Only admin, jr_admin, sales can do this.
+    Assign ticket to ``jr_sales``. Only ``admin``, ``jr_admin``, ``sales`` can do this.
     """
     f_app.ticket.get(ticket_id)
     f_app.user.get(user_id)
@@ -189,7 +189,7 @@ def ticket_edit(user, ticket_id, params):
 @f_app.user.login.check(force=True)
 def ticket_search(user, params):
     """
-    ``status`` must be one of these values: "new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"
+    ``status`` must be one of these values: ``new``, ``assigned``, ``in_progress``, ``deposit``, ``suspended``, ``bought``, ``canceled``
     """
     user_roles = f_app.user.get_role(user["id"])
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
