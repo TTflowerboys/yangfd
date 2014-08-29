@@ -8,15 +8,15 @@
         $scope.user = {}
         $scope.user.country = defaultCountry
         var sendText = '发送'
-        $scope.send = sendText
-        $scope.sendable = false // TODO: disabled
+        $scope.sendText = sendText
+        $scope.sendDisabled = false
         $scope.submit = function ($event, form) {
             $event.preventDefault()
             if (form.$invalid) {
                 return
             }
 
-            userApi.smsResetPassword($scope.user.id, $scope.user.code, $scope.user.password)
+            userApi.resetPassword($scope.user.id, $scope.user.code, $scope.user.password)
                 .success(function (data, status, headers, config) {
                     $state.go($stateParams.from || 'dashboard')
                 })
@@ -29,17 +29,17 @@
                     $scope.user.id = data.val
                 })
             $scope.onTimeout = function () {
-                $scope.send -= 1;
-                if ($scope.send <= 0) {
-                    $scope.send = sendText
-                    $scope.sendable = false;
+                $scope.sendText -= 1;
+                if ($scope.sendText <= 0) {
+                    $scope.sendText = sendText
+                    $scope.sendDisabled = false;
                     return
                 }
                 $timeout($scope.onTimeout, 1000);
             }
-            if ($scope.send === sendText) {
-                $scope.send = 60;
-                $scope.sendable = true;
+            if ($scope.sendText === sendText) {
+                $scope.sendText = 60;
+                $scope.sendDisabled = true;
                 $timeout($scope.onTimeout, 1000);
             }
         }
