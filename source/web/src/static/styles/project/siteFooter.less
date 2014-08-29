@@ -1,0 +1,82 @@
+@import "_imports";
+@import "_styleguide";
+
+.siteFooter {
+    &_wrapper {
+        .clearfix(); background: @footer-bg; height: @footer-height;
+        > footer {
+            margin: 0 auto; height: 100%; width: @max-width;
+
+            .contact { float: left;
+                .logo {
+                    margin: 40px 0 0 40px; width: 264px; height: 48px;
+                }
+                > p {
+                    color: #dcdcdc;
+                    &.address {
+                        margin-left: 130px;
+                        max-width: 180px;
+                    }
+                    &.postalCode {
+                        margin-left: 130px;
+                    }
+                    &.phoneAndEmail {
+                        margin-left: 130px;
+                    }
+                }
+            }
+
+            .social {
+                float: left;
+                margin-left: 74px;
+                margin-top: 80px;
+                > h3 { color: #aaaaaa}
+                > img {
+                    &.weibo {
+                        .round-corner();
+                        width: 50px;
+                        height: 50px;
+                    }
+                    &.twitter {
+                        .round-corner();
+                        width: 50px;
+                        height: 50px;
+                    }
+                    &.facebook {
+                        .round-corner();
+                        width: 50px;
+                        height: 50px;
+                    }
+                    &.weixin {
+                        .round-corner();
+                        width: 122px;
+                        height: 122px;
+                    }
+                }
+            }
+            .support {
+                float: left;
+                margin-top: 80px;
+                margin-left: 40px;
+                max-width: 80px;
+                > h3 { color: #aaaaaa; margin-bottom: 30px;}
+                > a {color: #EEEEEE; text-decoration: none; margin-bottom: 12px; display: inline-block;}
+            }
+            .feature {
+                float: left;
+                margin-top: 80px;
+                margin-left: 30px;
+                max-width: 75px;
+                > h3 { color: #aaaaaa; margin-bottom: 30px;}
+                > a {color: #EEEEEE; text-decoration: none; margin-bottom: 12px; display: inline-block;}
+            }
+            .language {
+                float: left;
+                margin-top: 80px;
+                margin-left: 30px;
+                > h3 { color: #aaaaaa; margin-bottom: 30px;}
+                > a {color: #EEEEEE; text-decoration: none; margin-bottom: 12px; display: inline-block;}
+            }
+        }
+    }
+}

@@ -3,15 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/static/styles/project/layout.css"/>
-        <link rel="stylesheet" href="/static/styles/project/navbar.css"/>
+        <link rel="stylesheet" href="/static/styles/project/siteHeader.css"/>
+        <link rel="stylesheet" href="/static/styles/project/siteFooter.css"/>
         <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome.min.css">
         <!-- @@placeholder = head -->
     </head>
     <body>
 
     <div class="page">
-        <div class="header_wrapper">
-            <header>
+        <div class="siteHeader_wrapper">
+            <header class="siteHeader">
                 <img class="logo" src="http://designyoutrust.com/wp-content/uploads/2013/09/g695.gif" alt=""/>
                 <div class="country">England</div>
                 <ul class="navbar">
@@ -28,13 +29,13 @@
             <!-- @@placeholder = main -->
         </main>
 
-        <div class="footer_wrapper">
-            <footer>
+        <div class="siteFooter_wrapper">
+            <footer class="siteFooter">
                 <div class="contact">
                     <img class="logo" src="http://designyoutrust.com/wp-content/uploads/2013/09/g695.gif" alt=""/>
                     <p class="address">INTERNATIONAL BUSINESS CENTRE GUANG GU DA DAO WUHAN, HUBEI CHINA</p>
-                    <p class="postal_code">430000</p>
-                    <p class="phone_email">
+                    <p class="postalCode">430000</p>
+                    <p class="phoneAndEmail">
                         400-777-8888 | contact@bbtechgroup.com
                     </p>
                 </div>
@@ -78,7 +79,7 @@
 
         <script>
             $(function () {
-                $('main').css({minHeight: $(window).height() - $('.page  .header_wrapper').height() - $('.page .footer_wrapper').height()})
+                $('main').css({minHeight: $(window).height() - $('.page  .siteHeader_wrapper').height() - $('.page .siteFooter_wrapper').height()})
             })
         </script>
         <!--@@placeholder=scripts-->
