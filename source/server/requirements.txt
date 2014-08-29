@@ -24,3 +24,4 @@ Paste
 sh
 bottle
 python-memcached
+requests
