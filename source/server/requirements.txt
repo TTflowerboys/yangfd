@@ -19,7 +19,9 @@ msgpack-python
 mimerender
 phonenumbers
 gevent-websocket
+boto
 Paste
 sh
 bottle
 python-memcached
+requests

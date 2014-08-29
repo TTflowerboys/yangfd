@@ -53,7 +53,7 @@ def register(params):
     """
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     if f_app.user.get_id_by_phone(params["phone"]):
-        abort(40325)
+        abort(40351)
 
     if "email" in params:
         if "@" not in params["email"]:
@@ -122,6 +122,9 @@ def current_user_edit(user, params):
 
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params, retain_country=True)
+        user_id=f_app.user.get_id_by_phone(params["phone"])
+        if user_id and user_id!=user["id"]:
+            abort(40351)
 
     if "gender" in params:
         if params["gender"] not in ("male", "female", "other"):
@@ -193,8 +196,10 @@ def admin_user_add(user, params):
 
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
-    if f_app.user.get_id_by_email(params["email"]) or f_app.user.get_id_by_phone(params["phone"]):
+    if f_app.user.get_id_by_email(params["email"]) :
         abort(40325)
+    if f_app.user.get_id_by_phone(params["phone"]):
+        abort(40351)
 
     password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
     params["password"] = password

@@ -3,15 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/static/styles/project/layout.css"/>
-        <link rel="stylesheet" href="/static/styles/project/navbar.css"/>
+        <link rel="stylesheet" href="/static/styles/project/siteHeader.css"/>
+        <link rel="stylesheet" href="/static/styles/project/siteFooter.css"/>
         <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome.min.css">
         <!-- @@placeholder = head -->
     </head>
     <body>
 
     <div class="page">
-        <div class="header_wrapper">
-            <header>
+        <div class="siteHeader_wrapper">
+            <header class="siteHeader">
                 <img class="logo" src="http://designyoutrust.com/wp-content/uploads/2013/09/g695.gif" alt=""/>
                 <div class="country">England</div>
                 <ul class="navbar">
@@ -28,20 +29,20 @@
             <!-- @@placeholder = main -->
         </main>
 
-        <div class="footer_wrapper">
-            <footer>
+        <div class="siteFooter_wrapper">
+            <footer class="siteFooter">
                 <div class="contact">
                     <img class="logo" src="http://designyoutrust.com/wp-content/uploads/2013/09/g695.gif" alt=""/>
                     <p class="address">INTERNATIONAL BUSINESS CENTRE GUANG GU DA DAO WUHAN, HUBEI CHINA</p>
-                    <p class="postal_code">430000</p>
-                    <p class="phone_email">
+                    <p class="postalCode">430000</p>
+                    <p class="phoneAndEmail">
                         400-777-8888 | contact@bbtechgroup.com
                     </p>
                 </div>
                 <div class="social">
                     <h3>SOCIAL</h3>
-                    <img class="weibo" src="http://www.candarinhome.com/assets/index/page7/logo_weibo_black.png" alt=""/>
-                    <img class="twitter" src="http://etc-mysitemyway.s3.amazonaws.com/icons/legacy-previews/icons/glossy-black-icons-social-media-logos/099375-glossy-black-icon-social-media-logos-twitter-logo-square.png" alt=""/>
+                    <img class="weibo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSETzsL80VihjpoSptM4j-rAY28mrBkWrvSSr-jJo5Id_pPpjcV" alt=""/>
+                    <img class="twitter" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSETzsL80VihjpoSptM4j-rAY28mrBkWrvSSr-jJo5Id_pPpjcV" alt=""/>
                     <img class="facebook" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSETzsL80VihjpoSptM4j-rAY28mrBkWrvSSr-jJo5Id_pPpjcV" alt=""/>
                     <img class="weixin" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRKwkP34VwJHcXUBqp7_EdUOAqPTEa2ChVKpWjIGyWvqPSIwFBx" alt=""/>
                 </div>
@@ -63,6 +64,9 @@
                 </div>
             </footer>
         </div>
+        <div class="copyright">
+            <p>&copy;<script>document.write(new Date().getFullYear())</script>Brothers Bridge Group</p>
+        </div>
     </div>
         <!-- jQuery-->
         <!--[if !IE]>-->
@@ -78,7 +82,7 @@
 
         <script>
             $(function () {
-                $('main').css({minHeight: $(window).height() - $('.page  .header_wrapper').height() - $('.page .footer_wrapper').height()})
+                $('main').css({minHeight: $(window).height() - $('.page  .siteHeader_wrapper').height() - $('.page .siteFooter_wrapper').height()})
             })
         </script>
         <!--@@placeholder=scripts-->
