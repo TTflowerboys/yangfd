@@ -12,8 +12,7 @@ angular.module('app')
             if (errorCode === 0) { return }
             if (!response.config.errorMessage) {return}
 
-            return errors[errorCode] ||
-                response.config.errorMessage[errorCode] ||
+            return response.config.errorMessage[errorCode] || errors[errorCode] ||
                 errors.unknown
         }
 

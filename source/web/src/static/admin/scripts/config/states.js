@@ -50,4 +50,18 @@ angular.module('app')
                 }
             })
 
+        /**
+         * estate
+         */
+            .state('dashboard.estate', {
+                url: '/estate',
+                templateUrl: '/static/admin/templates/dashboard.admins.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (adminApi) {
+                        return adminApi
+                    }
+                }
+            })
+
     })
