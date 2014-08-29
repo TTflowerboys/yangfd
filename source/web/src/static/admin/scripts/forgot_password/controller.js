@@ -24,10 +24,14 @@
         }
 
         $scope.sendVerification = function () {
-            userApi.smsVerificationSend($scope.user.country, $scope.user.phone)
-                .success(function (data, status, headers, config) {
-                    $scope.user.id = data.val
-                })
+            userApi.checkUserExist($scope.user).then(function () {
+                userApi.smsVerificationSend($scope.user)
+                    .success(function (data, status, headers, config) {
+                        $scope.user.id = data.val
+                    })
+            }, function () {
+
+            })
             $scope.onTimeout = function () {
                 $scope.sendText -= 1;
                 if ($scope.sendText <= 0) {
