@@ -3,10 +3,8 @@
 
 (function () {
 
-    function ctrlForgotPassword($scope, $timeout, $state, $http, $rootScope, userApi, $stateParams, countries, defaultCountry, growl) {
-        $scope.countries = countries
+    function ctrlForgotPassword($scope, $timeout, $state, $http, $rootScope, userApi, $stateParams, growl) {
         $scope.user = {}
-        $scope.user.country = defaultCountry
         var sendText = '发送'
         $scope.sendText = sendText
         $scope.sendDisabled = false
