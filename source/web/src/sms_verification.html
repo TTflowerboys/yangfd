@@ -1,0 +1,45 @@
+<!--@@master=masters/signin_master.html -->
+
+<!--@@block=head -->
+<link rel="stylesheet" href="/static/styles/project/smsVerificationForm.css"/>
+<!--@@close-->
+
+<!--@@block=main -->
+<!-- @@include =partials/sms_verification_form.html -->
+<!--@@close-->
+
+<!--@@block=scripts -->
+<script>
+
+    $('[name=phone]').on('change',function(){
+        var params = $("form[name=smsVerification]").serializeObject()
+        var userId = ""
+        $.post("/api/1/user/sms_verification/send",
+                params,
+                function (data, status) {
+                    if (data.ret != 0) {
+                        alert("Data: " + data.msg + "\nStatus: " + status);
+                    }
+                    else {
+                        alert("Data: " + data.msg + "\nStatus: " + status);
+                    }
+                });
+    })
+    $('form[name=smsVerification]').submit(function (e) {
+        e.preventDefault()
+        var params = $(this).serializeObject()
+        var userId = ""
+
+        $.post("/api/1/user/"+ userId + "/sms_verification/verify",
+                params,
+                function (data, status) {
+                    if (data.ret != 0) {
+                        alert("Data: " + data.msg + "\nStatus: " + status);
+                    }
+                    else {
+                        alert("Data: " + data.msg + "\nStatus: " + status);
+                    }
+                });
+    })
+</script>
+<!--@@close-->

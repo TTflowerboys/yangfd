@@ -25,6 +25,10 @@ def signup():
 def signin():
     return template("signin")
 
+@f_get('/sms_verification')
+def smsVerification():
+    return template("sms_verification")
+
 @f_get('/admin')
 def admin():
     return template("admin")
