@@ -147,48 +147,48 @@ class f_currant_plugins(f_app.plugin_base):
 f_currant_plugins()
 
 
-class f_house(f_app.module_base):
-    house_database = "houses"
+class f_property(f_app.module_base):
+    property_database = "propertys"
 
     def __init__(self):
-        f_app.module_install("house", self)
+        f_app.module_install("property", self)
         f_app.dependency_register("pymongo", race="python")
 
     def get_database(self, m):
-        return getattr(m, self.house_database)
+        return getattr(m, self.property_database)
 
-    @f_cache("house")
-    def get(self, house_id_or_list, force_reload=False, ignore_nonexist=False):
-        def _format_each(house):
-            house["id"] = str(house.pop("_id"))
-            return house
+    @f_cache("property")
+    def get(self, property_id_or_list, force_reload=False, ignore_nonexist=False):
+        def _format_each(property):
+            property["id"] = str(property.pop("_id"))
+            return property
 
-        if isinstance(house_id_or_list, (tuple, list, set)):
+        if isinstance(property_id_or_list, (tuple, list, set)):
             result = {}
 
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(house_id) for house_id in house_id_or_list]}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(property_id) for property_id in property_id_or_list]}, "status": {"$ne": "deleted"}}))
 
-            if not force_reload and len(result_list) < len(house_id_or_list) and not ignore_nonexist:
-                found_list = map(lambda house: str(house["_id"]), result_list)
-                abort(40400, logger.warning("Non-exist house:", filter(lambda house_id: house_id not in found_list, house_id_or_list), exc_info=False))
+            if not force_reload and len(result_list) < len(property_id_or_list) and not ignore_nonexist:
+                found_list = map(lambda property: str(property["_id"]), result_list)
+                abort(40400, logger.warning("Non-exist property:", filter(lambda property_id: property_id not in found_list, property_id_or_list), exc_info=False))
             elif ignore_nonexist:
-                logger.warning("Non-exist house:", filter(lambda house_id: house_id not in found_list, house_id_or_list), exc_info=False)
+                logger.warning("Non-exist property:", filter(lambda property_id: property_id not in found_list, property_id_or_list), exc_info=False)
 
-            for house in result_list:
-                result[house["id"]] = _format_each(house)
+            for property in result_list:
+                result[property["id"]] = _format_each(property)
 
             return result
 
         else:
             with f_app.mongo() as m:
-                result = self.get_database(m).find_one({"_id": ObjectId(house_id_or_list), "status": {"$ne": "deleted"}})
+                result = self.get_database(m).find_one({"_id": ObjectId(property_id_or_list), "status": {"$ne": "deleted"}})
 
                 if result is None:
                     if not force_reload and not ignore_nonexist:
-                        abort(40400, logger.warning("Non-exist house:", house_id_or_list, exc_info=False))
+                        abort(40400, logger.warning("Non-exist property:", property_id_or_list, exc_info=False))
                     elif ignore_nonexist:
-                        logger.warning("Non-exist house:", house_id_or_list, exc_info=False)
+                        logger.warning("Non-exist property:", property_id_or_list, exc_info=False)
                     return None
 
             return _format_each(result)
@@ -197,13 +197,13 @@ class f_house(f_app.module_base):
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
-            house_id = self.get_database(m).insert(params)
+            property_id = self.get_database(m).insert(params)
 
-        return str(house_id)
+        return str(property_id)
 
-    def output(self, house_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
-        houses = self.get(house_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
-        return houses
+    def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
+        propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        return propertys
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
         params.setdefault("status", "new")
@@ -216,23 +216,23 @@ class f_house(f_app.module_base):
         else:
             sort_field = sort_orientation = None
 
-        house_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)["content"]
+        property_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)["content"]
 
-        return house_id_list
+        return property_id_list
 
-    def remove(self, house_id):
-        self.update_set(house_id, {"status": "deleted"})
+    def remove(self, property_id):
+        self.update_set(property_id, {"status": "deleted"})
 
-    def update(self, house_id, params):
+    def update(self, property_id, params):
         with f_app.mongo() as m:
             self.get_database(m).update(
-                {"_id": ObjectId(house_id)},
+                {"_id": ObjectId(property_id)},
                 params,
             )
-        house = self.get(house_id, force_reload=True)
-        return house
+        property = self.get(property_id, force_reload=True)
+        return property
 
-    def update_set(self, house_id, params):
-        return self.update(house_id, {"$set": params})
+    def update_set(self, property_id, params):
+        return self.update(property_id, {"$set": params})
 
-f_house()
+f_property()
