@@ -32,7 +32,7 @@
             },
             sendVerification: function (user) {
                 var params = _.pick(user, 'country', 'phone')
-                return $http.post('/api/1/user/sms_verification/send', params)
+                return $http.post('/api/1/user/sms_verification/send', params, {errorMessage: true})
 
             },
             resetPassword: function (id, code, password) {
@@ -40,7 +40,7 @@
                 params.code = code
                 params.new_password = Base64.encode(password)
 
-                return $http.post('/api/1/user/' + id + '/sms_reset_password', params)
+                return $http.post('/api/1/user/' + id + '/sms_reset_password', params, {errorMessage: true})
 
             },
             addAdminUser: function (user) {
