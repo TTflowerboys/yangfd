@@ -24,7 +24,7 @@ var stylish = require('jshint-stylish')
 var myPaths = {
     src: './src/',
     dist: './dist/',
-    html: './src/{,masters/}*.html',
+    html: './src/{,*/}*.html',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,templates,admin/scripts,admin/templates}',
     static: './src/static/**/*.*',
     less: './src/static/styles/**/*.less',
