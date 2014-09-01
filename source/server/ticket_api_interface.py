@@ -71,16 +71,16 @@ def intention_ticket_add(params):
     params["creator_user_id"] = creator_user_id
 
     ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
-    #  Send mail to every senior sales
-    # sales_list = f_app.user.get(f_app.user.search({"role": {"$nin": ["sales"]}}))
-    # for sales in sales_list:
-    #     if "email" in sales:
-    #         f_app.email.schedule(
-    #             target=sales["email"],
-    #             subject="New ticket has been submitted.",
-    #             text=template("static/templates/new_ticket", ticket_admin_url=ticket_admin_url),
-    #             display="html",
-    #         )
+    # Send mail to every senior sales
+    sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales"]}}, per_page=0))
+    for sales in sales_list:
+        if "email" in sales:
+            f_app.email.schedule(
+                target=sales["email"],
+                subject="New ticket has been submitted.",
+                text=template("static/templates/new_ticket", ticket_admin_url=ticket_admin_url),
+                display="html",
+            )
 
     return f_app.ticket.add(params)
 
@@ -174,7 +174,7 @@ def intention_ticket_edit(user, ticket_id, params):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
     if "status" in params:
-        if params["status"] not in f_app.common.ticket_statuses:
+        if params["status"] not in f_app.common.intention_ticket_statuses:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
     return f_app.ticket.update_set(ticket_id, params)
@@ -203,7 +203,7 @@ def intention_ticket_search(user, params):
     per_page = params.pop("per_page", 0)
 
     if "status" in params:
-        if set(params["status"]) <= f_app.common.ticket_statuses:
+        if set(params["status"]) <= f_app.common.intention_ticket_statuses:
             params["status"] = {"$in": params["status"]}
         else:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))

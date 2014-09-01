@@ -210,12 +210,12 @@ def admin_user_add(user, params):
     user_id = f_app.user.add(params)
     f_app.log.add("add", user_id=user_id)
 
-    # f_app.email.schedule(
-    #     target=params["email"],
-    #     subject="Your admin console access password",
-    #     text=template("static/templates/new_admin", password=params["password"], email=params["email"], admin_console_url=f_app.common.admin_console_url),
-    #     display="html",
-    # )
+    f_app.email.schedule(
+        target=params["email"],
+        subject="Your admin console access password",
+        text=template("static/templates/new_admin", password=params["password"], email=params["email"], admin_console_url=f_app.common.admin_console_url),
+        display="html",
+    )
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
@@ -244,15 +244,15 @@ def admin_user_set_role(user, user_id, params):
     user_info = f_app.user.get(user_id)
 
     if params["role"] not in user_info.get("role", []):
-        # if user_info.get("email") is not None:
-        #     f_app.email.schedule(
-        #         target=user_info.get("email"),
-        #         subject="You are now set as admin",
-        #         text=template("static/templates/set_as_admin", email=user_info, admin_console_url=f_app.common.admin_console_url),
-        #         display="html",
-        #     )
-        # else:
-        #     abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
+        if user_info.get("email") is not None:
+            f_app.email.schedule(
+                target=user_info.get("email"),
+                subject="You are now set as admin",
+                text=template("static/templates/set_as_admin", email=user_info, admin_console_url=f_app.common.admin_console_url),
+                display="html",
+            )
+        else:
+            abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
 
         f_app.user.add_role(user_id, params["role"])
 
