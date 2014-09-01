@@ -1,12 +1,12 @@
 <!doctype html>
 <html>
     <head>
-        <!-- @@include = ../test/aaa.html -->
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/static/styles/project/layout.css"/>
         <link rel="stylesheet" href="/static/styles/project/siteHeader.css"/>
         <link rel="stylesheet" href="/static/styles/project/siteFooter.css"/>
         <link rel="stylesheet" href="/static/styles/project/modal.css"/>
+        <link rel="stylesheet" href="/static/styles/project/registerForm.css"/>
         <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome.min.css">
         <!-- @@placeholder = head -->
     </head>
@@ -80,42 +80,12 @@
         </p>
     </div>
 </div>
-
 <div id="modal_shadow" class="modal_shadow" style="display: none"></div>
 <div id="modal" class="modal" style="display: none">
-    <form name="register">
-        <img class="logo" src="/static/images/logo.png" alt=""/>
-        <div class="form bordered">
-            <div class="form_row active">
-                <i><img src="/static/images/icon/user.png" alt=""/></i> <input name="nickname" placeholder=姓名 size=20>
-            </div>
-            <hr>
-            <div class="phone form_row">
-                <i><img src="/static/images/icon/phone-active.png" alt=""/>
-                    <select name="country" class="ghostSelect">
-                        <option value="CN">中国 +86</option>
-                        <option value="HK">香港 +85</option>
-                        <option value="UK">英国 +44</option>
-                        <option value="US">美国 +1</option>
-                    </select>
-                </i> <input name="phone" type="tel" size=20>
-            </div>
-            <hr>
-            <div class="form_row">
-                <i><img src="/static/images/icon/lock.png" alt=""/></i>
-                <input name="password" type="password" placeholder=密码 size=20>
-            </div>
-        </div>
-        <h4 class="formsHint">手机号为登陆和找回密码凭证，请填写真实号码</h4>
-        <div class="captureCode">
-            <img src="/static/images/placeholder/captureCode.png" alt=""/>
-            <input name="ccode" size=20>
-        </div>
-        <div class="terms"><input type="checkbox" checked/> 我同意<a href="">会员服务须知</a></div>
-        <button type="submit" class="button gray">注册</button>
-        <h3 class="hasAccountHint">已经拥有账号？请<a href="">登陆</a></h3>
-    </form>
+    <img class="logo" src="/static/images/logo.png" alt=""/>
+    <!-- @@include =../partials/register_form.html -->
 </div>
+
 <!-- jQuery-->
 <!--[if !IE]>-->
 <script src="/static/themes/genius_dashboard/js/jquery-2.1.0.min.js"></script>
@@ -153,19 +123,16 @@
     });
 
     $('form[name=register]').submit(function (e) {
-
         e.preventDefault()
         var params = $(this).serializeObject()
         params.password = Base64.encode(params.password)
         $.post("/api/1/user/register",
-               params,
-                function(data,status){
-                    if (data.ret != 0)
-                    {
+                params,
+                function (data, status) {
+                    if (data.ret != 0) {
                         alert("Data: " + data.msg + "\nStatus: " + status);
                     }
-                    else
-                    {
+                    else {
                         $("#modal_shadow").hide()
                         $("#modal").hide()
                     }
