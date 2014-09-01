@@ -12,6 +12,6 @@ import main_interface
 import news_api_interface
 import user_api_interface
 import ticket_api_interface
-import house_api_interface
+import property_api_interface
 
 application = f_app(__name__)

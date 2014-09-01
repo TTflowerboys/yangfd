@@ -51,16 +51,12 @@ def register(params):
     Basic user register
 
     ``password`` must be base64 encoded.
+
+    ``country`` should be 2-letter country code, see http://www.worldatlas.com/aatlas/ctycodes.htm
     """
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
-
-    if "email" in params:
-        if "@" not in params["email"]:
-            abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
-        if f_app.user.get_id_by_email(params["email"]):
-            abort(40325)
 
     user_id = f_app.user.add(params)
 
