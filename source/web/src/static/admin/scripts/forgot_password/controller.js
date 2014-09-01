@@ -12,6 +12,7 @@
         $scope.sendDisabled = false
         $scope.submit = function ($event, form) {
             $event.preventDefault()
+            $scope.submitted = true
             if (form.$invalid) {
                 return
             }
@@ -31,26 +32,32 @@
                 .success(function (data, status, headers, config) {
                     $scope.user.id = data.val
                 })
-            $scope.onTimeout = function () {
-
-                if (!angular.isNumber($scope.sendText)) {
-                    return
-                }
-                $scope.sendText -= 1
-
-                if ($scope.sendText <= 0) {
+                .error(function (data, status, headers, config) {
                     $scope.sendText = sendText
                     $scope.sendDisabled = false
-                    return
-                }
-                $timeout($scope.onTimeout, 1000)
-            }
+                })
             if ($scope.sendText === sendText) {
                 $scope.sendText = 60
                 $scope.sendDisabled = true
                 $timeout($scope.onTimeout, 1000)
             }
         }
+
+        $scope.onTimeout = function () {
+
+            if (!angular.isNumber($scope.sendText)) {
+                return
+            }
+            $scope.sendText -= 1
+
+            if ($scope.sendText <= 0) {
+                $scope.sendText = sendText
+                $scope.sendDisabled = false
+                return
+            }
+            $timeout($scope.onTimeout, 1000)
+        }
+
     }
 
     angular.module('app').controller('ctrlForgotPassword', ctrlForgotPassword)

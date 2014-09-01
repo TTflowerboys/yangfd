@@ -32,8 +32,8 @@
                                         <span class="input-group-addon" style="width: 40px"><i
                                                 class="fa fa-mobile-phone"></i></span>
                                     </div>
-                                    <span ng-show="submitted && signIn.phone.$error.required">Required</span>
-                                    <span ng-show="submitted && signIn.phone.$error.pattern">Number only</span>
+                                    <span ng-show="submitted && signIn.phone.$error.required">必填</span>
+                                    <span ng-show="submitted && signIn.phone.$error.pattern">请输入数字</span>
                                 </div>
                             </div>
 
@@ -46,6 +46,7 @@
                                         <span class="input-group-addon" style="width: 40px"><i
                                                 class="fa fa-key"></i></span>
                                     </div>
+                                    <span ng-show="submitted && signIn.password.$error.required">必填</span>
                                 </div>
                             </div>
 
