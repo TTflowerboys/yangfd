@@ -79,7 +79,7 @@ def intention_ticket_add(params):
 
     ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
     # Send mail to every senior sales
-    sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales"]}}, per_page=0))
+    sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales"]}}))
     for sales in sales_list:
         if "email" in sales:
             f_app.email.schedule(
@@ -256,7 +256,7 @@ def support_ticket_add(params):
 
     ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
     # Send mail to every senior support
-    support_list = f_app.user.get(f_app.user.search({"role": {"$in": ["support"]}}, per_page=0))
+    support_list = f_app.user.get(f_app.user.search({"role": {"$in": ["support"]}}))
     for support in support_list:
         if "email" in support:
             f_app.email.schedule(
