@@ -1,20 +1,20 @@
 <!--@@master=masters/signin_master.html -->
 
 <!--@@block=head -->
-    <link rel="stylesheet" href="/static/styles/project/registerForm.css"/>
+    <link rel="stylesheet" href="/static/styles/project/signinForm.css"/>
 <!--@@close-->
 
 <!--@@block=main -->
-    <!-- @@include =partials/register_form.html -->
+<!-- @@include =partials/signin_form.html -->
 <!--@@close-->
 
 <!--@@block=scripts -->
 <script>
-    $('form[name=register]').submit(function (e) {
+    $('form[name=signin]').submit(function (e) {
         e.preventDefault()
         var params = $(this).serializeObject()
         params.password = Base64.encode(params.password)
-        $.post("/api/1/user/register",
+        $.post("/api/1/user/login",
                 params,
                 function (data, status) {
                     if (data.ret != 0) {

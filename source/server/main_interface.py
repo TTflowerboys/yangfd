@@ -12,6 +12,10 @@ def default():
 def signup():
     return template("signup")
 
+@f_get('/signin')
+def signin():
+    return template("signin")
+
 @f_get('/admin')
 def admin():
     return template("admin")
