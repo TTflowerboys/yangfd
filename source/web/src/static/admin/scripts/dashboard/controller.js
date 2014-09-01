@@ -13,6 +13,10 @@
             }, function () {
                 $state.go('signIn', {from: $state.current.name})
             })
+
+        $scope.logout = function(){
+            $http.get('/logout')
+        }
     }
 
     angular.module('app').controller('ctrlDashboard', ctrlDashboard)
