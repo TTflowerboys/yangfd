@@ -47,6 +47,6 @@ CSS 命名的核心规则只有一条：影响最小化。
 	4. ✔︎︎ 函数以动词开头，如 `sendRequest()` / `showAlert()` 等
 	5. ✔︎︎ 事件处理函数和回调以 on / after 等介词开头，如 `onSendRequest()` / `afterShowAlert()`
 3. 命名时尽量不要使用意义模糊的单词，如
-	1. ✖︎ 将某对象命名为 `data`，（大部分变量都是数据（data））
+	1. ✖︎ 将某对象命名为 `data`。（大部分变量都是数据（data））
 	2. ✖︎ 将某 bool 变量命名为 `flag`。（所有 bool 都是标志（flag））
 	3. ✖︎ 将某函数命名为 `operate()`。（所有函数都是操作（operate））
