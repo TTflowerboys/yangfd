@@ -27,15 +27,10 @@
         }
 
         $scope.sendVerification = function () {
-            userApi.checkUserExist($scope.user).then(function () {
-                userApi.sendVerification($scope.user)
-                    .success(function (data, status, headers, config) {
-                        $scope.user.id = data.val
-                    })
-            }, function () {
-                $scope.sendText = sendText
-                $scope.sendDisabled = false
-            })
+            userApi.sendVerification($scope.user)
+                .success(function (data, status, headers, config) {
+                    $scope.user.id = data.val
+                })
             $scope.onTimeout = function () {
 
                 if (!angular.isNumber($scope.sendText)) {

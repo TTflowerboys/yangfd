@@ -1,7 +1,6 @@
 @import "_imports";
-@import "_styleguide";
 
-.form {
+.registerForm {
     margin-top: 44px;
     .phone {
         > select {
@@ -17,9 +16,7 @@
             width: 140px;
         }
     }
-}
 
-> form {
     .formsHint {
         margin-top: 8px;
         font-size: 12px;
@@ -51,9 +48,11 @@
             text-decoration: none;
         }
     }
-    > button {
+
+    > button[type=submit] {
         margin-top: 20px;
-        width: 280px;
+        display: block;
+        width: 100%;
     }
     .hasAccountHint {
         margin-top: 20px;
