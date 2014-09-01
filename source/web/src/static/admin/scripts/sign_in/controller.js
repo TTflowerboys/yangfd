@@ -11,6 +11,7 @@
 
         $scope.submit = function ($event, form) {
             $event.preventDefault()
+            $scope.submitted = true
             if (form.$invalid) {
                 return
             }
