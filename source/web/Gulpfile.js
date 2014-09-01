@@ -115,7 +115,6 @@ gulp.task('html-include', function () {
 
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
-        .pipe(include())
         .pipe(extender())
         .pipe(gulp.dest(myPaths.dist))
 })

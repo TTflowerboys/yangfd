@@ -30,7 +30,7 @@
     "gulp-changed": "~0.4.0",
     "gulp-remember": "~0.2.0",
     "gulp-cached": "~1.0.1",
-    "gulp-html-extend": "0.0.4",
+    "gulp-html-extend": "~0.1.1",
     "gulp-rimraf": "~0.1.0",
     "chalk": "~0.5.1",
     "gulp-plumber": "~0.6.4",
@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "bootstrap": "~3.2.0",
-    "normalize.css": "~3.0.1"
+    "normalize.css": "~3.0.1",
+    "kss": "~1.0.0"
   }
 }
