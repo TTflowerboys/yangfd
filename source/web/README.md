@@ -34,6 +34,8 @@ CSS 命名只有一条规则：影响最小化。
 
 解释：如果你无法确保 .nav 的后代中所有的 a 都是蓝色的，请使用子代选择器（`>`）
 
+## JavaScript 规范
+
 ### JavaScript 命名
 
 1. 统一采用 camelCase，如 `renderHtml()` / `donationAmount` / `isLoading` / `active`
