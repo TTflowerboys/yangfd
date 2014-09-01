@@ -26,13 +26,14 @@
                             <div class="form-group">
                                 <div class="controls row">
                                     <div class="input-group col-sm-12">
-                                        <input ng-model="user.phone" name="phone"
+                                        <input ng-model="user.phone" name="phone" ng-pattern="/^[0-9]*$/"
                                                type="text" class="form-control" ng-change="changeText()"
                                                placeholder="电话号码" required>
                                         <span class="input-group-addon" style="width: 40px"><i
                                                 class="fa fa-mobile-phone"></i></span>
                                     </div>
                                     <span ng-show="submitted && signIn.phone.$error.required">Required</span>
+                                    <span ng-show="submitted && signIn.phone.$error.pattern">Number only</span>
                                 </div>
                             </div>
 
