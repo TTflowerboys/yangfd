@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "currant",
   "scripts": {
-    "debug": "gulp clean && gulp debug",
-    "dev": "gulp clean && gulp debug",
+    "debug": "npm install && gulp clean && gulp debug",
+    "dev": "npm install && gulp clean && gulp debug",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm install --production && gulp build",
     "styleguideinit": "kss-node --init",
