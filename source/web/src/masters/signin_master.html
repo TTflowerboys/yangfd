@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/styles/team/reset.css"/>
+    <link rel="stylesheet" href="/static/styles/project/layout.css"/>
+    <link rel="stylesheet" href="/static/styles/project/button.css"/>
+    <link rel="stylesheet" href="/static/styles/project/form.css"/>
+    <link rel="stylesheet" href="/static/styles/project/ghostButton.css"/>
+    <link rel="stylesheet" href="/static/styles/project/ghostSelect.css"/>
+    <link rel="stylesheet" href="/static/styles/project/textButton.css"/>
+    <link rel="stylesheet" href="/static/styles/project/modal.css"/>
+    <link rel="stylesheet" href="/static/styles/project/registerForm.css"/>
+    <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome.min.css">
+    <!-- @@placeholder = head -->
+</head>
+<body>
+
+<div class="page">
+    <main id="main" class="signInBackground">
+        <div id="modal_shadow" class="modal_shadow"></div>
+        <div id="modal" class="modal">
+            <img class="logo" src="/static/images/logo-login.png" alt=""/>
+            <!-- @@placeholder = main -->
+        </div>
+    </main>
+
+<!-- jQuery-->
+<!--[if !IE]>-->
+<script src="/static/themes/genius_dashboard/js/jquery-2.1.0.min.js"></script>
+<!--<![endif]-->
+<!--[if IE]>
+<script src="/static/themes/genius_dashboard/js/jquery-1.11.0.min.js"></script>
+<![endif]-->
+<script src="/static/themes/genius_dashboard/js/jquery-migrate-1.2.1.min.js"></script>
+<!-- /jQuery-->
+
+<!--<script src="/static/vendors/underscore-min.js"></script>-->
+
+<script src="/static/vendors/base64.min.js"></script>
+<script src="/static/vendors/jquery.serializeObject.js"></script>
+
+<script>
+    $(function () {
+        $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
+    })
+</script>
+
+<script>
+    $("#login").click(function () {
+        $("#modal_shadow").show()
+        $("#modal").show()
+
+    });
+    $("#register").click(function () {
+        $("#modal_shadow").show()
+        $("#modal").show()
+    });
+    $("#modal_shadow").click(function () {
+        $("#modal_shadow").hide()
+        $("#modal").hide()
+    });
+</script>
+<!--@@placeholder=scripts-->
+</body>
+</html>
+
