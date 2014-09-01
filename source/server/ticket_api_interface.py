@@ -238,6 +238,9 @@ Support Ticket
 ))
 def support_ticket_add(params):
     """
+    Add a support ticket. ``creator_user_id`` is the result of ``get_id_by_phone``. 
+    
+    If no id is found, **40324 non-exist user** error will occur.
     """
     params.setdefault("type", "support")
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)

@@ -4,9 +4,18 @@ from app import f_app
 from libfelix.f_interface import f_get, static_file, template, request, redirect
 
 
+def get_current_user():
+    user = f_app.user.login.get()
+    if user:
+        user = f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
+    else:
+        user = None
+    return user
+
+
 @f_get('/')
 def default():
-    return template("index")
+    return template("index", user=get_current_user())
     
 @f_get('/signup')
 def signup():
