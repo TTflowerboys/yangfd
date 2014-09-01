@@ -1,0 +1,29 @@
+<!--@@master=masters/signin_master.html -->
+
+<!--@@block=head -->
+    <link rel="stylesheet" href="/static/styles/project/registerForm.css"/>
+<!--@@close-->
+
+<!--@@block=main -->
+    <!-- @@include =partials/register_form.html -->
+<!--@@close-->
+
+<!--@@block=scripts -->
+<script>
+    $('form[name=register]').submit(function (e) {
+        e.preventDefault()
+        var params = $(this).serializeObject()
+        params.password = Base64.encode(params.password)
+        $.post("/api/1/user/register",
+                params,
+                function (data, status) {
+                    if (data.ret != 0) {
+                        alert("Data: " + data.msg + "\nStatus: " + status);
+                    }
+                    else {
+                        alert("Data: " + data.msg + "\nStatus: " + status);
+                    }
+                });
+    })
+</script>
+<!--@@close-->

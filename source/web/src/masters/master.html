@@ -9,11 +9,10 @@
         <link rel="stylesheet" href="/static/styles/project/ghostButton.css"/>
         <link rel="stylesheet" href="/static/styles/project/ghostSelect.css"/>
         <link rel="stylesheet" href="/static/styles/project/textButton.css"/>
-
         <link rel="stylesheet" href="/static/styles/project/siteHeader.css"/>
         <link rel="stylesheet" href="/static/styles/project/siteFooter.css"/>
         <link rel="stylesheet" href="/static/styles/project/modal.css"/>
-        <link rel="stylesheet" href="/static/styles/project/registerForm.css"/>
+        <link rel="stylesheet" href="/static/styles/project/signinForm.css"/>
         <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome.min.css">
         <!-- @@placeholder = head -->
     </head>
@@ -32,7 +31,7 @@
                 <li><a href="">业务模式</a></li>
             </ul>
             <button id="login" class="login ghostButton red">登录</button>
-            <button id="register" class="register textButton">免费注册</button>
+            <button id="register" class="register textButton" onclick="javascript:location.href='signup'">免费注册</button>
         </header>
     </div>
     <main id="main">
@@ -90,7 +89,7 @@
 <div id="modal_shadow" class="modal_shadow" style="display: none"></div>
 <div id="modal" class="modal" style="display: none">
     <img class="logo" src="/static/images/logo-login.png" alt=""/>
-    <!-- @@include =../partials/register_form.html -->
+    <!-- @@include =../partials/signin_form.html -->
 </div>
 
 <!-- jQuery-->
@@ -120,20 +119,16 @@
         $("#modal").show()
 
     });
-    $("#register").click(function () {
-        $("#modal_shadow").show()
-        $("#modal").show()
-    });
     $("#modal_shadow").click(function () {
         $("#modal_shadow").hide()
         $("#modal").hide()
     });
 
-    $('form[name=register]').submit(function (e) {
+    $('form[name=signin]').submit(function (e) {
         e.preventDefault()
         var params = $(this).serializeObject()
         params.password = Base64.encode(params.password)
-        $.post("/api/1/user/register",
+        $.post("/api/1/user/login",
                 params,
                 function (data, status) {
                     if (data.ret != 0) {

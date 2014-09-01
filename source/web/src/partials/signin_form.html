@@ -1,9 +1,5 @@
-<form name="register" class="registerForm">
+<form name="signin" class="signinForm">
     <div class="form bordered">
-        <div class="form_row active">
-            <i><img src="/static/images/icon/user.png" alt=""/></i> <input name="nickname" placeholder=姓名 size=20>
-        </div>
-        <hr>
         <div class="phone form_row">
             <i><img src="/static/images/icon/phone-active.png" alt=""/>
                 <select name="country" class="ghostSelect">
@@ -20,12 +16,7 @@
             <input name="password" type="password" placeholder=密码 size=20>
         </div>
     </div>
-    <h4 class="formsHint">手机号为登陆和找回密码凭证，请填写真实号码</h4>
-    <div class="captureCode">
-        <img src="/static/images/placeholder/captureCode.png" alt=""/>
-        <input name="ccode" size=20>
-    </div>
-    <div class="terms"><input type="checkbox" checked/> 我同意<a href="">会员服务须知</a></div>
-    <button type="submit" class="register button gray">注册</button>
-    <h3 class="hasAccountHint">已经拥有账号？请<a href="signin">登陆</a></h3>
+    <div class="rememberPassword"><input type="checkbox" checked/> 记住密码</div>
+    <button type="submit" class="signin button gray">登录</button>
+    <h3 class="notHaveAccountHint">还没有账号？请<a href="signup">注册</a></h3>
 </form>
