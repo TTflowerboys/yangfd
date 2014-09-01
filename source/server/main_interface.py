@@ -7,6 +7,10 @@ from libfelix.f_interface import f_get, static_file, template
 @f_get('/')
 def default():
     return template("index")
+    
+@f_get('/signup')
+def signup():
+    return template("signup")
 
 @f_get('/admin')
 def admin():
