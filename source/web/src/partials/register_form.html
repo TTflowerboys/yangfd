@@ -1,7 +1,8 @@
 <form name="register" class="registerForm">
     <div class="form bordered">
         <div class="form_row active">
-            <i><img src="/static/images/icon/user.png" alt=""/></i> <input name="nickname" placeholder=姓名 size=20>
+            <img src="/static/images/icon/user.png" alt=""/>
+            <input name="nickname" placeholder=姓名 size=20 data-validator="required, trim">
         </div>
         <hr>
         <div class="phone form_row">
@@ -13,12 +14,12 @@
                     <option value="US">美国 +1</option>
                 </select>
                 <span class=vr></span>
-            <input name="phone" type="tel" size=20>
+            <input name="phone" type="tel" size=20 data-validator="required, trim, number">
         </div>
         <hr>
         <div class="form_row">
             <img src="/static/images/icon/lock.png" alt=""/>
-            <input name="password" type="password" placeholder=密码 size=20>
+            <input name="password" type="password" placeholder=密码 size=20 data-validator="required, trim">
         </div>
     </div>
     <h4 class="formsHint">手机号为登陆和找回密码凭证，请填写真实号码</h4>

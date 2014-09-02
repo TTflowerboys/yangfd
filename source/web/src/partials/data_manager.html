@@ -3,6 +3,8 @@
     {{json_dumps(user)}}
 </textarea>
 <script>
-    window.user = JSON.parse(document.getElementById("userData").innerHTML)
+    var userElement = document.getElementById("userData")
+    window.user = JSON.parse(userElement.innerHTML)
+    document.removeChild(userElement)
 </script>
 %end

@@ -9,12 +9,12 @@
                 <option value="US">美国 +1</option>
             </select>
             <span class=vr></span>
-            <input name="phone" type="tel" size=20>
+            <input name="phone" type="tel" size=20 data-validator="required, trim, number">
         </div>
         <hr>
         <div class="form_row">
             <img src="/static/images/icon/lock.png" alt=""/>
-            <input name="password" type="password" placeholder=密码 size=10>
+            <input name="password" type="password" placeholder=密码 size=10 data-validator="required, trim">
             <a id="forgotPassword" href="#" onclick="project.goToResetPassword()" style="position:absolute; right:0;font-size:12px; color:#aaa;">忘记密码</a>
         </div>
     </div>

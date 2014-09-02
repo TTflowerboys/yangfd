@@ -12,6 +12,12 @@
 <script>
     $('form[name=register]').submit(function (e) {
         e.preventDefault()
+        var valid = $.validate(this, {onError: function (dom,validator,index) {
+            alert( dom.name +" validate error " + validator)
+            return ''
+        }})
+        if(!valid){return}
+
         var params = $(this).serializeObject()
         params.password = Base64.encode(params.password)
         $.post("/api/1/user/register",

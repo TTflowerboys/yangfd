@@ -7,7 +7,7 @@
  *   email
  *   decimal
  *   number
- *   sameAs
+ *   sameAs(password)
  */
 /**
  * TODO:
@@ -128,9 +128,9 @@
                 if (match && match[1]) {
                     target = $.trim(match[1])
                     if (valueMap[target] === undefined || $.trim(valueMap[target]) === '') {
-                        result = false
+                result = false
                         errorIndex += 1
-                        if (options.onError($form.find(dom, 'need', errorIndex - 1) !== 'continue') {return false}
+                        if (options.onError(dom, 'need', errorIndex - 1) !== 'continue') {return false}
                     }
 
                 }
