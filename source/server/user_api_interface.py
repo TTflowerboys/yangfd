@@ -44,6 +44,10 @@ def user_login(params):
     phone=(str, True),
     country=(str, True),
     email=str,
+    solution=str,
+    challenge=str,
+    remote_ip=str,
+    method=(str, "recaptcha"),
 ))
 @rate_limit("register", ip=10)
 def register(params):
@@ -53,10 +57,26 @@ def register(params):
     ``password`` must be base64 encoded.
 
     ``country`` should be 2-letter country code, see http://www.worldatlas.com/aatlas/ctycodes.htm
+
+    ``solution``  the solution user enters.
+
+    ``challenge`` describes the CAPTCHA which the user is solving.
+
+    ``remote_ip``  is the IP address of the user who solved the CAPTCHA.
+
+    ``method`` is the  CAPTCHA generating method
     """
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
+
+    solution = params.pop("solution", None)
+    challenge = params.pop("challenge", None)
+    remote_ip = params.pop("remote_ip", None)
+    method = params.pop("method", "recaptcha")
+    if solution is not None and challenge is not None and remote_ip is not None:
+        if not f_app.captcha.validate(solution, challenge, remote_ip, method):
+            abort(50314)
 
     user_id = f_app.user.add(params)
 
@@ -386,3 +406,13 @@ def user_sms_reset_password(user_id, params):
 
     result = f_app.user.output([str(user_id)], user=user, custom_fields=f_app.common.user_custom_fields)[0]
     return result
+
+
+@f_api("/captcha/generate", params=dict(
+    method=(str, "recaptcha"),
+))
+def captcha_generate(params):
+    """
+    Generate captcha.
+    """
+    return f_app.captcha.generate(params["method"])

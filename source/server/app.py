@@ -19,6 +19,7 @@ import libfelix.f_user
 import libfelix.f_sms.f_clickatell
 import libfelix.f_sms.f_nexmo
 import f_currant
+import libfelix.f_captcha.f_recaptcha
 
 libfelix.f_message.f_message_push_plugin()
 
