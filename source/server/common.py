@@ -47,7 +47,7 @@ class common(f_common):
     message_self_hosted_push_port = 8286
     parse_delay = 5
 
-    i18n_locales = ['zh_Hans_CN', 'zh_Hant_HK', 'en_GB']
+    i18n_locales = ["zh_Hans_CN", "zh_Hant_HK", "en_GB"]
 
     email_default_method = "aws_ses"
     email_default_sender = "developer+currant@bbtechgroup.com"
