@@ -28,6 +28,18 @@ def signin():
 @f_get('/reset_password')
 def resetPassword():
     return template("reset_password", user=get_current_user())
+    
+@f_get('/terms')
+def terms():
+    return template("terms", user=get_current_user())
+
+@f_get('/privacy')
+def privacy():
+    return template("privacy", user=get_current_user())
+    
+@f_get('/process')
+def process():
+    return template("process", user=get_current_user())
 
 @f_get('/admin')
 def admin():
