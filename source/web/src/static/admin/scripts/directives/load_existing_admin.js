@@ -10,39 +10,40 @@ angular.module('app')
             link: function (scope, elm, attrs) {
                 var delayer
                 scope.$watch('item.phone', function (value) {
-                    if(!value || value.length<=5){
-                        if(delayer){delayer.cancel()}
+                    if (!value || value.length <= 5) {
+                        if (delayer) {delayer.cancel()}
+                        onNoExistingUser()
                         return
                     }
-                    if(!delayer){
+                    if (!delayer) {
                         delayer = new misc.Delayer({
                             task: function () {
                                 scope.isCheckingPhone = true
                                 checkPhone().success(function () {
                                     getUserByPhone().success(function (data) {
                                         var value = data.val[0]
-                                        if(!value){
+                                        if (!value) {
                                             onNoExistingUser()
                                             return
                                         }
-                                        angular.extend(scope.item, _.pick(value,'id','nickname','email','role'))
+                                        angular.extend(scope.item, _.pick(value, 'id', 'nickname', 'email', 'role'))
                                         scope.existingItem = value
 
                                     }).error(onNoExistingUser)['finally'](function () {
                                         setTimeout(function () {
                                             scope.isCheckingPhone = false
-                                        },200)
+                                        }, 200)
                                     })
                                 }).error(function () {
                                     onNoExistingUser()
                                     setTimeout(function () {
                                         scope.isCheckingPhone = false
-                                    },200)
+                                    }, 200)
                                 })
                             },
                             delay: 300
                         })
-                    }else{
+                    } else {
                         delayer.update()
                     }
 
@@ -57,19 +58,19 @@ angular.module('app')
                 }
 
                 function checkPhone() {
-                    return $http.get('/api/1/user/phone_test',{
-                        params:{
-                            country:scope.item.country,
-                            phone:scope.item.phone
+                    return $http.get('/api/1/user/phone_test', {
+                        params: {
+                            country: scope.item.country,
+                            phone: scope.item.phone
                         }
                     })
                 }
 
                 function getUserByPhone() {
-                    return $http.get('/api/1/user/admin/search',{
-                        params:{
-                            country:scope.item.country,
-                            phone:scope.item.phone
+                    return $http.get('/api/1/user/admin/search', {
+                        params: {
+                            country: scope.item.country,
+                            phone: scope.item.phone
                         }
                     })
                 }
