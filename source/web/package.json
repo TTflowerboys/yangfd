@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm install --production && gulp build",
     "styleguideinit": "kss-node --init",
-    "styleguide": "kss-node ./src/static/styles/project/ --less ./src/static/styles/project/_styleguide.less --template ./.styleguide-template/"
+    "styleguide": "kss-node ./src/static/styles/ --less ./src/static/styles/styleguide.less --template ./.styleguide-template/"
   },
   "repository": {
     "type": "git",

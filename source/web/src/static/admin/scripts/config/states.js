@@ -27,7 +27,7 @@ angular.module('app')
             })
 
         /**
-         * users
+         * admins 管理员的管理
          */
             .state('dashboard.admins', {
                 url: '/admins',

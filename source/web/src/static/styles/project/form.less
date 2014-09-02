@@ -5,6 +5,7 @@
 @border-color: #CCC;
 @color: #333;
 @red: #e60012;
+@font-size: 16px;
 .form {
     color: @color;
     background: white;
@@ -18,14 +19,36 @@
         margin: 0;
     }
     &_row {
+        position: relative;
         padding: 8px 4px;
         line-height: 34px;
-        > i { margin-right: 8px; }
+        white-space: nowrap;
+        overflow: hidden;
+        > i { vertical-align: middle }
         &.active {
             > i { color: @red; }
         }
     }
-    input { border: none; line-height: 24px;
+    input { border: none; line-height: 24px; margin-left: 8px; vertical-align: middle;
         &:focus { outline: none; }
+    }
+    select { vertical-align: middle;
+        &.addLeft {
+            margin-right: 8px;
+            vertical-align: middle;
+            display: inline-block;
+            background: transparent;
+            font-size: inherit;
+            border: none;
+        }
+    }
+    .vr {
+        color: @border-color;
+        border-left: 1px solid;
+        display: inline-block;
+        height: 100%;
+        width: 0;
+        top: 0;
+        position: absolute;
     }
 }

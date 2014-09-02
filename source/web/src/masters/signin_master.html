@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/styles/team/reset.css"/>
-    <link rel="stylesheet" href="/static/styles/project/layout.css"/>
     <link rel="stylesheet" href="/static/styles/project/button.css"/>
     <link rel="stylesheet" href="/static/styles/project/form.css"/>
     <link rel="stylesheet" href="/static/styles/project/ghostButton.css"/>
     <link rel="stylesheet" href="/static/styles/project/ghostSelect.css"/>
     <link rel="stylesheet" href="/static/styles/project/textButton.css"/>
+    <link rel="stylesheet" href="/static/styles/project/signin.css"/>
     <link rel="stylesheet" href="/static/styles/project/modal.css"/>
     <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome.min.css">
     <!-- @@placeholder = head -->
@@ -18,12 +18,29 @@
 <!-- @@include =../partials/data_manager.html -->
 <div class="page">
     <main id="main" class="signInBackground">
-        <div id="modal_shadow" class="modal_shadow"></div>
         <div id="modal" class="modal">
             <a href="/"><img class="logo" src="/static/images/logo-login.png" alt=""/></a>
             <!-- @@placeholder = main -->
         </div>
     </main>
+    <div class="copyright_wrapper">
+        <div class="copyright">
+            <p>&copy;<script>document.write(new Date().getFullYear())</script>
+                Brothers Bridge Group
+            </p>
+            <ul class="navbar">
+                <li><a href="/terms">服务条款</a><img src="/static/images/navbar-seperator.png" class="seperator"/></li>
+                <li><a href="/privacy">隐私声明</a><img src="/static/images/navbar-seperator.png" class="seperator"/></li>
+                <li><a href="/process">业务流程</a><img src="/static/images/navbar-seperator.png" class="seperator"/></li>
+                <li>
+                    <select class="ghostSelect" style="min-width: 140px;">
+                        <option>中文（中国）</option>
+                        <option>English, UK</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </div>
 
 <!-- jQuery-->
 <!--[if !IE]>-->
@@ -42,7 +59,7 @@
 
 <script>
     $(function () {
-        $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
+        $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
     })
 </script>
 <!--@@placeholder=scripts-->
