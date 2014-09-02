@@ -144,6 +144,7 @@ def current_user_edit(user, params):
     role=str,
     phone=str,
     country=str,
+    role_only=bool,
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_list(user, params):
@@ -157,6 +158,12 @@ def admin_user_list(user, params):
     All senior roles can search for themselves and their junior roles.
     """
     user_roles = f_app.user.get_role(user["id"])
+    if "role_only" in params:
+        role_only = params.pop("role_only")
+        if role_only:
+            params["role"] = {"$not": {"$size": 0}}
+        else:
+            params["role"] = {"$nin": f_app.common.admin_roles}
     if "role" in params:
         if not f_app.user.check_set_role_permission(user["id"], params["role"]):
             abort(40399, logger.warning("Permission denied", exc_info=False))
@@ -164,22 +171,19 @@ def admin_user_list(user, params):
         if "admin" in user_roles:
             pass
         elif "jr_admin" in user_roles:
-            params["role"] = {}
             params["role"]["$nin"] = ["admin"]
         elif "sales" in user_roles:
-            params["role"] = {}
             params["role"]["$nin"] = ["admin", "jr_admin", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
         elif "operation" in user_roles:
-            params["role"] = {}
             params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "support", "jr_support", "developer", "agency"]
         else:
             # support
-            params["role"] = {}
             params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "developer", "agency"]
 
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
     per_page = params.pop("per_page", 0)
+    logger.debug(params)
     return f_app.user.output(f_app.user.custom_search(params=params, per_page=per_page), custom_fields=f_app.common.user_custom_fields)
 
 
