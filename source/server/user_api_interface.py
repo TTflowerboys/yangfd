@@ -261,9 +261,12 @@ def admin_user_add(user, params):
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
-@f_api("/user/admin/<user_id>/add_role/<role>")
+@f_api("/user/admin/<user_id>/add_role", params=dict(
+    role=(str, True),
+))
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
-def admin_user_add_role(user, user_id, role):
+def admin_user_add_role(user, user_id, params):
+    role = params["role"]
     if role not in f_app.common.admin_roles:
         abort(40091, logger.warning("Invalid params: role", role, exc_info=False))
     if not f_app.user.check_set_role_permission(user["id"], role):
