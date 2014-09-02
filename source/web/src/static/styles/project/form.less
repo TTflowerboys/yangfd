@@ -18,14 +18,35 @@
         margin: 0;
     }
     &_row {
+        position: relative;
         padding: 8px 4px;
         line-height: 34px;
-        > i { margin-right: 8px; }
+        white-space: nowrap;
+        overflow: hidden;
         &.active {
             > i { color: @red; }
         }
     }
-    input { border: none; line-height: 24px;
+    input { border: none; line-height: 24px; padding-left: 8px;
         &:focus { outline: none; }
+    }
+    select {
+        &.addLeft {
+            vertical-align: middle;
+            display: inline-block;
+            background: transparent;
+            font-size: inherit;
+            height: 40px;
+            border: none;
+        }
+    }
+    .vr {
+        color: @border-color;
+        border-left: 1px solid;
+        display: inline-block;
+        height: 100%;
+        width: 0;
+        top: 0;
+        position: absolute;
     }
 }
