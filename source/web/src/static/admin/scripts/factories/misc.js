@@ -39,6 +39,10 @@ angular.module('app')
             }.bind(this), this.delay)
         }
 
+        Delayer.prototype.cancel = function () {
+            window.clearTimeout(this.timer)
+        }
+
         return{
 
             findBy: function (array, by, value) {

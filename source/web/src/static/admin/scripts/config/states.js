@@ -42,7 +42,7 @@ angular.module('app')
             .state('dashboard.admins.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.admins.create.tpl.html',
-                controller: 'ctrlCreateAdmin',
+                controller: 'ctrlCreate',
                 resolve: {
                     api: function (adminApi) {
                         return adminApi
