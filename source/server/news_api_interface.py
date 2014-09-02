@@ -1,5 +1,3 @@
-#!/usr/bin/env python2
-
 from datetime import datetime
 from bson.objectid import ObjectId
 from libfelix.f_common import f_app
@@ -29,7 +27,7 @@ def blog_add(user):
 ))
 def news_list(params):
     if "category" in params:
-        if not set(params["category"]) <= set(["news", "announcement"]):
+        if not set(params["category"]) <= set(f_app.common.news_category):
             abort(40000, logger.warning("Invalid params: category", params["category"], exc_info=False))
     per_page = params.pop("per_page", 0)
     params["blog_id"] = ObjectId(_blog_id)
@@ -48,7 +46,7 @@ def news_add(user, params):
     ``blog_id`` is a constant "53f839246b80992f831b2269".
     ``category`` must be in "announcement", "news".
     """
-    if params["category"] not in ("announcement", "news"):
+    if params["category"] not in f_app.common.news_category:
         abort(40000, logger.warning("Invalid params: category not okay"))
     params["blog_id"] = ObjectId(_blog_id)
     return f_app.blog.post_add(params)
@@ -67,7 +65,7 @@ def news_get(news_id):
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_edit(user, news_id, params):
     if "category" in params:
-        if params.get("category") not in ("announcement", "news"):
+        if params.get("category") not in f_app.common.news_category:
             abort(40000, logger.warning("Invalid params: category not okay"))
     return f_app.blog.post.update_set(news_id, params)
 
