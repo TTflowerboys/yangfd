@@ -5,17 +5,17 @@
     window.project = {
         goToSignIn: function () {
             var from = team.getQuery('from', location.href)
-            location.href = "/signin?from=" + encodeURIComponent(from ? from : location.href)
+            location.href = '/signin?from=' + encodeURIComponent(from ? from : location.href)
             return false //prevent default action for <a>
         },
         goToSignUp: function () {
             var from = team.getQuery('from', location.href)
-            location.href = "/signup?from=" + encodeURIComponent(from ? from : location.href)
+            location.href = '/signup?from=' + encodeURIComponent(from ? from : location.href)
             return false //prevent default action for <a>
         },
         goToResetPassword: function () {
             var from = team.getQuery('from', location.href)
-            location.href = "/reset_password?from=" + encodeURIComponent(from ? from : location.href)
+            location.href = '/reset_password?from=' + encodeURIComponent(from ? from : location.href)
             return false //prevent default action for <a>
         },
         goBackFromURL: function () {
