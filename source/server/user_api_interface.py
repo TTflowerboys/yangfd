@@ -210,7 +210,7 @@ def admin_user_list(user, params):
     email=(str, True),
     nickname=(str, True),
     phone=(str, True),
-    role=(str, True),
+    role=(list, True, str),
     country=(str, True),
 ))
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
@@ -220,8 +220,11 @@ def admin_user_add(user, params):
 
     Password is generated randomly.
     """
-    if not f_app.user.check_set_role_permission(user["id"], params["role"]):
-        abort(40399, logger.warning('Permission denied.', exc_info=False))
+    for r in params["role"]:
+        if r not in f_app.common.admin_roles:
+            abort(40091, logger.warning("Invalid params: role", r, exc_info=False))
+        if not f_app.user.check_set_role_permission(user["id"], r):
+            abort(40399, logger.warning('Permission denied.', exc_info=False))
 
     if "@" not in params["email"]:
         abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
@@ -242,9 +245,39 @@ def admin_user_add(user, params):
     f_app.email.schedule(
         target=params["email"],
         subject="Your admin console access password",
-        text=template("static/templates/new_admin", password=params["password"], email=params["email"], admin_console_url=f_app.common.admin_console_url),
+        text=template("static/templates/new_admin", password=params["password"], nickname=params["nickname"], role=params["role"], admin_console_url=f_app.common.admin_console_url),
         display="html",
     )
+
+    return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
+
+
+@f_api("/user/admin/<user_id>/add_role", params=dict(
+    role=(str, True),
+))
+@f_app.user.login.check(force=True, role=f_app.common.admin_roles)
+def admin_user_add_role(user, user_id, params):
+    """
+    Add single role to specific user.
+    """
+    role = params["role"]
+    user_info = f_app.user.get(user_id)
+    if role not in f_app.common.admin_roles:
+        abort(40091, logger.warning("Invalid params: role", role, exc_info=False))
+    if not f_app.user.check_set_role_permission(user["id"], role):
+        abort(40399, logger.warning('Permission denied.', exc_info=False))
+    user_roles = user_info.get('role', [])
+    if role not in user_roles:
+        if user_info.get("email") is not None:
+            f_app.email.schedule(
+                target=user_info.get("email"),
+                subject="You are now set as admin",
+                text=template("static/templates/set_as_admin", nickname=user_info.get("nickname"), role=params["role"], admin_console_url=f_app.common.admin_console_url),
+                display="html",
+            )
+        else:
+            abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
+        f_app.user.add_role(user_id, role)
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
@@ -255,7 +288,7 @@ def admin_user_add(user, params):
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_set_role(user, user_id, params):
     """
-    Use this API to add an existing user as admin.
+    Use this API to set a list of roles to specific user.
 
     ``admin`` can set any role.
 
@@ -267,26 +300,13 @@ def admin_user_set_role(user, user_id, params):
 
     ``support`` can set ``support`` and ``jr_support``.
     """
-    if not set(params["role"]) <= set(f_app.common.admin_roles):
-        abort(40091, logger.warning("Invalid params: role", params["role"], exc_info=False))
-
     for r in params["role"]:
+        if r not in f_app.common.admin_roles:
+            abort(40091, logger.warning("Invalid params: role", r, exc_info=False))
         if not f_app.user.check_set_role_permission(user["id"], r):
             abort(40399, logger.warning('Permission denied.', exc_info=False))
 
-    user_info = f_app.user.get(user_id)
-
-    if params["role"] not in user_info.get("role", []):
-        if user_info.get("email") is not None:
-            f_app.email.schedule(
-                target=user_info.get("email"),
-                subject="You are now set as admin",
-                text=template("static/templates/set_as_admin", email=user_info, admin_console_url=f_app.common.admin_console_url),
-                display="html",
-            )
-        else:
-            abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
-        f_app.user.update_set(user_id, {"role": params["role"]})
+    f_app.user.update_set(user_id, {"role": params["role"]})
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
@@ -300,10 +320,11 @@ def admin_user_unset_role(user, user_id, params):
     Use this API to remove (a role of an) admin
     """
     user_roles = f_app.user.get_role(user_id)
-    if not set(params["role"]) <= set(f_app.common.admin_roles):
-        abort(40091, logger.warning("Invalid params: role", params["role"], exc_info=False))
+
     for r in params["role"]:
-        if r in user_roles:
+        if r not in f_app.common.admin_roles:
+            abort(40091, logger.warning("Invalid params: role", r, exc_info=False))
+        elif r in user_roles:
             if not f_app.user.check_set_role_permission(user["id"], r):
                 abort(40399, logger.warning('Permission denied.', exc_info=False))
             f_app.user.remove_role(user_id, r)
