@@ -18,8 +18,10 @@ import libfelix.f_ticket
 import libfelix.f_user
 import libfelix.f_sms.f_clickatell
 import libfelix.f_sms.f_nexmo
-import f_currant
 import libfelix.f_captcha.f_recaptcha
+
+import f_currant
+
 
 libfelix.f_message.f_message_push_plugin()
 
