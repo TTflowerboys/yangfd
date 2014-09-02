@@ -23,7 +23,7 @@
             <!-- @@placeholder = main -->
         </div>
     </main>
-    <div class="copyright_wrapper">
+    <div id="copyright" class="copyright_wrapper">
         <div class="copyright">
             <p>&copy;<script>document.write(new Date().getFullYear())</script>
                 Brothers Bridge Group
@@ -53,12 +53,16 @@
 <!-- /jQuery-->
 
 <!--<script src="/static/vendors/underscore-min.js"></script>-->
-    <script src="/static/scripts/team/utils.js"></script>
+<script src="/static/scripts/team.js"></script>
+<script src="/static/scripts/project.js"></script>
 <script src="/static/vendors/base64.min.js"></script>
 <script src="/static/vendors/jquery.serializeObject.js"></script>
 
 <script>
     $(function () {
+        $(window).on('resize', function () {
+            $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
+        })
         $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
     })
 </script>

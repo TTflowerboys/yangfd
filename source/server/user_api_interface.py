@@ -164,6 +164,7 @@ def current_user_edit(user, params):
     role=str,
     phone=str,
     country=str,
+    role_only=bool,
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_list(user, params):
@@ -175,13 +176,25 @@ def admin_user_list(user, params):
     ``jr_admin`` can search for every role except ``admin``.
 
     All senior roles can search for themselves and their junior roles.
+
+    Only users with roles will be returned if ``role_only`` is true.
+
+    If ``role_only`` is false, only users without roles will be returned.
+
+    All users can be fetched if ``role_only`` is not given.
+
     """
     user_roles = f_app.user.get_role(user["id"])
+    if "role_only" in params:
+        role_only = params.pop("role_only")
+        if role_only:
+            params["role"] = {"$not": {"$size": 0}}
+        else:
+            params["role"] = {"$nin": f_app.common.admin_roles}
     if "role" in params:
         if not f_app.user.check_set_role_permission(user["id"], params["role"]):
             abort(40399, logger.warning("Permission denied", exc_info=False))
     else:
-        params["role"] = {"$not": {"$size": 0}}
         if "admin" in user_roles:
             pass
         elif "jr_admin" in user_roles:
@@ -197,6 +210,7 @@ def admin_user_list(user, params):
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
     per_page = params.pop("per_page", 0)
+    logger.debug(params)
     return f_app.user.output(f_app.user.custom_search(params=params, per_page=per_page), custom_fields=f_app.common.user_custom_fields)
 
 
@@ -245,7 +259,7 @@ def admin_user_add(user, params):
 
 
 @f_api("/user/admin/<user_id>/set_role", params=dict(
-    role=(str, True)
+    role=(list, True, str)
 ))
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_set_role(user, user_id, params):
@@ -262,8 +276,12 @@ def admin_user_set_role(user, user_id, params):
 
     ``support`` can set ``support`` and ``jr_support``.
     """
-    if not f_app.user.check_set_role_permission(user["id"], params["role"]):
-        abort(40399, logger.warning('Permission denied.', exc_info=False))
+    if not set(params["role"]) <= set(f_app.common.admin_roles):
+        abort(40091, logger.warning("Invalid params: role", params["role"], exc_info=False))
+
+    for r in params["role"]:
+        if not f_app.user.check_set_role_permission(user["id"], r):
+            abort(40399, logger.warning('Permission denied.', exc_info=False))
 
     user_info = f_app.user.get(user_id)
 
@@ -277,49 +295,29 @@ def admin_user_set_role(user, user_id, params):
             )
         else:
             abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
-
-        f_app.user.add_role(user_id, params["role"])
+        f_app.user.update_set(user_id, {"role": params["role"]})
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
 @f_api("/user/admin/<user_id>/unset_role", params=dict(
-    role=(str, True)
+    role=(list, True, str)
 ))
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_unset_role(user, user_id, params):
     """
     Use this API to remove (a role of an) admin
     """
-    if not f_app.user.check_set_role_permission(user["id"], params["role"]):
-        abort(40399, logger.warning('Permission denied.', exc_info=False))
-    f_app.user.remove_role(user_id, params["role"])
+    user_roles = f_app.user.get_role(user_id)
+    if not set(params["role"]) <= set(f_app.common.admin_roles):
+        abort(40091, logger.warning("Invalid params: role", params["role"], exc_info=False))
+    for r in params["role"]:
+        if r in user_roles:
+            if not f_app.user.check_set_role_permission(user["id"], r):
+                abort(40399, logger.warning('Permission denied.', exc_info=False))
+            f_app.user.remove_role(user_id, r)
 
-
-@f_api("/user/search", params=dict(
-    email=str,
-    nickname=str,
-    role=(list, None, str),
-    per_page=int,
-    register_time=datetime,
-    phone=str,
-    country=str,
-))
-@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
-def user_search(user, params):
-    """
-    Search for general user only.
-    """
-    if "phone" in params:
-        params["phone"] = f_app.util.parse_phone(params)
-    if "email" in params:
-        if "@" not in params["email"]:
-            abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
-
-    per_page = params.pop("per_page", 0)
-    params["$or"] = [{"role": {"$exists": False}}, {"role": {"$size": 0}}]
-    result = f_app.user.custom_search(params, per_page=per_page)
-    return f_app.user.output(result, custom_fields=f_app.common.user_custom_fields)
+    return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
 @f_api("/user/check_exist", force_ssl=True, params=dict(
