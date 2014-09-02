@@ -142,6 +142,8 @@ def current_user_edit(user, params):
     time=datetime,
     register_time=datetime,
     role=str,
+    phone=str,
+    country=str,
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_list(user, params):
@@ -172,6 +174,8 @@ def admin_user_list(user, params):
             # support
             params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "developer", "agency"]
 
+    if "phone" in params:
+        params["phone"] = f_app.util.parse_phone(params)
     per_page = params.pop("per_page", 0)
     return f_app.user.output(f_app.user.custom_search(params=params, per_page=per_page), custom_fields=f_app.common.user_custom_fields)
 
