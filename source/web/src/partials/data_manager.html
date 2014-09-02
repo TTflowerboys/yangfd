@@ -1,8 +1,8 @@
 %if user:
-<textarea  id="_" style="display: none">
+<textarea  id="userData" style="display: none">
     {{json_dumps(user)}}
 </textarea>
 <script>
-    window.user = JSON.parse(document.getElementById("_").innerHTML)
+    window.user = JSON.parse(document.getElementById("userData").innerHTML)
 </script>
 %end
