@@ -1,0 +1,62 @@
+@import "_imports";
+
+* {
+    box-sizing: border-box;
+}
+
+.page {
+    > main {
+        min-height: 300px;
+        font: @font-normal;
+        font-size: 14px
+    }
+}
+
+.signInBackground {
+    background-image: url('/static/images/background/login-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+}
+
+.copyright {
+    &_wrapper {
+        width: 100%;
+        overflow: hidden;
+        background: @copyright-bg;
+        height: @copyright-height;
+
+        z-index: 120;
+    }
+    max-width: @max-width;
+    margin: 0 auto;
+    overflow: hidden;
+    > p {
+        line-height: @copyright-height;
+        margin: 0;
+        height: 100%;
+        color: #ffffff;
+        display: inline-block;
+    }
+    .navbar {.horizontalList(@padding: 16px); float: right;
+        > li {
+            line-height: @copyright-height;
+            margin: 0px;
+            > a {
+                color: #ffffff;
+                text-decoration: none;
+                font-size: 14px;
+                margin: 12px 0;
+                height: 100%;
+            }
+            .seperator {
+                float: right;
+                margin-right: -16px;
+                margin-top: 14px;
+            }
+            > select {
+                background: #222222;
+            }
+        }
+    }
+}
