@@ -32,8 +32,27 @@
                 <li><a href="">项目开发</a></li>
                 <li><a href="">业务模式</a></li>
             </ul>
-            <button id="login" class="login ghostButton red">登录</button>
-            <button id="register" class="register textButton" onclick="javascript:location.href='signup'">免费注册</button>
+
+            <div class="user">
+                <div id="userLogin" class="userLogin" style="display: none">
+                    <button id="login" class="login ghostButton red">登录</button>
+                    <button id="register" class="register textButton" onclick="javascript:location.href='signup'">免费注册</button>
+                </div>
+                <div id="userInfo" class="userInfo" style="display:none">
+                    <p class="welcome">你好!</p>
+                    <h2 class="userName"></h2>
+                </div>
+                <script>
+                    if (window.user)
+                    {
+                        document.getElementById("userInfo").style.display="inline-block";
+                    }
+                    else
+                    {
+                        document.getElementById("userLogin").style.display="inline-block";
+                    }
+                </script>
+            </div>
         </header>
     </div>
     <main id="main">
