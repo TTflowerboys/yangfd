@@ -60,6 +60,9 @@ class common(f_common):
     clickatell_user = "marco388"
     clickatell_password = "EaSeURGSXGXNbM"
 
+    recaptcha_public_key = "6LfNfvkSAAAAACXjRTaEqvN-aLyG6w5Swp2kh9yz"
+    recaptcha_private_key = "6LfNfvkSAAAAAEPFsTe5y8g5zReShTthbHZtWrcj"
+
     custom_error_codes = {
         40099: "Invalid params: No '@' in email address supplied:",
         40098: "Invalid params: current password not provided",
