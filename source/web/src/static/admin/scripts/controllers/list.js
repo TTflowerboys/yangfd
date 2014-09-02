@@ -9,10 +9,10 @@
         $scope.currentPageNumber = 1
         $scope.pages = []
 
-        api.getAll({ params: {per_page: $scope.perPage} }).success(onGetList)
+        api.getAll({ params: {per_page: $scope.perPage, role_only: true} }).success(onGetList)
 
         $scope.refreshList = function () {
-            api.getAll({ params: {per_page: $scope.perPage}}).success(onGetList)
+            api.getAll({ params: {per_page: $scope.perPage, role_only: true}}).success(onGetList)
         }
 
         $scope.onRemove = function (item) {
@@ -46,7 +46,8 @@
 
             api.getAll({params: {
                 time: time,
-                per_page: $scope.perPage
+                per_page: $scope.perPage,
+                role_only: true
             }})
                 .success(function () {
                     $scope.currentPageNumber -= 1
