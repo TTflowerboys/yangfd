@@ -14,8 +14,11 @@
                 $state.go('signIn', {from: $state.current.name})
             })
 
-        $scope.logout = function(){
-            $http.get('/logout')
+        $scope.logout = function () {
+            $http.get('/logout', {errorMessage: true})
+                .success(function () {
+                    $state.go('signIn', {from: $state.current.name})
+                })
         }
     }
 
