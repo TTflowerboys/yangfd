@@ -156,6 +156,13 @@ def admin_user_list(user, params):
     ``jr_admin`` can search for every role except ``admin``.
 
     All senior roles can search for themselves and their junior roles.
+
+    Only users with roles will be returned if ``role_only`` is true.
+
+    If ``role_only`` is false, only users without roles will be returned.
+
+    All users can be fetched if ``role_only`` is not given.
+
     """
     user_roles = f_app.user.get_role(user["id"])
     if "role_only" in params:
