@@ -41,7 +41,7 @@
                 %else:
                 <div id="userLogin" class="userLogin">
                     <button id="login" class="login ghostButton red">登录</button>
-                    <button id="register" class="register textButton" onclick="javascript:location.href='signup'">免费注册
+                    <button id="register" class="register textButton" onclick="project.goToSignUp()">免费注册
                     </button>
                 </div>
                 %end
@@ -117,11 +117,15 @@
 <!-- /jQuery-->
 
 <!--<script src="/static/vendors/underscore-min.js"></script>-->
-
+<script src="/static/scripts/team.js"></script>
+<script src="/static/scripts/project.js"></script>
 <script src="/static/vendors/base64.min.js"></script>
 <script src="/static/vendors/jquery.serializeObject.js"></script>
 
 <script>
+    $(window).on('resize', function () {
+        $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
+    })
     $(function () {
         $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
     })
