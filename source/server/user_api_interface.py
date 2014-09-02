@@ -161,17 +161,20 @@ def admin_user_list(user, params):
         if not f_app.user.check_set_role_permission(user["id"], params["role"]):
             abort(40399, logger.warning("Permission denied", exc_info=False))
     else:
-        params["role"] = {"$not": {"$size": 0}}
         if "admin" in user_roles:
             pass
         elif "jr_admin" in user_roles:
+            params["role"] = {}
             params["role"]["$nin"] = ["admin"]
         elif "sales" in user_roles:
+            params["role"] = {}
             params["role"]["$nin"] = ["admin", "jr_admin", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
         elif "operation" in user_roles:
+            params["role"] = {}
             params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "support", "jr_support", "developer", "agency"]
         else:
             # support
+            params["role"] = {}
             params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "developer", "agency"]
 
     if "phone" in params:
@@ -274,32 +277,6 @@ def admin_user_unset_role(user, user_id, params):
     if not f_app.user.check_set_role_permission(user["id"], params["role"]):
         abort(40399, logger.warning('Permission denied.', exc_info=False))
     f_app.user.remove_role(user_id, params["role"])
-
-
-@f_api("/user/search", params=dict(
-    email=str,
-    nickname=str,
-    role=(list, None, str),
-    per_page=int,
-    register_time=datetime,
-    phone=str,
-    country=str,
-))
-@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
-def user_search(user, params):
-    """
-    Search for general user only.
-    """
-    if "phone" in params:
-        params["phone"] = f_app.util.parse_phone(params)
-    if "email" in params:
-        if "@" not in params["email"]:
-            abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
-
-    per_page = params.pop("per_page", 0)
-    params["$or"] = [{"role": {"$exists": False}}, {"role": {"$size": 0}}]
-    result = f_app.user.custom_search(params, per_page=per_page)
-    return f_app.user.output(result, custom_fields=f_app.common.user_custom_fields)
 
 
 @f_api("/user/check_exist", force_ssl=True, params=dict(
