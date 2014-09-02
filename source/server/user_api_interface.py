@@ -239,7 +239,7 @@ def admin_user_add(user, params):
 
 
 @f_api("/user/admin/<user_id>/set_role", params=dict(
-    role=(str, True)
+    role=(list, True, str)
 ))
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_set_role(user, user_id, params):
@@ -256,8 +256,12 @@ def admin_user_set_role(user, user_id, params):
 
     ``support`` can set ``support`` and ``jr_support``.
     """
-    if not f_app.user.check_set_role_permission(user["id"], params["role"]):
-        abort(40399, logger.warning('Permission denied.', exc_info=False))
+    if not set(params["role"]) <= set(f_app.common.admin_roles):
+        abort(40091, logger.warning("Invalid params: role", params["role"], exc_info=False))
+
+    for r in params["role"]:
+        if not f_app.user.check_set_role_permission(user["id"], r):
+            abort(40399, logger.warning('Permission denied.', exc_info=False))
 
     user_info = f_app.user.get(user_id)
 
@@ -271,23 +275,29 @@ def admin_user_set_role(user, user_id, params):
             )
         else:
             abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
-
-        f_app.user.add_role(user_id, params["role"])
+        f_app.user.update_set(user_id, {"role": params["role"]})
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
 @f_api("/user/admin/<user_id>/unset_role", params=dict(
-    role=(str, True)
+    role=(list, True, str)
 ))
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_unset_role(user, user_id, params):
     """
     Use this API to remove (a role of an) admin
     """
-    if not f_app.user.check_set_role_permission(user["id"], params["role"]):
-        abort(40399, logger.warning('Permission denied.', exc_info=False))
-    f_app.user.remove_role(user_id, params["role"])
+    user_roles = f_app.user.get_role(user_id)
+    if not set(params["role"]) <= set(f_app.common.admin_roles):
+        abort(40091, logger.warning("Invalid params: role", params["role"], exc_info=False))
+    for r in params["role"]:
+        if r in user_roles:
+            if not f_app.user.check_set_role_permission(user["id"], r):
+                abort(40399, logger.warning('Permission denied.', exc_info=False))
+            f_app.user.remove_role(user_id, r)
+
+    return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
 @f_api("/user/check_exist", force_ssl=True, params=dict(

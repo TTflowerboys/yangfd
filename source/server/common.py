@@ -69,6 +69,7 @@ class common(f_common):
         40094: "Invalid admin: email not provided.",
         40093: "Invalid params: status",
         40092: "Invalid params: property_type",
+        40091: "Invalid params: role",
 
         40399: "Permission denied",
     }
@@ -83,4 +84,5 @@ f_app.common.register_error_code(40495)
 f_app.common.register_error_code(40494)
 f_app.common.register_error_code(40493)
 f_app.common.register_error_code(40492)
+f_app.common.register_error_code(40491)
 f_app.common.register_error_code(40399)
