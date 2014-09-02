@@ -5,6 +5,7 @@
 @border-color: #CCC;
 @color: #333;
 @red: #e60012;
+@font-size: 16px;
 .form {
     color: @color;
     background: white;
@@ -23,20 +24,21 @@
         line-height: 34px;
         white-space: nowrap;
         overflow: hidden;
+        > i { vertical-align: middle }
         &.active {
             > i { color: @red; }
         }
     }
-    input { border: none; line-height: 24px; padding-left: 8px;
+    input { border: none; line-height: 24px; margin-left: 8px; vertical-align: middle;
         &:focus { outline: none; }
     }
-    select {
+    select { vertical-align: middle;
         &.addLeft {
+            margin-right: 8px;
             vertical-align: middle;
             display: inline-block;
             background: transparent;
             font-size: inherit;
-            height: 40px;
             border: none;
         }
     }
