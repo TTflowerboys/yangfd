@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from libfelix.f_common import f_app, f_plugin, f_common
+from libfelix.f_common import f_app, f_common
 
 
 class common(f_common):
@@ -37,6 +37,7 @@ class common(f_common):
     user_intention = ["cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"]
     admin_roles = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
     advanced_admin_roles = ["admin", "jr_admin", "sales", "operation", "support"]
+    news_category = ["news", "announcement", "process", "law"]
 
     intention_ticket_statuses = ["new", "assigned", "in_progess", "deposit", "suspended", "bought", "canceled"]
     support_ticket_statuses = ["new", "assigned", "in_progress", "solved", "unsolved"]
@@ -46,7 +47,7 @@ class common(f_common):
     message_self_hosted_push_port = 8286
     parse_delay = 5
 
-    i18n_locales = ['zh_Hans_CN', 'zh_Hant_HK', 'en_GB']
+    i18n_locales = ["zh_Hans_CN", "zh_Hant_HK", "en_GB"]
 
     email_default_method = "aws_ses"
     email_default_sender = "developer+currant@bbtechgroup.com"
@@ -54,10 +55,10 @@ class common(f_common):
     aws_access_key_id = "AKIAIYCSNRQ46N6GPZQA"
     aws_secret_access_key = "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"
 
-    sms_default_method ="clickatell"
-    clickatell_api_id=3425954
-    clickatell_user="marco388"
-    clickatell_password="EaSeURGSXGXNbM"
+    sms_default_method = "clickatell"
+    clickatell_api_id = 3425954
+    clickatell_user = "marco388"
+    clickatell_password = "EaSeURGSXGXNbM"
 
     custom_error_codes = {
         40099: "Invalid params: No '@' in email address supplied:",

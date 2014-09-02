@@ -1,24 +1,24 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/static/styles/team/reset.css"/>
-        <link rel="stylesheet" href="/static/styles/project/layout.css"/>
-        <link rel="stylesheet" href="/static/styles/project/button.css"/>
-        <link rel="stylesheet" href="/static/styles/project/form.css"/>
-        <link rel="stylesheet" href="/static/styles/project/ghostButton.css"/>
-        <link rel="stylesheet" href="/static/styles/project/ghostSelect.css"/>
-        <link rel="stylesheet" href="/static/styles/project/textButton.css"/>
-        <link rel="stylesheet" href="/static/styles/project/siteHeader.css"/>
-        <link rel="stylesheet" href="/static/styles/project/siteFooter.css"/>
-        <link rel="stylesheet" href="/static/styles/project/modal.css"/>
-        <link rel="stylesheet" href="/static/styles/project/signinForm.css"/>
-        <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome.min.css">
-        <!-- @@placeholder = head -->
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/styles/team/reset.css"/>
+    <link rel="stylesheet" href="/static/styles/project/layout.css"/>
+    <link rel="stylesheet" href="/static/styles/project/button.css"/>
+    <link rel="stylesheet" href="/static/styles/project/form.css"/>
+    <link rel="stylesheet" href="/static/styles/project/ghostButton.css"/>
+    <link rel="stylesheet" href="/static/styles/project/ghostSelect.css"/>
+    <link rel="stylesheet" href="/static/styles/project/textButton.css"/>
+    <link rel="stylesheet" href="/static/styles/project/siteHeader.css"/>
+    <link rel="stylesheet" href="/static/styles/project/siteFooter.css"/>
+    <link rel="stylesheet" href="/static/styles/project/modal.css"/>
+    <link rel="stylesheet" href="/static/styles/project/signinForm.css"/>
+    <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome.min.css">
+    <!-- @@placeholder = head -->
 
-    </head>
-    <body>
-    <!-- @@include =../partials/data_manager.html -->
+</head>
+<body>
+<!-- @@include =../partials/data_manager.html -->
 <div class="page">
 
     <div id="header" class="siteHeader_wrapper">
@@ -32,8 +32,20 @@
                 <li><a href="">项目开发</a></li>
                 <li><a href="">业务模式</a></li>
             </ul>
-            <button id="login" class="login ghostButton red">登录</button>
-            <button id="register" class="register textButton" onclick="javascript:location.href='signup'">免费注册</button>
+            <div class="user">
+                %if user:
+                <div id="userInfo" class="userInfo">
+                    <p class="welcome">你好!</p>
+                    <h2 class="userName">{{user["nickname"]}}</h2>
+                </div>
+                %else:
+                <div id="userLogin" class="userLogin">
+                    <button id="login" class="login ghostButton red">登录</button>
+                    <button id="register" class="register textButton" onclick="project.goToSignUp()">免费注册
+                    </button>
+                </div>
+                %end
+            </div>
         </header>
     </div>
     <main id="main">
@@ -105,11 +117,15 @@
 <!-- /jQuery-->
 
 <!--<script src="/static/vendors/underscore-min.js"></script>-->
-
+<script src="/static/scripts/team.js"></script>
+<script src="/static/scripts/project.js"></script>
 <script src="/static/vendors/base64.min.js"></script>
 <script src="/static/vendors/jquery.serializeObject.js"></script>
 
 <script>
+    $(window).on('resize', function () {
+        $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
+    })
     $(function () {
         $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
     })
@@ -137,6 +153,7 @@
                         alert("Data: " + data.msg + "\nStatus: " + status);
                     }
                     else {
+                        location.reload()
                         $("#modal_shadow").hide()
                         $("#modal").hide()
                     }
