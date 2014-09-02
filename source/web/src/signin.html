@@ -14,7 +14,6 @@
         e.preventDefault()
         var valid = $.validate(this, {onError: function (dom,validator,index) {
             alert( dom.name +" validate error " + validator)
-            return ''
         }})
         if(!valid){return}
         var params = $(this).serializeObject()
