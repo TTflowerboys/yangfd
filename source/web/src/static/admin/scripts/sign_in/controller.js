@@ -3,10 +3,8 @@
 
 (function () {
 
-    function ctrlSignIn($scope, $state, $http, $rootScope, userApi, $stateParams, countries, defaultCountry) {
-        $scope.countries = countries
+    function ctrlSignIn($scope, $state, $http, $rootScope, userApi, $stateParams) {
         $scope.user = {}
-        $scope.user.country = defaultCountry
         $scope.submitDisabled = true
 
         $scope.submit = function ($event, form) {

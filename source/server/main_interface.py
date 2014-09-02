@@ -19,11 +19,27 @@ def default():
     
 @f_get('/signup')
 def signup():
-    return template("signup")
+    return template("signup", user=get_current_user())
 
 @f_get('/signin')
 def signin():
-    return template("signin")
+    return template("signin", user=get_current_user())
+    
+@f_get('/reset_password')
+def resetPassword():
+    return template("reset_password", user=get_current_user())
+    
+@f_get('/terms')
+def terms():
+    return template("terms", user=get_current_user())
+
+@f_get('/privacy')
+def privacy():
+    return template("privacy", user=get_current_user())
+    
+@f_get('/process')
+def process():
+    return template("process", user=get_current_user())
 
 @f_get('/admin')
 def admin():

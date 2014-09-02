@@ -22,7 +22,8 @@
       "console":   true,
       "$":         true,
       "jQuery":    true,
-      "_":         true
+      "_":         true,
+      "team":      true
   },
   "globalstrict":  false,
   "immed":         false,
