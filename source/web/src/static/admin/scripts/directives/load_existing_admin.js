@@ -20,12 +20,12 @@ angular.module('app')
                                 scope.isCheckingPhone = true
                                 checkPhone().success(function () {
                                     getUserByPhone().success(function (data) {
-                                        //throw 'not completed'
-                                        var value = data.val[0] || {}
-                                        value.nickname = 'chou'
-                                        value.email = 'lklsdjl@slkdj.com'
-
-                                        angular.extend(scope.item,value)
+                                        var value = data.val[0]
+                                        if(!value){
+                                            onNoExistingUser()
+                                            return
+                                        }
+                                        angular.extend(scope.item, _.pick(value,'id','nickname','email','role'))
                                         scope.existingItem = value
 
                                     }).error(onNoExistingUser)['finally'](function () {
@@ -49,7 +49,9 @@ angular.module('app')
                 })
 
                 function onNoExistingUser() {
-                    scope.existingItem = {}
+                    scope.existingItem = null
+                    scope.item.id = ''
+                    scope.item.role = []
                     scope.item.nickname = ''
                     scope.item.email = ''
                 }
@@ -64,7 +66,7 @@ angular.module('app')
                 }
 
                 function getUserByPhone() {
-                    return $http.get('/api/1/user/search',{
+                    return $http.get('/api/1/user/admin/search',{
                         params:{
                             country:scope.item.country,
                             phone:scope.item.phone

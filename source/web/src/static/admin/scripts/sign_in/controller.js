@@ -18,9 +18,6 @@
                 .success(function (data, status, headers, config) {
                     $state.go($stateParams.from || 'dashboard')
                 })
-                .error(function (data, status, headers, config) {
-                    throw 'not done'
-                })
         }
 
         $scope.changeText = function () {

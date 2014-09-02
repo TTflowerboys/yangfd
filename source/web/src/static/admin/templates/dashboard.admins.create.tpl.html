@@ -4,17 +4,19 @@
     </span>
 </div>
 <form name="partnerCreateForm" class="form-horizontal" ng-class="{submitted:submitted}"
-    style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,partnerCreateForm)"
-    novalidate>
+      style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,partnerCreateForm)"
+      novalidate>
 
     <div load-existing-admin></div>
 
     <div check-phone></div>
     <div class="form-group">
         <label class="control-label">手机号码 *</label>
+
         <div class="controls form-inline">
-            <select ng-model="item.country" ng-init="item.country=defaultCountry" ng-options="country.value as country.name for country in countries"
-                class="form-control" name="country">
+            <select ng-model="item.country" ng-init="item.country=defaultCountry"
+                    ng-options="country.value as country.name for country in countries"
+                    class="form-control" name="country">
             </select>
             <input class="form-control col-sm6" ng-model="item.phone" type="text" size="15"/>
             <span ng-show="isCheckingPhone">正在查询...</span>
@@ -23,22 +25,30 @@
 
     <div class="form-group">
         <label class="control-label">姓名 *</label>
+
         <div class="controls">
-            <input ng-disabled="existingItem.nickname" class="form-control" ng-model="item.nickname" type="text" style="width: 20em"/>
+            <input ng-disabled="existingItem.nickname" class="form-control" ng-model="item.nickname" type="text"
+                   style="width: 20em"/>
         </div>
     </div>
 
     <div class="form-group">
         <label class="control-label">邮箱 *</label>
+
         <div class="controls">
-            <input ng-disabled="existingItem.email" class="form-control" ng-model="item.email" type="email" style="width: 30em"/>
+            <input ng-disabled="existingItem.email" class="form-control" ng-model="item.email" type="email"
+                   style="width: 30em"/>
         </div>
     </div>
-
+    <div ng-repeat="role in item.role">
+        {%role | permissionName %}
+    </div>
     <div class="form-group">
         <label class="control-label">权限 *</label>
+
         <div class="controls">
-            <select class="form-control" ng-model="item.role" style="width: 185px;" ng-options="p.value as p.name for p in permissions">
+            <select class="form-control" ng-model="item.role" style="width: 185px;"
+                    ng-options="p.value as p.name for p in permissions">
                 <option value="">-- 选择 --</option>
             </select>
         </div>
@@ -46,7 +56,8 @@
 
 
     <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" bbg-disabler="loading" value="提交">
+        <input type="submit" class="btn btn-primary" ng-hide="existingItem" value="提交">
+        <input type="button" class="btn btn-primary" ng-show="existingItem" value="更新" ng-click="updateExisting()">
         <input type="button" ng-click="$state.go('^')" class="btn" value="Cancel">
     </div>
     <div class="help-block">* 必填</div>
