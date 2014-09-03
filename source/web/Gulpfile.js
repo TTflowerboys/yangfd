@@ -20,6 +20,8 @@ var usemin = require('gulp-usemin')
 var footer = require('gulp-footer')
 var jshint = require('gulp-jshint')
 var stylish = require('jshint-stylish')
+var rev = require('gulp-rev')
+var revReplace = require('gulp-rev-replace')
 
 
 var myPaths = {
@@ -33,14 +35,17 @@ var myPaths = {
     js: './src/static/{,admin/}scripts/**/*.js'
 }
 
+
 gulp.task('debug', ['debug:lint', 'symlink', 'less2css', 'html-extend', 'watch'], function () {
     console.info(chalk.black.bgWhite.bold('You can debug now!'))
 })
+
 
 gulp.task('build', ['lint', 'clean', 'build:html-extend'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
+
 
 gulp.task('lint', function () {
     return gulp.src(myPaths.js)
@@ -48,6 +53,8 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(jshint.reporter('fail'));
 })
+
+
 gulp.task('debug:lint', function () {
     return gulp.src(myPaths.js)
         .pipe(cache('linting'))
@@ -55,10 +62,12 @@ gulp.task('debug:lint', function () {
         .pipe(jshint.reporter('jshint-stylish'))
 })
 
+
 gulp.task('build:copy', ['clean'], function () {
     return gulp.src(myPaths.static)
         .pipe(gulp.dest(myPaths.dist + 'static/'))
 })
+
 
 gulp.task('build:ngAnnotate', ['build:copy'], function () {
     return gulp.src(myPaths.src + '/static/{,admin/}scripts/**/*.js')
@@ -74,10 +83,12 @@ gulp.task('symlink', function () {
         }))
 })
 
+
 gulp.task('clean', function () {
     return gulp.src(myPaths.dist, {read: false})
         .pipe(rimraf({force: true, verbose: true}))
 })
+
 
 gulp.task('less2css', function (done) {
     gulp.src(myPaths.css)
@@ -89,6 +100,8 @@ gulp.task('less2css', function (done) {
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     done()
 })
+
+
 gulp.task('build:less2css', ['build:copy'], function (done) {
     gulp.src(myPaths.css)
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
@@ -100,6 +113,7 @@ gulp.task('build:less2css', ['build:copy'], function (done) {
     done()
 })
 
+
 gulp.task('styleless2css', function () {
     gulp.src(myPaths.src + 'static/themes/genius_dashboard/css/style.less')
         .pipe(sourcemaps.init())
@@ -109,17 +123,13 @@ gulp.task('styleless2css', function () {
 })
 
 
-gulp.task('html-include', function () {
-    return gulp.src(myPaths.html)
-        .pipe(include())
-        .pipe(gulp.dest(myPaths.dist))
-})
-
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
         .pipe(extender())
         .pipe(gulp.dest(myPaths.dist))
 })
+
+
 gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
     return gulp.src(myPaths.html)
         .pipe(extender())
@@ -129,6 +139,7 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
         }))
         .pipe(gulp.dest(myPaths.dist))
 })
+
 
 gulp.task('watch', function () {
     gulp.watch(myPaths.less, ['less2css'])
