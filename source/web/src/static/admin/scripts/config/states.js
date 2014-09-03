@@ -55,7 +55,7 @@ angular.module('app')
          */
             .state('dashboard.estate', {
                 url: '/estate',
-                templateUrl: '/static/admin/templates/dashboard.admins.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.estate.tpl.html',
                 controller: 'ctrlList',
                 resolve: {
                     api: function (adminApi) {
@@ -63,5 +63,14 @@ angular.module('app')
                     }
                 }
             })
-
+            .state('dashboard.estate.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.estate.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: {
+                    api: function (adminApi) {
+                        return adminApi
+                    }
+                }
+            })
     })
