@@ -122,7 +122,6 @@ gulp.task('html-extend', function () {
 })
 gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
     return gulp.src(myPaths.html)
-        .pipe(include())
         .pipe(extender())
         .pipe(usemin({
             css: [footer('/*EOF*/'), 'concat'],
