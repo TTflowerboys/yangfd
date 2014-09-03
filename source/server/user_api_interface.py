@@ -403,6 +403,20 @@ def user_sms_reset_password(user_id, params):
     return result
 
 
+@f_api('/user/get_by_phone', force_ssl=True, params=dict(
+    phone=(str, True),
+    country=str,
+))
+@f_app.user.login.check(force=True)
+def user_get_id_by_phone(user, params):
+    params["phone"] = f_app.util.parse_phone(params)
+    user_id = f_app.user.get_id_by_phone(params["phone"])
+    if not user_id:
+        abort(40324)
+
+    return f_app.user.output([user_id])[0]
+
+
 @f_api("/captcha/generate")
 def captcha_generate():
     """

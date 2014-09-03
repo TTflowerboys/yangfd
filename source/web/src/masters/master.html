@@ -30,8 +30,8 @@
                 %if user:
                 <div id="userInfo" class="userInfo">
                     <p class="welcome">你好!</p>
-
                     <h2 class="userName">{{user["nickname"]}}</h2>
+                    <button id="logout" class="logout ghostButton">登出</button>
                 </div>
                 %else:
                 <div id="userLogin" class="userLogin">
@@ -139,6 +139,16 @@
                     }
                 });
     })
+
+    $("#logout").click(function () {
+        $.get("/logout",
+                null,
+                function (data, status)
+                {
+                    location.reload()
+                }
+        )
+    });
 </script>
 <!--@@placeholder=scripts-->
 </body>
