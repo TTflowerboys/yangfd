@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm install --production && gulp build",
     "styleguideinit": "kss-node --init",
-    "styleguide": "kss-node ./src/static/styles/ --less ./src/static/styles/styleguide.less --template ./.styleguide-template/"
+    "styleguide": "kss-node ./src/static/styles/ --less ./src/static/styles/styleguide.less --template ./.styleguide-template/",
+    "theme":"gulp styleless2css"
   },
   "repository": {
     "type": "git",
@@ -52,6 +53,7 @@
   "devDependencies": {
     "bootstrap": "~3.2.0",
     "normalize.css": "~3.0.1",
-    "kss": "~1.0.0"
+    "kss": "~1.0.0",
+    "gulp-sourcemaps": "~1.1.4"
   }
 }

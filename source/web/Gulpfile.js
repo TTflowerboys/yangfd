@@ -8,6 +8,7 @@ var extender = require('gulp-html-extend')
 var gulp = require('gulp')
 var include = require('gulp-file-include')
 var less = require('gulp-less')
+var sourcemaps = require('gulp-sourcemaps')
 var minifyCss = require('gulp-minify-css')
 var newer = require('gulp-newer')
 var ngAnnotate = require('gulp-ng-annotate')
@@ -101,8 +102,9 @@ gulp.task('build:less2css', ['build:copy'], function (done) {
 
 gulp.task('styleless2css', function () {
     gulp.src(myPaths.src + 'static/themes/genius_dashboard/css/style.less')
-        .pipe(less())
-        .pipe(minifyCss())
+        .pipe(sourcemaps.init())
+        .pipe(less({compress: true}))
+        .pipe(sourcemaps.write(myPaths.dist + 'static/themes/genius_dashboard/css/style.css.map'))
         .pipe(gulp.dest(myPaths.dist + 'static/themes/genius_dashboard/css/'))
 })
 
