@@ -41,11 +41,11 @@
         </div>
     </div>
 
-    <div class="form-group" ng-show="item.role && item.role.length>0">
+    <div class="form-group" ng-show="existingItem.role && existingItem.role.length>0">
         <label class="control-label">已有权限 *</label>
 
         <div class="controls">
-            <div ng-repeat="role in item.role">
+            <div ng-repeat="role in existingItem.role">
                 {%role | permissionName %}
             </div>
         </div>
