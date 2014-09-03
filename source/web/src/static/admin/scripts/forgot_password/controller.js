@@ -5,8 +5,8 @@
 
     function ctrlForgotPassword($scope, $timeout, $state, $http, $rootScope, userApi, $stateParams, growl) {
         $scope.user = {}
-        var sendText = '发送'
-        $scope.sendText = sendText
+        var resendText = '重新发送'
+        $scope.sendText = resendText
         $scope.sendDisabled = false
         $scope.submit = function ($event, form) {
             $event.preventDefault()
@@ -25,16 +25,21 @@
 
         }
 
-        $scope.sendVerification = function () {
+        $scope.sendVerification = function ($event, form) {
+            $event.preventDefault()
+            $scope.isSend = true
+            if (form.$invalid) {
+                return
+            }
             userApi.sendVerification($scope.user)
                 .success(function (data, status, headers, config) {
                     $scope.user.id = data.val
                 })
                 .error(function (data, status, headers, config) {
-                    $scope.sendText = sendText
+                    $scope.sendText = resendText
                     $scope.sendDisabled = false
                 })
-            if ($scope.sendText === sendText) {
+            if (!angular.isNumber($scope.sendText)) {
                 $scope.sendText = 60
                 $scope.sendDisabled = true
                 $timeout($scope.onTimeout, 1000)
@@ -49,7 +54,7 @@
             $scope.sendText -= 1
 
             if ($scope.sendText <= 0) {
-                $scope.sendText = sendText
+                $scope.sendText = resendText
                 $scope.sendDisabled = false
                 return
             }
