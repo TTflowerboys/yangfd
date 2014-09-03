@@ -6,11 +6,11 @@ angular.module('app')
             restrict: 'AE',
             require: 'ngModel',
             scope: {
-                target: '=ngEquals'
+                equals: '=equals'
             },
             link: function (scope, elm, attrs, ngModel) {
                 ngModel.$parsers.unshift(function (value) {
-                    ngModel.$setValidity('equals', scope.target === value)
+                    ngModel.$setValidity('equals', scope.equals === value)
                     return value
                 })
             }
