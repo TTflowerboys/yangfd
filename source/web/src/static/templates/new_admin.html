@@ -2,9 +2,19 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
     </head>
     <body>
+        你好， <br/>
+        {{email}} 已被授予以下权限： <br/>
+        <ul>
+            %for r in role:
+            <li>
+                {{r}}
+            </li>
+            %end
+        </ul>
+        初始随机密码为：<strong>{{password}}</strong> 。<br/>
+        登录入口为： <a href="{{admin_console_url}}">{{admin_console_url}}</a>。
 
     </body>
 </html>
