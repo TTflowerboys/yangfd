@@ -32,7 +32,7 @@
             },
             sendVerification: function (user) {
                 var params = _.pick(user, 'country', 'phone')
-                return $http.post('/api/1/user/sms_verification/send', params, {errorMessage: true})
+                return $http.post('/api/1/user/sms_verification/send', params, {successMessage:'验证码已发送至你的手机',errorMessage: true})
 
             },
             resetPassword: function (id, code, password) {
@@ -52,15 +52,8 @@
                 return $http.post('/api/1/user/phone_test', params)
             },
             checkUserExist: function (user) {
-                var deferred = $q.defer()
                 var params = _.pick(user, 'country', 'phone')
-                $http.post('/api/1/user/check_exist', params, {errorMessage: true})
-                    .success(function (data, status, headers, config) {
-                        deferred.resolve()
-                    }).error(function () {
-                        deferred.reject()
-                    })
-                return deferred.promise
+                return $http.post('/api/1/user/check_exist', params, {errorMessage: true})
             }
         }
 

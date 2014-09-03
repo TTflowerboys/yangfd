@@ -5,17 +5,15 @@
 
     function ctrlForgotPassword($scope, $timeout, $state, $http, $rootScope, userApi, $stateParams, growl) {
         $scope.user = {}
+        var sendText = '发送验证码至手机'
         var resendText = '重新发送'
-        $scope.sendText = resendText
-        $scope.sendDisabled = false
+        var countdownText = '秒后' + resendText
+        $scope.sendText = sendText
+        $scope.countdown = 0
         $scope.submit = function ($event, form) {
             $event.preventDefault()
             $scope.submitted = true
             if (form.$invalid) {
-                return
-            }
-            if ($scope.user.password !== $scope.user.checkPassword) {
-                growl.addErrorMessage('2次输入的密码不一致')
                 return
             }
             userApi.resetPassword($scope.user.id, $scope.user.code, $scope.user.password)
@@ -31,36 +29,41 @@
             if (form.$invalid) {
                 return
             }
-            userApi.sendVerification($scope.user)
+            userApi.checkUserExist($scope.user)
                 .success(function (data, status, headers, config) {
                     $scope.user.id = data.val
+                    $scope.countdown = 60
+                    $scope.sendText = $scope.countdown + countdownText
+                    $timeout($scope.onTimeout, 1000)
                 })
                 .error(function (data, status, headers, config) {
-                    $scope.sendText = resendText
-                    $scope.sendDisabled = false
+                    $scope.sendText = sendText
+                    $scope.countdown = 0
                 })
-            if (!angular.isNumber($scope.sendText)) {
-                $scope.sendText = 60
-                $scope.sendDisabled = true
-                $timeout($scope.onTimeout, 1000)
-            }
         }
 
         $scope.onTimeout = function () {
-
-            if (!angular.isNumber($scope.sendText)) {
+            if ($scope.countdown <= 0) {
                 return
             }
-            $scope.sendText -= 1
+            $scope.countdown -= 1
 
-            if ($scope.sendText <= 0) {
+            if ($scope.countdown > 0) {
+                $scope.sendText = $scope.countdown + countdownText
+            } else {
                 $scope.sendText = resendText
-                $scope.sendDisabled = false
                 return
             }
             $timeout($scope.onTimeout, 1000)
         }
 
+        $scope.changePhone = function () {
+            if ($scope.sendText === sendText) {
+                return
+            }
+            $scope.sendText = sendText
+            $scope.countdown = 0
+        }
     }
 
     angular.module('app').controller('ctrlForgotPassword', ctrlForgotPassword)
