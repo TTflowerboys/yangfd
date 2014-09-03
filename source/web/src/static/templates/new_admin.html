@@ -4,8 +4,11 @@
         <meta charset="UTF-8">
     </head>
     <body>
-        你好， <br/>
-        {{email}} 已被授予以下权限： <br/>
+        你好，{{nickname}}<br/>
+        请使用手机号码（{{phone}}）登录。<br/>
+        初始随机密码为：<strong>{{password}}</strong> 。<br/>
+        登录入口为： <a href="{{admin_console_url}}">{{admin_console_url}}</a>。
+        你已被授予以下权限： <br/>
         <ul>
             %for r in role:
             <li>
@@ -13,9 +16,6 @@
             </li>
             %end
         </ul>
-        请使用手机号码（{phone}）登录。<br/>
-        初始随机密码为：<strong>{{password}}</strong> 。<br/>
-        登录入口为： <a href="{{admin_console_url}}">{{admin_console_url}}</a>。
 
     </body>
 </html>
