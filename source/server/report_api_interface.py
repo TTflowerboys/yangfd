@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 @f_api('/report/add', params=dict(
     name=("i18n", None, str),
-    zip=(str, True),
+    zipcode=(str, True),
     description=("i18n", None, str),
     villa_price="i18n:currency",
     villa_rental="i18n:currency",
@@ -60,7 +60,7 @@ def report_get(report_id):
 
 @f_api('/report/<report_id>/edit', params=dict(
     name=("i18n", None, str),
-    zip=(str, None),
+    zipcode=(str, None),
     description=("i18n", None, str),
     villa_price=("i18n:currency", None),
     villa_rental=("i18n:currency", None),
