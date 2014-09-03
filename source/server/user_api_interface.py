@@ -245,7 +245,7 @@ def admin_user_add(user, params):
     f_app.email.schedule(
         target=params["email"],
         subject="Your admin console access password",
-        text=template("static/templates/new_admin", password=params["password"], nickname=params["nickname"], role=params["role"], admin_console_url=f_app.common.admin_console_url, phone="*" * (len(params["phone"]) - 4) + params["phone"][-4:]),
+        text=template("static/templates/new_admin", password=params["password"], nickname=params["nickname"], role=params["role"], admin_console_url="http://" + request.urlparts[1] + "/admin#", phone="*" * (len(params["phone"]) - 4) + params["phone"][-4:]),
         display="html",
     )
 
@@ -272,7 +272,7 @@ def admin_user_add_role(user, user_id, params):
             f_app.email.schedule(
                 target=user_info.get("email"),
                 subject="You are now set as admin",
-                text=template("static/templates/set_as_admin", nickname=user_info.get("nickname"), role=params["role"], admin_console_url=f_app.common.admin_console_url, phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
+                text=template("static/templates/set_as_admin", nickname=user_info.get("nickname"), role=params["role"], admin_console_url="http://" + request.urlparts[1] + "/admin#", phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
                 display="html",
             )
         else:

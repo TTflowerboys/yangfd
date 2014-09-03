@@ -13,8 +13,6 @@ class common(f_common):
     newrelic = False
     newrelic_config = "conf/currant_newrelic.ini"
 
-    admin_console_url = ""
-
     static_file_debug_enabled = True
     static_file_debug = lambda self, filepath, root: (filepath, "views/static/")
 
