@@ -7,10 +7,10 @@ ORGANIZATION = "Brothers Bridge Technology"
 AUTHOR = "Felix Yan"
 VERSION = "1.0"
 
-SED = /usr/bin/sed
-MSGFMT = /usr/bin/msgfmt
-INSTALL = /usr/bin/install
-PYBABEL = /usr/bin/pybabel2
+SED = sed
+MSGFMT = msgfmt
+INSTALL = install
+PYBABEL = pybabel2
 DESTDIR = generated
 
 all:
