@@ -141,7 +141,7 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
         .pipe(extender())
         .pipe(publicHtmlFilter)
         .pipe(usemin({
-            css: [footer('/*EOF*/'), 'concat', rev()],
+            css: ['concat', rev()],
             js: [ footer(';/*EOF*/;'), 'concat', rev()]
         }))
         .pipe(revReplace())
