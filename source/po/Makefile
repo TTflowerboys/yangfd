@@ -9,7 +9,7 @@ VERSION = "1.0"
 
 PYTHON = /usr/bin/env python
 INSTALL = /usr/bin/env install
-PYBABEL = $(shell [[ -x /usr/bin/pybabel2 ]] && echo /usr/bin/pybabel2 || echo /usr/bin/env pybabel)
+PYBABEL = $(shell [ -x /usr/bin/pybabel2 ] && echo /usr/bin/pybabel2 || echo /usr/bin/env pybabel)
 DESTDIR = generated
 
 all:
