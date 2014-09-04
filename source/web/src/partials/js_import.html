@@ -8,6 +8,10 @@
 <script src="/static/themes/genius_dashboard/js/jquery-migrate-1.2.1.min.js"></script>
 <!-- /jQuery-->
 
+<!--[if lte IE 8]>
+<script src="/static/vendors/jquery.placeholder.js"></script>
+<![endif]-->
+
 
 <!--build:js /static/scripts/dependencies.js-->
 
@@ -20,4 +24,8 @@
 <script src="/static/scripts/project.js"></script>
 
 <!--endbuild-->
+
+<script>
+    $('input,textarea').placeholder()
+</script>
 
