@@ -14,6 +14,8 @@ import property_api_interface
 import report_api_interface
 import subscription_api_interface
 import ticket_api_interface
+import analytics_api_interface
 import user_api_interface
+
 
 application = f_app(__name__)
