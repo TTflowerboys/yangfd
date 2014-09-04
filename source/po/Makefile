@@ -8,7 +8,6 @@ AUTHOR = "Felix Yan"
 VERSION = "1.0"
 
 PYTHON = /usr/bin/env python
-MSGFMT = /usr/bin/env msgfmt
 INSTALL = /usr/bin/env install
 PYBABEL = $(shell [[ -x /usr/bin/pybabel2 ]] && echo /usr/bin/pybabel2 || echo /usr/bin/env pybabel)
 DESTDIR = generated
@@ -32,5 +31,5 @@ install:
 		package=$$($(PYTHON) -c "print('$$file'.split('/')[0])"); \
 		lang=$$($(PYTHON) -c "print('$$file'.split('/')[-1].split('.po')[0])"); \
 		$(INSTALL) -d $(DESTDIR)/$$lang/LC_MESSAGES; \
-		$(MSGFMT) -o $(DESTDIR)/$$lang/LC_MESSAGES/$$package.mo $$file; \
+		$(PYBABEL) compile -o $(DESTDIR)/$$lang/LC_MESSAGES/$$package.mo -i $$file; \
 	done
