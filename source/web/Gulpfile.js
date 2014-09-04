@@ -22,7 +22,10 @@ var jshint = require('gulp-jshint')
 var stylish = require('jshint-stylish')
 var rev = require('gulp-rev')
 var revReplace = require('gulp-rev-replace')
-
+var useref = require('gulp-useref')
+var when = require('gulp-if')
+var filter = require('gulp-filter')
+var debug = require('gulp-debug')
 
 var myPaths = {
     src: './src/',
