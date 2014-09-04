@@ -142,9 +142,10 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
         .pipe(publicHtmlFilter)
         .pipe(debug({verbose: true}))
         .pipe(usemin({
-            css: [footer('/*EOF*/'), 'concat'],
-            js: [ footer(';/*EOF*/;'), 'concat']
+            css: [footer('/*EOF*/'), 'concat', rev()],
+            js: [ footer(';/*EOF*/;'), 'concat', rev()]
         }))
+        .pipe(revReplace())
         .pipe(gulp.dest(myPaths.dist))
         .pipe(publicHtmlFilter.restore())
 })
