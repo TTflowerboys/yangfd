@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-04 13:37+0800\n"
+"POT-Creation-Date: 2014-09-04 15:30+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,23 +25,27 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: ../web/src/masters/master.html:22
+#: ../web/src/masters/master.html:26
 msgid "England"
 msgstr ""
 
-#: ../web/src/masters/master.html:32
+#: ../web/src/masters/master.html:36
 msgid "Welcome!"
 msgstr ""
 
-#: ../web/src/masters/master.html:34
+#: ../web/src/masters/master.html:38
 msgid "Logout"
 msgstr ""
 
-#: ../web/src/masters/master.html:38
+#: ../web/src/masters/master.html:42
 msgid "Login"
 msgstr ""
 
-#: ../web/src/masters/master.html:39
+#: ../web/src/masters/master.html:43
 msgid "Signup"
+msgstr ""
+
+#: ../web/src/masters/signin_master.html:30
+msgid "Privacy Policy"
 msgstr ""
 

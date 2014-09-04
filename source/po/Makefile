@@ -10,18 +10,15 @@ VERSION = "1.0"
 SED = /usr/bin/env sed
 MSGFMT = /usr/bin/env msgfmt
 INSTALL = /usr/bin/env install
-PYBABEL = /usr/bin/pybabel2
+PYBABEL = $(shell [[ -x /usr/bin/pybabel2 ]] && echo /usr/bin/pybabel2 || echo /usr/bin/env pybabel)
 DESTDIR = generated
 
 all:
 
-find_pybabel:
-	[[ ! -x $(PYBABEL) ]] && PYBABEL = /usr/bin/env pybabel || true
-
-extract: find_pybabel
+extract:
 	$(PYBABEL) extract -F web/.pybabel.cfg --copyright-holder=$(ORGANIZATION) --msgid-bugs-address=$(BUGSADDR) --project=$(PROJECT_NAME) --version=$(VERSION) -o web/web.pot ../web/src
 
-update: find_pybabel
+update:
 	for file in */*.po; \
   	do \
 		package=$$(echo $$file | $(SED) -e 's#\([^/]\+\).*#\1#'); \
