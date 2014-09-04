@@ -10,7 +10,9 @@
 * {
     box-sizing: border-box;
 }
+
 html { height: 100%; }
+
 body {
     height: 100%;
     .opening {
@@ -18,18 +20,15 @@ body {
         height: 100%;
         background-size: cover;
         min-height: 672px;
-        &_inner {
-            max-width: 800px; //子元素的 margin 依赖于宽度，所以这里设置了最大宽度，保证 resize 时，margin 不会过大，而让子元素超出背景高度
-            margin: 0 auto;
-            text-align: center;
+        &_inner { //子元素的 margin 依赖于宽度，所以这里设置了最大宽度，保证 resize 时，margin 不会过大，而让子元素超出背景高度
+            max-width: 800px;
+            margin: 0 auto; text-align: center;
             @content-margin-top: 7%;
-            .logo {
-                margin-top: @content-margin-top;
-            }
-
-            .hint {
-                margin-top: @content-margin-top;
-                font-size: 48px;
+            .logo { margin-top: @content-margin-top; }
+            .hint { margin-top: @content-margin-top; font-size: 48px;
+                @media @phone {
+                    font-size: 24px;
+                }
                 color: #ffffff;
             }
             .subscription {
@@ -46,10 +45,19 @@ body {
                     display: inline-block;
                     background: transparent;
                     border-radius: 6px;
+                    @media @phone {
+                        width: 80%;
+                        font-size: 16px;
+                    }
                 }
                 > button {
                     margin-left: 20px;
                     width: 110px;
+                    @media @phone {
+                        margin-left: 0px;
+                        margin-top: 20px;
+                        width: 80%;
+                    }
                 }
             }
             .wechat {
@@ -64,6 +72,9 @@ body {
         }
         overflow: hidden;
         padding: 100px;
+        @media @phone {
+            padding: 10px;
+        }
         .title {
             text-align: center;
             font-size: 36px;
@@ -75,12 +86,15 @@ body {
             font-size: 14px;
             line-height: 34px;
             color: #666666;
+            @media @phone {
+                margin-top: 20px;
+                line-height: 1.6em;
+            }
         }
     }
 
     .requirement {
         max-width: 1200px;
-        height: 680px;
         margin: 100px auto;
         overflow: hidden;
         left: 50%;
@@ -97,7 +111,24 @@ body {
                 color: #999999;
                 max-width: 360px;
             }
+
+            @media @phone {
+                float: none;
+                padding: 10px;
+
+                .title {
+                    margin-top: 0px;
+                    font-size: 24px;
+                }
+                .subtitle {
+                    font-size: 12px;
+                    line-height: 1.6em;
+                    margin-top: 0px;
+                    margin-bottom: 0px;
+                }
+            }
         }
+
 
         &_form {
             float: right;
@@ -124,6 +155,26 @@ body {
             button {
                 margin-top: 8px;
             }
+            @media @phone {
+                float: none;
+                padding: 10px;
+                input {
+                    width: 100%;
+                }
+                select {
+                    width: 100%;
+                }
+                textarea {
+                    width: 100%;
+                }
+                button {
+                    width: 100%;
+                }
+            }
+        }
+
+        @media @phone {
+            margin: 20px auto;
         }
     }
 }
@@ -131,4 +182,5 @@ body {
 .copyright { .clearfix(); overflow: hidden; background: @copyright-bg; height: 40px; width: 100%;
     > p { margin: 12px auto; height: 100%; max-width: @max-width; font-size: 14px; text-align: center; color: #ffffff; }
 }
+
 .placeholder { color: #ccc !important; }
