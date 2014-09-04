@@ -17,41 +17,45 @@ body {
         background: url('/static/images/background/login-background.jpg') no-repeat center center;
         height: 100%;
         background-size: cover;
-        .logo {
-            top: 100px;
-            .horizontalCenter(167px);
-        }
+        min-height: 672px;
+        &_inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            @content-margin-top: 3%;
+            .logo {
+                margin-top: @content-margin-top;
+            }
 
-        .hint {
-            top: 390px;
-            font-size: 48px;
-            color: #ffffff;
-            .horizontalCenter(480px);
-        }
-        .subscription {
-            top: 548px;
-            .horizontalCenter(600px);
-            > input {
-                width: 450px;
-                font-size: 20px;
-                line-height: 34px;
-                padding: 0.5em;
-                vertical-align: middle;
+            .hint {
+                margin-top: 6%;
+                font-size: 48px;
                 color: #ffffff;
-                border: 2px solid;
-                display: inline-block;
-                background: transparent;
-                border-radius: 8px;
-                height: 48px;
             }
-            > button {
-                margin-left: 20px;
-                width: 110px;
+            .subscription {
+                margin-top: 6%;
+                > input {
+                    width: 450px;
+                    font-size: 20px;
+                    line-height: 34px;
+                    padding: 0.5em;
+                    vertical-align: middle;
+                    color: #ffffff;
+                    border: 2px solid;
+                    display: inline-block;
+                    background: transparent;
+                    border-radius: 8px;
+                    height: 48px;
+                }
+                > button {
+                    margin-left: 20px;
+                    width: 110px;
+                }
             }
-        }
-        .wechat {
-            top: 700px;
-            .horizontalCenter(120px);
+            .wechat {
+                margin-top: 7%;
+            }
         }
     }
 
