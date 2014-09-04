@@ -109,7 +109,7 @@ gulp.task('build:less2css', ['build:copy'], function (done) {
     gulp.src(myPaths.css)
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
-    gulp.src(myPaths.less)
+    return gulp.src(myPaths.less)
         .pipe(less())
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
