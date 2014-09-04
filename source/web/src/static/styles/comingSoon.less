@@ -19,22 +19,21 @@ body {
         background-size: cover;
         min-height: 672px;
         &_inner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            max-width: 800px; //子元素的 margin 依赖于宽度，所以这里设置了最大宽度，保证 resize 时，margin 不会过大，而让子元素超出背景高度
+            margin: 0 auto;
             text-align: center;
-            @content-margin-top: 3%;
+            @content-margin-top: 7%;
             .logo {
                 margin-top: @content-margin-top;
             }
 
             .hint {
-                margin-top: 6%;
+                margin-top: @content-margin-top;
                 font-size: 48px;
                 color: #ffffff;
             }
             .subscription {
-                margin-top: 6%;
+                margin-top: @content-margin-top;
                 > input {
                     width: 450px;
                     font-size: 20px;
@@ -54,7 +53,7 @@ body {
                 }
             }
             .wechat {
-                margin-top: 7%;
+                margin-top: @content-margin-top;
             }
         }
     }
