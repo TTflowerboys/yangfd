@@ -1,0 +1,121 @@
+@import "_imports";
+
+.horizontalCenter(@width:100px) {
+    position: absolute;
+    left: 50%;
+    width: @width;
+    margin-left: -@width /2;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+main {
+    .opening {
+        background-image: url('/static/images/background/login-background.jpg');
+        height: 1200px;
+        .logo {
+            top: 100px;
+            .horizontalCenter(167px);
+        }
+
+        .hint {
+            top: 390px;
+            font-size: 48px;
+            color: #ffffff;
+            .horizontalCenter(480px);
+        }
+        .subscription {
+            top: 548px;
+            .horizontalCenter(600px);
+            > input {
+                width: 450px;
+                font-size: 20px;
+                line-height: 34px;
+                padding: 0.5em;
+                vertical-align: middle;
+                color: #ffffff;
+                border: 2px solid;
+                display: inline-block;
+                background: transparent;
+                border-radius: 8px;
+                height: 48px;
+            }
+            > button {
+                margin-left: 20px;
+                width: 110px;
+            }
+        }
+        .wechat {
+            top: 700px;
+            .horizontalCenter(120px);
+        }
+    }
+
+    .whatWeDo {
+        &_wrapper {
+            background: #EEEEEE;
+        }
+        overflow: hidden;
+        padding: 100px;
+        .title {
+
+            text-align: center;
+            font-size: 36px;
+            color: #333333;
+        }
+        .description {
+            margin-top: 88px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 34px;
+            color: #666666;
+        }
+    }
+
+    .requirement {
+        width: 1200px;
+        height: 680px;
+        margin: 100px auto;
+        left: 50%;
+        &_title {
+            float: left;
+            .title {
+                margin-top: 0px;
+                font-size: 36px;
+                color: #333333;
+            }
+            .subtitle {
+                font-size: 12px;
+                line-height: 2;
+                color: #999999;
+                max-width: 360px;
+            }
+        }
+
+        &_form {
+            float: right;
+            > hr {
+                color: transparent;
+            }
+            > input {
+                width: 270px;
+                padding-left: 0.5em;
+                padding-right: 0.5em;
+            }
+            > select {
+                width: 270px;
+            }
+            > textarea {
+                width: 560px;
+                padding: 0.5em;
+
+            }
+        }
+    }
+}
+
+.copyright{ .clearfix(); overflow: hidden; background: @copyright-bg; height:40px; width: 100%;
+    > p{margin: 12px auto; height: 100%; width: @max-width; font-size: 14px; text-align: center; color: #ffffff;}
+}
