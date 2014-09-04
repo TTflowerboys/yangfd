@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2014-09-04 13:37+0800\n"
-"PO-Revision-Date: 2014-09-04 13:41+0800\n"
+"PO-Revision-Date: 2014-09-04 13:57+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -37,7 +37,7 @@ msgstr "欢迎!"
 
 #: ../web/src/masters/master.html:34
 msgid "Logout"
-msgstr "登出"
+msgstr "退出登录"
 
 #: ../web/src/masters/master.html:38
 msgid "Login"
