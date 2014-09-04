@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-04 12:22+0800\n"
+"POT-Creation-Date: 2014-09-04 13:37+0800\n"
 "PO-Revision-Date: 2014-09-02 17:25+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -23,5 +23,25 @@ msgstr ""
 
 #: ../web/src/admin.html:102
 msgid "Warning"
+msgstr ""
+
+#: ../web/src/masters/master.html:22
+msgid "England"
+msgstr ""
+
+#: ../web/src/masters/master.html:32
+msgid "Welcome!"
+msgstr ""
+
+#: ../web/src/masters/master.html:34
+msgid "Logout"
+msgstr ""
+
+#: ../web/src/masters/master.html:38
+msgid "Login"
+msgstr ""
+
+#: ../web/src/masters/master.html:39
+msgid "Signup"
 msgstr ""
 
