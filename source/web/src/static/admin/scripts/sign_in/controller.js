@@ -21,9 +21,6 @@
         }
 
         $scope.changeText = function () {
-            if ($scope.submitDisabled === false) {
-                return
-            }
             $scope.submitDisabled = false;
         }
     }
