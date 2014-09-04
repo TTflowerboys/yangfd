@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- @@include =partials/css_import.html -->
+</head>
+<body>
+<div class="page">
+    <main id="main">
+    </main>
+
+    <div id="copyright" class="copyright">
+        <p>&copy;<script>document.write(new Date().getFullYear())</script>
+            Brothers Bridge Group
+        </p>
+    </div>
+</div>
+
+<!-- @@include =partials/js_import.html -->
+<script>
+    $(window).on('resize', function () {
+        $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
+    })
+    $(function () {
+        $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
+    })
+</script>
+
+</body>
+</html>
+

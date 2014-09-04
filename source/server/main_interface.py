@@ -47,6 +47,10 @@ def privacy():
 def process():
     return template("process", user=get_current_user())
 
+@f_get('/coming_soon')
+def comingSoon():
+    return template("coming_soon")
+
 
 @f_get('/admin')
 def admin():
