@@ -16,7 +16,7 @@ DESTDIR = generated
 all:
 
 find_pybabel:
-	[[ ! -x $(PYBABEL) ]] && PYBABEL = /usr/bin/env pybabel || true
+	[[ ! -x $(PYBABEL) ]] && PYBABEL := /usr/bin/env pybabel || true
 
 extract: find_pybabel
 	$(PYBABEL) extract -F web/.pybabel.cfg --copyright-holder=$(ORGANIZATION) --msgid-bugs-address=$(BUGSADDR) --project=$(PROJECT_NAME) --version=$(VERSION) -o web/web.pot ../web/src
