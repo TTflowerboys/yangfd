@@ -140,7 +140,6 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
     return gulp.src(myPaths.html, {base: './src/'})
         .pipe(extender())
         .pipe(publicHtmlFilter)
-        .pipe(debug({verbose: true}))
         .pipe(usemin({
             css: [footer('/*EOF*/'), 'concat', rev()],
             js: [ footer(';/*EOF*/;'), 'concat', rev()]
