@@ -2,6 +2,17 @@
 
 angular.module('app')
     .config(function ($stateProvider) {
+        var adminResolve = {
+            api: function (adminApi) {
+                return adminApi
+            }
+        }
+
+        var estateResolve = {
+            api: function (estateApi) {
+                return estateApi
+            }
+        }
 
         $stateProvider
             .state('dashboard', {
@@ -33,21 +44,13 @@ angular.module('app')
                 url: '/admins',
                 templateUrl: '/static/admin/templates/dashboard.admins.tpl.html',
                 controller: 'ctrlList',
-                resolve: {
-                    api: function (adminApi) {
-                        return adminApi
-                    }
-                }
+                resolve: adminResolve
             })
             .state('dashboard.admins.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.admins.create.tpl.html',
                 controller: 'ctrlCreate',
-                resolve: {
-                    api: function (adminApi) {
-                        return adminApi
-                    }
-                }
+                resolve: adminResolve
             })
 
         /**
@@ -57,20 +60,24 @@ angular.module('app')
                 url: '/estate',
                 templateUrl: '/static/admin/templates/dashboard.estate.tpl.html',
                 controller: 'ctrlList',
-                resolve: {
-                    api: function (adminApi) {
-                        return adminApi
-                    }
-                }
+                resolve: estateResolve
+            })
+            .state('dashboard.estate.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.estate.detail.tpl.html',
+                controller: 'ctrlDetail',
+                resolve: estateResolve
+            })
+            .state('dashboard.estate.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.estate.edit.tpl.html',
+                controller: 'ctrlEdit',
+                resolve: estateResolve
             })
             .state('dashboard.estate.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.estate.create.tpl.html',
                 controller: 'ctrlCreate',
-                resolve: {
-                    api: function (adminApi) {
-                        return adminApi
-                    }
-                }
+                resolve: estateResolve
             })
     })

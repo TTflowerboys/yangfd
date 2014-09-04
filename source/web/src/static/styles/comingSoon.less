@@ -81,9 +81,10 @@ body {
     }
 
     .requirement {
-        width: 1200px;
+        max-width: 1200px;
         height: 680px;
         margin: 100px auto;
+        overflow: hidden;
         left: 50%;
         &_title {
             float: left;
@@ -104,24 +105,36 @@ body {
             float: right;
             > hr {
                 color: transparent;
+                margin: 0px;
+                height: 20px;
             }
             > input {
                 width: 270px;
                 padding-left: 0.5em;
                 padding-right: 0.5em;
             }
+            .budgetHint {
+                font-size: 14px;
+                color: #333333;
+                margin-top: 20px;
+                margin-bottom: 0px;
+            }
             > select {
                 width: 270px;
             }
             > textarea {
                 width: 560px;
+                height: 150px;
                 padding: 0.5em;
-
+                margin-top: 20px;
+            }
+            > button {
+                margin-top: 8px;
             }
         }
     }
 }
 
 .copyright{ .clearfix(); overflow: hidden; background: @copyright-bg; height:40px; width: 100%;
-    > p{margin: 12px auto; height: 100%; width: @max-width; font-size: 14px; text-align: center; color: #ffffff;}
+    > p{margin: 12px auto; height: 100%; max-width: @max-width; font-size: 14px; text-align: center; color: #ffffff;}
 }
