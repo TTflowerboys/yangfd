@@ -19,7 +19,7 @@
         <header class="siteHeader">
             <img class="logo" src="/static/images/logo.png" alt=""/>
 
-            <div class="country">England</div>
+            <div class="country">{{_('England')}}</div>
             <ul class="navbar">
                 <li class="selected"><a href="">我的海投</a></li>
                 <li><a href="">海外房产</a></li>
@@ -29,14 +29,14 @@
             <div class="user">
                 %if user:
                 <div id="userInfo" class="userInfo">
-                    <p class="welcome">你好!</p>
+                    <p class="welcome">{{_('Welcome!')}}</p>
                     <h2 class="userName">{{user["nickname"]}}</h2>
-                    <button id="logout" class="logout ghostButton">登出</button>
+                    <button id="logout" class="logout ghostButton">{{_('Logout')}}</button>
                 </div>
                 %else:
                 <div id="userLogin" class="userLogin">
-                    <button id="login" class="login ghostButton red">登录</button>
-                    <button id="register" class="register textButton" onclick="project.goToSignUp()">免费注册
+                    <button id="login" class="login ghostButton red">{{_('Login')}}</button>
+                    <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('Signup')}}
                     </button>
                 </div>
                 %end
