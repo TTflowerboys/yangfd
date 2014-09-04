@@ -134,13 +134,19 @@ gulp.task('html-extend', function () {
 
 
 gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
-    return gulp.src(myPaths.html)
+
+    var publicHtmlFilter = filter('*.html')
+
+    return gulp.src(myPaths.html, {base: './src/'})
         .pipe(extender())
+        .pipe(publicHtmlFilter)
+        .pipe(debug({verbose: true}))
         .pipe(usemin({
             css: [footer('/*EOF*/'), 'concat'],
             js: [ footer(';/*EOF*/;'), 'concat']
         }))
         .pipe(gulp.dest(myPaths.dist))
+        .pipe(publicHtmlFilter.restore())
 })
 
 
