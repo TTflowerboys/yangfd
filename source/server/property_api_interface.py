@@ -1,7 +1,7 @@
 from datetime import datetime
 from bson.objectid import ObjectId
 from libfelix.f_common import f_app
-from libfelix.f_interface import f_api
+from libfelix.f_interface import f_api, abort
 
 import logging
 logger = logging.getLogger(__name__)
@@ -98,9 +98,6 @@ def property_search(params):
     # Params for audit
     comment=str,
     attachment=str,
-
-    # Internal use only params
-    target_property_id=ObjectId,
 ))
 @f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer', 'agency'])
 def property_edit(property_id, user, params):
@@ -135,15 +132,15 @@ def property_edit(property_id, user, params):
 
     After discussion, we've decided that only one "draft" was allowed for the same "target_property_id" at the same time. This means:
 
-    7. The first edit to an existing property could pass the property's id directly, or just call this API with ``target_property_id`` set to the target.
+    7. The first edit to an existing property could pass the property's id directly.
 
-    8. The second and so forth edits should only pass the current ``partial`` property's id to ``target_property_id``.
+    8. The second and so forth edits should only pass the current ``partial`` property's id.
 
     9. Submit another edit while an existing one still in its life cycle will cause an error.
 
     All statuses, for reference: ``draft``, ``not translated``, ``translating``, ``rejected``, ``not reviewed``, ``selling``, ``hidden``, ``sold out``, ``deleted``.
     """
-    
+
     if property_id == "none":
         action = lambda params: f_app.property.add(params)
 
@@ -151,9 +148,9 @@ def property_edit(property_id, user, params):
             # TODO: check for advanced roles (``admin``, ``jr_admin`` and ``operation``)
             raise NotImplementedError
 
-    else: 
+    else:
         property = f_app.property.get(property_id)
-        action = lambda params:f_app.property.update_set(property_id, params)
+        action = lambda params: f_app.property.update_set(property_id, params)
 
         if len(params) == 1 and "status" in params:
             if property["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
@@ -180,7 +177,7 @@ def property_edit(property_id, user, params):
                 params.setdefault("status", "draft")
 
             elif property["status"] == "not reviewed":
-                abort(40000, "Not reviewed property could not be changed. Reverting the status is required before any modification")                
+                abort(40000, "Not reviewed property could not be changed. Reverting the status is required before any modification")
 
     action(params)
 

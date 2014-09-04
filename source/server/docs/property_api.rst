@@ -1,4 +1,4 @@
-House API Interface
+Property API Interface
 =================================
 
-.. automodule:: house_api_interface
+.. automodule:: property_api_interface

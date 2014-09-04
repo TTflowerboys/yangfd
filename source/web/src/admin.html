@@ -2,7 +2,7 @@
 <html ng-app="app">
     <head>
         <meta charset="UTF-8">
-        <title>Dashboard | BBT</title>
+        <title>{{_('Dashboard')}} | BBT</title>
         <meta name="description" content="Sign in, Sign Up">
         <meta name="author" content="Frank Fang">
         <meta name="keyword" content="">
@@ -10,9 +10,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <style>
-            @import url(http://fonts.googleapis.com/css?family=Lato:300);
-            @import url(http://fonts.googleapis.com/css?family=Lato:400);
-            @import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
+            @import url(//fonts.googleapis.com/css?family=Lato:300);
+            @import url(//fonts.googleapis.com/css?family=Lato:400);
+            @import url(//fonts.googleapis.com/css?family=Kaushan+Script);
         </style>
 
         <link rel="stylesheet" href="/static/vendors/bootstrap/css/bootstrap.min.css">
@@ -99,7 +99,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Warning</h4>
+                        <h4 class="modal-title">{{_('Warning')}}</h4>
                     </div>
                     <div class="modal-body">
                         <p>Here settings can be configured...</p>

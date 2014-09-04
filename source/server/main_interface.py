@@ -48,6 +48,11 @@ def process():
     return template("process", user=get_current_user())
 
 
+@f_get('/coming_soon')
+def coming_soon():
+    return template("coming_soon")
+
+
 @f_get('/admin')
 def admin():
     return template("admin")

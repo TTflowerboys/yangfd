@@ -95,7 +95,7 @@ def user_get(user, user_id):
     city=(str, None),
     state=(str, None),
     country=(str, None),
-    zip=(str, None),
+    zipcode=(str, None),
     email=(str, None),
     password=(str, None, "notrim", "base64"),
     old_password=(str, None, "notrim", "base64"),
