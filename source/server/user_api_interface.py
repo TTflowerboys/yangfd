@@ -56,9 +56,9 @@ def register(params):
 
     ``country`` should be 2-letter country code, see http://www.worldatlas.com/aatlas/ctycodes.htm
 
-    ``solution``  the solution user enters.
+    ``solution``  the solution user enters  in ``recaptcha_response_field``
 
-    ``challenge`` describes the CAPTCHA which the user is solving.
+    ``challenge`` describes the CAPTCHA which the user is solving, it's value is in ``recaptcha_challenge_field``
 
     """
 

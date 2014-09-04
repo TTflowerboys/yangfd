@@ -10,7 +10,7 @@
 * {
     box-sizing: border-box;
 }
-html{height: 100%;}
+html { height: 100%; }
 body {
     height: 100%;
     .opening {
@@ -19,34 +19,33 @@ body {
         background-size: cover;
         min-height: 672px;
         &_inner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            max-width: 800px; //子元素的 margin 依赖于宽度，所以这里设置了最大宽度，保证 resize 时，margin 不会过大，而让子元素超出背景高度
+            margin: 0 auto;
             text-align: center;
-            @content-margin-top: 3%;
+            @content-margin-top: 7%;
             .logo {
                 margin-top: @content-margin-top;
             }
 
             .hint {
-                margin-top: 6%;
+                margin-top: @content-margin-top;
                 font-size: 48px;
                 color: #ffffff;
             }
             .subscription {
-                margin-top: 6%;
+                margin-top: @content-margin-top;
                 > input {
                     width: 450px;
                     font-size: 20px;
-                    line-height: 34px;
-                    padding: 0.5em;
+                    line-height: 48px;
+                    height: 48px;
+                    padding: 0 10px;
                     vertical-align: middle;
                     color: #ffffff;
                     border: 2px solid;
                     display: inline-block;
                     background: transparent;
-                    border-radius: 8px;
-                    height: 48px;
+                    border-radius: 6px;
                 }
                 > button {
                     margin-left: 20px;
@@ -54,7 +53,7 @@ body {
                 }
             }
             .wechat {
-                margin-top: 7%;
+                margin-top: @content-margin-top;
             }
         }
     }
@@ -66,7 +65,6 @@ body {
         overflow: hidden;
         padding: 100px;
         .title {
-
             text-align: center;
             font-size: 36px;
             color: #333333;
@@ -103,12 +101,7 @@ body {
 
         &_form {
             float: right;
-            > hr {
-                color: transparent;
-                margin: 0px;
-                height: 20px;
-            }
-            > input {
+            input {
                 width: 270px;
                 padding-left: 0.5em;
                 padding-right: 0.5em;
@@ -119,22 +112,23 @@ body {
                 margin-top: 20px;
                 margin-bottom: 0px;
             }
-            > select {
+            select {
                 width: 270px;
             }
-            > textarea {
+            textarea {
                 width: 560px;
                 height: 150px;
                 padding: 0.5em;
                 margin-top: 20px;
             }
-            > button {
+            button {
                 margin-top: 8px;
             }
         }
     }
 }
 
-.copyright{ .clearfix(); overflow: hidden; background: @copyright-bg; height:40px; width: 100%;
-    > p{margin: 12px auto; height: 100%; max-width: @max-width; font-size: 14px; text-align: center; color: #ffffff;}
+.copyright { .clearfix(); overflow: hidden; background: @copyright-bg; height: 40px; width: 100%;
+    > p { margin: 12px auto; height: 100%; max-width: @max-width; font-size: 14px; text-align: center; color: #ffffff; }
 }
+.placeholder { color: #ccc !important; }

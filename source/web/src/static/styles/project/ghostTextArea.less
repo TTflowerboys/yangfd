@@ -1,13 +1,11 @@
-
-
 @border-radius: 4px;
 @grey: #ccc;
 @default-color: @grey;
 
 textarea.ghostTextArea {
     vertical-align: middle;
-    color: @default-color;
-    border: 2px solid;
+    color: darken(@default-color, 50%);
+    border: 2px solid @default-color;
     display: inline-block;
     background: transparent;
     border-radius: @border-radius;

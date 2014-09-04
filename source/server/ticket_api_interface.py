@@ -26,7 +26,7 @@ Intention Ticket
     city=str,
     block=str,
     equity_type=str,
-    intention=str,
+    intention='enum:intention',
     noregister=bool,
     custom_fields=(list, None, dict(
         key=str,
@@ -157,7 +157,7 @@ def intention_ticket_assign(user, ticket_id, user_id):
     city=(str, None),
     block=(str, None),
     equity_type=(str, None),
-    intention=(str, None),
+    intention=('enum:intention', None),
     custom_fields=(list, None, dict(
         key=str,
         value=str,
@@ -238,8 +238,8 @@ Support Ticket
 ))
 def support_ticket_add(params):
     """
-    Add a support ticket. ``creator_user_id`` is the result of ``get_id_by_phone``. 
-    
+    Add a support ticket. ``creator_user_id`` is the result of ``get_id_by_phone``.
+
     If no id is found, **40324 non-exist user** error will occur.
     """
     params.setdefault("type", "support")
