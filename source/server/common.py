@@ -40,6 +40,9 @@ class common(f_common):
     intention_ticket_statuses = ["new", "assigned", "in_progess", "deposit", "suspended", "bought", "canceled"]
     support_ticket_statuses = ["new", "assigned", "in_progress", "solved", "unsolved"]
 
+    user_action_types= ["click_page", "click_property","mark_property_favorite", "submit_intention_ticket", "submit_intention_ticket_success", "click_registration", "submit_registration", "submit_registration_success","submit_intention_tag",
+    "click_property_request","submit_property_request","submit_property_request_success"]
+
     version_more_dimension = ["channel", "platform"]
 
     message_self_hosted_push_port = 8286
