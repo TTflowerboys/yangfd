@@ -10,7 +10,7 @@
 * {
     box-sizing: border-box;
 }
-html{height: 100%;}
+html { height: 100%; }
 body {
     height: 100%;
     .opening {
@@ -38,15 +38,15 @@ body {
                 > input {
                     width: 450px;
                     font-size: 20px;
-                    line-height: 34px;
-                    padding: 0.5em;
+                    line-height: 48px;
+                    height: 48px;
+                    padding: 0 10px;
                     vertical-align: middle;
                     color: #ffffff;
                     border: 2px solid;
                     display: inline-block;
                     background: transparent;
-                    border-radius: 8px;
-                    height: 48px;
+                    border-radius: 6px;
                 }
                 > button {
                     margin-left: 20px;
@@ -66,7 +66,6 @@ body {
         overflow: hidden;
         padding: 100px;
         .title {
-
             text-align: center;
             font-size: 36px;
             color: #333333;
@@ -81,9 +80,10 @@ body {
     }
 
     .requirement {
-        width: 1200px;
+        max-width: 1200px;
         height: 680px;
         margin: 100px auto;
+        overflow: hidden;
         left: 50%;
         &_title {
             float: left;
@@ -102,26 +102,34 @@ body {
 
         &_form {
             float: right;
-            > hr {
-                color: transparent;
-            }
-            > input {
+            input {
                 width: 270px;
                 padding-left: 0.5em;
                 padding-right: 0.5em;
             }
-            > select {
+            .budgetHint {
+                font-size: 14px;
+                color: #333333;
+                margin-top: 20px;
+                margin-bottom: 0px;
+            }
+            select {
                 width: 270px;
             }
-            > textarea {
+            textarea {
                 width: 560px;
+                height: 150px;
                 padding: 0.5em;
-
+                margin-top: 20px;
+            }
+            button {
+                margin-top: 8px;
             }
         }
     }
 }
 
-.copyright{ .clearfix(); overflow: hidden; background: @copyright-bg; height:40px; width: 100%;
-    > p{margin: 12px auto; height: 100%; width: @max-width; font-size: 14px; text-align: center; color: #ffffff;}
+.copyright { .clearfix(); overflow: hidden; background: @copyright-bg; height: 40px; width: 100%;
+    > p { margin: 12px auto; height: 100%; max-width: @max-width; font-size: 14px; text-align: center; color: #ffffff; }
 }
+.placeholder { color: #ccc !important; }
