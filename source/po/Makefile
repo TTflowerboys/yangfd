@@ -1,5 +1,5 @@
 # Currant-i18n
-# This script needs the jinja module to extract strings
+# This script needs the jinja2 module to extract strings
 
 PROJECT_NAME = "Currant"
 BUGSADDR = "developer@bbtechgroup.com"
@@ -7,33 +7,29 @@ ORGANIZATION = "Brothers Bridge Technology"
 AUTHOR = "Felix Yan"
 VERSION = "1.0"
 
-SED = /usr/bin/env sed
-MSGFMT = /usr/bin/env msgfmt
+PYTHON = /usr/bin/env python
 INSTALL = /usr/bin/env install
-PYBABEL = /usr/bin/pybabel2
+PYBABEL = $(shell [[ -x /usr/bin/pybabel2 ]] && echo /usr/bin/pybabel2 || echo /usr/bin/env pybabel)
 DESTDIR = generated
 
 all:
 
-find_pybabel:
-	[[ ! -x $(PYBABEL) ]] && PYBABEL = /usr/bin/env pybabel || true
-
-extract: find_pybabel
+extract:
 	$(PYBABEL) extract -F web/.pybabel.cfg --copyright-holder=$(ORGANIZATION) --msgid-bugs-address=$(BUGSADDR) --project=$(PROJECT_NAME) --version=$(VERSION) -o web/web.pot ../web/src
 
-update: find_pybabel
+update:
 	for file in */*.po; \
-  	do \
-		package=$$(echo $$file | $(SED) -e 's#\([^/]\+\).*#\1#'); \
-		lang=$$(echo $$file | $(SED) -e 's#.*/\([^/]\+\).po#\1#'); \
+	do \
+		package=$$($(PYTHON) -c "print('$$file'.split('/')[0])"); \
+		lang=$$($(PYTHON) -c "print('$$file'.split('/')[-1].split('.po')[0])"); \
 		$(PYBABEL) update -i $$package/$$package.pot -l $$lang -o $$package/$$lang.po; \
 	done
 
 install:
 	for file in */*.po; \
-  	do \
-		package=$$(echo $$file | $(SED) -e 's#\([^/]\+\).*#\1#'); \
-		lang=$$(echo $$file | $(SED) -e 's#.*/\([^/]\+\).po#\1#'); \
+	do \
+		package=$$($(PYTHON) -c "print('$$file'.split('/')[0])"); \
+		lang=$$($(PYTHON) -c "print('$$file'.split('/')[-1].split('.po')[0])"); \
 		$(INSTALL) -d $(DESTDIR)/$$lang/LC_MESSAGES; \
-		$(MSGFMT) -o $(DESTDIR)/$$lang/LC_MESSAGES/$$package.mo $$file; \
+		$(PYBABEL) compile -o $(DESTDIR)/$$lang/LC_MESSAGES/$$package.mo -i $$file; \
 	done

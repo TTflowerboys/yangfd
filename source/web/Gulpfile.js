@@ -109,7 +109,7 @@ gulp.task('build:less2css', ['build:copy'], function (done) {
     gulp.src(myPaths.css)
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
-    gulp.src(myPaths.less)
+    return gulp.src(myPaths.less)
         .pipe(less())
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
@@ -140,11 +140,11 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
     return gulp.src(myPaths.html, {base: './src/'})
         .pipe(extender())
         .pipe(publicHtmlFilter)
-        .pipe(debug({verbose: true}))
         .pipe(usemin({
-            css: [footer('/*EOF*/'), 'concat'],
-            js: [ footer(';/*EOF*/;'), 'concat']
+            css: ['concat', rev()],
+            js: [ footer(';/*EOF*/;'), 'concat', rev()]
         }))
+        .pipe(revReplace())
         .pipe(gulp.dest(myPaths.dist))
         .pipe(publicHtmlFilter.restore())
 })

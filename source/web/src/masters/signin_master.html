@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <!-- @@include =../partials/css_import.html -->
-    <link rel="stylesheet" href="/static/styles/project/signin.css"/>
+    <!--build:css(dist) /static/styles/project/signin_master.html.css-->
+    <link rel="stylesheet" href="/static/styles/signin.css"/>
     <link rel="stylesheet" href="/static/styles/project/modal.css"/>
+    <!--endbuild-->
+
     <!-- @@placeholder = head -->
 
 </head>
@@ -24,7 +27,7 @@
             </p>
             <ul class="navbar">
                 <li><a href="/terms">服务条款</a><img src="/static/images/navbar-seperator.png" class="seperator"/></li>
-                <li><a href="/privacy">隐私声明</a><img src="/static/images/navbar-seperator.png" class="seperator"/></li>
+                <li><a href="/privacy">{{_('Privacy Policy')}}</a><img src="/static/images/navbar-seperator.png" class="seperator"/></li>
                 <li><a href="/process">业务流程</a><img src="/static/images/navbar-seperator.png" class="seperator"/></li>
                 <li>
                     <select class="ghostSelect" style="min-width: 140px;">

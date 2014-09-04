@@ -11,13 +11,14 @@ import libfelix.f_blog
 import libfelix.f_common
 import libfelix.f_email
 import libfelix.f_email.f_aws_ses
+import libfelix.f_feedback
 import libfelix.f_log
 import libfelix.f_message
 import libfelix.f_mongo
 import libfelix.f_ticket
-import libfelix.f_user
 import libfelix.f_sms.f_clickatell
 import libfelix.f_sms.f_nexmo
+import libfelix.f_user
 import libfelix.f_captcha.f_recaptcha
 
 import f_currant

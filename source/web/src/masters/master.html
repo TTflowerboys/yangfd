@@ -1,156 +1,161 @@
 <!doctype html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <!-- @@include =../partials/css_import.html -->
-    <link rel="stylesheet" href="/static/styles/project/layout.css"/>
-    <link rel="stylesheet" href="/static/styles/project/siteHeader.css"/>
-    <link rel="stylesheet" href="/static/styles/project/siteFooter.css"/>
-    <link rel="stylesheet" href="/static/styles/project/modal.css"/>
-    <link rel="stylesheet" href="/static/styles/project/signinForm.css"/>
-    <!-- @@placeholder = head -->
+    <head>
+        <meta charset="UTF-8">
+        <!-- @@include =../partials/css_import.html -->
 
-</head>
-<body>
-<!-- @@include =../partials/data_manager.html -->
-<div class="page">
+        <!--build:css(dist) /static/styles/project/master.html.css-->
+        <link rel="stylesheet" href="/static/styles/project/layout.css"/>
+        <link rel="stylesheet" href="/static/styles/project/siteHeader.css"/>
+        <link rel="stylesheet" href="/static/styles/project/siteFooter.css"/>
+        <link rel="stylesheet" href="/static/styles/project/modal.css"/>
+        <link rel="stylesheet" href="/static/styles/project/signinForm.css"/>
+        <!--endbuild-->
 
-    <div id="header" class="siteHeader_wrapper">
-        <header class="siteHeader">
-            <img class="logo" src="/static/images/logo.png" alt=""/>
+        <!-- @@placeholder = head -->
 
-            <div class="country">{{_('England')}}</div>
-            <ul class="navbar">
-                <li class="selected"><a href="">我的海投</a></li>
-                <li><a href="">海外房产</a></li>
-                <li><a href="">项目开发</a></li>
-                <li><a href="">业务模式</a></li>
-            </ul>
-            <div class="user">
-                %if user:
-                <div id="userInfo" class="userInfo">
-                    <p class="welcome">{{_('Welcome!')}}</p>
-                    <h2 class="userName">{{user["nickname"]}}</h2>
-                    <button id="logout" class="logout ghostButton">{{_('Logout')}}</button>
-                </div>
-                %else:
-                <div id="userLogin" class="userLogin">
-                    <button id="login" class="login ghostButton red">{{_('Login')}}</button>
-                    <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('Signup')}}
-                    </button>
-                </div>
-                %end
+    </head>
+    <body>
+        <!-- @@include =../partials/data_manager.html -->
+        <div class="page">
+
+            <div id="header" class="siteHeader_wrapper">
+                <header class="siteHeader">
+                    <img class="logo" src="/static/images/logo.png" alt=""/>
+
+                    <div class="country">{{_('England')}}</div>
+                    <ul class="navbar">
+                        <li class="selected"><a href="">我的海投</a></li>
+                        <li><a href="">海外房产</a></li>
+                        <li><a href="">项目开发</a></li>
+                        <li><a href="">业务模式</a></li>
+                    </ul>
+                    <div class="user">
+                        %if user:
+                        <div id="userInfo" class="userInfo">
+                            <p class="welcome">{{_('Welcome!')}}</p>
+                            <h2 class="userName">{{user["nickname"]}}</h2>
+                            <button id="logout" class="logout ghostButton">{{_('Logout')}}</button>
+                        </div>
+                        %else:
+                        <div id="userLogin" class="userLogin">
+                            <button id="login" class="login ghostButton red">{{_('Login')}}</button>
+                            <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('Signup')}}
+                            </button>
+                        </div>
+                        %end
+                    </div>
+                </header>
             </div>
-        </header>
-    </div>
-    <main id="main">
-        <!-- @@placeholder = main -->
-    </main>
+            <main id="main">
+                <!-- @@placeholder = main -->
+            </main>
 
-    <div id="footer" class="siteFooter_wrapper">
-        <footer class="siteFooter">
-            <div class="contact">
-                <img class="logo" src="/static/images/logo-grey.png" alt=""/>
+            <div id="footer" class="siteFooter_wrapper">
+                <footer class="siteFooter">
+                    <div class="contact">
+                        <img class="logo" src="/static/images/logo-grey.png" alt=""/>
 
-                <p class="address">Optics Valley Road, Wuhan,
-                    Hubei, China, </p>
+                        <p class="address">Optics Valley Road, Wuhan,
+                            Hubei, China,
+                        </p>
 
-                <p class="postalCode">430000</p>
+                        <p class="postalCode">430000</p>
 
-                <p class="phoneAndEmail">
-                    400-777-8888 |  <a href="mailto:contact@bbtechgroup.com?subject=Feedback">contact@bbtechgroup.com</a>
+                        <p class="phoneAndEmail">
+                            400-777-8888 |
+                            <a href="mailto:contact@bbtechgroup.com?subject=Feedback">contact@bbtechgroup.com</a>
+                        </p>
+                    </div>
+                    <div class="social">
+                        <h3>SOCIAL</h3>
+                        <img class="weibo" src="/static/images/media/weibo.png" alt=""/>
+                        <img class="twitter" src="/static/images/media/twitter.png" alt=""/>
+                        <img class="facebook" src="/static/images/media/facebook.png" alt=""/>
+                        <img class="weixin" src="/static/images/media/wechat.png" alt=""/>
+                    </div>
+                    <div class="support">
+                        <h3>SUPPORT</h3>
+                        <a href="/terms">服务条款</a>
+                        <a href="/privacy">隐私声明</a>
+                        <a href="/process">业务流程</a>
+                    </div>
+                    <div class="feature">
+                        <h3>FEATURE</h3>
+                        <a href="">伦敦房产</a>
+                        <a href="">期房</a>
+                        <a href="">房产开发</a>
+                    </div>
+                    <div class="language">
+                        <h3>LANGUAGE</h3>
+                        <select class="ghostSelect" style="min-width: 140px;">
+                            <option>中文（中国）</option>
+                            <option>English, UK</option>
+                        </select>
+                    </div>
+                </footer>
+            </div>
+            <div id="copyright" class="copyright">
+                <p>&copy;<script>document.write(new Date().getFullYear())</script>
+                    Brothers Bridge Group
                 </p>
             </div>
-            <div class="social">
-                <h3>SOCIAL</h3>
-                <img class="weibo" src="/static/images/media/weibo.png" alt=""/>
-                <img class="twitter" src="/static/images/media/twitter.png" alt=""/>
-                <img class="facebook" src="/static/images/media/facebook.png" alt=""/>
-                <img class="weixin" src="/static/images/media/wechat.png" alt=""/>
-            </div>
-            <div class="support">
-                <h3>SUPPORT</h3>
-                <a href="/terms">服务条款</a>
-                <a href="/privacy">隐私声明</a>
-                <a href="/process">业务流程</a>
-            </div>
-            <div class="feature">
-                <h3>FEATURE</h3>
-                <a href="">伦敦房产</a>
-                <a href="">期房</a>
-                <a href="">房产开发</a>
-            </div>
-            <div class="language">
-                <h3>LANGUAGE</h3>
-                <select class="ghostSelect" style="min-width: 140px;">
-                    <option>中文（中国）</option>
-                    <option>English, UK</option>
-                </select>
-            </div>
-        </footer>
-    </div>
-    <div id="copyright" class="copyright">
-        <p>&copy;<script>document.write(new Date().getFullYear())</script>
-            Brothers Bridge Group
-        </p>
-    </div>
-</div>
-<div id="modal_shadow" class="modal_shadow" style="display: none"></div>
-<div id="modal" class="modal" style="display: none">
-    <a href="/"><img class="logo" src="/static/images/logo-login.png" alt=""/></a>
-    <!-- @@include =../partials/signin_form.html -->
-</div>
+        </div>
+        <div id="modal_shadow" class="modal_shadow" style="display: none"></div>
+        <div id="modal" class="modal" style="display: none">
+            <a href="/"><img class="logo" src="/static/images/logo-login.png" alt=""/></a>
+            <!-- @@include =../partials/signin_form.html -->
+        </div>
 
-<!-- @@include =../partials/js_import.html -->
-<script>
-    $(window).on('resize', function () {
-        $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
-    })
-    $(function () {
-        $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
-    })
-</script>
+        <!-- @@include =../partials/js_import.html -->
+        <script>
+            $(window).on('resize', function () {
+                $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
+            })
+            $(function () {
+                $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
+            })
+        </script>
 
-<script>
-    $("#login").click(function () {
-        $("#modal_shadow").show()
-        $("#modal").show()
+        <script>
+            $("#login").click(function () {
+                $("#modal_shadow").show()
+                $("#modal").show()
 
-    });
-    $("#modal_shadow").click(function () {
-        $("#modal_shadow").hide()
-        $("#modal").hide()
-    });
+            });
+            $("#modal_shadow").click(function () {
+                $("#modal_shadow").hide()
+                $("#modal").hide()
+            });
 
-    $('form[name=signin]').submit(function (e) {
-        e.preventDefault()
-        var params = $(this).serializeObject()
-        params.password = Base64.encode(params.password)
-        $.post("/api/1/user/login",
-                params,
-                function (data, status) {
-                    if (data.ret != 0) {
-                        alert("Data: " + data.msg + "\nStatus: " + status);
-                    }
-                    else {
+            $('form[name=signin]').submit(function (e) {
+                e.preventDefault()
+                var params = $(this).serializeObject()
+                params.password = Base64.encode(params.password)
+                $.post("/api/1/user/login",
+                    params,
+                    function (data, status) {
+                        if (data.ret != 0) {
+                            alert("Data: " + data.msg + "\nStatus: " + status);
+                        }
+                        else {
+                            location.reload()
+                            $("#modal_shadow").hide()
+                            $("#modal").hide()
+                        }
+                    });
+            })
+
+            $("#logout").click(function () {
+                $.get("/logout",
+                    null,
+                    function (data, status) {
                         location.reload()
-                        $("#modal_shadow").hide()
-                        $("#modal").hide()
                     }
-                });
-    })
-
-    $("#logout").click(function () {
-        $.get("/logout",
-                null,
-                function (data, status)
-                {
-                    location.reload()
-                }
-        )
-    });
-</script>
-<!--@@placeholder=scripts-->
-</body>
+                )
+            });
+        </script>
+        <!--@@placeholder=scripts-->
+    </body>
 </html>
 
