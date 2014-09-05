@@ -93,9 +93,9 @@
                     </div>
                     <div class="language">
                         <h3>LANGUAGE</h3>
-                        <select class="ghostSelect" style="min-width: 140px;">
-                            <option>中文（中国）</option>
-                            <option>English, UK</option>
+                        <select name="language" class="ghostSelect" style="min-width: 140px;">
+                            <option value="zh_Hans_CN" selected>中文（中国）</option>
+                            <option value="en_GB">English, UK</option>
                         </select>
                     </div>
                 </footer>
@@ -159,6 +159,12 @@
                     }
                 )
             });
+
+            $('select[name=language]').change(function(){
+                var language=$(this).children('option:selected').val();
+                window.location.href= window.location.href+"?_i18n="+language
+            })
+
         </script>
         <!--@@placeholder=scripts-->
     </body>
