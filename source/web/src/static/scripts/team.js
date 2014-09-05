@@ -75,6 +75,18 @@
                     url += "&" + paramName + "=" + paramValue;
             }
             window.location.href = url;
+        },
+        getLocationHrefParam: function (paramName) {
+            var url = window.location.href;
+            if (url.indexOf(paramName + "=") >= 0) {
+                var prefix = url.substring(0, url.indexOf(paramName));
+                var suffix = url.substring(url.indexOf(paramName));
+                suffix = suffix.substring(suffix.indexOf("=") + 1);
+                return (suffix.indexOf("&") >= 0) ? suffix.substring(0, suffix.indexOf("&")) : suffix;
+            }
+            else {
+                return null
+            }
         }
     }
 })();
