@@ -32,3 +32,4 @@ API Reference
    subscription_api
    ticket_api
    user_api
+   analytics_api
