@@ -49,7 +49,7 @@ def analytics_user_action_record(params):
     if log_type not in f_app.common.user_action_types:
         abort(40000, logger.warning("Invalid params: log_type", log_type, exc_info=False))
 
-    if log_type == "click_page" and not params.get("page_url", None):
+    if log_type == "click_page" and "page_url" not in params:
         abort(40000, logger.warning("Need params: page_url", exc_info=False))
 
     if "property_id" in params:
