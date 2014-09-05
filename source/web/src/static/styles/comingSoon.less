@@ -21,30 +21,19 @@ body {
         background-size: cover;
         min-height: 672px;
         &_inner { //子元素的 margin 依赖于宽度，所以这里设置了最大宽度，保证 resize 时，margin 不会过大，而让子元素超出背景高度
-            max-width: 700px;
-            margin: 0 auto; text-align: center;
+            max-width: 700px; margin: 0 auto; text-align: center; position: relative; height: 100%;
             @content-margin-top: 6%;
             .logo { margin-top: @content-margin-top; }
-            .hint { margin-top: @content-margin-top; font-size: 48px; letter-spacing: 3px;
+            .hint { margin-top: 12%; margin-bottom: 4%; font-size: 48px; letter-spacing: 3px;
                 @media @phone {
                     font-size: 24px;
                 }
                 color: #ffffff;
             }
             .subscription {
-                margin-top: @content-margin-top;
                 > input {
-                    width: 450px;
-                    font-size: 20px;
-                    //line-height: 48px;
-                    height: 48px;
-                    padding: 0 10px;
-                    vertical-align: middle;
-                    color: #ffffff;
-                    border: 2px solid;
-                    display: inline-block;
-                    background: transparent;
-                    border-radius: 6px;
+                    width: 450px; font-size: 20px; height: 48px; padding: 0 10px; vertical-align: middle; color: #ffffff;
+                    border: 2px solid; display: inline-block; background: transparent; border-radius: 6px;
                     @media @phone {
                         width: 80%;
                         font-size: 16px;
@@ -64,7 +53,9 @@ body {
                 }
             }
             .wechat {
-                margin-top: 7%;
+                @width: 120px;
+                position: absolute; bottom: 16px;
+                width: @width; margin-left: -@width / 2; left: 50%;
             }
         }
     }
@@ -131,7 +122,6 @@ body {
                 }
             }
         }
-
 
         &_form {
             float: right;
