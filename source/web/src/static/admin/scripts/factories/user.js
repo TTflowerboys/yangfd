@@ -3,7 +3,7 @@
 (function () {
 
     function userApi($http, $state, $q) {
-        var _user
+        var _user = window._user
         return {
             signIn: function (user) {
                 var params = _.pick(user, 'country', 'phone', 'password')
@@ -18,14 +18,7 @@
                 if (_user) {
                     deferred.resolve(_user)
                 } else {
-                    $http.get('/api/1/user', {errorMessage: true})
-                        .success(function (data, status, headers, config) {
-                            _user = data.val
-                            deferred.resolve(_user)
-                        })
-                        .error(function () {
-                            deferred.reject()
-                        })
+                    deferred.reject()
                 }
 
                 return deferred.promise
