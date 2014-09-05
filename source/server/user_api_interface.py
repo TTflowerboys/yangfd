@@ -439,6 +439,8 @@ def user_get_id_by_phone(user, params):
 def captcha_generate(params):
     """
     Generate captcha.
+
+    ``style`` must be in ``html`` or ``ajax``
     """
     if params["style"] not in ["html", "ajax"]:
         abort(40000, logger.warning("Invalid params: style", params["style"], exc_info=False))

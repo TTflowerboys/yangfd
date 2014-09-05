@@ -43,7 +43,7 @@ def subscription_search(user, params):
 def subscription_notification_ready(user, params):
     email_list = []
     if params["target"] == "all":
-        subscription_list = f_app.feedback.search({})
+        subscription_list = f_app.feedback.get(f_app.feedback.search({}))
         for subscription in subscription_list:
             email_list.append(subscription["email"])
     else:
