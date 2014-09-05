@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from app import f_app
-from libfelix.f_interface import f_api, ObjectId,abort
+from libfelix.f_interface import f_api, ObjectId, abort
 import logging
 logger = logging.getLogger(__name__)
 
@@ -43,13 +43,13 @@ def analytics_user_action_record(params):
 
     in any action related with certain property, parse ``property_id``.
 
-    In any page user click , parse ``page_url`` of the page and parse ``click_page`` to ``log_type`` 
+    To any page user click , parse ``page_url`` of the page and parse ``click_page`` to ``log_type`` 
      """
     log_type = params.get("log_type")
     if log_type not in f_app.common.user_action_types:
         abort(40000, logger.warning("Invalid params: log_type", log_type, exc_info=False))
 
-    if log_type=="click_page" and not params.get("page_url",None):
+    if log_type == "click_page" and "page_url" not in params:
         abort(40000, logger.warning("Need params: page_url", exc_info=False))
 
     if "property_id" in params:
