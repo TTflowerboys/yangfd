@@ -10,6 +10,8 @@ VERSION = "1.0"
 PYTHON = /usr/bin/env python
 INSTALL = /usr/bin/env install
 PYBABEL = $(shell [ -x /usr/bin/pybabel2 ] && echo /usr/bin/pybabel2 || echo /usr/bin/env pybabel)
+MSGFMT = /usr/bin/env msgfmt
+GREP = /usr/bin/env grep
 DESTDIR = generated
 
 all:
@@ -30,6 +32,7 @@ install:
 	do \
 		package=$$($(PYTHON) -c "print('$$file'.split('/')[0])"); \
 		lang=$$($(PYTHON) -c "print('$$file'.split('/')[-1].split('.po')[0])"); \
+		$(GREP) Language $$file; \
 		$(INSTALL) -d $(DESTDIR)/$$lang/LC_MESSAGES; \
-		$(PYBABEL) compile -o $(DESTDIR)/$$lang/LC_MESSAGES/$$package.mo -i $$file; \
+		$(MSGFMT) -o $(DESTDIR)/$$lang/LC_MESSAGES/$$package.mo $$file; \
 	done
