@@ -24,7 +24,7 @@ body {
             max-width: 700px; margin: 0 auto; text-align: center; position: relative; height: 100%;
             @content-margin-top: 6%;
             .logo { margin-top: @content-margin-top; }
-            .hint { margin-top: 12%; margin-bottom: 4%; font-size: 48px; letter-spacing: 3px;
+            .hint { margin-top: 9%; margin-bottom: 4%; font-size: 48px; letter-spacing: 3px;
                 @media @phone {
                     font-size: 24px;
                 }
@@ -164,9 +164,7 @@ body {
                 input {
                     width: 100%;
                     &.phone {
-                        margin-left: 2%;
-                        width: 70%;
-
+                        width:  ~"calc(100% - 100px)";
                     }
                 }
                 select {
