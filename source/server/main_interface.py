@@ -7,7 +7,7 @@ from libfelix.f_interface import f_get, static_file, template, request, redirect
 def check_landing(func):
     def __check_landing_replace_func(*args, **kwargs):
         if f_app.common.landing_only:
-            return template("landing")
+            return template("coming_soon")
         else:
             return func(*args, **kwargs)
 
