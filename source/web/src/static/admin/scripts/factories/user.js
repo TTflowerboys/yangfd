@@ -32,7 +32,8 @@
             },
             sendVerification: function (user) {
                 var params = _.pick(user, 'country', 'phone')
-                return $http.post('/api/1/user/sms_verification/send', params, {successMessage:'验证码已发送至你的手机',errorMessage: true})
+                return $http.post('/api/1/user/sms_verification/send', params,
+                    {successMessage: '验证码已发送至你的手机', errorMessage: true})
 
             },
             resetPassword: function (id, code, password) {
@@ -54,6 +55,9 @@
             checkUserExist: function (user) {
                 var params = _.pick(user, 'country', 'phone')
                 return $http.post('/api/1/user/check_exist', params, {errorMessage: true})
+            },
+            getCurrentUser: function () {
+                return _user
             }
         }
 
