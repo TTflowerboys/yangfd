@@ -19,7 +19,7 @@ Intention Ticket
     nickname=(str, True),
     phone=(str, True),
     email=(str, True),
-    budget=(float, True),
+    budget="enum:budget",
     country=(str, True),
     description=(str, True),
     state=str,
@@ -158,6 +158,7 @@ def intention_ticket_assign(user, ticket_id, user_id):
     block=(str, None),
     equity_type=(str, None),
     intention=('enum:intention', None),
+    budget=("enum:budget", None),
     custom_fields=(list, None, dict(
         key=str,
         value=str,
@@ -193,6 +194,7 @@ def intention_ticket_edit(user, ticket_id, params):
     per_page=int,
     time=datetime,
     sort=(list, None, str),
+    budget="enum:budget",
 ))
 @f_app.user.login.check(force=True)
 def intention_ticket_search(user, params):
