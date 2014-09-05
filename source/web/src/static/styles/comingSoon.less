@@ -21,11 +21,11 @@ body {
         background-size: cover;
         min-height: 672px;
         &_inner { //子元素的 margin 依赖于宽度，所以这里设置了最大宽度，保证 resize 时，margin 不会过大，而让子元素超出背景高度
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto; text-align: center;
             @content-margin-top: 7%;
             .logo { margin-top: @content-margin-top; }
-            .hint { margin-top: @content-margin-top; font-size: 48px;
+            .hint { margin-top: @content-margin-top; font-size: 48px; letter-spacing: 3px;
                 @media @phone {
                     font-size: 24px;
                 }
