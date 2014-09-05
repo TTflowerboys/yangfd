@@ -18,9 +18,10 @@
             <div class="opening_inner">
                 <img class="logo" src="/static/images/logo-yfd.png" alt=""/>
                 <h1 class="hint">金秋十月，即将开放！</h1>
-                <form class="subscription">
-                    <input class="email" type="email" placeholder="E-Mail"/>
+                <form name="subscription" class="subscription">
+                    <input class="email" name="email" type="text" placeholder="E-Mail" data-validator="required, trim email"/>
                     <button type="submit" class="button red">订阅</button>
+                    <p class="resultMessage"></p>
                 </form>
                 <img class="wechat" src="/static/images/media/wechat.png" alt=""/>
             </div>
@@ -42,34 +43,35 @@
                     及时反馈给您
                 </h3>
             </div>
-            <form class="requirement_form" action="">
+            <form class="requirement_form"  name="requirement">
                 <div class="form_row">
-                    <input class="name ghostInput" type="text" placeholder="姓名"/>
+                    <input class="name ghostInput" name="nickname" type="text" placeholder="姓名" data-validator="required, trim"/>
                 </div>
                 <div class="form_row">
-                    <input class="phone ghostInput" type="text" placeholder="电话"/>
+                    <input class="phone ghostInput" name="phone" type="text" placeholder="电话" data-validator="required, trim number"/>
                 </div>
                 <div class="form_row">
-                    <input class="email ghostInput" type="email" placeholder="邮箱"/>
+                    <input class="email ghostInput" name="email" type="text" placeholder="邮箱" data-validator="required, trim email"/>
                 </div>
                 <div class="form_row">
                     <p class="budgetHint">您的预算</p>
                 </div>
                 <div class="form_row">
-                    <select class="budget ghostSelect" name="">
-                        <option value="">100万以下</option>
-                        <option value="">100万到300万</option>
-                        <option value="" selected="selected">300万到500万</option>
-                        <option value="">500万到1000万</option>
-                        <option value="">1000万以上</option>
+                    <select class="budget ghostSelect" name="budget">
+                        <option value="100">100万以下</option>
+                        <option value="300">100万到300万</option>
+                        <option value="500" selected="selected">300万到500万</option>
+                        <option value="1000">500万到1000万</option>
+                        <option value="1001">1000万以上</option>
                     </select>
                 </div>
                 <div class="form_row">
-                    <textarea class="detail ghostTextArea" placeholder="写下您的其他需求和描述，方便我们在挑选房源时作为参考"></textarea>
+                    <textarea class="detail ghostTextArea" name="description" placeholder="写下您的其他需求和描述，方便我们在挑选房源时作为参考"></textarea>
                 </div>
                 <div class="form_row">
                     <button type="submit" class="button red">提交</button>
                 </div>
+                <p class="resultMessage"></p>
             </form>
         </div>
 
@@ -87,6 +89,75 @@
             $(function () {
                 $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
             })
+        </script>
+
+        <script>
+
+            function errorMessageFormValidatorType(validator) {
+                if (validator == "required") {
+                    return "不能为空"
+                }
+                else if (validator == "number")
+                {
+                    return "格式不正确"
+                }
+                else if (validator == "email")
+                {
+                    return "格式不合法"
+                }
+            }
+
+            $('form[name=subscription]').submit(function (e) {
+                e.preventDefault()
+                var resultArea=  $(this).find(".resultMessage")
+                resultArea.hide()
+
+                var valid = $.validate(this, {onError: function (dom,validator,index) {
+                    resultArea.text("邮箱" + errorMessageFormValidatorType(validator))
+                    resultArea.show()
+                }})
+                if(!valid){return}
+                var params = $(this).serializeObject()
+                $.post("/api/1/subscription/add",
+                        params,
+                        function (data, status) {
+                            if (data.ret != 0) {
+                                resultArea.text("订阅失败！")
+                                resultArea.show()
+                            }
+                            else {
+                                resultArea.text("恭喜你，订阅成功！")
+                                resultArea.show()
+                            }
+                        });
+            })
+
+            $('form[name=requirement]').submit(function (e) {
+                e.preventDefault()
+                var resultArea=  $(this).find(".resultMessage")
+                resultArea.hide()
+
+                var valid = $.validate(this, {onError: function (dom,validator,index) {
+                    resultArea.text(dom.placeholder + errorMessageFormValidatorType(validator))
+                    resultArea.show()
+                }})
+                if(!valid){return}
+                var params = $(this).serializeObject()
+                //TODO: 需要更新 budget 的类型
+                $.post("/api/1/intention_ticket/add",
+                        params,
+                        function (data, status) {
+                            if (data.ret != 0) {
+                                resultArea.text("提交置业需求失败！")
+                                resultArea.show()
+                            }
+                            else {
+                                resultArea.text("恭喜你，一成功提交置业需求！")
+                                resultArea.show()
+                            }
+                        });
+            })
+
         </script>
 
     </body>
