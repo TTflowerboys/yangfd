@@ -80,4 +80,8 @@ angular.module('app')
                 controller: 'ctrlCreate',
                 resolve: estateResolve
             })
+            .state('noPermission', {
+                url: '/noPermission',
+                templateUrl: '/static/admin/templates/no_permission.html'
+            })
     })
