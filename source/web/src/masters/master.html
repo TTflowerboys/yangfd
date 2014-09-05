@@ -119,6 +119,10 @@
             })
             $(function () {
                 $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
+
+                //setup language select
+                var language = team.getLocationHrefParam("_i18n")
+                $('select[name=language]').find('option[value='+language+']').prop('selected',true)
             })
         </script>
 
