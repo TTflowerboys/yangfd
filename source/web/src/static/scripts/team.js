@@ -47,13 +47,13 @@
 
             return jQueryAjax
         },
-        Delayer : Delayer,
-        getQuery: function (name,url) {
+        Delayer: Delayer,
+        getQuery: function (name, url) {
             var matches
-            if(!url){
-                 matches = window.location.search.match(new RegExp('(\\?|&)' + name + '=([^&]*)(&|$)'));
+            if (!url) {
+                matches = window.location.search.match(new RegExp('(\\?|&)' + name + '=([^&]*)(&|$)'));
                 return !matches ? '' : decodeURIComponent(matches[2]);
-            }else{
+            } else {
                 matches = url.match(new RegExp('(\\?|&)' + name + '=([^&]*)(&|$)'));
                 return !matches ? '' : decodeURIComponent(matches[2]);
             }
