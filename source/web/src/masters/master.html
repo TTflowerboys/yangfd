@@ -162,7 +162,7 @@
 
             $('select[name=language]').change(function(){
                 var language=$(this).children('option:selected').val();
-                window.location.href= window.location.href+"?_i18n="+language
+                team.setLocationHrefParam("_i18n", language)
             })
 
         </script>
