@@ -34,3 +34,26 @@ def subscription_remove(user, subscription_id):
 def subscription_search(user, params):
     subscription_list = f_app.feedback.search(params)
     return f_app.feedback.output(subscription_list)
+
+
+@f_api('/subscription/notification/ready', params=dict(
+    target=(str, "all"),
+))
+@f_app.user.login.check(force=True, role=["admin", "jr_admin"])
+def subscription_notification_ready(user, params):
+    email_list = []
+    if params["target"] == "all":
+        subscription_list = f_app.feedback.search({})
+        for subscription in subscription_list:
+            email_list.append(subscription["email"])
+    else:
+        if "@" not in params["target"]:
+            abort(40099, logger.warning("No '@' in email address supplied:", params["target"], exc_info=False))
+        email_list = [params["target"]]
+    if email_list:
+        f_app.email.schedule(
+            target=",".join(email_list),
+            subject="YoungFunding is ready now",
+            text=template("static/templates/we_are_ready"),
+            display="html",
+        )

@@ -419,9 +419,13 @@ def user_get_id_by_phone(user, params):
     return f_app.user.output([user_id])[0]
 
 
-@f_api("/captcha/generate")
-def captcha_generate():
+@f_api("/captcha/generate", params=dict(
+    style=(str, "html"),
+))
+def captcha_generate(params):
     """
     Generate captcha.
     """
-    return f_app.captcha.generate("recaptcha")
+    if params["style"] not in ["html", "ajax"]:
+        abort(40000, logger.warning("Invalid params: style", params["style"], exc_info=False))
+    return f_app.captcha.generate(method="recaptcha", style=params["style"])
