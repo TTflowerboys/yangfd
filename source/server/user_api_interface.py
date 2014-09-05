@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from app import f_app
+from bson.objectid import ObjectId
 from libfelix.f_interface import f_api, abort, rate_limit, template, request
 import random
 import logging
@@ -280,6 +281,19 @@ def admin_user_add_role(user, user_id, params):
         else:
             abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
         f_app.user.add_role(user_id, role)
+
+    return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
+
+
+@f_api("/user/admin/<user_id>")
+@f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "jr_sales"])
+def admin_user_get(user, user_id):
+    user_info = f_app.user.get(user_id)
+    current_user_roles = f_app.user.get_role(user["id"])
+    if set(["admin", "jr_admin", "sales"]) & set(current_user_roles):
+        pass
+    elif not f_app.ticket.search({"assignee": ObjectId(user["id"]), "phone": user_info.get("phone")}):
+        abort(40399)
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
