@@ -43,8 +43,8 @@ def analytics_user_action_record(params):
 
     in any action related with certain property, parse ``property_id``.
 
-    To any page user click , parse ``page_url`` of the page and parse ``click_page`` to ``log_type`` 
-     """
+    To any page user click , parse ``page_url`` of the page and parse ``click_page``  to  ``log_type``
+    """
     log_type = params.get("log_type")
     if log_type not in f_app.common.user_action_types:
         abort(40000, logger.warning("Invalid params: log_type", log_type, exc_info=False))
