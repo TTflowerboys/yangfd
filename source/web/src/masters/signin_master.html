@@ -41,9 +41,9 @@
                             <a href="/process">业务流程</a><img src="/static/images/navbar-seperator.png" class="seperator"/>
                         </li>
                         <li>
-                            <select class="ghostSelect" style="min-width: 140px;">
-                                <option>中文（中国）</option>
-                                <option>English, UK</option>
+                            <select name="language" class="ghostSelect" style="min-width: 140px;">
+                                <option value="zh_Hans_CN" selected>中文（中国）</option>
+                                <option value="en_GB">English, UK</option>
                             </select>
                         </li>
                     </ul>
@@ -53,11 +53,21 @@
 
         <!-- @@include =../partials/js_import.html -->
         <script>
-            $(function () {
-                $(window).on('resize', function () {
-                    $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
-                })
+            $(window).on('resize', function () {
                 $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
+            })
+
+            $(function () {
+                $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
+
+                //setup language select
+                var language = team.getLocationHrefParam("_i18n")
+                $('select[name=language]').find('option[value='+language+']').prop('selected',true)
+            })
+
+            $('select[name=language]').change(function(){
+                var language=$(this).children('option:selected').val();
+                team.setLocationHrefParam("_i18n", language)
             })
         </script>
         <!--@@placeholder=scripts-->

@@ -3,7 +3,7 @@
 (function () {
 
     function userApi($http, $state, $q) {
-        var _user
+        var _user = window._user
         return {
             signIn: function (user) {
                 var params = _.pick(user, 'country', 'phone', 'password')
@@ -18,21 +18,15 @@
                 if (_user) {
                     deferred.resolve(_user)
                 } else {
-                    $http.get('/api/1/user', {errorMessage: true})
-                        .success(function (data, status, headers, config) {
-                            _user = data.val
-                            deferred.resolve(_user)
-                        })
-                        .error(function () {
-                            deferred.reject()
-                        })
+                    deferred.reject()
                 }
 
                 return deferred.promise
             },
             sendVerification: function (user) {
                 var params = _.pick(user, 'country', 'phone')
-                return $http.post('/api/1/user/sms_verification/send', params, {successMessage:'验证码已发送至你的手机',errorMessage: true})
+                return $http.post('/api/1/user/sms_verification/send', params,
+                    {successMessage: '验证码已发送至你的手机', errorMessage: true})
 
             },
             resetPassword: function (id, code, password) {
@@ -54,6 +48,9 @@
             checkUserExist: function (user) {
                 var params = _.pick(user, 'country', 'phone')
                 return $http.post('/api/1/user/check_exist', params, {errorMessage: true})
+            },
+            getCurrentUser: function () {
+                return _user
             }
         }
 

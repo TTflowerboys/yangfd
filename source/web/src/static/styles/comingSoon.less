@@ -23,8 +23,12 @@ body {
         &_inner { //子元素的 margin 依赖于宽度，所以这里设置了最大宽度，保证 resize 时，margin 不会过大，而让子元素超出背景高度
             max-width: 700px; margin: 0 auto; text-align: center; position: relative; height: 100%;
             @content-margin-top: 6%;
-            .logo { margin-top: @content-margin-top; }
-            .hint { margin-top: 12%; margin-bottom: 4%; font-size: 48px; letter-spacing: 3px;
+            .logo { margin-top: @content-margin-top;
+                @media @phone {
+                    width: 260px;
+                }
+            }
+            .hint { margin-top: 9%; margin-bottom: 4%; font-size: 48px; letter-spacing: 3px;
                 @media @phone {
                     font-size: 24px;
                 }
@@ -129,6 +133,9 @@ body {
                 width: 270px;
                 padding-left: 0.5em;
                 padding-right: 0.5em;
+                &.phone {
+                    width: 170px;
+                }
             }
             .form_row { line-height: 1.5; }
             .budgetHint {
@@ -139,6 +146,9 @@ body {
             }
             select {
                 width: 270px;
+                &.coutry {
+                    width: 96px;
+                }
             }
             textarea {
                 width: 560px;
@@ -157,6 +167,9 @@ body {
                 padding: 10px;
                 input {
                     width: 100%;
+                    &.phone {
+                        width:  ~"calc(100% - 100px)";
+                    }
                 }
                 select {
                     width: 100%;

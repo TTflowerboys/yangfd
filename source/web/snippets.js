@@ -222,3 +222,25 @@ angular.module('app')
                 controller: 'ctrlForgotPassword'
             })
     })
+
+    .run(function (Permission, userApi, permissions) {
+        function hasPermission(name) {
+            var user = userApi.getCurrentUser()
+            if (user && user.role && _.contains(user.role, name)) {
+                return true
+            }
+            return false
+        }
+
+        Permission.defineRole('none', function () {
+            var user = userApi.getCurrentUser()
+            if (!user || !user.role || user.role.length <= 0) {
+                return true
+            }
+            return false
+        })
+        Permission.defineRole('developer', function () {
+            return hasPermission('developer')
+        })
+
+    })
