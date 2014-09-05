@@ -47,17 +47,46 @@
 
             return jQueryAjax
         },
-        Delayer : Delayer,
-        getQuery: function (name,url) {
+        Delayer: Delayer,
+        getQuery: function (name, url) {
             var matches
-            if(!url){
-                 matches = window.location.search.match(new RegExp('(\\?|&)' + name + '=([^&]*)(&|$)'));
+            if (!url) {
+                matches = window.location.search.match(new RegExp('(\\?|&)' + name + '=([^&]*)(&|$)'));
                 return !matches ? '' : decodeURIComponent(matches[2]);
-            }else{
+            } else {
                 matches = url.match(new RegExp('(\\?|&)' + name + '=([^&]*)(&|$)'));
                 return !matches ? '' : decodeURIComponent(matches[2]);
             }
 
+        },
+        setLocationHrefParam: function (paramName, paramValue) {
+            var url = window.location.href;
+            if (url.indexOf(paramName + '=') >= 0) {
+                var prefix = url.substring(0, url.indexOf(paramName));
+                var suffix = url.substring(url.indexOf(paramName));
+                suffix = suffix.substring(suffix.indexOf('=') + 1);
+                suffix = (suffix.indexOf('&') >= 0) ? suffix.substring(suffix.indexOf('&')) : '';
+                url = prefix + paramName + '=' + paramValue + suffix;
+            }
+            else {
+                if (url.indexOf('?') < 0) {
+                    url += '?' + paramName + '=' + paramValue;
+                } else {
+                    url += '&' + paramName + '=' + paramValue;
+                }
+            }
+            window.location.href = url;
+        },
+        getLocationHrefParam: function (paramName) {
+            var url = window.location.href;
+            if (url.indexOf(paramName + '=') >= 0) {
+                var suffix = url.substring(url.indexOf(paramName));
+                suffix = suffix.substring(suffix.indexOf('=') + 1);
+                return (suffix.indexOf('&') >= 0) ? suffix.substring(0, suffix.indexOf('&')) : suffix;
+            }
+            else {
+                return null
+            }
         }
     }
 })();
