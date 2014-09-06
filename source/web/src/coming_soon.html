@@ -13,7 +13,15 @@
 
     </head>
     <body>
-
+        <div id="data_localization" style="display:none">
+          <span id="notEmpty">{{_(' should not be empty')}}</span>
+          <span id="badNumber">{{_(' bad format')}}</span>
+          <span id="badEmail">{{_(' invalid format')}}</span>
+          <span id="Email">{{_('Email')}}</span>
+          <span id="subscriptionFailure">{{_('Subscription Failure')}}</span>
+          <span id="submitRequirementFailure">{{_('Submit Requirement Failure')}}</span>
+        </div>
+      
         <div class="opening">
             <div class="opening_inner">
                 <img class="logo" src="/static/images/logo-yfd.png" alt=""/>
@@ -96,17 +104,7 @@
             $(function () {
                 $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
             })
-        </script>
-
-        <div id="data_localization" style="display:none">
-          <span id="notEmpty">{{' should not be empty'}}</span>
-          <span id="badNumber">{{' bad format'}}</span>
-          <span id="badEmail">{{' invalid format'}}</span>
-          <span id="Email">{{'Email'}}</span>
-          <span id="subscriptionFailure">{{'Subscription Failure'}}</span>
-          <span id="submitRequirementFailure">{{_('Submit Requirement Failure')}}</span>
-        </div>
-        
+        </script>        
         <script>
           var localization = $('#data_localization')
           

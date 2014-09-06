@@ -51,6 +51,7 @@ class common(f_common):
     parse_delay = 5
 
     i18n_locales = ["zh_Hans_CN", "zh_Hant_HK", "en_GB"]
+    i18n_default_locale = "en_GB"
 
     email_default_method = "aws_ses"
     email_default_sender = "developer+currant@bbtechgroup.com"
