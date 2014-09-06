@@ -52,10 +52,16 @@ body {
                         width: 80%;
                     }
                 }
-                > .resultMessage {
+                > .errorMessage {
                     display: none; color: red; margin-top: 10px; margin-bottom: 0px;
                 }
             }
+            .successMessage {
+                display:none;
+                color: white;
+                font-size:24px;
+                line-height:34px;
+             }
             .wechat {
                 @width: 120px;
                 position: absolute; bottom: 16px;
@@ -159,7 +165,7 @@ body {
             button {
                 margin-top: 8px;
             }
-            > .resultMessage {
+            > .errorMessage {
                 display: none; color: red; margin-top: 10px; margin-bottom: 0px;
             }
             @media @phone {
@@ -182,6 +188,13 @@ body {
                 }
             }
         }
+
+        .successMessage {
+            display:none;
+            text-align:center;
+            color: #666666;
+            font-size:30px;
+         }
 
         @media @phone {
             margin: 20px auto;

@@ -114,3 +114,6 @@ gen-external-apklibs/
 project.properties
 
 # Web Development
+#projectile
+
+.projectile
