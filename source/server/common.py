@@ -52,6 +52,10 @@ class common(f_common):
 
     i18n_locales = ["zh_Hans_CN", "zh_Hant_HK", "en_GB"]
     i18n_default_locale = "en_GB"
+    i18n_custom_convert_dict = {
+        "en_US": "en_GB",
+        "en": "en_GB",
+    }
 
     email_default_method = "aws_ses"
     email_default_sender = "developer+currant@bbtechgroup.com"
