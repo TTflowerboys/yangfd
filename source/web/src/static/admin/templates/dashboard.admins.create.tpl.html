@@ -27,7 +27,7 @@
         <label class="control-label">姓名 *</label>
 
         <div class="controls">
-            <input class="form-control" ng-model="item.name" type="text"
+            <input ng-disabled="existingItem.nickname" class="form-control" ng-model="item.nickname" type="text"
                    style="width: 20em"/>
         </div>
     </div>
@@ -50,9 +50,21 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+        <label class="control-label">权限 *</label>
+
+        <div class="controls">
+            <select class="form-control" ng-model="item.role" style="width: 185px;"
+                    ng-options="p.value as p.name for p in item.role | permissionCanAdd">
+                <option value="">-- 选择 --</option>
+            </select>
+        </div>
+    </div>
+
 
     <div class="form-actions" style="margin-bottom: 80px;">
         <input type="submit" class="btn btn-primary" ng-hide="existingItem" value="提交">
+        <input type="button" class="btn btn-primary" ng-show="existingItem" value="更新" ng-click="updateExisting()">
         <input type="button" ng-click="$state.go('^')" class="btn" value="Cancel">
     </div>
     <div class="help-block">* 必填</div>
