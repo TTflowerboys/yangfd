@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-06 15:28+0800\n"
+"POT-Creation-Date: 2014-09-06 08:38+0000\n"
 "PO-Revision-Date: 2014-09-05 18:38+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -27,6 +27,10 @@ msgstr "警告"
 
 #: ../web/src/coming_soon.html:20
 msgid "LAUNCHING OCT 2014"
+msgstr ""
+
+#: ../web/src/coming_soon.html:22 ../web/src/coming_soon.html:60
+msgid "Email"
 msgstr ""
 
 #: ../web/src/coming_soon.html:23
@@ -73,6 +77,72 @@ msgid ""
 "investment needs here, we will get in touch and help your with your needs"
 msgstr ""
 
+#: ../web/src/coming_soon.html:47
+msgid "Name"
+msgstr ""
+
+#: ../web/src/coming_soon.html:51
+msgid "China +86"
+msgstr ""
+
+#: ../web/src/coming_soon.html:52
+msgid "HK +85"
+msgstr ""
+
+#: ../web/src/coming_soon.html:53
+msgid "UK +44"
+msgstr ""
+
+#: ../web/src/coming_soon.html:54
+msgid "US +1"
+msgstr ""
+
+#: ../web/src/coming_soon.html:57
+msgid "Phone"
+msgstr ""
+
+#: ../web/src/coming_soon.html:63
+msgid "Your Budget"
+msgstr ""
+
+#: ../web/src/coming_soon.html:67
+msgid "Below 1 Million"
+msgstr ""
+
+#: ../web/src/coming_soon.html:68
+msgid "1 Million - 3 Million"
+msgstr ""
+
+#: ../web/src/coming_soon.html:69
+msgid "3 Million - 5 Million"
+msgstr ""
+
+#: ../web/src/coming_soon.html:70
+msgid "5 Million - 10 Million"
+msgstr ""
+
+#: ../web/src/coming_soon.html:71
+msgid "Above 10 Million"
+msgstr ""
+
+#: ../web/src/coming_soon.html:75
+msgid "Write your requirement."
+msgstr ""
+
+#: ../web/src/coming_soon.html:78
+msgid "Submit"
+msgstr ""
+
+#: ../web/src/coming_soon.html:82
+msgid ""
+"Your requirement has been submited, our employee will contact in the "
+"future."
+msgstr ""
+
+#: ../web/src/coming_soon.html:107
+msgid "Submit Requirement Failure"
+msgstr ""
+
 #: ../web/src/masters/master.html:31
 msgid "England"
 msgstr "英国"
@@ -100,6 +170,46 @@ msgstr "隐私协议"
 #: ../web/src/static/templates/new_admin_title.html:1
 msgid "Your admin console access password"
 msgstr "您的管理后台密码"
+
+#: ../web/src/static/templates/set_as_admin.html:12
+msgid "senior administrator"
+msgstr "高级平台管理员"
+
+#: ../web/src/static/templates/set_as_admin.html:14
+msgid "junior administrator"
+msgstr "初级平台管理员"
+
+#: ../web/src/static/templates/set_as_admin.html:16
+msgid "senior salesperson"
+msgstr "高级平台销售人员"
+
+#: ../web/src/static/templates/set_as_admin.html:18
+msgid "junior salesperson"
+msgstr "初级平台销售人员"
+
+#: ../web/src/static/templates/set_as_admin.html:20
+msgid "senior operation"
+msgstr "高级平台运营人员"
+
+#: ../web/src/static/templates/set_as_admin.html:22
+msgid "junior operation"
+msgstr "初级平台运营人员"
+
+#: ../web/src/static/templates/set_as_admin.html:24
+msgid "senior support"
+msgstr "高级平台客服"
+
+#: ../web/src/static/templates/set_as_admin.html:26
+msgid "junior support"
+msgstr "初级平台客服"
+
+#: ../web/src/static/templates/set_as_admin.html:28
+msgid "developer"
+msgstr "开发商管理员"
+
+#: ../web/src/static/templates/set_as_admin.html:30
+msgid "agency"
+msgstr "中介管理员"
 
 #: ../web/src/static/templates/set_as_admin_title.html:1
 msgid "You are now set as admin"
