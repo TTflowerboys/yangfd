@@ -46,7 +46,7 @@ def user_login(params):
     country=(str, True),
     email=str,
     solution=(str, True),
-    challenge=(str, True)
+    challenge=(str, True),
     locales=(list, None, str),
 ))
 @rate_limit("register", ip=10)
