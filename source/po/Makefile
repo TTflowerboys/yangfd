@@ -32,7 +32,7 @@ install:
 	do \
 		package=$$($(PYTHON) -c "print('$$file'.split('/')[0])"); \
 		lang=$$($(PYTHON) -c "print('$$file'.split('/')[-1].split('.po')[0])"); \
-		$(GREP) Language $$file; \
+		$(GREP) "Language:" $$file; \
 		$(INSTALL) -d $(DESTDIR)/$$lang/LC_MESSAGES; \
 		$(MSGFMT) -o $(DESTDIR)/$$lang/LC_MESSAGES/$$package.mo $$file; \
 	done
