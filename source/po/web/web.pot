@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-05 00:00+0800\n"
+"POT-Creation-Date: 2014-09-06 03:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,5 +47,13 @@ msgstr ""
 
 #: ../web/src/masters/signin_master.html:38
 msgid "Privacy Policy"
+msgstr ""
+
+#: ../web/src/static/templates/new_admin_title.html:1
+msgid "Your admin console access password"
+msgstr ""
+
+#: ../web/src/static/templates/set_as_admin_title.html:1
+msgid "You are now set as admin"
 msgstr ""
 
