@@ -57,7 +57,7 @@ msgstr "LAUNCHING OCT 2014"
 
 #: ../web/src/coming_soon.html:30
 msgid "请填写邮箱订阅网站上线通知"
-msgstr "Enter your Email to subsribe our launching notification and news!"
+msgstr "Enter your Email to subscribe our news"
 
 #: ../web/src/coming_soon.html:31
 msgid "订阅"
