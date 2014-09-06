@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-06 16:30+0800\n"
+"POT-Creation-Date: 2014-09-06 18:23+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,139 +26,111 @@ msgid "Warning"
 msgstr ""
 
 #: ../web/src/coming_soon.html:17
-msgid " should not be empty"
+msgid "不为空"
 msgstr ""
 
 #: ../web/src/coming_soon.html:18
-msgid " bad format"
+msgid "格式不正确"
 msgstr ""
 
 #: ../web/src/coming_soon.html:19
-msgid " invalid format"
+msgid "格式不合法"
 msgstr ""
 
-#: ../web/src/coming_soon.html:20 ../web/src/coming_soon.html:30
-#: ../web/src/coming_soon.html:68
-msgid "Email"
+#: ../web/src/coming_soon.html:20 ../web/src/coming_soon.html:68
+msgid "邮箱"
 msgstr ""
 
 #: ../web/src/coming_soon.html:21
-msgid "Subscription Failure"
+msgid "订阅失败"
 msgstr ""
 
 #: ../web/src/coming_soon.html:22
-msgid "Submit Requirement Failure"
+msgid "提交需求失败"
 msgstr ""
 
 #: ../web/src/coming_soon.html:28
-msgid "LAUNCHING OCT 2014"
+msgid "金秋十月，即将开放！"
 msgstr ""
 
+#: ../web/src/coming_soon.html:30
+msgid "请填写邮箱订阅网站上线通知"
+msgstr ""
 
 #: ../web/src/coming_soon.html:31
-msgid "Subscription"
+msgid "订阅"
 msgstr ""
 
 #: ../web/src/coming_soon.html:34
-msgid "Thanks for your subscription!"
+msgid "谢谢你的订阅!"
 msgstr ""
 
 #: ../web/src/coming_soon.html:34
-msgid "We will notify you at first when website is lanuched!"
+msgid "在网站开放后，我们将第一时间告知您！"
 msgstr ""
 
 #: ../web/src/coming_soon.html:40
-msgid "What we do?"
+msgid "我们做什么？"
 msgstr ""
 
 #: ../web/src/coming_soon.html:41
-msgid ""
-"We focus on providing diversified oversea investment opportunities to our"
-" investors, get our investors on board with detailed investment analysis "
-"report and professional property consultant."
+msgid "我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"
 msgstr ""
 
 #: ../web/src/coming_soon.html:43
-msgid ""
-"YoungFunding will launch first in China and UK, provide diversified "
-"oversea investment opportunities such as properties, houses, apartment, "
-"and recommend personalized investment opportunities based on your intent "
-"and budget, help you with detailed property introduction and investment "
-"analysis report, and let our professional property consultant help to "
-"take care everything when you want to settle your investment, really make"
-" real estate investment easy."
+msgid "洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职业顾问，协助您完成投资流程，轻松当洋房东。"
 msgstr ""
 
 #: ../web/src/coming_soon.html:49
-msgid "Submit Your Investment Needs"
+msgid "提交置业需求"
 msgstr ""
 
 #: ../web/src/coming_soon.html:50
-msgid ""
-"If you are interested in investing UK property, please submit your "
-"investment needs here, we will get in touch and help your with your needs"
+msgid "如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 
 #: ../web/src/coming_soon.html:55
-msgid "Name"
+msgid "姓名"
 msgstr ""
 
 #: ../web/src/coming_soon.html:59
-msgid "China +86"
+msgid "中国 +86"
 msgstr ""
 
 #: ../web/src/coming_soon.html:60
-msgid "HK +85"
+msgid "香港 +85"
 msgstr ""
 
 #: ../web/src/coming_soon.html:61
-msgid "UK +44"
+msgid "英国 +44"
 msgstr ""
 
 #: ../web/src/coming_soon.html:62
-msgid "US +1"
+msgid "美国 +1"
 msgstr ""
 
 #: ../web/src/coming_soon.html:65
-msgid "Phone"
+msgid "电话"
 msgstr ""
 
 #: ../web/src/coming_soon.html:71
-msgid "Your Budget"
-msgstr ""
-
-#: ../web/src/coming_soon.html:75
-msgid "Below 1 Million"
-msgstr ""
-
-#: ../web/src/coming_soon.html:76
-msgid "1 Million - 3 Million"
-msgstr ""
-
-#: ../web/src/coming_soon.html:77
-msgid "3 Million - 5 Million"
+msgid "您的预算"
 msgstr ""
 
 #: ../web/src/coming_soon.html:78
-msgid "5 Million - 10 Million"
+msgid "写下您的其他需求和描述，方便我们在挑选房源时作为参考"
 msgstr ""
 
-#: ../web/src/coming_soon.html:79
-msgid "Above 10 Million"
+#: ../web/src/coming_soon.html:81
+msgid "提交"
 msgstr ""
 
-#: ../web/src/coming_soon.html:83
-msgid "Write your requirement."
+#: ../web/src/coming_soon.html:85
+msgid "置业需求已提交，稍后我们的工作人员会联系你"
 msgstr ""
 
-#: ../web/src/coming_soon.html:86
-msgid "Submit"
-msgstr ""
-
-#: ../web/src/coming_soon.html:90
-msgid ""
-"Your requirement has been submited, our employee will contact in the "
-"future."
+#: ../web/src/coming_soon.html:91
+msgid "洋房东"
 msgstr ""
 
 #: ../web/src/masters/master.html:31
