@@ -178,6 +178,25 @@
                         });
             })
 
+          $('form[name=requirement] input[name=phone]').on('change',function(){
+              var params =  $('form[name=requirement]').serializeObject()
+              var theParams = {}
+              theParams["country"] = params["country"]
+              theParams["phone"] = params["phone"]
+              var errorArea= $('form[name=requirement]').find(".errorMessage")
+              errorArea.hide()
+              $.post("/api/1/user/phone_test",
+                      theParams,
+                      function (data, status) {
+                          if (data.ret != 0) {
+                              var dom = $('form[name=requirement] input[name=phone]')[0]
+                              errorArea.text(dom.placeholder  + localization.find('#badNumber').text())
+                              errorArea.show()
+                              $(dom).css('border', '2px solid red')
+                          }
+                      });
+          })
+
             $('form[name=requirement]').submit(function (e) {
                 e.preventDefault()
                 var errorArea= $(this).find(".errorMessage")
@@ -196,7 +215,9 @@
                 }})
                 if(!valid){return}
                 var params = $(this).serializeObject()
-                //TODO: 需要更新 budget 的类型
+
+                var language = $('#current_Language').text()
+                params["locales"] = language
                 $.post("/api/1/intention_ticket/add",
                         params,
                         function (data, status) {
