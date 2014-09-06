@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from app import f_app
 from bson.objectid import ObjectId
-from libfelix.f_interface import f_api, abort, template, request
+from libfelix.f_interface import f_api, abort, template
 import logging
 logger = logging.getLogger(__name__)
 
@@ -25,8 +25,8 @@ Intention Ticket
     state=str,
     city=str,
     block=str,
-    equity_type=str,
-    intention='enum:intention',
+    equity_type='enum:equity_type',
+    intention=(list, None, 'enum:intention'),
     noregister=bool,
     custom_fields=(list, None, dict(
         key=str,
@@ -41,9 +41,6 @@ def intention_ticket_add(params):
     params.setdefault("type", "intention")
     noregister = params.pop("noregister", False)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
-    if "intention" in params:
-        if not set(params["intention"]) <= set(f_app.common.user_intention):
-            abort(40095, logger.warning("Invalid params: intention", params["intention"], exc_info=False))
 
     user = f_app.user.login_get()
     user_id_by_phone = f_app.user.get_id_by_phone(params["phone"], force_registered=True)
@@ -60,7 +57,8 @@ def intention_ticket_add(params):
                     "nickname": params["nickname"],
                     "phone": params["phone"],
                     "email": params["email"],
-                    "intention": params.get("intention", [])
+                    "intention": params.get("intention", []),
+                    "locales": params.get("locales", [])
                 }
                 if "country" in params:
                     user_params["country"] = params["country"]
@@ -78,19 +76,26 @@ def intention_ticket_add(params):
 
     params["creator_user_id"] = creator_user_id
 
-    ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
+    # ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
     # Send mail to every senior sales
+    ticket_id = f_app.ticket.add(params)
+
+    if "budget" in params:
+        params["budget"] = f_app.util.match_enum({"id": params["budget"]["_id"]}).get("value")
+    if "equity_type" in params:
+        params["equity_type"] = f_app.util.match_enum({"id": params["equity_type"]["_id"]}).get("value")
+    params["intention"] = [f_app.util.match_enum({"id": i["_id"]}).get("value") for i in params.get("intention", [])]
     sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales"]}}))
     for sales in sales_list:
         if "email" in sales:
             f_app.email.schedule(
                 target=sales["email"],
-                subject="New ticket has been submitted.",
-                text=template("static/templates/new_ticket", ticket_admin_url=ticket_admin_url),
+                subject="收到新的置业需求",
+                text=template("static/templates/new_ticket", params=params),
                 display="html",
             )
 
-    return f_app.ticket.add(params)
+    return ticket_id
 
 
 @f_api('/intention_ticket/<ticket_id>')
@@ -172,10 +177,6 @@ def intention_ticket_edit(user, ticket_id, params):
     """
     ``status`` must be one of these values: "new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"
     """
-    if "intention" in params:
-        if not set(params["intention"]) <= set(f_app.common.user_intention):
-            abort(40095, logger.warning("Invalid params: intention", params["intention"], exc_info=False))
-
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
@@ -248,9 +249,6 @@ def support_ticket_add(params):
     """
     params.setdefault("type", "support")
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
-    if "support" in params:
-        if not set(params["support"]) <= set(f_app.common.user_support):
-            abort(40095, logger.warning("Invalid params: support", params["support"], exc_info=False))
 
     user_id = f_app.user.get_id_by_phone(params["phone"])
     if user_id is not None:
@@ -258,15 +256,15 @@ def support_ticket_add(params):
     else:
         abort(40324)
 
-    ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
+    # ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
     # Send mail to every senior support
     support_list = f_app.user.get(f_app.user.search({"role": {"$in": ["support"]}}))
     for support in support_list:
         if "email" in support:
             f_app.email.schedule(
                 target=support["email"],
-                subject="New support ticket has been submitted.",
-                text=template("static/templates/new_ticket", ticket_admin_url=ticket_admin_url),
+                subject="收到新的置业需求",
+                text=template("static/templates/new_ticket", params=params),
                 display="html",
             )
 

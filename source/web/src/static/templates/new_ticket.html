@@ -5,6 +5,26 @@
         <title>Title</title>
     </head>
     <body>
+        <p>置业需求信息如下：</p>
+        <ul>
+            <li>用户姓名：{{params.get("nickname")}}</li>
+            <li>用户手机：{{params.get("phone")}}</li>
+            <li>用户邮箱：{{params.get("email")}}</li>
+            <li>用户预算：{{params.get("budget")}}</li>
+            <li>所在国家：{{params.get("country")}}</li>
+            <li>所在省份：{{params.get("state")}}</li>
+            <li>所在城市：{{params.get("city")}}</li>
+            <li>产权类型：{{params.get("equity_type")}}</li>
+            <li>投资意向：
+                <ul>
+                %   for i params.get("intention", []):
+                    <li>
+                        {{i}}
+                    </li>
+                %   end
+                </ul>
+            </li>
+        </ul>
 
     </body>
 </html>
