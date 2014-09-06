@@ -27,7 +27,7 @@
                 <img class="logo" src="/static/images/logo-yfd.png" alt=""/>
                 <h1 class="hint">{{_('金秋十月，即将开放！')}}</h1>
                 <form name="subscription" class="subscription">
-                    <input class="email" name="email" type="text" placeholder={{_('请填写邮箱订阅网站上线通知')}} data-validator="required, trim email"/>
+                    <input class="email" name="email" type="text" placeholder="{{_('请填写邮箱订阅网站上线通知')}}" data-validator="required, trim email"/>
                     <button type="submit" class="button red">{{_('订阅')}}</button>
                     <p class="errorMessage"></p>
                 </form>
@@ -52,7 +52,7 @@
             </div>
             <form class="requirement_form"  name="requirement">
                 <div class="form_row">
-                    <input class="name ghostInput" name="nickname" type="text" placeholder={{_('姓名')}} data-validator="required, trim"/>
+                    <input class="name ghostInput" name="nickname" type="text" placeholder="{{_('姓名')}}" data-validator="required, trim"/>
                 </div>
                 <div class="form_row">
                     <select name="country" class="coutry ghostSelect" style="color:#4d4d4d;">
@@ -62,10 +62,10 @@
                         <option value="US">{{_('美国 +1')}}</option>
                     </select>
                     <span class=vr></span>
-                    <input class="phone ghostInput" name="phone" type="text" placeholder={{_('电话')}}  data-validator="required, trim number"/>
+                    <input class="phone ghostInput" name="phone" type="text" placeholder="{{_('电话')}}"  data-validator="required, trim number"/>
                 </div>
                 <div class="form_row">
-                    <input class="email ghostInput" name="email" type="text" placeholder={{_('邮箱')}}  data-validator="required, trim email"/>
+                    <input class="email ghostInput" name="email" type="text" placeholder="{{_('邮箱')}}"  data-validator="required, trim email"/>
                 </div>
                 <div class="form_row">
                     <p class="budgetHint">{{_('您的预算')}}</p>
