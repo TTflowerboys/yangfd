@@ -73,11 +73,14 @@ body {
     .whatWeDo {
         &_wrapper {
             background: #EEEEEE;
+            overflow: hidden;
         }
         overflow: hidden;
-        padding: 100px;
+        max-width: @max-width;
+        margin: 100px auto;
+        text-align: center;
         @media @phone {
-            padding: 10px;
+            margin: 10px;
         }
         .title {
             text-align: center;
@@ -174,7 +177,7 @@ body {
                 input {
                     width: 100%;
                     &.phone {
-                        width:  ~"calc(100% - 100px)";
+                        width:  ~"calc(100% - 116px)";
                     }
                 }
                 select {
