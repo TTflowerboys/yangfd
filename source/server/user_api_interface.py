@@ -47,6 +47,7 @@ def user_login(params):
     email=str,
     solution=(str, True),
     challenge=(str, True)
+    locales=(list, None, str),
 ))
 @rate_limit("register", ip=10)
 def register(params):
@@ -103,6 +104,7 @@ def user_get(user, user_id):
     gender=(str, None),
     date_of_birth=datetime,
     intention=(list, None, str),
+    locales=(list, None, str),
 ))
 @f_app.user.login.check(force=True)
 def current_user_edit(user, params):
@@ -245,7 +247,7 @@ def admin_user_add(user, params):
 
     f_app.email.schedule(
         target=params["email"],
-        subject="Your admin console access password",
+        subject=template("static/templates/new_admin_title"),
         text=template("static/templates/new_admin", password=params["password"], nickname=params["nickname"], role=params[
                       "role"], admin_console_url="http://" + request.urlparts[1] + "/admin#", phone="*" * (len(params["phone"]) - 4) + params["phone"][-4:]),
         display="html",
@@ -273,7 +275,7 @@ def admin_user_add_role(user, user_id, params):
         if user_info.get("email") is not None:
             f_app.email.schedule(
                 target=user_info.get("email"),
-                subject="You are now set as admin",
+                subject=template("static/templates/set_as_admin_title"),
                 text=template("static/templates/set_as_admin", nickname=user_info.get("nickname"), role=params[
                               "role"], admin_console_url="http://" + request.urlparts[1] + "/admin#", phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
                 display="html",
