@@ -17,71 +17,69 @@
         <div class="opening">
             <div class="opening_inner">
                 <img class="logo" src="/static/images/logo-yfd.png" alt=""/>
-                <h1 class="hint">金秋十月，即将开放！</h1>
+                <h1 class="hint">{{_('LAUNCHING OCT 2014')}}</h1>
                 <form name="subscription" class="subscription">
-                    <input class="email" name="email" type="text" placeholder="E-Mail" data-validator="required, trim email"/>
-                    <button type="submit" class="button red">订阅</button>
+                    <input class="email" name="email" type="text" placeholder={{_('Email')}} data-validator="required, trim email"/>
+                    <button type="submit" class="button red">{{_('Subscription')}}</button>
                     <p class="errorMessage"></p>
                 </form>
-                <h2 class="successMessage">感谢您的订阅！<br>在网站开放后，我们将第一时间告知您！</h2>
+                <h2 class="successMessage">{{_('Thanks for your subscription!')}} <br>{{_('We will notify you at first when website is lanuched!')}}</h2>
                 <img class="wechat" src="/static/images/media/wechat.png" alt=""/>
             </div>
         </div>
         <div class="whatWeDo_wrapper">
             <div class="whatWeDo">
-                <h2 class="title">我们做什么?</h2>
-                <p class="description">我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。<br>
+                <h2 class="title">{{_("What we do?")}}</h2>
+                <p class="description">{{_("We focus on providing diversified oversea investment opportunities to our investors, get our investors on board with detailed investment analysis report and professional property consultant.")}}<br>
                     <br>
-                    洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机
-                    <br>会，辅以详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职业顾问，协助您完成投资流程，轻松当洋房东。
+                    {{_("YoungFunding will launch first in China and UK, provide diversified oversea investment opportunities such as properties, houses, apartment, and recommend personalized investment opportunities based on your intent and budget, help you with detailed property introduction and investment analysis report, and let our professional property consultant help to take care everything when you want to settle your investment, really make real estate investment easy.")}}
                 </p>
             </div>
         </div>
         <div class="requirement">
             <div class="requirement_title">
-                <H2 class="title">提交置业需求</h2>
-                <h3 class="subtitle">如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且
-                    及时反馈给您
+                <H2 class="title">{{_('Submit Your Investment Needs')}}</h2>
+                <h3 class="subtitle">{{_('If you are interested in investing UK property, please submit your investment needs here, we will get in touch and help your with your needs')}}
                 </h3>
             </div>
             <form class="requirement_form"  name="requirement">
                 <div class="form_row">
-                    <input class="name ghostInput" name="nickname" type="text" placeholder="姓名" data-validator="required, trim"/>
+                    <input class="name ghostInput" name="nickname" type="text" placeholder={{_('Name')}} data-validator="required, trim"/>
                 </div>
                 <div class="form_row">
                     <select name="country" class="coutry ghostSelect" style="color:#4d4d4d;">
-                        <option value="CN">中国 +86</option>
-                        <option value="HK">香港 +85</option>
-                        <option value="UK">英国 +44</option>
-                        <option value="US">美国 +1</option>
+                        <option value="CN">{{_('China +86')}}</option>
+                        <option value="HK">{{_('HK +85')}}</option>
+                        <option value="UK">{{_('UK +44')}}</option>
+                        <option value="US">{{_('US +1')}}</option>
                     </select>
                     <span class=vr></span>
-                    <input class="phone ghostInput" name="phone" type="text" placeholder="电话" data-validator="required, trim number"/>
+                    <input class="phone ghostInput" name="phone" type="text" placeholder={{_('Phone')}}  data-validator="required, trim number"/>
                 </div>
                 <div class="form_row">
-                    <input class="email ghostInput" name="email" type="text" placeholder="邮箱" data-validator="required, trim email"/>
+                    <input class="email ghostInput" name="email" type="text" placeholder={{_('Email')}}  data-validator="required, trim email"/>
                 </div>
                 <div class="form_row">
-                    <p class="budgetHint">您的预算</p>
+                    <p class="budgetHint">{{_('Your Budget')}}</p>
                 </div>
                 <div class="form_row">
                     <select class="budget ghostSelect" name="budget" style="color:#4d4d4d;">
-                        <option value="100">100万以下</option>
-                        <option value="300">100万到300万</option>
-                        <option value="500" selected="selected">300万到500万</option>
-                        <option value="1000">500万到1000万</option>
-                        <option value="1001">1000万以上</option>
+                        <option value="100">{{_('Below 1 Million')}}</option>
+                        <option value="300">{{_('1 Million - 3 Million')}}</option>
+                        <option value="500" selected="selected">{{_('3 Million - 5 Million')}}</option>
+                        <option value="1000">{{_('5 Million - 10 Million')}}</option>
+                        <option value="1001">{{_('Above 10 Million')}}</option>
                     </select>
                 </div>
                 <div class="form_row">
-                    <textarea class="detail ghostTextArea" name="description" placeholder="写下您的其他需求和描述，方便我们在挑选房源时作为参考"></textarea>
+                    <textarea class="detail ghostTextArea" name="description" placeholder={{_('Write your requirement.')}}></textarea>
                 </div>
                 <div class="form_row">
-                    <button type="submit" class="button red">提交</button>
+                    <button type="submit" class="button red">{{_('Submit')}}</button>
                 </div>
                 <p class="errorMessage"></p>
             </form>
-            <h2 class="successMessage">置业需求已提交，稍后我们的工作人员会联系您。</h2>
+            <h2 class="successMessage">{{_('Your requirement has been submited, our employee will contact in the future.')}}</h2>
         </div>
 
         <div id="copyright" class="copyright">
@@ -100,19 +98,29 @@
             })
         </script>
 
+        <div id="data_localization" style="display:none">
+          <span id="notEmpty">{{' should not be empty'}}</span>
+          <span id="badNumber">{{' bad format'}}</span>
+          <span id="badEmail">{{' invalid format'}}</span>
+          <span id="Email">{{'Email'}}</span>
+          <span id="subscriptionFailure">{{'Subscription Failure'}}</span>
+          <span id="submitRequirementFailure">{{_('Submit Requirement Failure')}}</span>
+        </div>
+        
         <script>
-
+          var localization = $('#data_localization')
+          
             function errorMessageFormValidatorType(validator) {
                 if (validator == "required") {
-                    return "不能为空"
+                    return localization.find('#notEmpty').text()
                 }
                 else if (validator == "number")
                 {
-                    return "格式不正确"
+                    return localization.find('#badNumber').text()
                 }
                 else if (validator == "email")
                 {
-                    return "格式不合法"
+                    return localization.find('#badEmail').text()
                 }
             }
 
@@ -123,7 +131,7 @@
                 var successArea = $('.opening .successMessage')
 
                 var valid = $.validate(this, {onError: function (dom,validator,index) {
-                    errorArea.text("邮箱" + errorMessageFormValidatorType(validator))
+                    errorArea.text(localization.find('#Email').text() + errorMessageFormValidatorType(validator))
                     errorArea.show()
                 }})
                 if(!valid){return}
@@ -132,7 +140,7 @@
                         params,
                         function (data, status) {
                             if (data.ret != 0) {
-                                errorArea.text("订阅失败！")
+                                errorArea.text(localization.find('#subscriptionFailure').text())
                                 errorArea.show()
                             }
                             else {
@@ -165,7 +173,7 @@
                         params,
                         function (data, status) {
                             if (data.ret != 0) {
-                                errorArea.text("提交置业需求失败！")
+                                errorArea.text(localization.find('#submitRequirementFailure').text())
                                 errorArea.show()
                             }
                             else {

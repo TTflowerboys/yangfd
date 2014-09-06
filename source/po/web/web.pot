@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-06 03:17+0000\n"
+"POT-Creation-Date: 2014-09-06 15:28+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,54 @@ msgstr ""
 
 #: ../web/src/admin.html:102
 msgid "Warning"
+msgstr ""
+
+#: ../web/src/coming_soon.html:20
+msgid "LAUNCHING OCT 2014"
+msgstr ""
+
+#: ../web/src/coming_soon.html:23
+msgid "Subscription"
+msgstr ""
+
+#: ../web/src/coming_soon.html:26
+msgid "Thanks for your subscription!"
+msgstr ""
+
+#: ../web/src/coming_soon.html:26
+msgid "We will notify you at first when website is lanuched!"
+msgstr ""
+
+#: ../web/src/coming_soon.html:32
+msgid "What we do?"
+msgstr ""
+
+#: ../web/src/coming_soon.html:33
+msgid ""
+"We focus on providing diversified oversea investment opportunities to our"
+" investors, get our investors on board with detailed investment analysis "
+"report and professional property consultant."
+msgstr ""
+
+#: ../web/src/coming_soon.html:35
+msgid ""
+"YoungFunding will launch first in China and UK, provide diversified "
+"oversea investment opportunities such as properties, houses, apartment, "
+"and recommend personalized investment opportunities based on your intent "
+"and budget, help you with detailed property introduction and investment "
+"analysis report, and let our professional property consultant help to "
+"take care everything when you want to settle your investment, really make"
+" real estate investment easy."
+msgstr ""
+
+#: ../web/src/coming_soon.html:41
+msgid "Submit Your Investment Needs"
+msgstr ""
+
+#: ../web/src/coming_soon.html:42
+msgid ""
+"If you are interested in investing UK property, please submit your "
+"investment needs here, we will get in touch and help your with your needs"
 msgstr ""
 
 #: ../web/src/masters/master.html:31
