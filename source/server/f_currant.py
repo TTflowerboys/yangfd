@@ -81,22 +81,26 @@ class f_currant_ticket(f_ticket):
     def output(self, ticket_id_list):
         ticket_list = f_app.ticket.get(ticket_id_list)
         user_id_set = set()
+        enum_id_set = set()
         for t in ticket_list:
             user_id_set.add(t.get("creator_user_id"))
             user_id_set |= set(t.get("assignee", []))
+            if "budget" in t:
+                enum_id_set.add(t["budget"]["_id"])
 
         user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields)
         user_dict = {}
+        enum_dict = f_app.enum.get(enum_id_set, multi_return=dict, ignore_nonexist=True)
 
         for u in user_list:
             user_dict[u["id"]] = u
 
         for t in ticket_list:
             t["creator_user"] = user_dict.get(t.pop("creator_user_id"))
-            if "shop_id" in t:
-                t["lab_id"] = str(t.pop("shop_id", None))
             if isinstance(t.get("assignee"), list):
                 t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
+            if "budget" in t:
+                t["budget"] = enum_dict.get(str(t["budget"]["_id"]))
 
         return ticket_list
 
