@@ -31,7 +31,8 @@ Intention Ticket
     custom_fields=(list, None, dict(
         key=str,
         value=str,
-    ))
+    )),
+    locales=(list, None, str),
 ))
 def intention_ticket_add(params):
     """
@@ -236,7 +237,8 @@ Support Ticket
     custom_fields=(list, None, dict(
         key=str,
         value=str,
-    ))
+    )),
+    locales=(list, None, str),
 ))
 def support_ticket_add(params):
     """
