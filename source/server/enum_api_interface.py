@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 @f_api('/enum', params=dict(
-    type=str,
+    type=(str, True),
 ))
 def enum_list(params):
     return f_app.enum.get_all(params["type"])
