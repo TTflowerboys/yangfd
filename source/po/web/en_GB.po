@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-06 15:28+0800\n"
+"POT-Creation-Date: 2014-09-06 16:30+0800\n"
 "PO-Revision-Date: 2014-09-05 18:11+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -26,34 +26,59 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: ../web/src/coming_soon.html:20
+#: ../web/src/coming_soon.html:17
+msgid " should not be empty"
+msgstr ""
+
+#: ../web/src/coming_soon.html:18
+msgid " bad format"
+msgstr ""
+
+#: ../web/src/coming_soon.html:19
+msgid " invalid format"
+msgstr ""
+
+#: ../web/src/coming_soon.html:20 ../web/src/coming_soon.html:30
+#: ../web/src/coming_soon.html:68
+msgid "Email"
+msgstr ""
+
+#: ../web/src/coming_soon.html:21
+msgid "Subscription Failure"
+msgstr ""
+
+#: ../web/src/coming_soon.html:22
+msgid "Submit Requirement Failure"
+msgstr ""
+
+#: ../web/src/coming_soon.html:28
 msgid "LAUNCHING OCT 2014"
 msgstr ""
 
-#: ../web/src/coming_soon.html:23
+#: ../web/src/coming_soon.html:31
 msgid "Subscription"
 msgstr ""
 
-#: ../web/src/coming_soon.html:26
+#: ../web/src/coming_soon.html:34
 msgid "Thanks for your subscription!"
 msgstr ""
 
-#: ../web/src/coming_soon.html:26
+#: ../web/src/coming_soon.html:34
 msgid "We will notify you at first when website is lanuched!"
 msgstr ""
 
-#: ../web/src/coming_soon.html:32
+#: ../web/src/coming_soon.html:40
 msgid "What we do?"
 msgstr ""
 
-#: ../web/src/coming_soon.html:33
+#: ../web/src/coming_soon.html:41
 msgid ""
 "We focus on providing diversified oversea investment opportunities to our"
 " investors, get our investors on board with detailed investment analysis "
 "report and professional property consultant."
 msgstr ""
 
-#: ../web/src/coming_soon.html:35
+#: ../web/src/coming_soon.html:43
 msgid ""
 "YoungFunding will launch first in China and UK, provide diversified "
 "oversea investment opportunities such as properties, houses, apartment, "
@@ -64,14 +89,76 @@ msgid ""
 " real estate investment easy."
 msgstr ""
 
-#: ../web/src/coming_soon.html:41
+#: ../web/src/coming_soon.html:49
 msgid "Submit Your Investment Needs"
 msgstr ""
 
-#: ../web/src/coming_soon.html:42
+#: ../web/src/coming_soon.html:50
 msgid ""
 "If you are interested in investing UK property, please submit your "
 "investment needs here, we will get in touch and help your with your needs"
+msgstr ""
+
+#: ../web/src/coming_soon.html:55
+msgid "Name"
+msgstr ""
+
+#: ../web/src/coming_soon.html:59
+msgid "China +86"
+msgstr ""
+
+#: ../web/src/coming_soon.html:60
+msgid "HK +85"
+msgstr ""
+
+#: ../web/src/coming_soon.html:61
+msgid "UK +44"
+msgstr ""
+
+#: ../web/src/coming_soon.html:62
+msgid "US +1"
+msgstr ""
+
+#: ../web/src/coming_soon.html:65
+msgid "Phone"
+msgstr ""
+
+#: ../web/src/coming_soon.html:71
+msgid "Your Budget"
+msgstr ""
+
+#: ../web/src/coming_soon.html:75
+msgid "Below 1 Million"
+msgstr ""
+
+#: ../web/src/coming_soon.html:76
+msgid "1 Million - 3 Million"
+msgstr ""
+
+#: ../web/src/coming_soon.html:77
+msgid "3 Million - 5 Million"
+msgstr ""
+
+#: ../web/src/coming_soon.html:78
+msgid "5 Million - 10 Million"
+msgstr ""
+
+#: ../web/src/coming_soon.html:79
+msgid "Above 10 Million"
+msgstr ""
+
+#: ../web/src/coming_soon.html:83
+msgid "Write your requirement."
+msgstr ""
+
+#: ../web/src/coming_soon.html:86
+msgid "Submit"
+msgstr ""
+
+#: ../web/src/coming_soon.html:90
+msgid ""
+"Your requirement has been submited, our employee will contact in the "
+"future."
 msgstr ""
 
 #: ../web/src/masters/master.html:31
