@@ -29,7 +29,7 @@
             if (form.$invalid) {
                 return
             }
-            userApi.checkUserExist($scope.user)
+            userApi.sendVerification($scope.user)
                 .success(function (data, status, headers, config) {
                     $scope.user.id = data.val
                     $scope.countdown = 60
