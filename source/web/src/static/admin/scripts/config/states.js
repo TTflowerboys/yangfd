@@ -65,7 +65,7 @@ angular.module('app')
             .state('dashboard.estate.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.estate.create.tpl.html',
-                controller: 'ctrlCreate',
+                controller: 'ctrlProperty',
                 resolve: estateResolve
             })
             .state('noPermission', {
