@@ -163,7 +163,7 @@
                 var successArea = $('.opening .successMessage')
 
                 var valid = $.validate(this, {onError: function (dom,validator,index) {
-                    errorArea.text(localization.find('#Email').text() + errorMessageFormValidatorType(validator))
+                    errorArea.text(localization.find('#Email').text() + " " + errorMessageFormValidatorType(validator))
                     errorArea.show()
                 }})
                 if(!valid){return}
@@ -194,7 +194,7 @@
                       function (data, status) {
                           if (data.ret != 0) {
                               var dom = $('form[name=requirement] input[name=phone]')[0]
-                              errorArea.text(dom.placeholder  + localization.find('#badNumber').text())
+                              errorArea.text(dom.placeholder + " "  + localization.find('#badNumber').text())
                               errorArea.show()
                               $(dom).css('border', '2px solid red')
                           }
@@ -213,7 +213,7 @@
                )
                  
                 var valid = $.validate(this, {onError: function (dom,validator,index) {
-                    errorArea.text(dom.placeholder + errorMessageFormValidatorType(validator))
+                    errorArea.text(dom.placeholder + " " + errorMessageFormValidatorType(validator))
                     errorArea.show()
                     $(dom).css('border', '2px solid red')
                 }})

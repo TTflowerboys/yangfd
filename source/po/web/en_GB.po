@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2014-09-06 18:43+0800\n"
-"PO-Revision-Date: 2014-09-06 19:11+0800\n"
-"Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
+"PO-Revision-Date: 2014-09-06 20:47+0800\n"
+"Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
@@ -29,15 +29,15 @@ msgstr ""
 
 #: ../web/src/coming_soon.html:17
 msgid "不为空"
-msgstr " should not be empty"
+msgstr "should not be empty"
 
 #: ../web/src/coming_soon.html:18
 msgid "格式不正确"
-msgstr " is bad format"
+msgstr "is bad format"
 
 #: ../web/src/coming_soon.html:19
 msgid "格式不合法"
-msgstr " is invalid format"
+msgstr "is invalid format"
 
 #: ../web/src/coming_soon.html:20 ../web/src/coming_soon.html:68
 msgid "邮箱"
@@ -57,7 +57,7 @@ msgstr "LAUNCHING OCT 2014"
 
 #: ../web/src/coming_soon.html:30
 msgid "请填写邮箱订阅网站上线通知"
-msgstr "Enter your Email to subscribe our news"
+msgstr "Enter your Email to subscribe our  news!"
 
 #: ../web/src/coming_soon.html:31
 msgid "订阅"
@@ -91,11 +91,11 @@ msgid ""
 "详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职"
 "业顾问，协助您完成投资流程，轻松当洋房东。"
 msgstr ""
-"YoungFunding will launch first in China and UK, provide diversified oversea "
-"investment opportunities such as properties, houses, apartment, and "
-"recommend personalized investment opportunities based on your intent and "
-"budget, help you with detailed property introduction and investment analysis "
-"report, and let our professional property consultant help to take care "
+"YoungFunding will launch first in China and UK. We provide with diversified "
+"oversea investment opportunities such as properties, houses, apartments, and "
+"personalized investment recommendations based on your intention and budget. "
+"We help you with detailed property introduction and investment analysis "
+"report, and our professional property consultant will help you take care of "
 "everything when you want to settle your investment, really make real estate "
 "investment easy."
 
@@ -108,7 +108,7 @@ msgid ""
 "如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 "If you are interested in investing UK property, please submit your "
-"investment needs here, we will get in touch and help your with your needs"
+"investment needs here. We will get in touch and help your with your needs."
 
 #: ../web/src/coming_soon.html:55
 msgid "姓名"
