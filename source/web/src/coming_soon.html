@@ -90,10 +90,22 @@
             <h2 class="successMessage">{{_('Your requirement has been submited, our employee will contact in the future.')}}</h2>
         </div>
 
-        <div id="copyright" class="copyright">
-            <p>&copy;<script>document.write(new Date().getFullYear())</script>
-                Brothers Bridge Group
-            </p>
+        <div id="copyright" class="copyright_wrapper">
+                <div class="copyright">
+                    <p>&copy;<script>document.write(new Date().getFullYear())</script>
+                        Brothers Bridge Group
+                    </p>
+                    <ul class="navbar">
+                         <li>
+                            <select name="language" class="ghostSelect" style="min-width: 140px;">
+                                <option value="zh_Hans_CN" selected>中文（中国）</option>
+                                <option value="en_GB">English, UK</option>
+                            </select>
+                            <span id="current_Language" style="display:none">{{_.lang}}</span>       
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <!-- @@include =partials/js_import.html -->
@@ -103,6 +115,16 @@
             })
             $(function () {
                 $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
+                
+                //setup language select
+                var language = $('#current_Language').text()
+                $('select[name=language]').find('option[value='+language+']').prop('selected',true)
+            })
+
+            
+            $('select[name=language]').change(function(){
+                var language=$(this).children('option:selected').val();
+                team.setLocationHrefParam("_i18n", language)
             })
         </script>        
         <script>

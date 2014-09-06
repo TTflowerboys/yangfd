@@ -97,6 +97,7 @@
                             <option value="zh_Hans_CN" selected>中文（中国）</option>
                             <option value="en_GB">English, UK</option>
                         </select>
+                        <span id="current_Language" style="display:none">{{_.lang}}</span>
                     </div>
                 </footer>
             </div>
@@ -121,7 +122,7 @@
                 $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
 
                 //setup language select
-                var language = team.getLocationHrefParam("_i18n")
+                var language = $('#current_Language').text()
                 $('select[name=language]').find('option[value='+language+']').prop('selected',true)
             })
         </script>
