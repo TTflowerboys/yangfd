@@ -28,6 +28,7 @@ API Reference
    :maxdepth: 2
 
    news_api
+   enum_api
    property_api
    subscription_api
    ticket_api
