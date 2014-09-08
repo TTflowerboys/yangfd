@@ -6,11 +6,77 @@ from pymongo import ASCENDING, DESCENDING
 from libfelix.f_common import f_app
 from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
+from libfelix.f_log import f_log
 from libfelix.f_interface import abort
 from libfelix.f_cache import f_cache
 
 import logging
 logger = logging.getLogger(__name__)
+
+
+class f_currant_log(f_log):
+    """
+        ==================================================================
+        Log
+        ==================================================================
+    """
+    @f_cache("log")
+    def get(self, log_id_or_list, force_reload=False, ignore_nonexist=False):
+        def _format_each(log):
+            log["id"] = str(log.pop("_id"))
+            log.pop("cookie", None)
+            return log
+
+        if isinstance(log_id_or_list, (tuple, list, set)):
+            result = {}
+
+            with f_app.mongo() as m:
+                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(log_id) for log_id in log_id_or_list]}, "status": {"$ne": "deleted"}}))
+
+            if not force_reload and len(result_list) < len(log_id_or_list) and not ignore_nonexist:
+                found_list = map(lambda log: str(log["_id"]), result_list)
+                abort(40400, logger.warning("Non-exist log:", filter(lambda log_id: log_id not in found_list, log_id_or_list), exc_info=False))
+            elif ignore_nonexist:
+                logger.warning("Non-exist log:", filter(lambda log_id: log_id not in found_list, log_id_or_list), exc_info=False)
+
+            for log in result_list:
+                result[log["id"]] = _format_each(log)
+
+            return result
+
+        else:
+            with f_app.mongo() as m:
+                result = self.get_database(m).find_one({"_id": ObjectId(log_id_or_list), "status": {"$ne": "deleted"}})
+
+                if result is None:
+                    if not force_reload and not ignore_nonexist:
+                        abort(40400, logger.warning("Non-exist log:", log_id_or_list, exc_info=False))
+                    elif ignore_nonexist:
+                        logger.warning("Non-exist log:", log_id_or_list, exc_info=False)
+                    return None
+
+            return _format_each(result)
+
+    def output(self, log_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
+        logs = self.get(log_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        return logs
+
+    def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
+        params.setdefault("status", {"$ne": "deleted"})
+        if sort is not None:
+            try:
+                sort_field, sort_orientation = sort
+            except:
+                abort(40000, logger.warning("sort param not well in format:", sort))
+
+        else:
+            sort_field = sort_orientation = None
+
+        log_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)["content"]
+
+        return log_id_list
+
+f_currant_log()
 
 
 class f_currant_user(f_user):
@@ -19,6 +85,10 @@ class f_currant_user(f_user):
         User
         ==================================================================
     """
+    nested_attr = ("_hash", "admin", "email", "sms", "vip", "credit", "referral", "tag", "career", "education", "login", "favorite")
+
+    favorite_database = "favorites"
+
     def custom_search(self, params, count=False, notime=False, per_page=10, sort=['register_time', 'desc']):
         params.setdefault("status", {"$ne": "deleted"})
         if sort is not None:
@@ -68,6 +138,93 @@ class f_currant_user(f_user):
             return True
         else:
             return False
+
+    """
+        ==================================================================
+        Favorite
+        ==================================================================
+    """
+    def favorite_get_database(self, m):
+        return getattr(m, self.favorite_database)
+
+    @f_cache("favorite")
+    def favorite_get(self, favorite_id_or_list, force_reload=False, ignore_nonexist=False):
+        def _format_each(favorite):
+            favorite["id"] = str(favorite.pop("_id"))
+            return favorite
+
+        if isinstance(favorite_id_or_list, (tuple, list, set)):
+            result = {}
+
+            with f_app.mongo() as m:
+                result_list = list(self.favorite_get_database(m).find({"_id": {"$in": [ObjectId(favorite_id) for favorite_id in favorite_id_or_list]}, "status": {"$ne": "deleted"}}))
+
+            if not force_reload and len(result_list) < len(favorite_id_or_list) and not ignore_nonexist:
+                found_list = map(lambda favorite: str(favorite["_id"]), result_list)
+                abort(40400, logger.warning("Non-exist favorite:", filter(lambda favorite_id: favorite_id not in found_list, favorite_id_or_list), exc_info=False))
+            elif ignore_nonexist:
+                logger.warning("Non-exist favorite:", filter(lambda favorite_id: favorite_id not in found_list, favorite_id_or_list), exc_info=False)
+
+            for favorite in result_list:
+                result[favorite["id"]] = _format_each(favorite)
+
+            return result
+
+        else:
+            with f_app.mongo() as m:
+                result = self.favorite_get_database(m).find_one({"_id": ObjectId(favorite_id_or_list), "status": {"$ne": "deleted"}})
+
+                if result is None:
+                    if not force_reload and not ignore_nonexist:
+                        abort(40400, logger.warning("Non-exist favorite:", favorite_id_or_list, exc_info=False))
+                    elif ignore_nonexist:
+                        logger.warning("Non-exist favorite:", favorite_id_or_list, exc_info=False)
+                    return None
+
+            return _format_each(result)
+
+    def favorite_add(self, params):
+        params.setdefault("status", "new")
+        params.setdefault("time", datetime.utcnow())
+        with f_app.mongo() as m:
+            favorite_id = self.favorite_get_database(m).insert(params)
+
+        return str(favorite_id)
+
+    def favorite_output(self, favorite_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
+        favorites = self.favorite_get(favorite_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+
+        return favorites
+
+    def favorite_search(self, params, sort=["time", "desc"], notime=False, per_page=10):
+        params.setdefault("status", "new")
+        if sort is not None:
+            try:
+                sort_field, sort_orientation = sort
+            except:
+                abort(40000, logger.warning("sort param not well in format:", sort))
+
+        else:
+            sort_field = sort_orientation = None
+
+        favorite_id_list = f_app.mongo_index.search(self.favorite_get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)["content"]
+
+        return favorite_id_list
+
+    def favorite_remove(self, favorite_id):
+        self.favorite_update_set(favorite_id, {"status": "deleted"})
+
+    def favorite_update(self, favorite_id, params):
+        with f_app.mongo() as m:
+            self.favorite_get_database(m).update(
+                {"_id": ObjectId(favorite_id)},
+                params,
+            )
+        favorite = self.favorite_get(favorite_id, force_reload=True)
+        return favorite
+
+    def favorite_update_set(self, favorite_id, params):
+        return self.favorite_update(favorite_id, {"$set": params})
 
 f_currant_user()
 

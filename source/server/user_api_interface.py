@@ -153,7 +153,6 @@ def current_user_edit(user, params):
 
 @f_api("/user/admin/search", params=dict(
     per_page=int,
-    time=datetime,
     register_time=datetime,
     role=str,
     phone=str,
@@ -298,6 +297,26 @@ def admin_user_get(user, user_id):
         abort(40399)
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
+
+
+@f_api("/user/admin/<user_id>/logs", params=dict(
+    per_page=int,
+    time=datetime,
+))
+@f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "jr_sales"])
+def admin_user_get_logs(user, user_id, params):
+    per_page = params.pop("per_page", 0)
+    user_info = f_app.user.get(user_id)
+    current_user_roles = f_app.user.get_role(user["id"])
+    if set(["admin", "jr_admin", "sales"]) & set(current_user_roles):
+        pass
+    elif not f_app.ticket.search({"assignee": ObjectId(user["id"]), "phone": user_info.get("phone")}):
+        abort(40399)
+
+    params["user_id"] = ObjectId(user_id)
+    params["log_type"] = {"$in": f_app.common.user_action_types}
+
+    return f_app.log.output(f_app.log.search(params), per_page=per_page)
 
 
 @f_api("/user/admin/<user_id>/set_role", params=dict(
