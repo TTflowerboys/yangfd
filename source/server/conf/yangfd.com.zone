@@ -1,0 +1,34 @@
+$ORIGIN yangfd.com.
+@	3600	IN	SOA	venusaur.felixc.at.	felixyan.bbtechgroup.com.	(
+		2014090501	; serial
+		7200		; refresh
+		3600		; retry
+		86400		; expire
+		3600)		; minimum
+
+;; NS Servers
+@    86400   IN      NS      venusaur.felixc.at.
+@    86400   IN      NS      bulbasaur.felixc.at.
+@    86400   IN      NS      arbok.felixc.at.
+@    86400   IN      NS      poliwrath.felixc.at.
+
+;; MX Records
+;@	300	IN	MX	5	arbok.felixc.at.
+;@	300	IN	MX	10	ivysaur.felixc.at.
+@  300     IN      MX      30      aspmx5.googlemail.com.
+@  300     IN      MX      10      aspmx.l.google.com.
+@  300     IN      MX      30      aspmx4.googlemail.com.
+@  300     IN      MX      30      aspmx3.googlemail.com.
+@  300     IN      MX      20      alt1.aspmx.l.google.com.
+@  300     IN      MX      30      aspmx2.googlemail.com.
+@  300     IN      MX      20      alt2.aspmx.l.google.com.
+
+;; TXT Records
+@	300	IN	TXT	"v=spf1 include:_spf.felixc.at ~all"
+@	300	IN	TXT	"google-site-verification=QdQUotjCoxs0UnrgIVEBTUYN9r_ycg7h1me__DCygLs"
+weixin_verification 300 IN CNAME metapod.felixc.at.
+
+;; Website Records
+www	300	IN	CNAME	yangfd.com.
+@	300	IN	A	54.246.82.116
+
