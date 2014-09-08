@@ -27,10 +27,12 @@ API Reference
 .. toctree::
    :maxdepth: 2
 
-   news_api
+   ad_api
+   analytics_api
    enum_api
+   news_api
    property_api
    subscription_api
    ticket_api
+   upload_api
    user_api
-   analytics_api
