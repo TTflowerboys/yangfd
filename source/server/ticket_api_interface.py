@@ -72,7 +72,6 @@ def intention_ticket_add(params):
             abort(40324)
         user_info = f_app.user.get(shadow_user_id)
         creator_user_id = ObjectId(user["id"])
-        params["country"], params["email"] = user_info.get("country"), user_info.get("email")
 
     params["creator_user_id"] = creator_user_id
 
