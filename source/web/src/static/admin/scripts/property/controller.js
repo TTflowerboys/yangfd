@@ -3,9 +3,45 @@
 
 (function () {
 
-    function ctrlProperty($scope, $state, api) {
+    function ctrlProperty($scope, $state, api, enumApi) {
 
+        enumApi.getAll({
+            params: {type: 'property_type'},
+            successMessage: 'Update successfully',
+            errorMessage: 'Update failed'
+        }).success(function () {
+//TODO
+        })
+        enumApi.getAll({
+            params: {type: 'intention'},
+            successMessage: 'Update successfully',
+            errorMessage: 'Update failed'
+        }).success(function (data) {
+            $scope.intentions = data.val
+        })
+        enumApi.getAll({
+            params: {type: 'equity_type'},
+            successMessage: 'Update successfully',
+            errorMessage: 'Update failed'
+        }).success(function (data) {
+            $scope.equityTypes = data.val
+        })
+        enumApi.getAll({
+            params: {type: 'decorative_style'},
+            successMessage: 'Update successfully',
+            errorMessage: 'Update failed'
+        }).success(function () {
+//TODO
 
+        })
+        enumApi.getAll({
+            params: {type: 'facing_direction'},
+            successMessage: 'Update successfully',
+            errorMessage: 'Update failed'
+        }).success(function () {
+//TODO
+
+        })
         $scope.item = {}
 
         $scope.submit = function ($event, form) {
@@ -41,7 +77,7 @@
             if (!$scope.item.historical_price) {
                 $scope.item.historical_price = []
             }
-            var temp = {time:$scope.item.tempHistoryTime,price:$scope.item.tempHistoryPrice}
+            var temp = {time: $scope.item.tempHistoryTime, price: $scope.item.tempHistoryPrice}
             $scope.item.historical_price.push(temp)
             $scope.item.tempHistoryTime = null
             $scope.item.tempHistoryPrice = null
@@ -51,7 +87,7 @@
             if (!$scope.item.estimated_monthly_cost) {
                 $scope.item.estimated_monthly_cost = []
             }
-            var temp = {item:$scope.item.tempCostItem,price:$scope.item.tempCostPrice}
+            var temp = {item: $scope.item.tempCostItem, price: $scope.item.tempCostPrice}
             $scope.item.estimated_monthly_cost.push(temp)
             $scope.item.tempCostItem = null
             $scope.item.tempCostPrice = null
@@ -61,13 +97,13 @@
             if (!$scope.item.main_house_types) {
                 $scope.item.main_house_types = []
             }
-            var temp = {name:$scope.item.tempHouseName,
-                bedroom_count:$scope.item.tempBedroomCount,
-                living_room_count:$scope.item.tempLivingRoomCount,
-                bathroom_count:$scope.item.tempBathroomCount,
-                kitchen_count:$scope.item.tempKitchenCount,
-                total_price:$scope.item.tempTotalPrice,
-                floor_plan:$scope.item.tempFloorPlan}
+            var temp = {name: $scope.item.tempHouseName,
+                bedroom_count: $scope.item.tempBedroomCount,
+                living_room_count: $scope.item.tempLivingRoomCount,
+                bathroom_count: $scope.item.tempBathroomCount,
+                kitchen_count: $scope.item.tempKitchenCount,
+                total_price: $scope.item.tempTotalPrice,
+                floor_plan: $scope.item.tempFloorPlan}
             $scope.item.main_house_types.push(temp)
             $scope.item.tempHouseName = null
             $scope.item.tempBedroomCount = null
