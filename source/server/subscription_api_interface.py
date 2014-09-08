@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 @f_api('/subscription/add', params=dict(
     email=(str, True),
+    locales=(list, None, str),
 ))
 def subscription_add(params):
     return f_app.feedback.add(params)
