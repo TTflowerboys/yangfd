@@ -108,14 +108,13 @@
         </div>
 
         <!-- @@include =partials/js_import.html -->
-        <script>
+        <script>            
             $(window).on('resize', function () {
                 $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
             })
             $(function () {
                 $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
-                
-                //setup language select
+                //setup language select            
                 var language = $('#current_Language').text()
                 $('select[name=language]').find('option[value='+language+']').prop('selected',true)
                 //setup budget select
@@ -129,12 +128,11 @@
                                 for (var i= 0, len = data.val.length; i < len; i++)
                                 {
                                     budgetSelect.append('<option value='+ data.val[i]["id"] +'>'+ data.val[i]["value"] +'</option>')
-                                }
-                            }
+                                }                                
+                            }                            
                         }
-            )
+                )
             })
-            
             $('select[name=language]').change(function(){
                 var language=$(this).children('option:selected').val();
                 team.setLocationHrefParam("_i18n", language)
