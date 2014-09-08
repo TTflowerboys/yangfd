@@ -316,7 +316,7 @@ def admin_user_get_logs(user, user_id, params):
     params["user_id"] = ObjectId(user_id)
     params["log_type"] = {"$in": f_app.common.user_action_types}
 
-    return f_app.log.output(f_app.log.search(params), per_page=per_page)
+    return f_app.log.output(f_app.log.search(params, per_page=per_page))
 
 
 @f_api("/user/admin/<user_id>/set_role", params=dict(
