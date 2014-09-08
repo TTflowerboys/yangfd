@@ -118,6 +118,7 @@
                 //setup language select
                 var language = $('#current_Language').text()
                 $('select[name=language]').find('option[value='+language+']').prop('selected',true)
+                //setup budget select
                 $.get("/api/1/enum?type=budget&_i18n=" + language,
                         null,
                         function (data, status) {
@@ -168,6 +169,8 @@
                 }})
                 if(!valid){return}
                 var params = $(this).serializeObject()
+                var language = $('#current_Language').text()
+                params['locales'] = language
                 $.post("/api/1/subscription/add",
                         params,
                         function (data, status) {
