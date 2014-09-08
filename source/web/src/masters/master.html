@@ -140,15 +140,25 @@
                 $("#modal").hide()
             });
 
+            var errorArea = $('form[name=signin]').find('.errorMessage')
             $('form[name=signin]').submit(function (e) {
                 e.preventDefault()
+                errorArea.hide()
+                var valid = $.validate(this, {onError: function (dom,validator,index) {
+                    alert( dom.name +" validate error " + validator)
+                    errorArea.text(dom.name + " validate error " + validator)
+                    errorArea.show()
+                }})
+                if(!valid){return}
+
                 var params = $(this).serializeObject()
                 params.password = Base64.encode(params.password)
                 $.post("/api/1/user/login",
                     params,
                     function (data, status) {
                         if (data.ret != 0) {
-                            alert("Data: " + data.msg + "\nStatus: " + status);
+                            errorArea.text(data.msg)
+                            errorArea.show()
                         }
                         else {
                             location.reload()
