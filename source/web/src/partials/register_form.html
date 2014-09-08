@@ -7,13 +7,13 @@
         <hr>
         <div class="phone form_row">
             <img src="/static/images/icon/phone-active.png" alt=""/>
-                <select name="country" class=addLeft>
-                    <option value="CN">中国 +86</option>
-                    <option value="HK">香港 +85</option>
-                    <option value="UK">英国 +44</option>
-                    <option value="US">美国 +1</option>
-                </select>
-                <span class=vr></span>
+            <select name="country" class=addLeft>
+                <option value="CN">中国 +86</option>
+                <option value="HK">香港 +85</option>
+                <option value="UK">英国 +44</option>
+                <option value="US">美国 +1</option>
+            </select>
+            <span class=vr></span>
             <input name="phone" type="tel" size=20 data-validator="required, trim, number">
         </div>
         <hr>
@@ -23,11 +23,11 @@
         </div>
     </div>
     <h4 class="formsHint">手机号为登陆和找回密码凭证，请填写真实号码</h4>
-    <div class="captureCode">
-        <!--<img src="/static/images/placeholder/captureCode.png" alt=""/>-->
-        <!--<input name="ccode" size=20>-->
+    <div class="captchaCode">
+        <div id="recaptcha_div"></div>
     </div>
     <div class="terms"><input type="checkbox" checked/> 我同意<a href="/terms">会员服务须知</a></div>
     <button type="submit" class="register button gray">注册</button>
+    <p class="errorMessage" style="display:none"></p>
     <h3 class="hasAccountHint">已经拥有账号？请<a href="#" onclick="project.goToSignIn()">登陆</a></h3>
 </form>

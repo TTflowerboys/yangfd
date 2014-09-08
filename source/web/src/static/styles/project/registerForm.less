@@ -22,25 +22,11 @@
         font-size: 12px;
         color: #666666;
     }
-    .captureCode {
+    .captchaCode {
         margin-top: 16px;
-        > img {
-            .round-corner();
-            vertical-align: middle;
-            margin-right: 24px;
-        }
-        > input {
-            padding: 16px 16px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            margin: 8px 0 8px 0;
-            display: inline-block;
-            width: 152px;
-            vertical-align: middle;
-        }
     }
     .terms {
-        margin-top: 40px;
+        margin-top: 20px;
         font-size: 14px;
         color: #999999;
         > a {
@@ -53,6 +39,9 @@
         margin-top: 20px;
         display: block;
         width: 100%;
+    }
+    > .errorMessage {
+        display: none; color: red; margin-top: 10px; margin-bottom: 0px;
     }
     .hasAccountHint {
         margin-top: 20px;
