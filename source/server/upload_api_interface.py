@@ -114,6 +114,8 @@ def upload_image(params):
 def upload_file(params):
     """
     Upload a file to Amazon S3
+
+    If ``filename`` is not given, mime type and extension will be detected automatically.
     """
     extension = ""
     # Try to get extension via params first
