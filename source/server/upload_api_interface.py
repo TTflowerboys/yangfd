@@ -109,14 +109,43 @@ def upload_image(params):
 @f_api('/upload_file', params=dict(
     nolog=("data"),
     data=("file", True),
+    filename=str,
 ))
 def upload_file(params):
     """
     Upload a file to Amazon S3
+
+    If ``filename`` is not given, mime type and extension will be detected automatically.
     """
+    extension = ""
+    # Try to get extension via params first
     f = params["data"].file
+    if "filename" in params:
+        if "." in params['filename']:
+            extension = "." + params['filename'].split('.')[-1]
+    # Guess extension
+    if not extension:
+        try:
+            import magic
+            import mimetypes
+            m = magic.open(magic.MAGIC_MIME_TYPE)
+            m.load()
+        except ImportError:
+            m = None
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning("Failed to import magic, AWS S3 will not have mime set", exc_info=False)
+
+        if m is not None:
+            mime = m.buffer(f.read())
+            extension = mimetypes.guess_extension(mime)
+        else:
+            logger.warning("Failed to detect extension of the file.")
+
+    f.seek(0)
+
     with f_app.storage.aws_s3() as b:
-        filename = f_app.util.uuid()
+        filename = f_app.util.uuid() + extension
         b.upload(filename, f.read(), policy="public-read")
         result = {"url": b.get_public_url(filename)}
 

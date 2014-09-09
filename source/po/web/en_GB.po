@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-06 18:43+0800\n"
-"PO-Revision-Date: 2014-09-06 20:49+0800\n"
+"POT-Creation-Date: 2014-09-09 14:47+0800\n"
+"PO-Revision-Date: 2014-09-09 14:50+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -27,55 +27,70 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: ../web/src/coming_soon.html:17
+#: ../web/src/coming_soon.html:18 ../web/src/coming_soon.html:99
+#: ../web/src/masters/master.html:23 ../web/src/masters/master.html:105
+#: ../web/src/masters/signin_master.html:21
+#: ../web/src/masters/signin_master.html:35
+msgid "洋房东"
+msgstr "YoungFunding"
+
+#: ../web/src/coming_soon.html:23
 msgid "不为空"
 msgstr "should not be empty"
 
-#: ../web/src/coming_soon.html:18
+#: ../web/src/coming_soon.html:24
 msgid "格式不正确"
 msgstr "is bad format"
 
-#: ../web/src/coming_soon.html:19
+#: ../web/src/coming_soon.html:25
 msgid "格式不合法"
 msgstr "is invalid format"
 
-#: ../web/src/coming_soon.html:20 ../web/src/coming_soon.html:68
+#: ../web/src/coming_soon.html:26
+msgid "姓名"
+msgstr "Name"
+
+#: ../web/src/coming_soon.html:27
+msgid "电话"
+msgstr "Phone"
+
+#: ../web/src/coming_soon.html:28
 msgid "邮箱"
 msgstr "Email"
 
-#: ../web/src/coming_soon.html:21
+#: ../web/src/coming_soon.html:29
 msgid "订阅失败"
 msgstr "Subscribe Failed"
 
-#: ../web/src/coming_soon.html:22
+#: ../web/src/coming_soon.html:30
 msgid "提交需求失败"
 msgstr "Submit Failed"
 
-#: ../web/src/coming_soon.html:28
+#: ../web/src/coming_soon.html:36
 msgid "金秋十月，即将开放！"
 msgstr "LAUNCHING OCT 2014"
 
-#: ../web/src/coming_soon.html:30
+#: ../web/src/coming_soon.html:38
 msgid "请填写邮箱订阅网站上线通知"
 msgstr "Enter your e-mail to subscribe our news!"
 
-#: ../web/src/coming_soon.html:31
+#: ../web/src/coming_soon.html:39
 msgid "订阅"
 msgstr "Subscribe"
 
-#: ../web/src/coming_soon.html:34
+#: ../web/src/coming_soon.html:42
 msgid "谢谢你的订阅!"
 msgstr "Thanks for your subscription!"
 
-#: ../web/src/coming_soon.html:34
+#: ../web/src/coming_soon.html:42
 msgid "在网站开放后，我们将第一时间告知您！"
 msgstr "We will notify you when website is launched!"
 
-#: ../web/src/coming_soon.html:40
+#: ../web/src/coming_soon.html:48
 msgid "我们做什么？"
 msgstr "What we do?"
 
-#: ../web/src/coming_soon.html:41
+#: ../web/src/coming_soon.html:49
 msgid ""
 "我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的"
 "置业顾问助推您的海外投资之路。"
@@ -84,7 +99,7 @@ msgstr ""
 "investors, get our investors on board with detailed investment analysis "
 "report and professional property consultant."
 
-#: ../web/src/coming_soon.html:43
+#: ../web/src/coming_soon.html:51
 msgid ""
 "洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化"
 "的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以"
@@ -99,87 +114,151 @@ msgstr ""
 "everything when you want to settle your investment, really make real estate "
 "investment easy."
 
-#: ../web/src/coming_soon.html:49
+#: ../web/src/coming_soon.html:57
 msgid "提交置业需求"
 msgstr "Submit Your Investment Needs"
 
-#: ../web/src/coming_soon.html:50
+#: ../web/src/coming_soon.html:58
 msgid ""
 "如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 "If you are interested in investing UK property, please submit your "
 "investment needs here. We will get in touch and help your with your needs."
 
-#: ../web/src/coming_soon.html:55
-msgid "姓名"
-msgstr "Name"
+#: ../web/src/coming_soon.html:63
+msgid "姓名(必填)"
+msgstr "Name (Required)"
 
-#: ../web/src/coming_soon.html:59
+#: ../web/src/coming_soon.html:67
 msgid "中国 +86"
 msgstr "China +86"
 
-#: ../web/src/coming_soon.html:60
+#: ../web/src/coming_soon.html:68
 msgid "香港 +85"
 msgstr "HK +85"
 
-#: ../web/src/coming_soon.html:61
+#: ../web/src/coming_soon.html:69
 msgid "英国 +44"
 msgstr "UK +44"
 
-#: ../web/src/coming_soon.html:62
+#: ../web/src/coming_soon.html:70
 msgid "美国 +1"
 msgstr "US +1"
 
-#: ../web/src/coming_soon.html:65
-msgid "电话"
-msgstr "Phone"
+#: ../web/src/coming_soon.html:73
+msgid "电话(必填)"
+msgstr "Phone (Required)"
 
-#: ../web/src/coming_soon.html:71
+#: ../web/src/coming_soon.html:76
+msgid "邮箱(必填)"
+msgstr "Email (Required)"
+
+#: ../web/src/coming_soon.html:79
 msgid "您的预算"
 msgstr "Your Budget"
 
-#: ../web/src/coming_soon.html:78
+#: ../web/src/coming_soon.html:86
 msgid "写下您的其他需求和描述，方便我们在挑选房源时作为参考"
 msgstr ""
 "Please write down your investment needs in detail, we can put your needs "
 "into our consideration when launch houses."
 
-#: ../web/src/coming_soon.html:81
+#: ../web/src/coming_soon.html:90
 msgid "提交"
 msgstr "Submit"
 
-#: ../web/src/coming_soon.html:85
+#: ../web/src/coming_soon.html:93
 msgid "置业需求已提交，稍后我们的工作人员会联系你"
 msgstr ""
 "Your requirement has been submitted, we will get in touch with you as soon "
 "as possible. "
 
-#: ../web/src/coming_soon.html:91
-msgid "洋房东"
-msgstr "YoungFunding"
-
-#: ../web/src/masters/master.html:31
-msgid "England"
+#: ../web/src/masters/master.html:34
+msgid "我的海投"
 msgstr ""
 
-#: ../web/src/masters/master.html:41
-msgid "Welcome!"
+#: ../web/src/masters/master.html:35
+msgid "海外房产"
 msgstr ""
 
-#: ../web/src/masters/master.html:43
-msgid "Logout"
+#: ../web/src/masters/master.html:36
+msgid "项目开发"
 msgstr ""
 
-#: ../web/src/masters/master.html:47
-msgid "Login"
+#: ../web/src/masters/master.html:37
+msgid "业务模式"
 msgstr ""
+
+#: ../web/src/masters/master.html:42
+msgid "欢迎"
+msgstr "Welcome"
+
+#: ../web/src/masters/master.html:44
+msgid "登出"
+msgstr "Log Out"
 
 #: ../web/src/masters/master.html:48
-msgid "Signup"
+msgid "登陆"
+msgstr "Sign In"
+
+#: ../web/src/masters/master.html:49
+msgid "注册"
+msgstr "Sign Up"
+
+#: ../web/src/masters/master.html:74
+msgid "社交"
 msgstr ""
 
-#: ../web/src/masters/signin_master.html:38
-msgid "Privacy Policy"
+#: ../web/src/masters/master.html:81
+msgid "服务支持"
+msgstr ""
+
+#: ../web/src/masters/master.html:82 ../web/src/masters/signin_master.html:38
+msgid "服务条款"
+msgstr ""
+
+#: ../web/src/masters/master.html:83
+msgid "隐私声明"
+msgstr ""
+
+#: ../web/src/masters/master.html:84 ../web/src/masters/signin_master.html:44
+msgid "业务流程"
+msgstr ""
+
+#: ../web/src/masters/master.html:87
+msgid "功能"
+msgstr ""
+
+#: ../web/src/masters/master.html:88
+msgid "伦敦房产"
+msgstr ""
+
+#: ../web/src/masters/master.html:89
+msgid "期房"
+msgstr ""
+
+#: ../web/src/masters/master.html:90
+msgid "房产开发"
+msgstr ""
+
+#: ../web/src/masters/master.html:93
+msgid "切换语言"
+msgstr ""
+
+#: ../web/src/masters/master.html:95 ../web/src/masters/signin_master.html:48
+msgid "中文简体（中国）"
+msgstr ""
+
+#: ../web/src/masters/master.html:96 ../web/src/masters/signin_master.html:49
+msgid "中文繁体（香港）"
+msgstr ""
+
+#: ../web/src/masters/master.html:97 ../web/src/masters/signin_master.html:50
+msgid "English (United Kingdom)"
+msgstr ""
+
+#: ../web/src/masters/signin_master.html:41
+msgid "隐私协议"
 msgstr ""
 
 #: ../web/src/static/templates/new_admin_title.html:1
