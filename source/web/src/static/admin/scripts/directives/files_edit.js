@@ -17,7 +17,7 @@ angular.module('app')
                     var file = $files[0]
                     if (file) {
                         $upload.upload({
-                            url: '/api/1/upload',
+                            url: '/api/1/upload_file',
                             file: file,
                             fileFormDataName: 'data'
                         })

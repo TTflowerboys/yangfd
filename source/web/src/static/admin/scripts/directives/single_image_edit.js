@@ -10,13 +10,14 @@ angular.module('app')
                 widthLimit: '@widthLimit',
                 ratio: '@ratio',
                 thumbnailSize: '@thumbnailSize',
+                text:'@text'
             },
             link: function (scope, elm, attrs) {
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
                         $upload.upload({
-                            url: '/api/1/upload',
+                            url: '/api/1/upload_image',
                             file: file,
                             fileFormDataName: 'data',
                             data: {
