@@ -32,23 +32,24 @@
             <div id="copyright" class="copyright_wrapper">
                 <div class="copyright">
                     <p>&copy;<script>document.write(new Date().getFullYear())</script>
-                        Brothers Bridge Group
+                        {{_('洋房东')}}
                     </p>
                     <ul class="navbar">
-                        <li><a href="/terms">服务条款</a><img src="/static/images/navbar-seperator.png" class="seperator"/>
+                        <li><a href="/terms">{{_('服务条款')}}</a><img src="/static/images/navbar-seperator.png" class="seperator"/>
                         </li>
                         <li>
-                            <a href="/privacy">{{_('Privacy Policy')}}</a><img src="/static/images/navbar-seperator.png" class="seperator"/>
+                            <a href="/privacy">{{_('隐私协议')}}</a><img src="/static/images/navbar-seperator.png" class="seperator"/>
                         </li>
                         <li>
-                            <a href="/process">业务流程</a><img src="/static/images/navbar-seperator.png" class="seperator"/>
+                            <a href="/process">{{_('业务流程')}}</a><img src="/static/images/navbar-seperator.png" class="seperator"/>
                         </li>
-                        <li>
+                        <li>                            
                             <select name="language" class="ghostSelect" style="min-width: 140px;">
-                                <option value="zh_Hans_CN" selected>中文（中国）</option>
-                                <option value="en_GB">English, UK</option>
+                                <option value="zh_Hans_CN" selected>{{_('中文简体（中国）')}}</option>
+                                <!-- <option value="zh_Hant_HK" selected>{{_('中文繁体（香港）')}}</option>-->
+                                <option value="en_GB">{{_('English (United Kingdom)')}}</option>
                             </select>
-                            <span id="current_Language" style="display:none">{{_.lang}}</span>       
+                            <span id="current_Language" style="display:none">{{_.lang}}</span>
                         </li>
                     </ul>
                 </div>

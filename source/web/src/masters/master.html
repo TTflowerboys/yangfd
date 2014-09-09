@@ -29,26 +29,24 @@
 
             <div id="header" class="siteHeader_wrapper">
                 <header class="siteHeader">
-                    <img class="logo" src="/static/images/logo-{{_.lang}}.png" alt=""/>
-
-                    <div class="country">{{_('England')}}</div>
+                    <img class="logo" src="/static/images/logo-{{_.lang}}.png" alt=""/>                    
                     <ul class="navbar">
-                        <li class="selected"><a href="">我的海投</a></li>
-                        <li><a href="">海外房产</a></li>
-                        <li><a href="">项目开发</a></li>
-                        <li><a href="">业务模式</a></li>
+                        <li class="selected"><a href="">{{_('我的海投')}}</a></li>
+                        <li><a href="">{{_('海外房产')}}</a></li>
+                        <li><a href="">{{_('项目开发')}}</a></li>
+                        <li><a href="">{{_('业务模式')}}</a></li>
                     </ul>
                     <div class="user">
                         %if user:
                         <div id="userInfo" class="userInfo">
-                            <p class="welcome">{{_('Welcome!')}}</p>
+                            <p class="welcome">{{_('欢迎')}}</p>
                             <h2 class="userName">{{user["nickname"]}}</h2>
-                            <button id="logout" class="logout ghostButton">{{_('Logout')}}</button>
+                            <button id="logout" class="logout ghostButton">{{_('登出')}}</button>
                         </div>
                         %else:
                         <div id="userLogin" class="userLogin">
-                            <button id="login" class="login ghostButton red">{{_('Login')}}</button>
-                            <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('Signup')}}
+                            <button id="login" class="login ghostButton red">{{_('登陆')}}</button>
+                            <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('注册')}}
                             </button>
                         </div>
                         %end
@@ -63,49 +61,48 @@
                 <footer class="siteFooter">
                     <div class="contact">
                         <img class="logo" src="/static/images/logo-footer.png" alt=""/>
-
                         <p class="address">Optics Valley Road, Wuhan,
                             Hubei, China,
                         </p>
                         <p class="postalCode">430000</p>
-
                         <p class="phoneAndEmail">
-                            400-777-8888 |
+                            4000926433 |
                             <a href="mailto:service@bbtechgroup.com?subject=Feedback">service@bbtechgroup.com</a>
                         </p>
                     </div>
                     <div class="social">
-                        <h3>SOCIAL</h3>
+                        <h3>{{_('社交')}}</h3>
                         <img class="weibo" src="/static/images/media/weibo.png" alt=""/>
                         <img class="twitter" src="/static/images/media/twitter.png" alt=""/>
                         <img class="facebook" src="/static/images/media/facebook.png" alt=""/>
                         <img class="weixin" src="/static/images/media/wechat.png" alt=""/>
                     </div>
                     <div class="support">
-                        <h3>SUPPORT</h3>
-                        <a href="/terms">服务条款</a>
-                        <a href="/privacy">隐私声明</a>
-                        <a href="/process">业务流程</a>
+                        <h3>{{_('服务支持')}}</h3>
+                        <a href="/terms">{{_('服务条款')}}</a>
+                        <a href="/privacy">{{_('隐私声明')}}</a>
+                        <a href="/process">{{_('业务流程')}}</a>
                     </div>
                     <div class="feature">
-                        <h3>FEATURE</h3>
-                        <a href="">伦敦房产</a>
-                        <a href="">期房</a>
-                        <a href="">房产开发</a>
+                        <h3>{{_('功能')}}</h3>
+                        <a href="">{{_('伦敦房产')}}</a>
+                        <a href="">{{_('期房')}}</a>
+                        <a href="">{{_('房产开发')}}</a>
                     </div>
                     <div class="language">
-                        <h3>LANGUAGE</h3>
+                        <h3>{{_('切换语言')}}</h3>
                         <select name="language" class="ghostSelect" style="min-width: 140px;">
-                            <option value="zh_Hans_CN" selected>中文（中国）</option>
-                            <option value="en_GB">English, UK</option>
+                            <option value="zh_Hans_CN" selected>{{_('中文简体（中国）')}}</option>
+                            <!-- <option value="zh_Hant_HK" selected>{{_('中文繁体（香港）')}}</option>-->
+                            <option value="en_GB">{{_('English (United Kingdom)')}}</option>
                         </select>
-                        <span id="current_Language" style="display:none">{{_.lang}}</span>
+                        <Span id="current_Language" style="display:none">{{_.lang}}</span>
                     </div>
                 </footer>
             </div>
             <div id="copyright" class="copyright">
                 <p>&copy;<script>document.write(new Date().getFullYear())</script>
-                    Brothers Bridge Group
+                    {{_('洋房东')}}
                 </p>
             </div>
         </div>
