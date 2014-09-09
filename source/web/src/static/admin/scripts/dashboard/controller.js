@@ -11,13 +11,13 @@
             .then(function (data) {
                 angular.extend($scope.user, data.val)
             }, function () {
-                $state.go('signIn', {from: $state.current.name})
+                $state.go('signIn')
             })
 
         $scope.logout = function () {
             $http.get('/logout', {errorMessage: true})
                 .success(function () {
-                    $state.go('signIn', {from: $state.current.name})
+                    $state.go('signIn')
                 })
         }
     }

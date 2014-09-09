@@ -23,6 +23,8 @@
             <span id="notEmpty">{{_('不为空')}}</span>
             <span id="badNumber">{{_('格式不正确')}}</span>
             <span id="badEmail">{{_('格式不合法')}}</span>
+            <span id="Name">{{_('姓名')}}</span>
+            <span id="Phone">{{_('电话')}}</span>
             <span id="Email">{{_('邮箱')}}</span>
             <span id="subscriptionFailure">{{_('订阅失败')}}</span>
             <span id="submitRequirementFailure">{{_('提交需求失败')}}</span>
@@ -58,7 +60,7 @@
             </div>
             <form class="requirement_form" name="requirement">
                 <div class="form_row">
-                    <input class="name ghostInput" name="nickname" type="text" placeholder="{{_('姓名')}}" data-validator="required, trim"/>
+                    <input class="name ghostInput" name="nickname" type="text" placeholder="{{_('姓名(必填)')}}" data-validator="required, trim"/>
                 </div>
                 <div class="form_row">
                     <select name="country" class="coutry ghostSelect" style="color:#4d4d4d;">
@@ -68,10 +70,10 @@
                         <option value="US">{{_('美国 +1')}}</option>
                     </select>
                     <span class=vr></span>
-                    <input class="phone ghostInput" name="phone" type="text" placeholder="{{_('电话')}}" data-validator="required, trim number"/>
+                    <input class="phone ghostInput" name="phone" type="text" placeholder="{{_('电话(必填)')}}" data-validator="required, trim number"/>
                 </div>
                 <div class="form_row">
-                    <input class="email ghostInput" name="email" type="text" placeholder="{{_('邮箱')}}" data-validator="required, trim email"/>
+                    <input class="email ghostInput" name="email" type="text" placeholder="{{_('邮箱(必填)')}}" Data-validator="required, trim email"/>
                 </div>
                 <div class="form_row">
                     <p class="budgetHint">{{_('您的预算')}}</p>
@@ -83,10 +85,10 @@
                 <div class="form_row">
                     <textarea class="detail ghostTextArea" name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}"></textarea>
                 </div>
+                <p class="errorMessage" style="display:none"></p>    
                 <div class="form_row">
                     <button type="submit" class="button red">{{_('提交')}}</button>
                 </div>
-                <p class="errorMessage" style="display:none"></p>
             </form>
             <h2 class="successMessage" style="display:none">{{_('置业需求已提交，稍后我们的工作人员会联系你')}}</h2>
         </div>
@@ -192,10 +194,10 @@
                 $.post("/api/1/user/phone_test",
                     theParams,
                     function (data, status) {
-                        if (data.ret != 0) {
-                            var dom = $('form[name=requirement] input[name=phone]')[0]
-                            errorArea.text(dom.placeholder + " " + localization.find('#badNumber').text())
+                        if (data.ret != 0) {                            
+                            errorArea.text(localization.find('#Phone').text() + " " + localization.find('#badNumber').text())
                             errorArea.show()
+                            var dom = $('form[name=requirement] input[name=phone]')[0]
                             $(dom).css('border', '2px solid red')
                         }
                     });
@@ -213,7 +215,21 @@
                 )
 
                 var valid = $.validate(this, {onError: function (dom, validator, index) {
-                    errorArea.text(dom.placeholder + " " + errorMessageFormValidatorType(validator))
+                    var prefix = ""
+                    if (dom.name == "nickname")
+                    {
+                        prefix = localization.find('#Name').text()
+                    }
+                    else if (dom.name == "phone")
+                    {
+                        prefix = localization.find("#Phone").text()
+                    }
+                    else if (dom.name == "email")
+                    {
+                        prefix = localization.find("#Email").text()
+                    }
+                    
+                    errorArea.text(prefix + " " + errorMessageFormValidatorType(validator))
                     errorArea.show()
                     $(dom).css('border', '2px solid red')
                 }})

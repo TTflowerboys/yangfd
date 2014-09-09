@@ -15,13 +15,14 @@
 @small-font-size: 14/16rem;
 @largest-font-size: 50/16rem;
 
-@font-normal: tahoma, arial, "Source Han Sans CN", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+@font-normal: "Open Sans", "Source Han Sans CN", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+@font-song: "Open Sans", SimSun, STSong, sans-serif;
 @font-mono: Monaco, 'Ubuntu Mono', 'Lucida Console', 'Courier New', Courier, monospace;
 
 @max-width: 1200px;
 @header-bg: #333;
 @footer-bg: #444444;
-@copyright-bg:#333;
+@copyright-bg: #333;
 @header-height: 80px;
 @footer-height: 260px;
 @copyright-height: 48px;
@@ -29,8 +30,8 @@
 @modal-shadow-z-index: 100;
 @modal-z-index: 101;
 
-@phone:~"(max-width:767px)";
-@wideScreen:~"(min-width:1440px)";
+@phone: ~"(max-width:767px)";
+@wideScreen: ~"(min-width:1440px)";
 
 .clearfix() {
     &:after {
@@ -66,10 +67,17 @@
 }
 
 .round-corner() {
-  padding: 0px;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -khtml-border-radius: 8px;
-  border-radius: 8px;
-  overflow: hidden;
+    padding: 0px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -khtml-border-radius: 8px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.clipped(@max-width:@max-width) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: @max-width;
 }

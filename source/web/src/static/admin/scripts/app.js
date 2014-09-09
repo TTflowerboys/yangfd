@@ -10,6 +10,13 @@ angular.module('app',
         $rootScope.renderHtml = function (html) {
             return $sce.trustAsHtml(html);
         }
+        $rootScope.$on('$stateChangeStart',
+            function (event, toState, toParams, fromState, fromParams) {
+                if (toState.name === 'signIn') {
+                    toParams.from = fromState.url
+                }
+
+            })
     })
 
 angular.element(document).ready(function () {
@@ -17,6 +24,5 @@ angular.element(document).ready(function () {
         window._user = response.val;
         angular.bootstrap(document, ['app']);
     }).fail(function (response) {
-        window.alert(response.status)
     })
 })
