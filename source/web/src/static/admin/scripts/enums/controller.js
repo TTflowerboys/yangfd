@@ -5,6 +5,7 @@
 
     function ctrlEnums($scope, $rootScope, $state, api) {
         $scope.enums = []
+        $scope.item = {}
 
         $scope.getEnums = function () {
             for (var i = 0; i < $rootScope.enum_types.length; i += 1) {
@@ -16,6 +17,16 @@
                 .success(function (data) {
                     $scope.enums[index] = data.val || {}
                 })
+        }
+        $scope.addI18nValue = function () {
+            if (!$scope.item.tempValues) {
+                $scope.item.tempValues = []
+            }
+
+            var temp = [ $scope.item.tempI18n, $scope.item.tempValue]
+            $scope.item.tempValues.push(temp)
+            $scope.item.tempI18n = null
+            $scope.item.tempValue = null
         }
     }
 

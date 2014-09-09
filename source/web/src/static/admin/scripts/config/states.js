@@ -73,7 +73,7 @@ angular.module('app')
             .state('dashboard.enums.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.enums.create.tpl.html',
-                controller: 'ctrlCreate',
+                controller: 'ctrlEnums',
                 resolve: enumResolve
             })
             .state('dashboard.enums.edit', {
