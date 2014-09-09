@@ -9,24 +9,24 @@
     <tabset justified="true">
         <tab ng-repeat="type in enum_types">
             <tab-heading>{%type.name%}</tab-heading>
-            <table>
-                <table class="table table-bordered table-striped table-condensed"
-                       style="margin-bottom:30px">
-                    <colgroup>
-                        <col class="value">
-                    </colgroup>
-                    <tbody>
-                    <tr ng-repeat="item in enums[$index]">
-                        <td>{%item.value%}</td>
-                        <td style="text-align:center;">
-                            <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
-                                <i class="fa fa-edit "></i>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <table class="table table-bordered table-striped table-condensed"
+                   style="margin-bottom:30px">
+                <colgroup>
+                    <col class="value">
+                </colgroup>
+                <tbody>
+                <tr ng-repeat="item in enums[$index]">
+                    <td>{%item.value%}</td>
+                    <td style="text-align:center;">
+                        <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
+                            <i class="fa fa-edit "></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
             </table>
+            <div ng-show="enums[$index].length === 0" class="well" style="text-align:center;">No results</div>
+
         </tab>
 
     </tabset>
