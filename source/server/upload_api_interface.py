@@ -115,10 +115,9 @@ def upload_file(params):
     Upload a file to Amazon S3
     """
     f = params["data"].file
-    logger.debug(f.name)
-    # with f_app.storage.aws_s3() as b:
-    #     filename = f_app.util.uuid()
-    #     b.upload(filename, f.read(), policy="public-read")
-    #     result = {"url": b.get_public_url(filename)}
+    with f_app.storage.aws_s3() as b:
+        filename = f_app.util.uuid()
+        b.upload(filename, f.read(), policy="public-read")
+        result = {"url": b.get_public_url(filename)}
 
-    #     return result
+        return result
