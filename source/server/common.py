@@ -58,7 +58,7 @@ class common(f_common):
     }
 
     email_default_method = "aws_ses"
-    email_default_sender = "developer+currant@bbtechgroup.com"
+    email_default_sender = "noreply@youngfunding.co.uk"
 
     aws_ses_location = "eu-west-1"
     aws_s3_location = "eu-west-1"

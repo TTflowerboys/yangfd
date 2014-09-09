@@ -1,6 +1,6 @@
 $ORIGIN youngfunding.co.uk.
 @	3600	IN	SOA	venusaur.felixc.at.	felixyan.bbtechgroup.com.	(
-		2014090501	; serial
+		2014090901	; serial
 		7200		; refresh
 		3600		; retry
 		86400		; expire
@@ -26,6 +26,7 @@ $ORIGIN youngfunding.co.uk.
 ;; TXT Records
 @	300	IN	TXT	"v=spf1 include:_spf.felixc.at ~all"
 @	300	IN	TXT	"google-site-verification=Kr7pFIfsUK7n22rw9ptua_XtB50thJAzoD8cURTYyiw"
+_amazonses IN TXT "kS12Tqrjel9dEtAG3hcgdSLTzX4xl72T6qxcu9srbp8="
 
 ;; Website Records
 www	300	IN	CNAME	youngfunding.co.uk.
