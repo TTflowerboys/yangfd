@@ -66,6 +66,8 @@ class common(f_common):
     aws_access_key_id = "AKIAIPHINPVIPJRSE2KQ"
     aws_secret_access_key = "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"
 
+    openexchangerates_app_id = "c4918aa900a343da948ff31b122cba1e"
+
     sms_default_method = "clickatell"
     clickatell_api_id = 3425954
     clickatell_user = "marco388"
