@@ -71,10 +71,7 @@ angular.module('app')
                 controller: 'ctrlProperty',
                 resolve: estateResolve
             })
-            .state('noPermission', {
-                url: '/noPermission',
-                templateUrl: '/static/admin/templates/no_permission.html'
-            })
+
             .state('dashboard.estate.detail', {
                 url: '/:id',
                 templateUrl: '/static/admin/templates/dashboard.estate.detail.tpl.html',
@@ -86,5 +83,13 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.estate.edit.tpl.html',
                 controller: 'ctrlEdit',
                 resolve: estateResolve
+            })
+
+        /**
+         * others
+         */
+            .state('noPermission', {
+                url: '/noPermission',
+                templateUrl: '/static/admin/templates/no_permission.html'
             })
     })
