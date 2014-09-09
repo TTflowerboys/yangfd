@@ -8,8 +8,8 @@
         $scope.user = {}
 
         userApi.checkLogin()
-            .then(function (data) {
-                angular.extend($scope.user, data.val)
+            .then(function (user) {
+                angular.extend($scope.user, user)
             }, function () {
                 $state.go('signIn')
             })
