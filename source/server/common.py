@@ -58,10 +58,13 @@ class common(f_common):
     }
 
     email_default_method = "aws_ses"
-    email_default_sender = "developer+currant@bbtechgroup.com"
+    email_default_sender = "noreply@youngfunding.co.uk"
 
-    aws_access_key_id = "AKIAIYCSNRQ46N6GPZQA"
-    aws_secret_access_key = "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"
+    aws_ses_location = "eu-west-1"
+    aws_s3_location = "eu-west-1"
+    aws_s3_bucket = "bbt-currant"
+    aws_access_key_id = "AKIAIPHINPVIPJRSE2KQ"
+    aws_secret_access_key = "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"
 
     sms_default_method = "clickatell"
     clickatell_api_id = 3425954
