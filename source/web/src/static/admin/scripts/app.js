@@ -13,7 +13,7 @@ angular.module('app',
         $rootScope.$on('$stateChangeStart',
             function (event, toState, toParams, fromState, fromParams) {
                 if (toState.name === 'signIn') {
-                    toParams.from = fromState.url
+                    toParams.from = fromState.name
                 }
 
             })

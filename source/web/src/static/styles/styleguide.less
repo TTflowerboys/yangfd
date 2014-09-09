@@ -35,15 +35,14 @@
 // Styleguide 2
 @import "project/ghostButton";
 @import "project/textButton";
-//only text button
 // Form
 //
-// form styles
+// form styles, only text button
 //
 // Markup:
 // <div style="background:#444957; display:inline-block;padding: 48px; ">
 // <div style="background:#f0f0f0; border-radius:6px; display:inline-block;padding: 48px; box-shadow: 0 0 3px hsla(0,0%,0%,0.2);">
-// <form class="form {$modifiers}" style="width: 280px;">
+// <form class="form bordered" style="width: 280px;">
 //  <div class="form_row">
 //      <i>⌘</i> <input placeholder=姓名 size=10>
 //  </div>
@@ -123,6 +122,17 @@
 //
 // Styleguide 6
 @import "project/houseCard";
+// Toggle Tag
+//
+// Toggle tag styles
+//
+// Markup:
+// <span class="toggleTag {$modifiers}">100万以下</span> <div class="toggleTag {$modifiers}">100万以下</div>
+//
+// .selected - 选中样式
+//
+// Styleguide 7
+@import "project/toggleTag";
 
 body { font-family: @font-normal !important; }
 
