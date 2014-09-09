@@ -19,6 +19,33 @@ def current_user(user):
     return result
 
 
+@f_api('/user/favorites', params=dict(
+    per_page=int,
+    time=datetime,
+))
+@f_app.user.login.check(force=True)
+def current_user_favorites(user, params):
+    """
+    Get current user favorites
+    """
+    per_page = params.pop("per_page", 0)
+    params["user_id"] = ObjectId(user["id"])
+    result = f_app.user.favorite.output(f_app.user.favorite.search(params, per_page=per_page))
+    return result
+
+
+@f_api('/user/favorites/add', params=dict(
+    property_id=(ObjectId, True)
+))
+@f_app.user.login.check(force=True)
+def current_user_favorites_add(user, params):
+    """
+    Get current user favorites
+    """
+    params["user_id"] = ObjectId(user["id"])
+    return f_app.user.favorite_add(params)
+
+
 @f_api('/user/login', force_ssl=True, params=dict(
     nolog="password",
     phone=(str, True),
@@ -77,17 +104,6 @@ def register(params):
     f_app.log.add("login", user_id=user_id)
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
-
-
-@f_api("/user/<user_id>")
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales'])
-def user_get(user, user_id):
-    """
-    Get specific user information.
-    """
-    custom_fields = f_app.common.user_custom_fields
-    result = f_app.user.output([user_id], custom_fields=custom_fields)[0]
-    return result
 
 
 @f_api('/user/edit', force_ssl=True, params=dict(
@@ -299,7 +315,26 @@ def admin_user_get(user, user_id):
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
-@f_api("/user/admin/<user_id>/logs", params=dict(
+@f_api("/user/admin/<user_id>/favorites", params=dict(
+    per_page=int,
+    time=datetime,
+))
+@f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "jr_sales"])
+def admin_user_get_favorites(user, user_id, params):
+    user_info = f_app.user.get(user_id)
+    current_user_roles = f_app.user.get_role(user["id"])
+    if set(["admin", "jr_admin", "sales"]) & set(current_user_roles):
+        pass
+    elif not f_app.ticket.search({"assignee": ObjectId(user["id"]), "phone": user_info.get("phone")}):
+        abort(40399)
+
+    per_page = params.pop("per_page", 0)
+    params["user_id"] = ObjectId(user["id"])
+
+    return f_app.user.favorite.output(f_app.user.favorite.search(params, per_page=per_page))
+
+
+@f_api("/user/admin/<user_id>/statistics", params=dict(
     per_page=int,
     time=datetime,
 ))

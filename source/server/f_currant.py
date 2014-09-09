@@ -184,6 +184,14 @@ class f_currant_user(f_user):
             return _format_each(result)
 
     def favorite_add(self, params):
+        if "user_id" not in params:
+            user = f_app.user.login.get()
+            if user:
+                params["user_id"] = user['id']
+            else:
+                abort(40000, logger.warning("favorite must be added with user_id.", exc_info=False))
+
+        params["user_id"] = ObjectId(params["user_id"])
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
@@ -191,8 +199,18 @@ class f_currant_user(f_user):
 
         return str(favorite_id)
 
-    def favorite_output(self, favorite_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
+    def favorite_output(self, favorite_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, ignore_user=True):
         favorites = self.favorite_get(favorite_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        property_set = set()
+        for fav in favorites:
+            if ignore_user:
+                del fav["user_id"]
+            property_set.add(fav["property_id"])
+
+        property_dict = f_app.property.output(list(property_set), multi_return=dict)
+
+        for fav in favorites:
+            fav["property"] = property_dict.get(fav.pop("property_id"))
 
         return favorites
 
