@@ -73,3 +73,10 @@
   border-radius: 8px;
   overflow: hidden;
 }
+
+.clipped(@max-width:@max-width) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: @max-width;
+}
