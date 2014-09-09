@@ -1,0 +1,66 @@
+@import "project/_imports";
+
+* {
+    box-sizing: border-box;
+}
+
+.howItWorks {
+    height: 510px;
+    background: #f6f6f6;
+}
+
+.houseFeatured {
+    margin: 0 auto;
+    width: @max-width;
+
+    .more {
+        float: right;
+        text-decoration: none;
+        color: #aaaaaa;
+        font-size: 14px;
+        line-height: 30px;
+    }
+
+    .houseCard {
+        &_category {
+            margin-top: 100px;
+            font-size: 24px;
+            line-height: 30px;
+        }
+        margin-bottom: 100px;
+
+        .description {
+            margin-right: 320px;
+        }
+        .price {
+            margin-right: 320px;
+        }
+        .action > a {
+            width: 260px;
+//            height: 40px;
+//            font-size: 18px;
+        }
+        .relatedNews {
+            float: right;
+            border-left: 1px solid #CCCCCC;
+            margin-top: -132px;
+            margin-left: 20px;
+            width: 300px;
+            padding: 20px 0 20px 20px;
+
+            .title {
+                font-size: 14px;
+                line-height: 30px;
+                color: #e60012;
+                margin-top: 0px;
+            }
+
+            .item > a {
+                font-size: 14px;
+                line-height: 28px;
+                color: #666666;
+                text-decoration: none;
+            }
+        }
+    }
+}

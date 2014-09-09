@@ -1,15 +1,19 @@
 <!--@@master=masters/master.html-->
 <!--@@block=head -->
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
+<link rel="stylesheet" href="/static/styles/index.css"/>
+
 <!--@@close-->
 
 <!--@@block=main -->
 <div class="gallery"></div>
-<div class="how_it_works"></div>
+<div class="howItWorks"></div>
 <div class="news">
     
 </div>
-<div class="house_featured">
+<div class="houseFeatured">
+    <a class="more" href="/house_list">{{_('更多')}}</a>
+    <h2 class="houseCard_category">{{_('伦敦房产')}}</h2>
     <div class=houseCard>
         <img src="http://upload.wikimedia.org/wikipedia/commons/7/71/Brisbane_Residential_Buildings.jpg" width=320 height=240/>
         <div class=description>
@@ -27,6 +31,57 @@
             <div class=action>
                 <a href="http://abc.com" class="button red">查看详情</a>
             </div>
+        </div>
+        <div class="relatedNews">
+            <h3 class="title">{{_('相关动态')}}</h3>
+            <p class="item">
+                <a href="">习近平出席中共中央纪念邓小平诞辰座谈会</a>
+            </p>
+            <p class="item">
+                <a href="">十大关键词诠释李克强的民生情怀 西藏行</a>
+            </p>
+            <p class="item">
+                <a href="">习近平出席中共中央纪念邓小平诞辰座谈会</a>
+            </p>
+            <p class="item">
+                <a href="">十大关键词诠释李克强的民生情怀 西藏行</a>
+            </p>
+        </div>
+    </div>
+
+    <h2 class="houseCard_category">{{_('美国房产')}}</h2>
+    <div class=houseCard>
+        <img src="http://upload.wikimedia.org/wikipedia/commons/7/71/Brisbane_Residential_Buildings.jpg" width=320 height=240/>
+        <div class=description>
+            <h1 class=name>Ebury Bridge Road, Pimlic</h1>
+            <span class=price>￥ <strong>300</strong>万</span>
+            <div class=details>
+                <p class=size>3, 2.5 baths, 1,400 sqft</p>
+                <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong>%</span></p>
+                <ul class=properties>
+                    <li><i>⌘</i> 超额收益 股权投资</li>
+                    <li><i>⌘</i> 别墅</li>
+                    <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li>
+                </ul>
+            </div>
+            <div class=action>
+                <a href="http://abc.com" class="button red">查看详情</a>
+            </div>
+        </div>
+        <div class="relatedNews">
+            <h3 class="title">{{_('相关动态')}}</h3>
+            <p class="item">
+                <a href="">习近平出席中共中央纪念邓小平诞辰座谈会</a>
+            </p>
+            <p class="item">
+                <a href="">十大关键词诠释李克强的民生情怀 西藏行</a>
+            </p>
+            <p class="item">
+                <a href="">习近平出席中共中央纪念邓小平诞辰座谈会</a>
+            </p>
+            <p class="item">
+                <a href="">十大关键词诠释李克强的民生情怀 西藏行</a>
+            </p>
         </div>
     </div>
 </div>
