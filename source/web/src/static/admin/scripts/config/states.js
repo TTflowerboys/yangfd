@@ -65,7 +65,7 @@ angular.module('app')
          * admins 管理员的管理
          */
             .state('dashboard.enums', {
-                url: '/admins',
+                url: '/enums',
                 templateUrl: '/static/admin/templates/dashboard.enums.tpl.html',
                 controller: 'ctrlEnums',
                 resolve: enumResolve
@@ -77,7 +77,7 @@ angular.module('app')
                 resolve: enumResolve
             })
             .state('dashboard.enums.edit', {
-                url: '/create',
+                url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.enums.edit.tpl.html',
                 controller: 'ctrlEdit',
                 resolve: enumResolve
