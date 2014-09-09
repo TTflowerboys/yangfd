@@ -8,6 +8,12 @@ angular.module('app')
             }
         }
 
+        var enumResolve = {
+            api: function (enumApi) {
+                return enumApi
+            }
+        }
+
         var estateResolve = {
             api: function (estateApi) {
                 return estateApi
@@ -55,7 +61,27 @@ angular.module('app')
                 controller: 'ctrlCreate',
                 resolve: adminResolve
             })
-
+        /**
+         * admins 管理员的管理
+         */
+            .state('dashboard.enums', {
+                url: '/admins',
+                templateUrl: '/static/admin/templates/dashboard.enums.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.edit', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.edit.tpl.html',
+                controller: 'ctrlEdit',
+                resolve: enumResolve
+            })
         /**
          * estate
          */
