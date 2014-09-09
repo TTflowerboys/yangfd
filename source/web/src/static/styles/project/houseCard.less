@@ -6,7 +6,7 @@
 @black: #333333;
 @grey: #a3a3a3;
 .houseCard { position: relative; border-top: @border-width solid @border-color; font-size: 14px; color: @grey;
-    min-height: 240px;
+    min-height: 240px; min-width: 700px;
     p { margin: 0; }
     > img { position: absolute; top: -@border-width; left: 0; }
     > .description { margin-left: 320px + @padding-top; padding-top: @padding-top;
@@ -14,16 +14,16 @@
         > .price { color: @red; font-size: 20px; position: absolute; right: 0; top: @padding-top;
             strong { font-size: 24px; }
         }
-        > .details { font-family: @font-song;
+        > .details { font-family: @font-song; overflow: hidden;
             > .size { margin-bottom: 8px; }
             > .estimate { overflow: hidden; float: left; max-width: 50%;
-                .label { float: left; line-height: 1; }
-                .value { float: left; color: @red; font-size: 32px; padding-left: 1em; line-height: 1; }
+                .label { float: left; line-height: 1; margin-right: 1em; }
+                .value { float: left; color: @red; font-size: 32px; line-height: 1; }
             }
             > .properties {
                 float: right; max-width: 50%; padding-left: 16px;
             }
         }
-        > .action { clear: both; position: absolute; bottom: 0; }
+        > .action { position: absolute; bottom: 0; }
     }
 }
