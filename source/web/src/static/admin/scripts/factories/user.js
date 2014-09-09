@@ -1,9 +1,9 @@
 /* Created by frank on 14-8-14. */
+/* globals _user:true */
 
 (function () {
 
     function userApi($http, $state, $q) {
-        var _user = window._user
         return {
             signIn: function (user) {
                 var params = _.pick(user, 'country', 'phone', 'password')
