@@ -10,6 +10,7 @@ six
 pytest
 pymongo
 uWSGI
+pint
 PyYAML
 py-bcrypt
 M2Crypto
@@ -25,3 +26,4 @@ sh
 bottle
 python-memcached
 requests
+pillow
