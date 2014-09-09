@@ -16,6 +16,7 @@ import report_api_interface
 import subscription_api_interface
 import ticket_api_interface
 import analytics_api_interface
+import upload_api_interface
 import user_api_interface
 
 

@@ -23,7 +23,7 @@ body {
         &_inner { //子元素的 margin 依赖于宽度，所以这里设置了最大宽度，保证 resize 时，margin 不会过大，而让子元素超出背景高度
             max-width: 700px; margin: 0 auto; text-align: center; position: relative; height: 100%;
             @content-margin-top: 6%;
-            .logo { margin-top: @content-margin-top;
+            .logo { margin-top: 10%;
                 @media @phone {
                     width: 260px;
                 }
