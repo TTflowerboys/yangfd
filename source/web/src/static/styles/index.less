@@ -4,6 +4,21 @@
     box-sizing: border-box;
 }
 
+.horizontalCenter(@width:100px) {
+    position: absolute;
+    left: 50%;
+    width: @width;
+    margin-left: -@width /2;
+}
+
+
+.gallery {
+    .becomeMember {
+        .horizontalCenter(150px);
+        margin-top: -328px;
+    }
+}
+
 .howItWorks {
     height: 510px;
     background: #f6f6f6;
@@ -37,8 +52,6 @@
         }
         .action > a {
             width: 260px;
-//            height: 40px;
-//            font-size: 18px;
         }
         .relatedNews {
             float: right;
