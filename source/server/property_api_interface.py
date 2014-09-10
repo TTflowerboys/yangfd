@@ -197,7 +197,7 @@ def property_edit(property_id, user, params):
 
             elif params["status"] == "not reviewed":
                 # TODO: make sure all needed fields are present
-                params["submittor_user_id"] = user["id"]
+                params["submitter_user_id"] = user["id"]
 
         else:
             if property["status"] not in ("draft", "not translated", "translating", "rejected"):
