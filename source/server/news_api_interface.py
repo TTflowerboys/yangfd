@@ -38,6 +38,7 @@ def news_list(params):
 @f_api('/news/add', params=dict(
     title=('i18n', f_app.common.i18n_locales, str),
     content=('i18n', f_app.common.i18n_locales, str),
+    zipcode=str,
     category=(str, "news"),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
