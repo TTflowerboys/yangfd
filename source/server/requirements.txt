@@ -2,11 +2,13 @@ dict2xml
 markdown
 Cython
 Babel
+bjoern
 gevent>0.99
 newrelic
 topia.termextract
 passlib
 six
+pydns
 pytest
 pymongo
 uWSGI
@@ -18,10 +20,10 @@ pytz
 python-dateutil
 msgpack-python
 mimerender
+pygeoip
 phonenumbers
 gevent-websocket
 boto
-Paste
 sh
 bottle
 python-memcached
