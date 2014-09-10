@@ -10,9 +10,26 @@ logger = logging.getLogger(__name__)
 @f_api('/property/search', params=dict(
     per_page=int,
     time=datetime,
-    status=str,
+    status=(list, ["selling", "sold out"], str),
+
+    country=('i18n', None, str),
+    city=('i18n', None, str),
+    street=('i18n', None, str),
+    zipcode_index=str,
+    equity_type='enum:equity_type',
+    property_price_type="enum:property_price_type",
+    annual_return_estimated=str,  # How?
 ))
-def property_search(params):
+@f_app.user.login.check(check_role=True)
+def property_search(user, params):
+    """
+    Only ``admin``, ``jr_admin``, ``operation``, ``jr_operation``, ``developer`` and ``agency`` could update the ``status`` param.
+    """
+
+    if params["status"] != ["selling", "sold out"]:
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status")
+
+    params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
     property_list = f_app.property.search(params, per_page=per_page)
     return f_app.property.output(property_list)
@@ -144,34 +161,51 @@ def property_edit(property_id, user, params):
     if property_id == "none":
         action = lambda params: f_app.property.add(params)
 
+        params.setdefault("status", "draft")
+
         if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
-            # TODO: check for advanced roles (``admin``, ``jr_admin`` and ``operation``)
-            raise NotImplementedError
+            assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to skip the review process")
 
     else:
         property = f_app.property.get(property_id)
         action = lambda params: f_app.property.update_set(property_id, params)
 
+        # Status-only updates
         if len(params) == 1 and "status" in params:
+            # Approved properties
             if property["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
+
+                # Only allow updating to post-review statuses
                 assert params["status"] in ("selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status for a reviewed property")
-                # TODO: check for advanced roles (``admin``, ``jr_admin`` and ``operation``)
-                # TODO: do merging when needed, when advancing from draft to a full property
-                raise NotImplementedError
 
-            if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
-                # TODO: check for advanced roles (``admin``, ``jr_admin`` and ``operation``)
-                raise NotImplementedError
+            # Not approved properties
+            else:
 
-            if params["status"] == "not reviewed":
+                # Submit for approval
+                if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
+                    if "target_property_id" in property:
+                        # TODO: do merging when needed, when advancing from draft to a full property
+                        raise NotImplementedError
+
+                    assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
+
+            if params["status"] == "deleted":
+                assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
+
+            elif params["status"] == "not reviewed":
                 # TODO: make sure all needed fields are present
-                pass
+                params["submittor_user_id"] = user["id"]
 
         else:
             if property["status"] not in ("draft", "not translated", "translating", "rejected"):
-                # TODO: search for existing draft and raise an error if it's still in effect
-                params["target_property_id"] = property_id
-                action = lambda params: f_app.property.add(params)
+                existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
+                if existing_draft:
+                    params["target_property_id"] = existing_draft[0]
+
+                else:
+                    params.setdefault("status", "draft")
+                    params["target_property_id"] = property_id
+                    action = lambda params: f_app.property.add(params)
 
             elif property["status"] == "rejected":
                 params.setdefault("status", "draft")
