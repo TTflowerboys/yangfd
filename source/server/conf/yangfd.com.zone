@@ -29,7 +29,7 @@ $ORIGIN yangfd.com.
 weixin_verification 300 IN CNAME metapod.felixc.at.
 
 ;; SendCloud
-noreply 86400 IN MX mx.sendcloud.org.
+noreply 86400 IN MX 10 mx.sendcloud.org.
 noreply 86400 IN TXT "v=spf1 include:spf.sendcloud.org ~all"
 noreply 86400 IN TXT "sendcloud-site-verification=f53b0269-3a8b-4707-8063-6bbf3c348689-1410332568053"
 
