@@ -1,12 +1,26 @@
 <!--@@master=masters/master.html-->
 <!--@@block=head -->
+<link rel="stylesheet" href="/static/vendors/responsive_slides/responsiveslides.css"/>
+<link rel="stylesheet" href="/static/styles/rslides_customize.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
 <link rel="stylesheet" href="/static/styles/index.css"/>
 
 <!--@@close-->
 
 <!--@@block=main -->
-<div class="gallery"></div>
+<div class="gallery">
+    <div class="rslides_wrapper">
+        <ul class="rslides">
+            <li>
+                <img src="/static/images/background/login-background.jpg" alt="" width="1920" height="800">
+            </li>
+            <li>
+                <img src="/static/images/background/login-background.jpg" alt="" width="1920" height="800">
+            </li>
+        </ul>
+    </div>
+    <a class="becomeMember button red" href="/signup">{{_('成为会员')}}</a>
+</div>
 <div class="howItWorks"></div>
 <div class="news">
     
@@ -89,5 +103,13 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
+<script src="/static/vendors/responsive_slides/responsiveslides.js"></script>
+<script>
+    $(function () {
+        $(".rslides").responsiveSlides({
+            pager: true
+        });
+    })
+</script>
 <!--@@close-->
 
