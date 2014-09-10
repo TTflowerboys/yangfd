@@ -1,0 +1,39 @@
+@import "project/_imports";
+
+* {
+    box-sizing: border-box;
+}
+
+main {
+    .category {
+        text-align:center;
+        margin-top:96px;
+        overflow: hidden;
+        &_wrapper {
+            height: 240px;
+            background:#f6f6f6;
+            overflow: hidden;
+        }
+    }
+
+    .result {
+        overflow:hidden;
+        max-width:@max-width;
+        margin: 0 auto;
+        .result_number {
+            .number {
+                color:#e82633;
+            }
+        }
+        .result_list {
+            &_container {
+                max-width: 800px;
+            }
+        }
+
+        .tags {
+            margin-left: 60px;
+            width: 340px;
+        }
+    }
+}

@@ -64,6 +64,11 @@ def privacy():
 def process():
     return template("process", user=get_current_user())
 
+@f_get('/house_list')
+@check_landing
+def houseList():
+    return template("house_list", user=get_current_user())
+
 
 @f_get('/coming_soon')
 def coming_soon():
