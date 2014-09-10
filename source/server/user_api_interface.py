@@ -46,6 +46,15 @@ def current_user_favorites_add(user, params):
     return f_app.user.favorite_add(params)
 
 
+@f_api('/user/favorite/<favorite_id>/remove')
+@f_app.user.login.check(force=True)
+def current_user_favorite_remove(user, favorite_id):
+    """
+    Delete a favorited item
+    """
+    return f_app.user.favorite.remove(favorite_id)
+
+
 @f_api('/user/login', force_ssl=True, params=dict(
     nolog="password",
     phone=(str, True),
