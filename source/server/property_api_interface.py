@@ -11,6 +11,14 @@ logger = logging.getLogger(__name__)
     per_page=int,
     time=datetime,
     status=str,
+
+    country=('i18n', None, str),
+    city=('i18n', None, str),
+    street=('i18n', None, str),
+    zipcode_index=str,
+    equity_type='enum:equity_type',
+    property_price_type="enum:property_price_type",
+    annual_return_estimated=str,  # How?
 ))
 def property_search(params):
     per_page = params.pop("per_page", 0)
@@ -145,8 +153,9 @@ def property_edit(property_id, user, params):
         action = lambda params: f_app.property.add(params)
 
         if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
-            # TODO: check for advanced roles (``admin``, ``jr_admin`` and ``operation``)
-            raise NotImplementedError
+            assert set(user["role"]) & set(["admin", "jr_admin", "operation", "developer", "agency"]), abort(40300, "No access to reviewed property")
+            if params["status"] == "deleted":
+                assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to advance the status")
 
     else:
         property = f_app.property.get(property_id)
@@ -155,23 +164,30 @@ def property_edit(property_id, user, params):
         if len(params) == 1 and "status" in params:
             if property["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
                 assert params["status"] in ("selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status for a reviewed property")
-                # TODO: check for advanced roles (``admin``, ``jr_admin`` and ``operation``)
+                assert set(user["role"]) & set(["admin", "jr_admin", "operation", "developer", "agency"]), abort(40300, "No access to reviewed property")
+
                 # TODO: do merging when needed, when advancing from draft to a full property
                 raise NotImplementedError
 
             if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
-                # TODO: check for advanced roles (``admin``, ``jr_admin`` and ``operation``)
-                raise NotImplementedError
+                assert set(user["role"]) & set(["admin", "jr_admin", "operation", "developer", "agency"]), abort(40300, "No access to advance the status")
 
-            if params["status"] == "not reviewed":
+            if params["status"] == "deleted":
+                assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to advance the status")
+
+            elif params["status"] == "not reviewed":
                 # TODO: make sure all needed fields are present
-                pass
+                params["submittor_user_id"] = user["id"]
 
         else:
             if property["status"] not in ("draft", "not translated", "translating", "rejected"):
-                # TODO: search for existing draft and raise an error if it's still in effect
-                params["target_property_id"] = property_id
-                action = lambda params: f_app.property.add(params)
+                existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
+                if existing_draft:
+                    params["target_property_id"] = existing_draft[0]
+
+                else:
+                    params["target_property_id"] = property_id
+                    action = lambda params: f_app.property.add(params)
 
             elif property["status"] == "rejected":
                 params.setdefault("status", "draft")
