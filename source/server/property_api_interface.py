@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 @f_api('/property/search', params=dict(
     per_page=int,
     time=datetime,
-    status=str,
+    status=(list, ["selling", "sold out"], str),
 
     country=('i18n', None, str),
     city=('i18n', None, str),
@@ -21,6 +21,7 @@ logger = logging.getLogger(__name__)
     annual_return_estimated=str,  # How?
 ))
 def property_search(params):
+    params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
     property_list = f_app.property.search(params, per_page=per_page)
     return f_app.property.output(property_list)
