@@ -180,10 +180,9 @@ def property_edit(property_id, user, params):
 
             # Not approved properties
             else:
-
-                # Submit for approval
                 assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
 
+                # Submit for approval
                 if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
                     if "target_property_id" in property:
                         def action(params):
