@@ -130,6 +130,7 @@ def register(params):
     date_of_birth=datetime,
     intention=(list, None, str),
     locales=(list, None, str),
+    wechat_id=(str, None),
 ))
 @f_app.user.login.check(force=True)
 def current_user_edit(user, params):
