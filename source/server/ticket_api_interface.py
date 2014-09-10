@@ -197,6 +197,8 @@ def intention_ticket_edit(user, ticket_id, params):
     time=datetime,
     sort=(list, None, str),
     budget="enum:budget",
+    phone=str,
+    country=str,
 ))
 @f_app.user.login.check(force=True)
 def intention_ticket_search(user, params):
@@ -204,6 +206,8 @@ def intention_ticket_search(user, params):
     ``status`` must be one of these values: ``new``, ``assigned``, ``in_progress``, ``deposit``, ``suspended``, ``bought``, ``canceled``
     """
     params.setdefault("type", "intention")
+    if "phone" in params:
+        params["phone"] = f_app.util.parse_phone(params)
     user_roles = f_app.user.get_role(user["id"])
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
         params["assignee"] = ObjectId(user["id"])
@@ -363,6 +367,8 @@ def support_ticket_edit(user, ticket_id, params):
     per_page=int,
     time=datetime,
     sort=(list, None, str),
+    phone=str,
+    country=str,
 ))
 @f_app.user.login.check(force=True)
 def support_ticket_search(user, params):
@@ -370,6 +376,8 @@ def support_ticket_search(user, params):
     ``status`` must be one of these values: ``new``, ``assigned``, ``in_progress``, ``solved``, ``unsolved``
     """
     params.setdefault("type", "support")
+    if "phone" in params:
+        params["phone"] = f_app.util.parse_phone(params)
     user_roles = f_app.user.get_role(user["id"])
     if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & user_roles) == 0:
         params["assignee"] = ObjectId(user["id"])
