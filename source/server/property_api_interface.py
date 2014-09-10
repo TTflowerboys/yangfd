@@ -188,8 +188,9 @@ def property_edit(property_id, user, params):
                     if "target_property_id" in property:
                         def action(params):
                             property.pop("id")
-                            f_app.property.update_set(property.pop("target_property_id"), property)
+                            result = f_app.property.update_set(property.pop("target_property_id"), property)
                             f_app.property.update_set(property_id, {"status": "deleted"})
+                            return result
 
             if params["status"] == "deleted":
                 assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
