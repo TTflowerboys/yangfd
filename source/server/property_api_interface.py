@@ -20,7 +20,15 @@ logger = logging.getLogger(__name__)
     property_price_type="enum:property_price_type",
     annual_return_estimated=str,  # How?
 ))
-def property_search(params):
+@f_app.user.login.check(check_role=True)
+def property_search(user, params):
+    """
+    Only ``admin``, ``jr_admin``, ``operation``, ``jr_operation``, ``developer`` and ``agency`` could update the ``status`` param.
+    """
+
+    if params["status"] != ["selling", "sold out"]:
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status")
+
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
     property_list = f_app.property.search(params, per_page=per_page)
@@ -156,27 +164,33 @@ def property_edit(property_id, user, params):
         params.setdefault("status", "draft")
 
         if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
-            assert set(user["role"]) & set(["admin", "jr_admin", "operation", "developer", "agency"]), abort(40300, "No access to reviewed property")
-            if params["status"] == "deleted":
-                assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to advance the status")
+            assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to skip the review process")
 
     else:
         property = f_app.property.get(property_id)
         action = lambda params: f_app.property.update_set(property_id, params)
 
+        # Status-only updates
         if len(params) == 1 and "status" in params:
+            # Approved properties
             if property["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
+
+                # Only allow updating to post-review statuses
                 assert params["status"] in ("selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status for a reviewed property")
-                assert set(user["role"]) & set(["admin", "jr_admin", "operation", "developer", "agency"]), abort(40300, "No access to reviewed property")
 
-                # TODO: do merging when needed, when advancing from draft to a full property
-                raise NotImplementedError
+            # Not approved properties
+            else:
 
-            if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
-                assert set(user["role"]) & set(["admin", "jr_admin", "operation", "developer", "agency"]), abort(40300, "No access to advance the status")
+                # Submit for approval
+                if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
+                    if "target_property_id" in property:
+                        # TODO: do merging when needed, when advancing from draft to a full property
+                        raise NotImplementedError
+
+                    assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
 
             if params["status"] == "deleted":
-                assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to advance the status")
+                assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
 
             elif params["status"] == "not reviewed":
                 # TODO: make sure all needed fields are present
