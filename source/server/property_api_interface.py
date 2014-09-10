@@ -153,6 +153,8 @@ def property_edit(property_id, user, params):
     if property_id == "none":
         action = lambda params: f_app.property.add(params)
 
+        params.setdefault("status", "draft")
+
         if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
             assert set(user["role"]) & set(["admin", "jr_admin", "operation", "developer", "agency"]), abort(40300, "No access to reviewed property")
             if params["status"] == "deleted":
@@ -187,6 +189,7 @@ def property_edit(property_id, user, params):
                     params["target_property_id"] = existing_draft[0]
 
                 else:
+                    params.setdefault("status", "draft")
                     params["target_property_id"] = property_id
                     action = lambda params: f_app.property.add(params)
 
