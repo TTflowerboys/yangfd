@@ -188,6 +188,7 @@ def property_edit(property_id, user, params):
                     if "target_property_id" in property:
                         def action(params):
                             property.pop("id")
+                            property["status"] = params["status"]
                             result = f_app.property.update_set(property.pop("target_property_id"), property)
                             f_app.property.update_set(property_id, {"status": "deleted"})
                             return result
