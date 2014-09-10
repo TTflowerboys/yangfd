@@ -182,12 +182,14 @@ def property_edit(property_id, user, params):
             else:
 
                 # Submit for approval
+                assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
+
                 if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
                     if "target_property_id" in property:
-                        # TODO: do merging when needed, when advancing from draft to a full property
-                        raise NotImplementedError
-
-                    assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
+                        def action(params):
+                            property.pop("id")
+                            f_app.property.update_set(property.pop("target_property_id"), property)
+                            f_app.property.update_set(property_id, {"status": "deleted"})
 
             if params["status"] == "deleted":
                 assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
