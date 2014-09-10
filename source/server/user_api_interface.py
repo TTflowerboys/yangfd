@@ -19,7 +19,7 @@ def current_user(user):
     return result
 
 
-@f_api('/user/favorites', params=dict(
+@f_api('/user/favorite', params=dict(
     per_page=int,
     time=datetime,
 ))
@@ -34,7 +34,7 @@ def current_user_favorites(user, params):
     return result
 
 
-@f_api('/user/favorites/add', params=dict(
+@f_api('/user/favorite/add', params=dict(
     property_id=(ObjectId, True)
 ))
 @f_app.user.login.check(force=True)
@@ -315,7 +315,7 @@ def admin_user_get(user, user_id):
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
-@f_api("/user/admin/<user_id>/favorites", params=dict(
+@f_api("/user/admin/<user_id>/favorite", params=dict(
     per_page=int,
     time=datetime,
 ))

@@ -208,9 +208,8 @@ class f_currant_user(f_user):
             property_set.add(fav["property_id"])
 
         property_dict = f_app.property.output(list(property_set), multi_return=dict)
-
         for fav in favorites:
-            fav["property"] = property_dict.get(fav.pop("property_id"))
+            fav["property"] = property_dict.get(str(fav.pop("property_id")))
 
         return favorites
 
