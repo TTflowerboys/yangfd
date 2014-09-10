@@ -62,7 +62,7 @@ angular.module('app')
                 resolve: adminResolve
             })
         /**
-         * admins 管理员的管理
+         * enums 的管理
          */
             .state('dashboard.enums', {
                 url: '/enums',
