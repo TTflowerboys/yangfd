@@ -121,6 +121,22 @@ class f_currant_user(f_user):
 
         return user_id_list
 
+    def counter_update(self, user_id, counter_name="all"):
+        user = f_app.user.get(user_id)
+        if counter_name == "all":
+            intention_tickets = f_app.ticket.search({"phone": user.get("phone"), "type": "intention"})
+            support_tickets = f_app.ticket.search({"phone": user.get("phone"), "type": "support"})
+            self.update_set(user_id, {"counter.intention": len(intention_tickets), "counter.support": len(support_tickets)})
+
+        elif counter_name == "intention":
+            intention_tickets = f_app.ticket.search({"phone": user.get("phone"), "type": "intention"})
+            self.update_set(user_id, {"counter.intention": len(intention_tickets)})
+        elif counter_name == "support":
+            support_tickets = f_app.ticket.search({"phone": user.get("phone"), "type": "support"})
+            self.update_set(user_id, {"counter.support": len(support_tickets)})
+
+        return f_app.user.get(user_id)
+
     def check_set_role_permission(self, user_id, target_role):
         user_roles = f_app.user.get_role(user_id)
         if "admin" in user_roles:

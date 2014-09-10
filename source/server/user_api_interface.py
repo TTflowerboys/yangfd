@@ -111,6 +111,7 @@ def register(params):
 
     f_app.user.login.success(user_id)
     f_app.log.add("login", user_id=user_id)
+    f_app.user.counter_update(user_id)
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 

@@ -70,7 +70,8 @@ def intention_ticket_add(params):
     else:
         if not shadow_user_id:
             abort(40324)
-        user_info = f_app.user.get(shadow_user_id)
+        # Test if the user exists
+        f_app.user.get(shadow_user_id)
         creator_user_id = ObjectId(user["id"])
 
     params["creator_user_id"] = creator_user_id
@@ -84,6 +85,8 @@ def intention_ticket_add(params):
     if "equity_type" in params:
         params["equity_type"] = f_app.util.match_enum({"id": params["equity_type"]["_id"]}).get("value")
     params["intention"] = [f_app.util.match_enum({"id": i["_id"]}).get("value") for i in params.get("intention", [])]
+
+    f_app.user.counter_update(shadow_user_id)
 
     sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales"]}}))
     for sales in sales_list:
@@ -260,6 +263,7 @@ def support_ticket_add(params):
     else:
         abort(40324)
 
+    ticket_id = f_app.ticket.add(params)
     # ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
     # Send mail to every senior support
     support_list = f_app.user.get(f_app.user.search({"role": {"$in": ["support"]}}))
@@ -272,7 +276,9 @@ def support_ticket_add(params):
                 display="html",
             )
 
-    return f_app.ticket.add(params)
+    f_app.user.counter_update(user_id, "support")
+
+    return ticket_id
 
 
 @f_api('/support_ticket/<ticket_id>')
