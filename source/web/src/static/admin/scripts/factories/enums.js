@@ -19,9 +19,8 @@
 
             },
             getEnumsByType: function (type) {
-                var params = {}
-                params.type = type
-                return $http.post('/api/1/enum', params, {errorMessage: true})
+
+                return $http.get('/api/1/enum', {params: {type: type}, errorMessage: true})
             }
         }
 
