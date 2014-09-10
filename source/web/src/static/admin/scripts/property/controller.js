@@ -7,28 +7,24 @@
 
         enumApi.getAll({
             params: {type: 'property_type'},
-            successMessage: 'Update successfully',
             errorMessage: 'Update failed'
         }).success(function () {
 //TODO
         })
         enumApi.getAll({
             params: {type: 'intention'},
-            successMessage: 'Update successfully',
             errorMessage: 'Update failed'
         }).success(function (data) {
             $scope.intentions = data.val
         })
         enumApi.getAll({
             params: {type: 'equity_type'},
-            successMessage: 'Update successfully',
             errorMessage: 'Update failed'
         }).success(function (data) {
             $scope.equityTypes = data.val
         })
         enumApi.getAll({
             params: {type: 'decorative_style'},
-            successMessage: 'Update successfully',
             errorMessage: 'Update failed'
         }).success(function () {
 //TODO
@@ -36,7 +32,6 @@
         })
         enumApi.getAll({
             params: {type: 'facing_direction'},
-            successMessage: 'Update successfully',
             errorMessage: 'Update failed'
         }).success(function () {
 //TODO
