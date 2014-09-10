@@ -322,6 +322,21 @@ class f_currant_plugins(f_app.plugin_base):
 
         return ticket
 
+    def user_add_after(self, user_id, params, noregister):
+        index_params = f_app.util.try_get_value(params, ["nickname", "city", "phone", "email"])
+        if index_params:
+            f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
+
+        return user_id
+
+    def user_update_after(self, user_id, params):
+        if "$set" in params:
+            if len(set(["nickname", "city", "phone", "email"]) & set(params["$set"])) > 0:
+                index_params = f_app.util.try_get_value(f_app.user.get(user_id), ["nickname", "city", "phone", "email"])
+                if index_params:
+                    f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
+
+
 f_currant_plugins()
 
 
