@@ -38,6 +38,16 @@
                     $scope.item.property_type = null
                 })
         }
+        $scope.editI18nEnum = function ($event, form) {
+
+            $scope.item.value = _.object($scope.item.tempValues)
+            api.editEnum($scope.item.id, $scope.item.type, $scope.item.value)
+                .success(function () {
+                    $scope.item.value = null
+                    $scope.item.tempValues = null
+                    $scope.item.property_type = null
+                })
+        }
         $scope.removeI18nValue = function (index) {
             $scope.item.tempValues.splice(index, 1)
         }
