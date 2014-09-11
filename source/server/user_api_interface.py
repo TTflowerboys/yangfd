@@ -232,14 +232,16 @@ def admin_user_search(user, params):
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
     per_page = params.pop("per_page", 0)
-    if params.pop("has_intention_ticket", False):
-        params["counter.intention"] = {"$gt": 0}
-    else:
-        params["counter.intention"] = 0
-    if params.pop("has_register_time", True):
-        params["register_time"] = {"$exists": True}
-    else:
-        params["register_time"] = {"$exists": False}
+    if "has_intention_ticket" in params:
+        if params.pop("has_intention_ticket", False):
+            params["counter.intention"] = {"$gt": 0}
+        else:
+            params["counter.intention"] = 0
+    if "has_register_time" in params:
+        if params.pop("has_register_time", True):
+            params["register_time"] = {"$exists": True}
+        else:
+            params["register_time"] = {"$exists": False}
 
     logger.debug(params)
     return f_app.user.output(f_app.user.custom_search(params=params, per_page=per_page), custom_fields=f_app.common.user_custom_fields)
