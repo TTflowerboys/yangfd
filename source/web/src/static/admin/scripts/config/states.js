@@ -111,6 +111,11 @@ angular.module('app')
                 resolve: estateResolve
             })
 
+            .state('dashboard.operation', {
+                url: '/operation',
+                template: '<div>placeholder</div>'
+            })
+
         /**
          * others
          */
