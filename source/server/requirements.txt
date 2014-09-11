@@ -2,7 +2,7 @@ dict2xml
 markdown
 Cython
 Babel
-bjoern
+Twisted
 gevent>0.99
 newrelic
 topia.termextract
