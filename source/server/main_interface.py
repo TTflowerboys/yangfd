@@ -26,7 +26,23 @@ def get_current_user():
 @f_get('/')
 @check_landing
 def default():
-    return template("index", user=get_current_user())
+    property_list = f_app.property.output(f_app.property.search({}))
+    featured_property_list = f_app.property.output(f_app.property.search({"featured": True}))
+    announcement_list = f_app.blog.post_output(f_app.blog.post_search({"category": "announcement"}))
+    news_list = f_app.blog.post_output(f_app.blog.post_search({"category": "news"}))
+
+    for property in featured_property_list:
+        if "zipcode_index" in property:
+            property["related_news"] = f_app.blog.post_output(f_app.blog.post_search({"zipcode_index": property["zipcode_index"]}))
+
+    return template(
+        "index",
+        user=get_current_user(),
+        property_list=property_list,
+        featured_property_list=featured_property_list,
+        announcement_list=announcement_list,
+        news_list=news_list
+    )
 
 
 @f_get('/signup')
