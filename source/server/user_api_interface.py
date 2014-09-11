@@ -184,10 +184,12 @@ def current_user_edit(user, params):
     role=str,
     phone=str,
     country=str,
-    role_only=bool,
+    has_role=bool,
+    has_intention_ticket=bool,
+    has_register_time=bool,
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
-def admin_user_list(user, params):
+def admin_user_search(user, params):
     """
     Use this to search for users with roles.
 
@@ -197,17 +199,17 @@ def admin_user_list(user, params):
 
     All senior roles can search for themselves and their junior roles.
 
-    Only users with roles will be returned if ``role_only`` is true.
+    Only users with roles will be returned if ``has_role`` is true.
 
-    If ``role_only`` is false, only users without roles will be returned.
+    If ``has_role`` is false, only users without roles will be returned.
 
-    All users can be fetched if ``role_only`` is not given.
+    All users can be fetched if ``has_role`` is not given.
 
     """
     user_roles = f_app.user.get_role(user["id"])
-    if "role_only" in params:
-        role_only = params.pop("role_only")
-        if role_only:
+    if "has_role" in params:
+        has_role = params.pop("has_role")
+        if has_role:
             params["role"] = {"$not": {"$size": 0}}
         else:
             params["role"] = {"$nin": f_app.common.admin_roles}
@@ -230,6 +232,15 @@ def admin_user_list(user, params):
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
     per_page = params.pop("per_page", 0)
+    if params.pop("has_intention_ticket", False):
+        params["counter.intention"] = {"$gt": 0}
+    else:
+        params["counter.intention"] = 0
+    if params.pop("has_register_time", True):
+        params["register_time"] = {"$exists": True}
+    else:
+        params["register_time"] = {"$exists": False}
+
     logger.debug(params)
     return f_app.user.output(f_app.user.custom_search(params=params, per_page=per_page), custom_fields=f_app.common.user_custom_fields)
 
