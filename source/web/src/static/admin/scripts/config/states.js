@@ -122,6 +122,29 @@ angular.module('app')
                 url: '/wiki',
                 template: '<div>Wiki</div>'
             })
+        /**
+         * operation.news
+         */
+            .state('dashboard.operation.news', {
+                url: '/news',
+                templateUrl: '/static/admin/templates/dashboard.operation.news.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (newsApi) {
+                        return newsApi
+                    }
+                }
+            })
+            .state('dashboard.operation.news.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.operation.news.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: {
+                    api: function (newsApi) {
+                        return newsApi
+                    }
+                }
+            })
 
         /**
          * others

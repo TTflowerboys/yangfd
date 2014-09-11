@@ -11,19 +11,20 @@ logger = logging.getLogger(__name__)
 _blog_id = "53f839246b80992f831b2269"
 
 
-@f_api('/blog/add')
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
-def blog_add(user):
-    blogs = f_app.blog.get_all()
-    if len(blogs) > 0:
-        abort(40000, logger.warning("Blog already exists"))
-    return f_app.blog.add({"name": f_app.common.blog_name})
-
-
+#@f_api('/blog/add')
+#@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
+#def blog_add(user):
+#    blogs = f_app.blog.get_all()
+#    if len(blogs) > 0:
+#        abort(40000, logger.warning("Blog already exists"))
+#    return f_app.blog.add({"name": f_app.common.blog_name})
+#
+#
 @f_api('/news/search', params=dict(
     per_page=int,
     time=datetime,
     category=(list, None, str),
+    zipcode_index=str,
 ))
 def news_list(params):
     if "category" in params:
@@ -36,16 +37,17 @@ def news_list(params):
 
 
 @f_api('/news/add', params=dict(
-    title=('i18n', f_app.common.i18n_locales, str),
-    content=('i18n', f_app.common.i18n_locales, str),
-    zipcode=str,
+    title=('i18n', None, str),
+    content=('i18n', None, str),
+    zipcode_index=str,
     category=(str, "news"),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_add(user, params):
     """
     ``blog_id`` is a constant "53f839246b80992f831b2269".
-    ``category`` must be in "announcement", "news".
+    ``category`` must be in "announcement", "news", "process", "law".
+    ``zipcode_index`` is the key related to properties, internal use only.
     """
     if params["category"] not in f_app.common.news_category:
         abort(40000, logger.warning("Invalid params: category not okay"))

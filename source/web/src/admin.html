@@ -79,6 +79,7 @@
             col.roles { width: 200px; }
             col.addRole { width: 250px; }
             col.removeRole { width: 250px; }
+            col.date { width: 150px; }
 
             .header-nav a.btn { padding: 5px 8px !important; width: auto; }
         </style>
@@ -122,9 +123,6 @@
         <!-- /jQuery -->
 
         <!-- build:js /static/admin/vendors.js -->
-        <!-- theme -->
-        <script src="/static/themes/genius_dashboard/js/core.min.js"></script>
-        <!-- /theme -->
 
         <script src="/static/vendors/underscore-min.js"></script>
 
@@ -176,6 +174,7 @@
         <script src="/static/admin/scripts/directives/equals.js"></script>
         <script src="/static/admin/scripts/directives/has_permission.js"></script>
         <script src="/static/admin/scripts/directives/files_edit.js"></script>
+        <script src="/static/admin/scripts/directives/i18n_edit.js"></script>
         <!-- /directives -->
 
 
@@ -189,6 +188,8 @@
         <script src="/static/admin/scripts/factories/admin.js"></script>
         <script src="/static/admin/scripts/factories/estate.js"></script>
         <script src="/static/admin/scripts/factories/enums.js"></script>
+        <script src="/static/admin/scripts/factories/news_api.js"></script>
+        <script src="/static/admin/scripts/factories/user_language.js"></script>
 
         <script src="/static/admin/scripts/modal/controller.js"></script>
         <script src="/static/admin/scripts/modal/factory.js"></script>
