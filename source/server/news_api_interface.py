@@ -24,6 +24,7 @@ _blog_id = "53f839246b80992f831b2269"
     per_page=int,
     time=datetime,
     category=(list, None, str),
+    zipcode_index=str,
 ))
 def news_list(params):
     if "category" in params:
@@ -38,14 +39,15 @@ def news_list(params):
 @f_api('/news/add', params=dict(
     title=('i18n', None, str),
     content=('i18n', None, str),
-    zipcode=str,
+    zipcode_index=str,
     category=(str, "news"),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_add(user, params):
     """
     ``blog_id`` is a constant "53f839246b80992f831b2269".
-    ``category`` must be in "announcement", "news".
+    ``category`` must be in "announcement", "news", "process", "law".
+    ``zipcode_index`` is the key related to properties, internal use only.
     """
     if params["category"] not in f_app.common.news_category:
         abort(40000, logger.warning("Invalid params: category not okay"))
