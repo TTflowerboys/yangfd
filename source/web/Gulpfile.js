@@ -1,5 +1,5 @@
 /* Created by frank on 14-7-24. */
-/*jshint node:true, strict:false, asi: true*/
+/* jshint node:true, strict:false, asi: true, unused: false */
 var cache = require('gulp-cached')
 var changed = require('gulp-changed')
 var remember = require('gulp-remember')
