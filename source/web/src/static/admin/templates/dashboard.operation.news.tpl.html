@@ -6,7 +6,7 @@
 
                 <span class="btn-group">
                     <button class="btn" ui-sref=".create">
-                        <span class="fa fa-plus-circle"></span> 添加人员
+                        <span class="fa fa-plus-circle"></span> 添加资讯
                     </button>
                 </span>
 
@@ -18,44 +18,27 @@
             </div>
             <table class="table table-bordered table-striped table-condensed">
                 <colgroup>
+                    <col class="title">
                     <col class="nickname">
-                    <col class="email">
-                    <col class="phone">
-                    <col class="roles">
-                    <col class="addRole">
-                    <col class="removeRole">
+                    <col class="date">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>姓名</th>
-                        <th>邮箱</th>
-                        <th>手机</th>
-                        <th>权限</th>
-                        <th>增加权限</th>
-                        <th>取消权限</th>
+                        <th>标题</th>
+                        <th>作者</th>
+                        <th>创建时间</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="item in list">
                         <td>
-                            {%item.nickname%}
+                            {%item.title%}
                         </td>
                         <td>
-                            {%item.email%}
+                            {%item.user.nickname%}
                         </td>
                         <td>
-                            {%item.phone%}
-                        </td>
-                        <td>
-                            <div ng-repeat="role in item.role">
-                                {%role | permissionName %}
-                            </div>
-                        </td>
-                        <td>
-                            <div add-role ng-model="item"></div>
-                        </td>
-                        <td>
-                            <div remove-role ng-model="item"></div>
+                            {%item.time * 1000 | date : medium%}
                         </td>
                     </tr>
                 </tbody>

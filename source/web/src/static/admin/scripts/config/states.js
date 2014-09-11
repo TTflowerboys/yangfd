@@ -122,6 +122,16 @@ angular.module('app')
                 url: '/wiki',
                 template: '<div>Wiki</div>'
             })
+            .state('dashboard.operation.news', {
+                url: '/news',
+                templateUrl: '/static/admin/templates/dashboard.operation.news.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (newsApi) {
+                        return newsApi
+                    }
+                }
+            })
 
         /**
          * others
