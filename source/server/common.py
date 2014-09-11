@@ -76,6 +76,14 @@ class common(f_common):
     recaptcha_public_key = "6LfNfvkSAAAAACXjRTaEqvN-aLyG6w5Swp2kh9yz"
     recaptcha_private_key = "6LfNfvkSAAAAAEPFsTe5y8g5zReShTthbHZtWrcj"
 
+    sendcloud_api_user = "postmaster@yangfd.sendcloud.org"
+    sendcloud_api_key = "p5WEtUrypcHiNWgL"
+    sendcloud_sender_name = "YangFd"
+    # email_send_provider_smart = {
+    #     "cn": "sendcloud",
+    #     "default": "aws_ses",
+    # }
+
     custom_error_codes = {
         40099: "Invalid params: No '@' in email address supplied:",
         40098: "Invalid params: current password not provided",

@@ -11,6 +11,7 @@ import libfelix.f_blog
 import libfelix.f_common
 import libfelix.f_email
 import libfelix.f_email.f_aws_ses
+import libfelix.f_email.f_sendcloud
 import libfelix.f_enum
 import libfelix.f_feedback
 import libfelix.f_log
