@@ -3,7 +3,7 @@
 
     function adminApi($http) {
         var defaultParams = {
-            role_only: true
+            has_role: true
         }
         return {
             getAll: function (config) {

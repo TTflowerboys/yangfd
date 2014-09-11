@@ -17,7 +17,7 @@
                 return $http.post('/api/1/property/' + id + '/remove', null, config)
             },
             create: function (data, config) {
-                return $http.post('/api/1/property/add', data, config)
+                return $http.post('/api/1/property/none/edit', data, config)
             }
         }
 

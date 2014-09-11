@@ -40,10 +40,8 @@
         $scope.submit = function ($event, form) {
             $event.preventDefault()
             $scope.submitted = true
-            if (form.$invalid) {
-                return
-            }
             $scope.loading = true
+            console.log($scope.item)
             api.create($scope.item, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
