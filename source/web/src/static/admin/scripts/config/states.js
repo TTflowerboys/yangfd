@@ -79,7 +79,7 @@ angular.module('app')
             .state('dashboard.enums.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.enums.edit.tpl.html',
-                controller: 'ctrlEdit',
+                controller: 'ctrlEnums',
                 resolve: enumResolve
             })
         /**
@@ -122,10 +122,43 @@ angular.module('app')
                 url: '/wiki',
                 template: '<div>Wiki</div>'
             })
+        /**
+         * operation.news
+         */
             .state('dashboard.operation.news', {
                 url: '/news',
                 templateUrl: '/static/admin/templates/dashboard.operation.news.tpl.html',
                 controller: 'ctrlList',
+                resolve: {
+                    api: function (newsApi) {
+                        return newsApi
+                    }
+                }
+            })
+            .state('dashboard.operation.news.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.operation.news.edit.tpl.html',
+                controller: 'ctrlEdit',
+                resolve: {
+                    api: function (newsApi) {
+                        return newsApi
+                    }
+                }
+            })
+            .state('dashboard.operation.news.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.operation.news.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: {
+                    api: function (newsApi) {
+                        return newsApi
+                    }
+                }
+            })
+            .state('dashboard.operation.news.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.operation.news.detail.tpl.html',
+                controller: 'ctrlDetail',
                 resolve: {
                     api: function (newsApi) {
                         return newsApi

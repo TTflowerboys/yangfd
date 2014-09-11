@@ -1,0 +1,45 @@
+<div class="buttons">
+    <span class="btn-group">
+        <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span>  返回</button>
+    </span>
+
+</div>
+<form name="partnerCreateForm" class="form-horizontal" ng-class="{submitted:submitted}"
+    style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,partnerCreateForm)"
+    novalidate>
+
+
+    <div class="row">
+        <div class="form-group col-sm-3">
+                <div i18n-select ng-model="item" fields="title,content"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="control-label">标题 *</label>
+
+            <div class="controls">
+                <input class="form-control col-sm6" ng-model="item.title[userLanguage.value]" type="text"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12">
+            <label class="control-label">内容 *</label>
+
+            <div class="controls">
+                <wysiwyg textarea-class="form-control" textarea-height="200px" textarea-name="content"
+                    textarea-required ng-model="item.content[userLanguage.value]" enable-bootstrap-title="false"></wysiwyg>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-actions" style="margin-bottom: 80px;">
+        <input type="submit" class="btn btn-primary" ng-hide="existingItem" value="提交">
+        <input type="button" class="btn btn-primary" ng-show="existingItem" value="更新" ng-click="updateExisting()">
+        <input type="button" ng-click="$state.go('^')" class="btn" value="Cancel">
+    </div>
+
+    <div class="help-block">* 必填</div>
+</form>

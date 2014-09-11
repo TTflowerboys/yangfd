@@ -43,7 +43,7 @@ angular.module('app')
             window.clearTimeout(this.timer)
         }
 
-        return{
+        var self = {
 
             findBy: function (array, by, value) {
                 var found
@@ -76,6 +76,12 @@ angular.module('app')
                     } else if (newJson.hasOwnProperty(key) && newJson[key].toString() !== oldJson[key].toString()) {
                         if (!result) { result = {} }
                         result[key] = newJson[key]
+                    } else if (angular.isObject(newJson[key])) {
+                        var temp = self.getChangedAttributes(newJson[key], oldJson[key])
+                        if (temp) {
+                            if (!result) { result = {} }
+                            result[key] = temp
+                        }
                     }
                 }
                 return result
@@ -88,4 +94,6 @@ angular.module('app')
 
             Delayer: Delayer
         }
+
+        return self
     })
