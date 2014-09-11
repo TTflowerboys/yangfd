@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from app import f_app
-from libfelix.f_interface import f_get, static_file, template, request, redirect
+from libfelix.f_interface import f_get, static_file, template, request, response, redirect
 
 
 def check_landing(func):
@@ -82,6 +82,7 @@ def admin():
 
 @f_get("/static/<filepath:path>")
 def static_route(filepath):
+    response.set_header(b'Cache-Control', b'max-age:0')
     return static_file(filepath, root="views/static")
 
 
