@@ -145,6 +145,16 @@ angular.module('app')
                     }
                 }
             })
+            .state('dashboard.operation.news.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.operation.news.detail.tpl.html',
+                controller: 'ctrlDetail',
+                resolve: {
+                    api: function (newsApi) {
+                        return newsApi
+                    }
+                }
+            })
 
         /**
          * others

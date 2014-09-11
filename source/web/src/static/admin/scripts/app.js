@@ -8,7 +8,10 @@ angular.module('app',
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
         $rootScope.renderHtml = function (html) {
-            return $sce.trustAsHtml(html);
+            if (typeof  html !== 'string') {
+                return ''
+            }
+            return $sce.trustAsHtml(html || '');
         }
         $rootScope.$on('$stateChangeStart',
             function (event, toState, toParams, fromState, fromParams) {
