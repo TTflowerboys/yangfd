@@ -205,6 +205,8 @@ def admin_user_search(user, params):
 
     All users can be fetched if ``has_role`` is not given.
 
+    ``has_intention_ticket`` and ``has_register_time`` work like above.
+
     """
     user_roles = f_app.user.get_role(user["id"])
     if "has_role" in params:
