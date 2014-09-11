@@ -8,34 +8,32 @@
         enumApi.getAll({
             params: {type: 'property_type'},
             errorMessage: 'Update failed'
-        }).success(function () {
-//TODO
+        }).success(function (data) {
+            $scope.propertyTypeList = data.val
         })
         enumApi.getAll({
             params: {type: 'intention'},
             errorMessage: 'Update failed'
         }).success(function (data) {
-            $scope.intentions = data.val
+            $scope.intentionList = data.val
         })
         enumApi.getAll({
             params: {type: 'equity_type'},
             errorMessage: 'Update failed'
         }).success(function (data) {
-            $scope.equityTypes = data.val
+            $scope.equityTypeList = data.val
         })
         enumApi.getAll({
             params: {type: 'decorative_style'},
             errorMessage: 'Update failed'
-        }).success(function () {
-//TODO
-
+        }).success(function (data) {
+            $scope.decorativeStyleList = data.val
         })
         enumApi.getAll({
             params: {type: 'facing_direction'},
             errorMessage: 'Update failed'
-        }).success(function () {
-//TODO
-
+        }).success(function (data) {
+            $scope.facingDirectionList = data.val
         })
         $scope.item = {}
 

@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlEnums($scope, $rootScope, $state, api) {
+    function ctrlEnums($scope, $rootScope, $state,$stateParams, api) {
         $scope.enums = []
         $scope.item = {}
 
@@ -41,7 +41,7 @@
         $scope.editI18nEnum = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.editEnum($scope.item.id, $scope.item.type, $scope.item.value)
+            api.editEnum($stateParams.id, $scope.item.type, $scope.item.value)
                 .success(function () {
                     $scope.item.value = null
                     $scope.item.tempValues = null

@@ -25,7 +25,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.property_type" style="width: 185px;"
-                    ng-options="p.value as p.name for p in property_types">
+                    ng-options="p.id as p.value for p in propertyTypeList">
                 <option value="">-- 选择 --</option>
             </select>
         </div>
@@ -39,8 +39,6 @@
             <input type="text" class="form-control" ng-model="item.country"/>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="form-group col-xs-6 col-sm-3">
         <label class="control-label">城市</label>
 
@@ -57,8 +55,6 @@
             <input type="text" class="form-control" ng-model="item.street"/>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="form-group col-xs-6 col-sm-3">
         <label class="control-label">邮编</label>
 
@@ -68,7 +64,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="form-group col-xs-6 col-sm-3">
+    <div class="form-group col-xs-12 col-sm-6">
         <label class="control-label">地址详情</label>
 
         <div class="controls">
@@ -77,21 +73,23 @@
     </div>
 </div>
 <div class="row">
-    <div class="form-group col-xs-6 col-sm-3">
+    <div class="form-group col-xs-12 col-sm-6">
         <label class="control-label">亮点</label>
 
-        <div class="controls">
-            <div class="row">
+        <div class="row">
+            <div class="controls">
                 <div ng-repeat="point in item.highlight" style="margin-bottom:30px"
                      class="col-sm-3 col-xs-6">
-                    <span class="form-control">{%point%}</span>
+                    <span>{%point%}</span>
                 </div>
             </div>
         </div>
-        <div class="controls">
-            <input type="text" ng-model="item.tempPoint" placeholder="亮点"/>
-            <input type="button" ng-click="addHighlight()" class="btn btn-primary" value="添加">
-        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-xs-6 col-sm-3">
+        <input type="text" ng-model="item.tempPoint" placeholder="亮点"/>
+        <input type="button" ng-click="addHighlight()" class="btn btn-primary" value="添加">
     </div>
 </div>
 <div class="row">
@@ -108,12 +106,10 @@
         <label class="control-label">投资标签</label>
 
         <div class="controls">
-            <div class="controls">
-                <select class="form-control" ng-model="item.intention" style="width: 185px;"
-                        ng-options="p.id as p.value for p in intentions">
-                    <option value="">-- 选择 --</option>
-                </select>
-            </div>
+            <select class="form-control" ng-model="item.intention" style="width: 185px;"
+                    ng-options="p.id as p.value for p in intentionList">
+                <option value="">-- 选择 --</option>
+            </select>
         </div>
     </div>
 </div>
@@ -122,31 +118,32 @@
         <label class="control-label">产权类型</label>
 
         <div class="controls">
-            <div class="controls">
-                <select class="form-control" ng-model="item.equity_type" style="width: 185px;"
-                        ng-options="p.id as p.value for p in equityTypes">
-                    <option value="">-- 选择 --</option>
-                </select>
-            </div>
+            <select class="form-control" ng-model="item.equity_type" style="width: 185px;"
+                    ng-options="p.id as p.value for p in equityTypeList">
+                <option value="">-- 选择 --</option>
+            </select>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="form-group col-xs-6 col-sm-3">
         <label class="control-label">装修风格</label>
 
         <div class="controls">
-            <input type="text" class="form-control" ng-model="item.decorative_style"/>
+            <select class="form-control" ng-model="item.decorative_style" style="width: 185px;"
+                    ng-options="p.id as p.value for p in decorativeStyleList">
+                <option value="">-- 选择 --</option>
+            </select>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="form-group col-xs-6 col-sm-3">
+    <div class="form-group col-xs-12 col-sm-6">
         <label class="control-label">地图位置</label>
 
         <div class="controls">
-            <input type="text" class="form-control" ng-model="item.latitude" placeholder="Latitude"/>
-            <input type="text" class="form-control" ng-model="item.longtitude" placeholder="Longtitude"/>
+            <input type="text" class="controls col-xs-6 col-sm-3" ng-model="item.latitude"
+                   placeholder="Latitude"/>
+            <input type="text" class="controls col-xs-6 col-sm-3" ng-model="item.longtitude"
+                   placeholder="Longtitude"/>
         </div>
     </div>
 </div>
@@ -156,7 +153,7 @@
 
         <div class="controls">
             <images-edit ng-model="item.reality_images" width-limit="1920" ratio="2" thumbnail-size="800,400"
-                         required></images-edit>
+                         text="添加图片" required></images-edit>
         </div>
     </div>
 </div>
@@ -166,7 +163,7 @@
 
         <div class="controls">
             <images-edit ng-model="item.surroundings_images" width-limit="1920" ratio="2" thumbnail-size="800,400"
-                         required></images-edit>
+                         text="添加图片" required></images-edit>
         </div>
     </div>
 </div>
@@ -213,12 +210,18 @@
                 </tbody>
             </table>
         </div>
-        <div class="controls">
-            成交时间
-            <date-edit ng-model="item.tempHistoryTime"></date-edit>
-            <input type="text" ng-model="item.tempHistoryPrice" placeholder="成交价格"/>
-            <input type="button" ng-click="addHistoricalPrice()" class="btn btn-primary" value="添加">
-        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="controls col-xs-6 col-sm-3">
+        <span class="controls col-xs-8 col-sm-4">成交时间</span>
+
+        <date-edit style="width: 185px;" ng-model="item.tempHistoryTime"></date-edit>
+    </div>
+    <div class="controls col-xs-6 col-sm-3">
+        <input type="text" ng-model="item.tempHistoryPrice" placeholder="成交价格"/>
+        <input type="button" ng-click="addHistoricalPrice()" class="btn btn-primary" value="添加">
     </div>
 </div>
 <div class="row">
@@ -255,35 +258,33 @@
                 </tbody>
             </table>
         </div>
-        <div class="controls">
-            <input type="text" ng-model="item.tempCostItem" placeholder="支出名称"/>
-            <input type="text" ng-model="item.tempCostPrice" placeholder="支出费用"/>
-            <input type="button" ng-click="addCost()" class="btn btn-primary" value="添加">
-        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="controls col-xs-12 col-sm-6">
+        <input type="text" ng-model="item.tempCostItem" placeholder="支出名称"/>
+        <input type="text" ng-model="item.tempCostPrice" placeholder="支出费用"/>
+        <input type="button" ng-click="addCost()" class="btn btn-primary" value="添加">
     </div>
 </div>
 </tab>
-<tab heading="非楼盘特有信息" ng-show="item.property_type !== 'property'">
+<tab heading="非楼盘特有信息" ng-if="item.property_type !== '54100a14c6e47b14331ad29f'">
     <div class="row">
-        <div class="form-group col-xs-6 col-sm-3">
+        <div class="form-group col-xs-4 col-sm-2">
             <label class="control-label">总价格</label>
 
             <div class="controls">
                 <input type="text" class="form-control" ng-model="item.total_price"/>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-6 col-sm-3">
+        <div class="form-group col-xs-4 col-sm-2">
             <label class="control-label">居室数</label>
 
             <div class="controls">
                 <input type="text" class="form-control" ng-model="item.bedroom_count"/>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-6 col-sm-3">
+        <div class="form-group col-xs-4 col-sm-2">
             <label class="control-label">客厅数</label>
 
             <div class="controls">
@@ -292,16 +293,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-xs-6 col-sm-3">
+        <div class="form-group col-xs-4 col-sm-2">
             <label class="control-label">卫生间数</label>
 
             <div class="controls">
                 <input type="text" class="form-control" ng-model="item.bathroom_count"/>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-6 col-sm-3">
+        <div class="form-group col-xs-4 col-sm-2">
             <label class="control-label">厨房数</label>
 
             <div class="controls">
@@ -312,9 +311,11 @@
     <div class="row">
         <div class="form-group col-xs-6 col-sm-3">
             <label class="control-label">朝向</label>
-
             <div class="controls">
-                <input type="text" class="form-control" ng-model="item.facing_direction"/>
+                <select class="form-control" ng-model="item.facing_direction" style="width: 185px;"
+                        ng-options="p.id as p.value for p in facingDirectionList">
+                    <option value="">-- 选择 --</option>
+                </select>
             </div>
         </div>
     </div>
@@ -332,13 +333,14 @@
             <label class="control-label">户型图</label>
 
             <div class="controls">
-                <images-edit text="你" ng-model="item.floor_plan" width-limit="1920" ratio="2" thumbnail-size="800,400"
+                <images-edit text="添加图片" ng-model="item.floor_plan" width-limit="1920" ratio="2"
+                             thumbnail-size="800,400"
                              required></images-edit>
             </div>
         </div>
     </div>
 </tab>
-<tab heading="楼盘信息" ng-show="item.property_type === 'property'">
+<tab heading="楼盘信息" ng-if="item.property_type === '54100a14c6e47b14331ad29f'">
     <div class="row">
         <div class="form-group col-xs-6 col-sm-3">
             <label class="control-label">单位面积参考价格</label>
