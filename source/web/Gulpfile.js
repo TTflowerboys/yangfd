@@ -121,8 +121,9 @@ gulp.task('styleless2css', function () {
     gulp.src(myPaths.src + 'static/themes/genius_dashboard/css/style.less')
         .pipe(sourcemaps.init())
         .pipe(less({compress: true}))
-        .pipe(sourcemaps.write(myPaths.dist + 'static/themes/genius_dashboard/css/style.css.map'))
-        .pipe(gulp.dest(myPaths.dist + 'static/themes/genius_dashboard/css/'))
+        // To write external source map files, pass a path RELATIVE to the destination to sourcemaps.write().
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(myPaths.src + 'static/themes/genius_dashboard/css/'))
 })
 
 
