@@ -79,7 +79,7 @@ angular.module('app')
             .state('dashboard.enums.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.enums.edit.tpl.html',
-                controller: 'ctrlEdit',
+                controller: 'ctrlEnums',
                 resolve: enumResolve
             })
         /**
