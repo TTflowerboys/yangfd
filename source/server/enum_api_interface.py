@@ -5,6 +5,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+@f_api('/enum/<enum_id>')
+def enum(enum_id):
+    return f_app.enum.get(enum_id)
+
+
 @f_api('/enum', params=dict(
     type=(str, True),
 ))
