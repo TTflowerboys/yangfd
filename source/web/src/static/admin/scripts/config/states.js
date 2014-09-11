@@ -111,9 +111,16 @@ angular.module('app')
                 resolve: estateResolve
             })
 
+        /**
+         * operation 运营管理
+         */
             .state('dashboard.operation', {
                 url: '/operation',
                 templateUrl: '/static/admin/templates/dashboard.operation.tpl.html'
+            })
+            .state('dashboard.operation.wiki', {
+                url: '/wiki',
+                template: '<div>Wiki</div>'
             })
 
         /**
