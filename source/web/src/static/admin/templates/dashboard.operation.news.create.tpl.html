@@ -2,23 +2,31 @@
     <span class="btn-group">
         <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> Back</button>
     </span>
-    <span class="btn-group form-inline">
-        <label for="">语言</label>
-        <select name="" class="form-control">
-            <option value="1">1</option>
-        </select>
-    </span>
+
 </div>
 <form name="partnerCreateForm" class="form-horizontal" ng-class="{submitted:submitted}"
     style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,partnerCreateForm)"
     novalidate>
 
+    <div i18n-edit ng-model="item"></div>
+
+    <div class="row">
+        <div class="form-group col-sm-3">
+            <label class="control-label">语言 *</label>
+
+            <div class="controls">
+                <select id="4f78aed5-1a5e-4b87-8d40-453bbac7c61d" class="form-control"
+                    ng-options="p.value as p.name for p in i18n_languages"
+                    ng-model="globals.t"> </select>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="form-group col-sm-6">
             <label class="control-label">标题 *</label>
 
             <div class="controls">
-                <input class="form-control col-sm6" ng-model="item.title.zh_Hans_CN" type="text"/>
+                <input class="form-control col-sm6" ng-model="item.title[customLanguage]" type="text"/>
             </div>
         </div>
     </div>
@@ -28,7 +36,7 @@
 
             <div class="controls">
                 <wysiwyg textarea-class="form-control" textarea-height="200px" textarea-name="content"
-                    textarea-required ng-model="item.content.zh_Hans_CN" enable-bootstrap-title="false"></wysiwyg>
+                    textarea-required ng-model="item.content[customLanguage]" enable-bootstrap-title="false"></wysiwyg>
             </div>
         </div>
     </div>
