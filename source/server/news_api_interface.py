@@ -11,15 +11,15 @@ logger = logging.getLogger(__name__)
 _blog_id = "53f839246b80992f831b2269"
 
 
-@f_api('/blog/add')
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
-def blog_add(user):
-    blogs = f_app.blog.get_all()
-    if len(blogs) > 0:
-        abort(40000, logger.warning("Blog already exists"))
-    return f_app.blog.add({"name": f_app.common.blog_name})
-
-
+#@f_api('/blog/add')
+#@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
+#def blog_add(user):
+#    blogs = f_app.blog.get_all()
+#    if len(blogs) > 0:
+#        abort(40000, logger.warning("Blog already exists"))
+#    return f_app.blog.add({"name": f_app.common.blog_name})
+#
+#
 @f_api('/news/search', params=dict(
     per_page=int,
     time=datetime,
