@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from app import f_app
-from libfelix.f_interface import f_get, static_file, template, request, response, redirect
+from libfelix.f_interface import f_get, static_file, template, request, redirect
 
 
 def check_landing(func):
@@ -64,10 +64,17 @@ def privacy():
 def process():
     return template("process", user=get_current_user())
 
+
 @f_get('/house_list')
 @check_landing
 def houseList():
     return template("house_list", user=get_current_user())
+
+
+@f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
+@check_landing
+def property_get(property_id):
+    return template("property", user=get_current_user(), property=f_app.property.output([property_id])[0])
 
 
 @f_get('/coming_soon')
