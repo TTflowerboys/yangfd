@@ -62,53 +62,7 @@
                                 <a href ui-sref="dashboard.partners" ui-sref-active="active"><i class="fa fa-picture-o"></i><span class="hidden-sm text">楼盘销售状态</span></a>
                             </li>
                             <li has-permission="admin,jr_admin,operation" ng-class="{active:customizeOpen}">
-                                <a class="dropmenu" href ui-sref="dashboard.operation"><i class="fa fa-puzzle-piece"></i><span class="hidden-sm text">品牌运营管理</span>
-                                    <span class="chevron closed"></span>
-                                </a>
-                                <ul>
-                                    <li has-permission="operation,jr_operation">
-                                        <a class="submenu" href ui-sref="dashboard.ad({channel:channel})">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">投资知识库</span>
-                                        </a>
-                                    </li>
-                                    <li has-permission="operation,operation">
-                                        <a class="submenu" href ui-sref="dashboard.ad({channel:channel})">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">房产资讯编辑</span>
-                                        </a>
-                                    </li>
-                                    <li has-permission="operation">
-                                        <a class="submenu" href ui-sref="dashboard.ad({channel:channel})">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">用户合同管理</span>
-                                        </a>
-                                    </li>
-                                    <li has-permission="operation,operation">
-                                        <a class="submenu" href ui-sref="dashboard.ad({channel:channel})">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">网站内容管理</span>
-                                        </a>
-                                    </li>
-                                    <li has-permission="operation">
-                                        <a class="submenu" href ui-sref="dashboard.ad({channel:channel})">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">社交平台账号管理</span>
-                                        </a>
-                                    </li>
-                                    <li has-permission="operation">
-                                        <a class="submenu" href ui-sref="dashboard.ad({channel:channel})">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">NewsLetter</span>
-                                        </a>
-                                    </li>
-                                    <li has-permission="operation">
-                                        <a class="submenu" href ui-sref="dashboard.ad({channel:channel})">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">用户行为</span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                <a class="dropmenu" href ui-sref="dashboard.operation"><i class="fa fa-puzzle-piece"></i><span class="hidden-sm text">品牌运营管理</span></a>
                             </li>
                             <li has-permission="support,jr_support" ng-class="{active:$state.includes('dashboard.partners')}">
                                 <a href ui-sref="dashboard.partners" ui-sref-active="active"><i class="fa fa-picture-o"></i><span class="hidden-sm text">客服单管理</span></a>

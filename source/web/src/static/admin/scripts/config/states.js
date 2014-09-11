@@ -113,7 +113,7 @@ angular.module('app')
 
             .state('dashboard.operation', {
                 url: '/operation',
-                template: '<div>placeholder</div>'
+                templateUrl: '/static/admin/templates/dashboard.operation.tpl.html'
             })
 
         /**
