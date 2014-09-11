@@ -82,7 +82,6 @@ def admin():
 
 @f_get("/static/<filepath:path>")
 def static_route(filepath):
-    response.set_header(b'Cache-Control', b'max-age:0')
     return static_file(filepath, root="views/static")
 
 
