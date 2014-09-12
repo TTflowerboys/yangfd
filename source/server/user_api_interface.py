@@ -514,7 +514,7 @@ def email_send(user_id):
     f_app.email.schedule(
         target=user["email"],
         subject="Veryfy email address",
-        text=template("static/templates/verify_email", verification_url=verification_url, user_nickname=user.get("nickname")),
+        text=template("static/templates/verify_email", verification_url=verification_url, nickname=user.get("nickname")),
         display="html",
     )
 
@@ -523,11 +523,11 @@ def email_send(user_id):
     code=(str, True),
 ))
 @rate_limit("email_verification", ip=20)
-def email_verify(user_id):
+def email_verify(user_id, params):
     """
     rate_limit is 20 ip per hour
     """
-    f_app.user.email_verify(user_id)
+    f_app.user.email_verify(user_id, params["code"])
     user = f_app.user.login.success(user_id)
     f_app.log.add("login", user_id=user_id)
 
