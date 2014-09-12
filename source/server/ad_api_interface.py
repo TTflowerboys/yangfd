@@ -10,11 +10,11 @@ logger = logging.getLogger(__name__)
 
 @f_api('/ad/add', params=dict(
     channel=(str, True),
-    description=(str, True),
-    text=(list, None, str),
+    description=('i18n', None, str),
+    text=('i18n', None, str),
     link=str,
     image=str,
-    image_alt=str,
+    image_alt=('i18n', None, str),
 ))
 @f_app.user.login.check(force=30)
 def ad_add(params, user):
@@ -28,11 +28,11 @@ def ad_add(params, user):
 
 @f_api('/ad/<ad_id>/edit', params=dict(
     channel=(str, None),
-    description=(str, None),
-    text=(list, None, str),
+    description=('i18n', None, str),
+    text=('i18n', None, str),
     link=(str, None),
     image=(str, None),
-    image_alt=(str, None),
+    image_alt=('i18n', None, str),
 ))
 @f_app.user.login.check(force=30)
 def ad_edit(user, ad_id, params):
