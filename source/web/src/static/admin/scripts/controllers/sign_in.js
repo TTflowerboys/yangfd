@@ -20,7 +20,7 @@
                 })
         }
 
-        $scope.changeText = function () {
+        $scope.onChangeText = function () {
             $scope.submitDisabled = false;
         }
     }
