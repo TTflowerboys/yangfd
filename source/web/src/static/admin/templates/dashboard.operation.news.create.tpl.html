@@ -3,7 +3,7 @@
         <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
     </span>
     <span class="btn-group">
-        <span i18n-select ng-model="item" fields="title,content"></span>
+        <select class="form-control" ng-options="p.value as p.name for p in i18n_languages" ng-model="userLanguage.value"></select>
     </span>
 
 </div>
@@ -16,7 +16,7 @@
             <label class="control-label">标题 *</label>
 
             <div class="controls">
-                <input class="form-control col-sm6" ng-model="item.title[userLanguage.value]" type="text"/>
+                <input class="form-control col-sm6" type-i18n="item.title" ng-model="item.title[userLanguage.value]" type="text"/>
             </div>
         </div>
     </div>
@@ -25,6 +25,7 @@
             <label class="control-label">内容 *</label>
 
             <div class="controls">
+                <div type-i18n="item.content"></div>
                 <wysiwyg textarea-class="form-control" textarea-height="200px" textarea-name="content"
                     textarea-required ng-model="item.content[userLanguage.value]" enable-bootstrap-title="false"></wysiwyg>
             </div>
