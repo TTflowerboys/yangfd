@@ -5,7 +5,7 @@
 
         return {
             getAll: function (config) {
-                return $http.get('/api/1/property/search', config)
+                return $http.get('/api/1/property/search?status=draft', config)
             },
             getOne: function (id, config) {
                 return $http.get('/api/1/property/' + id, config)
