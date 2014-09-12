@@ -7,6 +7,7 @@
 
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
 
+
         if (itemFromParent) {
             onGetItem(itemFromParent)
         } else {
@@ -20,7 +21,6 @@
         function onGetItem(item) {
 
             $scope.itemOrigin = item
-
             $scope.item = angular.copy($scope.itemOrigin)
         }
 
