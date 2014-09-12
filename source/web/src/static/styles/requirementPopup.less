@@ -1,0 +1,127 @@
+@import "project/_imports";
+
+.requirement_popup {
+    width:100%;
+    height:100%;
+
+    z-index:@requirement_popup-shadow-z-index;
+    &_shadow {
+//        z-index: @requirement_popup-shadow-z-index;
+        background: #000000; opacity: 0.5; filter: alpha(opacity=50);
+        position: fixed; top: 0; left: 0; bottom: @copyright-height; width: 100%; height: 100%;
+    }
+
+    .requirement {
+        z-index: @requirement_popup-content-z-index;
+        position: fixed;
+        top: 10%;
+        max-width: @max-width + 40px;
+        margin: 100px auto;
+        overflow: hidden;
+        background:#eeeeee;
+
+        &_title {
+            float: left;
+            margin-left: 20px;
+            .title {
+                margin-top: 0px;
+                font-size: 36px;
+                color: #333333;
+            }
+            .subtitle {
+                font-size: 12px;
+                line-height: 2;
+                color: #999999;
+                max-width: 360px;
+            }
+
+            @media @phone {
+                float: none;
+                padding: 10px;
+
+                .title {
+                    margin-top: 0px;
+                    font-size: 24px;
+                }
+                .subtitle {
+                    font-size: 12px;
+                    line-height: 1.6em;
+                    margin-top: 0px;
+                    margin-bottom: 0px;
+                }
+            }
+        }
+
+        &_form {
+            float: right;
+            margin-right: 20px;
+            input {
+                width: 270px;
+                padding-left: 0.5em;
+                padding-right: 0.5em;
+                &.phone {
+                    width: 154px;
+                }
+            }
+            .form_row { line-height: 1.5; }
+            .budgetHint {
+                font-size: 14px;
+                color: #333333;
+                margin-top: 20px;
+                margin-bottom: 0px;
+            }
+            select {
+                width: 270px;
+                &.coutry {
+                    width: 112px;
+                }
+            }
+            textarea {
+                width: 560px;
+                height: 150px;
+                padding: 0.5em;
+                margin-top: 20px;
+            }
+            button {
+                margin-top: 8px;
+            }
+            > .errorMessage {
+                display: none; color: red; margin-top: 10px; margin-bottom: 0px;
+            }
+            @media @phone {
+                float: none;
+                padding: 10px;
+                input {
+                    width: 100%;
+                    &.phone {
+                        width:  ~"calc(100% - 116px)";
+                    }
+                }
+                select {
+                    width: 100%;
+                }
+                textarea {
+                    width: 100%;
+                }
+                button {
+                    width: 100%;
+                }
+            }
+        }
+
+        .successMessage {
+            display:none;
+            text-align:center;
+            margin: 272px auto;
+            color: #666666;
+            font-size:30px;
+            @media @phone {
+                margin: 100px 20px;
+            }
+         }
+
+        @media @phone {
+            margin: 20px auto;
+        }
+    }
+}
