@@ -280,7 +280,7 @@ class f_currant_ticket(f_ticket):
 
         user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields)
         user_dict = {}
-        enum_dict = f_app.enum.get(enum_id_set, multi_return=dict, ignore_nonexist=True)
+        enum_dict = f_app.enum.get(enum_id_set, multi_return=dict)
 
         for u in user_list:
             user_dict[u["id"]] = u
