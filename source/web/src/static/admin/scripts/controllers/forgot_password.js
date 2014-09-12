@@ -57,7 +57,7 @@
             $timeout($scope.onTimeout, 1000)
         }
 
-        $scope.changePhone = function () {
+        $scope.onChangePhone = function () {
             if ($scope.sendText === sendText) {
                 return
             }
