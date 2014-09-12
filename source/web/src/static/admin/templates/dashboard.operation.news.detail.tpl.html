@@ -3,7 +3,7 @@
         <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
     </span>
     <span class="btn-group">
-        <span i18n-select ng-model="item" fields="title,content"></span>
+        <select class="form-control" ng-options="p.value as p.name for p in i18n_languages" ng-model="userLanguage.value"></select>
     </span>
 
 </div>
@@ -14,7 +14,7 @@
             <label class="control-label">标题</label>
 
             <div class="controls">
-                <span class="uneditable-input">{%item.title[userLanguage.value]%}</span>
+                <span class="uneditable-input" type-i18n="item.title">{%item.title[userLanguage.value]%}</span>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
             <label class="control-label">内容</label>
 
             <div class="controls">
-                <div style="border:1px solid #DDD; padding: 16px;" ng-bind-html="renderHtml(item.content[userLanguage.value])"></div>
+                <div type-i18n="item.content" style="border:1px solid #DDD; padding: 16px;" ng-bind-html="renderHtml(item.content[userLanguage.value])"></div>
             </div>
         </div>
     </div>

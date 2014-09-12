@@ -10,7 +10,7 @@
                     </button>
                 </span>
                 <div class="btn-group form-inline">
-                    <div i18n-select></div>
+                    <select class="form-control" ng-options="p.value as p.name for p in i18n_languages" ng-model="userLanguage.value"></select>
                 </div>
 
                 <span class="btn-group pull-right">
