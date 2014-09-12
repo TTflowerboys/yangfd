@@ -6,7 +6,7 @@ from libfelix.f_common import f_app, make_error_codes_docs
 import common
 
 # Import modules you need here
-
+import libfelix.f_ad
 import libfelix.f_blog
 import libfelix.f_common
 import libfelix.f_email
