@@ -85,8 +85,8 @@ def intention_ticket_add(params):
     if "equity_type" in params:
         params["equity_type"] = f_app.util.match_enum({"id": params["equity_type"]["_id"]}).get("value")
     params["intention"] = [f_app.util.match_enum({"id": i["_id"]}).get("value") for i in params.get("intention", [])]
-
-    f_app.user.counter_update(shadow_user_id)
+    if shadow_user_id is not None:
+        f_app.user.counter_update(shadow_user_id)
 
     sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales"]}}))
     for sales in sales_list:
