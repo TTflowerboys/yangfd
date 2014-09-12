@@ -3,6 +3,6 @@ $('.floatWindow #requirement').click(function () {
     $('#requirement').show()
 })
 
-$('#requirement_popup #requirement_popup_shadow').click(function () {
+$('#requirement_popup button[name=cancel]').click(function () {
     $('#requirement_popup').hide()
 });

@@ -1,44 +1,47 @@
 <div id="requirement_popup" class="requirement_popup"  style="display:none">
     <div id="requirement_popup_shadow" class="requirement_popup_shadow"></div>
-    <div id="requirement" class="requirement">
-        <div class="requirement_title">
-            <H2 class="title">{{_('提交置业需求')}}</h2>
-            <h3 class="subtitle">{{_('如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您')}}
-            </h3>
+    <div class="requirement_wrapper">
+        <div id="requirement" class="requirement">
+            <div class="requirement_title">
+                <H2 class="title">{{_('提交置业需求')}}</h2>
+                <h3 class="subtitle">{{_('如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您')}}
+                </h3>
+            </div>
+            <form class="requirement_form" name="requirement">
+                <div class="form_row">
+                    <input class="name ghostInput" name="nickname" type="text" placeholder="{{_('姓名(必填)')}}" data-validator="required, trim"/>
+                </div>
+                <div class="form_row">
+                    <select name="country" class="coutry ghostSelect" style="color:#4d4d4d;">
+                        <option value="CN">{{_('中国 +86')}}</option>
+                        <option value="HK">{{_('香港 +85')}}</option>
+                        <option value="UK">{{_('英国 +44')}}</option>
+                        <option value="US">{{_('美国 +1')}}</option>
+                    </select>
+                    <span class=vr></span>
+                    <input class="phone ghostInput" name="phone" type="text" placeholder="{{_('电话(必填)')}}" data-validator="required, trim number"/>
+                </div>
+                <div class="form_row">
+                    <input class="email ghostInput" name="email" type="text" placeholder="{{_('邮箱(必填)')}}" data-validator="required, trim email"/>
+                </div>
+                <div class="form_row">
+                    <p class="budgetHint">{{_('您的预算')}}</p>
+                </div>
+                <div class="form_row">
+                    <select class="budget ghostSelect" name="budget" style="color:#4d4d4d;">
+                    </select>
+                </div>
+                <div class="form_row">
+                    <textarea class="detail ghostTextArea" name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}"></textarea>
+                </div>
+                <p class="errorMessage" style="display:none"></p>
+                <div class="form_row">
+                    <button type="submit" class="button red">{{_('提交')}}</button>
+                    <button name="cancel" class="button ">{{_('取消')}}</button>
+                </div>
+            </form>
+            <h2 class="successMessage" style="display:none">{{_('置业需求已提交，稍后我们的工作人员会联系你')}}</h2>
         </div>
-        <form class="requirement_form" name="requirement">
-            <div class="form_row">
-                <input class="name ghostInput" name="nickname" type="text" placeholder="{{_('姓名(必填)')}}" data-validator="required, trim"/>
-            </div>
-            <div class="form_row">
-                <select name="country" class="coutry ghostSelect" style="color:#4d4d4d;">
-                    <option value="CN">{{_('中国 +86')}}</option>
-                    <option value="HK">{{_('香港 +85')}}</option>
-                    <option value="UK">{{_('英国 +44')}}</option>
-                    <option value="US">{{_('美国 +1')}}</option>
-                </select>
-                <span class=vr></span>
-                <input class="phone ghostInput" name="phone" type="text" placeholder="{{_('电话(必填)')}}" data-validator="required, trim number"/>
-            </div>
-            <div class="form_row">
-                <input class="email ghostInput" name="email" type="text" placeholder="{{_('邮箱(必填)')}}" data-validator="required, trim email"/>
-            </div>
-            <div class="form_row">
-                <p class="budgetHint">{{_('您的预算')}}</p>
-            </div>
-            <div class="form_row">
-                <select class="budget ghostSelect" name="budget" style="color:#4d4d4d;">
-                </select>
-            </div>
-            <div class="form_row">
-                <textarea class="detail ghostTextArea" name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}"></textarea>
-            </div>
-            <p class="errorMessage" style="display:none"></p>
-            <div class="form_row">
-                <button type="submit" class="button red">{{_('提交')}}</button>
-            </div>
-        </form>
-        <h2 class="successMessage" style="display:none">{{_('置业需求已提交，稍后我们的工作人员会联系你')}}</h2>
     </div>
 
 </div>
