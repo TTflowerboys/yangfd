@@ -14,7 +14,7 @@
             <label class="control-label">标题</label>
 
             <div class="controls">
-                <span class="uneditable-input">{%item.title%}</span>
+                <span class="uneditable-input">{%item.title[userLanguage.value]%}</span>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
             <label class="control-label">内容</label>
 
             <div class="controls">
-                <div style="border:1px solid #DDD; padding: 16px;" ng-bind-html="renderHtml(item.content)"></div>
+                <div style="border:1px solid #DDD; padding: 16px;" ng-bind-html="renderHtml(item.content[userLanguage.value])"></div>
             </div>
         </div>
     </div>
