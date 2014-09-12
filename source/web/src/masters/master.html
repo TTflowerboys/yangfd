@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="/static/styles/project/siteFooter.css"/>
         <link rel="stylesheet" href="/static/styles/project/modal.css"/>
         <link rel="stylesheet" href="/static/styles/project/signinForm.css"/>
+        <link rel="stylesheet" href="/static/styles/floatWindow.css"/>
         <!--endbuild-->
 
         <!-- @@placeholder = head -->
@@ -112,6 +113,8 @@
             <!-- @@include =../partials/signin_form.html -->
         </div>
 
+        <!-- @@include =../partials/float_window.html -->
+
         <!-- @@include =../partials/js_import.html -->
         <script>
             $(window).on('resize', function () {
@@ -130,7 +133,6 @@
             $("#login").click(function () {
                 $("#modal_shadow").show()
                 $("#modal").show()
-
             });
             $("#modal_shadow").click(function () {
                 $("#modal_shadow").hide()
