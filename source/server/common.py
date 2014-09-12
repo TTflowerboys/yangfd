@@ -79,10 +79,11 @@ class common(f_common):
     sendcloud_api_user = "postmaster@yangfd.sendcloud.org"
     sendcloud_api_key = "p5WEtUrypcHiNWgL"
     sendcloud_sender_name = "YangFd"
-    # email_send_provider_smart = {
-    #     "cn": "sendcloud",
-    #     "default": "aws_ses",
-    # }
+    sendcloud_sender = "noreply@yangfd.com"
+    email_send_provider_smart = {
+        "cn": "sendcloud",
+        "default": "aws_ses",
+    }
 
     custom_error_codes = {
         40099: "Invalid params: No '@' in email address supplied:",

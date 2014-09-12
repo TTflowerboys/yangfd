@@ -5,10 +5,10 @@
 
         return {
             getAll: function (config) {
-                return $http.get('/api/1/news/search', config)
+                return $http.get('/api/1/news/search?_i18n=disabled', config)
             },
             getOne: function (id, config) {
-                return $http.get('/api/1/news/' + id, config)
+                return $http.get('/api/1/news/' + id + '?_i18n=disabled', config)
             },
             update: function (data, config) {
                 return $http.post('/api/1/news/' + data.id + '/edit', data, config)

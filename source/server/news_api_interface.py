@@ -41,6 +41,9 @@ def news_list(params):
     content=('i18n', None, str),
     zipcode_index=str,
     category=(str, "news"),
+    country=('i18n', None, str),
+    city=('i18n', None, str),
+    street=('i18n', None, str),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_add(user, params):
@@ -64,6 +67,9 @@ def news_get(news_id):
     title=('i18n', None, str),
     content=('i18n', None, str),
     category=(str, None),
+    country=('i18n', None, str),
+    city=('i18n', None, str),
+    street=('i18n', None, str),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_edit(user, news_id, params):

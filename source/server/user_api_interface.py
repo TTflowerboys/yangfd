@@ -501,6 +501,40 @@ def user_sms_reset_password(user_id, params):
     return result
 
 
+@f_api('/user/<user_id>/email_verification/send')
+@rate_limit("email_verification_send", ip=20)
+def email_send(user_id):
+    user = f_app.user.get(user_id)
+    if "email" not in user:
+        abort(40000, logger.warning("Invalid user: email not provided.", exc_info=False))
+    """
+    rate_limit is 20 ip per hour.
+    """
+    verification_url = "http://" + request.urlparts[1] + "/user/email_verification/verify?code=" + f_app.user.email.request(user_id) + "&user_id=" + user_id
+    f_app.email.schedule(
+        target=user["email"],
+        subject="Veryfy email address",
+        text=template("static/templates/verify_email", verification_url=verification_url, nickname=user.get("nickname")),
+        display="html",
+    )
+
+
+@f_api('/user/<user_id>/email_verification/verify', params=dict(
+    code=(str, True),
+))
+@rate_limit("email_verification", ip=20)
+def email_verify(user_id, params):
+    """
+    rate_limit is 20 ip per hour
+    """
+    f_app.user.email_verify(user_id, params["code"])
+    user = f_app.user.login.success(user_id)
+    f_app.log.add("login", user_id=user_id)
+
+    result = f_app.user.output([user_id], user=user, custom_fields=f_app.common.user_custom_fields)[0]
+    return result
+
+
 @f_api('/user/get_by_phone', force_ssl=True, params=dict(
     phone=(str, True),
     country=str,

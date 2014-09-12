@@ -7,35 +7,53 @@
         width: 100%; min-width: @max-width;
         .clearfix(); background: @header-bg; position: relative; height: @header-height;  z-index: 1;
         > header { margin: 0 auto; height: 100%; width: @max-width;
-            .logo { float: left; margin-top: 24px; margin-left: 32px; width: 304px; }
-            .country {display: none;}
-            .navbar {.horizontalList(@padding: 8px); float: left; margin-top: 32px; margin-left: 70px;
-                > li {
-                    > a {
-                        color: @mute-color;
-                        text-decoration: none;
-                        font-size: 16px;
-                    }
-                    &.selected {
-                        > a {
-                            color: @light-color;
-                            text-decoration: none;
-                        }
-                    }
-                }
-            }
+                   .logo { float: left; margin-top: 24px; margin-left: 32px; width: 304px; }
+                   .country {display: none;}
+                   .navbar {.horizontalList(@padding: 8px); float: left; margin-top: 32px; margin-left: 70px;
+                            > li {
+                                > a {
+                                    color: @mute-color;
+                                    text-decoration: none;
+                                    font-size: 16px;
+                                }
+                                &.selected {
+                                    > a {
+                                        color: @light-color;
+                                        text-decoration: none;
+                                    }
+                                }
+                            }
+                           }
 
-            .user {
-                .login {float: left; margin-top: 24px;  margin-left: 112px;}
-                .register {float: left; margin-top: 26px; margin-left: 16px;}
+                   .user {
+                       .login {float: left; margin-top: 24px;  margin-left: 112px;}
+                       .register {float: left; margin-top: 26px; margin-left: 16px;}
 
-                .userInfo { float: left; margin-top: 20px;  margin-left: 112px;
-                    .welcome {font-size: 14px; color: #aaaaaa; margin: 0px;}
-                    .userName {font-size: 18px; color: #dd4117; margin-top: 4px; .clipped(80px);}
-                    .logout {float: right; margin-top: -60px; margin-left: 90px; display: inline-block;}
-                }
-            }
-        }
+                       .userInfo { float: left;  margin-left: 112px; overflow:hidden;
+                                   .welcome {
+                                       font-size: 14px;
+                                       line-height: 14px;
+                                       color: #aaaaaa;
+                                       float:left;
+                                       margin-top:20px;
+                                       margin-bottom:0px;
+                                   }
+                                   .userName {
+                                       font-size: 18px;
+                                       color: #dd4117;
+                                       margin-top:40px;
+                                       margin-left: 0px;
+                                       margin-bottom: 0px;
+                                       .clipped(80px);
+                                   }
+                                   .logout {
+                                       float: right;
+                                       margin-left: 100px;
+                                       margin-top:-40px;
+                                       display: inline-block;
+                                   }
+                                 }
+                   }
+                 }
     }
-
 }
