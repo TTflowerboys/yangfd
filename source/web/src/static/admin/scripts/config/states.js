@@ -165,6 +165,20 @@ angular.module('app')
                     }
                 }
             })
+        /**
+         * operation.intention
+         */
+            .state('dashboard.operation.intention', {
+                url: '/intention',
+                templateUrl: '/static/admin/templates/dashboard.operation.intention.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (newsApi) {
+                        return newsApi
+                    }
+                }
+            })
+
 
         /**
          * others
