@@ -77,5 +77,4 @@ def ad_get_all_by_channel(channel_name, params):
     Get all ads by channel. If there's only one ad in the channel, it will return that one.
     """
     a = f_app.ad.get_all_by_channel(channel_name)
-    logger.debug(a)
     return a
