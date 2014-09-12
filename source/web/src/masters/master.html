@@ -131,60 +131,7 @@
                 $('select[name=language]').find('option[value='+language+']').prop('selected',true)
             })
         </script>
-
-        <script>
-            $("#login").click(function () {
-                $("#modal_shadow").show()
-                $("#modal").show()
-            });
-            $("#modal_shadow").click(function () {
-                $("#modal_shadow").hide()
-                $("#modal").hide()
-            });
-
-            var errorArea = $('form[name=signin]').find('.errorMessage')
-            $('form[name=signin]').submit(function (e) {
-                e.preventDefault()
-                errorArea.hide()
-                var valid = $.validate(this, {onError: function (dom,validator,index) {
-                    alert( dom.name +" validate error " + validator)
-                    errorArea.text(dom.name + " validate error " + validator)
-                    errorArea.show()
-                }})
-                if(!valid){return}
-
-                var params = $(this).serializeObject()
-                params.password = Base64.encode(params.password)
-                $.post("/api/1/user/login",
-                    params,
-                    function (data, status) {
-                        if (data.ret != 0) {
-                            errorArea.text(data.msg)
-                            errorArea.show()
-                        }
-                        else {
-                            location.reload()
-                            $("#modal_shadow").hide()
-                            $("#modal").hide()
-                        }
-                    });
-            })
-
-            $("#logout").click(function () {
-                $.get("/logout",
-                    null,
-                    function (data, status) {
-                        location.reload()
-                    }
-                )
-            });
-
-            $('select[name=language]').change(function(){
-                var language=$(this).children('option:selected').val();
-                team.setLocationHrefParam("_i18n", language)
-            })
-
-        </script>
+        <script src="/static/scripts/signin_modal.js"></script>
         <script src="/static/scripts/requirement_popup.js"></script>
         <!--@@placeholder=scripts-->
     </body>
