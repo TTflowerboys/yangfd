@@ -22,7 +22,7 @@
 
                 return $http.get('/api/1/enum', {params: {type: type}, errorMessage: true})
             },
-            getAllEnumsById: function (id) {
+            getI18nEnumsById: function (id) {
                 return $http.get('/api/1/enum/' + id, {params: {_i18n: 'disabled'}, errorMessage: true})
             }
         }

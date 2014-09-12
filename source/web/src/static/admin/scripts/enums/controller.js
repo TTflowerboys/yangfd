@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlEnums($scope, $rootScope, $state,$stateParams, api) {
+    function ctrlEnums($scope, $rootScope, $state, $stateParams, api) {
         $scope.enums = []
         $scope.item = {}
 
@@ -16,6 +16,19 @@
             api.getEnumsByType($rootScope.enum_types[index].value)
                 .success(function (data) {
                     $scope.enums[index] = data.val || {}
+                })
+        }
+        $scope.getEditEnumItem = function () {
+            api.getI18nEnumsById($stateParams.id)
+                .success(function (data) {
+                    $scope.item = data.val || {}
+                    $scope.item.tempValues = _.pairs($scope.item.value)
+                    for (var i = 0; i < $scope.item.tempValues.length; i += 1) {
+                        if ($scope.item.tempValues[i][0] === '_i18n') {
+                            $scope.item.tempValues.splice(i, 1)
+                            break
+                        }
+                    }
                 })
         }
         $scope.addI18nValue = function () {
@@ -46,6 +59,7 @@
                     $scope.item.value = null
                     $scope.item.tempValues = null
                     $scope.item.property_type = null
+                    $state.go('^')
                 })
         }
         $scope.removeI18nValue = function (index) {
