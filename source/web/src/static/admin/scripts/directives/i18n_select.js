@@ -1,15 +1,14 @@
 /* Created by frank on 14-9-11. */
 angular.module('app')
-    .directive('i18nSelect', function (userLanguage, $parse, i18n_languages) {
+    .directive('i18nSelect', function ($parse, i18n_languages) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/i18n_select.tpl.html',
             link: function (scope, elm, attrs) {
-                scope.userLanguage = userLanguage
 
                 var fields = attrs.fields
                 if (!fields) {
-                    throw 'i18nEdit needs fields'
+                    return
                 }
                 var fieldList = fields.split(',')
                 if (!fieldList || fieldList.length <= 0) {
@@ -24,7 +23,7 @@ angular.module('app')
                     if (!oneField) { oneField = model[fieldList[i]] = {} }
 
                     for (var j = 0, jLength = i18n_languages.length; j < jLength; j += 1) {
-                        oneField[i18n_languages[j].value] = ''
+                        oneField[i18n_languages[j].value] = oneField[i18n_languages[j].value] || ''
                     }
                 }
 

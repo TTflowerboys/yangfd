@@ -20,6 +20,9 @@ angular.module('app',
                 }
 
             })
+        $rootScope.userLanguage = {
+            value: window._lang
+        }
     })
 
 angular.element(document).ready(function () {
