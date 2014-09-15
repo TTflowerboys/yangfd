@@ -270,9 +270,10 @@
 
                 var language = $('#current_Language').text()
                 params["locales"] = language
-                $.post("/api/1/intention_ticket/add",
-                    params,
-                    function (data, status) {
+                var button = $('form[name=requirement] button[type=submit]')
+                button.css('cursor', 'wait')
+                $.post("/api/1/intention_ticket/add", params)
+                    .done(function (data) {
                         if (data.ret != 0) {
                             errorArea.text(localization.find('#submitRequirementFailure').text())
                             errorArea.show()
@@ -282,7 +283,10 @@
                             $('.requirement_title').hide()
                             $('.requirement_form').hide()
                         }
-                    });
+                    })
+                    .always(function () {
+                        button.css('cursor', 'default')
+                    })
             })
 
         </script>
