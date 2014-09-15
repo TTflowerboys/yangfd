@@ -1,7 +1,6 @@
 <div class="form-inline">
     <select ng-options="p.value as p.name for p in estateStatus" ng-model="newStatus" ng-init="newStatus=item.status"
         class="form-control input-sm">
-        <option value="">-- 选择状态--</option>
     </select>
     <button ng-show="item.status!==newStatus" class="btn btn-sm btn-primary" ng-click="onUpdateStatus(item,newStatus)">提交</button>
 </div>
