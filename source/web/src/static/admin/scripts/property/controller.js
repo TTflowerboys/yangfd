@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlProperty($scope, $state, api, enumApi) {
+    function ctrlProperty($scope, $state, api, enumApi,$rootScope) {
 
         enumApi.getAll({
             params: {type: 'property_type'},
@@ -56,11 +56,11 @@
         }
 
         $scope.addHighlight = function () {
-            if (!$scope.item.highlight) {
-                $scope.item.highlight = []
+            if (!$scope.item.highlight[$rootScope.userLanguage.value]) {
+                $scope.item.highlight[$rootScope.userLanguage.value] = []
             }
             var temp = $scope.item.tempPoint
-            $scope.item.highlight.push(temp)
+            $scope.item.highlight[$rootScope.userLanguage.value].push(temp)
             $scope.item.tempPoint = null
         }
 

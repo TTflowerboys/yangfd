@@ -22,7 +22,7 @@
         <label class="control-label">房产类型</label>
 
         <div class="controls">
-            <span class="input-xlarge uneditable-input">{%item.property_type%}</span>
+            <span class="input-xlarge uneditable-input">{%item.property_type.value%}</span>
         </div>
     </div>
     <div class="form-group">
@@ -83,21 +83,21 @@
         <label class="control-label">投资标签</label>
 
         <div class="controls">
-            <span class="input-xlarge uneditable-input">{%item.intention%}</span>
+            <span class="input-xlarge uneditable-input">{%item.intention.value%}</span>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label">产权类型</label>
 
         <div class="controls">
-            <span class="input-xlarge uneditable-input">{%item.equity_type%}</span>
+            <span class="input-xlarge uneditable-input">{%item.equity_type.value%}</span>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label">装修风格</label>
 
         <div class="controls">
-            <span class="input-xlarge uneditable-input">{%item.decorative_style%}</span>
+            <span class="input-xlarge uneditable-input">{%item.decorative_style.value%}</span>
         </div>
     </div>
     <div class="form-group">
@@ -203,7 +203,7 @@
         </div>
     </div>
 </tab>
-<tab heading="非楼盘特有信息">
+<tab heading="非楼盘特有信息" ng-if="item.property_type !== '54100a14c6e47b14331ad29f'">
     <div class="form-group">
         <label class="control-label">总价格</label>
 
@@ -266,7 +266,7 @@
         </div>
     </div>
 </tab>
-<tab heading="楼盘信息">
+<tab heading="楼盘信息" ng-if="item.property_type === '54100a14c6e47b14331ad29f'">
     <div class="form-group">
         <label class="control-label">单位面积参考价格</label>
 
