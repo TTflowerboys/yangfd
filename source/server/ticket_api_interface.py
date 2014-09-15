@@ -197,7 +197,9 @@ def intention_ticket_edit(user, ticket_id, params):
         if params["status"] not in f_app.common.intention_ticket_statuses:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
-    return f_app.ticket.update_set(ticket_id, params)
+    f_app.ticket.update_set(ticket_id, params)
+
+    return f_app.ticket.output([ticket_id])[0]
 
 
 @f_api('/intention_ticket/search', params=dict(
@@ -371,7 +373,8 @@ def support_ticket_edit(user, ticket_id, params):
         if params["status"] not in f_app.common.support_ticket_statuses:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
-    return f_app.ticket.update_set(ticket_id, params)
+    f_app.ticket.update_set(ticket_id, params)
+    return f_app.ticket.output([ticket_id])[0]
 
 
 @f_api('/support_ticket/search', params=dict(

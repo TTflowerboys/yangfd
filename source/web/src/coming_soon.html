@@ -168,6 +168,7 @@
                 }})
                 if (!valid) {return}
                 var params = $(this).serializeObject()
+
                 var language = $('#current_Language').text()
                 params['locales'] = language
                 $.post("/api/1/subscription/add",
@@ -184,24 +185,52 @@
                     });
             })
 
-            $('form[name=requirement] input[name=phone]').on('change', function () {
+            function enableSubmitButton(enable) {
+                var button = $('form[name=requirement] button[type=submit]')
+                if (enable) {
+                    button.removeAttr('disabled');
+                    button.removeClass('gray').addClass('red')
+                }
+                else {
+                    button.attr('disabled','disabled');
+                    button.removeClass('red').addClass('gray')
+                }
+            }
+
+            var onPhoneNumberChange = function () {
                 var params = $('form[name=requirement]').serializeObject()
                 var theParams = {}
                 theParams["country"] = params["country"]
                 theParams["phone"] = params["phone"]
                 var errorArea = $('form[name=requirement]').find(".errorMessage")
                 errorArea.hide()
-                $.post("/api/1/user/phone_test",
-                    theParams,
-                    function (data, status) {
-                        if (data.ret != 0) {
-                            errorArea.text(localization.find('#Phone').text() + " " + localization.find('#badNumber').text())
-                            errorArea.show()
-                            var dom = $('form[name=requirement] input[name=phone]')[0]
-                            $(dom).css('border', '2px solid red')
-                        }
+                if (theParams.phone){
+                    $.post("/api/1/user/phone_test",
+                        theParams,
+                        function (data, status) {
+                           if (data.ret != 0) {
+                               errorArea.text(localization.find('#Phone').text() + " " + localization.find('#badNumber').text())
+                               errorArea.show()
+                               var dom = $('form[name=requirement] input[name=phone]')[0]
+                               $(dom).css('border', '2px solid red')
+                               enableSubmitButton(false)
+                           }
+                           else {
+                               enableSubmitButton(true)
+                           }
                     });
-            })
+                }
+                else {
+                    errorArea.hide()
+                    var dom = $('form[name=requirement] input[name=phone]')[0]
+                    $(dom).css('border', '2px solid #ccc')
+                    enableSubmitButton(false)
+                }
+            }
+
+
+            $('form[name=requirement] select[name=country]').on('change', onPhoneNumberChange)
+            $('form[name=requirement] input[name=phone]').on('change', onPhoneNumberChange)
 
             $('form[name=requirement]').submit(function (e) {
                 e.preventDefault()
