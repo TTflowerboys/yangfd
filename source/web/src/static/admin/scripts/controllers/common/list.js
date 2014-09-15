@@ -8,6 +8,7 @@
         $scope.perPage = 12
         $scope.currentPageNumber = 1
         $scope.pages = []
+        $scope.api = api
 
         api.getAll({ params: {per_page: $scope.perPage} }).success(onGetList)
 
