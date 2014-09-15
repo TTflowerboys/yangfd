@@ -84,6 +84,7 @@ def user_login(params):
     solution=(str, True),
     challenge=(str, True),
     locales=(list, None, str),
+    budget="enum:budget",
 ))
 @rate_limit("register", ip=10)
 def register(params):
@@ -132,6 +133,8 @@ def register(params):
     intention=(list, None, str),
     locales=(list, None, str),
     wechat_id=(str, None),
+    budget=("enum:budget", None),
+
 ))
 @f_app.user.login.check(force=True)
 def current_user_edit(user, params):
