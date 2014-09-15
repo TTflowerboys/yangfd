@@ -20,35 +20,40 @@
                 <colgroup>
                     <col class="name">
                     <col class="status">
+                    <col class="changeStatus">
                     <col class="actions">
                 </colgroup>
                 <thead>
-                <tr>
-                    <th>名称</th>
-                    <th>状态</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>名称</th>
+                        <th>状态</th>
+                        <th>更新状态</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="item in list">
-                    <td>
-                        {%item.name%}
-                    </td>
-                    <td>
-                        {%item.status%}
-                    </td>
-                    <td style="text-align:center;">
-                        <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
-                            <i class="fa fa-search-plus "></i>
-                        </a>
-                        <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
-                            <i class="fa fa-edit "></i>
-                        </a>
+                    <tr ng-repeat="item in list">
+                        <td>
+                            {%item.name%}
+                        </td>
+                        <td>
+                            {%item.status%}
+                        </td>
+                        <td>
+                            <change-estate-status ng-model="item.status"></change-estate-status>
+                        </td>
+                        <td style="text-align:center;">
+                            <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
+                                <i class="fa fa-search-plus "></i>
+                            </a>
+                            <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
+                                <i class="fa fa-edit "></i>
+                            </a>
                             <span class="btn btn-danger" ng-click="onRemove(item,$index)" title="Remove">
                                 <i class="fa fa-trash-o"></i>
                             </span>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>
