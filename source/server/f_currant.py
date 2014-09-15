@@ -10,6 +10,7 @@ from libfelix.f_log import f_log
 from libfelix.f_interface import abort
 from libfelix.f_cache import f_cache
 
+import phonenumbers
 import logging
 logger = logging.getLogger(__name__)
 
@@ -332,6 +333,12 @@ class f_currant_plugins(f_app.plugin_base):
         Plugins
         ==================================================================
     """
+    def user_output_each(self, result_row, raw_row, user, admin, simple):
+        if "phone" in raw_row:
+            phonenumber = phonenumbers.parse(raw_row["phone"])
+            result_row["phone"] = phonenumber.national_number
+            result_row["country_code"] = phonenumber.country_code
+        return result_row
     def ticket_get(self, ticket):
         if "assignee" in ticket:
             ticket["assignee"] = map(str, ticket.pop("assignee", []))
@@ -535,3 +542,137 @@ class f_report(f_app.module_base):
         return self.update(report_id, {"$set": params})
 
 f_report()
+
+
+class f_geo(f_app.module_base):
+    """
+        ==================================================================
+        Geo
+        ==================================================================
+    """
+    geo_database = "geo"
+    nested_attr = ("country", "city")
+
+    def __init__(self):
+        f_app.module_install("geo", self)
+        f_app.dependency_register("pymongo", race="python")
+
+    def get_database(self, m):
+        return getattr(m, self.geo_database)
+
+    @f_cache("geo")
+    def get(self, geo_id_or_list, force_reload=False, ignore_nonexist=False):
+        def _format_each(geo):
+            geo["id"] = str(geo.pop("_id"))
+            return geo
+
+        if isinstance(geo_id_or_list, (tuple, list, set)):
+            result = {}
+
+            with f_app.mongo() as m:
+                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(geo_id) for geo_id in geo_id_or_list]}, "status": {"$ne": "deleted"}}))
+
+            if not force_reload and len(result_list) < len(geo_id_or_list) and not ignore_nonexist:
+                found_list = map(lambda geo: str(geo["_id"]), result_list)
+                abort(40400, logger.warning("Non-exist geo:", filter(lambda geo_id: geo_id not in found_list, geo_id_or_list), exc_info=False))
+            elif ignore_nonexist:
+                logger.warning("Non-exist geo:", filter(lambda geo_id: geo_id not in found_list, geo_id_or_list), exc_info=False)
+
+            for geo in result_list:
+                result[geo["id"]] = _format_each(geo)
+
+            return result
+
+        else:
+            with f_app.mongo() as m:
+                result = self.get_database(m).find_one({"_id": ObjectId(geo_id_or_list), "status": {"$ne": "deleted"}})
+
+                if result is None:
+                    if not force_reload and not ignore_nonexist:
+                        abort(40400, logger.warning("Non-exist geo:", geo_id_or_list, exc_info=False))
+                    elif ignore_nonexist:
+                        logger.warning("Non-exist geo:", geo_id_or_list, exc_info=False)
+                    return None
+
+            return _format_each(result)
+
+    def add(self, params):
+        params.setdefault("status", "new")
+        params.setdefault("time", datetime.utcnow())
+        with f_app.mongo() as m:
+            geo_id = self.get_database(m).insert(params)
+
+        return str(geo_id)
+
+    def output(self, geo_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
+        geos = self.get(geo_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        return geos
+
+    def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
+        params.setdefault("status", "new")
+        if sort is not None:
+            try:
+                sort_field, sort_orientation = sort
+            except:
+                abort(40000, logger.warning("sort param not well in format:", sort))
+
+        else:
+            sort_field = sort_orientation = None
+
+        geo_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)["content"]
+
+        return geo_id_list
+
+    def remove(self, geo_id):
+        self.update_set(geo_id, {"status": "deleted"})
+
+    def update(self, geo_id, params):
+        with f_app.mongo() as m:
+            self.get_database(m).update(
+                {"_id": ObjectId(geo_id)},
+                params,
+            )
+        geo = self.get(geo_id, force_reload=True)
+        return geo
+
+    def update_set(self, geo_id, params):
+        return self.update(geo_id, {"$set": params})
+
+    """
+        ==================================================================
+        Geo country
+        ==================================================================
+    """
+    @f_cache('geocountry')
+    def country_get(self, country_code):
+        pass
+
+    def country_edit(self, country_code):
+        pass
+
+    def country_remove(self, country_code):
+        pass
+
+    def country_search(self, params):
+        pass
+
+    """
+        ==================================================================
+        Geo city
+        ==================================================================
+    """
+    @f_cache('geocity')
+    def country_get(self, name):
+        pass
+
+    def country_edit(self):
+        pass
+
+    def country_remove(self, country_code):
+        pass
+
+    def country_search(self, params):
+        pass
+
+
+f_geo()
