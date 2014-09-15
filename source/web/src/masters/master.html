@@ -116,22 +116,10 @@
         </div>
 
         <!-- @@include =../partials/float_window.html -->
-
         <!-- @@include =../partials/requirement_popup.html -->
 
         <!-- @@include =../partials/js_import.html -->
-        <script>
-            $(window).on('resize', function () {
-                $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
-            })
-            $(function () {
-                $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
-
-                //setup language select
-                var language = $('#current_Language').text()
-                $('select[name=language]').find('option[value='+language+']').prop('selected',true)
-            })
-        </script>
+        <script src="/static/scripts/master.js"></script>
         <script src="/static/scripts/signin_modal.js"></script>
         <script src="/static/scripts/requirement_popup.js"></script>
         <!--@@placeholder=scripts-->
