@@ -163,7 +163,7 @@ def intention_ticket_assign(user, ticket_id, user_id):
     """
     f_app.ticket.get(ticket_id)
     f_app.user.get(user_id)
-    return f_app.ticket.update_set(ticket_id, {"assignee": [ObjectId(user_id)]})
+    return f_app.ticket.update_set(ticket_id, {"assignee": [ObjectId(user_id)], "status": "assigned", "assigned_time": datetime.utcnow()})
 
 
 @f_api('/intention_ticket/<ticket_id>/edit', params=dict(
@@ -343,7 +343,7 @@ def support_ticket_assign(user, ticket_id, user_id):
     """
     f_app.ticket.get(ticket_id)
     f_app.user.get(user_id)
-    return f_app.ticket.update_set(ticket_id, {"assignee": [ObjectId(user_id)]})
+    return f_app.ticket.update_set(ticket_id, {"assignee": [ObjectId(user_id)], "status": "assigned", "assigned_time": datetime.utcnow()})
 
 
 @f_api('/support_ticket/<ticket_id>/edit', params=dict(
