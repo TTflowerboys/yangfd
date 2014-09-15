@@ -68,10 +68,6 @@ def intention_ticket_add(params):
                 if not noregister:
                     f_app.user.login.success(creator_user_id)
     else:
-        if not shadow_user_id:
-            abort(40324)
-        # Test if the user exists
-        f_app.user.get(shadow_user_id)
         creator_user_id = ObjectId(user["id"])
 
     params["creator_user_id"] = creator_user_id
