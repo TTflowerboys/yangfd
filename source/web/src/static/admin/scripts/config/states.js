@@ -166,15 +166,27 @@ angular.module('app')
                 }
             })
         /**
-         * operation.intention
+         * dashboard.intention
          */
-            .state('dashboard.operation.intention', {
+            .state('dashboard.intention', {
                 url: '/intention',
-                templateUrl: '/static/admin/templates/dashboard.operation.intention.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.intention.tpl.html',
                 controller: 'ctrlList',
                 resolve: {
                     api: function (newsApi) {
                         return newsApi
+                    }
+                }
+            })
+
+
+            .state('dashboard.support', {
+                url: '/support',
+                templateUrl: '/static/admin/templates/dashboard.support.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (supportApi) {
+                        return supportApi
                     }
                 }
             })

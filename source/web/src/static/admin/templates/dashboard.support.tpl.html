@@ -4,12 +4,6 @@
         <div class="col-lg-12">
             <div class="buttons">
 
-                <span class="btn-group">
-                    <button class="btn" ui-sref=".create">
-                        <span class="fa fa-plus-circle"></span> 添加房产信息
-                    </button>
-                </span>
-
                 <span class="btn-group pull-right">
                     <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
                     <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
@@ -18,34 +12,43 @@
             </div>
             <table class="table table-bordered table-striped table-condensed">
                 <colgroup>
-                    <col class="name">
-                    <col class="status">
-                    <col class="changeStatus">
+                    <col class="nickname">
+                    <col class="title">
+                    <col class="nickname">
+                    <col class="date">
                     <col class="actions">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>名称</th>
-                        <th>状态</th>
+                        <th>用户</th>
+                        <th>内容</th>
+                        <th>创建者</th>
+                        <th>创建时间</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="item in list">
                         <td>
-                            {%item.name%}
+                            {%item.nickname%}
                         </td>
                         <td>
-                            <change-estate-status ng-model="item"></change-estate-status>
+                            {%item.description.substring(0,10)%}
                         </td>
-                        <td style="text-align:center;">
+                        <td>
+                            {%item.creator_user.nickname%}
+                        </td>
+                        <td>
+                            {%item.time * 1000 | date : medium%}
+                        </td>
+                        <td>
                             <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
                                 <i class="fa fa-search-plus "></i>
                             </a>
                             <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
                                 <i class="fa fa-edit "></i>
                             </a>
-                            <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="Remove">
+                            <span class="btn btn-danger" ng-click="onRemove(item,$index)" title="Remove">
                                 <i class="fa fa-trash-o"></i>
                             </span>
                         </td>
