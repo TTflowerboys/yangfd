@@ -85,7 +85,7 @@
                 <div class="form_row">
                     <textarea class="detail ghostTextArea" name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}"></textarea>
                 </div>
-                <p class="errorMessage" style="display:none"></p>    
+                <p class="errorMessage" style="display:none"></p>
                 <div class="form_row">
                     <button type="submit" class="button red">{{_('提交')}}</button>
                 </div>
@@ -194,7 +194,7 @@
                 $.post("/api/1/user/phone_test",
                     theParams,
                     function (data, status) {
-                        if (data.ret != 0) {                            
+                        if (data.ret != 0) {
                             errorArea.text(localization.find('#Phone').text() + " " + localization.find('#badNumber').text())
                             errorArea.show()
                             var dom = $('form[name=requirement] input[name=phone]')[0]
@@ -228,7 +228,7 @@
                     {
                         prefix = localization.find("#Email").text()
                     }
-                    
+
                     errorArea.text(prefix + " " + errorMessageFormValidatorType(validator))
                     errorArea.show()
                     $(dom).css('border', '2px solid red')
@@ -257,4 +257,3 @@
 
     </body>
 </html>
-
