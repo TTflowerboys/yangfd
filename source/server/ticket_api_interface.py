@@ -66,18 +66,18 @@ def intention_ticket_add(params):
 
                 creator_user_id = ObjectId(f_app.user.add(user_params, noregister=noregister))
                 f_app.log.add("add", user_id=str(creator_user_id))
-                # Log in for newly registered user
+                # Log in and send password for newly registered user
                 if not noregister:
-                    # password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
-                    # user_params["password"] = password
-                    # f_app.email.schedule(
-                    #     target=params["email"],
-                    #     subject="You are registered.",
-                    #     text=template("static/templates/new_user", password=user_params["password"], nickname=user_params["nickname"]),
-                    #     display="html",
-                    # )
+                    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
+                    user_params["password"] = password
+                    f_app.email.schedule(
+                        target=params["email"],
+                        subject="You are registered.",
+                        text=template("static/templates/new_user", password=user_params["password"], nickname=user_params["nickname"]),
+                        display="html",
+                    )
 
-                    # f_app.user.login.success(creator_user_id)
+                    f_app.user.login.success(creator_user_id)
     else:
         creator_user_id = ObjectId(user["id"])
 
