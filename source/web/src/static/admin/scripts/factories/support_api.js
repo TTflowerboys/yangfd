@@ -1,7 +1,7 @@
 /* Created by frank on 14-9-11. */
 (function () {
 
-    function supportApi($http) {
+    function supportApi($http, $filter) {
 
         return {
             getAll: function (config) {
