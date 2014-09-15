@@ -8,8 +8,6 @@ angular.module('app')
         { name: '审核失败', value: 'rejected' },
         { name: '在售中', value: 'selling' },
         { name: '隐藏', value: 'hidden' },
-        { name: '已售罄', value: 'sold out' },
-        { name: '删除', value: 'deleted' }
-    ]).run(function ($rootScope, estateStatus) {
-        $rootScope.estateStatus = estateStatus
-    })
+        { name: '已售罄', value: 'sold out' }
+        //{ name: '删除', value: 'deleted' }
+    ])

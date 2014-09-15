@@ -27,7 +27,6 @@
                     <tr>
                         <th>名称</th>
                         <th>状态</th>
-                        <th>更新状态</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -37,10 +36,7 @@
                             {%item.name%}
                         </td>
                         <td>
-                            {%item.status%}
-                        </td>
-                        <td>
-                            <change-estate-status ng-model="item.status"></change-estate-status>
+                            <change-estate-status ng-model="item"></change-estate-status>
                         </td>
                         <td style="text-align:center;">
                             <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">

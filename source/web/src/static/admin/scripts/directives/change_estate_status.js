@@ -1,19 +1,19 @@
 /* Created by frank on 14-9-15. */
 angular.module('app')
-    .directive('changeEstateStatus', function (adminApi) {
+    .directive('changeEstateStatus', function (estateApi, estateStatus) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/add_role.tpl.html',
+            templateUrl: '/static/admin/templates/change_estate_status.tpl.html',
             replace: false,
             scope: {
                 item: '=ngModel'
             },
             link: function ($scope, elm, attrs) {
-                $scope.onAddRole = function (item, roleToAdd) {
-                    adminApi.addRole(item.id, roleToAdd, {successMessage: '增加权限操作成功', errorMessage: true})
+                $scope.estateStatus = estateStatus
+                $scope.onUpdateStatus = function (item, newStatus) {
+                    estateApi.update({id: item.id, status: newStatus}, {successMessage: '增加权限操作成功', errorMessage: true})
                         .success(function () {
-                            item.role.push(roleToAdd)
-                            $scope.roleToAdd = ''
+                            item.status = newStatus
                         })
                 }
             }
