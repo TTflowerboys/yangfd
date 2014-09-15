@@ -339,6 +339,7 @@ class f_currant_plugins(f_app.plugin_base):
             result_row["phone"] = phonenumber.national_number
             result_row["country_code"] = phonenumber.country_code
         return result_row
+
     def ticket_get(self, ticket):
         if "assignee" in ticket:
             ticket["assignee"] = map(str, ticket.pop("assignee", []))
@@ -648,24 +649,6 @@ class f_geo(f_app.module_base):
         pass
 
     def country_edit(self, country_code):
-        pass
-
-    def country_remove(self, country_code):
-        pass
-
-    def country_search(self, params):
-        pass
-
-    """
-        ==================================================================
-        Geo city
-        ==================================================================
-    """
-    @f_cache('geocity')
-    def country_get(self, name):
-        pass
-
-    def country_edit(self):
         pass
 
     def country_remove(self, country_code):
