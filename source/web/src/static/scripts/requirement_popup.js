@@ -1,4 +1,27 @@
+var popup =  $('#requirement_popup')
+
 $('.floatWindow #requirement').click(function () {
+    var successArea = popup.find('.requirement .successMessage')
+    successArea.hide()
+    popup.find('.requirement_title').show()
+    popup.find('.requirement_form').show()
+
+    popup.find('form[name=requirement]')[0].reset()
+
+    if (window.user.nickname)
+    {
+        popup.find('input[name=nickname]').val(window.user.nickname)
+    }
+
+    if (window.user.country)
+    {
+        popup.find('select[name=country]').val(window.user.country)
+    }
+
+    if (window.user.phone)
+    {
+        popup.find('input[name=phone]').val(window.user.phone)
+    }
 
     var language = $('#current_Language').text()
     //setup budget select
@@ -6,15 +29,17 @@ $('.floatWindow #requirement').click(function () {
           null,
           function (data, status) {
               if (data.ret === 0) {
-                  var budgetSelect = $('#requirement_popup select[name=budget]')
+
+                  var budgetSelect = popup.find('select[name=budget]')
+                  budgetSelect.empty() //remove all sub nodes
                   for (var i = 0, len = data.val.length; i < len; i = i+ 1) {
                       budgetSelect.append('<option value=' + data.val[i].id + '>' + data.val[i].value + '</option>')
                   }
               }
           }
          )
-    $('#requirement_popup').show()
-    $('#requirement_popup .requirement_wrapper').css('top', $(window).scrollTop() -125)
+    popup.show()
+    popup.find('.requirement_wrapper').css('top', $(window).scrollTop() -125)
 })
 
 var localization = $('#data_localization')
@@ -32,12 +57,12 @@ function errorMessageFormValidatorType(validator) {
 }
 
 
-$('#requirement_popup form[name=requirement]').submit(function (e) {
+popup.find('form[name=requirement]').submit(function (e) {
     e.preventDefault()
     var errorArea = $(this).find('.errorMessage')
     errorArea.hide()
-    var successArea = $('.requirement .successMessage')
-    $('form[name=requirement] input, form[name=requirement] textarea').each(
+    var successArea = popup.find('.requirement .successMessage')
+    popup.find('form[name=requirement] input, form[name=requirement] textarea').each(
         function (index) {
             $(this).css('border', '2px solid #ccc')
         }
@@ -76,22 +101,22 @@ $('#requirement_popup form[name=requirement]').submit(function (e) {
                }
                else {
                    successArea.show()
-                   $('.requirement_title').hide()
-                   $('.requirement_form').hide()
+                   popup.find('.requirement_title').hide()
+                   popup.find('.requirement_form').hide()
 
-                   setInterval(function () {
-                       $('#requirement_popup').hide()
+                   setTimeout(function () {
+                       popup.hide()
                    }, 2000)
                }
            });
 })
 
-$('#requirement_popup form[name=requirement] input[name=phone]').on('change', function () {
-    var params = $('form[name=requirement]').serializeObject()
+popup.find('form[name=requirement] input[name=phone]').on('change', function () {
+    var params = popup.find('form[name=requirement]').serializeObject()
     var theParams = {'country':'', 'phone':''}
     theParams.country = params.country
     theParams.phone = params.phone
-    var errorArea = $('form[name=requirement]').find('.errorMessage')
+    var errorArea = popup.find('form[name=requirement]').find('.errorMessage')
     errorArea.hide()
     $.post('/api/1/user/phone_test',
            theParams,
@@ -99,12 +124,12 @@ $('#requirement_popup form[name=requirement] input[name=phone]').on('change', fu
                if (data.ret !== 0) {
                    errorArea.text(localization.find('#Phone').text() + ' '  + localization.find('#badNumber').text())
                    errorArea.show()
-                   var dom = $('form[name=requirement] input[name=phone]')[0]
+                   var dom = popup.find('form[name=requirement] input[name=phone]')[0]
                    $(dom).css('border', '2px solid red')
                }
            });
 })
 
-$('#requirement_popup button[name=cancel]').click(function () {
-    $('#requirement_popup').hide()
+popup.find('button[name=cancel]').click(function () {
+    popup.hide()
 });
