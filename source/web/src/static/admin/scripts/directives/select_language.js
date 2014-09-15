@@ -3,11 +3,11 @@
  */
 /* Created by frank on 14-8-28. */
 angular.module('app')
-    .directive('selectLanguage', function (i18n_languages) {
+    .directive('selectLanguage', function (i18nLanguages) {
         return {
             restrict: 'AE',
             link: function ($scope, elm, attrs) {
-                $scope.availableLanguages = angular.copy(i18n_languages)
+                $scope.availableLanguages = angular.copy(i18nLanguages)
                 $scope.onAddLanguage = function(value){
                     for(var i = 0,l=$scope.availableLanguages.length;i<l;i+=1){
                         if(value===$scope.availableLanguages[i].value){
@@ -18,9 +18,9 @@ angular.module('app')
                 }
                 $scope.onRestoreLanguage = function(value){
                     console.log(value);
-                    for(var i = 0,l=i18n_languages.length;i<l;i+=1){
-                        if(value===i18n_languages[i].value){
-                            $scope.availableLanguages.push(i18n_languages[i])
+                    for(var i = 0,l=i18nLanguages.length;i<l;i+=1){
+                        if(value===i18nLanguages[i].value){
+                            $scope.availableLanguages.push(i18nLanguages[i])
                             break
                         }
                     }
