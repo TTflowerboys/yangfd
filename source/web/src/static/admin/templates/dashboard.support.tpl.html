@@ -53,11 +53,7 @@
                             {%item.time * 1000 | date : medium%}
                         </td>
                         <td class="form-inline" style="white-space: nowrap;">
-                            <input type="text" ng-model="item.assignee" class="form-control input-sm"
-                                typeahead="user as user.nickname for user in api.searchUser($viewValue) | filter:$viewValue"
-                                typeahead-loading="searchingUser"/>
-                            <i class="fa fa-spinner fa-spin" ng-style="{'visibility':searchingUser?'visibility':'hidden'}"></i>
-                            <button class="btn btn-primary btn-sm" ng-style="{'visibility':item.assignee.id?'visibility':'hidden'}">提交</button>
+                            <div add-assignee ng-model="item"></div>
                         </td>
                         <td>
                             <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">

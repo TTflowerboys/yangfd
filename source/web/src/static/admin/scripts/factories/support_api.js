@@ -18,12 +18,6 @@
             },
             create: function (data, config) {
                 return $http.post('/api/1/support_tickets/add', data, config)
-            },
-            searchUser: function (name) {
-                return $http.get('/api/1/user/admin/search', {params: {}})
-                    .then(function (res) {
-                        return $filter('limitTo')(res.data.val, 5)
-                    })
             }
         }
 
