@@ -12,5 +12,5 @@ $(function () {
 
 $('select[name=language]').change(function(){
     var language=$(this).children('option:selected').val();
-    team.setLocationHrefParam("_i18n", language)
+    team.setLocationHrefParam('_i18n', language)
 })

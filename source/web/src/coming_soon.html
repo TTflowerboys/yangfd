@@ -188,11 +188,11 @@
             function enableSubmitButton(enable) {
                 var button = $('form[name=requirement] button[type=submit]')
                 if (enable) {
-                    button.removeAttr('disabled');
+                    button.prop('disabled', false);
                     button.removeClass('gray').addClass('red')
                 }
                 else {
-                    button.attr('disabled','disabled');
+                    button.prop('disabled',true);
                     button.removeClass('red').addClass('gray')
                 }
             }
@@ -205,6 +205,7 @@
                 var errorArea = $('form[name=requirement]').find(".errorMessage")
                 errorArea.hide()
                 if (theParams.phone){
+                    enableSubmitButton(false)
                     $.post("/api/1/user/phone_test",
                         theParams,
                         function (data, status) {
@@ -213,9 +214,11 @@
                                errorArea.show()
                                var dom = $('form[name=requirement] input[name=phone]')[0]
                                $(dom).css('border', '2px solid red')
-                               enableSubmitButton(false)
                            }
                            else {
+                               errorArea.hide()
+                               var dom = $('form[name=requirement] input[name=phone]')[0]
+                               $(dom).css('border', '2px solid #ccc')
                                enableSubmitButton(true)
                            }
                     });
@@ -224,7 +227,7 @@
                     errorArea.hide()
                     var dom = $('form[name=requirement] input[name=phone]')[0]
                     $(dom).css('border', '2px solid #ccc')
-                    enableSubmitButton(false)
+                    enablesubmitbutton(false)
                 }
             }
 
