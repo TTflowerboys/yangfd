@@ -4,6 +4,7 @@ from datetime import datetime
 from app import f_app
 from bson.objectid import ObjectId
 from libfelix.f_interface import f_api, abort, template
+import random
 import logging
 logger = logging.getLogger(__name__)
 
@@ -36,10 +37,10 @@ Intention Ticket
 ))
 def intention_ticket_add(params):
     """
-    ``noregister`` is default to **False**, which means if ``noregister`` is not given, the visitor will *be registered*.
+    ``noregister`` is default to **True**, which means if ``noregister`` is not given, the visitor will *not be registered*.
     """
     params.setdefault("type", "intention")
-    noregister = params.pop("noregister", False)
+    noregister = params.pop("noregister", True)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
     user = f_app.user.login_get()
@@ -64,9 +65,19 @@ def intention_ticket_add(params):
                     user_params["country"] = params["country"]
 
                 creator_user_id = ObjectId(f_app.user.add(user_params, noregister=noregister))
+                f_app.log.add("add", user_id=str(creator_user_id))
                 # Log in for newly registered user
                 if not noregister:
-                    f_app.user.login.success(creator_user_id)
+                    # password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
+                    # user_params["password"] = password
+                    # f_app.email.schedule(
+                    #     target=params["email"],
+                    #     subject="You are registered.",
+                    #     text=template("static/templates/new_user", password=user_params["password"], nickname=user_params["nickname"]),
+                    #     display="html",
+                    # )
+
+                    # f_app.user.login.success(creator_user_id)
     else:
         creator_user_id = ObjectId(user["id"])
 
