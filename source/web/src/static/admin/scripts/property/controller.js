@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlProperty($scope, $state, api, enumApi, $rootScope) {
+    function ctrlProperty($scope, $state, api, enumApi, $rootScope, i18nLanguages) {
 
         enumApi.getAll({
             params: {type: 'property_type'},
@@ -47,14 +47,11 @@
             $event.preventDefault()
             $scope.submitted = true
             $scope.loading = true
-            console.log($scope.item)
             for (var i in $scope.item) {
-                if (_.isEmpty($scope.item[i])) {
+                if (_.isEmpty($scope.item[i]) || $scope.item[i].value === '') {
                     delete $scope.item[i]
                 }
             }
-            console.log($scope.item)
-
 
             api.create($scope.item, {
                 successMessage: 'Update successfully',
@@ -118,6 +115,18 @@
             $scope.item.tempTotalPrice = null
             $scope.item.tempFloorPlan = null
         }
+
+//        function isEmptyI18n(object) {
+//            var res = true
+//            for (var lan in i18nLanguages) {
+//                console.log(object[i18nLanguages[lan]])
+//                if (object[i18nLanguages[lan]] !== '' && object[i18nLanguages[lan]] !== undefined) {
+//                    res = false
+//                    break
+//                }
+//            }
+//            return res
+//        }
     }
 
     angular.module('app').controller('ctrlProperty', ctrlProperty)
