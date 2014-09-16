@@ -33,7 +33,7 @@ var myPaths = {
     html: './src/{,*/}*.html',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,templates,admin/scripts,admin/templates}',
     static: './src/static/**/*.*',
-    less: './src/static/styles/**/*.less',
+    less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
     css: './src/static/styles/**/*.css',
     js: './src/static/{,admin/}scripts/**/*.js'
 }
