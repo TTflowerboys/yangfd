@@ -59,6 +59,7 @@ def geo_country_add(user, params):
 
 @f_api('/geo/city/add', params=dict(
     name=("i18n", True, str),
+    state=("i18n", None, str),
     country=(str, True),
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin"])
@@ -76,6 +77,7 @@ def geo_city_get(city_id):
 
 @f_api('/geo/city/<city_id>/edit', params=dict(
     name=("i18n", None, str),
+    state=("i18n", None, str),
     country=(str, None),
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin"])
