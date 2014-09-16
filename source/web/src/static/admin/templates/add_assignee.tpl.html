@@ -1,5 +1,5 @@
-<input type="text" ng-model="newAssignee" class="form-control input-sm"
+<input ng-init="newAssignee = item.assignee[0]" type="text" ng-model="newAssignee" class="form-control input-sm"
     typeahead="user as user.nickname for user in searchUser($viewValue) | filter:$viewValue"
     typeahead-loading="searchingUser"/>
 <i class="fa fa-spinner fa-spin" ng-style="{'visibility':searchingUser?'visibility':'hidden'}"></i>
-<button class="btn btn-primary btn-sm" ng-style="{'visibility':newAssignee.id?'visibility':'hidden'}" ng-click="onAssign(newAssignee)">提交</button>
+<button class="btn btn-primary btn-sm" ng-style="{'visibility':newAssignee.id && newAssignee.id !== item.assignee[0].id ?'visibility':'hidden'}" ng-click="onAssign(newAssignee)">提交</button>
