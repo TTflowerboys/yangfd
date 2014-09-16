@@ -40,7 +40,7 @@ def news_list(params):
     title=('i18n', None, str),
     content=('i18n', None, str),
     zipcode_index=str,
-    category=(str, "news"),
+    category=(list, True, "enum:news_category"),
     country=('i18n', None, str),
     city=('i18n', None, str),
     street=('i18n', None, str),
@@ -49,11 +49,8 @@ def news_list(params):
 def news_add(user, params):
     """
     ``blog_id`` is a constant "53f839246b80992f831b2269".
-    ``category`` must be in "announcement", "news", "process", "law".
     ``zipcode_index`` is the key related to properties, internal use only.
     """
-    if params["category"] not in f_app.common.news_category:
-        abort(40000, logger.warning("Invalid params: category not okay"))
     params["blog_id"] = ObjectId(_blog_id)
     return f_app.blog.post_add(params)
 
@@ -66,16 +63,13 @@ def news_get(news_id):
 @f_api('/news/<news_id>/edit', params=dict(
     title=('i18n', None, str),
     content=('i18n', None, str),
-    category=(str, None),
+    category=(list, None, "enum:news_category"),
     country=('i18n', None, str),
     city=('i18n', None, str),
     street=('i18n', None, str),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_edit(user, news_id, params):
-    if "category" in params:
-        if params.get("category") not in f_app.common.news_category:
-            abort(40000, logger.warning("Invalid params: category not okay"))
     return f_app.blog.post.update_set(news_id, params)
 
 
