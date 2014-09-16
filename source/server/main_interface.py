@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from app import f_app
+from bson.objectid import ObjectId
 from libfelix.f_interface import f_get, static_file, template, request, redirect
 
 
@@ -28,8 +29,19 @@ def get_current_user():
 def default():
     property_list = f_app.property.output(f_app.property.search({}))
     homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
-    announcement_list = f_app.blog.post_output(f_app.blog.post_search({"category": "announcement"}))
-    news_list = f_app.blog.post_output(f_app.blog.post_search({"category": "news"}))
+    announcement_list = f_app.blog.post_output(f_app.blog.post_search({"category": [{'_id': ObjectId('5417eca66b80992d07638186'), 'type': 'news_category', '_enum': 'news_category'}]}))
+    news_list = f_app.blog.post_output(
+        f_app.blog.post_search(
+            {
+                "category": [
+                    {'_id': ObjectId('54180eeb6b80994dcea5600d'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId('54180eeb6b80994dcea5600e'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId('54180eeb6b80994dcea5600f'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId('54180eeb6b80994dcea56010'), 'type': 'news_category', '_enum': 'news_category'},
+                ]
+            }, per_page=6
+        )
+    )
 
     return template(
         "index",
