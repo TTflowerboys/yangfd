@@ -39,7 +39,7 @@
             params: {type: 'property_price_type'},
             errorMessage: 'Update failed'
         }).success(function (data) {
-            $scope.facingDirectionList = data.val
+            $scope.propertyPriceTypeList = data.val
         })
         $scope.item = {}
 
@@ -82,7 +82,7 @@
             var temp = {time: $scope.item.tempHistoryTime, price: $scope.item.tempHistoryPrice}
             $scope.item.historical_price.push(temp)
             $scope.item.tempHistoryTime = null
-            $scope.item.tempHistoryPrice = null
+            $scope.item.tempHistoryPrice = {}
         }
 
         $scope.addCost = function () {
@@ -92,7 +92,7 @@
             var temp = {item: $scope.item.tempCostItem, price: $scope.item.tempCostPrice}
             $scope.item.estimated_monthly_cost.push(temp)
             $scope.item.tempCostItem = null
-            $scope.item.tempCostPrice = null
+            $scope.item.tempCostPrice = {}
         }
 
         $scope.addHouse = function () {
@@ -107,13 +107,13 @@
                 total_price: $scope.item.tempTotalPrice,
                 floor_plan: $scope.item.tempFloorPlan}
             $scope.item.main_house_types.push(temp)
-            $scope.item.tempHouseName = null
+            $scope.item.tempHouseName = {}
             $scope.item.tempBedroomCount = null
             $scope.item.tempLivingRoomCount = null
             $scope.item.tempBathroomCount = null
             $scope.item.tempKitchenCount = null
-            $scope.item.tempTotalPrice = null
-            $scope.item.tempFloorPlan = null
+            $scope.item.tempTotalPrice = {}
+            $scope.item.tempFloorPlan = {}
         }
 
 //        function isEmptyI18n(object) {
