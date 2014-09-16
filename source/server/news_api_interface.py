@@ -2,7 +2,6 @@ from datetime import datetime
 from bson.objectid import ObjectId
 from libfelix.f_common import f_app
 from libfelix.f_interface import f_api
-from libfelix.f_interface import abort
 
 import logging
 logger = logging.getLogger(__name__)
@@ -11,13 +10,13 @@ logger = logging.getLogger(__name__)
 _blog_id = "53f839246b80992f831b2269"
 
 
-#@f_api('/blog/add')
-#@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
-#def blog_add(user):
-#    blogs = f_app.blog.get_all()
-#    if len(blogs) > 0:
-#        abort(40000, logger.warning("Blog already exists"))
-#    return f_app.blog.add({"name": f_app.common.blog_name})
+# @f_api('/blog/add')
+# @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
+# def blog_add(user):
+#     blogs = f_app.blog.get_all()
+#     if len(blogs) > 0:
+#         abort(40000, logger.warning("Blog already exists"))
+#     return f_app.blog.add({"name": f_app.common.blog_name})
 #
 #
 @f_api('/news/search', params=dict(
@@ -41,6 +40,8 @@ def news_list(params):
     country=('i18n', None, str),
     city=('i18n', None, str),
     street=('i18n', None, str),
+    images=(list, None, str),
+    link=str,
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_add(user, params):
@@ -64,6 +65,9 @@ def news_get(news_id):
     country=('i18n', None, str),
     city=('i18n', None, str),
     street=('i18n', None, str),
+    images=(list, None, str),
+    link=(str, None),
+    zipcode_index=(str, None),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_edit(user, news_id, params):
