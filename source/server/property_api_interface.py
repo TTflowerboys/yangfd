@@ -52,8 +52,7 @@ def property_search(user, params):
 
     # Listing options
     status=str,
-    news_categorys=(list, None, 'enum:news_category'),
-    featured=bool,
+    news_category=(list, None, 'enum:news_category'),
 
     # Descriptive params
     decorative_style='enum:decorative_style',
@@ -114,7 +113,7 @@ def property_search(user, params):
 
     # Params for audit
     comment=str,
-    attachment=str,
+    attachment=(list, None, str),
 ))
 @f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer', 'agency'])
 def property_edit(property_id, user, params):

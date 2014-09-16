@@ -17,13 +17,15 @@ angular.module('app')
                     }
                 }
                 $scope.onRestoreLanguage = function(value){
-                    console.log(value);
                     for(var i = 0,l=i18nLanguages.length;i<l;i+=1){
                         if(value===i18nLanguages[i].value){
                             $scope.availableLanguages.push(i18nLanguages[i])
                             break
                         }
                     }
+                }
+                $scope.onResetLanguage = function(){
+                    $scope.availableLanguages = angular.copy(i18nLanguages)
                 }
             }
         }
