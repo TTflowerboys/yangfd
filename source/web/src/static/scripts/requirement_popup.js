@@ -88,47 +88,83 @@ popup.find('form[name=requirement]').submit(function (e) {
         $(dom).css('border', '2px solid red')
     }})
     if (!valid) {return}
-    var params = $(this).serializeObject()
 
+    var params = $(this).serializeObject()
     var language = $('#current_Language').text()
     params.locales = language
-    $.post('/api/1/intention_ticket/add',
-           params,
-           function (data, status) {
-               if (data.ret !== 0) {
-                   errorArea.text(localization.find('#submitRequirementFailure').text())
-                   errorArea.show()
-               }
-               else {
-                   successArea.show()
-                   popup.find('.requirement_title').hide()
-                   popup.find('.requirement_form').hide()
 
-                   setTimeout(function () {
-                       popup.hide()
-                   }, 2000)
-               }
-           });
+    var button = $('form[name=requirement] button[type=submit]')
+    button.css('cursor', 'wait')
+    $.post('/api/1/intention_ticket/add', params)
+        .done(function (data) {
+            if (data.ret !== 0) {
+                errorArea.text(localization.find('#submitRequirementFailure').text())
+                errorArea.show()
+            }
+            else {
+                successArea.show()
+                $('.requirement_title').hide()
+                $('.requirement_form').hide()
+
+                setTimeout(function () {
+                    popup.hide()
+                }, 2000)
+            }
+        })
+        .always(function () {
+            button.css('cursor', 'default')
+        })
 })
 
-popup.find('form[name=requirement] input[name=phone]').on('change', function () {
+function enableSubmitButton(enable) {
+    var button = $('form[name=requirement] button[type=submit]')
+    if (enable) {
+        button.prop('disabled', false);
+        button.removeClass('gray').addClass('red')
+    }
+    else {
+        button.prop('disabled',true);
+        button.removeClass('red').addClass('gray')
+    }
+}
+
+var onPhoneNumberChange = function () {
     var params = popup.find('form[name=requirement]').serializeObject()
     var theParams = {'country':'', 'phone':''}
     theParams.country = params.country
     theParams.phone = params.phone
     var errorArea = popup.find('form[name=requirement]').find('.errorMessage')
     errorArea.hide()
-    $.post('/api/1/user/phone_test',
-           theParams,
-           function (data, status) {
-               if (data.ret !== 0) {
-                   errorArea.text(localization.find('#Phone').text() + ' '  + localization.find('#badNumber').text())
-                   errorArea.show()
-                   var dom = popup.find('form[name=requirement] input[name=phone]')[0]
-                   $(dom).css('border', '2px solid red')
-               }
-           });
-})
+    var $input = popup.find('form[name=requirement] input[name=phone]')
+    if (theParams.phone){
+        enableSubmitButton(false)
+        $.post('/api/1/user/phone_test',
+               theParams,
+               function (data, status) {
+
+                   if (data.ret !== 0) {
+                       errorArea.text(localization.find('#Phone').text() + ' ' + localization.find('#badNumber').text())
+                       errorArea.show()
+                       $input.css('border', '2px solid red')
+                   }
+                   else {
+                       errorArea.hide()
+                       $input.css('border', '2px solid #ccc')
+                       enableSubmitButton(true)
+                   }
+               });
+    }
+    else {
+        errorArea.hide()
+        $input.css('border', '2px solid #ccc')
+        enableSubmitButton(true)
+    }
+}
+
+
+popup.find('form[name=requirement] select[name=country]').on('change', onPhoneNumberChange)
+popup.find('form[name=requirement] input[name=phone]').on('change', onPhoneNumberChange)
+
 
 popup.find('button[name=cancel]').click(function () {
     popup.hide()
