@@ -23,13 +23,10 @@ _blog_id = "53f839246b80992f831b2269"
 @f_api('/news/search', params=dict(
     per_page=int,
     time=datetime,
-    category=(list, None, str),
+    category=(list, None, "enum:news_category"),
     zipcode_index=str,
 ))
 def news_list(params):
-    if "category" in params:
-        if not set(params["category"]) <= set(f_app.common.news_category):
-            abort(40000, logger.warning("Invalid params: category", params["category"], exc_info=False))
     per_page = params.pop("per_page", 0)
     params["blog_id"] = ObjectId(_blog_id)
     post_list = f_app.blog.post.search(params, per_page=per_page)
