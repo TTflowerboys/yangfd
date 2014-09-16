@@ -24,7 +24,7 @@
                 </select>
             </div>
         </div>
-        <tabset justified="true" style="margin: 16px 0;">
+        <tabset justified="true" style="margin: 16px 0;" ng-if="userLanguage.value && userArea && userCurrency">
             <tab heading="房产通用信息">
                 <div class="row">
                     <div class="form-group col-xs-6 col-sm-3">
@@ -91,7 +91,6 @@
                         </div>
                     </div>
                 </div>
-                <hr/>
                 <div class="row">
                     <div class="form-group col-xs-12 col-sm-6">
 
@@ -604,6 +603,6 @@
                 </div>
             </tab>
         </tabset>
-        <input type="submit" class="btn btn-primary" value="提交">
+        <input type="submit" class="btn btn-primary" value="提交" ng-if="userLanguage.value && userArea && userCurrency">
     </form>
 </div>
