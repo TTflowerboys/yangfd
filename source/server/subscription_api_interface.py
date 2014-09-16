@@ -55,6 +55,6 @@ def subscription_notification_ready(user, params):
         f_app.email.schedule(
             target=",".join(email_list),
             subject="YoungFunding is ready now",
-            text=template("static/templates/we_are_ready"),
+            text=template("static/emails/we_are_ready"),
             display="html",
         )
