@@ -9,8 +9,14 @@ angular.module('app')
             link: function (scope, elm, attrs, ctrl) {
                 if (!scope.model) {scope.model = {}}
                 for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
-                    scope.model.unit = scope.model.unit || ''
+                    scope.model.unit = scope.model.unit || 'CNY'
                     scope.model.value = scope.model.value || ''
+                }
+                var o
+                for(var key in o){
+                    if(_.isE(o[key])){
+                        delete o[key]
+                    }
                 }
             }
         }

@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlProperty($scope, $state, api, enumApi,$rootScope) {
+    function ctrlProperty($scope, $state, api, enumApi, $rootScope) {
 
         enumApi.getAll({
             params: {type: 'property_type'},
@@ -35,6 +35,12 @@
         }).success(function (data) {
             $scope.facingDirectionList = data.val
         })
+        enumApi.getAll({
+            params: {type: 'property_price_type'},
+            errorMessage: 'Update failed'
+        }).success(function (data) {
+            $scope.facingDirectionList = data.val
+        })
         $scope.item = {}
 
         $scope.submit = function ($event, form) {
@@ -42,6 +48,14 @@
             $scope.submitted = true
             $scope.loading = true
             console.log($scope.item)
+            for (var i in $scope.item) {
+                if (_.isEmpty($scope.item[i])) {
+                    delete $scope.item[i]
+                }
+            }
+            console.log($scope.item)
+
+
             api.create($scope.item, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'

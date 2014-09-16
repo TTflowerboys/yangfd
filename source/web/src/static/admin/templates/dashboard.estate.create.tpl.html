@@ -196,9 +196,11 @@
 <div class="row">
     <div class="form-group col-xs-6 col-sm-3">
         <label class="control-label">房产价格类型</label>
-
         <div class="controls">
-            <input type="text" class="form-control" ng-model="item.property_price_type"/>
+            <select class="form-control" ng-model="item.property_price_type" style="width: 185px;"
+                    ng-options="p.id as p.value for p in intentionList">
+                <option value="">-- 选择 --</option>
+            </select>
         </div>
     </div>
 </div>
@@ -247,7 +249,7 @@
         <date-edit style="width: 185px;" ng-model="item.tempHistoryTime"></date-edit>
     </div>
     <div class="controls col-xs-6 col-sm-3">
-        <input type="text" type-i18n-unit="item.tempHistoryPrice" ng-model="item.tempHistoryPrice[userLanguage.value]"
+        <input type="text" type-i18n-unit="item.tempHistoryPrice" ng-model="item.tempHistoryPrice[userCurrency]"
                placeholder="成交价格"/>
         <input type="button" ng-click="addHistoricalPrice()" class="btn btn-primary" value="添加">
     </div>
@@ -258,7 +260,8 @@
 
         <div class="controls">
             <input type="text" class="form-control"
-                   ng-model="item.estimated_monthly_rent[userLanguage.value]"/>
+                   type-i18n-unit="item.estimated_monthly_rent"
+                   ng-model="item.estimated_monthly_rent[userCurrency]"/>
         </div>
     </div>
 </div>
@@ -293,7 +296,7 @@
     <div class="controls col-xs-12 col-sm-6">
         <input type="text" type-i18n="item.tempCostItem" ng-model="item.tempCostItem[userLanguage.value]"
                placeholder="支出名称"/>
-        <input type="text" type-i18n="item.tempCostPrice" ng-model="item.tempCostPrice[userLanguage.value]"
+        <input type="text" type-i18n-unit="item.tempCostPrice" ng-model="item.tempCostPrice[userCurrency]"
                placeholder="支出费用"/>
         <input type="button" ng-click="addCost()" class="btn btn-primary" value="添加">
     </div>
@@ -305,7 +308,7 @@
             <label class="control-label">总价格</label>
 
             <div class="controls">
-                <input type="text" class="form-control" ng-model="item.total_price[userLanguage.value]"/>
+                <input type="text" class="form-control" type-i18n-unit="item.total_price" ng-model="item.total_price.value"/>
             </div>
         </div>
         <div class="form-group col-xs-4 col-sm-2">
@@ -356,7 +359,7 @@
             <label class="control-label">面积</label>
 
             <div class="controls">
-                <input type="text" class="form-control" ng-model="item.space[userLanguage.value]"/>
+                <input type="text" class="form-control" type-i18n-unit="item.space" ng-model="item.space[userArea]"/>
             </div>
         </div>
     </div>
@@ -378,9 +381,9 @@
         <label class="control-label">单位面积参考价格</label>
 
         <div class="controls">
-            <input type="text" class="form-control" ng-model="item.unit_price"/>
-            <input type="text" class="form-control" ng-model="item.unit_price.price[userLanguage.value]"/>
-            <input type="text" class="form-control" ng-model="item.unit_price.unit[userLanguage.value]"/>
+            <!--<input type="text" class="form-control" type-i18n-unit="item.unit_price" ng-model="item.unit_price[userArea]"/>-->
+            <input type="text" class="form-control" type-i18n-unit="item.unit_price.price" ng-model="item.unit_price.price[userCurrency]"/>
+            <input type="text" class="form-control" type-i18n-unit="item.unit_price.unit" ng-model="item.unit_price.unit[userArea]"/>
         </div>
     </div>
 </div>
@@ -425,12 +428,13 @@
             </table>
         </div>
         <div class="controls">
-            <input type="text" ng-model="item.tempHouseName[userLanguage.value]" placeholder="户型名"/>
+            <input type="text" type-i18n="item.tempHouseName" ng-model="item.tempHouseName[userLanguage.value]" placeholder="户型名"/>
             <input type="text" ng-model="item.tempBedroomCount" placeholder="居室数"/>
             <input type="text" ng-model="item.tempLivingRoomCount" placeholder="客厅数"/>
             <input type="text" ng-model="item.tempBathroomCount" placeholder="卫生间数"/>
             <input type="text" ng-model="item.tempKitchenCount" placeholder="厨房数"/>
-            <input type="text" ng-model="item.tempTotalPrice[userLanguage.value]" placeholder="户型总价"/>
+            <input type="text" type-i18n-unit="item.tempTotalPrice" ng-model="item.tempTotalPrice[userCurrency]" placeholder="户型总价"/>
+            <div type-i18n="item.tempFloorPlan"></div>
             <single-image-edit ng-model="item.tempFloorPlan[userLanguage.value]" width-limit="1920" ratio="2"
                                thumbnail-size="800,400"
                                text="户型图"></single-image-edit>
@@ -472,7 +476,7 @@
         <label class="control-label">建筑面积</label>
 
         <div class="controls">
-            <input type="text" class="form-control" ng-model="item.building_area"/>
+            <input type="text" class="form-control" type-i18n-unit="item.building_area" ng-model="item.building_area[userArea]"/>
         </div>
     </div>
 </div>
@@ -490,7 +494,7 @@
         <label class="control-label">规划面积</label>
 
         <div class="controls">
-            <input type="text" class="form-control" ng-model="item.planning_area[userLanguage.value]"/>
+            <input type="text" class="form-control" type-i18n-unit="item.planning_area" ng-model="item.planning_area[userArea]"/>
         </div>
     </div>
 </div>
