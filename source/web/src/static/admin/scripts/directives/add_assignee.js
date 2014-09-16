@@ -16,6 +16,9 @@ angular.module('app')
                 }
                 scope.onAssign = function (newAssignee) {
                     $http.post('/api/1/support_ticket/' + scope.item.id + '/assign/' + newAssignee.id)
+                        .success(function () {
+                            scope.item.assignee = [newAssignee]
+                        })
                 }
             }
         }
