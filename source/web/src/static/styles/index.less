@@ -11,6 +11,33 @@
     margin-left: -@width /2;
 }
 
+.newsList() {
+    width:320px;
+    height:240px;
+    display:inline-block;
+    border-left: 1px solid #CCCCCC;
+    padding: 0 0 0 20px;
+
+    .title {
+        font-size: 14px;
+        line-height: 1;
+        color: #e60012;
+        margin-top: 0px;
+        margin-bottom:0px;
+    }
+
+    .list {
+        margin-top:28px;
+        .item {
+            display:block;
+            font-size: 14px;
+            line-height: 28px;
+            color: #666666;
+            text-decoration: none;
+        }
+    }
+}
+
 
 main {
     .gallery {
@@ -52,34 +79,21 @@ main {
             margin-bottom: 100px;
 
             .description {
-                margin-right: 320px;
+                margin-right: 340px;
             }
             .price {
-                margin-right: 320px;
+                margin-right: 340px;
             }
             .action > a {
                 width: 260px;
             }
             .relatedNews {
                 float: right;
-                border-left: 1px solid #CCCCCC;
                 margin-top: -132px;
-                margin-left: 20px;
-                width: 300px;
-                padding: 20px 0 20px 20px;
+                .newsList();
 
                 .title {
-                    font-size: 14px;
-                    line-height: 30px;
-                    color: #e60012;
-                    margin-top: 0px;
-                }
-
-                .item > a {
-                    font-size: 14px;
-                    line-height: 28px;
-                    color: #666666;
-                    text-decoration: none;
+                    margin-top:20px;
                 }
             }
         }
@@ -96,16 +110,66 @@ main {
             width:100%;
         }
 
+        .title {
+            margin-top:60px;
+            margin-bottom:0px;
+            font-size:24px;
+            color:#333;
+            line-height:1;
+        }
+
         .featuredNews {
             float:left;
             display:inline-block;
-            width:880px;
+            overflow:hidden;
+            width:860px;
+            margin-top:40px;
+            .picture {
+                float:left;
+                display:inline-block;
+                width:320px;
+            }
+
+            .content_wrapper {
+                float:left;
+                width:490px;
+                height:240px;
+                margin-left:20px;
+                display:inline-block;
+                position:relative;
+
+                .title {
+                    margin-top:0;
+                    font-size:18px;
+                    color:#666666;
+                    font-weight:bold;
+                }
+
+                .content {
+                    font-size:12px;
+                    line-height:2;
+                    color:#666666;
+                    max-height:160px;
+                }
+
+                .detail {
+                    position:absolute;
+                    bottom:0;
+                }
+            }
         }
 
         .moreNews {
             float:right;
-            width:300px;
-            display:inline-block;
+            margin-top:40px;
+            position:relative;
+            .newsList();
+
+            .more {
+                position:absolute;
+                bottom:0;
+            }
+
         }
     }
 }
