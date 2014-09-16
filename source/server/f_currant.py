@@ -644,58 +644,40 @@ class f_geo(f_app.module_base):
         Geo country
         ==================================================================
     """
-    @f_cache('geocountry')
-    def country_get(self, country_item_or_list, force_reload=False, ignore_nonexist=False):
-        def _format_each(geo):
-            geo["id"] = str(geo.pop("_id"))
-            return geo
-
-        if isinstance(country_item_or_list, (tuple, list, set)):
-            result = {}
-
-            with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"country_item": {"$in": [country_item for country_item in country_item_or_list]}, "status": {"$ne": "deleted"}}))
-
-            if not force_reload and len(result_list) < len(country_item_or_list) and not ignore_nonexist:
-                found_list = map(lambda geo: str(geo["_id"]), result_list)
-                abort(40400, logger.warning("Non-exist geo:", filter(lambda geo_id: geo_id not in found_list, country_item_or_list), exc_info=False))
-            elif ignore_nonexist:
-                logger.warning("Non-exist country:", filter(lambda geo_id: geo_id not in found_list, country_item_or_list), exc_info=False)
-
-            for geo in result_list:
-                result[geo["id"]] = _format_each(geo)
-
-            return result
-
-        else:
-            with f_app.mongo() as m:
-                result = self.get_database(m).find_one({"_id": ObjectId(country_item_or_list), "status": {"$ne": "deleted"}})
-
-                if result is None:
-                    if not force_reload and not ignore_nonexist:
-                        abort(40400, logger.warning("Non-exist geo:", country_item_or_list, exc_info=False))
-                    elif ignore_nonexist:
-                        logger.warning("Non-exist geo:", country_item_or_list, exc_info=False)
-                    return None
-
-            return _format_each(result)
+    def country_get_all(self, force_reload=False):
+        return self.get(self.country_search({}, per_page=0))
 
     def country_add(self, params):
         params.setdefault("status", "new")
+        params.setdefault("type", "country")
+        params.setdefault("time", datetime.utcnow())
+        if self.country_search({"country": params["country"]}):
+            abort(40000, logger.warning("Country already exists", exc_info=False))
+        with f_app.mongo() as m:
+            geo_id = self.get_database(m).insert(params)
+
+        return str(geo_id)
+
+    def country_search(self, params, sort=["time", "desc"], notime=False, per_page=10):
+        params.setdefault("type", "country")
+        return self.search(params, sort=sort, notime=notime, per_page=per_page)
+
+    """
+        ==================================================================
+        Geo city
+        ==================================================================
+    """
+    def city_add(self, params):
+        params.setdefault("status", "new")
+        params.setdefault("type", "city")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
             geo_id = self.get_database(m).insert(params)
 
         return str(geo_id)
 
-    def country_update_set(self, params):
-        pass
-
-    def country_remove(self, country):
-        pass
-
-    def country_search(self, params):
-        pass
-
+    def city_search(self, params, sort=["time", "desc"], notime=False, per_page=10):
+        params.setdefault("type", "city")
+        return self.search(params, sort=sort, notime=notime, per_page=per_page)
 
 f_geo()
