@@ -26,11 +26,12 @@ var useref = require('gulp-useref')
 var when = require('gulp-if')
 var filter = require('gulp-filter')
 var debug = require('gulp-debug')
+var base64 = require('gulp-img64');
 
 var myPaths = {
     src: './src/',
     dist: './dist/',
-    html: './src/{,*/}*.html',
+    html: './src/{,*/,static/emails/}*.html',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,templates,admin/scripts,admin/templates}',
     static: './src/static/**/*.*',
     less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
@@ -137,6 +138,7 @@ gulp.task('html-extend', function () {
 gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
 
     var publicHtmlFilter = filter('*.html')
+    var emailFilter = filter('static/emails/*.html')
 
     return gulp.src(myPaths.html, {base: './src/'})
         .pipe(extender())
@@ -148,6 +150,10 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
         .pipe(revReplace())
         .pipe(gulp.dest(myPaths.dist))
         .pipe(publicHtmlFilter.restore())
+        .pipe(emailFilter)
+        .pipe(base64())
+        .pipe(gulp.dest(myPaths.dist))
+        .pipe(emailFilter.restore())
 })
 
 
