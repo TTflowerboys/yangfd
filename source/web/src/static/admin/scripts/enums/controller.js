@@ -23,10 +23,11 @@
                 .success(function (data) {
                     $scope.item = data.val || {}
                     $scope.item.tempValues = _.pairs($scope.item.value)
-                    for (var i = 0; i < $scope.item.tempValues.length; i += 1) {
+                    for (var i = $scope.item.tempValues.length - 1; i >= 0; i -= 1) {
                         if ($scope.item.tempValues[i][0] === '_i18n') {
                             $scope.item.tempValues.splice(i, 1)
-                            break
+                        } else {
+                            $scope.onAddLanguage($scope.item.tempValues[i][0])
                         }
                     }
                 })
@@ -56,9 +57,6 @@
             $scope.item.value = _.object($scope.item.tempValues)
             api.editEnum($stateParams.id, $scope.item.type, $scope.item.value)
                 .success(function () {
-                    $scope.item.value = null
-                    $scope.item.tempValues = null
-                    $scope.item.property_type = null
                     $state.go('^')
                 })
         }

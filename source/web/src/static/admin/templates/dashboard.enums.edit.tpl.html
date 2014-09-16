@@ -47,11 +47,12 @@
                 </tbody>
             </table>
         </div>
+        <div select-language></div>
         <div class="controls">
 
             <div class="controls">
                 <select class="form-control" ng-model="item.tempI18n" style="width: 185px;"
-                        ng-options="p.value as p.name for p in i18nLanguages">
+                        ng-options="p.value as p.name for p in availableLanguages">
                     <option value="">-- 选择语言 --</option>
                 </select>
             </div>
