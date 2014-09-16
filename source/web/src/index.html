@@ -23,7 +23,7 @@
 </div>
 <div class="howItWorks"></div>
 <div class="announcement">
-    {{announcement_list}}
+    {{json_dumps(announcement_list)}}
 </div>
 <div class="houseFeatured">
     <a class="more" href="/house_list">{{_('更多')}}</a>
@@ -120,7 +120,7 @@
             <a class="ghostButton red more">{{_('了解更多')}}</a>
         </div>
     </div>
-    <!-- {{json_dumps(news_list)}} -->
+    {{json_dumps(news_list)}}
 </div>
 
 <!--@@close-->
