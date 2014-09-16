@@ -5,64 +5,70 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Currant\n"
+"Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-09 14:47+0800\n"
+"POT-Creation-Date: 2014-09-16 18:19+0800\n"
 "PO-Revision-Date: 2014-09-09 14:50+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-"Language: en_GB\n"
-"X-Generator: Poedit 1.6.9\n"
 
 #: ../web/src/admin.html:5
 msgid "Dashboard"
 msgstr ""
 
-#: ../web/src/admin.html:102
+#: ../web/src/admin.html:103
 msgid "Warning"
 msgstr ""
 
 #: ../web/src/coming_soon.html:18 ../web/src/coming_soon.html:99
-#: ../web/src/masters/master.html:23 ../web/src/masters/master.html:105
+#: ../web/src/masters/master.html:25 ../web/src/masters/master.html:108
 #: ../web/src/masters/signin_master.html:21
 #: ../web/src/masters/signin_master.html:35
 msgid "洋房东"
 msgstr "YoungFunding"
 
 #: ../web/src/coming_soon.html:23
+#: ../web/src/partials/localization_manager.html:2
 msgid "不为空"
 msgstr "should not be empty"
 
 #: ../web/src/coming_soon.html:24
+#: ../web/src/partials/localization_manager.html:3
 msgid "格式不正确"
 msgstr "is bad format"
 
 #: ../web/src/coming_soon.html:25
+#: ../web/src/partials/localization_manager.html:4
 msgid "格式不合法"
 msgstr "is invalid format"
 
 #: ../web/src/coming_soon.html:26
+#: ../web/src/partials/localization_manager.html:5
 msgid "姓名"
 msgstr "Name"
 
 #: ../web/src/coming_soon.html:27
+#: ../web/src/partials/localization_manager.html:6
 msgid "电话"
 msgstr "Phone"
 
 #: ../web/src/coming_soon.html:28
+#: ../web/src/partials/localization_manager.html:7
 msgid "邮箱"
 msgstr "Email"
 
 #: ../web/src/coming_soon.html:29
+#: ../web/src/partials/localization_manager.html:8
 msgid "订阅失败"
 msgstr "Subscribe Failed"
 
 #: ../web/src/coming_soon.html:30
+#: ../web/src/partials/localization_manager.html:9
 msgid "提交需求失败"
 msgstr "Submit Failed"
 
@@ -91,169 +97,300 @@ msgid "我们做什么？"
 msgstr "What we do?"
 
 #: ../web/src/coming_soon.html:49
-msgid ""
-"我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的"
-"置业顾问助推您的海外投资之路。"
+msgid "我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"
 msgstr ""
-"We focus on providing diversified oversea investment opportunities to our "
-"investors, get our investors on board with detailed investment analysis "
+"We focus on providing diversified oversea investment opportunities to our"
+" investors, get our investors on board with detailed investment analysis "
 "report and professional property consultant."
 
 #: ../web/src/coming_soon.html:51
-msgid ""
-"洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化"
-"的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以"
-"详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职"
-"业顾问，协助您完成投资流程，轻松当洋房东。"
+msgid "洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职业顾问，协助您完成投资流程，轻松当洋房东。"
 msgstr ""
-"YoungFunding will launch first in China and UK. We provide with diversified "
-"oversea investment opportunities such as properties, houses, apartments, and "
-"personalized investment recommendations based on your intention and budget. "
-"We help you with detailed property introduction and investment analysis "
-"report, and our professional property consultant will help you take care of "
-"everything when you want to settle your investment, really make real estate "
-"investment easy."
+"YoungFunding will launch first in China and UK. We provide with "
+"diversified oversea investment opportunities such as properties, houses, "
+"apartments, and personalized investment recommendations based on your "
+"intention and budget. We help you with detailed property introduction and"
+" investment analysis report, and our professional property consultant "
+"will help you take care of everything when you want to settle your "
+"investment, really make real estate investment easy."
 
-#: ../web/src/coming_soon.html:57
+#: ../web/src/coming_soon.html:57 ../web/src/partials/float_window.html:11
+#: ../web/src/partials/requirement_popup.html:6
 msgid "提交置业需求"
 msgstr "Submit Your Investment Needs"
 
-#: ../web/src/coming_soon.html:58
-msgid ""
-"如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
+#: ../web/src/coming_soon.html:58 ../web/src/partials/requirement_popup.html:7
+msgid "如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 "If you are interested in investing UK property, please submit your "
-"investment needs here. We will get in touch and help your with your needs."
+"investment needs here. We will get in touch and help your with your "
+"needs."
 
-#: ../web/src/coming_soon.html:63
+#: ../web/src/coming_soon.html:63 ../web/src/partials/requirement_popup.html:12
 msgid "姓名(必填)"
 msgstr "Name (Required)"
 
-#: ../web/src/coming_soon.html:67
+#: ../web/src/coming_soon.html:67 ../web/src/partials/requirement_popup.html:16
 msgid "中国 +86"
 msgstr "China +86"
 
-#: ../web/src/coming_soon.html:68
+#: ../web/src/coming_soon.html:68 ../web/src/partials/requirement_popup.html:17
 msgid "香港 +85"
 msgstr "HK +85"
 
-#: ../web/src/coming_soon.html:69
+#: ../web/src/coming_soon.html:69 ../web/src/partials/requirement_popup.html:18
 msgid "英国 +44"
 msgstr "UK +44"
 
-#: ../web/src/coming_soon.html:70
+#: ../web/src/coming_soon.html:70 ../web/src/partials/requirement_popup.html:19
 msgid "美国 +1"
 msgstr "US +1"
 
-#: ../web/src/coming_soon.html:73
+#: ../web/src/coming_soon.html:73 ../web/src/partials/requirement_popup.html:22
 msgid "电话(必填)"
 msgstr "Phone (Required)"
 
-#: ../web/src/coming_soon.html:76
+#: ../web/src/coming_soon.html:76 ../web/src/partials/requirement_popup.html:25
 msgid "邮箱(必填)"
 msgstr "Email (Required)"
 
-#: ../web/src/coming_soon.html:79
+#: ../web/src/coming_soon.html:79 ../web/src/partials/requirement_popup.html:28
 msgid "您的预算"
 msgstr "Your Budget"
 
-#: ../web/src/coming_soon.html:86
+#: ../web/src/coming_soon.html:86 ../web/src/partials/requirement_popup.html:35
 msgid "写下您的其他需求和描述，方便我们在挑选房源时作为参考"
 msgstr ""
 "Please write down your investment needs in detail, we can put your needs "
 "into our consideration when launch houses."
 
-#: ../web/src/coming_soon.html:90
+#: ../web/src/coming_soon.html:90 ../web/src/partials/requirement_popup.html:39
 msgid "提交"
 msgstr "Submit"
 
-#: ../web/src/coming_soon.html:93
+#: ../web/src/coming_soon.html:93 ../web/src/partials/requirement_popup.html:43
 msgid "置业需求已提交，稍后我们的工作人员会联系你"
 msgstr ""
-"Your requirement has been submitted, we will get in touch with you as soon "
-"as possible. "
+"Your requirement has been submitted, we will get in touch with you as "
+"soon as possible. "
 
-#: ../web/src/masters/master.html:34
-msgid "我的海投"
+#: ../web/src/house_list.html:13
+msgid "我想在"
 msgstr ""
 
-#: ../web/src/masters/master.html:35
-msgid "海外房产"
+#: ../web/src/house_list.html:15
+msgid "英国"
 msgstr ""
 
-#: ../web/src/masters/master.html:36
-msgid "项目开发"
+#: ../web/src/house_list.html:16
+msgid "美国"
 msgstr ""
 
-#: ../web/src/masters/master.html:37
-msgid "业务模式"
+#: ../web/src/house_list.html:18
+msgid "的"
 msgstr ""
 
-#: ../web/src/masters/master.html:42
-msgid "欢迎"
-msgstr "Welcome"
-
-#: ../web/src/masters/master.html:44
-msgid "登出"
-msgstr "Log Out"
-
-#: ../web/src/masters/master.html:48
-msgid "登陆"
-msgstr "Sign In"
-
-#: ../web/src/masters/master.html:49
-msgid "注册"
-msgstr "Sign Up"
-
-#: ../web/src/masters/master.html:74
-msgid "社交"
+#: ../web/src/house_list.html:20
+msgid "伦敦"
 msgstr ""
 
-#: ../web/src/masters/master.html:81
-msgid "服务支持"
+#: ../web/src/house_list.html:21
+msgid "布里斯托"
 msgstr ""
 
-#: ../web/src/masters/master.html:82 ../web/src/masters/signin_master.html:38
-msgid "服务条款"
+#: ../web/src/house_list.html:23
+msgid "投资"
 msgstr ""
 
-#: ../web/src/masters/master.html:83
-msgid "隐私声明"
+#: ../web/src/house_list.html:25
+msgid "二手房"
 msgstr ""
 
-#: ../web/src/masters/master.html:84 ../web/src/masters/signin_master.html:44
-msgid "业务流程"
-msgstr ""
-
-#: ../web/src/masters/master.html:87
-msgid "功能"
-msgstr ""
-
-#: ../web/src/masters/master.html:88
-msgid "伦敦房产"
-msgstr ""
-
-#: ../web/src/masters/master.html:89
+#: ../web/src/house_list.html:26 ../web/src/masters/master.html:92
 msgid "期房"
 msgstr ""
 
+#: ../web/src/house_list.html:32
+msgid "共找到"
+msgstr ""
+
+#: ../web/src/house_list.html:32
+msgid "套房产"
+msgstr ""
+
+#: ../web/src/house_list.html:113
+msgid "加载更多"
+msgstr ""
+
+#: ../web/src/house_list.html:116
+msgid "你还可以选择更多"
+msgstr ""
+
+#: ../web/src/house_list.html:119
+msgid "价格"
+msgstr ""
+
+#: ../web/src/house_list.html:121
+msgid "100万以下"
+msgstr ""
+
+#: ../web/src/house_list.html:122
+msgid "100至300万"
+msgstr ""
+
+#: ../web/src/house_list.html:123
+msgid "300至500万"
+msgstr ""
+
+#: ../web/src/house_list.html:124
+msgid "500至1000万"
+msgstr ""
+
+#: ../web/src/house_list.html:125
+msgid "1000万以上"
+msgstr ""
+
+#: ../web/src/house_list.html:130
+msgid "意向标签"
+msgstr ""
+
+#: ../web/src/house_list.html:132
+msgid "资产保值"
+msgstr ""
+
+#: ../web/src/house_list.html:133
+msgid "子女留学"
+msgstr ""
+
+#: ../web/src/house_list.html:134
+msgid "现金流保障"
+msgstr ""
+
+#: ../web/src/house_list.html:135
+msgid "移民投资"
+msgstr ""
+
+#: ../web/src/house_list.html:136
+msgid "移民自住"
+msgstr ""
+
+#: ../web/src/house_list.html:137
+msgid "超额收益"
+msgstr ""
+
+#: ../web/src/index.html:21
+msgid "增值您的未来"
+msgstr ""
+
+#: ../web/src/index.html:22
+msgid "成为会员"
+msgstr ""
+
+#: ../web/src/index.html:29
+msgid "更多"
+msgstr ""
+
+#: ../web/src/index.html:30 ../web/src/masters/master.html:91
+msgid "伦敦房产"
+msgstr ""
+
+#: ../web/src/index.html:50 ../web/src/index.html:81
+msgid "相关动态"
+msgstr ""
+
+#: ../web/src/index.html:61
+msgid "美国房产"
+msgstr ""
+
+#: ../web/src/index.html:95
+msgid "资讯"
+msgstr ""
+
+#: ../web/src/index.html:108
+msgid "详细"
+msgstr ""
+
+#: ../web/src/index.html:112
+msgid "更多资讯"
+msgstr ""
+
+#: ../web/src/index.html:120
+msgid "了解更多"
+msgstr ""
+
+#: ../web/src/masters/master.html:37
+msgid "我的海投"
+msgstr ""
+
+#: ../web/src/masters/master.html:38
+msgid "海外房产"
+msgstr ""
+
+#: ../web/src/masters/master.html:39
+msgid "项目开发"
+msgstr ""
+
+#: ../web/src/masters/master.html:40
+msgid "业务模式"
+msgstr ""
+
+#: ../web/src/masters/master.html:45
+msgid "欢迎"
+msgstr "Welcome"
+
+#: ../web/src/masters/master.html:47
+msgid "登出"
+msgstr "Log Out"
+
+#: ../web/src/masters/master.html:51
+msgid "登陆"
+msgstr "Sign In"
+
+#: ../web/src/masters/master.html:52
+msgid "注册"
+msgstr "Sign Up"
+
+#: ../web/src/masters/master.html:77
+msgid "社交"
+msgstr ""
+
+#: ../web/src/masters/master.html:84
+msgid "服务支持"
+msgstr ""
+
+#: ../web/src/masters/master.html:85 ../web/src/masters/signin_master.html:38
+msgid "服务条款"
+msgstr ""
+
+#: ../web/src/masters/master.html:86
+msgid "隐私声明"
+msgstr ""
+
+#: ../web/src/masters/master.html:87 ../web/src/masters/signin_master.html:44
+msgid "业务流程"
+msgstr ""
+
 #: ../web/src/masters/master.html:90
-msgid "房产开发"
+msgid "功能"
 msgstr ""
 
 #: ../web/src/masters/master.html:93
+msgid "房产开发"
+msgstr ""
+
+#: ../web/src/masters/master.html:96
 msgid "切换语言"
 msgstr ""
 
-#: ../web/src/masters/master.html:95 ../web/src/masters/signin_master.html:48
+#: ../web/src/masters/master.html:98 ../web/src/masters/signin_master.html:48
 msgid "中文简体（中国）"
 msgstr ""
 
-#: ../web/src/masters/master.html:96 ../web/src/masters/signin_master.html:49
+#: ../web/src/masters/master.html:99 ../web/src/masters/signin_master.html:49
 msgid "中文繁体（香港）"
 msgstr ""
 
-#: ../web/src/masters/master.html:97 ../web/src/masters/signin_master.html:50
+#: ../web/src/masters/master.html:100 ../web/src/masters/signin_master.html:50
 msgid "English (United Kingdom)"
 msgstr ""
 
@@ -261,50 +398,60 @@ msgstr ""
 msgid "隐私协议"
 msgstr ""
 
-#: ../web/src/static/templates/new_admin_title.html:1
+#: ../web/src/partials/float_window.html:17
+#, fuzzy
+msgid "电话："
+msgstr "Phone"
+
+#: ../web/src/partials/requirement_popup.html:40
+msgid "取消"
+msgstr ""
+
+#: ../web/src/static/emails/new_admin_title.html:1
 msgid "Your admin console access password"
 msgstr ""
 
-#: ../web/src/static/templates/set_as_admin.html:12
+#: ../web/src/static/emails/set_as_admin.html:12
 msgid "senior administrator"
 msgstr ""
 
-#: ../web/src/static/templates/set_as_admin.html:14
+#: ../web/src/static/emails/set_as_admin.html:14
 msgid "junior administrator"
 msgstr ""
 
-#: ../web/src/static/templates/set_as_admin.html:16
+#: ../web/src/static/emails/set_as_admin.html:16
 msgid "senior salesperson"
 msgstr ""
 
-#: ../web/src/static/templates/set_as_admin.html:18
+#: ../web/src/static/emails/set_as_admin.html:18
 msgid "junior salesperson"
 msgstr ""
 
-#: ../web/src/static/templates/set_as_admin.html:20
+#: ../web/src/static/emails/set_as_admin.html:20
 msgid "senior operation"
 msgstr ""
 
-#: ../web/src/static/templates/set_as_admin.html:22
+#: ../web/src/static/emails/set_as_admin.html:22
 msgid "junior operation"
 msgstr ""
 
-#: ../web/src/static/templates/set_as_admin.html:24
+#: ../web/src/static/emails/set_as_admin.html:24
 msgid "senior support"
 msgstr ""
 
-#: ../web/src/static/templates/set_as_admin.html:26
+#: ../web/src/static/emails/set_as_admin.html:26
 msgid "junior support"
 msgstr ""
 
-#: ../web/src/static/templates/set_as_admin.html:28
+#: ../web/src/static/emails/set_as_admin.html:28
 msgid "developer"
 msgstr ""
 
-#: ../web/src/static/templates/set_as_admin.html:30
+#: ../web/src/static/emails/set_as_admin.html:30
 msgid "agency"
 msgstr ""
 
-#: ../web/src/static/templates/set_as_admin_title.html:1
+#: ../web/src/static/emails/set_as_admin_title.html:1
 msgid "You are now set as admin"
 msgstr ""
+

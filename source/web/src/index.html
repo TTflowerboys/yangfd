@@ -11,15 +11,13 @@
 <div class="gallery">
     <div class="rslides_wrapper">
         <ul class="rslides">
+            %   for ad in homepage_ad_list:
             <li>
-                <img src="/static/images/background/login-background.jpg" alt="" width="1920" height="800">
+                <img src="{{ad.get('image', '')}}" width="1920" height="800">
             </li>
-            <li>
-                <img src="/static/images/background/login-background.jpg" alt="" width="1920" height="800">
-            </li>
+            %   end
         </ul>
     </div>
-    <!-- TODO: add ad list -->
     <h1 class="slogan">{{_('增值您的未来')}}</h1>
     <a class="becomeMember button red" href="/signup">{{_('成为会员')}}</a>
 </div>
@@ -122,6 +120,7 @@
             <a class="ghostButton red more">{{_('了解更多')}}</a>
         </div>
     </div>
+    <!-- {{json_dumps(news_list)}} -->
 </div>
 
 <!--@@close-->
