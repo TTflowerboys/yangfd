@@ -40,7 +40,7 @@ def news_list(params):
     title=('i18n', None, str),
     content=('i18n', None, str),
     zipcode_index=str,
-    category=(list, None, "enum:news_category"),
+    category=(list, True, "enum:news_category"),
     country=('i18n', None, str),
     city=('i18n', None, str),
     street=('i18n', None, str),
