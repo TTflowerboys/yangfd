@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlProperty($scope, $state, api, enumApi, $rootScope, i18nLanguages) {
+    function ctrlPropertyCreate($scope, $state, api, enumApi, $rootScope, i18nLanguages) {
 
         enumApi.getAll({
             params: {type: 'property_type'},
@@ -129,7 +129,7 @@
 //        }
     }
 
-    angular.module('app').controller('ctrlProperty', ctrlProperty)
+    angular.module('app').controller('ctrlPropertyCreate', ctrlPropertyCreate)
 
 })()
 
