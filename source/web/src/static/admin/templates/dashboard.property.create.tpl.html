@@ -205,7 +205,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" ng-if="item.property_price_type === '5417fab8c6e47b1566a8a98a'">
                     <div class="form-group col-xs-6 col-sm-3">
                         <label class="control-label">同等房产描述</label>
 
@@ -215,7 +215,6 @@
                         </div>
                     </div>
                 </div>
-                <hr/>
                 <div class="row">
                     <div class="form-group col-xs-6 col-sm-3">
                         <label class="control-label">历史成交价格</label>
@@ -236,7 +235,7 @@
                                 <tbody>
                                     <tr ng-repeat="price in item.historical_price">
                                         <td>{%price.time * 1000 | date : medium%}</td>
-                                        <td>{%price.price%}</td>
+                                        <td>{%price.price.value %} {%price.price.unit %}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -251,16 +250,17 @@
                         <date-edit style="width: 185px;" ng-model="item.tempHistoryTime"></date-edit>
                     </div>
                     <div class="controls col-xs-6 col-sm-3">
-
+                        {% item.tempHistoryPrice.unit%}
                         <input type="text" type-i18n-unit="item.tempHistoryPrice" unit="userCurrency" ng-model="item.tempHistoryPrice.value"
                             placeholder="成交价格"/>
                         <input type="button" ng-click="addHistoricalPrice()" class="btn btn-primary" value="添加">
                     </div>
                 </div>
+                <hr/>
                 <div class="row">
                     <div class="form-group col-xs-6 col-sm-3">
                         <label class="control-label">估计月租金收入</label>
-
+                        {%item.estimated_monthly_rent.unit%}
                         <div class="controls">
                             <input type="text" class="form-control"
                                 type-i18n-unit="item.estimated_monthly_rent"
@@ -288,8 +288,8 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="cost in item.estimated_monthly_cost">
-                                        <td>{%cost.item%}</td>
-                                        <td>{%cost.price%}</td>
+                                        <td>{%cost.item[userLanguage.value]%}</td>
+                                        <td>{%cost.price.value %} {%cost.price.unit %}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -300,6 +300,7 @@
                     <div class="controls col-xs-12 col-sm-6">
                         <input type="text" type-i18n="item.tempCostItem" ng-model="item.tempCostItem[userLanguage.value]"
                             placeholder="支出名称"/>
+                        {% item.tempCostPrice.unit%}
                         <input type="text" type-i18n-unit="item.tempCostPrice" unit="userCurrency" ng-model="item.tempCostPrice.value"
                             placeholder="支出费用"/>
                         <input type="button" ng-click="addCost()" class="btn btn-primary" value="添加">
@@ -310,7 +311,7 @@
                 <div class="row">
                     <div class="form-group col-xs-4 col-sm-2">
                         <label class="control-label">总价格</label>
-
+                        {% item.total_price.unit%}
                         <div class="controls">
                             <input type="text" class="form-control" type-i18n-unit="item.total_price" unit="userCurrency" ng-model="item.total_price.value"/>
                         </div>
@@ -365,6 +366,7 @@
                         <div class="controls">
                             <input type="text" class="form-control" type-i18n-unit="item.space" unit="userArea" ng-model="item.space.value"/>
                         </div>
+                        {% item.space.unit%}
                     </div>
                 </div>
                 <div class="row">
