@@ -12,6 +12,7 @@ angular.module('app')
         { name: '学校年级', value: 'school_grade' },
         { name: '生活设施', value: 'facilities' },
         { name: '房产价格类型', value: 'property_price_type' },
+        { name: '平台咨询类别', value: 'news_category' },
     ]).run(function ($rootScope, enum_types) {
         $rootScope.enum_types = enum_types
     })
