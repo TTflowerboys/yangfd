@@ -280,7 +280,7 @@ def support_ticket_add(params):
         if "email" in support:
             f_app.email.schedule(
                 target=support["email"],
-                subject="收到新的置业需求",
+                subject="收到新的客服单",
                 text=template("static/emails/new_ticket", params=params),
                 display="html",
             )
