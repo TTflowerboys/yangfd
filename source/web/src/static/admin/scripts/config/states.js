@@ -14,7 +14,7 @@ angular.module('app')
             }
         }
 
-        var estateResolve = {
+        var propertyResolve = {
             api: function (propertyApi) {
                 return propertyApi
             },
@@ -89,26 +89,26 @@ angular.module('app')
                 url: '/property',
                 templateUrl: '/static/admin/templates/dashboard.property.tpl.html',
                 controller: 'ctrlList',
-                resolve: estateResolve
+                resolve: propertyResolve
             })
             .state('dashboard.property.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.property.create.tpl.html',
                 controller: 'ctrlPropertyCreate',
-                resolve: estateResolve
+                resolve: propertyResolve
             })
 
             .state('dashboard.property.detail', {
                 url: '/:id',
                 templateUrl: '/static/admin/templates/dashboard.property.detail.tpl.html',
                 controller: 'ctrlDetail',
-                resolve: estateResolve
+                resolve: propertyResolve
             })
             .state('dashboard.property.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.property.edit.tpl.html',
                 controller: 'ctrlEdit',
-                resolve: estateResolve
+                resolve: propertyResolve
             })
 
         /**
