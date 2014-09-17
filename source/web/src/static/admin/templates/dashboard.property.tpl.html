@@ -40,9 +40,13 @@
                             <change-property-status ng-model="item"></change-property-status>
                         </td>
                         <td>
-                            <div class="form-inline">
-                                <select ng-options="p.value as p.name for p in newsCategoryList" ng-model="newCategory" ng-init="newStatus=item.news_category"
-                                    class="form-control input-sm">
+                            <div ng-hide="open">
+                                {%item.news_category%}
+                                <button class="btn btn-primary" ng-click="open =! open">编辑</button>
+                            </div>
+                            <div class="form-inline" ng-show="open">
+                                <select ng-options="p.id as p.value for p in newsCategoryList" ng-model="newNewsCategory" ng-init="newStatus=item.news_category"
+                                    class="form-control input-sm" multiple>
                                 </select>
                                 <button ng-show="item.news_category!==newNewsCategory" class="btn btn-sm btn-primary" ng-click="onUpdateStatus(item,newStatus)">提交</button>
                             </div>
