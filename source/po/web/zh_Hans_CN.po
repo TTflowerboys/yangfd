@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-17 11:09+0800\n"
+"POT-Creation-Date: 2014-09-17 14:43+0800\n"
 "PO-Revision-Date: 2014-09-17 10:39+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -25,135 +25,95 @@ msgstr "控制台"
 msgid "Warning"
 msgstr "警告"
 
-#: ../web/src/coming_soon.html:18 ../web/src/coming_soon.html:99
+#: ../web/src/coming_soon.html:18 ../web/src/coming_soon.html:90
 #: ../web/src/masters/master.html:25 ../web/src/masters/master.html:108
 #: ../web/src/masters/signin_master.html:21
 #: ../web/src/masters/signin_master.html:35
 msgid "洋房东"
 msgstr ""
 
-#: ../web/src/coming_soon.html:23
-#: ../web/src/partials/localization_manager.html:2
-msgid "不为空"
-msgstr ""
-
-#: ../web/src/coming_soon.html:24
-#: ../web/src/partials/localization_manager.html:3
-msgid "格式不正确"
-msgstr ""
-
-#: ../web/src/coming_soon.html:25
-#: ../web/src/partials/localization_manager.html:4
-msgid "格式不合法"
-msgstr ""
-
-#: ../web/src/coming_soon.html:26
-#: ../web/src/partials/localization_manager.html:5
-msgid "姓名"
-msgstr ""
-
 #: ../web/src/coming_soon.html:27
-#: ../web/src/partials/localization_manager.html:6
-msgid "电话"
-msgstr ""
-
-#: ../web/src/coming_soon.html:28
-#: ../web/src/partials/localization_manager.html:7
-msgid "邮箱"
-msgstr ""
-
-#: ../web/src/coming_soon.html:29
-#: ../web/src/partials/localization_manager.html:8
-msgid "订阅失败"
-msgstr ""
-
-#: ../web/src/coming_soon.html:30
-#: ../web/src/partials/localization_manager.html:9
-msgid "提交需求失败"
-msgstr ""
-
-#: ../web/src/coming_soon.html:36
 msgid "金秋十月，即将开放！"
 msgstr ""
 
-#: ../web/src/coming_soon.html:38
+#: ../web/src/coming_soon.html:29
 msgid "请填写邮箱订阅网站上线通知"
 msgstr ""
 
-#: ../web/src/coming_soon.html:39
+#: ../web/src/coming_soon.html:30
 msgid "订阅"
 msgstr ""
 
-#: ../web/src/coming_soon.html:42
+#: ../web/src/coming_soon.html:33
 msgid "谢谢你的订阅!"
 msgstr ""
 
-#: ../web/src/coming_soon.html:42
+#: ../web/src/coming_soon.html:33
 msgid "在网站开放后，我们将第一时间告知您！"
 msgstr ""
 
-#: ../web/src/coming_soon.html:48
+#: ../web/src/coming_soon.html:39
 msgid "我们做什么？"
 msgstr ""
 
-#: ../web/src/coming_soon.html:49
+#: ../web/src/coming_soon.html:40
 msgid "我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"
 msgstr ""
 
-#: ../web/src/coming_soon.html:51
+#: ../web/src/coming_soon.html:42
 msgid "洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职业顾问，协助您完成投资流程，轻松当洋房东。"
 msgstr ""
 
-#: ../web/src/coming_soon.html:57 ../web/src/partials/float_window.html:11
+#: ../web/src/coming_soon.html:48 ../web/src/partials/float_window.html:11
 #: ../web/src/partials/requirement_popup.html:6
 msgid "提交置业需求"
 msgstr ""
 
-#: ../web/src/coming_soon.html:58 ../web/src/partials/requirement_popup.html:7
+#: ../web/src/coming_soon.html:49 ../web/src/partials/requirement_popup.html:7
 msgid "如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 
-#: ../web/src/coming_soon.html:63 ../web/src/partials/requirement_popup.html:12
+#: ../web/src/coming_soon.html:54 ../web/src/partials/requirement_popup.html:12
 msgid "姓名(必填)"
 msgstr ""
 
-#: ../web/src/coming_soon.html:67 ../web/src/partials/requirement_popup.html:16
+#: ../web/src/coming_soon.html:58 ../web/src/partials/requirement_popup.html:16
 msgid "中国 +86"
 msgstr ""
 
-#: ../web/src/coming_soon.html:68 ../web/src/partials/requirement_popup.html:17
+#: ../web/src/coming_soon.html:59 ../web/src/partials/requirement_popup.html:17
 msgid "香港 +85"
 msgstr ""
 
-#: ../web/src/coming_soon.html:69 ../web/src/partials/requirement_popup.html:18
+#: ../web/src/coming_soon.html:60 ../web/src/partials/requirement_popup.html:18
 msgid "英国 +44"
 msgstr ""
 
-#: ../web/src/coming_soon.html:70 ../web/src/partials/requirement_popup.html:19
+#: ../web/src/coming_soon.html:61 ../web/src/partials/requirement_popup.html:19
 msgid "美国 +1"
 msgstr ""
 
-#: ../web/src/coming_soon.html:73 ../web/src/partials/requirement_popup.html:22
+#: ../web/src/coming_soon.html:64 ../web/src/partials/requirement_popup.html:22
 msgid "电话(必填)"
 msgstr ""
 
-#: ../web/src/coming_soon.html:76 ../web/src/partials/requirement_popup.html:25
+#: ../web/src/coming_soon.html:67 ../web/src/partials/requirement_popup.html:25
 msgid "邮箱(必填)"
 msgstr ""
 
-#: ../web/src/coming_soon.html:79 ../web/src/partials/requirement_popup.html:28
+#: ../web/src/coming_soon.html:70 ../web/src/partials/requirement_popup.html:28
 msgid "您的预算"
 msgstr ""
 
-#: ../web/src/coming_soon.html:86 ../web/src/partials/requirement_popup.html:35
+#: ../web/src/coming_soon.html:77 ../web/src/partials/requirement_popup.html:35
 msgid "写下您的其他需求和描述，方便我们在挑选房源时作为参考"
 msgstr ""
 
-#: ../web/src/coming_soon.html:90 ../web/src/partials/requirement_popup.html:39
+#: ../web/src/coming_soon.html:81 ../web/src/partials/requirement_popup.html:39
 msgid "提交"
 msgstr ""
 
-#: ../web/src/coming_soon.html:93 ../web/src/partials/requirement_popup.html:43
+#: ../web/src/coming_soon.html:84 ../web/src/partials/requirement_popup.html:43
 msgid "置业需求已提交，稍后我们的工作人员会联系你"
 msgstr ""
 
@@ -385,20 +345,55 @@ msgstr ""
 msgid "电话："
 msgstr ""
 
+#: ../web/src/partials/localization_manager.html:2
+msgid "不为空"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:3
+msgid "格式不正确"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:4
+msgid "格式不合法"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:5
+msgid "姓名"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:6
+msgid "电话"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:7
+msgid "邮箱"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:8
+msgid "订阅失败"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:9
+msgid "提交需求失败"
+msgstr ""
+
 #: ../web/src/partials/requirement_popup.html:40
 msgid "取消"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:3
+#: ../web/src/static/emails/set_as_admin.html:3
 #: ../web/src/static/emails/verify_email.html:3
 msgid "你好，"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:4
+#: ../web/src/static/emails/set_as_admin.html:4
 msgid "请使用手机号码"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:4
+#: ../web/src/static/emails/set_as_admin.html:4
 msgid "登录"
 msgstr ""
 
@@ -407,60 +402,62 @@ msgid "初始密码为："
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:6
+#: ../web/src/static/emails/set_as_admin.html:5
 msgid "登录入口为："
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:7
+#: ../web/src/static/emails/set_as_admin.html:6
 msgid "你已被授予以下权限："
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:12
-#: ../web/src/static/emails/set_as_admin.html:9
+#: ../web/src/static/emails/set_as_admin.html:11
 msgid "senior administrator"
 msgstr "高级平台管理员"
 
 #: ../web/src/static/emails/new_admin.html:14
-#: ../web/src/static/emails/set_as_admin.html:11
+#: ../web/src/static/emails/set_as_admin.html:13
 msgid "junior administrator"
 msgstr "初级平台管理员"
 
 #: ../web/src/static/emails/new_admin.html:16
-#: ../web/src/static/emails/set_as_admin.html:13
+#: ../web/src/static/emails/set_as_admin.html:15
 msgid "senior salesperson"
 msgstr "高级平台销售人员"
 
 #: ../web/src/static/emails/new_admin.html:18
-#: ../web/src/static/emails/set_as_admin.html:15
+#: ../web/src/static/emails/set_as_admin.html:17
 msgid "junior salesperson"
 msgstr "初级平台销售人员"
 
 #: ../web/src/static/emails/new_admin.html:20
-#: ../web/src/static/emails/set_as_admin.html:17
+#: ../web/src/static/emails/set_as_admin.html:19
 msgid "senior operation"
 msgstr "高级平台运营人员"
 
 #: ../web/src/static/emails/new_admin.html:22
-#: ../web/src/static/emails/set_as_admin.html:19
+#: ../web/src/static/emails/set_as_admin.html:21
 msgid "junior operation"
 msgstr "初级平台运营人员"
 
 #: ../web/src/static/emails/new_admin.html:24
-#: ../web/src/static/emails/set_as_admin.html:21
+#: ../web/src/static/emails/set_as_admin.html:23
 msgid "senior support"
 msgstr "高级平台客服"
 
 #: ../web/src/static/emails/new_admin.html:26
-#: ../web/src/static/emails/set_as_admin.html:23
+#: ../web/src/static/emails/set_as_admin.html:25
 msgid "junior support"
 msgstr "初级平台客服"
 
 #: ../web/src/static/emails/new_admin.html:28
-#: ../web/src/static/emails/set_as_admin.html:25
+#: ../web/src/static/emails/set_as_admin.html:27
 msgid "developer"
 msgstr "开发商管理员"
 
 #: ../web/src/static/emails/new_admin.html:30
-#: ../web/src/static/emails/set_as_admin.html:27
+#: ../web/src/static/emails/set_as_admin.html:29
 msgid "agency"
 msgstr "中介管理员"
 
@@ -492,21 +489,16 @@ msgstr ""
 msgid "需求描述："
 msgstr ""
 
-#: ../web/src/static/emails/set_as_admin.html:3
-#: ../web/src/static/emails/we_are_ready.html:3
-msgid "hi,"
-msgstr "你好，"
-
-#: ../web/src/static/emails/set_as_admin.html:4
-msgid "Permissions below are granted to you"
-msgstr ""
-
 #: ../web/src/static/emails/set_as_admin_title.html:1
 msgid "You are now set as admin"
 msgstr "您已被设置为管理员"
 
 #: ../web/src/static/emails/verify_email.html:4
 msgid "我们需要验证你的电子邮件。"
+msgstr ""
+
+#: ../web/src/static/emails/we_are_ready.html:3
+msgid "hello"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:5
@@ -555,5 +547,11 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "verification link"
+#~ msgstr ""
+
+#~ msgid "hi,"
+#~ msgstr "你好，"
+
+#~ msgid "Permissions below are granted to you"
 #~ msgstr ""
 
