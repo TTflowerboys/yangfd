@@ -83,28 +83,28 @@ angular.module('app')
                 resolve: enumResolve
             })
         /**
-         * estate
+         * property
          */
-            .state('dashboard.estate', {
-                url: '/estate',
+            .state('dashboard.property', {
+                url: '/property',
                 templateUrl: '/static/admin/templates/dashboard.property.tpl.html',
                 controller: 'ctrlList',
                 resolve: estateResolve
             })
-            .state('dashboard.estate.create', {
+            .state('dashboard.property.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.property.create.tpl.html',
                 controller: 'ctrlPropertyCreate',
                 resolve: estateResolve
             })
 
-            .state('dashboard.estate.detail', {
+            .state('dashboard.property.detail', {
                 url: '/:id',
                 templateUrl: '/static/admin/templates/dashboard.property.detail.tpl.html',
                 controller: 'ctrlDetail',
                 resolve: estateResolve
             })
-            .state('dashboard.estate.edit', {
+            .state('dashboard.property.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.property.edit.tpl.html',
                 controller: 'ctrlEdit',
