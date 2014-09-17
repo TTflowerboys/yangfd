@@ -1,9 +1,9 @@
 /* Created by frank on 14-9-15. */
 angular.module('app')
-    .directive('changeEstateStatus', function (estateApi, estateStatus, userApi) {
+    .directive('changePropertyStatus', function (estateApi, estateStatus, userApi) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/change_estate_status.tpl.html',
+            templateUrl: '/static/admin/templates/change_property_status.tpl.html',
             replace: false,
             scope: {
                 item: '=ngModel'
