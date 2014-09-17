@@ -5,6 +5,7 @@
 
     function ctrlCreate($scope, $state, api) {
 
+        $scope.api = api
 
         $scope.item = {}
 

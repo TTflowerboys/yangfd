@@ -1,0 +1,12 @@
+/* Created by frank on 14-9-17. */
+
+angular.module('app')
+    .directive('getNewsCategory', function (enumApi) {
+        return {
+            link: function (scope, element, attrs) {
+                enumApi.getEnumsByType('news_category').success(function (data) {
+                    scope.newsCategoryList = data.val
+                })
+            }
+        }
+    })
