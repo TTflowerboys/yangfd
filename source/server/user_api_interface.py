@@ -134,7 +134,8 @@ def register(params):
     locales=(list, None, str),
     wechat_id=(str, None),
     budget=("enum:budget", None),
-
+    system_message_type=(list, None, str),
+    email_message_type=(list, None, str),
 ))
 @f_app.user.login.check(force=True)
 def current_user_edit(user, params):
@@ -177,6 +178,15 @@ def current_user_edit(user, params):
         if not set(params["intention"]) <= set(f_app.common.user_intention):
             abort(40095, logger.warning("Invalid params: intention", params["intention"], exc_info=False))
 
+    if "system_message_type" in params:
+        if not set(params["system_message_type"]) <= set(f_app.common.message_type):
+            abort(40000, logger.warning("Invalid params: system_message_type", params["system_message_type"], exc_info=False))
+
+    if "email_message_type" in params:
+        if not set(params["email_message_type"]) <= set(f_app.common.message_type):
+            abort(40000, logger.warning("Invalid params: email_message_type", params["email_message_type"], exc_info=False))
+
+    f_app.user.update_set(user["id"], params)
     f_app.user.update_set(user["id"], params)
     return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
 
