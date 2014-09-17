@@ -23,6 +23,9 @@ angular.module('app',
         $rootScope.userLanguage = {
             value: window._lang
         }
+//        enumApi.getEnumsByType('news_category').success(function (data) {
+//            $rootScope.newsCategoryList = data.val
+//        })
     })
 
 angular.element(document).ready(function () {

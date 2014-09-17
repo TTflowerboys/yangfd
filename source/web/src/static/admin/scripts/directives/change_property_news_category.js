@@ -6,7 +6,9 @@ angular.module('app')
             templateUrl: '/static/admin/templates/change_property_news_category.tpl.html',
             scope: {
                 item: '=ngModel',
-                newsCategoryList: '=newsCategoryList'
+                newsCategoryList: '=newsCategoryList',
+                api: '=api',
+                name: '@name'
             },
             link: function (scope, elm, attrs) {
                 scope.$watch(function () {
@@ -20,12 +22,11 @@ angular.module('app')
                     })
                 })
                 scope.onSubmit = function (item, newValue) {
-                    propertyApi.update({
-                        id: item.id,
-                        news_category: _.map(newValue, function (i) {
-                            return i.id
-                        })
-                    }, {
+                    var data = {id: item.id}
+                    data[scope.name] = _.map(newValue, function (i) {
+                        return i.id
+                    })
+                    scope.api.update(data, {
                         errorMessage: true
                     }).then(function () {
                         scope.open = false
