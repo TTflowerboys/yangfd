@@ -27,6 +27,7 @@
                     <tr>
                         <th>名称</th>
                         <th>状态</th>
+                        <th>推荐栏目</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -37,6 +38,14 @@
                         </td>
                         <td>
                             <change-estate-status ng-model="item"></change-estate-status>
+                        </td>
+                        <td>
+                            <div class="form-inline">
+                                <select ng-options="p.value as p.name for p in estateStatus" ng-model="newStatus" ng-init="newStatus=item.news_category"
+                                    class="form-control input-sm">
+                                </select>
+                                <button ng-show="item.news_category!==newNewsCategory" class="btn btn-sm btn-primary" ng-click="onUpdateStatus(item,newStatus)">提交</button>
+                            </div>
                         </td>
                         <td style="text-align:center;">
                             <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
