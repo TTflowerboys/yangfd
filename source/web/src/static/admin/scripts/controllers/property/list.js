@@ -4,10 +4,15 @@
 (function () {
 
     function ctrlPropertyList($scope, $state, enumApi) {
-        enumApi.getAll({
+        console.log("enumApi:")
+        console.log(enumApi)
+        $scope.newsCategoryList = []
+        enumApi.getEnumsByType({
             params: {type: 'news_category'}
         }).success(function (data) {
             $scope.newsCategoryList = data.val
+            console.log("$scope.newsCategoryList:")
+            console.log($scope.newsCategoryList)
         })
     }
 
