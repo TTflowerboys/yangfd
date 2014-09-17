@@ -3,8 +3,12 @@
 
 (function () {
 
-    function ctrlPropertyList($scope, $state) {
-        $scope.newsCatogory = []
+    function ctrlPropertyList($scope, $state, enumApi) {
+        enumApi.getAll({
+            params: {type: 'news_category'}
+        }).success(function (data) {
+            $scope.newsCategoryList = data.val
+        })
     }
 
     angular.module('app').controller('ctrlPropertyList', ctrlPropertyList)
