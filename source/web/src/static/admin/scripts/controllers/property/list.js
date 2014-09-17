@@ -4,8 +4,7 @@
 (function () {
 
     function ctrlPropertyList($scope, $state) {
-
-        console.log($scope.api)
+        $scope.newsCatogory = []
     }
 
     angular.module('app').controller('ctrlPropertyList', ctrlPropertyList)
