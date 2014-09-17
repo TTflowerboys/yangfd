@@ -5,7 +5,7 @@ from libfelix.f_interface import f_api, abort, ObjectId
 
 
 @f_api("/message", params=dict(
-    state=(list, [], str),
+    status=(list, [], str),
     type=(list, [], str),
     mark=(str, None),
 ))
@@ -16,13 +16,15 @@ def message_search(user, params):
 
         Type: system
         {
-            "text": "\u6d4b\u8bd5\u6d88\u606f",
+            "text": (i18n),
             "state": "new",
             "time": 1348631514.0,
             "type": "system",
             "id": "50627bdacea1757f1213f8f3"
         }
     """
+    if "status" in params:
+        params["state"] = {"$in": params.pop("status", [])}
     messages = f_app.message.get_by_user(
         user['id'],
         params,
@@ -50,15 +52,16 @@ def message_delete(message_id, user):
     return f_app.message.delete(message_id, user_id)
 
 
-@f_api("/message/<message_id>/mark/<state>")
+@f_api("/message/<message_id>/mark/<status>")
 @f_app.user.login.check(force=True)
-def message_mark(message_id, state, user):
-    return f_app.message.mark(message_id, state)
+def message_mark(message_id, status, user):
+    return f_app.message.mark(message_id, status)
 
 
 @f_api('/message/add', params=dict(
     nonone=False,
-    text=(str, ""),
+    text=("i18n", None, str),
+    title=("i18n", None, str),
     type=(str, "system"),
     target=(str, "all"),
 ))

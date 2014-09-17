@@ -360,6 +360,12 @@ class f_currant_plugins(f_app.plugin_base):
                 if index_params:
                     f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
 
+    def post_add(self, params, post_id):
+        return params
+
+    def message_output_each():
+        pass
+
 
 f_currant_plugins()
 
