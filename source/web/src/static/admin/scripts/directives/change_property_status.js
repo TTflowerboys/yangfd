@@ -1,6 +1,6 @@
 /* Created by frank on 14-9-15. */
 angular.module('app')
-    .directive('changePropertyStatus', function (estateApi, estateStatus, userApi) {
+    .directive('changePropertyStatus', function (propertyApi, estateStatus, userApi) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/change_property_status.tpl.html',
@@ -25,7 +25,7 @@ angular.module('app')
                     })
                 }
                 scope.onUpdateStatus = function (item, newStatus) {
-                    estateApi.update({id: item.id, status: newStatus}, {successMessage: '增加权限操作成功', errorMessage: true})
+                    propertyApi.update({id: item.id, status: newStatus}, {successMessage: '增加权限操作成功', errorMessage: true})
                         .success(function () {
                             item.status = newStatus
                         })

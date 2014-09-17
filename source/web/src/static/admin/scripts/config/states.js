@@ -15,8 +15,8 @@ angular.module('app')
         }
 
         var estateResolve = {
-            api: function (estateApi) {
-                return estateApi
+            api: function (propertyApi) {
+                return propertyApi
             },
             enumApi: function (apiFactory) {
                 return apiFactory('enum')
