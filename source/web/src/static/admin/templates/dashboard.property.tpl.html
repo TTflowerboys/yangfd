@@ -40,12 +40,7 @@
                             <change-property-status ng-model="item"></change-property-status>
                         </td>
                         <td>
-                            <div class="form-inline">
-                                <select ng-options="p.value as p.name for p in newsCategoryList" ng-model="newCategory" ng-init="newStatus=item.news_category"
-                                    class="form-control input-sm">
-                                </select>
-                                <button ng-show="item.news_category!==newNewsCategory" class="btn btn-sm btn-primary" ng-click="onUpdateStatus(item,newStatus)">提交</button>
-                            </div>
+                            <change-property-news-category ng-model="item" news-category-list="newsCategoryList"></change-property-news-category>
                         </td>
                         <td style="text-align:center;">
                             <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
