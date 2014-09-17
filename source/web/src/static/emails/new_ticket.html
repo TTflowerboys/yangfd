@@ -1,18 +1,11 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-        <p>置业需求信息如下：</p>
-        <ul>
-            <li>用户姓名：{{params.get("nickname")}}</li>
-            <li>用户手机：{{params.get("phone")}}</li>
-            <li>用户邮箱：{{params.get("email")}}</li>
-            <li>用户预算：{{params.get("budget")}}</li>
-            <li>需求描述：{{params.get("description")}}</li>
-        </ul>
-
-    </body>
-</html>
+<!--@@master = ../../masters/email.html-->
+<!--@@block=content-->
+<p>置业需求信息如下：</p>
+<ul>
+    <li>用户姓名：{{params.get("nickname")}}</li>
+    <li>用户手机：{{params.get("phone")}}</li>
+    <li>用户邮箱：{{params.get("email")}}</li>
+    <li>用户预算：{{params.get("budget")}}</li>
+    <li>需求描述：{{params.get("description")}}</li>
+</ul>
+<!--@@close-->
