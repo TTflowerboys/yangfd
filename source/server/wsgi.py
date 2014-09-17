@@ -20,6 +20,7 @@ import analytics_api_interface
 import upload_api_interface
 import user_api_interface
 import ad_api_interface
+import message_api_interface
 
 
 application = f_app(__name__)

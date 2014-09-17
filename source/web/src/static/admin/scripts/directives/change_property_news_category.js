@@ -20,9 +20,17 @@ angular.module('app')
                     })
                 })
                 scope.onSubmit = function (item, newValue) {
-                    propertyApi.update({id: item.id, news_category: _.map(newValue, function (i) {
-                        return i.id
-                    })})
+                    propertyApi.update({
+                        id: item.id,
+                        news_category: _.map(newValue, function (i) {
+                            return i.id
+                        })
+                    }, {
+                        errorMessage: true
+                    }).then(function () {
+                        scope.open = false
+                        scope.item.news_category = newValue
+                    })
                 }
             }
         }
