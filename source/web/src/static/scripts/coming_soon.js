@@ -27,17 +27,15 @@ $('select[name=language]').change(function () {
 })
 
 
-var localization = $('#data_localization')
-
 function errorMessageFormValidatorType(validator) {
     if (validator === 'required') {
-        return localization.find('#notEmpty').text()
+        return window.i18n('不为空')
     }
     else if (validator === 'number') {
-        return localization.find('#badNumber').text()
+        return window.i18n('格式不正确')
     }
     else if (validator === 'email') {
-        return localization.find('#badEmail').text()
+        return window.i18n('格式不合法')
     }
 }
 
@@ -48,7 +46,7 @@ $('form[name=subscription]').submit(function (e) {
     var successArea = $('.opening .successMessage')
 
     var valid = $.validate(this, {onError: function (dom, validator, index) {
-        errorArea.text(localization.find('#Email').text() + ' ' + errorMessageFormValidatorType(validator))
+        errorArea.text(window.i18n('邮箱') + ' ' + errorMessageFormValidatorType(validator))
         errorArea.show()
     }})
     if (!valid) {return}
@@ -60,7 +58,7 @@ $('form[name=subscription]').submit(function (e) {
            params,
            function (data, status) {
                if (data.ret !== 0) {
-                   errorArea.text(localization.find('#subscriptionFailure').text())
+                   errorArea.text(window.i18n('订阅失败'))
                    errorArea.show()
                }
                else {
@@ -96,7 +94,7 @@ var onPhoneNumberChange = function () {
                theParams,
                function (data, status) {
                    if (data.ret !== 0) {
-                       errorArea.text(localization.find('#Phone').text() + ' ' + localization.find('#badNumber').text())
+                       errorArea.text(window.i18n('电话') + ' ' + window.i18n('格式不正确'))
                        errorArea.show()
                        $input.css('border', '2px solid red')
                    }
@@ -134,15 +132,15 @@ $('form[name=requirement]').submit(function (e) {
         var prefix = ''
         if (dom.name === 'nickname')
         {
-            prefix = localization.find('#Name').text()
+            prefix = window.i18n('姓名')
         }
         else if (dom.name === 'phone')
         {
-            prefix = localization.find('#Phone').text()
+            prefix = window.i18n('电话')
         }
         else if (dom.name === 'email')
         {
-            prefix = localization.find('#Email').text()
+            prefix = window.i18n('邮箱')
         }
 
         errorArea.text(prefix + ' ' + errorMessageFormValidatorType(validator))
@@ -159,7 +157,7 @@ $('form[name=requirement]').submit(function (e) {
     $.post('/api/1/intention_ticket/add', params)
         .done(function (data) {
             if (data.ret !== 0) {
-                errorArea.text(localization.find('#submitRequirementFailure').text())
+                errorArea.text(window.i18n('提交需求失败'))
                 errorArea.show()
             }
             else {

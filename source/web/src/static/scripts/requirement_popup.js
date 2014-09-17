@@ -3,6 +3,8 @@ var popup =  $('#requirement_popup')
 $('.floatWindow #requirement').click(function () {
     var successArea = popup.find('.requirement .successMessage')
     successArea.hide()
+    var errorArea = popup.find('.errorMessage')
+    errorArea.hide()
     popup.find('.requirement_title').show()
     popup.find('.requirement_form').show()
 
@@ -42,17 +44,17 @@ $('.floatWindow #requirement').click(function () {
     popup.find('.requirement_wrapper').css('top', $(window).scrollTop() -125)
 })
 
-var localization = $('#data_localization')
+
 
 function errorMessageFormValidatorType(validator) {
     if (validator === 'required') {
-        return localization.find('#notEmpty').text()
+        return window.i18n('不为空')
     }
     else if (validator === 'number') {
-        return localization.find('#badNumber').text()
+        return window.i18n('格式不正确')
     }
     else if (validator === 'email') {
-        return localization.find('#badEmail').text()
+        return window.i18n('格式不合法')
     }
 }
 
@@ -72,15 +74,15 @@ popup.find('form[name=requirement]').submit(function (e) {
         var prefix = ''
         if (dom.name === 'nickname')
         {
-            prefix = localization.find('#Name').text()
+            prefix = window.i18n('姓名')
         }
         else if (dom.name === 'phone')
         {
-            prefix = localization.find('#Phone').text()
+            prefix = window.i18n('电话')
         }
         else if (dom.name === 'email')
         {
-            prefix = localization.find('#Email').text()
+            prefix = window.i18n('邮箱')
         }
 
         errorArea.text(prefix + ' ' + errorMessageFormValidatorType(validator))
@@ -98,7 +100,7 @@ popup.find('form[name=requirement]').submit(function (e) {
     $.post('/api/1/intention_ticket/add', params)
         .done(function (data) {
             if (data.ret !== 0) {
-                errorArea.text(localization.find('#submitRequirementFailure').text())
+                errorArea.text(window.i18n('提交需求失败'))
                 errorArea.show()
             }
             else {
@@ -143,7 +145,7 @@ var onPhoneNumberChange = function () {
                function (data, status) {
 
                    if (data.ret !== 0) {
-                       errorArea.text(localization.find('#Phone').text() + ' ' + localization.find('#badNumber').text())
+                       errorArea.text(window.i18n('电话') + ' ' + window.i18n('格式不正确'))
                        errorArea.show()
                        $input.css('border', '2px solid red')
                    }
