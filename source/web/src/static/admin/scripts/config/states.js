@@ -87,26 +87,26 @@ angular.module('app')
          */
             .state('dashboard.estate', {
                 url: '/estate',
-                templateUrl: '/static/admin/templates/dashboard.estate.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.property.tpl.html',
                 controller: 'ctrlList',
                 resolve: estateResolve
             })
             .state('dashboard.estate.create', {
                 url: '/create',
-                templateUrl: '/static/admin/templates/dashboard.estate.create.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.property.create.tpl.html',
                 controller: 'ctrlPropertyCreate',
                 resolve: estateResolve
             })
 
             .state('dashboard.estate.detail', {
                 url: '/:id',
-                templateUrl: '/static/admin/templates/dashboard.estate.detail.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.property.detail.tpl.html',
                 controller: 'ctrlDetail',
                 resolve: estateResolve
             })
             .state('dashboard.estate.edit', {
                 url: '/:id/edit',
-                templateUrl: '/static/admin/templates/dashboard.estate.edit.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.property.edit.tpl.html',
                 controller: 'ctrlEdit',
                 resolve: estateResolve
             })
