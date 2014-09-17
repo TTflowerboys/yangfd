@@ -3,17 +3,20 @@ angular.module('app')
     .directive('typeI18nUnit', function ($parse, i18nLanguages, $rootScope) {
         return {
             restrict: 'AE',
+            templateUrl: '/static/admin/templates/type_i18n_unit.tpl.html',
+            replace: true,
             scope: {
-                model: '=typeI18nUnit',
-                unit: '=unit'
+                i18nUnit: '=ngModel',
+                unit: '=unit',
+                placeholder: '@placeholder'
             },
             link: function (scope, elm, attrs, ctrl) {
-                if (!scope.model) {scope.model = {}}
+                if (!scope.i18nUnit) {scope.i18nUnit = {}}
                 for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
-                    scope.model.value = scope.model.value || ''
+                    scope.i18nUnit.value = scope.i18nUnit.value || ''
                 }
                 scope.$watch('unit',function(value){
-                    scope.model.unit = value
+                    scope.i18nUnit.unit = value
                 })
             }
         }

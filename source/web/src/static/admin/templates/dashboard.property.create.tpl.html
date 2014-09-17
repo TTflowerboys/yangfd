@@ -246,13 +246,11 @@
                 <div class="row">
                     <div class="controls col-xs-6 col-sm-3">
                         <span class="controls col-xs-8 col-sm-4">成交时间</span>
-
                         <date-edit style="width: 185px;" ng-model="item.tempHistoryTime"></date-edit>
                     </div>
                     <div class="controls col-xs-6 col-sm-3">
-                        {% item.tempHistoryPrice.unit%}
-                        <input type="text" type-i18n-unit="item.tempHistoryPrice" unit="userCurrency" ng-model="item.tempHistoryPrice.value"
-                            placeholder="成交价格"/>
+                        <div type-i18n-unit unit="userCurrency" ng-model="item.tempHistoryPrice"
+                            placeholder="成交价格"></div>
                         <input type="button" ng-click="addHistoricalPrice()" class="btn btn-primary" value="添加">
                     </div>
                 </div>
@@ -260,12 +258,8 @@
                 <div class="row">
                     <div class="form-group col-xs-6 col-sm-3">
                         <label class="control-label">估计月租金收入</label>
-                        {%item.estimated_monthly_rent.unit%}
                         <div class="controls">
-                            <input type="text" class="form-control"
-                                type-i18n-unit="item.estimated_monthly_rent"
-                                unit="userCurrency"
-                                ng-model="item.estimated_monthly_rent.value"/>
+                            <div type-i18n-unit unit="userCurrency" ng-model="item.estimated_monthly_rent"></div>
                         </div>
                     </div>
                 </div>
@@ -297,12 +291,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="controls col-xs-12 col-sm-6">
+                    <div class="controls col-xs-12 col-sm-6 form-inline">
                         <input type="text" type-i18n="item.tempCostItem" ng-model="item.tempCostItem[userLanguage.value]"
-                            placeholder="支出名称"/>
-                        {% item.tempCostPrice.unit%}
-                        <input type="text" type-i18n-unit="item.tempCostPrice" unit="userCurrency" ng-model="item.tempCostPrice.value"
-                            placeholder="支出费用"/>
+                            placeholder="支出名称" class="form-control"/>
+                        <div type-i18n-unit ng-model="item.tempCostPrice" unit="userCurrency" placeholder="支出费用"></div>
                         <input type="button" ng-click="addCost()" class="btn btn-primary" value="添加">
                     </div>
                 </div>
@@ -311,9 +303,8 @@
                 <div class="row">
                     <div class="form-group col-xs-4 col-sm-2">
                         <label class="control-label">总价格</label>
-                        {% item.total_price.unit%}
                         <div class="controls">
-                            <input type="text" class="form-control" type-i18n-unit="item.total_price" unit="userCurrency" ng-model="item.total_price.value"/>
+                            <div type-i18n-unit unit="userCurrency" ng-model="item.total_price" placeholder="总价格"></div>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 col-sm-2">
@@ -364,9 +355,8 @@
                         <label class="control-label">面积</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" type-i18n-unit="item.space" unit="userArea" ng-model="item.space.value"/>
+                            <div type-i18n-unit unit="userArea" ng-model="item.space"></div>
                         </div>
-                        {% item.space.unit%}
                     </div>
                 </div>
                 <div class="row">
@@ -387,9 +377,8 @@
                         <label class="control-label">单位面积参考价格</label>
 
                         <div class="controls">
-                            <!--<input type="text" class="form-control" type-i18n-unit="item.unit_price" ng-model="item.unit_price[userArea]"/>-->
-                            <input type="text" class="form-control" type-i18n-unit="item.unit_price.price" unit="userCurrency" ng-model="item.unit_price.price.value"/>
-                            <input type="text" class="form-control" type-i18n-unit="item.unit_price.unit" unit="userArea" ng-model="item.unit_price.unit.value"/>
+                            <div type-i18n-unit unit="userCurrency" ng-model="item.unit_price.price"></div>
+                            <div type-i18n-unit unit="userArea" ng-model="item.unit_price.unit"></div>
                         </div>
                     </div>
                 </div>
@@ -439,7 +428,7 @@
                             <input type="text" ng-model="item.tempLivingRoomCount" placeholder="客厅数"/>
                             <input type="text" ng-model="item.tempBathroomCount" placeholder="卫生间数"/>
                             <input type="text" ng-model="item.tempKitchenCount" placeholder="厨房数"/>
-                            <input type="text" type-i18n-unit="item.tempTotalPrice" unit="userCurrency" ng-model="item.tempTotalPrice.value" placeholder="户型总价"/>
+                            <div type-i18n-unit unit="userCurrency" ng-model="item.tempTotalPrice" placeholder="户型总价"></div>
                             <div type-i18n="item.tempFloorPlan"></div>
                             <single-image-edit ng-model="item.tempFloorPlan[userLanguage.value]" width-limit="1920" ratio="2"
                                 thumbnail-size="800,400"
@@ -482,7 +471,7 @@
                         <label class="control-label">建筑面积</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" type-i18n-unit="item.building_area" unit="userArea" ng-model="item.building_area.value"/>
+                            <div type-i18n-unit unit="userArea" ng-model="item.building_area"></div>
                         </div>
                     </div>
                 </div>
@@ -500,7 +489,7 @@
                         <label class="control-label">规划面积</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" type-i18n-unit="item.planning_area" unit="userArea" ng-model="item.planning_area.value"/>
+                            <div type-i18n-unit unit="userArea" ng-model="item.planning_area"></div>
                         </div>
                     </div>
                 </div>
