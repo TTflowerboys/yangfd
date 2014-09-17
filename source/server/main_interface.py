@@ -37,9 +37,9 @@ def default():
             {
                 "category": {"$in": [
                     {'_id': ObjectId('54180eeb6b80994dcea5600d'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180eeb6b80994dcea5600e'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180eeb6b80994dcea5600f'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180eeb6b80994dcea56010'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId('54180f036b80994dcea5600e'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId('54180f166b80994dcea5600f'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId('54180f266b80994dcea56010'), 'type': 'news_category', '_enum': 'news_category'},
                 ]}
             }, per_page=6
         )
