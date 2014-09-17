@@ -3,6 +3,8 @@ from __future__ import unicode_literals, absolute_import
 from app import f_app
 from bson.objectid import ObjectId
 from libfelix.f_interface import f_get, static_file, template, request, redirect
+import logging
+logger = logging.getLogger(__name__)
 
 
 def check_landing(func):
@@ -33,16 +35,15 @@ def default():
     news_list = f_app.blog.post_output(
         f_app.blog.post_search(
             {
-                "category": [
+                "category": {"$in": [
                     {'_id': ObjectId('54180eeb6b80994dcea5600d'), 'type': 'news_category', '_enum': 'news_category'},
                     {'_id': ObjectId('54180eeb6b80994dcea5600e'), 'type': 'news_category', '_enum': 'news_category'},
                     {'_id': ObjectId('54180eeb6b80994dcea5600f'), 'type': 'news_category', '_enum': 'news_category'},
                     {'_id': ObjectId('54180eeb6b80994dcea56010'), 'type': 'news_category', '_enum': 'news_category'},
-                ]
+                ]}
             }, per_page=6
         )
     )
-
     return template(
         "index",
         user=get_current_user(),
