@@ -163,8 +163,8 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="price in item.historical_price">
-                    <td>{%price.time%}</td>
-                    <td>{%price.price%}</td>
+                    <td>{%price.time * 1000 | date : medium%}</td>
+                    <td>{%price.price.value %} {%price.price.unit %}</td>
                 </tr>
                 </tbody>
             </table>
@@ -174,7 +174,7 @@
         <label class="control-label">估计月租金收入</label>
 
         <div class="controls">
-            <span class="input-xlarge uneditable-input">{%item.estimated_monthly_rent%}</span>
+            <span class="input-xlarge uneditable-input">{%item.estimated_monthly_rent.value%} {%item.estimated_monthly_rent.unit%}</span>
         </div>
     </div>
     <div class="form-group">
@@ -196,7 +196,7 @@
                 <tbody>
                 <tr ng-repeat="cost in item.estimated_monthly_cost">
                     <td>{%cost.item%}</td>
-                    <td>{%cost.price%}</td>
+                    <td>{%cost.price.value %} {%cost.price.unit %}</td>
                 </tr>
                 </tbody>
             </table>
@@ -208,7 +208,7 @@
         <label class="control-label">总价格</label>
 
         <div class="controls">
-            <span class="input-xlarge uneditable-input">{%item.total_price%}</span>
+            <span class="input-xlarge uneditable-input">{%item.total_price.value %} {%item.total_price.unit %}</span>
         </div>
     </div>
     <div class="form-group">
@@ -250,7 +250,7 @@
         <label class="control-label">面积</label>
 
         <div class="controls">
-            <span class="input-xlarge uneditable-input">{%item.space%}</span>
+            <span class="input-xlarge uneditable-input">{%item.space.value%} {%item.space.unit%}</span>
         </div>
     </div>
     <div class="form-group">
