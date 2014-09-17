@@ -1,12 +1,6 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-
-        Hi, {{nickname}}
-        <a href="{{verification_url}}">{{verification_url}}</a>
-    </body>
-</html>
+<!--@@master = ../../masters/email.html-->
+<!--@@block=content-->
+<h1>{{_('你好，')}} {{nickname}}</h1>
+<p>{{_('我们需要验证你的电子邮件。')}}</p>
+<p><a href="{{verification_url}}">{{verification_url}}</a></p>
+<!--@@close-->

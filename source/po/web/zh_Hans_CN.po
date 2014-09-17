@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-17 09:58+0800\n"
-"PO-Revision-Date: 2014-09-05 18:38+0800\n"
+"POT-Creation-Date: 2014-09-17 11:02+0800\n"
+"PO-Revision-Date: 2014-09-17 10:39+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -388,53 +388,149 @@ msgstr ""
 msgid "取消"
 msgstr ""
 
+#: ../web/src/static/emails/new_admin.html:3
+#: ../web/src/static/emails/verify_email.html:3
+msgid "你好，"
+msgstr ""
+
+#: ../web/src/static/emails/new_admin.html:4
+msgid "请使用手机号码"
+msgstr ""
+
+#: ../web/src/static/emails/new_admin.html:4
+msgid "登录"
+msgstr ""
+
+#: ../web/src/static/emails/new_admin.html:5
+msgid "初始密码为："
+msgstr ""
+
+#: ../web/src/static/emails/new_admin.html:6
+msgid "登录入口为："
+msgstr ""
+
+#: ../web/src/static/emails/new_admin.html:7
+msgid "你已被授予以下权限："
+msgstr ""
+
+#: ../web/src/static/emails/new_admin.html:12
+#: ../web/src/static/emails/set_as_admin.html:9
+msgid "senior administrator"
+msgstr "高级平台管理员"
+
+#: ../web/src/static/emails/new_admin.html:14
+#: ../web/src/static/emails/set_as_admin.html:11
+msgid "junior administrator"
+msgstr "初级平台管理员"
+
+#: ../web/src/static/emails/new_admin.html:16
+#: ../web/src/static/emails/set_as_admin.html:13
+msgid "senior salesperson"
+msgstr "高级平台销售人员"
+
+#: ../web/src/static/emails/new_admin.html:18
+#: ../web/src/static/emails/set_as_admin.html:15
+msgid "junior salesperson"
+msgstr "初级平台销售人员"
+
+#: ../web/src/static/emails/new_admin.html:20
+#: ../web/src/static/emails/set_as_admin.html:17
+msgid "senior operation"
+msgstr "高级平台运营人员"
+
+#: ../web/src/static/emails/new_admin.html:22
+#: ../web/src/static/emails/set_as_admin.html:19
+msgid "junior operation"
+msgstr "初级平台运营人员"
+
+#: ../web/src/static/emails/new_admin.html:24
+#: ../web/src/static/emails/set_as_admin.html:21
+msgid "senior support"
+msgstr "高级平台客服"
+
+#: ../web/src/static/emails/new_admin.html:26
+#: ../web/src/static/emails/set_as_admin.html:23
+msgid "junior support"
+msgstr "初级平台客服"
+
+#: ../web/src/static/emails/new_admin.html:28
+#: ../web/src/static/emails/set_as_admin.html:25
+msgid "developer"
+msgstr "开发商管理员"
+
+#: ../web/src/static/emails/new_admin.html:30
+#: ../web/src/static/emails/set_as_admin.html:27
+msgid "agency"
+msgstr "中介管理员"
+
 #: ../web/src/static/emails/new_admin_title.html:1
 msgid "Your admin console access password"
 msgstr "您的管理后台密码"
 
-#: ../web/src/static/emails/set_as_admin.html:12
-msgid "senior administrator"
-msgstr "高级平台管理员"
+#: ../web/src/static/emails/new_ticket.html:3
+msgid "置业需求信息如下："
+msgstr ""
 
-#: ../web/src/static/emails/set_as_admin.html:14
-msgid "junior administrator"
-msgstr "初级平台管理员"
+#: ../web/src/static/emails/new_ticket.html:5
+msgid "用户姓名："
+msgstr ""
 
-#: ../web/src/static/emails/set_as_admin.html:16
-msgid "senior salesperson"
-msgstr "高级平台销售人员"
+#: ../web/src/static/emails/new_ticket.html:6
+msgid "用户手机："
+msgstr ""
 
-#: ../web/src/static/emails/set_as_admin.html:18
-msgid "junior salesperson"
-msgstr "初级平台销售人员"
+#: ../web/src/static/emails/new_ticket.html:7
+msgid "用户邮箱："
+msgstr ""
 
-#: ../web/src/static/emails/set_as_admin.html:20
-msgid "senior operation"
-msgstr "高级平台运营人员"
+#: ../web/src/static/emails/new_ticket.html:8
+msgid "用户预算："
+msgstr ""
 
-#: ../web/src/static/emails/set_as_admin.html:22
-msgid "junior operation"
-msgstr "初级平台运营人员"
+#: ../web/src/static/emails/new_ticket.html:9
+msgid "需求描述："
+msgstr ""
 
-#: ../web/src/static/emails/set_as_admin.html:24
-msgid "senior support"
-msgstr "高级平台客服"
+#: ../web/src/static/emails/set_as_admin.html:3
+#: ../web/src/static/emails/we_are_ready.html:3
+msgid "hi,"
+msgstr "你好，"
 
-#: ../web/src/static/emails/set_as_admin.html:26
-msgid "junior support"
-msgstr "初级平台客服"
-
-#: ../web/src/static/emails/set_as_admin.html:28
-msgid "developer"
-msgstr "开发商管理员"
-
-#: ../web/src/static/emails/set_as_admin.html:30
-msgid "agency"
-msgstr "中介管理员"
+#: ../web/src/static/emails/set_as_admin.html:4
+msgid "Permissions below are granted to you"
+msgstr ""
 
 #: ../web/src/static/emails/set_as_admin_title.html:1
 msgid "You are now set as admin"
 msgstr "您已被设置为管理员"
+
+#: ../web/src/static/emails/verify_email.html:4
+msgid "我们需要验证你的电子邮件。"
+msgstr ""
+
+#: ../web/src/static/emails/we_are_ready.html:5
+msgid "Our website has been open"
+msgstr ""
+
+#: ../web/src/static/emails/we_are_ready.html:8
+msgid ""
+"If you did not make this request, simply ignore this email. If you did "
+"make this request, just click the link below:"
+msgstr ""
+
+#: ../web/src/static/emails/we_are_ready.html:15
+msgid ""
+"If the URL above does not work, try copying and pasting it into your "
+"browser."
+msgstr ""
+
+#: ../web/src/static/emails/we_are_ready.html:17
+msgid "If you continue to have problems, please feel free to contact us:"
+msgstr ""
+
+#: ../web/src/static/emails/we_are_ready.html:21
+msgid "Thanks for visiting"
+msgstr ""
 
 #~ msgid "England"
 #~ msgstr "英国"
@@ -453,4 +549,10 @@ msgstr "您已被设置为管理员"
 
 #~ msgid "Privacy Policy"
 #~ msgstr "隐私协议"
+
+#~ msgid "This is your"
+#~ msgstr ""
+
+#~ msgid "verification link"
+#~ msgstr ""
 

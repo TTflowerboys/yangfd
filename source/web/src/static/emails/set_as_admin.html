@@ -1,36 +1,32 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-        <ul>
-        %   for r in role:
-            <li>
-        %       if r == "admin":
-                {{_('senior administrator')}}
-        %       elif r == "jr_admin":
-                {{_('junior administrator')}}
-         %      elif r == "sales":
-                {{_('senior salesperson')}}
-        %       elif r == "jr_sales":
-                {{_('junior salesperson')}}
-        %       elif r == "operation":
-                {{_('senior operation')}}
-        %       elif r == "jr_operation":
-                {{_('junior operation')}}
-        %       elif r == "support":
-                {{_('senior support')}}
-        %       elif r == "jr_support":
-                {{_('junior support')}}
-        %       elif r == "developer":
-                {{_('developer')}}
-        %       elif r == "agency":
-                {{_('agency')}}
-        %       end
-            </li>
-        %   end
-        </ul>
-    </body>
-</html>
+<!--@@master = ../../masters/email.html-->
+<!--@@block=content-->
+<h1>{{_('hi,')}}{{nickname}}</h1>
+<p>{{_('Permissions below are granted to you')}}</p>
+<ul>
+    % for r in role:
+    <li>
+        % if r == "admin":
+        {{_('senior administrator')}}
+        % elif r == "jr_admin":
+        {{_('junior administrator')}}
+        % elif r == "sales":
+        {{_('senior salesperson')}}
+        % elif r == "jr_sales":
+        {{_('junior salesperson')}}
+        % elif r == "operation":
+        {{_('senior operation')}}
+        % elif r == "jr_operation":
+        {{_('junior operation')}}
+        % elif r == "support":
+        {{_('senior support')}}
+        % elif r == "jr_support":
+        {{_('junior support')}}
+        % elif r == "developer":
+        {{_('developer')}}
+        % elif r == "agency":
+        {{_('agency')}}
+        % end
+    </li>
+    % end
+</ul>
+<!--@@close-->

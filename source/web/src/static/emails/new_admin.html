@@ -1,15 +1,35 @@
 <!--@@master = ../../masters/email.html-->
 <!--@@block=content-->
-<h1>你好，{{nickname}}</h1>
-<p>请使用手机号码（{{phone}}）登录。</p>
-<p>初始随机密码为：<strong>{{password}}</strong> 。</p>
-<p>登录入口为： <a href="{{admin_console_url}}">{{admin_console_url}}</a>。</p>
-<p>你已被授予以下权限：</p>
+<h1>{{_('你好，')}} {{nickname}}</h1>
+<p>{{_('请使用手机号码')}}（{{phone}}）{{_('登录')}}</p>
+<p>{{_('初始密码为：')}}<strong>{{password}}</strong></p>
+<p>{{_('登录入口为：')}}<a href="{{admin_console_url}}">{{admin_console_url}}</a></p>
+<p>{{_('你已被授予以下权限：')}}</p>
 <ul>
-    %for r in role:
+    % for r in role:
     <li>
-        {{r}}
+        % if r == "admin":
+        {{_('senior administrator')}}
+        % elif r == "jr_admin":
+        {{_('junior administrator')}}
+        % elif r == "sales":
+        {{_('senior salesperson')}}
+        % elif r == "jr_sales":
+        {{_('junior salesperson')}}
+        % elif r == "operation":
+        {{_('senior operation')}}
+        % elif r == "jr_operation":
+        {{_('junior operation')}}
+        % elif r == "support":
+        {{_('senior support')}}
+        % elif r == "jr_support":
+        {{_('junior support')}}
+        % elif r == "developer":
+        {{_('developer')}}
+        % elif r == "agency":
+        {{_('agency')}}
+        % end
     </li>
-    %end
+    % end
 </ul>
 <!--@@close-->
