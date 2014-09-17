@@ -5,42 +5,30 @@
 
     function ctrlPropertyCreate($scope, $state, api, enumApi, $rootScope, i18nLanguages) {
 
-        enumApi.getAll({
-            params: {type: 'property_type'},
-            errorMessage: 'Update failed'
-        }).success(function (data) {
-            $scope.propertyTypeList = data.val
-        })
-        enumApi.getAll({
-            params: {type: 'intention'},
-            errorMessage: 'Update failed'
-        }).success(function (data) {
-            $scope.intentionList = data.val
-        })
-        enumApi.getAll({
-            params: {type: 'equity_type'},
-            errorMessage: 'Update failed'
-        }).success(function (data) {
-            $scope.equityTypeList = data.val
-        })
-        enumApi.getAll({
-            params: {type: 'decorative_style'},
-            errorMessage: 'Update failed'
-        }).success(function (data) {
-            $scope.decorativeStyleList = data.val
-        })
-        enumApi.getAll({
-            params: {type: 'facing_direction'},
-            errorMessage: 'Update failed'
-        }).success(function (data) {
-            $scope.facingDirectionList = data.val
-        })
-        enumApi.getAll({
-            params: {type: 'property_price_type'},
-            errorMessage: 'Update failed'
-        }).success(function (data) {
-            $scope.propertyPriceTypeList = data.val
-        })
+        enumApi.getEnumsByType('property_type')
+            .success(function (data) {
+                $scope.propertyTypeList = data.val
+            })
+        enumApi.getEnumsByType('intention')
+            .success(function (data) {
+                $scope.intentionList = data.val
+            })
+        enumApi.getEnumsByType('equity_type')
+            .success(function (data) {
+                $scope.equityTypeList = data.val
+            })
+        enumApi.getEnumsByType('decorative_style')
+            .success(function (data) {
+                $scope.decorativeStyleList = data.val
+            })
+        enumApi.getEnumsByType('facing_direction')
+            .success(function (data) {
+                $scope.facingDirectionList = data.val
+            })
+        enumApi.getEnumsByType('property_price_type')
+            .success(function (data) {
+                $scope.propertyPriceTypeList = data.val
+            })
         $scope.item = {}
 
         $scope.submit = function ($event, form) {
@@ -90,9 +78,9 @@
                 $scope.item.estimated_monthly_cost = []
             }
             var temp = {item: $scope.item.tempCostItem, price: $scope.item.tempCostPrice}
-            $scope.item.estimated_monthly_cost.push(temp)
-            $scope.item.tempCostItem = null
-            $scope.item.tempCostPrice = {}
+            $scope.item.estimated_monthly_cost.push(angular.copy(temp))
+            $scope.item.tempCostItem = {}
+            $scope.item.tempCostPrice.value = ''
         }
 
         $scope.addHouse = function () {

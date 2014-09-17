@@ -18,8 +18,8 @@ angular.module('app')
             api: function (propertyApi) {
                 return propertyApi
             },
-            enumApi: function (apiFactory) {
-                return apiFactory('enum')
+            enumApi: function (enumApi) {
+                return enumApi
             }
         }
 

@@ -9,10 +9,10 @@
 
         $scope.getEnums = function () {
             for (var i = 0; i < $rootScope.enum_types.length; i += 1) {
-                $scope.getEnumByType(i)
+                getEnumByType(i)
             }
         }
-        $scope.getEnumByType = function (index) {
+        function getEnumByType(index) {
             api.getEnumsByType($rootScope.enum_types[index].value)
                 .success(function (data) {
                     $scope.enums[index] = data.val || {}
