@@ -1,7 +1,9 @@
 <!--@@master = ../../masters/email.html-->
 <!--@@block=content-->
-<h1>{{_('hi,')}}{{nickname}}</h1>
-<p>{{_('Permissions below are granted to you')}}</p>
+<h1>{{_('你好，')}} {{nickname}}</h1>
+<p>{{_('请使用手机号码')}}（{{phone}}）{{_('登录')}}</p>
+<p>{{_('登录入口为：')}}<a href="{{admin_console_url}}">{{admin_console_url}}</a></p>
+<p>{{_('你已被授予以下权限：')}}</p>
 <ul>
     % for r in role:
     <li>
