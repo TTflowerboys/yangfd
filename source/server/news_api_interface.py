@@ -27,7 +27,11 @@ _blog_id = "53f839246b80992f831b2269"
 ))
 def news_list(params):
     per_page = params.pop("per_page", 0)
+    if "category" in params:
+        params["category"] = {"$in": params["category"]}
     params["blog_id"] = ObjectId(_blog_id)
+
+
     post_list = f_app.blog.post.search(params, per_page=per_page)
     return f_app.blog.post_output(post_list)
 
