@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-17 11:09+0800\n"
+"POT-Creation-Date: 2014-09-17 15:48+0800\n"
 "PO-Revision-Date: 2014-09-09 14:50+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -26,85 +26,45 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: ../web/src/coming_soon.html:18 ../web/src/coming_soon.html:99
+#: ../web/src/coming_soon.html:18 ../web/src/coming_soon.html:90
 #: ../web/src/masters/master.html:25 ../web/src/masters/master.html:108
 #: ../web/src/masters/signin_master.html:21
 #: ../web/src/masters/signin_master.html:35
 msgid "洋房东"
 msgstr "YoungFunding"
 
-#: ../web/src/coming_soon.html:23
-#: ../web/src/partials/localization_manager.html:2
-msgid "不为空"
-msgstr "should not be empty"
-
-#: ../web/src/coming_soon.html:24
-#: ../web/src/partials/localization_manager.html:3
-msgid "格式不正确"
-msgstr "is bad format"
-
-#: ../web/src/coming_soon.html:25
-#: ../web/src/partials/localization_manager.html:4
-msgid "格式不合法"
-msgstr "is invalid format"
-
-#: ../web/src/coming_soon.html:26
-#: ../web/src/partials/localization_manager.html:5
-msgid "姓名"
-msgstr "Name"
-
 #: ../web/src/coming_soon.html:27
-#: ../web/src/partials/localization_manager.html:6
-msgid "电话"
-msgstr "Phone"
-
-#: ../web/src/coming_soon.html:28
-#: ../web/src/partials/localization_manager.html:7
-msgid "邮箱"
-msgstr "Email"
-
-#: ../web/src/coming_soon.html:29
-#: ../web/src/partials/localization_manager.html:8
-msgid "订阅失败"
-msgstr "Subscribe Failed"
-
-#: ../web/src/coming_soon.html:30
-#: ../web/src/partials/localization_manager.html:9
-msgid "提交需求失败"
-msgstr "Submit Failed"
-
-#: ../web/src/coming_soon.html:36
 msgid "金秋十月，即将开放！"
 msgstr "LAUNCHING OCT 2014"
 
-#: ../web/src/coming_soon.html:38
+#: ../web/src/coming_soon.html:29
 msgid "请填写邮箱订阅网站上线通知"
 msgstr "Enter your e-mail to subscribe our news!"
 
-#: ../web/src/coming_soon.html:39
+#: ../web/src/coming_soon.html:30
 msgid "订阅"
 msgstr "Subscribe"
 
-#: ../web/src/coming_soon.html:42
+#: ../web/src/coming_soon.html:33
 msgid "谢谢你的订阅!"
 msgstr "Thanks for your subscription!"
 
-#: ../web/src/coming_soon.html:42
+#: ../web/src/coming_soon.html:33
 msgid "在网站开放后，我们将第一时间告知您！"
 msgstr "We will notify you when website is launched!"
 
-#: ../web/src/coming_soon.html:48
+#: ../web/src/coming_soon.html:39
 msgid "我们做什么？"
 msgstr "What we do?"
 
-#: ../web/src/coming_soon.html:49
+#: ../web/src/coming_soon.html:40
 msgid "我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"
 msgstr ""
 "We focus on providing diversified oversea investment opportunities to our"
 " investors, get our investors on board with detailed investment analysis "
 "report and professional property consultant."
 
-#: ../web/src/coming_soon.html:51
+#: ../web/src/coming_soon.html:42
 msgid "洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职业顾问，协助您完成投资流程，轻松当洋房东。"
 msgstr ""
 "YoungFunding will launch first in China and UK. We provide with "
@@ -115,61 +75,61 @@ msgstr ""
 "will help you take care of everything when you want to settle your "
 "investment, really make real estate investment easy."
 
-#: ../web/src/coming_soon.html:57 ../web/src/partials/float_window.html:11
+#: ../web/src/coming_soon.html:48 ../web/src/partials/float_window.html:11
 #: ../web/src/partials/requirement_popup.html:6
 msgid "提交置业需求"
 msgstr "Submit Your Investment Needs"
 
-#: ../web/src/coming_soon.html:58 ../web/src/partials/requirement_popup.html:7
+#: ../web/src/coming_soon.html:49 ../web/src/partials/requirement_popup.html:7
 msgid "如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 "If you are interested in investing UK property, please submit your "
 "investment needs here. We will get in touch and help your with your "
 "needs."
 
-#: ../web/src/coming_soon.html:63 ../web/src/partials/requirement_popup.html:12
+#: ../web/src/coming_soon.html:54 ../web/src/partials/requirement_popup.html:12
 msgid "姓名(必填)"
 msgstr "Name (Required)"
 
-#: ../web/src/coming_soon.html:67 ../web/src/partials/requirement_popup.html:16
+#: ../web/src/coming_soon.html:58 ../web/src/partials/requirement_popup.html:16
 msgid "中国 +86"
 msgstr "China +86"
 
-#: ../web/src/coming_soon.html:68 ../web/src/partials/requirement_popup.html:17
+#: ../web/src/coming_soon.html:59 ../web/src/partials/requirement_popup.html:17
 msgid "香港 +85"
 msgstr "HK +85"
 
-#: ../web/src/coming_soon.html:69 ../web/src/partials/requirement_popup.html:18
+#: ../web/src/coming_soon.html:60 ../web/src/partials/requirement_popup.html:18
 msgid "英国 +44"
 msgstr "UK +44"
 
-#: ../web/src/coming_soon.html:70 ../web/src/partials/requirement_popup.html:19
+#: ../web/src/coming_soon.html:61 ../web/src/partials/requirement_popup.html:19
 msgid "美国 +1"
 msgstr "US +1"
 
-#: ../web/src/coming_soon.html:73 ../web/src/partials/requirement_popup.html:22
+#: ../web/src/coming_soon.html:64 ../web/src/partials/requirement_popup.html:22
 msgid "电话(必填)"
 msgstr "Phone (Required)"
 
-#: ../web/src/coming_soon.html:76 ../web/src/partials/requirement_popup.html:25
+#: ../web/src/coming_soon.html:67 ../web/src/partials/requirement_popup.html:25
 msgid "邮箱(必填)"
 msgstr "Email (Required)"
 
-#: ../web/src/coming_soon.html:79 ../web/src/partials/requirement_popup.html:28
+#: ../web/src/coming_soon.html:70 ../web/src/partials/requirement_popup.html:28
 msgid "您的预算"
 msgstr "Your Budget"
 
-#: ../web/src/coming_soon.html:86 ../web/src/partials/requirement_popup.html:35
+#: ../web/src/coming_soon.html:77 ../web/src/partials/requirement_popup.html:35
 msgid "写下您的其他需求和描述，方便我们在挑选房源时作为参考"
 msgstr ""
 "Please write down your investment needs in detail, we can put your needs "
 "into our consideration when launch houses."
 
-#: ../web/src/coming_soon.html:90 ../web/src/partials/requirement_popup.html:39
+#: ../web/src/coming_soon.html:81 ../web/src/partials/requirement_popup.html:39
 msgid "提交"
 msgstr "Submit"
 
-#: ../web/src/coming_soon.html:93 ../web/src/partials/requirement_popup.html:43
+#: ../web/src/coming_soon.html:84 ../web/src/partials/requirement_popup.html:43
 msgid "置业需求已提交，稍后我们的工作人员会联系你"
 msgstr ""
 "Your requirement has been submitted, we will get in touch with you as "
@@ -404,20 +364,56 @@ msgstr ""
 msgid "电话："
 msgstr "Phone"
 
+#: ../web/src/partials/localization_manager.html:2
+msgid "不为空"
+msgstr "should not be empty"
+
+#: ../web/src/partials/localization_manager.html:3
+msgid "格式不正确"
+msgstr "is bad format"
+
+#: ../web/src/partials/localization_manager.html:4
+msgid "格式不合法"
+msgstr "is invalid format"
+
+#: ../web/src/partials/localization_manager.html:5
+msgid "姓名"
+msgstr "Name"
+
+#: ../web/src/partials/localization_manager.html:6
+msgid "电话"
+msgstr "Phone"
+
+#: ../web/src/partials/localization_manager.html:7
+msgid "邮箱"
+msgstr "Email"
+
+#: ../web/src/partials/localization_manager.html:8
+msgid "订阅失败"
+msgstr "Subscribe Failed"
+
+#: ../web/src/partials/localization_manager.html:9
+msgid "提交需求失败"
+msgstr "Submit Failed"
+
 #: ../web/src/partials/requirement_popup.html:40
 msgid "取消"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:3
+#: ../web/src/static/emails/set_as_admin.html:3
 #: ../web/src/static/emails/verify_email.html:3
+#: ../web/src/static/emails/we_are_ready.html:3
 msgid "你好，"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:4
+#: ../web/src/static/emails/set_as_admin.html:4
 msgid "请使用手机号码"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:4
+#: ../web/src/static/emails/set_as_admin.html:4
 msgid "登录"
 msgstr ""
 
@@ -426,60 +422,62 @@ msgid "初始密码为："
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:6
+#: ../web/src/static/emails/set_as_admin.html:5
 msgid "登录入口为："
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:7
+#: ../web/src/static/emails/set_as_admin.html:6
 msgid "你已被授予以下权限："
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:12
-#: ../web/src/static/emails/set_as_admin.html:9
+#: ../web/src/static/emails/set_as_admin.html:11
 msgid "senior administrator"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:14
-#: ../web/src/static/emails/set_as_admin.html:11
+#: ../web/src/static/emails/set_as_admin.html:13
 msgid "junior administrator"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:16
-#: ../web/src/static/emails/set_as_admin.html:13
+#: ../web/src/static/emails/set_as_admin.html:15
 msgid "senior salesperson"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:18
-#: ../web/src/static/emails/set_as_admin.html:15
+#: ../web/src/static/emails/set_as_admin.html:17
 msgid "junior salesperson"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:20
-#: ../web/src/static/emails/set_as_admin.html:17
+#: ../web/src/static/emails/set_as_admin.html:19
 msgid "senior operation"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:22
-#: ../web/src/static/emails/set_as_admin.html:19
+#: ../web/src/static/emails/set_as_admin.html:21
 msgid "junior operation"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:24
-#: ../web/src/static/emails/set_as_admin.html:21
+#: ../web/src/static/emails/set_as_admin.html:23
 msgid "senior support"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:26
-#: ../web/src/static/emails/set_as_admin.html:23
+#: ../web/src/static/emails/set_as_admin.html:25
 msgid "junior support"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:28
-#: ../web/src/static/emails/set_as_admin.html:25
+#: ../web/src/static/emails/set_as_admin.html:27
 msgid "developer"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:30
-#: ../web/src/static/emails/set_as_admin.html:27
+#: ../web/src/static/emails/set_as_admin.html:29
 msgid "agency"
 msgstr ""
 
@@ -511,15 +509,6 @@ msgstr ""
 msgid "需求描述："
 msgstr ""
 
-#: ../web/src/static/emails/set_as_admin.html:3
-#: ../web/src/static/emails/we_are_ready.html:3
-msgid "hi,"
-msgstr ""
-
-#: ../web/src/static/emails/set_as_admin.html:4
-msgid "Permissions below are granted to you"
-msgstr ""
-
 #: ../web/src/static/emails/set_as_admin_title.html:1
 msgid "You are now set as admin"
 msgstr ""
@@ -529,28 +518,25 @@ msgid "我们需要验证你的电子邮件。"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:5
-msgid "Our website has been open"
+msgid "洋房东开放注册了！"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:8
-msgid ""
-"If you did not make this request, simply ignore this email. If you did "
-"make this request, just click the link below:"
+msgid "如果您之前没有订阅上线通知，请忽略该邮件。如果您之前订阅过，请点击下面链接进入洋房东吧:"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:15
-msgid ""
-"If the URL above does not work, try copying and pasting it into your "
-"browser."
+msgid "如果上面的链接无法点击，请复制该链接到浏览器地址栏中打开！"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:17
-msgid "If you continue to have problems, please feel free to contact us:"
+msgid "如果您有任何使用过程中的问题或者海外置业的需求，请联系我们:"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:21
-msgid "Thanks for visiting"
-msgstr ""
+#, fuzzy
+msgid "欢迎访问"
+msgstr "Welcome"
 
 #~ msgid "hi"
 #~ msgstr ""
@@ -559,5 +545,23 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "verification link"
+#~ msgstr ""
+
+#~ msgid "hi,"
+#~ msgstr ""
+
+#~ msgid "Permissions below are granted to you"
+#~ msgstr ""
+
+#~ msgid "hello"
+#~ msgstr ""
+
+#~ msgid "Our website has been open"
+#~ msgstr ""
+
+#~ msgid "If you continue to have problems, please feel free to contact us:"
+#~ msgstr ""
+
+#~ msgid "Thanks for visiting"
 #~ msgstr ""
 

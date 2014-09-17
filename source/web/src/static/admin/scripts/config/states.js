@@ -14,9 +14,9 @@ angular.module('app')
             }
         }
 
-        var estateResolve = {
-            api: function (estateApi) {
-                return estateApi
+        var propertyResolve = {
+            api: function (propertyApi) {
+                return propertyApi
             },
             enumApi: function (apiFactory) {
                 return apiFactory('enum')
@@ -83,32 +83,32 @@ angular.module('app')
                 resolve: enumResolve
             })
         /**
-         * estate
+         * property
          */
-            .state('dashboard.estate', {
-                url: '/estate',
-                templateUrl: '/static/admin/templates/dashboard.estate.tpl.html',
+            .state('dashboard.property', {
+                url: '/property',
+                templateUrl: '/static/admin/templates/dashboard.property.tpl.html',
                 controller: 'ctrlList',
-                resolve: estateResolve
+                resolve: propertyResolve
             })
-            .state('dashboard.estate.create', {
+            .state('dashboard.property.create', {
                 url: '/create',
-                templateUrl: '/static/admin/templates/dashboard.estate.create.tpl.html',
-                controller: 'ctrlProperty',
-                resolve: estateResolve
+                templateUrl: '/static/admin/templates/dashboard.property.create.tpl.html',
+                controller: 'ctrlPropertyCreate',
+                resolve: propertyResolve
             })
 
-            .state('dashboard.estate.detail', {
+            .state('dashboard.property.detail', {
                 url: '/:id',
-                templateUrl: '/static/admin/templates/dashboard.estate.detail.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.property.detail.tpl.html',
                 controller: 'ctrlDetail',
-                resolve: estateResolve
+                resolve: propertyResolve
             })
-            .state('dashboard.estate.edit', {
+            .state('dashboard.property.edit', {
                 url: '/:id/edit',
-                templateUrl: '/static/admin/templates/dashboard.estate.edit.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.property.edit.tpl.html',
                 controller: 'ctrlEdit',
-                resolve: estateResolve
+                resolve: propertyResolve
             })
 
         /**

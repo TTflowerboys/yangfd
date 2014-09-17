@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlProperty($scope, $state, api, enumApi, $rootScope, i18nLanguages) {
+    function ctrlPropertyCreate($scope, $state, api, enumApi, $rootScope, i18nLanguages) {
 
         enumApi.getAll({
             params: {type: 'property_type'},
@@ -116,20 +116,9 @@
             $scope.item.tempFloorPlan = {}
         }
 
-//        function isEmptyI18n(object) {
-//            var res = true
-//            for (var lan in i18nLanguages) {
-//                console.log(object[i18nLanguages[lan]])
-//                if (object[i18nLanguages[lan]] !== '' && object[i18nLanguages[lan]] !== undefined) {
-//                    res = false
-//                    break
-//                }
-//            }
-//            return res
-//        }
     }
 
-    angular.module('app').controller('ctrlProperty', ctrlProperty)
+    angular.module('app').controller('ctrlPropertyCreate', ctrlPropertyCreate)
 
 })()
 

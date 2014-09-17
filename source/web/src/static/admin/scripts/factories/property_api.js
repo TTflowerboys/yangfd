@@ -1,7 +1,7 @@
 /* Created by frank on 14-8-23. */
 (function () {
 
-    function estateApi($http) {
+    function propertyApi($http) {
 
         return {
             getAll: function (config) {
@@ -25,5 +25,5 @@
 
     }
 
-    angular.module('app').factory('estateApi', estateApi)
+    angular.module('app').factory('propertyApi', propertyApi)
 })()

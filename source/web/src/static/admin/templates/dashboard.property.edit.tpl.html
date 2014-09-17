@@ -7,7 +7,7 @@
 
     </div>
     <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
-        ng-submit="submit($event,createEstate)" name="createEstate" novalidate>
+        ng-submit="submit($event,editProperty)" name="editProperty" novalidate>
         <div class="row">
             <div class="form-group col-sm-3">
                 <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"
@@ -24,7 +24,7 @@
                 </select>
             </div>
         </div>
-        <tabset justified="true" style="margin: 16px 0;" ng-if="userLanguage.value && userArea && userCurrency">
+        <tabset justified="true" style="margin: 16px 0;">
             <tab heading="房产通用信息">
                 <div class="row">
                     <div class="form-group col-xs-6 col-sm-3">
@@ -603,6 +603,6 @@
                 </div>
             </tab>
         </tabset>
-        <input type="submit" class="btn btn-primary" value="提交" ng-if="userLanguage.value && userArea && userCurrency">
+        <input type="submit" class="btn btn-primary" value="提交">
     </form>
 </div>
