@@ -1,6 +1,6 @@
 /* Created by frank on 14-9-15. */
 angular.module('app')
-    .directive('changePropertyStatus', function (propertyApi, estateStatus, userApi) {
+    .directive('changePropertyStatus', function (propertyApi, propertyStatus, userApi) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/change_property_status.tpl.html',
@@ -13,14 +13,14 @@ angular.module('app')
                 if (!user) { return }
                 var roles = user.role
                 if (_.contains(roles, 'admin') || _.contains(roles, 'jr_admin')) {
-                    scope.estateStatus = estateStatus
+                    scope.propertyStatus = propertyStatus
                 } else if ((_.contains(roles, 'developer') || _.contains(roles, 'agency')) &&
                     _.contains(['selling', 'hidden', 'sold out'], scope.item.status)) {
-                    scope.estateStatus = estateStatus.filter(function (one, index, array) {
+                    scope.propertyStatus = propertyStatus.filter(function (one, index, array) {
                         return _.contains(['selling', 'hidden', 'sold out'], scope.item.status)
                     })
                 } else {
-                    scope.estateStatus = estateStatus.filter(function (one, index, array) {
+                    scope.propertyStatus = propertyStatus.filter(function (one, index, array) {
                         return one.value === scope.item.status
                     })
                 }

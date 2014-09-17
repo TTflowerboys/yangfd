@@ -1,6 +1,6 @@
 /* Created by frank on 14-9-15. */
 angular.module('app')
-    .constant('estateStatus', [
+    .constant('propertyStatus', [
         { name: '草稿', value: 'draft' },
         { name: '待翻译', value: 'not translated' },
         { name: '翻译中', value: 'translating' },
