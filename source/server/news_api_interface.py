@@ -75,7 +75,9 @@ def news_get(news_id):
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_edit(user, news_id, params):
-    return f_app.blog.post.update_set(news_id, params)
+    logger.debug(params["category"])
+    f_app.blog.post.update_set(news_id, params)
+    return f_app.blog.post_output([news_id])[0]
 
 
 @f_api('/news/<news_id>/remove')
