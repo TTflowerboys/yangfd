@@ -1,6 +1,7 @@
 <div ui-view>
 
-    <div class="row" style="min-height: 600px;" ng-controller="ctrlPropertyList">
+    <div get-news-category></div>
+    <div class="row" style="min-height: 600px;">
         <div class="col-lg-12">
             <div class="buttons">
 
@@ -40,7 +41,7 @@
                             <change-property-status ng-model="item"></change-property-status>
                         </td>
                         <td>
-                            <change-property-news-category ng-model="item" news-category-list="newsCategoryList"></change-property-news-category>
+                            <change-property-news-category name="news_category" ng-model="item" news-category-list="newsCategoryList" api="api"></change-property-news-category>
                         </td>
                         <td style="text-align:center;">
                             <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">

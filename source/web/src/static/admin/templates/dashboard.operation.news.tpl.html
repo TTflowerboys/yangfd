@@ -1,5 +1,6 @@
 <div ui-view>
 
+    <div get-news-category></div>
     <div class="row" style="min-height: 600px;">
         <div class="col-lg-12">
             <div class="buttons">
@@ -24,6 +25,7 @@
                     <col class="title">
                     <col class="nickname">
                     <col class="date">
+                    <col class="">
                     <col class="actions">
                 </colgroup>
                 <thead>
@@ -31,6 +33,7 @@
                         <th>标题</th>
                         <th>作者</th>
                         <th>创建时间</th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -44,6 +47,9 @@
                         </td>
                         <td>
                             {%item.time * 1000 | date : medium%}
+                        </td>
+                        <td>
+                            <change-property-news-category name="category" ng-model="item" news-category-list="newsCategoryList" api="api"></change-property-news-category>
                         </td>
                         <td>
                             <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
