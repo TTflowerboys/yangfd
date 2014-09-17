@@ -22,7 +22,7 @@
     <a class="becomeMember button red" href="/signup">{{_('成为会员')}}</a>
 </div>
 <div class="howItWorks"></div>
-<div class="announcement">
+<div id="announcement" class="announcement">
     <ul>
         %    for anno in announcement_list:
         <li class="item">
@@ -148,4 +148,5 @@
         });
     })
 </script>
+<script src="/static/scripts/index.js"></script>
 <!--@@close-->
