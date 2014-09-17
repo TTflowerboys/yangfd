@@ -20,6 +20,8 @@ def enum_list(params):
 @f_api('/enum/add', params=dict(
     type=(str, True),
     value=("i18n", True, str),
+    # Field for message_api_interface
+    message_type=str,
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def enum_add(user, params):
@@ -29,6 +31,7 @@ def enum_add(user, params):
 @f_api('/enum/<enum_id>/edit', params=dict(
     type=str,
     value=("i18n", None, str),
+    message_type=(str, None),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def enum_edit(user, enum_id, params):

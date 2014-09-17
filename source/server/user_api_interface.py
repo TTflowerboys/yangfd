@@ -130,11 +130,12 @@ def register(params):
     old_password=(str, None, "notrim", "base64"),
     gender=(str, None),
     date_of_birth=datetime,
-    intention=(list, None, str),
+    intention=(list, None, "enum:intention"),
     locales=(list, None, str),
     wechat_id=(str, None),
     budget=("enum:budget", None),
-
+    system_message_type=(list, None, str),
+    email_message_type=(list, None, str),
 ))
 @f_app.user.login.check(force=True)
 def current_user_edit(user, params):
@@ -143,7 +144,7 @@ def current_user_edit(user, params):
 
     ``gender`` should be in ``male``, ``female``, ``other``.
 
-    ``intention`` should be combination of ``cash_flow_protection``, ``forex``, ``study_abroad``, ``immigration_investment``, ``excess_returns``, ``fixed_income``, ``asset_preservation``, ``immigration_only``, ``holiday_travel``
+    ``system_message_type`` and ``email_message_type`` are the message types that user accepts. It should be the subset of ``system``, ``favorite``, ``intention``, ``mine``.
     """
     if "email" in params:
         if "@" not in params["email"]:
@@ -173,10 +174,15 @@ def current_user_edit(user, params):
         if params["gender"] not in ("male", "female", "other"):
             abort(40096, logger.warning("Invalid params: gender", params["gender"], exc_info=False))
 
-    if "intention" in params:
-        if not set(params["intention"]) <= set(f_app.common.user_intention):
-            abort(40095, logger.warning("Invalid params: intention", params["intention"], exc_info=False))
+    if "system_message_type" in params:
+        if not set(params["system_message_type"]) <= set(f_app.common.message_type):
+            abort(40000, logger.warning("Invalid params: system_message_type", params["system_message_type"], exc_info=False))
 
+    if "email_message_type" in params:
+        if not set(params["email_message_type"]) <= set(f_app.common.message_type):
+            abort(40000, logger.warning("Invalid params: email_message_type", params["email_message_type"], exc_info=False))
+
+    f_app.user.update_set(user["id"], params)
     f_app.user.update_set(user["id"], params)
     return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
 
