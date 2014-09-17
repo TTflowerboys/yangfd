@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-17 14:43+0800\n"
+"POT-Creation-Date: 2014-09-17 15:40+0800\n"
 "PO-Revision-Date: 2014-09-09 14:50+0800\n"
 "Last-Translator: Foster Yin <yinjiaji110@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -403,6 +403,7 @@ msgstr ""
 #: ../web/src/static/emails/new_admin.html:3
 #: ../web/src/static/emails/set_as_admin.html:3
 #: ../web/src/static/emails/verify_email.html:3
+#: ../web/src/static/emails/we_are_ready.html:3
 msgid "你好，"
 msgstr ""
 
@@ -516,33 +517,26 @@ msgstr ""
 msgid "我们需要验证你的电子邮件。"
 msgstr ""
 
-#: ../web/src/static/emails/we_are_ready.html:3
-msgid "hello"
-msgstr ""
-
 #: ../web/src/static/emails/we_are_ready.html:5
-msgid "Our website has been open"
+msgid "洋房东开放注册了！"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:8
-msgid ""
-"If you did not make this request, simply ignore this email. If you did "
-"make this request, just click the link below:"
+msgid "如果您之前没有订阅上线通知，请忽略该邮件。如果您之前订阅过，请点击下面链接进入洋房东吧:"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:15
-msgid ""
-"If the URL above does not work, try copying and pasting it into your "
-"browser."
+msgid "如果上面的链接无法点击，请复制该链接到浏览器地址栏中打开！"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:17
-msgid "If you continue to have problems, please feel free to contact us:"
+msgid "如果您有任何使用过程中的问题或者海外置业的需求，请联系我们:"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:21
-msgid "Thanks for visiting"
-msgstr ""
+#, fuzzy
+msgid "欢迎访问"
+msgstr "Welcome"
 
 #~ msgid "hi"
 #~ msgstr ""
@@ -557,5 +551,20 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Permissions below are granted to you"
+#~ msgstr ""
+
+#~ msgid "hello"
+#~ msgstr ""
+
+#~ msgid "Our website has been open"
+#~ msgstr ""
+
+#~ msgid ""
+#~ msgstr ""
+
+#~ msgid "If you continue to have problems, please feel free to contact us:"
+#~ msgstr ""
+
+#~ msgid "Thanks for visiting"
 #~ msgstr ""
 
