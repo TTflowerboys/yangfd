@@ -29,7 +29,7 @@ def get_current_user():
 @f_get('/')
 @check_landing
 def default():
-    property_list = f_app.property.output(f_app.property.search({}))
+    property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}))
     homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
     announcement_list = f_app.blog.post_output(f_app.blog.post_search({"category": [{'_id': ObjectId('5417eca66b80992d07638186'), 'type': 'news_category', '_enum': 'news_category'}]}))
     news_list = f_app.blog.post_output(
