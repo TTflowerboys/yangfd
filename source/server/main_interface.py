@@ -90,10 +90,24 @@ def process():
     return template("process", user=get_current_user())
 
 
-@f_get('/house_list')
+@f_get('/property_list')
 @check_landing
-def houseList():
-    return template("house_list", user=get_current_user())
+def property_list():
+    country_list = f_app.geo.country.get_all()
+    city_list = f_app.geo.get(f_app.geo.city.search({}, per_page=0))
+    property_type_list = f_app.enum.get_all('property_type')
+    intention_list = f_app.enum.get_all('intention')
+    budget_list = f_app.enum.get_all('budget')
+    property_list = f_app.property.output(f_app.property.search({}, per_page=f_app.common.property_list_per_page))
+    return template("property_list",
+                    user=get_current_user(),
+                    country_list=country_list,
+                    city_list=city_list,
+                    property_type_list=property_type_list,
+                    intention_list=intention_list,
+                    budget_list=budget_list,
+                    property_list=property_list
+                    )
 
 
 @f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')

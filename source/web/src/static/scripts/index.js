@@ -1,4 +1,4 @@
-$('#announcement').on('click', 'ul>li>.close', null, function (event) {
+$('#announcement').on('click', 'ul>li>.close', function (event) {
     var $item = $(event.target.parentNode)
     $item.remove()
     var $container =$(event.delegateTarget)
