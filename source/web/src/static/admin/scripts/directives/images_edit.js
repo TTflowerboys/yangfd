@@ -10,9 +10,14 @@ angular.module('app')
                 widthLimit: '@widthLimit',
                 ratio: '@ratio',
                 thumbnailSize: '@thumbnailSize',
-                text:'@text'
+                text: '@text'
             },
             link: function (scope, elm, attrs) {
+
+                if (!scope.widthLimit) { throw 'Needs width-limit' }
+                if (!scope.ratio) { throw 'Needs ratio' }
+                if (!scope.thumbnailSize) { throw 'Needs thumbnail-size' }
+                if (!scope.text) { throw 'Needs text' }
 
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
