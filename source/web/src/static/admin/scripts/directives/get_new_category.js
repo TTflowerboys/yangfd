@@ -4,7 +4,7 @@ angular.module('app')
     .directive('getNewsCategory', function (enumApi) {
         return {
             link: function (scope, element, attrs) {
-                enumApi.getEnumsByType('news_category').success(function (data) {
+                enumApi.getOriginEnumsByType('news_category', {params: {_i18n: 'disabled'}}).success(function (data) {
                     scope.newsCategoryList = data.val
                 })
             }

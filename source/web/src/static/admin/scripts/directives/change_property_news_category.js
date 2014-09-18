@@ -1,6 +1,6 @@
 /* Created by frank on 14-9-17. */
 angular.module('app')
-    .directive('changePropertyNewsCategory', function (propertyApi, userApi) {
+    .directive('changePropertyNewsCategory', function (propertyApi, userApi, $rootScope) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/change_property_news_category.tpl.html',
@@ -11,6 +11,7 @@ angular.module('app')
                 name: '@name'
             },
             link: function (scope, elm, attrs) {
+                scope.userLanguage = $rootScope.userLanguage
                 scope.$watch(function () {
                     return scope.newsCategoryList
                 }, function (value) {
@@ -30,7 +31,7 @@ angular.module('app')
                         errorMessage: true
                     }).then(function () {
                         scope.open = false
-                        scope.item.news_category = newValue
+                        scope.item[scope.name] = newValue
                     })
                 }
             }

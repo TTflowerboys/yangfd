@@ -5,25 +5,42 @@
     function enumApi($http, $state, $q) {
         return {
             addEnum: function (type, value) {
-                var params = {}
-                params.type = type
-                params.value = value
-                return $http.post('/api/1/enum/add', params, {errorMessage: true})
+                var data = {
+                    type: type,
+                    value: value
+                }
+                return $http.post('/api/1/enum/add', data, {errorMessage: true})
 
             },
             editEnum: function (id, type, value) {
-                var params = {}
-                params.type = type
-                params.value = value
-                return $http.post('/api/1/enum/' + id + '/edit', params, {errorMessage: true})
+                var data = {
+                    type: type,
+                    value: value
+                }
+                return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
 
             },
             getEnumsByType: function (type) {
-
-                return $http.get('/api/1/enum', {params: {type: type}, errorMessage: true})
+                return $http.get('/api/1/enum', {
+                    params: {
+                        type: type
+                    }
+                })
             },
-            getI18nEnumsById: function (id) {
-                return $http.get('/api/1/enum/' + id, {params: {_i18n: 'disabled'}, errorMessage: true})
+            // origin means non-i18n
+            getOriginEnumsByType: function (type) {
+                return $http.get('/api/1/enum', {
+                    params: {
+                        type: type,
+                        _i18n: 'disabled'
+                    }
+                })
+            },
+            getI18nEnumsById: function (id, config) {
+                return $http.get('/api/1/enum/' + id, angular.extend({
+                    params: {_i18n: 'disabled'},
+                    errorMessage: true
+                }, config))
             }
         }
 
