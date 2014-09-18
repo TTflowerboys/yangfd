@@ -35,70 +35,74 @@
 </div>
 <div class="houseFeatured">
     <a class="more" href="/property_list">{{_('更多')}}</a>
-    <h2 class="houseCard_category">{{_('伦敦房产')}}</h2>
-    <div class=houseCard>
-        <img src="http://upload.wikimedia.org/wikipedia/commons/7/71/Brisbane_Residential_Buildings.jpg" width=320 height=240/>
-        <div class=description>
-            <h1 class=name>Ebury Bridge Road, Pimlic</h1>
-            <span class=price>￥ <strong>300</strong>万</span>
-            <div class=details>
-                <p class=size>3, 2.5 baths, 1,400 sqft</p>
-                <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong>%</span></p>
-                <ul class=properties>
-                    <li><i>⌘</i> 超额收益 股权投资</li>
-                    <li><i>⌘</i> 别墅</li>
-                    <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li>
-                </ul>
-            </div>
-            <div class=action>
-                <a href="http://abc.com" class="button red">查看详情</a>
-            </div>
-        </div>
-        <div class="relatedNews">
-            <h3 class="title">{{_('相关动态')}}</h3>
-            <div class="list">
-                <a class="item" href="">习近平出席中共中央纪念邓小平诞辰座谈会</a>
-                <a class="item" href="">十大关键词诠释李克强的民生情怀 西藏行</a>
-                <a class="item" href="">最高法：下班回家顺道买菜出意外算工伤</a>
-                <a class="item" href="">发改委开反垄断最大罚单：12家日本企业被罚</a>
-                <a class="item" href="">不动产登记局三定方案确定 包括6个处24个编制</a>
-            </div>
-        </div>
+     %if (property_list):
+        %for index, property in enumerate(property_list) :
+            %if (index >= 0 and index < 20):
+                <h2 class="houseCard_category" >{{_i18n(property.get('country'))}} {{_i18n(property.get('city'))}}</h2>
+                <div class=houseCard>
+    %if (_i18n(property.get('reality_images'), '')) :
+           <img src="{{_i18n(property.get('reality_images'))[0]}}" width=320 height=240/>
+           %else :
+           <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
+           %end
+
+           <div class=description>
+               <h1 class=name>{{_i18n(property.get('name', ''))}}</h1>
+               <span class=price>
+                   %if property.get('total_price'):
+                   {{property.get('total_price').get('unit')}} <strong>{{property.get('total_price').get('value')}}</strong>
+                   %end
+               </span>
+               <div class=details>
+                   <p class=size>
+                       %if property.get('living_room_count'):
+                       {{property.get('livint_room_count')}} {{_('房间')}},
+                       %end
+                       %if property.get('bathroom_count'):
+                       {{property.get('bathroom_count')}} baths,
+                       %end
+                       %if property.get('space'):
+                       {{property.get('space').get('value')}} {{property.get('space').get('unit')}}
+                       %end
+                   </p>
+                   %if (property.get('estimated_monthly_rent')) :
+                   <p class=estimate><span class=label>预期月租金</span><span class=value>{{property.get('estimated_monthly_rent').get('value', '')}} {{property.get('estimated_monthly_rent').get('unit', '')}}</span></p>
+                   %end
+                   <ul class=properties>
+                       %if (property.get('intention')) :
+                       <li><i>⌘</i> {{property.get('intention', '').get('type')}}</li>
+                       %end
+                       %if (property.get('equity_type')) :
+                       <li><i>⌘</i> {{property.get('equity_type', '').get('type')}}</li>
+                       %end
+                       %if (_i18n(property.get('street'))) :
+                       <li><i>⌘</i> {{_i18n(property.get('street', ''))}}</li>
+                       %end
+                   </ul>
+               </div>
+               <div class=action>
+                   <a href="http://abc.com" class="button red">查看详情</a>
+               </div>
+           </div>
+           <div class="relatedNews">
+               <h3 class="title">{{_('相关动态')}}</h3>
+               <div class="list">
+                   <a class="item" href="">习近平出席中共中央纪念邓小平诞辰座谈会</a>
+                   <a class="item" href="">十大关键词诠释李克强的民生情怀 西藏行</a>
+                   <a class="item" href="">最高法：下班回家顺道买菜出意外算工伤</a>
+                   <a class="item" href="">发改委开反垄断最大罚单：12家日本企业被罚</a>
+                   <a class="item" href="">不动产登记局三定方案确定 包括6个处24个编制</a>
+               </div>
+           </div>
     </div>
 
-    <h2 class="houseCard_category">{{_('美国房产')}}</h2>
-    <div class=houseCard>
-        <img src="http://upload.wikimedia.org/wikipedia/commons/7/71/Brisbane_Residential_Buildings.jpg" width=320 height=240/>
-        <div class=description>
-            <h1 class=name>Ebury Bridge Road, Pimlic</h1>
-            <span class=price>￥ <strong>300</strong>万</span>
-            <div class=details>
-                <p class=size>3, 2.5 baths, 1,400 sqft</p>
-                <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong>%</span></p>
-                <ul class=properties>
-                    <li><i>⌘</i> 超额收益 股权投资</li>
-                    <li><i>⌘</i> 别墅</li>
-                    <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li>
-                </ul>
-            </div>
-            <div class=action>
-                <a href="http://abc.com" class="button red">查看详情</a>
-            </div>
-        </div>
-        <div class="relatedNews">
-            <h3 class="title">{{_('相关动态')}}</h3>
-            <div class="list">
-                <a class="item" href="">习近平出席中共中央纪念邓小平诞辰座谈会</a>
-                <a class="item" href="">十大关键词诠释李克强的民生情怀 西藏行</a>
-                <a class="item" href="">最高法：下班回家顺道买菜出意外算工伤</a>
-                <a class="item" href="">发改委开反垄断最大罚单：12家日本企业被罚</a>
-                <a class="item" href="">不动产登记局三定方案确定 包括6个处24个编制</a>
-            </div>
-        </div>
-    </div>
+            %end
+        %end
+    %end
+
 </div>
 
-%if (news_list):
+%if (news_list) :
 <div class="news_wrapper">
     <div class="news">
         <h2 class="title">
@@ -117,7 +121,7 @@
         </div>
 
 
-        %if (len(news_list) > 1):
+        %if (len(news_list) > 1) :
         <div class="moreNews">
             <h3 class="title">{{_('更多资讯')}}</h3>
             <div class="list">
@@ -129,13 +133,7 @@
             </div>
             <a class="ghostButton red more">{{_('了解更多')}}</a>
         </div>
-
         %end
-
-        <ul>
-            <li></li>
-        </ul>
-
     </div>
     %end
 </div>
