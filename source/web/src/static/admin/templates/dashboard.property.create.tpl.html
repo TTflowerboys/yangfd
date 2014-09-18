@@ -42,15 +42,20 @@
                         <label class="control-label">国家</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" type-i18n="item.country"
-                                ng-model="item.country[userLanguage.value]"/>
+                            <select class="form-control" ng-model="item.country" style="width: 185px;"
+                                    ng-options="p.country as p.name[userLanguage.value] for p in systemCountries">
+                                <option value="">-- 选择 --</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group col-xs-6 col-sm-3">
                         <label class="control-label">城市</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" type-i18n="item.city" ng-model="item.city[userLanguage.value]"/>
+                            <select class="form-control" ng-model="item.city" style="width: 185px;"
+                                    ng-options="p.id as p.name[userLanguage.value] for p in systemCities">
+                                <option value="">-- 选择 --</option>
+                            </select>
                         </div>
                     </div>
                 </div>

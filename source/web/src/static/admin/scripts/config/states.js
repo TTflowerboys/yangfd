@@ -20,6 +20,9 @@ angular.module('app')
             },
             enumApi: function (enumApi) {
                 return enumApi
+            },
+            geoApi: function(geoApi){
+                return geoApi
             }
         }
 
