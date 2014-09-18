@@ -84,3 +84,17 @@
     text-overflow: ellipsis;
     max-width: @max-width;
 }
+
+.limitedLines(@lines:5; @line-height: 20px;@bg: white) {
+    height: @line-height * @lines;
+    overflow: hidden; position: relative; background: @bg;
+    &:after {
+        content: ''; display: block; position: absolute;
+        width: 30%;
+        height: @line-height;
+        bottom: 0;
+        right: 0;
+        background: @bg;
+        background: linear-gradient(to right, fade(@bg, 0%) 0%, @bg 80%);
+    }
+}
