@@ -107,7 +107,7 @@ angular.module('app')
             .state('dashboard.property.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.property.edit.tpl.html',
-                controller: 'ctrlEdit',
+                controller: 'ctrlPropertyEdit',
                 resolve: propertyResolve
             })
 

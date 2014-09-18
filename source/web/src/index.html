@@ -22,7 +22,7 @@
     <a class="becomeMember button red" href="/signup">{{_('成为会员')}}</a>
 </div>
 <div class="howItWorks"></div>
-<div class="announcement">
+<div id="announcement" class="announcement">
     <ul>
         %    for anno in announcement_list:
         <li class="item">
@@ -106,8 +106,7 @@
             {{_('资讯')}}
         </h2>
         <div class="featuredNews">
-            <img class="picture" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBObJvV5o4ihHlUlBt6dzGXDcEO6aMLi-6yDRepncGB4nD7GA1vA" />
-
+            <img class="picture" src="{{news_list[0].get('images', '')[0]}}" />
             <div class="content_wrapper">
                 <h3 class="title">{{_i18n(news_list[0].get('title', ''))}}</h3>
                 <p class="content">
@@ -149,4 +148,5 @@
         });
     })
 </script>
+<script src="/static/scripts/index.js"></script>
 <!--@@close-->
