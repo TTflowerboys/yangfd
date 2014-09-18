@@ -27,6 +27,7 @@ logger = logging.getLogger(__name__)
         value=str,
     )),
     locales=(list, None, str),
+    property_id=ObjectId,
 ))
 def intention_ticket_add(params):
     """
@@ -214,6 +215,7 @@ def intention_ticket_assign(user, ticket_id, user_id):
         index=int,
     )),
     status=(str, None),
+    property_id=(ObjectId, None),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
 def intention_ticket_edit(user, ticket_id, params):

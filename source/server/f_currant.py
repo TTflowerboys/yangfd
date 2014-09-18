@@ -229,6 +229,9 @@ class f_currant_user(f_user):
 
         return favorites
 
+    def favorite_get_by_user(self, user_id):
+        return self.favorite_search({"user_id": ObjectId(user_id)}, per_page=0)
+
     def favorite_search(self, params, sort=["time", "desc"], notime=False, per_page=10):
         params.setdefault("status", "new")
         if sort is not None:
@@ -272,15 +275,19 @@ class f_currant_ticket(f_ticket):
         ticket_list = f_app.ticket.get(ticket_id_list)
         user_id_set = set()
         enum_id_set = set()
+        property_id_set = set()
         for t in ticket_list:
             user_id_set.add(t.get("creator_user_id"))
             user_id_set |= set(t.get("assignee", []))
             if "budget" in t:
                 enum_id_set.add(t["budget"]["_id"])
+            if "property_id" in t:
+                property_id_set.add(t["property_id"])
 
         user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields)
         user_dict = {}
         enum_dict = f_app.enum.get(enum_id_set, multi_return=dict)
+        property_dict = f_app.property.output(list(property_id_set), multi_return=dict)
 
         for u in user_list:
             user_dict[u["id"]] = u
@@ -291,6 +298,8 @@ class f_currant_ticket(f_ticket):
                 t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
             if "budget" in t:
                 t["budget"] = enum_dict.get(str(t["budget"]["_id"]))
+            if "property_id" in t:
+                t["property"] = property_dict.get(str(t.pop("property_id")))
 
         return ticket_list
 
@@ -360,8 +369,48 @@ class f_currant_plugins(f_app.plugin_base):
                     f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
 
     def post_add(self, params, post_id):
+        if {'_id': ObjectId('5417eca66b80992d07638186'), 'type': 'news_category', '_enum': 'news_category'} in params["category"]:
+            # System
+            message = {
+                "type": "system",
+                "title": params["title"],
+                "text": params["content"]
+            }
+            user_list = f_app.user.search({"register_time": {"$ne": None}, "system_message_type": "system"})
+            f_app.message.add(message, user_list)
         if "zipcode_index" in params:
+            # Favorite
             related_property_list = f_app.property.search({"zipcode_index": params["zipcode_index"], "status": {"$in": ["selling", "sold out"]}})
+            related_property_list = [ObjectId(property) for property in related_property_list]
+            favorite_user_list = f_app.user.favorite.search({"property_id": related_property_list}, per_page=0)
+            favorite_user_list = [_id for _id in favorite_user_list if "favorite" in f_app.user.get(_id).get("system_message_type", [])]
+            message = {
+                "type": "favorite",
+                "title": params["title"],
+                "text": params["content"]
+            }
+            f_app.message.add(message, favorite_user_list)
+            # Intention
+            intention_ticket_list = f_app.ticket.search({"property_id": {"$in": related_property_list}, "status": {"$in": ["new", "assigned", "in_progress", "deposit"]}}, per_page=0)
+            intention_user_list = [t.get("user_id") for t in f_app.ticket.get(intention_ticket_list)]
+            intention_user_list = [_id for _id in intention_user_list if "intention" in f_app.user.get(_id).get("system_message_type", [])]
+            message = {
+                "type": "intention",
+                "title": params["title"],
+                "text": params["content"]
+            }
+            f_app.message.add(message, intention_user_list)
+            # Mine
+            bought_ticket_list = f_app.ticket.search({"property_id": {"$in": related_property_list}, "status": "bought"}, per_page=0)
+            bought_user_list = [t.get("user_id") for t in f_app.ticket.get(bought)]
+            bought_user_list = [_id for _id in intention_user_list if "mine" in f_app.user.get(_id).get("system_message_type", [])]
+            message = {
+                "type": "mine",
+                "title": params["title"],
+                "text": params["content"]
+            }
+            f_app.message.add(message, bought_user_list)
+
         return params
 
     def message_output_each(self, message):

@@ -100,7 +100,7 @@ def register(params):
     ``challenge`` describes the CAPTCHA which the user is solving, it's value is in ``recaptcha_challenge_field``
 
     """
-
+    params["email_message_type"] = params["system_message_type"] = ["system", "favorite", "intention", "mine"]
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
