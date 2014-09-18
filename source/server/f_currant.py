@@ -123,17 +123,16 @@ class f_currant_user(f_user):
         return user_id_list
 
     def counter_update(self, user_id, counter_name="all"):
-        user = f_app.user.get(user_id)
         if counter_name == "all":
-            intention_tickets = f_app.ticket.search({"phone": user.get("phone"), "type": "intention"})
-            support_tickets = f_app.ticket.search({"phone": user.get("phone"), "type": "support"})
+            intention_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "intention"})
+            support_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "support"})
             self.update_set(user_id, {"counter.intention": len(intention_tickets), "counter.support": len(support_tickets)})
 
         elif counter_name == "intention":
-            intention_tickets = f_app.ticket.search({"phone": user.get("phone"), "type": "intention"})
+            intention_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "intention"})
             self.update_set(user_id, {"counter.intention": len(intention_tickets)})
         elif counter_name == "support":
-            support_tickets = f_app.ticket.search({"phone": user.get("phone"), "type": "support"})
+            support_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "support"})
             self.update_set(user_id, {"counter.support": len(support_tickets)})
 
         return f_app.user.get(user_id)
@@ -361,6 +360,8 @@ class f_currant_plugins(f_app.plugin_base):
                     f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
 
     def post_add(self, params, post_id):
+        if "zipcode_index" in params:
+            related_property_list = f_app.property.search({"zipcode_index": params["zipcode_index"], "status": {"$in": ["selling", "sold out"]}})
         return params
 
     def message_output_each(self, message):
