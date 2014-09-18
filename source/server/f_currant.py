@@ -363,8 +363,9 @@ class f_currant_plugins(f_app.plugin_base):
     def post_add(self, params, post_id):
         return params
 
-    def message_output_each():
-        pass
+    def message_output_each(self, message):
+        message["status"] = message.pop("state", "deleted")
+        return message
 
 
 f_currant_plugins()

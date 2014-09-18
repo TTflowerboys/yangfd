@@ -16,6 +16,7 @@ def message_search(user, params):
 
         Type: system
         {
+            "title": (i18n),
             "text": (i18n),
             "state": "new",
             "time": 1348631514.0,
@@ -59,7 +60,6 @@ def message_mark(message_id, status, user):
 
 
 @f_api('/message/add', params=dict(
-    nonone=False,
     text=("i18n", None, str),
     title=("i18n", None, str),
     type=(str, "system"),
@@ -72,5 +72,6 @@ def admin_message_add(user, params):
     """
     if "text" not in params and params["type"] != "login_expired":
         abort(40000)
+    target = params.pop("target")
 
-    return f_app.message.add({"type": params["type"], "text": params["text"]}, params["target"])
+    return f_app.message.add(params, target)
