@@ -1,4 +1,16 @@
 <div class="input-group">
-    <span class="input-group-addon">{%i18nUnit.unit%}</span>
     <input type="text" ng-model="i18nUnit.value" placeholder="{%placeholder%}" class="form-control">
+
+    <div class="input-group-addon">
+        <div class="btn-group" dropdown>
+            <button type="button" class="btn btn-danger">{%i18nUnit.unit||'请选择'%}</button>
+            <button type="button" class="btn btn-danger dropdown-toggle">
+                <span class="caret"></span>
+                <span class="sr-only">Split button!</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="item in data" ng-click="i18nUnit.unit=item">{%item%}</li>
+            </ul>
+        </div>
+    </div>
 </div>

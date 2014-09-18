@@ -7,17 +7,14 @@ angular.module('app')
             replace: true,
             scope: {
                 i18nUnit: '=ngModel',
-                unit: '=unit',
-                placeholder: '@placeholder'
+                placeholder: '@placeholder',
+                data: '=data'
             },
             link: function (scope, elm, attrs, ctrl) {
                 if (!scope.i18nUnit) {scope.i18nUnit = {}}
                 for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
                     scope.i18nUnit.value = scope.i18nUnit.value || ''
                 }
-                scope.$watch('unit',function(value){
-                    scope.i18nUnit.unit = value
-                })
             }
         }
     })
