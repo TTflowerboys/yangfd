@@ -95,7 +95,7 @@
             $scope.item.tempLivingRoomCount = null
             $scope.item.tempBathroomCount = null
             $scope.item.tempKitchenCount = null
-            $scope.item.tempTotalPrice = {}
+            $scope.item.tempTotalPrice.value = ''
             $scope.item.tempFloorPlan = {}
         }
 
