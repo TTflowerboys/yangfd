@@ -9,13 +9,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-"""
-==================================================================
-Intention Ticket
-==================================================================
-"""
-
-
 @f_api('/intention_ticket/add', params=dict(
     nickname=(str, True),
     phone=(str, True),
@@ -38,20 +31,24 @@ Intention Ticket
 def intention_ticket_add(params):
     """
     ``noregister`` is default to **True**, which means if ``noregister`` is not given, the visitor will *not be registered*.
+    ``creator_user_id`` is the ticket creator, while ``user_id`` stands for the customer of this ticket.
     """
     params.setdefault("type", "intention")
     noregister = params.pop("noregister", True)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
     user = f_app.user.login_get()
+    user_id = None
     user_id_by_phone = f_app.user.get_id_by_phone(params["phone"], force_registered=True)
     shadow_user_id = f_app.user.get_id_by_phone(params["phone"])
     if not user:
+        # For guest, trying to use existing phone number
         if user_id_by_phone:
             abort(40351)
         else:
+            # Non-register user can use his / her phone number again
             if shadow_user_id:
-                creator_user_id = ObjectId(shadow_user_id)
+                user_id = ObjectId(shadow_user_id)
             else:
                 # Add shadow account for noregister user
                 user_params = {
@@ -64,11 +61,12 @@ def intention_ticket_add(params):
                 if "country" in params:
                     user_params["country"] = params["country"]
 
-                creator_user_id = ObjectId(f_app.user.add(user_params, noregister=noregister))
-                f_app.log.add("add", user_id=str(creator_user_id))
+                user_id = f_app.user.add(user_params, noregister=noregister)
+                f_app.log.add("add", user_id=user_id)
                 # Log in and send password for newly registered user
                 if not noregister:
                     password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
+                    f_app.user.update_set(user_id, {"password": password})
                     user_params["password"] = password
                     f_app.email.schedule(
                         target=params["email"],
@@ -77,11 +75,46 @@ def intention_ticket_add(params):
                         display="html",
                     )
 
-                    f_app.user.login.success(creator_user_id)
+                    f_app.user.login.success(user_id)
+            creator_user_id = user_id
     else:
         creator_user_id = ObjectId(user["id"])
+        if user["id"] == user_id_by_phone:
+            # This ticket is created by user on his own
+            user_id = user["id"]
+        else:
+            # This ticket is created by sales
+            if shadow_user_id:
+                # The target user exists
+                user_id = shadow_user_id
+            else:
+                # Add shadow account for noregister user
+                user_params = {
+                    "nickname": params["nickname"],
+                    "phone": params["phone"],
+                    "email": params["email"],
+                    "intention": params.get("intention", []),
+                    "locales": params.get("locales", [])
+                }
+                if "country" in params:
+                    user_params["country"] = params["country"]
 
-    params["creator_user_id"] = creator_user_id
+                user_id = f_app.user.add(user_params, noregister=noregister)
+                f_app.log.add("add", user_id=user_id)
+                # Log in and send password for newly registered user
+                if not noregister:
+                    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
+                    f_app.user.update_set(user_id, {"password": password})
+                    user_params["password"] = password
+                    f_app.email.schedule(
+                        target=params["email"],
+                        subject="You are registered.",
+                        text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"]),
+                        display="html",
+                    )
+
+    params["creator_user_id"] = ObjectId(creator_user_id)
+    params["user_id"] = ObjectId(user_id)
 
     # ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
     # Send mail to every senior sales
@@ -238,13 +271,6 @@ def intention_ticket_search(user, params):
     return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
 
 
-"""
-==================================================================
-Support Ticket
-==================================================================
-"""
-
-
 @f_api('/support_ticket/add', params=dict(
     nickname=(str, True),
     phone=(str, True),
@@ -268,7 +294,8 @@ def support_ticket_add(params):
 
     user_id = f_app.user.get_id_by_phone(params["phone"])
     if user_id is not None:
-        params["creator_user_id"] = user_id
+        params["creator_user_id"] = ObjectId(user_id)
+        params["user_id"] = ObjectId(user_id)
     else:
         abort(40324)
 
