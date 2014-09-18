@@ -87,7 +87,7 @@
                 living_room_count: $scope.item.tempLivingRoomCount,
                 bathroom_count: $scope.item.tempBathroomCount,
                 kitchen_count: $scope.item.tempKitchenCount,
-                total_price: $scope.item.tempTotalPrice,
+                total_price: angular.copy($scope.item.tempTotalPrice),
                 floor_plan: $scope.item.tempFloorPlan}
             $scope.item.main_house_types.push(temp)
             $scope.item.tempHouseName = {}

@@ -203,7 +203,7 @@
         </div>
     </div>
 </tab>
-<tab heading="非楼盘特有信息" ng-if="item.property_type !== '54100a14c6e47b14331ad29f'">
+<tab heading="非楼盘特有信息" ng-if="item.property_type.id !== '54100a14c6e47b14331ad29f'">
     <div class="form-group">
         <label class="control-label">总价格</label>
 
@@ -266,12 +266,14 @@
         </div>
     </div>
 </tab>
-<tab heading="楼盘信息" ng-if="item.property_type === '54100a14c6e47b14331ad29f'">
+<tab heading="楼盘信息" ng-if="item.property_type.id === '54100a14c6e47b14331ad29f'">
     <div class="form-group">
         <label class="control-label">单位面积参考价格</label>
 
         <div class="controls">
-            <span class="input-xlarge uneditable-input">{%item.unit_price%}</span>
+            <span class="input-xlarge uneditable-input">{%item.unit_price.price.unit_symbol%}{%item.unit_price.price.value%}</span>
+            /
+            <span class="input-xlarge uneditable-input">{%item.unit_price.unit.value%} {%item.unit_price.unit.unit%}</span>
         </div>
     </div>
     <div class="form-group">
@@ -302,7 +304,7 @@
                     <td>{%main_type.living_room_count%}</td>
                     <td>{%main_type.bathroom_count%}</td>
                     <td>{%main_type.kitchen_count%}</td>
-                    <td>{%main_type.total_price%}</td>
+                    <td>{%main_type.total_price.unit_symbol%}{%main_type.total_price.value%}</td>
                     <td><img class="img-thumbnail" ng-src="{%main_type.floor_plan%} "></td>
                 </tr>
                 </tbody>
@@ -334,7 +336,7 @@
         <label class="control-label">建筑面积</label>
 
         <div class="controls">
-            <span class="input-xlarge uneditable-input">{%item.building_area%}</span>
+            <span class="input-xlarge uneditable-input">{%item.building_area.value%} {%item.building_area.unit%}</span>
         </div>
     </div>
     <div class="form-group">
@@ -348,7 +350,7 @@
         <label class="control-label">规划面积</label>
 
         <div class="controls">
-            <span class="input-xlarge uneditable-input">{%item.planning_area%}</span>
+            <span class="input-xlarge uneditable-input">{%item.planning_area.value%} {%item.planning_area.unit%}</span>
         </div>
     </div>
     <div class="form-group">
