@@ -92,7 +92,13 @@ angular.module('app')
                 array.splice.apply(array, [0, array.length].concat(items))
             },
 
-            Delayer: Delayer
+            Delayer: Delayer,
+
+            getIntersectionById: function (object, compare) {
+                return _.filter(object, function (item) {
+                    return _.findWhere(compare, {id: item.id})
+                })
+            }
         }
 
         return self

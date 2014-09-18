@@ -1,6 +1,6 @@
 /* Created by frank on 14-9-17. */
 angular.module('app')
-    .directive('changePropertyNewsCategory', function (propertyApi, userApi, $rootScope) {
+    .directive('changePropertyNewsCategory', function (propertyApi, userApi, $rootScope, misc) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/change_property_news_category.tpl.html',
@@ -15,12 +15,7 @@ angular.module('app')
                 scope.$watch(function () {
                     return scope.newsCategoryList
                 }, function (value) {
-                    scope.newValue = _.filter(value, function (i) {
-                        var result = _.find(scope.item.news_category, function (j) {
-                            return j.id === i.id
-                        })
-                        return result
-                    })
+                    scope.newValue = misc.getIntersectionById(value, scope.item[scope.name])
                 })
                 scope.onSubmit = function (item, newValue) {
                     var data = {id: item.id}
