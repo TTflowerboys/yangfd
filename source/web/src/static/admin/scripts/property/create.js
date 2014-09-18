@@ -35,12 +35,7 @@
             $event.preventDefault()
             $scope.submitted = true
             $scope.loading = true
-            for (var i in $scope.item) {
-                if (_.isEmpty($scope.item[i]) || $scope.item[i].value === '') {
-                    delete $scope.item[i]
-                }
-            }
-
+            formatData()
             api.create($scope.item, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
@@ -104,6 +99,60 @@
             $scope.item.tempFloorPlan = {}
         }
 
+        function formatData() {
+            for (var i in $scope.item) {
+                if (_.isEmpty($scope.item[i])) {
+                    delete $scope.item[i]
+                    continue
+                }
+                if ($scope.item[i].unit === undefined) {
+                    for (var index in i18nLanguages) {
+                        var lang = i18nLanguages[index].value
+                        if ($scope.item[i][lang] === undefined || $scope.item[i][lang] === '') {
+                            delete $scope.item[i][lang]
+                        }
+                    }
+                    if (_.isEmpty($scope.item[i])) {
+                        delete $scope.item[i]
+                        continue
+                    }
+                } else {
+                    if (_.isString($scope.item[i].unit)) {
+                        console.log(_.isEmpty($scope.item[i].value))
+                        console.log($scope.item[i].value === '')
+                        if (_.isEmpty($scope.item[i].value) || $scope.item[i].value === '') {
+                            delete $scope.item[i]
+                            continue
+                        }
+                    } else {
+                        if (_.isString($scope.item[i].unit.unit) && _.isString($scope.item[i].price.unit)) {
+                            if (_.isEmpty($scope.item[i].unit.value) || $scope.item[i].unit.value === '' || _.isEmpty($scope.item[i].price.value) || $scope.item[i].price.value === '') {
+                                delete $scope.item[i]
+                                continue
+                            }
+                        }
+                    }
+                }
+            }
+            cleanTempData()
+        }
+
+        function cleanTempData() {
+            $scope.item.tempHouseName = undefined
+            $scope.item.tempBedroomCount = undefined
+            $scope.item.tempLivingRoomCount = undefined
+            $scope.item.tempBathroomCount = undefined
+            $scope.item.tempKitchenCount = undefined
+            $scope.item.tempTotalPrice = undefined
+            $scope.item.tempFloorPlan = undefined
+            $scope.item.tempCostItem = undefined
+            $scope.item.tempCostPrice = undefined
+            $scope.item.tempCostItem = undefined
+            $scope.item.tempCostPrice = undefined
+            $scope.item.tempHistoryTime = undefined
+            $scope.item.tempHistoryPrice = undefined
+            $scope.item.tempPoint = undefined
+        }
     }
 
     angular.module('app').controller('ctrlPropertyCreate', ctrlPropertyCreate)

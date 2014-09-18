@@ -27,90 +27,59 @@
         </select>
     </div>
 </div>
+
+<!-- <script id="houseCard_template" type="text/template"> -->
+<!--     {_ _.each(houses, function(house) {_}    -->
+<!--        <div class=houseCard> -->
+<!--         <img src="{=house.reality_images=}" width=320 height=240/> -->
+<!--         <div class=description> -->
+<!--             <h1 class=name>{=house.name=} {=house.status=}</h1> -->
+<!--             <span class=price>￥ <strong>300</strong>万</span> -->
+<!--             <div class=details> -->
+<!--                 <p class=size>3, 2.5 baths, 1,400 sqft</p> -->
+<!--                 <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong>%</span></p> -->
+<!--                 <ul class=properties> -->
+<!--                     <li><i>⌘</i> 超额收益 股权投资</li> -->
+<!--                     <li><i>⌘</i> 别墅</li> -->
+<!--                     <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li> -->
+<!--                 </ul> -->
+<!--             </div> -->
+<!--             <div class=action> -->
+<!--                 <a href="http://abc.com" class="button red">查看详情</a> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     {_})_} -->
+<!-- </script> -->
+
+<script id="houseCard_template" type="text/template">
+       <div class=houseCard>
+        <img src="{=house.reality_images=}" width=320 height=240/>
+        <div class=description>
+            <h1 class=name>{=house.name=} {=house.status=}</h1>
+            <span class=price>￥ <strong>300</strong>万</span>
+            <div class=details>
+                <p class=size>3, 2.5 baths, 1,400 sqft</p>
+                <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong>%</span></p>
+                <ul class=properties>
+                    <li><i>⌘</i> 超额收益 股权投资</li>
+                    <li><i>⌘</i> 别墅</li>
+                    <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li>
+                </ul>
+            </div>
+            <div class=action>
+                <a href="http://abc.com" class="button red">查看详情</a>
+            </div>
+        </div>
+</script>
+
 <div class="result">
     <div class="result_list_container">
         <h2 class="result_number">{{_('共找到')}} <span class="number">331</span>{{_('套房产')}} </h2>
-        <div class="result_list">
-            <div class=houseCard>
-                <img src="http://upload.wikimedia.org/wikipedia/commons/7/71/Brisbane_Residential_Buildings.jpg" width=320 height=240/>
-                <div class=description>
-                    <h1 class=name>Ebury Bridge Road, Pimlic</h1>
-                    <span class=price>￥ <strong>300</strong>万</span>
-                    <div class=details>
-                        <p class=size>3, 2.5 baths, 1,400 sqft</p>
-                        <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong>%</span></p>
-                        <ul class=properties>
-                            <li><i>⌘</i> 超额收益 股权投资</li>
-                            <li><i>⌘</i> 别墅</li>
-                            <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li>
-                        </ul>
-                    </div>
-                    <div class=action>
-                        <a href="http://abc.com" class="button red">查看详情</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class=houseCard>
-                <img src="http://upload.wikimedia.org/wikipedia/commons/7/71/Brisbane_Residential_Buildings.jpg" width=320 height=240/>
-                <div class=description>
-                    <h1 class=name>Ebury Bridge Road, Pimlic</h1>
-                    <span class=price>￥ <strong>300</strong>万</span>
-                    <div class=details>
-                        <p class=size>3, 2.5 baths, 1,400 sqft</p>
-                        <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong>%</span></p>
-                        <ul class=properties>
-                            <li><i>⌘</i> 超额收益 股权投资</li>
-                            <li><i>⌘</i> 别墅</li>
-                            <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li>
-                        </ul>
-                    </div>
-                    <div class=action>
-                        <a href="http://abc.com" class="button red">查看详情</a>
-                    </div>
-                </div>
-            </div>
-            <div class=houseCard>
-                <img src="http://upload.wikimedia.org/wikipedia/commons/7/71/Brisbane_Residential_Buildings.jpg" width=320 height=240/>
-                <div class=description>
-                    <h1 class=name>Ebury Bridge Road, Pimlic</h1>
-                    <span class=price>￥ <strong>300</strong>万</span>
-                    <div class=details>
-                        <p class=size>3, 2.5 baths, 1,400 sqft</p>
-                        <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong>%</span></p>
-                        <ul class=properties>
-                            <li><i>⌘</i> 超额收益 股权投资</li>
-                            <li><i>⌘</i> 别墅</li>
-                            <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li>
-                        </ul>
-                    </div>
-                    <div class=action>
-                        <a href="http://abc.com" class="button red">查看详情</a>
-                    </div>
-                </div>
-            </div>
-            <div class=houseCard>
-                <img src="http://upload.wikimedia.org/wikipedia/commons/7/71/Brisbane_Residential_Buildings.jpg" width=320 height=240/>
-                <div class=description>
-                    <h1 class=name>Ebury Bridge Road, Pimlic</h1>
-                    <span class=price>￥ <strong>300</strong>万</span>
-                    <div class=details>
-                        <p class=size>3, 2.5 baths, 1,400 sqft</p>
-                        <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong>%</span></p>
-                        <ul class=properties>
-                            <li><i>⌘</i> 超额收益 股权投资</li>
-                            <li><i>⌘</i> 别墅</li>
-                            <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li>
-                        </ul>
-                    </div>
-                    <div class=action>
-                        <a href="http://abc.com" class="button red">查看详情</a>
-                    </div>
-                </div>
-            </div>
+        <div id="result_list" class="result_list">
+            
         </div>
         <hr class="border">
-        <button class="loadMore ghostButton red">{{_('加载更多')}}</button>
+        <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
     </div>
     <div class="tags">
         <h3 class="title">{{_('你还可以选择更多')}}</h3>
@@ -142,6 +111,6 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
-
+<script src="/static/scripts/house_list.js"></script>
 <!--@@close-->
 
