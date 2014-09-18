@@ -28,4 +28,12 @@
 
 <!--endbuild-->
 
+<script>
+    _.templateSettings = {
+        evaluate: /{_([\s\S]+?)_}/g,
+        interpolate: /{_=([\s\S]+?)_}/g,
+        escape: /{_-([\s\S]+?)_}/g
+    }
+</script>
+
 
