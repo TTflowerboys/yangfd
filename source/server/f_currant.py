@@ -402,7 +402,7 @@ class f_currant_plugins(f_app.plugin_base):
             f_app.message.add(message, intention_user_list)
             # Mine
             bought_ticket_list = f_app.ticket.search({"property_id": {"$in": related_property_list}, "status": "bought"}, per_page=0)
-            bought_user_list = [t.get("user_id") for t in f_app.ticket.get(bought)]
+            bought_user_list = [t.get("user_id") for t in f_app.ticket.get(bought_ticket_list)]
             bought_user_list = [_id for _id in intention_user_list if "mine" in f_app.user.get(_id).get("system_message_type", [])]
             message = {
                 "type": "mine",
