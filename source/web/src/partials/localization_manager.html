@@ -7,8 +7,15 @@
     <span id="邮箱">{{_('邮箱')}}</span>
     <span id="订阅失败">{{_('订阅失败')}}</span>
     <span id="提交需求失败">{{_('提交需求失败')}}</span>
+    <span id="所有国家">{{_('所有国家')}}</span>
+    <span id="所有城市">{{_('所有城市')}}</span>
+    <span id="所有房屋类型">{{_('所有房屋类型')}}</span>
 </div>
+
+<span id="current_Language" style="display:none">{{_.lang}}</span>
 
 <script>
     function i18n(key) { return $('#data_localization #' + key).text()}
+
+    window.lang = document.getElementById('current_Language').innerHTML
 </script>
