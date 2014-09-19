@@ -10,10 +10,23 @@
         $scope.pages = []
         $scope.api = api
 
-        api.getAll({ params: {per_page: $scope.perPage} }).success(onGetList)
+        var params = {
+            per_page: $scope.perPage
+        }
+
+        api.getAll({ params: params }).success(onGetList)
 
         $scope.refreshList = function () {
-            api.getAll({ params: {per_page: $scope.perPage}}).success(onGetList)
+            api.getAll({ params: params}).success(onGetList)
+        }
+
+        $scope.onSearch = function (searchText) {
+            params.phone = searchText || undefined
+            delete params.time
+            delete params.register_time
+            delete params.insert_time
+
+            api.search({params: params, errorMessage: true}).success(onGetList)
         }
 
         $scope.onRemove = function (item) {
@@ -26,9 +39,6 @@
 
         $scope.nextPage = function () {
             var lastItem = $scope.list[$scope.list.length - 1]
-            var params = {
-                per_page: $scope.perPage
-            }
             if (lastItem.time) {params.time = lastItem.time}
             if (lastItem.register_time) {params.register_time = lastItem.register_time}
             if (lastItem.insert_time) {params.insert_time = lastItem.insert_time}
@@ -44,16 +54,23 @@
 
             var prevPrevPageNumber = $scope.currentPageNumber - 2
             var prevPrevPageData
-            var time
+            var lastItem
             if (prevPrevPageNumber >= 1) {
                 prevPrevPageData = $scope.pages[prevPrevPageNumber]
-                time = prevPrevPageData[prevPrevPageData.length - 1].time
+                lastItem = prevPrevPageData[prevPrevPageData.length - 1]
             }
 
-            api.getAll({params: {
-                time: time,
-                per_page: $scope.perPage
-            }})
+            if (lastItem) {
+                if (lastItem.time) {params.time = lastItem.time}
+                if (lastItem.register_time) {params.register_time = lastItem.register_time}
+                if (lastItem.insert_time) {params.insert_time = lastItem.insert_time}
+            } else {
+                delete params.time
+                delete params.register_time
+                delete params.insert_time
+            }
+
+            api.getAll({params: params})
                 .success(function () {
                     $scope.currentPageNumber -= 1
                 })
