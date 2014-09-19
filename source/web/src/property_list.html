@@ -2,31 +2,51 @@
 <!--@@block=head -->
 <!--build:css(dist) /static/styles/house_list.html.css-->
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
-<link rel="stylesheet" href="/static/styles/house_list.css"/>
+<link rel="stylesheet" href="/static/styles/property_list.css"/>
 <!--endbuild-->
 
 <!--@@close-->
 
 <!--@@block=main -->
+
+<div class="property_data_manager" style="display:none">
+    <textarea  id="countryData">
+        {{json_dumps(country_list)}}
+    </textarea>
+    <textarea  id="cityData">
+        {{json_dumps(city_list)}}
+    </textarea>
+    <textarea  id="propertyTypeData">
+        {{json_dumps(property_type_list)}}
+    </textarea>
+    <textarea  id="intentionData">
+        {{json_dumps(intention_list)}}
+    </textarea>
+    <textarea  id="budgetData">
+        {{json_dumps(budget_list)}}
+    </textarea>
+</div>
+
 <div class="category_wrapper">
     <div class="category">
         <span>{{_('我想在')}}</span>
         <select class="ghostSelect" id="" name="country">
-            <option value="" selected>{{_('英国')}}</option>
+            <option value="" selected>{{_('全部国家')}}</option>
             <option value="" >{{_('美国')}}</option>
         </select>
         <span>{{_('的')}}</span>
         <select class="ghostSelect" id="" name="city">
-            <option value="" selected>{{_('伦敦')}}</option>
+            <option value="" selected>{{_('全部城市')}}</option>
             <option value="" >{{_('布里斯托')}}</option>
         </select>
         <span>{{_('投资')}}</span>
         <select class="ghostSelect" id="" name="houseType">
-            <option value="" selected>{{_('二手房')}}</option>
+            <option value="" selected>{{_('全部类型房产')}}</option>
             <option value="" >{{_('期房')}}</option>
         </select>
     </div>
 </div>
+
 
 <!-- <script id="houseCard_template" type="text/template"> -->
 <!--     {_ _.each(houses, function(house) {_}    -->
@@ -111,6 +131,8 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
-<script src="/static/scripts/house_list.js"></script>
+<!--build:js /static/scripts/property_list.js-->
+<script src="/static/scripts/property_list.js"></script>
+<!--endbuild-->
 <!--@@close-->
 

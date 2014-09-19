@@ -1,6 +1,6 @@
 var time = {}
 
-function loadHouseList(param) {
+function loadPropertyList(param) {
     $.post('/api/1/property/search', param)
         .done(function (data) {
             if (data.ret !== 0) {
@@ -29,10 +29,10 @@ function loadHouseList(param) {
 
 
 $(function () {
-    loadHouseList({'per_page':5})
+    loadPropertyList({'per_page':5})
 })
 
 
 $('#loadMore').click(function () {
-    loadHouseList({'per_page': 5, 'time': time})
+    loadPropertyList({'per_page': 5, 'time': time})
 })
