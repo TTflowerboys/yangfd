@@ -26,6 +26,31 @@ def enum_list(params):
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def enum_add(user, params):
+    """
+    ``slug`` is the unique key to get the enum data.
+
+    ``enum:country`` data model::
+
+        {
+            "type": "country",
+            "value": {
+                "zh_Hans_CN": "中国",
+                "en_GB": "China"
+            },
+            "slug": "CN"
+        }
+
+    ``city`` data model::
+
+        {
+            "type": "city",
+            "value": {
+                "zh_Hans_CN": "武汉",
+                "en_GB": "Wuhan"
+            },
+            "country": ObjectId(<enum:country>)
+        }
+    """
     if "message_type" in params:
         if "message_type" not in f_app.common.message_type:
             abort(40000, logger.warning("Invalid params: message_type", params["message_type"], exc_info=False))
