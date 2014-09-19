@@ -8,13 +8,20 @@ angular.module('app')
             scope: {
                 i18nUnit: '=ngModel',
                 placeholder: '@placeholder',
-                data: '=data'
+                data: '=data',
+                unit: '=unit'
             },
             link: function (scope, elm, attrs, ctrl) {
                 if (!scope.i18nUnit) {scope.i18nUnit = {}}
                 for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
                     scope.i18nUnit.value = scope.i18nUnit.value || ''
                 }
+                scope.isDefaultValue = true
+                scope.$watch('unit', function (value) {
+                    if (scope.isDefaultValue===true) {
+                        scope.i18nUnit.unit = value
+                    }
+                })
             }
         }
     })
