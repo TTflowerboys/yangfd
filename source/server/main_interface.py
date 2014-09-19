@@ -97,12 +97,12 @@ def process():
 @f_get('/property_list')
 @check_landing
 def property_list():
-    country_list = f_app.geo.country.get_all()
-    city_list = f_app.geo.get(f_app.geo.city.search({}, per_page=0))
+    country_list = f_app.enum.get_all("country")
+    city_list = f_app.enum.get_all('city')
     property_type_list = f_app.enum.get_all('property_type')
     intention_list = f_app.enum.get_all('intention')
     budget_list = f_app.enum.get_all('budget')
-    property_list = f_app.property.output(f_app.property.search({}, per_page=f_app.common.property_list_per_page))
+    property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}, per_page=f_app.common.property_list_per_page))
     return template("property_list",
                     user=get_current_user(),
                     country_list=country_list,

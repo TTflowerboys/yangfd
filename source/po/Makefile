@@ -34,5 +34,5 @@ install:
 		lang=$$($(PYTHON) -c "print('$$file'.split('/')[-1].split('.po')[0])"); \
 		$(GREP) "Language:" $$file; \
 		$(INSTALL) -d $(DESTDIR)/$$lang/LC_MESSAGES; \
-		$(PYBABEL) compile -o $(DESTDIR)/$$lang/LC_MESSAGES/$$package.mo -i $$file; \
+		$(PYBABEL) compile -o $(DESTDIR)/$$lang/LC_MESSAGES/$$package.mo -l $$lang -i $$file; \
 	done

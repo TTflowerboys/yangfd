@@ -53,6 +53,7 @@ def news_add(user, params):
     """
     ``blog_id`` is a constant "53f839246b80992f831b2269".
     ``zipcode_index`` is the key related to properties, internal use only.
+    ``link`` is the source link, not the link to itself.
     """
     params["blog_id"] = ObjectId(_blog_id)
     return f_app.blog.post_add(params)
