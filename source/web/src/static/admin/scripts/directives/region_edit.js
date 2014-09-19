@@ -1,6 +1,6 @@
 /* Created by frank on 14-9-18. */
 angular.module('app')
-    .directive('regionEdit', function ($rootScope) {
+    .directive('regionEdit', function ($rootScope, apiFactory) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/region_edit.tpl.html',
@@ -11,6 +11,22 @@ angular.module('app')
             },
             link: function (scope) {
                 scope.userLanguage = $rootScope.userLanguage
+                var countryApi = apiFactory('geo/country')
+                var cityApi = apiFactory('geo/city')
+                countryApi.getAll()
+                    .then(function (response) {
+                        scope.countryList = response.data.val
+                    })
+                scope.$watch('country', function (value) {
+                    if (value) {
+                        cityApi.search({params: {country: value}})
+                            .then(function (response) {
+                                scope.cityList = response.data.val
+                            })
+                    } else {
+                        scope.cityList = []
+                    }
+                })
             }
         }
     })
