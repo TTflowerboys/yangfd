@@ -68,23 +68,34 @@ angular.module('app')
             },
 
             getChangedAttributes: function (newJson, oldJson) {
-                var result = null
+                var result
+                var constructor = newJson.constructor
+                var addToResult
+                if (constructor === Array) {
+                    result = []
+                    addToResult = function (index, value) {
+                        this.push(value)
+                    }.bind(result)
+                } else if (constructor === Object) {
+                    result = {}
+                    addToResult = function (key, value) {
+                        this[key] = value
+                    }.bind(result)
+                }
+
                 for (var key in newJson) {
                     if (oldJson[key] === undefined) {
-                        if (!result) { result = {} }
-                        result[key] = newJson[key]
+                        addToResult(key, newJson[key])
                     } else if (newJson.hasOwnProperty(key) && newJson[key].toString() !== oldJson[key].toString()) {
-                        if (!result) { result = {} }
-                        result[key] = newJson[key]
-                    } else if (angular.isObject(newJson[key])) {
+                        addToResult(key, newJson[key])
+                    } else if (_.isObject(newJson[key])) {
                         var temp = self.getChangedAttributes(newJson[key], oldJson[key])
                         if (temp) {
-                            if (!result) { result = {} }
-                            result[key] = temp
+                            addToResult(key, temp)
                         }
                     }
                 }
-                return result
+                return _.isEmpty(result) ? undefined : result
             },
 
             resetArray: function (array, items) {

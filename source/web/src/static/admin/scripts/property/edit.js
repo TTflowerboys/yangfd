@@ -38,7 +38,7 @@
         if (itemFromParent) {
             onGetItem(itemFromParent)
         } else {
-            api.getOne($stateParams.id,{params:{_i18n:'disabled'}})
+            api.getOne($stateParams.id, {params: {_i18n: 'disabled'}})
                 .success(function (data) {
                     onGetItem(data.val)
                 })
@@ -46,7 +46,24 @@
 
 
         function onGetItem(item) {
-
+            if (!_.isEmpty(item.property_type)) {
+                item.property_type = item.property_type.id
+            }
+            if (!_.isEmpty(item.intention)) {
+                item.intention = item.intention.id
+            }
+            if (!_.isEmpty(item.equity_type)) {
+                item.equity_type = item.equity_type.id
+            }
+            if (!_.isEmpty(item.decorative_style)) {
+                item.decorative_style = item.decorative_style.id
+            }
+            if (!_.isEmpty(item.property_price_type)) {
+                item.property_price_type = item.property_price_type.id
+            }
+            if (!_.isEmpty(item.facing_direction)) {
+                item.facing_direction = item.facing_direction.id
+            }
             $scope.itemOrigin = item
             $scope.item = angular.copy($scope.itemOrigin)
         }
@@ -61,10 +78,11 @@
                 growl.addWarnMessage('Nothing to update')
                 return
             }
+            $scope.item = changed
             formatData()
             $scope.loading = true
-
-            api.update(angular.extend(changed, {id: $scope.item.id}), {
+            console.log(changed)
+            api.update(angular.extend($scope.item, {id: $scope.item.id}), {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function () {
@@ -75,6 +93,9 @@
         }
 
         $scope.addHighlight = function () {
+            if (_.isEmpty($scope.item.highlight)) {
+                $scope.item.highlight = {}
+            }
             if (!$scope.item.highlight[$rootScope.userLanguage.value]) {
                 $scope.item.highlight[$rootScope.userLanguage.value] = []
             }

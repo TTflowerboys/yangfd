@@ -8,6 +8,9 @@
                 getAll: function (config) {
                     return $http.get('/api/1/' + name, config)
                 },
+                search: function (config) {
+                    return $http.get('/api/1/' + name + '/search', config)
+                },
                 getOne: function (id, config) {
                     return $http.get('/api/1/' + name + '/' + id, config)
                 },

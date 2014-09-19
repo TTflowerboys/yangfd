@@ -5,6 +5,14 @@
 
     function userApi($http, $state, $q) {
         return {
+            getAll: function (config) {
+                return $http.get('/api/1/user/admin/search?has_role=false', config)
+            },
+
+            getOne: function (id, config) {
+                return $http.get('/api/1/user/admin/' + id, config)
+            },
+
             signIn: function (user) {
                 var params = _.pick(user, 'country', 'phone', 'password')
                 params.password = Base64.encode(params.password)

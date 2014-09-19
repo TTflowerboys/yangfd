@@ -1,0 +1,57 @@
+<div ui-view>
+
+    <div class="row" style="min-height: 600px;">
+        <div class="col-lg-12">
+            <div class="buttons">
+
+                <span class="btn-group pull-right">
+                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
+                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+                </span>
+
+            </div>
+            <table class="table table-bordered table-striped table-condensed">
+                <colgroup>
+                    <col class="status">
+                    <col class="nickname">
+                    <col class="phone">
+                    <col class="email">
+                    <col class="date">
+                    <col class="actions">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>用户姓名</th>
+                        <th>用户手机</th>
+                        <th>用户邮箱</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in list">
+                        <td>
+                            {%item.nickname%}
+                        </td>
+                        <td>
+                            {%item.phone%}
+                        </td>
+                        <td>
+                            {%item.email%}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>
+            <div class="buttons">
+
+
+                <span class="btn-group pull-right">
+                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
+                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+                </span>
+
+            </div>
+
+        </div>
+    </div>
+    <!--/container-->
+</div>
