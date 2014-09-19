@@ -1,0 +1,92 @@
+<div ui-view>
+
+    <div get-news-category></div>
+    <div class="row" style="min-height: 600px;">
+        <div class="col-lg-12">
+            <div class="buttons">
+
+                <span class="btn-group">
+                    <button class="btn" ui-sref=".create">
+                        <span class="fa fa-plus-circle"></span> 添加资讯
+                    </button>
+                </span>
+                <div class="btn-group form-inline">
+                    <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+                </div>
+
+                <span class="btn-group pull-right">
+                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
+                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+                </span>
+
+            </div>
+            <table class="table table-bordered table-striped table-condensed">
+                <colgroup>
+                    <col class="status">
+                    <col class="nickname">
+                    <col class="phone">
+                    <col class="email">
+                    <col class="submitTime">
+                    <col class="changeTime">
+                    <col class="actions">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>状态</th>
+                    <th>客户姓名</th>
+                    <th>客户手机</th>
+                    <th>客户邮箱</th>
+                    <th>提交时间</th>
+                    <th>受理时间</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in list">
+                    <td>
+                        {%item.status%}
+                    </td>
+                    <td>
+                        {%item.user.nickname%}
+                    </td>
+                    <td>
+                        {%item.user.phone%}
+                    </td>
+                    <td>
+                        {%item.user.email%}
+                    </td>
+                    <td>
+                        {%item.time * 1000 | date : medium%}
+                    </td>
+                    <td>
+                        {%item.time * 1000 | date : medium%}
+                    </td>
+                    <td>
+                        <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
+                            <i class="fa fa-search-plus"></i>
+                        </a>
+                        <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                            <span class="btn btn-danger" ng-click="onRemove(item,$index)" title="Remove">
+                                <i class="fa fa-trash-o"></i>
+                          </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>
+            <div class="buttons">
+
+
+                <span class="btn-group pull-right">
+                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
+                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+                </span>
+
+            </div>
+
+        </div>
+    </div>
+    <!--/container-->
+</div>
