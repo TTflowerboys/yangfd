@@ -13,6 +13,8 @@ logger = logging.getLogger(__name__)
     time=datetime,
     status=(list, ["selling", "sold out"], str),
 
+    property_type="enum:property_type",
+    intention=(list, [], "enum:intention"),
     country='enum:country',
     city='enum:city',
     street=('i18n', None, str),
@@ -29,6 +31,9 @@ def property_search(user, params):
 
     if params["status"] != ["selling", "sold out"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status")
+
+    if "intention" in params:
+        params["intention"] = {"$in": params.pop("intention")}
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
