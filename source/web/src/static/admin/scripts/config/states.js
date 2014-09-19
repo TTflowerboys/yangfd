@@ -194,10 +194,23 @@ angular.module('app')
                 }
             })
 
+        /**
+         * users
+         */
             .state('dashboard.users', {
                 url: '/users',
                 templateUrl: '/static/admin/templates/dashboard.users.tpl.html',
                 controller: 'ctrlList',
+                resolve: {
+                    api: function (userApi) {
+                        return userApi
+                    }
+                }
+            })
+            .state('dashboard.users.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.users.detail.tpl.html',
+                controller: 'ctrlDetail',
                 resolve: {
                     api: function (userApi) {
                         return userApi

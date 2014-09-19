@@ -38,7 +38,7 @@
                 <tbody>
                     <tr ng-repeat="item in list">
                         <td>
-                            {%item.nickname%}
+                            <a href ui-sref=".detail({id:item.id})">{%item.nickname%}</a>
                         </td>
                         <td>
                             {%item.phone%}

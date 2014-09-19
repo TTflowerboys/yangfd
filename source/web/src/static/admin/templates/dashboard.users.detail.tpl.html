@@ -1,0 +1,60 @@
+<div class="buttons">
+    <span class="btn-group">
+        <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
+    </span>
+
+</div>
+<div class="form-horizontal" style="max-width: 800px; padding-bottom: 100px;">
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="control-label">姓名</label>
+
+            <div class="controls">
+                <span class="uneditable-input">{%item.nickname%}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="control-label">手机</label>
+
+            <div class="controls">
+                <span class="uneditable-input">+{%item.country_code%}  {%item.phone%}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-3">
+            <label class="control-label">邮箱</label>
+            <div class="controls">
+                <span class="uneditable-input">{%item.email%}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="item.wechat_id">
+        <div class="form-group col-sm-3">
+            <label class="control-label">微信ID</label>
+            <div class="controls">
+                <span class="uneditable-input">{%item.wechat_id%}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="item.country">
+        <div class="form-group col-sm-3">
+            <label class="control-label">国家</label>
+            <div class="controls">
+                <span class="uneditable-input">{%item.country%}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="item.city">
+        <div class="form-group col-sm-3">
+            <label class="control-label">城市</label>
+            <div class="controls">
+                <span class="uneditable-input">{%item.city%}</span>
+            </div>
+        </div>
+    </div>
+
+</div>
