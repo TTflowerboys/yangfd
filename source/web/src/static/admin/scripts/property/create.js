@@ -29,10 +29,13 @@
             .success(function (data) {
                 $scope.propertyPriceTypeList = data.val
             })
-        geoApi.getCountries({params: {_i18n: 'disabled'}})
+        enumApi.getEnumsByType('country')
             .success(function (data) {
-                console.log(data.val)
                 $scope.systemCountries = data.val
+            })
+        enumApi.getEnumsByType('city')
+            .success(function (data) {
+                $scope.systemCities = data.val
             })
         $scope.item = {}
 
@@ -108,17 +111,17 @@
             $scope.item.tempFloorPlan = {}
         }
 
-        $scope.$watch('item.country', function (newValue) {
-            console.log(newValue)
-            if (newValue === undefined) {
-                return
-            }
-            geoApi.getCitiesByCountry({params: {_i18n: 'disabled', country: newValue}})
-                .success(function (data) {
-                    console.log(data.val)
-                    $scope.systemCities = data.val
-                })
-        })
+//        $scope.$watch('item.country', function (newValue) {
+//            console.log(newValue)
+//            if (newValue === undefined) {
+//                return
+//            }
+//            geoApi.getCitiesByCountry({params: {_i18n: 'disabled', country: newValue}})
+//                .success(function (data) {
+//                    console.log(data.val)
+//                    $scope.systemCities = data.val
+//                })
+//        })
     }
 
     angular.module('app').controller('ctrlPropertyCreate', ctrlPropertyCreate)
