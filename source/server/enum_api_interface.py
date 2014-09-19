@@ -74,3 +74,13 @@ def enum_edit(user, enum_id, params):
             abort(40000, logger.warning("Invalid params: message_type", params["message_type"], exc_info=False))
 
     return f_app.enum.update_set(enum_id, params)
+
+
+@f_api('/enum/search', params=dict(
+    country="enum:country",
+    per_page=int,
+    time=datetime,
+))
+def enum_search(params):
+    per_page = params.pop("per_page", 0)
+    return f_app.enum.get(f_app.enum.search(params, per_page=per_page))
