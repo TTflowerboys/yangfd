@@ -74,8 +74,19 @@ def upload_image(params):
     if params["thumbnail_size"][0] > 0:
         thumbnail_width, thumbnail_height = params["thumbnail_size"]
         thumbnail_ratio = float(thumbnail_width) / thumbnail_height
-        if thumbnail_height > original_width:
-            abort(40000, logger.warning('Invalid thumbnail size: cannot be larger than width param', exc_info=False))
+        if original_height < thumbnail_height:
+            # abort(40000, logger.warning('Invalid thumbnail size: cannot be larger than width param', exc_info=False))
+            if original_ratio > thumbnail_ratio:
+                im = im.resize((int(float(original_width) * thumbnail_height / original_height), thumbnail_height), Image.ANTIALIAS)
+            else:
+                im = im.resize((thumbnail_width, int(float(original_height) * thumbnail_width / original_width)), Image.ANTIALIAS)
+
+        elif original_width < thumbnail_width:
+            if original_ratio < thumbnail_ratio:
+                im = im.resize((thumbnail_width, int(float(original_height) * thumbnail_width / original_width)), Image.ANTIALIAS)
+            else:
+                im = im.resize((int(float(original_width) * thumbnail_height / original_height), thumbnail_height), Image.ANTIALIAS)
+
         if original_ratio < thumbnail_ratio:
             # scale by thumbnail_width
             scaled_height = int(float(original_height) / original_width * thumbnail_width + 0.5)
