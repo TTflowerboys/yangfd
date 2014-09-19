@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from bson.objectid import ObjectId
 from libfelix.f_common import f_app
@@ -31,7 +33,6 @@ def news_list(params):
         params["category"] = {"$in": params["category"]}
     params["blog_id"] = ObjectId(_blog_id)
 
-
     post_list = f_app.blog.post.search(params, per_page=per_page)
     return f_app.blog.post_output(post_list)
 
@@ -41,8 +42,8 @@ def news_list(params):
     content=('i18n', None, str),
     zipcode_index=str,
     category=(list, True, "enum:news_category"),
-    country=('i18n', None, str),
-    city=('i18n', None, str),
+    country="enum:country",
+    city="enum:city",
     street=('i18n', None, str),
     images=(list, None, str),
     link=str,
@@ -66,8 +67,8 @@ def news_get(news_id):
     title=('i18n', None, str),
     content=('i18n', None, str),
     category=(list, None, "enum:news_category"),
-    country=('i18n', None, str),
-    city=('i18n', None, str),
+    country=("enum:country", None),
+    city=("enum:city", None),
     street=('i18n', None, str),
     images=(list, None, str),
     link=(str, None),

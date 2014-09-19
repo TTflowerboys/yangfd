@@ -14,10 +14,9 @@ logger = logging.getLogger(__name__)
     phone=(str, True),
     email=(str, True),
     budget="enum:budget",
-    country=(str, True),
+    country=("enum:country", True),
     description=(str, True),
-    state=str,
-    city=str,
+    city="enum:city",
     block=str,
     equity_type='enum:equity_type',
     intention=(list, None, 'enum:intention'),
@@ -201,10 +200,9 @@ def intention_ticket_assign(user, ticket_id, user_id):
 
 
 @f_api('/intention_ticket/<ticket_id>/edit', params=dict(
-    country=(str, None),
+    country=("enum:country", None),
     description=(str, None),
-    state=(str, None),
-    city=(str, None),
+    city=("enum:city", None),
     block=(str, None),
     equity_type=(str, None),
     intention=('enum:intention', None),
@@ -245,7 +243,7 @@ def intention_ticket_edit(user, ticket_id, params):
     sort=(list, None, str),
     budget="enum:budget",
     phone=str,
-    country=str,
+    country="enum:country",
 ))
 @f_app.user.login.check(force=True)
 def intention_ticket_search(user, params):
@@ -277,7 +275,7 @@ def intention_ticket_search(user, params):
     nickname=(str, True),
     phone=(str, True),
     email=(str, True),
-    country=(str, True),
+    country=("enum:country", True),
     description=(str, True),
     custom_fields=(list, None, dict(
         key=str,
@@ -378,7 +376,7 @@ def support_ticket_assign(user, ticket_id, user_id):
 
 
 @f_api('/support_ticket/<ticket_id>/edit', params=dict(
-    country=(str, None),
+    country=("enum:country", None),
     description=(str, None),
     custom_fields=(list, None, dict(
         key=str,
@@ -413,7 +411,7 @@ def support_ticket_edit(user, ticket_id, params):
     time=datetime,
     sort=(list, None, str),
     phone=str,
-    country=str,
+    country="enum:country",
 ))
 @f_app.user.login.check(force=True)
 def support_ticket_search(user, params):

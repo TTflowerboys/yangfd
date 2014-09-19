@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from app import f_app
 from six.moves import cStringIO as StringIO
