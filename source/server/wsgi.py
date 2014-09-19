@@ -11,7 +11,6 @@ from app import f_app
 import main_interface
 import news_api_interface
 import enum_api_interface
-import geo_api_interface
 import property_api_interface
 import report_api_interface
 import subscription_api_interface
