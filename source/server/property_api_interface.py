@@ -1,5 +1,4 @@
 from datetime import datetime
-from bson.objectid import ObjectId
 from libfelix.f_common import f_app
 from libfelix.f_interface import f_api, abort
 
@@ -12,8 +11,8 @@ logger = logging.getLogger(__name__)
     time=datetime,
     status=(list, ["selling", "sold out"], str),
 
-    country=('i18n', None, str),
-    city=('i18n', None, str),
+    country='enum:country',
+    city='enum:city',
     street=('i18n', None, str),
     zipcode_index=str,
     equity_type='enum:equity_type',
@@ -39,8 +38,8 @@ def property_search(user, params):
     # General params
     name=("i18n", None, str),
     property_type="enum:property_type",
-    country=("i18n", None, str),
-    city=("i18n", None, str),
+    country='enum:country',
+    city='enum:city',
     street=("i18n", None, str),
     zipcode=("i18n", None, str),
     zipcode_index=str,
