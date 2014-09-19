@@ -21,7 +21,7 @@ angular.module('app')
             enumApi: function (enumApi) {
                 return enumApi
             },
-            geoApi: function(geoApi){
+            geoApi: function (geoApi) {
                 return geoApi
             }
         }
@@ -196,11 +196,11 @@ angular.module('app')
 
             .state('dashboard.users', {
                 url: '/users',
-                templateUrl: '/static/admin/templates/dashboard.support.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.users.tpl.html',
                 controller: 'ctrlList',
                 resolve: {
-                    api: function (supportApi) {
-                        return supportApi
+                    api: function (userApi) {
+                        return userApi
                     }
                 }
             })

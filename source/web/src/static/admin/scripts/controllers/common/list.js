@@ -25,10 +25,15 @@
         }
 
         $scope.nextPage = function () {
-            api.getAll({params: {
-                time: $scope.list[$scope.list.length - 1].time,
+            var lastItem = $scope.list[$scope.list.length - 1]
+            var params = {
                 per_page: $scope.perPage
-            }})
+            }
+            if (lastItem.time) {params.time = lastItem.time}
+            if (lastItem.register_time) {params.register_time = lastItem.register_time}
+            if (lastItem.insert_time) {params.insert_time = lastItem.insert_time}
+
+            api.getAll({params: params})
                 .success(function () {
                     $scope.currentPageNumber += 1
                 })
