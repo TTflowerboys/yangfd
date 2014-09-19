@@ -124,6 +124,10 @@ def property_get(property_id):
 def coming_soon():
     return template("coming_soon")
 
+@f_get('/user_settings')
+def user_settings():
+    return template("user_settings",user=get_current_user())
+
 
 @f_get('/admin')
 def admin():
