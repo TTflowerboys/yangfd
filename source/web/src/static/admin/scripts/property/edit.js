@@ -38,7 +38,7 @@
         if (itemFromParent) {
             onGetItem(itemFromParent)
         } else {
-            api.getOne($stateParams.id, {params: {_i18n: 'disabled'}})
+            api.getOne($stateParams.id)
                 .success(function (data) {
                     onGetItem(data.val)
                 })
@@ -73,16 +73,15 @@
             $event.preventDefault()
             $scope.submitted = true
 
-            var changed = misc.getChangedAttributes($scope.item, $scope.itemOrigin)
-            if (!changed) {
+            var changed = misc.getChangedAttributes(JSON.parse(angular.toJson($scope.item)), $scope.itemOrigin)
+            changed = misc.cleanI18nEmptyData(changed)
+            changed = misc.cleanTempData(changed)
+            if (_.isEmpty(changed)) {
                 growl.addWarnMessage('Nothing to update')
                 return
             }
-            $scope.item = changed
-            formatData()
             $scope.loading = true
-            console.log(changed)
-            api.update(angular.extend($scope.item, {id: $scope.item.id}), {
+            api.update(angular.extend(changed, {id: $scope.item.id}), {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function () {
@@ -101,7 +100,7 @@
             }
             var temp = $scope.item.tempPoint
             $scope.item.highlight[$rootScope.userLanguage.value].push(temp)
-            $scope.item.tempPoint = null
+            $scope.item.tempPoint = undefined
         }
 
         $scope.addHistoricalPrice = function () {
@@ -110,7 +109,7 @@
             }
             var temp = {time: $scope.item.tempHistoryTime, price: $scope.item.tempHistoryPrice}
             $scope.item.historical_price.push(temp)
-            $scope.item.tempHistoryTime = null
+            $scope.item.tempHistoryTime = undefined
             $scope.item.tempHistoryPrice = {}
         }
 
@@ -137,67 +136,12 @@
                 floor_plan: $scope.item.tempFloorPlan}
             $scope.item.main_house_types.push(temp)
             $scope.item.tempHouseName = {}
-            $scope.item.tempBedroomCount = null
-            $scope.item.tempLivingRoomCount = null
-            $scope.item.tempBathroomCount = null
-            $scope.item.tempKitchenCount = null
-            $scope.item.tempTotalPrice = {}
-            $scope.item.tempFloorPlan = {}
-        }
-
-        function formatData() {
-            for (var i in $scope.item) {
-                if (_.isEmpty($scope.item[i])) {
-                    delete $scope.item[i]
-                    continue
-                }
-                if ($scope.item[i].unit === undefined) {
-                    for (var index in i18nLanguages) {
-                        var lang = i18nLanguages[index].value
-                        if ($scope.item[i][lang] === undefined || $scope.item[i][lang] === '') {
-                            delete $scope.item[i][lang]
-                        }
-                    }
-                    if (_.isEmpty($scope.item[i])) {
-                        delete $scope.item[i]
-                        continue
-                    }
-                } else {
-                    if (_.isString($scope.item[i].unit)) {
-                        console.log(_.isEmpty($scope.item[i].value))
-                        console.log($scope.item[i].value === '')
-                        if (_.isEmpty($scope.item[i].value) || $scope.item[i].value === '') {
-                            delete $scope.item[i]
-                            continue
-                        }
-                    } else {
-                        if (_.isString($scope.item[i].unit.unit) && _.isString($scope.item[i].price.unit)) {
-                            if (_.isEmpty($scope.item[i].unit.value) || $scope.item[i].unit.value === '' || _.isEmpty($scope.item[i].price.value) || $scope.item[i].price.value === '') {
-                                delete $scope.item[i]
-                                continue
-                            }
-                        }
-                    }
-                }
-            }
-            cleanTempData()
-        }
-
-        function cleanTempData() {
-            $scope.item.tempHouseName = undefined
             $scope.item.tempBedroomCount = undefined
             $scope.item.tempLivingRoomCount = undefined
             $scope.item.tempBathroomCount = undefined
             $scope.item.tempKitchenCount = undefined
-            $scope.item.tempTotalPrice = undefined
-            $scope.item.tempFloorPlan = undefined
-            $scope.item.tempCostItem = undefined
-            $scope.item.tempCostPrice = undefined
-            $scope.item.tempCostItem = undefined
-            $scope.item.tempCostPrice = undefined
-            $scope.item.tempHistoryTime = undefined
-            $scope.item.tempHistoryPrice = undefined
-            $scope.item.tempPoint = undefined
+            $scope.item.tempTotalPrice = {}
+            $scope.item.tempFloorPlan = {}
         }
     }
 
