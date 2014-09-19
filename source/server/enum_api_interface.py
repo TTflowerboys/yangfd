@@ -21,24 +21,28 @@ def enum_list(params):
     type=(str, True),
     value=("i18n", True, str),
     # Field for message_api_interface
-    message_type=str,
-    country=str,
+    country="enum:country",
+    slug=str,
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def enum_add(user, params):
-    if "message_type" not in f_app.common.message_type:
-        abort(40000, logger.warning("Invalid params: message_type", params["message_type"], exc_info=False))
+    if "message_type" in params:
+        if "message_type" not in f_app.common.message_type:
+            abort(40000, logger.warning("Invalid params: message_type", params["message_type"], exc_info=False))
+
     return f_app.enum.add(params)
 
 
 @f_api('/enum/<enum_id>/edit', params=dict(
     type=str,
     value=("i18n", None, str),
-    message_type=(str, None),
-    country=(str, None),
+    country=("enum:country", None),
+    slug=(str, None),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def enum_edit(user, enum_id, params):
-    if "message_type" not in f_app.common.message_type:
-        abort(40000, logger.warning("Invalid params: message_type", params["message_type"], exc_info=False))
+    if "message_type" in params:
+        if "message_type" not in f_app.common.message_type:
+            abort(40000, logger.warning("Invalid params: message_type", params["message_type"], exc_info=False))
+
     return f_app.enum.update_set(enum_id, params)
