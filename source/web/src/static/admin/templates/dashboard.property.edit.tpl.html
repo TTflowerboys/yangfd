@@ -43,7 +43,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.country" style="width: 185px;"
-                    ng-options="p.id as p.name[userLanguage.value] for p in systemCountries">
+                    ng-options="p.id as p.value for p in systemCountries">
                 <option value="">-- 选择 --</option>
             </select>
         </div>
@@ -53,7 +53,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.city" style="width: 185px;"
-                    ng-options="p.id as p.name[userLanguage.value] for p in systemCities">
+                    ng-options="p.id as p.value for p in systemCities">
                 <option value="">-- 选择 --</option>
             </select>
         </div>

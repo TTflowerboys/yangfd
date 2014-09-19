@@ -30,6 +30,14 @@
             .success(function (data) {
                 $scope.propertyPriceTypeList = data.val
             })
+        enumApi.getEnumsByType('country')
+            .success(function (data) {
+                $scope.systemCountries = data.val
+            })
+        enumApi.getEnumsByType('city')
+            .success(function (data) {
+                $scope.systemCities = data.val
+            })
         $scope.item = {}
 
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
@@ -63,6 +71,12 @@
             }
             if (!_.isEmpty(item.facing_direction)) {
                 item.facing_direction = item.facing_direction.id
+            }
+            if (!_.isEmpty(item.country)) {
+                item.country = item.country.id
+            }
+            if (!_.isEmpty(item.city)) {
+                item.city = item.city.id
             }
             $scope.itemOrigin = item
             $scope.item = angular.copy($scope.itemOrigin)
