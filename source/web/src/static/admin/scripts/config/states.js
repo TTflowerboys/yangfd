@@ -194,6 +194,17 @@ angular.module('app')
                 }
             })
 
+            .state('dashboard.users', {
+                url: '/users',
+                templateUrl: '/static/admin/templates/dashboard.support.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (supportApi) {
+                        return supportApi
+                    }
+                }
+            })
+
 
         /**
          * others
