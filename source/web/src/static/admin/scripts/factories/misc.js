@@ -68,7 +68,7 @@ angular.module('app')
             },
 
             getChangedAttributes: function (newJson, oldJson) {
-                var result = null
+                var result
                 var constructor = newJson.constructor
                 var addToResult
                 if (constructor === Array) {
@@ -88,14 +88,14 @@ angular.module('app')
                         addToResult(key, newJson[key])
                     } else if (newJson.hasOwnProperty(key) && newJson[key].toString() !== oldJson[key].toString()) {
                         addToResult(key, newJson[key])
-                    } else if (angular.isObject(newJson[key])) {
+                    } else if (_.isObject(newJson[key])) {
                         var temp = self.getChangedAttributes(newJson[key], oldJson[key])
                         if (temp) {
                             addToResult(key, temp)
                         }
                     }
                 }
-                return _.isEmpty(result) ? null : result
+                return _.isEmpty(result) ? undefined : result
             },
 
             resetArray: function (array, items) {
