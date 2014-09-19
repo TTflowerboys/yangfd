@@ -10,10 +10,20 @@ function loadPropertyList() {
     if (city) {
         params.city = city
     }
-    var equityType =  $('select[name=propertyType]').children('option:selected').val()
-    if (equityType) {
-        params.equity_type = equityType
+    var propertyType =  $('select[name=propertyType]').children('option:selected').val()
+    if (propertyType) {
+        params.property_type = propertyType
     }
+    var budgetType = getSelectedBudgetType()
+    if (budgetType) {
+        params.property_price_type = budgetType
+    }
+
+    var intention = getSelectedIntention()
+    if (intention) {
+        params.intention = intention
+    }
+
     $.post('/api/1/property/search', params)
         .done(function (data) {
             if (data.ret !== 0) {
@@ -67,6 +77,27 @@ function resetCityDataWhenCountryChange() {
     })
 }
 
+function getSelectedBudgetType() {
+    var $selectedChild = $('#tags #budgetTag').children('.selected')
+    if ($selectedChild.length) {
+        return $selectedChild.first().attr('data-id')
+    }
+    return ''
+}
+
+function getSelectedIntention() {
+    var $selectedChild = $('#tags #intentionTag').children('.selected')
+    if ($selectedChild.length) {
+        var ids = ''
+        _.each($selectedChild, function (child) {
+            ids += child.getAttribute('data-id')
+            ids += ','
+        })
+        return ids
+    }
+    return ''
+}
+
 $(function () {
     loadPropertyList()
 
@@ -92,7 +123,7 @@ $(function () {
 
     var $citySelect = $('select[name=propertyCity]')
     $citySelect.empty()
-    $citySelect.append('<option>' + window.i18n('所有城市') + '</option>')
+    $citySelect.append('<option value=>' + window.i18n('所有城市') + '</option>')
     _.each(window.cityData, function (city) {
         var item = '<option value=' + city.id + '>' + city.value[window.lang] + '</option>'
         $citySelect.append(item)
@@ -119,5 +150,29 @@ $(function () {
 
 
 $('#loadMore').click(function () {
+    loadPropertyList()
+})
+
+
+$('#tags #budgetTag').on('click', '.toggleTag', function (event) {
+    var $parent = $(event.target.parentNode)
+    $parent.find('.toggleTag').removeClass('selected')
+    $(event.target).addClass('selected')
+
+    resetData()
+    loadPropertyList()
+})
+
+$('#tags #intentionTag').on('click', '.toggleTag', function (event) {
+
+    var $item = $(event.target)
+    if ($item.hasClass('selected')) {
+        $item.removeClass('selected')
+    }
+    else {
+        $item.addClass('selected')
+    }
+
+    resetData()
     loadPropertyList()
 })
