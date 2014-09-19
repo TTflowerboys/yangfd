@@ -44,6 +44,10 @@ def default():
             }, per_page=6
         )
     )
+    for p in property_list:
+        if "zipcode_index" in p:
+            p["related_news"] = f_app.blog.post_output(f_app.blog.search({"zipcode_index": p["zipcode_index"]}, per_page=5))
+
     return template(
         "index",
         user=get_current_user(),
