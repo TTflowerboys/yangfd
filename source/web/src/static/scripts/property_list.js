@@ -3,7 +3,7 @@ var time = {}
 function loadPropertyList() {
     var params = {'per_page':5}
     params.country = $('select[name=propertyCountry]').children('option:selected').val()
-    params.city = $('select[name=propertyCity]').children('option:selected').val()
+    //params.city = $('select[name=propertyCity]').children('option:selected').val()
     params.equity_type = $('select[name=propertyType]').children('option:selected').val()
     $.post('/api/1/property/search', params)
         .done(function (data) {
@@ -40,7 +40,13 @@ function resetData() {
 }
 
 function resetCityDataWhenCountryChange() {
-    var selectedCountry = $('select[name=propertyCountry]').children('option:selected').val()
+    var selectedCountryId = $('select[name=propertyCountry]').children('option:selected').val()
+    var selectedCountry = ''
+    _.each(window.countryData, function (country) {
+        if (country.id === selectedCountryId){
+            selectedCountry = country.country
+        }
+    })
     var $citySelect = $('select[name=propertyCity]')
     $citySelect.empty()
     $citySelect.append('<option value=>' + window.i18n('所有城市') + '</option>')
@@ -65,7 +71,7 @@ $(function () {
     $countrySelect.empty()
     $countrySelect.append('<option value=>' + window.i18n('所有国家') + '</option>')
     _.each(window.countryData, function (country) {
-        var item = '<option value=' + country.country +'>' + country.name[window.lang] + '</option))>'
+        var item = '<option value=' + country.id +'>' + country.name[window.lang] + '</option))>'
         $countrySelect.append(item)
     })
 
@@ -90,7 +96,7 @@ $(function () {
 
     var $propetyTypeSelect = $('select[name=propertyType]')
     $propetyTypeSelect.empty()
-    $propetyTypeSelect.append('<option>' + window.i18n('所有房屋类型') + '</option>')
+    $propetyTypeSelect.append('<option value=>' + window.i18n('所有房屋类型') + '</option>')
     _.each(window.propertyTypeData, function (type) {
         var item = '<option value=' + type.id + '>' + type.value[window.lang] + '</option>'
         $propetyTypeSelect.append(item)
