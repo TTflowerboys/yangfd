@@ -9,8 +9,8 @@ VERSION = "1.0"
 
 PYTHON = /usr/bin/env python
 INSTALL = /usr/bin/env install
-PYBABEL = $(shell [ -x /usr/bin/pybabel2 ] && echo /usr/bin/pybabel2 || echo /usr/bin/env pybabel)
-MSGFMT = /usr/bin/env msgfmt
+#PYBABEL = $(shell [ -x /usr/bin/pybabel2 ] && echo /usr/bin/pybabel2 || echo /usr/bin/env pybabel)
+PYBABEL = $(shell [ -x /usr/bin/pybabel2 ] && echo python2 ./pybabel || echo ./pybabel)
 GREP = /usr/bin/env grep
 DESTDIR = generated
 
@@ -34,5 +34,5 @@ install:
 		lang=$$($(PYTHON) -c "print('$$file'.split('/')[-1].split('.po')[0])"); \
 		$(GREP) "Language:" $$file; \
 		$(INSTALL) -d $(DESTDIR)/$$lang/LC_MESSAGES; \
-		$(MSGFMT) -o $(DESTDIR)/$$lang/LC_MESSAGES/$$package.mo $$file; \
+		$(PYBABEL) compile -o $(DESTDIR)/$$lang/LC_MESSAGES/$$package.mo -i $$file; \
 	done
