@@ -305,14 +305,14 @@
                         <label class="control-label">居室数</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" ng-model="item.bedroom_count"/>
+                            <input type="number" class="form-control" ng-model="item.bedroom_count"/>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 col-sm-2">
                         <label class="control-label">客厅数</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" ng-model="item.living_room_count"/>
+                            <input type="number" class="form-control" ng-model="item.living_room_count"/>
                         </div>
                     </div>
                 </div>
@@ -321,14 +321,14 @@
                         <label class="control-label">卫生间数</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" ng-model="item.bathroom_count"/>
+                            <input type="number" class="form-control" ng-model="item.bathroom_count"/>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 col-sm-2">
                         <label class="control-label">厨房数</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" ng-model="item.kitchen_count"/>
+                            <input type="number" class="form-control" ng-model="item.kitchen_count"/>
                         </div>
                     </div>
                 </div>
@@ -439,14 +439,14 @@
                         <label class="control-label">规划户数</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" ng-model="item.planning_household_count"/>
+                            <input type="number" class="form-control" ng-model="item.planning_household_count"/>
                         </div>
                     </div>
                     <div class="form-group col-xs-6 col-sm-3">
                         <label class="control-label">车位数</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" ng-model="item.parking_space_count"/>
+                            <input type="number" class="form-control" ng-model="item.parking_space_count"/>
                         </div>
                     </div>
                 </div>
@@ -508,10 +508,10 @@
                                     </tr>
                                 <tr>
                                     <td> <input type="text" type-i18n="item.tempHouseName" ng-model="item.tempHouseName[userLanguage.value]" placeholder="户型名"/></td>
-                                    <td><input type="text" ng-model="item.tempBedroomCount" placeholder="居室数"/></td>
-                                    <td><input type="text" ng-model="item.tempLivingRoomCount" placeholder="客厅数"/></td>
-                                    <td><input type="text" ng-model="item.tempBathroomCount" placeholder="卫生间数"/></td>
-                                    <td><input type="text" ng-model="item.tempKitchenCount" placeholder="厨房数"/></td>
+                                    <td><input type="number" ng-model="item.tempBedroomCount" placeholder="居室数"/></td>
+                                    <td><input type="number" ng-model="item.tempLivingRoomCount" placeholder="客厅数"/></td>
+                                    <td><input type="number" ng-model="item.tempBathroomCount" placeholder="卫生间数"/></td>
+                                    <td><input type="number" ng-model="item.tempKitchenCount" placeholder="厨房数"/></td>
                                     <td><div type-i18n-unit data="i18nCurrency" ng-model="item.tempTotalPrice" placeholder="户型总价"></div></td>
                                     <td style="width: 200px;"> <div type-i18n="item.tempFloorPlan"></div>
                                         <single-image-edit ng-model="item.tempFloorPlan[userLanguage.value]" width-limit="1920" ratio="2"
