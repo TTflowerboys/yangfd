@@ -58,7 +58,7 @@ def current_user_favorite_remove(user, favorite_id):
 @f_api('/user/login', force_ssl=True, params=dict(
     nolog="password",
     phone=(str, True),
-    country=str,
+    country="enum:country",
     password=(str, True, "notrim", "base64"),
 ))
 @rate_limit("login", ip=20)
@@ -79,7 +79,7 @@ def user_login(params):
     nickname=(str, True),
     password=(str, True, "notrim", "base64"),
     phone=(str, True),
-    country=(str, True),
+    country=("enum:country", True),
     email=str,
     solution=(str, True),
     challenge=(str, True),
@@ -93,7 +93,7 @@ def register(params):
 
     ``password`` must be base64 encoded.
 
-    ``country`` should be 2-letter country code, see http://www.worldatlas.com/aatlas/ctycodes.htm
+    ``country`` should be enum type.
 
     ``solution``  the solution user enters  in ``recaptcha_response_field``
 
@@ -121,9 +121,9 @@ def register(params):
     nolog=("password", "old_password"),
     nickname=(str, None),
     phone=(str, None),
-    city=(str, None),
+    city=("enum:city", None),
     state=(str, None),
-    country=(str, None),
+    country=("enum:country", None),
     zipcode=(str, None),
     email=(str, None),
     password=(str, None, "notrim", "base64"),
@@ -192,7 +192,7 @@ def current_user_edit(user, params):
     register_time=datetime,
     role=str,
     phone=str,
-    country=str,
+    country="enum:country",
     has_role=bool,
     has_intention_ticket=bool,
     has_register_time=bool,
@@ -264,7 +264,7 @@ def admin_user_search(user, params):
     nickname=(str, True),
     phone=(str, True),
     role=(list, True, str),
-    country=(str, True),
+    country=("enum:country", True),
 ))
 @f_app.user.login.check(force=True, role=f_app.common.admin_roles)
 def admin_user_add(user, params):
@@ -441,7 +441,7 @@ def admin_user_unset_role(user, user_id, params):
 
 @f_api("/user/check_exist", force_ssl=True, params=dict(
     phone=(str, True),
-    country=str,
+    country="enum:country",
 ))
 def user_check_exist(params):
     params["phone"] = f_app.util.parse_phone(params)
@@ -450,7 +450,7 @@ def user_check_exist(params):
 
 @f_api('/user/phone_test', force_ssl=True, params=dict(
     phone=(str, True),
-    country=str,
+    country="enum:country",
 ))
 def user_phone_test(params):
     """
@@ -461,7 +461,7 @@ def user_phone_test(params):
 
 @f_api('/user/sms_verification/send', force_ssl=True, params=dict(
     phone=(str, True),
-    country=str,
+    country="enum:country",
 ))
 @rate_limit("sms_verification", ip=10)
 def user_sms_verification_send(params):
@@ -546,7 +546,7 @@ def email_verify(user_id, params):
 
 @f_api('/user/get_by_phone', force_ssl=True, params=dict(
     phone=(str, True),
-    country=str,
+    country="enum:country",
 ))
 @f_app.user.login.check(force=True)
 def user_get_id_by_phone(user, params):
