@@ -37,10 +37,10 @@
     <a class="more" href="/property_list">{{_('更多')}}</a>
      %if (property_list):
         %for index, property in enumerate(property_list) :
-            %if (index >= 0 and index < 20):
+           %if (index >= 0 and index < 20):
                 <h2 class="houseCard_category" >{{_i18n(property.get('country'))}} {{_i18n(property.get('city'))}}</h2>
                 <div class=houseCard>
-    %if (_i18n(property.get('reality_images'), '')) :
+           %if (_i18n(property.get('reality_images'), '')) :
            <img src="{{_i18n(property.get('reality_images'))[0]}}" width=320 height=240/>
            %else :
            <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
@@ -119,7 +119,6 @@
                 <a class="ghostButton red detail" href="{{_i18n(news_list[0].get('link', ''))}}">{{_('详细')}}</a>
             </div>
         </div>
-
 
         %if (len(news_list) > 1) :
         <div class="moreNews">

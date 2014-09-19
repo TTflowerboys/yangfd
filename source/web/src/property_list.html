@@ -99,30 +99,34 @@
         <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
     </div>
     <div class="tags">
+        %if (budget_list):
         <h3 class="title">{{_('你还可以选择更多')}}</h3>
+               
         <div class="price">
             <img class="price_icon" alt="" src="/static/images/icon/price-tag.png"/>
             <h4 class="price_title">{{_('价格')}}</h4>
             <div class="inner">
-                <div class="toggleTag">{{_('100万以下')}}</div>
-                <div class="toggleTag">{{_('100至300万')}}</div>
-                <div class="toggleTag selected">{{_('300至500万')}}</div>
-                <div class="toggleTag">{{_('500至1000万')}}</div>
-                <div class="toggleTag">{{_('1000万以上')}}</div>
+                %for index, budget in enumerate(budget_list):
+                <div class="toggleTag">{{_i18n(budget.get('value'))}}</div>
+                %end
             </div>
         </div>
+        
+        %end
+
+        %if (intention_list):
+        
         <div class="intention">
             <img class="intention_icon" alt="" src="/static/images/icon/intention-tag.png"/>
             <h4 class="intention_title">{{_('意向标签')}}</h4>
             <div class="inner">
-                <div class="toggleTag selected">{{_('资产保值')}}</div>
-                <div class="toggleTag selected">{{_('子女留学')}}</div>
-                <div class="toggleTag selected">{{_('现金流保障')}}</div>
-                <div class="toggleTag">{{_('移民投资')}}</div>
-                <div class="toggleTag">{{_('移民自住')}}</div>
-                <div class="toggleTag">{{_('超额收益')}}</div>
+                %for index, intention in enumerate(intention_list):
+                <div class="toggleTag selected">{{_i18n(intention.get('value'))}}</div>
+                %end
             </div>
         </div>
+        %end
+ 
     </div>
 </div>
 <!--@@close-->

@@ -2,9 +2,18 @@ var time = {}
 
 function loadPropertyList() {
     var params = {'per_page':5}
-    params.country = $('select[name=propertyCountry]').children('option:selected').val()
-    params.city = $('select[name=propertyCity]').children('option:selected').val()
-    params.equity_type = $('select[name=propertyType]').children('option:selected').val()
+    var country = $('select[name=propertyCountry]').children('option:selected').val()
+    if (country) {
+        params.country = country
+    }
+    var city = $('select[name=propertyCity]').children('option:selected').val()
+    if (city) {
+        params.city = city
+    }
+    var equityType =  $('select[name=propertyType]').children('option:selected').val()
+    if (equityType) {
+        params.equity_type = equityType
+    }
     $.post('/api/1/property/search', params)
         .done(function (data) {
             if (data.ret !== 0) {
@@ -40,13 +49,19 @@ function resetData() {
 }
 
 function resetCityDataWhenCountryChange() {
-    var selectedCountry = $('select[name=propertyCountry]').children('option:selected').val()
+    var selectedCountryId = $('select[name=propertyCountry]').children('option:selected').val()
+    var selectedCountry = ''
+    _.each(window.countryData, function (country) {
+        if (country.id === selectedCountryId){
+            selectedCountry = country.slug
+        }
+    })
     var $citySelect = $('select[name=propertyCity]')
     $citySelect.empty()
     $citySelect.append('<option value=>' + window.i18n('所有城市') + '</option>')
     _.each(window.cityData, function (city) {
-        if (!selectedCountry || city.country === selectedCountry){
-            var item = '<option value=' + city.id + '>' + city.name[window.lang] + '</option>'
+        if (!selectedCountry || city.slug.indexOf(selectedCountry) === 0){
+            var item = '<option value=' + city.id + '>' + city.value[window.lang] + '</option>'
             $citySelect.append(item)
         }
     })
@@ -65,7 +80,7 @@ $(function () {
     $countrySelect.empty()
     $countrySelect.append('<option value=>' + window.i18n('所有国家') + '</option>')
     _.each(window.countryData, function (country) {
-        var item = '<option value=' + country.country +'>' + country.name[window.lang] + '</option))>'
+        var item = '<option value=' + country.id +'>' + country.value[window.lang] + '</option))>'
         $countrySelect.append(item)
     })
 
@@ -79,7 +94,7 @@ $(function () {
     $citySelect.empty()
     $citySelect.append('<option>' + window.i18n('所有城市') + '</option>')
     _.each(window.cityData, function (city) {
-        var item = '<option value=' + city.id + '>' + city.name[window.lang] + '</option>'
+        var item = '<option value=' + city.id + '>' + city.value[window.lang] + '</option>'
         $citySelect.append(item)
     })
 
@@ -90,7 +105,7 @@ $(function () {
 
     var $propetyTypeSelect = $('select[name=propertyType]')
     $propetyTypeSelect.empty()
-    $propetyTypeSelect.append('<option>' + window.i18n('所有房屋类型') + '</option>')
+    $propetyTypeSelect.append('<option value=>' + window.i18n('所有房屋类型') + '</option>')
     _.each(window.propertyTypeData, function (type) {
         var item = '<option value=' + type.id + '>' + type.value[window.lang] + '</option>'
         $propetyTypeSelect.append(item)
@@ -101,9 +116,6 @@ $(function () {
         loadPropertyList();
     })
 })
-
-
-
 
 
 $('#loadMore').click(function () {
