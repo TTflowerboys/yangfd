@@ -223,3 +223,27 @@ def property_edit(property_id, user, params):
 @f_api('/property/<property_id>')
 def property_get(property_id):
     return f_app.property.output([property_id])[0]
+
+
+@f_api('/mortgage_calculate', params=dict(
+    loan=(float, True),
+    rate=(float, True),
+    term=(int, True),
+))
+def mortgage_calculate(params):
+    params["rate"] /= 100
+    interestonly = params["loan"] * params["rate"] / 12
+    repayment = params["loan"] * params["rate"] / 12 / (1 - ((1 + params["rate"] / 12) ** (params["term"] * -12)))
+
+    return dict(
+        interestonly=dict(
+            monthly=interestonly,
+            total_interest=interestonly * params["term"] * 12,
+            total=interestonly * params["term"] * 12 + params["loan"],
+        ),
+        repayment=dict(
+            monthly=repayment,
+            total_interest=repayment * params["term"] * 12,
+            total=repayment * params["term"] * 12 + params["loan"],
+        ),
+    )
