@@ -26,19 +26,6 @@ $('select[name=language]').change(function () {
     team.setLocationHrefParam('_i18n', language)
 })
 
-
-function errorMessageFormValidatorType(validator) {
-    if (validator === 'required') {
-        return window.i18n('不为空')
-    }
-    else if (validator === 'number') {
-        return window.i18n('格式不正确')
-    }
-    else if (validator === 'email') {
-        return window.i18n('格式不合法')
-    }
-}
-
 $('form[name=subscription]').submit(function (e) {
     e.preventDefault()
     var errorArea = $(this).find('.errorMessage')

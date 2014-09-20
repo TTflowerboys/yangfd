@@ -53,21 +53,6 @@ $('.floatWindow #requirement').click(function () {
     }
 })
 
-
-
-function errorMessageFormValidatorType(validator) {
-    if (validator === 'required') {
-        return window.i18n('不为空')
-    }
-    else if (validator === 'number') {
-        return window.i18n('格式不正确')
-    }
-    else if (validator === 'email') {
-        return window.i18n('格式不合法')
-    }
-}
-
-
 popup.find('form[name=requirement]').submit(function (e) {
     e.preventDefault()
     var errorArea = $(this).find('.errorMessage')
