@@ -478,7 +478,7 @@ class f_property(f_app.module_base):
         propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
         return propertys
 
-    def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
+    def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False):
         params.setdefault("status", "new")
         if sort is not None:
             try:
@@ -489,7 +489,10 @@ class f_property(f_app.module_base):
         else:
             sort_field = sort_orientation = None
 
-        property_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)["content"]
+        if count:
+            property_id_list = f_app.mongo_index.search(self.get_database, params, count=count, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)
+        else:
+            property_id_list = f_app.mongo_index.search(self.get_database, params, count=count, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)['content']
 
         return property_id_list
 

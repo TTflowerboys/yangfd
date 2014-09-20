@@ -37,8 +37,9 @@ def property_search(user, params):
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
-    property_list = f_app.property.search(params, per_page=per_page)
-    return f_app.property.output(property_list)
+    property_list = f_app.property.search(params, per_page=per_page, count=True)
+    property_list['content'] = f_app.property.output(property_list['content'])
+    return property_list
 
 
 @f_api('/property/<property_id>/edit', params=dict(
