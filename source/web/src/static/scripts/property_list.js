@@ -23,7 +23,11 @@ function loadPropertyList() {
     if (intention) {
         params.intention = intention
     }
+    if (time) {
+        params.time = time
+    }
 
+    $('#result #loadIndicator').show()
     $.post('/api/1/property/search', params)
         .done(function (data) {
             if (data.ret !== 0) {
@@ -44,9 +48,10 @@ function loadPropertyList() {
                     })
                 }
             }
+
         })
         .always(function () {
-
+            $('#result #loadIndicator').hide()
         })
 }
 
