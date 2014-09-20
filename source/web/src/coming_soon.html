@@ -54,12 +54,7 @@
                     <input class="name ghostInput" name="nickname" type="text" placeholder="{{_('姓名(必填)')}}" data-validator="required, trim"/>
                 </div>
                 <div class="form_row">
-                    <select name="country" class="coutry ghostSelect" style="color:#4d4d4d;">
-                        <option value="CN">{{_('中国 +86')}}</option>
-                        <option value="HK">{{_('香港 +85')}}</option>
-                        <option value="GB">{{_('英国 +44')}}</option>
-                        <option value="US">{{_('美国 +1')}}</option>
-                    </select>
+                    <!-- @@include =partials/country_select.html -->
                     <span class=vr></span>
                     <input class="phone ghostInput" name="phone" type="text" placeholder="{{_('电话(必填)')}}" data-validator="required, trim number"/>
                 </div>

@@ -122,7 +122,8 @@ def property_get(property_id):
 
 @f_get('/coming_soon')
 def coming_soon():
-    return template("coming_soon")
+    country_list =f_app.enum.get_all("country")
+    return template("coming_soon", country_list=country_list)
 
 
 @f_get('/user_settings')
