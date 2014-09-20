@@ -118,8 +118,27 @@ angular.module('app')
                     } else if (newJson.hasOwnProperty(key) && newJson[key].toString() !== oldJson[key].toString()) {
                         addToResult(key, newJson[key])
                     } else if (_.isObject(newJson[key])) {
-                        if (!angular.equals(newJson[key], oldJson[key])) {
-                            addToResult(key, newJson[key])
+                        var obj = newJson[key]
+                        var isI18nLanguage = false
+                        for (var i in obj) {
+                            for (var l in i18nLanguages) {
+                                if (i === i18nLanguages[l].value) {
+                                    isI18nLanguage = true
+                                    break;
+                                }
+                            }
+                        }
+                        if (isI18nLanguage) {
+                            delete newJson[key]._i18n
+                            delete oldJson[key]._i18n
+                            if (!angular.equals(newJson[key], oldJson[key])) {
+                                addToResult(key, newJson[key])
+                            }
+                        } else {
+                            var temp = self.getChangedAttributes(newJson[key], oldJson[key])
+                            if (temp) {
+                                addToResult(key, temp)
+                            }
                         }
                     }
                 }

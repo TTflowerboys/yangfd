@@ -55,8 +55,9 @@
         $scope.submit = function ($event, form) {
             $event.preventDefault()
             $scope.submitted = true
-
-            var changed = misc.getChangedI18nAttributes(JSON.parse(angular.toJson($scope.item)), $scope.itemOrigin)
+            var changed = JSON.parse(angular.toJson($scope.item))
+            changed = misc.cleanI18nEmptyData(changed)
+            changed = misc.getChangedI18nAttributes(changed, $scope.itemOrigin)
             changed = misc.cleanI18nEmptyData(changed)
             changed = misc.cleanTempData(changed)
             if (_.isEmpty(changed)) {
