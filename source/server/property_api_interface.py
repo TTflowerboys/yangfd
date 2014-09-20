@@ -120,7 +120,10 @@ property_params = dict(
 
     # Params for audit
     comment=str,
-    attachment=(list, None, str),
+    attachment=(list, None, dict(
+        url=str,
+        description=str,
+    )),
 )
 
 
