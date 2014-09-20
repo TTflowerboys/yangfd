@@ -38,6 +38,7 @@ class common(f_common):
     admin_roles = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
     advanced_admin_roles = ["admin", "jr_admin", "sales", "operation", "support"]
     message_type = ["system", "favorite", "intention", "mine"]
+    currency = ["CNY", "USD", "GBP", "EUR", "HKD"]
 
     intention_ticket_statuses = ["new", "assigned", "in_progess", "deposit", "suspended", "bought", "canceled"]
     support_ticket_statuses = ["new", "assigned", "in_progress", "solved", "unsolved"]
@@ -61,6 +62,7 @@ class common(f_common):
 
     email_default_method = "aws_ses"
     email_default_sender = "noreply@youngfunding.co.uk"
+    email_cn_sender = "noreply@yangfd.com"
 
     aws_ses_location = "eu-west-1"
     aws_s3_location = "eu-west-1"
@@ -81,7 +83,7 @@ class common(f_common):
     sendcloud_api_user = "postmaster@yangfd.sendcloud.org"
     sendcloud_api_key = "p5WEtUrypcHiNWgL"
     sendcloud_sender_name = "YangFd"
-    sendcloud_sender = "noreply@yangfd.com"
+
     email_send_provider_smart = {
         "cn": "sendcloud",
         "default": "aws_ses",

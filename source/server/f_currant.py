@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from datetime import datetime
+from datetime import datetime, timedelta
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, DESCENDING
 from libfelix.f_common import f_app
@@ -341,6 +341,9 @@ class f_currant_plugins(f_app.plugin_base):
         Plugins
         ==================================================================
     """
+
+    task = ["crawler_example"]
+
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
             phonenumber = phonenumbers.parse(raw_row["phone"])
@@ -421,6 +424,23 @@ class f_currant_plugins(f_app.plugin_base):
         message["status"] = message.pop("state", "deleted")
         return message
 
+    def task_on_crawler_example(self, task):
+        # Please use f_app.request for ANY HTTP(s) requests.
+        # Fetch the list
+        # Fetch the pages
+        # Extract needed information
+        # Match the information to our property format
+        params = {}
+        # Save an identifier property_crawler_id into the params. It's recommended to use the page URL whenever applicable.
+        params["property_crawler_id"] = "url"
+        # Call f_app.property.crawler_insert_update for each property
+        f_app.property.crawler_insert_update(params)
+        # Add a new task for next fetch. For example, if you want to craw every day:
+        f_app.task.put(dict(
+            type="crawler_example",
+            start=datetime.utcnow() + timedelta(days=1),
+        ))
+
 
 f_currant_plugins()
 
@@ -499,6 +519,39 @@ class f_property(f_app.module_base):
             property_id_list = f_app.mongo_index.search(self.get_database, params, count=count, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)['content']
 
         return property_id_list
+
+    def crawler_insert_update(self, params):
+        from property_api_interface import property_params
+        property_crawler_id = params.pop("property_crawler_id")
+
+        params = f_app.param_parser(_source=params, **property_params)
+
+        current_records = self.search({"property_crawler_id": property_crawler_id, "status": {"$exists": True}})
+        assert len(current_records) < 2
+
+        if len(current_records):
+            for key in list(params.keys()):
+                if params[key] == current_records[0][key]:
+                    params.pop(key)
+
+            property_id = current_records[0]["id"]
+            existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
+
+            if existing_draft:
+                params["target_property_id"] = existing_draft[0]
+                action = lambda _params: f_app.property.update_set(property_id, _params)
+
+            else:
+                params.setdefault("status", "draft")
+                params["target_property_id"] = property_id
+                action = lambda params: f_app.property.add(params)
+
+        else:
+            params.setdefault("status", "draft")
+            params.setdefault("property_crawler_id", property_crawler_id)
+            action = lambda params: f_app.property.add(params)
+
+        return action(params)
 
     def remove(self, property_id):
         self.update_set(property_id, {"status": "deleted"})

@@ -42,7 +42,7 @@ def property_search(user, params):
     return property_list
 
 
-@f_api('/property/<property_id>/edit', params=dict(
+property_params = dict(
     # General params
     name=("i18n", None, str),
     property_type="enum:property_type",
@@ -121,7 +121,10 @@ def property_search(user, params):
     # Params for audit
     comment=str,
     attachment=(list, None, str),
-))
+)
+
+
+@f_api('/property/<property_id>/edit', params=property_params)
 @f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer', 'agency'])
 def property_edit(property_id, user, params):
     """
