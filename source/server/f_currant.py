@@ -355,17 +355,21 @@ class f_currant_plugins(f_app.plugin_base):
         return ticket
 
     def user_add_after(self, user_id, params, noregister):
-        index_params = f_app.util.try_get_value(params, ["nickname", "city", "phone", "email"])
+        index_params = f_app.util.try_get_value(params, ["nickname", "phone", "email"])
         if index_params:
+            if "phone" in index_params:
+                index_params["phone_national_number"] = str(phonenumbers.parse(index_params["phone"]).national_number)
             f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
 
         return user_id
 
     def user_update_after(self, user_id, params):
         if "$set" in params:
-            if len(set(["nickname", "city", "phone", "email"]) & set(params["$set"])) > 0:
-                index_params = f_app.util.try_get_value(f_app.user.get(user_id), ["nickname", "city", "phone", "email"])
+            if len(set(["nickname", "phone", "email"]) & set(params["$set"])) > 0:
+                index_params = f_app.util.try_get_value(f_app.user.get(user_id), ["nickname", "phone", "email"])
                 if index_params:
+                    if "phone" in index_params:
+                        index_params["phone_national_number"] = str(phonenumbers.parse(index_params["phone"]).national_number)
                     f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
 
     def post_add(self, params, post_id):
