@@ -45,8 +45,8 @@ def default():
         )
     )
     for p in property_list:
-        if "zipcode_index" in p:
-            p["related_news"] = f_app.blog.post_output(f_app.blog.search({"zipcode_index": p["zipcode_index"]}, per_page=5))
+        if "news_category" in p:
+            p["related_news"] = f_app.blog.post_output(f_app.blog.post_search({"category": {"$in": [{"_id": ObjectId(n["id"]), "type": "news_category", "_enum": "news_category"} for n in p["news_category"]]}}, per_page=5))
 
     return template(
         "index",
@@ -124,9 +124,10 @@ def property_get(property_id):
 def coming_soon():
     return template("coming_soon")
 
+
 @f_get('/user_settings')
 def user_settings():
-    return template("user_settings",user=get_current_user())
+    return template("user_settings", user=get_current_user())
 
 
 @f_get('/admin')
