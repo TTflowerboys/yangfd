@@ -38,6 +38,7 @@ class common(f_common):
     admin_roles = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
     advanced_admin_roles = ["admin", "jr_admin", "sales", "operation", "support"]
     message_type = ["system", "favorite", "intention", "mine"]
+    currency = ["CNY", "USD", "GBP", "EUR", "HKD"]
 
     intention_ticket_statuses = ["new", "assigned", "in_progess", "deposit", "suspended", "bought", "canceled"]
     support_ticket_statuses = ["new", "assigned", "in_progress", "solved", "unsolved"]
