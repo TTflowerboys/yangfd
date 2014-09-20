@@ -9,6 +9,8 @@ from libfelix.f_ticket import f_ticket
 from libfelix.f_log import f_log
 from libfelix.f_interface import abort
 from libfelix.f_cache import f_cache
+from libfelix.f_util import f_util
+import six
 
 import phonenumbers
 import logging
@@ -660,3 +662,28 @@ class f_report(f_app.module_base):
         return self.update(report_id, {"$set": params})
 
 f_report()
+
+
+class f_currant_util(f_util):
+    def parse_budget(self, budget):
+        if isinstance(budget, six.string_types) or isinstance(budget, ObjectId):
+            budget = f_app.enum.get(budget)
+        elif isinstance(budget, dict):
+            budget = f_app.enum.get(budget["_id"])
+        else:
+            abort(40000, self.logger.warning("wrong type, cannot parse budget", exc_info=False))
+
+        assert budget["type"] == "budget", abort(40000, self.logger.warning("wrong type, cannot parse budget", exc_info=False))
+        assert budget.get("slug") is not None and budget["slug"].startswith("budget:"), abort(self.logger.warning("wrong type, cannot parse budget", exc_info=False))
+
+        price_group = [x.strip() for x in budget["slug"].split("budget:")[-1].split(",")]
+
+        assert len(price_group) == 3, abort(40000, self.logger.warning("Invalid budget slug", exc_info=False))
+        assert price_group[2] in f_app.common.currency, abort(40000, self.logger.warning("Invalid budget: currency not supported", exc_info=False))
+
+        price_group[0] = float(price_group[0])if price_group[0] else None
+        price_group[1] = float(price_group[1])if price_group[1] else None
+
+        return price_group
+
+f_currant_util()

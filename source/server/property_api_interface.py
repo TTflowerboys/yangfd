@@ -35,6 +35,16 @@ def property_search(user, params):
     if "intention" in params:
         params["intention"] = {"$in": params.pop("intention", [])}
 
+    if "budget" in params:
+        budget = f_app.util.parse_budget(params.pop("budget"))
+        params["$or"] = [
+            {"total_price.unit": "CNY", },
+            {"total_price.unit": "HKD", },
+            {"total_price.unit": "USD", },
+            {"total_price.unit": "GBP", },
+            {"total_price.unit": "EUR", },
+        ]
+
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
     property_list = f_app.property.search(params, per_page=per_page, count=True)
