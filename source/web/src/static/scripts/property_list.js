@@ -30,10 +30,11 @@ function loadPropertyList() {
                 console.log(data)
             }
             else {
-
-                if (!_.isEmpty(data.val)) {
-                    time = _.last(data.val).time
-                    _.each(data.val, function (house) {
+                var array = data.val.content
+                updateResultCount(data.val.count)
+                if (!_.isEmpty(array)) {
+                    time = _.last(array).time
+                    _.each(array, function (house) {
                         var houseResult =  _.template($('#houseCard_template').html())({house:house})
                         $('#result_list').append(houseResult)
 
@@ -96,6 +97,20 @@ function getSelectedIntention() {
         return ids
     }
     return ''
+}
+
+function updateResultCount(count) {
+    var $numberContainer = $('#result #number_container')
+    var $number = $numberContainer.find('#number')
+
+    if (count) {
+        $number.text(count)
+        $numberContainer.show()
+    }
+    else {
+        $number.text(count)
+        $numberContainer.hide()
+    }
 }
 
 $(function () {
