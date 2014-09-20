@@ -66,7 +66,7 @@
                 $scope.item.highlight[$rootScope.userLanguage.value] = []
             }
             var temp = $scope.item.tempPoint
-            $scope.item.highlight[$rootScope.userLanguage.value].push(temp)
+            $scope.item.highlight[$rootScope.userLanguage.value].push(angular.copy(temp))
             $scope.item.tempPoint = undefined
         }
 
@@ -75,9 +75,8 @@
                 $scope.item.historical_price = []
             }
             var temp = {time: $scope.item.tempHistoryTime, price: $scope.item.tempHistoryPrice}
-            $scope.item.historical_price.push(temp)
-            $scope.item.tempHistoryTime = undefined
-            $scope.item.tempHistoryPrice = {}
+            $scope.item.historical_price.push(angular.copy(temp))
+            $scope.item.tempHistoryPrice.value = undefined
         }
 
         $scope.addCost = function () {
@@ -87,7 +86,7 @@
             var temp = {item: $scope.item.tempCostItem, price: $scope.item.tempCostPrice}
             $scope.item.estimated_monthly_cost.push(angular.copy(temp))
             $scope.item.tempCostItem = {}
-            $scope.item.tempCostPrice.value = ''
+            $scope.item.tempCostPrice.value = undefined
         }
 
         $scope.addHouse = function () {
@@ -101,13 +100,13 @@
                 kitchen_count: $scope.item.tempKitchenCount,
                 total_price: angular.copy($scope.item.tempTotalPrice),
                 floor_plan: $scope.item.tempFloorPlan}
-            $scope.item.main_house_types.push(temp)
+            $scope.item.main_house_types.push(angular.copy(temp))
             $scope.item.tempHouseName = {}
             $scope.item.tempBedroomCount = undefined
             $scope.item.tempLivingRoomCount = undefined
             $scope.item.tempBathroomCount = undefined
             $scope.item.tempKitchenCount = undefined
-            $scope.item.tempTotalPrice.value = ''
+            $scope.item.tempTotalPrice.value = undefined
             $scope.item.tempFloorPlan = {}
         }
 

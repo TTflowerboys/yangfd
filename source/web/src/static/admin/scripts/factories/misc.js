@@ -113,6 +113,9 @@ angular.module('app')
 
             cleanI18nEmptyData: function (i18nData) {
                 for (var i in i18nData) {
+                    if (_.isNumber(i18nData[i])) {
+                        continue
+                    }
                     if (_.isEmpty(i18nData[i])) {
                         delete i18nData[i]
                         continue
@@ -120,7 +123,10 @@ angular.module('app')
                     if (i18nData[i].unit === undefined) {
                         for (var index in i18nLanguages) {
                             var lang = i18nLanguages[index].value
-                            if (i18nData[i][lang] === undefined || i18nData[i][lang] === '') {
+                            if (_.isNumber(i18nData[i][lang])) {
+                                continue
+                            }
+                            if (_.isEmpty(i18nData[i][lang])) {
                                 delete i18nData[i][lang]
                             }
                         }
@@ -130,14 +136,18 @@ angular.module('app')
                         }
                     } else {
                         if (_.isString(i18nData[i].unit)) {
-                            console.log(_.isEmpty(i18nData[i].value))
-                            console.log(i18nData[i].value === '')
+                            if (_.isNumber(i18nData[i].value)) {
+                                continue
+                            }
                             if (_.isEmpty(i18nData[i].value)) {
                                 delete i18nData[i]
                                 continue
                             }
                         } else {
                             if (_.isString(i18nData[i].unit.unit) && _.isString(i18nData[i].price.unit)) {
+                                if (_.isNumber(i18nData[i].unit.value) && _.isNumber(i18nData[i].price.value)) {
+                                    continue
+                                }
                                 if (_.isEmpty(i18nData[i].unit.value) || _.isEmpty(i18nData[i].price.value)) {
                                     delete i18nData[i]
                                     continue
