@@ -61,6 +61,7 @@ class common(f_common):
 
     email_default_method = "aws_ses"
     email_default_sender = "noreply@youngfunding.co.uk"
+    email_cn_sender = "noreply@yangfd.com"
 
     aws_ses_location = "eu-west-1"
     aws_s3_location = "eu-west-1"
@@ -81,7 +82,7 @@ class common(f_common):
     sendcloud_api_user = "postmaster@yangfd.sendcloud.org"
     sendcloud_api_key = "p5WEtUrypcHiNWgL"
     sendcloud_sender_name = "YangFd"
-    sendcloud_sender = "noreply@yangfd.com"
+
     email_send_provider_smart = {
         "cn": "sendcloud",
         "default": "aws_ses",
