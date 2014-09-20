@@ -41,7 +41,14 @@ $('.floatWindow #requirement').click(function () {
           }
          )
     popup.show()
-    popup.find('.requirement_wrapper').css('top', $(window).scrollTop() -125)
+    var wrapper = popup.find('.requirement_wrapper')
+    var headerHeight = wrapper.outerHeight() - wrapper.innerHeight()
+    if (wrapper.outerHeight() - headerHeight > $(window).height()){
+        wrapper.css('top', $(window).scrollTop() -headerHeight)
+    }
+    else {
+        wrapper.css('top', $(window).scrollTop() - headerHeight + ($(window).height() - (wrapper.outerHeight() - headerHeight)) / 2)
+    }
 })
 
 
