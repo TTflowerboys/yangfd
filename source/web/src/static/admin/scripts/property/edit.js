@@ -54,31 +54,32 @@
 
 
         function onGetItem(item) {
-            if (!_.isEmpty(item.property_type)) {
-                item.property_type = item.property_type.id
+            var editItem = angular.copy(item)
+            if (!_.isEmpty(editItem.property_type)) {
+                editItem.property_type = editItem.property_type.id
             }
-            if (!_.isEmpty(item.intention)) {
-                item.intention = item.intention.id
+            if (!_.isEmpty(editItem.intention)) {
+                editItem.intention = editItem.intention.id
             }
-            if (!_.isEmpty(item.equity_type)) {
-                item.equity_type = item.equity_type.id
+            if (!_.isEmpty(editItem.equity_type)) {
+                editItem.equity_type = editItem.equity_type.id
             }
-            if (!_.isEmpty(item.decorative_style)) {
-                item.decorative_style = item.decorative_style.id
+            if (!_.isEmpty(editItem.decorative_style)) {
+                editItem.decorative_style = editItem.decorative_style.id
             }
-            if (!_.isEmpty(item.property_price_type)) {
-                item.property_price_type = item.property_price_type.id
+            if (!_.isEmpty(editItem.property_price_type)) {
+                editItem.property_price_type = editItem.property_price_type.id
             }
-            if (!_.isEmpty(item.facing_direction)) {
-                item.facing_direction = item.facing_direction.id
+            if (!_.isEmpty(editItem.facing_direction)) {
+                editItem.facing_direction = editItem.facing_direction.id
             }
-            if (!_.isEmpty(item.country)) {
-                item.country = item.country.id
+            if (!_.isEmpty(editItem.country)) {
+                editItem.country = editItem.country.id
             }
-            if (!_.isEmpty(item.city)) {
-                item.city = item.city.id
+            if (!_.isEmpty(editItem.city)) {
+                editItem.city = editItem.city.id
             }
-            $scope.itemOrigin = item
+            $scope.itemOrigin = editItem
             $scope.item = angular.copy($scope.itemOrigin)
         }
 
@@ -98,8 +99,11 @@
             api.update(angular.extend(changed, {id: $scope.item.id}), {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
-            }).success(function () {
-                angular.extend($scope.itemOrigin, changed)
+            }).success(function (data) {
+                if (itemFromParent) {
+                    itemFromParent = data.val
+                }
+                onGetItem(data.val)
             })['finally'](function () {
                 $scope.loading = false
             })
@@ -113,7 +117,7 @@
                 $scope.item.highlight[$rootScope.userLanguage.value] = []
             }
             var temp = $scope.item.tempPoint
-            $scope.item.highlight[$rootScope.userLanguage.value].push(temp)
+            $scope.item.highlight[$rootScope.userLanguage.value].push(angular.copy(temp))
             $scope.item.tempPoint = undefined
         }
 
@@ -122,9 +126,8 @@
                 $scope.item.historical_price = []
             }
             var temp = {time: $scope.item.tempHistoryTime, price: $scope.item.tempHistoryPrice}
-            $scope.item.historical_price.push(temp)
-            $scope.item.tempHistoryTime = undefined
-            $scope.item.tempHistoryPrice = {}
+            $scope.item.historical_price.push(angular.copy(temp))
+            $scope.item.tempHistoryPrice.value = undefined
         }
 
         $scope.addCost = function () {
@@ -134,7 +137,7 @@
             var temp = {item: $scope.item.tempCostItem, price: $scope.item.tempCostPrice}
             $scope.item.estimated_monthly_cost.push(angular.copy(temp))
             $scope.item.tempCostItem = {}
-            $scope.item.tempCostPrice.value = ''
+            $scope.item.tempCostPrice.value = undefined
         }
 
         $scope.addHouse = function () {
@@ -148,13 +151,13 @@
                 kitchen_count: $scope.item.tempKitchenCount,
                 total_price: $scope.item.tempTotalPrice,
                 floor_plan: $scope.item.tempFloorPlan}
-            $scope.item.main_house_types.push(temp)
+            $scope.item.main_house_types.push(angular.copy(temp))
             $scope.item.tempHouseName = {}
             $scope.item.tempBedroomCount = undefined
             $scope.item.tempLivingRoomCount = undefined
             $scope.item.tempBathroomCount = undefined
             $scope.item.tempKitchenCount = undefined
-            $scope.item.tempTotalPrice = {}
+            $scope.item.tempTotalPrice.value = undefined
             $scope.item.tempFloorPlan = {}
         }
     }
