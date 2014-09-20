@@ -2,12 +2,26 @@
     <div class="form bordered">
         <div class="phone form_row">
             <img src="/static/images/icon/phone-active.png" alt=""/>
+
+            %if country_list:
             <select name="country" class=addLeft>
-                <option value="CN">中国 +86</option>
-                <option value="HK">香港 +85</option>
-                <option value="GB">英国 +44</option>
-                <option value="US">美国 +1</option>
+                %for index, country  in enumerate(country_list):
+                <option value="{{country.get('id')}}">
+                    %if (country.get('slug') == 'CN'):
+                    (+86)
+                    %elif (country.get('slug') == 'GB') :
+                    (+44)
+                    %elif (country.get('slug') == 'US') :
+                    (+1)
+                    %elif (country.get('slug') == 'HK') :
+                    (+85)
+                    %end
+                    {{_i18n(country.get('value'))}}
+                </option>
+                %end
             </select>
+            %end
+
             <span class=vr></span>
             <input name="phone" type="tel" size=20 data-validator="required, trim, number">
         </div>

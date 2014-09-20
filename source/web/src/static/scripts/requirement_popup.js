@@ -10,19 +10,21 @@ $('.floatWindow #requirement').click(function () {
 
     popup.find('form[name=requirement]')[0].reset()
 
-    if (window.user.nickname)
-    {
-        popup.find('input[name=nickname]').val(window.user.nickname)
-    }
+    if (window.user) {
+        if (window.user.nickname)
+        {
+            popup.find('input[name=nickname]').val(window.user.nickname)
+        }
 
-    if (window.user.country)
-    {
-        popup.find('select[name=country]').val(window.user.country)
-    }
+        if (window.user.country)
+        {
+            popup.find('select[name=country]').val(window.user.country)
+        }
 
-    if (window.user.phone)
-    {
-        popup.find('input[name=phone]').val(window.user.phone)
+        if (window.user.phone)
+        {
+            popup.find('input[name=phone]').val(window.user.phone)
+        }
     }
 
     var language = $('#current_Language').text()
