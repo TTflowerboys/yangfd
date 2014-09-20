@@ -88,7 +88,7 @@ angular.module('app')
             .state('dashboard.property', {
                 url: '/property',
                 templateUrl: '/static/admin/templates/dashboard.property.tpl.html',
-                controller: 'ctrlList',
+                controller: 'ctrlPropertyList',
                 resolve: propertyResolve
             })
             .state('dashboard.property.create', {
