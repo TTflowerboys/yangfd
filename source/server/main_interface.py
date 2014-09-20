@@ -26,6 +26,9 @@ def get_current_user():
     return user
 
 
+def get_country_list():
+    return f_app.enum.get_all("country")
+
 @f_get('/')
 @check_landing
 def default():
@@ -54,50 +57,50 @@ def default():
         property_list=property_list,
         homepage_ad_list=homepage_ad_list,
         announcement_list=announcement_list,
-        news_list=news_list
+        news_list=news_list,
+        country_list=get_country_list()
     )
 
 
 @f_get('/signup')
 @check_landing
 def signup():
-    return template("signup", user=get_current_user())
+    return template("signup", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/signin')
 @check_landing
 def signin():
-    return template("signin", user=get_current_user())
+    return template("signin", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/reset_password')
 @check_landing
 def resetPassword():
-    return template("reset_password", user=get_current_user())
+    return template("reset_password", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/terms')
 @check_landing
 def terms():
-    return template("terms", user=get_current_user())
+    return template("terms", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/privacy')
 @check_landing
 def privacy():
-    return template("privacy", user=get_current_user())
+    return template("privacy", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/process')
 @check_landing
 def process():
-    return template("process", user=get_current_user())
+    return template("process", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/property_list')
 @check_landing
 def property_list():
-    country_list = f_app.enum.get_all("country")
     city_list = f_app.enum.get_all('city')
     property_type_list = f_app.enum.get_all('property_type')
     intention_list = f_app.enum.get_all('intention')
@@ -105,7 +108,7 @@ def property_list():
     property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}, per_page=f_app.common.property_list_per_page))
     return template("property_list",
                     user=get_current_user(),
-                    country_list=country_list,
+                    country_list=get_country_list(),
                     city_list=city_list,
                     property_type_list=property_type_list,
                     intention_list=intention_list,
@@ -117,13 +120,12 @@ def property_list():
 @f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
 @check_landing
 def property_get(property_id):
-    return template("property", user=get_current_user(), property=f_app.property.output([property_id])[0])
+    return template("property", user=get_current_user(), property=f_app.property.output([property_id])[0], country_list=get_country_list())
 
 
 @f_get('/coming_soon')
 def coming_soon():
-    country_list =f_app.enum.get_all("country")
-    return template("coming_soon", country_list=country_list)
+    return template("coming_soon", country_list=get_country_list())
 
 
 @f_get('/user_settings')
