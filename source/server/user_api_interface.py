@@ -196,6 +196,7 @@ def current_user_edit(user, params):
     has_role=bool,
     has_intention_ticket=bool,
     has_register_time=bool,
+    query=str,
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_search(user, params):
