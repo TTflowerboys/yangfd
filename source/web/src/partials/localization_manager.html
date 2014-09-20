@@ -1,23 +1,46 @@
 <div id="data_localization" style="display:none">
-    <span id="不为空">{{_('不为空')}}</span>
-    <span id="格式不正确">{{_('格式不正确')}}</span>
-    <span id="格式不合法">{{_('格式不合法')}}</span>
+    <span id="姓名不能为空">{{_('姓名不能为空')}}</span>
+    <span id="电话不能为空">{{_('电话不能为空')}}</span>
+    <span id="电话格式不正确">{{_('电话格式不正确')}}</span>
+    <span id="邮箱格式不合法">{{_('邮箱格式不合法')}}</span>
     <span id="姓名">{{_('姓名')}}</span>
     <span id="电话">{{_('电话')}}</span>
     <span id="邮箱">{{_('邮箱')}}</span>
+    <span id="验证码不为空">{{_('验证码不为空')}}</span>
+    <span id="密码不为空">{{_('密码不为空')}}</span>
     <span id="订阅失败">{{_('订阅失败')}}</span>
     <span id="提交需求失败">{{_('提交需求失败')}}</span>
     <span id="所有国家">{{_('所有国家')}}</span>
     <span id="所有城市">{{_('所有城市')}}</span>
     <span id="所有房屋类型">{{_('所有房屋类型')}}</span>
+    <span id="登陆失败">{{_('登陆失败')}}</span>
+    <span id="注册失败">{{_('注册失败')}}</span>
+    <span id="重置密码失败">{{_('重置密码失败')}}</span>
+
 </div>
 
 <span id="current_Language" style="display:none">{{_.lang}}</span>
 
 <script>
-    function i18n(key) { return $('#data_localization #' + key).text()}
 
-    window.lang = document.getElementById('current_Language').innerHTML
+window.lang = document.getElementById('current_Language').innerHTML
+
+function i18n(key) {
+    return $('#data_localization #' + key).text()
+}
+
+function getInputValidationMessage(domName, validator) {
+    var inputMessageDic = {
+        'nickname_required': '姓名不能为空',
+        'phone_required': '电话不能为空',
+        'phone_number': '电话格式不正确',
+        'email_required': '邮箱不能为空',
+        'email_email': '邮箱格式不合法',
+        'code_required': '验证码不能为空',
+        'password_required': '密码不能为空'
+    }
+    return i18n(inputMessageDic[ domName + '_' + validator])
+}
 
 
 </script>

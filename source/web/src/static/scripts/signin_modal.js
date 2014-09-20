@@ -12,7 +12,7 @@ $('form[name=signin]').submit(function (e) {
     e.preventDefault()
     errorArea.hide()
     var valid = $.validate(this, {onError: function (dom,validator,index) {
-        errorArea.text(dom.name + ' validate error ' + validator)
+        errorArea.text(window.getInputValidationMessage(dom.name, validator))
         errorArea.show()
     }})
     if(!valid){return}
@@ -23,7 +23,7 @@ $('form[name=signin]').submit(function (e) {
            params,
            function (data, status) {
                if (data.ret !== 0) {
-                   errorArea.text(data.msg)
+                   errorArea.text(window.i18n('登陆失败'))
                    errorArea.show()
                }
                else {

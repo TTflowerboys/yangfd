@@ -80,21 +80,7 @@ popup.find('form[name=requirement]').submit(function (e) {
     )
 
     var valid = $.validate(this, {onError: function (dom, validator, index) {
-        var prefix = ''
-        if (dom.name === 'nickname')
-        {
-            prefix = window.i18n('姓名')
-        }
-        else if (dom.name === 'phone')
-        {
-            prefix = window.i18n('电话')
-        }
-        else if (dom.name === 'email')
-        {
-            prefix = window.i18n('邮箱')
-        }
-
-        errorArea.text(prefix + ' ' + errorMessageFormValidatorType(validator))
+        errorArea.text(window.getInputValidationMessage(dom.name. validator))
         errorArea.show()
         $(dom).css('border', '2px solid red')
     }})
@@ -154,7 +140,7 @@ var onPhoneNumberChange = function () {
                function (data, status) {
 
                    if (data.ret !== 0) {
-                       errorArea.text(window.i18n('电话') + ' ' + window.i18n('格式不正确'))
+                       errorArea.text(window.getInputValidationMessage('phone', 'number'))
                        errorArea.show()
                        $input.css('border', '2px solid red')
                    }
