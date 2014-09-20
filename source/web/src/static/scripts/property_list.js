@@ -28,6 +28,7 @@ function loadPropertyList() {
     }
 
     $('#result #loadIndicator').show()
+    var resultConut = 0
     $.post('/api/1/property/search', params)
         .done(function (data) {
             if (data.ret !== 0) {
@@ -35,7 +36,7 @@ function loadPropertyList() {
             }
             else {
                 var array = data.val.content
-                updateResultCount(data.val.count)
+                resultConut = data.val.count
                 if (!_.isEmpty(array)) {
                     time = _.last(array).time
                     _.each(array, function (house) {
@@ -51,6 +52,7 @@ function loadPropertyList() {
 
         })
         .always(function () {
+            updateResultCount(resultConut)
             $('#result #loadIndicator').hide()
         })
 }
@@ -114,7 +116,7 @@ function updateResultCount(count) {
     }
     else {
         $number.text(count)
-        $numberContainer.hide()
+        $numberContainer.show()
     }
 }
 
@@ -175,9 +177,15 @@ $('#loadMore').click(function () {
 
 
 $('#tags #budgetTag').on('click', '.toggleTag', function (event) {
+
+    var $item = $(event.target)
+    var alreadySelected = $item.hasClass('selected')
     var $parent = $(event.target.parentNode)
     $parent.find('.toggleTag').removeClass('selected')
-    $(event.target).addClass('selected')
+
+    if (!alreadySelected) {
+        $item.addClass('selected')
+    }
 
     resetData()
     loadPropertyList()

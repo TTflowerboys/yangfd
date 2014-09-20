@@ -135,7 +135,7 @@
                
         <div  class="price">
             <img class="price_icon" alt="" src="/static/images/icon/price-tag.png"/>
-            <h4 class="price_title">{{_('价格')}}</h4>
+            <h4 class="price_title">{{_('价格（单选）')}}</h4>
             <div id="budgetTag" class="inner">
                 %for index, budget in enumerate(budget_list):
                 <div class="toggleTag" data-id="{{budget.get('id')}}">{{_i18n(budget.get('value'))}}</div>
@@ -149,7 +149,7 @@
         
         <div class="intention">
             <img class="intention_icon" alt="" src="/static/images/icon/intention-tag.png"/>
-            <h4 class="intention_title">{{_('意向标签')}}</h4>
+            <h4 class="intention_title">{{_('意向标签（多选）')}}</h4>
             <div id="intentionTag" class="inner">
                 %for index, intention in enumerate(intention_list):
                 <div class="toggleTag selected" data-id="{{intention.get('id')}}" >{{_i18n(intention.get('value'))}}</div>
