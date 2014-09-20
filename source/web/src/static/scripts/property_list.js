@@ -23,17 +23,23 @@ function loadPropertyList() {
     if (intention) {
         params.intention = intention
     }
+    if (time) {
+        params.time = time
+    }
 
+    $('#result #loadIndicator').show()
+    var resultConut = 0
     $.post('/api/1/property/search', params)
         .done(function (data) {
             if (data.ret !== 0) {
                 console.log(data)
             }
             else {
-
-                if (!_.isEmpty(data.val)) {
-                    time = _.last(data.val).time
-                    _.each(data.val, function (house) {
+                var array = data.val.content
+                resultConut = data.val.count
+                if (!_.isEmpty(array)) {
+                    time = _.last(array).time
+                    _.each(array, function (house) {
                         var houseResult =  _.template($('#houseCard_template').html())({house:house})
                         $('#result_list').append(houseResult)
 
@@ -43,9 +49,11 @@ function loadPropertyList() {
                     })
                 }
             }
+
         })
         .always(function () {
-
+            updateResultCount(resultConut)
+            $('#result #loadIndicator').hide()
         })
 }
 
@@ -96,6 +104,20 @@ function getSelectedIntention() {
         return ids
     }
     return ''
+}
+
+function updateResultCount(count) {
+    var $numberContainer = $('#result #number_container')
+    var $number = $numberContainer.find('#number')
+
+    if (count) {
+        $number.text(count)
+        $numberContainer.show()
+    }
+    else {
+        $number.text(count)
+        $numberContainer.show()
+    }
 }
 
 $(function () {
@@ -155,9 +177,15 @@ $('#loadMore').click(function () {
 
 
 $('#tags #budgetTag').on('click', '.toggleTag', function (event) {
+
+    var $item = $(event.target)
+    var alreadySelected = $item.hasClass('selected')
     var $parent = $(event.target.parentNode)
     $parent.find('.toggleTag').removeClass('selected')
-    $(event.target).addClass('selected')
+
+    if (!alreadySelected) {
+        $item.addClass('selected')
+    }
 
     resetData()
     loadPropertyList()

@@ -40,7 +40,7 @@
            %if (index >= 0 and index < 20):
                 <h2 class="houseCard_category" >{{_i18n(property.get('country'))}} {{_i18n(property.get('city'))}}</h2>
                 <div class=houseCard>
-           %if (_i18n(property.get('reality_images'), '')) :
+           %if property.get('reality_images', []) :
            <img src="{{_i18n(property.get('reality_images'))[0]}}" width=320 height=240/>
            %else :
            <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
