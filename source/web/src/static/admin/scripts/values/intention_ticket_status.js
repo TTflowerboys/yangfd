@@ -11,3 +11,6 @@ angular.module('app')
         { name: '购房已成功', value: 'bought' },
         { name: '未达成购房', value: 'canceled' }
     ])
+    .run(function ($rootScope, intentionTicketStatus) {
+        $rootScope.intentionTicketStatus = intentionTicketStatus
+    })

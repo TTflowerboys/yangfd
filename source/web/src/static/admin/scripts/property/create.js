@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlPropertyCreate($scope, $state, api, enumApi, geoApi, $rootScope, i18nLanguages, misc) {
+    function ctrlPropertyCreate($scope, $state, api, enumApi, $rootScope, i18nLanguages, misc) {
 
         enumApi.getEnumsByType('property_type')
             .success(function (data) {

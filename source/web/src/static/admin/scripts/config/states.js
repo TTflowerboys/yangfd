@@ -173,8 +173,8 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.intention.tpl.html',
                 controller: 'ctrlList',
                 resolve: {
-                    api: function (newsApi) {
-                        return newsApi
+                    api: function (intentionApi) {
+                        return intentionApi
                     }
                 }
             })

@@ -14,7 +14,7 @@
                 return $http.get('/api/1/property/' + id + '?_i18n=disabled', config)
             },
             update: function (data, config) {
-                return $http.post('/api/1/property/' + data.id + '/edit', data, config)
+                return $http.post('/api/1/property/' + data.id + '/edit?_i18n=disabled', data, config)
             },
             remove: function (id, config) {
                 return $http.post('/api/1/property/' + id + '/edit', {status: 'deleted'}, config)

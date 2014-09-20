@@ -97,7 +97,34 @@ angular.module('app')
                 }
                 return _.isEmpty(result) ? undefined : result
             },
-
+            getChangedI18nAttributes: function (newJson, oldJson) {
+                var result
+                var constructor = newJson.constructor
+                var addToResult
+                if (constructor === Array) {
+                    result = []
+                    addToResult = function (index, value) {
+                        this.push(value)
+                    }.bind(result)
+                } else if (constructor === Object) {
+                    result = {}
+                    addToResult = function (key, value) {
+                        this[key] = value
+                    }.bind(result)
+                }
+                for (var key in newJson) {
+                    if (oldJson[key] === undefined) {
+                        addToResult(key, newJson[key])
+                    } else if (newJson.hasOwnProperty(key) && newJson[key].toString() !== oldJson[key].toString()) {
+                        addToResult(key, newJson[key])
+                    } else if (_.isObject(newJson[key])) {
+                        if (!angular.equals(newJson[key], oldJson[key])) {
+                            addToResult(key, newJson[key])
+                        }
+                    }
+                }
+                return _.isEmpty(result) ? undefined : result
+            },
             resetArray: function (array, items) {
                 if (array === undefined) { array = [] }
                 array.splice.apply(array, [0, array.length].concat(items))
@@ -129,6 +156,9 @@ angular.module('app')
                             if (_.isEmpty(i18nData[i][lang])) {
                                 delete i18nData[i][lang]
                             }
+                        }
+                        if (_.isEmpty(i18nData[i].value)) {
+                            delete i18nData[i].value
                         }
                         if (_.isEmpty(i18nData[i])) {
                             delete i18nData[i]
