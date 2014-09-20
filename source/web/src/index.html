@@ -38,7 +38,10 @@
      %if (property_list):
         %for index, property in enumerate(property_list) :
            %if (index >= 0 and index < 20):
-                <h2 class="houseCard_category" >{{_i18n(property.get('country'))}} {{_i18n(property.get('city'))}}</h2>
+                %if property.get('news_category'):
+                <h2 class="houseCard_category" >{{_i18n(property.get('news_category')[0].get('value'))}}</h2>
+                %end
+
                 <div class=houseCard>
            %if property.get('reality_images', []) :
            <img src="{{_i18n(property.get('reality_images'))[0]}}" width=320 height=240/>
