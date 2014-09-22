@@ -61,7 +61,7 @@
                        {{property.get('livint_room_count')}} {{_('房间')}},
                        %end
                        %if property.get('bathroom_count'):
-                       {{property.get('bathroom_count')}} baths,
+                       {{property.get('bathroom_count')}} {{'洗手间'}},
                        %end
                        %if property.get('space'):
                        {{property.get('space').get('value')}}
@@ -78,8 +78,9 @@
                        %end
                        %end
                    </p>
-                   %if (property.get('estimated_monthly_rent')) :
-                   <p class=estimate><span class=label>预期月租金</span><span class=value>{{ float("{0:.2f}".format(float(property.get('estimated_monthly_rent').get('value', ''))))}} {{property.get('estimated_monthly_rent').get('unit', '')}}</span></p>
+                   %if (property.get('annual_return_estimated')) :
+                   <p class=estimate><span class=label>{{_('预期年租金')}} <br/>{{_('收益率')}}</span><span class=value>
+                           <strong>{{ property.get('annual_return_estimated')}}</strong>%</span></p>
                    %end
                    <ul class=properties>
                        %if (property.get('intention')) :
@@ -94,7 +95,7 @@
                    </ul>
                </div>
                <div class=action>
-                   <a href="http://abc.com" class="button red">查看详情</a>
+                   <a href="http://abc.com" class="button red">{{_('查看详情')}}</a>
                </div>
            </div>
            %if property.get('related_news'):
