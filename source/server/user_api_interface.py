@@ -105,8 +105,7 @@ def register(params):
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
 
-    if not f_app.captcha.validate(params["solution"], params["challenge"], request.remote_route[-1], "recaptcha"):
-        abort(50314)
+    f_app.captcha.validate(params["solution"], params["challenge"], request.remote_route[-1], "recaptcha")
 
     user_id = f_app.user.add(params)
 
