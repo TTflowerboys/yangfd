@@ -4,11 +4,8 @@ $(window).on('resize', function () {
 
 $(function () {
     $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
-    //setup language select
-    var language = $('#current_Language').text()
-    $('select[name=language]').find('option[value=' + language + ']').prop('selected', true)
     //setup budget select
-    $.get('/api/1/enum?type=budget&_i18n=' + language,
+    $.get('/api/1/enum?type=budget&_i18n=' + window.lang,
           null,
           function (data, status) {
               if (data.ret === 0) {
@@ -19,11 +16,6 @@ $(function () {
               }
           }
          )
-})
-
-$('select[name=language]').change(function () {
-    var language = $(this).children('option:selected').val();
-    team.setLocationHrefParam('_i18n', language)
 })
 
 $('form[name=subscription]').submit(function (e) {
@@ -39,8 +31,7 @@ $('form[name=subscription]').submit(function (e) {
     if (!valid) {return}
     var params = $(this).serializeObject()
 
-    var language = $('#current_Language').text()
-    params.locales = language
+    params.locales = window.lang
     $.post('/api/1/subscription/add',
            params,
            function (data, status) {
@@ -124,8 +115,8 @@ $('form[name=requirement]').submit(function (e) {
     if (!valid) {return}
     var params = $(this).serializeObject()
 
-    var language = $('#current_Language').text()
-    params.locales = language
+
+    params.locales = window.lang
     var button = $('form[name=requirement] button[type=submit]')
     button.css('cursor', 'wait')
     $.post('/api/1/intention_ticket/add', params)

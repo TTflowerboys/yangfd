@@ -27,9 +27,8 @@ $('.floatWindow #requirement').click(function () {
         }
     }
 
-    var language = $('#current_Language').text()
     //setup budget select
-    $.get('/api/1/enum?type=budget&_i18n=' + language,
+    $.get('/api/1/enum?type=budget&_i18n=' + window.lang,
           null,
           function (data, status) {
               if (data.ret === 0) {
@@ -72,8 +71,7 @@ popup.find('form[name=requirement]').submit(function (e) {
     if (!valid) {return}
 
     var params = $(this).serializeObject()
-    var language = $('#current_Language').text()
-    params.locales = language
+    params.locales = window.lang
 
     var button = $('form[name=requirement] button[type=submit]')
     button.css('cursor', 'wait')
