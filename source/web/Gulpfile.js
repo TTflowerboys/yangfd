@@ -27,6 +27,7 @@ var when = require('gulp-if')
 var filter = require('gulp-filter')
 var debug = require('gulp-debug')
 var base64 = require('gulp-img64');
+var gutil = require('gulp-util')
 
 var myPaths = {
     src: './src/',
@@ -99,7 +100,9 @@ gulp.task('less2css', function (done) {
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     gulp.src(myPaths.less)
-        .pipe(less().on('error', gutil.log))
+        .pipe(less().on('error', function (error) {
+            console.info(chalk.white.bgRed(error.message))
+        }))
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     done()
