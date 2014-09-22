@@ -66,17 +66,59 @@ angular.module('app')
          */
             .state('dashboard.enums', {
                 url: '/enums',
+                templateUrl: '/static/admin/templates/dashboard.enums.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.country', {
+                url: '/country',
+                templateUrl: '/static/admin/templates/dashboard.enums.country.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.country.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.country.create.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.country.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.enums.country.edit.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.city', {
+                url: '/city',
+                templateUrl: '/static/admin/templates/dashboard.enums.city.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.city.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.city.create.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.city.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.enums.city.edit.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.normal', {
+                url: '/normal',
                 templateUrl: '/static/admin/templates/dashboard.enums.normal.tpl.html',
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
-            .state('dashboard.enums.create', {
+            .state('dashboard.enums.normal.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.enums.normal.create.tpl.html',
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
-            .state('dashboard.enums.edit', {
+            .state('dashboard.enums.normal.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.enums.normal.edit.tpl.html',
                 controller: 'ctrlEnums',
