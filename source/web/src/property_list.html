@@ -44,7 +44,9 @@
     </div>
 </div>
 
-un<div class=houseCard>
+<script id="houseCard_template" type="text/template">
+    
+<div class=houseCard>
     {_if(house.reality_images && house.reality_images.length) {_}
     <img src="{=house.reality_images[0]=}" width=320 height=240/>
     {_ }else { _}
@@ -92,6 +94,7 @@ un<div class=houseCard>
         </div>
     </div>
 </div>
+</script>
 
 <div id="result" class="result">
     <div class="result_list_container">
