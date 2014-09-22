@@ -153,10 +153,10 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
         .pipe(revReplace())
         .pipe(gulp.dest(myPaths.dist))
         .pipe(publicHtmlFilter.restore())
-        .pipe(emailFilter)
-        .pipe(base64())
-        .pipe(gulp.dest(myPaths.dist))
-        .pipe(emailFilter.restore())
+    //.pipe(emailFilter)
+    //.pipe(base64())
+    //.pipe(gulp.dest(myPaths.dist))
+    //.pipe(emailFilter.restore())
 })
 
 
