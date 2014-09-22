@@ -2,7 +2,7 @@
 <!--@@block=head -->
 <!--build:css(dist) /static/styles/house_list.html.css-->
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
-<link rel="stylesheet" href="/static/styles/property_list.css"/>
+<link rel="stylesheet" href="/static/styles/propertyList.css"/>
 <!--endbuild-->
 
 <!--@@close-->
@@ -10,19 +10,19 @@
 <!--@@block=main -->
 
 <div class="property_data_manager" style="display:none">
-    <textarea  id="countryData">
+    <textarea id="countryData">
         {{json_dumps(country_list)}}
     </textarea>
-    <textarea  id="cityData">
+    <textarea id="cityData">
         {{json_dumps(city_list)}}
     </textarea>
-    <textarea  id="propertyTypeData">
+    <textarea id="propertyTypeData">
         {{json_dumps(property_type_list)}}
     </textarea>
-    <textarea  id="intentionData">
+    <textarea id="intentionData">
         {{json_dumps(intention_list)}}
     </textarea>
-    <textarea  id="budgetData">
+    <textarea id="budgetData">
         {{json_dumps(budget_list)}}
     </textarea>
 </div>
@@ -44,37 +44,13 @@
     </div>
 </div>
 
-
-<!-- <script id="houseCard_template" type="text/template"> -->
-<!--     {_ _.each(houses, function(house) {_}    -->
-<!--        <div class=houseCard> -->
-<!--         <img src="{=house.reality_images=}" width=320 height=240/> -->
-<!--         <div class=description> -->
-<!--             <h1 class=name>{=house.name=} {=house.status=}</h1> -->
-<!--             <span class=price>￥ <strong>300</strong>万</span> -->
-<!--             <div class=details> -->
-<!--                 <p class=size>3, 2.5 baths, 1,400 sqft</p> -->
-<!--                 <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong>%</span></p> -->
-<!--                 <ul class=properties> -->
-<!--                     <li><i>⌘</i> 超额收益 股权投资</li> -->
-<!--                     <li><i>⌘</i> 别墅</li> -->
-<!--                     <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li> -->
-<!--                 </ul> -->
-<!--             </div> -->
-<!--             <div class=action> -->
-<!--                 <a href="http://abc.com" class="button red">查看详情</a> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     {_})_} -->
-<!-- </script> -->
-
 <script id="houseCard_template" type="text/template">
-       <div class=houseCard>
+    <div class=houseCard>
         {_if(house.reality_images && house.reality_images.length) {_}
         <img src="{=house.reality_images[0]=}" width=320 height=240/>
-         {_ }else { _}
-         <img  src="/static/images/placeholder/property.jpg" width="320" height="240"/>
-         {_}_}
+        {_ }else { _}
+        <img src="/static/images/placeholder/property.jpg" width="320" height="240"/>
+        {_}_}
         <div class=description>
             <h1 class=name>{=house.name=}</h1>
             <span class=price>
@@ -85,45 +61,48 @@
             </span>
             <div class=details>
                 <p class=size>
-                {_if(house.living_room_count) {_}
-                {=house.living_room_count=} {=window.i18n('房间')=},
-                {_}_}
-                {_if(house.bathroom_count) {_}
-                {=house.bathroom_count=} {=window.i18n('洗手间')=},
-                {_}_}
-                {_if(house.space) {_}
-                {=house.space.value=} {=house.space.unit=},
-                {_}_}
-                
+                    {_if(house.living_room_count) {_}
+                    {=house.living_room_count=} {=window.i18n('房间')=},
+                    {_}_}
+                    {_if(house.bathroom_count) {_}
+                    {=house.bathroom_count=} {=window.i18n('洗手间')=},
+                    {_}_}
+                    {_if(house.space) {_}
+                    {=house.space.value=} {=house.space.unit=},
+                    {_}_}
                 </p>
+
                 <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value>
                 {_if(house.annual_return_estimated) {_}
                 <strong>{=house.annual_return_estimated=}</strong>
-                {_}_}
+                {_}_}</span>
                 <ul class=properties>
                     {_if(house.intention) {_}
-                     <li><i>⌘</i> {=house.intention.value=}</li>
-                {_}_}
+                    <li><i>⌘</i> {=house.intention.value=}</li>
+                    {_}_}
                     {_if(house.property_type) {_}
-                     <li><i>⌘</i> {=house.property_type.value=}</li>
-                {_}_}
+                    <li><i>⌘</i> {=house.property_type.value=}</li>
+                    {_}_}
                     {_if(house.streetx) {_}
-                     <li><i>⌘</i> {=house.street=}</li>
-                {_}_}
-                    
+                    <li><i>⌘</i> {=house.street=}</li>
+                    {_}_}
                 </ul>
             </div>
             <div class=action>
                 <a href="http://abc.com" class="button red">查看详情</a>
             </div>
         </div>
+    </div>
 </script>
 
 <div id="result" class="result">
     <div class="result_list_container">
-        <h2 id="number_container" class="result_number" style="display:none">{{_('共找到')}} <span id="number" class="number">331</span>{{_('套房产')}} </h2>
+        <h2 id="number_container" class="result_number" style="display:none">{{_('共找到')}} <span id="number"
+                                                                                                class="number">331</span>{{_('套房产')}}
+        </h2>
+
         <div id="result_list" class="result_list">
-            
+
         </div>
         <hr class="border">
         <img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
@@ -132,32 +111,35 @@
     <div id="tags" class="tags">
         %if (budget_list):
         <h3 class="title">{{_('你还可以选择更多')}}</h3>
-               
-        <div  class="price">
+
+        <div class="price">
             <img class="price_icon" alt="" src="/static/images/icon/price-tag.png"/>
             <h4 class="price_title">{{_('价格（单选）')}}</h4>
+
             <div id="budgetTag" class="inner">
                 %for index, budget in enumerate(budget_list):
                 <div class="toggleTag" data-id="{{budget.get('id')}}">{{_i18n(budget.get('value'))}}</div>
                 %end
             </div>
         </div>
-        
+
         %end
 
         %if (intention_list):
-        
+
         <div class="intention">
             <img class="intention_icon" alt="" src="/static/images/icon/intention-tag.png"/>
             <h4 class="intention_title">{{_('意向标签（多选）')}}</h4>
+
             <div id="intentionTag" class="inner">
                 %for index, intention in enumerate(intention_list):
-                <div class="toggleTag selected" data-id="{{intention.get('id')}}" >{{_i18n(intention.get('value'))}}</div>
+                <div class="toggleTag selected" data-id="{{intention.get('id')}}">{{_i18n(intention.get('value'))}}
+                </div>
                 %end
             </div>
         </div>
         %end
- 
+
     </div>
 </div>
 <!--@@close-->
