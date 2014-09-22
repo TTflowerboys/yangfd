@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
     equity_type='enum:equity_type',
     property_price_type="enum:property_price_type",
     annual_return_estimated=str,  # How?
+    budget="enum:budget"
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
@@ -37,13 +38,23 @@ def property_search(user, params):
 
     if "budget" in params:
         budget = f_app.util.parse_budget(params.pop("budget"))
-        params["$or"] = [
-            {"total_price.unit": "CNY", },
-            {"total_price.unit": "HKD", },
-            {"total_price.unit": "USD", },
-            {"total_price.unit": "GBP", },
-            {"total_price.unit": "EUR", },
-        ]
+        params["$or"] = []
+        for currency in f_app.common.currency:
+            condition = {"total_price.unit": currency}
+            if currency == budget[2]:
+                condition["total_price.value_float"] = {}
+                if budget[0]:
+                    condition["total_price.value_float"]["$gte"] = budget[0]
+                if budget[1]:
+                    condition["total_price.value_float"]["$lte"] = budget[1]
+            else:
+                condition["total_price.value_float"] = {}
+                if budget[0]:
+                    condition["total_price.value_float"]["$gte"] = float(f_app.util.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
+                if budget[1]:
+                    condition["total_price.value_float"]["$lte"] = float(f_app.util.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
+            params["$or"].append(condition)
+        logger.debug(params["$or"])
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
