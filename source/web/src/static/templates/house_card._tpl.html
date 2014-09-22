@@ -10,7 +10,7 @@
         <span class=price>
             {_if(house.total_price) {_}
             {=house.total_price.unit_symbol=}
-            <strong>{=house.total_price.value=}</strong>
+            <strong>{=parseFloat(house.total_price.value).toFixed(2)=}</strong>
             {_}_}
         </span>
         <div class=details>
@@ -22,28 +22,38 @@
                 {=house.bathroom_count=} {=window.i18n('洗手间')=},
                 {_}_}
                 {_if(house.space) {_}
-                {=house.space.value=} {=house.space.unit=},
+                {=house.space.value=}
+                     {_if (house.space.unit === 'foot ** 2)'){_}
+                     foot <sup>2</sup>
+                     {_} else if(house.space.unit === 'acre'){_}
+                     acre
+                     {_} else if (house.space.unit === 'meter ** 2') {_}
+                     m <sup>2</sup>
+                     {_} else if (house.space.unit === 'kilometer ** 2') {_}
+                     km <sup>2</sup>
+                     {_} else {_}
+                     house.space.unit
+                     {_}_}
                 {_}_}
             </p>
 
-            <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value>
+            <p class=estimate><span class=label>{=window.i18n('预期年租金')=}<br>{=window.i18n('收益率')=}</span><span class=value>
                     {_if(house.annual_return_estimated) {_}
-                    <strong>{=house.annual_return_estimated=}</strong>
-                    {_}_}</span>
+                    <strong>{=house.annual_return_estimated=}</strong>{_}_}%</span>
                 <ul class=properties>
                     {_if(house.intention) {_}
-                    <li><i>⌘</i> {=house.intention.value=}</li>
+                     <li><img src="/static/images/icon/house-card-tag.png" alt="" /> <span>{=house.intention.value=}</span> </li>
                     {_}_}
                     {_if(house.property_type) {_}
-                    <li><i>⌘</i> {=house.property_type.value=}</li>
+                     <li><img src="/static/images/icon/house-card-house.png" alt="" /> <span>{=house.property_type.value=}</span></li>
                     {_}_}
                     {_if(house.streetx) {_}
-                    <li><i>⌘</i> {=house.street=}</li>
+                     <li><img src="/static/images/icon/house-card-location.png" alt="" /> <span>{=house.street=}</span> </li>
                     {_}_}
                 </ul>
         </div>
         <div class=action>
-            <a href="http://abc.com" class="button red">查看详情</a>
+            <a href="http://abc.com" class="button red">{=window.i18n('查看详情')=}</a>
         </div>
     </div>
 </div>

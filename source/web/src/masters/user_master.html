@@ -41,10 +41,10 @@
                 </li>
             </ul>
         </div>
-        <div class="cv">
+        <div id="cvView" class="cv">
             <div class="header">
                 <h2>个人资料</h2>
-                <button class="ghostButton red">编辑</button>
+                <button name=edit type="button" class="ghostButton red">编辑</button>
             </div>
             <hr/>
             <table>
@@ -76,15 +76,18 @@
                 </tbody>
             </table>
         </div>
-        <form class="cv">
+        <form id="cvEdit" class="cv" style="display: none;">
             <div class="header">
                 <h2>个人资料</h2>
-                <button class="ghostButton red">取消</button>
-                <button class="ghostButton red">提交</button>
+                <button name="cancel" type="button" class="ghostButton red">取消</button>
+                <button type="submit" class="ghostButton red">提交</button>
             </div>
             <hr/>
-            <div class="error">
+            <div class="error" style="display: none;">
                 姓名不能为空。
+            </div>
+            <div class="success" style="display: none;">
+                更新成功。
             </div>
             <table>
                 <colgroup>
@@ -94,16 +97,13 @@
                 <tbody>
                     <tr>
                         <td>姓名</td>
-                        <td><input type="text" value="王超"/></td>
+                        <td><input name="nickname" type="text" value="王超" data-validator="required,trim"
+                            data-msg-required="请填写姓名"/></td>
                     </tr>
                     <tr>
                         <td>性别</td>
-                        <td><label><input name="gender" type="radio" value="male"/> 男</label>
+                        <td><label><input name="gender" type="radio" value="male" checked/> 男</label>
                             <label><input name="gender" type="radio" value="female"/> 女</label></td>
-                    </tr>
-                    <tr>
-                        <td>生日</td>
-                        <td><select name=""></select>年 <select name=""></select>月 <select name=""></select>日</td>
                     </tr>
                     <tr>
                         <td>国家</td>
@@ -125,4 +125,35 @@
         <!--@@placeholder = main-->
     </div>
 </div>
+<!--@@close-->
+<!--@@block = scripts-->
+<script>
+    $('#cvView').find('button[name=edit]').on('click', function () {
+        $('#cvView').hide()
+        $('#cvEdit').show()
+    })
+    $('#cvEdit').find('button[name=cancel]').on('click', function () {
+        $('#cvView').show()
+        $('#cvEdit').hide()
+    }).end()
+        .submit(function (e) {
+            e.preventDefault()
+            $(this).find('.error,.success').hide()
+            var valid = $.validate(this, {
+                onError: function (dom, name) {
+                    $('#cvEdit').find('.error').text(dom.getAttribute('data-msg-' + name)).show()
+                }
+            })
+
+            if (valid) {
+                var data = $(this).serializeObject()
+                console.log("data:")
+                console.log(data)
+                $('#cvEdit').find('.success').show()
+                throw '代码未完成'
+
+            }
+
+        })
+</script>
 <!--@@close-->

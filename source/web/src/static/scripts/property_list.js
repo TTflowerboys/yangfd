@@ -16,7 +16,7 @@
         }
         var budgetType = getSelectedBudgetType()
         if (budgetType) {
-            params.property_price_type = budgetType
+            params.budget = budgetType
         }
 
         var intention = getSelectedIntention()
