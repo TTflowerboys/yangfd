@@ -54,7 +54,6 @@ def property_search(user, params):
                 if budget[1]:
                     condition["total_price.value_float"]["$lte"] = float(f_app.util.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
             params["$or"].append(condition)
-        logger.debug(params["$or"])
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
