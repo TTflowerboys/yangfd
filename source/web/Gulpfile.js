@@ -99,7 +99,7 @@ gulp.task('less2css', function (done) {
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     gulp.src(myPaths.less)
-        .pipe(less())
+        .pipe(less().on('error', gutil.log))
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     done()

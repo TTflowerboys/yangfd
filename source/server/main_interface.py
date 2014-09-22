@@ -130,7 +130,7 @@ def coming_soon():
 
 @f_get('/user_settings')
 def user_settings():
-    return template("user_settings", user=get_current_user())
+    return template("user_settings", user=get_current_user(),country_list=get_country_list())
 
 
 @f_get('/admin')
