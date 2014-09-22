@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-20 19:31+0800\n"
+"POT-Creation-Date: 2014-09-22 15:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Generated-By: Babel 1.3\n"
 
 #: ../web/src/admin.html:5
-msgid "Dashboard"
+msgid "管理控制台"
 msgstr ""
 
 #: ../web/src/admin.html:104
-msgid "Warning"
+msgid "警告"
 msgstr ""
 
 #: ../web/src/coming_soon.html:18 ../web/src/coming_soon.html:85
-#: ../web/src/masters/master.html:25 ../web/src/masters/master.html:120
+#: ../web/src/masters/master.html:25 ../web/src/masters/master.html:119
 #: ../web/src/masters/signin_master.html:21
 #: ../web/src/masters/signin_master.html:36
 msgid "洋房东"
@@ -127,27 +127,27 @@ msgstr ""
 msgid "所有类型房产"
 msgstr ""
 
-#: ../web/src/property_list.html:124
+#: ../web/src/property_list.html:98
 msgid "共找到"
 msgstr ""
 
-#: ../web/src/property_list.html:124
+#: ../web/src/property_list.html:99
 msgid "套房产"
 msgstr ""
 
-#: ../web/src/property_list.html:130
+#: ../web/src/property_list.html:107
 msgid "加载更多"
 msgstr ""
 
-#: ../web/src/property_list.html:134
+#: ../web/src/property_list.html:111
 msgid "你还可以选择更多"
 msgstr ""
 
-#: ../web/src/property_list.html:138
+#: ../web/src/property_list.html:115
 msgid "价格（单选）"
 msgstr ""
 
-#: ../web/src/property_list.html:152
+#: ../web/src/property_list.html:130
 msgid "意向标签（多选）"
 msgstr ""
 
@@ -219,8 +219,8 @@ msgstr ""
 msgid "房产开发"
 msgstr ""
 
-#: ../web/src/masters/master.html:97
-msgid "切换语言"
+#: ../web/src/masters/master.html:96
+msgid "语言和货币"
 msgstr ""
 
 #: ../web/src/masters/master.html:99
@@ -235,27 +235,23 @@ msgstr ""
 msgid "English (UK)"
 msgstr ""
 
-#: ../web/src/masters/master.html:105
-msgid "切换货币"
-msgstr ""
-
-#: ../web/src/masters/master.html:107
+#: ../web/src/masters/master.html:106
 msgid "人民币"
 msgstr ""
 
-#: ../web/src/masters/master.html:108
+#: ../web/src/masters/master.html:107
 msgid "英镑"
 msgstr ""
 
-#: ../web/src/masters/master.html:109
+#: ../web/src/masters/master.html:108
 msgid "美元"
 msgstr ""
 
-#: ../web/src/masters/master.html:110
+#: ../web/src/masters/master.html:109
 msgid "欧元"
 msgstr ""
 
-#: ../web/src/masters/master.html:111
+#: ../web/src/masters/master.html:110
 msgid "港币"
 msgstr ""
 
@@ -346,13 +342,12 @@ msgstr ""
 #: ../web/src/static/emails/new_admin.html:3
 #: ../web/src/static/emails/set_as_admin.html:3
 #: ../web/src/static/emails/verify_email.html:3
-#: ../web/src/static/emails/we_are_ready.html:3
 msgid "你好，"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:4
 #: ../web/src/static/emails/set_as_admin.html:4
-msgid "请使用手机号码"
+msgid "您已经被授予洋房东管理后台的访问权限，请使用手机号码"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:4
@@ -370,66 +365,66 @@ msgid "登录入口为："
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:7
-#: ../web/src/static/emails/set_as_admin.html:6
-msgid "你已被授予以下权限："
+msgid "您已被授予以下权限："
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:12
 #: ../web/src/static/emails/set_as_admin.html:11
-msgid "senior administrator"
+msgid "高级平台管理员"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:14
 #: ../web/src/static/emails/set_as_admin.html:13
-msgid "junior administrator"
+msgid "初级平台管理员"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:16
 #: ../web/src/static/emails/set_as_admin.html:15
-msgid "senior salesperson"
+msgid "高级销售人员"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:18
 #: ../web/src/static/emails/set_as_admin.html:17
-msgid "junior salesperson"
+msgid "初级销售人员"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:20
 #: ../web/src/static/emails/set_as_admin.html:19
-msgid "senior operation"
+msgid "高级运营人员"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:22
 #: ../web/src/static/emails/set_as_admin.html:21
-msgid "junior operation"
+msgid "初级运营人员"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:24
 #: ../web/src/static/emails/set_as_admin.html:23
-msgid "senior support"
+msgid "高级客服人员"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:26
 #: ../web/src/static/emails/set_as_admin.html:25
-msgid "junior support"
+msgid "初级客服人员"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:28
 #: ../web/src/static/emails/set_as_admin.html:27
-msgid "developer"
+msgid "房产开发商"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:30
 #: ../web/src/static/emails/set_as_admin.html:29
-msgid "agency"
+msgid "房产中介"
 msgstr ""
 
 #: ../web/src/static/emails/new_admin_title.html:1
-msgid "Your admin console access password"
+#: ../web/src/static/emails/set_as_admin_title.html:1
+msgid "您已经被授予洋房东管理后台的访问权限"
 msgstr ""
 
 #: ../web/src/static/emails/new_ticket.html:3
-msgid "置业需求信息如下："
+msgid "收到新的置业需求信息如下："
 msgstr ""
 
 #: ../web/src/static/emails/new_ticket.html:5
@@ -452,12 +447,28 @@ msgstr ""
 msgid "需求描述："
 msgstr ""
 
-#: ../web/src/static/emails/set_as_admin_title.html:1
-msgid "You are now set as admin"
+#: ../web/src/static/emails/new_ticket_title.html:1
+msgid "收到新的置业需求"
+msgstr ""
+
+#: ../web/src/static/emails/set_as_admin.html:6
+msgid "你已被授予以下权限："
 msgstr ""
 
 #: ../web/src/static/emails/verify_email.html:4
-msgid "我们需要验证你的电子邮件。"
+msgid "欢迎使用洋房东，请点击以下链接验证你的邮箱地址："
+msgstr ""
+
+#: ../web/src/static/emails/verify_email.html:7
+msgid "如果以上链接无法访问，请将该网址复制并粘贴至新的浏览器窗口中。"
+msgstr ""
+
+#: ../web/src/static/emails/verify_email_title.html:1
+msgid "请验证您的邮箱"
+msgstr ""
+
+#: ../web/src/static/emails/we_are_ready.html:3
+msgid "您好"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:5
@@ -473,10 +484,14 @@ msgid "如果上面的链接无法点击，请复制该链接到浏览器地址�
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:17
-msgid "如果您有任何使用过程中的问题或者海外置业的需求，请联系我们:"
+msgid "如果您有任何使用过程中的问题或者有海外置业的需求，请联系我们:"
 msgstr ""
 
 #: ../web/src/static/emails/we_are_ready.html:21
 msgid "欢迎访问"
+msgstr ""
+
+#: ../web/src/static/emails/we_are_ready_title.html:1
+msgid "洋房东开放注册了!"
 msgstr ""
 

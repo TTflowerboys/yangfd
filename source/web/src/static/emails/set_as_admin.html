@@ -1,32 +1,32 @@
 <!--@@master = ../../masters/email.html-->
 <!--@@block=content-->
 <h1>{{_('你好，')}} {{nickname}}</h1>
-<p>{{_('请使用手机号码')}}（{{phone}}）{{_('登录')}}</p>
+<p>{{_('您已经被授予洋房东管理后台的访问权限，请使用手机号码')}}（{{phone}}）{{_('登录')}}</p>
 <p>{{_('登录入口为：')}}<a href="{{admin_console_url}}">{{admin_console_url}}</a></p>
 <p>{{_('你已被授予以下权限：')}}</p>
 <ul>
     % for r in role:
     <li>
         % if r == "admin":
-        {{_('senior administrator')}}
+        {{_('高级平台管理员')}}
         % elif r == "jr_admin":
-        {{_('junior administrator')}}
+        {{_('初级平台管理员')}}
         % elif r == "sales":
-        {{_('senior salesperson')}}
+        {{_('高级销售人员')}}
         % elif r == "jr_sales":
-        {{_('junior salesperson')}}
+        {{_('初级销售人员')}}
         % elif r == "operation":
-        {{_('senior operation')}}
+        {{_('高级运营人员')}}
         % elif r == "jr_operation":
-        {{_('junior operation')}}
+        {{_('初级运营人员')}}
         % elif r == "support":
-        {{_('senior support')}}
+        {{_('高级客服人员')}}
         % elif r == "jr_support":
-        {{_('junior support')}}
+        {{_('初级客服人员')}}
         % elif r == "developer":
-        {{_('developer')}}
+        {{_('房产开发商')}}
         % elif r == "agency":
-        {{_('agency')}}
+        {{_('房产中介')}}
         % end
     </li>
     % end
