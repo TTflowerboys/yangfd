@@ -66,19 +66,19 @@ angular.module('app')
          */
             .state('dashboard.enums', {
                 url: '/enums',
-                templateUrl: '/static/admin/templates/dashboard.enums.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.enums.normal.tpl.html',
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
             .state('dashboard.enums.create', {
                 url: '/create',
-                templateUrl: '/static/admin/templates/dashboard.enums.create.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.enums.normal.create.tpl.html',
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
             .state('dashboard.enums.edit', {
                 url: '/:id/edit',
-                templateUrl: '/static/admin/templates/dashboard.enums.edit.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.enums.normal.edit.tpl.html',
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
