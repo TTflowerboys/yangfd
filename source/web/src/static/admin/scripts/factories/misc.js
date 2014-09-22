@@ -114,8 +114,8 @@ angular.module('app')
                 }
                 var allKeys = _.union(_.keys(newJson), _.keys(oldJson))
 
-                for (var keyIndex = 0,keyLength=allKeys.length;keyIndex<keyLength;keyIndex+=1) {
-                    var key =allKeys[keyIndex]
+                for (var keyIndex = 0, keyLength = allKeys.length; keyIndex < keyLength; keyIndex += 1) {
+                    var key = allKeys[keyIndex]
                     if (oldJson[key] === undefined) {
                         addToResult(key, newJson[key])
                     } else if (newJson[key] === undefined) {
@@ -129,9 +129,9 @@ angular.module('app')
                             delete newJson[key]._i18n
                             delete oldJson[key]._i18n
                             if (!angular.equals(newJson[key], oldJson[key])) {
-                                if(_.isEmpty(newJson[key])){
+                                if (_.isEmpty(newJson[key])) {
                                     addToResult(key, '')
-                                }else{
+                                } else {
                                     addToResult(key, newJson[key])
                                 }
                             }
