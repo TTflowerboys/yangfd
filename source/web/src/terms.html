@@ -4,6 +4,9 @@
 <!--@@close-->
 
 <!--@@block=main -->
+%   from bottle import request
+{{request.query.get('query', '')}}
+{{request.query_string}}
 <!--@@close-->
 
 <!--@@block=scripts -->
