@@ -42,16 +42,12 @@
                     <div class="user">
                         %if user:
                         <div id="userInfo" class="userInfo">
-                            <p class="welcome">{{_('欢迎')}}</p>
                             <h2 class="userName">{{user["nickname"]}}</h2>
                             <button id="logout" class="logout ghostButton">{{_('登出')}}</button>
                         </div>
                         %else:
-                        <div id="userLogin" class="userLogin">
-                            <button id="login" class="login ghostButton red">{{_('登陆')}}</button>
-                            <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('注册')}}
-                            </button>
-                        </div>
+                        <button id="login" class="login ghostButton red">{{_('登陆')}}</button>
+                        <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('注册')}}</button>
                         %end
                     </div>
                 </header>
