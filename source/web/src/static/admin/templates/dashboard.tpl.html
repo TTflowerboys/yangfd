@@ -44,7 +44,7 @@
                                 <a href ui-sref="dashboard.admins"><i class="fa fa-home"></i><span class="hidden-sm text">人员管理</span></a>
                             </li>
                             <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums')}">
-                                <a href ui-sref="dashboard.enums" ui-sref-active="active"><i class="fa fa-picture-o"></i><span class="hidden-sm text">枚举数据管理</span>
+                                <a href ui-sref="dashboard.enums.normal" ui-sref-active="active"><i class="fa fa-picture-o"></i><span class="hidden-sm text">枚举数据管理</span>
                                     <span class="chevron" ng-class="{closed:!$state.includes('dashboard.enums'),opened:$state.includes('dashboard.enums')}"></span></a>
                                 <ul ng-style="{display:$state.includes('dashboard.enums')?'block':'none'}">
                                     <!--<li has-permission="admin,jr_admin,operation,jr_operation" ng-class="{active:$state.includes('dashboard.operation.wiki')}">-->

@@ -18,21 +18,6 @@
                     $scope.enums[index] = data.val || {}
                 })
         }
-
-        $scope.countries = {}
-        $scope.getCountries = function () {
-            api.getEnumsByType('country')
-                .success(function (data) {
-                    $scope.countries = data.val || {}
-                })
-        }
-        $scope.cities = {}
-        $scope.getCities = function () {
-            api.getEnumsByType('city')
-                .success(function (data) {
-                    $scope.cities = data.val || {}
-                })
-        }
         $scope.getEditEnumItem = function () {
             api.getI18nEnumsById($stateParams.id)
                 .success(function (data) {
