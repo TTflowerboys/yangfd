@@ -11,8 +11,8 @@
             $event.preventDefault()
             $scope.submitted = true
             $scope.loading = true
-            $scope.item = misc.cleanI18nEmptyData($scope.item)
             $scope.item = misc.cleanTempData($scope.item)
+            $scope.item = misc.cleanI18nEmptyUnit($scope.item)
             api.create($scope.item, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'

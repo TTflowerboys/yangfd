@@ -56,10 +56,9 @@
             $event.preventDefault()
             $scope.submitted = true
             var changed = JSON.parse(angular.toJson($scope.item))
-            changed = misc.cleanI18nEmptyData(changed)
-            changed = misc.getChangedI18nAttributes(changed, $scope.itemOrigin)
-            changed = misc.cleanI18nEmptyData(changed)
             changed = misc.cleanTempData(changed)
+            changed = misc.cleanI18nEmptyUnit(changed)
+            changed = misc.getChangedI18nAttributes(changed, $scope.itemOrigin)
             if (_.isEmpty(changed)) {
                 growl.addWarnMessage('Nothing to update')
                 return

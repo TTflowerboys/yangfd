@@ -113,7 +113,9 @@ angular.module('app')
                     }.bind(result)
                 }
                 var allKeys = _.union(_.keys(newJson), _.keys(oldJson))
-                for (var key in allKeys) {
+
+                for (var keyIndex = 0,keyLength=allKeys.length;keyIndex<keyLength;keyIndex+=1) {
+                    var key =allKeys[keyIndex]
                     if (oldJson[key] === undefined) {
                         addToResult(key, newJson[key])
                     } else if (newJson[key] === undefined) {
@@ -122,20 +124,16 @@ angular.module('app')
                         addToResult(key, newJson[key])
                     } else if (_.isObject(newJson[key])) {
                         var obj = newJson[key]
-                        var isI18nLanguage = false
-                        for (var i in obj) {
-                            for (var l in i18nLanguages) {
-                                if (i === i18nLanguages[l].value) {
-                                    isI18nLanguage = true
-                                    break;
-                                }
-                            }
-                        }
+                        var isI18nLanguage = obj._i18n !== undefined
                         if (isI18nLanguage) {
                             delete newJson[key]._i18n
                             delete oldJson[key]._i18n
                             if (!angular.equals(newJson[key], oldJson[key])) {
-                                addToResult(key, newJson[key])
+                                if(_.isEmpty(newJson[key])){
+                                    addToResult(key, '')
+                                }else{
+                                    addToResult(key, newJson[key])
+                                }
                             }
                         } else {
                             var temp = self.getChangedAttributes(newJson[key], oldJson[key])
@@ -160,7 +158,7 @@ angular.module('app')
                 })
             },
 
-            cleanI18nEmptyData: function (i18nData) {
+            cleanI18nEmptyUnit: function (i18nData) {
                 for (var i in i18nData) {
                     if (_.isNumber(i18nData[i])) {
                         continue
@@ -170,15 +168,15 @@ angular.module('app')
                         continue
                     }
                     if (i18nData[i].unit === undefined) {
-                        for (var index in i18nLanguages) {
-                            var lang = i18nLanguages[index].value
-                            if (_.isNumber(i18nData[i][lang])) {
-                                continue
-                            }
-                            if (_.isEmpty(i18nData[i][lang])) {
-                                delete i18nData[i][lang]
-                            }
-                        }
+//                        for (var index in i18nLanguages) {
+//                            var lang = i18nLanguages[index].value
+//                            if (_.isNumber(i18nData[i][lang])) {
+//                                continue
+//                            }
+//                            if (_.isEmpty(i18nData[i][lang])) {
+//                                delete i18nData[i][lang]
+//                            }
+//                        }
                         if (_.isEmpty(i18nData[i].value)) {
                             delete i18nData[i].value
                         }
