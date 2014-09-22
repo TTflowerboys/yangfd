@@ -29,6 +29,7 @@ def get_current_user():
 def get_country_list():
     return f_app.enum.get_all("country")
 
+
 @f_get('/')
 @check_landing
 def default():
@@ -130,7 +131,7 @@ def coming_soon():
 
 @f_get('/user_settings')
 def user_settings():
-    return template("user_settings", user=get_current_user(),country_list=get_country_list())
+    return template("user_settings", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/admin')
