@@ -25,10 +25,16 @@
             }
         }
     }
-    .cv { background: #f6f6f6;
-        .header {
-            h2 { font-size: 20px; }
+    .cv { background: #f6f6f6; padding: 16px;
+        hr { color: #cccccc; }
+        .header { margin: 16px 0;
+            h2 { font-size: 20px; display: inline-block; }
             button { float: right; }
+        }
+        dl { .clearfix();
+            dt { display: block; float: left; width: 20%; }
+            dd { display: block; margin: 0; float: left; width: 80%; }
+
         }
     }
 }
