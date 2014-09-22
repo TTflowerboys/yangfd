@@ -68,17 +68,11 @@
 
     function resetCityDataWhenCountryChange() {
         var selectedCountryId = $('select[name=propertyCountry]').children('option:selected').val()
-        var selectedCountry = ''
-        _.each(window.countryData, function (country) {
-            if (country.id === selectedCountryId) {
-                selectedCountry = country.slug
-            }
-        })
         var $citySelect = $('select[name=propertyCity]')
         $citySelect.empty()
         $citySelect.append('<option value=>' + window.i18n('所有城市') + '</option>')
         _.each(window.cityData, function (city) {
-            if (!selectedCountry || city.slug.indexOf(selectedCountry) === 0) {
+            if (!selectedCountryId || city.country.id === selectedCountryId) {
                 var item = '<option value=' + city.id + '>' + city.value[window.lang] + '</option>'
                 $citySelect.append(item)
             }
