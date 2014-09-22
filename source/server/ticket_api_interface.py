@@ -70,7 +70,7 @@ def intention_ticket_add(params):
                     user_params["password"] = password
                     f_app.email.schedule(
                         target=params["email"],
-                        subject="You are registered.",
+                        subject=template("static/emails/new_user_title"),
                         text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"]),
                         display="html",
                     )
@@ -108,7 +108,7 @@ def intention_ticket_add(params):
                     user_params["password"] = password
                     f_app.email.schedule(
                         target=params["email"],
-                        subject="You are registered.",
+                        subject=template("static/emails/new_user_title"),
                         text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"]),
                         display="html",
                     )
@@ -133,7 +133,7 @@ def intention_ticket_add(params):
         if "email" in sales:
             f_app.email.schedule(
                 target=sales["email"],
-                subject="收到新的置业需求",
+                subject=template("static/emails/new_ticket_title"),
                 text=template("static/emails/new_ticket", params=params),
                 display="html",
             )
@@ -307,7 +307,7 @@ def support_ticket_add(params):
         if "email" in support:
             f_app.email.schedule(
                 target=support["email"],
-                subject="收到新的客服单",
+                subject=template("static/emails/new_ticket_title"),
                 text=template("static/emails/new_ticket", params=params),
                 display="html",
             )

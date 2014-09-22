@@ -3,7 +3,7 @@
 @red: #e60012;
 @import "_imports";
 
-.userProfile {
+.userProfile { font-size: 12px;
     > img { display: block; }
     .account { color: #cccccc; background: #222222; padding: 40px; text-align: center;
         h1 { font-size: 30px; }
@@ -17,7 +17,7 @@
             }
         }
     }
-    .settings { background: #333333; color: #cccccc; font-size: 12px;
+    .settings { background: #333333; color: #cccccc;
         > ul { .clearfix(); padding: 16px 0;
             > li {
                 float: left; width: 33.33%; text-align: center; padding: 16px;
@@ -25,10 +25,14 @@
             }
         }
     }
-    .cv { background: #f6f6f6;
-        .header {
-            h2 { font-size: 20px; }
+    .cv { background: #f6f6f6; padding: 16px;
+        hr { color: #cccccc; }
+        .header { margin: 16px 0;
+            h2 { font-size: 20px; display: inline-block; }
             button { float: right; }
         }
+        col.head { width: 48px; }
+        td:first-child { color: #999; }
+        td { padding: 12px 0; }
     }
 }
