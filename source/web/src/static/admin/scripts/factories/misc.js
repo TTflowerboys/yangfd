@@ -112,9 +112,12 @@ angular.module('app')
                         this[key] = value
                     }.bind(result)
                 }
-                for (var key in newJson) {
+                var allKeys = _.union(_.keys(newJson), _.keys(oldJson))
+                for (var key in allKeys) {
                     if (oldJson[key] === undefined) {
                         addToResult(key, newJson[key])
+                    } else if (newJson[key] === undefined) {
+                        addToResult(key, '')
                     } else if (newJson.hasOwnProperty(key) && newJson[key].toString() !== oldJson[key].toString()) {
                         addToResult(key, newJson[key])
                     } else if (_.isObject(newJson[key])) {
