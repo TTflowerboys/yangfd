@@ -523,7 +523,7 @@ def email_send(user_id):
     verification_url = "http://" + request.urlparts[1] + "/user/email_verification/verify?code=" + f_app.user.email.request(user_id) + "&user_id=" + user_id
     f_app.email.schedule(
         target=user["email"],
-        subject="Veryfy email address",
+        subject=template("static/emails/verify_email_title"),
         text=template("static/emails/verify_email", verification_url=verification_url, nickname=user.get("nickname")),
         display="html",
     )
