@@ -83,13 +83,13 @@
                    %end
                    <ul class=properties>
                        %if (property.get('intention')) :
-                       <li><i>⌘</i> {{property.get('intention', '').get('value')}}</li>
+                       <li><img src="/static/images/icon/house-card-tag.png" alt="" /> <span>{{property.get('intention', '').get('value')}}</span></li>
                        %end
                        %if (property.get('equity_type')) :
-                       <li><i>⌘</i> {{property.get('equity_type', '').get('value')}}</li>
+                       <li><img src="/static/images/icon/house-card-house.png" alt="" /> <span> {{property.get('equity_type', '').get('value')}}</span></li>
                        %end
                        %if (_i18n(property.get('street'))) :
-                       <li><i>⌘</i> {{property.get('street', '')}}</li>
+                       <li><img src="/static/images/icon/house-card-location.png" alt="" /> <span>{{property.get('street', '')}} </span></li>
                        %end
                    </ul>
                </div>
