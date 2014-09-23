@@ -1,10 +1,3 @@
-$(window).on('resize', function () {
-    $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
-})
-$(function () {
-    $('#main').css({minHeight: $(window).height() - $('#copyright').height() - $('#footer').height() - $('#header').height()})
-})
-
 $(window).scroll(function(){
     if ($(this).scrollTop() > $(this).height()) {
         $('#floatWindow #scrollToTop').show();

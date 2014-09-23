@@ -54,18 +54,12 @@
         </div>
 
         <!-- @@include =../partials/js_import.html -->
-        <!-- build:js /static/scripts/signin_master.html.js -->
+
+        <!-- build:js /static/scripts/big_bg_master.html.js -->
         <script src="/static/scripts/i18n.js"></script>
+        <script src="/static/scripts/resize_main.js"></script>
         <!-- endbuild -->
-        <script>
-            (function () {
-                resizeMain()
-                $(window).on('resize', resizeMain)
-                function resizeMain() {
-                    $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
-                }
-            })()
-        </script>
+
         <!--@@placeholder=scripts-->
     </body>
 </html>
