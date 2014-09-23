@@ -41,7 +41,7 @@
                     </ul>
                     <div class="user">
                         %if user:
-                        <span class="nickname">{{user["nickname"]}}</span>
+                        <span class="nickname"> <a href="/user_settings">{{user["nickname"]}}</a></span>
                         <button id="logout" class="logout ghostButton">{{_('登出')}}</button>
                         %else:
                         <button id="login" class="login ghostButton red">{{_('登陆')}}</button>
