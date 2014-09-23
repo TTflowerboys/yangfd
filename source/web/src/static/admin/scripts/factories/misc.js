@@ -185,22 +185,30 @@ angular.module('app')
                             continue
                         }
                     } else {
-                        if (_.isString(i18nData[i].unit)) {
-                            if (_.isNumber(i18nData[i].value)) {
-                                continue
-                            }
-                            if (_.isEmpty(i18nData[i].value)) {
-                                delete i18nData[i]
-                                continue
-                            }
-                        } else {
-                            if (_.isString(i18nData[i].unit.unit) && _.isString(i18nData[i].price.unit)) {
-                                if (_.isNumber(i18nData[i].unit.value) && _.isNumber(i18nData[i].price.value)) {
+                        if (_.isObject(i18nData[i])) {
+                            if (_.isString(i18nData[i].unit)) {
+                                if (_.isNumber(i18nData[i].value)) {
                                     continue
                                 }
-                                if (_.isEmpty(i18nData[i].unit.value) || _.isEmpty(i18nData[i].price.value)) {
+                                if (_.isEmpty(i18nData[i].value)) {
                                     delete i18nData[i]
                                     continue
+                                }
+                            } else {
+                                if (_.isObject(i18nData[i].unit) || _.isObject(i18nData[i].price)) {
+
+                                    if (_.isNumber(i18nData[i].unit.value) && _.isNumber(i18nData[i].price.value)) {
+                                        if (_.isString(i18nData[i].unit.unit) && _.isString(i18nData[i].price.unit)) {
+                                            continue
+                                        }else{
+                                            delete i18nData[i]
+                                            continue
+                                        }
+                                    }
+                                    if (_.isEmpty(i18nData[i].unit.value) || _.isEmpty(i18nData[i].price.value)) {
+                                        delete i18nData[i]
+                                        continue
+                                    }
                                 }
                             }
                         }
