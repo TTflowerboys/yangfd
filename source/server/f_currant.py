@@ -11,6 +11,8 @@ from libfelix.f_interface import abort
 from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
 import six
+from six.moves import urllib
+from pyquery import PyQuery as q
 
 import phonenumbers
 import logging
@@ -442,6 +444,49 @@ class f_currant_plugins(f_app.plugin_base):
             type="crawler_example",
             start=datetime.utcnow() + timedelta(days=1),
         ))
+
+    def task_on_london_home(self):
+        params = {
+            "country": {"_id": ObjectId(f_app.enum.get_by_slug('GB')['id']), "type": "country", "_enum": "country"},
+            "city": {"_id": ObjectId(f_app.enum.get_by_slug('london')['id']), "type": "city", "_enum": "city"},
+        }
+        result = []
+        is_end = False
+        search_url = 'http://www.mylondonhome.com/search.aspx'
+        list_page_until = 0
+        list_page_counter = 0
+        list_post_data = {
+            "__EVENTTARGET": "_ctl1:CenterRegion:_ctl1:cntrlPagingHeader",
+            "__EVENTARGUMENT": 1
+        }
+        search_url_parsed = urllib.parse.urlparse(search_url)
+        search_url_prefix = "%s://%s" % (search_url_parsed.scheme, search_url_parsed.netloc)
+
+        while not is_end:
+            list_page_counter = list_page_counter + 1
+            list_post_data['__EVENTARGUMENT'] = list_page_counter
+            list_page = f_app.request.post(search_url, data=list_post_data)
+            if list_page.status_code == 200:
+                self.logger.debug("Start crawling page %d" % list_page_counter)
+                list_page_dom_root = q(list_page.content)
+                list_page_nav_links = list_page_dom_root("td.PagerOtherPageCells a.PagerHyperlinkStyle")
+                list_page_next_links = []
+                for i in list_page_nav_links:
+                    if i.text == ">":
+                        list_page_next_links.append(i)
+                is_end = False if len(list_page_next_links) else True
+
+                list_page_property_links = list_page_dom_root("div#cntrlPropertySearch_map_pnlResults a.propAdd")
+                for link in list_page_property_links:
+                    property_url = "%s%s" % (search_url_prefix, link.attrib['href'])
+                    logger.debug(property_url)
+                    property_page = f_app.request.get(property_url)
+                    if property_page.status_code == 200:
+                        params["property_crawler_id"] = property_page
+                    else:
+                        self.logger.debug("Failed crawling property_page %s, status_code is %d" % (property_url, property_page.status_code))
+            else:
+                self.logger.debug("Failed crawling page %d, status_code is %d" % (list_page_counter, list_page.status_code))
 
 
 f_currant_plugins()
