@@ -3,6 +3,7 @@ from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from libfelix.f_common import f_app
 from libfelix.f_interface import f_api, abort
+from bson.objectid import ObjectId
 
 import logging
 logger = logging.getLogger(__name__)
@@ -221,7 +222,9 @@ def property_edit(property_id, user, params):
                 if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
                     if "target_property_id" in property:
                         def action(params):
-                            property.pop("id")
+                            with f_app.mongo() as m:
+                                property = f_app.property.get_database(m).find_one({"_id": ObjectId(property_id)})
+                            property.pop("_id")
                             property["status"] = params["status"]
                             result = f_app.property.update_set(property.pop("target_property_id"), property)
                             f_app.property.update_set(property_id, {"status": "deleted"})
