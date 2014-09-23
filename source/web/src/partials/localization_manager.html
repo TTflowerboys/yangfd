@@ -13,7 +13,7 @@
     <span id="所有国家">{{_('所有国家')}}</span>
     <span id="所有城市">{{_('所有城市')}}</span>
     <span id="所有房屋类型">{{_('所有房屋类型')}}</span>
-    <span id="登陆失败">{{_('登陆失败')}}</span>
+    <span id="登录失败">{{_('登录失败')}}</span>
     <span id="注册失败">{{_('注册失败')}}</span>
     <span id="重置密码失败">{{_('重置密码失败')}}</span>
     <span id="房间">{{_('房间')}}</span>
@@ -27,14 +27,14 @@
 <span id="current_Currency" style="display:none">CNY</span>
 
 <script>
-    
+
   window.lang = document.getElementById('current_Language').innerHTML
   window.currency = document.getElementById('current_Currency').innerHTML
-  
+
   function i18n(key) {
       return $('#data_localization #' + key).text()
   }
-  
+
   function getInputValidationMessage(domName, validator) {
       var inputMessageDic = {
           'nickname_required': '姓名不能为空',
@@ -47,6 +47,6 @@
       }
       return i18n(inputMessageDic[ domName + '_' + validator])
   }
-  
-  
+
+
 </script>

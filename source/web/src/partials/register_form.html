@@ -12,12 +12,12 @@
             <input name="password" type="password" placeholder={{_('密码')}} size=20 data-validator="required, trim">
         </div>
     </div>
-    <h4 class="formsHint">{{_('手机号为登陆和找回密码凭证，请填写真实号码')}}</h4>
+    <h4 class="formsHint">{{_('手机号为登录和找回密码凭证，请填写真实号码')}}</h4>
     <div class="captchaCode">
         <div id="recaptcha_div"></div>
     </div>
     <div class="terms"><input type="checkbox" checked/>{{_('我同意')}}<a href="/terms">{{_('会员服务须知')}}</a></div>
     <button type="submit" class="register button gray">{{_('注册')}}</button>
     <p class="errorMessage" style="display:none"></p>
-    <h3 class="hasAccountHint">{{_('已经拥有账号？请')}}<a href="#" onclick="project.goToSignIn()">{{_('登陆')}}</a></h3>
+    <h3 class="hasAccountHint">{{_('已经拥有账号？请')}}<a href="#" onclick="project.goToSignIn()">{{_('登录')}}</a></h3>
 </form>

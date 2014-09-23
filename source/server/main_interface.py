@@ -74,6 +74,10 @@ def signup():
 def signin():
     return template("signin", user=get_current_user(), country_list=get_country_list())
 
+@f_get('/intention')
+@check_landing
+def intention():
+    return template("intention", user=get_current_user(), country_list=get_country_list())
 
 @f_get('/reset_password')
 @check_landing
