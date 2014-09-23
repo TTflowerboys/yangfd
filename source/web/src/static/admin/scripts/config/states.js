@@ -248,8 +248,8 @@ angular.module('app')
             })
             .state('dashboard.users.detail', {
                 url: '/:id',
-                templateUrl: '/static/admin/templates/dashboard.users.detail.tpl.html',
-                controller: 'ctrlDetail',
+                templateUrl: '/static/admin/templates/dashboard.users.profile.tpl.html',
+                controller: 'ctrlUserProfile',
                 resolve: {
                     api: function (userApi) {
                         return userApi

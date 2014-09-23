@@ -1,7 +1,11 @@
 <!-- start: Content -->
 <div id="content" class="col-lg-10 col-sm-11 ">
 
-    <breadcrumb></breadcrumb>
+    <div class="buttons">
+        <span class="btn-group">
+            <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
+        </span>
+    </div>
 
     <div class="row profile">
 
@@ -9,21 +13,28 @@
 
             <div class="row">
                 <div class="col-xs-7 col-sm-12">
-                    <img class="profile-image" data-ng-src="{%user.face%}">
+                    <img class="profile-image" data-ng-src="{%item.face%}">
                 </div>
                 <div class="col-xs-5 col-sm-12">
                     <h3>General Information</h3>
 
                     <ul class="profile-details">
                         <li>
-                            <div><i class="fa fa-briefcase"></i> Name</div>
-                            <span data-ng-bind="user.first_name + user.last_name"></span>
+                            <div><i class="fa fa-briefcase"></i> 姓名</div>
+                            <span data-ng-bind="item.nickname"></span>
                         </li>
                         <li>
-                            <div><i class="fa fa-building-o"></i> Gender</div>
-                            <span data-ng-bind="user.gender"></span>
+                            <div><i class="fa fa-building-o"></i> 性别</div>
+                            <span data-ng-bind="item.gender"></span>
                         </li>
-
+                        <li>
+                            <div><i class="fa fa-building-o"></i> 国家</div>
+                            <span data-ng-bind="item.country"></span>
+                        </li>
+                        <li>
+                            <div><i class="fa fa-building-o"></i> 城市</div>
+                            <span data-ng-bind="item.city"></span>
+                        </li>
                     </ul>
 
                     <h3>Contact Information</h3>
@@ -31,11 +42,15 @@
                     <ul class="profile-details">
                         <li>
                             <div><i class="fa fa-phone"></i> mobile phone</div>
-                            <span data-ng-bind="user.phone"></span>
+                            <span>+{%item.country_code%}  {%item.phone%}</span>
                         </li>
                         <li>
                             <div><i class="fa fa-envelope"></i> e-mail</div>
-                            <span data-ng-bind="user.email"></span>
+                            <span>{%item.email%}</span>
+                        </li>
+                        <li>
+                            <div><i class="fa fa-envelope"></i> 微信</div>
+                            <span>{%item.wechat_id%}</span>
                         </li>
                     </ul>
                 </div>
@@ -48,15 +63,18 @@
         <div class="col-sm-9">
 
 
-            <ul class="nav nav-tabs" id="donorTypeTab">
-                <li data-ng-class="{active:tabName==='redemptions'}" data-ng-click="changeTab('redemptions')">
-                    <a style="cursor: pointer;">Deal Redemptions</a>
+            <ul class="nav nav-tabs" id="userInfoTab">
+                <li data-ng-class="{active:tabName==='favs'}" data-ng-click="changeTab('favs')">
+                    <a style="cursor: pointer;">收藏房产</a>
                 </li>
-                <li data-ng-class="{active:tabName==='orders'}" data-ng-click="changeTab('orders')">
-                    <a style="cursor: pointer;">Membership Orders</a>
+                <li data-ng-class="{active:tabName==='intentions'}" data-ng-click="changeTab('intentions')">
+                    <a style="cursor: pointer;">投资意向单</a>
                 </li>
-                <li data-ng-class="{active:tabName==='cards'}" data-ng-click="changeTab('cards')">
-                    <a style="cursor: pointer;">Credit Cards</a>
+                <li data-ng-class="{active:tabName==='purchases'}" data-ng-click="changeTab('purchases')">
+                    <a style="cursor: pointer;">已购房产</a>
+                </li>
+                <li data-ng-class="{active:tabName==='supports'}" data-ng-click="changeTab('supports')">
+                    <a style="cursor: pointer;">客服单</a>
                 </li>
             </ul>
 
