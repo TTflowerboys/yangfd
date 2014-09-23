@@ -21,8 +21,8 @@
         $.post("/api/1/user/login",
             params,
             function (data, status) {
-                if (data.ret != 0) {
-                    alert("Data: " + data.msg + "\nStatus: " + status);
+                if (data.ret !== 0) {
+                    alert("Data: " + data.msg + "\nError Code: " + data.ret);
                 }
                 else {
                     project.goBackFromURL()
