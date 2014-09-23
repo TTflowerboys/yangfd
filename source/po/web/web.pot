@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-23 11:08+0800\n"
+"POT-Creation-Date: 2014-09-23 14:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,7 +141,7 @@ msgid "共找到"
 msgstr ""
 
 #: ../web/src/property_list.html:49
-msgid " 套房产"
+msgid "套房产"
 msgstr ""
 
 #: ../web/src/property_list.html:57
@@ -153,11 +153,11 @@ msgid "从搜索结果中筛选"
 msgstr ""
 
 #: ../web/src/property_list.html:65
-msgid "价格（单选）"
+msgid "价格(单选)"
 msgstr ""
 
 #: ../web/src/property_list.html:80
-msgid "投资意向（多选）"
+msgid "投资意向(多选)"
 msgstr ""
 
 #: ../web/src/masters/master.html:37
