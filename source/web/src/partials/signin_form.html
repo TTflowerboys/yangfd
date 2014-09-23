@@ -13,3 +13,25 @@
     <p class="errorMessage" style="display:none"></p>
     <h3 class="notHaveAccountHint">{{_('还没有账号？请')}}<a href="#" onclick="project.goToSignUp()">{{_('注册')}}</a></h3>
 </form>
+
+<script>
+    $('form[name=signin]').submit(function (e) {
+        e.preventDefault()
+        var valid = $.validate(this, {onError: function (dom, validator, index) {
+            alert(dom.name + " validate error " + validator)
+        }})
+        if (!valid) {return}
+        var params = $(this).serializeObject()
+        params.password = Base64.encode(params.password)
+        $.post("/api/1/user/login",
+            params,
+            function (data, status) {
+                if (data.ret != 0) {
+                    alert("Data: " + data.msg + "\nStatus: " + status);
+                }
+                else {
+                    project.goBackFromURL()
+                }
+            });
+    })
+</script>

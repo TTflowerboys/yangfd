@@ -21,3 +21,50 @@
     <p class="errorMessage" style="display:none"></p>
     <h3 class="hasAccountHint">{{_('已经拥有账号？请')}}<a href="#" onclick="project.goToSignIn()">{{_('登录')}}</a></h3>
 </form>
+
+<script type="text/javascript" src="/static/vendors/recaptcha_ajax.js"></script>
+<script type="text/javascript">
+    function showRecaptcha() {
+        Recaptcha.create("6LfNfvkSAAAAACXjRTaEqvN-aLyG6w5Swp2kh9yz", "recaptcha_div",
+            {theme: "white", callback: Recaptcha.focus_response_field});
+    }
+</script>
+<script>
+    $(function () {
+        showRecaptcha()
+    })
+
+
+    var errorArea = $('form[name=register]').find('.errorMessage')
+    $('form[name=register]').submit(function (e) {
+        e.preventDefault()
+        errorArea.hide()
+
+        var valid = $.validate(this, {onError: function (dom, validator, index) {
+            errorArea.text(window.getInputValidationMessage(dom.name, validator))
+            errorArea.show()
+        }})
+
+        if (!valid) {
+            return
+        }
+
+        var params = $(this).serializeObject()
+        params.password = Base64.encode(params.password)
+        params['challenge'] = Recaptcha.get_challenge()
+        params['solution'] = Recaptcha.get_response()
+        $.post("/api/1/user/register",
+            params,
+            function (data, status) {
+                if (data.ret != 0) {
+                    errorArea.text(window.i18n('注册失败'))
+                    errorArea.show()
+                }
+                else {
+                    project.goBackFromURL()
+                }
+                //refresh it for may user submit fail, or submit again with another account
+                showRecaptcha()
+            });
+    })
+</script>
