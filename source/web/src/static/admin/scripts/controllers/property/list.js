@@ -1,5 +1,5 @@
 /* Created by frank on 14-9-17. */
-
+/* jshint -W083:true */
 
 (function () {
 
@@ -85,7 +85,18 @@
             $scope.fetched = true
             $scope.list = data.val.content
             $scope.pages[$scope.currentPageNumber] = $scope.list
-
+            for(var index in $scope.list){
+                
+                var listItem = $scope.list[index]
+                if(listItem.target_property_id){
+                    (function(index){
+                        api.getOne(listItem.target_property_id,{errorMessage:true})
+                            .success(function(data){
+                                $scope.list[index] = angular.extend(data.val,$scope.list[index] )
+                            })
+                    })(index)
+                }
+            }
             if (!$scope.list || $scope.list.length < $scope.perPage) {
                 $scope.noNext = true
             } else {
