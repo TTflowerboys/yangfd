@@ -180,7 +180,7 @@ angular.module('app')
             .state('dashboard.operation.news.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.operation.news.edit.tpl.html',
-                controller: 'ctrlEdit',
+                controller: 'ctrlNewsEdit',
                 resolve: {
                     api: function (newsApi) {
                         return newsApi
