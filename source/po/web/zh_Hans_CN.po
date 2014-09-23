@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-22 15:27+0800\n"
+"POT-Creation-Date: 2014-09-23 11:08+0800\n"
 "PO-Revision-Date: 2014-09-17 10:39+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -27,7 +27,7 @@ msgid "警告"
 msgstr ""
 
 #: ../web/src/coming_soon.html:18 ../web/src/coming_soon.html:85
-#: ../web/src/masters/master.html:25 ../web/src/masters/master.html:119
+#: ../web/src/masters/master.html:25 ../web/src/masters/master.html:112
 #: ../web/src/masters/signin_master.html:21
 #: ../web/src/masters/signin_master.html:36
 msgid "洋房东"
@@ -102,54 +102,63 @@ msgstr ""
 msgid "置业需求已提交，稍后我们的工作人员会联系你"
 msgstr ""
 
-#: ../web/src/property_list.html:32
+#: ../web/src/coming_soon.html:90 ../web/src/masters/master.html:93
+msgid "简体中文(中国)"
+msgstr ""
+
+#: ../web/src/coming_soon.html:91 ../web/src/masters/master.html:94
+#: ../web/src/masters/signin_master.html:50
+msgid "English (United Kingdom)"
+msgstr ""
+
+#: ../web/src/property_list.html:31
 msgid "我想在"
 msgstr ""
 
-#: ../web/src/property_list.html:34
+#: ../web/src/property_list.html:33
 #: ../web/src/partials/localization_manager.html:13
 msgid "所有国家"
 msgstr ""
 
-#: ../web/src/property_list.html:36
+#: ../web/src/property_list.html:35
 msgid "的"
 msgstr ""
 
-#: ../web/src/property_list.html:38
+#: ../web/src/property_list.html:37
 #: ../web/src/partials/localization_manager.html:14
 msgid "所有城市"
 msgstr ""
 
-#: ../web/src/property_list.html:40
+#: ../web/src/property_list.html:39
 msgid "投资"
 msgstr ""
 
-#: ../web/src/property_list.html:42
+#: ../web/src/property_list.html:41
 msgid "所有类型房产"
 msgstr ""
 
-#: ../web/src/property_list.html:98
+#: ../web/src/property_list.html:49
 msgid "共找到"
 msgstr ""
 
-#: ../web/src/property_list.html:99
-msgid "套房产"
+#: ../web/src/property_list.html:49
+msgid " 套房产"
 msgstr ""
 
-#: ../web/src/property_list.html:107
+#: ../web/src/property_list.html:57
 msgid "加载更多"
 msgstr ""
 
-#: ../web/src/property_list.html:111
-msgid "你还可以选择更多"
+#: ../web/src/property_list.html:61
+msgid "从搜索结果中筛选"
 msgstr ""
 
-#: ../web/src/property_list.html:115
+#: ../web/src/property_list.html:65
 msgid "价格（单选）"
 msgstr ""
 
-#: ../web/src/property_list.html:130
-msgid "意向标签（多选）"
+#: ../web/src/property_list.html:80
+msgid "投资意向（多选）"
 msgstr ""
 
 #: ../web/src/masters/master.html:37
@@ -161,7 +170,7 @@ msgid "海外房产"
 msgstr ""
 
 #: ../web/src/masters/master.html:39
-msgid "项目开发"
+msgid "海外众筹"
 msgstr ""
 
 #: ../web/src/masters/master.html:40
@@ -169,90 +178,74 @@ msgid "业务模式"
 msgstr ""
 
 #: ../web/src/masters/master.html:45
-msgid "欢迎"
-msgstr ""
-
-#: ../web/src/masters/master.html:47
 msgid "登出"
 msgstr ""
 
-#: ../web/src/masters/master.html:51
+#: ../web/src/masters/master.html:47
 msgid "登陆"
 msgstr ""
 
-#: ../web/src/masters/master.html:52
+#: ../web/src/masters/master.html:48
 msgid "注册"
 msgstr ""
 
-#: ../web/src/masters/master.html:77
+#: ../web/src/masters/master.html:71
 msgid "社交"
 msgstr ""
 
-#: ../web/src/masters/master.html:84
+#: ../web/src/masters/master.html:78
 msgid "服务支持"
 msgstr ""
 
-#: ../web/src/masters/master.html:85 ../web/src/masters/signin_master.html:39
+#: ../web/src/masters/master.html:79 ../web/src/masters/signin_master.html:39
 msgid "服务条款"
 msgstr ""
 
-#: ../web/src/masters/master.html:86
+#: ../web/src/masters/master.html:80
 msgid "隐私声明"
 msgstr ""
 
-#: ../web/src/masters/master.html:87 ../web/src/masters/signin_master.html:45
+#: ../web/src/masters/master.html:81 ../web/src/masters/signin_master.html:45
 msgid "业务流程"
 msgstr ""
 
-#: ../web/src/masters/master.html:90
+#: ../web/src/masters/master.html:84
 msgid "功能"
 msgstr ""
 
-#: ../web/src/masters/master.html:91
+#: ../web/src/masters/master.html:85
 msgid "伦敦房产"
 msgstr ""
 
-#: ../web/src/masters/master.html:92
+#: ../web/src/masters/master.html:86
 msgid "期房"
 msgstr ""
 
-#: ../web/src/masters/master.html:93
+#: ../web/src/masters/master.html:87
 msgid "房产开发"
 msgstr ""
 
-#: ../web/src/masters/master.html:96
+#: ../web/src/masters/master.html:90
 msgid "语言和货币"
 msgstr ""
 
 #: ../web/src/masters/master.html:99
-msgid "简体中文(中国)"
-msgstr ""
-
-#: ../web/src/masters/master.html:100
-msgid "繁體中文(香港)"
-msgstr ""
-
-#: ../web/src/masters/master.html:101
-msgid "English (UK)"
-msgstr ""
-
-#: ../web/src/masters/master.html:106
 msgid "人民币"
 msgstr ""
 
-#: ../web/src/masters/master.html:107
+#: ../web/src/masters/master.html:100
 msgid "英镑"
 msgstr ""
 
-#: ../web/src/masters/master.html:108
+#: ../web/src/masters/master.html:101
 msgid "美元"
 msgstr ""
 
-#: ../web/src/masters/master.html:109
+#: ../web/src/masters/master.html:102
 msgid "欧元"
 msgstr ""
 
-#: ../web/src/masters/master.html:110
+#: ../web/src/masters/master.html:103
 msgid "港币"
 msgstr ""
 
@@ -262,14 +255,6 @@ msgstr ""
 
 #: ../web/src/masters/signin_master.html:49
 msgid "中文简体（中国）"
-msgstr ""
-
-#: ../web/src/masters/signin_master.html:50
-msgid "中文繁体（香港）"
-msgstr ""
-
-#: ../web/src/masters/signin_master.html:51
-msgid "English (United Kingdom)"
 msgstr ""
 
 #: ../web/src/partials/float_window.html:17
@@ -334,6 +319,26 @@ msgstr ""
 
 #: ../web/src/partials/localization_manager.html:18
 msgid "重置密码失败"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:19
+msgid "房间"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:20
+msgid "洗手间"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:21
+msgid "预期年租金"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:22
+msgid "收益率"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:23
+msgid "查看详情"
 msgstr ""
 
 #: ../web/src/partials/requirement_popup.html:52
@@ -710,5 +715,29 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "洋房东开放注册了"
+#~ msgstr ""
+
+#~ msgid "套房产"
+#~ msgstr ""
+
+#~ msgid "你还可以选择更多"
+#~ msgstr ""
+
+#~ msgid "意向标签（多选）"
+#~ msgstr ""
+
+#~ msgid "项目开发"
+#~ msgstr ""
+
+#~ msgid "欢迎"
+#~ msgstr ""
+
+#~ msgid "繁體中文(香港)"
+#~ msgstr ""
+
+#~ msgid "English (UK)"
+#~ msgstr ""
+
+#~ msgid "中文繁体（香港）"
 #~ msgstr ""
 
