@@ -47,11 +47,6 @@ angular.module('app')
 //                        .success(function (data) {
 //                            scope.systemCities = data.val
 //                        })
-//                    geoApi.getCitiesByCountry({params: {_i18n: 'disabled', country: newValue}})
-//                        .success(function (data) {
-//                            console.log(data.val)
-//                            scope.systemCities = data.val
-//                        })
 //                })
             }
         }
