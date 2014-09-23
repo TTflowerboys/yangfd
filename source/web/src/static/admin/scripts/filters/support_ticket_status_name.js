@@ -2,7 +2,7 @@
  * Created by Michael on 14/9/20.
  */
 angular.module('app')
-    .filter('intentionTicketStatusName', function (misc, supportTicketStatus) {
+    .filter('supportTicketStatusName', function (misc, supportTicketStatus) {
         return function (status) {
             if (!status) { return }
 
