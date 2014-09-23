@@ -91,7 +91,7 @@ gulp.task('symlink', function () {
 
 gulp.task('clean', function () {
     return gulp.src(myPaths.dist, {read: false})
-        .pipe(rimraf({force: true, verbose: true}))
+        .pipe(rimraf({force: true, verbose: false}))
 })
 
 
