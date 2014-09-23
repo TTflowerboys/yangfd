@@ -5,12 +5,7 @@
             <div class="buttons">
 
                 <span class="form-inline">
-                    <span class="input-group">
-                        <input class="form-control" size="16" type="text" ng-model="searchText">
-                        <span class="input-group-btn">
-                            <button class="btn" type="button" ng-click="onSearch(searchText)">搜索</button>
-                        </span>
-                    </span>
+                    <search-query></search-query>
                 </span>
                 <span class="btn-group pull-right">
                     <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
