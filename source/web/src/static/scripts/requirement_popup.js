@@ -1,6 +1,6 @@
 var popup =  $('#requirement_popup')
 
-$('.floatWindow #requirement').click(function () {
+$('.floatBar #requirement').click(function () {
     var successArea = popup.find('.requirement .successMessage')
     successArea.hide()
     var errorArea = popup.find('.errorMessage')

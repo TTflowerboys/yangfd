@@ -3,7 +3,7 @@
     <head>
         <!-- @@include = partials/meta.html -->
 
-        <!-- @@include =partials/css_import.html -->
+        <!-- @@include =partials/css_base.html -->
 
         <!--build:css(dist) /static/styles/comingSoon.css-->
         <link rel="stylesheet" href="/static/styles/comingSoon.css"/>
@@ -13,8 +13,7 @@
         <script src="/static/vendors/html5shiv.min.js"></script>
         <![endif]-->
 
-        <link rel="icon" href="/static/images/icon/favicon.ico" type="image/x-icon"/>
-        <link rel="shortcut icon" href="/static/images/icon/favicon.ico" type="image/x-icon"/>
+        <!-- @@include = partials/favicon.html -->
         <title>{{_('洋房东')}}</title>
 
     </head>
@@ -96,10 +95,10 @@
         </div>
         </div>
 
-        <!-- @@include =partials/js_import.html -->
+        <!-- @@include =partials/js_base.html -->
 
         <!--build:js /static/scripts/coming_soon.js-->
-        <script src="/static/scripts/localization.js"></script>
+        <script src="/static/scripts/i18n.js"></script>
         <script src="/static/scripts/coming_soon.js"></script>
         <!--endbuild-->
     </body>

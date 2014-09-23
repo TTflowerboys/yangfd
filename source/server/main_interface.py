@@ -138,6 +138,11 @@ def user_settings():
     return template("user_settings", user=get_current_user(), country_list=get_country_list())
 
 
+@f_get('/user_verify_phone')
+def user_verify_phone():
+    return template("user_verify_phone", user=get_current_user(), country_list=get_country_list())
+
+
 @f_get('/admin')
 def admin():
     return template("admin")

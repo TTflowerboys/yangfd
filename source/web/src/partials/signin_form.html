@@ -4,11 +4,13 @@
         <hr>
         <div class="form_row">
             <img src="/static/images/icon/lock.png" alt=""/>
-            <input name="password" type="password" placeholder={{_('密码')}}  size=10 data-validator="required, trim">
-            <a id="forgotPassword" href="#" onclick="project.goToResetPassword()" style="position:absolute; right:0;font-size:12px; color:#aaa;">{{_('忘记密码')}}</a>
+            <input name="password" type="password" placeholder={{_('密码')}} size=10 data-validator="required, trim">
+            <a id="forgotPassword" href="#" onclick="project.goToResetPassword()"
+                style="position:absolute; right:0;font-size:12px; color:#aaa;">{{_('忘记密码')}}</a>
         </div>
     </div>
     <button type="submit" class="signin button gray">{{_('登录')}}</button>
     <p class="errorMessage" style="display:none"></p>
     <h3 class="notHaveAccountHint">{{_('还没有账号？请')}}<a href="#" onclick="project.goToSignUp()">{{_('注册')}}</a></h3>
 </form>
+

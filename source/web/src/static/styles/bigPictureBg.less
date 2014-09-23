@@ -1,25 +1,31 @@
+/*! Created by frank on 14-9-23.  */
 @import "project/_imports";
 
-* {
-    box-sizing: border-box;
-}
-
-.page {
-    > main {
-        min-height: 300px;
-        font: @font-normal;
-        font-size: 14px
-    }
-}
+body { font: 14px/1.6 @font-normal; }
 
 .bigPictureBg {
     background: url('/static/images/background/login-background.jpg') no-repeat center top;
     background-size: cover;
+    overflow: hidden;
+    min-height: 300px;
+    display: table;
+    width: 100%;
+    > .inner {
+        display: table-cell;
+        vertical-align: middle;
+        > .box {
+            background: #f0f0f0;
+            border-radius: 6px;
+            padding: 48px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+            margin: 32px auto;
+            max-width: @max-width;
+        }
+    }
 }
 
 .copyright {
     &_wrapper {
-        width: 100%;
         overflow: hidden;
         background: @copyright-bg;
         height: @copyright-height;

@@ -91,7 +91,7 @@ gulp.task('symlink', function () {
 
 gulp.task('clean', function () {
     return gulp.src(myPaths.dist, {read: false})
-        .pipe(rimraf({force: true, verbose: true}))
+        .pipe(rimraf({force: true, verbose: false}))
 })
 
 
@@ -133,7 +133,7 @@ gulp.task('styleless2css', function () {
 
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
-        .pipe(extender({verbose: true}))
+        .pipe(extender())
         .pipe(gulp.dest(myPaths.dist))
 })
 
@@ -158,14 +158,10 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
     //.pipe(gulp.dest(myPaths.dist))
     //.pipe(emailFilter.restore())
 })
-gulp.task('xxx', function () {
-    console.log('x')
-})
-
 
 gulp.task('watch', function () {
     gulp.watch(myPaths.less, ['less2css'])
-    gulp.watch(myPaths.html, ['html-extend', 'xxx'])
+    gulp.watch(myPaths.html, ['html-extend'])
     gulp.watch(myPaths.js, ['debug:lint'])
 })
 

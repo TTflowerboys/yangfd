@@ -3,11 +3,10 @@
     <head>
         <!-- @@include = ../partials/meta.html -->
 
-        <!-- @@include =../partials/css_import.html -->
+        <!-- @@include =../partials/css_base.html -->
 
-        <!--build:css(dist) /static/styles/project/signin_master.html.css-->
-        <link rel="stylesheet" href="/static/styles/signin.css"/>
-        <link rel="stylesheet" href="/static/styles/project/modal.css"/>
+        <!--build:css(dist) /static/styles/project/big_picture_bg_master.html.css-->
+        <link rel="stylesheet" href="/static/styles/bigPictureBg.css"/>
         <!--endbuild-->
 
         <!--[if lte IE 8]>
@@ -16,17 +15,19 @@
 
         <!-- @@placeholder = head -->
 
-        <link rel="icon" href="/static/images/icon/favicon.ico" type="image/x-icon"/>
-        <link rel="shortcut icon" href="/static/images/icon/favicon.ico" type="image/x-icon"/>
+        <!-- @@include = ../partials/favicon.html -->
+
         <title>{{_('洋房东')}}</title>
     </head>
     <body>
         <!-- @@include =../partials/data_manager.html -->
         <!-- @@include =../partials/localization_manager.html -->
         <div class="page">
-            <main id="main" class="bigPictureBg">
-                <!-- @@placeholder = main -->
-            </main>
+            <div id="main" class="bigPictureBg">
+                <div class="inner">
+                    <!-- @@placeholder = main -->
+                </div>
+            </div>
             <div id="copyright" class="copyright_wrapper">
                 <div class="copyright">
                     <p>&copy;<script>document.write(new Date().getFullYear())</script>
@@ -53,11 +54,13 @@
             </div>
         </div>
 
-        <!-- @@include =../partials/js_import.html -->
-        <!-- build:js /static/scripts/signin_master.html.js -->
-        <script src="/static/scripts/localization.js"></script>
-        <script src="/static/scripts/signin_master.js"></script>
+        <!-- @@include =../partials/js_base.html -->
+
+        <!-- build:js /static/scripts/big_picture_bg_master.html.js -->
+        <script src="/static/scripts/i18n.js"></script>
+        <script src="/static/scripts/resize_main.js"></script>
         <!-- endbuild -->
+
         <!--@@placeholder=scripts-->
     </body>
 </html>

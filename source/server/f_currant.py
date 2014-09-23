@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime, timedelta
+import random
+import phonenumbers
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, DESCENDING
+import six
+from six.moves import urllib
+from pyquery import PyQuery as q
+
 from libfelix.f_common import f_app
 from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
@@ -10,11 +16,7 @@ from libfelix.f_log import f_log
 from libfelix.f_interface import abort
 from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
-import six
-from six.moves import urllib
-from pyquery import PyQuery as q
 
-import phonenumbers
 import logging
 logger = logging.getLogger(__name__)
 
@@ -346,7 +348,10 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["crawler_example"]
+    task = ["crawler_example", "assign_property_short_id"]
+
+    def __init__(self):
+        f_app.dependency_register('pyquery', race="python")
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -427,6 +432,25 @@ class f_currant_plugins(f_app.plugin_base):
     def message_output_each(self, message):
         message["status"] = message.pop("state", "deleted")
         return message
+
+    def task_on_assign_property_short_id(self, task):
+        # Validate that the property is still available:
+        try:
+            property = f_app.property.get(task["property_id"])
+        except:
+            return
+
+        if "short_id" in property:
+            return
+
+        # TODO: not infinity?
+        while True:
+            new_short_id = "".join([str(random.randint(0, 9)) for i in range(6)])
+            found_property = f_app.property.search({"status": {"$in": ["selling", "hidden", "sold out"]}, "short_id": new_short_id})
+            if not len(found_property):
+                break
+
+        f_app.property.update_set(task["property_id"], {"short_id": new_short_id})
 
     def task_on_crawler_example(self, task):
         # Please use f_app.request for ANY HTTP(s) requests.
@@ -538,10 +562,16 @@ class f_property(f_app.module_base):
             return _format_each(result)
 
     def add(self, params):
-        params.setdefault("status", "new")
+        params.setdefault("status", "draft")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
             property_id = self.get_database(m).insert(params)
+
+        if params["status"] in ("selling", "hidden", "sold out"):
+            f_app.task.put(dict(
+                type="assign_property_short_id",
+                property_id=str(property_id),
+            ))
 
         return str(property_id)
 
@@ -612,6 +642,13 @@ class f_property(f_app.module_base):
                 params,
             )
         property = self.get(property_id, force_reload=True)
+
+        if property["status"] in ("selling", "hidden", "sold out") and "short_id" not in property:
+            f_app.task.put(dict(
+                type="assign_property_short_id",
+                property_id=property_id,
+            ))
+
         return property
 
     def update_set(self, property_id, params):
