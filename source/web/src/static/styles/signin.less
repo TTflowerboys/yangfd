@@ -12,11 +12,9 @@
     }
 }
 
-.signInBackground {
-    background-image: url('/static/images/background/login-background.jpg');
-    background-repeat: no-repeat;
+.bigPictureBg {
+    background: url('/static/images/background/login-background.jpg') no-repeat center top;
     background-size: cover;
-    background-position: center top;
 }
 
 .copyright {
@@ -37,7 +35,7 @@
         color: #ffffff;
         display: inline-block;
     }
-    .navbar {.horizontalList(@padding: 16px); float: right;
+    .navbar { .horizontalList(@padding: 16px); float: right;
         > li {
             line-height: @copyright-height;
             margin: 0px;
