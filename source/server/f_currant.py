@@ -476,7 +476,7 @@ class f_currant_plugins(f_app.plugin_base):
         }
         result = []
         is_end = False
-        search_url = 'http://www.mylondonhome.com/search.aspx'
+        search_url = 'http://www.mylondonhome.com/search.aspx?ListingType=5'
         list_page_until = 0
         list_page_counter = 0
         list_post_data = {
@@ -582,7 +582,7 @@ class f_property(f_app.module_base):
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False):
         f_app.util.process_search_params(params)
         self.logger.debug("search params: ", params)
-        params.setdefault("status", "new")
+        params.setdefault("status", {"$ne": "deleted"})
         if sort is not None:
             try:
                 sort_field, sort_orientation = sort
@@ -633,6 +633,8 @@ class f_property(f_app.module_base):
         return action(params)
 
     def remove(self, property_id):
+        for child_property_id in self.search({'target_property_id': ObjectId(property_id)}, per_page=0):
+            self.remove(child_property_id)
         self.update_set(property_id, {"status": "deleted"})
 
     def update(self, property_id, params):
