@@ -13,7 +13,6 @@
             <strong>{=parseFloat(house.total_price.value).toFixed(2)=}</strong>
             {_}_}
         </span>
-
             <div class=details>
                 <p class=size>
                     {_if(house.living_room_count) {_}
@@ -51,7 +50,7 @@
                     <li><img src="/static/images/icon/house-card-house.png" alt=""/>
                         <span>{=house.property_type.value=}</span></li>
                     {_}_}
-                    {_if(house.streetx) {_}
+                    {_if(house.street) {_}
                     <li><img src="/static/images/icon/house-card-location.png" alt=""/> <span>{=house.street=}</span>
                     </li>
                     {_}_}
