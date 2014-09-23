@@ -1,0 +1,69 @@
+<!-- start: Content -->
+<div id="content" class="col-lg-10 col-sm-11 ">
+
+    <breadcrumb></breadcrumb>
+
+    <div class="row profile">
+
+        <div class="col-sm-3">
+
+            <div class="row">
+                <div class="col-xs-7 col-sm-12">
+                    <img class="profile-image" data-ng-src="{%user.face%}">
+                </div>
+                <div class="col-xs-5 col-sm-12">
+                    <h3>General Information</h3>
+
+                    <ul class="profile-details">
+                        <li>
+                            <div><i class="fa fa-briefcase"></i> Name</div>
+                            <span data-ng-bind="user.first_name + user.last_name"></span>
+                        </li>
+                        <li>
+                            <div><i class="fa fa-building-o"></i> Gender</div>
+                            <span data-ng-bind="user.gender"></span>
+                        </li>
+
+                    </ul>
+
+                    <h3>Contact Information</h3>
+
+                    <ul class="profile-details">
+                        <li>
+                            <div><i class="fa fa-phone"></i> mobile phone</div>
+                            <span data-ng-bind="user.phone"></span>
+                        </li>
+                        <li>
+                            <div><i class="fa fa-envelope"></i> e-mail</div>
+                            <span data-ng-bind="user.email"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--/row-->
+
+        </div>
+        <!--/col-->
+
+        <div class="col-sm-9">
+
+
+            <ul class="nav nav-tabs" id="donorTypeTab">
+                <li data-ng-class="{active:tabName==='redemptions'}" data-ng-click="changeTab('redemptions')">
+                    <a style="cursor: pointer;">Deal Redemptions</a>
+                </li>
+                <li data-ng-class="{active:tabName==='orders'}" data-ng-click="changeTab('orders')">
+                    <a style="cursor: pointer;">Membership Orders</a>
+                </li>
+                <li data-ng-class="{active:tabName==='cards'}" data-ng-click="changeTab('cards')">
+                    <a style="cursor: pointer;">Credit Cards</a>
+                </li>
+            </ul>
+
+            <grid></grid>
+
+        </div>
+        <!--/col-->
+    </div>
+</div>
+<!--/profile-->

@@ -69,6 +69,8 @@
 
         }
 
+        $scope.onGetList = onGetList
+
         function onGetList(data) {
             $scope.fetched = true
             $scope.list = data.val

@@ -9,24 +9,7 @@ angular.module('app')
                     var param = {}
                     param.query =  searchText || undefined
 
-                    $scope.api.search({params: param, errorMessage: true}).success(onGetList)
-                }
-
-                function onGetList(data) {
-                    $scope.fetched = true
-                    $scope.list = data.val
-                    $scope.pages[$scope.currentPageNumber] = $scope.list
-
-                    if (!$scope.list || $scope.list.length < $scope.perPage) {
-                        $scope.noNext = true
-                    } else {
-                        $scope.noNext = false
-                    }
-                    if ($scope.currentPageNumber <= 1) {
-                        $scope.noPrev = true
-                    } else {
-                        $scope.noPrev = false
-                    }
+                    $scope.api.search({params: param, errorMessage: true}).success($scope.onGetList)
                 }
             }
         }
