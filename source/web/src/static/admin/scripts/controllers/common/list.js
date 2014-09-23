@@ -20,15 +20,6 @@
             api.getAll({ params: params}).success(onGetList)
         }
 
-        $scope.onSearch = function (searchText) {
-            params.phone = searchText || undefined
-            delete params.time
-            delete params.register_time
-            delete params.insert_time
-
-            api.search({params: params, errorMessage: true}).success(onGetList)
-        }
-
         $scope.onRemove = function (item) {
             fctModal.show('Do you want to remove it?', undefined, function () {
                 api.remove(item.id).success(function () {

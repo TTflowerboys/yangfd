@@ -1,5 +1,5 @@
 %if country_list:
-<select name="country" class="coutry ghostSelect" style="color:#4d4d4d;">
+<select name="country" class="country ghostSelect" style="color:#4d4d4d;">
     %for index, country  in enumerate(country_list):
     <option value="{{country.get('id')}}">
         %if (country.get('slug') == 'CN'):

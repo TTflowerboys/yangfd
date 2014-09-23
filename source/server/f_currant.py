@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime, timedelta
+import random
+import phonenumbers
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, DESCENDING
+import six
+from six.moves import urllib
+from pyquery import PyQuery as q
+
 from libfelix.f_common import f_app
 from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
@@ -10,9 +16,7 @@ from libfelix.f_log import f_log
 from libfelix.f_interface import abort
 from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
-import six
 
-import phonenumbers
 import logging
 logger = logging.getLogger(__name__)
 
@@ -344,7 +348,10 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["crawler_example"]
+    task = ["crawler_example", "assign_property_short_id"]
+
+    def __init__(self):
+        f_app.dependency_register('pyquery', race="python")
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -426,6 +433,25 @@ class f_currant_plugins(f_app.plugin_base):
         message["status"] = message.pop("state", "deleted")
         return message
 
+    def task_on_assign_property_short_id(self, task):
+        # Validate that the property is still available:
+        try:
+            property = f_app.property.get(task["property_id"])
+        except:
+            return
+
+        if "short_id" in property:
+            return
+
+        # TODO: not infinity?
+        while True:
+            new_short_id = "".join([str(random.randint(0, 9)) for i in range(6)])
+            found_property = f_app.property.search({"status": {"$in": ["selling", "hidden", "sold out"]}, "short_id": new_short_id})
+            if not len(found_property):
+                break
+
+        f_app.property.update_set(task["property_id"], {"short_id": new_short_id})
+
     def task_on_crawler_example(self, task):
         # Please use f_app.request for ANY HTTP(s) requests.
         # Fetch the list
@@ -442,6 +468,49 @@ class f_currant_plugins(f_app.plugin_base):
             type="crawler_example",
             start=datetime.utcnow() + timedelta(days=1),
         ))
+
+    def task_on_london_home(self):
+        params = {
+            "country": {"_id": ObjectId(f_app.enum.get_by_slug('GB')['id']), "type": "country", "_enum": "country"},
+            "city": {"_id": ObjectId(f_app.enum.get_by_slug('london')['id']), "type": "city", "_enum": "city"},
+        }
+        result = []
+        is_end = False
+        search_url = 'http://www.mylondonhome.com/search.aspx'
+        list_page_until = 0
+        list_page_counter = 0
+        list_post_data = {
+            "__EVENTTARGET": "_ctl1:CenterRegion:_ctl1:cntrlPagingHeader",
+            "__EVENTARGUMENT": 1
+        }
+        search_url_parsed = urllib.parse.urlparse(search_url)
+        search_url_prefix = "%s://%s" % (search_url_parsed.scheme, search_url_parsed.netloc)
+
+        while not is_end:
+            list_page_counter = list_page_counter + 1
+            list_post_data['__EVENTARGUMENT'] = list_page_counter
+            list_page = f_app.request.post(search_url, data=list_post_data)
+            if list_page.status_code == 200:
+                self.logger.debug("Start crawling page %d" % list_page_counter)
+                list_page_dom_root = q(list_page.content)
+                list_page_nav_links = list_page_dom_root("td.PagerOtherPageCells a.PagerHyperlinkStyle")
+                list_page_next_links = []
+                for i in list_page_nav_links:
+                    if i.text == ">":
+                        list_page_next_links.append(i)
+                is_end = False if len(list_page_next_links) else True
+
+                list_page_property_links = list_page_dom_root("div#cntrlPropertySearch_map_pnlResults a.propAdd")
+                for link in list_page_property_links:
+                    property_url = "%s%s" % (search_url_prefix, link.attrib['href'])
+                    logger.debug(property_url)
+                    property_page = f_app.request.get(property_url)
+                    if property_page.status_code == 200:
+                        params["property_crawler_id"] = property_page
+                    else:
+                        self.logger.debug("Failed crawling property_page %s, status_code is %d" % (property_url, property_page.status_code))
+            else:
+                self.logger.debug("Failed crawling page %d, status_code is %d" % (list_page_counter, list_page.status_code))
 
 
 f_currant_plugins()
@@ -493,10 +562,16 @@ class f_property(f_app.module_base):
             return _format_each(result)
 
     def add(self, params):
-        params.setdefault("status", "new")
+        params.setdefault("status", "draft")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
             property_id = self.get_database(m).insert(params)
+
+        if params["status"] in ("selling", "hidden", "sold out"):
+            f_app.task.put(dict(
+                type="assign_property_short_id",
+                property_id=str(property_id),
+            ))
 
         return str(property_id)
 
@@ -505,6 +580,8 @@ class f_property(f_app.module_base):
         return propertys
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False):
+        f_app.util.process_search_params(params)
+        self.logger.debug("search params: ", params)
         params.setdefault("status", "new")
         if sort is not None:
             try:
@@ -565,6 +642,13 @@ class f_property(f_app.module_base):
                 params,
             )
         property = self.get(property_id, force_reload=True)
+
+        if property["status"] in ("selling", "hidden", "sold out") and "short_id" not in property:
+            f_app.task.put(dict(
+                type="assign_property_short_id",
+                property_id=property_id,
+            ))
+
         return property
 
     def update_set(self, property_id, params):

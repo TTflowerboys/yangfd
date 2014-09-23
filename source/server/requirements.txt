@@ -6,6 +6,7 @@ Twisted
 gevent>0.99
 newrelic
 topia.termextract
+pyquery
 passlib
 six
 pydns

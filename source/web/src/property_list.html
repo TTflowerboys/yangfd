@@ -29,15 +29,15 @@
 <div class="category_wrapper">
     <div class="category">
         <span>{{_('我想在')}}</span>
-        <select class="ghostSelect" id="" name="propertyCountry">
-            <option value="" selected>{{_('所有国家')}}</option>
+        <select class="ghostSelect"  name="propertyCountry">
+            <option value="" selected>{{_('所有国家/地区')}}</option>
         </select>
         <span>{{_('的')}}</span>
-        <select class="ghostSelect" id="" name="propertyCity">
+        <select class="ghostSelect"  name="propertyCity">
             <option value="" selected>{{_('所有城市')}}</option>
         </select>
         <span>{{_('投资')}}</span>
-        <select class="ghostSelect" id="" name="propertyType">
+        <select class="ghostSelect"  name="propertyType">
             <option value="" selected>{{_('所有类型房产')}}</option>
         </select>
     </div>
@@ -46,7 +46,7 @@
 
 <div id="result" class="result">
     <div class="result_list_container">
-        <h2 id="number_container" class="result_number" style="display:none">{{_('共找到')}} <span id="number" class="number">331</span>{{_(' 套房产')}}
+        <h2 id="number_container" class="result_number" style="display:none">{{_('共找到')}} <span id="number" class="number"></span> {{_('套房产')}}
         </h2>
 
         <div id="result_list" class="result_list">
@@ -62,7 +62,7 @@
 
         <div class="price">
             <img class="price_icon" alt="" src="/static/images/icon/price-tag.png"/>
-            <h4 class="price_title">{{_('价格（单选）')}}</h4>
+            <h4 class="price_title">{{_('价格(单选)')}}</h4>
 
             <div id="budgetTag" class="inner">
                 %for index, budget in enumerate(budget_list):
@@ -77,11 +77,11 @@
 
         <div class="intention">
             <img class="intention_icon" alt="" src="/static/images/icon/intention-tag.png"/>
-            <h4 class="intention_title">{{_('投资意向（多选）')}}</h4>
+            <h4 class="intention_title">{{_('投资意向(多选)')}}</h4>
 
             <div id="intentionTag" class="inner">
                 %for index, intention in enumerate(intention_list):
-                <div class="toggleTag selected" data-id="{{intention.get('id')}}">{{_i18n(intention.get('value'))}}
+                <div class="toggleTag" data-id="{{intention.get('id')}}">{{_i18n(intention.get('value'))}}
                 </div>
                 %end
             </div>

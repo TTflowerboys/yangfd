@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-23 11:08+0800\n"
-"PO-Revision-Date: 2014-09-23 11:13+0800\n"
+"POT-Creation-Date: 2014-09-23 14:02+0800\n"
+"PO-Revision-Date: 2014-09-23 14:15+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -173,8 +173,7 @@ msgid "共找到"
 msgstr "Found"
 
 #: ../web/src/property_list.html:49
-#, fuzzy
-msgid " 套房产"
+msgid "套房产"
 msgstr "Properties"
 
 #: ../web/src/property_list.html:57
@@ -186,12 +185,11 @@ msgid "从搜索结果中筛选"
 msgstr "More Filters For Results"
 
 #: ../web/src/property_list.html:65
-msgid "价格（单选）"
+msgid "价格(单选)"
 msgstr "Price (Single Choice)"
 
 #: ../web/src/property_list.html:80
-#, fuzzy
-msgid "投资意向（多选）"
+msgid "投资意向(多选)"
 msgstr "Intentions (Multiple Choices)"
 
 #: ../web/src/masters/master.html:37
@@ -291,29 +289,24 @@ msgid "中文简体（中国）"
 msgstr "简体中文(中国)"
 
 #: ../web/src/partials/float_window.html:17
-#, fuzzy
 msgid "电话："
 msgstr "Phone"
 
 #: ../web/src/partials/localization_manager.html:2
-#, fuzzy
 msgid "姓名不能为空"
-msgstr "should not be empty"
+msgstr "Name should not be empty"
 
 #: ../web/src/partials/localization_manager.html:3
-#, fuzzy
 msgid "电话不能为空"
-msgstr "should not be empty"
+msgstr "Phone should not be empty"
 
 #: ../web/src/partials/localization_manager.html:4
-#, fuzzy
 msgid "电话格式不正确"
-msgstr "is bad format"
+msgstr "Phone is bad format"
 
 #: ../web/src/partials/localization_manager.html:5
-#, fuzzy
 msgid "邮箱格式不合法"
-msgstr "is invalid format"
+msgstr "Email is invalid format"
 
 #: ../web/src/partials/localization_manager.html:6
 msgid "姓名"
@@ -328,14 +321,12 @@ msgid "邮箱"
 msgstr "Email"
 
 #: ../web/src/partials/localization_manager.html:9
-#, fuzzy
 msgid "验证码不为空"
-msgstr "should not be empty"
+msgstr "Captcha should not be empty"
 
 #: ../web/src/partials/localization_manager.html:10
-#, fuzzy
 msgid "密码不为空"
-msgstr "should not be empty"
+msgstr "Password should not be empty"
 
 #: ../web/src/partials/localization_manager.html:11
 msgid "订阅失败"
@@ -350,14 +341,12 @@ msgid "所有房屋类型"
 msgstr "Any Kind Of Property"
 
 #: ../web/src/partials/localization_manager.html:16
-#, fuzzy
 msgid "登陆失败"
-msgstr "Sign In"
+msgstr "Sign In Failed"
 
 #: ../web/src/partials/localization_manager.html:17
-#, fuzzy
 msgid "注册失败"
-msgstr "Sign Up"
+msgstr "Sign Up Failed"
 
 #: ../web/src/partials/localization_manager.html:18
 msgid "重置密码失败"
@@ -499,7 +488,6 @@ msgid "需求描述："
 msgstr "Description"
 
 #: ../web/src/static/emails/new_ticket_title.html:1
-#, fuzzy
 msgid "收到新的置业需求"
 msgstr "Got new property request ticket:"
 
@@ -552,12 +540,10 @@ msgstr ""
 "property purchasing requirement in UK:"
 
 #: ../web/src/static/emails/we_are_ready.html:21
-#, fuzzy
 msgid "欢迎访问"
 msgstr "Welcome"
 
 #: ../web/src/static/emails/we_are_ready_title.html:1
-#, fuzzy
 msgid "洋房东开放注册了!"
 msgstr "YoungFunding is open for registering now!"
 

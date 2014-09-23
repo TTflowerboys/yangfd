@@ -3,7 +3,7 @@
     <head>
         <!-- @@include = ../partials/meta.html -->
 
-        <!-- @@include =../partials/css_import.html -->
+        <!-- @@include =../partials/css_base.html -->
 
         <!--build:css(dist) /static/styles/project/master.html.css-->
         <link rel="stylesheet" href="/static/styles/project/layout.css"/>
@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="/static/styles/project/siteFooter.css"/>
         <link rel="stylesheet" href="/static/styles/project/modal.css"/>
         <link rel="stylesheet" href="/static/styles/project/signinForm.css"/>
-        <link rel="stylesheet" href="/static/styles/floatWindow.css"/>
+        <link rel="stylesheet" href="/static/styles/floatBar.css"/>
         <link rel="stylesheet" href="/static/styles/requirementPopup.css"/>
         <!--endbuild-->
 
@@ -20,8 +20,8 @@
         <!--[if lte IE 8]>
         <script src="/static/vendors/html5shiv.min.js"></script>
         <![endif]-->
-        <link rel="icon" href="/static/images/icon/favicon.ico" type="image/x-icon"/>
-        <link rel="shortcut icon" href="/static/images/icon/favicon.ico" type="image/x-icon"/>
+
+        <!-- @@include = ../partials/favicon.html -->
         <title>{{_('洋房东')}}</title>
 
     </head>
@@ -41,10 +41,10 @@
                     </ul>
                     <div class="user">
                         %if user:
-                        <span class="nickname">{{user["nickname"]}}</span>
+                        <span class="nickname"> <a href="/user_settings">{{user["nickname"]}}</a></span>
                         <button id="logout" class="logout ghostButton">{{_('登出')}}</button>
                         %else:
-                        <button id="login" class="login ghostButton red">{{_('登陆')}}</button>
+                        <button id="login" class="login ghostButton red">{{_('登录')}}</button>
                         <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('注册')}}</button>
                         %end
                     </div>
@@ -119,14 +119,15 @@
             <!-- @@include =../partials/signin_form.html -->
         </div>
 
-        <!-- @@include =../partials/float_window.html -->
+        <!-- @@include =../partials/float_bar.html -->
         <!-- @@include =../partials/requirement_popup.html -->
 
-        <!-- @@include =../partials/js_import.html -->
+        <!-- @@include =../partials/js_base.html -->
 
         <!-- build:js /static/scripts/master.html.js -->
+        <script src="/static/scripts/resize_main.js"></script>
         <script src="/static/scripts/master.js"></script>
-        <script src="/static/scripts/localization.js"></script>
+        <script src="/static/scripts/i18n.js"></script>
         <script src="/static/scripts/signin_modal.js"></script>
         <script src="/static/scripts/requirement_popup.js"></script>
         <!-- endbuild -->

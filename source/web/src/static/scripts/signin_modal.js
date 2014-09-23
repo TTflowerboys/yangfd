@@ -23,7 +23,7 @@ $('form[name=signin]').submit(function (e) {
            params,
            function (data, status) {
                if (data.ret !== 0) {
-                   errorArea.text(window.i18n('登陆失败'))
+                   errorArea.text(window.i18n('登录失败'))
                    errorArea.show()
                }
                else {

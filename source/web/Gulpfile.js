@@ -91,7 +91,7 @@ gulp.task('symlink', function () {
 
 gulp.task('clean', function () {
     return gulp.src(myPaths.dist, {read: false})
-        .pipe(rimraf({force: true, verbose: true}))
+        .pipe(rimraf({force: true, verbose: false}))
 })
 
 
@@ -158,7 +158,6 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
     //.pipe(gulp.dest(myPaths.dist))
     //.pipe(emailFilter.restore())
 })
-
 
 gulp.task('watch', function () {
     gulp.watch(myPaths.less, ['less2css'])

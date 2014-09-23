@@ -1,65 +1,15 @@
-<!doctype html>
-<html>
-    <head>
-        <!-- @@include = ../partials/meta.html -->
-
-        <!-- @@include =../partials/css_import.html -->
-
-        <!--build:css(dist) /static/styles/project/signin_master.html.css-->
-        <link rel="stylesheet" href="/static/styles/signin.css"/>
-        <link rel="stylesheet" href="/static/styles/project/modal.css"/>
-        <!--endbuild-->
-
-        <!--[if lte IE 8]>
-        <script src="/static/vendors/html5shiv.min.js"></script>
-        <![endif]-->
-
-        <!-- @@placeholder = head -->
-
-        <link rel="icon" href="/static/images/icon/favicon.ico" type="image/x-icon" />
-        <link rel="shortcut icon" href="/static/images/icon/favicon.ico" type="image/x-icon" />
-        <title>{{_('洋房东')}}</title>
-    </head>
-    <body>
-        <!-- @@include =../partials/data_manager.html -->
-        <!-- @@include =../partials/localization_manager.html -->
-        <div class="page">
-            <main id="main" class="signInBackground">
-                <div id="modal" class="modal">
-                    <a href="/"><img class="logo" src="/static/images/logo-login-{{_.lang}}.png" alt=""/></a>
-                    <!-- @@placeholder = main -->
-                </div>
-            </main>
-            <div id="copyright" class="copyright_wrapper">
-                <div class="copyright">
-                    <p>&copy;<script>document.write(new Date().getFullYear())</script>
-                        {{_('洋房东')}}
-                    </p>
-                    <ul class="navbar">
-                        <li><a href="/terms">{{_('服务条款')}}</a><img src="/static/images/navbar-seperator.png" class="seperator"/>
-                        </li>
-                        <li>
-                            <a href="/privacy">{{_('隐私协议')}}</a><img src="/static/images/navbar-seperator.png" class="seperator"/>
-                        </li>
-                        <li>
-                            <a href="/process">{{_('业务流程')}}</a><img src="/static/images/navbar-seperator.png" class="seperator"/>
-                        </li>
-                        <li>
-                            <select name="language" class="ghostSelect" style="min-width: 140px;">
-                                <option value="zh_Hans_CN" selected>{{_('中文简体（中国）')}}</option>
-                                <option value="en_GB">{{_('English (United Kingdom)')}}</option>
-                            </select>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- @@include =../partials/js_import.html -->
-        <!-- build:js /static/scripts/master.html.js -->
-        <script src="/static/scripts/localization.js"></script>
-        <script src="/static/scripts/signin_master.js"></script>
-        <!-- endbuild -->
-        <!--@@placeholder=scripts-->
-    </body>
-</html>
+<!--@@master = big_picture_bg_master.html-->
+<!--@@block = head-->
+<!--@@placeholder = head-->
+<!--@@close-->
+<!--@@block = main-->
+<div class="box" style="width: 416px">
+    <div class="textCenter">
+        <a href="/"><img class="logo" src="/static/images/logo-login-{{_.lang}}.png" alt=""/></a>
+    </div>
+    <!-- @@placeholder = main -->
+</div>
+<!--@@close-->
+<!--@@block = scripts -->
+<!--@@placeholder = scripts -->
+<!--@@close-->

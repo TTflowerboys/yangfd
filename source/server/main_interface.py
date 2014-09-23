@@ -74,6 +74,10 @@ def signup():
 def signin():
     return template("signin", user=get_current_user(), country_list=get_country_list())
 
+@f_get('/intention')
+@check_landing
+def intention():
+    return template("intention", user=get_current_user(), country_list=get_country_list())
 
 @f_get('/reset_password')
 @check_landing
@@ -132,6 +136,11 @@ def coming_soon():
 @f_get('/user_settings')
 def user_settings():
     return template("user_settings", user=get_current_user(), country_list=get_country_list())
+
+
+@f_get('/user_verify_phone')
+def user_verify_phone():
+    return template("user_verify_phone", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/admin')
