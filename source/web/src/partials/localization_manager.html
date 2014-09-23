@@ -24,27 +24,29 @@
 </div>
 
 <span id="current_Language" style="display:none">{{_.lang}}</span>
+<span id="current_Currency" style="display:none">CNY</span>
 
 <script>
-
-window.lang = document.getElementById('current_Language').innerHTML
-
-function i18n(key) {
-    return $('#data_localization #' + key).text()
-}
-
-function getInputValidationMessage(domName, validator) {
-    var inputMessageDic = {
-        'nickname_required': '姓名不能为空',
-        'phone_required': '电话不能为空',
-        'phone_number': '电话格式不正确',
-        'email_required': '邮箱不能为空',
-        'email_email': '邮箱格式不合法',
-        'code_required': '验证码不能为空',
-        'password_required': '密码不能为空'
-    }
-    return i18n(inputMessageDic[ domName + '_' + validator])
-}
-
-
+    
+  window.lang = document.getElementById('current_Language').innerHTML
+  window.currency = document.getElementById('current_Currency').innerHTML
+  
+  function i18n(key) {
+      return $('#data_localization #' + key).text()
+  }
+  
+  function getInputValidationMessage(domName, validator) {
+      var inputMessageDic = {
+          'nickname_required': '姓名不能为空',
+          'phone_required': '电话不能为空',
+          'phone_number': '电话格式不正确',
+          'email_required': '邮箱不能为空',
+          'email_email': '邮箱格式不合法',
+          'code_required': '验证码不能为空',
+          'password_required': '密码不能为空'
+      }
+      return i18n(inputMessageDic[ domName + '_' + validator])
+  }
+  
+  
 </script>
