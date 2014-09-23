@@ -1,33 +1,33 @@
 <!--@@master=masters/signin_master.html -->
 
 <!--@@block=head -->
-    <link rel="stylesheet" href="/static/styles/project/signinForm.css"/>
+<link rel="stylesheet" href="/static/styles/project/signinForm.css"/>
 <!--@@close-->
 
 <!--@@block=main -->
-<!-- @@include =partials/signin_form.html -->
+<!--  @@include =partials/signin_form.html -->
 <!--@@close-->
 
 <!--@@block=scripts -->
 <script>
     $('form[name=signin]').submit(function (e) {
         e.preventDefault()
-        var valid = $.validate(this, {onError: function (dom,validator,index) {
-            alert( dom.name +" validate error " + validator)
+        var valid = $.validate(this, {onError: function (dom, validator, index) {
+            alert(dom.name + " validate error " + validator)
         }})
-        if(!valid){return}
+        if (!valid) {return}
         var params = $(this).serializeObject()
         params.password = Base64.encode(params.password)
         $.post("/api/1/user/login",
-                params,
-                function (data, status) {
-                    if (data.ret != 0) {
-                        alert("Data: " + data.msg + "\nStatus: " + status);
-                    }
-                    else {
-                        project.goBackFromURL()
-                    }
-                });
+            params,
+            function (data, status) {
+                if (data.ret != 0) {
+                    alert("Data: " + data.msg + "\nStatus: " + status);
+                }
+                else {
+                    project.goBackFromURL()
+                }
+            });
     })
 </script>
 <!--@@close-->

@@ -1,4 +1,8 @@
 /*! Created by frank on 14-9-23.  */
+@import "project/_imports";
+
+body { font: 14px/1.6 @font-normal; }
+
 .bigPictureBg {
     background: url('/static/images/background/login-background.jpg') no-repeat center top;
     background-size: cover;
@@ -9,5 +13,45 @@
     > .inner {
         display: table-cell;
         vertical-align: middle;
+    }
+}
+
+.copyright {
+    &_wrapper {
+        overflow: hidden;
+        background: @copyright-bg;
+        height: @copyright-height;
+    }
+    max-width: @max-width;
+    margin: 0 auto;
+    overflow: hidden;
+    > p {
+        line-height: @copyright-height;
+        margin: 0;
+        height: 100%;
+        font-size: 14px;
+        color: #ffffff;
+        display: inline-block;
+    }
+    .navbar { .horizontalList(@padding: 16px); float: right;
+        > li {
+            line-height: @copyright-height;
+            margin: 0px;
+            > a {
+                color: #ffffff;
+                text-decoration: none;
+                font-size: 14px;
+                margin: 12px 0;
+                height: 100%;
+            }
+            .seperator {
+                float: right;
+                margin-right: -16px;
+                margin-top: 14px;
+            }
+            > select {
+                background: #222222;
+            }
+        }
     }
 }
