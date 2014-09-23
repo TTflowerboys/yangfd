@@ -506,6 +506,7 @@ class f_property(f_app.module_base):
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False):
         f_app.util.process_search_params(params)
+        self.logger.debug("search params: ", params)
         params.setdefault("status", "new")
         if sort is not None:
             try:
