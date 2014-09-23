@@ -81,7 +81,7 @@
 
             <div id="intentionTag" class="inner">
                 %for index, intention in enumerate(intention_list):
-                <div class="toggleTag selected" data-id="{{intention.get('id')}}">{{_i18n(intention.get('value'))}}
+                <div class="toggleTag" data-id="{{intention.get('id')}}">{{_i18n(intention.get('value'))}}
                 </div>
                 %end
             </div>
