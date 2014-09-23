@@ -1,25 +1,16 @@
 @import "project/_imports";
 
-* {
-    box-sizing: border-box;
-}
-
-.page {
-    > main {
-        min-height: 300px;
-        font: @font-normal;
-        font-size: 14px
-    }
-}
-
 .bigPictureBg {
     background: url('/static/images/background/login-background.jpg') no-repeat center top;
     background-size: cover;
+    overflow: hidden;
+    min-height: 300px;
+    font: @font-normal;
+    font-size: 14px
 }
 
 .copyright {
     &_wrapper {
-        width: 100%;
         overflow: hidden;
         background: @copyright-bg;
         height: @copyright-height;

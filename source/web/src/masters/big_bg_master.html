@@ -24,9 +24,9 @@
         <!-- @@include =../partials/data_manager.html -->
         <!-- @@include =../partials/localization_manager.html -->
         <div class="page">
-            <main id="main" class="bigPictureBg">
+            <div id="main" class="bigPictureBg">
                 <!-- @@placeholder = main -->
-            </main>
+            </div>
             <div id="copyright" class="copyright_wrapper">
                 <div class="copyright">
                     <p>&copy;<script>document.write(new Date().getFullYear())</script>
@@ -56,8 +56,16 @@
         <!-- @@include =../partials/js_import.html -->
         <!-- build:js /static/scripts/signin_master.html.js -->
         <script src="/static/scripts/localization.js"></script>
-        <script src="/static/scripts/signin_master.js"></script>
         <!-- endbuild -->
+        <script>
+            (function () {
+                resizeMain()
+                $(window).on('resize', resizeMain)
+                function resizeMain() {
+                    $('#main').css({minHeight: $(window).height() - $('#copyright').height()})
+                }
+            })()
+        </script>
         <!--@@placeholder=scripts-->
     </body>
 </html>
