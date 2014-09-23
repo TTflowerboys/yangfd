@@ -1,19 +1,62 @@
 <!--@@master = masters/big_picture_bg_master.html-->
+
 <!--@@block = head-->
+<link rel="stylesheet" href="/static/styles/intentionPage.css"/>
 <!--@@close-->
+
 <!--@@block = main-->
-<form class="box">
-    <h1>还差最后一步就可以看到为您推荐的投资机会了！</h1>
-    <div class="action">
-        <button class="ghostButton red" type="submit">确定</button>
-        <a href="#">跳过</a>
+<form class="box intentionPage">
+    <div class="header">
+        <h1>还差最后一步就可以看到为您推荐的投资机会了！</h1>
+        <div class="action">
+            <button type="submit">确定</button>
+            <a href="#">跳过 &gt;</a>
+        </div>
     </div>
     <hr/>
-    <div>
+    <div class="row">
         <label>您的预算：</label>
         <div class="controls">
-
+            <label><input name="1" type="radio" value=""/>100万以下</label>
+            <label><input name="1" type="radio" value=""/>100万至300万</label>
+            <label><input name="1" type="radio" value=""/>300万至500万</label>
+            <label><input name="1" type="radio" value=""/>500万至1000万</label>
+            <label><input name="1" type="radio" value=""/>1000万以上</label>
         </div>
+    </div>
+    <div data-tabs>
+        <div class="row">
+            <label>投资意向：</label>
+            <div class="controls">
+                <label data-tab="1"><input name="2" type="checkbox" value=""/>资产保值</label>
+                <label data-tab="2"><input name="2" type="checkbox" value=""/>子女留学</label>
+                <label data-tab="3"><input name="2" type="checkbox" value=""/>度假旅行</label>
+                <label data-tab="4"><input name="2" type="checkbox" value=""/>移民自住</label>
+                <label data-tab="5"><input name="2" type="checkbox" value=""/>超额收益</label>
+                <label data-tab="6"><input name="2" type="checkbox" value=""/>现金流保障</label>
+            </div>
+        </div>
+        <div data-tab-content="1">
+            <ol>
+                <li>icon 1</li>
+                <li>icon 2</li>
+                <li>icon 3</li>
+                <li>icon 4</li>
+                <li>icon 5</li>
+            </ol>
+            <ol>
+                <li>step 1</li>
+                <li>step 2</li>
+                <li>step 3</li>
+                <li>step 4</li>
+                <li>step 5</li>
+            </ol>
+        </div>
+        <div data-tab-content="2"></div>
+        <div data-tab-content="3"></div>
+        <div data-tab-content="4"></div>
+        <div data-tab-content="5"></div>
+        <div data-tab-content="6"></div>
     </div>
 </form>
 <!--@@close-->
