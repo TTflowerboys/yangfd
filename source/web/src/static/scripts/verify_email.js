@@ -14,7 +14,7 @@ $('form[name=verifyEmail]').submit(function (e) {
     var params = $(this).serializeObject()
 
     function sendVerificationEmail() {
-        return team.wrapErrors($.post('/api/1/user/' + window.user.id + '/email_verification/send', {}))
+        return $.post('/api/1/user/' + window.user.id + '/email_verification/send')
             .done(function (data) {
                 resultArea.text(window.i18n('邮件已发送，如果没有收到，请在60秒后重试'))
                 resultArea.show()
@@ -26,12 +26,11 @@ $('form[name=verifyEmail]').submit(function (e) {
     }
 
     function updateUserEmail() {
-        return team.wrapErrors($.post('/api/1/user/edit', params))
-            .done (function (data) {
+        return $.post('/api/1/user/edit', params)
+            .done(function (data) {
                 window.user = data
             })
-            .fail (function (data) {
-                console.log(data)
+            .fail(function (data) {
                 resultArea.text(window.i18n('修改邮箱失败'))
                 resultArea.show()
             })
@@ -41,7 +40,7 @@ $('form[name=verifyEmail]').submit(function (e) {
         sendVerificationEmail()
     }
     else {
-        updateUserEmail().done(function(data){
+        updateUserEmail().done(function (data) {
             sendVerificationEmail()
         })
     }
