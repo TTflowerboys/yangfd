@@ -99,6 +99,7 @@ property_params = dict(
         price="i18n:currency",
         item=("i18n", None, str),
     )),
+    description=("i18n", None, str),
 
     # Non-project params
     total_price="i18n:currency",
@@ -123,6 +124,7 @@ property_params = dict(
         kitchen_count=int,
         total_price="i18n:currency",
         floor_plan=("i18n", None, str),
+        building_area="i18n:area",
     )),
     opening_time=datetime,
     building_type=("i18n", None, str),

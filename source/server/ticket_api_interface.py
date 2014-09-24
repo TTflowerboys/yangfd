@@ -264,7 +264,7 @@ def intention_ticket_search(user, params):
     per_page = params.pop("per_page", 0)
 
     if "status" in params:
-        if set(params["status"]) <= f_app.common.intention_ticket_statuses:
+        if set(params["status"]) <= set(f_app.common.intention_ticket_statuses):
             params["status"] = {"$in": params["status"]}
         else:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
@@ -433,7 +433,7 @@ def support_ticket_search(user, params):
     per_page = params.pop("per_page", 0)
 
     if "status" in params:
-        if set(params["status"]) <= f_app.common.support_ticket_statuses:
+        if set(params["status"]) <= set(f_app.common.support_ticket_statuses):
             params["status"] = {"$in": params["status"]}
         else:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
