@@ -5,22 +5,22 @@
 
 <!--@@block = main -->
 <div class="content">
-    <h1 class="title">{{_('验证邮箱')}}</h1>
-    <form name="verifyEmail" class="edit" action="">
+    <h1 class="title">{{_('更改邮箱')}}</h1>
+    <form name="changeEmail" class="edit" action="">
         <div class="tip">
             <img alt="" src="/static/images/icon/user/tip.png"/>
             <p>{{_('提交成功后请检查您的收件箱并验证邮件中的链接进行验证，如果没有收到请检查您的垃圾邮箱，或者直接与洋房东客服联系')}}</p>
         </div>
         <div class="email row">
-            <label>{{_('邮箱')}}</label>
+            <label>{{_('新邮箱')}}</label>
             <input name="email" type="text" value="" data-validator="required email"/>
 
         </div>
         <p class="resultMessage" style="display:none"></p>
-        <button class="button red" type="submit">{{_('发送')}}</button>
+        <button class="button red" type="submit">{{_('确认')}}</button>
     </form>
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
-<script src="/static/scripts/verify_email.js"></script>
+<script src="/static/scripts/change_email.js"></script>
 <!--@@close-->

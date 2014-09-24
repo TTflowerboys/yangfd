@@ -25,6 +25,7 @@
                     <col class="email">
                     <col class="submitTime">
                     <col class="changeTime">
+                    <col class="assign">
                     <col class="actions">
                 </colgroup>
                 <thead>
@@ -35,6 +36,7 @@
                     <th>客户邮箱</th>
                     <th>提交时间</th>
                     <th>受理时间</th>
+                    <th>指派</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -57,6 +59,9 @@
                     </td>
                     <td>
                         {%(item.assigned_time?(item.assigned_time * 1000 | date : medium):'')%}
+                    </td>
+                    <td class="form-inline" style="white-space: nowrap;">
+                        <div add-assignee ng-model="item" type="intention_ticket"></div>
                     </td>
                     <td>
                         <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">

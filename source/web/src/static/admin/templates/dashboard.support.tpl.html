@@ -53,7 +53,7 @@
                             {%item.time * 1000 | date : medium%}
                         </td>
                         <td class="form-inline" style="white-space: nowrap;">
-                            <div add-assignee ng-model="item"></div>
+                            <div add-assignee ng-model="item" type="support_ticket"></div>
                         </td>
                         <td>
                             <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
