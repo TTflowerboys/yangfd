@@ -28,13 +28,15 @@
                     %end
                 </td>
                 <td class="action">
-                    <button class="ghostButton red">
-                        %if user.get('phone_verified'):
-                        {{_('修改')}}
-                        %else:
-                        {{_('认证')}}
-                        %end
-                    </button>
+                    %if user.get('phone_verified'):
+                    <a class="ghostButton red" href="/user_change_phone_1">
+                    {{_('修改')}}
+                    </a>
+                    %else:
+                    <a class="ghostButton red" href="/user_change_phone_1">
+                    {{_('认证')}}
+                    </a>
+                    %end
                 </td>
             </tr>
             <tr>
