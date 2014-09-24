@@ -509,6 +509,10 @@ class f_currant_plugins(f_app.plugin_base):
                     property_page = f_app.request.get(property_url)
                     if property_page.status_code == 200:
                         params["property_crawler_id"] = property_page
+                        # Extract information
+                        property_page_address = list_page_dom_root('div#propertyAddress h1.ViewPropNamePrice').html()
+                        property_page_price = list_page_dom_root('div#propertyAddress h2.ViewPropNamePrice').html()
+                        property_page_building_area = list_page_dom_root('div#cntrlPropertyDetails__ctl1_trBuildingArea').html()
                     else:
                         self.logger.debug("Failed crawling property_page %s, status_code is %d" % (property_url, property_page.status_code))
             else:
