@@ -2,24 +2,24 @@
  * Created by Michael on 14/9/24.
  */
 angular.module('app')
-    .directive('getCityByCountry', function (enumApi) {
+    .directive('getCityByCountry', function ($rootScope,enumApi) {
         return {
             restrict: 'AE',
+            templateUrl: '/static/admin/templates/get_enum_selection.tpl.html',
             scope: {
+                enumId: '=ngModel',
+                enumOption: '@text',
                 country: '=country',
-                cities:'=cities'
             },
             link: function (scope) {
-                console.log(scope.country)
-
+                scope.userLanguage = $rootScope.userLanguage
                 scope.$watch('country', function (newValue) {
-                    console.log(newValue)
                     if (newValue === undefined) {
                         return
                     }
                     enumApi.searchCityByCountryId(newValue)
                         .success(function (data) {
-                            scope.cities = data.val
+                            scope.enumList = data.val
                         })
                 })
 

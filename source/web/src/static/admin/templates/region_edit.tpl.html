@@ -1,12 +1,7 @@
 <div class="form-inline">
-    <div get-country></div>
-    <select ng-model="country" ng-options="c.id as c.value[userLanguage.value] for c in countries" class="form-control">
-        <option value="">-- 国家 --</option>
-    </select>
+    <div get-enum-selection enum-type="country" ng-model="country" text="国家"></div>
 
-    <div get-city-by-country country="country" cities="cities"></div>
-    <select ng-model="city" ng-options="c.id as c.value[userLanguage.value] for c in cities" class="form-control">
-        <option value="">-- 城市 --</option>
-    </select>
+    <div get-city-by-country country="country" ng-model="city"  text="城市"></div>
+
     <!--<input class="form-control" ng-model="zip" type="text" placeholder="邮编"/>-->
 </div>
