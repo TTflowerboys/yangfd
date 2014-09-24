@@ -363,6 +363,8 @@ class f_currant_plugins(f_app.plugin_base):
     def ticket_get(self, ticket):
         if "assignee" in ticket:
             ticket["assignee"] = map(str, ticket.pop("assignee", []))
+        if "user_id" in ticket:
+            ticket["user_id"] = str(ticket["user_id"])
 
         return ticket
 
