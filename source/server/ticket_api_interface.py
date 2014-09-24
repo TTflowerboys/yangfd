@@ -156,7 +156,7 @@ def intention_ticket_get(user, ticket_id):
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
-    return ticket
+    return f_app.ticket.output([ticket_id])[0]
 
 
 @f_api('/intention_ticket/<ticket_id>/remove')
