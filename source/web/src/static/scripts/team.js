@@ -35,17 +35,20 @@
 
     window.team = {
         wrapErrors: function (jQueryAjax) {
-//            jQueryAjax
-//                .done(function (response) {
-//                    if (response.ret !== 0) {
-//                        //alert(response.ret)
-//                    }
-//                })
-//                .fail(function (xhr) {
-//                    //alert(xhr.status)
-//                })
+            var deferred = $.Deferred()
+            jQueryAjax
+                .done(function (response) {
+                    if (response.ret !== 0) {
+                        deferred.reject(response.ret)
+                    } else {
+                        deferred.resolve(response.val)
+                    }
+                })
+                .fail(function (xhr) {
+                    deferred.reject(xhr.status)
+                })
 
-            return jQueryAjax
+            return deferred.promise()
         },
         Delayer: Delayer,
         getQuery: function (name, url) {
