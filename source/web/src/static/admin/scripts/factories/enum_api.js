@@ -57,7 +57,8 @@
             getEnumsByType: function (type) {
                 return $http.get('/api/1/enum', {
                     params: {
-                        type: type
+                        type: type,
+                        _i18n: 'disabled'
                     }
                 })
             },
