@@ -13,7 +13,7 @@
         </div>
         <div class="email row">
             <label>{{_('新邮箱')}}</label>
-            <input name="email" type="text" value="" data-validator="required email"/>
+            <input name="email" type="text" value={{user.get('email')}}  data-validator="required email"/>
 
         </div>
         <p class="resultMessage" style="display:none"></p>

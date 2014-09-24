@@ -9,7 +9,6 @@
             <col class="status">
             <col class="action">
         </colgroup>
-        {{json_dumps(_i18n(user))}}
         <tbody>
             <tr>
                 <td>
@@ -51,19 +50,20 @@
                 <td>
                     %if user.get('email_verified'):
                     <i></i> {{_('已认证')}}
-
                     %else:
                     <i></i> {{_('未认证')}}
                     %end
                 </td>
                 <td class="action">
-                    <a class="ghostButton red" href="/user_verify_email">
-                        %if user.get('email_verified'):
+                    %if user.get('email_verified'):
+                    <a class="ghostButton red" href="/user_change_email">
                         {{_('修改')}}
-                        %else:
-                        {{_('认证')}}
-                        %end
                     </a>
+                    %else:
+                    <a class="ghostButton red" href="/user_verify_email">
+                        {{_('认证')}}
+                    </a>
+                     %end
                 </td>
             </tr>
             <tr>
@@ -86,10 +86,16 @@
                     <p>{{_('网站及各类通知邮件默认语言')}}</p>
                 </td>
                 <td>
-                    {{_('中文，中国')}}
+                    %if user.get('locales') and len(user.get('locales')):
+                    {{user.get('locales')[0]}}
+                    %end
                 </td>
                 <td>
-                    <i></i> {{_('已设置')}}
+                    %if user.get('locales') and len(user.get('locales')):
+                    {{_('已设置')}}
+                    %else:
+                    {{_('未设置')}}
+                    %end
                 </td>
                 <td class="action">
                     <button class="ghostButton red">{{_('修改')}}</button>
@@ -123,10 +129,18 @@
                     <p>{{_('当房产有新的资讯或更新时发送至您的账户邮箱中')}}</p>
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('mine' in user.get('system_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('mine' in user.get('email_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
             </tr>
             <tr>
@@ -135,22 +149,18 @@
                     <p>{{_('当意向有新的资讯或更新时发送至您的账户邮箱中')}}</p>
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('intention' in user.get('system_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <strong>{{_('接收已提交意向单的房产资讯')}}</strong>
-                    <p>{{_('当意向有新的资讯或更新时发送至您的账户邮箱中')}}</p>
-                </td>
-                <td class="textCenter">
-                    <input type="checkbox"/>
-                </td>
-                <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('intention' in user.get('email_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
             </tr>
             <tr>
@@ -159,10 +169,18 @@
                     <p>{{_('当收藏有新的资讯或更新时发送至您的账户邮箱中')}}</p>
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if('favorite' in user.get('system_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('favorite' in user.get('email_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
             </tr>
             <tr>
@@ -171,10 +189,18 @@
                     <p>{{_('当收藏有新的资讯或更新时发送至您的账户邮箱中')}}</p>
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('system' in user.get('system_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('system' in user.get('email_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
             </tr>
         </tbody>
