@@ -7,15 +7,25 @@
 <!--@@block = main-->
 <div class="userPage">
     <div class="aside userProfile">
-        <img src="/static/images/placeholder/avatar.jpg" alt="" width="360" height="360"/>
+        <img src="/static/images/placeholder/avatar.png" alt="" width="360" height="360"/>
         <div class="account">
-            <h1>Gordan Freeman</h1>
+            <h1>{{user.get('nickname')}}</h1>
             <span class="verificationStatus red">
-                <i><img src="/static/images/icon/user-phone.png" style="margin-top:2px;"/></i>手机未验证
+                <i><img src="/static/images/icon/user-phone.png" style="margin-top:2px;"/></i>
+                %if user.get('phone_verified'):
+                {{_('手机已验证')}}
+                %else:
+                {{_('手机未验证')}}
+                %end
             </span>
 
             <span class="verificationStatus">
-                <i><img src="/static/images/icon/user-email.png"/></i>邮箱已验证
+                <i><img src="/static/images/icon/user-email.png"/></i>
+                %if user.get('email_verified'):
+                {{_('邮箱已验证')}}
+                %else:
+                {{_('邮箱未验证')}}
+                %end
             </span>
         </div>
         <div class="settings">
@@ -23,30 +33,30 @@
                 <li>
                     <a href="#"><img src="/static/images/icon/user/gear-grey.png"/></a>
                     <!--<a href="#"><img src="/static/images/icon/user/gear-green.png"/></a>-->
-                    账户管理
+                    {{_('账户管理')}}
                 </li>
                 <li>
                     <a href="#"><img src="/static/images/icon/user/star-grey.png"/></a>
-                    我的收藏
+                    {{_('我的收藏')}}
                 </li>
                 <li>
                     <a href="#"><img src="/static/images/icon/user/sheet-grey.png"/></a>
-                    投资意向单
+                    {{_('投资意向单')}}
                 </li>
                 <li>
                     <a href="#"><img src="/static/images/icon/user/house-grey.png"/></a>
-                    我的房产
+                    {{_('我的房产')}}
                 </li>
                 <li>
                     <a href="#"><img src="/static/images/icon/user/email-grey.png"/></a>
-                    消息
+                    {{_('消息')}}
                 </li>
             </ul>
         </div>
         <div id="cvView" class="cv">
             <div class="header">
-                <h2>个人资料</h2>
-                <button name=edit type="button" class="ghostButton red">编辑</button>
+                <h2>{{_('个人资料')}}</h2>
+                <button name=edit type="button" class="ghostButton red">{{_('编辑')}}</button>
             </div>
             <hr/>
             <table>
@@ -56,36 +66,56 @@
                 </colgroup>
                 <tbody>
                     <tr>
-                        <td>姓名</td>
-                        <td>王超</td>
+                        <td>{{_('姓名')}}</td>
+                        <td>{{user.get('nickname')}}</td>
                     </tr>
                     <tr>
-                        <td>性别</td>
-                        <td>男</td>
+                        <td>{{_('性别')}}</td>
+                        <td>
+                            %if user.get('gender'):
+                            {{user.get('gender')}}
+                            %end
+                        </td>
+                    </tr>
+                    <!--<tr>-->
+                        <!--<td>{{_('生日')}}</td>-->
+                        <!--<td>-->
+                            <!--%if user.get('date_of_birth'):-->
+                            <!--{{user.get('date_of_birth')}}-->
+                            <!--%end-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <tr>
+                        <td>{{_('国家')}}</td>
+                        <td>
+                            %if user.get('country'):
+                            {{user.get('country')}}
+                            %end
+                        </td>
                     </tr>
                     <tr>
-                        <td>国家</td>
-                        <td>中国</td>
-                    </tr>
-                    <tr>
-                        <td>城市</td>
-                        <td>武汉</td>
+                        <td>{{_('城市')}}</td>
+                        <td>
+                            %if user.get('city'):
+                            {{user.get('city')}}
+                            %end
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <form id="cvEdit" class="cv" style="display: none;">
             <div class="header">
-                <h2>个人资料</h2>
-                <button name="cancel" type="button" class="ghostButton red">取消</button>
-                <button type="submit" class="ghostButton red">提交</button>
+                <h2>{{_('个人资料')}}</h2>
+                <button name="cancel" type="button" class="ghostButton red">{{_('取消')}}</button>
+                <button type="submit" class="ghostButton red">{{_('提交')}}</button>
             </div>
             <hr/>
             <div class="error" style="display: none;">
-                姓名不能为空。
+                {{_('姓名不能为空')}}
             </div>
             <div class="success" style="display: none;">
-                更新成功。
+                {{_('更新成功')}}
             </div>
             <table>
                 <colgroup>
@@ -94,26 +124,28 @@
                 </colgroup>
                 <tbody>
                     <tr>
-                        <td>姓名</td>
-                        <td><input name="nickname" type="text" value="王超" data-validator="required,trim"
-                            data-msg-required="请填写姓名"/></td>
+                        <td>{{_('姓名')}}</td>
+                        <td><input name="nickname" type="text" value={{user.get('nickname')}}  data-validator="required,trim"
+                            data-msg-required="{{_('请填写姓名')}}"/></td>
                     </tr>
                     <tr>
-                        <td>性别</td>
-                        <td><label><input name="gender" type="radio" value="male" checked/> 男</label>
-                            <label><input name="gender" type="radio" value="female"/> 女</label></td>
+                        <td>{{_('性别')}}</td>
+                        <td><label><input name="gender" type="radio" value="male" checked/> {{_('男')}}</label>
+                            <label><input name="gender" type="radio" value="female"/> {{_('女')}}</label></td>
                     </tr>
                     <tr>
-                        <td>国家</td>
+                        <td>{{_('国家')}}</td>
                         <td><select name="country">
                             <option value="中国">中国</option>
                         </select></td>
                     </tr>
                     <tr>
-                        <td>城市</td>
-                        <td><select name="city">
-                            <option value="武汉">武汉</option>
-                        </select></td>
+                        <td>{{_('城市')}}</td>
+                        %if user.get('city'):
+                        <td><input name="city" type="text" value={{user.get('city')}} /></td>
+                        %else:
+                        <td><input name="city" type="text" data-validator="trim" /></td>
+                        %end
                     </tr>
                 </tbody>
             </table>
