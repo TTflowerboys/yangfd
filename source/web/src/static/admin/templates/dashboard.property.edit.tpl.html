@@ -33,7 +33,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.property_type" style="width: 185px;"
-                    ng-options="p.id as p.value for p in propertyTypeList">
+                    ng-options="p.id as p.value[userLanguage.value] for p in propertyTypeList">
                 <option value="">-- 选择 --</option>
             </select>
         </div>
@@ -45,7 +45,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.country" style="width: 185px;"
-                    ng-options="p.id as p.value for p in systemCountries">
+                    ng-options="p.id as p.value[userLanguage.value] for p in systemCountries">
                 <option value="">-- 选择 --</option>
             </select>
         </div>
@@ -55,7 +55,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.city" style="width: 185px;"
-                    ng-options="p.id as p.value for p in systemCities">
+                    ng-options="p.id as p.value[userLanguage.value] for p in systemCities">
                 <option value="">-- 选择 --</option>
             </select>
         </div>
@@ -130,7 +130,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.intention" style="width: 185px;"
-                    ng-options="p.id as p.value for p in intentionList">
+                    ng-options="p.id as p.value[userLanguage.value] for p in intentionList">
                 <option value="">-- 选择 --</option>
             </select>
         </div>
@@ -142,7 +142,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.equity_type" style="width: 185px;"
-                    ng-options="p.id as p.value for p in equityTypeList">
+                    ng-options="p.id as p.value[userLanguage.value] for p in equityTypeList">
                 <option value="">-- 选择 --</option>
             </select>
         </div>
@@ -152,7 +152,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.decorative_style" style="width: 185px;"
-                    ng-options="p.id as p.value for p in decorativeStyleList">
+                    ng-options="p.id as p.value[userLanguage.value] for p in decorativeStyleList">
                 <option value="">-- 选择 --</option>
             </select>
         </div>
@@ -199,7 +199,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.property_price_type" style="width: 185px;"
-                    ng-options="p.id as p.value for p in propertyPriceTypeList">
+                    ng-options="p.id as p.value[userLanguage.value] for p in propertyPriceTypeList">
                 <option value="">-- 选择 --</option>
             </select>
         </div>
@@ -350,7 +350,7 @@
 
             <div class="controls">
                 <select class="form-control" ng-model="item.facing_direction" style="width: 185px;"
-                        ng-options="p.id as p.value for p in facingDirectionList">
+                        ng-options="p.id as p.value[userLanguage.value] for p in facingDirectionList">
                     <option value="">-- 选择 --</option>
                 </select>
             </div>

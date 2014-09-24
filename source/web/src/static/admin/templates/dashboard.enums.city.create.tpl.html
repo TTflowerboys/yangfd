@@ -13,7 +13,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.country" style="width: 185px;"
-                    ng-options="p.id as p.value for p in countries">
+                    ng-options="p.id as p.value[userLanguage.value] for p in countries">
                 <option value="">-- 选择 --</option>
             </select>
         </div>
