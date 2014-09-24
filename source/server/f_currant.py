@@ -287,7 +287,6 @@ class f_currant_ticket(f_ticket):
         property_id_set = set()
         for t in ticket_list:
             user_id_set.add(t.get("creator_user_id"))
-            user_id_set.add(t.get("user_id"))
             user_id_set |= set(t.get("assignee", []))
             if "budget" in t:
                 enum_id_set.add(t["budget"]["_id"])
@@ -303,7 +302,6 @@ class f_currant_ticket(f_ticket):
             user_dict[u["id"]] = u
         for t in ticket_list:
             t["creator_user"] = user_dict.get(t.pop("creator_user_id"))
-            t["user"] = user_dict.get(t.pop("user_id"))
             if isinstance(t.get("assignee"), list):
                 t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
             if "budget" in t:
