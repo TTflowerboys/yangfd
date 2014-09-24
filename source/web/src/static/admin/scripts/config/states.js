@@ -266,6 +266,36 @@ angular.module('app')
                     }
                 }
             })
+            .state('dashboard.users.detail.intentions', {
+                url: '/intentions',
+                templateUrl: '/static/admin/templates/dashboard.users.detail.intentions.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (userIntentionApi) {
+                        return userIntentionApi
+                    }
+                }
+            })
+            .state('dashboard.users.detail.boughts', {
+                url: '/boughts',
+                templateUrl: '/static/admin/templates/dashboard.users.detail.boughts.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (userBoughtApi) {
+                        return userBoughtApi
+                    }
+                }
+            })
+            .state('dashboard.users.detail.supports', {
+                url: '/supports',
+                templateUrl: '/static/admin/templates/dashboard.users.detail.supports.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (userSupportApi) {
+                        return userSupportApi
+                    }
+                }
+            })
 
 
         /**

@@ -1,6 +1,6 @@
 <div class="buttons">
             <span class="btn-group">
-                <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
+                <button class="btn" ng-click="$state.go('^.^')"><span class="fa fa-chevron-left"></span> 返回</button>
             </span>
 </div>
 
@@ -60,17 +60,17 @@
     <div class="col-sm-10">
 
         <ul class="nav nav-tabs" id="userInfoTab">
-            <li data-ng-class="{active:tabName==='favs'}">
+            <li data-ng-class="{active:tabName==='favs'}" ng-click="changeTab('favs')">
                 <a style="cursor: pointer;" ui-sref=".favs({id:item.id})">收藏房产</a>
             </li>
-            <li data-ng-class="{active:tabName==='intentions'}">
-                <a style="cursor: pointer;" ui-sref=".favs({id:item.id})">投资意向单</a>
+            <li data-ng-class="{active:tabName==='intentions'}" ng-click="changeTab('intentions')">
+                <a style="cursor: pointer;" ui-sref=".intentions">投资意向单</a>
             </li>
-            <li data-ng-class="{active:tabName==='purchases'}">
-                <a style="cursor: pointer;" href ui-sref="dashboard.users.detail.favs">已购房产</a>
+            <li data-ng-class="{active:tabName==='purchases'}" ng-click="changeTab('purchases')">
+                <a style="cursor: pointer;" ui-sref=".boughts">已购房产</a>
             </li>
-            <li data-ng-class="{active:tabName==='supports'}">
-                <a style="cursor: pointer;" ui-sref=".favs({id:item.id})">客服单</a>
+            <li data-ng-class="{active:tabName==='supports'}" ng-click="changeTab('supports')">
+                <a style="cursor: pointer;" ui-sref=".supports">客服单</a>
             </li>
         </ul>
 

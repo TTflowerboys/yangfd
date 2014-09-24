@@ -4,11 +4,8 @@
 (function () {
 
     function ctrlUserProfile($scope, $location , api, $stateParams, misc) {
-        $scope.list = []
-        $scope.perPage = 12
-        $scope.currentPageNumber = 1
-        $scope.pages = []
         $scope.api = api
+        $scope.tabName = 'favs'
 
         //Get User Profile Infomation
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
@@ -20,22 +17,10 @@
                     $scope.item = data.val
                 })
         }
-        /*// Default select favourite properties
-        onTabActived('favs')
 
-        //Get active list data
-        function onTabActived(tabname){
-            switch(tabname){
-                case 'favs':
-                case 'intentions':
-                case 'boughts':
-                case 'supports':
-                    $location.path( '/' + tabname )
-                    break
-                default:
-                    $location.path( '/' + 'favs' )
-            }
-        }*/
+        $scope.changeTab = function (tabName) {
+            $scope.tabName = tabName
+        }
     }
 
     angular.module('app').controller('ctrlUserProfile', ctrlUserProfile)
