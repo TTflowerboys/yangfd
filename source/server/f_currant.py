@@ -536,9 +536,16 @@ class f_currant_plugins(f_app.plugin_base):
                                 property_images.append(urllib.parse.urlunparse(img_url))
                             params["reality_images"] = {"en_GB": property_images}
 
-                        total_price = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_price)
+                        total_price = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_price.text())
                         if total_price:
                             params["total_price"] = {"value": total_price[0], "type": "currency", "unit": "GBP"}
+                        if "Share of freehold" in property_page_price.text():
+                            params["equity_type"] = {"_enum": "equity_type", "type": "equity_type", "_id": ObjectId(f_app.enum.get_by_slug('virtual_freehold')["id"])}
+                        elif "Freehold" in property_page_price.text():
+                            params["equity_type"] = {"_enum": "equity_type", "type": "equity_type", "_id": ObjectId(f_app.enum.get_by_slug('Freehold')["id"])}
+                        elif "Leasehold" in property_page_price.text():
+                            params["equity_type"] = {"_enum": "equity_type", "type": "equity_type", "_id": ObjectId(f_app.enum.get_by_slug('leasehold')["id"])}
+
                         building_area = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_building_area)
                         if building_area:
                             params["building_area"] = {"type": "area", "unit": "foot ** 2", "value": building_area[0]}
