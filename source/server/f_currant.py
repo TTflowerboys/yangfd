@@ -19,6 +19,7 @@ from libfelix.f_util import f_util
 
 import logging
 logger = logging.getLogger(__name__)
+f_app.dependency_register('pyquery', race="python")
 
 
 class f_currant_log(f_log):
@@ -284,6 +285,7 @@ class f_currant_ticket(f_ticket):
         property_id_set = set()
         for t in ticket_list:
             user_id_set.add(t.get("creator_user_id"))
+            user_id_set.add(t.get("user_id"))
             user_id_set |= set(t.get("assignee", []))
             if "budget" in t:
                 enum_id_set.add(t["budget"]["_id"])
@@ -297,9 +299,9 @@ class f_currant_ticket(f_ticket):
 
         for u in user_list:
             user_dict[u["id"]] = u
-
         for t in ticket_list:
             t["creator_user"] = user_dict.get(t.pop("creator_user_id"))
+            t["user"] = user_dict.get(t.pop("user_id"))
             if isinstance(t.get("assignee"), list):
                 t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
             if "budget" in t:
@@ -350,9 +352,6 @@ class f_currant_plugins(f_app.plugin_base):
 
     task = ["crawler_example", "assign_property_short_id"]
 
-    def __init__(self):
-        f_app.dependency_register('pyquery', race="python")
-
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
             phonenumber = phonenumbers.parse(raw_row["phone"])
@@ -362,9 +361,10 @@ class f_currant_plugins(f_app.plugin_base):
 
     def ticket_get(self, ticket):
         if "assignee" in ticket:
-            ticket["assignee"] = map(str, ticket.pop("assignee", []))
+            ticket["assignee"] = [str(i) for i in ticket.pop("assignee", [])]
         if "user_id" in ticket:
             ticket["user_id"] = str(ticket["user_id"])
+        self.logger.debug(ticket['assignee'])
 
         return ticket
 
