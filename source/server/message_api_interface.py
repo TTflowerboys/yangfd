@@ -13,13 +13,14 @@ from libfelix.f_interface import f_api, abort, ObjectId
 @f_app.user.login.check(force=True)
 def message_search(user, params):
     """
+    ``status`` of a message can be "new" or "read".
     Current message types::
 
         Type: system
         {
             "title": (i18n),
             "text": (i18n),
-            "state": "new",
+            "status": "new",
             "time": 1348631514.0,
             "type": "system",
             "id": "50627bdacea1757f1213f8f3"

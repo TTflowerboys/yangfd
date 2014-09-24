@@ -363,6 +363,8 @@ class f_currant_plugins(f_app.plugin_base):
     def ticket_get(self, ticket):
         if "assignee" in ticket:
             ticket["assignee"] = map(str, ticket.pop("assignee", []))
+        if "user_id" in ticket:
+            ticket["user_id"] = str(ticket["user_id"])
 
         return ticket
 
@@ -385,7 +387,7 @@ class f_currant_plugins(f_app.plugin_base):
                     f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
 
     def post_add(self, params, post_id):
-        if {'_id': ObjectId('5417eca66b80992d07638186'), 'type': 'news_category', '_enum': 'news_category'} in params["category"]:
+        if {'_id': ObjectId(f_app.enum.get_by_slug('announcement')['id']), 'type': 'news_category', '_enum': 'news_category'} in params["category"]:
             # System
             message = {
                 "type": "system",
@@ -394,9 +396,9 @@ class f_currant_plugins(f_app.plugin_base):
             }
             user_list = f_app.user.search({"register_time": {"$ne": None}, "system_message_type": "system"})
             f_app.message.add(message, user_list)
-        if "zipcode_index" in params:
+        if "category" in params:
             # Favorite
-            related_property_list = f_app.property.search({"zipcode_index": params["zipcode_index"], "status": {"$in": ["selling", "sold out"]}})
+            related_property_list = f_app.property.search({"news_category": params["category"], "status": {"$in": ["selling", "sold out"]}})
             related_property_list = [ObjectId(property) for property in related_property_list]
             favorite_user_list = f_app.user.favorite.search({"property_id": related_property_list}, per_page=0)
             favorite_user_list = [_id for _id in favorite_user_list if "favorite" in f_app.user.get(_id).get("system_message_type", [])]

@@ -150,7 +150,7 @@ def intention_ticket_get(user, ticket_id):
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
     if len(user_roles) == 0:
-        if ticket.get("creator_user_id") != user["id"]:
+        if ticket.get("creator_user_id") != user["id"] and ticket.get("user_id") != user["id"]:
             abort(40399, logger.warning("Permission denied.", exc_info=False))
     elif "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
         if user["id"] not in ticket.get("assignee", []):
@@ -258,7 +258,7 @@ def intention_ticket_search(user, params):
         params["assignee"] = ObjectId(user["id"])
     elif len(user_roles) == 0:
         # General users
-        params["creator_user_id"] = ObjectId(user["id"])
+        params["user_id"] = ObjectId(user["id"])
     sort = params.pop("sort", ["time", 'desc'])
     per_page = params.pop("per_page", 0)
 
