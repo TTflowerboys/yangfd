@@ -8,7 +8,7 @@
                 config.params = config.params || {}
                 config.params = {
                     user_id: $stateParams.id,
-                    statue: 'bought'
+                    status: 'bought'
                 }
                 return $http.get('/api/1/intention_ticket/search', config)
             }
