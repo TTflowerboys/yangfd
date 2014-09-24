@@ -1,4 +1,4 @@
-//TODO: if user has email help him input first
+
 
 $('form[name=verifyEmail]').submit(function (e) {
     e.preventDefault()

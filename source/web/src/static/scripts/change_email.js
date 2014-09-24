@@ -1,4 +1,4 @@
-//TODO: if user has email help him input first
+
 
 $('form[name=changeEmail]').submit(function (e) {
     e.preventDefault()
