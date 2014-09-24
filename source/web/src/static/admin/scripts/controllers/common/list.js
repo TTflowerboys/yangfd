@@ -88,7 +88,9 @@
             }
         }
 
-
+        $scope.test =function(){
+alert(2)
+        }
     }
 
     angular.module('app').controller('ctrlList', ctrlList)

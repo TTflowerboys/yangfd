@@ -26,6 +26,9 @@
             },
             removeRole: function (id, role, config) {
                 return $http.post('/api/1/user/admin/' + id + '/unset_role', {role: role}, config)
+            },
+            getOneFavs: function (id, config) {
+                return $http.get('/api/1/user/admin/' + id + '/favorite', config)
             }
         }
 
