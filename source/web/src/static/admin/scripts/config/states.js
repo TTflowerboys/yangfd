@@ -220,12 +220,51 @@ angular.module('app')
                     }
                 }
             })
+            .state('dashboard.intention.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.intention.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: {
+                    api: function (intentionApi) {
+                        return intentionApi
+                    }
+                }
+            })
+            .state('dashboard.intention.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.intention.edit.tpl.html',
+                controller: 'ctrlNewsEdit',
+                resolve: {
+                    api: function (intentionApi) {
+                        return intentionApi
+                    }
 
-
+                }
+            })
             .state('dashboard.support', {
                 url: '/support',
                 templateUrl: '/static/admin/templates/dashboard.support.tpl.html',
                 controller: 'ctrlList',
+                resolve: {
+                    api: function (supportApi) {
+                        return supportApi
+                    }
+                }
+            })
+            .state('dashboard.support.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.support.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: {
+                    api: function (supportApi) {
+                        return supportApi
+                    }
+                }
+            })
+            .state('dashboard.support.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.support.edit.tpl.html',
+                controller: 'ctrlEdit',
                 resolve: {
                     api: function (supportApi) {
                         return supportApi
