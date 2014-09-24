@@ -30,6 +30,25 @@
 <!--endbuild-->
 
 <script>
+    $.each(['post', 'get'], function (index, key) {
+        $['_' + key] = $[key]
+        $[key] = function () {
+            var deferred = $.Deferred()
+            $['_' + key].apply($, arguments).done(function (response) {
+                if (response.ret !== undefined) {
+                    if (response.ret === 0) {
+                        deferred.resolve(response.val)
+                    } else {
+                        deferred.reject(response.ret)
+                    }
+                }
+            }).fail(function (xhr) {
+                deferred.reject(response.status)
+            })
+            return deferred.promise()
+        }
+    })
+
     _.templateSettings = {
         evaluate: /{_([\s\S]+?)_}/g,
         interpolate: /{!([\s\S]+?)!}/g,

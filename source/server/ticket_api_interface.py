@@ -244,6 +244,7 @@ def intention_ticket_edit(user, ticket_id, params):
     budget="enum:budget",
     phone=str,
     country="enum:country",
+    user_id=ObjectId,
 ))
 @f_app.user.login.check(force=True)
 def intention_ticket_search(user, params):
@@ -412,6 +413,7 @@ def support_ticket_edit(user, ticket_id, params):
     sort=(list, None, str),
     phone=str,
     country="enum:country",
+    user_id=ObjectId,
 ))
 @f_app.user.login.check(force=True)
 def support_ticket_search(user, params):
@@ -426,7 +428,7 @@ def support_ticket_search(user, params):
         params["assignee"] = ObjectId(user["id"])
     elif len(user_roles) == 0:
         # General users
-        params["creator_user_id"] = ObjectId(user["id"])
+        params["user_id"] = ObjectId(user["id"])
     sort = params.pop("sort", ["time", 'desc'])
     per_page = params.pop("per_page", 0)
 
