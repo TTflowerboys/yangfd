@@ -30,6 +30,7 @@ API Reference
    ad_api
    analytics_api
    enum_api
+   message_api
    news_api
    property_api
    subscription_api
