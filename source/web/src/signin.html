@@ -18,16 +18,13 @@
         if (!valid) {return}
         var params = $(this).serializeObject()
         params.password = Base64.encode(params.password)
-        $.post("/api/1/user/login",
-            params,
-            function (data, status) {
-                if (data.ret !== 0) {
-                    alert("Data: " + data.msg + "\nError Code: " + data.ret);
-                }
-                else {
-                    project.goBackFromURL()
-                }
-            });
+        $.post("/api/1/user/login", params)
+            .done(function () {
+                project.goBackFromURL()
+            })
+            .fail(function () {
+                alert("Data: " + data.msg + "\nError Code: " + data.ret);
+            })
     })
 </script>
 <!--@@close-->

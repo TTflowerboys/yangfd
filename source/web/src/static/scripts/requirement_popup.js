@@ -25,13 +25,14 @@ $('.floatBar #requirement').click(function () {
     }
 
     //setup budget select
-    $.get('/api/1/enum?type=budget&_i18n=' + window.lang).done(function (val) {
-        var budgetSelect = popup.find('select[name=budget]')
-        budgetSelect.empty() //remove all sub nodes
-        for (var i = 0, len = val.length; i < len; i = i + 1) {
-            budgetSelect.append('<option value=' + val[i].id + '>' + val[i].value + '</option>')
-        }
-    })
+    $.get('/api/1/enum?type=budget&_i18n=' + window.lang)
+        .done(function (val) {
+            var budgetSelect = popup.find('select[name=budget]')
+            budgetSelect.empty() //remove all sub nodes
+            for (var i = 0, len = val.length; i < len; i = i + 1) {
+                budgetSelect.append('<option value=' + val[i].id + '>' + val[i].value + '</option>')
+            }
+        })
 
     popup.show()
     var wrapper = popup.find('.requirement_wrapper')
