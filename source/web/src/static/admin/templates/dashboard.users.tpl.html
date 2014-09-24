@@ -33,7 +33,7 @@
                 <tbody>
                     <tr ng-repeat="item in list">
                         <td>
-                            <a href ui-sref=".detail({id:item.id})">{%item.nickname%}</a>
+                            <a href ui-sref=".detail.favs({id:item.id})">{%item.nickname%}</a>
                         </td>
                         <td>
                             {%item.phone%}
@@ -46,8 +46,6 @@
             </table>
             <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>
             <div class="buttons">
-
-
                 <span class="btn-group pull-right">
                     <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
                     <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>

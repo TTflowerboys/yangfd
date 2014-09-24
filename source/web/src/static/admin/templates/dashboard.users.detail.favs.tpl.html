@@ -1,0 +1,46 @@
+<div style="min-height: 600px;" ui-view>
+    <table class="table table-bordered table-striped table-condensed">
+        <colgroup>
+            <col class="name">
+            <col class="property_type">
+            <col class="total_price">
+            <col class="intention">
+            <col class="street">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>房产名</th>
+            <th>房产类型</th>
+            <th>总价</th>
+            <th>投资标签</th>
+            <th>街区</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in list">
+            <td>
+                {%item.name%}
+            </td>
+            <td>
+                {%item.property_type%}
+            </td>
+            <td>
+                {%item.total_price%}
+            </td>
+            <td>
+                {%item.intention.value%}
+            </td>
+            <td>
+                {%item.street%}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>
+    <div class="buttons">
+        <span class="btn-group pull-right">
+            <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
+            <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+        </span>
+    </div>
+</div>

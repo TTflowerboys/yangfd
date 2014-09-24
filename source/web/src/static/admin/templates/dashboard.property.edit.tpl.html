@@ -6,7 +6,6 @@
         </span>
 
 </div>
-<div get-property-enums></div>
 <div add-property-items></div>
 <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
       ng-submit="submit($event,editProperty)" name="editProperty" novalidate>
@@ -32,10 +31,8 @@
         <label class="control-label">房产类型</label>
 
         <div class="controls">
-            <select class="form-control" ng-model="item.property_type" style="width: 185px;"
-                    ng-options="p.id as p.value[userLanguage.value] for p in propertyTypeList">
-                <option value="">-- 选择 --</option>
-            </select>
+            <div enum-select name="property_type" ng-model="item.property_type"></div>
+
         </div>
     </div>
 </div>
@@ -44,20 +41,16 @@
         <label class="control-label">国家</label>
 
         <div class="controls">
-            <select class="form-control" ng-model="item.country" style="width: 185px;"
-                    ng-options="p.id as p.value[userLanguage.value] for p in systemCountries">
-                <option value="">-- 选择 --</option>
-            </select>
+            <div enum-select name="country" ng-model="item.country"></div>
+
         </div>
     </div>
     <div class="form-group col-xs-6 col-sm-3">
         <label class="control-label">城市</label>
 
         <div class="controls">
-            <select class="form-control" ng-model="item.city" style="width: 185px;"
-                    ng-options="p.id as p.value[userLanguage.value] for p in systemCities">
-                <option value="">-- 选择 --</option>
-            </select>
+            <div city-select-by-country country="item.country" ng-model="item.city"></div>
+
         </div>
     </div>
 </div>
@@ -129,10 +122,8 @@
         <label class="control-label">投资标签</label>
 
         <div class="controls">
-            <select class="form-control" ng-model="item.intention" style="width: 185px;"
-                    ng-options="p.id as p.value[userLanguage.value] for p in intentionList">
-                <option value="">-- 选择 --</option>
-            </select>
+            <div enum-select name="intention" ng-model="item.intention"></div>
+
         </div>
     </div>
 </div>
@@ -141,20 +132,15 @@
         <label class="control-label">产权类型</label>
 
         <div class="controls">
-            <select class="form-control" ng-model="item.equity_type" style="width: 185px;"
-                    ng-options="p.id as p.value[userLanguage.value] for p in equityTypeList">
-                <option value="">-- 选择 --</option>
-            </select>
+            <div enum-select name="equity_type" ng-model="item.equity_type"></div>
         </div>
     </div>
     <div class="form-group col-xs-6 col-sm-3">
         <label class="control-label">装修风格</label>
 
         <div class="controls">
-            <select class="form-control" ng-model="item.decorative_style" style="width: 185px;"
-                    ng-options="p.id as p.value[userLanguage.value] for p in decorativeStyleList">
-                <option value="">-- 选择 --</option>
-            </select>
+            <div enum-select name="decorative_style" ng-model="item.decorative_style"></div>
+
         </div>
     </div>
 </div>
@@ -198,10 +184,8 @@
         <label class="control-label">房产价格类型</label>
 
         <div class="controls">
-            <select class="form-control" ng-model="item.property_price_type" style="width: 185px;"
-                    ng-options="p.id as p.value[userLanguage.value] for p in propertyPriceTypeList">
-                <option value="">-- 选择 --</option>
-            </select>
+            <div enum-select name="property_price_type" ng-model="item.property_price_type"></div>
+
         </div>
     </div>
 </div>
@@ -349,10 +333,8 @@
             <label class="control-label">朝向</label>
 
             <div class="controls">
-                <select class="form-control" ng-model="item.facing_direction" style="width: 185px;"
-                        ng-options="p.id as p.value[userLanguage.value] for p in facingDirectionList">
-                    <option value="">-- 选择 --</option>
-                </select>
+                <div enum-select name="facing_direction" ng-model="item.facing_direction"></div>
+
             </div>
         </div>
     </div>

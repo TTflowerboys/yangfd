@@ -5,6 +5,9 @@
 
         return {
             getAll: function (config) {
+//                config = config || {}
+//                config.params = config.params || {}
+//                angular.extend(config.params, defaultParams)
                 return $http.get('/api/1/intention_ticket/search?_i18n=disabled', config)
             },
             getOne: function (id, config) {
