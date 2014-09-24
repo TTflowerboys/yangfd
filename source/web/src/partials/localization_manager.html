@@ -26,6 +26,7 @@
     <span id="修改邮箱成功">{{_('修改邮箱成功')}}</span>
     <span id="发送验证邮件失败">{{_('发送验证邮件失败')}}</span>
     <span id="邮件已发送，如果没有收到，请在60秒后重试">{{_('邮件已发送，如果没有收到，请在60秒后重试')}}</span>
+    <span id="请点击“获取验证码”">{{_('请点击“获取验证码”')}}</span>
 </div>
 
 <span id="current_Language" style="display:none">{{_.lang}}</span>
@@ -33,25 +34,25 @@
 
 <script>
 
-  window.lang = document.getElementById('current_Language').innerHTML
-  window.currency = document.getElementById('current_Currency').innerHTML
+    window.lang = document.getElementById('current_Language').innerHTML
+    window.currency = document.getElementById('current_Currency').innerHTML
 
-  function i18n(key) {
-      return $('#data_localization #' + key).text()
-  }
+    window.i18n = function (key) {
+        return $('#data_localization #' + key).text()
+    }
 
-  function getInputValidationMessage(domName, validator) {
-      var inputMessageDic = {
-          'nickname_required': '姓名不能为空',
-          'phone_required': '电话不能为空',
-          'phone_number': '电话格式不正确',
-          'email_required': '邮箱不能为空',
-          'email_email': '邮箱格式不合法',
-          'code_required': '验证码不能为空',
-          'password_required': '密码不能为空'
-      }
-      return i18n(inputMessageDic[ domName + '_' + validator])
-  }
+    window.getErrorMessage = function (domName, validator) {
+        var inputMessageDic = {
+            'nickname_required': '姓名不能为空',
+            'phone_required': '电话不能为空',
+            'phone_number': '电话格式不正确',
+            'email_required': '邮箱不能为空',
+            'email_email': '邮箱格式不合法',
+            'code_required': '验证码不能为空',
+            'password_required': '密码不能为空'
+        }
+        return i18n(inputMessageDic[ domName + '_' + validator])
+    }
 
 
 </script>
