@@ -200,7 +200,7 @@ angular.module('app')
                                     if (_.isNumber(i18nData[i].unit.value) && _.isNumber(i18nData[i].price.value)) {
                                         if (_.isString(i18nData[i].unit.unit) && _.isString(i18nData[i].price.unit)) {
                                             continue
-                                        }else{
+                                        } else {
                                             delete i18nData[i]
                                             continue
                                         }
@@ -224,6 +224,25 @@ angular.module('app')
                     }
                 }
                 return object
+            },
+            getPropByString: function (object, propString) {
+                if (!propString) {
+                    return object;
+                }
+
+                var prop, props = propString.split('.');
+
+                for (var i = 0, length = props.length - 1; i < length; i += 1) {
+                    prop = props[i];
+
+                    var candidate = object[prop];
+                    if (candidate !== undefined) {
+                        object = candidate;
+                    } else {
+                        break;
+                    }
+                }
+                return object[props[i]];
             }
         }
 
