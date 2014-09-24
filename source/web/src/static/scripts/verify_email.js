@@ -6,7 +6,7 @@ $('form[name=verifyEmail]').submit(function (e) {
     var resultArea = $(this).find('.resultMessage')
     resultArea.hide()
     var valid = $.validate(this, {onError: function (dom, validator, index) {
-        resultArea.text(window.getInputValidationMessage(dom.name, validator))
+        resultArea.text(window.getErrorMessage(dom.name, validator))
         resultArea.show()
     }})
 
@@ -17,7 +17,7 @@ $('form[name=verifyEmail]').submit(function (e) {
         return team.wrapErrors($.post('/api/1/user/' + window.user.id + '/email_verification/send', {}))
             .done(function (data) {
                 resultArea.text(window.i18n('邮件已发送，如果没有收到，请在60秒后重试'))
-                resultArea.show()                
+                resultArea.show()
             })
             .fail(function (data) {
                 resultArea.text(window.i18n('发送验证邮件失败'))

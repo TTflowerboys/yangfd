@@ -25,7 +25,7 @@ $('form[name=subscription]').submit(function (e) {
     var successArea = $('.opening .successMessage')
 
     var valid = $.validate(this, {onError: function (dom, validator, index) {
-        errorArea.text(window.getInputValidationMessage(dom.name, validator))
+        errorArea.text(window.getErrorMessage(dom.name, validator))
         errorArea.show()
     }})
     if (!valid) {return}
@@ -108,7 +108,7 @@ $('form[name=requirement]').submit(function (e) {
 
     var valid = $.validate(this, {onError: function (dom, validator, index) {
 
-        errorArea.text(window.getInputValidationMessage(dom.name, validator))
+        errorArea.text(window.getErrorMessage(dom.name, validator))
         errorArea.show()
         $(dom).css('border', '2px solid red')
     }})

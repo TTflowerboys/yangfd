@@ -64,7 +64,7 @@ popup.find('form[name=requirement]').submit(function (e) {
     )
 
     var valid = $.validate(this, {onError: function (dom, validator, index) {
-        errorArea.text(window.getInputValidationMessage(dom.name. validator))
+        errorArea.text(window.getErrorMessage(dom.name. validator))
         errorArea.show()
         $(dom).css('border', '2px solid red')
     }})
@@ -123,7 +123,7 @@ var onPhoneNumberChange = function () {
                function (data, status) {
 
                    if (data.ret !== 0) {
-                       errorArea.text(window.getInputValidationMessage('phone', 'number'))
+                       errorArea.text(window.getErrorMessage('phone', 'number'))
                        errorArea.show()
                        $input.css('border', '2px solid red')
                    }

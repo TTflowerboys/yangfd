@@ -12,7 +12,7 @@ $('form[name=signin]').submit(function (e) {
     e.preventDefault()
     errorArea.hide()
     var valid = $.validate(this, {onError: function (dom,validator,index) {
-        errorArea.text(window.getInputValidationMessage(dom.name, validator))
+        errorArea.text(window.getErrorMessage(dom.name, validator))
         errorArea.show()
     }})
     if(!valid){return}
