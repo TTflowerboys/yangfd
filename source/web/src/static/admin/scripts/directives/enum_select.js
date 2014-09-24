@@ -2,13 +2,13 @@
  * Created by Michael on 14/9/24.
  */
 angular.module('app')
-    .directive('getEnumSelection', function ($rootScope, enumApi) {
+    .directive('enumSelect', function ($rootScope, enumApi) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/get_enum_selection.tpl.html',
+            templateUrl: '/static/admin/templates/enum_select.tpl.html',
             scope: {
                 enumId: '=ngModel',
-                enumType: '@enumType',
+                enumType: '@name',
                 enumOption: '@text'
             },
             link: function (scope) {

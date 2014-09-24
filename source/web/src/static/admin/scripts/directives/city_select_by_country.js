@@ -2,10 +2,10 @@
  * Created by Michael on 14/9/24.
  */
 angular.module('app')
-    .directive('getCityByCountry', function ($rootScope,enumApi) {
+    .directive('citySelectByCountry', function ($rootScope,enumApi) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/get_enum_selection.tpl.html',
+            templateUrl: '/static/admin/templates/enum_select.tpl.html',
             scope: {
                 enumId: '=ngModel',
                 enumOption: '@text',

@@ -31,7 +31,7 @@
         <label class="control-label">房产类型</label>
 
         <div class="controls">
-            <div get-enum-selection enum-type="property_type" ng-model="item.property_type"></div>
+            <div enum-select name="property_type" ng-model="item.property_type"></div>
 
         </div>
     </div>
@@ -41,7 +41,7 @@
         <label class="control-label">国家</label>
 
         <div class="controls">
-            <div get-enum-selection enum-type="country" ng-model="item.country"></div>
+            <div enum-select name="country" ng-model="item.country"></div>
 
         </div>
     </div>
@@ -49,7 +49,7 @@
         <label class="control-label">城市</label>
 
         <div class="controls">
-            <div get-city-by-country country="item.country" ng-model="item.city"></div>
+            <div city-select-by-country country="item.country" ng-model="item.city"></div>
 
         </div>
     </div>
@@ -122,7 +122,7 @@
         <label class="control-label">投资标签</label>
 
         <div class="controls">
-            <div get-enum-selection enum-type="intention" ng-model="item.intention"></div>
+            <div enum-select name="intention" ng-model="item.intention"></div>
 
         </div>
     </div>
@@ -132,14 +132,14 @@
         <label class="control-label">产权类型</label>
 
         <div class="controls">
-            <div get-enum-selection enum-type="equity_type" ng-model="item.equity_type"></div>
+            <div enum-select name="equity_type" ng-model="item.equity_type"></div>
         </div>
     </div>
     <div class="form-group col-xs-6 col-sm-3">
         <label class="control-label">装修风格</label>
 
         <div class="controls">
-            <div get-enum-selection enum-type="decorative_style" ng-model="item.decorative_style"></div>
+            <div enum-select name="decorative_style" ng-model="item.decorative_style"></div>
 
         </div>
     </div>
@@ -184,7 +184,7 @@
         <label class="control-label">房产价格类型</label>
 
         <div class="controls">
-            <div get-enum-selection enum-type="property_price_type" ng-model="item.property_price_type"></div>
+            <div enum-select name="property_price_type" ng-model="item.property_price_type"></div>
 
         </div>
     </div>
@@ -333,7 +333,7 @@
             <label class="control-label">朝向</label>
 
             <div class="controls">
-                <div get-enum-selection enum-type="facing_direction" ng-model="item.facing_direction"></div>
+                <div enum-select name="facing_direction" ng-model="item.facing_direction"></div>
 
             </div>
         </div>
