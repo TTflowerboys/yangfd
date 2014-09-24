@@ -88,7 +88,6 @@
             }
         }
 
-
     }
 
     angular.module('app').controller('ctrlList', ctrlList)

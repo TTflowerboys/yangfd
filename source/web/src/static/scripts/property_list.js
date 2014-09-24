@@ -1,5 +1,6 @@
 (function () {
     var time
+
     function loadPropertyList() {
         var params = {'per_page': 5}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
@@ -30,24 +31,19 @@
         $('#result #loadIndicator').show()
         var resultCount = 0
         $.post('/api/1/property/search', params)
-            .done(function (data) {
-                if (data.ret !== 0) {
-                    console.log(data)
-                }
-                else {
-                    var array = data.val.content
-                    resultCount = data.val.count
-                    if (!_.isEmpty(array)) {
-                        time = _.last(array).time
-                        _.each(array, function (house) {
-                            var houseResult = _.template($('#houseCard_template').html())({house: house})
-                            $('#result_list').append(houseResult)
+            .done(function (val) {
+                var array = val.content
+                resultCount = val.count
+                if (!_.isEmpty(array)) {
+                    time = _.last(array).time
+                    _.each(array, function (house) {
+                        var houseResult = _.template($('#houseCard_template').html())({house: house})
+                        $('#result_list').append(houseResult)
 
-                            if (time > house.time) {
-                                time = house.time
-                            }
-                        })
-                    }
+                        if (time > house.time) {
+                            time = house.time
+                        }
+                    })
                 }
 
             })

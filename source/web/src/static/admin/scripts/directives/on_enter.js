@@ -4,7 +4,6 @@
 angular.module('app')
     .directive('onEnter', function () {
     return function (scope, element, attrs) {
-        console.log('onEnter')
         element.bind('keydown keypress', function (event) {
             // Handle Enter Press Event
             if(event.which === 13) {

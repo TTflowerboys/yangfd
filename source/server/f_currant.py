@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime, timedelta
 import random
+import re
 import phonenumbers
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, DESCENDING
@@ -20,6 +21,7 @@ from libfelix.f_util import f_util
 import logging
 logger = logging.getLogger(__name__)
 f_app.dependency_register('pyquery', race="python")
+f_app.dependency_register('re', race="python")
 
 
 class f_currant_log(f_log):
@@ -476,10 +478,8 @@ class f_currant_plugins(f_app.plugin_base):
             "country": {"_id": ObjectId(f_app.enum.get_by_slug('GB')['id']), "type": "country", "_enum": "country"},
             "city": {"_id": ObjectId(f_app.enum.get_by_slug('london')['id']), "type": "city", "_enum": "city"},
         }
-        result = []
         is_end = False
         search_url = 'http://www.mylondonhome.com/search.aspx?ListingType=5'
-        list_page_until = 0
         list_page_counter = 0
         list_post_data = {
             "__EVENTTARGET": "_ctl1:CenterRegion:_ctl1:cntrlPagingHeader",
@@ -513,10 +513,26 @@ class f_currant_plugins(f_app.plugin_base):
                         property_page_address = list_page_dom_root('div#propertyAddress h1.ViewPropNamePrice').html()
                         property_page_price = list_page_dom_root('div#propertyAddress h2.ViewPropNamePrice').html()
                         property_page_building_area = list_page_dom_root('div#cntrlPropertyDetails__ctl1_trBuildingArea').html()
+
+                        params["address"] = property_page_address.strip()
+                        total_price = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_price)
+                        if total_price:
+                            params["total_price"] = {"value": total_price[0], "type": "currency", "unit": "GBP"}
+                        building_area = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_building_area)
+                        if building_area:
+                            params["building_area"] = {"type": "area", "unit": "foot ** 2", "value": building_area[0]}
+
+                        f_app.property.crawler_insert_update(params)
+
                     else:
                         self.logger.debug("Failed crawling property_page %s, status_code is %d" % (property_url, property_page.status_code))
             else:
                 self.logger.debug("Failed crawling page %d, status_code is %d" % (list_page_counter, list_page.status_code))
+
+        f_app.task.put(dict(
+            type="crawler_london_home",
+            start=datetime.utcnow() + timedelta(days=1),
+        ))
 
 
 f_currant_plugins()

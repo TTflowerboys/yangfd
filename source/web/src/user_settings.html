@@ -1,6 +1,6 @@
 <!--@@master = masters/user_master.html-->
 <!--@@block = main -->
-<h1 class="caption">账户信息</h1>
+<h1 class="caption">{{_('账户信息')}}</h1>
 <div class="table_wrapper">
     <table>
         <colgroup>
@@ -9,71 +9,102 @@
             <col class="status">
             <col class="action">
         </colgroup>
-
         <tbody>
             <tr>
                 <td>
-                    <strong>手机号</strong>
-                    <p>手机号是您在洋房东的登录和 <br/>找回密码凭证</p>
+                    <strong>{{_('手机号')}}</strong>
+                    <p> {{_('手机号是您在洋房东的登录和')}} <br/>{{_('找回密码凭证')}}</p>
                 </td>
                 <td style="font-size: 20px;">
-                    *******7241
+                    %if user.get('phone'):
+                    {{user.get('phone')}}
+                    %end
                 </td>
                 <td>
-                    <i></i> 未认证
+                    %if user.get('phone_verified'):
+                    <i></i> {{_('已认证')}}
+                    %else:
+                    <i></i> {{_('未认证')}}
+                    %end
                 </td>
                 <td class="action">
-                    <button class="ghostButton red">认证</button>
+                    <button class="ghostButton red">
+                        %if user.get('phone_verified'):
+                        {{_('修改')}}
+                        %else:
+                        {{_('认证')}}
+                        %end
+                    </button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <strong>电子邮箱</strong>
-                    <p>获取最新的投资讯息和账户信息 <br/> 变动通知</p>
+                    <strong>{{_('电子邮箱')}}</strong>
+                    <p>{{_('获取最新的投资讯息和账户信息')}} <br/> {{_('变动通知')}}</p>
                 </td>
                 <td style="font-size: 20px;">
-                    x***@live.com
+                    %if user.get('email'):
+                    {{user.get('email')}}
+                    %end
                 </td>
                 <td>
-                    <i></i> 已认证
+                    %if user.get('email_verified'):
+                    <i></i> {{_('已认证')}}
+                    %else:
+                    <i></i> {{_('未认证')}}
+                    %end
                 </td>
                 <td class="action">
-                    <a class="ghostButton red" href="/user_verify_email">修改</a>
+                    %if user.get('email_verified'):
+                    <a class="ghostButton red" href="/user_change_email">
+                        {{_('修改')}}
+                    </a>
+                    %else:
+                    <a class="ghostButton red" href="/user_verify_email">
+                        {{_('认证')}}
+                    </a>
+                     %end
                 </td>
             </tr>
             <tr>
                 <td>
-                    <strong>登录密码</strong>
-                    <p>注册时设置的密码</p>
+                    <strong>{{_('登录密码')}}</strong>
+                    <p>{{_('注册时设置的密码')}}</p>
                 </td>
                 <td>
                 </td>
                 <td>
-                    <i></i> 已设置
+                    <i></i> {{_('已设置')}}
                 </td>
                 <td class="action">
-                    <button class="ghostButton red">修改</button>
+                    <button class="ghostButton red">{{_('修改')}}</button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <strong>语言设置</strong>
-                    <p>网站及各类通知邮件默认语言</p>
+                    <strong>{{_('语言设置')}}</strong>
+                    <p>{{_('网站及各类通知邮件默认语言')}}</p>
                 </td>
                 <td>
-                    中文，中国
+                    %if user.get('locales') and len(user.get('locales')):
+                    {{user.get('locales')[0]}}
+                    %end
                 </td>
                 <td>
-                    <i></i> 已设置
+                    %if user.get('locales') and len(user.get('locales')):
+                    {{_('已设置')}}
+                    %else:
+                    {{_('未设置')}}
+                    %end
                 </td>
                 <td class="action">
-                    <button class="ghostButton red">修改</button>
+                    <button class="ghostButton red">{{_('修改')}}</button>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
-<h1 class="caption">消息设置</h1>
+<h1 class="caption">{{_('消息设置')}}</h1>
 <div class="table_wrapper">
     <table>
         <colgroup>
@@ -86,70 +117,90 @@
                 <td>
                 </td>
                 <td style="text-align:center;">
-                    系统消息
+                    {{_('系统消息')}}
                 </td>
                 <td style="text-align:center;">
-                    邮件通知
+                    {{_('邮件通知')}}
                 </td>
             </tr>
             <tr>
                 <td>
-                    <strong>接收我的房产资讯</strong>
-                    <p>当房产有新的资讯或更新时发送至您的账户邮箱中</p>
+                    <strong>{{_('接收我的房产资讯')}}</strong>
+                    <p>{{_('当房产有新的资讯或更新时发送至您的账户邮箱中')}}</p>
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('mine' in user.get('system_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('mine' in user.get('email_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <strong>接收已提交意向单的房产资讯</strong>
-                    <p>当意向有新的资讯或更新时发送至您的账户邮箱中</p>
+                    <strong>{{_('接收已提交意向单的房产资讯')}}</strong>
+                    <p>{{_('当意向有新的资讯或更新时发送至您的账户邮箱中')}}</p>
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('intention' in user.get('system_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('intention' in user.get('email_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <strong>接收已提交意向单的房产资讯</strong>
-                    <p>当意向有新的资讯或更新时发送至您的账户邮箱中</p>
+                    <strong>{{_('接收收藏房产的资讯')}}</strong>
+                    <p>{{_('当收藏有新的资讯或更新时发送至您的账户邮箱中')}}</p>
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if('favorite' in user.get('system_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('favorite' in user.get('email_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <strong>接收收藏房产的资讯</strong>
-                    <p>当收藏有新的资讯或更新时发送至您的账户邮箱中</p>
+                    <strong>{{_('接收平台通知')}}</strong>
+                    <p>{{_('当收藏有新的资讯或更新时发送至您的账户邮箱中')}}</p>
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('system' in user.get('system_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
-                    <input type="checkbox"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <strong>接收平台通知</strong>
-                    <p>当收藏有新的资讯或更新时发送至您的账户邮箱中</p>
-                </td>
-                <td class="textCenter">
-                    <input type="checkbox"/>
-                </td>
-                <td class="textCenter">
-                    <input type="checkbox"/>
+                    <input type="checkbox"
+                           %if  ('system' in user.get('email_message_type')):
+                           checked
+                           %end
+                           />
                 </td>
             </tr>
         </tbody>
