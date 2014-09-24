@@ -508,12 +508,20 @@ class f_currant_plugins(f_app.plugin_base):
                     logger.debug(property_url)
                     property_page = f_app.request.get(property_url)
                     if property_page.status_code == 200:
-                        params["property_crawler_id"] = property_page
+                        params["property_crawler_id"] = property_url
+                        property_page_dom_root = q(property_page.conent)
                         # Extract information
-                        property_page_address = list_page_dom_root('div#propertyAddress h1.ViewPropNamePrice').html()
-                        property_page_price = list_page_dom_root('div#propertyAddress h2.ViewPropNamePrice').html()
-                        property_page_building_area = list_page_dom_root('div#cntrlPropertyDetails__ctl1_trBuildingArea').html()
+                        property_page_address = property_page_dom_root('div#propertyAddress h1.ViewPropNamePrice').html()
+                        property_page_price = property_page_dom_root('div#propertyAddress h2.ViewPropNamePrice').html()
+                        property_page_building_area = property_page_dom_root('div#cntrlPropertyDetails__ctl1_trBuildingArea').html()
                         property_image_page = f_app.request.get(property_image_url_prefix + property_site_id)
+                        property_description = property_page_dom_root('div.ViewPropTextContainer')
+                        property_description.children('div.VisitorsAlsoviewedMain').remove()
+                        property_description.children('script').remove()
+                        property_description = property_description.text()
+
+                        params["description"] = {"en_GB": property_description}
+                        params["address"] = {"en_GB": property_page_address.strip()}
 
                         if property_image_page.status_code == 200:
                             property_image_page_dom_root = q(property_image_page.content)
@@ -526,8 +534,8 @@ class f_currant_plugins(f_app.plugin_base):
                                 query.pop('w', None)
                                 img_url = img_url._replace(query=urllib.parse.urlencode(query, True))
                                 property_images.append(urllib.parse.urlunparse(img_url))
-                            params["reality_images"] = property_images
-                        params["address"] = property_page_address.strip()
+                            params["reality_images"] = {"en_GB": property_images}
+
                         total_price = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_price)
                         if total_price:
                             params["total_price"] = {"value": total_price[0], "type": "currency", "unit": "GBP"}
