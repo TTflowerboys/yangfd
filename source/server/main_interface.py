@@ -160,8 +160,11 @@ def static_route(filepath):
     return static_file(filepath, root="views/static")
 
 
-@f_get("/logout")
+@f_get("/logout", params=dict(
+    return_url=str,
+))
 def logout():
+    return_url = params.pop("return_url", "/")
     f_app.user.login.logout()
     baseurl = "://".join(request.urlparts[:2])
-    redirect(baseurl + "/")
+    redirect(baseurl + return_url)
