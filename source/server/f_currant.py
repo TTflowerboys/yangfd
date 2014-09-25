@@ -472,10 +472,6 @@ class f_currant_plugins(f_app.plugin_base):
         ))
 
     def task_on_london_home(self, task):
-        params = {
-            "country": {"_id": ObjectId(f_app.enum.get_by_slug('GB')['id']), "type": "country", "_enum": "country"},
-            "city": {"_id": ObjectId(f_app.enum.get_by_slug('london')['id']), "type": "city", "_enum": "city"},
-        }
         is_end = False
         search_url = 'http://www.mylondonhome.com/search.aspx?ListingType=5'
         list_page_counter = 0
@@ -503,6 +499,10 @@ class f_currant_plugins(f_app.plugin_base):
 
                 list_page_property_links = list_page_dom_root("div#cntrlPropertySearch_map_pnlResults a.propAdd")
                 for link in list_page_property_links:
+                    params = {
+                        "country": {"_id": ObjectId(f_app.enum.get_by_slug('GB')['id']), "type": "country", "_enum": "country"},
+                        "city": {"_id": ObjectId(f_app.enum.get_by_slug('london')['id']), "type": "city", "_enum": "city"},
+                    }
                     property_url = "%s%s" % (search_url_prefix, link.attrib['href'])
                     property_site_id = urllib.parse.urlparse(link.attrib['href']).path.split('/')[-1]
                     logger.debug(property_url)
@@ -566,15 +566,30 @@ class f_currant_plugins(f_app.plugin_base):
         # Please use f_app.request for ANY HTTP(s) requests.
         list_url = 'http://www.fortisdevelopments.com/projects/'
         # Fetch the list
+        list_page = f_app.request.get(list_url)
         # Fetch the pages
-        # Extract needed information
-        # Match the information to our property format
-        params = {}
-        # Save an identifier property_crawler_id into the params. It's recommended to use the page URL whenever applicable.
-        params["property_crawler_id"] = "url"
-        # Call f_app.property.crawler_insert_update for each property
-        f_app.property.crawler_insert_update(params)
-        # Add a new task for next fetch. For example, if you want to craw every day:
+        if list_page.status_code == 200:
+            self.logger.debug("Start crawling page %s" % list_url)
+            list_page_dom_root = q(list_page.content)
+            list_links = list_page_dom_root('h2.projects-accordion__heading--current').siblings('div.projects-accordion__content').children().children()
+            for link in list_links:
+                params = {
+                    "country": {"_id": ObjectId(f_app.enum.get_by_slug('GB')['id']), "type": "country", "_enum": "country"},
+                }
+                property_page_link_url = link.attrib['href']
+                property_page = f_app.request.get(property_page_link_url)
+                if property_page.status_code == 200:
+                    property_page_dom_root = q(property_page.content)
+                    images = property_page_dom_root('ul.slides img')
+                    if images:
+                        params["reality_images"] = {"en_GB": [x.attrib['src'] for x in images]}
+                    params["description"] = {"en_GB": property_page_dom_root('div#panel1').text()}
+
+                # Save an identifier property_crawler_id into the params. It's recommended to use the page URL whenever applicable.
+                params["property_crawler_id"] = property_page_link_url
+                # Call f_app.property.crawler_insert_update for each property
+                f_app.property.crawler_insert_update(params)
+                # Add a new task for next fetch. For example, if you want to craw every day:
         f_app.task.put(dict(
             type="fortis_developments",
             start=datetime.utcnow() + timedelta(days=1),
