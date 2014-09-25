@@ -121,7 +121,7 @@
 
         var $countrySelect = $('select[name=propertyCountry]')
         $countrySelect.empty()
-        $countrySelect.append('<option value=>' + window.i18n('所有国家') + '</option>')
+        $countrySelect.append('<option value=>' + window.i18n('所有国家slash地区') + '</option>')
         _.each(window.countryData, function (country) {
             var item = '<option value=' + country.id + '>' + country.value[window.lang] + '</option))>'
             $countrySelect.append(item)

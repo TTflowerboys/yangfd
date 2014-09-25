@@ -98,3 +98,26 @@
         background: linear-gradient(to right, fade(@bg, 0%) 0%, @bg 80%);
     }
 }
+
+.arrow(@direction; @fg; @width; @bg:transparent; ) {
+    border: @width/2 solid @bg;
+    width: 0;
+    height: 0;
+    display: block;
+    & when (@direction = up) {
+        border-bottom-color: @fg;
+        margin-left: -@width/2;
+    }
+    & when (@direction = down) {
+        border-top-color: @fg;
+        margin-left: -@width/2;
+    }
+    & when (@direction = left) {
+        border-right-color: @fg;
+        margin-top: -@width/2;
+    }
+    & when (@direction = right) {
+        border-left-color: @fg;
+        margin-top: -@width/2;
+    }
+}
