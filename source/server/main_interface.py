@@ -169,7 +169,7 @@ def user_favorites():
 
 @f_get('/user_intentions')
 def user_intentions():
-    return template("user_intentions", user=get_current_user(), country_list=get_country_list())
+    return template("user_intentions", user=get_current_user(), country_list=get_country_list(), property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}})))
 
 
 @f_get('/user_properties')

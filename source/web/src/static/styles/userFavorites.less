@@ -55,12 +55,45 @@
                 right:0;
                 bottom:0;
                 height:40px;
+                button {
+                    margin-top:6px;
+                    button:28px;
+                }
             }
         }
     }
 
     .contentFooter {
         margin: 0 auto;
-        display:block;
+        width:224px;
+
+        button {
+            width:110px;
+            display: inline-block;
+            border:0px;
+            background: transparent;
+            text-align:center;
+            font-size:16px;
+            padding-top:2px;
+            color:#ccc;
+            line-height: 20px;
+
+            img {
+                height:20px;
+                vertical-align:bottom;
+                &.pre {
+                    margin-right:8px;
+                }
+                &.next {
+                    margin-left:16px;
+                }
+            }
+
+            label {
+                height:20px;
+                line-height:20px;
+            }
+        }
+
     }
 }
