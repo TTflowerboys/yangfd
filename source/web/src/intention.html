@@ -66,8 +66,10 @@
     (function () {
         var $form = $('form[name=intentionForm]')
 
-        $('[data-tabs]').tabs().on('openTab', function (event, dom) {
-            $(dom).closest('li').addClass('indicator').siblings().removeClass('indicator')
+        $('[data-tabs]').tabs().on('mouseover', 'li', function (e) {
+            var tabName = $(e.currentTarget).find('[data-tab]').data('tab')
+            $(e.currentTarget).addClass('indicator').siblings().removeClass('indicator')
+            $(e.delegateTarget).find('[data-tab-name=' + tabName + ']').show().siblings().hide()
         })
 
         $form.find('[name=budget]').on('change', function () {
