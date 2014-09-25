@@ -163,7 +163,7 @@ def user_change_phone_2():
 
 @f_get('/user_favorites')
 def user_favorites():
-    return template("user_favorites", user=get_current_user(), country_list=get_country_list())
+    return template("user_favorites", user=get_current_user(), country_list=get_country_list(), property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}})))
 
 
 @f_get('/user_intentions')
