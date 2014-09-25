@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-09-23 14:02+0800\n"
-"PO-Revision-Date: 2014-09-23 14:15+0800\n"
+"POT-Creation-Date: 2014-09-25 11:33+0800\n"
+"PO-Revision-Date: 2014-09-25 11:34+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -27,38 +27,38 @@ msgstr "Dashboard"
 msgid "警告"
 msgstr "Warning"
 
-#: ../web/src/coming_soon.html:18 ../web/src/coming_soon.html:85
+#: ../web/src/coming_soon.html:17 ../web/src/coming_soon.html:84
+#: ../web/src/masters/big_picture_bg_master.html:20
+#: ../web/src/masters/big_picture_bg_master.html:34
 #: ../web/src/masters/master.html:25 ../web/src/masters/master.html:112
-#: ../web/src/masters/signin_master.html:21
-#: ../web/src/masters/signin_master.html:36
 msgid "洋房东"
 msgstr "YoungFunding"
 
-#: ../web/src/coming_soon.html:27
+#: ../web/src/coming_soon.html:26
 msgid "金秋十月，即将开放！"
 msgstr "LAUNCHING OCT 2014"
 
-#: ../web/src/coming_soon.html:29
+#: ../web/src/coming_soon.html:28
 msgid "请填写邮箱订阅网站上线通知"
 msgstr "Enter your e-mail to subscribe our news!"
 
-#: ../web/src/coming_soon.html:30
+#: ../web/src/coming_soon.html:29
 msgid "订阅"
 msgstr "Subscribe"
 
-#: ../web/src/coming_soon.html:33
+#: ../web/src/coming_soon.html:32
 msgid "谢谢你的订阅!"
 msgstr "Thanks for your subscription!"
 
-#: ../web/src/coming_soon.html:33
+#: ../web/src/coming_soon.html:32
 msgid "在网站开放后，我们将第一时间告知您！"
 msgstr "We will notify you when website is launched!"
 
-#: ../web/src/coming_soon.html:39
+#: ../web/src/coming_soon.html:38
 msgid "我们做什么？"
 msgstr "What we do?"
 
-#: ../web/src/coming_soon.html:40
+#: ../web/src/coming_soon.html:39
 msgid ""
 "我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的"
 "置业顾问助推您的海外投资之路。"
@@ -67,7 +67,7 @@ msgstr ""
 "investors, get our investors on board with detailed investment analysis "
 "report and professional property consultant."
 
-#: ../web/src/coming_soon.html:42
+#: ../web/src/coming_soon.html:41
 msgid ""
 "洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化"
 "的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以"
@@ -82,63 +82,65 @@ msgstr ""
 "everything when you want to settle your investment, really make real estate "
 "investment easy."
 
-#: ../web/src/coming_soon.html:48 ../web/src/partials/float_window.html:11
+#: ../web/src/coming_soon.html:47 ../web/src/partials/float_bar.html:11
 #: ../web/src/partials/requirement_popup.html:6
 msgid "提交置业需求"
 msgstr "Submit Your Investment Needs"
 
-#: ../web/src/coming_soon.html:49 ../web/src/partials/requirement_popup.html:7
+#: ../web/src/coming_soon.html:48
 msgid ""
-"如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
+"如果您有海外置业的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 "If you are interested in investing UK property, please submit your "
 "investment needs here. We will get in touch and help your with your needs."
 
-#: ../web/src/coming_soon.html:54
+#: ../web/src/coming_soon.html:53
 #: ../web/src/partials/requirement_popup.html:12
 msgid "姓名(必填)"
 msgstr "Name (Required)"
 
-#: ../web/src/coming_soon.html:59
+#: ../web/src/coming_soon.html:58
 #: ../web/src/partials/requirement_popup.html:34
 msgid "电话(必填)"
 msgstr "Phone (Required)"
 
-#: ../web/src/coming_soon.html:62
+#: ../web/src/coming_soon.html:61
 #: ../web/src/partials/requirement_popup.html:37
 msgid "邮箱(必填)"
 msgstr "Email (Required)"
 
-#: ../web/src/coming_soon.html:65
+#: ../web/src/coming_soon.html:64
 #: ../web/src/partials/requirement_popup.html:40
 msgid "您的预算"
 msgstr "Your Budget"
 
-#: ../web/src/coming_soon.html:72
+#: ../web/src/coming_soon.html:71
 #: ../web/src/partials/requirement_popup.html:47
 msgid "写下您的其他需求和描述，方便我们在挑选房源时作为参考"
 msgstr ""
 "Please write down your investment needs in detail, we can put your needs "
 "into our consideration when launch houses."
 
-#: ../web/src/coming_soon.html:76
+#: ../web/src/coming_soon.html:75 ../web/src/reset_password.html:31
+#: ../web/src/masters/user_master.html:111
 #: ../web/src/partials/requirement_popup.html:51
 msgid "提交"
 msgstr "Submit"
 
-#: ../web/src/coming_soon.html:79
+#: ../web/src/coming_soon.html:78
 #: ../web/src/partials/requirement_popup.html:55
 msgid "置业需求已提交，稍后我们的工作人员会联系你"
 msgstr ""
 "Your requirement has been submitted, we will get in touch with you as soon "
 "as possible. "
 
-#: ../web/src/coming_soon.html:90 ../web/src/masters/master.html:93
+#: ../web/src/coming_soon.html:89 ../web/src/masters/master.html:93
 msgid "简体中文(中国)"
 msgstr ""
 
-#: ../web/src/coming_soon.html:91 ../web/src/masters/master.html:94
-#: ../web/src/masters/signin_master.html:50
+#: ../web/src/coming_soon.html:90
+#: ../web/src/masters/big_picture_bg_master.html:49
+#: ../web/src/masters/master.html:94
 msgid "English (United Kingdom)"
 msgstr ""
 
@@ -147,8 +149,7 @@ msgid "我想在"
 msgstr "I want invest in"
 
 #: ../web/src/property_list.html:33
-#: ../web/src/partials/localization_manager.html:13
-msgid "所有国家"
+msgid "所有国家/地区"
 msgstr "Any Country"
 
 #: ../web/src/property_list.html:35
@@ -156,7 +157,7 @@ msgid "的"
 msgstr "at"
 
 #: ../web/src/property_list.html:37
-#: ../web/src/partials/localization_manager.html:14
+#: ../web/src/partials/localization_manager.html:15
 msgid "所有城市"
 msgstr "Any City"
 
@@ -192,6 +193,180 @@ msgstr "Price (Single Choice)"
 msgid "投资意向(多选)"
 msgstr "Intentions (Multiple Choices)"
 
+#: ../web/src/reset_password.html:14
+msgid "短信验证码"
+msgstr ""
+
+#: ../web/src/reset_password.html:16
+msgid "获取验证码"
+msgstr ""
+
+#: ../web/src/reset_password.html:21
+msgid "设置新密码"
+msgstr ""
+
+#: ../web/src/reset_password.html:27
+msgid "确认新密码"
+msgstr ""
+
+#: ../web/src/user_change_email.html:8
+msgid "更改邮箱"
+msgstr "Email"
+
+#: ../web/src/user_change_email.html:12 ../web/src/user_verify_email.html:12
+msgid ""
+"提交成功后请检查您的收件箱并验证邮件中的链接进行验证，如果没有收到请检查您的"
+"垃圾邮箱，或者直接与洋房东客服联系"
+msgstr ""
+
+#: ../web/src/user_change_email.html:15
+msgid "新邮箱"
+msgstr "Email"
+
+#: ../web/src/user_change_email.html:20
+msgid "确认"
+msgstr ""
+
+#: ../web/src/user_settings.html:3
+msgid "账户信息"
+msgstr ""
+
+#: ../web/src/user_settings.html:15
+msgid "手机号"
+msgstr ""
+
+#: ../web/src/user_settings.html:16
+msgid "手机号是您在洋房东的登录和"
+msgstr ""
+
+#: ../web/src/user_settings.html:16
+msgid "找回密码凭证"
+msgstr ""
+
+#: ../web/src/user_settings.html:25 ../web/src/user_settings.html:52
+msgid "已认证"
+msgstr ""
+
+#: ../web/src/user_settings.html:27 ../web/src/user_settings.html:54
+msgid "未认证"
+msgstr ""
+
+#: ../web/src/user_settings.html:33 ../web/src/user_settings.html:60
+#: ../web/src/user_settings.html:80 ../web/src/user_settings.html:101
+msgid "修改"
+msgstr ""
+
+#: ../web/src/user_settings.html:35 ../web/src/user_settings.html:64
+msgid "认证"
+msgstr ""
+
+#: ../web/src/user_settings.html:42
+msgid "电子邮箱"
+msgstr "Email"
+
+#: ../web/src/user_settings.html:43
+msgid "获取最新的投资讯息和账户信息"
+msgstr ""
+
+#: ../web/src/user_settings.html:43
+msgid "变动通知"
+msgstr ""
+
+#: ../web/src/user_settings.html:71
+msgid "登录密码"
+msgstr "to login"
+
+#: ../web/src/user_settings.html:72
+msgid "注册时设置的密码"
+msgstr ""
+
+#: ../web/src/user_settings.html:77 ../web/src/user_settings.html:95
+msgid "已设置"
+msgstr ""
+
+#: ../web/src/user_settings.html:85
+msgid "语言设置"
+msgstr ""
+
+#: ../web/src/user_settings.html:86
+msgid "网站及各类通知邮件默认语言"
+msgstr ""
+
+#: ../web/src/user_settings.html:97
+msgid "未设置"
+msgstr ""
+
+#: ../web/src/user_settings.html:107
+msgid "消息设置"
+msgstr ""
+
+#: ../web/src/user_settings.html:120
+msgid "系统消息"
+msgstr ""
+
+#: ../web/src/user_settings.html:123
+msgid "邮件通知"
+msgstr ""
+
+#: ../web/src/user_settings.html:128
+msgid "接收我的房产资讯"
+msgstr ""
+
+#: ../web/src/user_settings.html:129
+msgid "当房产有新的资讯或更新时发送至您的账户邮箱中"
+msgstr ""
+
+#: ../web/src/user_settings.html:148
+msgid "接收已提交意向单的房产资讯"
+msgstr ""
+
+#: ../web/src/user_settings.html:149
+msgid "当意向有新的资讯或更新时发送至您的账户邮箱中"
+msgstr ""
+
+#: ../web/src/user_settings.html:168
+msgid "接收收藏房产的资讯"
+msgstr ""
+
+#: ../web/src/user_settings.html:169 ../web/src/user_settings.html:189
+msgid "当收藏有新的资讯或更新时发送至您的账户邮箱中"
+msgstr ""
+
+#: ../web/src/user_settings.html:188
+msgid "接收平台通知"
+msgstr ""
+
+#: ../web/src/user_verify_email.html:8
+msgid "验证邮箱"
+msgstr "Please Verify You Email Address"
+
+#: ../web/src/user_verify_email.html:15
+#: ../web/src/partials/localization_manager.html:9
+msgid "邮箱"
+msgstr "Email"
+
+#: ../web/src/user_verify_email.html:20
+msgid "发送"
+msgstr ""
+
+#: ../web/src/masters/big_picture_bg_master.html:38
+#: ../web/src/masters/master.html:79
+msgid "服务条款"
+msgstr "Terms Of Use"
+
+#: ../web/src/masters/big_picture_bg_master.html:41
+msgid "隐私协议"
+msgstr "Privacy"
+
+#: ../web/src/masters/big_picture_bg_master.html:44
+#: ../web/src/masters/master.html:81
+msgid "业务流程"
+msgstr "How It Works"
+
+#: ../web/src/masters/big_picture_bg_master.html:48
+msgid "中文简体（中国）"
+msgstr "简体中文(中国)"
+
 #: ../web/src/masters/master.html:37
 msgid "我的海投"
 msgstr "Home"
@@ -212,11 +387,15 @@ msgstr "How It Works"
 msgid "登出"
 msgstr "Log Out"
 
-#: ../web/src/masters/master.html:47
-msgid "登陆"
-msgstr "Sign In"
+#: ../web/src/masters/master.html:47 ../web/src/partials/register_form.html:22
+#: ../web/src/partials/signin_form.html:12
+#: ../web/src/static/emails/new_admin.html:4
+#: ../web/src/static/emails/set_as_admin.html:4
+msgid "登录"
+msgstr "to login"
 
-#: ../web/src/masters/master.html:48
+#: ../web/src/masters/master.html:48 ../web/src/partials/register_form.html:20
+#: ../web/src/partials/signin_form.html:14
 msgid "注册"
 msgstr "Sign Up"
 
@@ -228,17 +407,9 @@ msgstr "Social Networks"
 msgid "服务支持"
 msgstr "Support"
 
-#: ../web/src/masters/master.html:79 ../web/src/masters/signin_master.html:39
-msgid "服务条款"
-msgstr "Terms Of Use"
-
 #: ../web/src/masters/master.html:80
 msgid "隐私声明"
 msgstr "Privacy"
-
-#: ../web/src/masters/master.html:81 ../web/src/masters/signin_master.html:45
-msgid "业务流程"
-msgstr "How It Works"
 
 #: ../web/src/masters/master.html:84
 msgid "功能"
@@ -280,21 +451,106 @@ msgstr "Euro"
 msgid "港币"
 msgstr "Hong Kong Dollar"
 
-#: ../web/src/masters/signin_master.html:42
-msgid "隐私协议"
-msgstr "Privacy"
+#: ../web/src/masters/user_master.html:16
+msgid "手机已验证"
+msgstr ""
 
-#: ../web/src/masters/signin_master.html:49
-msgid "中文简体（中国）"
-msgstr "简体中文(中国)"
+#: ../web/src/masters/user_master.html:18
+msgid "手机未验证"
+msgstr ""
 
-#: ../web/src/partials/float_window.html:17
-msgid "电话："
-msgstr "Phone"
+#: ../web/src/masters/user_master.html:25
+msgid "邮箱已验证"
+msgstr ""
 
+#: ../web/src/masters/user_master.html:27
+msgid "邮箱未验证"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:36
+msgid "账户管理"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:40
+msgid "我的收藏"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:44
+msgid "投资意向单"
+msgstr "Intentions (Multiple Choices)"
+
+#: ../web/src/masters/user_master.html:48
+msgid "我的房产"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:52
+msgid "消息"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:58
+#: ../web/src/masters/user_master.html:109
+msgid "个人资料"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:59
+msgid "编辑"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:69
+#: ../web/src/masters/user_master.html:127
+#: ../web/src/partials/localization_manager.html:7
+#: ../web/src/partials/register_form.html:5
+msgid "姓名"
+msgstr "Name"
+
+#: ../web/src/masters/user_master.html:73
+#: ../web/src/masters/user_master.html:132
+msgid "性别"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:81
+msgid "生日"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:89
+#: ../web/src/masters/user_master.html:137
+msgid "国家"
+msgstr "Any Country"
+
+#: ../web/src/masters/user_master.html:97
+#: ../web/src/masters/user_master.html:143
+msgid "城市"
+msgstr "Any City"
+
+#: ../web/src/masters/user_master.html:110
+#: ../web/src/partials/requirement_popup.html:52
+msgid "取消"
+msgstr "Cancel"
+
+#: ../web/src/masters/user_master.html:115
 #: ../web/src/partials/localization_manager.html:2
 msgid "姓名不能为空"
 msgstr "Name should not be empty"
+
+#: ../web/src/masters/user_master.html:118
+msgid "更新成功"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:129
+msgid "请填写姓名"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:133
+msgid "男"
+msgstr ""
+
+#: ../web/src/masters/user_master.html:134
+msgid "女"
+msgstr ""
+
+#: ../web/src/partials/float_bar.html:17
+msgid "电话："
+msgstr "Phone"
 
 #: ../web/src/partials/localization_manager.html:3
 msgid "电话不能为空"
@@ -305,76 +561,128 @@ msgid "电话格式不正确"
 msgstr "Phone is bad format"
 
 #: ../web/src/partials/localization_manager.html:5
+msgid "邮箱不能为空"
+msgstr "Phone should not be empty"
+
+#: ../web/src/partials/localization_manager.html:6
 msgid "邮箱格式不合法"
 msgstr "Email is invalid format"
 
-#: ../web/src/partials/localization_manager.html:6
-msgid "姓名"
-msgstr "Name"
-
-#: ../web/src/partials/localization_manager.html:7
+#: ../web/src/partials/localization_manager.html:8
 msgid "电话"
 msgstr "Phone"
 
-#: ../web/src/partials/localization_manager.html:8
-msgid "邮箱"
-msgstr "Email"
-
-#: ../web/src/partials/localization_manager.html:9
+#: ../web/src/partials/localization_manager.html:10
 msgid "验证码不为空"
 msgstr "Captcha should not be empty"
 
-#: ../web/src/partials/localization_manager.html:10
+#: ../web/src/partials/localization_manager.html:11
 msgid "密码不为空"
 msgstr "Password should not be empty"
 
-#: ../web/src/partials/localization_manager.html:11
+#: ../web/src/partials/localization_manager.html:12
 msgid "订阅失败"
 msgstr "Subscribe Failed"
 
-#: ../web/src/partials/localization_manager.html:12
+#: ../web/src/partials/localization_manager.html:13
 msgid "提交需求失败"
 msgstr "Submit Failed"
 
-#: ../web/src/partials/localization_manager.html:15
+#: ../web/src/partials/localization_manager.html:14
+msgid "所有国家"
+msgstr "Any Country"
+
+#: ../web/src/partials/localization_manager.html:16
 msgid "所有房屋类型"
 msgstr "Any Kind Of Property"
 
-#: ../web/src/partials/localization_manager.html:16
-msgid "登陆失败"
+#: ../web/src/partials/localization_manager.html:17
+msgid "登录失败"
 msgstr "Sign In Failed"
 
-#: ../web/src/partials/localization_manager.html:17
+#: ../web/src/partials/localization_manager.html:18
 msgid "注册失败"
 msgstr "Sign Up Failed"
 
-#: ../web/src/partials/localization_manager.html:18
+#: ../web/src/partials/localization_manager.html:19
 msgid "重置密码失败"
 msgstr "Reset password failed"
 
-#: ../web/src/partials/localization_manager.html:19
+#: ../web/src/partials/localization_manager.html:20
 msgid "房间"
 msgstr "Room"
 
-#: ../web/src/partials/localization_manager.html:20
+#: ../web/src/partials/localization_manager.html:21
 msgid "洗手间"
 msgstr "Bathroom"
 
-#: ../web/src/partials/localization_manager.html:21
+#: ../web/src/partials/localization_manager.html:22
 msgid "预期年租金"
 msgstr "estimated rentals"
 
-#: ../web/src/partials/localization_manager.html:22
+#: ../web/src/partials/localization_manager.html:23
 msgid "收益率"
 msgstr "estimated annualized returns"
 
-#: ../web/src/partials/localization_manager.html:23
+#: ../web/src/partials/localization_manager.html:24
 msgid "查看详情"
 msgstr "View Details"
 
-#: ../web/src/partials/requirement_popup.html:52
-msgid "取消"
-msgstr "Cancel"
+#: ../web/src/partials/localization_manager.html:25
+msgid "修改邮箱失败"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:26
+msgid "修改邮箱成功"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:27
+msgid "发送验证邮件失败"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:28
+msgid "邮件已发送，如果没有收到，请在60秒后重试"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:29
+msgid "请点击“获取验证码”"
+msgstr ""
+
+#: ../web/src/partials/register_form.html:12
+#: ../web/src/partials/signin_form.html:7
+msgid "密码"
+msgstr ""
+
+#: ../web/src/partials/register_form.html:15
+msgid "手机号为登录和找回密码凭证，请填写真实号码"
+msgstr ""
+
+#: ../web/src/partials/register_form.html:19
+msgid "我同意"
+msgstr ""
+
+#: ../web/src/partials/register_form.html:19
+msgid "会员服务须知"
+msgstr ""
+
+#: ../web/src/partials/register_form.html:22
+msgid "已经拥有账号？请"
+msgstr ""
+
+#: ../web/src/partials/requirement_popup.html:7
+msgid ""
+"如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
+msgstr ""
+"If you are interested in investing UK property, please submit your "
+"investment needs here. We will get in touch and help your with your needs."
+
+#: ../web/src/partials/signin_form.html:9
+msgid "忘记密码"
+msgstr ""
+
+#: ../web/src/partials/signin_form.html:14
+msgid "还没有账号？请"
+msgstr ""
 
 #: ../web/src/static/emails/new_admin.html:3
 #: ../web/src/static/emails/set_as_admin.html:3
@@ -388,11 +696,6 @@ msgid "您已经被授予洋房东管理后台的访问权限，请使用手机�
 msgstr ""
 "Now you have permission to login to YoungFunding's administrator dashboard, "
 "please use this phone number"
-
-#: ../web/src/static/emails/new_admin.html:4
-#: ../web/src/static/emails/set_as_admin.html:4
-msgid "登录"
-msgstr "to login"
 
 #: ../web/src/static/emails/new_admin.html:5
 msgid "初始密码为："
@@ -570,3 +873,6 @@ msgstr "YoungFunding is open for registering now!"
 
 #~ msgid "欢迎"
 #~ msgstr "Welcome"
+
+#~ msgid "登陆"
+#~ msgstr "Sign In"
