@@ -562,6 +562,24 @@ class f_currant_plugins(f_app.plugin_base):
             start=datetime.utcnow() + timedelta(days=1),
         ))
 
+    def task_on_fortis_developments(self, task):
+        # Please use f_app.request for ANY HTTP(s) requests.
+        list_url = 'http://www.fortisdevelopments.com/projects/'
+        # Fetch the list
+        # Fetch the pages
+        # Extract needed information
+        # Match the information to our property format
+        params = {}
+        # Save an identifier property_crawler_id into the params. It's recommended to use the page URL whenever applicable.
+        params["property_crawler_id"] = "url"
+        # Call f_app.property.crawler_insert_update for each property
+        f_app.property.crawler_insert_update(params)
+        # Add a new task for next fetch. For example, if you want to craw every day:
+        f_app.task.put(dict(
+            type="fortis_developments",
+            start=datetime.utcnow() + timedelta(days=1),
+        ))
+
 
 f_currant_plugins()
 
