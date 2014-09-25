@@ -13,7 +13,7 @@
     <div class="list">
         %if (_i18n(property_list)):
         %for index, property in enumerate(_i18n(property_list)) :
-           %if (index >= 0 and index < 2):
+           %if (index >= 0):
                
            <div class=houseCard>
            %if property.get('reality_images', []) :

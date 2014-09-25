@@ -1,6 +1,72 @@
 <!--@@master = masters/user_master.html-->
+<!--@@block =head -->
+<link rel="stylesheet" href="/static/styles/project/houseCard.css" />
+<link rel="stylesheet" href="/static/styles/userFavorites.css" />
+<!--@@close-->
 <!--@@block = main -->
+<div class="content">
+    <div class="contentHeader">
+    <h1>{{_('我的房产')}}</h1>
+    <label class="count_wrapper">
+        {{_('(共')}} <i class="count">10</i> {{_('条房产)')}}</label>
+    </div>
+    <div class="list">
+        %if (_i18n(property_list)):
+        %for index, property in enumerate(_i18n(property_list)) :
+           %if (index >= 0 ):
 
+           <div class=houseCard>
+           %if property.get('reality_images', []) :
+           <img src="{{_i18n(property.get('reality_images'))[0]}}" width=320 height=240/>
+           %else :
+           <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
+           %end
+
+           <div class=description>
+               <h1 class=name>{{property.get('name', '')}}</h1>
+               <div class=details>
+                   <p class=size>
+                       %if property.get('living_room_count'):
+                       {{property.get('livint_room_count')}} {{_('房间')}},
+                       %end
+                       %if property.get('bathroom_count'):
+                       {{property.get('bathroom_count')}} {{'洗手间'}},
+                       %end
+                       %if property.get('space'):
+                       {{property.get('space').get('value')}}
+                       %if (property.get('space').get('unit') == 'foot ** 2'):
+                       foot <sup>2</sup>
+                       %elif (property.get('space').get('unit') == 'acre'):
+                       acre
+                       %elif (property.get('space').get('unit') == 'meter ** 2'):
+                       m <sup>2</sup>
+                       %elif (property.get('space').get('unit') == 'kilometer ** 2'):
+                       km <sup>2</sup>
+                       %else:
+                       {{property.get('space').get('unit')}}
+                       %end
+                       %end
+                   </p>
+               </div>
+               <div class=action>
+                   <a href="http://abc.com" class="button red">{{_('查看详情')}}</a>
+
+               </div>
+               <div class="otherAction">
+                     <button class="ghostButton darkGray">{{_('移除')}}</button>
+               </div>
+           </div>
+    </div>
+
+            %end
+        %end
+    %end
+    </div>
+    <div class="contentFooter">
+        <button > <img class="pre" src="/static/images/icon/user/pre-page.png"/> <label class="pre" >{{_('上一页')}}</label> </button>
+        <button><label class="next">{{_('下一页')}}</label><img class="next" src="/static/images/icon/user/next-page.png"/></button>
+    </div>
+</div>
 <!--@@close-->
 <!--@@block=scripts-->
 <!--@@close-->
