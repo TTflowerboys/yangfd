@@ -471,7 +471,7 @@ class f_currant_plugins(f_app.plugin_base):
             start=datetime.utcnow() + timedelta(days=1),
         ))
 
-    def task_on_london_home(self):
+    def task_on_london_home(self, task):
         params = {
             "country": {"_id": ObjectId(f_app.enum.get_by_slug('GB')['id']), "type": "country", "_enum": "country"},
             "city": {"_id": ObjectId(f_app.enum.get_by_slug('london')['id']), "type": "city", "_enum": "city"},
@@ -504,16 +504,16 @@ class f_currant_plugins(f_app.plugin_base):
                 list_page_property_links = list_page_dom_root("div#cntrlPropertySearch_map_pnlResults a.propAdd")
                 for link in list_page_property_links:
                     property_url = "%s%s" % (search_url_prefix, link.attrib['href'])
-                    property_site_id = urllib.parse.urlparse(link.attrib['href']).split('/')[-1]
+                    property_site_id = urllib.parse.urlparse(link.attrib['href']).path.split('/')[-1]
                     logger.debug(property_url)
                     property_page = f_app.request.get(property_url)
                     if property_page.status_code == 200:
                         params["property_crawler_id"] = property_url
-                        property_page_dom_root = q(property_page.conent)
+                        property_page_dom_root = q(property_page.content)
                         # Extract information
-                        property_page_address = property_page_dom_root('div#propertyAddress h1.ViewPropNamePrice').html()
-                        property_page_price = property_page_dom_root('div#propertyAddress h2.ViewPropNamePrice').html()
-                        property_page_building_area = property_page_dom_root('div#cntrlPropertyDetails__ctl1_trBuildingArea').html()
+                        property_page_address = property_page_dom_root('div#propertyAddress h1.ViewPropNamePrice').text()
+                        property_page_price = property_page_dom_root('div#propertyAddress h2.ViewPropNamePrice').text()
+                        property_page_building_area = property_page_dom_root('div#cntrlPropertyDetails__ctl1_trBuildingArea').text()
                         property_image_page = f_app.request.get(property_image_url_prefix + property_site_id)
                         property_description = property_page_dom_root('div.ViewPropTextContainer')
                         property_description.children('div.VisitorsAlsoviewedMain').remove()
@@ -536,14 +536,14 @@ class f_currant_plugins(f_app.plugin_base):
                                 property_images.append(urllib.parse.urlunparse(img_url))
                             params["reality_images"] = {"en_GB": property_images}
 
-                        total_price = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_price.text())
+                        total_price = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_price)
                         if total_price:
                             params["total_price"] = {"value": total_price[0], "type": "currency", "unit": "GBP"}
-                        if "Share of freehold" in property_page_price.text():
+                        if "Share of freehold" in property_page_price:
                             params["equity_type"] = {"_enum": "equity_type", "type": "equity_type", "_id": ObjectId(f_app.enum.get_by_slug('virtual_freehold')["id"])}
-                        elif "Freehold" in property_page_price.text():
+                        elif "Freehold" in property_page_price:
                             params["equity_type"] = {"_enum": "equity_type", "type": "equity_type", "_id": ObjectId(f_app.enum.get_by_slug('Freehold')["id"])}
-                        elif "Leasehold" in property_page_price.text():
+                        elif "Leasehold" in property_page_price:
                             params["equity_type"] = {"_enum": "equity_type", "type": "equity_type", "_id": ObjectId(f_app.enum.get_by_slug('leasehold')["id"])}
 
                         building_area = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_building_area)
