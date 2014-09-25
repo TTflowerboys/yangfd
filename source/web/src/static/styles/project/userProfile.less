@@ -22,6 +22,7 @@
             > li {
                 float: left; width: 33.33%; text-align: center; padding: 16px;
                 > a { display: block; margin-bottom: 8px; }
+
             }
         }
     }
@@ -33,7 +34,24 @@
         }
         col.head { width: 48px; }
         td:first-child { color: #999; }
-        td { padding: 12px 0; }
+        td {
+            padding: 12px 0;
+             input[name=nickname] {
+                 height:40px;
+                 padding-left:4px;
+                 font-size:14px;
+                 border:1px solid #cccccc;
+                 border-radius:4px;
+                 background:white;
+             }
+
+             select[name=country] {
+                 background:white;
+                 border:1px solid #cccccc;
+                 border-radius:4px;
+                 width:100%;
+             }
+           }
         .error { color: @red; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
         .success { color: @green; padding: 8px; border: 1px solid; border-radius: 4px; }
     }

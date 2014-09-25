@@ -214,12 +214,14 @@ def intention_ticket_assign(user, ticket_id, user_id):
     )),
     status=(str, None),
     property_id=(ObjectId, None),
+    updated_comment=(str, None),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
 def intention_ticket_edit(user, ticket_id, params):
     """
     ``status`` must be one of these values: "new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"
     """
+    history_params = {"updated_time": datetime.utcnow()}
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
@@ -230,7 +232,10 @@ def intention_ticket_edit(user, ticket_id, params):
         if params["status"] not in f_app.common.intention_ticket_statuses:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
-    f_app.ticket.update_set(ticket_id, params)
+    if "updated_comment" in params:
+        history_params["updated_comment"] = params.pop("updated_comment")
+
+    f_app.ticket.update_set(ticket_id, params, history_params=history_params)
 
     return f_app.ticket.output([ticket_id])[0]
 
@@ -385,12 +390,14 @@ def support_ticket_assign(user, ticket_id, user_id):
         index=int,
     )),
     status=(str, None),
+    updated_comment=(str, None)
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'support', 'jr_support'])
 def support_ticket_edit(user, ticket_id, params):
     """
     ``status`` must be one of these values: ``new``, ``assigned``, ``in_progress``, ``solved``, ``unsolved``
     """
+    history_params = {"updated_time": datetime.utcnow()}
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
     if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & user_roles) == 0:
@@ -401,7 +408,10 @@ def support_ticket_edit(user, ticket_id, params):
         if params["status"] not in f_app.common.support_ticket_statuses:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
-    f_app.ticket.update_set(ticket_id, params)
+    if "updated_comment" in params:
+        history_params["updated_comment"] = params.pop("updated_comment")
+
+    f_app.ticket.update_set(ticket_id, params, history_params=history_params)
     return f_app.ticket.output([ticket_id])[0]
 
 

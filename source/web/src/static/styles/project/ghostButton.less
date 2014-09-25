@@ -4,6 +4,7 @@
 @orange: #dd4117;
 @red: #e60012;
 @grey: #ccc;
+@darkGray:#444;
 @default-color: @grey;
 
 .ghostButton {
@@ -33,5 +34,16 @@
             color: lighten(@red, 20%);
         }
     }
+
+    &.darkGray {
+        color: lighten(@darkGray, 10%);
+        &:active, &:visited {
+            color: lighten(@darkGray, 10%);
+        }
+        &:hover {
+            color: lighten(@darkGray, 20%);
+        }
+    }
+
 }
 

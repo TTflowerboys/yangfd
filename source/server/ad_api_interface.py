@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 @f_app.user.login.check(force=30)
 def ad_add(params, user):
     """
-    A channel has somme ads, while an ad can have multiple text area.
+    A channel has some ads, while an ad can have multiple text area.
 
     ``text`` is a list. Separate multiple section with comma.
     """
@@ -30,7 +30,7 @@ def ad_add(params, user):
 @f_api('/ad/<ad_id>/edit', params=dict(
     channel=(str, None),
     description=('i18n', None, str),
-    text=('i18n', None, str),
+    text=('i18n', None, list, None, str),
     link=(str, None),
     image=(str, None),
     image_alt=('i18n', None, str),
@@ -65,6 +65,7 @@ def ad_get_all_channels():
 def ad_get_by_channel(channel_name, params):
     """
     Get an ad by channel randomly. If there's only one ad in the channel, it will return that one.
+    ``fallback`` is the fallback channel to be used. If ``channel_name`` cannot be fetched, it will try to fetch ``fallback`` channel instead.
     """
     fallback = params.pop("fallback", None)
     return f_app.ad.get_by_channel(channel=channel_name, fallback=fallback)
@@ -75,7 +76,8 @@ def ad_get_by_channel(channel_name, params):
 ))
 def ad_get_all_by_channel(channel_name, params):
     """
-    Get all ads by channel. If there's only one ad in the channel, it will return that one.
+    Get all ads by channel.
+    ``fallback`` is the fallback channel to be used. If ``channel_name`` cannot be fetched, it will try to fetch ``fallback`` channel instead.
     """
     a = f_app.ad.get_all_by_channel(channel_name)
     return a

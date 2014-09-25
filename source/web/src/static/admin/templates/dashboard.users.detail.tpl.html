@@ -60,16 +60,16 @@
     <div class="col-sm-10">
 
         <ul class="nav nav-tabs" id="userInfoTab">
-            <li data-ng-class="{active:tabName==='/favs'}" ng-click="changeTab('/favs')">
+            <li ng-class="{active:$state.includes('dashboard.users.detail.favs')}">
                 <a style="cursor: pointer;" ui-sref=".favs">收藏房产</a>
             </li>
-            <li data-ng-class="{active:tabName==='/intentions'}" ng-click="changeTab('/intentions')">
-                <a style="cursor: pointer;" ui-sref=".intentions">投资意向单</a>
+            <li ng-class="{active:$state.includes('dashboard.users.detail.intentions')}">
+                <a style="cursor: pointer;" ui-sref=".intentions" >投资意向单</a>
             </li>
-            <li data-ng-class="{active:tabName==='/boughts'}" ng-click="changeTab('/boughts')">
-                <a style="cursor: pointer;" ui-sref=".boughts">已购房产</a>
+            <li ng-class="{active:$state.includes('dashboard.users.detail.boughts')}">
+                <a style="cursor: pointer;" ui-sref=".boughts" >已购房产</a>
             </li>
-            <li data-ng-class="{active:tabName==='/supports'}" ng-click="changeTab('/supports')">
+            <li ng-class="{active:$state.includes('dashboard.users.detail.supports')}">
                 <a style="cursor: pointer;" ui-sref=".supports">客服单</a>
             </li>
         </ul>

@@ -74,10 +74,14 @@ def signup():
 def signin():
     return template("signin", user=get_current_user(), country_list=get_country_list())
 
+
 @f_get('/intention')
 @check_landing
 def intention():
-    return template("intention", user=get_current_user(), country_list=get_country_list())
+    budget_list = f_app.enum.get_all('budget')
+    intention_list = f_app.enum.get_all('intention')
+    return template("intention", user=get_current_user(), budget_list=budget_list, intention_list=intention_list)
+
 
 @f_get('/reset_password')
 @check_landing
@@ -152,9 +156,42 @@ def user_change_email():
 def user_change_phone_1():
     return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list())
 
+
 @f_get('/user_change_phone_2')
 def user_change_phone_2():
     return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list())
+
+
+@f_get('/user_favorites')
+def user_favorites():
+    if get_current_user() is not None:
+        favorite_list = f_app.user.favorite_output(f_app.user.favorite_get_by_user(get_current_user()["id"]))
+        return template("user_properties", user=get_current_user(), country_list=get_country_list(), favorite_list=favorite_list)
+    else:
+        redirect("://".join(request.urlparts[:2]))
+
+
+@f_get('/user_intentions')
+def user_intentions():
+    return template("user_intentions", user=get_current_user(), country_list=get_country_list(), property_list=f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}})))
+
+
+@f_get('/user_properties')
+def user_properties():
+    if get_current_user() is not None:
+        ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
+        return template("user_properties", user=get_current_user(), country_list=get_country_list(), ticket_list=ticket_list)
+    else:
+        redirect("://".join(request.urlparts[:2]))
+
+
+@f_get('/user_messages')
+def user_messages():
+    message_list = f_app.message.get_by_user(
+        get_current_user()['id'],
+        {"state": {"$in": ["read", "new"]}},
+    )
+    return template("user_messages", user=get_current_user(), country_list=get_country_list(), message_list=message_list)
 
 
 @f_get('/admin')
@@ -167,8 +204,11 @@ def static_route(filepath):
     return static_file(filepath, root="views/static")
 
 
-@f_get("/logout")
-def logout():
+@f_get("/logout", params=dict(
+    return_url=str,
+))
+def logout(params):
+    return_url = params.pop("return_url", "/")
     f_app.user.login.logout()
     baseurl = "://".join(request.urlparts[:2])
-    redirect(baseurl + "/")
+    redirect(baseurl + return_url)

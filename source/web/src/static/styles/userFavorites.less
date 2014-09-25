@@ -1,0 +1,99 @@
+@import "/project/_imports";
+
+.content {
+
+    .contentHeader {
+        h1 {
+            font-size:24px;
+            color:#333;
+            display:inline-block;
+        }
+        .count {
+            &_wrapper {
+                display:inline-block;
+                font-size:12px;
+                color:#999;
+                margin-left:16px;
+            }
+
+        }
+
+    }
+    .list {
+        margin-top:50px;
+        .houseCard {
+            height:240px;
+            margin-bottom: 100px;
+            .description {
+                height:240px;
+                width:520px;
+                display:inline-block;
+
+                .properties {
+                    width: 50%;
+                    li {
+                        margin-bottom:8px;
+                        img {
+                            height:16px;
+                            vertical-align:middle;
+                        }
+                        span {
+                            font-size:12px;
+                            height:16px;
+                            line-height: 16px;
+                            margin-left:8px;
+                        }
+                    }
+                }
+            }
+            .action > a {
+                height:40px;
+                padding: 6px 40px;
+            }
+            .otherAction {
+                position:absolute;
+                right:0;
+                bottom:0;
+                height:40px;
+                button {
+                    margin-top:6px;
+                    button:28px;
+                }
+            }
+        }
+    }
+
+    .contentFooter {
+        margin: 0 auto;
+        width:224px;
+
+        button {
+            width:110px;
+            display: inline-block;
+            border:0px;
+            background: transparent;
+            text-align:center;
+            font-size:16px;
+            padding-top:2px;
+            color:#ccc;
+            line-height: 20px;
+
+            img {
+                height:20px;
+                vertical-align:bottom;
+                &.pre {
+                    margin-right:8px;
+                }
+                &.next {
+                    margin-left:16px;
+                }
+            }
+
+            label {
+                height:20px;
+                line-height:20px;
+            }
+        }
+
+    }
+}

@@ -6,24 +6,63 @@
         @line-height: 40px;
         h1 { display: inline-block; line-height: @line-height; }
         .action { float: right; line-height: @line-height;
-            button { border: none; background: @red; color: white; padding: 0 24px; border-radius: 6px; line-height: 32px; }
+            button {
+                border: none; background: @red; color: white; padding: 0 24px; border-radius: 6px; line-height: 32px; cursor: pointer;
+            }
+            button[disabled] { background: #ccc; }
+
             a { display: inline-block; text-decoration: none; color: @red; padding: 0 24px; }
         }
     }
-    .row { .clearfix();
+    .details {
+        > div { @height: 270px; line-height: @height; height: @height; text-align: center;
+            background: #ddd; position: relative; display: none;
+            img { vertical-align: middle; }
+            &.selected { display: block; }
+            .arrow { position: absolute; width: 100%; bottom: 100%;
+                span { margin-left: 88px; display: block; position: relative;
+                    &:before {
+                        content: ' ';
+                        position: absolute; bottom: 100%;
+                        .arrow(@direction: up; @fg:#ddd; @width: 20px;)
+                    }
+                }
+            }
+        }
+    }
+    .row { .clearfix(); position: relative;
         &.budget {
             @height: 40px;
             height: @height; line-height: @height;
             margin: @height 0;
         }
         &.intention {
+            > ul { .clearfix(); text-align: center;
+                li { float: left; width: 16.66%; height: 110px; position: relative; line-height: 1;
+                    > label { height: 60px; display: block; cursor: pointer; }
+                    img.grey { display: inline-block; }
+                    img.red { display: none; }
+                    color: #999;
+                    &.selected {
+                        img.grey { display: none; }
+                        img.red { display: inline-block; }
+                        color: black;
+                    }
+                    &:after {
+                        .arrow(@direction: up; @fg:#ddd; @width: 20px;);
+                        display: none;
+                        content: ' ';
+                        position: absolute; bottom: 0; left: 50%;
+                    }
+                    &.indicator:after {
+                        display: block;
+                    }
+                }
+            }
         }
-        > label { float: left; width: 88px; font-size: 16px; }
-        > .controls { float: left;
+        > label { width: 88px; font-size: 16px; position: absolute; }
+        > .controls { margin-left: 88px;
             input { display: none; }
-        }
-        > ul { .clearfix();
-            li { float: left; }
         }
     }
 }
