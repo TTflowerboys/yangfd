@@ -83,8 +83,7 @@
                         <td>{{_('国家')}}</td>
                         <td>
                             %if user.get('country'):
-                            {{_i18n(user.get('country').get('value'))}}
-                            <!-- TODO why no value ?-->
+                            {{_i18n(user).get('country').get('value')}}
                             %end
                         </td>
                     </tr>
