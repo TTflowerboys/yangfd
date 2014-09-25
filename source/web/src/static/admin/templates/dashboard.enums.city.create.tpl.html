@@ -3,7 +3,6 @@
         <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span>  返回</button>
     </span>
 </div>
-<div get-country></div>
 <form name="cityCreateForm" class="form-horizontal"
       style="max-width: 800px; padding-bottom: 100px;" ng-submit="addCity($event,cityCreateForm)"
       novalidate>
@@ -12,10 +11,8 @@
         <label class="control-label">国家 *</label>
 
         <div class="controls">
-            <select class="form-control" ng-model="item.country" style="width: 185px;"
-                    ng-options="p.id as p.value[userLanguage.value] for p in countries">
-                <option value="">-- 选择 --</option>
-            </select>
+            <div enum-select name="country" ng-model="item.country"></div>
+
         </div>
     </div>
     <div class="form-group">

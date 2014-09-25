@@ -8,16 +8,11 @@
       novalidate>
 
     <div load-existing-admin></div>
-    <div check-phone></div>
     <div class="form-group">
         <label class="control-label">手机号码 *</label>
-        <div get-country></div>
         <div class="controls form-inline">
-            <select ng-model="item.country"
-                    ng-options="country.id as country.value for country in countries"
-                    class="form-control" name="country">
-                <option value="">-- 请选择 --</option>
-            </select>
+            <div enum-select name="country" ng-model="item.country"></div>
+
             <input class="form-control col-sm6" ng-model="item.phone" type="text" size="15"/>
             <span ng-show="isCheckingPhone">正在查询...</span>
         </div>
