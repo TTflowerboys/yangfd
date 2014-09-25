@@ -2,14 +2,15 @@
 (function ($) {
     $.fn.tabs = function () {
         this.each(function () {
-            var $tabs = $(this)
-            $tabs.on('click.tabs', '[data-tab]', function (e) {
-                var $target = $(e.currentTarget)
-                var tabName = $target.data('tab')
-                $target.closest('[data-tabs]').find('[data-tab-name=' + tabName + ']').eq(0).show()
-                    .siblings().hide()
-                $tabs.trigger('openTab', e.currentTarget)
-            })
+            var $tabContainer = $(this)
+            $tabContainer
+                .on('click.tabs', '[data-tab]', function (e) {
+                    var $target = $(e.currentTarget)
+                    var tabName = $target.data('tab')
+                    $tabContainer.find('[data-tab-name=' + tabName + ']').eq(0).show()
+                        .siblings().hide()
+                    $tabContainer.trigger('openTab', e.currentTarget)
+                })
         })
         return this
     }
