@@ -17,9 +17,15 @@ angular.module('app')
         var propertyResolve = {
             api: function (propertyApi) {
                 return propertyApi
+            }
+        }
+
+        var intentionResolve = {
+            api: function (intentionApi) {
+                return intentionApi
             },
-            enumApi: function (enumApi) {
-                return enumApi
+            adminApi: function (adminApi) {
+                return adminApi
             }
         }
 
@@ -214,32 +220,19 @@ angular.module('app')
                 url: '/intention',
                 templateUrl: '/static/admin/templates/dashboard.intention.tpl.html',
                 controller: 'ctrlList',
-                resolve: {
-                    api: function (intentionApi) {
-                        return intentionApi
-                    }
-                }
+                resolve: intentionResolve
             })
             .state('dashboard.intention.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.intention.create.tpl.html',
-                controller: 'ctrlCreate',
-                resolve: {
-                    api: function (intentionApi) {
-                        return intentionApi
-                    }
-                }
+                controller: 'ctrlIntentionCreate',
+                resolve: intentionResolve
             })
             .state('dashboard.intention.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.intention.edit.tpl.html',
                 controller: 'ctrlNewsEdit',
-                resolve: {
-                    api: function (intentionApi) {
-                        return intentionApi
-                    }
-
-                }
+                resolve: intentionResolve
             })
             .state('dashboard.support', {
                 url: '/support',
