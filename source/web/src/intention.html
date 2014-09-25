@@ -10,93 +10,48 @@
         <h1>还差最后一步就可以看到为您推荐的投资机会了！</h1>
         <div class="action">
             <button type="submit">确定</button>
-            <a href="#">跳过 &gt;</a>
+            <a href="/">跳过 &gt;</a>
         </div>
     </div>
     <hr/>
     <div class="row budget">
         <label>您的预算：</label>
         <div class="controls">
-            <label class="toggleTag"><input name="budget" type="radio" value=""/>100万以下</label>
-            <label class="toggleTag"><input name="budget" type="radio" value=""/>100万至300万</label>
-            <label class="toggleTag"><input name="budget" type="radio" value=""/>300万至500万</label>
-            <label class="toggleTag"><input name="budget" type="radio" value=""/>500万至1000万</label>
-            <label class="toggleTag"><input name="budget" type="radio" value=""/>1000万以上</label>
+
+            %for index, budget in enumerate(budget_list):
+            <label class="toggleTag"><input name="budget" type="radio" value="{{budget.get('id')}}"/>{{_i18n(budget.get('value'))}}</label>
+            %end
         </div>
     </div>
     <div data-tabs>
         <div class="row intention">
             <label>投资意向：</label>
             <ul class="controls">
-                <li data-tab="1">
+                %for index, intention in enumerate(intention_list):
+                <li style="width: {{100.0/len(intention_list)}}%">
                     <label>
-                        <input name="intention" type="checkbox" value=""/>
-                        <img class="grey" src="/static/images/icon/intention/dollar-grey.png" alt="资产保值"/>
-                        <img class="red" src="/static/images/icon/intention/dollar-red.png" alt="资产保值"/>
+                        <input name="intention" type="checkbox" value="{{intention.get('id')}}"/>
+                        <img data-tab="{{index+1}}" class="grey" src="/static/images/icon/intention/{{index+1}}-grey.png" alt="{{_i18n(intention.get('value'))}}"/>
+                        <img data-tab="{{index+1}}" class="red" src="/static/images/icon/intention/{{index+1}}-red.png" alt="{{_i18n(intention.get('value'))}}"/>
                     </label>
-                    资产保值
+                    {{_i18n(intention.get('value'))}}
                 </li>
-                <li data-tab="2">
-                    <label>
-                        <input name="intention" type="checkbox" value=""/>
-                        <img class="grey" src="/static/images/icon/intention/cap-grey.png" alt="子女留学"/>
-                        <img class="red" src="/static/images/icon/intention/cap-red.png" alt="子女留学"/>
-                    </label>
-                    子女留学
-                </li>
-                <li data-tab="3">
-                    <label>
-                        <input name="intention" type="checkbox" value=""/>
-                        <img class="grey" src="/static/images/icon/intention/plane-grey.png" alt="度假旅行"/>
-                        <img class="red" src="/static/images/icon/intention/plane-red.png" alt="度假旅行"/>
-                    </label>
-                    度假旅行
-                </li>
-                <li data-tab="4">
-                    <label>
-                        <input name="intention" type="checkbox" value=""/>
-                        <img class="grey" src="/static/images/icon/intention/house-grey.png" alt="移民自住"/>
-                        <img class="red" src="/static/images/icon/intention/house-red.png" alt="移民自住"/>
-                    </label>
-                    移民自住
-                </li>
-                <li data-tab="5">
-                    <label>
-                        <input name="intention" type="checkbox" value=""/>
-                        <img class="grey" src="/static/images/icon/intention/chart-grey.png" alt="超额收益"/>
-                        <img class="red" src="/static/images/icon/intention/chart-red.png" alt="超额收益"/>
-                    </label>
-                    超额收益
-                </li>
-                <li data-tab="6">
-                    <label>
-                        <input name="intention" type="checkbox" value=""/>
-                        <img class="grey" src="/static/images/icon/intention/cash-grey.png" alt="现金流保障"/>
-                        <img class="red" src="/static/images/icon/intention/cash-red.png" alt="现金流保障"/>
-                    </label>
-                    现金流保障
-                </li>
+                %end
             </ul>
         </div>
         <div class="details">
             <div class="tab1 selected" data-tab-name="1">
-                <div class="arrow"><span></span></div>
-                <img src="/static/images/intention/feature1.png" />
+                <img src="/static/images/intention/feature1.png"/>
             </div>
             <div class="tab2" data-tab-name="2">
-                <div class="arrow"><span></span></div>
             </div>
             <div class="tab3" data-tab-name="3">
-                <div class="arrow"><span></span></div>
             </div>
             <div class="tab4" data-tab-name="4">
-                <div class="arrow"><span></span></div>
             </div>
             <div class="tab5" data-tab-name="5">
-                <div class="arrow"><span></span></div>
             </div>
             <div class="tab6" data-tab-name="6">
-                <div class="arrow"><span></span></div>
             </div>
         </div>
     </div>
@@ -104,6 +59,9 @@
 <!--@@close-->
 <!--@@block = scripts-->
 <script>
+    $('[data-tabs]').tabs().on('openTab', function (event, dom) {
+        $(dom).closest('li').addClass('indicator').siblings().removeClass('indicator')
+    })
     $('form[name=intentionForm]').find('[name=budget]').on('change', function () {
         $(this).parent().toggleClass('selected', this.checked)
             .siblings().removeClass('selected')
@@ -111,6 +69,12 @@
     $('form[name=intentionForm]').find('[name=intention]').on('change', function () {
         $(this).closest('li').toggleClass('selected', this.checked)
     })
-    $('[data-tabs]').tabs()
+    $('form[name=intentionForm]').submit(function (e) {
+        e.preventDefault()
+        console.log($(this).serializeObject())
+//        $.post('/api/1/user/edit',{
+//
+//        })
+    })
 </script>
 <!--@@close-->
