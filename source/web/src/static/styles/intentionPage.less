@@ -10,20 +10,52 @@
             a { display: inline-block; text-decoration: none; color: @red; padding: 0 24px; }
         }
     }
-    .row { .clearfix();
+    .details {
+        > div { @height: 270px; line-height: @height; height: @height; text-align: center;
+            background: #ddd; margin-top: 24px; position: relative; display: none;
+            img { vertical-align: middle; }
+            &.selected { display: block; }
+            .arrow { position: absolute; width: 100%; bottom: 100%;
+                span { margin-left: 88px; display: block; position: relative;
+                    &:before {
+                        content: ' ';
+                        position: absolute; bottom: 100%;
+                        .arrow(@direction: up; @fg:#ddd; @width: 20px;)
+                    }
+                }
+            }
+            &.tab1 .arrow span:before { left: 8.33%; }
+            &.tab2 .arrow span:before { left: 24.99%; }
+            &.tab3 .arrow span:before { left: 41.65%; }
+            &.tab4 .arrow span:before { left: 58.31%; }
+            &.tab5 .arrow span:before { left: 74.97%; }
+            &.tab6 .arrow span:before { left: 91.63%; }
+        }
+    }
+    .row { .clearfix(); position: relative;
         &.budget {
             @height: 40px;
             height: @height; line-height: @height;
             margin: @height 0;
         }
         &.intention {
+            > ul { .clearfix(); text-align: center;
+                li { float: left; width: 16.66%;
+                    > label { height: 60px; display: block; cursor: pointer; }
+                    img.grey { display: inline-block; }
+                    img.red { display: none; }
+                    color: #999;
+                    &.selected {
+                        img.grey { display: none; }
+                        img.red { display: inline-block; }
+                        color: black;
+                    }
+                }
+            }
         }
-        > label { float: left; width: 88px; font-size: 16px; }
-        > .controls { float: left;
+        > label { width: 88px; font-size: 16px; position: absolute; }
+        > .controls { margin-left: 88px;
             input { display: none; }
-        }
-        > ul { .clearfix();
-            li { float: left; }
         }
     }
 }
