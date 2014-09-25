@@ -42,7 +42,7 @@
                     <div class="user">
                         %if user:
                         <span class="nickname"> <a href="/user_settings">{{user["nickname"]}}</a></span>
-                        <button id="logout" class="logout ghostButton">{{_('登出')}}</button>
+                        <a id="logout" class="logout ghostButton" href="/logout">{{_('登出')}}</a>
                         %else:
                         <button id="login" class="login ghostButton red">{{_('登录')}}</button>
                         <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('注册')}}</button>

@@ -31,9 +31,3 @@ $('form[name=signin]').submit(function (e) {
         })
 })
 
-$('#logout').click(function () {
-    $.get('/logout')
-        .done(function () {
-            location.reload()
-        })
-});
