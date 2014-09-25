@@ -56,6 +56,10 @@
             else {
                 return _url + separator + name + '=' + encodeURIComponent(value);
             }
+        },
+        getHash: function (n) {
+            var m = window.location.hash.match(new RegExp('(#|&)' + n + '=([^&]*)(&|$)'));
+            return !m ? '' : decodeURIComponent(m[2]);
         }
     }
 })();
