@@ -74,12 +74,14 @@ def signup():
 def signin():
     return template("signin", user=get_current_user(), country_list=get_country_list())
 
+
 @f_get('/intention')
 @check_landing
 def intention():
     budget_list = f_app.enum.get_all('budget')
     intention_list = f_app.enum.get_all('intention')
     return template("intention", user=get_current_user(), budget_list=budget_list, intention_list=intention_list)
+
 
 @f_get('/reset_password')
 @check_landing
@@ -163,7 +165,7 @@ def static_route(filepath):
 @f_get("/logout", params=dict(
     return_url=str,
 ))
-def logout():
+def logout(params):
     return_url = params.pop("return_url", "/")
     f_app.user.login.logout()
     baseurl = "://".join(request.urlparts[:2])
