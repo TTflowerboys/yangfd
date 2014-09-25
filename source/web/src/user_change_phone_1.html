@@ -16,6 +16,7 @@
         <div class="inner">
             <div class="phone row">
                 <label>{{_('原手机号')}}</label>
+                <!-- @@include =partials/country_select.html -->
                 <input name="phone" type="tel" value={{user.get('phone')}}  data-validator="required number"/>
             </div>
             <div class="code row">
