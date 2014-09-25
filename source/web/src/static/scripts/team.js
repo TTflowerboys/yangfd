@@ -62,33 +62,15 @@
             }
 
         },
-        setLocationHrefParam: function (paramName, paramValue) {
-            var url = window.location.href;
-            if (url.indexOf(paramName + '=') >= 0) {
-                var prefix = url.substring(0, url.indexOf(paramName));
-                var suffix = url.substring(url.indexOf(paramName));
-                suffix = suffix.substring(suffix.indexOf('=') + 1);
-                suffix = (suffix.indexOf('&') >= 0) ? suffix.substring(suffix.indexOf('&')) : '';
-                url = prefix + paramName + '=' + paramValue + suffix;
+        setQuery: function (name, value, url) {
+            var _url = location.href || url
+            var re = new RegExp('([?&])' + name + '=.*?(&|$)', 'i');
+            var separator = _url.indexOf('?') !== -1 ? '&' : '?';
+            if (_url.match(re)) {
+                return _url.replace(re, '$1' + name + '=' + encodeURIComponent(value) + '$2');
             }
             else {
-                if (url.indexOf('?') < 0) {
-                    url += '?' + paramName + '=' + paramValue;
-                } else {
-                    url += '&' + paramName + '=' + paramValue;
-                }
-            }
-            window.location.href = url;
-        },
-        getLocationHrefParam: function (paramName) {
-            var url = window.location.href;
-            if (url.indexOf(paramName + '=') >= 0) {
-                var suffix = url.substring(url.indexOf(paramName));
-                suffix = suffix.substring(suffix.indexOf('=') + 1);
-                return (suffix.indexOf('&') >= 0) ? suffix.substring(0, suffix.indexOf('&')) : suffix;
-            }
-            else {
-                return null
+                return _url + separator + name + '=' + encodeURIComponent(value);
             }
         }
     }
