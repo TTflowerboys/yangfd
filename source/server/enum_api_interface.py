@@ -26,6 +26,7 @@ def enum_list(params):
     value=("i18n", True, str),
     # Field for message_api_interface
     country="enum:country",
+    currency=str,
     slug=str,
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
@@ -66,6 +67,7 @@ def enum_add(user, params):
     type=str,
     value=("i18n", None, str),
     country=("enum:country", None),
+    currency=(str, None),
     slug=(str, None),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
