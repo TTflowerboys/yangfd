@@ -40,7 +40,7 @@ def subscription_search(user, params):
 
 
 @f_api('/subscription/notification/ready', params=dict(
-    target=(str, "all"),
+    target=(str, True),
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin"])
 def subscription_notification_ready(user, params):
@@ -55,7 +55,7 @@ def subscription_notification_ready(user, params):
         email_list = [params["target"]]
     if email_list:
         f_app.email.schedule(
-            target=",".join(email_list),
+            target=",".join(set(email_list)),
             subject=template("static/emails/we_are_ready_title"),
             text=template("static/emails/we_are_ready"),
             display="html",
