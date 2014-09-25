@@ -183,7 +183,11 @@ def user_properties():
 
 @f_get('/user_messages')
 def user_messages():
-    return template("user_messages", user=get_current_user(), country_list=get_country_list())
+    message_list = f_app.message.get_by_user(
+        get_current_user()['id'],
+        {"state": {"$in": ["read", "new"]}},
+    )
+    return template("user_messages", user=get_current_user(), country_list=get_country_list(), message_list=message_list)
 
 
 @f_get('/admin')
