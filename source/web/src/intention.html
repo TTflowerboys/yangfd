@@ -9,7 +9,7 @@
     <div class="header">
         <h1>还差最后一步就可以看到为您推荐的投资机会了！</h1>
         <div class="action">
-            <button type="submit">确定</button>
+            <button type="submit" disabled>确定</button>
             <a href="/">跳过 &gt;</a>
         </div>
     </div>
@@ -28,13 +28,17 @@
             <label>投资意向：</label>
             <ul class="controls">
                 %for index, intention in enumerate(intention_list):
-                <li style="width: {{100.0/len(intention_list)}}%">
-                    <label>
-                        <input name="intention" type="checkbox" value="{{intention.get('id')}}"/>
-                        <img data-tab="{{index+1}}" class="grey" src="/static/images/icon/intention/{{index+1}}-grey.png" alt="{{_i18n(intention.get('value'))}}"/>
-                        <img data-tab="{{index+1}}" class="red" src="/static/images/icon/intention/{{index+1}}-red.png" alt="{{_i18n(intention.get('value'))}}"/>
-                    </label>
-                    {{_i18n(intention.get('value'))}}
+                <li style="width: {{99.99/len(intention_list)}}%"
+                % if index == 0:
+                class="indicator"
+                % end
+                >
+                <label>
+                    <input data-tab="{{index+1}}" name="intention" type="checkbox" value="{{intention.get('id')}}"/>
+                    <img class="grey" src="/static/images/icon/intention/{{index+1}}-grey.png" alt="{{_i18n(intention.get('value'))}}"/>
+                    <img class="red" src="/static/images/icon/intention/{{index+1}}-red.png" alt="{{_i18n(intention.get('value'))}}"/>
+                </label>
+                <span>{{_i18n(intention.get('value'))}}</span>
                 </li>
                 %end
             </ul>
@@ -59,22 +63,39 @@
 <!--@@close-->
 <!--@@block = scripts-->
 <script>
-    $('[data-tabs]').tabs().on('openTab', function (event, dom) {
-        $(dom).closest('li').addClass('indicator').siblings().removeClass('indicator')
-    })
-    $('form[name=intentionForm]').find('[name=budget]').on('change', function () {
-        $(this).parent().toggleClass('selected', this.checked)
-            .siblings().removeClass('selected')
-    })
-    $('form[name=intentionForm]').find('[name=intention]').on('change', function () {
-        $(this).closest('li').toggleClass('selected', this.checked)
-    })
-    $('form[name=intentionForm]').submit(function (e) {
-        e.preventDefault()
-        console.log($(this).serializeObject())
-//        $.post('/api/1/user/edit',{
-//
-//        })
-    })
+    (function () {
+        var $form = $('form[name=intentionForm]')
+
+        $('[data-tabs]').tabs().on('openTab', function (event, dom) {
+            $(dom).closest('li').addClass('indicator').siblings().removeClass('indicator')
+        })
+
+        $form.find('[name=budget]').on('change', function () {
+            $(this).parent().toggleClass('selected', this.checked)
+                .siblings().removeClass('selected')
+        })
+
+        $form.find('[name=intention]').on('change', function () {
+            $(this).closest('li').toggleClass('selected', this.checked)
+        })
+
+        $form.find('[name]').on('change', function () {
+            var data = $form.serializeObject()
+            $form.find('[type=submit]').prop('disabled', _.isEmpty(data))
+        })
+
+        $form.submit(function (e) {
+            e.preventDefault()
+            var data = $(this).serializeObject()
+            if (_.isEmpty(data)) { location.href = '/' }
+            $form.find('[type=submit]').css({cursor: 'wait'})
+            $.post('/api/1/user/edit', data)
+                .always(function () {
+                    location.href = '/'
+                    $form.find('[type=submit]').css({cursor: 'default'})
+                })
+        })
+
+    })()
 </script>
 <!--@@close-->
