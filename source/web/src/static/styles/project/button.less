@@ -4,6 +4,7 @@
 @default-bg: #3a3a3a;
 @orange: #dd4117;
 @red: #e60012;
+@green:#82cc00;
 
 .button { border: none; border-radius: @border-radius; background: @default-bg; display: inline-block; font-size: 20px;
     line-height: 30px; color: white; padding: 10px 32px; .smooth(); font-weight: bold; text-align: center; vertical-align: middle;
@@ -29,6 +30,14 @@
             background: lighten(@red, 5%);
         }
     }
+
+    &.green {
+        background: @green;
+        &:hover, &.pseudo-class-hover {
+            background: lighten(@green, 5%);
+        }
+    }
+    
 
     > span { display: block;
         &.big { font-size: 24px; }

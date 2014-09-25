@@ -10,17 +10,13 @@
 
                     <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
                           ng-submit="submit($event,signIn)" name="signIn" novalidate>
-                        <div get-country></div>
                         <fieldset class="col-sm-12">
                             <div class="form-group">
                                 <div class="controls row">
                                     <div class="input-group col-sm-12">
                                         <label class="input-group-addon">国家:</label>
-                                        <select name="country" ng-model="user.country"
-                                                ng-options="country.id as country.value for country in countries"
-                                                class="form-control">
-                                            <option value="">-- 请选择 --</option>
-                                        </select>
+                                        <div enum-select name="country" ng-model="user.country"></div>
+
                                     </div>
                                 </div>
                             </div>

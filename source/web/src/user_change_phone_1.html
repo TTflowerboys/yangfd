@@ -1,0 +1,37 @@
+<!--@@master = masters/user_master.html-->
+<!--@@block = head -->
+<link rel="stylesheet" href="/static/styles/userVerifyEmail.css" />
+<link rel="stylesheet" href="/static/styles/userChangePhone.css">
+<!--@@close-->
+
+<!--@@block = main -->
+<div class="content">
+    <h1 class="title">{{_('更换手机号（1/2）')}}</h1>
+    <form name="changePhone1" class="edit" action="">
+        <div class="tip">
+            <img alt="" src="/static/images/icon/user/tip.png"/>
+            <p>{{_('如果您绑定的手机因停机、注销、丢失等原因无法接收短信，请与洋房东客服联系')}}</p>
+        </div>
+
+        <div class="inner">
+            <div class="phone row">
+                <label>{{_('原手机号')}}</label>
+                <!-- @@include =partials/country_select.html -->
+                <input name="phone" type="tel" value={{user.get('phone')}}  data-validator="required number"/>
+            </div>
+            <div class="code row">
+                <label>{{_('短信验证码')}}</label>
+                <input name="code" data-validator="required number"/>
+                <button name="code" class="button green">{{_('获取验证码')}}</button>
+            </div>
+            <p class="resultMessage" style="display:none"></p>
+            <button class="button red" type="submit">{{_('继续')}}</button>
+
+        </div>
+
+    </form>
+</div>
+<!--@@close-->
+<!--@@block=scripts-->
+<script src="/static/scripts/change_phone_1.js"></script>
+<!--@@close-->

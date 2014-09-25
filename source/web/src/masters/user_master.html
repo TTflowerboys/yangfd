@@ -72,32 +72,18 @@
                     <tr>
                         <td>{{_('性别')}}</td>
                         <td>
-                            %if user.get('gender'):
-                            {{user.get('gender')}}
+                            %if (user.get('gender') == 'male'):
+                            {{_('男')}}
+                            %elif (user.get('gender') == 'female'):
+                            {{_('女')}}
                             %end
                         </td>
                     </tr>
-                    <!--<tr>-->
-                        <!--<td>{{_('生日')}}</td>-->
-                        <!--<td>-->
-                            <!--%if user.get('date_of_birth'):-->
-                            <!--{{user.get('date_of_birth')}}-->
-                            <!--%end-->
-                        <!--</td>-->
-                    <!--</tr>-->
                     <tr>
                         <td>{{_('国家')}}</td>
                         <td>
                             %if user.get('country'):
-                            {{user.get('country')}}
-                            %end
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{_('城市')}}</td>
-                        <td>
-                            %if user.get('city'):
-                            {{user.get('city')}}
+                            {{_i18n(user).get('country').get('value')}}
                             %end
                         </td>
                     </tr>
@@ -112,10 +98,10 @@
             </div>
             <hr/>
             <div class="error" style="display: none;">
-                {{_('姓名不能为空')}}
+
             </div>
             <div class="success" style="display: none;">
-                {{_('更新成功')}}
+
             </div>
             <table>
                 <colgroup>
@@ -135,17 +121,9 @@
                     </tr>
                     <tr>
                         <td>{{_('国家')}}</td>
-                        <td><select name="country">
-                            <option value="中国">中国</option>
-                        </select></td>
-                    </tr>
-                    <tr>
-                        <td>{{_('城市')}}</td>
-                        %if user.get('city'):
-                        <td><input name="city" type="text" value={{user.get('city')}} /></td>
-                        %else:
-                        <td><input name="city" type="text" data-validator="trim" /></td>
-                        %end
+                        <td>
+                            <!-- @@include=../partials/country_select.html -->
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -158,34 +136,6 @@
 <!--@@close-->
 <!--@@block = scripts-->
 <script src="/static/scripts/resize_main.js"></script>
-<script>
-    $('#cvView').find('button[name=edit]').on('click', function () {
-        $('#cvView').hide()
-        $('#cvEdit').show()
-    })
-    $('#cvEdit').find('button[name=cancel]').on('click', function () {
-        $('#cvView').show()
-        $('#cvEdit').hide()
-    }).end()
-        .submit(function (e) {
-            e.preventDefault()
-            $(this).find('.error,.success').hide()
-            var valid = $.validate(this, {
-                onError: function (dom, name) {
-                    $('#cvEdit').find('.error').text(dom.getAttribute('data-msg-' + name)).show()
-                }
-            })
-
-            if (valid) {
-                var data = $(this).serializeObject()
-                console.log("data:")
-                console.log(data)
-                $('#cvEdit').find('.success').show()
-                throw '代码未完成'
-
-            }
-
-        })
-</script>
+<script src="/static/scripts/user_edit.js"></script>
 <!--@@placeholder=scripts-->
 <!--@@close-->
