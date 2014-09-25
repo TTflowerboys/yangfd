@@ -77,7 +77,9 @@ def signin():
 @f_get('/intention')
 @check_landing
 def intention():
-    return template("intention", user=get_current_user(), country_list=get_country_list())
+    budget_list = f_app.enum.get_all('budget')
+    intention_list = f_app.enum.get_all('intention')
+    return template("intention", user=get_current_user(), budget_list=budget_list, intention_list=intention_list)
 
 @f_get('/reset_password')
 @check_landing
@@ -146,15 +148,6 @@ def user_verify_email():
 @f_get('/user_change_email')
 def user_change_email():
     return template("user_change_email", user=get_current_user(), country_list=get_country_list())
-
-
-@f_get('/user_change_phone_1')
-def user_change_phone_1():
-    return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list())
-
-@f_get('/user_change_phone_2')
-def user_change_phone_2():
-    return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/admin')

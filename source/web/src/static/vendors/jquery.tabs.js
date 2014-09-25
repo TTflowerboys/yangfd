@@ -8,7 +8,9 @@
                 var tabName = $target.data('tab')
                 $target.closest('[data-tabs]').find('[data-tab-name=' + tabName + ']').eq(0).show()
                     .siblings().hide()
+                $tabs.trigger('openTab', e.currentTarget)
             })
         })
+        return this
     }
 })(jQuery)
