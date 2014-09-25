@@ -164,12 +164,16 @@ def user_change_phone_2():
 
 @f_get('/user_favorites')
 def user_favorites():
-    return template("user_favorites", user=get_current_user(), country_list=get_country_list(), property_list=f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}})))
+    if get_current_user() is not None:
+        favorite_list = f_app.user.favorite_output(f_app.user.favorite_get_by_user(get_current_user()["id"]))
+        return template("user_properties", user=get_current_user(), country_list=get_country_list(), favorite_list=favorite_list)
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_intentions')
 def user_intentions():
-    return template("user_intentions", user=get_current_user(), country_list=get_country_list(), property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}})))
+    return template("user_intentions", user=get_current_user(), country_list=get_country_list(), property_list=f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}})))
 
 
 @f_get('/user_properties')
