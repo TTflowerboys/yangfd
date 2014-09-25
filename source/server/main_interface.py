@@ -156,6 +156,7 @@ def user_change_email():
 def user_change_phone_1():
     return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list())
 
+
 @f_get('/user_change_phone_2')
 def user_change_phone_2():
     return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list())
@@ -163,7 +164,7 @@ def user_change_phone_2():
 
 @f_get('/user_favorites')
 def user_favorites():
-    return template("user_favorites", user=get_current_user(), country_list=get_country_list(), property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}})))
+    return template("user_favorites", user=get_current_user(), country_list=get_country_list(), property_list=f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}})))
 
 
 @f_get('/user_intentions')
@@ -171,11 +172,13 @@ def user_intentions():
     return template("user_intentions", user=get_current_user(), country_list=get_country_list())
 
 
-
 @f_get('/user_properties')
 def user_properties():
-    return template("user_properties", user=get_current_user(), country_list=get_country_list())
-
+    if get_current_user() is not None:
+        ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
+        return template("user_properties", user=get_current_user(), country_list=get_country_list(), ticket_list=ticket_list)
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_messages')
