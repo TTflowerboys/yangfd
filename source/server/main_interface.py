@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 def check_landing(func):
     def __check_landing_replace_func(*args, **kwargs):
         if f_app.common.landing_only:
-            return template("coming_soon")
+            return template("coming_soon", country_list=get_country_list(), budget_list=f_app.enum.get_all('budget'))
         else:
             return func(*args, **kwargs)
 
