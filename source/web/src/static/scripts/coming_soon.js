@@ -1,14 +1,4 @@
 (function () {
-
-// setup budget select // TODO: why not use python?
-    $.get('/api/1/enum?type=budget&_i18n=' + window.lang)
-        .done(function (val) {
-            var budgetSelect = $('select[name=budget]')
-            for (var i = 0, len = val.length; i < len; i = i + 1) {
-                budgetSelect.append('<option value=' + val[i].id + '>' + val[i].value + '</option>')
-            }
-        })
-
     $('form[name=subscription]').submit(function (e) {
         e.preventDefault()
         var errorArea = $(this).find('.errorMessage')
@@ -60,7 +50,7 @@
                 theParams,
                 function (data, status) {
                     if (data.ret !== 0) {
-                        errorArea.text(window.i18n('电话') + ' ' + window.i18n('格式不正确'))
+                        errorArea.text(window.getErrorMessage('phone', 'number'))
                         errorArea.show()
                         $input.css('border', '2px solid red')
                     }
@@ -107,7 +97,7 @@
         params.locales = window.lang
         var button = $('form[name=requirement] button[type=submit]')
         button.css('cursor', 'wait')
-        $.post('/api/1/intention_ticket/add', null)
+        $.post('/api/1/intention_ticket/add', params)
             .done(function () {
                 successArea.show()
                 $('.requirement_title').hide()
