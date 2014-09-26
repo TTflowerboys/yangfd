@@ -588,12 +588,13 @@ class f_currant_plugins(f_app.plugin_base):
                 # Save an identifier property_crawler_id into the params. It's recommended to use the page URL whenever applicable.
                 params["property_crawler_id"] = property_page_link_url
                 # Call f_app.property.crawler_insert_update for each property
-                f_app.property.crawler_insert_update(params)
+                # f_app.property.crawler_insert_update(params)
+                self.logger.debug(params)
                 # Add a new task for next fetch. For example, if you want to craw every day:
-        f_app.task.put(dict(
-            type="fortis_developments",
-            start=datetime.utcnow() + timedelta(days=1),
-        ))
+        # f_app.task.put(dict(
+        #     type="fortis_developments",
+        #     start=datetime.utcnow() + timedelta(days=1),
+        # ))
 
 
 f_currant_plugins()
@@ -848,12 +849,11 @@ class f_currant_util(f_util):
 
         price_group = [x.strip() for x in budget["slug"].split("budget:")[-1].split(",")]
 
-        assert len(price_group) == 2, abort(40000, self.logger.warning("Invalid budget slug", exc_info=False))
+        assert len(price_group) == 3, abort(40000, self.logger.warning("Invalid budget slug", exc_info=False))
+        assert price_group[2] in f_app.common.currency, abort(self.logger.warning("wrong type, cannot parse budget", exc_info=False))
 
         price_group[0] = float(price_group[0])if price_group[0] else None
         price_group[1] = float(price_group[1])if price_group[1] else None
-
-        price_group.append(budget.get("currency"))
 
         return price_group
 
