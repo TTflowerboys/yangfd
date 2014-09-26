@@ -249,7 +249,7 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.operation.contents.channel.tpl.html',
                 controller: 'ctrlList',
                 resolve: {
-                    api: function (adApi,$stateParams) {
+                    api: function (adApi, $stateParams) {
                         return adApi($stateParams.channel)
                     }
                 }
@@ -268,6 +268,12 @@ angular.module('app')
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.intention.create.tpl.html',
                 controller: 'ctrlIntentionCreate',
+                resolve: intentionResolve
+            })
+            .state('dashboard.intention.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.intention.detail.tpl.html',
+                controller: 'ctrlDetail',
                 resolve: intentionResolve
             })
             .state('dashboard.intention.edit', {
@@ -290,6 +296,16 @@ angular.module('app')
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.support.create.tpl.html',
                 controller: 'ctrlCreate',
+                resolve: {
+                    api: function (supportApi) {
+                        return supportApi
+                    }
+                }
+            })
+            .state('dashboard.support.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.support.detail.tpl.html',
+                controller: 'ctrlDetail',
                 resolve: {
                     api: function (supportApi) {
                         return supportApi
