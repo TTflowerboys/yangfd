@@ -54,6 +54,36 @@
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
+            addBudget: function (limit, ceiling, currency, value) {
+                var slug = 'budget:'
+                slug += limit ? limit : ''
+                slug += ','
+                slug += ceiling ? ceiling : ''
+                slug += ','
+                slug += currency
+                var data = {
+                    type: 'budget',
+                    slug: slug,
+                    currency: currency,
+                    value: value
+                }
+                return $http.post('/api/1/enum/add', data, {errorMessage: true})
+            },
+            editBudget: function (id, limit, ceiling, currency, value) {
+                var slug = 'budget:'
+                slug += limit ? limit : ''
+                slug += ','
+                slug += ceiling ? ceiling : ''
+                slug += ','
+                slug += currency
+                var data = {
+                    type: 'budget',
+                    slug: slug,
+                    currency: currency,
+                    value: value
+                }
+                return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
+            },
             getEnumsByType: function (type) {
                 return $http.get('/api/1/enum', {
                     params: {

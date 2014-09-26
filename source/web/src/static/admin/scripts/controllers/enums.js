@@ -18,6 +18,7 @@
                     $scope.enums[index] = data.val || {}
                 })
         }
+
         $scope.getEditEnumItem = function () {
             api.getI18nEnumsById($stateParams.id)
                 .success(function (data) {
@@ -64,7 +65,6 @@
                 .success(function () {
                     $scope.item.value = null
                     $scope.item.tempValues = null
-                    $scope.item.property_type = null
                 })
         }
         $scope.editI18nEnum = function ($event, form) {
@@ -83,7 +83,6 @@
                     $scope.item.slug = null
                     $scope.item.value = null
                     $scope.item.tempValues = null
-                    $scope.item.property_type = null
                 })
         }
         $scope.editCountry = function ($event, form) {
@@ -101,7 +100,6 @@
                 .success(function () {
                     $scope.item.value = null
                     $scope.item.tempValues = null
-                    $scope.item.property_type = null
                 })
         }
         $scope.editCity = function ($event, form) {
@@ -114,6 +112,43 @@
         }
         $scope.removeI18nValue = function (index) {
             $scope.item.tempValues.splice(index, 1)
+        }
+        $scope.getEditBudget = function () {
+            api.getI18nEnumsById($stateParams.id)
+                .success(function (data) {
+                    $scope.item = data.val || {}
+                    $scope.item.tempValues = _.pairs($scope.item.value)
+                    for (var i = $scope.item.tempValues.length - 1; i >= 0; i -= 1) {
+                        if ($scope.item.tempValues[i][0] === '_i18n') {
+                            $scope.item.tempValues.splice(i, 1)
+                        } else {
+                            $scope.onAddLanguage($scope.item.tempValues[i][0])
+                        }
+                    }
+                    var index1 = $scope.item.slug.indexOf(',')
+                    var index2 = $scope.item.slug.lastIndexOf(',')
+                    $scope.item.limit = parseInt($scope.item.slug.substring(7, index1), 10)
+                    $scope.item.ceiling = parseInt($scope.item.slug.substring(index1 + 1, index2), 10)
+                })
+        }
+        $scope.addBudget = function ($event, form) {
+
+            $scope.item.value = _.object($scope.item.tempValues)
+            api.addBudget($scope.item.limit, $scope.item.ceiling, $scope.item.currency, $scope.item.value)
+                .success(function () {
+                    $scope.item.limit = null
+                    $scope.item.ceiling = null
+                    $scope.item.value = null
+                    $scope.item.tempValues = null
+                })
+        }
+        $scope.editBudget = function ($event, form) {
+
+            $scope.item.value = _.object($scope.item.tempValues)
+            api.editBudget($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.currency, $scope.item.value)
+                .success(function () {
+                    $state.go('^')
+                })
         }
     }
 

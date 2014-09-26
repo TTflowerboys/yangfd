@@ -130,6 +130,24 @@ angular.module('app')
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
+            .state('dashboard.enums.budget', {
+                url: '/currency',
+                templateUrl: '/static/admin/templates/dashboard.enums.budget.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.budget.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.budget.create.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.budget.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.enums.budget.edit.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
         /**
          * property
          */
