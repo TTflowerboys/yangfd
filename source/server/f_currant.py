@@ -499,8 +499,8 @@ class f_currant_plugins(f_app.plugin_base):
                 list_page_property_links = list_page_dom_root("div#cntrlPropertySearch_map_pnlResults a.propAdd")
                 for link in list_page_property_links:
                     params = {
-                        "country": {"_id": ObjectId(f_app.enum.get_by_slug('GB')['id']), "type": "country", "_enum": "country"},
-                        "city": {"_id": ObjectId(f_app.enum.get_by_slug('london')['id']), "type": "city", "_enum": "city"},
+                        "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
+                        "city": ObjectId(f_app.enum.get_by_slug('london')['id'])
                     }
                     property_url = "%s%s" % (search_url_prefix, link.attrib['href'])
                     property_site_id = urllib.parse.urlparse(link.attrib['href']).path.split('/')[-1]
@@ -539,11 +539,11 @@ class f_currant_plugins(f_app.plugin_base):
                         if total_price:
                             params["total_price"] = {"value": total_price[0], "type": "currency", "unit": "GBP"}
                         if "Share of freehold" in property_page_price:
-                            params["equity_type"] = {"_enum": "equity_type", "type": "equity_type", "_id": ObjectId(f_app.enum.get_by_slug('virtual_freehold')["id"])}
+                            params["equity_type"] = ObjectId(f_app.enum.get_by_slug('virtual_freehold')["id"])
                         elif "Freehold" in property_page_price:
-                            params["equity_type"] = {"_enum": "equity_type", "type": "equity_type", "_id": ObjectId(f_app.enum.get_by_slug('Freehold')["id"])}
+                            params["equity_type"] = ObjectId(f_app.enum.get_by_slug('freehold')["id"])
                         elif "Leasehold" in property_page_price:
-                            params["equity_type"] = {"_enum": "equity_type", "type": "equity_type", "_id": ObjectId(f_app.enum.get_by_slug('leasehold')["id"])}
+                            params["equity_type"] = ObjectId(f_app.enum.get_by_slug('leasehold')["id"])
 
                         building_area = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_building_area)
                         if building_area:
@@ -573,7 +573,7 @@ class f_currant_plugins(f_app.plugin_base):
             list_links = list_page_dom_root('h2.projects-accordion__heading--current').siblings('div.projects-accordion__content').children().children()
             for link in list_links:
                 params = {
-                    "country": {"_id": ObjectId(f_app.enum.get_by_slug('GB')['id']), "type": "country", "_enum": "country"},
+                    "country": ObjectId(f_app.enum.get_by_slug('GB')['id'])
                 }
                 property_page_link_url = link.attrib['href']
                 property_page = f_app.request.get(property_page_link_url)
