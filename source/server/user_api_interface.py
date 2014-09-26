@@ -184,7 +184,6 @@ def current_user_edit(user, params):
             abort(40000, logger.warning("Invalid params: email_message_type", params["email_message_type"], exc_info=False))
 
     f_app.user.update_set(user["id"], params)
-    f_app.user.update_set(user["id"], params)
     return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
 
 
