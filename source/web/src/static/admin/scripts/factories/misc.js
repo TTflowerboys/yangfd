@@ -120,7 +120,7 @@ angular.module('app')
                         addToResult(key, newJson[key])
                     } else if (newJson[key] === undefined) {
                         addToResult(key, '')
-                    } else if (newJson.hasOwnProperty(key) && newJson[key].toString() !== oldJson[key].toString()) {
+                    } else if (newJson.hasOwnProperty(key) && newJson[key] !== oldJson[key] && newJson[key].toString() !== oldJson[key].toString()) {
                         addToResult(key, newJson[key])
                     } else if (_.isObject(newJson[key])) {
                         var obj = newJson[key]
@@ -136,7 +136,7 @@ angular.module('app')
                                 }
                             }
                         } else {
-                            var temp = self.getChangedAttributes(newJson[key], oldJson[key])
+                            var temp = self.getChangedI18nAttributes(newJson[key], oldJson[key])
                             if (temp) {
                                 addToResult(key, temp)
                             }
