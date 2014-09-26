@@ -242,8 +242,8 @@ angular.module('app')
                     channelApi: function (channelApi) {
                         return channelApi
                     },
-                    adApi: function (adApi) {
-                        return adApi
+                    adApiFactory: function (adApiFactory) {
+                        return adApiFactory
                     }
                 }
             })
@@ -252,18 +252,18 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.operation.contents.detail.tpl.html',
                 controller: 'ctrlDetail',
                 resolve: {
-                    api: function (adApi,$stateParams) {
-                        return adApi($stateParams.channel)
+                    api: function (adApiFactory,$stateParams) {
+                        return adApiFactory($stateParams.channel)
                     }
                 }
             })
             .state('dashboard.operation.contents.edit', {
                 url: '/:channel/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.operation.contents.edit.tpl.html',
-                controller: 'ctrlAdsEdit',
+                controller: 'ctrlEdit',
                 resolve: {
-                    api: function (adApi, $stateParams) {
-                        return adApi($stateParams.channel)
+                    api: function (adApiFactory, $stateParams) {
+                        return adApiFactory($stateParams.channel)
                     }
                 }
             })
