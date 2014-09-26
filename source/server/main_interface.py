@@ -152,6 +152,10 @@ def user_change_email():
     return template("user_change_email", user=get_current_user(), country_list=get_country_list())
 
 
+@f_get('/user_change_password')
+def user_change_password():
+    return template("user_change_password", user=get_current_user(), country_list=get_country_list())
+
 @f_get('/user_change_phone_1')
 def user_change_phone_1():
     return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list())
@@ -166,7 +170,7 @@ def user_change_phone_2():
 def user_favorites():
     if get_current_user() is not None:
         favorite_list = f_app.user.favorite_output(f_app.user.favorite_get_by_user(get_current_user()["id"]))
-        return template("user_properties", user=get_current_user(), country_list=get_country_list(), favorite_list=favorite_list)
+        return template("user_favorites", user=get_current_user(), country_list=get_country_list(), favorite_list=favorite_list)
     else:
         redirect("://".join(request.urlparts[:2]))
 

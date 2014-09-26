@@ -232,6 +232,30 @@ angular.module('app')
                 }
             })
         /**
+         * operation.content
+         */
+            .state('dashboard.operation.contents', {
+                url: '/contents',
+                templateUrl: '/static/admin/templates/dashboard.operation.contents.tpl.html',
+                controller: 'ctrlOperationContent',
+                resolve: {
+                    api: function (channelApi) {
+                        return channelApi
+                    }
+                }
+            })
+            .state('dashboard.operation.contents.channel', {
+                url: '/:channel',
+                templateUrl: '/static/admin/templates/dashboard.operation.contents.channel.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (adApi,$stateParams) {
+                        return adApi($stateParams.channel)
+                    }
+                }
+            })
+
+        /**
          * dashboard.intention
          */
             .state('dashboard.intention', {

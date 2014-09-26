@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
     image=str,
     image_alt=('i18n', None, str),
 ))
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation'])
 def ad_add(params, user):
     """
     A channel has some ads, while an ad can have multiple text area.
@@ -35,7 +35,7 @@ def ad_add(params, user):
     image=(str, None),
     image_alt=('i18n', None, str),
 ))
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation'])
 def ad_edit(user, ad_id, params):
     f_app.ad.update_set(ad_id, params)
 
@@ -46,7 +46,7 @@ def ad_get(ad_id):
 
 
 @f_api('/ad/<ad_id>/remove')
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation'])
 def ad_remove(user, ad_id):
     f_app.ad.delete(ad_id)
 
