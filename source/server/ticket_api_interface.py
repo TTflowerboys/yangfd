@@ -281,7 +281,7 @@ def intention_ticket_search(user, params):
     nickname=(str, True),
     phone=(str, True),
     email=(str, True),
-    country=("enum:country", True),
+    country="enum:country",
     description=(str, True),
     custom_fields=(list, None, dict(
         key=str,
