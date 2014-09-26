@@ -146,7 +146,7 @@ def news(news_id):
 
 @f_get('/coming_soon')
 def coming_soon():
-    return template("coming_soon", country_list=get_country_list())
+    return template("coming_soon", country_list=get_country_list(), budget_list=f_app.enum.get_all('budget'))
 
 
 @f_get('/user_settings')
