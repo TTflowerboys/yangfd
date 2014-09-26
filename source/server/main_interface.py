@@ -132,41 +132,60 @@ def property_get(property_id):
     return template("property", user=get_current_user(), property=f_app.property.output([property_id])[0], country_list=get_country_list())
 
 
+@f_get('/news_list')
+@check_landing
+def news_list():
+    return template("news_list", user=get_current_user(), country_list=get_country_list())
+
+
+@f_get('/news/<news_id:re:[0-9a-fA-F]{24}>')
+@check_landing
+def news(news_id):
+    return template("news", user=get_current_user(), country_list=get_country_list())
+
+
 @f_get('/coming_soon')
 def coming_soon():
     return template("coming_soon", country_list=get_country_list())
 
 
 @f_get('/user_settings')
+@check_landing
 def user_settings():
     return template("user_settings", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/user_verify_email')
+@check_landing
 def user_verify_email():
     return template("user_verify_email", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/user_change_email')
+@check_landing
 def user_change_email():
     return template("user_change_email", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/user_change_password')
+@check_landing
 def user_change_password():
     return template("user_change_password", user=get_current_user(), country_list=get_country_list())
 
 @f_get('/user_change_phone_1')
+@check_landing
 def user_change_phone_1():
     return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/user_change_phone_2')
+@check_landing
 def user_change_phone_2():
     return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/user_favorites')
+@check_landing
 def user_favorites():
     if get_current_user() is not None:
         favorite_list = f_app.user.favorite_output(f_app.user.favorite_get_by_user(get_current_user()["id"]))
@@ -176,11 +195,13 @@ def user_favorites():
 
 
 @f_get('/user_intentions')
+@check_landing
 def user_intentions():
     return template("user_intentions", user=get_current_user(), country_list=get_country_list(), property_list=f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}})))
 
 
 @f_get('/user_properties')
+@check_landing
 def user_properties():
     if get_current_user() is not None:
         ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
@@ -190,6 +211,7 @@ def user_properties():
 
 
 @f_get('/user_messages')
+@check_landing
 def user_messages():
     message_list = f_app.message.get_by_user(
         get_current_user()['id'],
@@ -199,9 +221,9 @@ def user_messages():
 
 
 @f_get('/admin')
+@check_landing
 def admin():
     return template("admin")
-
 
 @f_get("/static/<filepath:path>")
 def static_route(filepath):

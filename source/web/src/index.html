@@ -103,7 +103,7 @@
                <h3 class="title">{{_('相关动态')}}</h3>
                <div class="list">
                    %for index, news in enumerate(property.get('related_news')):
-                   <a class="item" href={{news.get('link')}}>{{news.get('title')}}</a>
+                   <a class="item" href=/news/{{news.get('id')}}>{{news.get('title')}}</a>
                    %end
                </div>
            </div>
@@ -131,7 +131,7 @@
                     <!-- {{!_i18n(news_list[0].get('content', ''))}} -->
                     {{_i18n(news_list[0].get('content', ''))}}
                 </p>
-                <a class="ghostButton red detail" href="{{_i18n(news_list[0].get('link', ''))}}">{{_('详细')}}</a>
+                <a class="ghostButton red detail" href="/news/{{news_list[0].get('id')}}">{{_('详细')}}</a>
             </div>
         </div>
 
@@ -141,11 +141,11 @@
             <div class="list">
                 %for index, item in enumerate(news_list):
                     %if (index > 0 and index < 6):
-                        <a class="item" href="{{_i18n(item.get('link', ''))}}">{{_i18n(item.get('title', ''))}}</a>
+                        <a class="item" href="/news/{{item.get('id')}}">{{_i18n(item.get('title', ''))}}</a>
                     %end
                 %end
             </div>
-            <a class="ghostButton red more">{{_('了解更多')}}</a>
+            <a class="ghostButton red more" href="/news_list">{{_('了解更多')}}</a>
         </div>
         %end
     </div>
