@@ -844,14 +844,16 @@ class f_currant_util(f_util):
 
         assert budget["type"] == "budget", abort(40000, self.logger.warning("wrong type, cannot parse budget", exc_info=False))
         assert budget.get("slug") is not None and budget["slug"].startswith("budget:"), abort(self.logger.warning("wrong type, cannot parse budget", exc_info=False))
+        assert budget.get("currency") is not None and budget["currency"] in f_app.common.currency, abort(self.logger.warning("wrong type, cannot parse budget", exc_info=False))
 
         price_group = [x.strip() for x in budget["slug"].split("budget:")[-1].split(",")]
 
-        assert len(price_group) == 3, abort(40000, self.logger.warning("Invalid budget slug", exc_info=False))
-        assert price_group[2] in f_app.common.currency, abort(40000, self.logger.warning("Invalid budget: currency not supported", exc_info=False))
+        assert len(price_group) == 2, abort(40000, self.logger.warning("Invalid budget slug", exc_info=False))
 
         price_group[0] = float(price_group[0])if price_group[0] else None
         price_group[1] = float(price_group[1])if price_group[1] else None
+
+        price_group.append(budget.get("currency"))
 
         return price_group
 
