@@ -1,0 +1,9 @@
+<div class="form-group">
+    <select class="form-control" ng-options="item for item in i18nCurrency" ng-model="currency">
+        <option value="">-- 货币单位 --</option>
+    </select>
+    <select class="form-control" ng-model="enumId"
+            ng-options="p.id as p.value[userLanguage.value] for p in enumList">
+        <option value="">-- {%enumOption?enumOption:'选择'%} --</option>
+    </select>
+</div>
