@@ -1,4 +1,8 @@
 <!--@@master = masters/user_master.html-->
+<!--@@block = head -->
+<link rel="stylesheet" href="/static/styles/userSettings.css"/>
+<!--@@close -->
+
 <!--@@block = main -->
 <h1 class="caption">{{_('账户信息')}}</h1>
 <div class="table_wrapper">
@@ -87,10 +91,22 @@
                     <strong>{{_('语言设置')}}</strong>
                     <p>{{_('网站及各类通知邮件默认语言')}}</p>
                 </td>
-                <td>
+                <td style="font-size:20px;">
                     %if user.get('locales') and len(user.get('locales')):
+                    <label name="userLanguage">
+                    %if (user.get('locales')[0] == 'en_GB'):
+                    {{_('English (United Kingdom)')}}
+                    %elif (user.get('locales')[0] == 'zh_Hans_CN'):
+                    {{_('简体中文(中国)')}}
+                    %else:
                     {{user.get('locales')[0]}}
                     %end
+                    </label>
+                    %end
+                    <select name="userLanguage" class="ghostSelect" style="display:none;">
+                        <option value="zh_Hans_CN" selected>{{_('简体中文(中国)')}}</option>
+                        <option value="en_GB">{{_('English (United Kingdom)')}}</option>
+                    </select>
                 </td>
                 <td>
                     %if user.get('locales') and len(user.get('locales')):
@@ -100,7 +116,7 @@
                     %end
                 </td>
                 <td class="action">
-                    <button class="ghostButton red">{{_('修改')}}</button>
+                    <button name="userChangeLanguage" data-state="normal" class="ghostButton red">{{_('修改')}}</button>
                 </td>
             </tr>
         </tbody>
@@ -210,4 +226,5 @@
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
+<script src="/static/scripts/settings.js"></script>
 <!--@@close-->
