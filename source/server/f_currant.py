@@ -364,7 +364,6 @@ class f_currant_plugins(f_app.plugin_base):
             ticket["assignee"] = [str(i) for i in ticket.pop("assignee", [])]
         if "user_id" in ticket:
             ticket["user_id"] = str(ticket["user_id"])
-        self.logger.debug(ticket['assignee'])
 
         return ticket
 
@@ -581,20 +580,23 @@ class f_currant_plugins(f_app.plugin_base):
                 if property_page.status_code == 200:
                     property_page_dom_root = q(property_page.content)
                     images = property_page_dom_root('ul.slides img')
+                    videos = property_page_dom_root('div#panel3 a.property-video')
                     if images:
                         params["reality_images"] = {"en_GB": [x.attrib['src'] for x in images]}
+                    if videos:
+                        params["videos"] = {"en_GB": [x.attrib['href'] for x in videos]}
                     params["description"] = {"en_GB": property_page_dom_root('div#panel1').text()}
 
                 # Save an identifier property_crawler_id into the params. It's recommended to use the page URL whenever applicable.
                 params["property_crawler_id"] = property_page_link_url
                 # Call f_app.property.crawler_insert_update for each property
-                # f_app.property.crawler_insert_update(params)
-                self.logger.debug(params)
+                f_app.property.crawler_insert_update(params)
+
                 # Add a new task for next fetch. For example, if you want to craw every day:
-        # f_app.task.put(dict(
-        #     type="fortis_developments",
-        #     start=datetime.utcnow() + timedelta(days=1),
-        # ))
+        f_app.task.put(dict(
+            type="fortis_developments",
+            start=datetime.utcnow() + timedelta(days=1),
+        ))
 
 
 f_currant_plugins()
@@ -665,7 +667,6 @@ class f_property(f_app.module_base):
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False):
         f_app.util.process_search_params(params)
-        self.logger.debug("search params: ", params)
         params.setdefault("status", {"$ne": "deleted"})
         if sort is not None:
             try:
