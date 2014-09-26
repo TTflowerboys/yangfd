@@ -5,7 +5,6 @@
 
     function ctrlDetail($scope, $state, $http, $rootScope, api, $stateParams, misc) {
         $scope.api = api
-
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
 
         if (itemFromParent) {

@@ -239,15 +239,28 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.operation.contents.tpl.html',
                 controller: 'ctrlOperationContent',
                 resolve: {
-                    api: function (channelApi) {
+                    channelApi: function (channelApi) {
                         return channelApi
+                    },
+                    adApi: function (adApi) {
+                        return adApi
                     }
                 }
             })
-            .state('dashboard.operation.contents.channel', {
-                url: '/:channel',
-                templateUrl: '/static/admin/templates/dashboard.operation.contents.channel.tpl.html',
-                controller: 'ctrlList',
+            .state('dashboard.operation.contents.detail', {
+                url: '/:channel/:id',
+                templateUrl: '/static/admin/templates/dashboard.operation.contents.detail.tpl.html',
+                controller: 'ctrlDetail',
+                resolve: {
+                    api: function (adApi,$stateParams) {
+                        return adApi($stateParams.channel)
+                    }
+                }
+            })
+            .state('dashboard.operation.contents.edit', {
+                url: '/:channel/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.operation.contents.edit.tpl.html',
+                controller: 'ctrlAdsEdit',
                 resolve: {
                     api: function (adApi,$stateParams) {
                         return adApi($stateParams.channel)

@@ -1,4 +1,4 @@
-<div>
+<div ui-view>
     <div class="row" style="min-height: 600px;">
         <div class="col-lg-12">
             <div class="buttons">
@@ -11,7 +11,62 @@
                     <select class="form-control" ng-options="p as p for p in availableChannels" ng-model="selectedChannel"></select>
                 </div>
             </div>
-            <div ui-view></div>
+            <div class="row" style="min-height: 600px;">
+                <div class="col-lg-12">
+                    <div class="buttons">
+                <span class="btn-group pull-right">
+                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
+                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+                </span>
+
+                        <div class="btn-group form-inline pull-right" style="margin-right: 10px">
+                            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+                        </div>
+
+                    </div>
+                    <table class="table table-bordered table-striped table-condensed">
+                        <colgroup>
+                            <col class="channel">
+                            <col class="description">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>频道名</th>
+                            <th>描述</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in list">
+                            <td>
+                                {%item.channel%}
+                            </td>
+                            <td>
+                                {%item.description[userLanguage.value]%}
+                            </td>
+                            <td>
+                                <a class="btn btn-success" href ui-sref=".detail({id:item.id,channel:item.channel})" title="View">
+                                    <i class="fa fa-search-plus"></i>
+                                </a>
+                                <a class="btn btn-info" href ui-sref=".edit({id:item.id,channel:item.channel})" title="Edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger" ng-click="onRemove(item,$index)" title="Remove">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>
+                    <div class="buttons">
+                <span class="btn-group pull-right">
+                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
+                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+                </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!--/container-->
