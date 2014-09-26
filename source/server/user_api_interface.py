@@ -84,6 +84,7 @@ def user_login(params):
     solution=(str, True),
     challenge=(str, True),
     locales=(list, None, str),
+    currency=(list, None, str),
     budget="enum:budget",
 ))
 @rate_limit("register", ip=10)
@@ -131,6 +132,7 @@ def register(params):
     date_of_birth=datetime,
     intention=(list, None, "enum:intention"),
     locales=(list, None, str),
+    currency=(list, None, str),
     wechat_id=(str, None),
     budget=("enum:budget", None),
     system_message_type=(list, None, str),
