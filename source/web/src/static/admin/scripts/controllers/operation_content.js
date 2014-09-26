@@ -3,13 +3,13 @@
  */
 (function () {
 
-    function ctrlOperationContent($scope, $state , adApi, channelApi, misc,fctModal, $timeout) {
+    function ctrlOperationContent($scope, $state , adApiFactory, channelApi, misc,fctModal, $timeout) {
         $scope.channelApi = channelApi
         $scope.list = []
         $scope.perPage = 12
         $scope.currentPageNumber = 1
         $scope.pages = []
-        $scope.adApi = adApi
+        $scope.adApiFactory = adApiFactory
         $scope.fetched = false
 
         var params = {
@@ -33,17 +33,17 @@
                 return;
             }
 
-            $scope.adApi = adApi($scope.selectedChannel)
-            $scope.adApi.getAll({ params: params }).success(onGetList)
+            $scope.adApiFactory = adApiFactory($scope.selectedChannel)
+            $scope.adApiFactory.getAll({ params: params }).success(onGetList)
         })
 
         $scope.refreshList = function () {
-            $scope.adApi.getAll({ params: params}).success(onGetList)
+            $scope.adApiFactory.getAll({ params: params}).success(onGetList)
         }
 
         $scope.onRemove = function (item) {
             fctModal.show('Do you want to remove it?', undefined, function () {
-                $scope.adApi.remove(item.id).success(function () {
+                $scope.adApiFactory.remove(item.id).success(function () {
                     $scope.list.splice($scope.list.indexOf(item), 1)
                 })
             })
@@ -55,7 +55,7 @@
             if (lastItem.register_time) {params.register_time = lastItem.register_time}
             if (lastItem.insert_time) {params.insert_time = lastItem.insert_time}
 
-            $scope.adApi.getAll({params: params})
+            $scope.adApiFactory.getAll({params: params})
                 .success(function () {
                     $scope.currentPageNumber += 1
                 })
@@ -82,7 +82,7 @@
                 delete params.insert_time
             }
 
-            $scope.adApi.getAll({params: params})
+            $scope.adApiFactory.getAll({params: params})
                 .success(function () {
                     $scope.currentPageNumber -= 1
                 })
