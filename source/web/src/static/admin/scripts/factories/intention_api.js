@@ -17,7 +17,7 @@
                 return $http.post('/api/1/intention_ticket/' + id + '/remove', null, config)
             },
             create: function (data, config) {
-                return $http.post('/api/1/intention_tickets/add', data, config)
+                return $http.post('/api/1/intention_ticket/add', data, config)
             }
         }
 

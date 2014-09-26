@@ -28,8 +28,6 @@ angular.module('app')
                         scope.enumList.splice(0, length)
                     }
                     for (var b in scope.budgetList) {
-                        console.log("scope.budgetList[b]")
-                        console.log(scope.budgetList[b])
                         if (scope.budgetList[b].currency === newValue) {
                             scope.enumList.push(scope.budgetList[b])
                         }

@@ -184,7 +184,6 @@ def current_user_edit(user, params):
             abort(40000, logger.warning("Invalid params: email_message_type", params["email_message_type"], exc_info=False))
 
     f_app.user.update_set(user["id"], params)
-    f_app.user.update_set(user["id"], params)
     return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
 
 
@@ -301,7 +300,7 @@ def admin_user_add(user, params):
         target=params["email"],
         subject=template("static/emails/new_admin_title"),
         text=template("static/emails/new_admin", password=params["password"], nickname=params["nickname"], role=params[
-                      "role"], admin_console_url="http://" + request.urlparts[1] + "/admin#", phone="*" * (len(params["phone"]) - 4) + params["phone"][-4:]),
+            "role"], admin_console_url="%s://%s/admin#" % (request.urlparts[0], request.urlparts[1]), phone="*" * (len(params["phone"]) - 4) + params["phone"][-4:]),
         display="html",
     )
 
@@ -329,7 +328,7 @@ def admin_user_add_role(user, user_id, params):
                 target=user_info.get("email"),
                 subject=template("static/emails/set_as_admin_title"),
                 text=template("static/emails/set_as_admin", nickname=user_info.get("nickname"), role=params[
-                              "role"], admin_console_url="http://" + request.urlparts[1] + "/admin#", phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
+                              "role"], admin_console_url="%s://%s/admin#" % (request.urlparts[0], request.urlparts[1]), phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
                 display="html",
             )
         else:

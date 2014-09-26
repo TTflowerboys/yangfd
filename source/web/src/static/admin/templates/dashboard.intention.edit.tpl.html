@@ -1,10 +1,154 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div ui-view>
+    <div class="buttons">
+        <span class="btn-group">
+            <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span>返回</button>
+        </span>
+    </div>
+    <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
+          ng-submit="submit($event,createProperty)" name="createProperty" novalidate>
+        <div class="row">
+            <div class="form-group col-xs-6 col-sm-3">
+                <label class="control-label">姓名</label>
 
-</body>
-</html>
+                <div class="controls">
+                    <input type="text" class="form-control" ng-model="item.nickname" required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-6 col-sm-3">
+                <label class="control-label">电话</label>
+                <div add-ticket-phone ng-model="item.phone" user-id="item.userId"></div>
+
+            </div>
+            <div class="form-group col-xs-6 col-sm-3">
+                <label class="control-label">邮箱</label>
+
+                <div class="controls">
+                    <input type="text" class="form-control" ng-model="item.email" required/>
+                </div>
+            </div>
+        </div>
+        <div ng-if="item.phone">
+            <div class="row" ng-if="!item.userId">
+                <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label">是否愿意注册会员</label>
+
+                    <div class="controls">
+                        <select class="form-control" ng-model="item.noregister">
+                            <option value="false">愿意</option>
+                            <option value="true">不愿意</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label">预算</label>
+
+                    <div class="controls">
+                        <div budget-select ng-model="item.budget" required></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label">文字描述</label>
+
+                    <div class="controls">
+                        <input type="text" class="form-control" ng-model="item.description" required/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label">国家</label>
+
+                    <div class="controls">
+                        <div enum-select name="country" ng-model="item.country" required></div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label">城市</label>
+
+                    <div class="controls">
+                        <div city-select-by-country country="item.country" ng-model="item.city"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label">产权类型</label>
+
+                    <div class="controls">
+                        <div enum-select name="equity_type" ng-model="item.equity_type"></div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label">投资意向标签</label>
+
+                    <div class="controls">
+                        <div enum-select name="intention" ng-model="item.intention"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div add-custom-fields></div>
+                <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label">销售自定义描述</label>
+
+                    <div class="controls">
+                        <table class="table table-bordered table-striped table-condensed"
+                               style="margin-bottom:30px">
+                            <colgroup>
+                                <col class="key">
+                                <col class="value">
+                            </colgroup>
+                            <tbody>
+                            <tr ng-repeat="field in item.custom_fields">
+                                <td>{%field.key%}</td>
+                                <td>{%field.value %}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="controls col-xs-12 col-sm-6 form-inline">
+                    <input type="text" ng-model="item.tempKey"
+                           placeholder="描述" class="form-control"/>
+                    <input type="text" ng-model="item.tempValue"
+                           placeholder="内容" class="form-control"/>
+                    <input type="button" ng-click="addCustomFields()" class="btn btn-primary" value="添加">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label">变更记录</label>
+
+                    <div class="controls">
+                        <table class="table table-bordered table-striped table-condensed"
+                               style="margin-bottom:30px">
+                            <colgroup>
+                                <col class="key">
+                                <col class="value">
+                            </colgroup>
+                            <tbody>
+                            <tr ng-repeat="field in item.change_log">
+                                <td>{%field.key%}</td>
+                                <td>{%field.value %}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <input type="text" ng-model="item.updated_comment" placeholder="修改内容" class="form-control"/>
+            <input type="submit" class="btn btn-primary" value="提交">
+        </div>
+    </form>
+</div>

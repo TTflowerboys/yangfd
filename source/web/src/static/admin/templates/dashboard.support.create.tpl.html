@@ -1,86 +1,80 @@
 <div ui-view>
+    <div class="buttons">
+        <span class="btn-group">
+            <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span>返回</button>
+        </span>
+    </div>
+    <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
+          ng-submit="submit($event,createSupport)" name="createSupport" novalidate>
+        <div class="row">
+            <div class="form-group col-xs-6 col-sm-3">
+                <label class="control-label">姓名</label>
 
-    <div class="row" style="min-height: 600px;">
-        <div class="col-lg-12">
-            <div class="buttons">
-                <span class="btn-group">
-                    <button class="btn" ui-sref=".create">
-                        <span class="fa fa-plus-circle"></span> 添加客服单
-                    </button>
-                </span>
-
-                <span class="btn-group pull-right">
-                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
-                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
-                </span>
-
+                <div class="controls">
+                    <input type="text" class="form-control" ng-model="item.nickname" required/>
+                </div>
             </div>
-            <table class="table table-bordered table-striped table-condensed">
-                <colgroup>
-                    <col class="status">
-                    <col class="nickname">
-                    <col class="phone">
-                    <col class="email">
-                    <col class="date">
-                    <col class="actions">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>状态</th>
-                        <th>客户姓名</th>
-                        <th>客户手机</th>
-                        <th>客户邮箱</th>
-                        <th>创建时间</th>
-                        <td>指派</td>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in list">
-                        <td>
-                            {%item.status | supportTicketStatusName%}
-                        </td>
-                        <td>
-                            {%item.nickname%}
-                        </td>
-                        <td>
-                            {%item.phone%}
-                        </td>
-                        <td>
-                            {%item.email%}
-                        </td>
-                        <td>
-                            {%item.time * 1000 | date : medium%}
-                        </td>
-                        <td class="form-inline" style="white-space: nowrap;">
-                            <div add-assignee ng-model="item" type="support_ticket"></div>
-                        </td>
-                        <td>
-                            <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
-                                <i class="fa fa-search-plus "></i>
-                            </a>
-                            <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
-                                <i class="fa fa-edit "></i>
-                            </a>
-                            <span class="btn btn-danger" ng-click="onRemove(item,$index)" title="Remove">
-                                <i class="fa fa-trash-o"></i>
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>
-            <div class="buttons">
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-6 col-sm-3">
+                <label class="control-label">电话</label>
 
+                <div class="controls">
+                    <div enum-select name="country" ng-model="item.country" required></div>
 
-                <span class="btn-group pull-right">
-                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
-                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
-                </span>
+                    <input type="text" class="form-control" ng-model="item.phone" required/>
+                </div>
+            </div>
+            <div class="form-group col-xs-6 col-sm-3">
+                <label class="control-label">邮箱</label>
 
+                <div class="controls">
+                    <input type="text" class="form-control" ng-model="item.email" required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-6 col-sm-3">
+                <label class="control-label">文字描述</label>
+
+                <div class="controls">
+                    <input type="text" class="form-control" ng-model="item.description" required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div add-custom-fields></div>
+            <div class="form-group col-xs-6 col-sm-3">
+                <label class="control-label">自定义描述</label>
+
+                <div class="controls">
+                    <table class="table table-bordered table-striped table-condensed"
+                           style="margin-bottom:30px">
+                        <colgroup>
+                            <col class="key">
+                            <col class="value">
+                        </colgroup>
+                        <tbody>
+                        <tr ng-repeat="field in item.custom_fields">
+                            <td>{%field.key%}</td>
+                            <td>{%field.value %}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </div>
-    </div>
-    <!--/container-->
+        <div class="row">
+            <div class="controls col-xs-12 col-sm-6 form-inline">
+                <input type="text" ng-model="item.tempKey"
+                       placeholder="描述" class="form-control"/>
+                <input type="text" ng-model="item.tempValue"
+                       placeholder="内容" class="form-control"/>
+                <input type="button" ng-click="addCustomFields()" class="btn btn-primary" value="添加">
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="提交">
+    </form>
 </div>
