@@ -32,6 +32,8 @@ class common(f_common):
     memcache_server = ["172.20.1.1:11211"]
     memcache_lib = "memcache"
 
+    blog_id = "53f839246b80992f831b2269"
+
     user_login_type = "phone"
     user_custom_fields = ["email", "register_time", "phone", "city", "country", "state", "zip", "gender", "date_of_birth", "intention", "wechat_id", "counter", "system_message_type", "email_message_type", "locales", "currency"]
     user_intention = ["cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"]
