@@ -1,7 +1,16 @@
-<!--@@master=masters/master.html-->
-<!--@@block =head-->
+<!--@@master = masters/master.html-->
+
+<!--@@block = head-->
+
+
+<!--[if lte IE 8]>
+<script src="/static/vendors/excanvas.compiled.js"></script>
+<![endif]-->
+
 <title>房产详情</title>
 <!--@@close-->
+
+
 <!--@@block = main-->
 <div class="main propertyDetails">
     <div class="pictures">
@@ -111,13 +120,149 @@
             - 步行致墨尔本商业中心，周边生活设施齐全，融合住宅，商业，休闲娱乐，以及高端水景；
             - 截至2012六月5年间,Docklands公寓中位价格年均涨幅高达9.1%......
     </div>
-    <div class="trend"></div>
-    <div class="pieChart"></div>
-    <div class="nearby"></div>
+    <div class="trend">
+        <h3>加个趋势</h3>
+        <canvas id="lineChart" width="800" height="400"></canvas>
+    </div>
+    <div class="pieChart">
+        <h3>收入分析</h3>
+        <canvas id="pieChart" width="350" height="300"></canvas>
+        <ul>
+            <li>
+                <p>预计月租金</p>
+                <p><strong>5200</strong>英镑</p>
+            </li>
+            <li>
+                <p>地租费</p>
+                <p><strong>520</strong>英镑/年</p>
+            </li>
+            <li>
+                <p>预计月租金</p>
+                <p><strong>1920</strong>英镑</p>
+            </li>
+            <li>
+                <p>物业管理费</p>
+                <p><strong>4.00~4.35</strong>英镑/每尺每年</p>
+            </li>
+        </ul>
+    </div>
+    <div class="nearby">
+        <h3>周边配套</h3>
+        <ul>
+            <li>
+                <h4>交通设施</h4>
+                <strong>87</strong>
+                <hr/>
+                <ul>
+                    <li>3条 地铁线</li>
+                    <li>5个 公交车站</li>
+                    <li>5个 汽车租赁点</li>
+                </ul>
+                <button>查看详细交通</button>
+            </li>
+            <li>
+                <h4>周边学校</h4>
+                <strong>70</strong>
+                <hr/>
+                <ul>
+                    <li>3所 小学</li>
+                    <li>3所 高中</li>
+                    <li>3所 大学</li>
+                </ul>
+                <button>查看详细交通</button>
+            </li>
+            <li>
+                <h4>便民设施</h4>
+                <strong>70</strong>
+                <hr/>
+                <ul>
+                    <li>3所 公园</li>
+                    <li>3所 健身馆</li>
+                    <li>3所 游泳馆</li>
+                </ul>
+                <button>查看详细交通</button>
+            </li>
+        </ul>
+    </div>
 </div>
 <div class="aside">
-
+    <div class="propertyCard">
+        <h1>Baltimore Tower</h1>
+        <span><img src="/static/images/property_details/tag-icon.png" alt=""/>超额收益 股权投资</span>
+        <span><img src="/static/images/property_details/location-icon.png" alt=""/>London, UK</span>
+        <p class="price">
+            <span>价格</span> <span>$</span> <strong>21000</strong> <span>/平米</span>
+        </p>
+        <ul class="numbers">
+            <li>
+                <span class="percentage"><strong>6~10</strong>%</span>
+                <span class="text">预期年化<br/>收益率</span>
+            </li>
+            <li>
+                <span class="percentage"><strong>6~10</strong>%</span>
+                <span class="text">预期年化现金<br/>收益率</span>
+            </li>
+            <li>
+                <span class="percentage"><strong>6~10</strong>%</span>
+                <span class="text">预期年化现金<br/>收益率</span>
+            </li>
+        </ul>
+    </div>
 </div>
 <!--@@close-->
-<!--@@block = footer-->
+
+<!--@@block = scripts-->
+<script src="/static/vendors/chartnew.js"></script>
+
+
+<script>
+    $(function () {
+
+        var newopts = {
+            inGraphDataShow: true,
+            inGraphDataRadiusPosition: 2,
+            inGraphDataFontColor: 'white'
+        }
+        var red = '#e20013'
+        var data = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                {
+                    fillColor: 'transparent',
+                    strokeColor: red,
+                    pointColor: red,
+                    pointStrokeColor: red,
+                    data: [10065, 10059, 10090, 10081, 10056, 10055, 9940]
+                }
+            ]
+        }
+        var ctx = document.getElementById('lineChart').getContext('2d');
+        var a = new Chart(ctx).Line(data, {
+            bezierCurve: false,
+            inGraphDataShow: true,
+            yAxisMinimumInterval: 10,
+            inGraphDataFontColor: '#aaaaaa',
+            inGraphDataFontSize: 16,
+            inGraphDataAlign: 'center',
+        });
+
+        var pieData = [
+            {
+                value: 30,
+                color: "#F38630",
+            },
+            {
+                value: 30,
+                color: "#F34353",
+            },
+            {
+                value: 30,
+                color: "#F34353",
+            }
+        ]
+        var pieCtx = document.getElementById('pieChart').getContext('2d');
+        var b = new Chart(pieCtx).Pie(pieData, newopts);
+
+    })
+</script>
 <!--@@close-->

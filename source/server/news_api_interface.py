@@ -9,9 +9,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-_blog_id = "53f839246b80992f831b2269"
-
-
 # @f_api('/blog/add')
 # @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 # def blog_add(user):
@@ -31,7 +28,7 @@ def news_list(params):
     per_page = params.pop("per_page", 0)
     if "category" in params:
         params["category"] = {"$in": params["category"]}
-    params["blog_id"] = ObjectId(_blog_id)
+    params["blog_id"] = ObjectId(f_app.common.blog_id)
 
     post_list = f_app.blog.post.search(params, per_page=per_page)
     return f_app.blog.post_output(post_list)
@@ -55,7 +52,7 @@ def news_add(user, params):
     ``zipcode_index`` is the key related to properties, internal use only.
     ``link`` is the source link, not the link to itself.
     """
-    params["blog_id"] = ObjectId(_blog_id)
+    params["blog_id"] = ObjectId(f_app.common.blog_id)
     return f_app.blog.post_add(params)
 
 
