@@ -16,7 +16,7 @@ $('.floatBar #requirement').click(function () {
         }
 
         if (window.user.country) {
-            popup.find('select[name=country]').val(window.user.country)
+            popup.find('select[name=country]').val(window.user.country.id)
         }
 
         if (window.user.phone) {
