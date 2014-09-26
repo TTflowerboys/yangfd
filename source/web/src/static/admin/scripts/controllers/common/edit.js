@@ -30,7 +30,7 @@
             $event.preventDefault()
             $scope.submitted = true
 
-            var changed = misc.getChangedAttributes($scope.item, $scope.itemOrigin)
+            var changed = misc.getChangedI18nAttributes($scope.item, $scope.itemOrigin)
             if (!changed) {
                 growl.addWarnMessage('Nothing to update')
                 return
