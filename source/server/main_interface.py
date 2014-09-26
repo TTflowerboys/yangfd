@@ -152,6 +152,10 @@ def user_change_email():
     return template("user_change_email", user=get_current_user(), country_list=get_country_list())
 
 
+@f_get('/user_change_password')
+def user_change_password():
+    return template("user_change_password", user=get_current_user(), country_list=get_country_list())
+
 @f_get('/user_change_phone_1')
 def user_change_phone_1():
     return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list())
