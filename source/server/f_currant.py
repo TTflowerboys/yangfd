@@ -730,7 +730,7 @@ class f_property(f_app.module_base):
             )
         property = self.get(property_id, force_reload=True)
 
-        if property["status"] in ("selling", "hidden", "sold out") and "short_id" not in property:
+        if property is not None and property["status"] in ("selling", "hidden", "sold out") and "short_id" not in property:
             f_app.task.put(dict(
                 type="assign_property_short_id",
                 property_id=property_id,
