@@ -1,0 +1,56 @@
+@import "project/_imports";
+
+* {
+    box-sizing: border-box;
+}
+
+main {
+    max-width:@max-width;
+    margin:0 auto;
+    .content {
+
+        margin-top:80px;
+        width: 800px;
+        display:inline-block;
+        float:left;
+
+        margin-top:44px;
+
+    }
+
+
+    .category {
+        float: right;
+        background:#f6f6f6;
+        width: 360px;
+        padding: 26px 20px 0px 20px;
+        margin-top:80px;
+        overflow:hidden;
+
+        .title {
+            margin-top:0px;
+            margin-left:0px;
+            margin-bottom: 0px;
+            font-size:18px;
+            line-height: 1em;
+            color: #333333;
+            padding-bottom:18px;
+            border-bottom:1px solid #ccc;
+            overflow:hidden;
+        }
+
+
+
+        > ul { .clearfix(); padding: 26px 0 20px 0; overflow:hidden;
+            > li {
+                float: left; width: 33.33%; text-align: center;
+                padding: 14px 0px 24px 0px;
+                > a { display: block; text-decoration:none; font-size:12px; color:#333;
+                      img { margin-bottom:5px;}
+                      h3 {margin:0px;}
+                    }
+
+            }
+        }
+    }
+}
