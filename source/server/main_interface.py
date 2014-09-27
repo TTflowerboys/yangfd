@@ -144,6 +144,23 @@ def news(news_id):
     return template("news", user=get_current_user(), country_list=get_country_list())
 
 
+@f_get('/notice_list')
+@check_landing
+def notice_list():
+    return template("notice_list", user=get_current_user(), country_list=get_country_list())
+
+
+@f_get('/guides')
+@check_landing
+def guides():
+    return template("guides", user=get_current_user(), country_list=get_country_list())
+
+@f_get('/laws')
+@check_landing
+def laws():
+    return template("laws", user=get_current_user(), country_list=get_country_list())
+
+
 @f_get('/coming_soon')
 def coming_soon():
     return template("coming_soon", country_list=get_country_list(), budget_list=f_app.enum.get_all('budget'))
