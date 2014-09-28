@@ -135,7 +135,19 @@ def property_get(property_id):
 @f_get('/news_list')
 @check_landing
 def news_list():
-    return template("news_list", user=get_current_user(), country_list=get_country_list())
+    news_list = f_app.blog.post_output(
+        f_app.blog.post_search(
+            {
+                "category": {"$in": [
+                    {'_id': ObjectId('54180eeb6b80994dcea5600d'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId('54180f036b80994dcea5600e'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId('54180f166b80994dcea5600f'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId('54180f266b80994dcea56010'), 'type': 'news_category', '_enum': 'news_category'},
+                ]}
+            }, per_page=6
+        )
+    )
+    return template("news_list", user=get_current_user(), country_list=get_country_list(), news_list=news_list)
 
 
 @f_get('/news/<news_id:re:[0-9a-fA-F]{24}>')

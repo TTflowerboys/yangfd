@@ -1,45 +1,33 @@
 <!--@@master=masters/news_master.html-->
 <!--@@block=head -->
- <link rel="stylesheet" href="/static/styles/newsList.css"/>
- <link rel="stylesheet" href="/static/styles/project/newsCard.css"/>
+<link rel="stylesheet" href="/static/styles/newsList.css"/>
+<link rel="stylesheet" href="/static/styles/project/newsCard.css"/>
+<link href="/static/styles/pager.css" rel="stylesheet"/>
 <!--@@close-->
 
 <!--@@block=main -->
 
+<span class="newsData" style="display:none">
+    {{json_dumps(_i18n(news_list))}}
+</span>
+
 <h1 class="contentTitle">{{_('房产资讯')}}</h1>
 
-<div class="contentList">
-    <div class="newsCard">
-        <img alt="" src="/static/images/placeholder/property.jpg"/>
-        <div class="description">
-            <h3 class="title"> <a href="/news/id">不容错过的投资机遇! “布里斯班—黄金海岸
-                    增长走廊”珍贵开发用地</a></h3>
-            <label class="date" for="">2014-09-17</label>
-            <p class="details">两国领导人积极评价近年来中印关系取得的进展，注意到双方始终从战略和全局
-                的角度看待中印关系。双方重申将遵守共同确定的原则与共识，愿在和平共处五项原
-                则、相互尊重和照顾彼此关切和愿望的基础上，进一步夯实面向和平与繁荣的战略合
-                作伙伴关系。双方一致认为，作为两大发展中国家和新兴经济体，中印的发展目标相
-                通契合，应通过相互支持的方式加以推动和实现...</p>
-        </div>
-    </div>
-    <div class="newsCard">
-        <img alt="" src="/static/images/placeholder/property.jpg"/>
-        <div class="description">
-            <h3 class="title"> <a href="/news/id">不容错过的投资机遇! “布里斯班—黄金海岸
-                    增长走廊”珍贵开发用地</a></h3>
-            <label class="date" for="">2014-09-17</label>
-            <p class="details">两国领导人积极评价近年来中印关系取得的进展，注意到双方始终从战略和全局
-                的角度看待中印关系。双方重申将遵守共同确定的原则与共识，愿在和平共处五项原
-                则、相互尊重和照顾彼此关切和愿望的基础上，进一步夯实面向和平与繁荣的战略合
-                作伙伴关系。双方一致认为，作为两大发展中国家和新兴经济体，中印的发展目标相
-                通契合，应通过相互支持的方式加以推动和实现...</p>
-        </div>
-    </div>
+<div id="list" class="contentList">
+    
 </div>
+
+<!--@@include=/partials/pager.html -->
+
+
+<!-- @@include=/static/templates/news_card._tpl.html-->
+
 <!--@@close-->
 
 
 
 <!--@@block=scripts -->
+<script src="/static/scripts/paging.js"></script>
+<script src="/static/scripts/news_list.js"></script>
 <!--@@close-->
 

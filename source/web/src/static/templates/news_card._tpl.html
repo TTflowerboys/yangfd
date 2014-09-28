@@ -1,0 +1,14 @@
+<script id="newsCard_template" type="text/template">
+    <div class="newsCard">
+        {_if (news.images && news.images.length) {_}
+        <img alt="" src="{=news.images[0]=}"/>
+         {_} else {_}
+        <img alt="" src="/static/images/placeholder/property.jpg"/>
+         {_}_}
+        <div class="description">
+            <h3 class="title"> <a href="/news/{=news.id=}">{=news.title=}</a></h3>
+            <label class="date" for="">{=news.time=}</label>
+            <p class="details">{=news.content=}</p>
+        </div>
+    </div>
+</script>

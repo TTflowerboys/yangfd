@@ -1,0 +1,44 @@
+@import "project/_imports";
+
+* {
+    box-sizing: border-box;
+}
+
+main {
+    .pager {
+        margin: 0 auto 60px auto;
+        width:224px;
+
+        button {
+            width:110px;
+            display: inline-block;
+            border:0px;
+            background: transparent;
+            text-align:center;
+            font-size:16px;
+            padding-top:2px;
+            color:#e60012;
+            line-height: 20px;
+            &[disabled=disabled] {
+                color:#ccc;
+            }
+
+            img {
+                height:20px;
+                vertical-align:bottom;
+                &.pre {
+                    margin-right:8px;
+                }
+                &.next {
+                    margin-left:16px;
+                }
+            }
+
+            label {
+                height:20px;
+                line-height:20px;
+            }
+        }
+
+    }
+}
