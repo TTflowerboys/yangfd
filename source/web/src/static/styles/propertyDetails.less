@@ -1,0 +1,31 @@
+/*! Created by frank on 14-9-29.  */
+@import "project/_imports";
+.propertyDetails {
+    .wrapped(); .clearfix();
+    > .content {
+        width: 800px;
+        float: left;
+    }
+    > .aside {
+        width: 360px;
+        float: right;
+    }
+    .thumbnails { margin-top: 24px;
+        > ul {
+            .clearfix();
+            > li { float: left; width: 25%; position: relative; cursor: pointer;
+                > img { display: block; max-width: 100%; }
+                > span { position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+                    &.border { display: none; border: 3px solid @red; }
+                    &.text { text-align: center; line-height: 120px; background: rgba(255, 255, 255, 0.5); font-size: 32px;
+                        color: #444444;
+                    }
+                }
+                &.selected {
+                    .border { display: block; }
+                    .text { display: none; }
+                }
+            }
+        }
+    }
+}
