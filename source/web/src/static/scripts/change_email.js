@@ -6,7 +6,7 @@ $('form[name=changeEmail]').submit(function (e) {
     var resultArea = $(this).find('.resultMessage')
     resultArea.hide()
     var valid = $.validate(this, {onError: function (dom, validator, index) {
-        resultArea.text(window.getInputValidationMessage(dom.name, validator))
+        resultArea.text(window.getErrorMessage(dom.name, validator))
         resultArea.show()
     }})
 

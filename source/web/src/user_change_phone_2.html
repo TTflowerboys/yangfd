@@ -6,23 +6,17 @@
 
 <!--@@block = main -->
 <div class="content">
-    <h1 class="title">{{_('更换手机号（2/2）')}}</h1>
+    <h1 class="title">{{_('验证新手机号（2/2）')}}</h1>
     <form name="changePhone2" class="edit" action="">
 
         <div class="inner">
-            <div class="phone row">
-                <label>{{_('新手机号')}}</label>
-                <!-- @@include =partials/country_select.html -->
-                <input name="phone" type="tel"  data-validator="required number"/>
-            </div>
             <div class="code row">
                 <label>{{_('短信验证码')}}</label>
                 <input name="code" data-validator="required number"/>
-                <button name="code" class="button green">{{_('获取验证码')}}</button>
+                <button name="code" type="button" class="button green">{{_('获取验证码')}}</button>
             </div>
             <p class="resultMessage" style="display:none"></p>
-            <button class="button red" type="submit">{{_('确认')}}</button>
-
+            <button class="button red" type="submit">{{_('验证')}}</button>
         </div>
     </form>
 </div>

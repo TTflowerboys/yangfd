@@ -32,7 +32,15 @@
     <span id="取消收藏失败">{{_('取消收藏失败')}}</span>
     <span id="移除失败">{{_('移除失败')}}</span>
     <span id="确定">{{_('确定')}}</span>
+    <span id="修改成功">{{_('修改成功')}}</span>
+    <span id="修改失败">{{_('修改失败')}}</span>
+    <span id="验证成功">{{_('验证成功')}}</span>
+    <span id="验证失败">{{_('验证失败')}}</span>
     <span id="修改">{{_('修改')}}</span>
+    <span id="原手机号不正确">{{_('原手机号不正确')}}</span>
+    <span id="原手机号不能为空">{{_('原手机号不能为空')}}</span>
+    <span id="原手机号格式不正确">{{_('原手机号格式不正确')}}</span>
+
     <span id="EnglishquoteUnitedblankKingdomquote">{{_('English (United Kingdom)')}}</span>
     <span id="简体中文quote中国quote">{{_('简体中文(中国)')}}</span>
 </div>
@@ -57,7 +65,9 @@
             'email_required': '邮箱不能为空',
             'email_email': '邮箱格式不合法',
             'code_required': '验证码不能为空',
-            'password_required': '密码不能为空'
+            'password_required': '密码不能为空',
+            'old_phone_required': '原手机号不能为空',
+            'old_phone_number': '原手机号格式不正确'
         }
         return i18n(inputMessageDic[ domName + '_' + validator])
     }
