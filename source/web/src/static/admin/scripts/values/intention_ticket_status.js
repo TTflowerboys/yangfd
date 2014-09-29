@@ -11,3 +11,19 @@ angular.module('app')
         { name: '购房已成功', value: 'bought' },
         { name: '未达成购房', value: 'canceled' }
     ])
+    .constant('intentionStatusDictionary', {
+        assigned: [
+            { name: '已指派', value: 'assigned' },
+            { name: '进行中', value: 'in_progress' }
+        ],
+        in_progress: [
+            { name: '进行中', value: 'in_progress' },
+            { name: '定金已支付', value: 'deposit' },
+            { name: '未达成定金', value: 'suspend' }
+        ],
+        deposit: [
+            { name: '定金已支付', value: 'deposit' },
+            { name: '购房已成功', value: 'bought' },
+            { name: '未达成购房', value: 'canceled' }
+        ]
+    })

@@ -7,3 +7,14 @@ angular.module('app')
         { name: '已解决', value: 'solved' },
         { name: '未解决', value: 'unsolved' }
     ])
+    .constant('supportStatusDictionary', {
+        assigned: [
+            { name: '已指派', value: 'assigned' },
+            { name: '进行中', value: 'in_progress' }
+        ],
+        in_progress: [
+            { name: '进行中', value: 'in_progress' },
+            { name: '已解决', value: 'solved' },
+            { name: '未解决', value: 'unsolved' }
+        ]
+    })

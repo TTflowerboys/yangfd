@@ -1,0 +1,10 @@
+<div class="controls">
+    <div ng-if="list">
+        <select ng-options="p.value as p.name for p in list" ng-model="item">
+        </select>
+    </div>
+    <div ng-if="filter">
+        {%filter%}
+    </div>
+
+</div>
