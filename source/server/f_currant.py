@@ -471,7 +471,7 @@ class f_currant_plugins(f_app.plugin_base):
         ))
 
     def task_on_crawler_london_home(self, task):
-        existing_task = f_app.task.search({"type": "crawler_london_home"})
+        existing_task = f_app.task.search({"type": "crawler_london_home", "status":"in progress"})
         if existing_task:
             start_page = existing_task[0].get("start_page", 1)
         else:
