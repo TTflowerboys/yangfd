@@ -16,14 +16,19 @@ angular.module('app')
                 enumApi.getEnumsByType('budget')
                     .success(function (data) {
                         scope.budgetList = data.val
-                        console.log(scope.budgetList)
-
+                        if (scope.enumId) {
+                            for (var b in scope.budgetList) {
+                                if (scope.budgetList[b].id === scope.enumId) {
+                                    scope.currency = scope.budgetList[b].currency
+                                }
+                            }
+                        }
                     })
 
                 scope.$watch('currency', function (newValue) {
-                    if(!scope.enumList){
+                    if (!scope.enumList) {
                         scope.enumList = []
-                    }else{
+                    } else {
                         var length = scope.enumList.length
                         scope.enumList.splice(0, length)
                     }
@@ -33,6 +38,23 @@ angular.module('app')
                         }
                     }
                 })
+                var needInit = true
+                scope.$watch('enumId', function (newValue) {
+                        if (needInit) {
+                            if (_.isEmpty(newValue)) {
+                                return
+                            }
+                            if (scope.budgetList) {
+                                for (var b in scope.budgetList) {
+                                    if (scope.budgetList[b].id === scope.enumId) {
+                                        scope.currency = scope.budgetList[b].currency
+                                    }
+                                }
+                                needInit = false
+                            }
+                        }
+                    }
+                )
             }
         }
     })
