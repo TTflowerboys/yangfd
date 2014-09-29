@@ -470,7 +470,7 @@ class f_currant_plugins(f_app.plugin_base):
             start=datetime.utcnow() + timedelta(days=1),
         ))
 
-    def task_on_london_home(self, task):
+    def task_on_crawler_london_home(self, task):
         is_end = False
         search_url = 'http://www.mylondonhome.com/search.aspx?ListingType=5'
         list_page_counter = 0
