@@ -16,7 +16,16 @@
         } else {
             api.getOne($stateParams.id)
                 .success(function (data) {
-                    onGetItem(data.val)
+                    var res = data.val
+                    if (res.target_property_id) {
+                        api.getOne(res.target_property_id, {errorMessage: true})
+                            .success(function (data) {
+                                res = angular.extend(data.val, res)
+                                onGetItem(res)
+                            })
+                    } else {
+                        onGetItem(res)
+                    }
                 })
         }
 
