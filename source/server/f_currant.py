@@ -471,12 +471,7 @@ class f_currant_plugins(f_app.plugin_base):
         ))
 
     def task_on_crawler_london_home(self, task):
-        existing_task = f_app.task.search({"type": "crawler_london_home", "status":"in progress"})
-        if existing_task:
-            start_page = existing_task[0].get("start_page", 1)
-        else:
-            start_page = 1
-
+        start_page = task.get("start_page", 1)
         is_end = False
         search_url = 'http://www.mylondonhome.com/search.aspx?ListingType=5'
         list_page_counter = start_page - 1
@@ -493,8 +488,7 @@ class f_currant_plugins(f_app.plugin_base):
             list_page = f_app.request.post(search_url, data=list_post_data)
             if list_page.status_code == 200:
                 self.logger.debug("Start crawling page %d" % list_page_counter)
-                if existing_task:
-                    f_app.task.update_set(existing_task[0]["id"], {"start_page": list_page_counter})
+                f_app.task.update_set(task, {"start_page": list_page_counter})
                 list_page_dom_root = q(list_page.content)
                 list_page_nav_links = list_page_dom_root("td.PagerOtherPageCells a.PagerHyperlinkStyle")
                 list_page_next_links = []
