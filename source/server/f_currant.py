@@ -701,7 +701,7 @@ class f_property(f_app.module_base):
                 return
 
             for key in list(params.keys()):
-                if params[key] == current_record[key]:
+                if params[key] == current_record.get(key):
                     params.pop(key)
 
             property_id = current_record["id"]
