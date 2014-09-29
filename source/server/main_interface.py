@@ -229,7 +229,7 @@ def user_favorites():
 @check_landing
 def user_intentions():
     if get_current_user() is not None:
-        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
+        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
         return template("user_intentions", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list)
     else:
         redirect("://".join(request.urlparts[:2]))
