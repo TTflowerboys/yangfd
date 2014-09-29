@@ -4,7 +4,7 @@
 
 
 <!--[if lte IE 8]>
-<script src="/static/vendors/excanvas.compiled.js"></script>
+<script src="/static/vendors/excanvas.min.js"></script>
 <![endif]-->
 
 <title>房产详情</title>
@@ -216,7 +216,7 @@
 
 
 <script>
-    $(function () {
+    $(window).on('load', function () {
 
         var newopts = {
             inGraphDataShow: true,
@@ -228,7 +228,7 @@
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
                 {
-                    fillColor: 'transparent',
+                    fillColor: 'rgba(255,255,255,0)',
                     strokeColor: red,
                     pointColor: red,
                     pointStrokeColor: red,
