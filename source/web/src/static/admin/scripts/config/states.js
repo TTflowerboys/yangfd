@@ -247,6 +247,18 @@ angular.module('app')
                     }
                 }
             })
+            .state('dashboard.operation.contents.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.operation.contents.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: {
+                    api: function (adApiFactory) {
+                        // Create api call don't need channel name
+                        // TODO: rewrite adApiFactory to remove channel from initial params
+                        return adApiFactory('')
+                    }
+                }
+            })
             .state('dashboard.operation.contents.detail', {
                 url: '/:channel/:id',
                 templateUrl: '/static/admin/templates/dashboard.operation.contents.detail.tpl.html',

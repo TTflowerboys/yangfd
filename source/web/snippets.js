@@ -244,3 +244,20 @@ angular.module('app')
         })
 
     })
+
+var pieData = [
+    {
+        value: 30,
+        color: "#F38630",
+    },
+    {
+        value: 30,
+        color: "#F34353",
+    },
+    {
+        value: 30,
+        color: "#F34353",
+    }
+]
+var pieCtx = document.getElementById('pieChart').getContext('2d');
+var b = new Chart(pieCtx).Pie(pieData, newopts);
