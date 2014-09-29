@@ -1,0 +1,84 @@
+@import "/project/_imports";
+
+.content {
+
+    .list {
+
+        @border-width: 2px;
+        @border-color: #d2d2d2;
+        @padding-top: 20px;
+        @black: #333333;
+        @grey: #a3a3a3;
+
+        .intentionCard {
+            position: relative;
+            border-top: @border-width solid @border-color;
+            font-size: 14px;
+            color: @grey;
+            height: 240px;
+            min-width: 700px;
+            margin-bottom:100px;
+            overflow:hidden;
+
+            .budget {
+                position:absolute;
+                top:28px;
+                left:0;
+                color:#e60012;
+                font-size:24px;
+                margin:0;
+                line-height:1;
+
+                i {
+                    font-style:normal;
+                    color:#333;
+                }
+            }
+
+            .detail {
+                position:absolute;
+                top: 64px;
+                left:0;
+                color:#666;
+                font-size:14px;
+                line-height:1;
+                margin:0;
+            }
+
+            .date {
+                position:absolute;
+                bottom:52px;
+                left:0;
+                color:#666;
+                font-size:12px;
+                line-height:1;
+                margin:0;
+
+                i {
+                    font-style:normal;
+                }
+            }
+
+            .status {
+                position:absolute;
+                right:0;
+                top:28px;
+                color:#0090c6;
+                font-size:14px;
+            }
+
+            .otherAction {
+                position:absolute;
+                right:0;
+                bottom:0;
+
+                button {
+                    padding:0 24px;
+                    font-size:14px;
+
+                }
+            }
+        }
+
+    }
+}
