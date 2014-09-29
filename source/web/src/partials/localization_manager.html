@@ -40,6 +40,9 @@
     <span id="原手机号不正确">{{_('原手机号不正确')}}</span>
     <span id="原手机号不能为空">{{_('原手机号不能为空')}}</span>
     <span id="原手机号格式不正确">{{_('原手机号格式不正确')}}</span>
+    <span id="当前密码不能为空">{{_('当前密码不能为空')}}</span>
+    <span id="确认密码不能为空">{{_('确认密码不能为空')}}</span>
+    <span id="新密码和确认密码输入不一致">{{_('新密码和确认密码输入不一致')}}</span>
 
     <span id="EnglishquoteUnitedblankKingdomquote">{{_('English (United Kingdom)')}}</span>
     <span id="简体中文quote中国quote">{{_('简体中文(中国)')}}</span>
@@ -67,7 +70,10 @@
             'code_required': '验证码不能为空',
             'password_required': '密码不能为空',
             'old_phone_required': '原手机号不能为空',
-            'old_phone_number': '原手机号格式不正确'
+            'old_phone_number': '原手机号格式不正确',
+            'old_passowrd_required' : '当前密码不能为空',
+            'confirm_password_required': '确认密码不能为空',
+            'confirm_password_sameAs': '新密码和确认密码输入不一致'
         }
         return i18n(inputMessageDic[ domName + '_' + validator])
     }

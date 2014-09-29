@@ -33,6 +33,7 @@ $('form[name=changePhone2]').submit(function (e) {
 
     $.post('/api/1/user/' + window.user.id + '/sms_verification/verify', params)
         .done(function (data) {
+            window.user = data
             resultArea.text(window.i18n('验证成功'))
             resultArea.show()
             location.href = '/user_settings'
