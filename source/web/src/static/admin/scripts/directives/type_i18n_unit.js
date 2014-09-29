@@ -16,7 +16,10 @@ angular.module('app')
                 scope.i18nUnit.value = scope.i18nUnit.value || ''
                 scope.isDefaultValue = true
                 scope.$watch('unit', function (value) {
-                    if (scope.isDefaultValue===true) {
+                    if (_.isEmpty(value)) {
+                        return
+                    }
+                    if (scope.isDefaultValue === true) {
                         scope.i18nUnit.unit = value
                     }
                 })
