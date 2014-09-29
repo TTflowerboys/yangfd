@@ -521,6 +521,7 @@ class f_currant_plugins(f_app.plugin_base):
 
                         params["description"] = {"en_GB": property_description}
                         params["address"] = {"en_GB": property_page_address.strip()}
+                        params["name"] = {"en_GB": property_page_address.strip()}
 
                         if property_image_page.status_code == 200:
                             property_image_page_dom_root = q(property_image_page.content)
@@ -585,6 +586,7 @@ class f_currant_plugins(f_app.plugin_base):
                         params["reality_images"] = {"en_GB": [x.attrib['src'] for x in images]}
                     if videos:
                         params["videos"] = {"en_GB": [x.attrib['href'] for x in videos]}
+                    params["name"] = {"en_GB": property_page_dom_root('span.single-property__heading--highlight').text()}
                     params["description"] = {"en_GB": property_page_dom_root('div#panel1').text()}
 
                 # Save an identifier property_crawler_id into the params. It's recommended to use the page URL whenever applicable.
