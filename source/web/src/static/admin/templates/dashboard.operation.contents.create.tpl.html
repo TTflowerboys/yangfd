@@ -60,17 +60,19 @@
                 <table class="table table-bordered table-striped table-condensed "
                        style="margin-bottom:30px">
                     <colgroup>
-                        <col class="item">
-                        <col class="price">
+                        <col class="language">
+                        <col class="text">
                     </colgroup>
                     <thead>
                     <tr>
+                        <th>语言</th>
                         <th>内容</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="tempText in item.tempTexts">
+                        <td><span class="uneditable-input">{%userLanguage.value%}</span></td>
                         <td><input type="text" ng-model="tempText[userLanguage.value]"/></td>
                         <td>
                         <span class="btn btn-danger" ng-click="removeTextItem($index)"
@@ -82,7 +84,6 @@
                     </tbody>
                 </table>
             </div>
-            <div select-language></div>
             <div class="controls form-inline">
                 <input class="form-control" type="text" type-i18n="tempTextItem" ng-model="tempTextItem[userLanguage.value]" placeholder="内容"/>
                 <!--onAddLanguage(item.tempI18n) must be called before addI18nValue(),because addI18nValue makes item.tempI18n null-->

@@ -272,7 +272,7 @@ angular.module('app')
             .state('dashboard.operation.contents.edit', {
                 url: '/:channel/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.operation.contents.edit.tpl.html',
-                controller: 'ctrlEdit',
+                controller: 'ctrlAdsEdit',
                 resolve: {
                     api: function (adApiFactory, $stateParams) {
                         return adApiFactory($stateParams.channel)

@@ -1,4 +1,4 @@
-/* Created by frank on 14-8-15. */
+/* Created by Arnold on 14-8-15. */
 
 
 (function () {
@@ -31,7 +31,7 @@
             }
 
             if (!_.isEmpty($scope.item.tempTexts)) {
-                $scope.item.text = $scope.item.text || {}
+                $scope.item.text = {}
                 angular.forEach($scope.i18nLanguages, function(i18nValue, i18nKey){
                     $scope.item.text[i18nValue.value] = $scope.item.text[i18nValue.value] || []
                     angular.forEach($scope.item.tempTexts, function(value, key){
