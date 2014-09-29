@@ -1,5 +1,8 @@
 /*! Created by frank on 14-9-29.  */
 @import "project/_imports";
+@border-color:;
+@light-text-color: #999;
+@dark-text-color: #555;
 .propertyDetails {
     .wrapped(); .clearfix();
     > .content {
@@ -10,7 +13,7 @@
         width: 360px;
         float: right;
     }
-    .thumbnails { margin-top: 24px;
+    .thumbnails { margin-top: 24px; margin-bottom: 48px;
         > ul {
             .clearfix();
             > li { float: left; width: 25%; position: relative; cursor: pointer;
@@ -26,6 +29,34 @@
                     .text { display: none; }
                 }
             }
+        }
+    }
+    .nav { margin-bottom: 64px; }
+    .meta {
+        .numbers { .clearfix(); margin-bottom: 16px;
+            > li { float: left; width: 100% / 6; border-left: 1px solid @border-color; padding-left: 8px;
+                &:first-child {
+                    border-left: none; padding-left: 0;
+                }
+                color: @light-text-color;
+                strong { display: block; font-size: 24px; font-weight: normal; color: @dark-text-color; }
+            }
+        }
+        hr { color: @border-color; margin-bottom: 24px; }
+        .other { width: 100%; color: @light-text-color;
+            .col-name { width: 120px; }
+            td { padding: 8px 0; vertical-align: top; }
+            strong { color: #555; }
+            i { display: inline-block; width: 16px; vertical-align: middle; height: 16px; line-height: 16px;
+                margin-right: 4px;
+            }
+            .name { display: inline-block; width: 6em; }
+        }
+    }
+    .advantages {
+        ul { list-style: none inside url(/static/images/property_details/icon-right-arrow.png); }
+        background: #f6f6f6; color: #666666; font-size: 16px; line-height: 1.8; padding: 24px 16px;
+        li {
         }
     }
 }

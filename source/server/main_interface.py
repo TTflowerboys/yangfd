@@ -167,6 +167,7 @@ def notice_list():
 def guides():
     return template("guides", user=get_current_user(), country_list=get_country_list())
 
+
 @f_get('/laws')
 @check_landing
 def laws():
@@ -201,6 +202,7 @@ def user_change_email():
 def user_change_password():
     return template("user_change_password", user=get_current_user(), country_list=get_country_list())
 
+
 @f_get('/user_change_phone_1')
 @check_landing
 def user_change_phone_1():
@@ -226,15 +228,19 @@ def user_favorites():
 @f_get('/user_intentions')
 @check_landing
 def user_intentions():
-    return template("user_intentions", user=get_current_user(), country_list=get_country_list(), property_list=f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}})))
+    if get_current_user() is not None:
+        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
+        return template("user_intentions", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list)
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_properties')
 @check_landing
 def user_properties():
     if get_current_user() is not None:
-        ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
-        return template("user_properties", user=get_current_user(), country_list=get_country_list(), ticket_list=ticket_list)
+        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
+        return template("user_properties", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list)
     else:
         redirect("://".join(request.urlparts[:2]))
 
@@ -253,6 +259,7 @@ def user_messages():
 @check_landing
 def admin():
     return template("admin")
+
 
 @f_get("/static/<filepath:path>")
 def static_route(filepath):
