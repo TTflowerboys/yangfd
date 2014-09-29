@@ -296,11 +296,17 @@ def admin_user_add(user, params):
     user_id = f_app.user.add(params)
     f_app.log.add("add", user_id=user_id)
 
+    if f_app.common.use_ssl:
+        schema = "https://"
+    else:
+        schema = "http://"
+    admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
+
     f_app.email.schedule(
         target=params["email"],
         subject=template("static/emails/new_admin_title"),
         text=template("static/emails/new_admin", password=params["password"], nickname=params["nickname"], role=params[
-            "role"], admin_console_url="%s://%s/admin#" % (request.urlparts[0], request.urlparts[1]), phone="*" * (len(params["phone"]) - 4) + params["phone"][-4:]),
+            "role"], admin_console_url=admin_console_url, phone="*" * (len(params["phone"]) - 4) + params["phone"][-4:]),
         display="html",
     )
 
@@ -324,11 +330,16 @@ def admin_user_add_role(user, user_id, params):
     user_roles = user_info.get('role', [])
     if role not in user_roles:
         if user_info.get("email") is not None:
+            if f_app.common.use_ssl:
+                schema = "https://"
+            else:
+                schema = "http://"
+            admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
             f_app.email.schedule(
                 target=user_info.get("email"),
                 subject=template("static/emails/set_as_admin_title"),
                 text=template("static/emails/set_as_admin", nickname=user_info.get("nickname"), role=params[
-                              "role"], admin_console_url="%s://%s/admin#" % (request.urlparts[0], request.urlparts[1]), phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
+                              "role"], admin_console_url=admin_console_url, phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
                 display="html",
             )
         else:
@@ -520,7 +531,11 @@ def email_send(user_id):
     """
     rate_limit is 20 ip per hour.
     """
-    verification_url = "http://" + request.urlparts[1] + "/user/email_verification/verify?code=" + f_app.user.email.request(user_id) + "&user_id=" + user_id
+    if f_app.common.use_ssl:
+        schema = "https://"
+    else:
+        schema = "http://"
+    verification_url = schema + request.urlparts[1] + "/user/email_verification/verify?code=" + f_app.user.email.request(user_id) + "&user_id=" + user_id
     f_app.email.schedule(
         target=user["email"],
         subject=template("static/emails/verify_email_title"),
