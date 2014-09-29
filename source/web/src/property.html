@@ -2,6 +2,7 @@
 
 <!--@@block = head-->
 <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
+<link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
 <!--[if lte IE 8]>
 <script src="/static/vendors/excanvas.min.js"></script>
 <![endif]-->
@@ -54,7 +55,7 @@
             <ul class="numbers">
                 <li>
                     房屋面积
-                    <strong>255</strong>m<sup>2</sup>
+                    <strong>255 m<sup>2</sup></strong>
                 </li>
                 <li>
                     卧室
@@ -77,33 +78,92 @@
                     <strong>0</strong>
                 </li>
             </ul>
-            <ul class="other">
-                <li>
-                    <img src="" alt=""/>
-                    <span class="name">产权类型</span>
-                    <span class="value">楼盘</span>
-                </li>
-                <li>
-                    <img src="" alt=""/>
-                    <span class="name">开盘事件</span>
-                    <span class="value">2014-6-25</span>
-                </li>
-                <li>
-                    <img src="" alt=""/>
-                    <span class="name">装修风格</span>
-                    <span class="value">毛坯</span>
-                </li>
-                <li>
-                    <img src="" alt=""/>
-                    <span class="name">街区</span>
-                    <span class="value">NW1W</span>
-                </li>
-                <li>
-                    <img src="" alt=""/>
-                    <span class="name">产权地址</span>
-                    <span class="value">AAAAA AAAAAA AAAAAAAA</span>
-                </li>
-            </ul>
+            <hr/>
+            <table class="other">
+                <colgroup>
+                    <col class="col-name">
+                    <col>
+                    <col class="col-name">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>
+                            <i>
+                                <img src="/static/images/property_details/icon-house.png" alt=""/>
+                            </i>
+                            <span class="name">产权类型</span>
+                        </td>
+                        <td>
+                            <span class="value">楼盘</span>
+                        </td>
+                        <td>
+                            <i>
+                                <img src="/static/images/property_details/icon-clock.png" alt=""/>
+                            </i>
+                            <span class="name">开盘时间</span>
+                        </td>
+                        <td>
+                            <span class="value">2014-6-25</span>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <i>
+                                <img src="/static/images/property_details/icon-pallet.png" alt=""/>
+                            </i>
+                            <span class="name">装修风格</span>
+                        </td>
+                        <td>
+                            <span class="value">毛坯</span>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <i>
+                                <img src="/static/images/property_details/icon-location.png" alt=""/>
+                            </i>
+                            <span class="name">产权地址</span>
+                        </td>
+                        <td>
+                            <span class="value">AAAAA AAAAAA AAAAAAAA</span>
+                        </td>
+                        <td>
+                            <i>
+                                <img src="/static/images/property_details/icon-map.png" alt=""/>
+                            </i>
+                            <span class="name">街区</span>
+                        </td>
+                        <td>
+                            <span class="value">NW1W</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="1">
+                            <i>
+                                <img src="/static/images/property_details/icon-kaleidoscope.png" alt=""/>
+                            </i>
+                            <span class="name">主要户型</span>
+                        </td>
+                        <td colspan="3">
+                            <span class="value">
+                                <span class="toggleTag selected">2房(88m<sup>2</sup>)</span>
+                                <span class="toggleTag selected">2房(88m<sup>2</sup>)</span>
+                                <span class="toggleTag selected">2房(88m<sup>2</sup>)</span>
+                                <span class="toggleTag selected">2房(88m<sup>2</sup>)</span>
+                                <span class="toggleTag selected">2房(88m<sup>2</sup>)</span>
+                                <span class="toggleTag selected">2房(88m<sup>2</sup>)</span>
+                                <span class="toggleTag selected">2房(88m<sup>2</sup>)</span>
+                                <span class="toggleTag selected">2房(88m<sup>2</sup>)</span>
+                                <span class="toggleTag selected">2房(88m<sup>2</sup>)</span>
+                            </span>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="advantages">
             <ul>
