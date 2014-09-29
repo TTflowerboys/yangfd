@@ -120,10 +120,10 @@ def intention_ticket_add(params):
     # Send mail to every senior sales
     ticket_id = f_app.ticket.add(params)
 
-    if "budget" in params:
-        params["budget"] = f_app.util.match_enum({"id": params["budget"]["_id"], "_enum": params["budget"]["_enum"]}).get("value")
-    if "equity_type" in params:
-        params["equity_type"] = f_app.util.match_enum({"id": params["equity_type"]["_id"], "_enum": params["equity_type"]["_enum"]}).get("value")
+    # if "budget" in params:
+    #     params["budget"] = f_app.util.match_enum({"id": params["budget"]["_id"], "_enum": params["budget"]["_enum"]}).get("value")
+    # if "equity_type" in params:
+    #     params["equity_type"] = f_app.util.match_enum({"id": params["equity_type"]["_id"], "_enum": params["equity_type"]["_enum"]}).get("value")
     params["intention"] = [f_app.util.match_enum({"id": i["_id"], "_enum": i["_enum"]}).get("value") for i in params.get("intention", [])]
     if shadow_user_id is not None:
         f_app.user.counter_update(shadow_user_id)
@@ -204,7 +204,7 @@ def intention_ticket_assign(user, ticket_id, user_id):
     description=(str, None),
     city=("enum:city", None),
     block=(str, None),
-    equity_type=(str, None),
+    equity_type=("enum:equity_type", None),
     intention=('enum:intention', None),
     budget=("enum:budget", None),
     custom_fields=(list, None, dict(
