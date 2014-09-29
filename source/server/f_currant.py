@@ -537,7 +537,7 @@ class f_currant_plugins(f_app.plugin_base):
 
                         total_price = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_price)
                         if total_price:
-                            params["total_price"] = {"value": total_price[0], "type": "currency", "unit": "GBP"}
+                            params["total_price"] = {"value": total_price[0].replace(',', ''), "type": "currency", "unit": "GBP"}
                         if "Share of freehold" in property_page_price:
                             params["equity_type"] = ObjectId(f_app.enum.get_by_slug('virtual_freehold')["id"])
                         elif "Freehold" in property_page_price:
@@ -547,7 +547,7 @@ class f_currant_plugins(f_app.plugin_base):
 
                         building_area = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_building_area)
                         if building_area:
-                            params["building_area"] = {"type": "area", "unit": "foot ** 2", "value": building_area[0]}
+                            params["building_area"] = {"type": "area", "unit": "foot ** 2", "value": building_area[0].replace(',', '')}
 
                         f_app.property.crawler_insert_update(params)
 
