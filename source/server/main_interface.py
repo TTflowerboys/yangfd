@@ -35,15 +35,15 @@ def get_country_list():
 def default():
     property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}))
     homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
-    announcement_list = f_app.blog.post_output(f_app.blog.post_search({"category": [{'_id': ObjectId('5417eca66b80992d07638186'), 'type': 'news_category', '_enum': 'news_category'}]}))
+    announcement_list = f_app.blog.post_output(f_app.blog.post_search({"category": [{'_id': ObjectId(f_app.enum.get_by_slug('announcement')["id"]), 'type': 'news_category', '_enum': 'news_category'}]}))
     news_list = f_app.blog.post_output(
         f_app.blog.post_search(
             {
                 "category": {"$in": [
-                    {'_id': ObjectId('54180eeb6b80994dcea5600d'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f036b80994dcea5600e'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f166b80994dcea5600f'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f266b80994dcea56010'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('property_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('schoolhouse_manchester')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('property_liverpool')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                 ]}
             }, per_page=6
         )
@@ -139,10 +139,10 @@ def news_list():
         f_app.blog.post_search(
             {
                 "category": {"$in": [
-                    {'_id': ObjectId('54180eeb6b80994dcea5600d'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f036b80994dcea5600e'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f166b80994dcea5600f'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f266b80994dcea56010'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('property_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('schoolhouse_manchester')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('property_liverpool')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                 ]}
             }, per_page=6
         )
