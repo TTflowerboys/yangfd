@@ -28,7 +28,7 @@
                 editItem.budget = editItem.budget.id
             }
             if (!_.isEmpty(editItem.intention)) {
-                editItem.intention = editItem.intention.id
+                editItem.intention = editItem.intention[0].id//TODO
             }
             if (!_.isEmpty(editItem.equity_type)) {
                 editItem.equity_type = editItem.equity_type.id
