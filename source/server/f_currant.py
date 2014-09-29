@@ -696,11 +696,15 @@ class f_property(f_app.module_base):
         assert len(current_records) < 2
 
         if len(current_records):
+            current_record = self.get(current_records[0], ignore_nonexist=True)
+            if current_record is None:
+                return
+
             for key in list(params.keys()):
-                if params[key] == current_records[0][key]:
+                if params[key] == current_record[key]:
                     params.pop(key)
 
-            property_id = current_records[0]["id"]
+            property_id = current_record["id"]
             existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
 
             if existing_draft:
