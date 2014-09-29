@@ -470,13 +470,13 @@ class f_currant_plugins(f_app.plugin_base):
             start=datetime.utcnow() + timedelta(days=1),
         ))
 
-    def task_on_london_home(self, task):
+    def task_on_crawler_london_home(self, task):
+        start_page = task.get("start_page", 1)
         is_end = False
         search_url = 'http://www.mylondonhome.com/search.aspx?ListingType=5'
-        list_page_counter = 0
+        list_page_counter = start_page - 1
         list_post_data = {
             "__EVENTTARGET": "_ctl1:CenterRegion:_ctl1:cntrlPagingHeader",
-            "__EVENTARGUMENT": 1
         }
         search_url_parsed = urllib.parse.urlparse(search_url)
         search_url_prefix = "%s://%s" % (search_url_parsed.scheme, search_url_parsed.netloc)
@@ -488,6 +488,7 @@ class f_currant_plugins(f_app.plugin_base):
             list_page = f_app.request.post(search_url, data=list_post_data)
             if list_page.status_code == 200:
                 self.logger.debug("Start crawling page %d" % list_page_counter)
+                f_app.task.update_set(task, {"start_page": list_page_counter})
                 list_page_dom_root = q(list_page.content)
                 list_page_nav_links = list_page_dom_root("td.PagerOtherPageCells a.PagerHyperlinkStyle")
                 list_page_next_links = []
@@ -521,6 +522,7 @@ class f_currant_plugins(f_app.plugin_base):
 
                         params["description"] = {"en_GB": property_description}
                         params["address"] = {"en_GB": property_page_address.strip()}
+                        params["name"] = {"en_GB": property_page_address.strip()}
 
                         if property_image_page.status_code == 200:
                             property_image_page_dom_root = q(property_image_page.content)
@@ -537,7 +539,7 @@ class f_currant_plugins(f_app.plugin_base):
 
                         total_price = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_price)
                         if total_price:
-                            params["total_price"] = {"value": total_price[0], "type": "currency", "unit": "GBP"}
+                            params["total_price"] = {"value": total_price[0].replace(',', ''), "type": "currency", "unit": "GBP"}
                         if "Share of freehold" in property_page_price:
                             params["equity_type"] = ObjectId(f_app.enum.get_by_slug('virtual_freehold')["id"])
                         elif "Freehold" in property_page_price:
@@ -547,7 +549,7 @@ class f_currant_plugins(f_app.plugin_base):
 
                         building_area = re.findall(r'\d{1,3}(?:\,\d{3})+(?:\.\d{2})?', property_page_building_area)
                         if building_area:
-                            params["building_area"] = {"type": "area", "unit": "foot ** 2", "value": building_area[0]}
+                            params["building_area"] = {"type": "area", "unit": "foot ** 2", "value": building_area[0].replace(',', '')}
 
                         f_app.property.crawler_insert_update(params)
 
@@ -585,6 +587,7 @@ class f_currant_plugins(f_app.plugin_base):
                         params["reality_images"] = {"en_GB": [x.attrib['src'] for x in images]}
                     if videos:
                         params["videos"] = {"en_GB": [x.attrib['href'] for x in videos]}
+                    params["name"] = {"en_GB": property_page_dom_root('span.single-property__heading--highlight').text()}
                     params["description"] = {"en_GB": property_page_dom_root('div#panel1').text()}
 
                 # Save an identifier property_crawler_id into the params. It's recommended to use the page URL whenever applicable.
@@ -694,11 +697,15 @@ class f_property(f_app.module_base):
         assert len(current_records) < 2
 
         if len(current_records):
+            current_record = self.get(current_records[0], ignore_nonexist=True)
+            if current_record is None:
+                return
+
             for key in list(params.keys()):
-                if params[key] == current_records[0][key]:
+                if params[key] == current_record.get(key):
                     params.pop(key)
 
-            property_id = current_records[0]["id"]
+            property_id = current_record["id"]
             existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
 
             if existing_draft:

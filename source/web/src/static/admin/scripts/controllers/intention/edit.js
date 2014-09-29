@@ -1,10 +1,11 @@
 /**
  * Created by Michael on 14/9/17.
  */
+/* Created by frank on 14-8-15. */
 
 (function () {
 
-    function ctrlPropertyEdit($scope, $state, api, $stateParams, enumApi, $rootScope, i18nLanguages, misc, growl) {
+    function ctrlIntentionEdit($scope, $state, api, $stateParams, enumApi, $rootScope, i18nLanguages, misc, growl) {
 
         $scope.item = {}
 
@@ -16,39 +17,21 @@
         } else {
             api.getOne($stateParams.id)
                 .success(function (data) {
-                    var res = data.val
-                    if (res.target_property_id) {
-                        api.getOne(res.target_property_id, {errorMessage: true})
-                            .success(function (data) {
-                                res = angular.extend(data.val, res)
-                                onGetItem(res)
-                            })
-                    } else {
-                        onGetItem(res)
-                    }
+                    onGetItem(data.val)
                 })
         }
 
 
         function onGetItem(item) {
             var editItem = angular.copy(item)
-            if (!_.isEmpty(editItem.property_type)) {
-                editItem.property_type = editItem.property_type.id
+            if (!_.isEmpty(editItem.budget)) {
+                editItem.budget = editItem.budget.id
             }
             if (!_.isEmpty(editItem.intention)) {
                 editItem.intention = editItem.intention[0].id//TODO
             }
             if (!_.isEmpty(editItem.equity_type)) {
                 editItem.equity_type = editItem.equity_type.id
-            }
-            if (!_.isEmpty(editItem.decorative_style)) {
-                editItem.decorative_style = editItem.decorative_style.id
-            }
-            if (!_.isEmpty(editItem.property_price_type)) {
-                editItem.property_price_type = editItem.property_price_type.id
-            }
-            if (!_.isEmpty(editItem.facing_direction)) {
-                editItem.facing_direction = editItem.facing_direction.id
             }
             if (!_.isEmpty(editItem.country)) {
                 editItem.country = editItem.country.id
@@ -87,7 +70,7 @@
         }
     }
 
-    angular.module('app').controller('ctrlPropertyEdit', ctrlPropertyEdit)
+    angular.module('app').controller('ctrlIntentionEdit', ctrlIntentionEdit)
 
 })()
 

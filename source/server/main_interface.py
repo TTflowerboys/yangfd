@@ -35,15 +35,15 @@ def get_country_list():
 def default():
     property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}))
     homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
-    announcement_list = f_app.blog.post_output(f_app.blog.post_search({"category": [{'_id': ObjectId('5417eca66b80992d07638186'), 'type': 'news_category', '_enum': 'news_category'}]}))
+    announcement_list = f_app.blog.post_output(f_app.blog.post_search({"category": [{'_id': ObjectId(f_app.enum.get_by_slug('announcement')["id"]), 'type': 'news_category', '_enum': 'news_category'}]}))
     news_list = f_app.blog.post_output(
         f_app.blog.post_search(
             {
                 "category": {"$in": [
-                    {'_id': ObjectId('54180eeb6b80994dcea5600d'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f036b80994dcea5600e'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f166b80994dcea5600f'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f266b80994dcea56010'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('property_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('schoolhouse_manchester')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('property_liverpool')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                 ]}
             }, per_page=6
         )
@@ -139,10 +139,10 @@ def news_list():
         f_app.blog.post_search(
             {
                 "category": {"$in": [
-                    {'_id': ObjectId('54180eeb6b80994dcea5600d'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f036b80994dcea5600e'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f166b80994dcea5600f'), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId('54180f266b80994dcea56010'), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('property_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('schoolhouse_manchester')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('property_liverpool')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                 ]}
             }, per_page=6
         )
@@ -166,6 +166,7 @@ def notice_list():
 @check_landing
 def guides():
     return template("guides", user=get_current_user(), country_list=get_country_list())
+
 
 @f_get('/laws')
 @check_landing
@@ -201,6 +202,7 @@ def user_change_email():
 def user_change_password():
     return template("user_change_password", user=get_current_user(), country_list=get_country_list())
 
+
 @f_get('/user_change_phone_1')
 @check_landing
 def user_change_phone_1():
@@ -226,15 +228,19 @@ def user_favorites():
 @f_get('/user_intentions')
 @check_landing
 def user_intentions():
-    return template("user_intentions", user=get_current_user(), country_list=get_country_list(), property_list=f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}})))
+    if get_current_user() is not None:
+        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
+        return template("user_intentions", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list)
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_properties')
 @check_landing
 def user_properties():
     if get_current_user() is not None:
-        ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
-        return template("user_properties", user=get_current_user(), country_list=get_country_list(), ticket_list=ticket_list)
+        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
+        return template("user_properties", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list)
     else:
         redirect("://".join(request.urlparts[:2]))
 
@@ -253,6 +259,7 @@ def user_messages():
 @check_landing
 def admin():
     return template("admin")
+
 
 @f_get("/static/<filepath:path>")
 def static_route(filepath):

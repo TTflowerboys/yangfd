@@ -4,6 +4,29 @@ window.startPaging = function (dataArray, pageItemCount, $preButton, $nextButton
 
     var currentPage = 0
 
+
+    function enablePrePage(enable) {
+        if (enable) {
+            $preButton.removeAttr('disabled')
+            $preButton.find('img').attr('src', '/static/images/icon/user/pre-page.png')
+        }
+        else {
+            $preButton.attr('disabled', 'disabled')
+            $preButton.find('img').attr('src', '/static/images/icon/user/pre-page-disabled.png')
+        }
+    }
+
+    function enableNextPage(enable) {
+        if (enable) {
+            $nextButton.removeAttr('disabled')
+            $nextButton.find('img').attr('src', '/static/images/icon/user/next-page.png')
+        }
+        else {
+            $nextButton.attr('disabled', 'disabled')
+            $nextButton.find('img').attr('src', '/static/images/icon/user/next-page-disabled.png')
+        }
+    }
+
     if (pageCount === 1) {
         loadData(dataArray)
         $preButton.hide()
@@ -11,8 +34,8 @@ window.startPaging = function (dataArray, pageItemCount, $preButton, $nextButton
     }
     else {
         loadData(dataArray.slice(0, pageItemCount))
-        $preButton.attr('disabled', 'disabled')
-        $nextButton.removeAttr('disabled')
+        enablePrePage(false)
+        enableNextPage(true)
    }
 
    $preButton.click(function () {
@@ -20,13 +43,13 @@ window.startPaging = function (dataArray, pageItemCount, $preButton, $nextButton
 
        if (currentPage > 0) {
            loadData(dataArray.slice(currentPage * pageItemCount, (currentPage + 1) * pageItemCount))
-           $nextButton.removeAttr('disabled')
-           $preButton.removeAttr('disabled')
+           enablePrePage(true)
+           enableNextPage(true)
        }
        else {
            loadData(dataArray.slice(currentPage * pageItemCount, (currentPage + 1) * pageItemCount))
-           $nextButton.removeAttr('disabled')
-           $preButton.attr('disabled', 'disabled')
+           enablePrePage(false)
+           enableNextPage(true)
        }
    })
 
@@ -35,13 +58,13 @@ window.startPaging = function (dataArray, pageItemCount, $preButton, $nextButton
 
        if (currentPage === pageCount -1) {
            loadData(dataArray.slice(currentPage * pageItemCount, dataArray.length))
-           $nextButton.attr('disabled', 'disabled')
-           $preButton.removeAttr('disabled')
+           enablePrePage(true)
+           enableNextPage(false)
        }
        else {
            loadData(dataArray.slice(currentPage * pageItemCount, (currentPage + 1) * pageItemCount))
-           $nextButton.removeAttr('disabled')
-           $preButton.removeAttr('disabled')
+           enablePrePage(true)
+           enableNextPage(true)
        }
    })
 }

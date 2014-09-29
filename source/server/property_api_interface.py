@@ -75,7 +75,7 @@ property_params = dict(
     address=("i18n", None, str),
     highlight=("i18n", None, list, None, str),
     annual_return_estimated=str,
-    intention='enum:intention',
+    intention=(list, None, 'enum:intention'),
     equity_type='enum:equity_type',
 
     # Listing options

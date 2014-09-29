@@ -304,7 +304,7 @@ angular.module('app')
             .state('dashboard.intention.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.intention.edit.tpl.html',
-                controller: 'ctrlNewsEdit',
+                controller: 'ctrlIntentionEdit',
                 resolve: intentionResolve
             })
             .state('dashboard.support', {

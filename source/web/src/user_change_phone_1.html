@@ -17,12 +17,12 @@
             <div class="phone row">
                 <label>{{_('原手机号')}}</label>
                 <!-- @@include =partials/country_select.html -->
-                <input name="phone" type="tel" value={{user.get('phone')}}  data-validator="required number"/>
+                <input name="old_phone" type="tel"  data-validator="required number"/>
             </div>
-            <div class="code row">
-                <label>{{_('短信验证码')}}</label>
-                <input name="code" data-validator="required number"/>
-                <button name="code" class="button green">{{_('获取验证码')}}</button>
+            <div class="phone row">
+                <label>{{_('新手机号')}}</label>
+                <!-- @@include =partials/country_select.html -->
+                <input name="phone" type="tel"  data-validator="required number"/>
             </div>
             <p class="resultMessage" style="display:none"></p>
             <button class="button red" type="submit">{{_('继续')}}</button>
