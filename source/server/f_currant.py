@@ -493,7 +493,7 @@ class f_currant_plugins(f_app.plugin_base):
                 list_page_nav_links = list_page_dom_root("td.PagerOtherPageCells a.PagerHyperlinkStyle")
                 list_page_next_links = []
                 for i in list_page_nav_links:
-                    if i.text() == ">":
+                    if i.text == ">":
                         list_page_next_links.append(i)
                 is_end = False if len(list_page_next_links) else True
 
