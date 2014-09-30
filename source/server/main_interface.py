@@ -29,6 +29,8 @@ def get_current_user():
 def get_country_list():
     return f_app.enum.get_all("country")
 
+def get_budget_list():
+    return f_app.enum.get_all('budget')
 
 @f_get('/')
 @check_landing
@@ -59,7 +61,8 @@ def default():
         homepage_ad_list=homepage_ad_list,
         announcement_list=announcement_list,
         news_list=news_list,
-        country_list=get_country_list()
+        country_list=get_country_list(),
+        budget_list = get_budget_list()
     )
 
 
@@ -92,19 +95,19 @@ def resetPassword():
 @f_get('/terms')
 @check_landing
 def terms():
-    return template("terms", user=get_current_user(), country_list=get_country_list())
+    return template("terms", user=get_current_user(), country_list=get_country_list(), budget_list = get_budget_list())
 
 
 @f_get('/privacy')
 @check_landing
 def privacy():
-    return template("privacy", user=get_current_user(), country_list=get_country_list())
+    return template("privacy", user=get_current_user(), country_list=get_country_list(), budget_list = get_budget_list())
 
 
 @f_get('/process')
 @check_landing
 def process():
-    return template("process", user=get_current_user(), country_list=get_country_list())
+    return template("process", user=get_current_user(), country_list=get_country_list(), budget_list = get_budget_list())
 
 
 @f_get('/property_list')
@@ -113,7 +116,6 @@ def property_list():
     city_list = f_app.enum.get_all('city')
     property_type_list = f_app.enum.get_all('property_type')
     intention_list = f_app.enum.get_all('intention')
-    budget_list = f_app.enum.get_all('budget')
     property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}, per_page=f_app.common.property_list_per_page))
     return template("property_list",
                     user=get_current_user(),
@@ -121,7 +123,7 @@ def property_list():
                     city_list=city_list,
                     property_type_list=property_type_list,
                     intention_list=intention_list,
-                    budget_list=budget_list,
+                    budget_list=get_budget_list(),
                     property_list=property_list
                     )
 
@@ -129,7 +131,7 @@ def property_list():
 @f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
 @check_landing
 def property_get(property_id):
-    return template("property", user=get_current_user(), property=f_app.property.output([property_id])[0], country_list=get_country_list())
+    return template("property", user=get_current_user(), property=f_app.property.output([property_id])[0], country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/news_list')
@@ -147,72 +149,72 @@ def news_list():
             }, per_page=6
         )
     )
-    return template("news_list", user=get_current_user(), country_list=get_country_list(), news_list=news_list)
+    return template("news_list", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list =get_budget_list())
 
 
 @f_get('/news/<news_id:re:[0-9a-fA-F]{24}>')
 @check_landing
 def news(news_id):
-    return template("news", user=get_current_user(), country_list=get_country_list())
+    return template("news", user=get_current_user(), country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/notice_list')
 @check_landing
 def notice_list():
-    return template("notice_list", user=get_current_user(), country_list=get_country_list())
+    return template("notice_list", user=get_current_user(), country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/guides')
 @check_landing
 def guides():
-    return template("guides", user=get_current_user(), country_list=get_country_list())
+    return template("guides", user=get_current_user(), country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/laws')
 @check_landing
 def laws():
-    return template("laws", user=get_current_user(), country_list=get_country_list())
+    return template("laws", user=get_current_user(), country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/coming_soon')
 def coming_soon():
-    return template("coming_soon", country_list=get_country_list(), budget_list=f_app.enum.get_all('budget'))
+    return template("coming_soon", country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/user_settings')
 @check_landing
 def user_settings():
-    return template("user_settings", user=get_current_user(), country_list=get_country_list())
+    return template("user_settings", user=get_current_user(), country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/user_verify_email')
 @check_landing
 def user_verify_email():
-    return template("user_verify_email", user=get_current_user(), country_list=get_country_list())
+    return template("user_verify_email", user=get_current_user(), country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/user_change_email')
 @check_landing
 def user_change_email():
-    return template("user_change_email", user=get_current_user(), country_list=get_country_list())
+    return template("user_change_email", user=get_current_user(), country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/user_change_password')
 @check_landing
 def user_change_password():
-    return template("user_change_password", user=get_current_user(), country_list=get_country_list())
+    return template("user_change_password", user=get_current_user(), country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/user_change_phone_1')
 @check_landing
 def user_change_phone_1():
-    return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list())
+    return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/user_change_phone_2')
 @check_landing
 def user_change_phone_2():
-    return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list())
+    return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list =get_budget_list())
 
 
 @f_get('/user_favorites')
@@ -220,7 +222,7 @@ def user_change_phone_2():
 def user_favorites():
     if get_current_user() is not None:
         favorite_list = f_app.user.favorite_output(f_app.user.favorite_get_by_user(get_current_user()["id"]))
-        return template("user_favorites", user=get_current_user(), country_list=get_country_list(), favorite_list=favorite_list)
+        return template("user_favorites", user=get_current_user(), country_list=get_country_list(), favorite_list=favorite_list, budget_list =get_budget_list())
     else:
         redirect("://".join(request.urlparts[:2]))
 
@@ -230,7 +232,7 @@ def user_favorites():
 def user_intentions():
     if get_current_user() is not None:
         intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
-        return template("user_intentions", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list)
+        return template("user_intentions", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list, budget_list =get_budget_list())
     else:
         redirect("://".join(request.urlparts[:2]))
 
@@ -240,7 +242,7 @@ def user_intentions():
 def user_properties():
     if get_current_user() is not None:
         intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
-        return template("user_properties", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list)
+        return template("user_properties", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list, budget_list =get_budget_list())
     else:
         redirect("://".join(request.urlparts[:2]))
 
@@ -252,7 +254,7 @@ def user_messages():
         get_current_user()['id'],
         {"state": {"$in": ["read", "new"]}},
     )
-    return template("user_messages", user=get_current_user(), country_list=get_country_list(), message_list=message_list)
+    return template("user_messages", user=get_current_user(), country_list=get_country_list(), message_list=message_list, budget_list =get_budget_list())
 
 
 @f_get('/admin')
