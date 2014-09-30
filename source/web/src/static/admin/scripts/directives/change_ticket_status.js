@@ -6,34 +6,32 @@ angular.module('app')
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/change_ticket_status.tpl.html',
-            replace: false,
             scope: {
                 item: '=ngModel',
                 type: '@type'
             },
-            link: function (scope, elm, attrs) {
+            link: function (scope) {
                 var needInit = true
-                scope.$watch('item', function (newValue) {
+                scope.$watch('item.status', function (newValue) {
                     if (needInit) {
                         if (_.isEmpty(newValue)) {
                             return
                         }
                         if (scope.type === 'intention') {
-                            scope.list = intentionStatusDictionary[scope.item]
+                            scope.list = intentionStatusDictionary[newValue]
                             if (_.isEmpty(scope.list)) {
-                                scope.filter = $filter('intentionTicketStatusName')(scope.item)
+                                scope.filter = $filter('intentionTicketStatusName')(newValue)
                             }
                         }
                         if (scope.type === 'support') {
-                            scope.list = supportStatusDictionary[scope.item]
+                            scope.list = supportStatusDictionary[newValue]
                             if (_.isEmpty(scope.list)) {
-                                scope.filter = $filter('supportTicketStatusName')(scope.item)
+                                scope.filter = $filter('supportTicketStatusName')(newValue)
                             }
                         }
                         needInit = false
                     }
                 })
-
             }
         }
     })

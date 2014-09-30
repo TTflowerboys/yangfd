@@ -1,9 +1,11 @@
 /*! Created by frank on 14-9-29.  */
 @import "project/_imports";
-@border-color:;
+@border-color: #ccc;
 @light-text-color: #999;
 @dark-text-color: #555;
 .propertyDetails {
+    strong { font-weight: normal; }
+    color: @light-text-color;
     .wrapped(); .clearfix();
     > .content {
         width: 800px;
@@ -13,6 +15,8 @@
         width: 360px;
         float: right;
     }
+    h3 { margin-bottom: 24px; color: #666; margin-top: 24px; }
+    hr { color: @border-color; margin-top: 24px; margin-bottom: 24px; }
     .thumbnails { margin-top: 24px; margin-bottom: 48px;
         > ul {
             .clearfix();
@@ -38,12 +42,10 @@
                 &:first-child {
                     border-left: none; padding-left: 0;
                 }
-                color: @light-text-color;
                 strong { display: block; font-size: 24px; font-weight: normal; color: @dark-text-color; }
             }
         }
-        hr { color: @border-color; margin-bottom: 24px; }
-        .other { width: 100%; color: @light-text-color;
+        .other { width: 100%;
             .col-name { width: 120px; }
             td { padding: 8px 0; vertical-align: top; }
             strong { color: #555; }
@@ -53,10 +55,85 @@
             .name { display: inline-block; width: 6em; }
         }
     }
-    .advantages {
+    .advantages { margin-top: 48px; margin-bottom: 48px;
         ul { list-style: none inside url(/static/images/property_details/icon-right-arrow.png); }
         background: #f6f6f6; color: #666666; font-size: 16px; line-height: 1.8; padding: 24px 16px;
         li {
+        }
+    }
+    .description {
+        font-size: 12px;
+    }
+    .brief {
+        .table { width: 100%;
+            &_wrapper {
+                background: #f4f4f4; padding: 0 16px;
+            }
+            tr { border-top: 1px solid #c5c5c5;
+                &:first-child { border-top: none; }
+                td { padding: 16px 0; position: relative;
+                    &:first-child:after {
+                        content: ' ';
+                        color: #c5c5c5;
+                        display: block;
+                        position: absolute;
+                        width: 0;
+                        @height: 70%;
+                        height: @height;
+                        border-left: 1px solid;
+                        top: (100% - @height) /2;
+                        right: 24px;
+                    }
+                }
+            }
+        }
+    }
+    .incoming {
+        .stackedBar { .clearfix(); position: relative; margin-bottom: 88px;
+            height: 50px;
+            > .bar { float: left; height: 100%; text-align: center; line-height: 50px; color: white;
+                &.bar1 { background: #00d3ff; }
+                &.bar2 { background: #00b7dd; }
+                &.bar3 { background: #e20013; }
+            }
+            > .annotation { position: absolute; border: 2px solid; text-align: center;
+                &.annotation4 { color: #00d3ff; border-top: none; left: 0; top: 100%; margin-top: 8px; z-index: 2; }
+                &.annotation5 { color: #c5c5c5; border-top: none; left: 0; top: 100%; margin-top: 8px; padding-top: 32px; z-index: 1; }
+                &.annotation6 { color: #e20013; border-bottom: none; right: 0; bottom: 100%; margin-bottom: 8px; }
+            }
+        }
+        .text { width: 100%; margin-top: 32px; margin-bottom: 32px;
+            tr { height: 60px;
+                td {
+                    position: relative; padding-left: 20px;
+                    .bar { position: absolute; width: 10px; height: 100%; left: 0; top: 0;
+                        &.bar0 { background: #c5c5c5; }
+                        &.bar1 { background: #00d3ff; }
+                        &.bar2 { background: #00b7dd; }
+                        &.bar3 { background: #e20013; }
+                    }
+                }
+            }
+            p { margin: 0; }
+            .name { color: #aaaaaa; font-size: 12px; line-height: 24px; }
+            .value { font-size: 12px; color: #666;
+                strong { font-size: 24px; color: @light-text-color; }
+            }
+        }
+    }
+    .nearby {
+        > ul { .clearfix(); margin: 0 -10px 56px;
+            > li {
+                float: left; margin: 0 10px; width: 185px; background: #f4f4f4; color: #666; padding: 16px;
+                i { display: inline-block; vertical-align: middle; width: 20px; height: 20px; margin-right: 4px;
+                    img { vertical-align: top }
+                }
+                hr { margin: 8px 0 8px; }
+                > strong { color: @red; font-size: 30px; }
+                > ul {
+                    margin: 24px 0;
+                }
+            }
         }
     }
 }

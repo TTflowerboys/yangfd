@@ -10,18 +10,20 @@
 <div class="form-horizontal" style="max-width: 800px; padding-bottom: 100px;">
 
     <div class="form-group">
-        <div class="row">
-            <div class="form-group col-sm-3">
-                <label class="control-label">频道名 *</label>
-                <span class="uneditable-input">{%item.channel[userLanguage.value]%}</span>
+        <div class="row col-sm-3">
+            <label class="control-label">频道名 *</label>
+            <div class="controls">
+                <span class="uneditable-input ">{%item.channel%}</span>
             </div>
         </div>
-        <div class="row">
-            <div class="form-group col-sm-6">
-                <label class="control-label">描述 *</label>
-                <div class="controls">
-                    <span class="uneditable-input" type-i18n="item.description">{%item.description[userLanguage.value]%}</span>
-                </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row col-sm-3">
+            <label class="control-label">描述</label>
+
+            <div class="controls">
+                <span class="uneditable-input" type-i18n="item.description">{%item.description[userLanguage.value]%}</span>
             </div>
         </div>
     </div>
@@ -61,22 +63,25 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label">广告文本</label>
+        <label class="control-label">文本内容</label>
 
         <div class="controls">
             <table class="table table-bordered table-striped table-condensed "
                    style="margin-bottom:30px">
                 <colgroup>
+                    <col class="language">
                     <col class="text">
                 </colgroup>
                 <thead>
                 <tr>
                     <th>语言</th>
+                    <th>内容</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="tempValue in item.text">
-                    <td><span class="uneditable-input">{%tempValue[userLanguage.value]%}</span></td>
+                <tr ng-repeat="tempText in item.text[userLanguage.value]">
+                    <td><span class="uneditable-input">{%userLanguage.value%}</span></td>
+                    <td><span class="uneditable-input">{%tempText%}</span></td>
                 </tr>
                 </tbody>
             </table>

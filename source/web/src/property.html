@@ -184,37 +184,123 @@
                 - 步行致墨尔本商业中心，周边生活设施齐全，融合住宅，商业，休闲娱乐，以及高端水景；
                 - 截至2012六月5年间,Docklands公寓中位价格年均涨幅高达9.1%......
         </div>
+        <hr/>
+        <div class="model">
+            <h3>楼盘户型</h3>
+        </div>
+        <hr/>
+        <div class="brief">
+            <h3>楼盘介绍</h3>
+            <div class="table_wrapper">
+                <table class="table">
+                    <tr>
+                        <td>开盘时间</td>
+                        <td>2014年6月17日</td>
+                    </tr>
+                    <tr>
+                        <td>开盘时间</td>
+                        <td>2014年6月17日</td>
+                    </tr>
+                    <tr>
+                        <td>开盘时间</td>
+                        <td>2014年6月17日</td>
+                    </tr>
+                    <tr>
+                        <td>开盘时间</td>
+                        <td>2014年6月17日</td>
+                    </tr>
+                    <tr>
+                        <td>开盘时间</td>
+                        <td>2014年6月17日</td>
+                    </tr>
+                    <tr>
+                        <td>开盘时间</td>
+                        <td>2014年6月17日</td>
+                    </tr>
+                    <tr>
+                        <td>开盘时间</td>
+                        <td>2014年6月17日</td>
+                    </tr>
+                    <tr>
+                        <td>开盘时间</td>
+                        <td>2014年6月17日</td>
+                    </tr>
+                    <tr>
+                        <td>开盘时间</td>
+                        <td>2014年6月17日</td>
+                    </tr>
+                    <tr>
+                        <td>开盘时间</td>
+                        <td>2014年6月17日</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <hr/>
         <div class="trend">
-            <h3>加个趋势</h3>
+            <h3>价格趋势 (元)</h3>
             <canvas id="lineChart" width="800" height="400"></canvas>
         </div>
-        <div class="pieChart">
+        <hr/>
+        <div class="incoming">
             <h3>收入分析</h3>
-            <canvas id="pieChart" width="350" height="300"></canvas>
-            <ul>
-                <li>
-                    <p>预计月租金</p>
-                    <p><strong>5200</strong>英镑</p>
-                </li>
-                <li>
-                    <p>地租费</p>
-                    <p><strong>520</strong>英镑/年</p>
-                </li>
-                <li>
-                    <p>预计月租金</p>
-                    <p><strong>1920</strong>英镑</p>
-                </li>
-                <li>
-                    <p>物业管理费</p>
-                    <p><strong>4.00~4.35</strong>英镑/每尺每年</p>
-                </li>
-            </ul>
+            <div class="stackedBar">
+                <div class="bar bar1" style="width: 25%">
+                    25%
+                </div>
+                <div class="bar bar2" style="width: 25%">
+                    25%
+                </div>
+                <div class="bar bar3" style="width: 50%">
+                    25%
+                </div>
+                <div class="annotation annotation4" style="width: 50%;">
+                    支出
+                </div>
+                <div class="annotation annotation5" style="width: 100%;">
+                    预期总收入
+                </div>
+                <div class="annotation annotation6" style="width: 50%;">
+                    预期净收益
+                </div>
+            </div>
+            <table class="text">
+                <colgroup>
+                    <col style="width: 150px;">
+                    <col style="width: 150px;">
+                    <col>
+                    <col style="width: 150px;">
+                </colgroup>
+                <tr>
+                    <td>
+                        <span class="bar bar0"></span>
+                        <p class="name">预计月租金</p>
+                        <p class="value"><strong>5200</strong> 英镑</p>
+                    </td>
+                    <td>
+                        <span class="bar bar1"></span>
+                        <p class="name">地租费</p>
+                        <p class="value"><strong>520</strong> 英镑/年</p>
+                    </td>
+                    <td>
+                        <span class="bar bar2"></span>
+                        <p class="name">预计月租金</p>
+                        <p class="value"><strong>1920</strong> 英镑</p>
+                    </td>
+                    <td>
+                        <span class="bar bar3"></span>
+                        <p class="name">预计净收益</p>
+                        <p class="value"><strong>1900</strong> 英镑</p>
+                    </td>
+                </tr>
+            </table>
         </div>
+        <hr/>
         <div class="nearby">
             <h3>周边配套</h3>
             <ul>
                 <li>
-                    <h4>交通设施</h4>
+                    <h4><i><img src="/static/images/property_details/icon-bus.png" alt=""/></i>交通设施</h4>
                     <strong>87</strong>
                     <hr/>
                     <ul>
@@ -222,10 +308,10 @@
                         <li>5个 公交车站</li>
                         <li>5个 汽车租赁点</li>
                     </ul>
-                    <button>查看详细交通</button>
+                    <button class="flatButton" style="width: 100%">查看详细交通</button>
                 </li>
                 <li>
-                    <h4>周边学校</h4>
+                    <h4><i><img src="/static/images/property_details/icon-cap.png" alt=""/></i>周边学校</h4>
                     <strong>70</strong>
                     <hr/>
                     <ul>
@@ -233,10 +319,13 @@
                         <li>3所 高中</li>
                         <li>3所 大学</li>
                     </ul>
-                    <button>查看详细交通</button>
+                    <button class="flatButton" style="width: 100%">查看详细交通</button>
                 </li>
                 <li>
-                    <h4>便民设施</h4>
+                    <h4>
+                        <i><img src="/static/images/property_details/icon-briefcase.png" alt=""/></i>
+                        便民设施
+                    </h4>
                     <strong>70</strong>
                     <hr/>
                     <ul>
@@ -244,7 +333,21 @@
                         <li>3所 健身馆</li>
                         <li>3所 游泳馆</li>
                     </ul>
-                    <button>查看详细交通</button>
+                    <button class="flatButton" style="width: 100%">查看详细交通</button>
+                </li>
+                <li>
+                    <h4>
+                        <i><img src="/static/images/property_details/icon-shield.png" alt=""/></i>
+                        便民设施
+                    </h4>
+                    <strong>70</strong>
+                    <hr/>
+                    <ul>
+                        <li>3所 公园</li>
+                        <li>3所 健身馆</li>
+                        <li>3所 游泳馆</li>
+                    </ul>
+                    <button class="flatButton" style="width: 100%">查看详细交通</button>
                 </li>
             </ul>
         </div>
@@ -309,24 +412,7 @@
             inGraphDataFontColor: '#aaaaaa',
             inGraphDataFontSize: 16,
             inGraphDataAlign: 'center',
-        });
-
-        var pieData = [
-            {
-                value: 30,
-                color: "#F38630",
-            },
-            {
-                value: 30,
-                color: "#F34353",
-            },
-            {
-                value: 30,
-                color: "#F34353",
-            }
-        ]
-        var pieCtx = document.getElementById('pieChart').getContext('2d');
-        var b = new Chart(pieCtx).Pie(pieData, newopts);
+        })
 
     })
 </script>

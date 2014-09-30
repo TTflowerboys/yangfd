@@ -50,7 +50,7 @@
   "noempty":       true,
   "nonew":         true,
   "nonstandard":   false,
-  "plusplus":      true,
+  "plusplus":      false,
   "proto":         false,
   "prototypejs":   false,
   "quotmark":      "single",
