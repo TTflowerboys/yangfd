@@ -484,7 +484,7 @@ class f_currant_plugins(f_app.plugin_base):
 
         while not is_end:
             list_page_counter = list_page_counter + 1
-            list_post_data['__EVENTARGUMENT'] = list_page_counter
+            list_post_data["__EVENTARGUMENT"] = list_page_counter
             list_page = f_app.request.post(search_url, data=list_post_data)
             if list_page.status_code == 200:
                 self.logger.debug("Start crawling page %d" % list_page_counter)
@@ -493,7 +493,7 @@ class f_currant_plugins(f_app.plugin_base):
                 list_page_nav_links = list_page_dom_root("td.PagerOtherPageCells a.PagerHyperlinkStyle")
                 list_page_next_links = []
                 for i in list_page_nav_links:
-                    if i.text == ">":
+                    if i.text() == ">":
                         list_page_next_links.append(i)
                 is_end = False if len(list_page_next_links) else True
 
