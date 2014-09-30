@@ -1,0 +1,66 @@
+@import "project/_imports";
+
+
+.requirement_form {
+    float: right;
+    margin-right: 20px;
+    input {
+        width: 270px;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        &.phone {
+            width: 154px;
+        }
+    }
+    .form_row { line-height: 1.5; }
+    .budgetHint {
+        font-size: 14px;
+        color: #333333;
+        margin-top: 20px;
+        margin-bottom: 0px;
+    }
+    select {
+        width: 270px;
+        &.country {
+            width: 112px;
+        }
+    }
+    textarea {
+        width: 560px;
+        height: 150px;
+        padding: 0.5em;
+        margin-top: 20px;
+    }
+    button {
+        margin-top: 8px;
+    }
+    button[name=cancel] {
+        margin-left:20px;
+    }
+    > .errorMessage {
+        display: none; color: red; margin-top: 10px; margin-bottom: 0px;
+    }
+    @media @phone {
+        float: none;
+        padding: 10px;
+        input {
+            width: 100%;
+            &.phone {
+                width:  ~"calc(100% - 116px)";
+            }
+        }
+        select {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+        }
+        button {
+            width: 100%;
+        }
+        button[name=cancel] {
+            margin-left:0px;
+            width: 100%;
+        }
+    }
+}

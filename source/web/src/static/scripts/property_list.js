@@ -28,6 +28,9 @@
             params.time = time
         }
 
+         $('#result_list_container').show()
+        showEmptyPlaceHolder(false)
+
         $('#result #loadIndicator').show()
         var resultCount = 0
         $.post('/api/1/property/search', params)
@@ -83,11 +86,20 @@
         return ''
     }
 
-    function getSelectedIntention() {
-        var $selectedChild = $('#tags #intentionTag').children('.selected')
+    function getSelectedBudgetTypeValue() {
+        var $selectedChild = $('#tags #budgetTag').children('.selected')
         if ($selectedChild.length) {
+            return $selectedChild.first().text()
+        }
+        return ''
+    }
+
+
+    function getSelectedIntention() {
+        var $selectedChildren = $('#tags #intentionTag').children('.selected')
+        if ($selectedChildren.length) {
             var ids = ''
-            _.each($selectedChild, function (child) {
+            _.each($selectedChildren, function (child) {
                 ids += child.getAttribute('data-id')
                 ids += ','
             })
@@ -96,6 +108,21 @@
         return ''
     }
 
+
+    function getSelectedIntentionValue() {
+        var $selectedChildren = $('#tags #intentionTag').children('.selected')
+        if ($selectedChildren.length) {
+            var textValue = ''
+            _.each($selectedChildren, function (child) {
+                textValue += child.innerText
+                textValue += ','
+            })
+            return textValue
+        }
+        return ''
+    }
+
+
     function updateResultCount(count) {
         var $numberContainer = $('#result #number_container')
         var $number = $numberContainer.find('#number')
@@ -103,10 +130,60 @@
         if (count) {
             $number.text(count)
             $numberContainer.show()
+            $('#result_list_container').show()
+            showEmptyPlaceHolder(false)
         }
         else {
             $number.text(count)
-            $numberContainer.show()
+            $('#result_list_container').hide()
+            showEmptyPlaceHolder(true)
+        }
+    }
+
+    function showEmptyPlaceHolder(show) {
+        var emptyPlaceHolder = $('.emptyPlaceHolder');
+        if (show) {
+            window.resetRequirementForm(emptyPlaceHolder)
+            var selectedBudgetId = getSelectedBudgetType()
+            emptyPlaceHolder.find('select[name=budget] option[value=' + selectedBudgetId + ']').attr('selected', true)
+            var selectedCountry = $('select[name=propertyCountry]').children('option:selected').text()
+            var selectedCity = $('select[name=propertyCity]').children('option:selected').text()
+            var selectedType = $('select[name=propertyType]').children('option:selected').text()
+            var selectedBudget = getSelectedBudgetTypeValue()
+            var selectedIntention = getSelectedIntentionValue()
+
+            if (_.last(selectedIntention) === ',') {
+                selectedIntention = selectedIntention.substring(0, selectedIntention.length - 1)
+            }
+
+            var description =  window.i18n('我想在') + ' ' +
+                    selectedCountry + ' ' +
+                    window.i18n('的') + ' ' +
+                    selectedCity + ' ' +
+                    window.i18n('投资')  + ' ' +
+                    selectedType
+
+            if (selectedBudget) {
+                description = description  +
+                    window.i18n('comma价值为') + ' ' +
+                    selectedBudget + ' '
+            }
+
+            if (selectedIntention) {
+                description = description + window.i18n('的房产comma投资意向为') + ' ' +
+                    selectedIntention
+            }
+
+            description = description + window.i18n('period')
+
+            emptyPlaceHolder.find('textarea[name=description]').text(description)
+
+            window.setupRequirementForm(emptyPlaceHolder, function () {
+            })
+            emptyPlaceHolder.show();
+        }
+        else {
+            emptyPlaceHolder.hide()
         }
     }
 
