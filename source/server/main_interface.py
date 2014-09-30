@@ -56,6 +56,7 @@ def default():
         if "news_category" in p:
             p["related_news"] = f_app.blog.post_output(f_app.blog.post_search({"category": {"$in": [{"_id": ObjectId(n["id"]), "type": "news_category", "_enum": "news_category"} for n in p["news_category"]]}}, per_page=5))
 
+    intention_list = f_app.enum.get_all('intention')
     return template(
         "index",
         user=get_current_user(),
@@ -64,7 +65,8 @@ def default():
         announcement_list=announcement_list,
         news_list=news_list,
         country_list=get_country_list(),
-        budget_list=get_budget_list()
+        budget_list=get_budget_list(),
+        intention_list=intention_list
     )
 
 

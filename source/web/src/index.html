@@ -33,6 +33,30 @@
         %    end
     </ul>
 </div>
+
+%if user:
+<div class="tags">
+    <h2 class="title">{{_('为您推荐')}}</h2>
+    <div class="budget">
+        <label class="hint" for="">{{_('您的预算：')}}</label>
+        %for index, budget in enumerate(_i18n(budget_list)):
+        %if budget.get('currency') == _.currency:
+        <div class="toggleTag red">{{budget.get('value')}}</div>
+        %end
+        %end
+    </div>
+
+    <div class="intention">
+        <label class="hint" for="">{{_('意向选择：')}}</label>
+        %for index, intention in enumerate(intention_list):
+                <div class="toggleTag red" data-id="{{intention.get('id')}}">{{_i18n(intention.get('value'))}}
+                </div>
+        %end
+    </div>
+</div>
+
+%end
+
 <div class="houseFeatured">
     <a class="more" href="/property_list">{{_('更多')}}</a>
      %if (_i18n(property_list)):
