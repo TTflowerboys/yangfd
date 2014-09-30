@@ -71,9 +71,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="tempText in item.text[userLanguage.value]">
+                    <tr ng-repeat="(i, tempText) in item.text[userLanguage.value] track by $index">
                         <td><span class="uneditable-input">{%userLanguage.value%}</span></td>
-                        <td><input type="text" ng-model="tempText"/></td>
+                        <!--http://stackoverflow.com/questions/13714884/difficulty-with-ng-model-ng-repeat-and-inputs-->
+                        <td><input type="text" ng-model="item.text[userLanguage.value][i]"/></td>
                         <td>
                         <span class="btn btn-danger" ng-click="removeTextItem($index)"
                               title="Remove">

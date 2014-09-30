@@ -71,9 +71,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="tempText in item.tempTexts">
+                    <tr ng-repeat="(i, tempText) in item.text[userLanguage.value] track by $index">
                         <td><span class="uneditable-input">{%userLanguage.value%}</span></td>
-                        <td><input type="text" ng-model="tempText[userLanguage.value]"/></td>
+                        &lt;!&ndash;http://stackoverflow.com/questions/13714884/difficulty-with-ng-model-ng-repeat-and-inputs&ndash;&gt;
+                        <td><input type="text" ng-model="item.text[userLanguage.value][i]"/></td>
                         <td>
                         <span class="btn btn-danger" ng-click="removeTextItem($index)"
                               title="Remove">
@@ -85,7 +86,7 @@
                 </table>
             </div>
             <div class="controls form-inline">
-                <input class="form-control" type="text" type-i18n="tempTextItem" ng-model="tempTextItem[userLanguage.value]" placeholder="内容"/>
+                <input class="form-control" type="text" ng-model="tempTextItem" placeholder="文本条目内容"/>
                 <!--onAddLanguage(item.tempI18n) must be called before addI18nValue(),because addI18nValue makes item.tempI18n null-->
                 <input type="button" ng-click="addTextItem()" class="btn btn-primary"
                        value="添加">

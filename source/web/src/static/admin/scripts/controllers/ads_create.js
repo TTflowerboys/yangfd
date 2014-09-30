@@ -5,8 +5,6 @@
 
     function ctrlAdsCreate($scope) {
 
-        console.log('ctrlAdsCreate')
-
         $scope.addTextItem = function(){
             //Init Text Field if add item for the first time
             $scope.item.text = $scope.item.text || {}
@@ -17,15 +15,11 @@
 
             //Reset text input
             $scope.tempTextItem = ''
-
-            console.log($scope.item.text)
         }
 
         $scope.removeTextItem = function(index){
             //Remove from current language only
             $scope.item.text[$scope.userLanguage.value].splice(index, 1)
-
-            console.log($scope.item.text)
         }
 
         $scope.submit = function ($event, form) {
