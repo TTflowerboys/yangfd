@@ -84,7 +84,13 @@
                    %end
                    <ul class=properties>
                        %if (property.get('intention')) :
-                       <li><img src="/static/images/icon/house-card-tag.png" alt="" /> <span>{{property.get('intention', '').get('value')}}</span></li>
+                       <li><img src="/static/images/icon/house-card-tag.png" alt="" />
+                           <span>
+                       %for index, oneIntention in enumerate(property.get('intention')):
+                       {{oneIntention.get('value')}}
+                       %end
+                           </span>
+                       </li>
                        %end
                        %if (property.get('equity_type')) :
                        <li><img src="/static/images/icon/house-card-house.png" alt="" /> <span> {{property.get('equity_type', '').get('value')}}</span></li>
