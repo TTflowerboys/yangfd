@@ -477,6 +477,7 @@ class f_currant_plugins(f_app.plugin_base):
         list_page_counter = start_page
         list_post_data = {
             "__EVENTTARGET": "_ctl1:CenterRegion:_ctl1:cntrlPagingHeader",
+            "__EVENTARGUMENT": list_page_counter
         }
         search_url_parsed = urllib.parse.urlparse(search_url)
         search_url_prefix = "%s://%s" % (search_url_parsed.scheme, search_url_parsed.netloc)
@@ -484,7 +485,7 @@ class f_currant_plugins(f_app.plugin_base):
 
         while not is_end:
             list_post_data["__EVENTARGUMENT"] = list_page_counter
-            list_page = f_app.request.post(search_url, data=list_post_data)
+            list_page = f_app.request.post(search_url, list_post_data)
             if list_page.status_code == 200:
                 self.logger.debug("Start crawling page %d" % list_page_counter)
                 f_app.task.update_set(task, {"start_page": list_page_counter})
@@ -494,7 +495,6 @@ class f_currant_plugins(f_app.plugin_base):
                 for i in list_page_nav_links:
                     if i.text == ">":
                         list_page_next_links.append(i.text)
-                self.logger.debug(list_page_next_links)
                 is_end = False if len(list_page_next_links) else True
 
                 list_page_property_links = list_page_dom_root("div#cntrlPropertySearch_map_pnlResults a.propAdd")
