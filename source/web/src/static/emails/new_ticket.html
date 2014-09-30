@@ -1,11 +1,14 @@
 <!--@@master = ../../masters/email.html-->
 <!--@@block=content-->
+%   params = _i18n(params)
 <p>{{_('收到新的置业需求信息如下：')}}</p>
 <ul>
     <li>{{_('用户姓名：')}}{{params.get("nickname")}}</li>
     <li>{{_('用户手机：')}}{{params.get("phone")}}</li>
     <li>{{_('用户邮箱：')}}{{params.get("email")}}</li>
-    <li>{{_('用户预算：')}}{{params.get("budget")}}</li>
+    %   if "budget" in params:
+    <li>{{_('用户预算：')}}{{params["budget"].get("value")}}</li>
+    %   end
     <li>{{_('需求描述：')}}{{params.get("description")}}</li>
 </ul>
 <!--@@close-->
