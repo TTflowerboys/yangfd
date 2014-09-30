@@ -474,7 +474,7 @@ class f_currant_plugins(f_app.plugin_base):
         start_page = task.get("start_page", 1)
         is_end = False
         search_url = 'http://www.mylondonhome.com/search.aspx?ListingType=5'
-        list_page_counter = start_page - 1
+        list_page_counter = start_page
         list_post_data = {
             "__EVENTTARGET": "_ctl1:CenterRegion:_ctl1:cntrlPagingHeader",
         }
@@ -483,7 +483,6 @@ class f_currant_plugins(f_app.plugin_base):
         property_image_url_prefix = "http://www.mylondonhome.com/ViewExtraPhotos.aspx?id="
 
         while not is_end:
-            list_page_counter = list_page_counter + 1
             list_post_data["__EVENTARGUMENT"] = list_page_counter
             list_page = f_app.request.post(search_url, data=list_post_data)
             if list_page.status_code == 200:
@@ -555,6 +554,7 @@ class f_currant_plugins(f_app.plugin_base):
 
                     else:
                         self.logger.debug("Failed crawling property_page %s, status_code is %d" % (property_url, property_page.status_code))
+                list_page_counter += 1
             else:
                 self.logger.debug("Failed crawling page %d, status_code is %d" % (list_page_counter, list_page.status_code))
 
