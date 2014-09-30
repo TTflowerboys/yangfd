@@ -493,7 +493,8 @@ class f_currant_plugins(f_app.plugin_base):
                 list_page_next_links = []
                 for i in list_page_nav_links:
                     if i.text == ">":
-                        list_page_next_links.append(i)
+                        list_page_next_links.append(i.text)
+                self.logger.debug(list_page_next_links)
                 is_end = False if len(list_page_next_links) else True
 
                 list_page_property_links = list_page_dom_root("div#cntrlPropertySearch_map_pnlResults a.propAdd")
