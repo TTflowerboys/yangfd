@@ -12,6 +12,10 @@
         $scope.adApiFactory = adApiFactory
         $scope.fetched = false
 
+        //Work around angular can not watch primitive type
+        $scope.selected = {}
+        $scope.selected.channel = ''
+
         var params = {
             per_page: $scope.perPage
         }
@@ -23,19 +27,19 @@
 
                 //If got more than one channel, default select first one to show
                 if($scope.availableChannels.length > 0){
-                    $scope.selectedChannel = $scope.availableChannels[0]
+                    $scope.selected.channel = $scope.availableChannels[0]
                 }
             })
 
-        $scope.$watch('selectedChannel',function(newValue, oldValue){
+        $scope.$watch('selected.channel',function(newValue, oldValue){
             // Ignore initial setup.
             if ( newValue === oldValue ) {
                 return;
             }
 
-            $scope.adApiFactory = adApiFactory($scope.selectedChannel)
+            $scope.adApiFactory = adApiFactory($scope.selected.channel)
             $scope.adApiFactory.getAll({ params: params }).success(onGetList)
-        })
+        },true)
 
         $scope.refreshList = function () {
             $scope.adApiFactory.getAll({ params: params}).success(onGetList)
