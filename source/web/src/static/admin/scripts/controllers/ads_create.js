@@ -8,19 +8,24 @@
         console.log('ctrlAdsCreate')
 
         $scope.addTextItem = function(){
-            $scope.item.tempTexts = $scope.item.tempTexts || []
-            var tempTextItem = {}
-            angular.copy($scope.tempTextItem, tempTextItem);
-            $scope.item.tempTexts.push(tempTextItem)
+            //Init Text Field if add item for the first time
+            $scope.item.text = $scope.item.text || {}
+            $scope.item.text[$scope.userLanguage.value] = $scope.item.text[$scope.userLanguage.value] || []
+
+            //Copy input text to text, only add to current language
+            $scope.item.text[$scope.userLanguage.value].push($scope.tempTextItem)
 
             //Reset text input
-            angular.forEach($scope.tempTextItem, function(value, key){
-                $scope.tempTextItem[key] = ''
-            })
+            $scope.tempTextItem = ''
+
+            console.log($scope.item.text)
         }
 
         $scope.removeTextItem = function(index){
-            $scope.item.tempTexts.splice(index, 1)
+            //Remove from current language only
+            $scope.item.text[$scope.userLanguage.value].splice(index, 1)
+
+            console.log($scope.item.text)
         }
 
         $scope.submit = function ($event, form) {
@@ -28,16 +33,6 @@
             $scope.submitted = true
             if (form.$invalid) {
                 return
-            }
-
-            if (!_.isEmpty($scope.item.tempTexts)) {
-                $scope.item.text = {}
-                angular.forEach($scope.i18nLanguages, function(i18nValue, i18nKey){
-                    $scope.item.text[i18nValue.value] = $scope.item.text[i18nValue.value] || []
-                    angular.forEach($scope.item.tempTexts, function(value, key){
-                        $scope.item.text[i18nValue.value].push(value[i18nValue.value])
-                    })
-                })
             }
 
             $scope.loading = true
