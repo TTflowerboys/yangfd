@@ -42,7 +42,7 @@ class common(f_common):
     message_type = ["system", "favorite", "intention", "mine"]
     currency = ["CNY", "USD", "GBP", "EUR", "HKD"]
 
-    intention_ticket_statuses = ["new", "assigned", "in_progess", "deposit", "suspended", "bought", "canceled"]
+    intention_ticket_statuses = ["new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"]
     support_ticket_statuses = ["new", "assigned", "in_progress", "solved", "unsolved"]
 
     user_action_types = ["click_page", "click_property", "mark_property_favorite", "submit_intention_ticket", "submit_intention_ticket_success", "click_registration", "submit_registration", "submit_registration_success", "submit_intention_tag",
