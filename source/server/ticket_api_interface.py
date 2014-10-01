@@ -344,7 +344,7 @@ def support_ticket_get(user, ticket_id):
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
-    return f_app.ticket.output([ticket_id], enable_custom_fields=enable_custom_fields)
+    return f_app.ticket.output([ticket_id], enable_custom_fields=enable_custom_fields)[0]
 
 
 @f_api('/support_ticket/<ticket_id>/remove')
