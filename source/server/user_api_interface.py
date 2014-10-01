@@ -524,17 +524,17 @@ def user_sms_reset_password(user_id, params):
 @f_api('/user/<user_id>/email_verification/send')
 @rate_limit("email_verification_send", ip=20)
 def email_send(user_id):
-    user = f_app.user.get(user_id)
-    if "email" not in user:
-        abort(40000, logger.warning("Invalid user: email not provided.", exc_info=False))
     """
     rate_limit is 20 ip per hour.
     """
+    user = f_app.user.get(user_id)
+    if "email" not in user:
+        abort(40000, logger.warning("Invalid user: email not provided.", exc_info=False))
     if f_app.common.use_ssl:
         schema = "https://"
     else:
         schema = "http://"
-    verification_url = schema + request.urlparts[1] + "/user/email_verification/verify?code=" + f_app.user.email.request(user_id) + "&user_id=" + user_id
+    verification_url = schema + request.urlparts[1] + "/user_verify_email?code=" + f_app.user.email.request(user_id) + "&user_id=" + user_id
     f_app.email.schedule(
         target=user["email"],
         subject=template("static/emails/verify_email_title"),
