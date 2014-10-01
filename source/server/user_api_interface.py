@@ -329,6 +329,7 @@ def admin_user_add_role(user, user_id, params):
         abort(40399, logger.warning('Permission denied.', exc_info=False))
     user_roles = user_info.get('role', [])
     if role not in user_roles:
+        f_app.user.add_role(user_id, role)
         if user_info.get("email") is not None:
             if f_app.common.use_ssl:
                 schema = "https://"
@@ -338,13 +339,11 @@ def admin_user_add_role(user, user_id, params):
             f_app.email.schedule(
                 target=user_info.get("email"),
                 subject=template("static/emails/set_as_admin_title"),
-                text=template("static/emails/set_as_admin", nickname=user_info.get("nickname"), role=params[
-                              "role"], admin_console_url=admin_console_url, phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
+                text=template("static/emails/set_as_admin", nickname=user_info.get("nickname"), role=f_app.user.get_role(user_id), admin_console_url=admin_console_url, phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
                 display="html",
             )
         else:
             abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
-        f_app.user.add_role(user_id, role)
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
@@ -352,11 +351,10 @@ def admin_user_add_role(user, user_id, params):
 @f_api("/user/admin/<user_id>")
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "jr_sales"])
 def admin_user_get(user, user_id):
-    user_info = f_app.user.get(user_id)
     current_user_roles = f_app.user.get_role(user["id"])
     if set(["admin", "jr_admin", "sales"]) & set(current_user_roles):
         pass
-    elif not f_app.ticket.search({"assignee": ObjectId(user["id"]), "phone": user_info.get("phone")}):
+    elif not f_app.ticket.search({"assignee": ObjectId(user["id"]), "$or": [{"creator_user_id": ObjectId(user_id)}, {"user_id": ObjectId(user_id)}]}):
         abort(40399)
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
@@ -525,17 +523,17 @@ def user_sms_reset_password(user_id, params):
 @f_api('/user/<user_id>/email_verification/send')
 @rate_limit("email_verification_send", ip=20)
 def email_send(user_id):
-    user = f_app.user.get(user_id)
-    if "email" not in user:
-        abort(40000, logger.warning("Invalid user: email not provided.", exc_info=False))
     """
     rate_limit is 20 ip per hour.
     """
+    user = f_app.user.get(user_id)
+    if "email" not in user:
+        abort(40000, logger.warning("Invalid user: email not provided.", exc_info=False))
     if f_app.common.use_ssl:
         schema = "https://"
     else:
         schema = "http://"
-    verification_url = schema + request.urlparts[1] + "/user/email_verification/verify?code=" + f_app.user.email.request(user_id) + "&user_id=" + user_id
+    verification_url = schema + request.urlparts[1] + "/user_verify_email?code=" + f_app.user.email.request(user_id) + "&user_id=" + user_id
     f_app.email.schedule(
         target=user["email"],
         subject=template("static/emails/verify_email_title"),

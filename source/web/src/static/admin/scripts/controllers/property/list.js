@@ -4,16 +4,18 @@
 (function () {
 
     function ctrlPropertyList($scope, $state, enumApi,fctModal, $timeout, api) {
-//        enumApi.getEnumsByType('news_category').success(function (data) {
-//            $scope.newsCategoryList = data.val
-//        })
+
         $scope.list = []
         $scope.perPage = 12
         $scope.currentPageNumber = 1
         $scope.pages = []
         $scope.api = api
 
+        $scope.selected = {}
+        $scope.selected.status = 'not reviewed'
+
         var params = {
+            status:$scope.selected.status,
             per_page: $scope.perPage
         }
 
@@ -23,14 +25,17 @@
             api.getAll({ params: params}).success(onGetList)
         }
 
-        $scope.onSearch = function (searchText) {
-            params.phone = searchText || undefined
-            delete params.time
-            delete params.register_time
-            delete params.insert_time
+        $scope.$watch('selected.status',function(newValue, oldValue){
+            // Ignore initial setup.
+            if ( newValue === oldValue ) {
+                return;
+            }
 
-            api.search({params: params, errorMessage: true}).success(onGetList)
-        }
+            params.status = newValue
+            $scope.currentPageNumber = 1
+            $scope.pages = []
+            api.getAll({ params: params}).success(onGetList)
+        },true)
 
         $scope.onRemove = function (item) {
             fctModal.show('Do you want to remove it?', undefined, function () {
