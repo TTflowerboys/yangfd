@@ -352,11 +352,10 @@ def admin_user_add_role(user, user_id, params):
 @f_api("/user/admin/<user_id>")
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "jr_sales"])
 def admin_user_get(user, user_id):
-    user_info = f_app.user.get(user_id)
     current_user_roles = f_app.user.get_role(user["id"])
     if set(["admin", "jr_admin", "sales"]) & set(current_user_roles):
         pass
-    elif not f_app.ticket.search({"assignee": ObjectId(user["id"]), "phone": user_info.get("phone")}):
+    elif not f_app.ticket.search({"assignee": ObjectId(user["id"]), "$or": [{"creator_user_id": ObjectId(user_id)}, {"user_id": ObjectId(user_id)}]}):
         abort(40399)
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
