@@ -145,6 +145,13 @@
             loadPropertyList()
         })
 
+        $intentionTag.find('#add').click(function () {
+
+        })
+
+        $('.intentionTabs_wrapper').find('#collapseButton').click(function () {
+
+        })
         loadPropertyList()
     }
 })()
