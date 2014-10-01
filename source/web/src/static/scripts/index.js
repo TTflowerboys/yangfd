@@ -62,10 +62,20 @@
             })
     }
 
+    function addIntetionTag(id, value) {
+         $intentionTag.find('#list').append('<li class="toggleTag selected" data-id="' + id + '">' +
+                                                   value +
+                                                   '<img alt="" src="/static/images/intention/close.png"/></li>'
+                                                  )
+    }
+
+    function removeIntentionTag(id) {
+        $intentionTag.find('#list li[data-id=' + id + ']').remove()
+    }
 
     if (window.user) {
 
-        var $form = $('form[name=intentionForm]')
+        var $intentionDetails = $('[data-tabs]')
 
         $('[data-tabs]').tabs().on('mouseover', 'li', function (e) {
             var tabName = $(e.currentTarget).find('[data-tab]').data('tab')
@@ -73,21 +83,39 @@
             $(e.delegateTarget).find('[data-tab-name=' + tabName + ']').show().siblings().hide()
         })
 
-        $form.find('[name=intention]').on('change', function () {
-            $(this).closest('li').toggleClass('selected', this.checked)
+        $intentionDetails.find('[name=intention]').on('change', function () {
+            var $li = $(this).closest('li')
+
+            $li.toggleClass('selected', this.checked)
+
+            if (this.checked) {
+
+                addIntetionTag($li.attr('data-id'), $li.attr('data-value'))
+            }
+            else {
+                removeIntentionTag($li.attr('data-id'))
+            }
+
+            loadPropertyList()
         })
 
-        $form.find('[name]').on('change', function () {
-            var data = $form.serializeObject()
-            $form.find('[type=submit]').prop('disabled', _.isEmpty(data))
-        })
 
-
-        loadPropertyList()
 
         var $budgetTag = $('#tags #budgetTag')
         var $intentionTag = $('#tags #intentionTag')
 
+        if (window.user.budget) {
+            $budgetTag.find('.toggleTag[data-id=' + window.user.budget.id + ']').addClass('selected')
+        }
+
+        if (window.user.intention) {
+            _.each(window.user.intention, function (item) {
+                addIntetionTag(item.id, item.value)
+                $intentionDetails.find('li[data-id=' + item.id+']').addClass('selected')
+                $intentionDetails.find('input[value=' + item.id+']').prop('checked', true)
+
+            })
+        }
 
         // var userBudget = window.budget
         // var userIntention= window.intention
@@ -106,17 +134,17 @@
             loadPropertyList()
         })
 
-        $intentionTag.on('click', '.toggleTag', function (event) {
+        $intentionTag.on('click', '.toggleTag img', function (event) {
 
-            var $item = $(event.target)
-            if ($item.hasClass('selected')) {
-                $item.removeClass('selected')
-            }
-            else {
-                $item.addClass('selected')
-            }
+            var $li = $(event.target).parent()
+            var id = $li.attr('data-id')
+            $intentionDetails.find('li[data-id=' + id+']').removeClass('selected')
+            $intentionDetails.find('input[value=' + id+']').prop('checked', false)
+            $li.remove()
 
             loadPropertyList()
         })
+
+        loadPropertyList()
     }
 })()
