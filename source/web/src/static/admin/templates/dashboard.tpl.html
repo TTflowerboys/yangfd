@@ -167,6 +167,11 @@
                         <a href ui-sref="dashboard.users" ui-sref-active="active"><i class="fa fa-picture-o"></i><span
                                 class="hidden-sm text">用户管理</span></a>
                     </li>
+                    <li has-permission="admin,jr_admin"
+                        ng-class="{active:$state.includes('dashboard.message')}">
+                        <a href ui-sref="dashboard.message" ui-sref-active="active"><i class="fa fa-picture-o"></i><span
+                                class="hidden-sm text">消息管理</span></a>
+                    </li>
                 </ul>
             </div>
         </div>
