@@ -10,4 +10,6 @@ angular.module('app')
         { name: '隐藏', value: 'hidden' },
         { name: '已售罄', value: 'sold out' }
         //{ name: '删除', value: 'deleted' }
-    ])
+    ]).run(function ($rootScope, propertyStatus) {
+        $rootScope.propertyStatus = propertyStatus
+    })

@@ -5,9 +5,7 @@
 
         return {
             getAll: function (config) {
-                return $http.get('/api/1/property/search?status=' +
-                        encodeURIComponent('draft,not translated,translating,not reviewed,rejected,selling,hidden,sold out') +
-                        '&_i18n=disabled',
+                return $http.get('/api/1/property/search?_i18n=disabled',
                     config)
             },
             getOne: function (id, config) {

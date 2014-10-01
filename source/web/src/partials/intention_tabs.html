@@ -1,0 +1,32 @@
+<div data-tabs>
+    <div class="row intention">
+        <label class="title">投资意向：</label>
+        <ul class="controls">
+            %for index, intention in enumerate(intention_list):
+            <li style="width: {{99.99/len(intention_list)}}%"
+                % if index == 0:
+                class="indicator"
+                % end
+                >
+                <label>
+                    <input data-tab="{{index+1}}" name="intention" type="checkbox" value="{{intention.get('id')}}"/>
+                    <img class="grey" src="/static/images/icon/intention/{{index+1}}-grey.png" alt="{{_i18n(intention.get('value'))}}"/>
+                    <img class="red" src="/static/images/icon/intention/{{index+1}}-red.png" alt="{{_i18n(intention.get('value'))}}"/>
+                </label>
+                <span>{{_i18n(intention.get('value'))}}</span>
+            </li>
+            %end
+        </ul>
+    </div>
+    <div class="details">
+        <div class="selected" data-tab-name="1">
+            <img src="/static/images/intention/feature1.png"/>
+        </div>
+        <div data-tab-name="2"></div>
+        <div data-tab-name="3"></div>
+        <div data-tab-name="4"></div>
+        <div data-tab-name="5"></div>
+        <div data-tab-name="6"></div>
+        <div data-tab-name="7"></div>
+    </div>
+</div>
