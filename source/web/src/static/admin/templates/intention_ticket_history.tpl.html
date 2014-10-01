@@ -1,0 +1,102 @@
+<div class="form-group col-xs-12 col-sm-12">
+    <label class="control-label">变更记录</label>
+
+    <div class="controls">
+        <table class="table table-bordered table-striped table-condensed"
+               style="margin-bottom:30px">
+            <colgroup>
+                <col class="key">
+                <col class="value">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>变更内容</th>
+                <th>修改内容</th>
+                <th>修改时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="h in history">
+                <td>
+                    <table class="table table-bordered table-striped table-condensed">
+                        <tr>
+                            <td>字段</td>
+                            <td>内容</td>
+                        </tr>
+                        <tr ng-if="h._set.nickname">
+                            <td>姓名</td>
+                            <td>{%h._set.nickname%}</td>
+                        </tr>
+                        <tr ng-if="h._set.phone">
+                            <td>电话</td>
+                            <td>{%h._set.phone%}</td>
+                        </tr>
+                        <tr ng-if="h._set.email">
+                            <td>邮箱</td>
+                            <td>{%h._set.email%}</td>
+                        </tr>
+                        <tr ng-if="h._set.budget">
+                            <td>预算</td>
+                            <td>{%h._set.budget.value[userLanguage.value]%}</td>
+                        </tr>
+                        <tr ng-if="h._set.status">
+                            <td>状态</td>
+                            <td>{%h._set.status | intentionTicketStatusName%}</td>
+                        </tr>
+                        <tr ng-if="h._set.description">
+                            <td>文字描述</td>
+                            <td>{%h._set.description%}</td>
+                        </tr>
+                        <tr ng-if="h._set.country">
+                            <td>国家</td>
+                            <td>{%h._set.country.value[userLanguage.value]%}</td>
+                        </tr>
+                        <tr ng-if="h._set.city">
+                            <td>城市</td>
+                            <td>{%h._set.city.value[userLanguage.value]%}</td>
+                        </tr>
+                        <tr ng-if="h._set.equity_type">
+                            <td>产权类型</td>
+                            <td>{%h._set.equity_type.value[userLanguage.value]%}</td>
+                        </tr>
+                        <tr ng-if="h._set.intention">
+                            <td>投资意向标签</td>
+                            <td>
+                                <table class="table-bordered table-striped table-condensed">
+                                    <colgroup>
+                                        <col class="value">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr ng-repeat="field in h._set.intention">
+                                        <td>{%field.value[userLanguage.value] %}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr ng-if="h._set.custom_fields">
+                            <td>销售自定义描述</td>
+                            <td>
+                                <table class="table table-bordered table-striped table-condensed">
+                                    <colgroup>
+                                        <col class="key">
+                                        <col class="value">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr ng-repeat="field in h._set.custom_fields">
+                                        <td>{%field.key%}</td>
+                                        <td>{%field.value %}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>{%h.updated_comment%}</td>
+                <td>{%h.updated_time?(h.updated_time * 1000 | date : medium):'' %}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
