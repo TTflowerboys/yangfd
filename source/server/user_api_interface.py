@@ -329,6 +329,7 @@ def admin_user_add_role(user, user_id, params):
         abort(40399, logger.warning('Permission denied.', exc_info=False))
     user_roles = user_info.get('role', [])
     if role not in user_roles:
+        f_app.user.add_role(user_id, role)
         if user_info.get("email") is not None:
             if f_app.common.use_ssl:
                 schema = "https://"
@@ -338,13 +339,11 @@ def admin_user_add_role(user, user_id, params):
             f_app.email.schedule(
                 target=user_info.get("email"),
                 subject=template("static/emails/set_as_admin_title"),
-                text=template("static/emails/set_as_admin", nickname=user_info.get("nickname"), role=params[
-                              "role"], admin_console_url=admin_console_url, phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
+                text=template("static/emails/set_as_admin", nickname=user_info.get("nickname"), role=f_app.user.get_role(user_id), admin_console_url=admin_console_url, phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
                 display="html",
             )
         else:
             abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
-        f_app.user.add_role(user_id, role)
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
