@@ -144,14 +144,18 @@ def intention_ticket_get(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
-    if len(user_roles) == 0:
+    enable_custom_fields = True
+    if set(user_roles) & set(["admin", "jr_admin", "sales"]):
+        pass
+    elif len(user_roles) == 0:
         if ticket.get("creator_user_id") != user["id"] and ticket.get("user_id") != user["id"]:
             abort(40399, logger.warning("Permission denied.", exc_info=False))
-        return f_app.ticket.output([ticket_id], enable_custom_fields=False)[0]
+        enable_custom_fields = False
     elif "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
-        return f_app.ticket.output([ticket_id])[0]
+
+    return f_app.ticket.output([ticket_id], enable_custom_fields=enable_custom_fields)[0]
 
 
 @f_api('/intention_ticket/<ticket_id>/remove')
@@ -256,11 +260,11 @@ def intention_ticket_search(user, params):
         params["phone"] = f_app.util.parse_phone(params)
 
     user_roles = f_app.user.get_role(user["id"])
+    enable_custom_fields = True
     if set(user_roles) & set(["admin", "jr_admin", "sales"]):
-        enable_custom_fields = True
+        pass
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
         params["assignee"] = ObjectId(user["id"])
-        enable_custom_fields = True
     elif len(user_roles) == 0:
         # General users
         params["user_id"] = ObjectId(user["id"])
@@ -274,11 +278,7 @@ def intention_ticket_search(user, params):
             params["status"] = {"$in": params["status"]}
         else:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
-    if enable_custom_fields:
-        return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
-    else:
-        return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=False)
-
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)
 
 
 @f_api('/support_ticket/add', params=dict(
@@ -335,15 +335,16 @@ def support_ticket_get(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
+    enable_custom_fields = True
     if len(user_roles) == 0:
         if ticket.get("creator_user_id") != user["id"]:
             abort(40399, logger.warning("Permission denied.", exc_info=False))
-        return f_app.ticket.output([ticket_id], enable_custom_fields=False)
+        enable_custom_fields = False
     elif "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
-        return f_app.ticket.output([ticket_id])
 
+    return f_app.ticket.output([ticket_id], enable_custom_fields=enable_custom_fields)
 
 
 @f_api('/support_ticket/<ticket_id>/remove')
@@ -439,12 +440,12 @@ def support_ticket_search(user, params):
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
 
+    enable_custom_fields = True
     user_roles = f_app.user.get_role(user["id"])
     if set(user_roles) & set(["admin", "jr_admin", "support"]):
-        enable_custom_fields = True
+        pass
     if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & set(user_roles)) == 0:
         params["assignee"] = ObjectId(user["id"])
-        enable_custom_fields = True
     elif len(user_roles) == 0:
         # General users
         params["user_id"] = ObjectId(user["id"])
@@ -458,7 +459,4 @@ def support_ticket_search(user, params):
         else:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
-    if enable_custom_fields:
-        return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
-    else:
-        return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=False)
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)
