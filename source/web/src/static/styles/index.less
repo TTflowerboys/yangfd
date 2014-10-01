@@ -60,7 +60,13 @@ main {
         overflow:hidden;
         width:@max-width;
         margin:0 auto;
-        background:#f6f6f6;
+
+        &_wrapper {
+            background:#f6f6f6;
+            width:100%;
+            min-height:400px;
+        }
+
 
         .title {
             font-size:24px;
@@ -183,6 +189,22 @@ main {
                 }
             }
         }
+    }
+
+    .suggestionHouses {
+        width:@max-width;
+        margin:100px auto;
+        overflow:hidden;
+
+
+        .loadIndicator {
+            margin-top: 60px;
+            margin-bottom:20px;
+            margin-left:auto;
+            margin-right:auto;
+            display:block;
+        }
+
     }
 
     .news {
