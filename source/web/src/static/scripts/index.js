@@ -146,11 +146,11 @@
         })
 
         $intentionTag.find('#add').click(function () {
-
+            $('.intentionTabs_wrapper').trigger('open')
         })
 
         $('.intentionTabs_wrapper').find('#collapseButton').click(function () {
-
+            $('.intentionTabs_wrapper').trigger('close')
         })
         loadPropertyList()
     }
