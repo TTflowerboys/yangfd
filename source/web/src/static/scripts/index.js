@@ -33,7 +33,7 @@
 
 
     function loadPropertyList() {
-        var params = {'per_page': 2}
+        var params = {'per_page': 12}
         var budgetType = getSelectedBudgetType()
         if (budgetType) {
             params.budget = budgetType

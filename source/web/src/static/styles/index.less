@@ -193,7 +193,10 @@ main {
 
     .suggestionHouses {
         width:@max-width;
-        margin:100px auto;
+        margin-top:0;
+        margin-bottom:100px;
+        margin-left:auto;
+        margin-right:auto;
         overflow:hidden;
 
 
@@ -203,6 +206,59 @@ main {
             margin-left:auto;
             margin-right:auto;
             display:block;
+        }
+
+        .houseCard {
+            display:inline-block;
+            width:860px;
+            &_header {
+                margin-top:45px;
+                margin-bottom:20px;
+                img {
+                    height:22px;
+                    vertical-align:middle;
+                }
+                h2 {
+                    display:inline-block;
+                    font-size:16px;
+                    color:#333;
+                    margin-left:12px;
+                }
+
+                a {
+                    text-decoration:none;
+                    color:#e60012;
+                    margin-left:20px;
+                }
+            }
+
+
+        }
+
+        .tagDetail {
+            float:right;
+            width:320px;
+            height:240px;
+            margin-left:20px;
+            display:inline-block;
+            background:#fffafa;
+            border:1px solid #e0c1c4;
+            padding:33px 16px 16px 16px;
+
+            h3 {
+                font-size:16px;
+                color:#e60012;
+                line-height:1;
+                margin-bottom:34px;
+            }
+
+            p {
+                font-size:12px;
+                color:#666;
+                line-height:2;
+                margin:0;
+            }
+
         }
 
     }
