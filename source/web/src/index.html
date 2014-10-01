@@ -40,7 +40,7 @@
 </div>
 
 %if user:
-<form class="tags_wrapper" name="intentionForm">
+<div class="tags_wrapper" name="intentionForm">
     <div id="tags" class="tags">
         <h2 class="title">{{_('为您推荐')}}</h2>
     <div id="budgetTag" class="budget">
@@ -61,11 +61,11 @@
     </div>
     </div>
 
-    <div class="intentionTabs_wrapper" data-collapse>
+    <div class="intentionTabs_wrapper">
         <!-- @@include=partials/intention_tabs.html-->
         <img class="collapseButton" id="collapseButton" src="/static/images/intention/collapse.png"/>
     </div>
-</form>
+</div>
 
 %end
 
