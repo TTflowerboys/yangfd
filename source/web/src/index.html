@@ -40,7 +40,7 @@
 </div>
 
 %if user:
-<div class="tags_wrapper">
+<form class="tags_wrapper" name="intentionForm">
     <div id="tags" class="tags">
         <h2 class="title">{{_('为您推荐')}}</h2>
     <div id="budgetTag" class="budget">
@@ -60,7 +60,11 @@
         %end
     </div>
     </div>
-</div>
+
+    <div class="intentionTabs_wrapper">
+        <!-- @@include=partials/intention_tabs.html-->
+    </div>
+</form>
 
 %end
 

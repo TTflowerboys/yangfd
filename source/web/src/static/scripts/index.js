@@ -16,8 +16,6 @@
         return ''
     }
 
-
-
     function getSelectedIntention() {
         var $selectedChildren = $('#tags #intentionTag').children('.selected')
         if ($selectedChildren.length) {
@@ -66,6 +64,24 @@
 
 
     if (window.user) {
+
+        var $form = $('form[name=intentionForm]')
+
+        $('[data-tabs]').tabs().on('mouseover', 'li', function (e) {
+            var tabName = $(e.currentTarget).find('[data-tab]').data('tab')
+            $(e.currentTarget).addClass('indicator').siblings().removeClass('indicator')
+            $(e.delegateTarget).find('[data-tab-name=' + tabName + ']').show().siblings().hide()
+        })
+
+        $form.find('[name=intention]').on('change', function () {
+            $(this).closest('li').toggleClass('selected', this.checked)
+        })
+
+        $form.find('[name]').on('change', function () {
+            var data = $form.serializeObject()
+            $form.find('[type=submit]').prop('disabled', _.isEmpty(data))
+        })
+
 
         loadPropertyList()
 

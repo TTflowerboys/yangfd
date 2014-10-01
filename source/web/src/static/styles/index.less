@@ -96,11 +96,76 @@ main {
                 font-size:16px;
                 color:#333;
             }
+        }
+    }
 
+
+    .intentionTabs_wrapper{
+        width:100%;
+        background:#333;
+        padding-top:80px;
+        padding-bottom:70px;
+
+        .row { .clearfix(); position: relative;
+               width:@max-width;
+               margin:0 auto;
+               &.budget {
+                   @height: 40px;
+                   height: @height; line-height: @height;
+                   margin: @height 0;
+               }
+               &.intention {
+                   > ul { .clearfix(); text-align: center;
+                          li { float: left; width: 16.66%; height: 110px; position: relative; line-height: 1;
+                               > label { height: 60px; display: block; cursor: pointer; }
+                               img.grey { display: inline-block; }
+                               img.red { display: none; }
+                               color: #999;
+                               &.selected {
+                                   img.grey { display: none; }
+                                   img.red { display: inline-block; }
+                                   color: black;
+                               }
+                               &:after {
+                                   .arrow(@direction: up; @fg:#222; @width: 20px;);
+                                   display: none;
+                                   content: ' ';
+                                   position: absolute; bottom: 0; left: 50%;
+                               }
+                               &.indicator:after {
+                                   display: block;
+                               }
+                             }
+                        }
+               }
+               > label { width: 88px; font-size: 16px; position: absolute; display:none; }
+               > .controls { margin-left: 88px;
+                             input { display: none; }
+                           }
+             }
+
+
+        .details {
+            width:@max-width;
+            margin:0 auto;
+            > div { @height: 270px; line-height: @height; height: @height; text-align: center;
+                    background: #222; position: relative; display: none;
+                    img { vertical-align: middle; }
+                    &.selected { display: block; }
+                    .arrow { position: absolute; width: 100%; bottom: 100%;
+                             span { margin-left: 88px; display: block; position: relative;
+                                    &:before {
+                                        content: ' ';
+                                        position: absolute; bottom: 100%;
+                                        .arrow(@direction: up; @fg:#ddd; @width: 20px;)
+                                    }
+                                  }
+                           }
+                  }
         }
 
-
     }
+
     .announcement {
         overflow:hidden;
         width:@max-width;
