@@ -280,13 +280,13 @@ class f_currant_ticket(f_ticket):
         Ticket
         ==================================================================
     """
-    def output(self, ticket_id_list, show_custom_fields=True):
+    def output(self, ticket_id_list, enable_custom_fields=True):
         ticket_list = f_app.ticket.get(ticket_id_list)
         user_id_set = set()
         enum_id_set = set()
         property_id_set = set()
         for t in ticket_list:
-            if not show_custom_fields:
+            if not enable_custom_fields:
                 t.pop("custom_fields", None)
             user_id_set.add(t.get("creator_user_id"))
             user_id_set |= set(t.get("assignee", []))
