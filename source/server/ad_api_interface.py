@@ -79,5 +79,4 @@ def ad_get_all_by_channel(channel_name, params):
     Get all ads by channel.
     ``fallback`` is the fallback channel to be used. If ``channel_name`` cannot be fetched, it will try to fetch ``fallback`` channel instead.
     """
-    a = f_app.ad.get_all_by_channel(channel_name)
-    return a
+    return f_app.ad.get_all_by_channel(channel_name)
