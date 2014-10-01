@@ -22,8 +22,8 @@ logger = logging.getLogger(__name__)
     intention=(list, None, 'enum:intention'),
     noregister=bool,
     custom_fields=(list, None, dict(
-        key=str,
-        value=str,
+        key=(str, True),
+        value=(str, True),
     )),
     locales=(list, None, str),
     property_id=ObjectId,
@@ -254,12 +254,16 @@ def intention_ticket_search(user, params):
     params.setdefault("type", "intention")
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
+
     user_roles = f_app.user.get_role(user["id"])
+    if set(user_roles) & set(["admin", "jr_admin", "sales"]):
+        pass
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
         params["assignee"] = ObjectId(user["id"])
     elif len(user_roles) == 0:
         # General users
         params["user_id"] = ObjectId(user["id"])
+
     sort = params.pop("sort", ["time", 'desc'])
     per_page = params.pop("per_page", 0)
 
@@ -279,8 +283,8 @@ def intention_ticket_search(user, params):
     country="enum:country",
     description=str,
     custom_fields=(list, None, dict(
-        key=str,
-        value=str,
+        key=(str, True),
+        value=(str, True),
     )),
     locales=(list, None, str),
 ))
