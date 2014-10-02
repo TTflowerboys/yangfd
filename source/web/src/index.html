@@ -63,10 +63,13 @@
 
         </ul>
         <button id="add" class="ghostButton red add"> <img alt="" src="/static/images/intention/add.png"/> {{_('添加')}}</button>
+        <div id="suggestionTip" class="suggestionTip" style="display:none">
+            <p>{{_('获取为您推荐的房产投资机会')}}</p>
+        </div>
     </div>
     </div>
 
-    <div class="intentionTabs_wrapper">
+    <div class="intentionTabs_wrapper" style="height:0;">
         <!-- @@include=partials/intention_tabs.html-->
         <img class="collapseButton" id="collapseButton" src="/static/images/intention/collapse.png"/>
     </div>

@@ -16,6 +16,15 @@
         return ''
     }
 
+    function getLastBudgetTypeId() {
+        var $selectedChild = $('#tags #budgetTag').children()
+        if ($selectedChild.length) {
+            return $selectedChild.last().attr('data-id')
+        }
+        return ''
+    }
+
+
 
     function getSelectedIntentionIds() {
         var $selectedChildren = $('#tags #intentionTag ul').children('.selected')
@@ -107,15 +116,33 @@
         var responseArray = []
 
         var usedIntention = []
+        var needShowSuggetionTip = false
         if (_.isEmpty(intention)) {
             usedIntention = commaStringToArray(getAllIntentionIds())
+            needShowSuggetionTip = true
         }
         else {
             usedIntention = intention
         }
 
+        var usedBudget = ''
+        if (!budgetType) {
+            usedBudget = getLastBudgetTypeId()
+            needShowSuggetionTip = true
+        }
+        else {
+            usedBudget = budgetType
+        }
+
+        if (needShowSuggetionTip) {
+            $('.tags_wrapper #intentionTag #suggestionTip').show()
+        }
+        else {
+            $('.tags_wrapper #intentionTag #suggestionTip').hide()
+        }
+
         _.each(usedIntention, function (oneIntention) {
-            var apiCall = $.post('/api/1/property/search', {'per_page': 1, 'budget':budgetType, 'intention': oneIntention})
+            var apiCall = $.post('/api/1/property/search', {'per_page': 1, 'budget':usedBudget, 'intention': oneIntention})
                               .done(function (val) {
                                   var array = val.content
                                   if (!_.isEmpty(array)) {
@@ -220,6 +247,7 @@
                 initIntentionList = initIntentionList.substring(0, initIntentionList.length-1)
             }
         }
+
 
         loadPropertyList(initBudgetId, initIntentionList)
 
