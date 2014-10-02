@@ -12,8 +12,412 @@
 
 
 <!--@@block = main-->
-    % a = _i18n(property)
-    {{_i18n(a.get('equity_type'))}}
+% property = _i18n(property)
+<div class="propertyDetails" style="margin-top: 100px;">
+    <div class="content">
+        <div class="pictures">
+            <div class="big">
+                % if property['reality_images']:
+                <img src="{{property['reality_images'][0]}}" alt="" width="800" height="480"/>
+                % else :
+                <img src="//placehold.it/800x480" alt="" width="800" height="480"/>
+                % end
+
+            </div>
+            % if property['reality_images']:
+            <div class="thumbnails">
+                <ul>
+                    % for index,image in enumerate(property['reality_images']):
+                    <li
+                        % if index == 0:
+                        class="selected"
+                        % end
+                        >
+                        <img src="{{image}}" alt="" width="200"/>
+                        <span class="text"></span>
+                        <span class="border"></span>
+                    </li>
+                    % end
+                </ul>
+            </div>
+            % end
+        </div>
+        <div class="nav tabbar">
+            <ul>
+                <li class=active>详情</li>
+                <li>价格趋势</li>
+                <li>街区信息</li>
+                <li>投资分析</li>
+            </ul>
+        </div>
+        <div class="meta">
+            <ul class="numbers">
+                <li>
+                    房屋面积
+                    <strong>{{ property['space']['value'] }} {{ property['space']['unit'] }}</strong>
+                </li>
+                % if property.get('bedroom_count','') :
+                <li>
+                    卧室
+                    <strong>{{ property.get('bedroom_count','') }}</strong>
+                </li>
+                % end
+
+                % if property.get('bathroom_count') :
+                <li>
+                    卫生间
+                    <strong>{{ property.get('bathroom_count') }}</strong>
+                </li>
+                % end
+
+                % if property.get('living_room_count',''):
+                <li>
+                    厅堂
+                    <strong>{{ property.get('living_room_count','') }}</strong>
+                </li>
+                % end
+
+                % if property.get('kitchen_count','') :
+                <li>
+                    厨房
+                    <strong>{{ property.get('kitchen_count','') }}</strong>
+                </li>
+                % end
+            </ul>
+            <hr/>
+            <table class="other">
+                <colgroup>
+                    <col class="col-name">
+                    <col>
+                    <col class="col-name">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>
+                            <i>
+                                <img src="/static/images/property_details/icon-house.png" alt=""/>
+                            </i>
+                            <span class="name">产权类型</span>
+                        </td>
+                        <td>
+                            <span class="value">{{property.get('equity_type').get('value') }}</span>
+                        </td>
+                        <td>
+                            <i>
+                                <img src="/static/images/property_details/icon-clock.png" alt=""/>
+                            </i>
+                            <span class="name">开盘时间</span>
+                        </td>
+                        <td>
+                            <span class="value">{{property.get('opening_time','')}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <i>
+                                <img src="/static/images/property_details/icon-pallet.png" alt=""/>
+                            </i>
+                            <span class="name">装修风格</span>
+                        </td>
+                        <td>
+                            <span class="value">{{property.get('decorative_style','')}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <i>
+                                <img src="/static/images/property_details/icon-location.png" alt=""/>
+                            </i>
+                            <span class="name">产权地址</span>
+                        </td>
+                        <td>
+                            <span class="value">{{property.get('address','')}}</span>
+                        </td>
+                        <td>
+                            <i>
+                                <img src="/static/images/property_details/icon-map.png" alt=""/>
+                            </i>
+                            <span class="name">街区</span>
+                        </td>
+                        <td>
+                            <span class="value">{{property.get('street','')}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="1">
+                            <i>
+                                <img src="/static/images/property_details/icon-kaleidoscope.png" alt=""/>
+                            </i>
+                            <span class="name">主要户型</span>
+                        </td>
+                        <td colspan="3">
+                            <span class="value">
+                                % if property.get('main_house_types'):
+                                % for type in enumerate(property.get('main_house_types')):
+                                <span class="toggleTag selected">{{type}}</span>
+                                % end
+                                % end
+                            </span>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        %if property.get('highlight'):
+        <div class="advantages">
+            <ul>
+                % for item in property.get('highlight'):
+                <li>{{item}}</li>
+                %end
+            </ul>
+        </div>
+        %end
+        <div class="description">
+            <p>这里显示什么内容？
+            <p>这里显示什么内容？
+            <p>这里显示什么内容？
+            <p>这里显示什么内容？
+            <p>这里显示什么内容？
+            <p>这里显示什么内容？
+
+        </div>
+        <hr/>
+        % if property.get('main_house_types'):
+        <div class="houseTypes">
+            <h3>楼盘户型</h3>
+            {{property.get('main_house_types')}}
+        </div>
+        <hr/>
+        %end
+        <div class="brief">
+            <h3>楼盘介绍</h3>
+            <div class="table_wrapper">
+                <table class="table">
+                    <colgroup>
+                        <col style="width: 16em;">
+                        <col>
+                    </colgroup>
+                    <tr>
+                        <td>开盘时间</td>
+                        <td>{{property.get('opening_time','')}}</td>
+                    </tr>
+                    <tr>
+                        <td>建筑类型</td>
+                        <td>{{property.get('building_type','')}}</td>
+                    </tr>
+                    <tr>
+                        <td>物业类型</td>
+                        <td>{{property.get('property_management_type','')}}</td>
+                    </tr>
+                    <tr>
+                        <td>建筑面积</td>
+                        <td>
+                            %if property.get('building_area'):
+                            {{property.get('building_area').get('value') }}
+                            %end
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>容积率间</td>
+                        <td>{{property.get('plot_ratioe','')}}</td>
+                    </tr>
+                    <tr>
+                        <td>规划面积</td>
+                        <td>{{property.get('planning_areae','')}}</td>
+                    </tr>
+                    <tr>
+                        <td>绿化率</td>
+                        <td>{{property.get('greening_ratee','')}}</td>
+                    </tr>
+                    <tr>
+                        <td>车位数</td>
+                        <td>{{property.get('parking_space_count','')}}</td>
+                    </tr>
+                    <tr>
+                        <td>规划户数</td>
+                        <td>{{property.get('planning_household_counte','')}}</td>
+                    </tr>
+                    <tr>
+                        <td>开发商</td>
+                        <td>{{property.get('developere','')}}</td>
+                    </tr>
+                    <tr>
+                        <td>物业公司</td>
+                        <td>{{property.get('property_management_company','')}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <hr/>
+        <div class="trend">
+            <h3>价格趋势 (元)</h3>
+            <textarea id="python_historical_price" style="display: none;">
+                {{json_dumps(property.get('historical_price'))}}
+            </textarea>
+            <script>
+                window.historical_price = JSON.parse(document.getElementById('python_historical_price').innerHTML)
+                window.historical_price = window.historical_price || [
+                    {time: '2010', price: 10065},
+                    {time: '2011', price: 10059},
+                    {time: '2012', price: 10090}
+                ]
+            </script>
+            <canvas id="lineChart" width="800" height="400"></canvas>
+        </div>
+        <hr/>
+
+        % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
+        <div class="incoming">
+            <h3>收入分析</h3>
+            <div class="stackedBar">
+                % costTotal = 0
+                % if property.get('estimated_monthly_cost'):
+                % for item in property.get('estimated_monthly_cost'):
+                % costTotal += 1
+                % end
+
+                % for item in property.get('estimated_monthly_cost'):
+                <div class="bar bar1" style="width: 25%">
+                    {{item}}
+                </div>
+                % end
+                % end
+
+                <div class="bar last" style="width: 50%">
+                    {{ property.get('estimated_monthly_rent') }}
+                </div>
+
+                % if property.get('estimated_monthly_cost'):
+                <div class="annotation annotation4" style="width: 50%;">
+                    支出
+                </div>
+                % end
+
+                <div class="annotation annotation6" style="width: 50%;">
+                    预期净收益
+                </div>
+                <div class="annotation annotation5" style="width: 100%;">
+                    预期总收入
+                </div>
+            </div>
+            <table class="text">
+                <colgroup>
+                    <col style="width: 150px;">
+                    <col style="width: 150px;">
+                    <col>
+                    <col style="width: 150px;">
+                </colgroup>
+                <tr>
+                    <td>
+                        <span class="bar bar0"></span>
+                        <p class="name">预计月租金</p>
+                        <p class="value"><strong>5200</strong> 英镑</p>
+                    </td>
+                    <td>
+                        <span class="bar bar1"></span>
+                        <p class="name">地租费</p>
+                        <p class="value"><strong>520</strong> 英镑/年</p>
+                    </td>
+                    <td>
+                        <span class="bar bar2"></span>
+                        <p class="name">预计月租金</p>
+                        <p class="value"><strong>1920</strong> 英镑</p>
+                    </td>
+                    <td>
+                        <span class="bar bar3"></span>
+                        <p class="name">预计净收益</p>
+                        <p class="value"><strong>1900</strong> 英镑</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <hr/>
+        % end
+        <div class="nearby" style="display: none;">
+            <h3>周边配套</h3>
+            <ul>
+                <li>
+                    <h4><i><img src="/static/images/property_details/icon-bus.png" alt=""/></i>交通设施</h4>
+                    <strong>87</strong>
+                    <hr/>
+                    <ul>
+                        <li>3条 地铁线</li>
+                        <li>5个 公交车站</li>
+                        <li>5个 汽车租赁点</li>
+                    </ul>
+                    <button class="flatButton" style="width: 100%">查看详细交通</button>
+                </li>
+                <li>
+                    <h4><i><img src="/static/images/property_details/icon-cap.png" alt=""/></i>周边学校</h4>
+                    <strong>70</strong>
+                    <hr/>
+                    <ul>
+                        <li>3所 小学</li>
+                        <li>3所 高中</li>
+                        <li>3所 大学</li>
+                    </ul>
+                    <button class="flatButton" style="width: 100%">查看详细交通</button>
+                </li>
+                <li>
+                    <h4>
+                        <i><img src="/static/images/property_details/icon-briefcase.png" alt=""/></i>
+                        便民设施
+                    </h4>
+                    <strong>70</strong>
+                    <hr/>
+                    <ul>
+                        <li>3所 公园</li>
+                        <li>3所 健身馆</li>
+                        <li>3所 游泳馆</li>
+                    </ul>
+                    <button class="flatButton" style="width: 100%">查看详细交通</button>
+                </li>
+                <li>
+                    <h4>
+                        <i><img src="/static/images/property_details/icon-shield.png" alt=""/></i>
+                        便民设施
+                    </h4>
+                    <strong>70</strong>
+                    <hr/>
+                    <ul>
+                        <li>3所 公园</li>
+                        <li>3所 健身馆</li>
+                        <li>3所 游泳馆</li>
+                    </ul>
+                    <button class="flatButton" style="width: 100%">查看详细交通</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="aside">
+        <div class="propertyCard">
+            <h1>Baltimore Tower</h1>
+            <span><img src="/static/images/property_details/tag-icon.png" alt=""/>超额收益 股权投资</span>
+            <span><img src="/static/images/property_details/location-icon.png" alt=""/>London, UK</span>
+            <p class="price">
+                <span>价格</span> <span>$</span> <strong>21000</strong> <span>/平米</span>
+            </p>
+            <ul class="numbers">
+                <li>
+                    <span class="percentage"><strong>6~10</strong>%</span>
+                    <span class="text">预期年化<br/>收益率</span>
+                </li>
+                <li>
+                    <span class="percentage"><strong>6~10</strong>%</span>
+                    <span class="text">预期年化现金<br/>收益率</span>
+                </li>
+                <li>
+                    <span class="percentage"><strong>6~10</strong>%</span>
+                    <span class="text">预期年化现金<br/>收益率</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 <!--@@close-->
 
 <!--@@block = scripts-->
@@ -21,36 +425,55 @@
 
 
 <script>
-    $(window).on('load', function () {
-
-        var newopts = {
-            inGraphDataShow: true,
-            inGraphDataRadiusPosition: 2,
-            inGraphDataFontColor: 'white'
-        }
+    function parseData(historicalPrice) {
         var red = '#e20013'
-        var data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        var result = {
+            labels: [],
             datasets: [
                 {
                     fillColor: 'rgba(255,255,255,0)',
                     strokeColor: red,
                     pointColor: red,
                     pointStrokeColor: red,
-                    data: [10065, 10059, 10090, 10081, 10056, 10055, 9940]
+                    data: []
                 }
             ]
         }
+        for (var i = 0, length = historicalPrice.length; i < length; i += 1) {
+            result.labels.push(historicalPrice[i].time)
+            result.datasets[0].data.push(historicalPrice[i].price)
+
+        }
+
+        return result
+
+    }
+
+    function showCharts() {
+        var newopts = {
+            inGraphDataShow: true,
+            inGraphDataRadiusPosition: 2,
+            inGraphDataFontColor: 'white'
+        }
+        var data = parseData(historical_price)
         var ctx = document.getElementById('lineChart').getContext('2d');
         var a = new Chart(ctx).Line(data, {
             bezierCurve: false,
             inGraphDataShow: true,
             yAxisMinimumInterval: 10,
+            yAxisMaximumInterval: 20000,
             inGraphDataFontColor: '#aaaaaa',
-            inGraphDataFontSize: 16,
+            inGraphDataFontSize: 12,
             inGraphDataAlign: 'center',
+            graphSpaceBefore: 12
         })
+    }
 
-    })
+    // IE 8-
+    if ($.browser.ie && $.browser.version <= 8) {
+        $(window).on('load', showCharts)
+    } else {
+        $(showCharts())
+    }
 </script>
 <!--@@close-->
