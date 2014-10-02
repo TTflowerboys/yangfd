@@ -2,6 +2,7 @@
 
 <!--@@block = head-->
 <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
+<link rel="stylesheet" href="/static/styles/propertyCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
 <!--[if lte IE 8]>
 <script src="/static/vendors/excanvas.min.js"></script>
@@ -29,13 +30,13 @@
                 <ul>
                     % for index,image in enumerate(property['reality_images']):
                     <li
-                        % if index == 0:
-                        class="selected"
-                        % end
-                        >
-                        <img src="{{image}}" alt="" width="200"/>
-                        <span class="text"></span>
-                        <span class="border"></span>
+                    % if index == 0:
+                    class="selected"
+                    % end
+                    >
+                    <img src="{{image}}" alt="" width="200"/>
+                    <span class="text"></span>
+                    <span class="border"></span>
                     </li>
                     % end
                 </ul>
@@ -45,9 +46,14 @@
         <div class="nav tabbar">
             <ul>
                 <li class=active>详情</li>
+                <li>户型</li>
+                <li>楼盘介绍</li>
+                % if property.get('historical_price') :
                 <li>价格趋势</li>
-                <li>街区信息</li>
-                <li>投资分析</li>
+                % end
+                % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
+                <li>收入分析</li>
+                % end
             </ul>
         </div>
         <div class="meta">
@@ -253,6 +259,7 @@
             </div>
         </div>
         <hr/>
+        % if property.get('historical_price') :
         <div class="trend">
             <h3>价格趋势 (元)</h3>
             <textarea id="python_historical_price" style="display: none;">
@@ -269,6 +276,7 @@
             <canvas id="lineChart" width="800" height="400"></canvas>
         </div>
         <hr/>
+        % end
 
         % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
         <div class="incoming">
@@ -395,26 +403,51 @@
     </div>
     <div class="aside">
         <div class="propertyCard">
-            <h1>Baltimore Tower</h1>
-            <span><img src="/static/images/property_details/tag-icon.png" alt=""/>超额收益 股权投资</span>
-            <span><img src="/static/images/property_details/location-icon.png" alt=""/>London, UK</span>
+            <h1>{{property.get('name','')}}</h1>
+            <span class="tag"><img src="/static/images/property_details/tag-icon.png" alt=""/>超额收益 股权投资</span>
+            <span class="tag"><img src="/static/images/property_details/location-icon.png" alt=""/>London, UK</span>
             <p class="price">
-                <span>价格</span> <span>$</span> <strong>21000</strong> <span>/平米</span>
+                <span class="mute">价格</span> <span>$</span> <strong>21000</strong> <span>/m<sup>2</sup></span>
             </p>
             <ul class="numbers">
                 <li>
-                    <span class="percentage"><strong>6~10</strong>%</span>
+                    <span class="percentage emphasized"><strong>
+                        {{property.get('annual_return_estimated')}}
+                    </strong></span>
                     <span class="text">预期年化<br/>收益率</span>
                 </li>
                 <li>
-                    <span class="percentage"><strong>6~10</strong>%</span>
+                    <span class="percentage"><strong>?????</strong>%</span>
                     <span class="text">预期年化现金<br/>收益率</span>
                 </li>
                 <li>
-                    <span class="percentage"><strong>6~10</strong>%</span>
+                    <span class="percentage"><strong>????</strong>%</span>
                     <span class="text">预期年化现金<br/>收益率</span>
                 </li>
             </ul>
+            <hr/>
+            <table class="actions">
+                <tr>
+                    <td style="text-align:left;">
+                        <button class="flatButton">
+                            <img src="/static/images/property_details/icon-star.png" alt=""/>
+                            收藏
+                        </button>
+                    </td>
+                    <td style="text-align:center;">
+                        <button class="flatButton green">
+                            <img src="/static/images/property_details/icon-wechat.png" alt=""/>
+                            分享到微信
+                        </button>
+                    </td>
+                    <td style="text-align:right;">
+                        <button class="flatButton orange">
+                            <img src="/static/images/property_details/icon-weibo.png" alt=""/>
+                            分享到微博
+                        </button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
