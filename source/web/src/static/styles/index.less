@@ -119,11 +119,14 @@ main {
     .intentionTabs_wrapper{
         width:100%;
         background:#333;
-        padding-top:80px;
-        padding-bottom:25px;
-        position:relative;
+        overflow:hidden;
+
+        [data-tabs] {
+            margin-top:80px;
+        }
 
         .row { .clearfix(); position: relative;
+
                width:@max-width;
                margin:0 auto;
                &.budget {
@@ -141,7 +144,7 @@ main {
                                &.selected {
                                    img.grey { display: none; }
                                    img.red { display: inline-block; }
-                                   color: black;
+                                   color: #e60012;
                                }
                                &:after {
                                    .arrow(@direction: up; @fg:#222; @width: 20px;);
@@ -183,7 +186,7 @@ main {
 
         .collapseButton {
             display:block;
-            margin: 28px auto 0 auto;
+            margin: 28px auto 28px auto;
             width:60px;
         }
     }
