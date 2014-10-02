@@ -41,7 +41,8 @@ angular.module('app')
                         params: {
                             country: country,
                             phone: phone
-                        }
+                        },
+                        errorMessage: true
                     })
                 }
 
@@ -50,7 +51,8 @@ angular.module('app')
                         params: {
                             country: country,
                             phone: phone
-                        }
+                        },
+                        errorMessage: true
                     })
                 }
             }
