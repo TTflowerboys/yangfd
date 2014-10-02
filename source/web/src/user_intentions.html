@@ -73,7 +73,9 @@
     </div>
            %else:
            <div class="intentionCard">
+               %if ticket.get('budget'):
                    <h2 class="budget"> <i>{{_('预算：')}}</i>{{ticket.get('budget').get('value')}}</h2>
+               %end
                    <p class="detail">{{ticket.get('description')}}</p>
 
                    <label class="date" > <i>{{_('提交日期：')}}</i>{{json_dumps(ticket['time'])}}</label>

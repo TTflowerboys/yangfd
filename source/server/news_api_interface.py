@@ -44,6 +44,7 @@ def news_list(params):
     street=('i18n', None, str),
     images=(list, None, str),
     link=str,
+    slug=str,
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_add(user, params):
@@ -71,6 +72,7 @@ def news_get(news_id):
     images=(list, None, str),
     link=(str, None),
     zipcode_index=(str, None),
+    slug=str,
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def news_edit(user, news_id, params):

@@ -19,7 +19,7 @@ import ticket_api_interface
 import analytics_api_interface
 import upload_api_interface
 import user_api_interface
-import ad_api_interface
+import content_api_interface
 import message_api_interface
 
 

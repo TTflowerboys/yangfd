@@ -1,7 +1,6 @@
 /**
  * Created by Michael on 14/9/17.
  */
-/* Created by frank on 14-8-15. */
 
 (function () {
 
@@ -63,6 +62,7 @@
                 if (itemFromParent) {
                     itemFromParent = data.val
                 }
+                $scope.$parent.refreshList()
                 onGetItem(data.val)
             })['finally'](function () {
                 $scope.loading = false

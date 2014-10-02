@@ -1,0 +1,44 @@
+<div ui-view>
+    <span class="btn-group">
+        <button class="btn" ui-sref=".create">
+            <span class="fa fa-plus-circle"></span>添加消息
+        </button>
+        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"
+                ng-model="userLanguage.value"></select>
+    </span>
+
+    <div ng-init="getMessages()"></div>
+    <tabset justified="true">
+        <tab ng-repeat="type in messageTypes">
+            <tab-heading>{%type.name%}</tab-heading>
+            <table class="table table-bordered table-striped table-condensed"
+                   style="margin-bottom:30px">
+                <colgroup>
+                    <col class="title">
+                    <col class="text">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>标题</th>
+                    <th>内容</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in messageList[$index]">
+                    <td>{%item.title[userLanguage.value]%}</td>
+                    <td>{%item.text[userLanguage.value]%}</td>
+                    <td style="text-align:center;">
+                        <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
+                            <i class="fa fa-edit "></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div ng-show="enums[$index].length === 0" class="well" style="text-align:center;">No results</div>
+
+        </tab>
+
+    </tabset>
+</div>

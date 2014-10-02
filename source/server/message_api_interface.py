@@ -67,7 +67,7 @@ def message_mark(message_id, status, user):
     type=(str, "system"),
     target=(str, "all"),
 ))
-@f_app.user.login.check(force=True, role=["admin", "jr_admin"])
+@f_app.user.login.check(force=True, role=["admin", "jr_admin", "operation", "jr_operation"])
 def admin_message_add(user, params):
     """
     Send a message to specific user(s).

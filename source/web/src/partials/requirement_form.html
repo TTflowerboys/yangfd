@@ -1,4 +1,4 @@
-<form class="requirement_form" name="requirement">
+<div class="requirement_form" name="requirement">
     <div class="form_row">
         <input class="name ghostInput" name="nickname" type="text" placeholder="{{_('姓名(必填)')}}" data-validator="required, trim"/>
     </div>
@@ -13,15 +13,13 @@
     <div class="form_row">
         <p class="budgetHint">{{_('您的预算')}}</p>
     </div>
-    <div class="form_row">
-         <select class="budget ghostSelect" name="budget" style="color:#4d4d4d;">
-                         %for index, budget in enumerate(_i18n(budget_list)):
-                         %if budget.get('currency') == _.currency:
-                         <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
-                         %end
-                         %end
-        </select>
-    </div>
+    <select class="budget ghostSelect" name="budget" style="color:#4d4d4d;">
+        %for index, budget in enumerate(_i18n(budget_list)):
+        %if budget.get('currency') == _.currency:
+        <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
+        %end
+        %end
+    </select>
     <div class="form_row">
         <textarea class="detail ghostTextArea" name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}"></textarea>
     </div>
@@ -30,4 +28,5 @@
         <button type="submit" class="button red">{{_('提交')}}</button>
         <button name="cancel" type="button" class="button " style="display:none" >{{_('取消')}}</button>
     </div>
-</form>
+
+</div>

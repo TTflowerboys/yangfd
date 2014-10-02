@@ -80,6 +80,7 @@
                 if (itemFromParent) {
                     itemFromParent = data.val
                 }
+                $scope.$parent.refreshList()
                 onGetItem(data.val)
             })['finally'](function () {
                 $scope.loading = false

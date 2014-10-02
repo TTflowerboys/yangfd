@@ -52,17 +52,6 @@ $(function () {
             if (requiredValue !== userValue) {
 
                 $.post('/api/1/user/edit', {'locales':requiredValue})
-                    .done(function (data) {
-                        console.log('Update user locales Success')
-
-                    })
-                    .fail(function (ret) {
-                        console.log('Update user locales Failed')
-
-                    })
-                    .always(function () {
-
-                    })
             }
         }
     }

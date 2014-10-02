@@ -22,8 +22,8 @@ logger = logging.getLogger(__name__)
     intention=(list, None, 'enum:intention'),
     noregister=bool,
     custom_fields=(list, None, dict(
-        key=str,
-        value=str,
+        key=(str, True),
+        value=(str, True),
     )),
     locales=(list, None, str),
     property_id=ObjectId,
@@ -144,14 +144,18 @@ def intention_ticket_get(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
-    if len(user_roles) == 0:
+    enable_custom_fields = True
+    if set(user_roles) & set(["admin", "jr_admin", "sales"]):
+        pass
+    elif len(user_roles) == 0:
         if ticket.get("creator_user_id") != user["id"] and ticket.get("user_id") != user["id"]:
             abort(40399, logger.warning("Permission denied.", exc_info=False))
-    elif "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
+        enable_custom_fields = False
+    elif "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
-    return f_app.ticket.output([ticket_id])[0]
+    return f_app.ticket.output([ticket_id], enable_custom_fields=enable_custom_fields)[0]
 
 
 @f_api('/intention_ticket/<ticket_id>/remove')
@@ -176,7 +180,7 @@ def intention_ticket_get_history(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
-    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
+    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
@@ -219,7 +223,7 @@ def intention_ticket_edit(user, ticket_id, params):
     history_params = {"updated_time": datetime.utcnow()}
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
-    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
+    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
@@ -254,12 +258,18 @@ def intention_ticket_search(user, params):
     params.setdefault("type", "intention")
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
+
     user_roles = f_app.user.get_role(user["id"])
-    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & user_roles) == 0:
+    enable_custom_fields = True
+    if set(user_roles) & set(["admin", "jr_admin", "sales"]):
+        pass
+    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
         params["assignee"] = ObjectId(user["id"])
     elif len(user_roles) == 0:
         # General users
         params["user_id"] = ObjectId(user["id"])
+        enable_custom_fields = False
+
     sort = params.pop("sort", ["time", 'desc'])
     per_page = params.pop("per_page", 0)
 
@@ -268,8 +278,7 @@ def intention_ticket_search(user, params):
             params["status"] = {"$in": params["status"]}
         else:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
-
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)
 
 
 @f_api('/support_ticket/add', params=dict(
@@ -279,8 +288,8 @@ def intention_ticket_search(user, params):
     country="enum:country",
     description=str,
     custom_fields=(list, None, dict(
-        key=str,
-        value=str,
+        key=(str, True),
+        value=(str, True),
     )),
     locales=(list, None, str),
 ))
@@ -326,14 +335,16 @@ def support_ticket_get(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
+    enable_custom_fields = True
     if len(user_roles) == 0:
         if ticket.get("creator_user_id") != user["id"]:
             abort(40399, logger.warning("Permission denied.", exc_info=False))
-    elif "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & user_roles) == 0:
+        enable_custom_fields = False
+    elif "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
-    return ticket
+    return f_app.ticket.output([ticket_id], enable_custom_fields=enable_custom_fields)[0]
 
 
 @f_api('/support_ticket/<ticket_id>/remove')
@@ -358,7 +369,7 @@ def support_ticket_get_history(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
-    if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & user_roles) == 0:
+    if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
@@ -395,7 +406,7 @@ def support_ticket_edit(user, ticket_id, params):
     history_params = {"updated_time": datetime.utcnow()}
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
-    if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & user_roles) == 0:
+    if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
@@ -428,12 +439,17 @@ def support_ticket_search(user, params):
     params.setdefault("type", "support")
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
+
+    enable_custom_fields = True
     user_roles = f_app.user.get_role(user["id"])
-    if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & user_roles) == 0:
+    if set(user_roles) & set(["admin", "jr_admin", "support"]):
+        pass
+    if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & set(user_roles)) == 0:
         params["assignee"] = ObjectId(user["id"])
     elif len(user_roles) == 0:
         # General users
         params["user_id"] = ObjectId(user["id"])
+        enable_custom_fields = False
     sort = params.pop("sort", ["time", 'desc'])
     per_page = params.pop("per_page", 0)
 
@@ -443,4 +459,4 @@ def support_ticket_search(user, params):
         else:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)

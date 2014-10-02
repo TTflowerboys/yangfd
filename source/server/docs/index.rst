@@ -27,7 +27,7 @@ API Reference
 .. toctree::
    :maxdepth: 2
 
-   ad_api
+   content_api
    analytics_api
    enum_api
    message_api

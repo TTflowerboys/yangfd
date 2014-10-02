@@ -411,8 +411,26 @@ angular.module('app')
                     }
                 }
             })
-
-
+            .state('dashboard.message', {
+                url: '/message',
+                templateUrl: '/static/admin/templates/dashboard.message.tpl.html',
+                controller: 'ctrlMessageList',
+                resolve: {
+                    api: function (apiFactory) {
+                        return apiFactory('message')
+                    }
+                }
+            })
+            .state('dashboard.message.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.message.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: {
+                    api: function (apiFactory) {
+                        return apiFactory('message')
+                    }
+                }
+            })
         /**
          * others
          */

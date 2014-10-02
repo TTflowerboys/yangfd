@@ -2,11 +2,12 @@
 @import "_imports";
 
 @color: #999999;
+@red:#e60012;
 .toggleTag {
     display: inline-block;
     vertical-align: middle;
     color: @color;
-    border: 2px solid;
+    border: 2px solid ;
     background: transparent;
     padding: 1px 12px;
     line-height: 24px;
@@ -19,4 +20,13 @@
         color: white;
     }
     margin: 0 4px 4px 0;
+
+    &.red {
+        background: @red;
+        border: 0px;
+        color:white;
+        &:hover, &.pseudo-class-hover {
+            background: lighten(@red, 5%);
+        }
+    }
 }
