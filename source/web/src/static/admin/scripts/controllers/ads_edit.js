@@ -5,7 +5,6 @@
 (function () {
 
     function ctrlAdsEdit($scope,api,$stateParams,misc, growl) {
-        console.log('ctrlAdsEdit')
         $scope.api = api
 
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)

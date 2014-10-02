@@ -12,8 +12,6 @@ angular.module('app')
             },
             link: function (scope) {
                 scope.checkPhone = function (country,phone) {
-                    console.log(country)
-                    console.log(phone)
                     checkPhone(country, phone).success(function (data) {
                         scope.phone = data.val
                         getUserByPhone(country, phone)

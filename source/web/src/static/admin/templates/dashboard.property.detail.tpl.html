@@ -495,8 +495,9 @@
             <label class="control-label">审核附件</label>
 
             <div class="controls">
-                <span class="input-xlarge uneditable-input"
-                      ng-repeat="obj in item.attachment[userLanguage.value]">{%img%}</span>
+                <div ng-repeat="obj in item.attachment">
+                <a href="{%obj.url%}">{%obj.description%}</a>
+                </div>
             </div>
         </div>
     </div>
