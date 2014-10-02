@@ -23,14 +23,15 @@ logger = logging.getLogger(__name__)
     equity_type='enum:equity_type',
     property_price_type="enum:property_price_type",
     annual_return_estimated=str,  # How?
-    budget="enum:budget"
+    budget="enum:budget",
+    random=bool,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
     """
     Only ``admin``, ``jr_admin``, ``operation``, ``jr_operation``, ``developer`` and ``agency`` could update the ``status`` param.
     """
-
+    random = params.pop("random", False)
     if params["status"] != ["selling", "sold out"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status")
 
@@ -59,6 +60,9 @@ def property_search(user, params):
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
     property_list = f_app.property.search(params, per_page=per_page, count=True)
+    if random and property_list["content"]:
+        import random
+        property_list["content"] = [random.choice(property_list["content"])]
     property_list['content'] = f_app.property.output(property_list['content'])
     return property_list
 
