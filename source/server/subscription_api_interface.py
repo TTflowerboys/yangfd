@@ -44,19 +44,37 @@ def subscription_search(user, params):
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin"])
 def subscription_notification_ready(user, params):
-    email_list = []
+    email_locales = []
     if params["target"] == "all":
         subscription_list = f_app.feedback.get(f_app.feedback.search({}))
-        for subscription in subscription_list:
-            email_list.append(subscription["email"])
     else:
         if "@" not in params["target"]:
-            abort(40099, logger.warning("No '@' in email address supplied:", params["target"], exc_info=False))
-        email_list = [params["target"]]
-    if email_list:
+            abort(40099, logger.warning(
+                "No '@' in email address supplied:", params["target"], exc_info=False))
+        subscription_list = f_app.feedback.get(
+            f_app.feedback.search({"email": params["target"]}))
+
+    for subscription in subscription_list:
+        locales = subscription.get(
+            "locales", [f_app.common.i18n_default_locale])
+        if "zh_Hans_CN" in locales or "zh_Hant_HK" in locales:
+            email_locale = "cn"
+        else:
+            email_locale = "en"
+        if ("cn", subscription["email"]) not in email_locales and ("en", subscription["email"]) not in email_locales:
+            email_locales.append((email_locale, subscription["email"]))
+
+    for email_locale in email_locales:
+        if email_locale[0] == "cn":
+            template_invoke_name = "we_are_ready_cn"
+        else:
+            template_invoke_name = "we_are_ready_en"
+        substitution_vars = {"to": [email_locale[1]], "sub": {}}
         f_app.email.schedule(
-            target=",".join(set(email_list)),
+            target=email_locale[1],
             subject=template("static/emails/we_are_ready_title"),
             text=template("static/emails/we_are_ready"),
             display="html",
+            substitution_vars=substitution_vars,
+            template_invoke_name=template_invoke_name
         )
