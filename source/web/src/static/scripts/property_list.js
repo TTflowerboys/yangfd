@@ -187,9 +187,33 @@
         }
     }
 
-    $(function () {
-        loadPropertyList()
+    function selectBudget(id) {
+        var $item = $('#tags #budgetTag').find('[data-id=' + id + ']')
+        var $parent = $item.parent()
+        $parent.find('.toggleTag').removeClass('selected')
+        $item.addClass('selected')
+    }
 
+    function selectIntention(id) {
+        $('#tags #intentionTag').find('[data-id=' + id + ']').toggleClass('selected', true)
+    }
+
+    function updateUserTags() {
+        var budgetId = getSelectedBudgetType()
+        var intentionIds = getSelectedIntention()
+
+        $.post('/api/1/user/edit', {'budget':budgetId, 'intention':intentionIds})
+            .done(function (data) {
+                window.user= data.val
+            })
+            .fail(function (ret) {
+            })
+            .always(function () {
+
+            })
+    }
+
+    $(function () {
         window.countryData = getData('countryData')
         window.cityData = getData('cityData')
         window.propertyTypeData = getData('propertyTypeData')
@@ -256,6 +280,7 @@
 
         resetData()
         loadPropertyList()
+        updateUserTags()
     })
 
     $('#tags #intentionTag').on('click', '.toggleTag', function (event) {
@@ -270,5 +295,25 @@
 
         resetData()
         loadPropertyList()
+        updateUserTags()
     })
+
+    //load first property list base on user's choose
+    if (window.user) {
+        if (window.user.budget) {
+            selectBudget(window.user.budget.id)
+        }
+        if (window.user.intention) {
+            _.each(window.user.intention, function (item) {
+                selectIntention(item.id)
+            })
+        }
+    }
+
+    var intentionFromURL = window.team.getQuery('intention', location.href)
+    if (intentionFromURL) {
+        selectIntention(intentionFromURL)
+    }
+
+    loadPropertyList()
 })()
