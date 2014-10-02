@@ -9,7 +9,7 @@ angular.module('app')
             replace: true,
             scope: {
                 files: '=ngModel',
-                text:'@text'
+                text: '@text'
             },
             link: function (scope, elm, attrs) {
 
@@ -25,11 +25,8 @@ angular.module('app')
                                 if (!scope.files) {
                                     scope.files = []
                                 }
-                                if(!scope.localFiles){
-                                    scope.localFiles = []
-                                }
-                                scope.files.push(data.val.url)
-                                scope.localFiles.push(file)
+                                var item = {url: data.val.url, description: file.name}
+                                scope.files.push(item)
                             })
                     }
                 }
