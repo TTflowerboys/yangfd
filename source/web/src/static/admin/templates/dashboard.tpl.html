@@ -103,7 +103,7 @@
                     <!--<li has-permission="admin,jr_admin,sales,jr_sales,developer,agency" ng-class="{active:$state.includes('dashboard.partners')}">-->
                     <!--<a href ui-sref="dashboard.partners" ui-sref-active="active"><i class="fa fa-picture-o"></i><span class="hidden-sm text">楼盘销售状态</span></a>-->
                     <!--</li>-->
-                    <li has-permission="admin,jr_admin,operation"
+                    <li has-permission="admin,jr_admin,operation,jr_operation"
                         ng-class="{active:$state.includes('dashboard.operation')}">
                         <a class="dropmenu" href ui-sref="dashboard.operation.news">
                             <i class="fa fa-puzzle-piece"></i><span class="hidden-sm text">品牌运营管理</span>
@@ -130,9 +130,8 @@
                             <!--<span class="hidden-sm text">用户合同管理</span>-->
                             <!--</a>-->
                             <!--</li>-->
-                            <li has-permission="admin,jr_admin,operation,jr_operation">
-                                <a class="submenu" href ui-sref="dashboard.operation.contents"
-                                   ng-class="{active:$state.includes('dashboard.operation.contents')}">
+                            <li has-permission="admin,jr_admin,operation,jr_operation" ng-class="{active:$state.includes('dashboard.operation.contents')}">
+                                <a class="submenu" href ui-sref="dashboard.operation.contents">
                                     <i class="fa fa-angle-right"></i>
                                     <span class="hidden-sm text">网站内容管理</span>
                                 </a>
@@ -162,7 +161,7 @@
                         <a href ui-sref="dashboard.support" ui-sref-active="active"><i class="fa fa-picture-o"></i><span
                                 class="hidden-sm text">客服单管理</span></a>
                     </li>
-                    <li has-permission="admin,jr_admin,sales,jr_sales"
+                    <li has-permission="admin,jr_admin,sales,jr_sales,support,jr_support"
                         ng-class="{active:$state.includes('dashboard.users')}">
                         <a href ui-sref="dashboard.users" ui-sref-active="active"><i class="fa fa-picture-o"></i><span
                                 class="hidden-sm text">用户管理</span></a>
