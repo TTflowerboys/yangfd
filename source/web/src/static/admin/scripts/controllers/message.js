@@ -15,7 +15,7 @@
             }
         }
         function getMessageByIndex(index) {
-            api.getAll({params: {type: $rootScope.messageTypes[index].value, _i18n: 'disabled'}})
+            api.getAll({params: {type: $rootScope.messageTypes[index].value,status:'new', _i18n: 'disabled'}})
                 .success(function (data) {
                     $scope.messageList[index] = data.val || {}
                 })
