@@ -132,7 +132,9 @@
                        <li><img src="/static/images/icon/house-card-tag.png" alt="" />
                            <span>
                        %for index, oneIntention in enumerate(property.get('intention')):
+                       %if 'value' in oneIntention:
                        {{oneIntention.get('value')}}
+                       %end
                        %end
                            </span>
                        </li>
