@@ -8,6 +8,7 @@
 <!--endbuild-->
 <!--@@close-->
 <!--@@block=main -->
+
 <div class="gallery">
     <div class="rslides_wrapper">
         <ul class="rslides">
@@ -40,6 +41,10 @@
 </div>
 
 %if user:
+
+<textarea id="dataIntentionList" style="display:none">
+    {{json_dumps(_i18n(intention_list))}}
+</textarea>
 <div class="tags_wrapper" name="intentionForm">
     <div id="tags" class="tags">
         <h2 class="title">{{_('为您推荐')}}</h2>
