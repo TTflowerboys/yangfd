@@ -29,17 +29,15 @@
 
 %if user:
 <div class="announcement_wrapper" style="background:#eee">
-<div id="announcement" class="announcement">
     <ul>
-        %    for anno in announcement_list:
+        %for index, anno in enumerate(announcement_list):
         <li class="item">
             <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
             <a class="title" href="{{anno.get('link', '')}}">{{_i18n(anno.get('title', ''))}}</a>
             <img class="close" alt="" src="/static/images/icon/announcement_close.png"/>
         </li>
-        %    end
+        %end
     </ul>
-</div>
 </div>
 
 %else:
