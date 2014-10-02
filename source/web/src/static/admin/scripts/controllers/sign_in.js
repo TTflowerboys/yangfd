@@ -23,6 +23,10 @@
         $scope.onChangeText = function () {
             $scope.submitDisabled = false;
         }
+
+        $scope.$watch('user.country',function(){
+            $scope.onChangeText();
+        })
     }
 
     angular.module('app').controller('ctrlSignIn', ctrlSignIn)
