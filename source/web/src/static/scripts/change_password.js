@@ -18,7 +18,6 @@ $('form[name=changePassword]').submit(function (e) {
         resultArea.text(window.i18n('修改成功'))
         location.href = '/user_settings'
     }).fail(function (data) {
-        console.log(data)
         resultArea.text(window.i18n('修改失败'))
         resultArea.show()
     })
