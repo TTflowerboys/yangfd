@@ -1,4 +1,4 @@
 Ad API Interface
 =================================
 
-.. automodule:: ad_api_interface
+.. automodule:: content_api_interface
