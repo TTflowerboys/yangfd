@@ -29,6 +29,7 @@
 
 %if user:
 <div class="announcement_wrapper" style="background:#eee">
+<div id="announcement" class="announcement">
     <ul>
         %for index, anno in enumerate(announcement_list):
         <li class="item">
@@ -39,7 +40,7 @@
         %end
     </ul>
 </div>
-
+</div>
 %else:
 
 <div class="announcement_wrapper">
