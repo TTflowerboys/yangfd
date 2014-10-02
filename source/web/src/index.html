@@ -27,7 +27,8 @@
 <div class="howItWorks"></div>
 %end
 
-
+%if user:
+<div class="announcement_wrapper" style="background:#eee">
 <div id="announcement" class="announcement">
     <ul>
         %    for anno in announcement_list:
@@ -39,6 +40,25 @@
         %    end
     </ul>
 </div>
+</div>
+
+%else:
+
+<div class="announcement_wrapper">
+<div id="announcement" class="announcement" style="border-bottom: 1px solid #ccc;">
+    <ul>
+        %    for anno in announcement_list:
+        <li class="item">
+            <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
+            <a class="title" href="{{anno.get('link', '')}}">{{_i18n(anno.get('title', ''))}}</a>
+            <img class="close" alt="" src="/static/images/icon/announcement_close.png"/>
+        </li>
+        %    end
+    </ul>
+</div>
+</div>
+
+%end
 
 %if user:
 
