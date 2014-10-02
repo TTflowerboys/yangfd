@@ -4,7 +4,7 @@
 
 (function () {
 
-    function ctrlAdsEdit($scope,api,$stateParams,misc, growl) {
+    function ctrlContentEdit($scope,api,$stateParams,misc, growl) {
         $scope.api = api
 
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
@@ -65,7 +65,7 @@
         }
     }
 
-    angular.module('app').controller('ctrlAdsEdit', ctrlAdsEdit)
+    angular.module('app').controller('ctrlContentEdit', ctrlContentEdit)
 
 })()
 

@@ -4,7 +4,7 @@
     function channelApi($http) {
         return {
             getAll: function (config) {
-                return $http.get('/api/1/ad/channels', config)
+                return $http.get('/api/1/content/channels', config)
             }
         }
     }

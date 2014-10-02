@@ -7,19 +7,19 @@
 
             return {
                 getAll: function (config) {
-                    return $http.get('/api/1/ad/channel/' + name + '/all?_i18n=disabled', config)
+                    return $http.get('/api/1/content/channel/' + name + '/all?_i18n=disabled', config)
                 },
                 getOne: function (id, config) {
-                    return $http.get('/api/1/ad/' + id +'?_i18n=disabled', config)
+                    return $http.get('/api/1/content/' + id +'?_i18n=disabled', config)
                 },
                 update: function (data, config) {
-                    return $http.post('/api/1/ad/' + data.id + '/edit', data, config)
+                    return $http.post('/api/1/content/' + data.id + '/edit', data, config)
                 },
                 remove: function (id, config) {
-                    return $http.post('/api/1/ad/' + id + '/remove', null, config)
+                    return $http.post('/api/1/content/' + id + '/remove', null, config)
                 },
                 create: function (data, config) {
-                    return $http.post('/api/1/ad/add', data, config)
+                    return $http.post('/api/1/content/add', data, config)
                 }
             }
 
