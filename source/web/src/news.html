@@ -7,44 +7,34 @@
 <!--@@close-->
 
 <!--@@block=main -->
-<h1 class="title">不容错过的投资机遇! “布里斯班—黄金海岸增长走廊”
-珍贵开发用地</h1>
-<label class="source" for=""> <i class="hint">{{_('来源：')}}</i> <a href="">新浪房产</a> </label>
-<label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i> 2014年9月17日</label>
+
+%if news:
+% news = _i18n(news)
+
+%if 'title' in news:
+<h1 class="title">{{news.get('title')}}</h1>
+%end
+%if 'link' in news :
+<label class="source" for=""> <i class="hint">{{_('来源：')}}</i> <a href={{news.get('link')}}>{{_('原文地址')}}</a></label>
+%end
+
+%if 'time' in news:
+<label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>{{news.get('time')}}</label>
+%end
 
 <div class="content">
-    <img alt="" src="/static/images/background/login-background.jpg"/>
+    %if ('images' in news) and news.get('images'):
+    <img alt="" src="{{news.get('images')[0]}}" />
+    %end
+    %if 'content' in news:
     <p class="fullText">
-        海外购房者来说，在英国交易房产时涉及的法律程序可能是最为繁琐，也需要专业知识的一个过程。其中涉及到聘请专业的
-房产交易律师，如何顺利推荐交易过程，交易前期需要准备的文件材料以及在英国不同地区交易房产的手续差异等多个问题。今天
-就来一一解答。
-
-
-英国房产交易中涉及的法律问题
-
-第一、英国房产交易律师的职责主要有：
-
-    向卖方提问咨询，例如与邻里是否存在矛盾以及房产包括哪些固定财产和家具
-    检查房产的全部担保证书的副本，规划许可书的细节以及结构监管证书。
-    确认卖方是否真正拥有该房屋的所有权并为您出具一份报告。
-    检查地方权威的索引以及房产所在区域的规划方案
-    支付房产印花税
-    安排将不动产登记在你名下
-
-
-第二、选择房产交易律师时需注意：
-
-    在开始找房前，至少比较三位房产交易律师的报价。最好向朋友、家人以及地产经纪人征求意见。
-    如果想提前回答一些具体的问题，请告之你的房产交易律师。
-    让房产交易律师知道你希望何时交换合同并完成。告诉律师你需要了解购买进程。
-    与律师协商，如果购房交易没有完成，将不支付任何律师费用。
-    仔细比较各个律师提供的报价，确认报价是否合理。决定你是否需要地产律师提供一份环境调查，以了解该区域的基本信息，
-如洪水风险，化学物质水平等。
-
-
-第三、如果买家希望尽快完成过户中的法律手续，以下措施可以推进购房进程：
+      {{news.get('content')}}
     </p>
+    %end
 </div>
+
+%end
+
 <!--@@close-->
 
 <!--@@block=scripts -->

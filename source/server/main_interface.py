@@ -165,7 +165,7 @@ def news_list():
 @f_get('/news/<news_id:re:[0-9a-fA-F]{24}>')
 @check_landing
 def news(news_id):
-    return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news = f_app.blog.post.output([news_id])[0])
 
 
 @f_get('/notice_list')
