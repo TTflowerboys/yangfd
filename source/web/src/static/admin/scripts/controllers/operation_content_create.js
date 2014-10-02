@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlAdsCreate($scope) {
+    function ctrlContentCreate($scope) {
 
         $scope.addTextItem = function(){
             //Init Text Field if add item for the first time
@@ -44,7 +44,7 @@
         }
     }
 
-    angular.module('app').controller('ctrlAdsCreate', ctrlAdsCreate)
+    angular.module('app').controller('ctrlContentCreate', ctrlContentCreate)
 
 })()
 

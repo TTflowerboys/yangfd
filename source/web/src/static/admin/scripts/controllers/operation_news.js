@@ -4,7 +4,7 @@
 (function () {
 
     function ctrlOperationNews($scope) {
-        newsApi = $scope.$parent.api
+        var newsApi = $scope.$parent.api
         //Work around angular can not watch primitive type
         $scope.selected = {}
         $scope.selected.category = {}
