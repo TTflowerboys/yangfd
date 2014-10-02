@@ -19,7 +19,6 @@
   "globals":       {
       "angular":   true,
       "Base64":    true,
-      "console":   true,
       "$":         true,
       "jQuery":    true,
       "_":         true,
