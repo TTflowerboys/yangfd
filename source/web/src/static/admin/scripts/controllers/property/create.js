@@ -25,6 +25,11 @@
                 $scope.loading = false
             })
         }
+
+        $scope.submitForReview = function($event, form){
+            $scope.item.status = 'not reviewed'
+            $scope.submit($event, form)
+        }
     }
 
     angular.module('app').controller('ctrlPropertyCreate', ctrlPropertyCreate)
