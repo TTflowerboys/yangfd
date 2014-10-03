@@ -1,4 +1,6 @@
-<select class="form-control" ng-model="enumId"
+<span>
+    <select class="form-control" ng-model="enumId"
         ng-options="p.id as p.value[userLanguage.value] for p in enumList">
-    <option value="">-- {%enumOption?enumOption:'选择'%} --</option>
-</select>
+        <option value="">-- {%enumOption?enumOption:'选择'%} --</option>
+    </select>
+</span>
