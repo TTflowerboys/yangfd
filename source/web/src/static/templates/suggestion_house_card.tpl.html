@@ -3,7 +3,7 @@
 
 
     <div class="houseCard_header">
-    <img alt="" src="/static/images/intention/icon/stable_cashflow-grey.png"/>
+    <img alt="" src="/static/images/intention/icon/{=house.category_intention.slug=}-grey.png" />
     <h2 class="title">{=house.category_intention.value=}</h2>
     <a class="more" href="/property_list?intention={=house.category_intention.id=}">
     {{_('更多')}}
@@ -78,13 +78,8 @@
 
     </div>
     <div class="tagDetail">
-          <h3 class="tag">资产保值说明</h3>
-          <p class="description">在茫茫大山之中要找到一个人无异于大海捞针，非常困
-难。
-另一个原因是高玉伦对当地地形非常熟悉，他知道哪里
-能弄到吃的，哪里有水喝，哪里能藏
-身，怎样可以生存下来。更何况搜捕的队伍处于明处，
-他处于暗处，即便我们从他身边走</p>
+          <h3 class="tag">{=house.category_intention.value=}</h3>
+          <p class="description">{=house.category_intention.description=}</p>
        </div>
     </div>
 </script>
