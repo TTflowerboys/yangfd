@@ -33,7 +33,7 @@
                     {_}_}
                     {_if(house.space) {_}
                     {=house.space.value=}
-                    {_if (house.space.unit === 'foot ** 2)'){_}
+                    {_if (house.space.unit === 'foot ** 2'){_}
                     foot <sup>2</sup>
                     {_} else if(house.space.unit === 'acre'){_}
                     acre
@@ -42,15 +42,16 @@
                     {_} else if (house.space.unit === 'kilometer ** 2') {_}
                     km <sup>2</sup>
                     {_} else {_}
-                    house.space.unit
+                     {=house.space.unit=}
                     {_}_}
                     {_}_}
                 </p>
 
+                   {_if(house.annual_return_estimated) {_}
                 <p class=estimate><span class=label>{=window.i18n('预期年租金')=}<br>{=window.i18n('收益率')=}</span><span
                         class=value>
-                    {_if(house.annual_return_estimated) {_}
-                    <strong>{=house.annual_return_estimated=}</strong>{_}_}%</span>
+                    <strong>{=house.annual_return_estimated=}</strong>%</span>
+                    {_}_}
                 <ul class=properties>
                     {_if(house.intention && house.intention.length) {_}
                     <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
