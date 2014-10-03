@@ -2,7 +2,7 @@
 
 
 angular.module('app',
-    ['ui.router', 'angular-loading-bar', 'angularFileUpload', 'ui.bootstrap', 'angular-growl', 'wysiwyg.module'])
+    ['ui.router', 'angular-loading-bar', 'angularFileUpload', 'ui.bootstrap', 'angular-growl', 'wysiwyg.module', 'multi-select'])
     .run(function ($rootScope, $state, $stateParams, $sce) {
 
         $rootScope.$state = $state;
