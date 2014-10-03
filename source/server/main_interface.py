@@ -45,7 +45,7 @@ def default(user):
         for news_category in ("property_london", "schoolhouse_manchester"):
             property_id_list.extend(f_app.property.search({
                 "status": {"$in": ["selling", "sold out"]},
-                "news_category._id": ObjectId(f_app.enum.get_by_slug(news_category)),
+                "news_category._id": ObjectId(f_app.enum.get_by_slug(news_category)["id"]),
             }), per_page=1)
 
         property_list = f_app.property.output(property_id_list)
