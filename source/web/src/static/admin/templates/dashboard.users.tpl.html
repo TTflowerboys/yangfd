@@ -20,7 +20,8 @@
                     <col class="nickname">
                     <col class="phone">
                     <col class="email">
-                    <col class="date">
+                    <col class="submitTime">
+                    <col class="changeTime">
                     <col class="actions">
                 </colgroup>
                 <thead>
@@ -28,6 +29,7 @@
                         <th>用户姓名</th>
                         <th>用户手机</th>
                         <th>用户邮箱</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +42,11 @@
                         </td>
                         <td>
                             {%item.email%}
+                        </td>
+                        <td>
+                            <a class="btn btn-success" href ui-sref=".detail.favs({id:item.id})" title="View">
+                                <i class="fa fa-search-plus "></i>
+                            </a>
                         </td>
                     </tr>
                 </tbody>
