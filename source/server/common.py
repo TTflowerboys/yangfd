@@ -91,6 +91,19 @@ class common(f_common):
         "default": "aws_ses",
     }
 
+    email_provider_sender_smart = {
+        "CN":
+        {
+            "method": "sendcloud",
+            "sender": "noreply@yangfd.com"
+        },
+        "default":
+        {
+            "method": "aws_ses",
+            "sender": "noreply@youngfunding.co.uk"
+        }
+    }
+
     custom_error_codes = {
         40099: "Invalid params: No '@' in email address supplied:",
         40098: "Invalid params: current password not provided",
