@@ -36,8 +36,19 @@ def get_budget_list():
 
 @f_get('/')
 @check_landing
-def default():
-    property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}))
+@f_app.user.login.check()
+def default(user):
+    if user:
+        property_list = []
+    else:
+        property_id_list = []
+        for news_category in ("property_london", "schoolhouse_manchester"):
+            property_id_list.extend(f_app.property.search({
+                "status": {"$in": ["selling", "sold out"]},
+                "news_category._id": ObjectId(f_app.enum.get_by_slug(news_category)),
+            }), per_page=1)
+
+        property_list = f_app.property.output(property_id_list)
     homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
     announcement_list = f_app.blog.post_output(
         f_app.blog.post_search(
@@ -50,17 +61,21 @@ def default():
         f_app.blog.post_search(
             {
                 "category": {"$in": [
+                    {'_id': ObjectId(f_app.enum.get_by_slug('announcement')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('purchase_process')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('legal_resource')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                     {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('property_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('schoolhouse_manchester')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('property_liverpool')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                 ]}
             }, per_page=6
         )
     )
-    for p in property_list:
-        if "news_category" in p:
-            p["related_news"] = f_app.blog.post_output(f_app.blog.post_search({"category": {"$in": [{"_id": ObjectId(n["id"]), "type": "news_category", "_enum": "news_category"} for n in p["news_category"]]}}, per_page=5))
+    for property in property_list:
+        if "news_category" in property:
+            property["related_news"] = f_app.blog.post_output(f_app.blog.post_search({
+                "category": {"$in": [
+                    {"_id": ObjectId(news["id"]), "type": "news_category", "_enum": "news_category"} for news in property["news_category"]
+                ]},
+            }, per_page=5))
 
     intention_list = f_app.enum.get_all('intention')
     return template(
