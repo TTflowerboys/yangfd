@@ -374,7 +374,7 @@ def admin_user_get_favorites(user, user_id, params):
         abort(40399)
 
     per_page = params.pop("per_page", 0)
-    params["user_id"] = ObjectId(user["id"])
+    params["user_id"] = ObjectId(user_id)
 
     return f_app.user.favorite.output(f_app.user.favorite.search(params, per_page=per_page))
 
