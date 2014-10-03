@@ -94,7 +94,7 @@
                     </table>
                 </td>
                 <td>{%h.updated_comment%}</td>
-                <td>{%h.updated_time?(h.updated_time * 1000 | date : medium):'' %}</td>
+                <td>{%h.updated_time?(h.updated_time * 1000 | date : 'short'):'' %}</td>
             </tr>
             </tbody>
         </table>

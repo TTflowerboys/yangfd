@@ -51,7 +51,7 @@
                                 {%item.user.nickname%}
                             </td>
                             <td>
-                                {%item.time * 1000 | date : medium%}
+                                {%item.time * 1000 | date : 'short'%}
                             </td>
                             <td>
                                 <change-property-news-category name="category" ng-model="item" news-category-list="newsCategoryList" api="api"></change-property-news-category>

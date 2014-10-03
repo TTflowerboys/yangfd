@@ -34,10 +34,10 @@
                 {%item.email%}
             </td>
             <td>
-                {%(item.time?(item.time * 1000 | date : medium):'')%}
+                {%(item.time?(item.time * 1000 | date : 'short'):'')%}
             </td>
             <td>
-                {%(item.assigned_time?(item.assigned_time * 1000 | date : medium):'')%}
+                {%(item.assigned_time?(item.assigned_time * 1000 | date : 'short'):'')%}
             </td>
         </tr>
         </tbody>

@@ -50,7 +50,7 @@
                             {%item.email%}
                         </td>
                         <td>
-                            {%item.time * 1000 | date : medium%}
+                            {%item.time * 1000 | date : 'short'%}
                         </td>
                         <td class="form-inline" style="white-space: nowrap;">
                             <div add-assignee ng-model="item" type="support_ticket"></div>

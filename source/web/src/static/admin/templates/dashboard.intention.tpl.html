@@ -55,10 +55,10 @@
                         {%item.email%}
                     </td>
                     <td>
-                        {%(item.time?(item.time * 1000 | date : medium):'')%}
+                        {%(item.time?(item.time * 1000 | date : 'short'):'')%}
                     </td>
                     <td>
-                        {%(item.assigned_time?(item.assigned_time * 1000 | date : medium):'')%}
+                        {%(item.assigned_time?(item.assigned_time * 1000 | date : 'short'):'')%}
                     </td>
                     <td class="form-inline" style="white-space: nowrap;">
                         <div add-assignee ng-model="item" type="intention_ticket"></div>

@@ -195,7 +195,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="price in item.historical_price">
-                    <td>{%price.time * 1000 | date : medium%}</td>
+                    <td>{%price.time * 1000 | date : 'short'%}</td>
                     <td>{%price.price.value %} {%price.price.unit %}</td>
                 </tr>
                 </tbody>
@@ -342,7 +342,7 @@
             <label class="control-label">开盘时间</label>
 
             <div class="controls">
-                <td>{%item.opening_time * 1000 | date : medium%}</td>
+                <td>{%item.opening_time * 1000 | date : 'short'%}</td>
             </div>
         </div>
     </div>
