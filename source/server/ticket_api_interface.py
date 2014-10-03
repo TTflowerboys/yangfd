@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from app import f_app
 from bson.objectid import ObjectId
-from libfelix.f_interface import f_api, abort, template,request
+from libfelix.f_interface import f_api, abort, template, request
 import random
 import logging
 logger = logging.getLogger(__name__)
@@ -132,14 +132,14 @@ def intention_ticket_add(params):
                 template_invoke_name = "new_ticket_cn"
             else:
                 template_invoke_name = "new_ticket_en"
-            budget  = f_app.util.process_i18n(params["budget"], _i18n=[locale]).get("value", "") if "budget" in params else ""
+            budget = f_app.util.process_i18n(params["budget"], _i18n=[locale]).get("value", "") if "budget" in params else ""
             substitution_vars = {
-                "to": [sales["email"]], 
+                "to": [sales["email"]],
                 "sub": {
                     "%nickname%": [params["nickname"]],
                     "%phone%": [params["phone"]],
                     "%email%": [params["email"]],
-                    "%description%": [params.get("description","")],
+                    "%description%": [params.get("description", "")],
                     "%budget%": [budget]
                 }
             }
