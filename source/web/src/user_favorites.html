@@ -58,10 +58,10 @@
                    %end
                    <ul class=properties>
 
-                         %if (fav.property.get('intention') and len(fav.property.get('intention'))) :
+                         %if (fav.get('property').get('intention') and len(fav.get('property').get('intention'))) :
                        <li><img src="/static/images/icon/house-card-tag.png" alt="" />
                            <span>
-                       %for index, oneIntention in enumerate(fav.property.get('intention')):
+                       %for index, oneIntention in enumerate(fav.get('property').get('intention')):
                        %if 'value' in oneIntention:
                        {{oneIntention.get('value')}}
                        %end

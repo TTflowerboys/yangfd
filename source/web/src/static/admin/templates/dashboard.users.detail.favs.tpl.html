@@ -1,37 +1,37 @@
 <div style="min-height: 600px;" ui-view>
     <table class="table table-bordered table-striped table-condensed">
         <colgroup>
-            <col class="name">
-            <col class="property_type">
-            <col class="total_price">
-            <col class="intention">
-            <col class="street">
+            <col class="status">
+            <col class="nickname">
+            <col class="phone">
+            <col class="email">
+            <col class="submitTime">
+            <col class="changeTime">
+            <col class="actions">
         </colgroup>
         <thead>
         <tr>
             <th>房产名</th>
             <th>房产类型</th>
             <th>总价</th>
-            <th>投资标签</th>
-            <th>街区</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="item in list">
             <td>
-                {%item.name%}
+                {%item.property.name[userLanguage.value]%}
             </td>
             <td>
-                {%item.property_type%}
+                {%item.property.property_type.value[userLanguage.value]%}
             </td>
             <td>
-                {%item.total_price%}
+                {%item.property.total_price.unit_symbol+item.property.total_price.value%}
             </td>
             <td>
-                {%item.intention.value%}
-            </td>
-            <td>
-                {%item.street%}
+                <a class="btn btn-success" href ui-sref="dashboard.property.detail({id:item.property.id})" title="View">
+                    <i class="fa fa-search-plus "></i>
+                </a>
             </td>
         </tr>
         </tbody>

@@ -26,11 +26,11 @@
                     </li>
                     <li>
                         <div><i class="fa fa-building-o"></i> 国家</div>
-                        <span data-ng-bind="item.country"></span>
+                        <span data-ng-bind="item.country.value"></span>
                     </li>
                     <li>
                         <div><i class="fa fa-building-o"></i> 城市</div>
-                        <span data-ng-bind="item.city"></span>
+                        <span data-ng-bind="item.city.value"></span>
                     </li>
                 </ul>
 
@@ -64,13 +64,13 @@
                 <a style="cursor: pointer;" ui-sref=".favs">收藏房产</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.intentions')}">
-                <a style="cursor: pointer;" ui-sref=".intentions" >投资意向单</a>
+                <a style="cursor: pointer;" ui-sref=".intentions" >投资意向单{%item.counter.intention === 0? '':'('+item.counter.intention+')'%}</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.boughts')}">
                 <a style="cursor: pointer;" ui-sref=".boughts" >已购房产</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.supports')}">
-                <a style="cursor: pointer;" ui-sref=".supports">客服单</a>
+                <a style="cursor: pointer;" ui-sref=".supports">客服单{%item.counter.support === 0? '':'('+item.counter.support+')'%}</a>
             </li>
         </ul>
 

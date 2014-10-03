@@ -17,6 +17,7 @@
             <th>客户邮箱</th>
             <th>提交时间</th>
             <th>受理时间</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -38,6 +39,14 @@
             </td>
             <td>
                 {%(item.assigned_time?(item.assigned_time * 1000 | date : 'short'):'')%}
+            </td>
+            <td>
+                <a class="btn btn-success" href ui-sref="dashboard.intention.detail({id:item.id})" title="View">
+                    <i class="fa fa-search-plus "></i>
+                </a>
+                <a class="btn btn-info" href ui-sref="dashboard.intention.edit({id:item.id})" title="Edit">
+                    <i class="fa fa-edit "></i>
+                </a>
             </td>
         </tr>
         </tbody>
