@@ -472,8 +472,17 @@
                 <button class="flatButton" type="submit">联系我们（免费）</button>
             </div>
             <hr/>
-            拨打 400-700-8888 转 19872123
+            <div class="contact">
+                拨打 400-700-8888 转 19872123
+            </div>
         </form>
+
+        <div class="intentionTags">
+            <h2>投资标签</h2>
+            % for item in property.get('intention'):
+            {{item.get('value')}}
+            % end
+        </div>
         <hr/>
     </div>
 </div>
@@ -535,4 +544,5 @@
         $(showCharts())
     }
 </script>
+{{json_dumps(property)}}
 <!--@@close-->
