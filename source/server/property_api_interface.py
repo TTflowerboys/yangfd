@@ -245,10 +245,13 @@ def property_edit(property_id, user, params):
                 params["submitter_user_id"] = user["id"]
 
         else:
+            if "status" in params:
+                assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed"), abort(40000, "Editing and reviewing cannot happen at the same time")
+
             if property["status"] not in ("draft", "not translated", "translating", "rejected"):
                 existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
                 if existing_draft:
-                    params["target_property_id"] = existing_draft[0]
+                    action = lambda params: f_app.property.update_set(existing_draft[0], params)
 
                 else:
                     params.setdefault("status", "draft")
