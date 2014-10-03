@@ -39,7 +39,6 @@
 
                     <div class="sidebar-nav nav-collapse collapse navbar-collapse">
                         <ul class="nav main-menu">
-                            <!-- http://stackoverflow.com/questions/22054391/angular-ui-router-how-do-i-get-parent-view-to-be-active-when-navigating-to-ne -->
                             <li has-permission="admin" ng-class="{active:$state.includes('dashboard.admins')}">
                                 <a href ui-sref="dashboard.admins">
                                     <i class="fa fa-group"></i><span class="hidden-sm text">人员管理</span></a>
@@ -50,12 +49,6 @@
                                     <span class="chevron"
                                         ng-class="{closed:!$state.includes('dashboard.enums'),opened:$state.includes('dashboard.enums')}"></span></a>
                                 <ul ng-style="{display:$state.includes('dashboard.enums')?'block':'none'}">
-                                    <!--<li has-permission="admin,jr_admin,operation,jr_operation" ng-class="{active:$state.includes('dashboard.operation.wiki')}">-->
-                                    <!--<a class="submenu" href ui-sref="dashboard.operation.wiki">-->
-                                    <!--<i class="fa fa-angle-right"></i>-->
-                                    <!--<span class="hidden-sm text">投资知识库</span>-->
-                                    <!--</a>-->
-                                    <!--</li>-->
                                     <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.normal')}">
                                         <a class="submenu" href ui-sref="dashboard.enums.normal">
                                             <i class="fa fa-angle-right"></i>
@@ -89,20 +82,11 @@
                                 <a href ui-sref="dashboard.property" ui-sref-active="active"><i
                                     class="fa fa-home"></i><span class="hidden-sm text">房产数据管理</span></a>
                             </li>
-                            <!--<li has-permission="admin,jr_admin,operation,jr_operation" ng-class="{active:$state.includes('dashboard.team')}">-->
-                            <!--<a href ui-sref="dashboard.team" ui-sref-active="active"><i class="fa fa-picture-o"></i><span class="hidden-sm text">房产区域分析</span></a>-->
-                            <!--</li>-->
-                            <!--<li has-permission="admin,jr_admin,sales" ng-class="{active:$state.includes('dashboard.partners')}">-->
-                            <!--<a href ui-sref="dashboard.partners" ui-sref-active="active"><i class="fa fa-picture-o"></i><span class="hidden-sm text">投资人管理</span></a>-->
-                            <!--</li>-->
                             <li has-permission="admin,jr_admin,sales,jr_sales"
                                 ng-class="{active:$state.includes('dashboard.intention')}">
                                 <a href ui-sref="dashboard.intention" ui-sref-active="active"><i
                                     class="fa fa-heart"></i><span class="hidden-sm text">投资意向单管理</span></a>
                             </li>
-                            <!--<li has-permission="admin,jr_admin,sales,jr_sales,developer,agency" ng-class="{active:$state.includes('dashboard.partners')}">-->
-                            <!--<a href ui-sref="dashboard.partners" ui-sref-active="active"><i class="fa fa-picture-o"></i><span class="hidden-sm text">楼盘销售状态</span></a>-->
-                            <!--</li>-->
                             <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.operation')}">
                                 <a class="dropmenu" href ui-sref="dashboard.operation.news">
@@ -111,12 +95,6 @@
                                         ng-class="{closed:!$state.includes('dashboard.operation'),opened:$state.includes('dashboard.operation')}"></span>
                                 </a>
                                 <ul ng-style="{display:$state.includes('dashboard.operation')?'block':'none'}">
-                                    <!--<li has-permission="admin,jr_admin,operation,jr_operation" ng-class="{active:$state.includes('dashboard.operation.wiki')}">-->
-                                    <!--<a class="submenu" href ui-sref="dashboard.operation.wiki">-->
-                                    <!--<i class="fa fa-angle-right"></i>-->
-                                    <!--<span class="hidden-sm text">投资知识库</span>-->
-                                    <!--</a>-->
-                                    <!--</li>-->
                                     <li has-permission="admin,jr_admin,operation,jr_operation"
                                         ng-class="{active:$state.includes('dashboard.operation.news')}">
                                         <a class="submenu" href ui-sref="dashboard.operation.news">
@@ -124,36 +102,12 @@
                                             <span class="hidden-sm text">房产资讯编辑</span>
                                         </a>
                                     </li>
-                                    <!--<li has-permission="admin,jr_admin,operation">-->
-                                    <!--<a class="submenu" href ui-sref="dashboard.operation.contract" ng-class="{active:$state.includes('dashboard.operation.contract')}">-->
-                                    <!--<i class="fa fa-angle-right"></i>-->
-                                    <!--<span class="hidden-sm text">用户合同管理</span>-->
-                                    <!--</a>-->
-                                    <!--</li>-->
                                     <li has-permission="admin,jr_admin,operation,jr_operation" ng-class="{active:$state.includes('dashboard.operation.contents')}">
                                         <a class="submenu" href ui-sref="dashboard.operation.contents">
                                             <i class="fa fa-angle-right"></i>
                                             <span class="hidden-sm text">网站内容管理</span>
                                         </a>
                                     </li>
-                                    <!--<li has-permission="admin,jr_admin,operation">-->
-                                    <!--<a class="submenu" href ui-sref="dashboard.operation.sns" ng-class="{active:$state.includes('dashboard.operation.sns')}">-->
-                                    <!--<i class="fa fa-angle-right"></i>-->
-                                    <!--<span class="hidden-sm text">社交平台账号管理</span>-->
-                                    <!--</a>-->
-                                    <!--</li>-->
-                                    <!--<li has-permission="admin,jr_admin,operation">-->
-                                    <!--<a class="submenu" href ui-sref="dashboard.operation.newsLetter" ng-class="{active:$state.includes('dashboard.operation.newsLetter')}">-->
-                                    <!--<i class="fa fa-angle-right"></i>-->
-                                    <!--<span class="hidden-sm text">NewsLetter</span>-->
-                                    <!--</a>-->
-                                    <!--</li>-->
-                                    <!--<li has-permission="admin,jr_admin,operation">-->
-                                    <!--<a class="submenu" href ui-sref="dashboard.operation.behavior" ng-class="{active:$state.includes('dashboard.operation.behaviors')}">-->
-                                    <!--<i class="fa fa-angle-right"></i>-->
-                                    <!--<span class="hidden-sm text">用户行为</span>-->
-                                    <!--</a>-->
-                                    <!--</li>-->
                                 </ul>
                             </li>
                             <li has-permission="admin,jr_admin,support,jr_support"
