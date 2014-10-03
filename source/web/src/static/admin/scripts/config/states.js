@@ -340,7 +340,7 @@ angular.module('app')
             .state('dashboard.support.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.support.edit.tpl.html',
-                controller: 'ctrlEdit',
+                controller: 'ctrlSupportEdit',
                 resolve: {
                     api: function (supportApi) {
                         return supportApi
