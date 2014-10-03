@@ -47,6 +47,11 @@
                             time = house.time
                         }
                     })
+
+                    $('#loadMore').show()
+                }
+                else {
+                    $('#loadMore').hide()
                 }
 
             })
