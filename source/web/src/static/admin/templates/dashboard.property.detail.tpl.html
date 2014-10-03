@@ -6,15 +6,12 @@
             <button class="btn" ng-click="$state.go('^.edit',{id:item.id})"><span class="fa fa-edit"></span> 编辑
             </button>
         </span>
+        <div class="btn-group form-inline pull-right">
+            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+        </div>
 
     </div>
     <form>
-        <div class="row">
-            <div class="form-group col-sm-3">
-                <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"
-                    ng-model="userLanguage.value"></select>
-            </div>
-        </div>
         <tabset justified="true" style="margin: 16px 0;">
             <tab heading="房产通用信息">
                 <div class="row" ng-if="item.name">
