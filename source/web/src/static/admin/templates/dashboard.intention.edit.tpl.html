@@ -3,6 +3,9 @@
         <span class="btn-group">
             <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span>返回</button>
         </span>
+        <span class="btn-group">
+            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+        </span>
     </div>
     <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
           ng-submit="submit($event,createProperty)" name="createProperty" novalidate>
@@ -96,7 +99,7 @@
                 <label class="control-label">投资意向标签</label>
 
                 <div class="controls">
-                    <div enum-select name="intention" ng-model="item.intention"></div>
+                    <div multi-enum-select name="intention" ng-model="item.intention"></div>
 
                 </div>
             </div>

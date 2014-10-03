@@ -167,7 +167,7 @@ angular.module('app')
             .state('dashboard.property.detail', {
                 url: '/:id',
                 templateUrl: '/static/admin/templates/dashboard.property.detail.tpl.html',
-                controller: 'ctrlDetail',
+                controller: 'ctrlPropertyDetail',
                 resolve: propertyResolve
             })
             .state('dashboard.property.edit', {

@@ -27,7 +27,13 @@
                 editItem.budget = editItem.budget.id
             }
             if (!_.isEmpty(editItem.intention)) {
-                editItem.intention = editItem.intention[0].id//TODO
+                var temp = []
+                angular.forEach(editItem.intention, function (value, key) {
+
+                    value = value.id
+                    temp.push(value)
+                })
+                editItem.intention = temp
             }
             if (!_.isEmpty(editItem.equity_type)) {
                 editItem.equity_type = editItem.equity_type.id
