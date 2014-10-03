@@ -479,9 +479,14 @@
 
         <div class="intentionTags">
             <h2>投资标签</h2>
-            % for item in property.get('intention'):
-            {{item.get('value')}}
-            % end
+
+              %if (property.get('intention') and len(property.get('intention'))) :
+                       %for index, oneIntention in enumerate(property.get('intention')):
+                       %if 'value' in oneIntention:
+                       {{oneIntention.get('value')}}
+                       %end
+                       %end
+            %end
         </div>
         <hr/>
     </div>

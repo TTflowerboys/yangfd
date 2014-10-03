@@ -57,9 +57,19 @@
                            <strong>{{ fav.get('property').get('annual_return_estimated')}}</strong>%</span></p>
                    %end
                    <ul class=properties>
-                       %if (fav.get('property').get('intention')) :
-                       <li><img src="/static/images/icon/house-card-tag.png" alt="" /> <span>{{fav.get('property').get('intention', '').get('value')}}</span></li>
+
+                         %if (fav.property.get('intention') and len(fav.property.get('intention'))) :
+                       <li><img src="/static/images/icon/house-card-tag.png" alt="" />
+                           <span>
+                       %for index, oneIntention in enumerate(fav.property.get('intention')):
+                       %if 'value' in oneIntention:
+                       {{oneIntention.get('value')}}
                        %end
+                       %end
+                           </span>
+                       </li>
+                       %end
+                     
                        %if (fav.get('property').get('equity_type')) :
                        <li><img src="/static/images/icon/house-card-house.png" alt="" /> <span> {{fav.get('property').get('equity_type', '').get('value')}}</span></li>
                        %end

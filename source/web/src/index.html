@@ -149,7 +149,7 @@
                            <strong>{{ property.get('annual_return_estimated')}}</strong>%</span></p>
                    %end
                    <ul class=properties>
-                       %if (property.get('intention')) :
+                       %if (property.get('intention') and len(property.get('intention'))) :
                        <li><img src="/static/images/icon/house-card-tag.png" alt="" />
                            <span>
                        %for index, oneIntention in enumerate(property.get('intention')):
