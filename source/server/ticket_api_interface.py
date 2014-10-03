@@ -126,30 +126,30 @@ def intention_ticket_add(params):
     sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales"]}}))
     for sales in sales_list:
         if "email" in sales:
-            locale = sales.get("locales", [f_app.common.i18n_default_locale])[0]
-            request._requested_i18n_locales_list = [locale]
-            if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
-                template_invoke_name = "new_ticket_cn"
-            else:
-                template_invoke_name = "new_ticket_en"
-            budget = f_app.util.process_i18n(params["budget"], _i18n=[locale]).get("value", "") if "budget" in params else ""
-            substitution_vars = {
-                "to": [sales["email"]],
-                "sub": {
-                    "%nickname%": [params["nickname"]],
-                    "%phone%": [params["phone"]],
-                    "%email%": [params["email"]],
-                    "%description%": [params.get("description", "")],
-                    "%budget%": [budget]
-                }
-            }
+            # locale = sales.get("locales", [f_app.common.i18n_default_locale])[0]
+            # request._requested_i18n_locales_list = [locale]
+            # if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
+            #     template_invoke_name = "new_ticket_cn"
+            # else:
+            #     template_invoke_name = "new_ticket_en"
+            # budget = f_app.util.process_i18n(params["budget"], _i18n=[locale]).get("value", "") if "budget" in params else ""
+            # substitution_vars = {
+            #     "to": [sales["email"]],
+            #     "sub": {
+            #         "%nickname%": [params["nickname"]],
+            #         "%phone%": [params["phone"]],
+            #         "%email%": [params["email"]],
+            #         "%description%": [params.get("description", "")],
+            #         "%budget%": [budget]
+            #     }
+            # }
             f_app.email.schedule(
                 target=sales["email"],
                 subject=template("static/emails/new_ticket_title"),
                 text=template("static/emails/new_ticket", params=params),
                 display="html",
-                template_invoke_name=template_invoke_name,
-                substitution_vars=substitution_vars
+                #template_invoke_name=template_invoke_name,
+                #substitution_vars=substitution_vars
             )
 
     return ticket_id
