@@ -8,25 +8,27 @@
     <div get-country></div>
 
     <table class="table table-bordered table-striped table-condensed"
-           style="margin-bottom:30px">
+        style="margin-bottom:30px">
         <colgroup>
-            <col class="value">
+            <col style="width: 100px;"/>
+            <col/>
+            <col style="width: 80px"/>
         </colgroup>
         <tbody>
-        <tr>
-            <th>国家</th>
-            <th>国家标识</th>
-            <th>编辑</th>
-        </tr>
-        <tr ng-repeat="item in countries">
-            <td>{%item.value[userLanguage.value]%}</td>
-            <td>{%item.slug%}</td>
-            <td style="text-align:center;">
-                <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
-                    <i class="fa fa-edit "></i>
-                </a>
-            </td>
-        </tr>
+            <tr>
+                <th>国家</th>
+                <th>国家标识</th>
+                <th>编辑</th>
+            </tr>
+            <tr ng-repeat="item in countries">
+                <td>{%item.value[userLanguage.value]%}</td>
+                <td>{%item.slug%}</td>
+                <td style="text-align:center;">
+                    <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
+                        <i class="fa fa-edit "></i>
+                    </a>
+                </td>
+            </tr>
         </tbody>
     </table>
     <div ng-show="countries.length === 0" class="well" style="text-align:center;">No results</div>
