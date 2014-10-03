@@ -42,9 +42,13 @@
                     {_if(house.annual_return_estimated) {_}
                     <strong>{=house.annual_return_estimated=}</strong>{_}_}%</span>
                 <ul class=properties>
-                    {_if(house.intention) {_}
+                    {_if(house.intention && house.intention.length) {_}
                     <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
-                        <span>{=house.intention.value=}</span></li>
+                        <span>
+                     {_ _.each(house.intention, function(oneIntention) { _}
+                     {=oneIntention.value=}
+                     {_})_}
+                     </span></li>
                     {_}_}
                     {_if(house.property_type) {_}
                     <li><img src="/static/images/icon/house-card-house.png" alt=""/>
