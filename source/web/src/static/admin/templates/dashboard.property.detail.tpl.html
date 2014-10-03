@@ -103,7 +103,11 @@
         <label class="control-label">投资标签</label>
 
         <div class="controls">
-            <span class="input-xlarge uneditable-input">{%item.intention.value[userLanguage.value]%}</span>
+            <div class="controls" ng-repeat="i in item.intention">
+
+                {%i.value[userLanguage.value]%}
+
+            </div>
         </div>
     </div>
 </div>

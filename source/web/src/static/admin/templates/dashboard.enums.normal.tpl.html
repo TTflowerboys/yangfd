@@ -4,25 +4,28 @@
             <span class="fa fa-plus-circle"></span>添加枚举
         </button>
     </span>
+    <div class="btn-group form-inline pull-right">
+        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+    </div>
 
     <div ng-init="getEnums()"></div>
-    <tabset justified="true">
+    <tabset justified="true" style="margin-top: 16px;">
         <tab ng-repeat="type in enumTypes">
             <tab-heading>{%type.name%}</tab-heading>
             <table class="table table-bordered table-striped table-condensed"
-                   style="margin-bottom:30px">
+                style="margin-bottom:30px">
                 <colgroup>
                     <col class="value">
                 </colgroup>
                 <tbody>
-                <tr ng-repeat="item in enums[$index]">
-                    <td>{%item.value[userLanguage.value]%}</td>
-                    <td style="text-align:center;">
-                        <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
-                            <i class="fa fa-edit "></i>
-                        </a>
-                    </td>
-                </tr>
+                    <tr ng-repeat="item in enums[$index]">
+                        <td>{%item.value[userLanguage.value]%}</td>
+                        <td style="text-align:center;">
+                            <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
+                                <i class="fa fa-edit "></i>
+                            </a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div ng-show="enums[$index].length === 0" class="well" style="text-align:center;">No results</div>

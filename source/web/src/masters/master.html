@@ -36,15 +36,16 @@
                 <header class="siteHeader">
                     <a href="/"><img class="logo" src="/static/images/logo-{{_.lang}}.png" alt=""/></a>
                     <ul class="navbar">
-                        <li class="selected"><a href="">{{_('我的海投')}}</a></li>
+                        <li><a href="/">{{_('首页')}}</a></li>
                         <li><a href="/property_list">{{_('海外房产')}}</a></li>
                         <li><a href="">{{_('海外众筹')}}</a></li>
-                        <li><a href="">{{_('业务模式')}}</a></li>
+                        <li><a href="/news_list">{{_('投资资讯')}}</a></li>
                     </ul>
                     <div class="user">
                         %if user:
-                        <span class="nickname"> <a href="/user_settings">{{user["nickname"]}}</a></span>
-                        <a id="logout" class="logout ghostButton" href="/logout">{{_('登出')}}</a>
+                        <a class="nickname" href="/user_settings"><img alt="" src="/static/images/icon/header/user.png"/> {{user["nickname"]}}</a>
+                        <a class="message" id="message" href="/user_messages"><img id="icon-message" alt="" src="/static/images/icon/header/message.png"/></a>
+                        <a class="logout" id="logout" class="logout" href="/logout"><img alt="" src="/static/images/icon/header/logout.png"/></a>
                         %else:
                         <button id="login" class="login ghostButton red">{{_('登录')}}</button>
                         <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('注册')}}</button>
@@ -123,6 +124,7 @@
         <!-- build:js /static/scripts/master.html.js -->
         <script src="/static/scripts/resize_main.js"></script>
         <script src="/static/scripts/master.js"></script>
+        <script src="/static/scripts/site_header.js"></script>
         <script src="/static/scripts/i18n.js"></script>
         <script src="/static/scripts/signin_modal.js"></script>
         <script src="/static/scripts/requirement_popup.js"></script>

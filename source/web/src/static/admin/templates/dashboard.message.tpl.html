@@ -1,11 +1,18 @@
 <div ui-view>
-    <span class="btn-group">
+    <div class="buttons">
+             <span class="btn-group">
         <button class="btn" ui-sref=".create">
             <span class="fa fa-plus-circle"></span>添加消息
         </button>
-        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"
-                ng-model="userLanguage.value"></select>
     </span>
+        <!--<select class="btn-group  form-inline" ng-options="p.value as p.name for p in i18nLanguages"-->
+                <!--ng-model="userLanguage.value"></select>-->
+    </div>
+    <div class="row">
+        <div class="btn-group form-inline pull-right" style="margin-right: 10px">
+            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+        </div>
+    </div>
 
     <div ng-init="getMessages()"></div>
     <tabset justified="true">
@@ -21,18 +28,12 @@
                 <tr>
                     <th>标题</th>
                     <th>内容</th>
-                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="item in messageList[$index]">
                     <td>{%item.title[userLanguage.value]%}</td>
                     <td>{%item.text[userLanguage.value]%}</td>
-                    <td style="text-align:center;">
-                        <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
-                            <i class="fa fa-edit "></i>
-                        </a>
-                    </td>
                 </tr>
                 </tbody>
             </table>
