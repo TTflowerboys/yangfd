@@ -46,7 +46,7 @@ def default(user):
             property_id_list.extend(f_app.property.search({
                 "status": {"$in": ["selling", "sold out"]},
                 "news_category._id": ObjectId(f_app.enum.get_by_slug(news_category)["id"]),
-            }), per_page=1)
+            }, per_page=1))
 
         property_list = f_app.property.output(property_id_list)
     homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
