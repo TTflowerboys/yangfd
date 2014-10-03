@@ -10,8 +10,8 @@
     p { margin: 0; }
     > img { position: absolute; top: -@border-width; left: 0; height:100%;}
     > .description { margin-left: 320px + @padding-top; padding-top: @padding-top;
-        > h1 { font-size: 24px; font-weight: bold; margin: 0; color: @black; font-family: @font-normal; }
-        > .price { color: @red; font-size: 20px; position: absolute; right: 0; top: @padding-top;
+        > h1 { font-size: 24px; font-weight: bold; margin: 0; color: @black; font-family: @font-normal; max-width:60%; .limitedLines(2, 34px) }
+        > .price { color: @red; font-size: 20px; position: absolute; right: 0; top: @padding-top; max-width:25%;
             strong { font-size: 24px; }
         }
         > .details { font-family: @font-song; overflow: hidden;

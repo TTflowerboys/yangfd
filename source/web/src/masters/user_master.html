@@ -30,27 +30,42 @@
         <div class="settings">
             <ul>
                 <li>
-                    <a href="/user_settings"><img src="/static/images/icon/user/gear-grey.png"/></a>
+                    <a href="/user_settings"><img id="icon-user_settings" src="/static/images/icon/user/gear.png"/></a>
                     {{_('账户管理')}}
                 </li>
                 <li>
-                    <a href="/user_favorites"><img src="/static/images/icon/user/star-grey.png"/></a>
+                    <a href="/user_favorites"><img id="icon-user_favorites" src="/static/images/icon/user/star.png"/></a>
                     {{_('我的收藏')}}
                 </li>
                 <li>
-                    <a href="/user_intentions"><img src="/static/images/icon/user/sheet-grey.png"/></a>
+                    <a href="/user_intentions"><img id="icon-user_intentions" src="/static/images/icon/user/sheet.png"/></a>
                     {{_('投资意向单')}}
                 </li>
                 <li>
-                    <a href="/user_properties"><img src="/static/images/icon/user/house-grey.png"/></a>
+                    <a href="/user_properties"><img id="icon-user_properties" src="/static/images/icon/user/house.png"/></a>
                     {{_('我的房产')}}
                 </li>
                 <li>
-                    <a href="/user_messages"><img src="/static/images/icon/user/email-grey.png"/></a>
+                    <a href="/user_messages"><img id="icon-user_messages" src="/static/images/icon/user/email.png"/></a>
                     {{_('消息')}}
                 </li>
             </ul>
         </div>
+        <script>
+
+            (function () {
+            var urlPath = location.pathname.split('/')[1]
+            var icon = document.getElementById('icon-' + urlPath)
+            var iconImagePath = icon.getAttribute('src')
+            var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
+            var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
+            var newIconImagePath = iconImageName  + '-active' + iconImageExtention
+            icon.setAttribute('src', newIconImagePath)
+            })()
+
+
+        </script>
+
         <div id="cvView" class="cv">
             <div class="header">
                 <h2>{{_('个人资料')}}</h2>

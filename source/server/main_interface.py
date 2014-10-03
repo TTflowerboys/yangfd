@@ -39,7 +39,13 @@ def get_budget_list():
 def default():
     property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}))
     homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
-    announcement_list = f_app.blog.post_output(f_app.blog.post_search({"category": [{'_id': ObjectId(f_app.enum.get_by_slug('announcement')["id"]), 'type': 'news_category', '_enum': 'news_category'}]}))
+    announcement_list = f_app.blog.post_output(
+        f_app.blog.post_search(
+            {
+                "category": [{'_id': ObjectId(f_app.enum.get_by_slug('announcement')["id"]), 'type': 'news_category', '_enum': 'news_category'}]
+            }, per_page = 1
+        )
+    )
     news_list = f_app.blog.post_output(
         f_app.blog.post_search(
             {
@@ -159,7 +165,7 @@ def news_list():
 @f_get('/news/<news_id:re:[0-9a-fA-F]{24}>')
 @check_landing
 def news(news_id):
-    return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news = f_app.blog.post.output([news_id])[0])
 
 
 @f_get('/notice_list')

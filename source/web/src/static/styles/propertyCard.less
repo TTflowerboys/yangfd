@@ -1,0 +1,30 @@
+/*! Created by frank on 14-10-2.  */
+@import "project/_imports";
+.propertyCard {
+    hr { color: #ccc; }
+    img { vertical-align: middle; }
+    > h1 { color: #333; }
+    > .tag { padding-right: 8px;
+        img { margin-right: 8px; }
+    }
+    > .price {
+        background: #f4f4f4; padding: 16px 8px; color: @red; font-size: 20px;
+        .mute { color: #999; font-size: 14px; margin-right: 16px; }
+        strong { font-size: 40px; }
+    }
+    > .numbers { .clearfix();
+        > li { float: left; width: 33.33%; border-left: 1px solid #ccc; padding-left: 8px;
+            .percentage { display: block; font-size: 20px; height: 32px; vertical-align: bottom;
+                strong { line-height: 32px; }
+                &.emphasized { color: @red;
+                    strong { font-size: 30px; }
+                }
+            }
+        }
+    }
+    > .actions { width: 100%;
+        button { padding: 0; width: 110px; font-size: 12px; line-height: 40px;
+            img { vertical-align: text-top; }
+        }
+    }
+}

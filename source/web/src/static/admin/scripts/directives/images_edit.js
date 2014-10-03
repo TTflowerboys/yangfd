@@ -29,7 +29,8 @@ angular.module('app')
                             data: {
                                 width_limit: scope.widthLimit || 1920,
                                 ratio: scope.ratio || 1,
-                                thumbnail_size: scope.thumbnailSize || '400,400'
+                                thumbnail_size: scope.thumbnailSize || '400,400',
+                                filename: file.name
                             }
                         })
                             .success(function (data, status, headers, config) {

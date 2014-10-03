@@ -13,15 +13,31 @@
 <div class="category">
     <h2 class="title">{{_('资讯类别')}}</h2>
     <ul>
-        <li><a href="/notice_list"> <img alt="" src="/static/images/icon/news/notice.png"/> <h3 for="">{{_('网站公告')}}</h3></a></li>
-        <li><a href="/guides"> <img alt="" src="/static/images/icon/news/guide.png"/> <h3>{{_('购房指南')}}</h3></a></li>
-        <li><a href="/laws"> <img alt="" src="/static/images/icon/news/law.png"/> <h3>{{_('法律法规')}}</h3></a></li>
-        <li><a href="/news_list"> <img alt="" src="/static/images/icon/news/news.png"/> <h3>{{('房产资讯')}}</h3></a></li>
+        <li><a href="/notice_list"> <img id="icon-notice_list" alt="" src="/static/images/icon/news/notice.png"/> <h3 for="">{{_('网站公告')}}</h3></a></li>
+        <li><a href="/guides"> <img id="icon-guides" alt="" src="/static/images/icon/news/guide.png"/> <h3>{{_('购房指南')}}</h3></a></li>
+        <li><a href="/laws"> <img id="icon-laws" alt="" src="/static/images/icon/news/law.png"/> <h3>{{_('法律法规')}}</h3></a></li>
+        <li><a href="/news_list"> <img id="icon-news_list" alt="" src="/static/images/icon/news/news.png"/> <h3>{{('房产资讯')}}</h3></a></li>
     </ul>
 </div>
+<script>
+
+    (function () {
+    var urlPath = location.pathname.split('/')[1]
+    var icon = document.getElementById('icon-' + urlPath)
+    var iconImagePath = icon.getAttribute('src')
+    var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
+    var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
+    var newIconImagePath = iconImageName  + '-active' + iconImageExtention
+    icon.setAttribute('src', newIconImagePath)
+    })()
+
+
+</script>
 
 <!--@@close-->
 
 <!--@@block = scripts -->
+
+
 <!-- @@placeholder = scripts-->
 <!--@@close -->
