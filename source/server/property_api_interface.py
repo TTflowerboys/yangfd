@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
     zipcode_index=str,
     equity_type='enum:equity_type',
     property_price_type="enum:property_price_type",
+    target_property_id=(ObjectId, None, "str"),
     annual_return_estimated=str,  # How?
     budget="enum:budget",
     random=bool,
@@ -29,11 +30,11 @@ logger = logging.getLogger(__name__)
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
     """
-    Only ``admin``, ``jr_admin``, ``operation``, ``jr_operation``, ``developer`` and ``agency`` could update the ``status`` param.
+    Only ``admin``, ``jr_admin``, ``operation``, ``jr_operation``, ``developer`` and ``agency`` could use the ``target_property_id`` and ``status`` param.
     """
     random = params.pop("random", False)
-    if params["status"] != ["selling", "sold out"]:
-        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status")
+    if params["status"] != ["selling", "sold out"] or "target_property_id" in params:
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_property_id")
 
     if "intention" in params:
         params["intention"] = {"$in": params.pop("intention", [])}
@@ -251,7 +252,8 @@ def property_edit(property_id, user, params):
             if property["status"] not in ("draft", "not translated", "translating", "rejected"):
                 existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
                 if existing_draft:
-                    action = lambda params: f_app.property.update_set(existing_draft[0], params)
+                    # action = lambda params: f_app.property.update_set(existing_draft[0], params)
+                    abort(40300, "An existing draft already exists")
 
                 else:
                     params.setdefault("status", "draft")
