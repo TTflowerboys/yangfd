@@ -61,6 +61,10 @@
         interpolate: /{!([\s\S]+?)!}/g,
         escape: /{=([\s\S]+?)=}/g
     }
+
+    $(function () {
+        $('[data-tabs]').tabs().find('[data-tab]').eq(0).click()
+    })
 </script>
 
 

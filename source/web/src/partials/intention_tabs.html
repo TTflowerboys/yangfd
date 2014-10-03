@@ -8,14 +8,13 @@
                 class="indicator"
                 % end
                 data-id="{{intention.get('id')}}"
-                data-value="{{intention.get('value')}}"
-                >
-                <label>
-                    <input data-tab="{{index+1}}" name="intention" type="checkbox" value="{{intention.get('id')}}"/>
+                data-value="{{intention.get('value')}}">
+                <input id="{{intention.get('id')}}" data-tab="{{index+1}}" name="intention" type="checkbox" value="{{intention.get('id')}}"/>
+                <label for="{{intention.get('id')}}">
                     <img class="grey" src="/static/images/intention/icon/{{intention.get('slug')}}-grey.png" alt="{{intention.get('value')}}"/>
                     <img class="red" src="/static/images/intention/icon/{{intention.get('slug')}}-red.png" alt="{{intention.get('value')}}"/>
                 </label>
-                <span>{{intention.get('value')}}</span>
+                <label for="{{intention.get('id')}}">{{intention.get('value')}}</label>
             </li>
             %end
         </ul>

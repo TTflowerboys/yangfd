@@ -146,4 +146,24 @@
         hr { margin: 8px 0; }
         .contact { color: @red; font-size: 16px; text-align: center; padding: 16px 0; }
     }
+    .intentionTags {
+        > h2 { font-size: 16px; color: #666; margin-bottom: 24px; }
+        > .tab { color: @red; .clearfix();
+            > li { float: left; text-align: center; position: relative; padding-bottom: 16px;
+                img { display: block; margin: 0 auto; }
+                .text { margin-top: 16px; }
+                &:after {
+                    .arrow(up; #333; 16px;); position: absolute; bottom: 0; display: none;
+                }
+                &.selectedTab:after { display: inline-block; }
+            }
+        }
+        .content {
+            > li { display: none; color: white;
+                background: #333; padding: 16px 8px; border-radius: 4px;
+                &.selected { display: block; }
+
+            }
+        }
+    }
 }

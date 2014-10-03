@@ -474,31 +474,49 @@
                 拨打 400-700-8888 转 19872123
             </div>
         </form>
+        <hr/>
 
-        <div class="intentionTags">
+        % if property.get('intention'):
+        <div class="intentionTags" data-tabs>
             <h2>投资标签</h2>
-            % imageMap = {
-            % "stable_cashflow": 1,
-            % "study_aboard":2 ,
-            % "immigration_investment":3,
-            % "excess_earnings":4,
-            % "asset_preservation":5,
-            % "live_after_immigration":6,
-            % "leisure_property":7
-            % }
-
-
-            % if property.get('intention'):
-            <ul>
-                % for item in property.get('intention'):
-                <li>
-                    {{imageMap.get(item.get('slug'))}}
+            <ul class="tab">
+                % for index, intention in enumerate(property.get('intention')):
+                <li data-tab="{{intention.get('slug')}}">
+                    <div class="image_wrapper">
+                        <img src="/static/images/intention/icon/{{intention.get('slug')}}-red.png" alt=""/>
+                    </div>
+                    <div class="text">
+                        {{intention.get('value')}}
+                    </div>
                 </li>
                 % end
             </ul>
-            % end
+            <ul class="content">
+                <li data-tab-name="stable_cashflow">
+                    Stable Cashflow
+                </li>
+                <li data-tab-name="study_aboard">
+                    Study Aboard
+                </li>
+                <li data-tab-name="immigration_investment">
+                    Immigration Investment
+                </li>
+                <li data-tab-name="excess_earnings">
+                    Excess Earnings
+                </li>
+                <li data-tab-name="asset_preservation">
+                    Asset Preservation
+                </li>
+                <li data-tab-name="live_after_immigration">
+                    Live After Immigration
+                </li>
+                <li data-tab-name="leisure_propertyn">
+                    Leisure Property
+                </li>
+            </ul>
         </div>
         <hr/>
+        % end
     </div>
 </div>
 <!--@@close-->
@@ -553,11 +571,14 @@
     }
 
     // IE 8-
-    if ($.browser.ie && $.browser.version <= 8) {
-        $(window).on('load', showCharts)
-    } else {
-        $(showCharts())
+    if (window.historical_price) {
+        if ($.browser.ie && $.browser.version <= 8) {
+            $(window).on('load', showCharts)
+        } else {
+            $(showCharts())
+        }
     }
+
 </script>
 {{json_dumps(property)}}
 <!--@@close-->
