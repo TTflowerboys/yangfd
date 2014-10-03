@@ -15,7 +15,7 @@
         width: 360px;
         float: right;
     }
-    h3 { margin-bottom: 24px; color: #666; margin-top: 24px; }
+    &_title { margin-bottom: 24px; color: #666; margin-top: 24px; }
     hr { color: @border-color; margin-top: 24px; margin-bottom: 24px; }
     .thumbnails { margin-top: 24px; margin-bottom: 48px;
         > ul {
@@ -159,10 +159,14 @@
             }
         }
         .content {
-            > li { display: none; color: white;
+            > li { display: none; color: #eee; font-size: 12px;
                 background: #333; padding: 16px 8px; border-radius: 4px;
                 &.selected { display: block; }
-
+                > h3 { margin: 0; }
+                > h4 { margin: 16px 0; color: #aaa; }
+                > ul { padding-left: 2em; }
+                > ol { padding-left: 2em; }
+                .strong { color: @red; font-size: 14px; }
             }
         }
     }
