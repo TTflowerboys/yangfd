@@ -10,13 +10,15 @@
             </colgroup>
             <thead>
             <tr>
-                <th>变更内容</th>
-                <th>修改内容</th>
                 <th>修改时间</th>
+                <th>修改内容</th>
+                <th>变更内容</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="h in history">
+                <td>{%h.updated_time?(h.updated_time * 1000 | date : 'short'):'' %}</td>
+                <td>{%h.updated_comment%}</td>
                 <td>
                     <table class="table table-bordered table-striped table-condensed">
                         <tr>
@@ -93,8 +95,6 @@
                         </tr>
                     </table>
                 </td>
-                <td>{%h.updated_comment%}</td>
-                <td>{%h.updated_time?(h.updated_time * 1000 | date : 'short'):'' %}</td>
             </tr>
             </tbody>
         </table>
