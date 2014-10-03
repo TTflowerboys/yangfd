@@ -10,17 +10,32 @@
 <!--@@block=main -->
 
 <div class="gallery">
+    %if homepage_ad_list:
+    % homepage_ad_list = _i18n(homepage_ad_list)
     <div class="rslides_wrapper">
         <ul class="rslides">
             %   for ad in homepage_ad_list:
             <li>
                 <img src="{{ad.get('image', '')}}" width="1920" height="800">
+
+                <div class="imageText_table">
+                    <div class="imageText_wrapper">
+                           <div class="imageText">
+                    %for index, text  in enumerate(ad.get('text')):
+                <h1 class="slogan">{{text}}</h1>
+                %end
+                <a class="button red" href="{{ad.get('link')}}">{{ad.get('image_alt', '')}}</a>
+                </div>
+
+                    </div>
+                </div>
+
             </li>
             %   end
         </ul>
+
     </div>
-    <h1 class="slogan">{{_('增值您的未来')}}</h1>
-    <a class="becomeMember button red" href="/signup">{{_('成为会员')}}</a>
+    %end
 </div>
 
 %if (not user):
@@ -241,7 +256,7 @@
 <script>
     $(function () {
         $(".rslides").responsiveSlides({
-            pager: true
+            pager: true,
         })
     })
 </script>

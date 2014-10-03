@@ -39,15 +39,36 @@
 
 main {
     .gallery {
-        .slogan {
-            .horizontalCenter(360px);
-            margin-top: -536px;
-            color: #ffffff;
-            font-size: 60px;
-        }
-        .becomeMember {
-            .horizontalCenter(150px);
-            margin-top: -328px;
+        li {
+            position:relative;
+
+            .imageText {
+                &_table {
+                   padding: 10px;
+                   display: table;
+                   position:absolute;
+                   top:0;
+                   left:0;
+                   margin-top:270px;
+                   width:100%;
+                }
+                &_wrapper {
+                     display: table-cell;
+                     vertical-align: middle;
+                     text-align: center;
+                     height:100%;
+                     width: 100%;
+                }
+
+                margin:0 auto;
+                .slogan {
+                    color: #ffffff;
+                    font-size: 60px;
+                }
+                .button {
+                    margin-top:60px;
+                }
+            }
         }
     }
 
@@ -183,7 +204,7 @@ main {
                 margin-left:12px;
                 position:relative;
 
-                 &:before{
+                &:before{
                     content:'';
                     display:block;
                     width:0px;
