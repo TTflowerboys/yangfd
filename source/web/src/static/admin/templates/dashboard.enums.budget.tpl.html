@@ -4,6 +4,9 @@
             <span class="fa fa-plus-circle"></span>添加预算
         </button>
     </span>
+    <div class="btn-group form-inline pull-right">
+        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+    </div>
 
     <div get-budget></div>
     <table class="table table-bordered table-striped table-condensed"
