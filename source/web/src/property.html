@@ -18,17 +18,17 @@
     <div class="content">
         <div class="pictures">
             <div class="big">
-                % if property['reality_images']:
-                <img src="{{property['reality_images'][0]}}" alt="" width="800" height="480"/>
+                % if property.get('reality_images'):
+                <img src="{{property.get('reality_images')[0]}}" alt="" width="800" height="480"/>
                 % else :
                 <img src="//placehold.it/800x480" alt="" width="800" height="480"/>
                 % end
 
             </div>
-            % if property['reality_images']:
+            % if property.get('reality_images'):
             <div class="thumbnails">
                 <ul>
-                    % for index,image in enumerate(property['reality_images']):
+                    % for index,image in enumerate(property.get('reality_images')):
                     <li
                     % if index == 0:
                     class="selected"
@@ -60,7 +60,9 @@
             <ul class="numbers">
                 <li>
                     房屋面积
-                    <strong>{{ property['space']['value'] }} {{ property['space']['unit'] }}</strong>
+                    % if property.get('space'):
+                    <strong>{{ property.get('space')['value'] }} {{ property.get('space')['unit'] }}</strong>
+                    %end
                 </li>
                 % if property.get('bedroom_count','') :
                 <li>
@@ -182,16 +184,12 @@
             </ul>
         </div>
         %end
+        %if property.get('description'):
         <div class="description">
-            <p>这里显示什么内容？
-            <p>这里显示什么内容？
-            <p>这里显示什么内容？
-            <p>这里显示什么内容？
-            <p>这里显示什么内容？
-            <p>这里显示什么内容？
-
+            {{property.get('description')}}
         </div>
         <hr/>
+        %end
         % if property.get('main_house_types'):
         <div class="houseTypes">
             <h3>楼盘户型</h3>
@@ -479,14 +477,26 @@
 
         <div class="intentionTags">
             <h2>投资标签</h2>
+            % imageMap = {
+            % "stable_cashflow": 1,
+            % "study_aboard":2 ,
+            % "immigration_investment":3,
+            % "excess_earnings":4,
+            % "asset_preservation":5,
+            % "live_after_immigration":6,
+            % "leisure_property":7
+            % }
 
-              %if (property.get('intention') and len(property.get('intention'))) :
-                       %for index, oneIntention in enumerate(property.get('intention')):
-                       %if 'value' in oneIntention:
-                       {{oneIntention.get('value')}}
-                       %end
-                       %end
-            %end
+
+            % if property.get('intention'):
+            <ul>
+                % for item in property.get('intention'):
+                <li>
+                    {{imageMap.get(item.get('slug'))}}
+                </li>
+                % end
+            </ul>
+            % end
         </div>
         <hr/>
     </div>
