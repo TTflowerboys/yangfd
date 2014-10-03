@@ -453,9 +453,9 @@
                 <input name="nickname" type="text" placeholder="您的姓名"/>
             </div>
             <div class="row">
-                <label for="">国家：</label>
                 <select name="country">
-                    <option value="中国">中国</option>
+                    <option value="">-- 国家 --</option>
+                    <option value="中国">中国(+86)</option>
                 </select>
                 <input name="phone" type="text" placeholder="您的电话"/>
             </div>
@@ -478,7 +478,7 @@
 
         % if property.get('intention'):
         <div class="intentionTags" data-tabs>
-            <h2>投资标签</h2>
+            <h2 class="propertyDetails_title">投资标签</h2>
             <ul class="tab">
                 % for index, intention in enumerate(property.get('intention')):
                 <li data-tab="{{intention.get('slug')}}">
@@ -548,6 +548,62 @@
         </div>
         <hr/>
         % end
+        <h2 class="propertyDetails_title">房贷计算</h2>
+        <form class="intentionForm calculator">
+            <div class="row">
+                <label class="label" for="">购房总价（CNY）</label>
+                <input name="" type="text" placeholder=""/>
+            </div>
+            <div class="row">
+                <label class="label" for="">首付款（CNY）</label>
+                <input name="" type="text" placeholder=""/>
+            </div>
+            <div class="row">
+                <label class="label" for="">贷款金额（CNY）</label>
+                <input disabled name="" type="text" placeholder=""/>
+            </div>
+            <div class="row">
+                <label class="label" for="">贷款利率</label>
+                <div class="inputAddOn">
+                    <input name="" type="text" placeholder=""/>
+                    <span class="addOn">%</span>
+                </div>
+            </div>
+            <div class="row">
+                <label class="label" for="">贷款年限</label>
+                <input name="" type="text" placeholder=""/>
+            </div>
+            <div class="row">
+                <label class="label" for="">还款类型</label>
+                <select name="">
+                    <option value="1">本金+利息</option>
+                </select>
+            </div>
+            <div class="action">
+                <button type="submit" class="flatButton">计算贷款</button>
+            </div>
+            <hr/>
+            <div class="table_wrapper">
+                <table>
+                    <colgroup>
+                        <col class="col-name">
+                        <col class="col-value">
+                    </colgroup>
+                    <tr>
+                        <td class="name">总支付利息</td>
+                        <td class="value">￥<span>1</span></td>
+                    </tr>
+                    <tr>
+                        <td class="name">本息合计</td>
+                        <td class="value">￥<span>1</span></td>
+                    </tr>
+                    <tr>
+                        <td class="name">每月还款</td>
+                        <td class="value">￥<span>1</span></td>
+                    </tr>
+                </table>
+            </div>
+        </form>
     </div>
 </div>
 <!--@@close-->
@@ -611,5 +667,4 @@
     }
 
 </script>
-{{json_dumps(property)}}
 <!--@@close-->
