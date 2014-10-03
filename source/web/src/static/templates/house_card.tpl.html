@@ -10,7 +10,7 @@
         <span class=price>
             {_if(house.total_price) {_}
             {=house.total_price.unit_symbol=}
-            <strong>{=parseFloat(house.total_price.value).toFixed(2)=}</strong>
+            <strong>{=parseInt(house.total_price.value)=}</strong>
             {_}_}
         </span>
             <div class=details>
@@ -22,7 +22,7 @@
                     {=house.bathroom_count=} {=window.i18n('洗手间')=},
                     {_}_}
                     {_if(house.space) {_}
-                    {=house.space.value=}
+                    {= parseFloat(house.space.value).toFixed(2)=}
                     {_if (house.space.unit === 'foot ** 2'){_}
                     foot <sup>2</sup>
                     {_} else if(house.space.unit === 'acre'){_}

@@ -26,63 +26,61 @@
                <h1 class=name>{{fav.get('property').get('name', '')}}</h1>
                <span class=price>
                    %if fav.get('property').get('total_price'):
-                   {{fav.get('property').get('total_price').get('unit_symbol')}} <strong>{{float("{0:.2f}".format(float(fav.get('property').get('total_price').get('value'))))}}</strong>
+                   {{fav.get('property').get('total_price').get('unit_symbol')}} <strong>{{str(int(float(fav.get('property').get('total_price').get('value'))))}}</strong>
                    %end
                </span>
-               <div class=details>
-                   <p class=size>
-                       %if fav.get('property').get('living_room_count'):
-                       {{fav.get('property').get('livint_room_count')}} {{_('房间')}},
-                       %end
-                       %if fav.get('property').get('bathroom_count'):
-                       {{fav.get('property').get('bathroom_count')}} {{'洗手间'}},
-                       %end
-                       %if fav.get('property').get('space'):
-                       {{fav.get('property').get('space').get('value')}}
-                       %if (fav.get('property').get('space').get('unit') == 'foot ** 2'):
-                       foot <sup>2</sup>
-                       %elif (fav.get('property').get('space').get('unit') == 'acre'):
-                       acre
-                       %elif (fav.get('property').get('space').get('unit') == 'meter ** 2'):
-                       m <sup>2</sup>
-                       %elif (fav.get('property').get('space').get('unit') == 'kilometer ** 2'):
-                       km <sup>2</sup>
-                       %else:
-                       {{fav.get('property').get('space').get('unit')}}
-                       %end
-                       %end
-                   </p>
-                   %if (fav.get('property').get('annual_return_estimated')) :
-                   <p class=estimate><span class=label>{{_('预期年租金')}} <br/>{{_('收益率')}}</span><span class=value>
-                           <strong>{{ fav.get('property').get('annual_return_estimated')}}</strong>%</span></p>
+               <p class=size>
+                   %if fav.get('property').get('living_room_count'):
+                   {{fav.get('property').get('livint_room_count')}} {{_('房间')}},
                    %end
-                   <ul class=properties>
+                   %if fav.get('property').get('bathroom_count'):
+                   {{fav.get('property').get('bathroom_count')}} {{'洗手间'}},
+                   %end
+                   %if fav.get('property').get('space'):
+                   {{float("{0:.2f}".format(float(fav.get('property').get('space').get('value'))))}}
+                   %if (fav.get('property').get('space').get('unit') == 'foot ** 2'):
+                   foot <sup>2</sup>
+                   %elif (fav.get('property').get('space').get('unit') == 'acre'):
+                   acre
+                   %elif (fav.get('property').get('space').get('unit') == 'meter ** 2'):
+                   m <sup>2</sup>
+                   %elif (fav.get('property').get('space').get('unit') == 'kilometer ** 2'):
+                   km <sup>2</sup>
+                   %else:
+                   {{fav.get('property').get('space').get('unit')}}
+                   %end
+                   %end
+               </p>
+               %if (fav.get('property').get('annual_return_estimated')) :
+               <p class=estimate><span class=label>{{_('预期年租金')}} <br/>{{_('收益率')}}</span><span class=value>
+                       <strong>{{ fav.get('property').get('annual_return_estimated')}}</strong>%</span></p>
+               %end
+               <ul class=properties>
 
-                         %if (fav.get('property').get('intention') and len(fav.get('property').get('intention'))) :
-                       <li><img src="/static/images/icon/house-card-tag.png" alt="" />
-                           <span>
-                       %for index, oneIntention in enumerate(fav.get('property').get('intention')):
-                       %if 'value' in oneIntention:
-                       {{oneIntention.get('value')}}
-                       %end
-                       %end
-                           </span>
-                       </li>
-                       %end
-                     
-                       %if (fav.get('property').get('equity_type')) :
-                       <li><img src="/static/images/icon/house-card-house.png" alt="" /> <span> {{fav.get('property').get('equity_type', '').get('value')}}</span></li>
-                       %end
-                       %if (_i18n(fav.get('property').get('street'))) :
-                       <li><img src="/static/images/icon/house-card-location.png" alt="" /> <span>{{fav.get('property').get('street', '')}} </span></li>
-                       %end
-                   </ul>
-               </div>
+                   %if (fav.get('property').get('intention') and len(fav.get('property').get('intention'))) :
+                   <li><img src="/static/images/icon/house-card-tag.png" alt="" />
+                       <span>
+                           %for index, oneIntention in enumerate(fav.get('property').get('intention')):
+                           %if 'value' in oneIntention:
+                           {{oneIntention.get('value')}}
+                           %end
+                           %end
+                       </span>
+                   </li>
+                   %end
+                   
+                   %if (fav.get('property').get('equity_type')) :
+                   <li><img src="/static/images/icon/house-card-house.png" alt="" /> <span> {{fav.get('property').get('equity_type', '').get('value')}}</span></li>
+                   %end
+                   %if (_i18n(fav.get('property').get('street'))) :
+                   <li><img src="/static/images/icon/house-card-location.png" alt="" /> <span>{{fav.get('property').get('street', '')}} </span></li>
+                   %end
+               </ul>
                <div class=action>
                    <a href=/property/{{fav.get('property').get('id')}} class="button red">{{_('查看详情')}}</a>
                </div>
                <div class="otherAction">
-               <button id="cancelFavorite" data-id={{fav.get('id')}} class="ghostButton darkGray">{{_('取消收藏')}}</button>
+                   <button id="cancelFavorite" data-id={{fav.get('id')}} class="ghostButton darkGray">{{_('取消收藏')}}</button>
                </div>
            </div>          
     </div>
