@@ -26,7 +26,7 @@
                <h1 class=name>{{fav.get('property').get('name', '')}}</h1>
                <span class=price>
                    %if fav.get('property').get('total_price'):
-                   {{fav.get('property').get('total_price').get('unit')}} <strong>{{float("{0:.2f}".format(float(fav.get('property').get('total_price').get('value'))))}}</strong>
+                   {{fav.get('property').get('total_price').get('unit_symbol')}} <strong>{{float("{0:.2f}".format(float(fav.get('property').get('total_price').get('value'))))}}</strong>
                    %end
                </span>
                <div class=details>

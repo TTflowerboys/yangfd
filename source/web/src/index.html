@@ -133,7 +133,7 @@
                <h1 class=name>{{property.get('name', '')}}</h1>
                <span class=price>
                    %if property.get('total_price'):
-                   {{property.get('total_price').get('unit')}} <strong>{{float("{0:.2f}".format(float(property.get('total_price').get('value'))))}}</strong>
+                   {{property.get('total_price').get('unit_symbol')}} <strong>{{str(int(float(property.get('total_price').get('value'))))}}</strong>
                    %end
                </span>
                <div class=details>
@@ -145,7 +145,7 @@
                        {{property.get('bathroom_count')}} {{'洗手间'}},
                        %end
                        %if property.get('space'):
-                       {{property.get('space').get('value')}}
+                       {{float("{0:.2f}".format(float(property.get('space').get('value'))))}}
                        %if (property.get('space').get('unit') == 'foot ** 2'):
                        foot <sup>2</sup>
                        %elif (property.get('space').get('unit') == 'acre'):
