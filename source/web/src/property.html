@@ -502,27 +502,57 @@
             </table>
         </div>
 
-        <form class="intentionForm" name="intentionForm">
+        <form class="intentionForm" name="intentionForm"
+            data-message-success="提交成功"
+            data-message-40000="你填写的手机或邮箱的格式不正确"
+            data-message-unknown="服务器忙，请稍后"
+            >
             <div class="row">
-                <input name="nickname" type="text" placeholder="您的姓名"/>
+                <input name="nickname" type="text" placeholder="您的姓名" data-validator="trim, required"/>
             </div>
             <div class="row">
                 <select name="country">
-                    <option value="">-- 国家 --</option>
-                    <option value="中国">中国(+86)</option>
+                    %for index, country in enumerate(country_list):
+                    <option value="{{country.get('id')}}">
+                        %if (country.get('slug') == 'CN'):
+                        (+86)
+                        %elif (country.get('slug') == 'GB') :
+                        (+44)
+                        %elif (country.get('slug') == 'US') :
+                        (+1)
+                        %elif (country.get('slug') == 'HK') :
+                        (+85)
+                        %end
+                        {{_i18n(country.get('value'))}}
+                    </option>
+                    %end
                 </select>
-                <input name="phone" type="text" placeholder="您的电话"/>
+                <input name="phone" type="text" placeholder="您的电话" data-validator="trim, required"/>
             </div>
             <div class="row">
-                <textarea></textarea>
+                <input name="email" type="text" placeholder="您的邮箱" data-validator="trim, required, email"/>
             </div>
             <div class="row">
-                <input id="c77a0b1a-1612-42e6-abbf-2ddc38095ad1" type="checkbox"/>
+                <select name="budget">
+                    <option value="">-- 您的预算(可选) --</option>
+                    %for index, budget in enumerate(_i18n(budget_list)):
+                    %if budget.get('currency') == _.currency:
+                    <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
+                    %end
+                    %end
+                </select>
+            </div>
+            <div class="row">
+                <textarea name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}{{_('(可选)')}}"></textarea>
+            </div>
+            <div class="row">
+                <input id="c77a0b1a-1612-42e6-abbf-2ddc38095ad1" type="checkbox" name="register"/>
                 <label for="c77a0b1a-1612-42e6-abbf-2ddc38095ad1">免费成为会员，查看详细报告</label>
             </div>
             <div class="action">
-                <button class="flatButton" type="submit">联系我们（免费）</button>
+                <button class="flatButton" type="submit" disabled>联系我们（免费）</button>
             </div>
+            <div class="row" data-role="serverFeedback" style="display: none; text-align:center;"></div>
             <hr/>
             <div class="contact">
                 拨打 400-700-8888 转 19872123
@@ -667,67 +697,105 @@
 
 
 <script>
-    function parseData(historicalPrice) {
-        var red = '#e20013'
-        var result = {
-            labels: [],
-            datasets: [
-                {
-                    fillColor: 'rgba(255,255,255,0)',
-                    strokeColor: red,
-                    pointColor: red,
-                    pointStrokeColor: red,
-                    data: []
-                }
-            ]
-        }
-        for (var i = 0, length = historicalPrice.length; i < length; i += 1) {
-            var date = new Date(historicalPrice[i].time * 1000)
-            var dateString = [date.getFullYear(), date.getMonth()].join('.')
-            result.labels.push(dateString)
-            result.datasets[0].data.push(historicalPrice[i].price.value)
+    (function () {
+
+        function parseData(historicalPrice) {
+            var red = '#e20013'
+            var result = {
+                labels: [],
+                datasets: [
+                    {
+                        fillColor: 'rgba(255,255,255,0)',
+                        strokeColor: red,
+                        pointColor: red,
+                        pointStrokeColor: red,
+                        data: []
+                    }
+                ]
+            }
+            for (var i = 0, length = historicalPrice.length; i < length; i += 1) {
+                var date = new Date(historicalPrice[i].time * 1000)
+                var dateString = [date.getFullYear(), date.getMonth()].join('.')
+                result.labels.push(dateString)
+                result.datasets[0].data.push(historicalPrice[i].price.value)
+            }
+
+            return result
+
         }
 
-        return result
-
-    }
-
-    function showCharts() {
-        var newopts = {
-            inGraphDataShow: true,
-            inGraphDataRadiusPosition: 2,
-            inGraphDataFontColor: 'white'
+        function showCharts() {
+            var newopts = {
+                inGraphDataShow: true,
+                inGraphDataRadiusPosition: 2,
+                inGraphDataFontColor: 'white'
+            }
+            var data = parseData(historical_price)
+            var ctx = document.getElementById('lineChart').getContext('2d');
+            var a = new Chart(ctx).Line(data, {
+                bezierCurve: false,
+                inGraphDataShow: true,
+                yAxisMinimumInterval: 1000,
+                yAxisMaximumInterval: 20000,
+                inGraphDataFontColor: '#aaaaaa',
+                inGraphDataFontSize: 12,
+                inGraphDataAlign: 'center',
+                graphSpaceBefore: 12
+            })
         }
-        var data = parseData(historical_price)
-        var ctx = document.getElementById('lineChart').getContext('2d');
-        var a = new Chart(ctx).Line(data, {
-            bezierCurve: false,
-            inGraphDataShow: true,
-            yAxisMinimumInterval: 1000,
-            yAxisMaximumInterval: 20000,
-            inGraphDataFontColor: '#aaaaaa',
-            inGraphDataFontSize: 12,
-            inGraphDataAlign: 'center',
-            graphSpaceBefore: 12
+
+        // IE 8-
+        if (window.historical_price) {
+            if ($.browser.ie && $.browser.version <= 8) {
+                $(window).on('load', showCharts)
+            } else {
+                $(showCharts())
+            }
+        }
+
+        $(".rslides").responsiveSlides({
+            pager: true,
+            auto: false,
+            nav: true,
+            prevText: '<',
+            nextText: '>'
         })
-    }
 
-    // IE 8-
-    if (window.historical_price) {
-        if ($.browser.ie && $.browser.version <= 8) {
-            $(window).on('load', showCharts)
-        } else {
-            $(showCharts())
-        }
-    }
+        var $form = $('.propertyDetails form[name=intentionForm]')
+        var $feedback = $form.find('[data-role=serverFeedback]')
+        var $submit = $form.find('[type=submit]')
+        $form.submit(function (e) {
+            e.preventDefault()
 
-    $(".rslides").responsiveSlides({
-        pager: true,
-        auto: false,
-        nav: true,
-        prevText: '<',
-        nextText: '>'
-    })
+            $submit.prop('disabled', true)
+            $feedback.hide()
+            var $form = $(this)
+
+            var data = $form.serializeObject({noEmptyString: true})
+            data.noregister = data.register === 'on' ? false : true
+            data.register = undefined
+
+            $.post('/api/1/intention_ticket/add', data)
+                .done(function () {
+                    $feedback.show().text($form.attr('data-message-success'))
+                })
+                .fail(function (errorCode) {
+                    $feedback.show().text($form.attr('data-message-' + errorCode) || $form.attr('data-message-unknown'))
+                })
+                .always(function () {
+                    $submit.prop('disabled', false)
+                })
+
+        }).on('change blur keyup', '[name]', function (e) {
+            var valid = $.validate($form, {onError: function () { }})
+            if (valid) {
+                $form.find('[type=submit]').prop('disabled', false)
+            } else {
+                $form.find('[type=submit]').prop('disabled', true)
+            }
+        })
+
+    })()
 
 </script>
 <!--@@close-->
