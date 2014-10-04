@@ -148,6 +148,7 @@
                                   if (!_.isEmpty(array)) {
                                       var item = _.first(array)
                                       item.category_intention = getIntentionById(oneIntention)
+                                      item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ', '_') + '_description')
                                       responseArray.push(item)
                                   }
                               })

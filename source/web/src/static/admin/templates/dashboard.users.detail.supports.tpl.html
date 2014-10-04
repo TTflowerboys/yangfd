@@ -9,41 +9,41 @@
             <col class="actions">
         </colgroup>
         <thead>
-        <tr>
-            <th>状态</th>
-            <th>客户姓名</th>
-            <th>客户手机</th>
-            <th>客户邮箱</th>
-            <th>创建时间</th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>状态</th>
+                <th>客户姓名</th>
+                <th>客户手机</th>
+                <th>客户邮箱</th>
+                <th>创建时间</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in list">
-            <td>
-                {%item.status | supportTicketStatusName%}
-            </td>
-            <td>
-                {%item.nickname%}
-            </td>
-            <td>
-                {%item.phone%}
-            </td>
-            <td>
-                {%item.email%}
-            </td>
-            <td>
-                {%item.time * 1000 | date : 'short'%}
-            </td>
-            <td>
-                <a class="btn btn-success" href ui-sref="dashboard.support.detail({id:item.id})" title="View">
-                    <i class="fa fa-search-plus "></i>
-                </a>
-                <a class="btn btn-info" href ui-sref="dashboard.support.edit({id:item.id})" title="Edit">
-                    <i class="fa fa-edit "></i>
-                </a>
-            </td>
-        </tr>
+            <tr ng-repeat="item in list">
+                <td>
+                    {%item.status | supportTicketStatusName%}
+                </td>
+                <td>
+                    {%item.nickname%}
+                </td>
+                <td>
+                    {%item.phone%}
+                </td>
+                <td>
+                    {%item.email%}
+                </td>
+                <td>
+                    {%item.time * 1000 | date : 'short'%}
+                </td>
+                <td>
+                    <a class="btn btn-success" href ui-sref="dashboard.support.detail({id:item.id})" title="View">
+                        <i class="fa fa-search-plus "></i>
+                    </a>
+                    <a class="btn btn-info" href ui-sref="dashboard.support.edit({id:item.id})" title="Edit">
+                        <i class="fa fa-edit "></i>
+                    </a>
+                </td>
+            </tr>
         </tbody>
     </table>
     <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>

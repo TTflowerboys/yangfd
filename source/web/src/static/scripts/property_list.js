@@ -47,6 +47,11 @@
                             time = house.time
                         }
                     })
+
+                    $('#loadMore').show()
+                }
+                else {
+                    $('#loadMore').hide()
                 }
 
             })
@@ -69,7 +74,7 @@
         var selectedCountryId = $('select[name=propertyCountry]').children('option:selected').val()
         var $citySelect = $('select[name=propertyCity]')
         $citySelect.empty()
-        $citySelect.append('<option value=>' + window.i18n('所有城市') + '</option>')
+        $citySelect.append('<option value=>' + window.i18n('任意城市') + '</option>')
         _.each(window.cityData, function (city) {
             if (!selectedCountryId || city.country.id === selectedCountryId) {
                 var item = '<option value=' + city.id + '>' + city.value[window.lang] + '</option>'
@@ -222,7 +227,7 @@
 
         var $countrySelect = $('select[name=propertyCountry]')
         $countrySelect.empty()
-        $countrySelect.append('<option value=>' + window.i18n('所有国家slash地区') + '</option>')
+        $countrySelect.append('<option value=>' + window.i18n('任意国家slash地区') + '</option>')
         _.each(window.countryData, function (country) {
             var item = '<option value=' + country.id + '>' + country.value[window.lang] + '</option))>'
             $countrySelect.append(item)
@@ -236,7 +241,7 @@
 
         var $citySelect = $('select[name=propertyCity]')
         $citySelect.empty()
-        $citySelect.append('<option value=>' + window.i18n('所有城市') + '</option>')
+        $citySelect.append('<option value=>' + window.i18n('任意城市') + '</option>')
         _.each(window.cityData, function (city) {
             var item = '<option value=' + city.id + '>' + city.value[window.lang] + '</option>'
             $citySelect.append(item)
@@ -249,7 +254,7 @@
 
         var $propertyTypeSelect = $('select[name=propertyType]')
         $propertyTypeSelect.empty()
-        $propertyTypeSelect.append('<option value=>' + window.i18n('所有房屋类型') + '</option>')
+        $propertyTypeSelect.append('<option value=>' + window.i18n('任意房屋类型') + '</option>')
         _.each(window.propertyTypeData, function (type) {
             var item = '<option value=' + type.id + '>' + type.value[window.lang] + '</option>'
             $propertyTypeSelect.append(item)

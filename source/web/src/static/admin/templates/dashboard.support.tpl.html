@@ -22,7 +22,9 @@
                     <col class="phone">
                     <col class="email">
                     <col class="date">
-                    <col class="actions">
+                    <col class="date">
+                    <col style="width: 220px;">
+                    <col style="width: 150px;">
                 </colgroup>
                 <thead>
                     <tr>
@@ -31,6 +33,7 @@
                         <th>客户手机</th>
                         <th>客户邮箱</th>
                         <th>创建时间</th>
+                        <th>受理时间</th>
                         <td>指派</td>
                         <th></th>
                     </tr>
@@ -51,6 +54,9 @@
                         </td>
                         <td>
                             {%item.time * 1000 | date : 'short'%}
+                        </td>
+                        <td>
+                            {%(item.assigned_time?(item.assigned_time * 1000 | date : 'short'):'')%}
                         </td>
                         <td class="form-inline" style="white-space: nowrap;">
                             <div add-assignee ng-model="item" type="support_ticket"></div>

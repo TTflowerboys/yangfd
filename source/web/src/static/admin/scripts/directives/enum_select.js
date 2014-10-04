@@ -6,6 +6,7 @@ angular.module('app')
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/enum_select.tpl.html',
+            replace: true,
             scope: {
                 enumId: '=ngModel',
                 enumType: '@name',

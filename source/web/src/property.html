@@ -192,13 +192,13 @@
         %end
         % if property.get('main_house_types'):
         <div class="houseTypes">
-            <h3>楼盘户型</h3>
+            <h3 class="propertyDetails_title">楼盘户型</h3>
             {{property.get('main_house_types')}}
         </div>
         <hr/>
         %end
         <div class="brief">
-            <h3>楼盘介绍</h3>
+            <h3 class="propertyDetails_title">楼盘介绍</h3>
             <div class="table_wrapper">
                 <table class="table">
                     <colgroup>
@@ -259,7 +259,7 @@
         <hr/>
         % if property.get('historical_price') :
         <div class="trend">
-            <h3>价格趋势 (元)</h3>
+            <h3 class="propertyDetails_title">价格趋势 (元)</h3>
             <textarea id="python_historical_price" style="display: none;">
                 {{json_dumps(property.get('historical_price'))}}
             </textarea>
@@ -278,7 +278,7 @@
 
         % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
         <div class="incoming">
-            <h3>收入分析</h3>
+            <h3 class="propertyDetails_title">收入分析</h3>
             <div class="stackedBar">
                 % costTotal = 0
                 % if property.get('estimated_monthly_cost'):
@@ -344,7 +344,7 @@
         <hr/>
         % end
         <div class="nearby" style="display: none;">
-            <h3>周边配套</h3>
+            <h3 class="propertyDetails_title">周边配套</h3>
             <ul>
                 <li>
                     <h4><i><img src="/static/images/property_details/icon-bus.png" alt=""/></i>交通设施</h4>
@@ -453,9 +453,9 @@
                 <input name="nickname" type="text" placeholder="您的姓名"/>
             </div>
             <div class="row">
-                <label for="">国家：</label>
                 <select name="country">
-                    <option value="中国">中国</option>
+                    <option value="">-- 国家 --</option>
+                    <option value="中国">中国(+86)</option>
                 </select>
                 <input name="phone" type="text" placeholder="您的电话"/>
             </div>
@@ -474,31 +474,136 @@
                 拨打 400-700-8888 转 19872123
             </div>
         </form>
+        <hr/>
 
-        <div class="intentionTags">
-            <h2>投资标签</h2>
-            % imageMap = {
-            % "stable_cashflow": 1,
-            % "study_aboard":2 ,
-            % "immigration_investment":3,
-            % "excess_earnings":4,
-            % "asset_preservation":5,
-            % "live_after_immigration":6,
-            % "leisure_property":7
-            % }
-
-
-            % if property.get('intention'):
-            <ul>
-                % for item in property.get('intention'):
-                <li>
-                    {{imageMap.get(item.get('slug'))}}
+        % if property.get('intention'):
+        <div class="intentionTags" data-tabs>
+            <h2 class="propertyDetails_title">投资标签</h2>
+            <ul class="tab">
+                % for index, intention in enumerate(property.get('intention')):
+                <li data-tab="{{intention.get('slug')}}">
+                    <div class="image_wrapper">
+                        <img src="/static/images/intention/icon/{{intention.get('slug')}}-red.png" alt=""/>
+                    </div>
+                    <div class="text">
+                        {{intention.get('value')}}
+                    </div>
                 </li>
                 % end
             </ul>
-            % end
+            <ul class="content">
+                <li data-tab-name="stable_cashflow">
+                    <h3>资产保值详述</h3>
+
+                    <h4>资产保值的投资特征</h4>
+
+                    <ul class="strong">
+                        <li>
+                            ✓ 享有永久产权
+                        </li>
+                        <li>
+                            ✓ 处于黄金位置
+                        </li>
+                    </ul>
+
+                    <h4>
+                        投资流程及费用
+                    </h4>
+
+                    <ol>
+                        <li>
+                            1. 提交置业投资预算
+                        </li>
+                        <li>
+                            2. 按“资产保值”标签筛选出平台提供期房 永久性产权，
+                            在黄金postcode 区域内的房子
+                        </li>
+                        <li>
+                            3. 注册提交置业需求查看详细报告
+                        </li>
+                        <li>
+                            4. 联系置业顾问 并安排办理购房手续
+                        </li>
+                    </ol>
+                </li>
+                <li data-tab-name="study_aboard">
+                    Study Aboard
+                </li>
+                <li data-tab-name="immigration_investment">
+                    Immigration Investment
+                </li>
+                <li data-tab-name="excess_earnings">
+                    Excess Earnings
+                </li>
+                <li data-tab-name="asset_preservation">
+                    Asset Preservation
+                </li>
+                <li data-tab-name="live_after_immigration">
+                    Live After Immigration
+                </li>
+                <li data-tab-name="leisure_propertyn">
+                    Leisure Property
+                </li>
+            </ul>
         </div>
         <hr/>
+        % end
+        <h2 class="propertyDetails_title">房贷计算</h2>
+        <form class="intentionForm calculator">
+            <div class="row">
+                <label class="label" for="">购房总价（CNY）</label>
+                <input name="" type="text" placeholder=""/>
+            </div>
+            <div class="row">
+                <label class="label" for="">首付款（CNY）</label>
+                <input name="" type="text" placeholder=""/>
+            </div>
+            <div class="row">
+                <label class="label" for="">贷款金额（CNY）</label>
+                <input disabled name="" type="text" placeholder=""/>
+            </div>
+            <div class="row">
+                <label class="label" for="">贷款利率</label>
+                <div class="inputAddOn">
+                    <input name="" type="text" placeholder=""/>
+                    <span class="addOn">%</span>
+                </div>
+            </div>
+            <div class="row">
+                <label class="label" for="">贷款年限</label>
+                <input name="" type="text" placeholder=""/>
+            </div>
+            <div class="row">
+                <label class="label" for="">还款类型</label>
+                <select name="">
+                    <option value="1">本金+利息</option>
+                </select>
+            </div>
+            <div class="action">
+                <button type="submit" class="flatButton">计算贷款</button>
+            </div>
+            <hr/>
+            <div class="table_wrapper">
+                <table>
+                    <colgroup>
+                        <col class="col-name">
+                        <col class="col-value">
+                    </colgroup>
+                    <tr>
+                        <td class="name">总支付利息</td>
+                        <td class="value">￥<span>1</span></td>
+                    </tr>
+                    <tr>
+                        <td class="name">本息合计</td>
+                        <td class="value">￥<span>1</span></td>
+                    </tr>
+                    <tr>
+                        <td class="name">每月还款</td>
+                        <td class="value">￥<span>1</span></td>
+                    </tr>
+                </table>
+            </div>
+        </form>
     </div>
 </div>
 <!--@@close-->
@@ -553,11 +658,13 @@
     }
 
     // IE 8-
-    if ($.browser.ie && $.browser.version <= 8) {
-        $(window).on('load', showCharts)
-    } else {
-        $(showCharts())
+    if (window.historical_price) {
+        if ($.browser.ie && $.browser.version <= 8) {
+            $(window).on('load', showCharts)
+        } else {
+            $(showCharts())
+        }
     }
+
 </script>
-{{json_dumps(property)}}
 <!--@@close-->

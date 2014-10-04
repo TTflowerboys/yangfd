@@ -4,7 +4,8 @@
             <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span>返回</button>
         </span>
         <span class="btn-group">
-            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"
+                    ng-model="userLanguage.value"></select>
         </span>
     </div>
     <form class="form-horizontal login" ng-init="initId()">
@@ -83,6 +84,34 @@
                 <div class="controls" ng-repeat="i in item.intention">
 
                     {%i.value[userLanguage.value]%}
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-6 col-sm-3">
+                <label class="control-label">提交时间</label>
+
+                <div class="controls">
+                    {%(item.time?(item.time * 1000 | date : 'short'):'')%}
+                </div>
+            </div>
+            <div class="form-group col-xs-6 col-sm-3">
+                <label class="control-label">受理时间</label>
+
+                <div class="controls">
+
+                    {%(item.assigned_time?(item.assigned_time * 1000 | date : 'short'):'')%}
+
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="item.creator_user">
+            <div class="form-group col-xs-6 col-sm-3">
+                <label class="control-label">指派</label>
+
+                <div class="controls">
+                    {%item.creator_user.nickname%}
 
                 </div>
             </div>

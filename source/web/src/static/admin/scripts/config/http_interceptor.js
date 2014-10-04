@@ -13,7 +13,7 @@ angular.module('app')
             if (!response.config.errorMessage) {return}
 
             return response.config.errorMessage[errorCode] || errors[errorCode] ||
-                errors.unknown
+                errors.unknown + ' Error code: ' + errorCode
         }
 
         $provide.factory('myHttpInterceptor', function ($q, growl, $rootScope, $sce) {
