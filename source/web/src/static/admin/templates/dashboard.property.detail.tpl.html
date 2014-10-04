@@ -3,7 +3,8 @@
 
         <span class="btn-group">
             <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
-            <button ng-if="item.status !== 'not reviewed'" class="btn" ng-click="$state.go('^.edit',{id:item.id})"><span class="fa fa-edit"></span> 编辑
+            <button ng-if="item.status !== 'not reviewed'" class="btn" ng-click="$state.go('^.edit',{id:item.id})">
+                <span class="fa fa-edit"></span> 编辑
             </button>
         </span>
         <div class="btn-group form-inline pull-right">
@@ -75,15 +76,25 @@
                 </div>
                 <div class="row" ng-if="item.highlight">
                     <div class="form-group col-xs-12 col-sm-6">
-
-                        <label class="control-label">亮点</label>
-
-                        <div class="controls">
-                            <div ng-repeat="point in item.highlight[userLanguage.value]" style="margin-bottom:30px"
-                                class="col-sm-3 col-xs-6">
-                                <span class="input-xlarge uneditable-input">{%point%}</span>
-                            </div>
-                        </div>
+                        <div type-i18n="item.highlight"></div>
+                        <table class="table table-bordered table-striped table-condensed "
+                            style="margin-bottom:30px">
+                            <colgroup>
+                                <col class="highlight">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>亮点</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="point in item.highlight[userLanguage.value] track by $index">
+                                    <td>
+                                        <span class="input-xlarge uneditable-input">{%point%}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="row" ng-if="item.description">
