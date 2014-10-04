@@ -28,14 +28,15 @@
                 > li { float: left; width: 25%; position: relative; cursor: pointer;
                     > img { display: block; max-width: 100%; }
                     > span { position: absolute; left: 0; top: 0; width: 100%; height: 100%;
-                        &.border { display: none; border: 3px solid @red; }
-                        &.text { text-align: center; line-height: 120px; background: rgba(255, 255, 255, 0.5); font-size: 32px;
-                            color: #444444;
-                        }
+                    }
+                    .border { display: none; border: 3px solid @red; }
+                    .text { text-align: center; background: fade(white, 50%); font-size: 20px; color: #444444;
+                        &_wrapper { display: table; height: 120px; }
+                        display: table-cell; vertical-align: middle; padding: 0 8px;
                     }
                     &.selected {
                         .border { display: block; }
-                        .text { display: none; }
+                        .text { background: none; }
                     }
                 }
             }
