@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2014-10-04 19:58+0800\n"
-"PO-Revision-Date: 2014-10-04 19:58+0800\n"
+"PO-Revision-Date: 2014-10-04 20:05+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -231,7 +231,6 @@ msgid "投资"
 msgstr "for"
 
 #: ../web/src/property_list.html:41
-#, fuzzy
 msgid "任意类型房产"
 msgstr "Any Kind Of Property"
 
@@ -256,7 +255,6 @@ msgid "您可以更改筛选条件，或者"
 msgstr "You can change your filters, or "
 
 #: ../web/src/property_list.html:64
-#, fuzzy
 msgid "提交您的置业需求"
 msgstr "Submit Your Investment Needs"
 
@@ -358,7 +356,6 @@ msgid "验证新手机号（2/2）"
 msgstr "Verify New Phone Number（2/2）"
 
 #: ../web/src/user_change_phone_2.html:19
-#, fuzzy
 msgid "验证"
 msgstr "Please Verify You Email Address"
 
@@ -397,7 +394,6 @@ msgid "查看详情"
 msgstr "View Details"
 
 #: ../web/src/user_favorites.html:83
-#, fuzzy
 msgid "取消收藏"
 msgstr "Cancel"
 
@@ -415,7 +411,6 @@ msgid "电话"
 msgstr "Phone"
 
 #: ../web/src/user_intentions.html:83
-#, fuzzy
 msgid "预算："
 msgstr "Budget:"
 
@@ -742,7 +737,6 @@ msgid "提交需求失败"
 msgstr "Submit Failed"
 
 #: ../web/src/partials/localization_manager.html:16
-#, fuzzy
 msgid "任意房屋类型"
 msgstr "Any Kind Of Property"
 
@@ -828,17 +822,14 @@ msgid "原手机号不能为空"
 msgstr "Phone number should not be empty"
 
 #: ../web/src/partials/localization_manager.html:42
-#, fuzzy
 msgid "原手机号格式不正确"
 msgstr "Phone is bad format"
 
 #: ../web/src/partials/localization_manager.html:43
-#, fuzzy
 msgid "当前密码不能为空"
 msgstr "Password should not be empty"
 
 #: ../web/src/partials/localization_manager.html:44
-#, fuzzy
 msgid "确认密码不能为空"
 msgstr "Password should not be empty"
 
@@ -1105,7 +1096,6 @@ msgid "收起"
 msgstr "Collapse"
 
 #: ../web/src/static/templates/suggestion_house_card.tpl.html:9
-#, fuzzy
 msgid "更多"
 msgstr "Load More"
 
