@@ -23,7 +23,7 @@
                             <a class="btn account dropdown-toggle" data-toggle="dropdown" href="index.html#">
                                 <div class="avatar"></div>
                                 <div class="user">
-                                    <span class="hello">Welcome, {%user.nickname%}</span>
+                                    <span class="hello">{%user.nickname%}</span>
                                     <span class="role" ng-repeat="role in user.role">
                                         {%role | permissionName %}
                                     </span>
@@ -142,7 +142,10 @@
                 </div>
 
                 <div id="content" class="col-lg-10 col-sm-11" ui-view one-screen style="min-height: 400px;">
-                    Welcome, {%user.nickname || user.email%}
+                    {%user.nickname || user.email%}
+                    <div ng-repeat="role in user.role">
+                        {%role | permissionName %}
+                    </div>
                 </div>
 
             </div>
