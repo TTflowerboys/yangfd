@@ -903,7 +903,7 @@ msgstr "Description"
 
 #: ../web/src/static/emails/new_ticket_title.html:1
 msgid "收到新的置业需求"
-msgstr "Got new property request ticket:"
+msgstr "Got new property request ticket"
 
 #: ../web/src/static/emails/set_as_admin.html:6
 msgid "你已被授予以下权限："
