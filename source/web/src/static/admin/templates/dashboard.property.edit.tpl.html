@@ -97,7 +97,7 @@
                 <div class="row">
                     <div class="form-group col-xs-6 col-sm-3">
                         <div class="input-group">
-                            <input class="form-control" type="text" ng-model="item.tempPoint" placeholder="亮点"/>
+                            <input class="form-control" type="text" ng-model="item.tempPoint" placeholder="亮点条目内容"/>
 
                             <div class="input-group-btn">
                                 <input type="button" ng-click="addHighlight()" class="btn btn-primary" value="添加"></div>
@@ -121,7 +121,7 @@
                         <label class="control-label">年化回报预估</label>
 
                         <div class="controls">
-                            <input type="text" class="form-control" ng-model="item.annual_return_estimated"/>
+                            <input type="text" class="form-control" ng-model="item.annual_return_estimated" placeholder="比如 10%"/>
                         </div>
                     </div>
                 </div>
@@ -399,8 +399,8 @@
                         <label class="control-label">单位面积参考价格</label>
 
                         <div class="controls form-inline">
-                            <div type-i18n-unit data="i18nCurrency" ng-model="item.unit_price.price"></div>
-                            <div type-i18n-unit data="i18nArea" ng-model="item.unit_price.unit"></div>
+                            <div type-i18n-unit data="i18nArea" ng-model="item.unit_price.unit" placeholder="单位面积，一般为1"></div>
+                            <div type-i18n-unit data="i18nCurrency" ng-model="item.unit_price.price" placeholder="单位面积对应的售价"></div>
                         </div>
                     </div>
                 </div>
