@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-04 19:05+0800\n"
-"PO-Revision-Date: 2014-10-04 19:54+0800\n"
+"POT-Creation-Date: 2014-10-04 19:58+0800\n"
+"PO-Revision-Date: 2014-10-04 19:58+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -601,9 +601,8 @@ msgid "海外众筹"
 msgstr "Oversea Crowdfunding"
 
 #: ../web/src/masters/master.html:42
-#, fuzzy
 msgid "投资资讯"
-msgstr "for"
+msgstr "News"
 
 #: ../web/src/masters/master.html:56 ../web/src/partials/register_form.html:22
 #: ../web/src/partials/signin_form.html:12
