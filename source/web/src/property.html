@@ -62,18 +62,20 @@
         </div>
         <div class="nav tabbar">
             <ul>
-                <li class=active>详情</li>
-                <li>户型</li>
-                <li>楼盘介绍</li>
+                <li class=active>
+                    <a href="#propertyDetails_description">详情</a>
+                </li>
+                <li><a href="#propertyDetails_houseTypes"></a>户型</li>
+                <li><a href="#propertyDetails_project"></a>楼盘介绍</li>
                 % if property.get('historical_price') :
-                <li>价格趋势</li>
+                <li><a href="#propertyDetails_price"></a>价格趋势</li>
                 % end
                 % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
-                <li>收入分析</li>
+                <li><a href="#propertyDetails_incoming"></a>收入分析</li>
                 % end
             </ul>
         </div>
-        <div class="meta">
+        <div id="propertyDetails_description" class="meta">
             <ul class="numbers">
                 <li>
                     房屋面积
@@ -208,13 +210,13 @@
         <hr/>
         %end
         % if property.get('main_house_types'):
-        <div class="houseTypes">
+        <div id="propertyDetails_houseTypes" class="houseTypes">
             <h3 class="propertyDetails_title">楼盘户型</h3>
             {{property.get('main_house_types')}}
         </div>
         <hr/>
         %end
-        <div class="brief">
+        <div id="propertyDetails_project" class="brief">
             <h3 class="propertyDetails_title">楼盘介绍</h3>
             <div class="table_wrapper">
                 <table class="table">
@@ -275,7 +277,7 @@
         </div>
         <hr/>
         % if property.get('historical_price') :
-        <div class="trend">
+        <div id="propertyDetails_price" class="trend">
             <h3 class="propertyDetails_title">价格趋势 (元)</h3>
             <textarea id="python_historical_price" style="display: none;">
                 {{json_dumps(property.get('historical_price'))}}
@@ -294,7 +296,7 @@
         % end
 
         % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
-        <div class="incoming">
+        <div id="propertyDetails_incoming" class="incoming">
             <h3 class="propertyDetails_title">收入分析</h3>
             <div class="stackedBar">
                 % costTotal = 0
