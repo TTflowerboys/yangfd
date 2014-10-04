@@ -21,6 +21,7 @@
 
         .big {
             img { max-height: 480px; max-width: 100%; }
+            .item { display: none; }
         }
         .thumbnails { margin-top: 24px; margin-bottom: 48px;
             > ul {
@@ -34,9 +35,9 @@
                         &_wrapper { display: table; height: 120px; }
                         display: table-cell; vertical-align: middle; padding: 0 8px;
                     }
-                    &.selected {
+                    &.selectedTab {
                         .border { display: block; }
-                        .text { background: none; }
+                        .text { display: none; }
                     }
                 }
             }
