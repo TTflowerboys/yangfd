@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-04 19:58+0800\n"
+"POT-Creation-Date: 2014-10-04 20:10+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -172,7 +172,7 @@ msgstr ""
 msgid "发布日期："
 msgstr ""
 
-#: ../web/src/news_list.html:14
+#: ../web/src/news_list.html:14 ../web/src/masters/news_master.html:19
 msgid "房产资讯"
 msgstr ""
 
