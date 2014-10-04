@@ -47,6 +47,7 @@ angular.module('app')
                         living_room_count: scope.item.tempLivingRoomCount,
                         bathroom_count: scope.item.tempBathroomCount,
                         kitchen_count: scope.item.tempKitchenCount,
+                        space: scope.item.tempSpace,
                         total_price: angular.copy(scope.item.tempTotalPrice),
                         floor_plan: scope.item.tempFloorPlan}
                     scope.item.main_house_types.push(angular.copy(temp))
@@ -55,6 +56,7 @@ angular.module('app')
                     scope.item.tempLivingRoomCount = undefined
                     scope.item.tempBathroomCount = undefined
                     scope.item.tempKitchenCount = undefined
+                    scope.item.tempSpace = undefined
                     scope.item.tempTotalPrice.value = undefined
                     scope.item.tempFloorPlan = {}
                 }

@@ -3,7 +3,7 @@
 
         <span class="btn-group">
             <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
-            <button class="btn" ng-click="$state.go('^.edit',{id:item.id})"><span class="fa fa-edit"></span> 编辑
+            <button ng-if="item.status !== 'not reviewed'" class="btn" ng-click="$state.go('^.edit',{id:item.id})"><span class="fa fa-edit"></span> 编辑
             </button>
         </span>
         <div class="btn-group form-inline pull-right">
@@ -419,6 +419,7 @@
                                     <col class="living_room_count">
                                     <col class="bathroom_count">
                                     <col class="kitchen_count">
+                                    <col class="space">
                                     <col class="total_price">
                                     <col class="floor_plan">
                                 </colgroup>
@@ -429,6 +430,7 @@
                                         <th>客厅数</th>
                                         <th>卫生间数</th>
                                         <th>厨房数</th>
+                                        <th>面积</th>
                                         <th>户型总价</th>
                                         <th>户型图</th>
                                     </tr>
@@ -440,6 +442,7 @@
                                         <td>{%main_type.living_room_count%}</td>
                                         <td>{%main_type.bathroom_count%}</td>
                                         <td>{%main_type.kitchen_count%}</td>
+                                        <td>{%main_type.space.value%} {%main_type.space.unit%}</td>
                                         <td>{%main_type.total_price.value%} {%main_type.total_price.unit%}</td>
                                         <td>
                                             <img class="img-thumbnail" ng-src="{%main_type.floor_plan[userLanguage.value]%} ">
