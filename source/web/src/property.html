@@ -22,12 +22,12 @@
 
                 % for name in ['reality_images','surroundings_images','floor_plan','effect_pictures',
                 % 'indoor_sample_room_picture','planning_map']:
-                <div class="item" data-tab-name="reality_images">
+                <div class="item" data-tab-name="{{name}}">
 
                     % if property.get(name):
                     <div class="rslides_wrapper">
                         <ul class="rslides">
-                            % for image in property.get('reality_images'):
+                            % for image in property.get(name):
                             <li>
                                 <img src="{{image}}" alt="" width="800" height="480"/>
                             </li>
