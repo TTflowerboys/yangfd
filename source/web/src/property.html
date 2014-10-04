@@ -68,7 +68,9 @@
                 % if property.get('main_house_types'):
                 <li><a href="#propertyDetails_houseTypes">户型</a></li>
                 % end
+                % if property.get('property_type') == 'new_property':
                 <li><a href="#propertyDetails_project">楼盘介绍</a></li>
+                %end
                 % if property.get('historical_price') :
                 <li><a href="#propertyDetails_price">价格趋势</a></li>
                 % end
@@ -215,6 +217,7 @@
         </div>
         <hr/>
         %end
+        % if property.get('property_type') == 'new_property':
         <div id="propertyDetails_project" class="brief">
             <h3 class="propertyDetails_title">楼盘介绍</h3>
             <div class="table_wrapper">
@@ -276,6 +279,7 @@
             </div>
         </div>
         <hr/>
+        %end
         % if property.get('historical_price') :
         <div id="propertyDetails_price" class="trend">
             <h3 class="propertyDetails_title">价格趋势 (元)</h3>
