@@ -48,7 +48,7 @@ angular.module('app')
             })
             .state('forgot', {
                 url: '/forgot?from',
-                templateUrl: '/static/admin/templates/forgotPassword.tpl.html',
+                templateUrl: '/static/admin/templates/forgot_password.tpl.html',
                 controller: 'ctrlForgotPassword'
             })
 

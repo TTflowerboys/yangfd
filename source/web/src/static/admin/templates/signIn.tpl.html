@@ -9,7 +9,7 @@
                     </div>
 
                     <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
-                          ng-submit="submit($event,signIn)" name="signIn" novalidate>
+                        ng-submit="submit($event,signIn)" name="signIn" novalidate>
                         <fieldset class="col-sm-12">
                             <div class="form-group">
                                 <div class="controls row">
@@ -25,10 +25,10 @@
                                 <div class="controls row">
                                     <div class="input-group col-sm-12">
                                         <input ng-model="user.phone" name="phone" ng-pattern="/^[0-9 ]*$/"
-                                               type="text" class="form-control" ng-change="onChangeText()"
-                                               placeholder="电话号码" required>
+                                            type="text" class="form-control" ng-change="onChangeText()"
+                                            placeholder="电话号码" required>
                                         <span class="input-group-addon" style="width: 40px"><i
-                                                class="fa fa-mobile-phone"></i></span>
+                                            class="fa fa-mobile-phone"></i></span>
                                     </div>
                                     <span ng-show="submitted && signIn.phone.$error.required">必填</span>
                                     <span ng-show="submitted && signIn.phone.$error.pattern">请输入数字</span>
@@ -39,10 +39,10 @@
                                 <div class="controls row">
                                     <div class="input-group col-sm-12">
                                         <input ng-model="user.password"
-                                               type="password" class="form-control" name="password"
-                                               ng-change="onChangeText()" placeholder="密码" required>
+                                            type="password" class="form-control" name="password"
+                                            ng-change="onChangeText()" placeholder="密码" required>
                                         <span class="input-group-addon" style="width: 40px"><i
-                                                class="fa fa-key"></i></span>
+                                            class="fa fa-key"></i></span>
                                     </div>
                                     <span ng-show="submitted && signIn.password.$error.required">必填</span>
                                 </div>
@@ -51,7 +51,7 @@
                             <div class="row">
 
                                 <button type="submit" class="btn btn-lg btn-primary col-xs-12"
-                                        ng-disabled="submitDisabled">登录
+                                    ng-disabled="submitDisabled">登录
                                 </button>
 
                             </div>

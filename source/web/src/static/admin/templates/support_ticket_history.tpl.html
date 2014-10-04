@@ -3,72 +3,72 @@
 
     <div class="controls">
         <table class="table table-bordered table-striped table-condensed"
-               style="margin-bottom:30px">
+            style="margin-bottom:30px">
             <colgroup>
                 <col class="key">
                 <col class="value">
             </colgroup>
             <thead>
-            <tr>
-                <th>修改时间</th>
-                <th>修改内容</th>
-                <th>变更内容</th>
-            </tr>
+                <tr>
+                    <th>修改时间</th>
+                    <th>修改内容</th>
+                    <th>变更内容</th>
+                </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="h in history">
-                <td>{%h.updated_time?(h.updated_time * 1000 | date : 'short'):'' %}</td>
-                <td>{%h.updated_comment%}</td>
-                <td>
-                    <table class="table table-bordered table-striped table-condensed">
-                        <tr>
-                            <td>字段</td>
-                            <td>内容</td>
-                        </tr>
-                        <tr ng-if="h._set.nickname">
-                            <td>姓名</td>
-                            <td>{%h._set.nickname%}</td>
-                        </tr>
-                        <tr ng-if="h._set.phone">
-                            <td>电话</td>
-                            <td>{%h._set.phone%}</td>
-                        </tr>
-                        <tr ng-if="h._set.email">
-                            <td>邮箱</td>
-                            <td>{%h._set.email%}</td>
-                        </tr>
-                        <tr ng-if="h._set.status">
-                            <td>状态</td>
-                            <td>{%h._set.status | supportTicketStatusName%}</td>
-                        </tr>
-                        <tr ng-if="h._set.description">
-                            <td>文字描述</td>
-                            <td>{%h._set.description%}</td>
-                        </tr>
-                        <tr ng-if="h._set.country">
-                            <td>国家</td>
-                            <td>{%h._set.country.value[userLanguage.value]%}</td>
-                        </tr>
-                        <tr ng-if="h._set.custom_fields">
-                            <td>自定义描述</td>
-                            <td>
-                                <table class="table table-bordered table-striped table-condensed">
-                                    <colgroup>
-                                        <col class="key">
-                                        <col class="value">
-                                    </colgroup>
-                                    <tbody>
-                                    <tr ng-repeat="field in h._set.custom_fields">
-                                        <td>{%field.key%}</td>
-                                        <td>{%field.value %}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+                <tr ng-repeat="h in history">
+                    <td>{%h.updated_time?(h.updated_time * 1000 | date : 'short'):'' %}</td>
+                    <td>{%h.updated_comment%}</td>
+                    <td>
+                        <table class="table table-bordered table-striped table-condensed">
+                            <tr>
+                                <td>字段</td>
+                                <td>内容</td>
+                            </tr>
+                            <tr ng-if="h._set.nickname">
+                                <td>姓名</td>
+                                <td>{%h._set.nickname%}</td>
+                            </tr>
+                            <tr ng-if="h._set.phone">
+                                <td>电话</td>
+                                <td>{%h._set.phone%}</td>
+                            </tr>
+                            <tr ng-if="h._set.email">
+                                <td>邮箱</td>
+                                <td>{%h._set.email%}</td>
+                            </tr>
+                            <tr ng-if="h._set.status">
+                                <td>状态</td>
+                                <td>{%h._set.status | supportTicketStatusName%}</td>
+                            </tr>
+                            <tr ng-if="h._set.description">
+                                <td>文字描述</td>
+                                <td>{%h._set.description%}</td>
+                            </tr>
+                            <tr ng-if="h._set.country">
+                                <td>国家</td>
+                                <td>{%h._set.country.value[userLanguage.value]%}</td>
+                            </tr>
+                            <tr ng-if="h._set.custom_fields">
+                                <td>自定义描述</td>
+                                <td>
+                                    <table class="table table-bordered table-striped table-condensed">
+                                        <colgroup>
+                                            <col class="key">
+                                            <col class="value">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr ng-repeat="field in h._set.custom_fields">
+                                                <td>{%field.key%}</td>
+                                                <td>{%field.value %}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

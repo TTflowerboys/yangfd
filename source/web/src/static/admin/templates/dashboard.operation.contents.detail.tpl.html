@@ -67,22 +67,22 @@
 
         <div class="controls">
             <table class="table table-bordered table-striped table-condensed "
-                   style="margin-bottom:30px">
+                style="margin-bottom:30px">
                 <colgroup>
                     <col class="language">
                     <col class="text">
                 </colgroup>
                 <thead>
-                <tr>
-                    <th>语言</th>
-                    <th>内容</th>
-                </tr>
+                    <tr>
+                        <th>语言</th>
+                        <th>内容</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="tempText in item.text[userLanguage.value]">
-                    <td><span class="uneditable-input">{%userLanguage.value%}</span></td>
-                    <td><span class="uneditable-input">{%tempText%}</span></td>
-                </tr>
+                    <tr ng-repeat="tempText in item.text[userLanguage.value]">
+                        <td><span class="uneditable-input">{%userLanguage.value%}</span></td>
+                        <td><span class="uneditable-input">{%tempText%}</span></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
