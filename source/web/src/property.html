@@ -240,6 +240,7 @@
                         <td>
                             %if property.get('building_area'):
                             {{property.get('building_area').get('value') }}
+                            {{property.get('building_area').get('unit') }}
                             %end
                         </td>
                     </tr>
@@ -294,30 +295,30 @@
         <div id="propertyDetails_incoming" class="incoming">
             <h3 class="propertyDetails_title">收入分析</h3>
             <div class="stackedBar">
-                % costTotal = 0
-                % if property.get('estimated_monthly_cost'):
-                % for item in property.get('estimated_monthly_cost'):
-                % costTotal += 1
-                % end
+                % total = float(property.get('estimated_monthly_rent',{}).get('value',0))
+                % cost = 0
 
                 % for item in property.get('estimated_monthly_cost'):
-                <div class="bar bar1" style="width: 25%">
-                    {{item}}
+                % price = float(item.get('price',{}).get('value',0))
+                % cost += price
+                <div class="bar bar1" style="width: {{price/total*100}}%">
+                    {{item.get('price',{}).get('unit_symbol')}}
+                    {{item.get('price',{}).get('value')}}
                 </div>
                 % end
-                % end
 
-                <div class="bar last" style="width: 50%">
-                    {{ property.get('estimated_monthly_rent') }}
+                <div class="bar last" style="width: {{100 - cost / total * 100}}%">
+                    {{ property.get('estimated_monthly_rent',{}).get('unit_symbol') }}
+                    {{ total - cost }}
                 </div>
 
                 % if property.get('estimated_monthly_cost'):
-                <div class="annotation annotation4" style="width: 50%;">
+                <div class="annotation annotation4" style="width: {{cost / total * 100}}%;">
                     支出
                 </div>
                 % end
 
-                <div class="annotation annotation6" style="width: 50%;">
+                <div class="annotation annotation6" style="width: {{100 - cost / total * 100}}%;">
                     预期净收益
                 </div>
                 <div class="annotation annotation5" style="width: 100%;">
@@ -332,25 +333,23 @@
                     <col style="width: 150px;">
                 </colgroup>
                 <tr>
+                    % for item in property.get('estimated_monthly_cost'):
                     <td>
                         <span class="bar bar0"></span>
-                        <p class="name">预计月租金</p>
-                        <p class="value"><strong>5200</strong> 英镑</p>
+                        <p class="name">{{item.get('item')}}</p>
+                        <p class="value">
+                            {{item.get('price',{}).get('unit_symbol')}}
+                            <strong>{{item.get('price',{}).get('value',0)}}</strong>
+                        </p>
                     </td>
-                    <td>
-                        <span class="bar bar1"></span>
-                        <p class="name">地租费</p>
-                        <p class="value"><strong>520</strong> 英镑/年</p>
-                    </td>
-                    <td>
-                        <span class="bar bar2"></span>
-                        <p class="name">预计月租金</p>
-                        <p class="value"><strong>1920</strong> 英镑</p>
-                    </td>
+                    %end
                     <td>
                         <span class="bar bar3"></span>
                         <p class="name">预计净收益</p>
-                        <p class="value"><strong>1900</strong> 英镑</p>
+                        <p class="value">
+                            {{ property.get('estimated_monthly_rent',{}).get('unit_symbol') }}
+                            <strong>{{total - cost}}</strong>
+                        </p>
                     </td>
                 </tr>
             </table>
