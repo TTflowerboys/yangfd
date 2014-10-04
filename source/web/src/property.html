@@ -185,8 +185,14 @@
                         </td>
                         <td colspan="3" class="value">
                             % if property.get('main_house_types'):
-                            % for type in enumerate(property.get('main_house_types')):
-                            <span class="toggleTag selected">{{type}}</span>
+                            % for type in property.get('main_house_types'):
+                            <span class="toggleTag selected">
+                                {{type.get('bedroom_count')}}室
+                                {{type.get('living_room_count')}}厅
+                                {{type.get('kitchen_count')}}厨
+                                {{type.get('bathroom_count')}}卫
+                                ( {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}} )
+                            </span>
                             % end
                             % end
 
@@ -419,10 +425,41 @@
     <div class="aside">
         <div class="propertyCard">
             <h1>{{property.get('name','')}}</h1>
-            <span class="tag"><img src="/static/images/property_details/tag-icon.png" alt=""/>超额收益 股权投资</span>
-            <span class="tag"><img src="/static/images/property_details/location-icon.png" alt=""/>London, UK</span>
+            % if property.get('intention'):
+            <div class="tag">
+                <img src="/static/images/property_details/tag-icon.png" alt=""/>
+                % tags = []
+                % for index,item in enumerate(property.get('intention')):
+                % tags.append(item.get('value',''))
+                % end
+                % tagString = ', '.join(tags)
+                {{tagString}}
+            </div>
+            % end
+            % if property.get('address'):
+            <div class="tag"><img src="/static/images/property_details/location-icon.png" alt=""/>
+                {{property.get('address')}}
+            </div>
+            % end
             <p class="price">
-                <span class="mute">价格</span> <span>$</span> <strong>21000</strong> <span>/m<sup>2</sup></span>
+                % if property.get('property_type',{}).get('slug') == 'new_property':
+                <span class="mute">价格</span>
+                <span>
+                    {{property.get('total_price',{}).get('unit_symbol')}}
+                </span>
+                <strong>
+                    {{property.get('total_price',{}).get('value')}}
+                </strong>
+                % else:
+                <span class="mute">价格</span>
+                <span>$</span>
+                <strong>
+                    {{property.get('unit_price',{}).get('value')}}
+                </strong>
+                <span>
+                    /m<sup>2</sup>
+                </span>
+                % end
             </p>
             <ul class="numbers">
                 <li>
@@ -431,14 +468,14 @@
                     </strong></span>
                     <span class="text">预期年化<br/>收益率</span>
                 </li>
-                <li>
-                    <span class="percentage"><strong>?????</strong>%</span>
-                    <span class="text">预期年化现金<br/>收益率</span>
-                </li>
-                <li>
-                    <span class="percentage"><strong>????</strong>%</span>
-                    <span class="text">预期年化现金<br/>收益率</span>
-                </li>
+                <!--<li>-->
+                    <!--<span class="percentage"><strong>?????</strong>%</span>-->
+                    <!--<span class="text">预期年化现金<br/>收益率</span>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<span class="percentage"><strong>????</strong>%</span>-->
+                    <!--<span class="text">预期年化现金<br/>收益率</span>-->
+                <!--</li>-->
             </ul>
             <hr/>
             <table class="actions">
