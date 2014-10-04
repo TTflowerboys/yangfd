@@ -712,8 +712,7 @@ class f_property(f_app.module_base):
             existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
 
             if existing_draft:
-                params["target_property_id"] = existing_draft[0]
-                action = lambda _params: f_app.property.update_set(property_id, _params)
+                action = lambda _params: f_app.property.update_set(existing_draft[0], _params)
 
             else:
                 params.setdefault("status", "draft")
