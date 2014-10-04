@@ -445,20 +445,20 @@
                 % if property.get('property_type',{}).get('slug') == 'new_property':
                 <span class="mute">价格</span>
                 <span>
-                    {{property.get('total_price',{}).get('unit_symbol')}}
+                    {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
                 </span>
                 <strong>
-                    {{property.get('total_price',{}).get('value')}}
+                    {{property.get('unit_price',{}).get('price',{}).get('value','')}}
                 </strong>
+                <span>
+                    / {{property.get('unit_price',{}).get('unit',{}).get('unit','')}}
+                </span>
                 % else:
                 <span class="mute">价格</span>
                 <span>$</span>
                 <strong>
-                    {{property.get('unit_price',{}).get('value')}}
+                    {{property.get('total_price',{}).get('value','')}}
                 </strong>
-                <span>
-                    /m<sup>2</sup>
-                </span>
                 % end
             </p>
             <ul class="numbers">
@@ -469,12 +469,12 @@
                     <span class="text">预期年化<br/>收益率</span>
                 </li>
                 <!--<li>-->
-                    <!--<span class="percentage"><strong>?????</strong>%</span>-->
-                    <!--<span class="text">预期年化现金<br/>收益率</span>-->
+                <!--<span class="percentage"><strong>?????</strong>%</span>-->
+                <!--<span class="text">预期年化现金<br/>收益率</span>-->
                 <!--</li>-->
                 <!--<li>-->
-                    <!--<span class="percentage"><strong>????</strong>%</span>-->
-                    <!--<span class="text">预期年化现金<br/>收益率</span>-->
+                <!--<span class="percentage"><strong>????</strong>%</span>-->
+                <!--<span class="text">预期年化现金<br/>收益率</span>-->
                 <!--</li>-->
             </ul>
             <hr/>
