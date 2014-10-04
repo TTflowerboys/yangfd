@@ -17,28 +17,31 @@
 <div class="propertyDetails" style="margin-top: 100px;">
     <div class="content">
         <div class="pictures">
+
             <div class="big">
                 % if property.get('reality_images'):
-                <img src="{{property.get('reality_images')[0]}}" alt="" width="800" height="480"/>
+                <div class="rslides_wrapper">
+                    <ul class="rslides">
+                        % for image in property.get('reality_images'):
+                        <li>
+                            <img src="{{image}}" alt="" width="800" height="480"/>
+                        </li>
+                        % end
+                    </ul>
+                </div>
                 % else :
                 <img src="//placehold.it/800x480" alt="" width="800" height="480"/>
                 % end
-
             </div>
+
             % if property.get('reality_images'):
             <div class="thumbnails">
                 <ul>
-                    % for index,image in enumerate(property.get('reality_images')):
-                    <li
-                    % if index == 0:
-                    class="selected"
-                    % end
-                    >
-                    <img src="{{image}}" alt="" width="200"/>
-                    <span class="text"></span>
-                    <span class="border"></span>
+                    <li class="selected">
+                        <img src="{{property.get('reality_images')[0]}}" alt="" width="200" height="120"/>
+                        <span class="text"></span>
+                        <span class="border"></span>
                     </li>
-                    % end
                 </ul>
             </div>
             % end
@@ -665,6 +668,14 @@
             $(showCharts())
         }
     }
+
+    $(".rslides").responsiveSlides({
+        pager: true,
+        auto: false,
+        nav: true,
+        prevText: '<',
+        nextText: '>'
+    })
 
 </script>
 <!--@@close-->

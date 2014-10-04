@@ -17,20 +17,26 @@
     }
     &_title { margin-bottom: 24px; color: #666; margin-top: 24px; font-size: 16px; }
     hr { color: @border-color; margin-top: 24px; margin-bottom: 24px; }
-    .thumbnails { margin-top: 24px; margin-bottom: 48px;
-        > ul {
-            .clearfix();
-            > li { float: left; width: 25%; position: relative; cursor: pointer;
-                > img { display: block; max-width: 100%; }
-                > span { position: absolute; left: 0; top: 0; width: 100%; height: 100%;
-                    &.border { display: none; border: 3px solid @red; }
-                    &.text { text-align: center; line-height: 120px; background: rgba(255, 255, 255, 0.5); font-size: 32px;
-                        color: #444444;
+    .pictures {
+
+        .big {
+            img { max-height: 480px; max-width: 100%; }
+        }
+        .thumbnails { margin-top: 24px; margin-bottom: 48px;
+            > ul {
+                .clearfix();
+                > li { float: left; width: 25%; position: relative; cursor: pointer;
+                    > img { display: block; max-width: 100%; }
+                    > span { position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+                        &.border { display: none; border: 3px solid @red; }
+                        &.text { text-align: center; line-height: 120px; background: rgba(255, 255, 255, 0.5); font-size: 32px;
+                            color: #444444;
+                        }
                     }
-                }
-                &.selected {
-                    .border { display: block; }
-                    .text { display: none; }
+                    &.selected {
+                        .border { display: block; }
+                        .text { display: none; }
+                    }
                 }
             }
         }
