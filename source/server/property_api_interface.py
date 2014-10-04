@@ -223,12 +223,15 @@ def property_edit(property_id, user, params):
                 # Only allow updating to post-review statuses
                 assert params["status"] in ("selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status for a reviewed property")
 
+                if params["status"] == "deleted":
+                    assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
+
             # Not approved properties
             else:
                 assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
 
                 # Submit for approval
-                if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
+                if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed", "deleted"):
                     if "target_property_id" in property:
                         def action(params):
                             with f_app.mongo() as m:
@@ -239,12 +242,9 @@ def property_edit(property_id, user, params):
                             f_app.property.update_set(property_id, {"status": "deleted"})
                             return result
 
-            if params["status"] == "deleted":
-                assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
-
-            elif params["status"] == "not reviewed":
-                # TODO: make sure all needed fields are present
-                params["submitter_user_id"] = user["id"]
+                if params["status"] == "not reviewed":
+                    # TODO: make sure all needed fields are present
+                    params["submitter_user_id"] = user["id"]
 
         else:
             if "status" in params:
