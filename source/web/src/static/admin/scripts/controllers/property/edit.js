@@ -36,7 +36,7 @@
                 editItem.property_type = editItem.property_type.id
             }
             if (!_.isEmpty(editItem.intention)) {
-                var temp=[]
+                var temp = []
                 angular.forEach(editItem.intention, function (value, key) {
 
                     value = value.id

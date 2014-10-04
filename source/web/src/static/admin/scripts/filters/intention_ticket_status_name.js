@@ -4,7 +4,9 @@
 angular.module('app')
     .filter('intentionTicketStatusName', function (misc, intentionTicketStatus) {
         return function (status) {
-            if (!status) { return }
+            if (!status) {
+                return
+            }
 
             var found = misc.findBy(intentionTicketStatus, 'value', status)
 

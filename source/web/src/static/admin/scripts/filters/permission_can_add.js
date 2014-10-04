@@ -2,7 +2,9 @@
 angular.module('app')
     .filter('permissionCanAdd', function (misc, permissions) {
         return function (roles) {
-            if (!roles) { return []}
+            if (!roles) {
+                return []
+            }
             return _.filter(permissions, function (permission) {
                 return !_.contains(roles, permission.value)
             })

@@ -26,7 +26,7 @@
             })
         }
 
-        $scope.submitForReview = function($event, form){
+        $scope.submitForReview = function ($event, form) {
             $scope.item.status = 'not reviewed'
             $scope.submit($event, form)
         }

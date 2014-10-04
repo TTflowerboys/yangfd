@@ -4,7 +4,7 @@
 
 (function () {
 
-    function ctrlContentEdit($scope,api,$stateParams,misc, growl) {
+    function ctrlContentEdit($scope, api, $stateParams, misc, growl) {
         $scope.api = api
 
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
@@ -25,7 +25,7 @@
             $scope.item = angular.copy($scope.itemOrigin)
         }
 
-        $scope.addTextItem = function(){
+        $scope.addTextItem = function () {
             //Init Text Field if add item for the first time
             $scope.item.text = $scope.item.text || {}
             $scope.item.text[$scope.userLanguage.value] = $scope.item.text[$scope.userLanguage.value] || []
@@ -37,7 +37,7 @@
             $scope.tempTextItem = ''
         }
 
-        $scope.removeTextItem = function(index){
+        $scope.removeTextItem = function (index) {
             //Remove from current language only
             $scope.item.text[$scope.userLanguage.value].splice(index, 1)
         }

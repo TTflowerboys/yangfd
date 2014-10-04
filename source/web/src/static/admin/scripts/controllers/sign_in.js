@@ -24,7 +24,7 @@
             $scope.submitDisabled = false;
         }
 
-        $scope.$watch('user.country',function(){
+        $scope.$watch('user.country', function () {
             $scope.onChangeText();
         })
     }

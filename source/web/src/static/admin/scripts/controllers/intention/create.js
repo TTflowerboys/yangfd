@@ -26,7 +26,6 @@
         }
 
 
-
     }
 
     angular.module('app').controller('ctrlIntentionCreate', ctrlIntentionCreate)

@@ -8,23 +8,23 @@ angular.module('app')
             restrict: 'AE',
             link: function ($scope, elm, attrs) {
                 $scope.availableLanguages = angular.copy(i18nLanguages)
-                $scope.onAddLanguage = function(value){
-                    for(var i = 0,l=$scope.availableLanguages.length;i<l;i+=1){
-                        if(value===$scope.availableLanguages[i].value){
-                            $scope.availableLanguages.splice(i,1)
+                $scope.onAddLanguage = function (value) {
+                    for (var i = 0, l = $scope.availableLanguages.length; i < l; i += 1) {
+                        if (value === $scope.availableLanguages[i].value) {
+                            $scope.availableLanguages.splice(i, 1)
                             break
                         }
                     }
                 }
-                $scope.onRestoreLanguage = function(value){
-                    for(var i = 0,l=i18nLanguages.length;i<l;i+=1){
-                        if(value===i18nLanguages[i].value){
+                $scope.onRestoreLanguage = function (value) {
+                    for (var i = 0, l = i18nLanguages.length; i < l; i += 1) {
+                        if (value === i18nLanguages[i].value) {
                             $scope.availableLanguages.push(i18nLanguages[i])
                             break
                         }
                     }
                 }
-                $scope.onResetLanguage = function(){
+                $scope.onResetLanguage = function () {
                     $scope.availableLanguages = angular.copy(i18nLanguages)
                 }
             }

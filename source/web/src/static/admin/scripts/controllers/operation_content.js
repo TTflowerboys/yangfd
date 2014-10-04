@@ -3,7 +3,7 @@
  */
 (function () {
 
-    function ctrlOperationContent($scope, $state , adApiFactory, channelApi, misc,fctModal, $timeout) {
+    function ctrlOperationContent($scope, $state, adApiFactory, channelApi, misc, fctModal, $timeout) {
         $scope.channelApi = channelApi
         $scope.list = []
         $scope.perPage = 12
@@ -26,20 +26,20 @@
                 $scope.availableChannels = data.val
 
                 //If got more than one channel, default select first one to show
-                if($scope.availableChannels.length > 0){
+                if ($scope.availableChannels.length > 0) {
                     $scope.selected.channel = $scope.availableChannels[0]
                 }
             })
 
-        $scope.$watch('selected.channel',function(newValue, oldValue){
+        $scope.$watch('selected.channel', function (newValue, oldValue) {
             // Ignore initial setup.
-            if ( newValue === oldValue ) {
+            if (newValue === oldValue) {
                 return;
             }
 
             $scope.adApiFactory = adApiFactory($scope.selected.channel)
             $scope.adApiFactory.getAll({ params: params }).success(onGetList)
-        },true)
+        }, true)
 
         $scope.refreshList = function () {
             $scope.adApiFactory.getAll({ params: params}).success(onGetList)
@@ -55,9 +55,15 @@
 
         $scope.nextPage = function () {
             var lastItem = $scope.list[$scope.list.length - 1]
-            if (lastItem.time) {params.time = lastItem.time}
-            if (lastItem.register_time) {params.register_time = lastItem.register_time}
-            if (lastItem.insert_time) {params.insert_time = lastItem.insert_time}
+            if (lastItem.time) {
+                params.time = lastItem.time
+            }
+            if (lastItem.register_time) {
+                params.register_time = lastItem.register_time
+            }
+            if (lastItem.insert_time) {
+                params.insert_time = lastItem.insert_time
+            }
 
             $scope.adApiFactory.getAll({params: params})
                 .success(function () {
@@ -77,9 +83,15 @@
             }
 
             if (lastItem) {
-                if (lastItem.time) {params.time = lastItem.time}
-                if (lastItem.register_time) {params.register_time = lastItem.register_time}
-                if (lastItem.insert_time) {params.insert_time = lastItem.insert_time}
+                if (lastItem.time) {
+                    params.time = lastItem.time
+                }
+                if (lastItem.register_time) {
+                    params.register_time = lastItem.register_time
+                }
+                if (lastItem.insert_time) {
+                    params.insert_time = lastItem.insert_time
+                }
             } else {
                 delete params.time
                 delete params.register_time

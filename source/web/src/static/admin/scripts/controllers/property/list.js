@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlPropertyList($scope, $state, enumApi,fctModal, $timeout, api) {
+    function ctrlPropertyList($scope, $state, enumApi, fctModal, $timeout, api) {
 
         $scope.list = []
         $scope.perPage = 12
@@ -15,7 +15,7 @@
         $scope.selected.status = 'not reviewed'
 
         var params = {
-            status:$scope.selected.status,
+            status: $scope.selected.status,
             per_page: $scope.perPage
         }
 
@@ -25,9 +25,9 @@
             api.getAll({ params: params}).success(onGetList)
         }
 
-        $scope.$watch('selected.status',function(newValue, oldValue){
+        $scope.$watch('selected.status', function (newValue, oldValue) {
             // Ignore initial setup.
-            if ( newValue === oldValue ) {
+            if (newValue === oldValue) {
                 return;
             }
 
@@ -35,7 +35,7 @@
             $scope.currentPageNumber = 1
             $scope.pages = []
             api.getAll({ params: params}).success(onGetList)
-        },true)
+        }, true)
 
         $scope.onRemove = function (item) {
             fctModal.show('Do you want to remove it?', undefined, function () {
@@ -47,9 +47,15 @@
 
         $scope.nextPage = function () {
             var lastItem = $scope.list[$scope.list.length - 1]
-            if (lastItem.time) {params.time = lastItem.time}
-            if (lastItem.register_time) {params.register_time = lastItem.register_time}
-            if (lastItem.insert_time) {params.insert_time = lastItem.insert_time}
+            if (lastItem.time) {
+                params.time = lastItem.time
+            }
+            if (lastItem.register_time) {
+                params.register_time = lastItem.register_time
+            }
+            if (lastItem.insert_time) {
+                params.insert_time = lastItem.insert_time
+            }
 
             api.getAll({params: params})
                 .success(function () {
@@ -69,9 +75,15 @@
             }
 
             if (lastItem) {
-                if (lastItem.time) {params.time = lastItem.time}
-                if (lastItem.register_time) {params.register_time = lastItem.register_time}
-                if (lastItem.insert_time) {params.insert_time = lastItem.insert_time}
+                if (lastItem.time) {
+                    params.time = lastItem.time
+                }
+                if (lastItem.register_time) {
+                    params.register_time = lastItem.register_time
+                }
+                if (lastItem.insert_time) {
+                    params.insert_time = lastItem.insert_time
+                }
             } else {
                 delete params.time
                 delete params.register_time
@@ -90,14 +102,14 @@
             $scope.fetched = true
             $scope.list = data.val.content
             $scope.pages[$scope.currentPageNumber] = $scope.list
-            for(var index in $scope.list){
-                
+            for (var index in $scope.list) {
+
                 var listItem = $scope.list[index]
-                if(listItem.target_property_id){
-                    (function(index){
-                        api.getOne(listItem.target_property_id,{errorMessage:true})
-                            .success(function(data){
-                                $scope.list[index] = angular.extend(data.val,$scope.list[index] )
+                if (listItem.target_property_id) {
+                    (function (index) {
+                        api.getOne(listItem.target_property_id, {errorMessage: true})
+                            .success(function (data) {
+                                $scope.list[index] = angular.extend(data.val, $scope.list[index])
                             })
                     })(index)
                 }

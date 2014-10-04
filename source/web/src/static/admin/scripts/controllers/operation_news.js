@@ -20,15 +20,15 @@
          }
          })*/
 
-        $scope.$watch('selected.category',function(newValue, oldValue){
+        $scope.$watch('selected.category', function (newValue, oldValue) {
             // Ignore initial setup.
-            if ( newValue === oldValue ) {
+            if (newValue === oldValue) {
                 return
             }
 
             params.category = $scope.selected.category.id
             newsApi.getAll({ params: params }).success($scope.onGetList)
-        },true)
+        }, true)
     }
 
     angular.module('app').controller('ctrlOperationNews', ctrlOperationNews)
