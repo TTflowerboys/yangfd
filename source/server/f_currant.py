@@ -697,7 +697,7 @@ class f_property(f_app.module_base):
         params = f_app.param_parser(_source=params, **property_params)
 
         current_records = self.search({"property_crawler_id": property_crawler_id, "status": {"$exists": True}})
-        assert len(current_records) < 2
+        assert len(current_records) < 2, self.logger.error("Multiple property found for property_crawler_id:", property_crawler_id)
 
         if len(current_records):
             current_record = self.get(current_records[0], ignore_nonexist=True)
