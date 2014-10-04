@@ -127,7 +127,7 @@
                 </div>
                 <div class="row">
 
-                    <div class="form-group col-xs-6 col-sm-3">
+                    <div class="form-group  col-xs-12 col-sm-12">
                         <label class="control-label">投资标签</label>
                         <div class="controls">
                             <div multi-enum-select name="intention" ng-model="item.intention"></div>
@@ -294,12 +294,14 @@
             </tab>
             <tab heading="非楼盘特有信息" ng-if="item.property_type !== '54100a14c6e47b14331ad29f'">
                 <div class="row">
-                    <div class="form-group col-xs-4 col-sm-2">
+                    <div class="form-group col-xs-6 col-sm-3">
                         <label class="control-label">总价格</label>
                         <div class="controls">
                             <div type-i18n-unit unit="userCurrency" data="i18nCurrency" ng-model="item.total_price" placeholder="总价格"></div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="form-group col-xs-4 col-sm-2">
                         <label class="control-label">居室数</label>
 
@@ -314,8 +316,6 @@
                             <input type="number" class="form-control" ng-model="item.living_room_count"/>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-xs-4 col-sm-2">
                         <label class="control-label">卫生间数</label>
 
@@ -484,10 +484,10 @@
                                 <thead>
                                     <tr>
                                         <th>户型名</th>
-                                        <th>居室数</th>
-                                        <th>客厅数</th>
-                                        <th>卫生间数</th>
-                                        <th>厨房数</th>
+                                        <th style="width:50px">居室数</th>
+                                        <th style="width:50px">客厅数</th>
+                                        <th style="width:50px">卫生间数</th>
+                                        <th style="width:50px">厨房数</th>
                                         <th>户型总价</th>
                                         <th>户型图</th>
                                     </tr>
@@ -505,15 +505,15 @@
                                     </tr>
                                 <tr>
                                     <td> <input type="text" type-i18n="item.tempHouseName" ng-model="item.tempHouseName[userLanguage.value]" placeholder="户型名"/></td>
-                                    <td><input type="number" ng-model="item.tempBedroomCount" placeholder="居室数"/></td>
-                                    <td><input type="number" ng-model="item.tempLivingRoomCount" placeholder="客厅数"/></td>
-                                    <td><input type="number" ng-model="item.tempBathroomCount" placeholder="卫生间数"/></td>
-                                    <td><input type="number" ng-model="item.tempKitchenCount" placeholder="厨房数"/></td>
+                                    <td><input type="number" ng-model="item.tempBedroomCount" placeholder="居室数" style="width:70px"/></td>
+                                    <td><input type="number" ng-model="item.tempLivingRoomCount" placeholder="客厅数"  style="width:70px"/></td>
+                                    <td><input type="number" ng-model="item.tempBathroomCount" placeholder="卫生间数"  style="width:70px"/></td>
+                                    <td><input type="number" ng-model="item.tempKitchenCount" placeholder="厨房数"  style="width:70px"/></td>
                                     <td><div type-i18n-unit unit="userCurrency" data="i18nCurrency" ng-model="item.tempTotalPrice" placeholder="户型总价"></div></td>
-                                    <td style="width: 200px;"> <div type-i18n="item.tempFloorPlan"></div>
+                                    <td> <div type-i18n="item.tempFloorPlan"></div>
                                         <single-image-edit ng-model="item.tempFloorPlan[userLanguage.value]" width-limit="1920" ratio="2"
                                                            thumbnail-size="800,400"
-                                                           text="户型图"></single-image-edit></td>
+                                                           text="户型图" style="width: 200px;"></single-image-edit></td>
                                 </tr>
                                     <tr>
                                         <td colspan="7">
