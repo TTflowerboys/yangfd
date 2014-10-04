@@ -482,16 +482,18 @@
                                     <col class="living_room_count">
                                     <col class="bathroom_count">
                                     <col class="kitchen_count">
+                                    <col class="space">
                                     <col class="total_price">
                                     <col class="floor_plan">
                                 </colgroup>
                                 <thead>
                                     <tr>
                                         <th>户型名</th>
-                                        <th style="width:50px">居室数</th>
-                                        <th style="width:50px">客厅数</th>
-                                        <th style="width:50px">卫生间数</th>
-                                        <th style="width:50px">厨房数</th>
+                                        <th>居室数</th>
+                                        <th>客厅数</th>
+                                        <th>卫生间数</th>
+                                        <th>厨房数</th>
+                                        <th>面积</th>
                                         <th>户型总价</th>
                                         <th>户型图</th>
                                     </tr>
@@ -503,6 +505,7 @@
                                         <td>{%main_type.living_room_count%}</td>
                                         <td>{%main_type.bathroom_count%}</td>
                                         <td>{%main_type.kitchen_count%}</td>
+                                        <td>{%main_type.space.value%} {%main_type.space.unit%}</td>
                                         <td>{%main_type.total_price.value%} {%main_type.total_price.unit%}</td>
                                         <td>
                                             <img class="img-thumbnail" ng-src="{%main_type.floor_plan[userLanguage.value]%} ">
@@ -513,16 +516,19 @@
                                             <input type="text" type-i18n="item.tempHouseName" ng-model="item.tempHouseName[userLanguage.value]" placeholder="户型名"/>
                                         </td>
                                         <td>
-                                            <input type="number" ng-model="item.tempBedroomCount" placeholder="居室数" style="width:70px"/>
+                                            <input type="number" ng-model="item.tempBedroomCount" placeholder="居室数" style="width:60px"/>
                                         </td>
                                         <td>
-                                            <input type="number" ng-model="item.tempLivingRoomCount" placeholder="客厅数" style="width:70px"/>
+                                            <input type="number" ng-model="item.tempLivingRoomCount" placeholder="客厅数" style="width:60px"/>
                                         </td>
                                         <td>
-                                            <input type="number" ng-model="item.tempBathroomCount" placeholder="卫生间数" style="width:70px"/>
+                                            <input type="number" ng-model="item.tempBathroomCount" placeholder="卫生间数" style="width:80px"/>
                                         </td>
                                         <td>
-                                            <input type="number" ng-model="item.tempKitchenCount" placeholder="厨房数" style="width:70px"/>
+                                            <input type="number" ng-model="item.tempKitchenCount" placeholder="厨房数" style="width:60px"/>
+                                        </td>
+                                        <td>
+                                            <div type-i18n-unit unit="userArea" data="i18nArea" ng-model="item.tempSpace"  placeholder="面积"></div>
                                         </td>
                                         <td>
                                             <div type-i18n-unit unit="userCurrency" data="i18nCurrency" ng-model="item.tempTotalPrice" placeholder="户型总价"></div>
@@ -535,7 +541,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="7">
+                                        <td colspan="8">
                                             <input type="button" ng-click="addHouse()" class="btn btn-primary" value="添加户型"/>
                                         </td>
                                     </tr>
