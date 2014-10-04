@@ -22,12 +22,12 @@
 
                 % for name in ['reality_images','surroundings_images','floor_plan','effect_pictures',
                 % 'indoor_sample_room_picture','planning_map']:
-                <div class="item" data-tab-name="reality_images">
+                <div class="item" data-tab-name="{{name}}">
 
                     % if property.get(name):
                     <div class="rslides_wrapper">
                         <ul class="rslides">
-                            % for image in property.get('reality_images'):
+                            % for image in property.get(name):
                             <li>
                                 <img src="{{image}}" alt="" width="800" height="480"/>
                             </li>
@@ -62,18 +62,22 @@
         </div>
         <div class="nav tabbar">
             <ul>
-                <li class=active>详情</li>
-                <li>户型</li>
-                <li>楼盘介绍</li>
+                <li>
+                    <a href="#propertyDetails_description">详情</a>
+                </li>
+                % if property.get('main_house_types'):
+                <li><a href="#propertyDetails_houseTypes">户型</a></li>
+                % end
+                <li><a href="#propertyDetails_project">楼盘介绍</a></li>
                 % if property.get('historical_price') :
-                <li>价格趋势</li>
+                <li><a href="#propertyDetails_price">价格趋势</a></li>
                 % end
                 % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
-                <li>收入分析</li>
+                <li><a href="#propertyDetails_incoming">收入分析</a></li>
                 % end
             </ul>
         </div>
-        <div class="meta">
+        <div id="propertyDetails_description" class="meta">
             <ul class="numbers">
                 <li>
                     房屋面积
@@ -119,73 +123,70 @@
                 </colgroup>
                 <tbody>
                     <tr>
-                        <td>
+                        <td class="name">
                             <i>
                                 <img src="/static/images/property_details/icon-house.png" alt=""/>
                             </i>
-                            <span class="name">产权类型</span>
+                            产权类型
                         </td>
-                        <td>
-                            <span class="value">{{property.get('equity_type').get('value') }}</span>
+                        <td class="value">
+                            {{property.get('equity_type').get('value') }}
                         </td>
-                        <td>
+                        <td class="name">
                             <i>
                                 <img src="/static/images/property_details/icon-clock.png" alt=""/>
                             </i>
-                            <span class="name">开盘时间</span>
+                            开盘时间
                         </td>
-                        <td>
-                            <span class="value">{{property.get('opening_time','')}}</span>
+                        <td class="value">
+                            {{property.get('opening_time','')}}
                         </td>
                     </tr>
                     <tr>
-
-                        <td>
+                        <td class="name">
                             <i>
                                 <img src="/static/images/property_details/icon-pallet.png" alt=""/>
                             </i>
-                            <span class="name">装修风格</span>
+                            装修风格
                         </td>
-                        <td>
-                            <span class="value">{{property.get('decorative_style','')}}</span>
+                        <td class="value">
+                            {{property.get('decorative_style',{}).get('value')}}
                         </td>
                     </tr>
                     <tr>
 
-                        <td>
+                        <td class="name">
                             <i>
                                 <img src="/static/images/property_details/icon-location.png" alt=""/>
                             </i>
-                            <span class="name">产权地址</span>
+                            产权地址
                         </td>
-                        <td>
-                            <span class="value">{{property.get('address','')}}</span>
+                        <td class="value">
+                            {{property.get('address','')}}
                         </td>
-                        <td>
+                        <td class="name">
                             <i>
                                 <img src="/static/images/property_details/icon-map.png" alt=""/>
                             </i>
-                            <span class="name">街区</span>
+                            街区
                         </td>
-                        <td>
-                            <span class="value">{{property.get('street','')}}</span>
+                        <td class="value">
+                            {{property.get('street','')}}
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="1">
+                        <td colspan="1" class="name">
                             <i>
                                 <img src="/static/images/property_details/icon-kaleidoscope.png" alt=""/>
                             </i>
-                            <span class="name">主要户型</span>
+                            主要户型
                         </td>
-                        <td colspan="3">
-                            <span class="value">
-                                % if property.get('main_house_types'):
-                                % for type in enumerate(property.get('main_house_types')):
-                                <span class="toggleTag selected">{{type}}</span>
-                                % end
-                                % end
-                            </span>
+                        <td colspan="3" class="value">
+                            % if property.get('main_house_types'):
+                            % for type in enumerate(property.get('main_house_types')):
+                            <span class="toggleTag selected">{{type}}</span>
+                            % end
+                            % end
 
                         </td>
                     </tr>
@@ -208,13 +209,13 @@
         <hr/>
         %end
         % if property.get('main_house_types'):
-        <div class="houseTypes">
+        <div id="propertyDetails_houseTypes" class="houseTypes">
             <h3 class="propertyDetails_title">楼盘户型</h3>
             {{property.get('main_house_types')}}
         </div>
         <hr/>
         %end
-        <div class="brief">
+        <div id="propertyDetails_project" class="brief">
             <h3 class="propertyDetails_title">楼盘介绍</h3>
             <div class="table_wrapper">
                 <table class="table">
@@ -239,6 +240,7 @@
                         <td>
                             %if property.get('building_area'):
                             {{property.get('building_area').get('value') }}
+                            {{property.get('building_area').get('unit') }}
                             %end
                         </td>
                     </tr>
@@ -275,18 +277,14 @@
         </div>
         <hr/>
         % if property.get('historical_price') :
-        <div class="trend">
+        <div id="propertyDetails_price" class="trend">
             <h3 class="propertyDetails_title">价格趋势 (元)</h3>
             <textarea id="python_historical_price" style="display: none;">
                 {{json_dumps(property.get('historical_price'))}}
             </textarea>
             <script>
                 window.historical_price = JSON.parse(document.getElementById('python_historical_price').innerHTML)
-                window.historical_price = window.historical_price || [
-                    {time: '2010', price: 10065},
-                    {time: '2011', price: 10059},
-                    {time: '2012', price: 10090}
-                ]
+                window.historical_price = window.historical_price || null
             </script>
             <canvas id="lineChart" width="800" height="400"></canvas>
         </div>
@@ -294,33 +292,33 @@
         % end
 
         % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
-        <div class="incoming">
+        <div id="propertyDetails_incoming" class="incoming">
             <h3 class="propertyDetails_title">收入分析</h3>
             <div class="stackedBar">
-                % costTotal = 0
-                % if property.get('estimated_monthly_cost'):
-                % for item in property.get('estimated_monthly_cost'):
-                % costTotal += 1
-                % end
+                % total = float(property.get('estimated_monthly_rent',{}).get('value',0))
+                % cost = 0
 
                 % for item in property.get('estimated_monthly_cost'):
-                <div class="bar bar1" style="width: 25%">
-                    {{item}}
+                % price = float(item.get('price',{}).get('value',0))
+                % cost += price
+                <div class="bar bar1" style="width: {{price/total*100}}%">
+                    {{item.get('price',{}).get('unit_symbol')}}
+                    {{item.get('price',{}).get('value')}}
                 </div>
                 % end
-                % end
 
-                <div class="bar last" style="width: 50%">
-                    {{ property.get('estimated_monthly_rent') }}
+                <div class="bar last" style="width: {{100 - cost / total * 100}}%">
+                    {{ property.get('estimated_monthly_rent',{}).get('unit_symbol') }}
+                    {{ total - cost }}
                 </div>
 
                 % if property.get('estimated_monthly_cost'):
-                <div class="annotation annotation4" style="width: 50%;">
+                <div class="annotation annotation4" style="width: {{cost / total * 100}}%;">
                     支出
                 </div>
                 % end
 
-                <div class="annotation annotation6" style="width: 50%;">
+                <div class="annotation annotation6" style="width: {{100 - cost / total * 100}}%;">
                     预期净收益
                 </div>
                 <div class="annotation annotation5" style="width: 100%;">
@@ -335,25 +333,23 @@
                     <col style="width: 150px;">
                 </colgroup>
                 <tr>
+                    % for item in property.get('estimated_monthly_cost'):
                     <td>
                         <span class="bar bar0"></span>
-                        <p class="name">预计月租金</p>
-                        <p class="value"><strong>5200</strong> 英镑</p>
+                        <p class="name">{{item.get('item')}}</p>
+                        <p class="value">
+                            {{item.get('price',{}).get('unit_symbol')}}
+                            <strong>{{item.get('price',{}).get('value',0)}}</strong>
+                        </p>
                     </td>
-                    <td>
-                        <span class="bar bar1"></span>
-                        <p class="name">地租费</p>
-                        <p class="value"><strong>520</strong> 英镑/年</p>
-                    </td>
-                    <td>
-                        <span class="bar bar2"></span>
-                        <p class="name">预计月租金</p>
-                        <p class="value"><strong>1920</strong> 英镑</p>
-                    </td>
+                    %end
                     <td>
                         <span class="bar bar3"></span>
                         <p class="name">预计净收益</p>
-                        <p class="value"><strong>1900</strong> 英镑</p>
+                        <p class="value">
+                            {{ property.get('estimated_monthly_rent',{}).get('unit_symbol') }}
+                            <strong>{{total - cost}}</strong>
+                        </p>
                     </td>
                 </tr>
             </table>
@@ -645,9 +641,10 @@
             ]
         }
         for (var i = 0, length = historicalPrice.length; i < length; i += 1) {
-            result.labels.push(historicalPrice[i].time)
-            result.datasets[0].data.push(historicalPrice[i].price)
-
+            var date = new Date(historicalPrice[i].time * 1000)
+            var dateString = [date.getFullYear(), date.getMonth()].join('.')
+            result.labels.push(dateString)
+            result.datasets[0].data.push(historicalPrice[i].price.value)
         }
 
         return result
@@ -665,7 +662,7 @@
         var a = new Chart(ctx).Line(data, {
             bezierCurve: false,
             inGraphDataShow: true,
-            yAxisMinimumInterval: 10,
+            yAxisMinimumInterval: 1000,
             yAxisMaximumInterval: 20000,
             inGraphDataFontColor: '#aaaaaa',
             inGraphDataFontSize: 12,
