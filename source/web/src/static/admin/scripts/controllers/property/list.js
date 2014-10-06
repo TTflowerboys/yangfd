@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlPropertyList($scope, $state, enumApi, fctModal, $timeout, api) {
+    function ctrlPropertyList($scope, $state, fctModal, $timeout, api) {
 
         $scope.list = []
         $scope.perPage = 12

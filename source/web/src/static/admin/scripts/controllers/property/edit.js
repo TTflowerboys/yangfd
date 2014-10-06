@@ -4,7 +4,7 @@
 
 (function () {
 
-    function ctrlPropertyEdit($scope, $state, api, $stateParams, enumApi, $rootScope, i18nLanguages, misc, growl) {
+    function ctrlPropertyEdit($scope, $state, api, $stateParams, $rootScope, i18nLanguages, misc, growl) {
 
         $scope.item = {}
 
@@ -88,6 +88,18 @@
                 }
                 $scope.$parent.refreshList()
                 onGetItem(data.val)
+            }).error(function (data) {
+                if (data.ret === 40300) {
+                    api.getAll({params: {target_property_id: $stateParams.id, status: 'draft,not translated,translating,not reviewed,rejected'}})
+                        .success(function (data) {
+                            var res = data.val.content
+                            if (!_.isEmpty(res)) {
+                                res[0].id = 0//TODO  新开页面。
+
+                            }
+
+                        })
+                }
             })['finally'](function () {
                 $scope.loading = false
             })
