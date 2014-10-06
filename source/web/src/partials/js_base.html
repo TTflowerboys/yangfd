@@ -42,18 +42,27 @@
 
 <script>
     $.each(['Post', 'Get'], function (index, key) {
+        var newName = 'better' + key
+        var oldName = key.toLowerCase()
+        var hiddenName = '_' + oldName
+        $[hiddenName] = $[oldName]
+        $[oldName] = function () {
+            throw(['Please use', '$.' + newName + '()', 'instead of', '$.' + oldName + '()'].join(' '))
+        }
         $['better' + key] = function () {
             var deferred = $.Deferred()
-            $[key.toLowerCase()].apply($, arguments).done(function (response) {
-                if (response.ret !== undefined) {
-                    if (response.ret === 0) {
-                        deferred.resolve(response.val)
+            $[hiddenName].apply($, arguments).done(function (data, textStatus, jqXHR) {
+                if (data.ret !== undefined) {
+                    if (data.ret === 0) {
+                        deferred.resolve(data.val)
                     } else {
-                        deferred.reject(response.ret)
+                        deferred.reject(data.ret)
                     }
+                } else {
+                    deferred.resolve(data, textStatus, jqXHR)
                 }
-            }).fail(function (xhr) {
-                deferred.reject(response.status)
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                deferred.reject(jqXHR.status)
             })
             return deferred.promise()
         }
