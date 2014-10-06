@@ -2,7 +2,7 @@
     $('#announcement').on('click', 'ul>li>.close', function (event) {
         var $item = $(event.target.parentNode)
         $item.remove()
-        var $container =$(event.delegateTarget)
+        var $container = $(event.delegateTarget)
         if ($container.find('ul>li').length === 0) {
             $container.hide()
         }
@@ -25,7 +25,6 @@
     }
 
 
-
     function getSelectedIntentionIds() {
         var $selectedChildren = $('#tags #intentionTag ul').children('.selected')
         if ($selectedChildren.length) {
@@ -36,7 +35,7 @@
             })
 
             if (_.last(ids) === ',') {
-                ids = ids.substring(0, ids.length-1)
+                ids = ids.substring(0, ids.length - 1)
             }
             return ids
         }
@@ -54,7 +53,7 @@
             })
 
             if (_.last(ids) === ',') {
-                ids = ids.substring(0, ids.length-1)
+                ids = ids.substring(0, ids.length - 1)
             }
 
             return ids
@@ -77,7 +76,7 @@
         return ret
     }
 
-    function updatePropertyCards(array)  {
+    function updatePropertyCards(array) {
         _.each(array, function (house) {
             var houseResult = _.template($('#houseCard_template').html())({house: house})
             $('#suggestionHouses #list').append(houseResult)
@@ -89,9 +88,9 @@
     }
 
     function updateUserTags(budgetId, intentionIds) {
-        $.post('/api/1/user/edit', {'budget':budgetId, 'intention':intentionIds})
+        $.post('/api/1/user/edit', {'budget': budgetId, 'intention': intentionIds})
             .done(function (data) {
-                window.user= data.val
+                window.user = data.val
             })
             .fail(function (ret) {
             })
@@ -142,19 +141,21 @@
         }
 
         _.each(usedIntention, function (oneIntention) {
-            var apiCall = $.post('/api/1/property/search', {'per_page': 1, 'budget':usedBudget, 'intention': oneIntention})
-                              .done(function (val) {
-                                  var array = val.content
-                                  if (!_.isEmpty(array)) {
-                                      var item = _.first(array)
-                                      item.category_intention = getIntentionById(oneIntention)
-                                      item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ', '_') + '_description')
-                                      responseArray.push(item)
-                                  }
-                              })
-                              .fail(function (ret) {
+            var apiCall = $.post('/api/1/property/search',
+                {'per_page': 1, 'budget': usedBudget, 'intention': oneIntention})
+                .done(function (val) {
+                    var array = val.content
+                    if (!_.isEmpty(array)) {
+                        var item = _.first(array)
+                        item.category_intention = getIntentionById(oneIntention)
+                        item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ',
+                            '_') + '_description')
+                        responseArray.push(item)
+                    }
+                })
+                .fail(function (ret) {
 
-                              })
+                })
 
             requestArray.push(apiCall)
         })
@@ -179,7 +180,7 @@
         else {
             //compare intention list
             var newIntentionArray = commaStringToArray(intention)
-            var currentIntentionArray =  commaStringToArray(currentIntentionIds)
+            var currentIntentionArray = commaStringToArray(currentIntentionIds)
 
             var newAddIntentionArray = _.difference(newIntentionArray, currentIntentionArray)
             var deleteIntentionArray = _.difference(currentIntentionArray, newIntentionArray)
@@ -209,22 +210,19 @@
 
     function addIntetionTag(id, value) {
         $intentionTag.find('#list').append('<li class="toggleTag selected" data-id="' + id + '">' +
-                                           value +
-                                           '<img alt="" src="/static/images/intention/close.png"/></li>'
-                                          )
+                value +
+                '<img alt="" src="/static/images/intention/close.png"/></li>'
+        )
     }
 
     function removeIntentionTag(id) {
         $intentionTag.find('#list li[data-id=' + id + ']').remove()
     }
 
+    $('[data-tabs]').tabs({trigger: 'hover'})
+
     if (window.user) {
         var $intentionDetails = $('[data-tabs]')
-        $('[data-tabs]').tabs().on('mouseover', 'li', function (e) {
-            var tabName = $(e.currentTarget).find('[data-tab]').data('tab')
-            $(e.currentTarget).addClass('indicator').siblings().removeClass('indicator')
-            $(e.delegateTarget).find('[data-tab-name=' + tabName + ']').show().siblings().hide()
-        })
 
         var $budgetTag = $('#tags #budgetTag')
         var $intentionTag = $('#tags #intentionTag')
@@ -239,13 +237,13 @@
         if (window.user.intention) {
             _.each(window.user.intention, function (item) {
                 addIntetionTag(item.id, item.value)
-                $intentionDetails.find('li[data-id=' + item.id+']').addClass('selected')
-                $intentionDetails.find('input[value=' + item.id+']').prop('checked', true)
+                $intentionDetails.find('li[data-id=' + item.id + ']').addClass('selected')
+                $intentionDetails.find('input[value=' + item.id + ']').prop('checked', true)
                 initIntentionList = initIntentionList + item.id + ','
             })
 
             if (_.last(initIntentionList) === ',') {
-                initIntentionList = initIntentionList.substring(0, initIntentionList.length-1)
+                initIntentionList = initIntentionList.substring(0, initIntentionList.length - 1)
             }
         }
 
@@ -270,8 +268,8 @@
 
             var $li = $(event.target).parent()
             var id = $li.attr('data-id')
-            $intentionDetails.find('li[data-id=' + id+']').removeClass('selected')
-            $intentionDetails.find('input[value=' + id+']').prop('checked', false)
+            $intentionDetails.find('li[data-id=' + id + ']').removeClass('selected')
+            $intentionDetails.find('input[value=' + id + ']').prop('checked', false)
             $li.remove()
             loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
         })
@@ -292,11 +290,11 @@
         })
 
         $intentionTag.find('#add').click(function () {
-            $('.intentionTabs_wrapper').animate({height:'530px'}, 400, 'swing')
+            $('.intentionTabs_wrapper').animate({height: '530px'}, 400, 'swing')
         })
 
         $('.intentionTabs_wrapper').find('#collapseButton').click(function () {
-            $('.intentionTabs_wrapper').animate({height:'0'}, 400, 'swing')
+            $('.intentionTabs_wrapper').animate({height: '0'}, 400, 'swing')
         })
 
     }

@@ -31,13 +31,10 @@
 <!--@@block = scripts-->
 <script>
     (function () {
-        var $form = $('form[name=intentionForm]')
 
-        $('[data-tabs]').tabs().on('mouseover', 'li', function (e) {
-            var tabName = $(e.currentTarget).find('[data-tab]').data('tab')
-            $(e.currentTarget).addClass('indicator').siblings().removeClass('indicator')
-            $(e.delegateTarget).find('[data-tab-name=' + tabName + ']').show().siblings().hide()
-        })
+        $('[data-tabs]').tabs({trigger: 'hover'})
+
+        var $form = $('form[name=intentionForm]')
 
         $form.find('[name=budget]').on('change', function () {
             $(this).parent().toggleClass('selected', this.checked)

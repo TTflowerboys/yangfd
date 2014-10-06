@@ -18,7 +18,7 @@
         > div { @height: 270px; line-height: @height; height: @height; text-align: center;
             background: #ddd; position: relative; display: none;
             img { vertical-align: middle; }
-            &.selected { display: block; }
+            &.selectedTab { display: block; }
             .arrow { position: absolute; width: 100%; bottom: 100%;
                 span { margin-left: 88px; display: block; position: relative;
                     &:before {
@@ -54,7 +54,7 @@
                         content: ' ';
                         position: absolute; bottom: 0; left: 50%;
                     }
-                    &.indicator:after {
+                    &.selectedTab:after {
                         display: block;
                     }
                 }
