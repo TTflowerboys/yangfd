@@ -118,9 +118,15 @@ angular.module('app')
                     var key = allKeys[keyIndex]
                     if (oldJson[key] === undefined) {
                         addToResult(key, newJson[key])
+                    } else if (oldJson[key] === null) {
+                        if (newJson[key] !== null) {
+                            addToResult(key, newJson[key])
+                        }
                     } else if (newJson[key] === undefined) {
                         addToResult(key, '')
-                    } else if (newJson.hasOwnProperty(key) && newJson[key] !== oldJson[key] && newJson[key].toString() !== oldJson[key].toString()) {
+                    } else if (newJson.hasOwnProperty(key) &&
+                        newJson[key] !== oldJson[key] &&
+                        newJson[key].toString() !== oldJson[key].toString()) {
                         addToResult(key, newJson[key])
                     } else if (_.isObject(newJson[key])) {
                         var obj = newJson[key]
