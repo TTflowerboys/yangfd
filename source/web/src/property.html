@@ -84,21 +84,13 @@
                 <li>
                     房屋面积
                     % if property.get('space'):
-                    <strong>{{ property.get('space')['value'] }}
+                    <strong>{{ property.get('space',{}).get('value',0) }}
                         <span class="unit">
-                            % unit = property.get('space')['unit']
-                            % if unit == 'foot ** 2':
-                            {{_('平方英尺')}}
-                            % elif unit == 'acre':
-                            {{_('英亩')}}
-                            % elif unit == 'meter ** 2':
-                            {{_('平方米')}}
-                            % elif unit == 'kilometer ** 2':
-                            {{_('平方千米')}}
-                            % end
-                            % end
+                            % unit = property.get('space',{}).get('unit','')
+                            <!--@@include=partials/get_area_unit.html {"unit":"unit"}-->
                         </span>
                     </strong>
+                    % end
                 </li>
                 % if property.get('bedroom_count','') :
                 <li>
@@ -232,7 +224,23 @@
         % if property.get('main_house_types'):
         <div id="propertyDetails_houseTypes" class="houseTypes">
             <h3 class="propertyDetails_title">楼盘户型</h3>
-            {{property.get('main_house_types')}}
+            <div class="rslides_wrapper">
+                <ul class="rslides">
+                    % for item in property.get('main_house_types') :
+                    % if item:
+                    <li>
+                        <a href="{{item.get('floor_plan')}}" target="_blank">
+                            <img src="{{item.get('floor_plan')}}" alt="" width="800" height="480"/>
+                        </a>
+                        <span class="text">
+                            {{item.get('name','')}}
+                            {{_('面积')}}
+                        </span>
+                    </li>
+                    % end
+                    % end
+                </ul>
+            </div>
         </div>
         <hr/>
         %end
