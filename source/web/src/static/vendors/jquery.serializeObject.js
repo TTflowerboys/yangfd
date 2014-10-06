@@ -6,7 +6,7 @@
     $.fn.serializeObject = function (options) {
         options = options || {}
         var defaults = {
-            includeUnderscore: false,
+            includeUnderscore: true,
             exclude: [],
             noEmptyString: false
         }

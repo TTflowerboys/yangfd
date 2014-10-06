@@ -34,33 +34,34 @@
 
         $('[data-tabs]').tabs({trigger: 'hover'})
 
-        var $form = $('form[name=intentionForm]')
+        var $intentionform = $('form[name=intentionForm]')
 
-        $form.find('[name=budget]').on('change', function () {
+        $intentionform.find('[name=budget]').on('change', function () {
             $(this).parent().toggleClass('selected', this.checked)
                 .siblings().removeClass('selected')
         })
 
-        $form.find('[name=intention]').on('change', function () {
+        $intentionform.find('[name=intention]').on('change', function () {
             $(this).closest('li').toggleClass('selected', this.checked)
         })
 
-        $form.find('[name]').on('change', function () {
-            var data = $form.serializeObject()
-            $form.find('[type=submit]').prop('disabled', _.isEmpty(data))
+        $intentionform.find('[name]').on('change', function () {
+            var data = $intentionform.serializeObject()
+            $intentionform.find('[type=submit]').prop('disabled', _.isEmpty(data))
         })
 
-        $form.submit(function (e) {
+        $intentionform.submit(function (e) {
             e.preventDefault()
             var data = $(this).serializeObject()
             if (_.isEmpty(data)) { location.href = '/' }
-            $form.find('[type=submit]').css({cursor: 'wait'})
+            $intentionform.find('[type=submit]').css({cursor: 'wait'})
             $.betterPost('/api/1/user/edit', data)
                 .always(function () {
                     location.href = '/'
-                    $form.find('[type=submit]').css({cursor: 'default'})
+                    $intentionform.find('[type=submit]').css({cursor: 'default'})
                 })
         })
+
 
     })()
 </script>
