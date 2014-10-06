@@ -630,6 +630,7 @@
             <div class="row">
                 <label class="label">购房总价（CNY）</label>
                 <input name="_total" type="text" placeholder=""
+                    data-type="currency"
                     data-validator="decimal, trim, required"
                     data-message-required="必填"
                     data-message-decimal="必须为数字"/>
@@ -637,12 +638,14 @@
             <div class="row">
                 <label class="label">首付款（CNY）</label>
                 <input name="_down_payment" type="text" placeholder=""
+                    data-type="currency"
                     data-message-required="必填"
                     data-validator="decimal, trim, required" data-message-decimal="必须为数字"/>
             </div>
             <div class="row">
                 <label class="label">贷款金额（CNY）</label>
                 <input readonly name="loan" type="text" placeholder=""
+                    data-type="currency"
                     data-message-required="必填"
                     data-validator="decimal, trim, required" data-message-decimal="必须为数字"/>
             </div>
@@ -721,11 +724,14 @@
             if (data._total && data._down_payment) {
                 data.loan = data._total - data._down_payment
                 if (!data.loan || data.loan < 0) {data.loan = 0}
-                $mortgageForm.find('[name=loan]').val(data.loan)
+                $mortgageForm.find('[name=loan]').val(team.encodeCurrency(data.loan))
             }
 
         }).submit(function (e) {
             e.preventDefault()
+            $mortgageForm.find('.error').remove().end()
+                .find('[data-name]').text('').end()
+                .find('[type=submit]').prop('disabled', true)
             var valid = $.validate($mortgageForm, {onError: function (dom, error) {
                 var $dom = $(dom)
                 $dom.before('<div class="error">' + ($dom.attr('data-message-' + error) || '') + '</div>')
@@ -742,6 +748,10 @@
                         $mortgageForm.find('[data-name=' + key + ']').text(result[key])
                     }
 
+                })
+                .always(function () {
+                    $mortgageForm
+                        .find('[type=submit]').prop('disabled', false).get(0).scrollIntoView(true)
                 })
 
         })
@@ -761,4 +771,6 @@
 
 <script src="/static/scripts/showHistoricalPrice.js"></script>
 <script src="/static/scripts/intentionForm.js"></script>
+<script src="/static/scripts/data_type.js"></script>
+
 <!--@@close-->
