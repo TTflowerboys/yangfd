@@ -775,7 +775,7 @@
             data.noregister = data.register === 'on' ? false : true
             data.register = undefined
 
-            $.post('/api/1/intention_ticket/add', data)
+            $.betterPost('/api/1/intention_ticket/add', data)
                 .done(function () {
                     $feedback.show().text($form.attr('data-message-success'))
                 })

@@ -17,8 +17,8 @@ $('form[name=changePhone1]').submit(function (e) {
         resultArea.show()
         return
     }
-    
-    $.post('/api/1/user/edit',params)
+
+    $.betterPost('/api/1/user/edit',params)
         .done(function (data) {
             resultArea.text(window.i18n('修改成功'))
             resultArea.show()
@@ -30,6 +30,6 @@ $('form[name=changePhone1]').submit(function (e) {
 
 	})
         .always(function () {
-            
+
         })
 })

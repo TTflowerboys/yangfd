@@ -41,11 +41,10 @@
 </script>
 
 <script>
-    $.each(['post', 'get'], function (index, key) {
-        $['_' + key] = $[key]
-        $[key] = function () {
+    $.each(['Post', 'Get'], function (index, key) {
+        $['better' + key] = function () {
             var deferred = $.Deferred()
-            $['_' + key].apply($, arguments).done(function (response) {
+            $[key.toLowerCase()].apply($, arguments).done(function (response) {
                 if (response.ret !== undefined) {
                     if (response.ret === 0) {
                         deferred.resolve(response.val)

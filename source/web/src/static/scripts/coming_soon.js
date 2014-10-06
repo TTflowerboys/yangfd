@@ -13,7 +13,7 @@
         var params = $(this).serializeObject()
 
         params.locales = window.lang
-        $.post('/api/1/subscription/add', params)
+        $.betterPost('/api/1/subscription/add', params)
             .done(function () {
                 successArea.show()
                 $('form[name=subscription]').hide()
@@ -46,7 +46,7 @@
         var $input = $('form[name=requirement] input[name=phone]')
         if (theParams.phone) {
             enableSubmitButton(false)
-            $.post('/api/1/user/phone_test',
+            $.betterPost('/api/1/user/phone_test',
                 theParams,
                 function (data, status) {
                     if (data.ret !== 0) {
@@ -97,7 +97,7 @@
         params.locales = window.lang
         var button = $('form[name=requirement] button[type=submit]')
         button.css('cursor', 'wait')
-        $.post('/api/1/intention_ticket/add', params)
+        $.betterPost('/api/1/intention_ticket/add', params)
             .done(function () {
                 successArea.show()
                 $('.requirement_title').hide()

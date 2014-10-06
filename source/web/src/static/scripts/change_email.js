@@ -12,7 +12,7 @@ $('form[name=changeEmail]').submit(function (e) {
 
     if (!valid) {return}
     var params = $(this).serializeObject()
-    $.post('/api/1/user/edit', params).done(function (data) {
+    $.betterPost('/api/1/user/edit', params).done(function (data) {
         window.user = data
         resultArea.text(window.i18n('修改邮箱成功'))
         location.href = '/user_settings'

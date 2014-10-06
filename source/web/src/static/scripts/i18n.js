@@ -51,7 +51,7 @@ $(function () {
         if (requiredValue) {
             if (requiredValue !== userValue) {
 
-                $.post('/api/1/user/edit', {'locales':requiredValue})
+                $.betterPost('/api/1/user/edit', {'locales':requiredValue})
             }
         }
     }

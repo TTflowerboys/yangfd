@@ -55,7 +55,7 @@
             var data = $(this).serializeObject()
             if (_.isEmpty(data)) { location.href = '/' }
             $form.find('[type=submit]').css({cursor: 'wait'})
-            $.post('/api/1/user/edit', data)
+            $.betterPost('/api/1/user/edit', data)
                 .always(function () {
                     location.href = '/'
                     $form.find('[type=submit]').css({cursor: 'default'})

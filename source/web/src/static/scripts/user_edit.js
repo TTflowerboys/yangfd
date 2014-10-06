@@ -25,7 +25,7 @@ $('#cvEdit').submit(function (e) {
     if (!valid) {return}
     var params = $(this).serializeObject()
 
-     $.post('/api/1/user/edit', params)
+     $.betterPost('/api/1/user/edit', params)
             .done(function (data) {
                 window.user = data
                 successArea.text(window.i18n('更新成功'))

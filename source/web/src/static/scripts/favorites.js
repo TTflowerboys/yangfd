@@ -1,7 +1,7 @@
 
 $('.list').on('click', '.houseCard #cancelFavorite', function (event) {
     var favoriteId = $(event.target).attr('data-id')
-    $.post('/api/1/user/favorite/' + favoriteId + '/remove')
+    $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
         .done(function (data) {
             location.reload()
         })

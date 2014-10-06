@@ -57,7 +57,7 @@
             var $input = container.find('form[name=requirement] input[name=phone]')
             if (theParams.phone) {
                 enableSubmitButton(false)
-                $.post('/api/1/user/phone_test', theParams)
+                $.betterPost('/api/1/user/phone_test', theParams)
                     .done(function () {
                         errorArea.hide()
                         $input.css('border', '2px solid #ccc')
@@ -101,7 +101,7 @@
 
             var button = $('form[name=requirement] button[type=submit]')
             button.css('cursor', 'wait')
-            $.post('/api/1/intention_ticket/add', params)
+            $.betterPost('/api/1/intention_ticket/add', params)
                 .done(function (val) {
                     successArea.show()
                     container.find('.requirement_form').hide()

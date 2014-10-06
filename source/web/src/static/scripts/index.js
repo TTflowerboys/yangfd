@@ -88,7 +88,7 @@
     }
 
     function updateUserTags(budgetId, intentionIds) {
-        $.post('/api/1/user/edit', {'budget': budgetId, 'intention': intentionIds})
+        $.betterPost('/api/1/user/edit', {'budget': budgetId, 'intention': intentionIds})
             .done(function (data) {
                 window.user = data.val
             })
@@ -141,7 +141,7 @@
         }
 
         _.each(usedIntention, function (oneIntention) {
-            var apiCall = $.post('/api/1/property/search',
+            var apiCall = $.betterPost('/api/1/property/search',
                 {'per_page': 1, 'budget': usedBudget, 'intention': oneIntention})
                 .done(function (val) {
                     var array = val.content
