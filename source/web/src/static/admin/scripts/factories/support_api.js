@@ -5,7 +5,7 @@
 
         return {
             getAll: function (config) {
-                return $http.get('/api/1/support_ticket/search?_i18n=disabled', config)
+                return $http.get('/api/1/support_ticket/search?_i18n=disabled&sort=last_modified_time,desc', config)
             },
             getOne: function (id, config) {
                 return $http.get('/api/1/support_ticket/' + id + '?_i18n=disabled', config)
