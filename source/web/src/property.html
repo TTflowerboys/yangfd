@@ -84,8 +84,21 @@
                 <li>
                     房屋面积
                     % if property.get('space'):
-                    <strong>{{ property.get('space')['value'] }} {{ property.get('space')['unit'] }}</strong>
-                    %end
+                    <strong>{{ property.get('space')['value'] }}
+                        <span class="unit">
+                            % unit = property.get('space')['unit']
+                            % if unit == 'foot ** 2':
+                            {{_('平方英尺')}}
+                            % elif unit == 'acre':
+                            {{_('英亩')}}
+                            % elif unit == 'meter ** 2':
+                            {{_('平方米')}}
+                            % elif unit == 'kilometer ** 2':
+                            {{_('平方千米')}}
+                            % end
+                            % end
+                        </span>
+                    </strong>
                 </li>
                 % if property.get('bedroom_count','') :
                 <li>
@@ -698,6 +711,7 @@
                 </table>
             </div>
         </form>
+        <hr/>
     </div>
 </div>
 <!--@@close-->
