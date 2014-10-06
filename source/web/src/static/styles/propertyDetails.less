@@ -21,7 +21,9 @@
 
         .big {
             img { max-height: 480px; max-width: 100%; }
-            .item { display: none; }
+            .item { display: none;
+                &.selectedTab { display: block; }
+            }
         }
         .thumbnails { margin-top: 24px; margin-bottom: 48px;
             > ul {

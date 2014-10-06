@@ -24,9 +24,10 @@
                     $tabContainer.trigger('openTab', e.currentTarget)
                 })
             if (options.autoSelectFirst) {
-                $tabContainer.find('[data-tab]').eq(0).addClass(options.className).show()
-                $tabContainer.find('[data-tab-name]').eq(0).addClass(options.className).show()
-                console.log($tabContainer.find('[data-tab-name]').eq(0))
+                var $firstTab = $tabContainer.find('[data-tab]').eq(0)
+                $firstTab.addClass(options.className).show()
+                var tabName = $firstTab.attr('data-tab')
+                $tabContainer.find('[data-tab-name=' + tabName + ']').addClass(options.className).show()
             }
         })
         return this
