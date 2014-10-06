@@ -192,11 +192,13 @@
                             % if property.get('main_house_types'):
                             % for type in property.get('main_house_types'):
                             <span class="toggleTag selected">
-                                {{type.get('bedroom_count')}}室
-                                {{type.get('living_room_count')}}厅
-                                {{type.get('kitchen_count')}}厨
-                                {{type.get('bathroom_count')}}卫
+                                {{type.get('bedroom_count',0)}}室
+                                {{type.get('living_room_count',0)}}厅
+                                {{type.get('kitchen_count',0)}}厨
+                                {{type.get('bathroom_count',0)}}卫
+                                % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
                                 ( {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}} )
+                                % end
                             </span>
                             % end
                             % end
@@ -234,7 +236,11 @@
                         </a>
                         <span class="text">
                             {{item.get('name','')}}
+                            % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
                             {{_('面积')}}
+                            {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}}
+                            % end
+                            {{type.get('bedroom_count',0)}}室{{type.get('living_room_count',0)}}厅{{type.get('kitchen_count',0)}}厨{{type.get('bathroom_count',0)}}卫
                         </span>
                     </li>
                     % end
