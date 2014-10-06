@@ -27,7 +27,7 @@
             var date = new Date(historicalPrice[i].time * 1000)
             var dateString = [date.getFullYear(), date.getMonth()].join('.')
             result.labels.push(dateString)
-            result.datasets[0].data.push(historicalPrice[i].price.value)
+            result.datasets[0].data.push(parseFloat(historicalPrice[i].price.value).toFixed(2))
         }
 
         return result
@@ -40,8 +40,8 @@
         new Chart(ctx).Line(data, {
             bezierCurve: false,
             inGraphDataShow: true,
-            yAxisMinimumInterval: 1000,
-            yAxisMaximumInterval: 20000,
+//            yAxisMinimumInterval: 1000,
+//            yAxisMaximumInterval: 20000,
             inGraphDataFontColor: '#aaaaaa',
             inGraphDataFontSize: 12,
             inGraphDataAlign: 'center',
