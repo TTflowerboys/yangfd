@@ -288,7 +288,7 @@
         %end
         % if property.get('historical_price') :
         <div id="propertyDetails_price" class="trend">
-            <h3 class="propertyDetails_title">价格趋势 (元)</h3>
+            <h3 class="propertyDetails_title">价格趋势 ({{_.currency}})</h3>
             <canvas id="lineChart" width="800" height="400"></canvas>
         </div>
         <hr/>
@@ -305,17 +305,17 @@
                 % price = float(item.get('price',{}).get('value',0))
                 % cost += price
                 <div class="bar bar1" style="width: {{price/total*100}}%">
-                    {{item.get('price',{}).get('unit_symbol')}}
-                    {{item.get('price',{}).get('value')}}
+                    {{item.get('price',{}).get('unit_symbol','')}}
+                    {{'%.2f' % float(item.get('price',{}).get('value',0))}}
                 </div>
                 % end
 
                 <div class="bar last" style="width: {{100 - cost / total * 100}}%">
-                    {{ property.get('estimated_monthly_rent',{}).get('unit_symbol') }}
-                    {{ total - cost }}
+                    {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
+                    {{ '%.2f' % (total - cost) }}
                 </div>
 
-                % if property.get('estimated_monthly_cost'):
+                % if cost != 0:
                 <div class="annotation annotation4" style="width: {{cost / total * 100}}%;">
                     支出
                 </div>
@@ -341,8 +341,8 @@
                         <span class="bar bar0"></span>
                         <p class="name">{{item.get('item')}}</p>
                         <p class="value">
-                            {{item.get('price',{}).get('unit_symbol')}}
-                            <strong>{{item.get('price',{}).get('value',0)}}</strong>
+                            {{item.get('price',{}).get('unit_symbol','')}}
+                            <strong>{{ '%.2f' % float(item.get('price',{}).get('value',0)) }}</strong>
                         </p>
                     </td>
                     %end
@@ -351,7 +351,7 @@
                         <p class="name">预计净收益</p>
                         <p class="value">
                             {{ property.get('estimated_monthly_rent',{}).get('unit_symbol') }}
-                            <strong>{{total - cost}}</strong>
+                            <strong>{{ '%.2f' % (total - cost) }}</strong>
                         </p>
                     </td>
                 </tr>
