@@ -12,11 +12,19 @@
         var $dom = $(dom)
         var type = $dom.attr('data-type')
         if (type === 'currency') {
-            $dom.val(
-                team.encodeCurrency(
-                    $dom.val()
+            if (dom.tagName === 'input') {
+                $dom.val(
+                    team.encodeCurrency(
+                        $dom.val()
+                    )
                 )
-            )
+            } else {
+                $dom.text(
+                    team.encodeCurrency(
+                        $dom.text()
+                    )
+                )
+            }
         }
     }
 

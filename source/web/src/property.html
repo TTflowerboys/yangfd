@@ -440,7 +440,7 @@
                 <span>
                     {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
                 </span>
-                <strong>
+                <strong data-type="currency">
                     {{property.get('unit_price',{}).get('price',{}).get('value','')}}
                 </strong>
                 <span>
@@ -449,7 +449,7 @@
                 % else:
                 <span class="mute">价格</span>
                 <span>$</span>
-                <strong>
+                <strong data-type="currency">
                     {{property.get('total_price',{}).get('value','')}}
                 </strong>
                 % end
