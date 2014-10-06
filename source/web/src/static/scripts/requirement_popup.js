@@ -129,11 +129,11 @@
 
     $('.floatBar #requirement').click(function () {
         var popup = $('#requirement_popup')
-        resetRequirementForm(popup)
+        window.resetRequirementForm(popup)
         popup.find('.requirement_title').show()
-        showRequirementCancelButton(popup)
+        window.showRequirementCancelButton(popup)
 
-        setupRequirementForm(popup, function () {
+        window.setupRequirementForm(popup, function () {
             popup.find('.requirement_title').hide()
 
             setTimeout(function () {
