@@ -22,6 +22,7 @@ $(function () {
         if (requiredValue) {
             if (requiredValue !== userValue) {
                 $('label[name=userLanguage]').text(window.getI18nOfLanguage(requiredValue))
+                $('select[name=userLanguage]').val(window.getI18nOfLanguage(requiredValue))
             }
         }
     }
