@@ -70,7 +70,7 @@
          */
         encodeCurrency: function (number) {
             var parts;
-            if (!number) {return '';}
+            if (number !== 0 && !number) {return '';}
             var numberString = number.toString()
             numberString = team.decodeCurrency(numberString)
             if (numberString.indexOf('.') >= 0) {
