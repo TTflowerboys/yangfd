@@ -45,8 +45,7 @@ class common(f_common):
     intention_ticket_statuses = ["new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"]
     support_ticket_statuses = ["new", "assigned", "in_progress", "solved", "unsolved"]
 
-    user_action_types = ["click_page", "click_property", "mark_property_favorite", "submit_intention_ticket", "submit_intention_ticket_success", "click_registration", "submit_registration", "submit_registration_success", "submit_intention_tag",
-                         "click_property_request", "submit_property_request", "submit_property_request_success"]
+    user_action_types = ["click_page", "click_property", "submit_intention_ticket", "submit_intention_ticket_success", "click_registration", "submit_registration", "submit_registration_success", "submit_intention_tag", "submit_property_request", "submit_property_request_success"]
 
     property_list_per_page = 10
 

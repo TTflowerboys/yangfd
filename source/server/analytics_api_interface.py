@@ -15,35 +15,31 @@ def analytics_user_action_record(params):
     """
    Record the user action
 
-   ``log_type`` must be  in below categories
+   ``log_type`` must be  in below categories:
 
-   ``click_page`` means the user click certain page
+   `click_page` means the user click certain page
 
-   ``click_property`` means the user click certain property
+   `click_property` means the user click certain property
 
-   ``mark_property_favorite`` means the user  mark certain property  favorite
+   `submit_intention_ticket` means the user tries to submit the property intention ticket
 
-   ``submit_intention_ticket`` means the user tries to submit the property intention ticket
+   `submit_intention_ticket_success` means the user has submit the property intention successfully
 
-   ``submit_intention_ticket_success`` means the user has submit the property intention successfully
+   `click_registration` means the user click the  registration link
 
-   ``click_registration`` means the user click the  registration link
+   `submit_registration` means the user tries to submit the registration
 
-   ``submit_registration`` means the user tries to submit the registration
+   `submit_registration_success` means the user has submit the registration successfully
 
-   ``submit_registration_success`` means the user has submit the registration successfully
+   `submit_intention_tag` means the user has submit the intention tag
 
-   ``submit_intention_tag`` means the user has submit the intention tag
+   `submit_property_request` means the user tries to submit the  property request
 
-   ``click_property_request`` means the user click the  property request link
+   `submit_property_request_success` means the user has submit the property request successfully
 
-   ``submit_property_request`` means the user tries to submit the  property request
+    ``property_id``, only pass this in any actions that related with certain property.
 
-   ``submit_property_request_success`` means the user has submit the property request successfully
-
-    in any action related with certain property, parse ``property_id``.
-
-    To any page user click , parse ``page_url`` of the page and parse ``click_page``  to  ``log_type``
+    ``page_url``, for any pages user click , pass ``page_url`` of the page and ``click_page``  to  ``log_type``
     """
     log_type = params.get("log_type")
     if log_type not in f_app.common.user_action_types:

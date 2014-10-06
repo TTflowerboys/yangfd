@@ -60,6 +60,39 @@
         getHash: function (n) {
             var m = window.location.hash.match(new RegExp('(#|&)' + n + '=([^&]*)(&|$)'));
             return !m ? '' : decodeURIComponent(m[2]);
+        },
+
+
+        /**
+         * Convert a number to a friendly currency
+         * @param {string | number} number 123456.789
+         * @returns {string} currency 123,456.78
+         */
+        encodeCurrency: function (number) {
+            var parts;
+            if (!number) {return '';}
+            var numberString = number.toString()
+            numberString = team.decodeCurrency(numberString)
+            if (numberString.indexOf('.') >= 0) {
+                numberString = parseFloat(numberString, 10).toFixed(2).toString()
+            }
+            parts = numberString.split('.')
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            if (parts[1]) {
+                if (parts[1].length === 1) { parts[1] = parts[1] + '0' }
+                if (parts[1].length > 2) { parts[1] = parts[1].substr(0, 2) }
+            }
+            return parts.join('.')
+        },
+
+
+        /**
+         * Convert a friendly currency to a number
+         * @param {string} currency 123,456.78
+         * @returns {string} number 123456.78
+         */
+        decodeCurrency: function (currency) {
+            return currency.replace(/[,\s]/g, '')
         }
     }
 })();
