@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-04 20:10+0800\n"
+"POT-Creation-Date: 2014-10-06 18:43+0800\n"
 "PO-Revision-Date: 2014-09-17 10:39+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -90,7 +90,8 @@ msgstr ""
 msgid "您的预算"
 msgstr ""
 
-#: ../web/src/coming_soon.html:76 ../web/src/partials/requirement_form.html:24
+#: ../web/src/coming_soon.html:76 ../web/src/property.html:539
+#: ../web/src/partials/requirement_form.html:24
 msgid "写下您的其他需求和描述，方便我们在挑选房源时作为参考"
 msgstr ""
 
@@ -181,6 +182,10 @@ msgstr ""
 msgid "网站公告"
 msgstr ""
 
+#: ../web/src/property.html:539
+msgid "(可选)"
+msgstr ""
+
 #: ../web/src/property_list.html:31
 #: ../web/src/partials/localization_manager.html:49
 msgid "我想在"
@@ -267,14 +272,14 @@ msgid "更改邮箱"
 msgstr ""
 
 #: ../web/src/user_change_email.html:12 ../web/src/user_verify_email.html:12
-msgid "提交成功后请检查您的收件箱并验证邮件中的链接进行验证，如果没有收到请检查您的垃圾邮箱，或者直接与洋房东客服联系"
+msgid "提交成功后请检查您的收件箱并点击邮件中的链接进行验证，如果没有收到请检查您的垃圾邮箱，或者直接与洋房东客服联系"
 msgstr ""
 
 #: ../web/src/user_change_email.html:16
 msgid "新邮箱"
 msgstr ""
 
-#: ../web/src/user_change_email.html:21
+#: ../web/src/user_change_email.html:21 ../web/src/user_change_password.html:29
 msgid "确认"
 msgstr ""
 
@@ -292,10 +297,6 @@ msgstr ""
 
 #: ../web/src/user_change_password.html:23
 msgid "确认密码"
-msgstr ""
-
-#: ../web/src/user_change_password.html:29 ../web/src/user_verify_email.html:21
-msgid "发送"
 msgstr ""
 
 #: ../web/src/user_change_phone_1.html:9
@@ -530,6 +531,10 @@ msgstr ""
 #: ../web/src/user_verify_email.html:16
 #: ../web/src/partials/localization_manager.html:9
 msgid "邮箱"
+msgstr ""
+
+#: ../web/src/user_verify_email.html:21
+msgid "发送"
 msgstr ""
 
 #: ../web/src/masters/big_picture_bg_master.html:38
@@ -1345,5 +1350,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "所有房屋类型"
+#~ msgstr ""
+
+#~ msgid "提交成功后请检查您的收件箱并验证邮件中的链接进行验证，如果没有收到请检查您的垃圾邮箱，或者直接与洋房东客服联系"
 #~ msgstr ""
 
