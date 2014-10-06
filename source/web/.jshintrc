@@ -22,7 +22,8 @@
       "$":         true,
       "jQuery":    true,
       "_":         true,
-      "team":      true
+      "team":      true,
+      "Chart":     true
   },
   "globalstrict":  false,
   "immed":         false,

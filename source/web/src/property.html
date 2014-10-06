@@ -289,13 +289,6 @@
         % if property.get('historical_price') :
         <div id="propertyDetails_price" class="trend">
             <h3 class="propertyDetails_title">价格趋势 (元)</h3>
-            <textarea id="python_historical_price" style="display: none;">
-                {{json_dumps(property.get('historical_price'))}}
-            </textarea>
-            <script>
-                window.historical_price = JSON.parse(document.getElementById('python_historical_price').innerHTML)
-                window.historical_price = window.historical_price || null
-            </script>
             <canvas id="lineChart" width="800" height="400"></canvas>
         </div>
         <hr/>
@@ -633,34 +626,48 @@
         <hr/>
         % end
         <h2 class="propertyDetails_title">房贷计算</h2>
-        <form class="intentionForm calculator">
+        <form class="intentionForm calculator" name="mortgageForm">
             <div class="row">
                 <label class="label">购房总价（CNY）</label>
-                <input name="" type="text" placeholder=""/>
+                <input name="_total" type="text" placeholder=""
+                    data-validator="decimal, trim, required"
+                    data-message-required="必填"
+                    data-message-decimal="必须为数字"/>
             </div>
             <div class="row">
                 <label class="label">首付款（CNY）</label>
-                <input name="" type="text" placeholder=""/>
+                <input name="_down_payment" type="text" placeholder=""
+                    data-message-required="必填"
+                    data-validator="decimal, trim, required" data-message-decimal="必须为数字"/>
             </div>
             <div class="row">
                 <label class="label">贷款金额（CNY）</label>
-                <input disabled name="" type="text" placeholder=""/>
+                <input readonly name="loan" type="text" placeholder=""
+                    data-message-required="必填"
+                    data-validator="decimal, trim, required" data-message-decimal="必须为数字"/>
             </div>
             <div class="row">
                 <label class="label">贷款利率</label>
                 <div class="inputAddOn">
-                    <input name="" type="text" placeholder=""/>
+                    <input name="rate" type="text" placeholder=""
+                        data-message-required="必填"
+                        data-validator="decimal, trim, required" data-message-decimal="必须为数字"/>
                     <span class="addOn">%</span>
                 </div>
             </div>
             <div class="row">
                 <label class="label">贷款年限</label>
-                <input name="" type="text" placeholder=""/>
+                <input name="term" type="text" placeholder=""
+                    data-message-required="必填"
+                    data-validator="number, trim, required" data-message-decimal="必须为整数"/>
             </div>
             <div class="row">
                 <label class="label">还款类型</label>
-                <select name="">
-                    <option value="1">本金+利息</option>
+                <select name="_type" data-validator="required"
+                    data-message-required="必填"
+                    >
+                    <option value="interestonly">interestonly</option>
+                    <option value="repayment">repayment</option>
                 </select>
             </div>
             <div class="action">
@@ -675,15 +682,15 @@
                     </colgroup>
                     <tr>
                         <td class="name">总支付利息</td>
-                        <td class="value">￥<span>1</span></td>
+                        <td class="value">￥<span data-name="total_interest"></span></td>
                     </tr>
                     <tr>
                         <td class="name">本息合计</td>
-                        <td class="value">￥<span>1</span></td>
+                        <td class="value">￥<span data-name="total"></span></td>
                     </tr>
                     <tr>
                         <td class="name">每月还款</td>
-                        <td class="value">￥<span>1</span></td>
+                        <td class="value">￥<span data-name="monthly"></span></td>
                     </tr>
                 </table>
             </div>
@@ -699,60 +706,6 @@
 <script>
     (function () {
 
-        function parseData(historicalPrice) {
-            var red = '#e20013'
-            var result = {
-                labels: [],
-                datasets: [
-                    {
-                        fillColor: 'rgba(255,255,255,0)',
-                        strokeColor: red,
-                        pointColor: red,
-                        pointStrokeColor: red,
-                        data: []
-                    }
-                ]
-            }
-            for (var i = 0, length = historicalPrice.length; i < length; i += 1) {
-                var date = new Date(historicalPrice[i].time * 1000)
-                var dateString = [date.getFullYear(), date.getMonth()].join('.')
-                result.labels.push(dateString)
-                result.datasets[0].data.push(historicalPrice[i].price.value)
-            }
-
-            return result
-
-        }
-
-        function showCharts() {
-            var newopts = {
-                inGraphDataShow: true,
-                inGraphDataRadiusPosition: 2,
-                inGraphDataFontColor: 'white'
-            }
-            var data = parseData(historical_price)
-            var ctx = document.getElementById('lineChart').getContext('2d');
-            var a = new Chart(ctx).Line(data, {
-                bezierCurve: false,
-                inGraphDataShow: true,
-                yAxisMinimumInterval: 1000,
-                yAxisMaximumInterval: 20000,
-                inGraphDataFontColor: '#aaaaaa',
-                inGraphDataFontSize: 12,
-                inGraphDataAlign: 'center',
-                graphSpaceBefore: 12
-            })
-        }
-
-        // IE 8-
-        if (window.historical_price) {
-            if ($.browser.ie && $.browser.version <= 8) {
-                $(window).on('load', showCharts)
-            } else {
-                $(showCharts())
-            }
-        }
-
         $(".rslides").responsiveSlides({
             pager: true,
             auto: false,
@@ -761,41 +714,51 @@
             nextText: '>'
         })
 
-        var $form = $('.propertyDetails form[name=intentionForm]')
-        var $feedback = $form.find('[data-role=serverFeedback]')
-        var $submit = $form.find('[type=submit]')
-        $form.submit(function (e) {
-            e.preventDefault()
-
-            $submit.prop('disabled', true)
-            $feedback.hide()
-            var $form = $(this)
-
-            var data = $form.serializeObject({noEmptyString: true})
-            data.noregister = data.register === 'on' ? false : true
-            data.register = undefined
-
-            $.betterPost('/api/1/intention_ticket/add', data)
-                .done(function () {
-                    $feedback.show().text($form.attr('data-message-success'))
-                })
-                .fail(function (errorCode) {
-                    $feedback.show().text($form.attr('data-message-' + errorCode) || $form.attr('data-message-unknown'))
-                })
-                .always(function () {
-                    $submit.prop('disabled', false)
-                })
-
-        }).on('change blur keyup', '[name]', function (e) {
-            var valid = $.validate($form, {onError: function () { }})
-            if (valid) {
-                $form.find('[type=submit]').prop('disabled', false)
-            } else {
-                $form.find('[type=submit]').prop('disabled', true)
+        var $mortgageForm = $('form[name=mortgageForm]')
+        $mortgageForm.on('change blur keyup', '[name]', function (e) {
+            var $target = e.currentTarget
+            var data = $mortgageForm.serializeObject({noEmptyString: true})
+            if (data._total && data._down_payment) {
+                data.loan = data._total - data._down_payment
+                if (!data.loan || data.loan < 0) {data.loan = 0}
+                $mortgageForm.find('[name=loan]').val(data.loan)
             }
+
+        }).submit(function (e) {
+            e.preventDefault()
+            var valid = $.validate($mortgageForm, {onError: function (dom, error) {
+                var $dom = $(dom)
+                $dom.before('<div class="error">' + ($dom.attr('data-message-' + error) || '') + '</div>')
+                $dom.closest('.row').get(0).scrollIntoView(true)
+            }})
+
+            if (!valid) { return }
+
+            var data = $mortgageForm.serializeObject({includeUnderscore: false})
+            $.betterPost('/api/1/mortgage_calculate', data)
+                .done(function (data) {
+                    var result = data[$mortgageForm.find('[name=_type]').val()]
+                    for (var key in result) {
+                        $mortgageForm.find('[data-name=' + key + ']').text(result[key])
+                    }
+
+                })
+
         })
 
     })()
 
 </script>
+
+% if property.get('historical_price') :
+<textarea id="python_historical_price" style="display: none;">
+    {{json_dumps(property.get('historical_price'))}}
+</textarea>
+<script>
+    window.historical_price = JSON.parse(document.getElementById('python_historical_price').innerHTML) || null
+</script>
+% end
+
+<script src="/static/scripts/showHistoricalPrice.js"></script>
+<script src="/static/scripts/intentionForm.js"></script>
 <!--@@close-->
