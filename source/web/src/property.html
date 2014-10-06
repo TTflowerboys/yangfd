@@ -501,9 +501,11 @@
             <table class="actions">
                 <tr>
                     <td style="text-align:left;">
-                        <button class="flatButton">
+                        <button data-fn="addFav" data-property-id="{{property.get('id','')}}" class="flatButton"
+                            data-message-success="已收藏"
+                            >
                             <img src="/static/images/property_details/icon-star.png" alt=""/>
-                            收藏
+                            <span class="text"> 收藏 </span>
                         </button>
                     </td>
                     <td style="text-align:center;">
@@ -513,7 +515,8 @@
                         </button>
                     </td>
                     <td style="text-align:right;">
-                        <button class="flatButton orange">
+                        % name = property.get('name','')
+                        <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{name}}'}) ">
                             <img src="/static/images/property_details/icon-weibo.png" alt=""/>
                             分享到微博
                         </button>
@@ -747,6 +750,17 @@
 
 
         $('[data-tabs]').tabs({trigger: 'click'})
+
+        $('[data-fn=addFav]').on('click', function () {
+            var $button = $(this)
+            var property_id = $button.attr('data-property-id')
+            $.betterPost('/api/1/user/favorite/add', {
+                property_id: property_id
+            })
+                .done(function () {
+                    $button.find('.text').text($button.attr('data-message-success'))
+                })
+        })
 
     })()
 
