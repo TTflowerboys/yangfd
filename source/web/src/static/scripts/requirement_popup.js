@@ -1,6 +1,6 @@
 (function () {
 
-    function resetRequirementForm(container) {
+    window.resetRequirementForm = function(container){
         var successArea = container.find('.requirement .successMessage')
         successArea.hide()
         var errorArea = container.find('.errorMessage')
@@ -29,11 +29,11 @@
         container.show()
     }
 
-    function showRequirementCancelButton(container) {
+    window.showRequirementCancelButton = function(container) {
         container.find('button[name=cancel]').show()
     }
 
-    function setupRequirementForm(container, submitSuccessCallBack) {
+    window.setupRequirementForm = function(container, submitSuccessCallBack) {
 
         function enableSubmitButton(enable) {
             var button = container.find('button[type=submit]')
