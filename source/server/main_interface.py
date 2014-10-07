@@ -2,13 +2,11 @@
 from __future__ import unicode_literals, absolute_import
 from app import f_app
 from bson.objectid import ObjectId
-from libfelix.f_interface import f_get, static_file, template, request, redirect
+from libfelix.f_interface import f_get, static_file, template, request, redirect, error
 from six.moves import cStringIO as StringIO
 import qrcode
 import logging
 logger = logging.getLogger(__name__)
-
-f_app.dependency_register("qrcode", race="python")
 
 
 def check_landing(func):
@@ -36,11 +34,6 @@ def get_country_list():
 
 def get_budget_list():
     return f_app.enum.get_all('budget')
-
-
-def get_favorite_list():
-    user = get_current_user()
-    return f_app.user.favorite_output(f_app.user.favorite_get_by_user(user["id"])) if user is not None else []
 
 
 @f_get('/')
@@ -165,11 +158,7 @@ def property_list():
 @f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
 @check_landing
 def property_get(property_id):
-    property = f_app.property.output([property_id])[0]
-    country_list = get_country_list()
-    budget_list = get_budget_list()
-    favorite_list = get_favorite_list()
-    return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list)
+    return template("property", user=get_current_user(), property=f_app.property.output([property_id])[0], country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/news_list')
@@ -299,6 +288,18 @@ def user_messages():
 @check_landing
 def admin():
     return template("admin")
+
+
+@f_get('/404')
+@error(404)
+def error_404(error=None):
+    return template("404")
+
+
+@f_get('/500')
+@error(500)
+def error_500(error=None):
+    return template("500")
 
 
 @f_get("/static/<filepath:path>")
