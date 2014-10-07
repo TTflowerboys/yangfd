@@ -501,14 +501,14 @@
             <table class="actions">
                 <tr>
                     <td style="text-align:left;">
-                        % if property.get('id') in [i.get('property',{}).get('id') for i in favorite_list]:
+                        % if False:
                         <button class="flatButton">
                             <img src="/static/images/property_details/icon-star.png" alt=""/>
                             <span class="text"> 已收藏 </span>
                         </button>
                         % else:
                         <button data-fn="addFav" data-property-id="{{property.get('id','')}}" class="flatButton"
-                            data-message-success="已收藏"
+                            data-message-success="已收藏" data-message-40090="已经收藏过了"
                             >
                             <img src="/static/images/property_details/icon-star.png" alt=""/>
                             <span class="text"> 收藏 </span>
@@ -770,6 +770,9 @@
             })
                 .done(function () {
                     $button.find('.text').text($button.attr('data-message-success'))
+                })
+                .fail(function (errorCode) {
+                    alert($button.attr('data-message-' + errorCode) || i18n('unknown_error'))
                 })
         })
         $('[data-fn=shareToWeChat]').on('click', function () {
