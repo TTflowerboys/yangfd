@@ -2,8 +2,10 @@
 (function ($) {
 
     if (window.historical_price) {
-        if ($.browser.ie && $.browser.version <= 8) {
-            $(window).on('load', showCharts)
+        if ($.browser.msie && parseInt($.browser.version, 10) <= 8) {
+            $(window).on('load', function () {
+                showCharts()
+            })
         } else {
             $(function () { showCharts() })
         }
@@ -39,13 +41,9 @@
         var ctx = document.getElementById('lineChart').getContext('2d');
         new Chart(ctx).Line(data, {
             bezierCurve: false,
-            inGraphDataShow: true,
-//            yAxisMinimumInterval: 1000,
-//            yAxisMaximumInterval: 20000,
-            inGraphDataFontColor: '#aaaaaa',
-            inGraphDataFontSize: 12,
-            inGraphDataAlign: 'center',
-            graphSpaceBefore: 12
+            scaleLabel: '<%= team.encodeCurrency(value) %>',
+            tooltipTemplate: '<%= team.encodeCurrency(value) %>',
+            showTooltips: true
         })
     }
 

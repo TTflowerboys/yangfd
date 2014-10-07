@@ -19,7 +19,7 @@
                     )
                 )
             } else {
-                $dom.text(
+                $dom.html(
                     team.encodeCurrency(
                         $dom.text()
                     )

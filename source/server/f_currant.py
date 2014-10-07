@@ -604,6 +604,102 @@ class f_currant_plugins(f_app.plugin_base):
             start=datetime.utcnow() + timedelta(days=1),
         ))
 
+    def task_on_crawler_knightknox(self, task):
+        is_end = True
+        search_url = 'http://www.knightknox.com/property/search?country=united+kingdom&region=any&type=any&minbeds=0&maxprice=any&fsbo=on&page=%s'
+        list_page_counter = 1
+        search_url_parsed = urllib.parse.urlparse(search_url)
+        search_url_prefix = "%s://%s" % (search_url_parsed.scheme, search_url_parsed.netloc)
+        while not is_end:
+            list_page = f_app.request.get(search_url % list_page_counter)
+            if list_page.status_code == 200:
+                self.logger.debug("Start crawling knightknox page %d" % list_page_counter)
+                list_page_dom_root = q(list_page.content)
+                list_page_nav_links = list_page_dom_root.find("p#searchpagination.text-center a.raquo")
+                is_end = False if len(list_page_nav_links) else True
+
+                list_page_property_links = list_page_dom_root.find("div.featured-prop").children()
+                for link in list_page_property_links:
+                    img_overlay = link.getchildren()[1].getchildren()[0].attrib
+                    #skip sold out property
+                    if img_overlay.get("src", None) == "http://static.kkicdn.com/img/overlay-soldout.png":
+                        continue
+                    params = {
+                        "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
+                    }
+                    property_url = "%s%s" % (search_url_prefix, link.attrib['href'])
+                    logger.debug("property_url", property_url)
+                    property_page = f_app.request.get(property_url)
+                    if property_page.status_code == 200:
+                        params["property_crawler_id"] = property_url
+                        property_page_dom_root = q(property_page.content)
+                        # Extract information
+                        property_totle_price = property_page_dom_root("div#listinghero p.price").text()
+                        property_name = property_page_dom_root("div#listinghero p.title").text()
+                        property_address = property_page_dom_root("div#listinghero p.location").text()
+                        property_description = property_page_dom_root("div#description.content").text()
+                        property_videos = property_page_dom_root("div#video.content").children().children().children()
+                        property_images = property_page_dom_root("div#listinghero div.large-8.medium-8.pull-4.columns div.listing-slider").children().children()
+
+                        property_highlights = property_page_dom_root("ul.features.hide-for-small").children()
+
+                        property_features = property_page_dom_root("ul#features").children()
+
+                        params["description"] = {"en_GB": property_description}
+                        params["address"] = {"en_GB": property_address.strip()}
+                        params["name"] = {"en_GB": property_name.strip()}
+
+                        total_price = re.findall(r'[0-9,]+', property_totle_price)
+                        if total_price:
+                            params["total_price"] = {"value": total_price[0].replace(',', ''), "type": "currency", "unit": "GBP"}
+
+                        if property_videos:
+                            params["videos"] = {"en_GB": [video.attrib['src'] for video in property_videos]}
+
+                        if property_images:
+                            params["reality_images"] = {"en_GB": [image.attrib['src'] for image in property_images]}
+
+                        if property_highlights:
+                            params["highlight"] = {"en_GB": [property_highlight.text for property_highlight in property_highlights]}
+
+                        if property_features:
+                            for property_feature in property_features:
+                                type_and_features = property_feature.text_content().split(":")
+                                content_type = type_and_features[0].strip()
+                                feature = type_and_features[1].strip()
+                                if content_type == "Tenure":
+                                    if feature.lower() == "leasehold":
+                                        params["equity_type"] = ObjectId(f_app.enum.get_by_slug('leasehold')["id"])
+                                elif content_type == "Size":
+                                    building_size = re.findall(r'[0-9,]+', feature)
+                                    if building_size:
+                                        #is this right?
+                                        params["space"] = {"type": "area", "unit": "meter ** 2", "value": ".".join(building_size)}
+                                elif content_type == "Bathrooms":
+                                    if feature.isdigit():
+                                        params["bathroom_count"] = int(feature)
+                                elif content_type == "Bedrooms":
+                                    if feature.isdigit():
+                                        params["bedroom_count"] = int(feature)
+                                elif content_type == "Type":
+                                    if "Apartment" in feature:
+                                        params["property_type"] = ObjectId(f_app.enum.get_by_slug('apartment')["id"])
+                                    elif "Student Accommodation" == feature:  # what is the property_type
+                                        pass
+
+                        f_app.property.crawler_insert_update(params)
+
+                    else:
+                        self.logger.debug("Failed crawling knightknox property_page %s, status_code is %d" % (property_url, property_page.status_code))
+                list_page_counter += 1
+            else:
+                self.logger.debug("Failed crawling knightknox page %d, status_code is %d" % (list_page_counter, list_page.status_code))
+
+        f_app.task.put(dict(
+            type="crawler_knightknox",
+            start=datetime.utcnow() + timedelta(days=1),
+        ))
+
 
 f_currant_plugins()
 

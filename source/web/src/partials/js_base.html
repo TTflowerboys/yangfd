@@ -29,6 +29,7 @@
 <script src="/static/vendors/base64.min.js"></script>
 <script src="/static/vendors/underscore-min.js"></script>
 <script src="/static/vendors/jquery.tabs.js"></script>
+<script src="/static/vendors/jquery.modal/jquery.modal.js"></script>
 <script src="/static/vendors/responsive_slides/responsiveslides.js"></script>
 
 
@@ -38,6 +39,8 @@
 <!--endbuild-->
 
 <script>
+    window._lang = '{{_.lang}}'
+    window._currency = '{{_.currency}}'
 </script>
 
 <script>
@@ -47,7 +50,8 @@
         var hiddenName = '_' + oldName
         $[hiddenName] = $[oldName]
         $[oldName] = function () {
-            throw(['Please use', '$.' + newName + '()', 'instead of', '$.' + oldName + '()'].join(' '))
+            console && console.log(['Please use', '$.' + newName + '()', 'instead of', '$.' + oldName + '()'].join(' '))
+            return $[hiddenName].apply($, arguments)
         }
         $['better' + key] = function () {
             var deferred = $.Deferred()
@@ -73,6 +77,7 @@
         interpolate: /{!([\s\S]+?)!}/g,
         escape: /{=([\s\S]+?)=}/g
     }
+
 </script>
 
 
