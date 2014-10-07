@@ -44,6 +44,11 @@ def subscription_search(user, params):
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin"])
 def subscription_notification_ready(user, params):
+    """
+    parse ``all`` to ``target`` will send emails to all the subscriptions
+
+    parse certain email to  ``target`` will send email to the target email
+    """
     emails = []
     noti_subscription_list = []
     if params["target"] == "all":
