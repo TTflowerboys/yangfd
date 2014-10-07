@@ -10,6 +10,7 @@ pyquery
 passlib
 six
 pydns
+re
 pytest
 pymongo
 uWSGI
@@ -30,3 +31,4 @@ bottle
 python-memcached
 requests
 pillow
+qrcode
