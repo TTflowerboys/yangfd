@@ -24,6 +24,8 @@
         if (!valid) { return }
 
         var data = $mortgageForm.serializeObject({includeUnderscore: false})
+        data.loan = team.decodeCurrency(data.loan)
+
         $.betterPost('/api/1/mortgage_calculate', data)
             .done(function (data) {
                 var result = data[$mortgageForm.find('[name=_type]').val()]
