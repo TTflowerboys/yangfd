@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
     annual_return_estimated=str,  # How?
     budget="enum:budget",
     random=bool,
+    name=str,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
@@ -57,6 +58,13 @@ def property_search(user, params):
                 if budget[1]:
                     condition["total_price.value_float"]["$lte"] = float(f_app.util.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
             params["$or"].append(condition)
+
+    if "name" in params:
+        name = params.pop("name")
+        if "$or" not in params:
+            params["$or"] = []
+        for locale in f_app.common.i18n_locales:
+            params["$or"].append({"name.%s" % locale: name})
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
