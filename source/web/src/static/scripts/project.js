@@ -26,6 +26,9 @@
         goBackFromURL: function () {
             window.location.href = team.getQuery('from');
             return false //prevent default action for <a>
+        },
+        repaintHowItWorks: function () {
+
         }
     }
 })();
