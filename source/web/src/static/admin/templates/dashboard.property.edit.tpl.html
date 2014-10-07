@@ -11,6 +11,12 @@
     </div>
 
     <div add-property-items></div>
+    <a ng-if="draftId" class="btn btn-danger" ui-sref='^.edit({id:draftId})' title="Edit">
+        此房产已存在草稿，点击跳转至草稿编辑
+    </a>
+    <a ng-if="item.status === 'not reviewed'" class="btn btn-danger">
+        此房产处于待审核状态，请先将状态改为草稿再编辑此房产。
+    </a>
 
     <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
         ng-submit="submit($event,editProperty)" name="editProperty" novalidate>
@@ -629,8 +635,8 @@
             </tab>
         </tabset>
 
-        <input type="submit" class="btn btn-primary" value="保存更改">
-        <input type="button" class="btn btn-primary" value="提交审核" ng-click="submitForReview($event,editProperty)">
+        <input ng-if="!draftId" type="submit" class="btn btn-primary" value="保存更改">
+        <input ng-if="!draftId" type="button" class="btn btn-primary" value="提交审核" ng-click="submitForReview($event,editProperty)">
 
     </form>
 </div>
