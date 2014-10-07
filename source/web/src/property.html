@@ -509,7 +509,7 @@
                         </button>
                     </td>
                     <td style="text-align:center;">
-                        <button class="flatButton green">
+                        <button data-fn="shareToWeChat" class="flatButton green">
                             <img src="/static/images/property_details/icon-wechat.png" alt=""/>
                             分享到微信
                         </button>
@@ -731,10 +731,13 @@
         <hr/>
     </div>
 </div>
+<div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
+    <img src="" alt="二维码"/>
+    <p>打开微信，使用 “扫一扫” 即可将网页分享到朋友圈。</p>
+</div>
 <!--@@close-->
 
 <!--@@block = scripts-->
-<!--<script src="/static/vendors/chartnew.js"></script>-->
 <script src="/static/vendors/Chart.min.js"></script>
 
 
@@ -761,6 +764,11 @@
                 .done(function () {
                     $button.find('.text').text($button.attr('data-message-success'))
                 })
+        })
+        $('[data-fn=shareToWeChat]').on('click', function () {
+            $('#popupShareToWeChat').find('img').prop('src',
+                'http://localhost:8181/static/images/media/wechat.png').end()
+                .modal()
         })
 
     })()
