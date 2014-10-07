@@ -501,7 +501,7 @@
             <table class="actions">
                 <tr>
                     <td style="text-align:left;">
-                        % if False:
+                        % if property.get('id') in [i.get('property',{}).get('id') for i in favorite_list]:
                         <button class="flatButton">
                             <img src="/static/images/property_details/icon-star.png" alt=""/>
                             <span class="text"> 已收藏 </span>
