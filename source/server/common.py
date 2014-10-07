@@ -113,6 +113,7 @@ class common(f_common):
         40093: "Invalid params: status",
         40092: "Invalid params: property_type",
         40091: "Invalid params: role",
+        40090: "Invalid operation: This property has already been added to your favorites.",
 
         40399: "Permission denied",
     }

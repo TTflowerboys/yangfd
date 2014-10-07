@@ -43,7 +43,11 @@ def current_user_favorites_add(user, params):
     Get current user favorites
     """
     params["user_id"] = ObjectId(user["id"])
-    return f_app.user.favorite_add(params)
+    result = f_app.user.favorite_search(params)
+    if result:
+        abort(40090, logger.warning("Invalid operation: This property has already been added to your favorites.", exc_info=False))
+    else:
+        return f_app.user.favorite_add(params)
 
 
 @f_api('/user/favorite/<favorite_id>/remove')
