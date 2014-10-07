@@ -2,10 +2,22 @@
 import sys
 from pkg_resources import load_entry_point
 
+# Hack jinja2 to recognize bottle STPL's {{!variable}} syntax
+from StringIO import StringIO
+from jinja2 import ext
+
+_babel_extract = ext.babel_extract
+def babel_extract_with_stpl_support(fileobj, *args, **kwargs):
+    new_fileobj = StringIO(fileobj.read().replace("{{!", "{{"))
+    return _babel_extract(new_fileobj, *args, **kwargs)
+
+ext.babel_extract = babel_extract_with_stpl_support
+
+
+# Hack babel to support Language header
 import babel.messages.catalog
+
 _get_mime_headers = babel.messages.catalog.Catalog._get_mime_headers
-
-
 def _get_mime_headers_with_language(self):
     headers = _get_mime_headers(self)
     if self.locale is not None:

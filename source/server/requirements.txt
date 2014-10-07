@@ -11,7 +11,6 @@ pyquery
 passlib
 six
 pydns
-re
 pytest
 pymongo
 uWSGI

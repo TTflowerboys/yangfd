@@ -21,7 +21,6 @@ from libfelix.f_util import f_util
 import logging
 logger = logging.getLogger(__name__)
 f_app.dependency_register('pyquery', race="python")
-f_app.dependency_register('re', race="python")
 
 
 class f_currant_log(f_log):
