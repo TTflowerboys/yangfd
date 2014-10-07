@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="description" content="大图背景，文字居中" />
+        <meta name="description" content="大图背景，文字居中"/>
         <meta charset="utf-8">
-        <title>JS Bin</title>
+        <title>404</title>
         <style>
-            *{margin:0}
-            html{height: 100%;}
-            body{height: 100%;
-                background: red; background: url(http://bbt-currant.s3.amazonaws.com/200d5df25ade449f9774b0dc2b9283f6) no-repeat center;
+            * { margin: 0 }
+            html { height: 100%; }
+            body { height: 100%;
+                background: red; background: url('/static/images/background/white_all_building.jpg') no-repeat center;
                 background-size: cover;
+                font: 14px/1.6 "Open Sans", Tahoma, Arial,
+                "Source Han Sans CN", "Hiragino Sans GB",
+                "Microsoft YaHei", "WenQuanYi Micro Hei", "STHeiti", sans-serif;
             }
-
-            table{
+            table {
                 height: 100%; text-align: center; width: 100%;
             }
-            .content{color:white}
+            .content { color: white }
+            h1 { font-weight: normal;
+                font-size: 360px; color: #bbb }
+            h2 { font-weight: normal;
+                margin-top: -88px;
+                font-size: 56px; color: #bbb }
+            h3 { font-weight: normal;
+                font-size: 18px; color: #bbb }
         </style>
     </head>
     <body>
         <table class=table>
             <tr>
                 <td class=content>
-                    <p>404</p>
-                    <p>Hello, you lost!</p>
+                    <h1>404</h1>
+                    <h2>对不起，没有您找的页面</h2>
+                    <h3>XX秒后返回首页！</h3>
                 </td>
             </tr>
         </table>
