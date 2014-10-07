@@ -124,7 +124,7 @@ def intention_ticket_add(params):
         f_app.user.counter_update(shadow_user_id)
 
     sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales"]}}))
-    budget_enum = f_app.enum.get(params["budget"]["_id"]) if  "budget" in params else None
+    budget_enum = f_app.enum.get(params["budget"]["_id"]) if "budget" in params else None
     for sales in sales_list:
         if "email" in sales:
             locale = sales.get("locales", [f_app.common.i18n_default_locale])[0]
