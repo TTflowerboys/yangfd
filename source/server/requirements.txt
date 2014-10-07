@@ -5,11 +5,13 @@ Babel
 Twisted
 gevent>0.99
 newrelic
+qrcode
 topia.termextract
 pyquery
 passlib
 six
 pydns
+re
 pytest
 pymongo
 uWSGI

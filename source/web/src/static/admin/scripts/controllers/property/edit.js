@@ -27,6 +27,13 @@
                         onGetItem(res)
                     }
                 })
+            api.getAll({params: {target_property_id: $stateParams.id, status: 'draft,not translated,translating,not reviewed,rejected'}})
+                .success(function (data) {
+                    var res = data.val.content
+                    if (!_.isEmpty(res)) {
+                        $scope.draftId = res[0].id
+                    }
+                })
         }
 
 
@@ -88,18 +95,6 @@
                 }
                 $scope.$parent.refreshList()
                 onGetItem(data.val)
-            }).error(function (data) {
-                if (data.ret === 40300) {
-                    api.getAll({params: {target_property_id: $stateParams.id, status: 'draft,not translated,translating,not reviewed,rejected'}})
-                        .success(function (data) {
-                            var res = data.val.content
-                            if (!_.isEmpty(res)) {
-                                res[0].id = 0//TODO  新开页面。
-
-                            }
-
-                        })
-                }
             })['finally'](function () {
                 $scope.loading = false
             })
