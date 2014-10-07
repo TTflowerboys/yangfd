@@ -501,12 +501,19 @@
             <table class="actions">
                 <tr>
                     <td style="text-align:left;">
+                        % if property.get('id') in [i.get('property',{}).get('id') for i in favorite_list]:
+                        <button class="flatButton">
+                            <img src="/static/images/property_details/icon-star.png" alt=""/>
+                            <span class="text"> 已收藏 </span>
+                        </button>
+                        % else:
                         <button data-fn="addFav" data-property-id="{{property.get('id','')}}" class="flatButton"
                             data-message-success="已收藏"
                             >
                             <img src="/static/images/property_details/icon-star.png" alt=""/>
                             <span class="text"> 收藏 </span>
                         </button>
+                        % end
                     </td>
                     <td style="text-align:center;">
                         <button data-fn="shareToWeChat" class="flatButton green">
@@ -732,8 +739,8 @@
     </div>
 </div>
 <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
-    <img src="" alt="二维码"/>
-    <p>打开微信，使用 “扫一扫” 即可将网页分享到朋友圈。</p>
+    <img src="" alt="二维码" width="220" height="220"/>
+    <p>打开微信，使用 “扫一扫” 即可将网页分享到朋友圈</p>
 </div>
 <!--@@close-->
 
@@ -766,8 +773,8 @@
                 })
         })
         $('[data-fn=shareToWeChat]').on('click', function () {
-            $('#popupShareToWeChat').find('img').prop('src',
-                'http://localhost:8181/static/images/media/wechat.png').end()
+            $('#popupShareToWeChat')
+                .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
                 .modal()
         })
 
