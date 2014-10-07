@@ -41,13 +41,9 @@
         var ctx = document.getElementById('lineChart').getContext('2d');
         new Chart(ctx).Line(data, {
             bezierCurve: false,
-            inGraphDataShow: true,
-//            yAxisMinimumInterval: 1000,
-//            yAxisMaximumInterval: 20000,
-            inGraphDataFontColor: '#aaaaaa',
-            inGraphDataFontSize: 12,
-            inGraphDataAlign: 'center',
-            graphSpaceBefore: 12
+            scaleLabel: '<%= team.encodeCurrency(value) %>',
+            tooltipTemplate: '<%= team.encodeCurrency(value) %>',
+            showTooltips: true
         })
     }
 

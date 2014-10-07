@@ -23,7 +23,8 @@
       "jQuery":    true,
       "_":         true,
       "team":      true,
-      "Chart":     true
+      "Chart":     true,
+      "_currency": true
   },
   "globalstrict":  false,
   "immed":         false,
