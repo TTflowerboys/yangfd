@@ -2,8 +2,10 @@
 (function ($) {
 
     if (window.historical_price) {
-        if ($.browser.ie && $.browser.version <= 8) {
-            $(window).on('load', showCharts)
+        if ($.browser.msie && parseInt($.browser.version, 10) <= 8) {
+            $(window).on('load', function () {
+                showCharts()
+            })
         } else {
             $(function () { showCharts() })
         }
