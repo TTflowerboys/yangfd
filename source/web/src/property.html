@@ -137,7 +137,7 @@
                             产权类型
                         </td>
                         <td class="value">
-                            {{property.get('equity_type').get('value') }}
+                            {{property.get('equity_type',{}).get('value','') }}
                         </td>
                         <td class="name">
                             <i>
