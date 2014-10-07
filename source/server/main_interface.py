@@ -3,6 +3,8 @@ from __future__ import unicode_literals, absolute_import
 from app import f_app
 from bson.objectid import ObjectId
 from libfelix.f_interface import f_get, static_file, template, request, redirect
+from six.moves import cStringIO as StringIO
+import qrcode
 import logging
 logger = logging.getLogger(__name__)
 
@@ -291,6 +293,21 @@ def admin():
 @f_get("/static/<filepath:path>")
 def static_route(filepath):
     return static_file(filepath, root="views/static")
+
+
+@f_get("/qrcode/generate", params=dict(
+    content=(str, True),
+))
+@check_landing
+def qrcode_generate(params):
+    img = qrcode.make(params["content"])
+    output = StringIO()
+    img.save(output)
+
+    from bottle import response
+    response.set_header(b"Content-Type", b"image/png")
+
+    return output.getvalue()
 
 
 @f_get("/logout", params=dict(
