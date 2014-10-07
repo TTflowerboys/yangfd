@@ -28,6 +28,9 @@ def enum_list(params):
     country="enum:country",
     currency=str,
     slug=str,
+    # Field for intention
+    image=str,
+    description="i18n",
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def enum_add(user, params):
