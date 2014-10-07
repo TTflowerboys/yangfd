@@ -7,7 +7,7 @@ from six.moves import cStringIO as StringIO
 import qrcode
 import logging
 logger = logging.getLogger(__name__)
-
+f_app.dependency_register("qrcode", race="python")
 
 def check_landing(func):
     def __check_landing_replace_func(*args, **kwargs):
@@ -34,6 +34,11 @@ def get_country_list():
 
 def get_budget_list():
     return f_app.enum.get_all('budget')
+
+
+def get_favorite_list():
+    user = get_current_user()
+    return f_app.user.favorite_output(f_app.user.favorite_get_by_user(user["id"])) if user is not None else []
 
 
 @f_get('/')
@@ -158,7 +163,11 @@ def property_list():
 @f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
 @check_landing
 def property_get(property_id):
-    return template("property", user=get_current_user(), property=f_app.property.output([property_id])[0], country_list=get_country_list(), budget_list=get_budget_list())
+    property = f_app.property.output([property_id])[0]
+    country_list = get_country_list()
+    budget_list = get_budget_list()
+    favorite_list = get_favorite_list()
+    return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list)
 
 
 @f_get('/news_list')
