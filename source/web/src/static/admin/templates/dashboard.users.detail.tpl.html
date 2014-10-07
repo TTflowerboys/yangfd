@@ -1,7 +1,7 @@
 <div class="buttons">
-            <span class="btn-group">
-                <button class="btn" ng-click="$state.go('^.^')"><span class="fa fa-chevron-left"></span> 返回</button>
-            </span>
+    <span class="btn-group">
+        <button class="btn" ng-click="$state.go('^.^')"><span class="fa fa-chevron-left"></span> 返回</button>
+    </span>
 </div>
 
 <div class="row profile">
@@ -39,7 +39,7 @@
                 <ul class="profile-details">
                     <li>
                         <div><i class="fa fa-phone"></i> mobile phone</div>
-                        <span>+{%item.country_code%}  {%item.phone%}</span>
+                        <span>+{%item.country_code%} {%item.phone%}</span>
                     </li>
                     <li>
                         <div><i class="fa fa-envelope"></i> e-mail</div>
@@ -64,10 +64,10 @@
                 <a style="cursor: pointer;" ui-sref=".favs">收藏房产</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.intentions')}">
-                <a style="cursor: pointer;" ui-sref=".intentions" >投资意向单{%item.counter.intention === 0? '':'('+item.counter.intention+')'%}</a>
+                <a style="cursor: pointer;" ui-sref=".intentions">投资意向单{%item.counter.intention === 0? '':'('+item.counter.intention+')'%}</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.boughts')}">
-                <a style="cursor: pointer;" ui-sref=".boughts" >已购房产</a>
+                <a style="cursor: pointer;" ui-sref=".boughts">已购房产</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.supports')}">
                 <a style="cursor: pointer;" ui-sref=".supports">客服单{%item.counter.support === 0? '':'('+item.counter.support+')'%}</a>

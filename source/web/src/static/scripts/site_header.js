@@ -2,7 +2,7 @@
 (function () {
 
     if (window.user) {
-        $.post('/api/1/message', {'status': 'new'})
+        $.betterPost('/api/1/message', {'status': 'new'})
             .done(function (data) {
                 if (data.length > 0) {
                     var icon = document.getElementById('icon-message')

@@ -14,7 +14,7 @@ $('form[name=verifyEmail]').submit(function (e) {
     var params = $(this).serializeObject()
 
     function sendVerificationEmail() {
-        return $.post('/api/1/user/' + window.user.id + '/email_verification/send')
+        return $.betterPost('/api/1/user/' + window.user.id + '/email_verification/send')
             .done(function (data) {
                 resultArea.text(window.i18n('邮件已发送，如果没有收到，请在60秒后重试'))
                 resultArea.show()
@@ -26,7 +26,7 @@ $('form[name=verifyEmail]').submit(function (e) {
     }
 
     function updateUserEmail() {
-        return $.post('/api/1/user/edit', params)
+        return $.betterPost('/api/1/user/edit', params)
             .done(function (data) {
                 window.user = data
             })

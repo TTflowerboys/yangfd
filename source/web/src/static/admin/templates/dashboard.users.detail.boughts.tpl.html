@@ -10,30 +10,30 @@
             <col class="actions">
         </colgroup>
         <thead>
-        <tr>
-            <th>房产名称</th>
-            <th>状态</th>
-            <th>购买时间</th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>房产名称</th>
+                <th>状态</th>
+                <th>购买时间</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in list">
-            <td>
-                {%item.property.name[userLanguage.value]%}
-            </td>
-            <td>
-                {%item.status | intentionTicketStatusName %}
-            </td>
-            <td>
-                {%(item.assigned_time?(item.assigned_time * 1000 | date : 'short'):'')%}
-            </td>
-            <td>
-                <a class="btn btn-success" href ui-sref="dashboard.property.detail({id:item.property.id})" title="View">
-                    <i class="fa fa-search-plus "></i>
-                </a>
-            </td>
-        </tr>
+            <tr ng-repeat="item in list">
+                <td>
+                    {%item.property.name[userLanguage.value]%}
+                </td>
+                <td>
+                    {%item.status | intentionTicketStatusName %}
+                </td>
+                <td>
+                    {%(item.assigned_time?(item.assigned_time * 1000 | date : 'short'):'')%}
+                </td>
+                <td>
+                    <a class="btn btn-success" href ui-sref="dashboard.property.detail({id:item.property.id})" title="View">
+                        <i class="fa fa-search-plus "></i>
+                    </a>
+                </td>
+            </tr>
         </tbody>
     </table>
     <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>

@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
     annual_return_estimated=str,  # How?
     budget="enum:budget",
     random=bool,
+    name=str,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
@@ -57,6 +58,13 @@ def property_search(user, params):
                 if budget[1]:
                     condition["total_price.value_float"]["$lte"] = float(f_app.util.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
             params["$or"].append(condition)
+
+    if "name" in params:
+        name = params.pop("name")
+        if "$or" not in params:
+            params["$or"] = []
+        for locale in f_app.common.i18n_locales:
+            params["$or"].append({"name.%s" % locale: name})
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
@@ -96,7 +104,7 @@ property_params = dict(
     videos=("i18n", None, list, None, str),
     surroundings_images=("i18n", None, list, None, str),
     property_price_type="enum:property_price_type",
-    equal_property_description=("i18n", None, list, None, str),
+    equal_property_description=("i18n", None, str),
     historical_price=(list, None, dict(
         price="i18n:currency",
         time=datetime,
@@ -223,12 +231,15 @@ def property_edit(property_id, user, params):
                 # Only allow updating to post-review statuses
                 assert params["status"] in ("selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status for a reviewed property")
 
+                if params["status"] == "deleted":
+                    assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
+
             # Not approved properties
             else:
                 assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
 
                 # Submit for approval
-                if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
+                if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed", "deleted"):
                     if "target_property_id" in property:
                         def action(params):
                             with f_app.mongo() as m:
@@ -239,18 +250,15 @@ def property_edit(property_id, user, params):
                             f_app.property.update_set(property_id, {"status": "deleted"})
                             return result
 
-            if params["status"] == "deleted":
-                assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
-
-            elif params["status"] == "not reviewed":
-                # TODO: make sure all needed fields are present
-                params["submitter_user_id"] = user["id"]
+                if params["status"] == "not reviewed":
+                    # TODO: make sure all needed fields are present
+                    params["submitter_user_id"] = user["id"]
 
         else:
             if "status" in params:
                 assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed"), abort(40000, "Editing and reviewing cannot happen at the same time")
 
-            if property["status"] not in ("draft", "not translated", "translating", "rejected"):
+            if property["status"] in ("selling", "hidden", "sold out"):
                 existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
                 if existing_draft:
                     # action = lambda params: f_app.property.update_set(existing_draft[0], params)

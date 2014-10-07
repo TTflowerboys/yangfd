@@ -1,8 +1,6 @@
 <!--@@master=masters/master.html-->
 <!--@@block=head -->
 <!--build:css(dist) /static/styles/index.html.css-->
-<link rel="stylesheet" href="/static/vendors/responsive_slides/responsiveslides.css"/>
-<link rel="stylesheet" href="/static/styles/rslides_customize.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
 <link rel="stylesheet" href="/static/styles/index.css"/>
 <!--endbuild-->
@@ -14,24 +12,24 @@
     % homepage_ad_list = _i18n(homepage_ad_list)
     <div class="rslides_wrapper">
         <ul class="rslides">
-            %   for ad in homepage_ad_list:
+            % for ad in homepage_ad_list:
             <li>
                 <img src="{{ad.get('image', '')}}" width="1920" height="800">
 
                 <div class="imageText_table">
                     <div class="imageText_wrapper">
-                           <div class="imageText">
-                    %for index, text  in enumerate(ad.get('text')):
-                <h1 class="slogan">{{text}}</h1>
-                %end
-                <a class="button red" href="{{ad.get('link')}}">{{ad.get('image_alt', '')}}</a>
-                </div>
+                        <div class="imageText">
+                            %for index, text in enumerate(ad.get('text')):
+                            <h1 class="slogan">{{text}}</h1>
+                            %end
+                            <a class="button red" href="{{ad.get('link')}}">{{ad.get('image_alt', '')}}</a>
+                        </div>
 
                     </div>
                 </div>
 
             </li>
-            %   end
+            % end
         </ul>
 
     </div>
@@ -46,32 +44,32 @@
 
 %if user:
 <div class="announcement_wrapper" style="background:#eee">
-<div id="announcement" class="announcement">
-    <ul>
-        %for index, anno in enumerate(announcement_list):
-        <li class="item">
-            <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
-            <a class="title" href="{{anno.get('link', '')}}">{{_i18n(anno.get('title', ''))}}</a>
-            <img class="close" alt="" src="/static/images/icon/announcement_close.png"/>
-        </li>
-        %end
-    </ul>
-</div>
+    <div id="announcement" class="announcement">
+        <ul>
+            %for index, anno in enumerate(announcement_list):
+            <li class="item">
+                <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
+                <a class="title" href="{{anno.get('link', '')}}">{{_i18n(anno.get('title', ''))}}</a>
+                <img class="close" alt="" src="/static/images/icon/announcement_close.png"/>
+            </li>
+            %end
+        </ul>
+    </div>
 </div>
 %else:
 
 <div class="announcement_wrapper">
-<div id="announcement" class="announcement" style="border-bottom: 1px solid #ccc;">
-    <ul>
-        %    for anno in announcement_list:
-        <li class="item">
-            <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
-            <a class="title" href="{{anno.get('link', '')}}">{{_i18n(anno.get('title', ''))}}</a>
-            <img class="close" alt="" src="/static/images/icon/announcement_close.png"/>
-        </li>
-        %    end
-    </ul>
-</div>
+    <div id="announcement" class="announcement" style="border-bottom: 1px solid #ccc;">
+        <ul>
+            % for anno in announcement_list:
+            <li class="item">
+                <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
+                <a class="title" href="{{anno.get('link', '')}}">{{_i18n(anno.get('title', ''))}}</a>
+                <img class="close" alt="" src="/static/images/icon/announcement_close.png"/>
+            </li>
+            % end
+        </ul>
+    </div>
 </div>
 
 %end
@@ -84,25 +82,27 @@
 <div class="tags_wrapper" name="intentionForm">
     <div id="tags" class="tags">
         <h2 class="title">{{_('为您推荐')}}</h2>
-    <div id="budgetTag" class="budget">
-        <label class="hint" for="">{{_('您的预算：')}}</label>
-        %for index, budget in enumerate(_i18n(budget_list)):
-        %if budget.get('currency') == _.currency:
-        <div class="toggleTag" data-id="{{budget.get('id')}}">{{budget.get('value')}}</div>
-        %end
-        %end
-    </div>
-
-    <div id="intentionTag" class="intention">
-        <label class="hint" for="">{{_('意向选择：')}}</label>
-        <ul id="list">
-
-        </ul>
-        <button id="add" class="ghostButton red add"> <img alt="" src="/static/images/intention/add.png"/> {{_('添加')}}</button>
-        <div id="suggestionTip" class="suggestionTip" style="display:none">
-            <p>{{_('获取为您推荐的房产投资机会')}}</p>
+        <div id="budgetTag" class="budget">
+            <label class="hint" for="">{{_('您的预算：')}}</label>
+            %for index, budget in enumerate(_i18n(budget_list)):
+            %if budget.get('currency') == _.currency:
+            <div class="toggleTag" data-id="{{budget.get('id')}}">{{budget.get('value')}}</div>
+            %end
+            %end
         </div>
-    </div>
+
+        <div id="intentionTag" class="intention">
+            <label class="hint" for="">{{_('意向选择：')}}</label>
+            <ul id="list">
+
+            </ul>
+            <button id="add" class="ghostButton red add">
+                <img alt="" src="/static/images/intention/add.png"/> {{_('添加')}}
+            </button>
+            <div id="suggestionTip" class="suggestionTip" style="display:none">
+                <p>{{_('获取为您推荐的房产投资机会')}}</p>
+            </div>
+        </div>
     </div>
 
     <div class="intentionTabs_wrapper" style="height:0;">
@@ -115,100 +115,102 @@
 
 %if not user:
 <div class="houseFeatured">
-    <a class="more" href="/property_list">{{_('更多')}}</a>
-     %if (_i18n(property_list)):
-        %for index, property in enumerate(_i18n(property_list)) :
-           %if (index >= 0 and index < 2):
-                %if property.get('news_category'):
-                <h2 class="houseCard_category" >{{property.get('news_category')[0].get('value')}}</h2>
-                %end
-           <div class=houseCard>
-           %if property.get('reality_images', []) :
-           <img src="{{_i18n(property.get('reality_images'))[0]}}" width=320 height=240/>
-           %else :
-           <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
-           %end
+    %if (_i18n(property_list)):
+    %for index, property in enumerate(_i18n(property_list)) :
+    %if (index >= 0 and index < 2):
+    %if property.get('news_category'):
+    <h2 class="houseCard_category">{{property.get('news_category')[0].get('value')}}</h2>
+    %end
+    <div class=houseCard>
+        %if property.get('reality_images', []) :
+        <img src="{{_i18n(property.get('reality_images'))[0]}}" width=320 height=240/>
+        %else :
+        <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
+        %end
 
-           <div class=description>
-               <h1 class=name>{{property.get('name', '')}}</h1>
-               <span class=price>
-                   %if property.get('total_price'):
-                   {{property.get('total_price').get('unit_symbol')}} <strong>{{str(int(float(property.get('total_price').get('value'))))}}</strong>
-                   %end
-               </span>
-               <div class=details>
-                   <p class=size>
-                       %if property.get('living_room_count'):
-                       {{property.get('living_room_count')}} {{_('房间')}},
-                       %end
-                       %if property.get('bathroom_count'):
-                       {{property.get('bathroom_count')}} {{'洗手间'}},
-                       %end
-                       %if property.get('space'):
-                       {{float("{0:.2f}".format(float(property.get('space').get('value'))))}}
-                       %if (property.get('space').get('unit') == 'foot ** 2'):
-                       foot <sup>2</sup>
-                       %elif (property.get('space').get('unit') == 'acre'):
-                       acre
-                       %elif (property.get('space').get('unit') == 'meter ** 2'):
-                       m <sup>2</sup>
-                       %elif (property.get('space').get('unit') == 'kilometer ** 2'):
-                       km <sup>2</sup>
-                       %else:
-                       {{property.get('space').get('unit')}}
-                       %end
-                       %end
-                   </p>
-                   %if (property.get('annual_return_estimated')) :
-                   <p class=estimate><span class=label>{{_('预期年租金')}} <br/>{{_('收益率')}}</span><span class=value>
-                           <strong>{{ property.get('annual_return_estimated')}}</strong>%</span></p>
-                   %end
-                   <ul class=properties>
-                       %if (property.get('intention') and len(property.get('intention'))) :
-                       <li><img src="/static/images/icon/house-card-tag.png" alt="" />
-                           <span>
-                       %for index, oneIntention in enumerate(property.get('intention')):
-                       %if 'value' in oneIntention:
-                       {{oneIntention.get('value')}}
-                       %end
-                       %end
-                           </span>
-                       </li>
-                       %end
-                       %if (property.get('equity_type')) :
-                       <li><img src="/static/images/icon/house-card-house.png" alt="" /> <span> {{property.get('equity_type', '').get('value')}}</span></li>
-                       %end
-                       %if (_i18n(property.get('street'))) :
-                       <li><img src="/static/images/icon/house-card-location.png" alt="" /> <span>{{property.get('street', '')}} </span></li>
-                       %end
-                   </ul>
-               </div>
-               <div class=action>
-                   <a href="/property/{{property.get('id')}}" class="button red">{{_('查看详情')}}</a>
-               </div>
-           </div>
-           %if property.get('related_news'):
-           <div class="relatedNews">
-               <h3 class="title">{{_('相关动态')}}</h3>
-               <div class="list">
-                   %for index, news in enumerate(property.get('related_news')):
-                   <a class="item" href=/news/{{news.get('id')}}>{{news.get('title')}}</a>
-                   %end
-               </div>
-           </div>
-           %end
+        <div class=description>
+            <h1 class=name>{{property.get('name', '')}}</h1>
+            <span class=price>
+                %if property.get('total_price'):
+                {{property.get('total_price').get('unit_symbol')}}
+                <strong>{{str(int(float(property.get('total_price').get('value'))))}}</strong>
+                %end
+            </span>
+            <div class=details>
+                <p class=size>
+                    %if property.get('living_room_count'):
+                    {{property.get('living_room_count')}} {{_('房间')}},
+                    %end
+                    %if property.get('bathroom_count'):
+                    {{property.get('bathroom_count')}} {{'洗手间'}},
+                    %end
+                    %if property.get('space'):
+                    {{float("{0:.2f}".format(float(property.get('space').get('value'))))}}
+                    %if (property.get('space').get('unit') == 'foot ** 2'):
+                    foot <sup>2</sup>
+                    %elif (property.get('space').get('unit') == 'acre'):
+                    acre
+                    %elif (property.get('space').get('unit') == 'meter ** 2'):
+                    m <sup>2</sup>
+                    %elif (property.get('space').get('unit') == 'kilometer ** 2'):
+                    km <sup>2</sup>
+                    %else:
+                    {{property.get('space').get('unit')}}
+                    %end
+                    %end
+                </p>
+                %if (property.get('annual_return_estimated')) :
+                <p class=estimate><span class=label>{{_('预期年租金')}} <br/>{{_('收益率')}}</span><span class=value>
+                    <strong>{{ property.get('annual_return_estimated')}}</strong>%</span></p>
+                %end
+                <ul class=properties>
+                    %if (property.get('intention') and len(property.get('intention'))) :
+                    <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
+                        <span>
+                            %for index, oneIntention in enumerate(property.get('intention')):
+                            %if 'value' in oneIntention:
+                            {{oneIntention.get('value')}}
+                            %end
+                            %end
+                        </span>
+                    </li>
+                    %end
+                    %if (property.get('equity_type')) :
+                    <li><img src="/static/images/icon/house-card-house.png" alt=""/>
+                        <span> {{property.get('equity_type', '').get('value')}}</span></li>
+                    %end
+                    %if (_i18n(property.get('street'))) :
+                    <li><img src="/static/images/icon/house-card-location.png" alt=""/>
+                        <span>{{property.get('street', '')}} </span></li>
+                    %end
+                </ul>
+            </div>
+            <div class=action>
+                <a href="/property/{{property.get('id')}}" class="button red">{{_('查看详情')}}</a>
+            </div>
+        </div>
+        %if property.get('related_news'):
+        <div class="relatedNews">
+            <h3 class="title">{{_('相关动态')}}</h3>
+            <div class="list">
+                %for index, news in enumerate(property.get('related_news')):
+                <a class="item" href=/news/{{news.get('id')}}>{{news.get('title')}}</a>
+                %end
+            </div>
+        </div>
+        %end
 
     </div>
 
-            %end
-        %end
+    %end
+    %end
     %end
 </div>
 %else:
 <div id="suggestionHouses" class="suggestionHouses">
-<img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
-<div id="list" class="list">
-</div>
+    <img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+    <div id="list" class="list">
+    </div>
 </div>
 %end
 
@@ -219,7 +221,7 @@
             {{_('资讯')}}
         </h2>
         <div class="featuredNews">
-            <img class="picture" src="{{news_list[0].get('images', ['/static/images/placeholder/news.png'])[0]}}" />
+            <img class="picture" src="{{news_list[0].get('images', ['/static/images/placeholder/news.png'])[0]}}"/>
             <div class="content_wrapper">
                 <h3 class="title">{{_i18n(news_list[0].get('title', ''))}}</h3>
                 <p class="content">
@@ -235,9 +237,9 @@
             <h3 class="title">{{_('更多资讯')}}</h3>
             <div class="list">
                 %for index, item in enumerate(news_list):
-                    %if (index > 0 and index < 6):
-                        <a class="item" href="/news/{{item.get('id')}}">{{_i18n(item.get('title', ''))}}</a>
-                    %end
+                %if (index > 0 and index < 6):
+                <a class="item" href="/news/{{item.get('id')}}">{{_i18n(item.get('title', ''))}}</a>
+                %end
                 %end
             </div>
             <a class="ghostButton red more" href="/news_list">{{_('了解更多')}}</a>
@@ -252,11 +254,10 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
-<script src="/static/vendors/responsive_slides/responsiveslides.js"></script>
 <script>
     $(function () {
         $(".rslides").responsiveSlides({
-            pager: true,
+            pager: true
         })
     })
 </script>

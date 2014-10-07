@@ -20,9 +20,21 @@
                     <ul class="nav navbar-nav pull-right">
                         <!-- start: User Dropdown -->
                         <li class="dropdown">
-                            <a class="btn btn-primary" ng-click="logout()">
-                                Logout
+                            <a class="btn account dropdown-toggle" data-toggle="dropdown" href="index.html#">
+                                <div class="avatar"></div>
+                                <div class="user">
+                                    <span class="hello">{%user.nickname%}</span>
+                                    <span class="role" ng-repeat="role in user.role">
+                                        {%role | permissionName %}
+                                    </span>
+                                </div>
                             </a>
+                            <ul class="dropdown-menu">
+                                <!--<li><a href="index.html#"><i class="fa fa-user"></i> Profile</a></li>-->
+                                <li><a href="/user_settings"><i class="fa fa-cog"></i> Settings</a></li>
+                                <!--<li><a href="index.html#"><i class="fa fa-envelope"></i> Messages</a></li>-->
+                                <li><a ng-click="logout()"><i class="fa fa-off"></i> Logout</a></li>
+                            </ul>
                         </li>
                         <!-- end: User Dropdown -->
                     </ul>
@@ -41,11 +53,11 @@
                         <ul class="nav main-menu">
                             <li has-permission="admin" ng-class="{active:$state.includes('dashboard.admins')}">
                                 <a href ui-sref="dashboard.admins">
-                                    <i class="fa fa-group"></i><span class="hidden-sm text">人员管理</span></a>
+                                    <i class="fa fa-laptop"></i><span class="hidden-sm text">人员管理</span></a>
                             </li>
                             <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums')}">
                                 <a href ui-sref="dashboard.enums.normal" ui-sref-active="active">
-                                    <i class="fa fa-ellipsis-v"></i><span class="hidden-sm text">枚举数据管理</span>
+                                    <i class="fa fa-book"></i><span class="hidden-sm text">枚举数据管理</span>
                                     <span class="chevron"
                                         ng-class="{closed:!$state.includes('dashboard.enums'),opened:$state.includes('dashboard.enums')}"></span></a>
                                 <ul ng-style="{display:$state.includes('dashboard.enums')?'block':'none'}">
@@ -80,17 +92,17 @@
                             <li has-permission="admin,jr_admin,operation,jr_operation,developer,agency"
                                 ng-class="{active:$state.includes('dashboard.property')}">
                                 <a href ui-sref="dashboard.property" ui-sref-active="active"><i
-                                    class="fa fa-home"></i><span class="hidden-sm text">房产数据管理</span></a>
+                                    class="fa fa-building-o"></i><span class="hidden-sm text">房产数据管理</span></a>
                             </li>
                             <li has-permission="admin,jr_admin,sales,jr_sales"
                                 ng-class="{active:$state.includes('dashboard.intention')}">
                                 <a href ui-sref="dashboard.intention" ui-sref-active="active"><i
-                                    class="fa fa-heart"></i><span class="hidden-sm text">投资意向单管理</span></a>
+                                    class="fa fa-tasks"></i><span class="hidden-sm text">投资意向单管理</span></a>
                             </li>
                             <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.operation')}">
                                 <a class="dropmenu" href ui-sref="dashboard.operation.news">
-                                    <i class="fa fa-bold"></i><span class="hidden-sm text">品牌运营管理</span>
+                                    <i class="fa fa-coffee"></i><span class="hidden-sm text">品牌运营管理</span>
                                     <span class="chevron"
                                         ng-class="{closed:!$state.includes('dashboard.operation'),opened:$state.includes('dashboard.operation')}"></span>
                                 </a>
@@ -118,7 +130,7 @@
                             <li has-permission="admin,jr_admin,sales,jr_sales,support,jr_support"
                                 ng-class="{active:$state.includes('dashboard.users')}">
                                 <a href ui-sref="dashboard.users" ui-sref-active="active">
-                                    <i class="fa fa-user"></i><span class="hidden-sm text">用户管理</span></a>
+                                    <i class="fa fa-group"></i><span class="hidden-sm text">投资人管理</span></a>
                             </li>
                             <li has-permission="admin,jr_admin"
                                 ng-class="{active:$state.includes('dashboard.message')}">
@@ -130,7 +142,10 @@
                 </div>
 
                 <div id="content" class="col-lg-10 col-sm-11" ui-view one-screen style="min-height: 400px;">
-                    Welcome, {%user.nickname || user.email%}
+                    {%user.nickname || user.email%}
+                    <div ng-repeat="role in user.role">
+                        {%role | permissionName %}
+                    </div>
                 </div>
 
             </div>

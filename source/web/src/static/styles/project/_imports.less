@@ -15,7 +15,7 @@
 @small-font-size: 14/16rem;
 @largest-font-size: 50/16rem;
 
-@font-normal: "Open Sans", "Source Han Sans CN", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+@font-normal: "Open Sans", Tahoma, Arial, "Source Han Sans CN", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "STHeiti", sans-serif;
 @font-song: "Open Sans", SimSun, STSong, sans-serif;
 @font-mono: Monaco, 'Ubuntu Mono', 'Lucida Console', 'Courier New', Courier, monospace;
 
@@ -78,7 +78,7 @@
     overflow: hidden;
 }
 
-.clipped(@max-width:@max-width) {
+.clipped(@max-width:100%) {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

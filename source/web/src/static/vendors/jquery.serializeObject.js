@@ -6,11 +6,12 @@
     $.fn.serializeObject = function (options) {
         options = options || {}
         var defaults = {
-            includeUnderscore: false,
-            exclude: []
+            includeUnderscore: true,
+            exclude: [],
+            noEmptyString: false
         }
         options = $.extend({}, defaults, options)
-        if(!$.isArray(options.exclude)){
+        if (!$.isArray(options.exclude)) {
             options.exclude = [options.exclude]
         }
 
@@ -23,6 +24,13 @@
 
             object[this.name] = this.value.toString()
         })
+        if (options.noEmptyString) {
+            for (var key in object) {
+                if (object[key] === '') {
+                    object[key] = undefined
+                }
+            }
+        }
         return object
     }
 

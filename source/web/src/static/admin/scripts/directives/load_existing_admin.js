@@ -11,7 +11,9 @@ angular.module('app')
                 var delayer
                 scope.$watch('item.phone', function (value) {
                     if (!value || value.length <= 5) {
-                        if (delayer) {delayer.cancel()}
+                        if (delayer) {
+                            delayer.cancel()
+                        }
                         onNoExistingUser()
                         return
                     }

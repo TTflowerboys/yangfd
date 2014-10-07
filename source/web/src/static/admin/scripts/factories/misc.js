@@ -67,36 +67,6 @@ angular.module('app')
                 return found
             },
 
-            getChangedAttributes: function (newJson, oldJson) {
-                var result
-                var constructor = newJson.constructor
-                var addToResult
-                if (constructor === Array) {
-                    result = []
-                    addToResult = function (index, value) {
-                        this.push(value)
-                    }.bind(result)
-                } else if (constructor === Object) {
-                    result = {}
-                    addToResult = function (key, value) {
-                        this[key] = value
-                    }.bind(result)
-                }
-
-                for (var key in newJson) {
-                    if (oldJson[key] === undefined) {
-                        addToResult(key, newJson[key])
-                    } else if (newJson.hasOwnProperty(key) && newJson[key].toString() !== oldJson[key].toString()) {
-                        addToResult(key, newJson[key])
-                    } else if (_.isObject(newJson[key])) {
-                        var temp = self.getChangedAttributes(newJson[key], oldJson[key])
-                        if (temp) {
-                            addToResult(key, temp)
-                        }
-                    }
-                }
-                return _.isEmpty(result) ? undefined : result
-            },
             getChangedI18nAttributes: function (newJson, oldJson) {
                 var result
                 var constructor = newJson.constructor
@@ -119,21 +89,38 @@ angular.module('app')
                     if (oldJson[key] === undefined) {
                         addToResult(key, newJson[key])
                     } else if (newJson[key] === undefined) {
-                        addToResult(key, '')
-                    } else if (newJson.hasOwnProperty(key) && newJson[key] !== oldJson[key] && newJson[key].toString() !== oldJson[key].toString()) {
+                        if (oldJson[key]._i18n_unit !== undefined) {
+                            newJson[key] = angular.copy(oldJson[key])
+                            newJson[key].value = '0'
+                            delete newJson[key]._i18n_unit
+                            delete newJson[key].type
+                            delete newJson[key].value_float
+                            addToResult(key, newJson[key])
+                        } else {
+                            addToResult(key, '')
+                        }
+                    } else if (oldJson[key] === null) {
+                        if (newJson[key] !== null) {
+                            addToResult(key, newJson[key])
+                        }
+                    }
+                    else if (newJson.hasOwnProperty(key) &&
+                        newJson[key] !== oldJson[key] &&
+                        newJson[key].toString() !== oldJson[key].toString()) {
                         addToResult(key, newJson[key])
                     } else if (_.isObject(newJson[key])) {
                         var obj = newJson[key]
-                        var isI18nLanguage = obj._i18n !== undefined
-                        if (isI18nLanguage) {
-                            delete newJson[key]._i18n
-                            delete oldJson[key]._i18n
+                        if (obj._i18n !== undefined) {
                             if (!angular.equals(newJson[key], oldJson[key])) {
-                                if (_.isEmpty(newJson[key])) {
-                                    addToResult(key, '')
-                                } else {
-                                    addToResult(key, newJson[key])
-                                }
+                                delete newJson[key]._i18n
+                                addToResult(key, newJson[key])
+                            }
+                        } else if (obj._i18n_unit !== undefined) {
+                            if (!angular.equals(newJson[key], oldJson[key])) {
+                                delete newJson[key]._i18n_unit
+                                delete newJson[key].value_float
+                                delete newJson[key].type
+                                addToResult(key, newJson[key])
                             }
                         } else {
                             var temp = self.getChangedI18nAttributes(newJson[key], oldJson[key])

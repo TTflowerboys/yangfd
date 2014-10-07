@@ -7,7 +7,9 @@ angular.module('app')
                 model: '=typeI18n'
             },
             link: function (scope, element, attrs, ctrl) {
-                if (!scope.model) {scope.model = {}}
+                if (!scope.model) {
+                    scope.model = {}
+                }
                 for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
                     scope.model[i18nLanguages[i].value] = scope.model[i18nLanguages[i].value] || ''
                 }

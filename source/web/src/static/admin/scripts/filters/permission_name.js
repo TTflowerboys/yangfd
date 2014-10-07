@@ -2,7 +2,9 @@
 angular.module('app')
     .filter('permissionName', function (misc, permissions) {
         return function (permission) {
-            if (!permission) { return }
+            if (!permission) {
+                return
+            }
 
             var found = misc.findBy(permissions, 'value', permission)
 

@@ -20,15 +20,15 @@
          }
          })*/
 
-        $scope.$watch('selected.status',function(newValue, oldValue){
+        $scope.$watch('selected.status', function (newValue, oldValue) {
             // Ignore initial setup.
-            if ( newValue === oldValue ) {
+            if (newValue === oldValue) {
                 return
             }
 
             params.status = $scope.selected.status
             intentionApi.getAll({ params: params }).success($scope.onGetList)
-        },true)
+        }, true)
     }
 
     angular.module('app').controller('ctrlIntention', ctrlIntention)

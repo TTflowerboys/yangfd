@@ -3,10 +3,10 @@
  */
 (function () {
 
-    function ctrlUserProfile($scope, $state , api, misc) {
+    function ctrlUserProfile($scope, $state, api, misc) {
         $scope.api = api
 
-        if($state.current.url === '/:id'){
+        if ($state.current.url === '/:id') {
             // Refer to favs if someone enter url to access
             $state.go('.favs')
         }

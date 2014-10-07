@@ -16,9 +16,13 @@
                         }
                     }
                 }).result.then(function (data) {
-                        if (ok) { ok(data)}
+                        if (ok) {
+                            ok(data)
+                        }
                     }, function (data) {
-                        if (cancel) {cancel(data)}
+                        if (cancel) {
+                            cancel(data)
+                        }
                     })
             }
         }

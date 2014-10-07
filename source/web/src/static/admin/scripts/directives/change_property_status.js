@@ -10,7 +10,9 @@ angular.module('app')
             },
             link: function (scope, elm, attrs) {
                 var user = userApi.getCurrentUser()
-                if (!user) { return }
+                if (!user) {
+                    return
+                }
                 var roles = user.role
                 if (_.contains(roles, 'admin') || _.contains(roles, 'jr_admin')) {
                     scope.propertyStatus = propertyStatus

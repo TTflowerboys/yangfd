@@ -5,6 +5,7 @@ angular.module('app')
     .constant('enumTypes', [
         { name: '房产类型', value: 'property_type' },
         { name: '投资标签', value: 'intention' },
+        { name: '投资类型', value: 'investment_type' },
         { name: '产权类型', value: 'equity_type' },
         { name: '装修风格', value: 'decorative_style' },
         { name: '朝向', value: 'facing_direction' },

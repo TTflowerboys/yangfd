@@ -10,30 +10,30 @@
             <col class="actions">
         </colgroup>
         <thead>
-        <tr>
-            <th>房产名</th>
-            <th>房产类型</th>
-            <th>总价</th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>房产名</th>
+                <th>房产类型</th>
+                <th>总价</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in list">
-            <td>
-                {%item.property.name[userLanguage.value]%}
-            </td>
-            <td>
-                {%item.property.property_type.value[userLanguage.value]%}
-            </td>
-            <td>
-                {%item.property.total_price.unit_symbol+item.property.total_price.value%}
-            </td>
-            <td>
-                <a class="btn btn-success" href ui-sref="dashboard.property.detail({id:item.property.id})" title="View">
-                    <i class="fa fa-search-plus "></i>
-                </a>
-            </td>
-        </tr>
+            <tr ng-repeat="item in list">
+                <td>
+                    {%item.property.name[userLanguage.value]%}
+                </td>
+                <td>
+                    {%item.property.property_type.value[userLanguage.value]%}
+                </td>
+                <td>
+                    {%item.property.total_price.unit_symbol+item.property.total_price.value%}
+                </td>
+                <td>
+                    <a class="btn btn-success" href ui-sref="dashboard.property.detail({id:item.property.id})" title="View">
+                        <i class="fa fa-search-plus "></i>
+                    </a>
+                </td>
+            </tr>
         </tbody>
     </table>
     <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>

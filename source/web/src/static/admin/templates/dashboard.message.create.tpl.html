@@ -4,18 +4,18 @@
     </span>
 </div>
 <form name="messageCreateForm" class="form-horizontal"
-      style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,messageCreateForm)"
-      novalidate>
+    style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,messageCreateForm)"
+    novalidate>
     <div class="form-group col-sm-3">
         <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"
-                ng-model="userLanguage.value"></select>
+            ng-model="userLanguage.value"></select>
     </div>
     <div class="form-group">
         <label class="control-label">类别 *</label>
 
         <div class="controls">
             <select class="form-control" ng-model="item.type" style="width: 185px;"
-                    ng-options="p.value as p.name for p in messageTypes">
+                ng-options="p.value as p.name for p in messageTypes">
                 <option value="">-- 选择 --</option>
             </select>
         </div>

@@ -31,9 +31,15 @@
 
         $scope.nextPage = function () {
             var lastItem = $scope.list[$scope.list.length - 1]
-            if (lastItem.time) {params.time = lastItem.time}
-            if (lastItem.register_time) {params.register_time = lastItem.register_time}
-            if (lastItem.insert_time) {params.insert_time = lastItem.insert_time}
+            if (lastItem.time) {
+                params.time = lastItem.time
+            }
+            if (lastItem.register_time) {
+                params.register_time = lastItem.register_time
+            }
+            if (lastItem.insert_time) {
+                params.insert_time = lastItem.insert_time
+            }
 
             api.getAll({params: params})
                 .success(function () {
@@ -53,9 +59,15 @@
             }
 
             if (lastItem) {
-                if (lastItem.time) {params.time = lastItem.time}
-                if (lastItem.register_time) {params.register_time = lastItem.register_time}
-                if (lastItem.insert_time) {params.insert_time = lastItem.insert_time}
+                if (lastItem.time) {
+                    params.time = lastItem.time
+                }
+                if (lastItem.register_time) {
+                    params.register_time = lastItem.register_time
+                }
+                if (lastItem.insert_time) {
+                    params.insert_time = lastItem.insert_time
+                }
             } else {
                 delete params.time
                 delete params.register_time

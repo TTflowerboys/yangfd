@@ -10,51 +10,51 @@
             <col class="actions">
         </colgroup>
         <thead>
-        <tr>
-            <th>状态</th>
-            <th>客户姓名</th>
-            <th>客户手机</th>
-            <th>客户邮箱</th>
-            <th>提交时间</th>
-            <th>受理时间</th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>状态</th>
+                <th>客户姓名</th>
+                <th>客户手机</th>
+                <th>客户邮箱</th>
+                <th>提交时间</th>
+                <th>受理时间</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in list">
-            <td>
-                {%item.status | intentionTicketStatusName %}
-            </td>
-            <td>
-                {%item.nickname%}
-            </td>
-            <td>
-                {%item.phone%}
-            </td>
-            <td>
-                {%item.email%}
-            </td>
-            <td>
-                {%(item.time?(item.time * 1000 | date : 'short'):'')%}
-            </td>
-            <td>
-                {%(item.assigned_time?(item.assigned_time * 1000 | date : 'short'):'')%}
-            </td>
-            <td>
-                <a class="btn btn-success" href ui-sref="dashboard.intention.detail({id:item.id})" title="View">
-                    <i class="fa fa-search-plus "></i>
-                </a>
-                <a class="btn btn-info" href ui-sref="dashboard.intention.edit({id:item.id})" title="Edit">
-                    <i class="fa fa-edit "></i>
-                </a>
-            </td>
-        </tr>
+            <tr ng-repeat="item in list">
+                <td>
+                    {%item.status | intentionTicketStatusName %}
+                </td>
+                <td>
+                    {%item.nickname%}
+                </td>
+                <td>
+                    {%item.phone%}
+                </td>
+                <td>
+                    {%item.email%}
+                </td>
+                <td>
+                    {%(item.time?(item.time * 1000 | date : 'short'):'')%}
+                </td>
+                <td>
+                    {%(item.assigned_time?(item.assigned_time * 1000 | date : 'short'):'')%}
+                </td>
+                <td>
+                    <a class="btn btn-success" href ui-sref="dashboard.intention.detail({id:item.id})" title="View">
+                        <i class="fa fa-search-plus "></i>
+                    </a>
+                    <a class="btn btn-info" href ui-sref="dashboard.intention.edit({id:item.id})" title="Edit">
+                        <i class="fa fa-edit "></i>
+                    </a>
+                </td>
+            </tr>
         </tbody>
     </table>
     <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>
     <div class="buttons">
         <span class="btn-group pull-right">
-            <button ng-hide="!fetched||noPrev"  class="btn" ng-click="prevPage()">← 上一页</button>
+            <button ng-hide="!fetched||noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
             <button ng-hide="!fetched||noNext" class="btn" ng-click="nextPage()">下一页 →</button>
         </span>
     </div>

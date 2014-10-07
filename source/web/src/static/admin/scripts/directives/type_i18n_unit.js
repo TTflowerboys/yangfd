@@ -12,7 +12,9 @@ angular.module('app')
                 unit: '=unit'
             },
             link: function (scope, elm, attrs, ctrl) {
-                if (!scope.i18nUnit) {scope.i18nUnit = {}}
+                if (!scope.i18nUnit) {
+                    scope.i18nUnit = {}
+                }
                 scope.i18nUnit.value = scope.i18nUnit.value || ''
                 scope.isDefaultValue = true
                 scope.$watch('unit', function (value) {

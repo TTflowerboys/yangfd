@@ -8,7 +8,7 @@
         </span>
     </div>
     <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
-          ng-submit="submit($event,createProperty)" name="createProperty" novalidate>
+        ng-submit="submit($event,createProperty)" name="createProperty" novalidate>
         <div class="row">
             <div class="form-group col-xs-6 col-sm-3">
                 <label class="control-label">姓名</label>
@@ -106,25 +106,25 @@
 
                     <div class="controls">
                         <table class="table table-bordered table-striped table-condensed"
-                               style="margin-bottom:30px">
+                            style="margin-bottom:30px">
                             <colgroup>
                                 <col class="key">
                                 <col class="value">
                             </colgroup>
                             <tbody>
-                            <tr ng-repeat="field in item.custom_fields">
-                                <td>{%field.key%}</td>
-                                <td>{%field.value %}</td>
-                            </tr>
+                                <tr ng-repeat="field in item.custom_fields">
+                                    <td>{%field.key%}</td>
+                                    <td>{%field.value %}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="controls form-inline">
                         <input type="text" ng-model="item.tempKey"
-                               placeholder="自定义项" class="form-control"/>
+                            placeholder="自定义项" class="form-control"/>
                         <input type="text" ng-model="item.tempValue"
-                               placeholder="自定义项内容" class="form-control"/>
+                            placeholder="自定义项内容" class="form-control"/>
                         <input type="button" ng-click="addCustomFields()" class="btn btn-primary" value="添加">
                     </div>
                 </div>

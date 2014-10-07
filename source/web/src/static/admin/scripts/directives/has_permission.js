@@ -8,7 +8,9 @@ angular.module('app')
                 element.hide();
 
                 var user = userApi.getCurrentUser()
-                if (!user || !user.role || user.role.length <= 0) {return }
+                if (!user || !user.role || user.role.length <= 0) {
+                    return
+                }
 
                 for (var i = 0, length = permissionList.length; i < length; i += 1) {
                     if (_.contains(user.role, permissionList[i].trim())) {

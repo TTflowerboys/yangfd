@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlPropertyCreate($scope, $state, api, enumApi, $rootScope, i18nLanguages, misc) {
+    function ctrlPropertyCreate($scope, $state, api, $rootScope, i18nLanguages, misc) {
 
         $scope.item = {}
 
@@ -26,7 +26,7 @@
             })
         }
 
-        $scope.submitForReview = function($event, form){
+        $scope.submitForReview = function ($event, form) {
             $scope.item.status = 'not reviewed'
             $scope.submit($event, form)
         }

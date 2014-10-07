@@ -3,7 +3,8 @@
 
         <span class="btn-group">
             <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
-            <button class="btn" ng-click="$state.go('^.edit',{id:item.id})"><span class="fa fa-edit"></span> 编辑
+            <button ng-if="item.status !== 'not reviewed'" class="btn" ng-click="$state.go('^.edit',{id:item.id})">
+                <span class="fa fa-edit"></span> 编辑
             </button>
         </span>
         <div class="btn-group form-inline pull-right">
@@ -75,14 +76,33 @@
                 </div>
                 <div class="row" ng-if="item.highlight">
                     <div class="form-group col-xs-12 col-sm-6">
-
-                        <label class="control-label">亮点</label>
+                        <div type-i18n="item.highlight"></div>
+                        <table class="table table-bordered table-striped table-condensed "
+                            style="margin-bottom:30px">
+                            <colgroup>
+                                <col class="highlight">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>亮点</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="point in item.highlight[userLanguage.value] track by $index">
+                                    <td>
+                                        <span class="input-xlarge uneditable-input">{%point%}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" ng-if="item.description">
+                    <div class="form-group col-xs-12 col-sm-12">
+                        <label class="control-label">详情</label>
 
                         <div class="controls">
-                            <div ng-repeat="point in item.highlight[userLanguage.value]" style="margin-bottom:30px"
-                                class="col-sm-3 col-xs-6">
-                                <span class="input-xlarge uneditable-input">{%point%}</span>
-                            </div>
+                            <span class="input-xlarge uneditable-input">{%item.description[userLanguage.value]%}</span>
                         </div>
                     </div>
                 </div>
@@ -101,6 +121,19 @@
 
                         <div class="controls">
                             <div class="controls" ng-repeat="i in item.intention">
+
+                                {%i.value[userLanguage.value]%}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="item.investment_type">
+                    <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label">投资类型</label>
+
+                        <div class="controls">
+                            <div class="controls" ng-repeat="i in item.investment_type">
 
                                 {%i.value[userLanguage.value]%}
 
@@ -211,7 +244,7 @@
                     </div>
                 </div>
                 <div class="row" ng-if="item.estimated_monthly_cost">
-                    <div class="form-group col-xs-6 col-sm-3">
+                    <div class="form-group col-xs-12 col-sm-12">
                         <label class="control-label">估计月平均支出</label>
 
                         <div class="controls">
@@ -419,6 +452,7 @@
                                     <col class="living_room_count">
                                     <col class="bathroom_count">
                                     <col class="kitchen_count">
+                                    <col class="space">
                                     <col class="total_price">
                                     <col class="floor_plan">
                                 </colgroup>
@@ -429,6 +463,7 @@
                                         <th>客厅数</th>
                                         <th>卫生间数</th>
                                         <th>厨房数</th>
+                                        <th>面积</th>
                                         <th>户型总价</th>
                                         <th>户型图</th>
                                     </tr>
@@ -440,6 +475,7 @@
                                         <td>{%main_type.living_room_count%}</td>
                                         <td>{%main_type.bathroom_count%}</td>
                                         <td>{%main_type.kitchen_count%}</td>
+                                        <td>{%main_type.space.value%} {%main_type.space.unit%}</td>
                                         <td>{%main_type.total_price.value%} {%main_type.total_price.unit%}</td>
                                         <td>
                                             <img class="img-thumbnail" ng-src="{%main_type.floor_plan[userLanguage.value]%} ">

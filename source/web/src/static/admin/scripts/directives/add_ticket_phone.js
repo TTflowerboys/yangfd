@@ -11,7 +11,7 @@ angular.module('app')
                 userId: '=userId'
             },
             link: function (scope) {
-                scope.checkPhone = function (country,phone) {
+                scope.checkPhone = function (country, phone) {
                     checkPhone(country, phone).success(function (data) {
                         scope.phone = data.val
                         getUserByPhone(country, phone)
@@ -31,7 +31,7 @@ angular.module('app')
                 }
 
                 scope.cleanPhone = function () {
-                    scope.phone =undefined
+                    scope.phone = undefined
                     scope.userId = undefined
 
                 }

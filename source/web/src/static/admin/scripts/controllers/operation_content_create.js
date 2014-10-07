@@ -5,7 +5,7 @@
 
     function ctrlContentCreate($scope) {
 
-        $scope.addTextItem = function(){
+        $scope.addTextItem = function () {
             //Init Text Field if add item for the first time
             $scope.item.text = $scope.item.text || {}
             $scope.item.text[$scope.userLanguage.value] = $scope.item.text[$scope.userLanguage.value] || []
@@ -17,7 +17,7 @@
             $scope.tempTextItem = ''
         }
 
-        $scope.removeTextItem = function(index){
+        $scope.removeTextItem = function (index) {
             //Remove from current language only
             $scope.item.text[$scope.userLanguage.value].splice(index, 1)
         }

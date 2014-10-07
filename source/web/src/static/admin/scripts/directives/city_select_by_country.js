@@ -2,7 +2,7 @@
  * Created by Michael on 14/9/24.
  */
 angular.module('app')
-    .directive('citySelectByCountry', function ($rootScope,enumApi) {
+    .directive('citySelectByCountry', function ($rootScope, enumApi) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/enum_select.tpl.html',

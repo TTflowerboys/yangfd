@@ -60,6 +60,71 @@
         getHash: function (n) {
             var m = window.location.hash.match(new RegExp('(#|&)' + n + '=([^&]*)(&|$)'));
             return !m ? '' : decodeURIComponent(m[2]);
+        },
+
+
+        /**
+         * Convert a number to a friendly currency
+         * @param {string | number} number 123456.789
+         * @returns {string} currency 123,456.78
+         */
+        encodeCurrency: function (number) {
+            var parts;
+            if (number !== 0 && !number) {return '';}
+            var numberString = number.toString()
+            numberString = team.decodeCurrency(numberString)
+            if (numberString.indexOf('.') >= 0) {
+                numberString = parseFloat(numberString, 10).toFixed(2).toString()
+            }
+            parts = numberString.split('.')
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            if (parts[1]) {
+                if (parts[1].length === 1) { parts[1] = parts[1] + '0' }
+                if (parts[1].length > 2) { parts[1] = parts[1].substr(0, 2) }
+            }
+            return parts.join('.')
+        },
+
+
+        /**
+         * Convert a friendly currency to a number
+         * @param {string} currency 123,456.78
+         * @returns {string} number 123456.78
+         */
+        decodeCurrency: function (currency) {
+            return currency.replace(/[,\s]/g, '')
+        },
+        /**
+         * Share something to Weibo
+         * @param {object} {title:'',url:'',pic:''}
+         */
+        shareToWeibo: function (_options, _config) {
+            var defaultOptions = {
+                url: location.href || '',
+                title: document.title || ''
+            }
+            var defaultConfig = {
+                width: 800,
+                height: 480
+            }
+            var options = $.extend({}, defaultOptions, _options)
+            var config = $.extend({}, defaultConfig, _config)
+            var query = _.pairs(options).map(function (item) {
+                return [encodeURIComponent(item[0]), encodeURIComponent(item[1])].join('=')
+            }).join('&')
+
+            var url = 'http://service.weibo.com/share/share.php?' + query
+
+            var width = config.width
+            var height = config.height
+            var left = (screen.width / 2) - (width / 2)
+            var top = (screen.height / 2) - (height / 2)
+
+            window.open(url, '_blank',
+                    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
+                    width + ', height=' + height + ', top=' + top + ', left=' + left)
+
+            return false
         }
     }
 })();

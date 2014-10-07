@@ -19,7 +19,7 @@ $('form[name=signin]').submit(function (e) {
 
     var params = $(this).serializeObject()
     params.password = Base64.encode(params.password)
-    $.post('/api/1/user/login', params)
+    $.betterPost('/api/1/user/login', params)
         .done(function () {
             location.reload()
             $('#modal_shadow').hide()

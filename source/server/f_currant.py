@@ -792,8 +792,8 @@ class f_property(f_app.module_base):
 
         params = f_app.param_parser(_source=params, **property_params)
 
-        current_records = self.search({"property_crawler_id": property_crawler_id, "status": {"$exists": True}})
-        assert len(current_records) < 2
+        current_records = self.search({"property_crawler_id": property_crawler_id, "target_property_id": {"$exists": False}, "status": {"$exists": True}})
+        assert len(current_records) < 2, self.logger.error("Multiple property found for property_crawler_id:", property_crawler_id)
 
         if len(current_records):
             current_record = self.get(current_records[0], ignore_nonexist=True)
@@ -808,8 +808,7 @@ class f_property(f_app.module_base):
             existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
 
             if existing_draft:
-                params["target_property_id"] = existing_draft[0]
-                action = lambda _params: f_app.property.update_set(property_id, _params)
+                action = lambda _params: f_app.property.update_set(existing_draft[0], _params)
 
             else:
                 params.setdefault("status", "draft")

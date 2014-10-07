@@ -16,11 +16,15 @@ angular.module('app')
                 }
 
                 var model = scope[attrs.ngModel]
-                if (!model) { model = scope[attrs.ngModel] = {} }
+                if (!model) {
+                    model = scope[attrs.ngModel] = {}
+                }
 
                 for (var i = 0 , length = fieldList.length; i < length; i += 1) {
                     var oneField = model[fieldList[i]]
-                    if (!oneField) { oneField = model[fieldList[i]] = {} }
+                    if (!oneField) {
+                        oneField = model[fieldList[i]] = {}
+                    }
 
                     for (var j = 0, jLength = i18nLanguages.length; j < jLength; j += 1) {
                         oneField[i18nLanguages[j].value] = oneField[i18nLanguages[j].value] || ''

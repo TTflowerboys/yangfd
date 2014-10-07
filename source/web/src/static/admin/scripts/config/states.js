@@ -48,7 +48,7 @@ angular.module('app')
             })
             .state('forgot', {
                 url: '/forgot?from',
-                templateUrl: '/static/admin/templates/forgotPassword.tpl.html',
+                templateUrl: '/static/admin/templates/forgot_password.tpl.html',
                 controller: 'ctrlForgotPassword'
             })
 
@@ -264,7 +264,7 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.operation.contents.detail.tpl.html',
                 controller: 'ctrlDetail',
                 resolve: {
-                    api: function (adApiFactory,$stateParams) {
+                    api: function (adApiFactory, $stateParams) {
                         return adApiFactory($stateParams.channel)
                     }
                 }

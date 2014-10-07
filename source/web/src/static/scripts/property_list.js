@@ -33,7 +33,7 @@
 
         $('#result #loadIndicator').show()
         var resultCount = 0
-        $.post('/api/1/property/search', params)
+        $.betterPost('/api/1/property/search', params)
             .done(function (val) {
                 var array = val.content
                 resultCount = val.count
@@ -207,7 +207,7 @@
         var budgetId = getSelectedBudgetType()
         var intentionIds = getSelectedIntention()
 
-        $.post('/api/1/user/edit', {'budget':budgetId, 'intention':intentionIds})
+        $.betterPost('/api/1/user/edit', {'budget':budgetId, 'intention':intentionIds})
             .done(function (data) {
                 window.user= data.val
             })

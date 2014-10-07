@@ -1,4 +1,5 @@
 /*! Created by frank on 14-8-5.  */
+@import "project/_imports";
 .rslides { z-index: 0; color: white;
     &_wrapper {
         position: relative;
@@ -7,6 +8,7 @@
         h2 { position: absolute; }
     }
     &_tabs { position: absolute; bottom: 0; width: 100%; z-index: 1; text-align: center;
+        background: fade(white, 30%);
         li { display: inline; float: none; margin-left: 16px;
             &:first-child {
                 margin-left: 0;
@@ -17,14 +19,24 @@
             overflow: hidden;
             border-radius: 15px;
             background: white;
-            opacity: 0.4;
             display: inline-block;
-            box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, .3);
+            box-shadow: inset 0 0 2px 0 fade(black, 30%);
             width: 9px;
             height: 9px;
         }
     }
-    &_here a {
-        opacity: 1;
+    &_here a { background: @red; }
+
+    .propertyDetails &_nav {
+        @height: 32px;
+        position: absolute; z-index: 1; text-decoration: none; font-weight: bold; color: @red;
+        display: inline-block; width: @height; height: @height; top: 50%; margin-top: -16px; border-radius: 50%;
+        background: fade(white, 30%); line-height: @height; text-align: center;
+        box-shadow: inset 0 0 2px 0 fade(black, 30%);
+        &.prev { left: 8px; }
+        &.next { right: 8px; }
     }
+
+    .propertyDetails .houseTypes &_tabs { display: none; }
+
 }
