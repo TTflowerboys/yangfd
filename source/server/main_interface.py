@@ -8,6 +8,7 @@ import qrcode
 import logging
 logger = logging.getLogger(__name__)
 
+f_app.dependency_register("qrcode", race="python")
 
 def check_landing(func):
     def __check_landing_replace_func(*args, **kwargs):

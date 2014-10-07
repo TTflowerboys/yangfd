@@ -5,6 +5,7 @@ Babel
 Twisted
 gevent>0.99
 newrelic
+qrcode
 topia.termextract
 pyquery
 passlib
@@ -31,4 +32,3 @@ bottle
 python-memcached
 requests
 pillow
-qrcode
