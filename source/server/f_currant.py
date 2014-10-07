@@ -604,15 +604,17 @@ class f_currant_plugins(f_app.plugin_base):
         ))
 
     def task_on_crawler_knightknox(self, task):
-        is_end = True
+        start_page = task.get("start_page", 1)
+        is_end = False
         search_url = 'http://www.knightknox.com/property/search?country=united+kingdom&region=any&type=any&minbeds=0&maxprice=any&fsbo=on&page=%s'
-        list_page_counter = 1
+        list_page_counter = start_page
         search_url_parsed = urllib.parse.urlparse(search_url)
         search_url_prefix = "%s://%s" % (search_url_parsed.scheme, search_url_parsed.netloc)
         while not is_end:
             list_page = f_app.request.get(search_url % list_page_counter)
             if list_page.status_code == 200:
                 self.logger.debug("Start crawling knightknox page %d" % list_page_counter)
+                f_app.task.update_set(task, {"start_page": list_page_counter})
                 list_page_dom_root = q(list_page.content)
                 list_page_nav_links = list_page_dom_root.find("p#searchpagination.text-center a.raquo")
                 is_end = False if len(list_page_nav_links) else True
@@ -671,8 +673,7 @@ class f_currant_plugins(f_app.plugin_base):
                                         params["equity_type"] = ObjectId(f_app.enum.get_by_slug('leasehold')["id"])
                                 elif content_type == "Size":
                                     building_size = re.findall(r'[0-9,]+', feature)
-                                    if building_size:
-                                        #is this right?
+                                    if building_size and "sqm" in feature:
                                         params["space"] = {"type": "area", "unit": "meter ** 2", "value": ".".join(building_size)}
                                 elif content_type == "Bathrooms":
                                     if feature.isdigit():
