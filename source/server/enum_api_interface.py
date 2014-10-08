@@ -72,6 +72,8 @@ def enum_add(user, params):
     country=("enum:country", None),
     currency=(str, None),
     slug=(str, None),
+    description=('i18n', None, str),
+    image=(str, None),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def enum_edit(user, enum_id, params):
