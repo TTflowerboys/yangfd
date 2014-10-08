@@ -252,6 +252,18 @@ def user_change_phone_1():
 def user_change_phone_2():
     return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
+@f_get('/user_verify_phone_1')
+@check_landing
+def user_verify_phone_1():
+    return template("user_verify_phone_1", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+
+
+@f_get('/user_verify_phone_2')
+@check_landing
+def user_verify_phone_2():
+    return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+
+
 
 @f_get('/user_favorites')
 @check_landing

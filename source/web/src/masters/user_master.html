@@ -56,11 +56,14 @@
             (function () {
             var urlPath = location.pathname.split('/')[1]
             var icon = document.getElementById('icon-' + urlPath)
-            var iconImagePath = icon.getAttribute('src')
-            var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
-            var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
-            var newIconImagePath = iconImageName  + '-active' + iconImageExtention
-            icon.setAttribute('src', newIconImagePath)
+            if (icon) {
+                var iconImagePath = icon.getAttribute('src')
+                var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
+                var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
+                var newIconImagePath = iconImageName  + '-active' + iconImageExtention
+                icon.setAttribute('src', newIconImagePath)
+            }
+
             })()
 
 
