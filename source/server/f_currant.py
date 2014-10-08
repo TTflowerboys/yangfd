@@ -231,7 +231,7 @@ class f_currant_user(f_user):
                 del fav["user_id"]
             property_set.add(fav["property_id"])
 
-        property_dict = f_app.property.output(list(property_set), multi_return=dict)
+        property_dict = f_app.property.output(list(property_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
         for fav in favorites:
             fav["property"] = property_dict.get(str(fav.pop("property_id")))
 
