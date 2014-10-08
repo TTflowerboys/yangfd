@@ -23,7 +23,7 @@
            %end
 
            <div class=description>
-               <h1 class=name>{{fav.get('property').get('name', '')}}</h1>
+                       <h1 class=name><a href=/property/{{fav.get('property').get('id')}} style="text-decoration:none; color:#333;">{{fav.get('property').get('name', '')}}</a></h1>
                <span class=price>
                    %if fav.get('property').get('total_price'):
                    {{fav.get('property').get('total_price').get('unit_symbol')}} <strong>{{str(int(float(fav.get('property').get('total_price').get('value'))))}}</strong>
@@ -76,9 +76,7 @@
                    <li><img src="/static/images/icon/house-card-location.png" alt="" /> <span>{{fav.get('property').get('street', '')}} </span></li>
                    %end
                </ul>
-               <div class=action>
-                   <a href=/property/{{fav.get('property').get('id')}} class="button red">{{_('查看详情')}}</a>
-               </div>
+
                <div class="otherAction">
                    <button id="cancelFavorite" data-id={{fav.get('id')}} class="ghostButton darkGray">{{_('取消收藏')}}</button>
                </div>
