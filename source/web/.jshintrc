@@ -24,7 +24,8 @@
       "_":         true,
       "team":      true,
       "Chart":     true,
-      "_currency": true
+      "currency":  true,
+      "lang":      true
   },
   "globalstrict":  false,
   "immed":         false,

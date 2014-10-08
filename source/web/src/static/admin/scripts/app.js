@@ -21,7 +21,7 @@ angular.module('app',
 
             })
         $rootScope.userLanguage = {
-            value: window._lang
+            value: window.lang
         }
 
     })
