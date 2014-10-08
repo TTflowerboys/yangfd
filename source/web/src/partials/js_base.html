@@ -84,6 +84,11 @@
 
     ga('create', 'UA-55542465-1', 'auto');
     ga('send', 'pageview');
+
+    //Enable Google User-ID feature if is existing user
+    if(window.user){
+        ga('set', '&uid', window.user.id) // Set the user ID using signed-in user_id.
+    }
 </script>
 
 
