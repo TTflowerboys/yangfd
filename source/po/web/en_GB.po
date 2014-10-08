@@ -5,19 +5,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:  Currant\n"
+"Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-07 16:43+0800\n"
-"PO-Revision-Date: 2014-10-06 18:38+0800\n"
+"POT-Creation-Date: 2014-10-08 10:04+0800\n"
+"PO-Revision-Date: 2014-10-08 11:35+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-"\n"
-"Language: en_GB"
+"Language: en_GB\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../web/src/admin.html:5
 msgid "管理控制台"
@@ -59,22 +59,28 @@ msgid "我们做什么？"
 msgstr "What we do?"
 
 #: ../web/src/coming_soon.html:39
-msgid "我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"
+msgid ""
+"我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的"
+"置业顾问助推您的海外投资之路。"
 msgstr ""
-"We focus on providing diversified oversea investment opportunities to our"
-" investors, get our investors on board with detailed investment analysis "
+"We focus on providing diversified oversea investment opportunities to our "
+"investors, get our investors on board with detailed investment analysis "
 "report and professional property consultant."
 
 #: ../web/src/coming_soon.html:41
-msgid "洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职业顾问，协助您完成投资流程，轻松当洋房东。"
+msgid ""
+"洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化"
+"的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以"
+"详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职"
+"业顾问，协助您完成投资流程，轻松当洋房东。"
 msgstr ""
-"YoungFunding will launch first in China and UK. We provide with "
-"diversified oversea investment opportunities such as properties, houses, "
-"apartments, and personalized investment recommendations based on your "
-"intention and budget. We help you with detailed property introduction and"
-" investment analysis report, and our professional property consultant "
-"will help you take care of everything when you want to settle your "
-"investment, really make real estate investment easy."
+"YoungFunding will launch first in China and UK. We provide with diversified "
+"oversea investment opportunities such as properties, houses, apartments, and "
+"personalized investment recommendations based on your intention and budget. "
+"We help you with detailed property introduction and investment analysis "
+"report, and our professional property consultant will help you take care of "
+"everything when you want to settle your investment, really make real estate "
+"investment easy."
 
 #: ../web/src/coming_soon.html:47 ../web/src/partials/float_bar.html:11
 #: ../web/src/partials/requirement_popup.html:6
@@ -82,11 +88,11 @@ msgid "提交置业需求"
 msgstr "Submit Your Investment Needs"
 
 #: ../web/src/coming_soon.html:48
-msgid "如果您有海外置业的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
+msgid ""
+"如果您有海外置业的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 "If you are interested in investing UK property, please submit your "
-"investment needs here. We will get in touch and help your with your "
-"needs."
+"investment needs here. We will get in touch and help your with your needs."
 
 #: ../web/src/coming_soon.html:53 ../web/src/partials/requirement_form.html:3
 msgid "姓名(必填)"
@@ -104,7 +110,7 @@ msgstr "Email (Required)"
 msgid "您的预算"
 msgstr "Your Budget"
 
-#: ../web/src/coming_soon.html:76 ../web/src/property.html:569
+#: ../web/src/coming_soon.html:76 ../web/src/property.html:568
 #: ../web/src/partials/requirement_form.html:24
 msgid "写下您的其他需求和描述，方便我们在挑选房源时作为参考"
 msgstr ""
@@ -121,8 +127,8 @@ msgstr "Submit"
 #: ../web/src/partials/requirement_popup.html:11
 msgid "置业需求已提交，稍后我们的工作人员会联系你"
 msgstr ""
-"Your requirement has been submitted, we will get in touch with you as "
-"soon as possible. "
+"Your requirement has been submitted, we will get in touch with you as soon "
+"as possible. "
 
 #: ../web/src/coming_soon.html:90 ../web/src/masters/master.html:115
 msgid "鄂ICP备14015315号-1"
@@ -178,24 +184,23 @@ msgstr "Property Purchase Guide"
 
 #: ../web/src/index.html:84
 msgid "为您推荐"
-msgstr ""
+msgstr "Recommend for you"
 
 #: ../web/src/index.html:86
-#, fuzzy
-msgid "您的预算："
-msgstr "Your Budget"
+msgid "您的预算(单选)"
+msgstr "Your Budget(Single Selection)"
 
-#: ../web/src/index.html:95
-msgid "意向选择："
-msgstr ""
+#: ../web/src/index.html:95 ../web/src/property_list.html:92
+msgid "投资意向(多选)"
+msgstr "Intentions (Multiple Choices)"
 
 #: ../web/src/index.html:100
 msgid "添加"
-msgstr ""
+msgstr "Add"
 
 #: ../web/src/index.html:103
 msgid "获取为您推荐的房产投资机会"
-msgstr ""
+msgstr "To get investment recommendations"
 
 #: ../web/src/index.html:142 ../web/src/user_favorites.html:34
 #: ../web/src/user_intentions.html:28 ../web/src/user_properties.html:30
@@ -223,26 +228,23 @@ msgstr "View Details"
 
 #: ../web/src/index.html:194
 msgid "相关动态"
-msgstr ""
+msgstr "Related News"
 
 #: ../web/src/index.html:221
-#, fuzzy
 msgid "资讯"
-msgstr "Category"
+msgstr "News"
 
 #: ../web/src/index.html:231
 msgid "详细"
-msgstr ""
+msgstr "Detail"
 
 #: ../web/src/index.html:237
-#, fuzzy
 msgid "更多资讯"
-msgstr "Load More"
+msgstr "More"
 
 #: ../web/src/index.html:245
-#, fuzzy
 msgid "了解更多"
-msgstr "Load More"
+msgstr "Learn More"
 
 #: ../web/src/laws.html:9 ../web/src/masters/news_master.html:18
 msgid "法律法规"
@@ -270,16 +272,16 @@ msgstr "Announcement"
 
 #: ../web/src/property.html:240
 msgid "面积"
-msgstr ""
+msgstr "Area"
 
-#: ../web/src/property.html:569
+#: ../web/src/property.html:568
 msgid "(可选)"
 msgstr "(Optional)"
 
 #: ../web/src/property_list.html:31
 #: ../web/src/partials/localization_manager.html:49
 msgid "我想在"
-msgstr "I want invest in"
+msgstr "I want to invest in"
 
 #: ../web/src/property_list.html:33
 #: ../web/src/partials/localization_manager.html:14
@@ -337,10 +339,6 @@ msgstr "More Filters For Results"
 msgid "价格(单选)"
 msgstr "Price (Single Choice)"
 
-#: ../web/src/property_list.html:92
-msgid "投资意向(多选)"
-msgstr "Intentions (Multiple Choices)"
-
 #: ../web/src/reset_password.html:14 ../web/src/user_change_phone_2.html:14
 msgid "短信验证码"
 msgstr "SMS Verification Code"
@@ -362,17 +360,20 @@ msgid "更改邮箱"
 msgstr "Email"
 
 #: ../web/src/user_change_email.html:12 ../web/src/user_verify_email.html:12
-msgid "提交成功后请检查您的收件箱并点击邮件中的链接进行验证，如果没有收到请检查您的垃圾邮箱，或者直接与洋房东客服联系"
+msgid ""
+"提交成功后请检查您的收件箱并点击邮件中的链接进行验证，如果没有收到请检查您的"
+"垃圾邮箱，或者直接与洋房东客服联系"
 msgstr ""
 "Please check you email and click verification link to verify your email "
-"after you submit, if you not receive any verification email, please check"
-" your spam, or contact us directly."
+"after you submit, if you not receive any verification email, please check "
+"your spam, or contact us directly."
 
 #: ../web/src/user_change_email.html:16
 msgid "新邮箱"
 msgstr "Email"
 
-#: ../web/src/user_change_email.html:21 ../web/src/user_change_password.html:29
+#: ../web/src/user_change_email.html:21
+#: ../web/src/user_change_password.html:29
 msgid "确认"
 msgstr "Confirm"
 
@@ -397,7 +398,8 @@ msgid "更换手机号（1/2）"
 msgstr "Change Phone Number (1/2)"
 
 #: ../web/src/user_change_phone_1.html:13
-msgid "如果您绑定的手机因停机、注销、丢失等原因无法接收短信，请与洋房东客服联系"
+msgid ""
+"如果您绑定的手机因停机、注销、丢失等原因无法接收短信，请与洋房东客服联系"
 msgstr ""
 "If you can get sms message because your phone is down, cancel or lost, "
 "please contact our supports."
@@ -634,11 +636,11 @@ msgstr "Index"
 
 #: ../web/src/masters/master.html:40
 msgid "海外房产"
-msgstr "Oversea Properties"
+msgstr "Properties"
 
 #: ../web/src/masters/master.html:41
 msgid "海外众筹"
-msgstr "Oversea Crowdfunding"
+msgstr "Crowdfunding"
 
 #: ../web/src/masters/master.html:42
 msgid "投资资讯"
@@ -747,19 +749,19 @@ msgstr "Phone"
 
 #: ../web/src/partials/get_area_unit.html:2
 msgid "平方英尺"
-msgstr ""
+msgstr "square foot"
 
 #: ../web/src/partials/get_area_unit.html:4
 msgid "英亩"
-msgstr ""
+msgstr "acre"
 
 #: ../web/src/partials/get_area_unit.html:6
 msgid "平方米"
-msgstr ""
+msgstr "square meter"
 
 #: ../web/src/partials/get_area_unit.html:8
 msgid "平方千米"
-msgstr ""
+msgstr "square kilometre"
 
 #: ../web/src/partials/localization_manager.html:2
 msgid "姓名不能为空"
@@ -831,7 +833,8 @@ msgstr "Failed to send verification email"
 
 #: ../web/src/partials/localization_manager.html:28
 msgid "邮件已发送，如果没有收到，请在60秒后重试"
-msgstr "Verification email already sent, if you didn't got it, try again after 60s"
+msgstr ""
+"Verification email already sent, if you didn't got it, try again after 60s"
 
 #: ../web/src/partials/localization_manager.html:29
 msgid "请点击“获取验证码”"
@@ -937,6 +940,10 @@ msgstr "Introduction for Live After Immigration"
 msgid "度假旅行介绍"
 msgstr "Introduction for Leisure Property"
 
+#: ../web/src/partials/localization_manager.html:65
+msgid "服务器忙，请稍后重试。"
+msgstr "Server is busy, please try again later"
+
 #: ../web/src/partials/pager.html:3
 msgid "上一页"
 msgstr "Prev"
@@ -967,11 +974,11 @@ msgid "已经拥有账号？请"
 msgstr "Already got account? Please "
 
 #: ../web/src/partials/requirement_popup.html:7
-msgid "如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
+msgid ""
+"如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 "If you are interested in investing UK property, please submit your "
-"investment needs here. We will get in touch and help your with your "
-"needs."
+"investment needs here. We will get in touch and help your with your needs."
 
 #: ../web/src/partials/signin_form.html:9
 msgid "忘记密码"
@@ -991,8 +998,8 @@ msgstr "Hi, "
 #: ../web/src/static/emails/set_as_admin.html:4
 msgid "您已经被授予洋房东管理后台的访问权限，请使用手机号码"
 msgstr ""
-"Now you have permission to login to YoungFunding's administrator "
-"dashboard, please use this phone number"
+"Now you have permission to login to YoungFunding's administrator dashboard, "
+"please use this phone number"
 
 #: ../web/src/static/emails/new_admin.html:5
 msgid "初始密码为："
@@ -1060,7 +1067,8 @@ msgstr "Property Agency"
 #: ../web/src/static/emails/new_admin_title.html:1
 #: ../web/src/static/emails/set_as_admin_title.html:1
 msgid "您已经被授予洋房东管理后台的访问权限"
-msgstr "Now you have permission to login to YoungFunding's administrator dashboard"
+msgstr ""
+"Now you have permission to login to YoungFunding's administrator dashboard"
 
 #: ../web/src/static/emails/new_ticket.html:4
 msgid "收到新的置业需求信息如下："
@@ -1097,14 +1105,14 @@ msgstr "Permissions you have are:"
 #: ../web/src/static/emails/verify_email.html:4
 msgid "欢迎使用洋房东，请点击以下链接验证你的邮箱地址："
 msgstr ""
-"Thanks for using YoungFunding. To verify your email address, please click"
-" the link below: "
+"Thanks for using YoungFunding. To verify your email address, please click "
+"the link below: "
 
 #: ../web/src/static/emails/verify_email.html:7
 msgid "如果以上链接无法访问，请将该网址复制并粘贴至新的浏览器窗口中。"
 msgstr ""
-"If you can't click the link above, please copy and paste above url to new"
-" tab of your browser."
+"If you can't click the link above, please copy and paste above url to new "
+"tab of your browser."
 
 #: ../web/src/static/emails/verify_email_title.html:1
 msgid "请验证您的邮箱"
@@ -1119,22 +1127,24 @@ msgid "洋房东开放注册了！"
 msgstr "YoungFunding is open for registering now!"
 
 #: ../web/src/static/emails/we_are_ready.html:8
-msgid "如果您之前没有订阅上线通知，请忽略该邮件。如果您之前订阅过，请点击下面链接进入洋房东吧:"
+msgid ""
+"如果您之前没有订阅上线通知，请忽略该邮件。如果您之前订阅过，请点击下面链接进"
+"入洋房东吧:"
 msgstr ""
-"If you didn't subscribe launch notification, please ignore this. If you "
-"are, please click the link below to visit us:"
+"If you didn't subscribe launch notification, please ignore this. If you are, "
+"please click the link below to visit us:"
 
 #: ../web/src/static/emails/we_are_ready.html:15
 msgid "如果上面的链接无法点击，请复制该链接到浏览器地址栏中打开！"
 msgstr ""
-"If you can't click the link above, please copy and paste above url to new"
-" tab of your browser."
+"If you can't click the link above, please copy and paste above url to new "
+"tab of your browser."
 
 #: ../web/src/static/emails/we_are_ready.html:17
 msgid "如果您有任何使用过程中的问题或者有海外置业的需求，请联系我们:"
 msgstr ""
-"Feel free to contact us if you have any question using our website or "
-"have property purchasing requirement in UK:"
+"Feel free to contact us if you have any question using our website or have "
+"property purchasing requirement in UK:"
 
 #: ../web/src/static/emails/we_are_ready.html:21
 msgid "欢迎访问"
@@ -1204,3 +1214,5 @@ msgstr "Load More"
 #~ msgid "登出"
 #~ msgstr "Log Out"
 
+#~ msgid "您的预算："
+#~ msgstr "Your Budget"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-07 16:43+0800\n"
+"POT-Creation-Date: 2014-10-08 10:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,7 +89,7 @@ msgstr ""
 msgid "您的预算"
 msgstr ""
 
-#: ../web/src/coming_soon.html:76 ../web/src/property.html:569
+#: ../web/src/coming_soon.html:76 ../web/src/property.html:568
 #: ../web/src/partials/requirement_form.html:24
 msgid "写下您的其他需求和描述，方便我们在挑选房源时作为参考"
 msgstr ""
@@ -162,11 +162,11 @@ msgid "为您推荐"
 msgstr ""
 
 #: ../web/src/index.html:86
-msgid "您的预算："
+msgid "您的预算(单选)"
 msgstr ""
 
-#: ../web/src/index.html:95
-msgid "意向选择："
+#: ../web/src/index.html:95 ../web/src/property_list.html:92
+msgid "投资意向(多选)"
 msgstr ""
 
 #: ../web/src/index.html:100
@@ -249,7 +249,7 @@ msgstr ""
 msgid "面积"
 msgstr ""
 
-#: ../web/src/property.html:569
+#: ../web/src/property.html:568
 msgid "(可选)"
 msgstr ""
 
@@ -312,10 +312,6 @@ msgstr ""
 
 #: ../web/src/property_list.html:75
 msgid "价格(单选)"
-msgstr ""
-
-#: ../web/src/property_list.html:92
-msgid "投资意向(多选)"
 msgstr ""
 
 #: ../web/src/reset_password.html:14 ../web/src/user_change_phone_2.html:14
@@ -907,6 +903,10 @@ msgstr ""
 
 #: ../web/src/partials/localization_manager.html:62
 msgid "度假旅行介绍"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:65
+msgid "服务器忙，请稍后重试。"
 msgstr ""
 
 #: ../web/src/partials/pager.html:3
