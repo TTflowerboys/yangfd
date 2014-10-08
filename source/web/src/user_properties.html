@@ -13,7 +13,7 @@
     </div>
     <div class="list">
         %for index, ticket in enumerate(_i18n(intention_ticket_list)) :
-           %if (index >= 0 ):
+           %if (index >= 0 && ticket.get('property')):
 
            <div class=houseCard>
            %if ticket.get('property').get('reality_images', []) :
@@ -23,7 +23,7 @@
            %end
 
            <div class=description>
-               <h1 class=name>{{ticket.get('property').get('name', '')}}</h1>
+               <h1 class=name><a href=/property/{{ticket.get('property').get('id')}} style="text-decoration:none; color:#333;"> {{ticket.get('property').get('name', '')}}</a></h1>
                <div class=details>
                    <p class=size>
                        %if ticket.get('property').get('living_room_count'):
@@ -48,10 +48,7 @@
                        %end
                    </p>
                </div>
-               <div class=action>
-                   <a href="/property/{{ticket.get('property').get('id')}}" class="button red">{{_('查看详情')}}</a>
 
-               </div>
                <div class="otherAction">
                      <button id="removeProperty" data-id="{{ticket.get('id')}}" class="ghostButton darkGray">{{_('移除')}}</button>
                </div>
