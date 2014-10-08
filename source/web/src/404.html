@@ -33,9 +33,14 @@
                 <td class=content>
                     <h1>404</h1>
                     <h2>对不起，没有您找的页面</h2>
-                    <h3>XX秒后返回首页！</h3>
+                    <h3 id="show">5秒后 <a href="/">返回首页</a></h3>
                 </td>
             </tr>
         </table>
     </body>
+    <script>
+        setTimeout(function () {
+            location.href = '/'
+        }, 5000)
+    </script>
 </html>
