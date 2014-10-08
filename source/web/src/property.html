@@ -493,19 +493,25 @@
             <table class="actions">
                 <tr>
                     <td style="text-align:left;">
-                        % if property.get('id') in [i.get('property',{}).get('id') for i in favorite_list]:
-                        <button class="flatButton">
-                            <img src="/static/images/property_details/icon-star.png" alt=""/>
-                            <span class="text"> 已收藏 </span>
-                        </button>
-                        % else:
-                        <button data-fn="addFav" data-property-id="{{property.get('id','')}}" class="flatButton"
-                            data-message-success="已收藏" data-message-40090="已经收藏过了" data-message-40100="请先登录。"
+                        % isFavorite = property.get('id') in [i.get('property',{}).get('id') for i in favorite_list]
+                        <button data-fn="addFav" data-property-id="{{property.get('id','')}}"
+                            class="flatButton"
+                            style="{{ 'display:none' if isFavorite else ''}}"
+                            data-message-40090="已经收藏过了"
                             >
                             <img src="/static/images/property_details/icon-star.png" alt=""/>
                             <span class="text"> 收藏 </span>
                         </button>
+                        <button data-fn="removeFav"
+                            class="flatButton"
+                            style="{{ 'display:none' if not isFavorite else ''}}"
+                        % if isFavorite:
+                        data-favorite-id="{{[x for x in favorite_list if x.get('property',{}).get('id') == property.get('id')][0].get('id')}}"
                         % end
+                        >
+                        <img src="/static/images/property_details/icon-star.png" alt=""/>
+                        <span class="text"> 取消收藏 </span>
+                        </button>
                     </td>
                     <td style="text-align:center;">
                         <button data-fn="shareToWeChat" class="flatButton green">
@@ -760,13 +766,34 @@
             $.betterPost('/api/1/user/favorite/add', {
                 property_id: property_id
             })
-                .done(function () {
-                    $button.find('.text').text($button.attr('data-message-success'))
+                .done(function (val) {
+                    $button.hide().parent().find('[data-fn=removeFav]').show().attr('data-favorite-id', val)
                 })
                 .fail(function (errorCode) {
-                    alert($button.attr('data-message-' + errorCode) || i18n('unknown_error'))
+                    if (errorCode === 40100) {
+                        project.goToSignIn()
+                    } else {
+                        alert($button.attr('data-message-' + errorCode) || i18n('unknown_error'))
+                    }
                 })
         })
+
+        $('[data-fn=removeFav]').on('click', function () {
+            var $button = $(this)
+            var favorite_id = $button.attr('data-favorite-id')
+            $.betterPost('/api/1/user/favorite/' + favorite_id + '/remove')
+                .done(function () {
+                    $button.hide().parent().find('[data-fn=addFav]').show()
+                })
+                .fail(function (errorCode) {
+                    if (errorCode === 40100) {
+                        project.goToSignIn()
+                    } else {
+                        alert($button.attr('data-message-' + errorCode) || i18n('unknown_error'))
+                    }
+                })
+        })
+
         $('[data-fn=shareToWeChat]').on('click', function () {
             $('#popupShareToWeChat')
                 .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
