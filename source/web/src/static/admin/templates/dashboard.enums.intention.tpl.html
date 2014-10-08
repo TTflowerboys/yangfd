@@ -1,0 +1,39 @@
+<div ui-view>
+    <span class="btn-group">
+        <button class="btn" ui-sref=".create">
+            <span class="fa fa-plus-circle"></span>添加投资意向
+        </button>
+    </span>
+    <div class="btn-group form-inline pull-right">
+        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+    </div>
+    <div ng-init="getIntentionList()"></div>
+    <table class="table table-bordered table-striped table-condensed"
+        style="margin-bottom:30px">
+        <colgroup>
+            <col style="width: 200px;"/>
+            <col/>
+            <col/>
+            <col style="width: 80px"/>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th>投资意向</th>
+                <th>说明</th>
+                <th>图片</th>
+                <th>编辑</th>
+            </tr>
+            <tr ng-repeat="item in intentionList">
+                <td>{%item.value[userLanguage.value]%}</td>
+                <td>{%item.description[userLanguage.value]%}</td>
+                <td><img class="img-thumbnail" ng-src="{%item.image%} "></td>
+                <td style="text-align:center;">
+                    <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
+                        <i class="fa fa-edit "></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="intentionList.length === 0" class="well" style="text-align:center;">No results</div>
+</div>

@@ -155,15 +155,6 @@ angular.module('app')
                         continue
                     }
                     if (i18nData[i].unit === undefined) {
-//                        for (var index in i18nLanguages) {
-//                            var lang = i18nLanguages[index].value
-//                            if (_.isNumber(i18nData[i][lang])) {
-//                                continue
-//                            }
-//                            if (_.isEmpty(i18nData[i][lang])) {
-//                                delete i18nData[i][lang]
-//                            }
-//                        }
                         if (_.isEmpty(i18nData[i].value)) {
                             delete i18nData[i].value
                         }

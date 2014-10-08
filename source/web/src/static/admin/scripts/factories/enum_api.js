@@ -84,6 +84,24 @@
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
+            addIntention: function (image, value, description) {
+                var data = {
+                    type: 'intention',
+                    image: image,
+                    value: value,
+                    description: description
+                }
+                return $http.post('/api/1/enum/add', data, {errorMessage: true})
+            },
+            editIntention: function (id, image, value, description) {
+                var data = {
+                    type: 'intention',
+                    image: image,
+                    value: value,
+                    description: description
+                }
+                return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
+            },
             getEnumsByType: function (type) {
                 return $http.get('/api/1/enum', {
                     params: {

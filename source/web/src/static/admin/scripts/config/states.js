@@ -131,7 +131,7 @@ angular.module('app')
                 resolve: enumResolve
             })
             .state('dashboard.enums.budget', {
-                url: '/currency',
+                url: '/budget',
                 templateUrl: '/static/admin/templates/dashboard.enums.budget.tpl.html',
                 controller: 'ctrlEnums',
                 resolve: enumResolve
@@ -145,6 +145,24 @@ angular.module('app')
             .state('dashboard.enums.budget.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.enums.budget.edit.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.intention', {
+                url: '/intention',
+                templateUrl: '/static/admin/templates/dashboard.enums.intention.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.intention.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.intention.create.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.intention.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.enums.intention.edit.tpl.html',
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
