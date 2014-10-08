@@ -3,15 +3,18 @@ import sys
 from pkg_resources import load_entry_point
 
 # Hack jinja2 to recognize bottle STPL's {{!variable}} syntax
-from StringIO import StringIO
-from jinja2 import ext
+try:
+    from jinja2 import ext
+    from StringIO import StringIO
 
-_babel_extract = ext.babel_extract
-def babel_extract_with_stpl_support(fileobj, *args, **kwargs):
-    new_fileobj = StringIO(fileobj.read().replace("{{!", "{{"))
-    return _babel_extract(new_fileobj, *args, **kwargs)
+    _babel_extract = ext.babel_extract
+    def babel_extract_with_stpl_support(fileobj, *args, **kwargs):
+        new_fileobj = StringIO(fileobj.read().replace("{{!", "{{"))
+        return _babel_extract(new_fileobj, *args, **kwargs)
 
-ext.babel_extract = babel_extract_with_stpl_support
+    ext.babel_extract = babel_extract_with_stpl_support
+except ImportError:
+    print("jinja2 not present, ignoring monkey-patching...")
 
 
 # Hack babel to support Language header

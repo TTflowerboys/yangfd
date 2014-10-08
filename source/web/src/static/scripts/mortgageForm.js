@@ -5,7 +5,7 @@
     $mortgageForm.on('change blur keyup', '[name]', function (e) {
         var data = $mortgageForm.serializeObject({noEmptyString: true})
         if (data._total && data._down_payment) {
-            data.loan = data._total - data._down_payment
+            data.loan = team.decodeCurrency(data._total) - team.decodeCurrency(data._down_payment)
             if (!data.loan || data.loan < 0) {data.loan = 0}
             $mortgageForm.find('[name=loan]').val(team.encodeCurrency(data.loan))
         }
@@ -24,11 +24,13 @@
         if (!valid) { return }
 
         var data = $mortgageForm.serializeObject({includeUnderscore: false})
+        data.loan = team.decodeCurrency(data.loan)
+
         $.betterPost('/api/1/mortgage_calculate', data)
             .done(function (data) {
                 var result = data[$mortgageForm.find('[name=_type]').val()]
                 for (var key in result) {
-                    $mortgageForm.find('[data-name=' + key + ']').text(result[key])
+                    $mortgageForm.find('[data-name=' + key + ']').text(team.encodeCurrency(result[key]))
                 }
 
             })

@@ -2,14 +2,12 @@
 from __future__ import unicode_literals, absolute_import
 from app import f_app
 from bson.objectid import ObjectId
-from libfelix.f_interface import f_get, static_file, template, request, redirect
+from libfelix.f_interface import f_get, static_file, template, request, redirect, error
 from six.moves import cStringIO as StringIO
 import qrcode
 import logging
 logger = logging.getLogger(__name__)
-
 f_app.dependency_register("qrcode", race="python")
-
 
 def check_landing(func):
     def __check_landing_replace_func(*args, **kwargs):
@@ -299,6 +297,18 @@ def user_messages():
 @check_landing
 def admin():
     return template("admin")
+
+
+@f_get('/404')
+@error(404)
+def error_404(error=None):
+    return template("404")
+
+
+@f_get('/500')
+@error(500)
+def error_500(error=None):
+    return template("500")
 
 
 @f_get("/static/<filepath:path>")

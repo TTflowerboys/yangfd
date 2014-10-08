@@ -2,6 +2,7 @@
 (function ($) {
     $('[data-type]').on('keyup', function (e) {
         if (e.keyCode >= '48' && e.keyCode <= 57) {
+
             checkType(this)
         }
     }).each(function () {
@@ -11,8 +12,9 @@
     function checkType(dom) {
         var $dom = $(dom)
         var type = $dom.attr('data-type')
+
         if (type === 'currency') {
-            if (dom.tagName === 'input') {
+            if (dom.tagName.toLowerCase() === 'input') {
                 $dom.val(
                     team.encodeCurrency(
                         $dom.val()
