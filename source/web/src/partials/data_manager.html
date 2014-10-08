@@ -5,5 +5,10 @@
 <script>
     var userElement = document.getElementById("userData")
     window.user = JSON.parse(userElement.innerHTML)
+
+    //Enable Google User-ID feature if is existing user
+    if(window.user){
+        ga('set', '&uid', window.user.id) // Set the user ID using signed-in user_id.
+    }
 </script>
 %end
