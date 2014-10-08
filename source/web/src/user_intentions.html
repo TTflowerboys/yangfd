@@ -20,7 +20,7 @@
            <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
            %end
            <div class=description>
-               <h1 class=name>{{ticket.get('property').get('name', '')}}</h1>
+               <h1 class=name><a href=/property/{{ticket.get('property').get('id')}} style="text-decoration:none; color:#333;">{{ticket.get('property').get('name', '')}}</a></h1>
                <label class="status"> {{ticket.get('status')}}</label>
                <div class=details>
                    <p class=size>
@@ -66,10 +66,6 @@
                        <li><img src="/static/images/icon/house-card-location.png" alt="" /> <span>{{ticket.get('property').get('street', '')}} </span></li>
                        %end
                    </ul>
-               </div>
-               <div class=action>
-                   <a href="/property/{{ticket.get('property').get('id')}}" class="button red">{{_('查看详情')}}</a>
-
                </div>
                <div class="otherAction">
                      <button class="button red">{{_('微信')}}</button>
