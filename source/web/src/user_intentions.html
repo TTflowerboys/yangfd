@@ -47,7 +47,7 @@
                    </p>
                    %if (ticket.get('property').get('annual_return_estimated')) :
                    <p class=estimate><span class=label>{{_('预期年租金')}} <br/>{{_('收益率')}}</span><span class=value>
-                           <strong>{{ ticket.get('property').get('annual_return_estimated')}}</strong>%</span></p>
+                           <strong>{{ ticket.get('property').get('annual_return_estimated')}}</strong></span></p>
                    %end
                    <ul class=properties>
                        %if (ticket.get('property').get('intention') and len(ticket.get('property').get('intention'))) :
