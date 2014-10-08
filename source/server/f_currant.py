@@ -351,7 +351,7 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["crawler_example", "assign_property_short_id", "crawler_london_home", "fortis_developments"]
+    task = ["crawler_example", "assign_property_short_id", "crawler_london_home", "fortis_developments", "crawler_knightknox"]
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
