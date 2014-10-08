@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2014-10-08 10:04+0800\n"
-"PO-Revision-Date: 2014-10-08 11:35+0800\n"
+"PO-Revision-Date: 2014-10-08 11:59+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -632,7 +632,7 @@ msgstr "简体中文(中国)"
 
 #: ../web/src/masters/master.html:39
 msgid "首页"
-msgstr "Index"
+msgstr "Home"
 
 #: ../web/src/masters/master.html:40
 msgid "海外房产"
