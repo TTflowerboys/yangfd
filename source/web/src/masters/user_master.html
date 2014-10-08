@@ -66,7 +66,7 @@
 
         </script>
 
-        <div id="cvView" class="cv">
+        <div id="cvView" class="cv" style="display:none">
             <div class="header">
                 <h2>{{_('个人资料')}}</h2>
                 <button name=edit type="button" class="ghostButton red">{{_('编辑')}}</button>
@@ -135,7 +135,16 @@
                     <tr>
                         <td>{{_('国家')}}</td>
                         <td>
-                            <!-- @@include=../partials/country_select.html -->
+                            %if country_list:
+                            <select name="country" class="country ghostSelect" style="color:#4d4d4d;">
+                                %for index, country  in enumerate(country_list):
+                                <option value="{{country.get('id')}}">
+                                    {{_i18n(country.get('value'))}}
+                                </option>
+                                %end
+                            </select>
+                            %end
+
                         </td>
                     </tr>
                 </tbody>
