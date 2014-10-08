@@ -38,7 +38,7 @@ def get_budget_list():
 
 def get_favorite_list():
     user = get_current_user()
-    return f_app.user.favorite_output(f_app.user.favorite_get_by_user(user["id"]), ignore_nonexist) if user is not None else []
+    return f_app.user.favorite_output(f_app.user.favorite_get_by_user(user["id"]), ignore_nonexist=True) if user is not None else []
 
 
 @f_get('/')
