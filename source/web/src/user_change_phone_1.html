@@ -17,7 +17,7 @@
             <div class="phone row">
                 <label>{{_('原手机号')}}</label>
                 <!-- @@include =partials/country_select.html -->
-                <input name="old_phone" type="tel"  data-validator="required number"/>
+                <input name="old_phone" type="tel"  value={{user.get('phone')}}  data-validator="required number"/>
             </div>
             <div class="phone row">
                 <label>{{_('新手机号')}}</label>
