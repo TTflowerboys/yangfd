@@ -9,6 +9,7 @@ import logging
 logger = logging.getLogger(__name__)
 f_app.dependency_register("qrcode", race="python")
 
+
 def check_landing(func):
     def __check_landing_replace_func(*args, **kwargs):
         if f_app.common.landing_only:
@@ -252,6 +253,7 @@ def user_change_phone_1():
 def user_change_phone_2():
     return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
+
 @f_get('/user_verify_phone_1')
 @check_landing
 def user_verify_phone_1():
@@ -264,13 +266,11 @@ def user_verify_phone_2():
     return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
-
 @f_get('/user_favorites')
 @check_landing
 def user_favorites():
     if get_current_user() is not None:
-        favorite_list = f_app.user.favorite_output(f_app.user.favorite_get_by_user(get_current_user()["id"]))
-        return template("user_favorites", user=get_current_user(), country_list=get_country_list(), favorite_list=favorite_list, budget_list=get_budget_list())
+        return template("user_favorites", user=get_current_user(), country_list=get_country_list(), favorite_list=get_favorite_list(), budget_list=get_budget_list())
     else:
         redirect("://".join(request.urlparts[:2]))
 

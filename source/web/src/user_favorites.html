@@ -13,7 +13,7 @@
     </div>
     <div class="list">
         %for index, fav in enumerate(_i18n(favorite_list)) :
-           %if (index >= 0):
+           %if fav.get("property"):
                
            <div class=houseCard>
            %if fav.get('property').get('reality_images', []) :
