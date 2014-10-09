@@ -11,6 +11,7 @@
                     var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
                     var newIconImagePath = iconImageName  + '-notif' + iconImageExtention
                     icon.setAttribute('src', newIconImagePath)
+                    icon.setAttribute('margin-top', '-7px')
                 }
             })
             .fail(function (ret) {
