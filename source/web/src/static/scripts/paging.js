@@ -4,7 +4,6 @@ window.startPaging = function (dataArray, pageItemCount, $preButton, $nextButton
 
     var currentPage = 0
 
-
     function enablePrePage(enable) {
         if (enable) {
             $preButton.removeAttr('disabled')
@@ -27,7 +26,11 @@ window.startPaging = function (dataArray, pageItemCount, $preButton, $nextButton
         }
     }
 
-    if (pageCount === 1) {
+    if (pageCount === 0) {
+        $preButton.hide()
+        $nextButton.hide()
+    }
+    else if (pageCount === 1) {
         loadData(dataArray)
         $preButton.hide()
         $nextButton.hide()
