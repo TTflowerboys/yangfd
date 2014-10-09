@@ -105,7 +105,7 @@ def register(params):
     ``challenge`` describes the CAPTCHA which the user is solving, it's value is in ``recaptcha_challenge_field``
 
     """
-    params["email_message_type"] = params["system_message_type"] = ["system", "favorite", "intention", "mine"]
+    params["email_message_type"] = params["system_message_type"] = ["system", "favorited_property_news", "intention_property_news", "my_property_news"]
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
@@ -149,7 +149,7 @@ def current_user_edit(user, params):
 
     ``gender`` should be in ``male``, ``female``, ``other``.
 
-    ``system_message_type`` and ``email_message_type`` are the message types that user accepts. It should be the subset of ``system``, ``favorite``, ``intention``, ``mine``.
+    ``system_message_type`` and ``email_message_type`` are the message types that user accepts. It should be the subset of ``system``, ``favorited_property_news``, ``intention_property_news``, ``my_property_news``.
     """
     if "email" in params:
         if "@" not in params["email"]:

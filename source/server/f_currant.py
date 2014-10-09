@@ -401,9 +401,9 @@ class f_currant_plugins(f_app.plugin_base):
             related_property_list = f_app.property.search({"news_category": params["category"], "status": {"$in": ["selling", "sold out"]}})
             related_property_list = [ObjectId(property) for property in related_property_list]
             favorite_user_list = f_app.user.favorite.search({"property_id": related_property_list}, per_page=0)
-            favorite_user_list = [_id for _id in favorite_user_list if "favorite" in f_app.user.get(_id).get("system_message_type", [])]
+            favorite_user_list = [_id for _id in favorite_user_list if "favorited_property_news" in f_app.user.get(_id).get("system_message_type", [])]
             message = {
-                "type": "favorite",
+                "type": "favorited_property_news",
                 "title": params["title"],
                 "text": params["content"]
             }
@@ -411,19 +411,19 @@ class f_currant_plugins(f_app.plugin_base):
             # Intention
             intention_ticket_list = f_app.ticket.search({"property_id": {"$in": related_property_list}, "status": {"$in": ["new", "assigned", "in_progress", "deposit"]}}, per_page=0)
             intention_user_list = [t.get("user_id") for t in f_app.ticket.get(intention_ticket_list)]
-            intention_user_list = [_id for _id in intention_user_list if "intention" in f_app.user.get(_id).get("system_message_type", [])]
+            intention_user_list = [_id for _id in intention_user_list if "intention_property_news" in f_app.user.get(_id).get("system_message_type", [])]
             message = {
-                "type": "intention",
+                "type": "intention_property_news",
                 "title": params["title"],
                 "text": params["content"]
             }
             f_app.message.add(message, intention_user_list)
-            # Mine
+            # my_property_news
             bought_ticket_list = f_app.ticket.search({"property_id": {"$in": related_property_list}, "status": "bought"}, per_page=0)
             bought_user_list = [t.get("user_id") for t in f_app.ticket.get(bought_ticket_list)]
-            bought_user_list = [_id for _id in intention_user_list if "mine" in f_app.user.get(_id).get("system_message_type", [])]
+            bought_user_list = [_id for _id in intention_user_list if "my_property_news" in f_app.user.get(_id).get("system_message_type", [])]
             message = {
-                "type": "mine",
+                "type": "my_property_news",
                 "title": params["title"],
                 "text": params["content"]
             }

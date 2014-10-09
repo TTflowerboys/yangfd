@@ -82,7 +82,7 @@
 
                    <label class="date" > <i>{{_('提交日期：')}}</i>
                         % timeStamp = json_dumps(ticket['time'])
-                       <!--@@include=partials/format_time.html {"timeStamp":"timeStamp"}-->
+                       <!--@@include=partials/format_time.html -->
                    </label>
                <label class="status"> {{ticket.get('status')}}</label>
                <div class="otherAction">
