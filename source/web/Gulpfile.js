@@ -144,15 +144,15 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
     var emailFilter = filter('static/emails/*.html')
 
     return gulp.src(myPaths.html, {base: './src/'})
-        .pipe(extender())
+        .pipe(extender({verbose: true}))
         .pipe(publicHtmlFilter)
         .pipe(usemin({
             css: ['concat', rev()],
             js: [ footer(';/*EOF*/;'), 'concat', rev()]
         }))
         .pipe(revReplace())
-        .pipe(gulp.dest(myPaths.dist))
         .pipe(publicHtmlFilter.restore())
+        .pipe(gulp.dest(myPaths.dist))
     //.pipe(emailFilter)
     //.pipe(base64())
     //.pipe(gulp.dest(myPaths.dist))
