@@ -155,18 +155,18 @@
             }
         }
     }
-    .intentionForm { padding: 0 24px 8px; margin-top: 16px; background: #f6f6f6; overflow: hidden;
+    .intentionForm { padding: 8px 24px 8px; margin-top: 16px; background: #f6f6f6; overflow: hidden;
         .row { .clearfix(); }
-        @input-size: 18px;
-        @input-height: 64px;
+        @input-size: 14px;
+        @input-height: 44px;
         @input-color: #333;
         input[type=text], textarea { border: 1px solid @border-color; border-radius: 4px; display: block; width: 100%;
-            height: @input-height; padding: 16px; margin: 16px 0; font-size: @input-size;
+            height: @input-height; padding: 16px; margin: 8px 0; font-size: @input-size;
             color: @input-color; vertical-align: middle;
         }
         input[type=text][readonly] { background: #f6f6f6; }
-        .label { margin: 16px 0; display: block; }
-        textarea { height: 200px; margin-top: 32px; font-size: 14px; }
+        .label { margin: 16px 0 0; display: block; }
+        textarea { height: 200px; margin-top: 16px; font-size: 14px; }
         select { vertical-align: middle; font-size: @input-size; width: 100%; color: @input-color; }
         button { width: 100%; margin: 16px 0; padding: 16px 0; line-height: 1; font-size: 16px; }
         hr { margin: 8px 0; }
@@ -178,7 +178,7 @@
             }
         }
         select {
-            height: 64px; border: 1px solid @border-color; vertical-align: middle; margin: 16px 0;
+            height: @input-height; border: 1px solid @border-color; vertical-align: middle; margin: 8px 0;
             font-size: 14px; background: white;
             &[name=country] {
                 width: 120px; float: left;
