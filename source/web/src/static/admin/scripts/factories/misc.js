@@ -97,7 +97,11 @@ angular.module('app')
                             delete newJson[key].value_float
                             addToResult(key, newJson[key])
                         } else {
-                            addToResult(key, '')
+                            if (_.isNumber(oldJson[key])) {
+                                addToResult(key, 0)
+                            } else {
+                                addToResult(key, '')
+                            }
                         }
                     } else if (oldJson[key] === null) {
                         if (newJson[key] !== null) {
