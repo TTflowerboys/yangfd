@@ -1,5 +1,19 @@
 # Currant
 
+## Bottle 模板
+
+[参考文档](https://docs.google.com/a/bbtechgroup.com/document/d/1T99uqrI7_rqBi0vYYAbPTed-f9qMT9PopjEQKEt4gAY/edit)
+
+Bottle 支持两种文件复用语法
+
+* % include(“路径”, 变量=...)
+* % rebase(“路径”, 变量=...) 和 {{!base}}
+
+Gulp 也提供了对应的支持
+
+* \<!-- include=路径 {"JSON":"JSON"} --\>
+* \<!-- master=路径 {"JSON":"JSON"} --\>
+
 ## 文案规范
 
 ```

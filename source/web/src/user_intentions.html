@@ -80,7 +80,10 @@
                %end
                    <p class="detail">{{ticket.get('description')}}</p>
 
-                   <label class="date" > <i>{{_('提交日期：')}}</i>{{json_dumps(ticket['time'])}}</label>
+                   <label class="date" > <i>{{_('提交日期：')}}</i>
+                        % timeStamp = json_dumps(ticket['time'])
+                       <!--@@include=partials/format_time.html -->
+                   </label>
                <label class="status"> {{ticket.get('status')}}</label>
                <div class="otherAction">
                      <button class="button red">{{_('微信')}}</button>
