@@ -29,6 +29,9 @@
         },
         repaintHowItWorks: function () {
 
+        },
+        formatTime: function(time) {
+            return $.format.date(time, 'yyyy-MM-dd HH:mm:ss')
         }
     }
 })();
