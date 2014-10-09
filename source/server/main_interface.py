@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from app import f_app
+from bottle import response
 from bson.objectid import ObjectId
-from libfelix.f_interface import f_get, static_file, template, request, redirect, error
+from libfelix.f_interface import f_get, static_file, template, request, redirect, error, abort
 from six.moves import cStringIO as StringIO
 import qrcode
 import logging
@@ -338,21 +339,36 @@ def qrcode_generate(params):
     output = StringIO()
     img.save(output)
 
-    from bottle import response
     response.set_header(b"Content-Type", b"image/png")
 
     return output.getvalue()
 
-@f_get("/images", params=dict(
+
+@f_get("/image/fetch", params=dict(
     link=(str, True),
     news_id=str,
     property_id=str,
 ))
 def images_proxy(params):
+    allowed = False
     if "property_id" in params:
         property = f_app.property.get(params["property_id"])
+        for k, v in property.get("reality_images", {}).iteritems():
+            if isinstance(v, list):
+                if params["link"] in v:
+                    allowed = True
     if "news_id" in params:
         news = f_app.blog.post_get(params["news_id"])
+        if params["link"] in news.get("images", []):
+            allowed = True
+
+    if not allowed:
+        abort(40089, logger.warning("Invalid image source: not from existing property or news", exc_info=False))
+
+    result = f_app.request(params["link"])
+    if result.status_code == 200:
+        response.set_header(b"Content-Type", b"image/png")
+        return result.content
 
 
 @f_get("/logout", params=dict(
