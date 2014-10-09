@@ -63,26 +63,26 @@
         <div class="nav tabbar">
             <ul>
                 <li>
-                    <a href="#propertyDetails_description">详情</a>
+                    <a href="#propertyDetails_description">{{_('详情')}}</a>
                 </li>
                 % if property.get('main_house_types'):
-                <li><a href="#propertyDetails_houseTypes">户型</a></li>
+                <li><a href="#propertyDetails_houseTypes">{{_('户型')}}</a></li>
                 % end
                 % if property.get('property_type') == 'new_property':
-                <li><a href="#propertyDetails_project">楼盘介绍</a></li>
+                <li><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
                 %end
                 % if property.get('historical_price') :
-                <li><a href="#propertyDetails_price">价格趋势</a></li>
+                <li><a href="#propertyDetails_price">{{_('价格趋势')}}</a></li>
                 % end
                 % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
-                <li><a href="#propertyDetails_incoming">收入分析</a></li>
+                <li><a href="#propertyDetails_incoming">{{_('收入分析')}}</a></li>
                 % end
             </ul>
         </div>
         <div id="propertyDetails_description" class="meta">
             <ul class="numbers">
                 <li>
-                    房屋面积
+                    {{_('房屋面积')}}
                     % if property.get('space'):
                     <strong>{{ property.get('space',{}).get('value',0) }}
                         <span class="unit">
@@ -94,28 +94,28 @@
                 </li>
                 % if property.get('bedroom_count','') :
                 <li>
-                    卧室
+                    {{_('卧室')}}
                     <strong>{{ property.get('bedroom_count','') }}</strong>
                 </li>
                 % end
 
                 % if property.get('bathroom_count') :
                 <li>
-                    卫生间
+                    {{_('卫生间')}}
                     <strong>{{ property.get('bathroom_count') }}</strong>
                 </li>
                 % end
 
                 % if property.get('living_room_count',''):
                 <li>
-                    厅堂
+                    {{_('厅堂')}}
                     <strong>{{ property.get('living_room_count','') }}</strong>
                 </li>
                 % end
 
                 % if property.get('kitchen_count','') :
                 <li>
-                    厨房
+                    {{_('厨房')}}
                     <strong>{{ property.get('kitchen_count','') }}</strong>
                 </li>
                 % end
@@ -134,7 +134,7 @@
                             <i>
                                 <img src="/static/images/property_details/icon-house.png" alt=""/>
                             </i>
-                            产权类型
+                            {{_('产权类型')}}
                         </td>
                         <td class="value">
                             {{property.get('equity_type',{}).get('value','') }}
@@ -143,7 +143,7 @@
                             <i>
                                 <img src="/static/images/property_details/icon-clock.png" alt=""/>
                             </i>
-                            开盘时间
+                            {{_('开盘时间')}}
                         </td>
                         <td class="value">
                             {{property.get('opening_time','')}}
@@ -154,7 +154,7 @@
                             <i>
                                 <img src="/static/images/property_details/icon-pallet.png" alt=""/>
                             </i>
-                            装修风格
+                            {{_('装修风格')}}
                         </td>
                         <td class="value">
                             {{property.get('decorative_style',{}).get('value')}}
@@ -166,7 +166,7 @@
                             <i>
                                 <img src="/static/images/property_details/icon-location.png" alt=""/>
                             </i>
-                            产权地址
+                            {{_('产权地址')}}
                         </td>
                         <td class="value">
                             {{property.get('address','')}}
@@ -175,7 +175,7 @@
                             <i>
                                 <img src="/static/images/property_details/icon-map.png" alt=""/>
                             </i>
-                            街区
+                            {{_('街区')}}
                         </td>
                         <td class="value">
                             {{property.get('street','')}}
@@ -186,7 +186,7 @@
                             <i>
                                 <img src="/static/images/property_details/icon-kaleidoscope.png" alt=""/>
                             </i>
-                            主要户型
+                            {{_('主要户型')}}
                         </td>
                         <td colspan="3" class="value">
                             % if property.get('main_house_types'):
@@ -225,7 +225,7 @@
         %end
         % if property.get('main_house_types'):
         <div id="propertyDetails_houseTypes" class="houseTypes">
-            <h3 class="propertyDetails_title">楼盘户型</h3>
+            <h3 class="propertyDetails_title">{{_('楼盘户型')}}</h3>
             <div class="rslides_wrapper">
                 <ul class="rslides">
                     % for item in property.get('main_house_types') :
@@ -252,7 +252,7 @@
         %end
         % if property.get('property_type') == 'new_property':
         <div id="propertyDetails_project" class="brief">
-            <h3 class="propertyDetails_title">楼盘介绍</h3>
+            <h3 class="propertyDetails_title">{{_('楼盘介绍')}}</h3>
             <div class="table_wrapper">
                 <table class="table">
                     <colgroup>
@@ -260,19 +260,19 @@
                         <col>
                     </colgroup>
                     <tr>
-                        <td>开盘时间</td>
+                        <td>{{_('开盘时间')}}</td>
                         <td>{{property.get('opening_time','')}}</td>
                     </tr>
                     <tr>
-                        <td>建筑类型</td>
+                        <td>{{_('建筑类型')}}</td>
                         <td>{{property.get('building_type','')}}</td>
                     </tr>
                     <tr>
-                        <td>物业类型</td>
+                        <td>{{_('物业类型')}}</td>
                         <td>{{property.get('property_management_type','')}}</td>
                     </tr>
                     <tr>
-                        <td>建筑面积</td>
+                        <td>{{_('建筑面积')}}</td>
                         <td>
                             %if property.get('building_area'):
                             {{property.get('building_area').get('value') }}
@@ -281,31 +281,31 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>容积率间</td>
+                        <td>{{_('容积率间')}}</td>
                         <td>{{property.get('plot_ratioe','')}}</td>
                     </tr>
                     <tr>
-                        <td>规划面积</td>
+                        <td>{{_('规划面积')}}</td>
                         <td>{{property.get('planning_areae','')}}</td>
                     </tr>
                     <tr>
-                        <td>绿化率</td>
+                        <td>{{_('绿化率')}}</td>
                         <td>{{property.get('greening_ratee','')}}</td>
                     </tr>
                     <tr>
-                        <td>车位数</td>
+                        <td>{{_('车位数')}}</td>
                         <td>{{property.get('parking_space_count','')}}</td>
                     </tr>
                     <tr>
-                        <td>规划户数</td>
+                        <td>{{_('规划户数')}}</td>
                         <td>{{property.get('planning_household_counte','')}}</td>
                     </tr>
                     <tr>
-                        <td>开发商</td>
+                        <td>{{_('开发商')}}</td>
                         <td>{{property.get('developere','')}}</td>
                     </tr>
                     <tr>
-                        <td>物业公司</td>
+                        <td>{{_('物业公司')}}</td>
                         <td>{{property.get('property_management_company','')}}</td>
                     </tr>
                 </table>
@@ -315,7 +315,7 @@
         %end
         % if property.get('historical_price') :
         <div id="propertyDetails_price" class="trend">
-            <h3 class="propertyDetails_title">价格趋势 ({{_.currency}})</h3>
+            <h3 class="propertyDetails_title">{{_('价格趋势')}} ({{_.currency}})</h3>
             <canvas id="lineChart" width="800" height="400"></canvas>
         </div>
         <hr/>
@@ -323,7 +323,7 @@
 
         % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
         <div id="propertyDetails_incoming" class="incoming">
-            <h3 class="propertyDetails_title">收入分析</h3>
+            <h3 class="propertyDetails_title">{{_('收入分析')}}</h3>
             <div class="stackedBar">
                 % total = float(property.get('estimated_monthly_rent',{}).get('value',0))
                 % cost = 0
@@ -344,15 +344,15 @@
 
                 % if cost != 0:
                 <div class="annotation annotation4" style="width: {{cost / total * 100}}%;">
-                    支出
+                    {{_('支出')}}
                 </div>
                 % end
 
                 <div class="annotation annotation6" style="width: {{100 - cost / total * 100}}%;">
-                    预期净收益
+                    {{_('预期净收益')}}
                 </div>
                 <div class="annotation annotation5" style="width: 100%;">
-                    预期总收入
+                    {{_('预期总收入')}}
                 </div>
             </div>
             <table class="text">
@@ -375,7 +375,7 @@
                     %end
                     <td>
                         <span class="bar bar3"></span>
-                        <p class="name">预计净收益</p>
+                        <p class="name">{{_('预计净收益')}}</p>
                         <p class="value">
                             {{ property.get('estimated_monthly_rent',{}).get('unit_symbol') }}
                             <strong>{{ '%.2f' % (total - cost) }}</strong>
@@ -387,57 +387,57 @@
         <hr/>
         % end
         <div class="nearby" style="display: none;">
-            <h3 class="propertyDetails_title">周边配套</h3>
+            <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
             <ul>
                 <li>
-                    <h4><i><img src="/static/images/property_details/icon-bus.png" alt=""/></i>交通设施</h4>
-                    <strong>87</strong>
+                    <h4><i><img src="/static/images/property_details/icon-bus.png" alt=""/></i>{{_('交通设施')}}</h4>
+                    <strong>??</strong>
                     <hr/>
                     <ul>
-                        <li>3条 地铁线</li>
-                        <li>5个 公交车站</li>
-                        <li>5个 汽车租赁点</li>
+                        <li>?{{_('条地铁线') }}</li>
+                        <li>?{{_('个公交车站') }}</li>
+                        <li>?{{_('个汽车租赁点') }}</li>
                     </ul>
-                    <button class="flatButton" style="width: 100%">查看详细交通</button>
+                    <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
                 </li>
                 <li>
-                    <h4><i><img src="/static/images/property_details/icon-cap.png" alt=""/></i>周边学校</h4>
-                    <strong>70</strong>
+                    <h4><i><img src="/static/images/property_details/icon-cap.png" alt=""/></i>{{_('周边学校')}}</h4>
+                    <strong>??</strong>
                     <hr/>
                     <ul>
-                        <li>3所 小学</li>
-                        <li>3所 高中</li>
-                        <li>3所 大学</li>
+                        <li>?{{_('所小学')}}</li>
+                        <li>?{{_('所高中')}}</li>
+                        <li>?{{_('所大学')}}</li>
                     </ul>
-                    <button class="flatButton" style="width: 100%">查看详细交通</button>
+                    <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
                 </li>
                 <li>
                     <h4>
                         <i><img src="/static/images/property_details/icon-briefcase.png" alt=""/></i>
-                        便民设施
+                        {{_('便民设施')}}
                     </h4>
-                    <strong>70</strong>
+                    <strong>??</strong>
                     <hr/>
                     <ul>
-                        <li>3所 公园</li>
-                        <li>3所 健身馆</li>
-                        <li>3所 游泳馆</li>
+                        <li>?{{_('所公园')}}</li>
+                        <li>?{{_('所健身馆')}}</li>
+                        <li>?{{_('所游泳馆')}}</li>
                     </ul>
-                    <button class="flatButton" style="width: 100%">查看详细交通</button>
+                    <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
                 </li>
                 <li>
                     <h4>
                         <i><img src="/static/images/property_details/icon-shield.png" alt=""/></i>
-                        便民设施
+                        {{_('便民设施')}}
                     </h4>
-                    <strong>70</strong>
+                    <strong>??</strong>
                     <hr/>
                     <ul>
-                        <li>3所 公园</li>
-                        <li>3所 健身馆</li>
-                        <li>3所 游泳馆</li>
+                        <li>?{{_('所公园')}}</li>
+                        <li>?{{_('所健身馆')}}</li>
+                        <li>?{{_('所游泳馆')}}</li>
                     </ul>
-                    <button class="flatButton" style="width: 100%">查看详细交通</button>
+                    <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
                 </li>
             </ul>
         </div>
@@ -463,7 +463,7 @@
             % end
             <p class="price">
                 % if property.get('property_type',{}).get('slug') == 'new_property':
-                <span class="mute">价格</span>
+                <span class="mute">{{_('价格')}}</span>
                 <span>
                     {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
                 </span>
@@ -474,7 +474,7 @@
                     / {{property.get('unit_price',{}).get('unit',{}).get('unit','')}}
                 </span>
                 % else:
-                <span class="mute">价格</span>
+                <span class="mute">{{_('价格')}}</span>
                 <span>$</span>
                 <strong data-type="currency">
                     {{property.get('total_price',{}).get('value','')}}
@@ -486,7 +486,7 @@
                     <span class="percentage emphasized"><strong>
                         {{property.get('annual_return_estimated')}}
                     </strong></span>
-                    <span class="text">预期年化<br/>收益率</span>
+                    <span class="text">{{!_('预期年化<br/>收益率')}}</span>
                 </li>
             </ul>
             <hr/>
@@ -497,10 +497,10 @@
                         <button data-fn="addFav" data-property-id="{{property.get('id','')}}"
                             class="flatButton"
                             style="{{ 'display:none' if isFavorite else ''}}"
-                            data-message-40090="已经收藏过了"
+                            data-message-40090="{{_('已经收藏过了')}}"
                             >
                             <img src="/static/images/property_details/icon-star.png" alt=""/>
-                            <span class="text"> 收藏 </span>
+                            <span class="text"> {{_('收藏')}} </span>
                         </button>
                         <button data-fn="removeFav"
                             class="flatButton"
@@ -510,20 +510,20 @@
                         % end
                         >
                         <img src="/static/images/property_details/icon-star.png" alt=""/>
-                        <span class="text"> 取消收藏 </span>
+                        <span class="text"> {{_('取消收藏') }} </span>
                         </button>
                     </td>
                     <td style="text-align:center;">
                         <button data-fn="shareToWeChat" class="flatButton green">
                             <img src="/static/images/property_details/icon-wechat.png" alt=""/>
-                            分享到微信
+                            {{_('分享到微信')}}
                         </button>
                     </td>
                     <td style="text-align:right;">
                         % name = property.get('name','')
                         <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{name}}'}) ">
                             <img src="/static/images/property_details/icon-weibo.png" alt=""/>
-                            分享到微博
+                            {{_('分享到微博')}}
                         </button>
                     </td>
                 </tr>
@@ -531,9 +531,9 @@
         </div>
 
         <form class="intentionForm" name="intentionForm"
-            data-message-success="提交成功"
-            data-message-40000="你填写的手机或邮箱的格式不正确"
-            data-message-unknown="服务器忙，请稍后"
+            data-message-success="{{_('提交成功')}}"
+            data-message-40000="{{_('你填写的手机或邮箱的格式不正确')}}"
+            data-message-unknown="{{_('服务器忙，请稍后')}}"
             >
             <div class="row">
                 <input name="nickname" type="text" placeholder="您的姓名" data-validator="trim, required"/>
@@ -562,7 +562,7 @@
             </div>
             <div class="row">
                 <select name="budget">
-                    <option value="">-- 您的预算(可选) --</option>
+                    <option value="">-- {{_('您的预算')}}({{_('可选')}}) --</option>
                     %for index, budget in enumerate(_i18n(budget_list)):
                     %if budget.get('currency') == _.currency:
                     <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
@@ -575,22 +575,22 @@
             </div>
             <div class="row">
                 <input id="c77a0b1a-1612-42e6-abbf-2ddc38095ad1" type="checkbox" name="register"/>
-                <label for="c77a0b1a-1612-42e6-abbf-2ddc38095ad1">免费成为会员，查看详细报告</label>
+                <label for="c77a0b1a-1612-42e6-abbf-2ddc38095ad1">{{_('免费成为会员，查看详细报告') }}</label>
             </div>
             <div class="action">
-                <button class="flatButton" type="submit" disabled>联系我们（免费）</button>
+                <button class="flatButton" type="submit" disabled>{{_('联系我们（免费）')}}</button>
             </div>
             <div class="row" data-role="serverFeedback" style="display: none; text-align:center;"></div>
             <hr/>
             <div class="contact">
-                拨打 400-700-8888 转 19872123
+                {{_('拨打 400-700-8888 转 19872123')}}
             </div>
         </form>
         <hr/>
 
         % if property.get('intention'):
         <div class="intentionTags" data-tabs>
-            <h2 class="propertyDetails_title">投资标签</h2>
+            <h2 class="propertyDetails_title">{{_('投资标签')}}</h2>
             <ul class="tab">
                 % for index, intention in enumerate(property.get('intention')):
                 <li data-tab="{{intention.get('slug')}}">
@@ -605,9 +605,9 @@
             </ul>
             <ul class="content">
                 <li data-tab-name="stable_cashflow">
-                    <h3>资产保值详述</h3>
+                    <h3>{{_('资产保值详述')}}</h3>
 
-                    <h4>资产保值的投资特征</h4>
+                    <h4>{{_('资产保值的投资特征')}}</h4>
 
                     <ul class="strong">
                         <li>
@@ -660,56 +660,56 @@
         </div>
         <hr/>
         % end
-        <h2 class="propertyDetails_title">房贷计算</h2>
+        <h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
         <form class="intentionForm calculator" name="mortgageForm">
             <div class="row">
-                <label class="label">购房总价（CNY）</label>
+                <label class="label">{{_('购房总价')}}</label>
                 <input name="_total" type="text" placeholder=""
                     data-type="currency"
                     data-validator="decimal, trim, required"
-                    data-message-required="必填"
-                    data-message-decimal="必须为数字"/>
+                    data-message-required="{{_('必填')}}"
+                    data-message-decimal="{{_('必须为数字')}}"/>
             </div>
             <div class="row">
-                <label class="label">首付款（CNY）</label>
+                <label class="label">{{_('首付款')}}</label>
                 <input name="_down_payment" type="text" placeholder=""
                     data-type="currency"
-                    data-message-required="必填"
-                    data-validator="decimal, trim, required" data-message-decimal="必须为数字"/>
+                    data-message-required="{{_('必填')}}"
+                    data-validator="decimal, trim, required" data-message-decimal="{{_('必须为数字')}}"/>
             </div>
             <div class="row">
-                <label class="label">贷款金额（CNY）</label>
+                <label class="label">{{_('贷款金额')}}</label>
                 <input readonly name="loan" type="text" placeholder=""
                     data-type="currency"
                     data-message-required="必填"
-                    data-validator="decimal, trim, required" data-message-decimal="必须为数字"/>
+                    data-validator="decimal, trim, required" data-message-decimal="{{_('必须为数字')}}"/>
             </div>
             <div class="row">
-                <label class="label">贷款利率</label>
+                <label class="label">{{_('贷款利率')}}</label>
                 <div class="inputAddOn">
                     <input name="rate" type="text" placeholder=""
-                        data-message-required="必填"
-                        data-validator="decimal, trim, required" data-message-decimal="必须为数字"/>
+                        data-message-required="{{_('必填')}}"
+                        data-validator="decimal, trim, required" data-message-decimal="{{_('必须为数字')}}"/>
                     <span class="addOn">%</span>
                 </div>
             </div>
             <div class="row">
-                <label class="label">贷款年限</label>
+                <label class="label">{{_('贷款年限')}}</label>
                 <input name="term" type="text" placeholder=""
-                    data-message-required="必填"
-                    data-validator="number, trim, required" data-message-decimal="必须为整数"/>
+                    data-message-required="{{_('必填')}}"
+                    data-validator="number, trim, required" data-message-decimal="{{_('必须为整数')}}"/>
             </div>
             <div class="row">
-                <label class="label">还款类型</label>
+                <label class="label">{{_('还款类型')}}</label>
                 <select name="_type" data-validator="required"
-                    data-message-required="必填"
+                    data-message-required="{{_('必填')}}"
                     >
                     <option value="interestonly">interestonly</option>
                     <option value="repayment">repayment</option>
                 </select>
             </div>
             <div class="action">
-                <button type="submit" class="flatButton">计算贷款</button>
+                <button type="submit" class="flatButton">{{_('计算贷款')}}</button>
             </div>
             <hr/>
             <div class="table_wrapper">
@@ -719,16 +719,16 @@
                         <col class="col-value">
                     </colgroup>
                     <tr>
-                        <td class="name">总支付利息</td>
-                        <td class="value">￥<span data-name="total_interest"></span></td>
+                        <td class="name">{{_('总支付利息')}}</td>
+                        <td class="value"><span data-name="total_interest"></span></td>
                     </tr>
                     <tr>
-                        <td class="name">本息合计</td>
-                        <td class="value">￥<span data-name="total"></span></td>
+                        <td class="name">{{_('本息合计')}}</td>
+                        <td class="value"><span data-name="total"></span></td>
                     </tr>
                     <tr>
-                        <td class="name">每月还款</td>
-                        <td class="value">￥<span data-name="monthly"></span></td>
+                        <td class="name">{{_('每月还款')}}</td>
+                        <td class="value"><span data-name="monthly"></span></td>
                     </tr>
                 </table>
             </div>
@@ -738,7 +738,7 @@
 </div>
 <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
     <img src="" alt="二维码" width="220" height="220"/>
-    <p>打开微信，使用 “扫一扫” 即可将网页分享到朋友圈</p>
+    <p>{{_('打开微信，使用 “扫一扫” 即可将网页分享到朋友圈')}}</p>
 </div>
 <!--@@close-->
 
