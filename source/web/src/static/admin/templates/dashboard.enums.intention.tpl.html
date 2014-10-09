@@ -13,20 +13,17 @@
         <colgroup>
             <col style="width: 200px;"/>
             <col/>
-            <col/>
             <col style="width: 80px"/>
         </colgroup>
         <tbody>
             <tr>
                 <th>投资意向</th>
-                <th>说明</th>
-                <th>图片</th>
+                <th>投资特征</th>
                 <th>编辑</th>
             </tr>
             <tr ng-repeat="item in intentionList">
                 <td>{%item.value[userLanguage.value]%}</td>
                 <td>{%item.description[userLanguage.value]%}</td>
-                <td><img class="img-thumbnail" ng-src="{%item.image%} "></td>
                 <td style="text-align:center;">
                     <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
                         <i class="fa fa-edit "></i>

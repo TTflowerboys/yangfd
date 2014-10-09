@@ -167,7 +167,7 @@
             }
             $scope.item.value = _.object(valueArray)
             $scope.item.description = _.object(descriptionArray)
-            api.addIntention($scope.item.image, $scope.item.value, $scope.item.description)
+            api.addIntention($scope.item.value, $scope.item.description)
                 .success(function () {
                     $scope.item.image = undefined
                     $scope.item.value = undefined
@@ -203,7 +203,7 @@
             }
             $scope.item.value = _.object(valueArray)
             $scope.item.description = _.object(descriptionArray)
-            api.editIntention($stateParams.id, $scope.item.image, $scope.item.value, $scope.item.description)
+            api.editIntention($stateParams.id, $scope.item.value, $scope.item.description)
                 .success(function () {
                     $state.go('^')
                 })
