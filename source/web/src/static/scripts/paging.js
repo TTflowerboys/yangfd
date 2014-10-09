@@ -27,6 +27,7 @@ window.startPaging = function (dataArray, pageItemCount, $preButton, $nextButton
     }
 
     if (pageCount === 0) {
+        loadData(dataArray)
         $preButton.hide()
         $nextButton.hide()
     }

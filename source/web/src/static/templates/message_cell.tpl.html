@@ -1,6 +1,10 @@
 <script id="messageCell_template" type="text/template">
 <div class="cell">
-        <label class="type" >{=message.type=}</label>
+        <label class="type" >{=message.type=}
+        {_if(message.title) {_}
+          - {=message.title=}
+        {_}_}
+        </label>
 
         <div class="rightParts">
             <label class="date" >{=project.formatTime(message.time)=}</label>
