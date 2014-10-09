@@ -535,6 +535,7 @@
             data-message-40000="{{_('你填写的手机或邮箱的格式不正确')}}"
             data-message-unknown="{{_('服务器忙，请稍后')}}"
             >
+            <input name="property_id" type="hidden" value="{{property.get('id','')}}"/>
             <div class="row">
                 <input name="nickname" type="text" placeholder="您的姓名" data-validator="trim, required"/>
             </div>
