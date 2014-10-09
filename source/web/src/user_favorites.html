@@ -80,6 +80,9 @@
                <div class="otherAction">
                    <button id="cancelFavorite" data-id={{fav.get('id')}} class="ghostButton darkGray">{{_('取消收藏')}}</button>
                </div>
+               <div class="undo_shadow" style="display:none;">
+                   <button id="undoFavorite"  data-id={{fav.get('id')}} data-property-id="{{fav.get('property').get('id')}}" class="undo"> <img alt="" src="/static/images/icon/favorites/undo.png"/><span>{{_('撤销')}}</span></button>
+               </div>
            </div>          
     </div>
 
