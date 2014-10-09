@@ -2,22 +2,48 @@
 <!--@@block =head -->
 <link rel="stylesheet" href="/static/styles/project/houseCard.css" />
 <link rel="stylesheet" href="/static/styles/userMessages.css" />
+<link href="/static/styles/pager.css" rel="stylesheet"/>
 <!--@@close-->
 <!--@@block = main -->
+
+<span class="messageData" style="display:none">
+    {{json_dumps(_i18n(message_list))}}
+</span>
 <div class="content">
     <div class="contentHeader">
         <h1>{{_('消息')}}</h1>
         <div class="buttons">
-            <button class="ghostButton red">{{_('全部')}}</button>
-            <button class="ghostButton red">{{_('未读')}}</button>
-            <button class="ghostButton red">{{_('已读')}}</button>
+            <button id="showAll"  class="all button red">{{_('全部')}}</button>
+            <button id="showNew" class="new ghostButton red">{{_('未读')}}</button>
+            <button id="showRead" class="read ghostButton red">{{_('已读')}}</button>
         </div>
     </div>
-    <div class="list">
 
+    <div class="allList_wrapper list_wrapper">
+        <div class="allList list">
+        </div>
+        <!--@@include=/partials/pager.html -->
     </div>
+
+    <div class="newList_wrapper list_wrapper" style="display:none">
+        <div class="newList list">
+        </div>
+        <!--@@include=/partials/pager.html -->
+    </div>
+
+    <div class="readList_wrapper list_wrapper" style="display:none">
+        <div class="readList list">
+        </div>
+        <!--@@include=/partials/pager.html -->
+    </div>
+
+
+
+<!-- @@include=/static/templates/message_cell.tpl.html-->
 
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
+<script src="/static/scripts/paging.js"></script>
+<script src="/static/scripts/message_list.js"></script>
 <!--@@close-->
