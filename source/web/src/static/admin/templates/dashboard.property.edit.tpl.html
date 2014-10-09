@@ -511,14 +511,14 @@
                             <table class="table table-bordered table-striped table-condensed"
                                 style="margin-bottom:30px">
                                 <colgroup>
-                                    <col class="name">
-                                    <col class="bedroom_count">
-                                    <col class="living_room_count">
-                                    <col class="bathroom_count">
-                                    <col class="kitchen_count">
-                                    <col class="space">
-                                    <col class="total_price">
-                                    <col class="floor_plan">
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
                                 </colgroup>
                                 <thead>
                                     <tr>
@@ -551,7 +551,7 @@
                                             <input type="number" ng-model="main_type.kitchen_count" placeholder="厨房数" style="width:60px"/>
                                         </td>
                                         <td>
-                                            <div type-i18n-unit unit="main_type.space.unit||userArea" data="i18nArea" ng-model="main_type.space" placeholder="面积"></div>
+                                            <div type-i18n-unit unit="main_type.building_area.unit||userArea" data="i18nArea" ng-model="main_type.building_area" placeholder="面积"></div>
                                         </td>
                                         <td>
                                             <div type-i18n-unit unit="main_type.total_price.unit||userCurrency" data="i18nCurrency" ng-model="main_type.total_price" placeholder="户型总价"></div>

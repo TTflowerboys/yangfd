@@ -2,13 +2,10 @@
     <span class="btn-group">
         <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
     </span>
-    <!--<div class="btn-group form-inline pull-right">-->
-    <!--<select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>-->
-    <!--</div>-->
 </div>
 <div ng-init="getEditEnumItem()"></div>
-<form name="enumCreateForm" class="form-horizontal"
-    style="max-width: 800px; padding-bottom: 100px;" ng-submit="editI18nEnum($event,enumCreateForm)"
+<form name="enumEditForm" class="form-horizontal"
+    style="max-width: 800px; padding-bottom: 100px;" ng-submit="editI18nEnum($event,enumEditForm)"
     novalidate>
     <div class="form-group">
         <label class="control-label">类别 *</label>

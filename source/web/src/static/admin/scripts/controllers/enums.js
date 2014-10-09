@@ -180,15 +180,18 @@
                 .success(function (data) {
                     $scope.item = data.val || {}
                     $scope.item.tempValues = _.pairs($scope.item.value)
-                    for (var index = 0; index < $scope.item.tempValues.length; index += 1) {
-                        $scope.item.tempValues[index][2] = $scope.item.description[$scope.item.tempValues[index][0]]
-                    }
                     for (var i = $scope.item.tempValues.length - 1; i >= 0; i -= 1) {
                         if ($scope.item.tempValues[i][0] === '_i18n') {
                             $scope.item.tempValues.splice(i, 1)
                         } else {
                             $scope.onAddLanguage($scope.item.tempValues[i][0])
                         }
+                    }
+                    if (_.isEmpty($scope.item.description)) {
+                        return
+                    }
+                    for (var index = 0; index < $scope.item.tempValues.length; index += 1) {
+                        $scope.item.tempValues[index][2] = $scope.item.description[$scope.item.tempValues[index][0]]
                     }
                 })
         }
