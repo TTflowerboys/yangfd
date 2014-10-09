@@ -51,6 +51,14 @@
                 })
                 editItem.intention = temp
             }
+            if (!_.isEmpty(editItem.investment_type)) {
+                var temp1 = []
+                angular.forEach(editItem.investment_type, function (value, key) {
+                    value = value.id
+                    temp1.push(value)
+                })
+                editItem.investment_type = temp1
+            }
             if (!_.isEmpty(editItem.equity_type)) {
                 editItem.equity_type = editItem.equity_type.id
             }

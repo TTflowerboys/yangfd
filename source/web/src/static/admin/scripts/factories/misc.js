@@ -108,6 +108,10 @@ angular.module('app')
                         newJson[key] !== oldJson[key] &&
                         newJson[key].toString() !== oldJson[key].toString()) {
                         addToResult(key, newJson[key])
+                    } else if (_.isArray(newJson[key])) {
+                        if (!angular.equals(newJson[key], oldJson[key])) {
+                            addToResult(key, newJson[key])
+                        }
                     } else if (_.isObject(newJson[key])) {
                         var obj = newJson[key]
                         if (obj._i18n !== undefined) {
