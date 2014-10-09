@@ -104,9 +104,6 @@
         return _.without(array, '')
     }
 
-    var currentBudgetId
-    var currentIntentionIds
-
     function loadPropertyListWithBudgetAndIntention(budgetType, intention) {
 
         $('#suggestionHouses #loadIndicator').show()
@@ -172,7 +169,7 @@
     }
 
     function loadPropertyList(budgetType, intention) {
-        if (currentBudgetId !== budgetType) {
+        if (window.project.currentBudgetId !== budgetType) {
             //load all
             $('#suggestionHouses #list').empty()
             loadPropertyListWithBudgetAndIntention(budgetType, commaStringToArray(intention))
@@ -180,7 +177,7 @@
         else {
             //compare intention list
             var newIntentionArray = commaStringToArray(intention)
-            var currentIntentionArray = commaStringToArray(currentIntentionIds)
+            var currentIntentionArray = commaStringToArray(window.project.currentIntentionIds)
 
             var newAddIntentionArray = _.difference(newIntentionArray, currentIntentionArray)
             var deleteIntentionArray = _.difference(currentIntentionArray, newIntentionArray)
@@ -202,10 +199,10 @@
             }
         }
 
-        currentBudgetId = budgetType
-        currentIntentionIds = intention
+        window.project.currentBudgetId = budgetType
+        window.project.currentIntentionIds = intention
 
-        updateUserTags(currentBudgetId, currentIntentionIds)
+        updateUserTags(window.project.currentBudgetId, window.project.currentIntentionIds)
     }
 
     function addIntetionTag(id, value) {
