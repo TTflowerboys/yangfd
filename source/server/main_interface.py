@@ -343,6 +343,17 @@ def qrcode_generate(params):
 
     return output.getvalue()
 
+@f_get("/images", params=dict(
+    link=(str, True),
+    news_id=str,
+    property_id=str,
+))
+def images_proxy(params):
+    if "property_id" in params:
+        property = f_app.property.get(params["property_id"])
+    if "news_id" in params:
+        news = f_app.blog.post_get(params["news_id"])
+
 
 @f_get("/logout", params=dict(
     return_url=str,
