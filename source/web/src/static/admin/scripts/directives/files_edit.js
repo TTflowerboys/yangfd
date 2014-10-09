@@ -16,17 +16,22 @@ angular.module('app')
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
+                        if (!scope.files) {
+                            scope.files = []
+                        }
+                        scope.files.push({url: '', description: file.name})
                         $upload.upload({
                             url: '/api/1/upload_file',
                             file: file,
                             fileFormDataName: 'data'
                         })
                             .success(function (data, status, headers, config) {
-                                if (!scope.files) {
-                                    scope.files = []
+                                for (var key in scope.files) {
+                                    if (file.name === scope.files[key].description) {
+                                        scope.files[key].url = data.val.url
+                                        break
+                                    }
                                 }
-                                var item = {url: data.val.url, description: file.name}
-                                scope.files.push(item)
                             })
                     }
                 }

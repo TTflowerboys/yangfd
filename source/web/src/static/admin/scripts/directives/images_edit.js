@@ -30,6 +30,10 @@ angular.module('app')
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
+                        if (!scope.images) {
+                            scope.images = []
+                        }
+                        scope.images.push(file.name)
                         $upload.upload({
                             url: '/api/1/upload_image',
                             file: file,
@@ -42,10 +46,12 @@ angular.module('app')
                             }
                         })
                             .success(function (data, status, headers, config) {
-                                if (!scope.images) {
-                                    scope.images = []
+                                for (var key in scope.images) {
+                                    if (file.name === scope.images[key]) {
+                                        scope.images[key] = data.val.url
+                                        break
+                                    }
                                 }
-                                scope.images.push(data.val.url)
                             })
                     }
                 }
