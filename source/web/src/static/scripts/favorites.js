@@ -4,7 +4,7 @@ $('.list').on('click', '.houseCard #cancelFavorite', function (event) {
     $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
         .done(function (data) {
             $(event.currentTarget).hide()
-            var $undoButton = $('#undoFavorite[data-id=' + favoriteId + ']')
+            var $undoButton = $(event.currentTarget).parent().parent().find('#undoFavorite[data-id=' + favoriteId + ']')
             $undoButton.parent().show()
         })
         .fail (function (ret) {

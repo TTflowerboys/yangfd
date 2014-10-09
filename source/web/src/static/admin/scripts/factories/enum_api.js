@@ -4,17 +4,19 @@
 
     function enumApi($http, $state, $q) {
         return {
-            addEnum: function (type, value) {
+            addEnum: function (type, value,slug) {
                 var data = {
                     type: type,
+                    slug: slug,
                     value: value
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
 
             },
-            editEnum: function (id, type, value) {
+            editEnum: function (id, type, value,slug) {
                 var data = {
                     type: type,
+                    slug: slug,
                     value: value
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})

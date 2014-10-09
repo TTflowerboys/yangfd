@@ -1,7 +1,7 @@
 /* Created by frank on 14-8-18. */
 
 angular.module('app')
-    .directive('bbgDate', function () {
+    .directive('friendlyDate', function () {
 
         return {
             require: 'ngModel',

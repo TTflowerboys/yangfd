@@ -6,6 +6,7 @@ angular.module('app')
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/add_ticket_phone.tpl.html',
+            replace: true,
             scope: {
                 phone: '=ngModel',
                 userId: '=userId'

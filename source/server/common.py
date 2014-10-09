@@ -114,6 +114,7 @@ class common(f_common):
         40092: "Invalid params: property_type",
         40091: "Invalid params: role",
         40090: "Invalid operation: This property has already been added to your favorites.",
+        40089: "Invalid image source: not from existing property or news",
 
         40399: "Permission denied",
     }
@@ -129,4 +130,6 @@ f_app.common.register_error_code(40494)
 f_app.common.register_error_code(40493)
 f_app.common.register_error_code(40492)
 f_app.common.register_error_code(40491)
+f_app.common.register_error_code(40490)
+f_app.common.register_error_code(40489)
 f_app.common.register_error_code(40399)
