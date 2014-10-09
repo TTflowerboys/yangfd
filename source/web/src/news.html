@@ -19,7 +19,10 @@
 %end
 
 %if 'time' in news:
-<label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>{{news.get('time')}}</label>
+<label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>
+    % timeStamp = json_dumps(news['time'])
+    <!--@@include=partials/format_time.html {"timeStamp":"timeStamp"}-->
+</label>
 %end
 
 <div class="content">
