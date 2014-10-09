@@ -33,6 +33,7 @@
         showEmptyPlaceHolder(false)
 
         $('#result #loadIndicator').show()
+        $('#loadMore').hide()
         var resultCount = 0
         $.betterPost('/api/1/property/search', params)
             .done(function (val) {
@@ -49,12 +50,21 @@
                         }
                     })
 
-                    $('#loadMore').show()
+                    var currentTotalCount = $('#result_list').children().length
+                    if (resultCount > currentTotalCount) {
+                        $('#loadMore').show()
+                    }
+                    else {
+                        $('#loadMore').hide()
+                    }
                 }
                 else {
                     $('#loadMore').hide()
                 }
 
+            })
+            .fail (function () {
+                  $('#loadMore').show()
             })
             .always(function () {
                 updateResultCount(resultCount)
