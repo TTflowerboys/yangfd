@@ -1,5 +1,6 @@
 (function () {
 
+    var lastItemTime
 
     function loadPropertyList() {
         var params = {'per_page': 5}
@@ -24,8 +25,8 @@
         if (intention) {
             params.intention = intention
         }
-        if (window.project.time) {
-            params.time = window.project.time
+        if (lastItemTime) {
+            params.time = lastItemTime
         }
 
          $('#result_list_container').show()
@@ -38,13 +39,13 @@
                 var array = val.content
                 resultCount = val.count
                 if (!_.isEmpty(array)) {
-                    window.project.time = _.last(array).time
+                    lastItemTime = _.last(array).time
                     _.each(array, function (house) {
                         var houseResult = _.template($('#houseCard_template').html())({house: house})
                         $('#result_list').append(houseResult)
 
-                        if (window.project.time > house.time) {
-                            window.project.time = house.time
+                        if (lastItemTime > house.time) {
+                            lastItemTime = house.time
                         }
                     })
 
@@ -67,7 +68,7 @@
 
     function resetData() {
         $('#result_list').empty()
-        window.project.time = undefined
+        lastItemTime = undefined
     }
 
     function resetCityDataWhenCountryChange() {
