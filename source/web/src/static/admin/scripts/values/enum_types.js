@@ -13,6 +13,9 @@ angular.module('app')
         { name: '生活设施', value: 'facilities' },
         { name: '房产价格类型', value: 'property_price_type' },
         { name: '平台资讯类别', value: 'news_category' },
+        { name: '平台消息类别', value: 'message_type' },
+        { name: '投资意向单状态', value: 'intention_ticket_status' },
+        { name: '客服单状态', value: 'support_ticket_status' }
     ]).run(function ($rootScope, enumTypes) {
         $rootScope.enumTypes = enumTypes
     })

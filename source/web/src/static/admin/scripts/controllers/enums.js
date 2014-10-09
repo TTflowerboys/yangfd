@@ -61,7 +61,7 @@
         $scope.addI18nEnum = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addEnum($scope.item.type, $scope.item.value)
+            api.addEnum($scope.item.type, $scope.item.value, $scope.item.slug)
                 .success(function () {
                     $scope.item.value = undefined
                     $scope.item.tempValues = undefined
@@ -70,7 +70,7 @@
         $scope.editI18nEnum = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.editEnum($stateParams.id, $scope.item.type, $scope.item.value)
+            api.editEnum($stateParams.id, $scope.item.type, $scope.item.value, $scope.item.slug)
                 .success(function () {
                     $state.go('^')
                 })
