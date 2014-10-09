@@ -571,7 +571,7 @@
                 </select>
             </div>
             <div class="row">
-                <textarea name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}{{_('(可选)')}}"></textarea>
+                <textarea name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}({{ _('可选') }})"></textarea>
             </div>
             <div class="row">
                 <input id="c77a0b1a-1612-42e6-abbf-2ddc38095ad1" type="checkbox" name="register"/>
@@ -592,7 +592,7 @@
         <div class="intentionTags" data-tabs>
             <h2 class="propertyDetails_title">{{_('投资标签')}}</h2>
             <ul class="tab">
-                % for index, intention in enumerate(property.get('intention')):
+                % for intention in property.get('intention'):
                 <li data-tab="{{intention.get('slug')}}">
                     <div class="image_wrapper">
                         <img src="/static/images/intention/icon/{{intention.get('slug')}}-red.png" alt=""/>
