@@ -30,7 +30,7 @@ def enum_list(params):
     slug=str,
     # Field for intention
     image=str,
-    description="i18n",
+    description=("i18n", None, str),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def enum_add(user, params):
