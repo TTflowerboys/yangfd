@@ -130,6 +130,10 @@ angular.module('app')
                                 delete newJson[key].type
                                 addToResult(key, newJson[key])
                             }
+                        } else if (key === 'unit_price') {
+                            if (!angular.equals(newJson[key], oldJson[key])) {
+                                addToResult(key, newJson[key])
+                            }
                         } else {
                             var temp = self.getChangedI18nAttributes(newJson[key], oldJson[key])
                             if (temp) {
