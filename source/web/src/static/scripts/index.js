@@ -297,12 +297,6 @@
     }
     else {
         $('[data-tabs]').tabs({trigger: 'hover'})
-
-        $('[data-tabs]').on('hover', '.controls li', function (event) {
-            var $item = $(event.currentTarget)
-            $item.parent().find('li').toggleClass('selected', false)
-            $item.toggleClass('selected', true)
-        })
     }
 
 })()
