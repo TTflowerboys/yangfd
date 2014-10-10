@@ -4,6 +4,7 @@ angular.module('app')
         40103: 'Incorrect phone number or password',
         40100: '请先<a href="/admin#/signIn">登录</a>',
         40300: '没有权限',
+        40399: '没有权限',
         40000: '参数错误',
         40400: '找不到数据',
         40351: '手机号码已被占用',
