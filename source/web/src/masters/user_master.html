@@ -9,20 +9,25 @@
     <div class="aside userProfile">
         <div class="account">
             <h1>{{user.get('nickname')}}</h1>
-            <span class="verificationStatus red">
-                <i><img src="/static/images/icon/user-phone.png" style="margin-top:2px;"/></i>
+
                 %if user.get('phone_verified'):
+            <a class="verificationStatus" href="/user_change_phone_1">
+                <i><img src="/static/images/icon/user-phone.png" style="margin-top:2px;"/></i>
                 {{_('手机已验证')}}
                 %else:
+            <a class="verificationStatus red" href="/user_verify_phone_1">
+                <i><img src="/static/images/icon/user-phone.png" style="margin-top:2px;"/></i>
                 {{_('手机未验证')}}
                 %end
             </span>
 
-            <span class="verificationStatus">
-                <i><img src="/static/images/icon/user-email.png"/></i>
                 %if user.get('email_verified'):
+            <a class="verificationStatus" href="/user_change_email">
+                <i><img src="/static/images/icon/user-email.png" /></i>
                 {{_('邮箱已验证')}}
                 %else:
+            <a class="verificationStatus red" href="/user_verify_email">
+                <i><img src="/static/images/icon/user-email.png"/></i>
                 {{_('邮箱未验证')}}
                 %end
             </span>
