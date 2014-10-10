@@ -329,6 +329,10 @@ def user_messages():
 
     return template("user_messages", user=get_current_user(), country_list=get_country_list(), message_list=message_list, budget_list=get_budget_list())
 
+@f_get('/verify_email_status')
+@check_landing
+def verify_email_status():
+    return template("verify_email_status", user=get_current_user(), country_list=get_country_list(),budget_list=get_budget_list())
 
 @f_get('/admin')
 @check_landing

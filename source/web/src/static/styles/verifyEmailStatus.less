@@ -1,0 +1,78 @@
+/*! Created by arnold on 14-10-10.  */
+@import "project/_imports";
+
+* {
+  box-sizing: border-box;
+}
+
+.content{
+  background:#f6f6f6;
+  padding-bottom:50px;
+  padding-top:20px;
+  padding-left:20px;
+  padding-right:20px;
+  width:760px;
+  overflow:hidden;
+  margin: 80px auto;
+
+  .title {
+    font-size:20px;
+    line-height:1;
+    color:#333333;
+  }
+
+  .verify {
+    border-top:1px solid #cccccc;
+    margin-top:14px;
+    margin-left:0px;
+    magrin-right:0px;
+    .tip {
+      width:100%;
+      margin-top:20px;
+      padding:16px;
+      padding-right:0px;
+      display: none;
+
+      img {
+        vertical-align: top;
+        display:inline-block;
+        margin-right:13px;
+        margin-top:3px;
+      }
+
+      p {
+        font-size:16px;
+        height:28px;
+        line-height:28px;
+        margin:0;
+        width:640px;
+        display:inline-block;
+      }
+    }
+
+    .tip-success{
+      .tip();
+      color:#3c763d;
+      background-color:#dff0d8;
+      border:1px solid #d6e9c6;
+    }
+
+    .tip-danger{
+      .tip();
+      color:#a94442;
+      background-color:#f2dede;
+      border:1px solid #ebccd1;
+    }
+
+    .loadIndicator {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      display: inline;
+    }
+
+
+  }
+
+}

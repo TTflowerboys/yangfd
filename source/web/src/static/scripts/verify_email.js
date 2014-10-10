@@ -1,5 +1,3 @@
-
-
 $('form[name=verifyEmail]').submit(function (e) {
     e.preventDefault()
 
@@ -45,3 +43,4 @@ $('form[name=verifyEmail]').submit(function (e) {
         })
     }
 })
+

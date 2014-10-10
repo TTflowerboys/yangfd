@@ -1,0 +1,25 @@
+<!--@@master = masters/master.html-->
+<!--@@block = head -->
+<link rel="stylesheet" href="/static/styles/verifyEmailStatus.css" />
+<!--@@close-->
+
+<!--@@block = main -->
+<div class="content">
+    <h1 class="title">{{_('验证邮箱')}}</h1>
+
+    <div class="verify">
+        <img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator">
+
+        <div class="verify-success tip tip-success">
+            <p>{{_('恭喜您，邮箱已验证成功')}}</p>
+        </div>
+
+        <div class="verify-failed tip tip-danger">
+            <p>{{_('不好意思，邮箱验证失败，请重新验证')}}</p>
+        </div>
+    </div>
+</div>
+<!--@@close-->
+<!--@@block=scripts-->
+<script src="/static/scripts/verify_email_status.js"></script>
+<!--@@close-->
