@@ -88,14 +88,13 @@ main {
                 > ul { .clearfix(); text-align: center;  border-bottom:1px solid #ccc;
                        li { float: left; width: 16.66%; height: 30px; margin-top:11px; position: relative; line-height: 1;
                              color: #999;
-                             &.selected {
+                             &.selectedTab {
                                  color: #333;
                              }
                             > label {
                                 height: 20px;
                                 display: block;
                                 cursor: pointer;
-
                             }
 
                         &:after {
@@ -320,6 +319,7 @@ main {
     .houseFeatured {
         margin: 0 auto;
         width: @max-width;
+        min-height:400px;
 
         .more {
             float: right;
