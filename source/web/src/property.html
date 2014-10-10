@@ -41,6 +41,10 @@
 
                 </div>
                 % end
+                <div class="item" data-tab-name="map">
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=111,66&zoom=13&size=640x384"
+                        width="800" height="480"/>
+                </div>
 
             </div>
 
@@ -57,6 +61,11 @@
                     </li>
                     % end
                     % end
+                    <li data-tab="map">
+                        <img src="{{property.get(name)[0]}}" alt="" width="200" height="120"/>
+                        <span class="text_wrapper"> <span class="text">{{_('地图')}}</span> </span>
+                        <span class="border"></span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -506,7 +515,8 @@
                             class="flatButton"
                             style="{{ 'display:none' if not isFavorite else ''}}"
                         % if isFavorite:
-                        data-favorite-id="{{[x for x in favorite_list if x.get('property',{}).get('id') == property.get('id')][0].get('id')}}"
+                        % foundId = [x for x in favorite_list if x.get('property',{}).get('id') == property.get('id')][0].get('id')
+                        data-favorite-id="{{foundId}}"
                         % end
                         >
                         <img src="/static/images/property_details/icon-star.png" alt=""/>
