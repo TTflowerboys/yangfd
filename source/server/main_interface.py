@@ -41,6 +41,8 @@ def get_budget_list():
 def get_message_type_list():
     return f_app.enum.get_all('message_type')
 
+def get_intention_ticket_status_list():
+    return f_app.enum.get_all('intention_ticket_status')
 
 def get_favorite_list():
     user = get_current_user()
