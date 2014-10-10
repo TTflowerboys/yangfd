@@ -1,6 +1,6 @@
 /* Created by frank on 14-9-17. */
 angular.module('app')
-    .directive('changePropertyNewsCategory', function (propertyApi, userApi, $rootScope, misc) {
+    .directive('changeNewsCategory', function (propertyApi, userApi, $rootScope, misc) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/change_property_news_category.tpl.html',
