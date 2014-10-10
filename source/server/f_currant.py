@@ -706,20 +706,20 @@ class f_currant_plugins(f_app.plugin_base):
         if list_page.status_code == 200:
             self.logger.debug("Start crawling abacusinvestor")
             list_page_dom_root = q(list_page.content)
-            list_page_model_script= list_page_dom_root("head script")[1].text
+            list_page_model_script = list_page_dom_root("head script")[1].text
             list_page_model_str = re.findall(r"(?<=publicModel = ).+?(?=;)", list_page_model_script)
             if list_page_model_str:
                 list_page_model_json = json.loads(list_page_model_str[0])
-                masterPage = list_page_model_json.get("pageList",{}).get("masterPage",[])
-                pages = list_page_model_json.get("pageList",{}).get("pages",[])
+                masterPage = list_page_model_json.get("pageList", {}).get("masterPage", [])
+                pages = list_page_model_json.get("pageList", {}).get("pages", [])
                 if masterPage and pages:
                     masterPage_json = f_app.request.get(masterPage[2])
                     page_ids = []
                     if masterPage_json.status_code == 200:
-                        masterPage_document_data= json.loads(masterPage_json.content).get("data", {}).get("document_data",{})
+                        masterPage_document_data = json.loads(masterPage_json.content).get("data", {}).get("document_data", {})
                         for key in masterPage_document_data:
                             data_item = masterPage_document_data[key]
-                            if data_item.get("type", None) == "Page" and data_item.get("pageUriSEO", None)  and data_item.get("pageUriSEO", None) !="student-property-report" and data_item.get("hidePage", False) and data_item.get("indexable", False):
+                            if data_item.get("type", None) == "Page" and data_item.get("pageUriSEO", None) and data_item.get("pageUriSEO", None) != "student-property-report" and data_item.get("hidePage", False) and data_item.get("indexable", False):
                                 page_ids.append(key)
                     else:
                         self.logger.debug("Failed crawling abacusinvestor  masterPage in script publicModel%s, status_code is %d" % (masterPage[2], masterPage.status_code))
@@ -733,13 +733,13 @@ class f_currant_plugins(f_app.plugin_base):
                             params["property_crawler_id"] = crawling_page[1]
                             property_page = f_app.request.get(crawling_page[1])
                             if property_page.status_code == 200:
-                                property_document_data= json.loads(property_page.content).get("data", {}).get("document_data",{})
-                                property_images = [property_document_data[key]["items"] for key in property_document_data if property_document_data[key]["type"]=="ImageList"]
-                                property_text = [property_document_data[key]["text"] for key in property_document_data if property_document_data[key]["type"]=="StyledText"]
+                                property_document_data = json.loads(property_page.content).get("data", {}).get("document_data", {})
+                                property_images = [property_document_data[key]["items"] for key in property_document_data if property_document_data[key]["type"] == "ImageList"]
+                                property_text = [property_document_data[key]["text"] for key in property_document_data if property_document_data[key]["type"] == "StyledText"]
                                 property_images_urls = []
                                 if property_images:
-                                    property_images_ids= [property_image.replace("#", "")for property_image in property_images[0]]
-                                    property_images_urls = ["http://static.wix.com/media/"+property_document_data[property_images_id]["uri"] for property_images_id in property_images_ids]
+                                    property_images_ids = [property_image.replace("#", "")for property_image in property_images[0]]
+                                    property_images_urls = ["http://static.wix.com/media/" + property_document_data[property_images_id]["uri"] for property_images_id in property_images_ids]
 
                                 if property_text:
                                     property_text_dom_root = q(property_text[0])
@@ -761,14 +761,14 @@ class f_currant_plugins(f_app.plugin_base):
                             else:
                                 self.logger.debug("Failed crawling abacusinvestor page id %s, page url %s, status_code is %d" % (crawling_page[0], crawling_page[1], property_page.status_code))
                     else:
-                        self.logger.debug("Failed crawling abacusinvestor for reason: no pageids") 
+                        self.logger.debug("Failed crawling abacusinvestor for reason: no pageids")
 
                 else:
                     self.logger.debug("Failed crawling abacusinvestor for reason: no masterPage ,pages or pageList in script publicModel")
             else:
-                self.logger.debug("Failed crawling abacusinvestor for reason: no publicModel in script") 
+                self.logger.debug("Failed crawling abacusinvestor for reason: no publicModel in script")
         else:
-            self.logger.debug("Failed crawling abacusinvestor home page %s ,status_code is %d" %(search_url, list_page.status_code))
+            self.logger.debug("Failed crawling abacusinvestor home page %s ,status_code is %d" % (search_url, list_page.status_code))
 
         f_app.task.put(dict(
             type="crawler_abacusinvestor",
