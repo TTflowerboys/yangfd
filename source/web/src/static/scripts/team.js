@@ -47,7 +47,7 @@
 
         },
         setQuery: function (name, value, url) {
-            var _url = location.href || url
+            var _url = url || location.href
             var re = new RegExp('([?&])' + name + '=.*?(&|$)', 'i');
             var separator = _url.indexOf('?') !== -1 ? '&' : '?';
             if (_url.match(re)) {

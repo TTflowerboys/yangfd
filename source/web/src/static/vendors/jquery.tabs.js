@@ -21,7 +21,7 @@
                     var tabName = $target.data('tab')
                     $tabContainer.find('[data-tab-name=' + tabName + ']').eq(0).show().addClass(options.className)
                         .siblings().removeClass(options.className).hide()
-                    $tabContainer.trigger('openTab', e.currentTarget)
+                    $tabContainer.trigger('openTab', [e.currentTarget, tabName])
                 })
             if (options.autoSelectFirst) {
                 var $firstTab = $tabContainer.find('[data-tab]').eq(0)

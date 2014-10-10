@@ -41,10 +41,14 @@
 
                 </div>
                 % end
+                % if property.get('longitude') and property.get('latitude'):
                 <div class="item" data-tab-name="map">
-                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=111,66&zoom=13&size=640x384"
-                        width="800" height="480"/>
+                    <img id="propertyMap"
+                        data-longitude="{{property.get('longitude')}}"
+                        data-latitude="{{property.get('latitude')}}"
+                        src="/static/images/placeholder/map.jpg" width="800" height="480"/>
                 </div>
+                % end
 
             </div>
 
@@ -61,11 +65,13 @@
                     </li>
                     % end
                     % end
+                    % if property.get('longitude') and property.get('latitude'):
                     <li data-tab="map">
-                        <img src="{{property.get(name)[0]}}" alt="" width="200" height="120"/>
+                        <img src="/static/images/placeholder/map.jpg" alt="" width="200" height="120"/>
                         <span class="text_wrapper"> <span class="text">{{_('地图')}}</span> </span>
                         <span class="border"></span>
                     </li>
+                    % end
                 </ul>
             </div>
         </div>
@@ -769,7 +775,20 @@
         })
 
 
-        $('[data-tabs]').tabs({trigger: 'click'})
+        $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+            if (tabName === 'map') {
+                var $propertyMap = $('#propertyMap')
+                var longitude = $propertyMap.attr('data-longitude')
+                var latitude = $propertyMap.attr('data-latitude')
+                var url = 'https://maps.googleapis.com/maps/api/staticmap'
+                if ($propertyMap.get(0).src.indexOf(url) === 0) { return }
+                var result = team.setQuery('center', longitude + ',' + latitude, url)
+                result = team.setQuery('zoom', 15, result)
+                result = team.setQuery('size', '640x384', result)
+                result = team.setQuery('markers', longitude + ',' + latitude, result)
+                $propertyMap.get(0).src = result
+            }
+        })
 
         $('[data-fn=addFav]').on('click', function () {
             var $button = $(this)
