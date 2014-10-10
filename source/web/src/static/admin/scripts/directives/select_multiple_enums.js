@@ -2,7 +2,7 @@
  * Created by Michael on 14/10/3.
  */
 angular.module('app')
-    .directive('multiEnumSelect', function ($parse, enumApi, $rootScope) {
+    .directive('selectMultipleEnums', function ($parse, enumApi, $rootScope) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/multi_enum_select.tpl.html',
