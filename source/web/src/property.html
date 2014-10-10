@@ -603,7 +603,7 @@
                 <select name="country">
                     %for index, country in enumerate(country_list):
                     <option value="{{country.get('id')}}"
-                    % if country.get('id') == user.get('country',{}).get('id'):
+                    % if country.get('id') == user.get('country',{}).get('id') if user else None:
                     selected
                     %end
                     >
