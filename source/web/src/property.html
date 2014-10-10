@@ -555,29 +555,36 @@
             >
             <input name="property_id" type="hidden" value="{{property.get('id','')}}"/>
             <div class="row">
-                <input name="nickname" type="text" placeholder="您的姓名" data-validator="trim, required"/>
+                <input name="nickname" type="text" placeholder="您的姓名" data-validator="trim, required"
+                    value="{{ user.get('nickname') if user else ''}}"/>
             </div>
             <div class="row">
                 <select name="country">
                     %for index, country in enumerate(country_list):
-                    <option value="{{country.get('id')}}">
-                        %if (country.get('slug') == 'CN'):
-                        (+86)
-                        %elif (country.get('slug') == 'GB') :
-                        (+44)
-                        %elif (country.get('slug') == 'US') :
-                        (+1)
-                        %elif (country.get('slug') == 'HK') :
-                        (+85)
-                        %end
-                        {{_i18n(country.get('value'))}}
+                    <option value="{{country.get('id')}}"
+                    % if country.get('id') == user.get('country',{}).get('id'):
+                    selected
+                    %end
+                    >
+                    %if (country.get('slug') == 'CN'):
+                    (+86)
+                    %elif (country.get('slug') == 'GB') :
+                    (+44)
+                    %elif (country.get('slug') == 'US') :
+                    (+1)
+                    %elif (country.get('slug') == 'HK') :
+                    (+85)
+                    %end
+                    {{_i18n(country.get('value'))}}
                     </option>
                     %end
                 </select>
-                <input name="phone" type="text" placeholder="您的电话" data-validator="trim, required"/>
+                <input name="phone" type="text" placeholder="您的电话" data-validator="trim, required"
+                    value="{{user.get('phone','') if user else ''}}"/>
             </div>
             <div class="row">
-                <input name="email" type="text" placeholder="您的邮箱" data-validator="trim, required, email"/>
+                <input name="email" type="text" placeholder="您的邮箱" data-validator="trim, required, email"
+                    value="{{user.get('email','') if user else ''}}"/>
             </div>
             <div class="row">
                 <select name="budget">
@@ -592,10 +599,12 @@
             <div class="row">
                 <textarea name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}({{ _('可选') }})"></textarea>
             </div>
+            % if not user:
             <div class="row">
                 <input id="c77a0b1a-1612-42e6-abbf-2ddc38095ad1" type="checkbox" name="register"/>
                 <label for="c77a0b1a-1612-42e6-abbf-2ddc38095ad1">{{_('免费成为会员，查看详细报告') }}</label>
             </div>
+            % end
             <div class="action">
                 <button class="flatButton" type="submit" disabled>{{_('联系我们（免费）')}}</button>
             </div>
@@ -657,7 +666,10 @@
                     data-validator="decimal, trim, required" data-message-decimal="{{_('必须为数字')}}"/>
             </div>
             <div class="row">
-                <label class="label">{{_('贷款利率')}}</label>
+                <label class="label">{{_('贷款利率')}}
+                    (
+                    <a class="link" target="_blank" href="http://www.moneysupermarket.com/mortgages/search/results/?goal=MOR_BTL">{{_('更多贷款选择')}}</a> )
+                </label>
                 <div class="inputAddOn">
                     <input name="rate" type="text" placeholder=""
                         data-message-required="{{_('必填')}}"
@@ -683,6 +695,7 @@
             <div class="action">
                 <button type="submit" class="flatButton">{{_('计算贷款')}}</button>
             </div>
+            <a class="link" target="_blank" href="/news_list">贷款流程和协助</a>
             <hr/>
             <div class="table_wrapper">
                 <table>
