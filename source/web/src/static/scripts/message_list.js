@@ -2,11 +2,20 @@ $(function () {
     // on page load
 
     function loadListData($list, array) {
+        var $placeholder = $list.parent().find('#emptyPlaceHolder')
+        $placeholder.hide()
         $list.empty()
         _.each(array, function (message) {
             var messageResult = _.template($('#messageCell_template').html())({message: message})
             $list.append(messageResult)
         })
+
+        if (array && array.length) {
+            $placeholder.hide()
+        }
+        else {
+            $placeholder.show()
+        }
     }
 
 
