@@ -214,7 +214,9 @@ def intention_ticket_assign(user, ticket_id, user_id):
     Assign intention ticket to ``jr_sales``. Only ``admin``, ``jr_admin``, ``sales`` can do this.
     """
     f_app.ticket.get(ticket_id)
-    f_app.user.get(user_id)
+    user_role = f_app.user.get_role(user_id)
+    if "jr_sales" not in user_role:
+        abort(40399)
     return f_app.ticket.update_set(ticket_id, {"assignee": [ObjectId(user_id)], "status": "assigned", "assigned_time": datetime.utcnow()})
 
 
