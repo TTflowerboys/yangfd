@@ -37,6 +37,8 @@ def get_country_list():
 def get_budget_list():
     return f_app.enum.get_all('budget')
 
+def get_message_type_list():
+    return f_app.enum.get_all('message_type')
 
 def get_favorite_list():
     user = get_current_user()
@@ -304,6 +306,13 @@ def user_messages():
         get_current_user()['id'],
         {"state": {"$in": ["read", "new"]}},
     )
+    message_type_list = get_message_type_list()
+
+    for message in message_list:
+        for message_type in message_type_list:
+            if ('message_type:' + message['type'] == message_type['slug']):
+                message['type_presentation'] = message_type
+
     return template("user_messages", user=get_current_user(), country_list=get_country_list(), message_list=message_list, budget_list=get_budget_list())
 
 
