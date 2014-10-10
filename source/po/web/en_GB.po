@@ -5,19 +5,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:  Currant\n"
+"Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-10 16:44+0800\n"
-"PO-Revision-Date: 2014-10-08 11:59+0800\n"
+"POT-Creation-Date: 2014-10-10 16:51+0800\n"
+"PO-Revision-Date: 2014-10-10 17:47+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-"\n"
-"Language: en_GB"
+"Language: en_GB\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../web/src/admin.html:5
 msgid "管理控制台"
@@ -59,22 +59,28 @@ msgid "我们做什么？"
 msgstr "What we do?"
 
 #: ../web/src/coming_soon.html:39
-msgid "我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"
+msgid ""
+"我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的"
+"置业顾问助推您的海外投资之路。"
 msgstr ""
-"We focus on providing diversified oversea investment opportunities to our"
-" investors, get our investors on board with detailed investment analysis "
+"We focus on providing diversified oversea investment opportunities to our "
+"investors, get our investors on board with detailed investment analysis "
 "report and professional property consultant."
 
 #: ../web/src/coming_soon.html:41
-msgid "洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职业顾问，协助您完成投资流程，轻松当洋房东。"
+msgid ""
+"洋房东将首先在中国和英国上线，为您提供英国的楼盘、公寓、别墅、学区房等多样化"
+"的海外置业机会，同时可以根据您的投资意向和预算为您推荐最合适的投资机会，辅以"
+"详细的房产信息和街区投资分析报告帮助您决策，当您确定投资意向时，联系平台的职"
+"业顾问，协助您完成投资流程，轻松当洋房东。"
 msgstr ""
-"YoungFunding will launch first in China and UK. We provide with "
-"diversified oversea investment opportunities such as properties, houses, "
-"apartments, and personalized investment recommendations based on your "
-"intention and budget. We help you with detailed property introduction and"
-" investment analysis report, and our professional property consultant "
-"will help you take care of everything when you want to settle your "
-"investment, really make real estate investment easy."
+"YoungFunding will launch first in China and UK. We provide with diversified "
+"oversea investment opportunities such as properties, houses, apartments, and "
+"personalized investment recommendations based on your intention and budget. "
+"We help you with detailed property introduction and investment analysis "
+"report, and our professional property consultant will help you take care of "
+"everything when you want to settle your investment, really make real estate "
+"investment easy."
 
 #: ../web/src/coming_soon.html:47 ../web/src/partials/float_bar.html:11
 #: ../web/src/partials/requirement_popup.html:6
@@ -82,11 +88,11 @@ msgid "提交置业需求"
 msgstr "Submit Your Investment Needs"
 
 #: ../web/src/coming_soon.html:48
-msgid "如果您有海外置业的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
+msgid ""
+"如果您有海外置业的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 "If you are interested in investing UK property, please submit your "
-"investment needs here. We will get in touch and help your with your "
-"needs."
+"investment needs here. We will get in touch and help your with your needs."
 
 #: ../web/src/coming_soon.html:53 ../web/src/partials/requirement_form.html:3
 msgid "姓名(必填)"
@@ -122,8 +128,8 @@ msgstr "Submit"
 #: ../web/src/partials/requirement_popup.html:11
 msgid "置业需求已提交，稍后我们的工作人员会联系你"
 msgstr ""
-"Your requirement has been submitted, we will get in touch with you as "
-"soon as possible. "
+"Your requirement has been submitted, we will get in touch with you as soon "
+"as possible. "
 
 #: ../web/src/coming_soon.html:90 ../web/src/masters/master.html:115
 msgid "鄂ICP备14015315号-1"
@@ -223,19 +229,19 @@ msgstr "View Details"
 msgid "相关动态"
 msgstr "Related News"
 
-#: ../web/src/index.html:222
+#: ../web/src/index.html:228
 msgid "资讯"
 msgstr "News"
 
-#: ../web/src/index.html:232
+#: ../web/src/index.html:238
 msgid "详细"
 msgstr "Detail"
 
-#: ../web/src/index.html:238
+#: ../web/src/index.html:244
 msgid "更多资讯"
 msgstr "More"
 
-#: ../web/src/index.html:246
+#: ../web/src/index.html:252
 msgid "了解更多"
 msgstr "Learn More"
 
@@ -265,133 +271,131 @@ msgstr "Announcement"
 
 #: ../web/src/property.html:66
 msgid "地图"
-msgstr ""
+msgstr "Map"
 
 #: ../web/src/property.html:75
-#, fuzzy
 msgid "详情"
-msgstr "View Details"
+msgstr "Details"
 
 #: ../web/src/property.html:78
 msgid "户型"
-msgstr ""
+msgstr "House Type"
 
 #: ../web/src/property.html:81 ../web/src/property.html:264
 msgid "楼盘介绍"
-msgstr ""
+msgstr "Introduction"
 
 #: ../web/src/property.html:84 ../web/src/property.html:327
 msgid "价格趋势"
-msgstr ""
+msgstr "Values History"
 
 #: ../web/src/property.html:87 ../web/src/property.html:335
 msgid "收入分析"
-msgstr ""
+msgstr "Income Analysis"
 
 #: ../web/src/property.html:94
 msgid "房屋面积"
-msgstr ""
+msgstr "House Area"
 
 #: ../web/src/property.html:106
 msgid "卧室"
-msgstr ""
+msgstr "Bedrooms"
 
 #: ../web/src/property.html:113
 msgid "卫生间"
-msgstr ""
+msgstr "Bathrooms"
 
 #: ../web/src/property.html:120
 msgid "厅堂"
-msgstr ""
+msgstr "Living Room"
 
 #: ../web/src/property.html:127
 msgid "厨房"
-msgstr ""
+msgstr "Kitchen"
 
 #: ../web/src/property.html:146
 msgid "产权类型"
-msgstr ""
+msgstr "Equity Type"
 
 #: ../web/src/property.html:155 ../web/src/property.html:272
 msgid "开盘时间"
-msgstr ""
+msgstr "Opening time"
 
 #: ../web/src/property.html:166
 msgid "装修风格"
-msgstr ""
+msgstr "Decoration style"
 
 #: ../web/src/property.html:178
 msgid "产权地址"
-msgstr ""
+msgstr "Address"
 
 #: ../web/src/property.html:187
 msgid "街区"
-msgstr ""
+msgstr "Block"
 
 #: ../web/src/property.html:198
 msgid "主要户型"
-msgstr ""
+msgstr "Main House Type"
 
 #: ../web/src/property.html:237
 msgid "楼盘户型"
-msgstr ""
+msgstr "House Type"
 
 #: ../web/src/property.html:249
 msgid "面积"
-msgstr ""
+msgstr "Area"
 
 #: ../web/src/property.html:276
 msgid "建筑类型"
-msgstr ""
+msgstr "Building Type"
 
 #: ../web/src/property.html:280
 msgid "物业类型"
-msgstr ""
+msgstr "Property Management"
 
 #: ../web/src/property.html:284
 msgid "建筑面积"
-msgstr ""
+msgstr "Building Area"
 
 #: ../web/src/property.html:293
 msgid "容积率间"
-msgstr ""
+msgstr "Plot Ratio"
 
 #: ../web/src/property.html:297
 msgid "规划面积"
-msgstr ""
+msgstr "Planning Area"
 
 #: ../web/src/property.html:301
 msgid "绿化率"
-msgstr ""
+msgstr "Greening Rate"
 
 #: ../web/src/property.html:305
 msgid "车位数"
-msgstr ""
+msgstr "Number of parking spaces"
 
 #: ../web/src/property.html:309
 msgid "规划户数"
-msgstr ""
+msgstr "Planning Households"
 
 #: ../web/src/property.html:313
-#, fuzzy
 msgid "开发商"
 msgstr "Property Developer"
 
 #: ../web/src/property.html:317
 msgid "物业公司"
-msgstr ""
+msgstr "Property Management Company"
 
 #: ../web/src/property.html:356
 msgid "支出"
-msgstr ""
+msgstr "Expense"
 
 #: ../web/src/property.html:361
 msgid "预期净收益"
-msgstr ""
+msgstr "Estimated Net Returns"
 
 #: ../web/src/property.html:364
 msgid "预期总收入"
-msgstr ""
+msgstr "Estimated Total Returns"
 
 #: ../web/src/property.html:387
 msgid "预计净收益"
@@ -399,49 +403,48 @@ msgstr ""
 
 #: ../web/src/property.html:399
 msgid "周边配套"
-msgstr ""
+msgstr "Nearby"
 
 #: ../web/src/property.html:402
 msgid "交通设施"
-msgstr ""
+msgstr "Transport"
 
 #: ../web/src/property.html:406
 msgid "条地铁线"
-msgstr ""
+msgstr "Metro Lines"
 
 #: ../web/src/property.html:407
 msgid "个公交车站"
-msgstr ""
+msgstr "Bus Stops"
 
 #: ../web/src/property.html:408
 msgid "个汽车租赁点"
-msgstr ""
+msgstr "Car Rental Points"
 
 #: ../web/src/property.html:410 ../web/src/property.html:421
 #: ../web/src/property.html:435 ../web/src/property.html:449
-#, fuzzy
 msgid "查看详细交通"
-msgstr "View Details"
+msgstr "View Transport Details"
 
 #: ../web/src/property.html:413
 msgid "周边学校"
-msgstr ""
+msgstr "Nearby Schools"
 
 #: ../web/src/property.html:417
 msgid "所小学"
-msgstr ""
+msgstr "Primary School"
 
 #: ../web/src/property.html:418
 msgid "所高中"
-msgstr ""
+msgstr "High School"
 
 #: ../web/src/property.html:419
 msgid "所大学"
-msgstr ""
+msgstr "University"
 
 #: ../web/src/property.html:426 ../web/src/property.html:440
 msgid "便民设施"
-msgstr ""
+msgstr "Facilities"
 
 #: ../web/src/property.html:431 ../web/src/property.html:445
 msgid "所公园"
@@ -457,20 +460,19 @@ msgstr ""
 
 #: ../web/src/property.html:475 ../web/src/property.html:486
 msgid "价格"
-msgstr ""
+msgstr "Price"
 
 #: ../web/src/property.html:498
 msgid "预期年化<br/>收益率"
-msgstr ""
+msgstr "Estimated Annualized <br/>Total Returns"
 
 #: ../web/src/property.html:509
 msgid "已经收藏过了"
-msgstr ""
+msgstr "Already Favourited"
 
 #: ../web/src/property.html:512
-#, fuzzy
 msgid "收藏"
-msgstr "items in total)"
+msgstr "Favourite"
 
 #: ../web/src/property.html:523 ../web/src/user_favorites.html:81
 msgid "取消收藏"
@@ -478,49 +480,45 @@ msgstr "Cancel"
 
 #: ../web/src/property.html:529
 msgid "分享到微信"
-msgstr ""
+msgstr "Share to WeChat"
 
 #: ../web/src/property.html:536
 msgid "分享到微博"
-msgstr ""
+msgstr "Share to Weibo"
 
 #: ../web/src/property.html:544
-#, fuzzy
 msgid "提交成功"
-msgstr "Submit"
+msgstr "Submit Successfully"
 
 #: ../web/src/property.html:545
 msgid "你填写的手机或邮箱的格式不正确"
-msgstr ""
+msgstr "Your phone or email format may be wrong"
 
 #: ../web/src/property.html:546
-#, fuzzy
 msgid "服务器忙，请稍后"
 msgstr "Server is busy, please try again later"
 
 #: ../web/src/property.html:576 ../web/src/property.html:585
 msgid "可选"
-msgstr ""
+msgstr "Optional"
 
 #: ../web/src/property.html:589
 msgid "免费成为会员，查看详细报告"
-msgstr ""
+msgstr "Sign up for free to get detail reports"
 
 #: ../web/src/property.html:592
 msgid "联系我们（免费）"
-msgstr ""
+msgstr "Contact Us (Free)"
 
 #: ../web/src/property.html:597
 msgid "拨打 400-700-8888 转 19872123"
-msgstr ""
+msgstr "Call 400-700-8888"
 
 #: ../web/src/property.html:604
-#, fuzzy
 msgid "投资标签"
-msgstr "for"
+msgstr "Intention"
 
 #: ../web/src/property.html:619
-#, fuzzy
 msgid "资产保值详述"
 msgstr "Introduction for Asset Preservation"
 
@@ -530,66 +528,66 @@ msgstr ""
 
 #: ../web/src/property.html:674
 msgid "房贷计算"
-msgstr ""
+msgstr "Mortgage Payment Calculator"
 
 #: ../web/src/property.html:677
 msgid "购房总价"
-msgstr ""
+msgstr "Property Price"
 
 #: ../web/src/property.html:681 ../web/src/property.html:688
 #: ../web/src/property.html:702 ../web/src/property.html:710
 #: ../web/src/property.html:716
 msgid "必填"
-msgstr ""
+msgstr "Required"
 
 #: ../web/src/property.html:682 ../web/src/property.html:689
 #: ../web/src/property.html:696 ../web/src/property.html:703
 msgid "必须为数字"
-msgstr ""
+msgstr "Must be numbers"
 
 #: ../web/src/property.html:685
 msgid "首付款"
-msgstr ""
+msgstr "Deposit"
 
 #: ../web/src/property.html:692
 msgid "贷款金额"
-msgstr ""
+msgstr "How much"
 
 #: ../web/src/property.html:699
 msgid "贷款利率"
-msgstr ""
+msgstr "Annual Interest"
 
 #: ../web/src/property.html:708
 msgid "贷款年限"
-msgstr ""
+msgstr "Mortgage Term"
 
 #: ../web/src/property.html:711
 msgid "必须为整数"
-msgstr ""
+msgstr "Must be integer"
 
 #: ../web/src/property.html:714
 msgid "还款类型"
-msgstr ""
+msgstr "Repayment Type"
 
 #: ../web/src/property.html:723
 msgid "计算贷款"
-msgstr ""
+msgstr "Calculate"
 
 #: ../web/src/property.html:733
 msgid "总支付利息"
-msgstr ""
+msgstr "Total Interests"
 
 #: ../web/src/property.html:737
 msgid "本息合计"
-msgstr ""
+msgstr "Total Principal & Interest"
 
 #: ../web/src/property.html:741
 msgid "每月还款"
-msgstr ""
+msgstr "Monthly Pepayment"
 
 #: ../web/src/property.html:752
 msgid "打开微信，使用 “扫一扫” 即可将网页分享到朋友圈"
-msgstr ""
+msgstr "Open WeChat, Use \"Scan QR Code\" to share this page to friends"
 
 #: ../web/src/property_list.html:31
 #: ../web/src/partials/localization_manager.html:52
@@ -673,17 +671,20 @@ msgid "更改邮箱"
 msgstr "Email"
 
 #: ../web/src/user_change_email.html:12 ../web/src/user_verify_email.html:12
-msgid "提交成功后请检查您的收件箱并点击邮件中的链接进行验证，如果没有收到请检查您的垃圾邮箱，或者直接与洋房东客服联系"
+msgid ""
+"提交成功后请检查您的收件箱并点击邮件中的链接进行验证，如果没有收到请检查您的"
+"垃圾邮箱，或者直接与洋房东客服联系"
 msgstr ""
 "Please check you email and click verification link to verify your email "
-"after you submit, if you not receive any verification email, please check"
-" your spam, or contact us directly."
+"after you submit, if you not receive any verification email, please check "
+"your spam, or contact us directly."
 
 #: ../web/src/user_change_email.html:16
 msgid "新邮箱"
 msgstr "Email"
 
-#: ../web/src/user_change_email.html:21 ../web/src/user_change_password.html:29
+#: ../web/src/user_change_email.html:21
+#: ../web/src/user_change_password.html:29
 #: ../web/src/user_verify_phone_1.html:19
 msgid "确认"
 msgstr "Confirm"
@@ -709,7 +710,8 @@ msgid "更换手机号（1/2）"
 msgstr "Change Phone Number (1/2)"
 
 #: ../web/src/user_change_phone_1.html:13
-msgid "如果您绑定的手机因停机、注销、丢失等原因无法接收短信，请与洋房东客服联系"
+msgid ""
+"如果您绑定的手机因停机、注销、丢失等原因无法接收短信，请与洋房东客服联系"
 msgstr ""
 "If you can get sms message because your phone is down, cancel or lost, "
 "please contact our supports."
@@ -748,11 +750,11 @@ msgstr "items in total)"
 
 #: ../web/src/user_favorites.html:84
 msgid "撤销"
-msgstr ""
+msgstr "Revert"
 
 #: ../web/src/user_intentions.html:10 ../web/src/masters/user_master.html:47
 msgid "投资意向单"
-msgstr "Intentions (Multiple Choices)"
+msgstr "Intentions"
 
 #: ../web/src/user_intentions.html:71 ../web/src/user_intentions.html:89
 msgid "微信"
@@ -909,7 +911,7 @@ msgstr "Email me when news and updates"
 msgid "接收平台通知"
 msgstr "System Message"
 
-#: ../web/src/user_verify_email.html:8
+#: ../web/src/user_verify_email.html:8 ../web/src/verify_email_status.html:8
 msgid "验证邮箱"
 msgstr "Please Verify You Email Address"
 
@@ -923,9 +925,18 @@ msgid "发送"
 msgstr "Send"
 
 #: ../web/src/user_verify_phone_1.html:9
-#, fuzzy
 msgid "确认手机号（1/2）"
-msgstr "Change Phone Number (1/2)"
+msgstr "Confirm Phone Number (1/2)"
+
+#: ../web/src/verify_email_status.html:14
+msgid "恭喜您，邮箱已验证成功"
+msgstr "Congratulations, Email successfully verified"
+
+#: ../web/src/verify_email_status.html:18
+msgid "不好意思，邮箱验证失败，请重新验证"
+msgstr ""
+"Sorry, Email verify failed because or link is wrong or link expired, please "
+"try again"
 
 #: ../web/src/masters/big_picture_bg_master.html:38
 #: ../web/src/masters/master.html:88
@@ -1080,11 +1091,11 @@ msgstr ""
 
 #: ../web/src/partials/how_it_works_tabs.html:3
 msgid "为您定制"
-msgstr ""
+msgstr "Recommend for you"
 
 #: ../web/src/partials/intention_processCards.html:10
-msgid "填写投资预算、国际和地区"
-msgstr ""
+msgid "填写投资预算、国家和地区"
+msgstr "Enter your budget, country or region"
 
 #: ../web/src/partials/intention_processCards.html:19
 msgid "按“现金流保障”标签筛选出合适出租的房产"
@@ -1205,7 +1216,8 @@ msgstr "Failed to send verification email"
 
 #: ../web/src/partials/localization_manager.html:28
 msgid "邮件已发送，如果没有收到，请在60秒后重试"
-msgstr "Verification email already sent, if you didn't got it, try again after 60s"
+msgstr ""
+"Verification email already sent, if you didn't got it, try again after 60s"
 
 #: ../web/src/partials/localization_manager.html:29
 msgid "请点击“获取验证码”"
@@ -1225,7 +1237,7 @@ msgstr "Add to favourite success"
 
 #: ../web/src/partials/localization_manager.html:33
 msgid "撤销失败"
-msgstr ""
+msgstr "Revert failed"
 
 #: ../web/src/partials/localization_manager.html:34
 msgid "移除失败"
@@ -1238,7 +1250,7 @@ msgstr "Confirm"
 #: ../web/src/partials/localization_manager.html:36
 #: ../web/src/static/templates/message_cell.tpl.html:11
 msgid "展开"
-msgstr ""
+msgstr "Expand"
 
 #: ../web/src/partials/localization_manager.html:37
 msgid "收起"
@@ -1358,11 +1370,11 @@ msgid "已经拥有账号？请"
 msgstr "Already got account? Please "
 
 #: ../web/src/partials/requirement_popup.html:7
-msgid "如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
+msgid ""
+"如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 "If you are interested in investing UK property, please submit your "
-"investment needs here. We will get in touch and help your with your "
-"needs."
+"investment needs here. We will get in touch and help your with your needs."
 
 #: ../web/src/partials/signin_form.html:9
 msgid "忘记密码"
@@ -1382,8 +1394,8 @@ msgstr "Hi, "
 #: ../web/src/static/emails/set_as_admin.html:4
 msgid "您已经被授予洋房东管理后台的访问权限，请使用手机号码"
 msgstr ""
-"Now you have permission to login to YoungFunding's administrator "
-"dashboard, please use this phone number"
+"Now you have permission to login to YoungFunding's administrator dashboard, "
+"please use this phone number"
 
 #: ../web/src/static/emails/new_admin.html:5
 msgid "初始密码为："
@@ -1451,7 +1463,8 @@ msgstr "Property Agency"
 #: ../web/src/static/emails/new_admin_title.html:1
 #: ../web/src/static/emails/set_as_admin_title.html:1
 msgid "您已经被授予洋房东管理后台的访问权限"
-msgstr "Now you have permission to login to YoungFunding's administrator dashboard"
+msgstr ""
+"Now you have permission to login to YoungFunding's administrator dashboard"
 
 #: ../web/src/static/emails/new_ticket.html:4
 msgid "收到新的置业需求信息如下："
@@ -1488,14 +1501,17 @@ msgstr "Permissions you have are:"
 #: ../web/src/static/emails/verify_email.html:4
 msgid "欢迎使用洋房东，请点击以下链接验证你的邮箱地址："
 msgstr ""
-"Thanks for using YoungFunding. To verify your email address, please click"
-" the link below: "
+"Thanks for using YoungFunding. To verify your email address, please click "
+"the link below: "
 
 #: ../web/src/static/emails/verify_email.html:7
-msgid "如果以上链接无法访问，请将该网址复制并粘贴至新的浏览器窗口中。"
+msgid ""
+"为保障您的账户安全，请在24小时内点击该链接。如果以上链接无法访问，请将该网址"
+"复制并粘贴至浏览器地址栏中访问。"
 msgstr ""
-"If you can't click the link above, please copy and paste above url to new"
-" tab of your browser."
+"To ensue your account security, please click  the link above within 24 "
+"hours. If you can't click the link, please copy and paste above url to  your "
+"browser's address bar."
 
 #: ../web/src/static/emails/verify_email_title.html:1
 msgid "请验证您的邮箱"
@@ -1510,22 +1526,24 @@ msgid "洋房东开放注册了！"
 msgstr "YoungFunding is open for registering now!"
 
 #: ../web/src/static/emails/we_are_ready.html:8
-msgid "如果您之前没有订阅上线通知，请忽略该邮件。如果您之前订阅过，请点击下面链接进入洋房东吧:"
+msgid ""
+"如果您之前没有订阅上线通知，请忽略该邮件。如果您之前订阅过，请点击下面链接进"
+"入洋房东吧:"
 msgstr ""
-"If you didn't subscribe launch notification, please ignore this. If you "
-"are, please click the link below to visit us:"
+"If you didn't subscribe launch notification, please ignore this. If you are, "
+"please click the link below to visit us:"
 
 #: ../web/src/static/emails/we_are_ready.html:15
 msgid "如果上面的链接无法点击，请复制该链接到浏览器地址栏中打开！"
 msgstr ""
-"If you can't click the link above, please copy and paste above url to new"
-" tab of your browser."
+"If you can't click the link above, please copy and paste above url to new "
+"tab of your browser."
 
 #: ../web/src/static/emails/we_are_ready.html:17
 msgid "如果您有任何使用过程中的问题或者有海外置业的需求，请联系我们:"
 msgstr ""
-"Feel free to contact us if you have any question using our website or "
-"have property purchasing requirement in UK:"
+"Feel free to contact us if you have any question using our website or have "
+"property purchasing requirement in UK:"
 
 #: ../web/src/static/emails/we_are_ready.html:21
 msgid "欢迎访问"
@@ -1590,9 +1608,6 @@ msgstr "Load More"
 #~ msgid "您的预算："
 #~ msgstr "Your Budget"
 
-#~ msgid "面积"
-#~ msgstr "Area"
-
 #~ msgid "(可选)"
 #~ msgstr "(Optional)"
 
@@ -1604,4 +1619,3 @@ msgstr "Load More"
 
 #~ msgid "平台通知"
 #~ msgstr "System Message"
-

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-10 16:44+0800\n"
+"POT-Creation-Date: 2014-10-10 16:51+0800\n"
 "PO-Revision-Date: 2014-09-17 10:39+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -205,19 +205,19 @@ msgstr ""
 msgid "相关动态"
 msgstr ""
 
-#: ../web/src/index.html:222
+#: ../web/src/index.html:228
 msgid "资讯"
 msgstr ""
 
-#: ../web/src/index.html:232
+#: ../web/src/index.html:238
 msgid "详细"
 msgstr ""
 
-#: ../web/src/index.html:238
+#: ../web/src/index.html:244
 msgid "更多资讯"
 msgstr ""
 
-#: ../web/src/index.html:246
+#: ../web/src/index.html:252
 msgid "了解更多"
 msgstr ""
 
@@ -878,7 +878,7 @@ msgstr ""
 msgid "接收平台通知"
 msgstr ""
 
-#: ../web/src/user_verify_email.html:8
+#: ../web/src/user_verify_email.html:8 ../web/src/verify_email_status.html:8
 msgid "验证邮箱"
 msgstr ""
 
@@ -893,6 +893,14 @@ msgstr ""
 
 #: ../web/src/user_verify_phone_1.html:9
 msgid "确认手机号（1/2）"
+msgstr ""
+
+#: ../web/src/verify_email_status.html:14
+msgid "恭喜您，邮箱已验证成功"
+msgstr ""
+
+#: ../web/src/verify_email_status.html:18
+msgid "不好意思，邮箱验证失败，请重新验证"
 msgstr ""
 
 #: ../web/src/masters/big_picture_bg_master.html:38
@@ -1051,7 +1059,7 @@ msgid "为您定制"
 msgstr ""
 
 #: ../web/src/partials/intention_processCards.html:10
-msgid "填写投资预算、国际和地区"
+msgid "填写投资预算、国家和地区"
 msgstr ""
 
 #: ../web/src/partials/intention_processCards.html:19
@@ -1453,7 +1461,7 @@ msgid "欢迎使用洋房东，请点击以下链接验证你的邮箱地址："
 msgstr ""
 
 #: ../web/src/static/emails/verify_email.html:7
-msgid "如果以上链接无法访问，请将该网址复制并粘贴至新的浏览器窗口中。"
+msgid "为保障您的账户安全，请在24小时内点击该链接。如果以上链接无法访问，请将该网址复制并粘贴至浏览器地址栏中访问。"
 msgstr ""
 
 #: ../web/src/static/emails/verify_email_title.html:1
@@ -1814,5 +1822,11 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "平台通知"
+#~ msgstr ""
+
+#~ msgid "填写投资预算、国际和地区"
+#~ msgstr ""
+
+#~ msgid "如果以上链接无法访问，请将该网址复制并粘贴至新的浏览器窗口中。"
 #~ msgstr ""
 
