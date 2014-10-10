@@ -1,6 +1,6 @@
 /* Created by frank on 14-8-14. */
 angular.module('app')
-    .directive('email', function () {
+    .directive('validateEmail', function () {
         return {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
