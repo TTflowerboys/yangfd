@@ -513,7 +513,7 @@
                         </button>
                         <button data-fn="removeFav"
                             class="flatButton"
-                            style="{{ 'display:none' if not isFavorite else ''}}"
+                            style="{{ 'display:none' if not isFavorite else ''}}ou
                         % if isFavorite:
                         % foundId = [x for x in favorite_list if x.get('property',{}).get('id') == property.get('id')][0].get('id')
                         data-favorite-id="{{foundId}}"
