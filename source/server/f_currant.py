@@ -351,7 +351,7 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["crawler_example", "assign_property_short_id", "crawler_london_home", "fortis_developments", "crawler_knightknox"]
+    task = ["crawler_example", "assign_property_short_id", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor"]
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -697,6 +697,81 @@ class f_currant_plugins(f_app.plugin_base):
 
         f_app.task.put(dict(
             type="crawler_knightknox",
+            start=datetime.utcnow() + timedelta(days=1),
+        ))
+
+    def task_on_crawler_abacusinvestor(self, task):
+        search_url = "http://www.abacusinvestor.com"
+        list_page = f_app.request.get(search_url)
+        if list_page.status_code == 200:
+            self.logger.debug("Start crawling abacusinvestor")
+            list_page_dom_root = q(list_page.content)
+            list_page_model_script= list_page_dom_root("head script")[1].text
+            list_page_model_str = re.findall(r"(?<=publicModel = ).+?(?=;)", list_page_model_script)
+            if list_page_model_str:
+                list_page_model_json = json.loads(list_page_model_str[0])
+                masterPage = list_page_model_json.get("pageList",{}).get("masterPage",[])
+                pages = list_page_model_json.get("pageList",{}).get("pages",[])
+                if masterPage and pages:
+                    masterPage_json = f_app.request.get(masterPage[2])
+                    page_ids = []
+                    if masterPage_json.status_code == 200:
+                        masterPage_document_data= json.loads(masterPage_json.content).get("data", {}).get("document_data",{})
+                        for key in masterPage_document_data:
+                            data_item = masterPage_document_data[key]
+                            if data_item.get("type", None) == "Page" and data_item.get("pageUriSEO", None)  and data_item.get("pageUriSEO", None) !="student-property-report" and data_item.get("hidePage", False) and data_item.get("indexable", False):
+                                page_ids.append(key)
+                    else:
+                        self.logger.debug("Failed crawling abacusinvestor  masterPage in script publicModel%s, status_code is %d" % (masterPage[2], masterPage.status_code))
+                    if page_ids:
+                        crawling_pages = [(page["pageId"], page["urls"][2]) for page in pages if page["pageId"] in page_ids]
+                        for crawling_page in crawling_pages:
+                            params = {
+                                "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
+                            }
+                            self.logger.debug("Start crawling abacusinvestor page id %s, page url %s" % crawling_page)
+                            params["property_crawler_id"] = crawling_page[1]
+                            property_page = f_app.request.get(crawling_page[1])
+                            if property_page.status_code == 200:
+                                property_document_data= json.loads(property_page.content).get("data", {}).get("document_data",{})
+                                property_images = [property_document_data[key]["items"] for key in property_document_data if property_document_data[key]["type"]=="ImageList"]
+                                property_text = [property_document_data[key]["text"] for key in property_document_data if property_document_data[key]["type"]=="StyledText"]
+                                property_images_urls = []
+                                if property_images:
+                                    property_images_ids= [property_image.replace("#", "")for property_image in property_images[0]]
+                                    property_images_urls = ["http://static.wix.com/media/"+property_document_data[property_images_id]["uri"] for property_images_id in property_images_ids]
+
+                                if property_text:
+                                    property_text_dom_root = q(property_text[0])
+                                    property_name = property_text_dom_root("strong")[0].text
+                                    if not property_name:
+                                        property_name = property_text_dom_root("strong")[0].getchildren()[0].text
+                                    property_description = property_text_dom_root.children().text()
+                                    params["description"] = {"en_GB": property_description.strip()}
+                                    if property_name:
+                                        params["name"] = {"en_GB": property_name.strip()}
+                                    total_price = re.findall(r'[0-9,]+', property_description)
+                                    if total_price:
+                                        params["total_price"] = {"value": total_price[0].replace(',', ''), "type": "currency", "unit": "GBP"}
+                                    if property_images_urls:
+                                        params["reality_images"] = {"en_GB": [property_images_url for property_images_url in property_images_urls]}
+                                else:
+                                    self.logger.debug("Failed crawling abacusinvestor for reason: no html text in property_document_data")
+                                f_app.property.crawler_insert_update(params)
+                            else:
+                                self.logger.debug("Failed crawling abacusinvestor page id %s, page url %s, status_code is %d" % (crawling_page[0], crawling_page[1], property_page.status_code))
+                    else:
+                        self.logger.debug("Failed crawling abacusinvestor for reason: no pageids") 
+
+                else:
+                    self.logger.debug("Failed crawling abacusinvestor for reason: no masterPage ,pages or pageList in script publicModel")
+            else:
+                self.logger.debug("Failed crawling abacusinvestor for reason: no publicModel in script") 
+        else:
+            self.logger.debug("Failed crawling abacusinvestor home page %s ,status_code is %d" %(search_url, list_page.status_code))
+
+        f_app.task.put(dict(
+            type="crawler_abacusinvestor",
             start=datetime.utcnow() + timedelta(days=1),
         ))
 
