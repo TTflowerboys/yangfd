@@ -19,7 +19,7 @@
             create: function (data, config) {
                 return $http.post('/api/1/support_ticket/add', data, config)
             },
-            history: function (id, config) {
+            getHistory: function (id, config) {
                 return $http.get('/api/1/support_ticket/' + id + '/history', config)
             }
         }

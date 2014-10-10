@@ -216,9 +216,10 @@
         $intentionTag.find('#list li[data-id=' + id + ']').remove()
     }
 
-    $('[data-tabs]').tabs({trigger: 'hover'})
+
 
     if (window.user) {
+        $('[data-tabs]').tabs({trigger: 'hover'})
         var $intentionDetails = $('[data-tabs]')
 
         var $budgetTag = $('#tags #budgetTag')
@@ -293,6 +294,9 @@
         $('.intentionTabs_wrapper').find('#collapseButton').click(function () {
             $('.intentionTabs_wrapper').animate({height: '0'}, 400, 'swing')
         })
-
     }
+    else {
+        $('[data-tabs]').tabs({trigger: 'hover'})
+    }
+
 })()
