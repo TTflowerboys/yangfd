@@ -19,7 +19,7 @@
                 <i><img src="/static/images/icon/user-phone.png" style="margin-top:2px;"/></i>
                 {{_('手机未验证')}}
                 %end
-            </span>
+            </a>
 
                 %if user.get('email_verified'):
             <a class="verificationStatus" href="/user_change_email">
@@ -30,7 +30,7 @@
                 <i><img src="/static/images/icon/user-email.png"/></i>
                 {{_('邮箱未验证')}}
                 %end
-            </span>
+            </a>
         </div>
         <div class="settings">
             <ul>
