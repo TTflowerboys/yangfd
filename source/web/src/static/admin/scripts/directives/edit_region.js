@@ -1,6 +1,6 @@
 /* Created by frank on 14-9-18. */
 angular.module('app')
-    .directive('regionEdit', function ($rootScope, apiFactory) {
+    .directive('editRegion', function ($rootScope, apiFactory) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/region_edit.tpl.html',

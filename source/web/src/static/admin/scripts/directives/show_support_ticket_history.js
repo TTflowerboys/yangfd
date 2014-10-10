@@ -2,7 +2,7 @@
  * Created by Michael on 14/10/1.
  */
 angular.module('app')
-    .directive('supportTicketHistory', function ($rootScope, supportApi) {
+    .directive('showSupportTicketHistory', function ($rootScope, supportApi) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/support_ticket_history.tpl.html',
