@@ -28,6 +28,8 @@
 
         if (!valid) { return }
 
+        $mortgageForm.find('[data-ui=result]').slideDown()
+
         var data = $mortgageForm.serializeObject({includeUnderscore: false})
         data.loan = team.decodeCurrency(data.loan)
 
