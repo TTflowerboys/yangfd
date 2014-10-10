@@ -42,12 +42,14 @@
                 </div>
                 % end
                 % if property.get('longitude') and property.get('latitude'):
-                <div class="item" data-tab-name="map">
+                % long = property.get('longitude')
+                % lat = property.get('latitude')
+                <a href="https://www.google.com.au/maps/@{{long}},{{lat}},14z" target="_blank" class="item" data-tab-name="map">
                     <img id="propertyMap"
-                        data-longitude="{{property.get('longitude')}}"
-                        data-latitude="{{property.get('latitude')}}"
+                        data-longitude="{{long}}"
+                        data-latitude="{{lat}}"
                         src="/static/images/placeholder/map.jpg" width="800" height="480"/>
-                </div>
+                </a>
                 % end
 
             </div>
@@ -610,7 +612,7 @@
             <h2 class="propertyDetails_title">{{_('投资标签')}}</h2>
             <ul class="tab">
                 % for intention in property.get('intention'):
-                <li data-tab="{{intention.get('slug')}}">
+                <li data-tab="{{intention.get('slug','')}}">
                     <div class="image_wrapper">
                         <img src="/static/images/intention/icon/{{intention.get('slug')}}-red.png" alt=""/>
                     </div>
@@ -621,58 +623,11 @@
                 % end
             </ul>
             <ul class="content">
-                <li data-tab-name="stable_cashflow">
-                    <h3>{{_('资产保值详述')}}</h3>
-
-                    <h4>{{_('资产保值的投资特征')}}</h4>
-
-                    <ul class="strong">
-                        <li>
-                            ✓ 享有永久产权
-                        </li>
-                        <li>
-                            ✓ 处于黄金位置
-                        </li>
-                    </ul>
-
-                    <h4>
-                        投资流程及费用
-                    </h4>
-
-                    <ol>
-                        <li>
-                            1. 提交置业投资预算
-                        </li>
-                        <li>
-                            2. 按“资产保值”标签筛选出平台提供期房 永久性产权，
-                            在黄金postcode 区域内的房子
-                        </li>
-                        <li>
-                            3. 注册提交置业需求查看详细报告
-                        </li>
-                        <li>
-                            4. 联系置业顾问 并安排办理购房手续
-                        </li>
-                    </ol>
+                % for intention in property.get('intention'):
+                <li data-tab-name="{{intention.get('slug','')}}">
+                    {{intention.get('description','')}}
                 </li>
-                <li data-tab-name="study_aboard">
-                    Study Aboard
-                </li>
-                <li data-tab-name="immigration_investment">
-                    Immigration Investment
-                </li>
-                <li data-tab-name="excess_earnings">
-                    Excess Earnings
-                </li>
-                <li data-tab-name="asset_preservation">
-                    Asset Preservation
-                </li>
-                <li data-tab-name="live_after_immigration">
-                    Live After Immigration
-                </li>
-                <li data-tab-name="leisure_propertyn">
-                    Leisure Property
-                </li>
+                % end
             </ul>
         </div>
         <hr/>
