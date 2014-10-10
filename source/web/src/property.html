@@ -513,11 +513,11 @@
                         </button>
                         <button data-fn="removeFav"
                             class="flatButton"
-                            style="{{ 'display:none' if not isFavorite else ''}}
-                            % if isFavorite:
-                            % foundId = [x for x in favorite_list if x.get('property',{}).get('id') == property.get('id')][0].get('id')
-                            data-favorite-id="{{foundId}}"
-                            % end
+                            style="{{ 'display:none' if not isFavorite else ''}}"
+                        % if isFavorite:
+                        % foundId = [x for x in favorite_list if x.get('property',{}).get('id') == property.get('id')][0].get('id')
+                        data-favorite-id="{{foundId}}"
+                        % end
                         >
                         <img src="/static/images/property_details/icon-star.png" alt=""/>
                         <span class="text"> {{_('取消收藏') }} </span>
