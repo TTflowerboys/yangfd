@@ -56,17 +56,55 @@
 
             <div class="thumbnails">
                 <ul>
-                    % texts = [_('实景图'),_('设施图'),_('户型图'),_('效果图'),_('样板间图'),_('规划图')]
-                    % for index,name in enumerate(['reality_images','surroundings_images','floor_plan','effect_pictures',
-                    % 'indoor_sample_room_picture','planning_map']):
-                    % if property.get(name):
-                    <li data-tab="{{name}}">
-                        <img src="{{property.get(name)[0]}}" alt="" width="200" height="120"/>
-                        <span class="text_wrapper"> <span class="text">{{texts[index]}}</span> </span>
+
+                    % if property.get('reality_images'):
+                    <li data-tab="reality_images">
+                        <img src="{{property.get('reality_images')[0]}}" alt="" width="200" height="120"/>
+                        <span class="text_wrapper"> <span class="text">{{_('实景图')}}</span> </span>
                         <span class="border"></span>
                     </li>
                     % end
+
+                    % if property.get('surroundings_images'):
+                    <li data-tab="surroundings_images">
+                        <img src="{{property.get('surroundings_images')[0]}}" alt="" width="200" height="120"/>
+                        <span class="text_wrapper"> <span class="text">{{_('设施图')}}</span> </span>
+                        <span class="border"></span>
+                    </li>
                     % end
+
+                    % if property.get('floor_plan'):
+                    <li data-tab="floor_plan">
+                        <img src="{{property.get('floor_plan')[0]}}" alt="" width="200" height="120"/>
+                        <span class="text_wrapper"> <span class="text">{{_('户型图')}}</span> </span>
+                        <span class="border"></span>
+                    </li>
+                    % end
+
+                    % if property.get('effect_pictures'):
+                    <li data-tab="effect_pictures">
+                        <img src="{{property.get('effect_pictures')[0]}}" alt="" width="200" height="120"/>
+                        <span class="text_wrapper"> <span class="text">{{_('效果图')}}</span> </span>
+                        <span class="border"></span>
+                    </li>
+                    % end
+
+                    % if property.get('indoor_sample_room_picture'):
+                    <li data-tab="indoor_sample_room_picture">
+                        <img src="{{property.get('indoor_sample_room_picture')[0]}}" alt="" width="200" height="120"/>
+                        <span class="text_wrapper"> <span class="text">{{_('样板间图')}}</span> </span>
+                        <span class="border"></span>
+                    </li>
+                    % end
+
+                    % if property.get('planning_map'):
+                    <li data-tab="planning_map">
+                        <img src="{{property.get('planning_map')[0]}}" alt="" width="200" height="120"/>
+                        <span class="text_wrapper"> <span class="text">{{_('规划图')}}</span> </span>
+                        <span class="border"></span>
+                    </li>
+                    % end
+
                     % if property.get('longitude') and property.get('latitude'):
                     <li data-tab="map">
                         <img src="/static/images/placeholder/map.jpg" alt="" width="200" height="120"/>
