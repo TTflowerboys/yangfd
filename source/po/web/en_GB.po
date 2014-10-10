@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2014-10-10 19:42+0800\n"
-"PO-Revision-Date: 2014-10-10 19:43+0800\n"
+"PO-Revision-Date: 2014-10-10 19:49+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1131,7 +1131,7 @@ msgstr "Female"
 #: ../web/src/masters/user_master.html:104
 #: ../web/src/masters/user_master.html:144
 msgid "国家"
-msgstr "Any Country"
+msgstr "Country"
 
 #: ../web/src/masters/user_master.html:117
 #: ../web/src/partials/requirement_form.html:29
@@ -1144,7 +1144,7 @@ msgstr "Enter your name"
 
 #: ../web/src/partials/float_bar.html:17
 msgid "电话："
-msgstr "Phone"
+msgstr "Phone: "
 
 #: ../web/src/partials/get_area_unit.html:3
 msgid "平方英尺"
