@@ -1,6 +1,6 @@
 /* Created by frank on 14-8-23. */
 angular.module('app')
-    .directive('textArrayEdit', function ($upload) {
+    .directive('editTextArray', function ($upload) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/text_array_edit.tpl.html',
