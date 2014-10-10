@@ -190,8 +190,14 @@
             .done(function () {
                 updatePropertyCards(responseArray)
                 $('#suggestionHouses #loadIndicator').hide()
-
-                if (responseArray.length) {
+            })
+            .fail(function () {
+                updatePropertyCards(responseArray)
+                $('#suggestionHouses #loadIndicator').hide()
+            })
+            .always(function () {
+                var currentItemCount = $('#suggestionHouses #list').children().length
+                if (currentItemCount) {
                     $('#suggestionHouses #emptyPlaceHolder').hide()
                 }
                 else {
@@ -200,11 +206,6 @@
                     $emptyPlaceHolder.find('#intention').text(getSelectedIntentionValues())
                     $emptyPlaceHolder.show()
                 }
-            })
-            .fail(function () {
-                updatePropertyCards(responseArray)
-                $('#suggestionHouses #loadIndicator').hide()
-                $('#suggestionHouses #emptyPlaceHolder').hide()
             })
     }
 
