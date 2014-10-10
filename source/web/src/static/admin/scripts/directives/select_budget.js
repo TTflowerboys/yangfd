@@ -2,7 +2,7 @@
  * Created by Michael on 14/9/26.
  */
 angular.module('app')
-    .directive('budgetSelect', function ($rootScope, enumApi, i18nCurrency) {
+    .directive('selectBudget', function ($rootScope, enumApi, i18nCurrency) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/budget_select.tpl.html',
