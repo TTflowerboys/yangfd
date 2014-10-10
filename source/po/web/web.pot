@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-10 16:51+0800\n"
+"POT-Creation-Date: 2014-10-10 19:16+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,12 +85,12 @@ msgstr ""
 msgid "邮箱(必填)"
 msgstr ""
 
-#: ../web/src/coming_soon.html:64 ../web/src/property.html:576
+#: ../web/src/coming_soon.html:64 ../web/src/property.html:591
 #: ../web/src/partials/requirement_form.html:14
 msgid "您的预算"
 msgstr ""
 
-#: ../web/src/coming_soon.html:76 ../web/src/property.html:585
+#: ../web/src/coming_soon.html:76 ../web/src/property.html:600
 #: ../web/src/partials/requirement_form.html:24
 msgid "写下您的其他需求和描述，方便我们在挑选房源时作为参考"
 msgstr ""
@@ -204,19 +204,47 @@ msgstr ""
 msgid "相关动态"
 msgstr ""
 
-#: ../web/src/index.html:228
+#: ../web/src/index.html:218
+msgid "不好意思，平台暂时没有"
+msgstr ""
+
+#: ../web/src/index.html:220
+msgid "合适"
+msgstr ""
+
+#: ../web/src/index.html:222
+msgid "的投资机会"
+msgstr ""
+
+#: ../web/src/index.html:225
+msgid "您可以先"
+msgstr ""
+
+#: ../web/src/index.html:226
+msgid "看看其他房产"
+msgstr ""
+
+#: ../web/src/index.html:227
+msgid "，或者"
+msgstr ""
+
+#: ../web/src/index.html:228 ../web/src/property_list.html:64
+msgid "提交您的置业需求"
+msgstr ""
+
+#: ../web/src/index.html:239
 msgid "资讯"
 msgstr ""
 
-#: ../web/src/index.html:238
+#: ../web/src/index.html:249
 msgid "详细"
 msgstr ""
 
-#: ../web/src/index.html:244
+#: ../web/src/index.html:255
 msgid "更多资讯"
 msgstr ""
 
-#: ../web/src/index.html:252
+#: ../web/src/index.html:263
 msgid "了解更多"
 msgstr ""
 
@@ -244,323 +272,315 @@ msgstr ""
 msgid "网站公告"
 msgstr ""
 
-#: ../web/src/property.html:66
+#: ../web/src/property.html:73
 msgid "地图"
 msgstr ""
 
-#: ../web/src/property.html:75
+#: ../web/src/property.html:83
 msgid "详情"
 msgstr ""
 
-#: ../web/src/property.html:78
+#: ../web/src/property.html:86
 msgid "户型"
 msgstr ""
 
-#: ../web/src/property.html:81 ../web/src/property.html:264
+#: ../web/src/property.html:89 ../web/src/property.html:272
 msgid "楼盘介绍"
 msgstr ""
 
-#: ../web/src/property.html:84 ../web/src/property.html:327
+#: ../web/src/property.html:92 ../web/src/property.html:335
 msgid "价格趋势"
 msgstr ""
 
-#: ../web/src/property.html:87 ../web/src/property.html:335
+#: ../web/src/property.html:95 ../web/src/property.html:343
 msgid "收入分析"
 msgstr ""
 
-#: ../web/src/property.html:94
+#: ../web/src/property.html:102
 msgid "房屋面积"
 msgstr ""
 
-#: ../web/src/property.html:106
+#: ../web/src/property.html:114
 msgid "卧室"
 msgstr ""
 
-#: ../web/src/property.html:113
+#: ../web/src/property.html:121
 msgid "卫生间"
 msgstr ""
 
-#: ../web/src/property.html:120
+#: ../web/src/property.html:128
 msgid "厅堂"
 msgstr ""
 
-#: ../web/src/property.html:127
+#: ../web/src/property.html:135
 msgid "厨房"
 msgstr ""
 
-#: ../web/src/property.html:146
+#: ../web/src/property.html:154
 msgid "产权类型"
 msgstr ""
 
-#: ../web/src/property.html:155 ../web/src/property.html:272
+#: ../web/src/property.html:163 ../web/src/property.html:280
 msgid "开盘时间"
 msgstr ""
 
-#: ../web/src/property.html:166
+#: ../web/src/property.html:174
 msgid "装修风格"
 msgstr ""
 
-#: ../web/src/property.html:178
+#: ../web/src/property.html:186
 msgid "产权地址"
 msgstr ""
 
-#: ../web/src/property.html:187
+#: ../web/src/property.html:195
 msgid "街区"
 msgstr ""
 
-#: ../web/src/property.html:198
+#: ../web/src/property.html:206
 msgid "主要户型"
 msgstr ""
 
-#: ../web/src/property.html:237
+#: ../web/src/property.html:245
 msgid "楼盘户型"
 msgstr ""
 
-#: ../web/src/property.html:249
+#: ../web/src/property.html:257
 msgid "面积"
 msgstr ""
 
-#: ../web/src/property.html:276
+#: ../web/src/property.html:284
 msgid "建筑类型"
 msgstr ""
 
-#: ../web/src/property.html:280
+#: ../web/src/property.html:288
 msgid "物业类型"
 msgstr ""
 
-#: ../web/src/property.html:284
+#: ../web/src/property.html:292
 msgid "建筑面积"
 msgstr ""
 
-#: ../web/src/property.html:293
+#: ../web/src/property.html:301
 msgid "容积率间"
 msgstr ""
 
-#: ../web/src/property.html:297
+#: ../web/src/property.html:305
 msgid "规划面积"
 msgstr ""
 
-#: ../web/src/property.html:301
+#: ../web/src/property.html:309
 msgid "绿化率"
 msgstr ""
 
-#: ../web/src/property.html:305
+#: ../web/src/property.html:313
 msgid "车位数"
 msgstr ""
 
-#: ../web/src/property.html:309
+#: ../web/src/property.html:317
 msgid "规划户数"
 msgstr ""
 
-#: ../web/src/property.html:313
+#: ../web/src/property.html:321
 msgid "开发商"
 msgstr ""
 
-#: ../web/src/property.html:317
+#: ../web/src/property.html:325
 msgid "物业公司"
 msgstr ""
 
-#: ../web/src/property.html:356
+#: ../web/src/property.html:364
 msgid "支出"
 msgstr ""
 
-#: ../web/src/property.html:361
+#: ../web/src/property.html:369 ../web/src/property.html:395
 msgid "预期净收益"
 msgstr ""
 
-#: ../web/src/property.html:364
+#: ../web/src/property.html:372
 msgid "预期总收入"
 msgstr ""
 
-#: ../web/src/property.html:387
-msgid "预计净收益"
-msgstr ""
-
-#: ../web/src/property.html:399
+#: ../web/src/property.html:407
 msgid "周边配套"
 msgstr ""
 
-#: ../web/src/property.html:402
+#: ../web/src/property.html:410
 msgid "交通设施"
 msgstr ""
 
-#: ../web/src/property.html:406
+#: ../web/src/property.html:414
 msgid "条地铁线"
 msgstr ""
 
-#: ../web/src/property.html:407
+#: ../web/src/property.html:415
 msgid "个公交车站"
 msgstr ""
 
-#: ../web/src/property.html:408
+#: ../web/src/property.html:416
 msgid "个汽车租赁点"
 msgstr ""
 
-#: ../web/src/property.html:410 ../web/src/property.html:421
-#: ../web/src/property.html:435 ../web/src/property.html:449
+#: ../web/src/property.html:418 ../web/src/property.html:429
+#: ../web/src/property.html:443 ../web/src/property.html:457
 msgid "查看详细交通"
 msgstr ""
 
-#: ../web/src/property.html:413
+#: ../web/src/property.html:421
 msgid "周边学校"
 msgstr ""
 
-#: ../web/src/property.html:417
+#: ../web/src/property.html:425
 msgid "所小学"
 msgstr ""
 
-#: ../web/src/property.html:418
+#: ../web/src/property.html:426
 msgid "所高中"
 msgstr ""
 
-#: ../web/src/property.html:419
+#: ../web/src/property.html:427
 msgid "所大学"
 msgstr ""
 
-#: ../web/src/property.html:426 ../web/src/property.html:440
+#: ../web/src/property.html:434 ../web/src/property.html:448
 msgid "便民设施"
 msgstr ""
 
-#: ../web/src/property.html:431 ../web/src/property.html:445
+#: ../web/src/property.html:439 ../web/src/property.html:453
 msgid "所公园"
 msgstr ""
 
-#: ../web/src/property.html:432 ../web/src/property.html:446
+#: ../web/src/property.html:440 ../web/src/property.html:454
 msgid "所健身馆"
 msgstr ""
 
-#: ../web/src/property.html:433 ../web/src/property.html:447
+#: ../web/src/property.html:441 ../web/src/property.html:455
 msgid "所游泳馆"
 msgstr ""
 
-#: ../web/src/property.html:475 ../web/src/property.html:486
+#: ../web/src/property.html:483 ../web/src/property.html:494
 msgid "价格"
 msgstr ""
 
-#: ../web/src/property.html:498
+#: ../web/src/property.html:506
 msgid "预期年化<br/>收益率"
 msgstr ""
 
-#: ../web/src/property.html:509
+#: ../web/src/property.html:517
 msgid "已经收藏过了"
 msgstr ""
 
-#: ../web/src/property.html:512
+#: ../web/src/property.html:520
 msgid "收藏"
 msgstr ""
 
-#: ../web/src/property.html:523 ../web/src/user_favorites.html:81
+#: ../web/src/property.html:531 ../web/src/user_favorites.html:81
 msgid "取消收藏"
 msgstr ""
 
-#: ../web/src/property.html:529
+#: ../web/src/property.html:537
 msgid "分享到微信"
 msgstr ""
 
-#: ../web/src/property.html:536
+#: ../web/src/property.html:544
 msgid "分享到微博"
 msgstr ""
 
-#: ../web/src/property.html:544
+#: ../web/src/property.html:552
 msgid "提交成功"
 msgstr ""
 
-#: ../web/src/property.html:545
+#: ../web/src/property.html:553
 msgid "你填写的手机或邮箱的格式不正确"
 msgstr ""
 
-#: ../web/src/property.html:546
+#: ../web/src/property.html:554
 msgid "服务器忙，请稍后"
 msgstr ""
 
-#: ../web/src/property.html:576 ../web/src/property.html:585
+#: ../web/src/property.html:591 ../web/src/property.html:600
 msgid "可选"
 msgstr ""
 
-#: ../web/src/property.html:589
+#: ../web/src/property.html:605
 msgid "免费成为会员，查看详细报告"
 msgstr ""
 
-#: ../web/src/property.html:592
+#: ../web/src/property.html:609
 msgid "联系我们（免费）"
 msgstr ""
 
-#: ../web/src/property.html:597
+#: ../web/src/property.html:614
 msgid "拨打 400-700-8888 转 19872123"
 msgstr ""
 
-#: ../web/src/property.html:604
+#: ../web/src/property.html:621
 msgid "投资标签"
 msgstr ""
 
-#: ../web/src/property.html:619
-msgid "资产保值详述"
-msgstr ""
-
-#: ../web/src/property.html:621
-msgid "资产保值的投资特征"
-msgstr ""
-
-#: ../web/src/property.html:674
+#: ../web/src/property.html:644
 msgid "房贷计算"
 msgstr ""
 
-#: ../web/src/property.html:677
+#: ../web/src/property.html:647
 msgid "购房总价"
 msgstr ""
 
-#: ../web/src/property.html:681 ../web/src/property.html:688
-#: ../web/src/property.html:702 ../web/src/property.html:710
-#: ../web/src/property.html:716
+#: ../web/src/property.html:651 ../web/src/property.html:658
+#: ../web/src/property.html:675 ../web/src/property.html:683
+#: ../web/src/property.html:689
 msgid "必填"
 msgstr ""
 
-#: ../web/src/property.html:682 ../web/src/property.html:689
-#: ../web/src/property.html:696 ../web/src/property.html:703
+#: ../web/src/property.html:652 ../web/src/property.html:659
+#: ../web/src/property.html:666 ../web/src/property.html:676
 msgid "必须为数字"
 msgstr ""
 
-#: ../web/src/property.html:685
+#: ../web/src/property.html:655
 msgid "首付款"
 msgstr ""
 
-#: ../web/src/property.html:692
+#: ../web/src/property.html:662
 msgid "贷款金额"
 msgstr ""
 
-#: ../web/src/property.html:699
+#: ../web/src/property.html:669
 msgid "贷款利率"
 msgstr ""
 
-#: ../web/src/property.html:708
+#: ../web/src/property.html:671
+msgid "更多贷款选择"
+msgstr ""
+
+#: ../web/src/property.html:681
 msgid "贷款年限"
 msgstr ""
 
-#: ../web/src/property.html:711
+#: ../web/src/property.html:684
 msgid "必须为整数"
 msgstr ""
 
-#: ../web/src/property.html:714
+#: ../web/src/property.html:687
 msgid "还款类型"
 msgstr ""
 
-#: ../web/src/property.html:723
+#: ../web/src/property.html:696
 msgid "计算贷款"
 msgstr ""
 
-#: ../web/src/property.html:733
+#: ../web/src/property.html:707
 msgid "总支付利息"
 msgstr ""
 
-#: ../web/src/property.html:737
+#: ../web/src/property.html:711
 msgid "本息合计"
 msgstr ""
 
-#: ../web/src/property.html:741
+#: ../web/src/property.html:715
 msgid "每月还款"
 msgstr ""
 
-#: ../web/src/property.html:752
+#: ../web/src/property.html:726
 msgid "打开微信，使用 “扫一扫” 即可将网页分享到朋友圈"
 msgstr ""
 
@@ -611,10 +631,6 @@ msgstr ""
 
 #: ../web/src/property_list.html:64
 msgid "您可以更改筛选条件，或者"
-msgstr ""
-
-#: ../web/src/property_list.html:64
-msgid "提交您的置业需求"
 msgstr ""
 
 #: ../web/src/property_list.html:71
@@ -718,6 +734,15 @@ msgstr ""
 msgid "撤销"
 msgstr ""
 
+#: ../web/src/user_favorites.html:101
+msgid "您还没有收藏"
+msgstr ""
+
+#: ../web/src/user_favorites.html:104 ../web/src/user_intentions.html:108
+#: ../web/src/user_properties.html:73
+msgid "去<a href=\"/property_list\">房产列表</a>看看吧"
+msgstr ""
+
 #: ../web/src/user_intentions.html:10 ../web/src/masters/user_master.html:47
 msgid "投资意向单"
 msgstr ""
@@ -739,6 +764,10 @@ msgstr ""
 msgid "提交日期："
 msgstr ""
 
+#: ../web/src/user_intentions.html:105
+msgid "没有投资意向单"
+msgstr ""
+
 #: ../web/src/user_messages.html:14 ../web/src/masters/user_master.html:55
 msgid "消息"
 msgstr ""
@@ -755,6 +784,18 @@ msgstr ""
 msgid "已读"
 msgstr ""
 
+#: ../web/src/user_messages.html:26
+msgid "当前还没有消息"
+msgstr ""
+
+#: ../web/src/user_messages.html:33
+msgid "当前没有未读消息"
+msgstr ""
+
+#: ../web/src/user_messages.html:40
+msgid "当前没有已读消息"
+msgstr ""
+
 #: ../web/src/user_properties.html:9 ../web/src/masters/user_master.html:51
 msgid "我的房产"
 msgstr ""
@@ -765,6 +806,10 @@ msgstr ""
 
 #: ../web/src/user_properties.html:53
 msgid "移除"
+msgstr ""
+
+#: ../web/src/user_properties.html:70
+msgid "没有房产"
 msgstr ""
 
 #: ../web/src/user_settings.html:7
@@ -1078,36 +1123,90 @@ msgid "由平台英国合作方提供售后出租管理服务，按季度给您�
 msgstr ""
 
 #: ../web/src/partials/intention_processCards.html:62
+msgid "填写子女留学学校/国家/城市/以及家庭预算"
+msgstr ""
+
 #: ../web/src/partials/intention_processCards.html:71
+msgid "按“子女留学”标签筛选出平台提供学校附近的现房"
+msgstr ""
+
 #: ../web/src/partials/intention_processCards.html:80
+msgid "对心仪房产提交投资意向，获取街区投资分析信息，包括周围学校及排名"
+msgstr ""
+
 #: ../web/src/partials/intention_processCards.html:89
+msgid "由我们置业顾问联系并解答留学租房相关的问题"
+msgstr ""
+
 #: ../web/src/partials/intention_processCards.html:98
+msgid "置业顾问协助办理购房手续，安排子女参观入住，如果有需要协助子女出租"
+msgstr ""
+
 #: ../web/src/partials/intention_processCards.html:114
+#: ../web/src/partials/intention_processCards.html:252
+msgid "选定要移民的国家和城市"
+msgstr ""
+
 #: ../web/src/partials/intention_processCards.html:123
+msgid "按“移民投资”标签筛选出平台提供的符合移民投资标准的房产"
+msgstr ""
+
 #: ../web/src/partials/intention_processCards.html:132
-#: ../web/src/partials/intention_processCards.html:141
-#: ../web/src/partials/intention_processCards.html:150
-#: ../web/src/partials/intention_processCards.html:166
-#: ../web/src/partials/intention_processCards.html:175
-#: ../web/src/partials/intention_processCards.html:184
-#: ../web/src/partials/intention_processCards.html:193
-#: ../web/src/partials/intention_processCards.html:202
-#: ../web/src/partials/intention_processCards.html:218
-#: ../web/src/partials/intention_processCards.html:227
-#: ../web/src/partials/intention_processCards.html:236
-#: ../web/src/partials/intention_processCards.html:245
-#: ../web/src/partials/intention_processCards.html:254
 #: ../web/src/partials/intention_processCards.html:270
-#: ../web/src/partials/intention_processCards.html:279
+msgid "提交投资意向，获取街区投资分析信息"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:141
+msgid "联系置业顾问，安排预定房源，办理和看房手续，安排移民律师事宜"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:150
 #: ../web/src/partials/intention_processCards.html:288
-#: ../web/src/partials/intention_processCards.html:297
-#: ../web/src/partials/intention_processCards.html:306
-#: ../web/src/partials/intention_processCards.html:322
+msgid "置业顾问协助办理购房手续"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:166
+#: ../web/src/partials/intention_processCards.html:209
+#: ../web/src/partials/intention_processCards.html:304
+msgid "提交置业投资预算"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:175
+msgid "按“超额收益”标签筛选出平台提供的期房，可以用金融杠杆的现房以及旧房改造后升值的房子"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:184
+msgid "提交置业需求查看详细报告，包括区域规划信息等"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:193
+#: ../web/src/partials/intention_processCards.html:236
 #: ../web/src/partials/intention_processCards.html:331
-#: ../web/src/partials/intention_processCards.html:340
-#: ../web/src/partials/intention_processCards.html:349
-#: ../web/src/partials/intention_processCards.html:358
-msgid "????????"
+msgid "联系置业顾问 并安排办理购房手续"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:218
+msgid "按“资产保值”标签筛选出平台提供期房 永久性产权，在核心区域内的房子"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:227
+msgid "注册提交置业需求查看详细报告"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:261
+msgid "按“移民投资”标签筛选出平台提供的生活服务设施齐全，常驻人口较多的， 犯罪率较低，交通比较便利的房子"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:279
+msgid "联系置业顾问，安排预定房源 办理和看房手续"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:313
+msgid "按“度假旅行”标签筛选出平台提供有酒店房包租的房子"
+msgstr ""
+
+#: ../web/src/partials/intention_processCards.html:322
+msgid "注册提交置业需求查看详细报告 流动人口数，旅游资讯"
 msgstr ""
 
 #: ../web/src/partials/localization_manager.html:2
