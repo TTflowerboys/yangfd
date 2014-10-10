@@ -2,7 +2,7 @@
  * Created by Michael on 14/9/24.
  */
 angular.module('app')
-    .directive('enumSelect', function ($rootScope, enumApi) {
+    .directive('selectEnum', function ($rootScope, enumApi) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/enum_select.tpl.html',
