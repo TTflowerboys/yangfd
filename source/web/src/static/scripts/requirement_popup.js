@@ -126,8 +126,7 @@
         });
     }
 
-
-    $('.floatBar #requirement').click(function () {
+    window.openRequirementForm = function () {
         var popup = $('#requirement_popup')
         window.resetRequirementForm(popup)
         popup.find('.requirement_title').show()
@@ -150,5 +149,7 @@
             wrapper.css('top',
                     $(window).scrollTop() - headerHeight + ($(window).height() - (wrapper.outerHeight() - headerHeight)) / 2)
         }
-    })
+    }
+
+    $('.floatBar #requirement').click(window.openRequirementForm)
 })()

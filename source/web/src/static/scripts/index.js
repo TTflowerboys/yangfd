@@ -16,13 +16,21 @@
         return ''
     }
 
-    function getLastBudgetTypeId() {
-        var $selectedChild = $('#tags #budgetTag').children()
+    function getSelectedBudgetTypeValue() {
+        var $selectedChild = $('#tags #budgetTag').children('.selected')
         if ($selectedChild.length) {
-            return $selectedChild.last().attr('data-id')
+            return $selectedChild.first().text()
         }
         return ''
     }
+
+    // function getLastBudgetTypeId() {
+    //     var $selectedChild = $('#tags #budgetTag').children()
+    //     if ($selectedChild.length) {
+    //         return $selectedChild.last().attr('data-id')
+    //     }
+    //     return ''
+    // }
 
 
     function getSelectedIntentionIds() {
@@ -31,6 +39,23 @@
             var ids = ''
             _.each($selectedChildren, function (child) {
                 ids += child.getAttribute('data-id')
+                ids += ','
+            })
+
+            if (_.last(ids) === ',') {
+                ids = ids.substring(0, ids.length - 1)
+            }
+            return ids
+        }
+        return ''
+    }
+
+    function getSelectedIntentionValues() {
+        var $selectedChildren = $('#tags #intentionTag ul').children('.selected')
+        if ($selectedChildren.length) {
+            var ids = ''
+            _.each($selectedChildren, function (child) {
+                ids += $(child).clone().children().remove().end().text()
                 ids += ','
             })
 
@@ -107,6 +132,7 @@
     function loadPropertyListWithBudgetAndIntention(budgetType, intention) {
 
         $('#suggestionHouses #loadIndicator').show()
+        $('#suggestionHouses #emptyPlaceHolder').hide()
 
         var requestArray = []
         var responseArray = []
@@ -123,7 +149,7 @@
 
         var usedBudget = ''
         if (!budgetType) {
-            usedBudget = getLastBudgetTypeId()
+            usedBudget = '' //getLastBudgetTypeId()
             needShowSuggetionTip = true
         }
         else {
@@ -138,8 +164,11 @@
         }
 
         _.each(usedIntention, function (oneIntention) {
-            var apiCall = $.betterPost('/api/1/property/search',
-                {'per_page': 1, 'budget': usedBudget, 'intention': oneIntention})
+            var params = {'per_page': 1, 'intention': oneIntention}
+            if (usedBudget) {
+                params.budget = usedBudget
+            }
+            var apiCall = $.betterPost('/api/1/property/search',params)
                 .done(function (val) {
                     var array = val.content
                     if (!_.isEmpty(array)) {
@@ -161,10 +190,21 @@
             .done(function () {
                 updatePropertyCards(responseArray)
                 $('#suggestionHouses #loadIndicator').hide()
+
+                if (responseArray.length) {
+                    $('#suggestionHouses #emptyPlaceHolder').hide()
+                }
+                else {
+                    var $emptyPlaceHolder = $('#suggestionHouses #emptyPlaceHolder')
+                    $emptyPlaceHolder.find('#budget').text(getSelectedBudgetTypeValue())
+                    $emptyPlaceHolder.find('#intention').text(getSelectedIntentionValues())
+                    $emptyPlaceHolder.show()
+                }
             })
             .fail(function () {
                 updatePropertyCards(responseArray)
                 $('#suggestionHouses #loadIndicator').hide()
+                $('#suggestionHouses #emptyPlaceHolder').hide()
             })
     }
 

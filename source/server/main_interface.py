@@ -41,8 +41,10 @@ def get_budget_list():
 def get_message_type_list():
     return f_app.enum.get_all('message_type')
 
+
 def get_intention_ticket_status_list():
     return f_app.enum.get_all('intention_ticket_status')
+
 
 def get_favorite_list():
     user = get_current_user()
@@ -307,7 +309,8 @@ def user_intentions():
 @check_landing
 def user_properties():
     if get_current_user() is not None:
-        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
+        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}), ignore_nonexist=True)
+        intention_ticket_list = [i for i in intention_ticket_list if i.get("property")]
         return template("user_properties", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list, budget_list=get_budget_list())
     else:
         redirect("://".join(request.urlparts[:2]))
@@ -329,10 +332,12 @@ def user_messages():
 
     return template("user_messages", user=get_current_user(), country_list=get_country_list(), message_list=message_list, budget_list=get_budget_list())
 
+
 @f_get('/verify_email_status')
 @check_landing
 def verify_email_status():
-    return template("verify_email_status", user=get_current_user(), country_list=get_country_list(),budget_list=get_budget_list())
+    return template("verify_email_status", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+
 
 @f_get('/admin')
 @check_landing

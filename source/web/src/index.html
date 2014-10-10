@@ -212,10 +212,21 @@
     <img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
     <div id="list" class="list">
     </div>
-    <div class="emptyPlaceHolder">
+    <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="display:none;">
         <img src="/static/images/icon/notice.png" alt="" />
         <div class="holderText">
-
+            <h2>{{_('不好意思，平台暂时没有')}}
+                <span id="budget"></span>
+                {{_('合适')}}
+                <span id="intention"></span>
+                {{_('的投资机会')}}
+            </h2>
+            <p>
+                {{_('您可以先')}}
+                <a href="/property_list">{{_('看看其他房产')}}</a>
+                {{_('，或者')}}
+                <a href="javascript:window.openRequirementForm()">{{_('提交您的置业需求')}}</a>
+            </p>
         </div>
     </div>
 </div>
