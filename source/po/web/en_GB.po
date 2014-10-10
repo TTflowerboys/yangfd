@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-10 19:33+0800\n"
-"PO-Revision-Date: 2014-10-10 19:37+0800\n"
+"POT-Creation-Date: 2014-10-10 19:42+0800\n"
+"PO-Revision-Date: 2014-10-10 19:43+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -306,7 +306,6 @@ msgid "设施图"
 msgstr "Facilities"
 
 #: ../web/src/property.html:79
-#, fuzzy
 msgid "户型图"
 msgstr "House Type"
 
@@ -617,6 +616,10 @@ msgstr "Repayment Type"
 #: ../web/src/property.html:737
 msgid "计算贷款"
 msgstr "Calculate"
+
+#: ../web/src/property.html:739
+msgid "贷款流程"
+msgstr "Mortgage Process Guideline"
 
 #: ../web/src/property.html:748
 msgid "总支付利息"

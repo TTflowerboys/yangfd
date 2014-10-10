@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-10 19:33+0800\n"
+"POT-Creation-Date: 2014-10-10 19:42+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -590,6 +590,10 @@ msgstr ""
 
 #: ../web/src/property.html:737
 msgid "计算贷款"
+msgstr ""
+
+#: ../web/src/property.html:739
+msgid "贷款流程"
 msgstr ""
 
 #: ../web/src/property.html:748
