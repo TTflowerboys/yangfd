@@ -1,6 +1,6 @@
 /* Created by frank on 14-9-15. */
 angular.module('app')
-    .directive('changePropertyStatus', function (propertyApi, propertyStatus, userApi) {
+    .directive('editPropertyStatus', function (propertyApi, propertyStatus, userApi) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/change_property_status.tpl.html',
