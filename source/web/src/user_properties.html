@@ -13,7 +13,7 @@
     </div>
     <div class="list">
         %for index, ticket in enumerate(_i18n(intention_ticket_list)) :
-           %if (index >= 0 && ticket.get('property')):
+           %if ticket.get('property'):
 
            <div class=houseCard>
            %if ticket.get('property').get('reality_images', []) :

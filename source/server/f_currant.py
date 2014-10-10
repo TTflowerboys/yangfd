@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import random
 import re
 import phonenumbers
+import json
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, DESCENDING
 import six
@@ -279,7 +280,7 @@ class f_currant_ticket(f_ticket):
         Ticket
         ==================================================================
     """
-    def output(self, ticket_id_list, enable_custom_fields=True):
+    def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False):
         ticket_list = f_app.ticket.get(ticket_id_list)
         user_id_set = set()
         enum_id_set = set()
@@ -297,7 +298,7 @@ class f_currant_ticket(f_ticket):
         user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields)
         user_dict = {}
         enum_dict = f_app.enum.get(enum_id_set, multi_return=dict)
-        property_dict = f_app.property.output(list(property_id_set), multi_return=dict)
+        property_dict = f_app.property.output(list(property_id_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
 
         for u in user_list:
             user_dict[u["id"]] = u
@@ -622,7 +623,7 @@ class f_currant_plugins(f_app.plugin_base):
                 list_page_property_links = list_page_dom_root.find("div.featured-prop").children()
                 for link in list_page_property_links:
                     img_overlay = link.getchildren()[1].getchildren()[0].attrib
-                    #skip sold out property
+                    # skip sold out property
                     if img_overlay.get("src", None) == "http://static.kkicdn.com/img/overlay-soldout.png":
                         continue
                     params = {
