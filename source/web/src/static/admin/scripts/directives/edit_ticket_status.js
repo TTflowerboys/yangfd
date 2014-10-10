@@ -2,7 +2,7 @@
  * Created by Michael on 14/9/29.
  */
 angular.module('app')
-    .directive('changeTicketStatus', function ($filter, intentionStatusDictionary, supportStatusDictionary) {
+    .directive('editTicketStatus', function ($filter, intentionStatusDictionary, supportStatusDictionary) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/change_ticket_status.tpl.html',
