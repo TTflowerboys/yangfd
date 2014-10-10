@@ -52,7 +52,7 @@
                         {%item.time * 1000 | date : 'short'%}
                     </td>
                     <td>
-                        <change-news-category name="category" ng-model="item" news-category-list="newsCategoryList" api="api"></change-news-category>
+                        <edit-news-category name="category" ng-model="item" news-category-list="newsCategoryList" api="api"></edit-news-category>
                     </td>
                     <td>
                         <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
