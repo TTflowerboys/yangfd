@@ -72,40 +72,40 @@ main {
     }
 
     .howItWorks {
-        height: 550px;
+        height: 460px;
         background: #f6f6f6;
         width: 100%;
         overflow: hidden;
 
         [data-tabs] {
-            margin-top: 80px;
+            margin-top: 60px;
         }
 
         .row { .clearfix(); position: relative;
             width: @max-width;
             margin: 0 auto;
-            &.budget {
-                @height: 40px;
-                height: @height; line-height: @height;
-                margin: @height 0;
-            }
             &.intention {
-                > ul { .clearfix(); text-align: center;
-                    li { float: left; width: 16.66%; height: 110px; position: relative; line-height: 1;
-                        > label { height: 60px; display: block; cursor: pointer; }
-                        img.grey { display: inline-block; }
-                        img.red { display: none; }
-                        color: #999;
-                        &.selected {
-                            img.grey { display: none; }
-                            img.red { display: inline-block; }
-                            color: #e60012;
-                        }
+                > ul { .clearfix(); text-align: center;  border-bottom:1px solid #ccc;
+                       li { float: left; width: 16.66%; height: 30px; position: relative; line-height: 1;
+                            > label {
+                                height: 20px;
+                                display: block;
+                                cursor: pointer;
+                                color: #999;
+                                &:hover {
+                                    color: #333;
+                                }
+                            }
+
                         &:after {
-                            .arrow(@direction: up; @fg:#222; @width: 20px;);
+                            border-top:2px solid #e60012;
+                            height:0px;
+                            width:100%;
                             display: none;
                             content: ' ';
-                            position: absolute; bottom: 0; left: 50%;
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
                         }
                         &.selectedTab:after {
                             display: block;
@@ -113,29 +113,16 @@ main {
                     }
                 }
             }
-            > label { width: 88px; font-size: 16px; position: absolute; }
-            > .controls { margin-left: 88px;
+            > label { width: 140px; font-size: 24px; color:#333;  position: absolute; }
+            > .controls { margin-left: 140px;
                 input { display: none; }
             }
         }
 
         .details {
             width: @max-width;
-            margin: 0 auto;
-            > div { @height: 270px; line-height: @height; height: @height; text-align: center;
-                background: #222; position: relative; display: none;
-                img { vertical-align: middle; }
-                &.selected { display: block; }
-                .arrow { position: absolute; width: 100%; bottom: 100%;
-                    span { margin-left: 88px; display: block; position: relative;
-                        &:before {
-                            content: ' ';
-                            position: absolute; bottom: 100%;
-                            .arrow(@direction: up; @fg:#ddd; @width: 20px;)
-                        }
-                    }
-                }
-            }
+            margin: 50px auto 0 auto;
+
         }
 
     }

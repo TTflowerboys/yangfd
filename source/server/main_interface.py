@@ -41,6 +41,8 @@ def get_budget_list():
 def get_message_type_list():
     return f_app.enum.get_all('message_type')
 
+def get_intention_ticket_status_list():
+    return f_app.enum.get_all('intention_ticket_status')
 
 def get_favorite_list():
     user = get_current_user()
@@ -285,7 +287,17 @@ def user_favorites():
 @check_landing
 def user_intentions():
     if get_current_user() is not None:
-        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
+        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [
+                                                    {"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
+        intention_ticket_status_list = get_intention_ticket_status_list()
+        logger.warning('hehe')
+        logger.warning(len(intention_ticket_status_list))
+        for ticket in intention_ticket_list:
+            for ticket_status in intention_ticket_status_list:
+                if ('intention_ticket_status:' + ticket['status'] == ticket_status['slug']):
+                    ticket['status_presentation'] = ticket_status
+                    logger.warning(ticket)
+
         return template("user_intentions", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list, budget_list=get_budget_list())
     else:
         redirect("://".join(request.urlparts[:2]))
