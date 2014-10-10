@@ -10,7 +10,7 @@
         <span class=price>
             {_if(house.total_price) {_}
             {=house.total_price.unit_symbol=}
-            <strong>{=parseInt(house.total_price.value)=}</strong>
+            <strong>{=team.encodeCurrency(parseInt(house.total_price.value))=}</strong>
             {_}_}
         </span>
             <div class=details>

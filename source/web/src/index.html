@@ -134,7 +134,7 @@
             <span class=price>
                 %if property.get('total_price'):
                 {{property.get('total_price').get('unit_symbol')}}
-                <strong>{{str(int(float(property.get('total_price').get('value'))))}}</strong>
+                <strong data-type="currency">{{str(int(float(property.get('total_price').get('value'))))}}</strong>
                 %end
             </span>
             <div class=details>
