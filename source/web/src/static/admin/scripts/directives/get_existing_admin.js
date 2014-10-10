@@ -3,7 +3,7 @@
  */
 
 angular.module('app')
-    .directive('loadExistingAdmin', function ($http, misc) {
+    .directive('getExistingAdmin', function ($http, misc) {
 
         return {
             restrict: 'AE',
