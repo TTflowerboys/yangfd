@@ -37,8 +37,10 @@ def get_country_list():
 def get_budget_list():
     return f_app.enum.get_all('budget')
 
+
 def get_message_type_list():
     return f_app.enum.get_all('message_type')
+
 
 def get_favorite_list():
     user = get_current_user()
