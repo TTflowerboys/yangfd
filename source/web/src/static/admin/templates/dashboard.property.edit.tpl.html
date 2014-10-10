@@ -251,7 +251,7 @@
                                 <tbody>
                                     <tr ng-repeat="price in item.historical_price">
                                         <td>
-                                            <date-edit style="width: 185px;" ng-model="price.time"></date-edit>
+                                            <change-date style="width: 185px;" ng-model="price.time"></change-date>
                                         </td>
                                         <td>
                                             <div type-i18n-unit unit="price.price.unit||userCurrency" data="i18nCurrency" ng-model="price.price"
@@ -434,7 +434,7 @@
                         <label class="control-label">开盘时间</label>
 
                         <div class="controls">
-                            <date-edit ng-model="item.opening_time"></date-edit>
+                            <change-date ng-model="item.opening_time"></change-date>
                         </div>
                     </div>
                 </div>
