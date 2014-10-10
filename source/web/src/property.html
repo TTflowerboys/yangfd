@@ -214,7 +214,8 @@
                                 {{type.get('kitchen_count',0)}}厨
                                 {{type.get('bathroom_count',0)}}卫
                                 % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
-                                ( {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}} )
+                                ( {{type.get('total_price',{}).get('unit_symbol')}}
+                                <span data-type="currency">{{type.get('total_price',{}).get('value')}}</span> )
                                 % end
                             </span>
                             % end
@@ -697,7 +698,7 @@
             </div>
             <a class="link" target="_blank" href="/news_list">贷款流程和协助</a>
             <hr/>
-            <div class="table_wrapper">
+            <div class="table_wrapper" data-ui="result" style="display: none;">
                 <table>
                     <colgroup>
                         <col class="col-name">
@@ -718,7 +719,6 @@
                 </table>
             </div>
         </form>
-        <hr/>
     </div>
 </div>
 <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">

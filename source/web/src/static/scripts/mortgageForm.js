@@ -9,6 +9,11 @@
             if (!data.loan || data.loan < 0) {data.loan = 0}
             $mortgageForm.find('[name=loan]').val(team.encodeCurrency(data.loan))
         }
+        var valid = $.validate($mortgageForm, {onError: function () { }})
+        if (valid) {
+            $mortgageForm
+                .find('[type=submit]').prop('disabled', false)
+        }
 
     }).submit(function (e) {
         e.preventDefault()
@@ -23,6 +28,8 @@
 
         if (!valid) { return }
 
+        console.log($mortgageForm.find('[data-ui=result]').slideDown())
+
         var data = $mortgageForm.serializeObject({includeUnderscore: false})
         data.loan = team.decodeCurrency(data.loan)
 
@@ -36,7 +43,7 @@
             })
             .always(function () {
                 $mortgageForm
-                    .find('[type=submit]').prop('disabled', false).get(0).scrollIntoView(true)
+                    .find('[type=submit]').prop('disabled', false)
             })
 
     })
