@@ -34,7 +34,7 @@
         <div class="form-group col-sm-3">
             <label class="control-label">类别 *</label>
 
-            <div get-news-category></div>
+            <div get-news-category-list></div>
             <div class="controls">
                 <select ng-options="p.id as p.value[userLanguage.value] for p in newsCategoryList" ng-model="item.category"
                     class="form-control input-sm" multiple required>
@@ -47,7 +47,7 @@
             <label class="control-label">图片</label>
 
             <div class="controls">
-                <images-edit ng-model="item.images" width-limit="1280" ratio="2" thumbnail-size="400,400" text="添加图片"></images-edit>
+                <edit-images ng-model="item.images" width-limit="1280" ratio="2" thumbnail-size="400,400" text="添加图片"></edit-images>
             </div>
         </div>
     </div>

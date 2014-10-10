@@ -2,13 +2,13 @@
  * Created by Michael on 14/9/20.
  */
 angular.module('app')
-    .directive('getAllCity', function (enumApi) {
+    .directive('getCountries', function (enumApi) {
         return {
             restrict: 'AE',
             link: function (scope) {
-                enumApi.getEnumsByType('city')
+                enumApi.getEnumsByType('country')
                     .success(function (data) {
-                        scope.cities = data.val
+                        scope.countries = data.val
                     })
             }
         }

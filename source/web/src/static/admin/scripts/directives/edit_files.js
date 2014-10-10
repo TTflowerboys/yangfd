@@ -2,7 +2,7 @@
  * Created by Michael on 14/9/9.
  */
 angular.module('app')
-    .directive('filesEdit', function ($upload) {
+    .directive('editFiles', function ($upload) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/files_edit.tpl.html',

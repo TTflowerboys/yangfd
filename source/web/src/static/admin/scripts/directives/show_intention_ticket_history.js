@@ -2,7 +2,7 @@
  * Created by Michael on 14/10/1.
  */
 angular.module('app')
-    .directive('intentionTicketHistory', function ($rootScope, intentionApi) {
+    .directive('showIntentionTicketHistory', function ($rootScope, intentionApi) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/intention_ticket_history.tpl.html',

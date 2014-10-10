@@ -1,6 +1,6 @@
 /* Created by frank on 14-8-21. */
 angular.module('app')
-    .directive('imagesEdit', function ($upload) {
+    .directive('editImages', function ($upload) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/images_edit.tpl.html',

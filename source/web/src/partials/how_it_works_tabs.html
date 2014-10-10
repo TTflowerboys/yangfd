@@ -1,6 +1,6 @@
 <div data-tabs>
     <div class="row intention">
-        <label class="title">投资意向：</label>
+        <label class="title">{{_('为您定制')}}</label>
         <ul class="controls">
             % for index, intention in enumerate(_i18n(intention_list)):
             % slug = intention.get('slug','')
@@ -8,10 +8,6 @@
                 data-id="{{intention.get('id')}}"
                 data-value="{{intention.get('value')}}">
                 <input id="{{intention.get('id')}}" name="intention" type="checkbox" value="{{intention.get('id')}}"/>
-                <label for="{{intention.get('id')}}">
-                    <img class="grey" src="/static/images/intention/icon/{{slug}}-grey.png" alt="{{intention.get('value')}}"/>
-                    <img class="red" src="/static/images/intention/icon/{{slug}}-red.png" alt="{{intention.get('value')}}"/>
-                </label>
                 <label for="{{intention.get('id')}}">{{intention.get('value')}}</label>
             </li>
             %end

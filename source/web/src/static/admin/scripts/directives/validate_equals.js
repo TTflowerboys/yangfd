@@ -1,7 +1,7 @@
 /* Created by frank on 14-9-3. */
 
 angular.module('app')
-    .directive('equals', function () {
+    .directive('validateEquals', function () {
         return {
             restrict: 'AE',
             require: 'ngModel',

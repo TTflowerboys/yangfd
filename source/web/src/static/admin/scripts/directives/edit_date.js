@@ -1,6 +1,6 @@
 /* Created by frank on 14-8-21. */
 angular.module('app')
-    .directive('changeDate', function () {
+    .directive('editDate', function () {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/date_edit.tpl.html',
