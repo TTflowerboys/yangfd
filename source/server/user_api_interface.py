@@ -537,7 +537,7 @@ def email_send(user_id):
         schema = "https://"
     else:
         schema = "http://"
-    verification_url = schema + request.urlparts[1] + "/user_verify_email?code=" + f_app.user.email.request(user_id) + "&user_id=" + user_id
+    verification_url = schema + request.urlparts[1] + "/verify_email_status?code=" + f_app.user.email.request(user_id) + "&user_id=" + user_id
     f_app.email.schedule(
         target=user["email"],
         subject=template("static/emails/verify_email_title"),
