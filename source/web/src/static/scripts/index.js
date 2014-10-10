@@ -24,13 +24,13 @@
         return ''
     }
 
-    function getLastBudgetTypeId() {
-        var $selectedChild = $('#tags #budgetTag').children()
-        if ($selectedChild.length) {
-            return $selectedChild.last().attr('data-id')
-        }
-        return ''
-    }
+    // function getLastBudgetTypeId() {
+    //     var $selectedChild = $('#tags #budgetTag').children()
+    //     if ($selectedChild.length) {
+    //         return $selectedChild.last().attr('data-id')
+    //     }
+    //     return ''
+    // }
 
 
     function getSelectedIntentionIds() {
@@ -149,7 +149,7 @@
 
         var usedBudget = ''
         if (!budgetType) {
-            usedBudget = getLastBudgetTypeId()
+            usedBudget = '' //getLastBudgetTypeId()
             needShowSuggetionTip = true
         }
         else {
@@ -164,8 +164,11 @@
         }
 
         _.each(usedIntention, function (oneIntention) {
-            var apiCall = $.betterPost('/api/1/property/search',
-                {'per_page': 1, 'budget': usedBudget, 'intention': oneIntention})
+            var params = {'per_page': 1, 'intention': oneIntention}
+            if (usedBudget) {
+                params.budget = usedBudget
+            }
+            var apiCall = $.betterPost('/api/1/property/search',params)
                 .done(function (val) {
                     var array = val.content
                     if (!_.isEmpty(array)) {
