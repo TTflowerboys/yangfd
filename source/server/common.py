@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from libfelix.f_common import f_app, f_common
+from datetime import timedelta
 
 
 class common(f_common):
@@ -102,6 +103,8 @@ class common(f_common):
             "sender": "noreply@youngfunding.co.uk"
         }
     }
+
+    user_email_verification_code_expire_in = timedelta(hours=24)
 
     custom_error_codes = {
         40099: "Invalid params: No '@' in email address supplied:",
