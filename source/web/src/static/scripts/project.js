@@ -31,7 +31,7 @@
 
         },
         formatTime: function(time) {
-            return $.format.date(time, 'yyyy-MM-dd HH:mm:ss')
+            return $.format.date(time * 1000, 'yyyy-MM-dd HH:mm:ss')
         }
     }
 })();
