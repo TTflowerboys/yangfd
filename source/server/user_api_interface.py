@@ -59,6 +59,19 @@ def current_user_favorite_remove(user, favorite_id):
     return f_app.user.favorite.remove(favorite_id)
 
 
+@f_api('/user/favorite/<favorite_id>')
+@f_app.user.login.check(force=True)
+def current_user_favorite_get(user, favorite_id):
+    """
+    Get a favorited item
+    """
+    result = f_app.user.favorite.output([favorite_id], ignore_user=False)[0]
+    if str(result["user_id"]) == user["id"]:
+        return result
+    else:
+        abort(40399)
+
+
 @f_api('/user/login', force_ssl=True, params=dict(
     nolog="password",
     phone=(str, True),
