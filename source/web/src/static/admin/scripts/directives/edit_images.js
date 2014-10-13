@@ -32,8 +32,10 @@ angular.module('app')
                     if (file) {
                         if (!scope.images) {
                             scope.images = []
+                            scope.fileNames = []
                         }
-                        scope.images.push(file.name)
+                        scope.fileNames.push(file.name)
+                        scope.images.push('')
                         $upload.upload({
                             url: '/api/1/upload_image',
                             file: file,
@@ -47,7 +49,7 @@ angular.module('app')
                         })
                             .success(function (data, status, headers, config) {
                                 for (var key in scope.images) {
-                                    if (file.name === scope.images[key]) {
+                                    if (file.name === scope.fileNames[key]) {
                                         scope.images[key] = data.val.url
                                         break
                                     }
@@ -57,6 +59,7 @@ angular.module('app')
                 }
                 scope.removeImage = function (imageIndex) {
                     scope.images.splice(imageIndex, 1)
+                    scope.fileNames.splice(imageIndex, 1)
                 }
             }
         }

@@ -1,8 +1,13 @@
 <div>
     <div class="row">
-        <div ng-repeat="image in images" style="" class="col-sm-3 col-xs-6">
+        <div ng-repeat="image in images track by $index" style="" class="col-sm-3 col-xs-6">
             <div style="margin-bottom:8px; position: relative;">
-                <a target="_blank" ng-href="{% image %}"><img class="img-thumbnail" ng-src="{% image | thumbnail %}"></a>
+                <a target="_blank" ng-href="{% image %}" ng-style="{'visibility':image===''?'hidden':'visibility'}">
+                    <img class="img-thumbnail" ng-src="{% image | thumbnail %}">
+                </a>
+                <span ng-style="{'visibility':image===''?'visibility':'hidden'}">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </span>
                 <button class="btn btn-sm" style="position: absolute; bottom:0; right: 0;" ng-click="removeImage($index)"
                     type="button">Remove
                 </button>
