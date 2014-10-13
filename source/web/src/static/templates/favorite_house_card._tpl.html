@@ -1,0 +1,68 @@
+<script id="houseCard_template" type="text/template">
+
+    <div class=houseCard data-property-id="{=fav.property.id=}">
+        {_if(fav.property.reality_images && fav.property.reality_images.length) {_}
+        <img src="{=fav.property.reality_images[0]=}" width=320 height=240/>
+        {_ }else { _}
+        <img src="/static/images/placeholder/property.jpg" width="320" height="240"/>
+        {_}_}
+        <div class=description>
+            <h1 class=name>{=fav.property.name=}</h1>
+        <span class=price>
+            {_if(fav.property.total_price) {_}
+            {=fav.property.total_price.unit_symbol=}
+              <strong>{=team.encodeCurrency(parseInt(fav.property.total_price.value))=}</strong>
+            {_}_}
+        </span>
+            <div class=details>
+                <p class=size>
+                    {_if(fav.property.living_room_count) {_}
+                    {=fav.property.living_room_count=} {=window.i18n('房间')=},
+                    {_}_}
+                    {_if(fav.property.bathroom_count) {_}
+                    {=fav.property.bathroom_count=} {=window.i18n('卫生间')=},
+                    {_}_}
+                    {_if(fav.property.space) {_}
+                    {= parseFloat(fav.property.space.value).toFixed(2)=}
+                    {_if (fav.property.space.unit === 'foot ** 2'){_}
+                    foot <sup>2</sup>
+                    {_} else if(fav.property.space.unit === 'acre'){_}
+                    acre
+                    {_} else if (fav.property.space.unit === 'meter ** 2') {_}
+                    m <sup>2</sup>
+                    {_} else if (fav.property.space.unit === 'kilometer ** 2') {_}
+                    km <sup>2</sup>
+                    {_} else {_}
+                     {=fav.property.space.unit=}
+                    {_}_}
+                    {_}_}
+                </p>
+                <ul class=properties>
+                    {_if(fav.property.intention && fav.property.intention.length) {_}
+                    <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
+                        <span>
+                     {_ _.each(fav.property.intention, function(oneIntention) { _}
+                     {=oneIntention.value=}
+                     {_})_}
+                     </span></li>
+                    {_}_}
+                    {_if(fav.property.property_type) {_}
+                    <li><img src="/static/images/icon/house-card-house.png" alt=""/>
+                        <span>{=fav.property.property_type.value=}</span></li>
+                    {_}_}
+                    {_if(fav.property.street) {_}
+                    <li><img src="/static/images/icon/house-card-location.png" alt=""/> <span>{=fav.property.street=}</span>
+                    </li>
+                    {_}_}
+                </ul>
+            </div>
+
+            <div class="otherAction">
+                   <button id="cancelFavorite" data-id={=fav.id=} class="ghostButton darkGray">{=window.i18n('取消收藏')=}</button>
+            </div>
+            <div class="undo_shadow" style="display:none;">
+                   <button id="undoFavorite"  data-id={=fav.id=} data-property-id="{=fav.property.id=}" class="undo"> <img alt="" src="/static/images/icon/favorites/undo.png"/><span>{=window.i18n('撤销')=}</span></button>
+           </div>
+        </div>
+    </div>
+</script>
