@@ -34,7 +34,7 @@
                    {{fav.get('property').get('livint_room_count')}} {{_('房间')}},
                    %end
                    %if fav.get('property').get('bathroom_count'):
-                   {{fav.get('property').get('bathroom_count')}} {{'洗手间'}},
+                   {{fav.get('property').get('bathroom_count')}} {{_('卫生间')}},
                    %end
                    %if fav.get('property').get('space'):
                    {{float("{0:.2f}".format(float(fav.get('property').get('space').get('value'))))}}

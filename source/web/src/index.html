@@ -143,7 +143,7 @@
                     {{property.get('living_room_count')}} {{_('房间')}},
                     %end
                     %if property.get('bathroom_count'):
-                    {{property.get('bathroom_count')}} {{'洗手间'}},
+                    {{property.get('bathroom_count')}} {{_('卫生间')}},
                     %end
                     %if property.get('space'):
                     {{float("{0:.2f}".format(float(property.get('space').get('value'))))}}
