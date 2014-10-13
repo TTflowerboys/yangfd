@@ -1,5 +1,24 @@
 $('#cvView').find('button[name=edit]').on('click', function () {
     $('#cvView').hide()
+
+    var $editView = $('#cvEdit')
+    $editView.find('.success').hide()
+    $editView.find('.error').hide()
+
+    $editView.find('input[name=nickname]').val(window.user.nickname)
+    if (window.user.gender) {
+        $editView.find('input[name=gender][value=' + window.user.gender + ']').attr('checked', 'checked')
+    }
+    else {
+        $editView.find('input[name=gender]').removeAttr('checked')
+    }
+    if (window.user.country) {
+        $editView.find('[name=country] option[value=' + window.user.country.id + ']').attr('selected', 'selected')
+    }
+    else {
+        $editView.find('[name=country] option').removeAttr('selected')
+    }
+
     $('#cvEdit').show()
 })
 
@@ -24,6 +43,16 @@ $('#cvEdit').submit(function (e) {
 
     if (!valid) {return}
     var params = $(this).serializeObject()
+    if (!params.gender) {
+        errorArea.text(window.i18n('性别不能为空'))
+        errorArea.show()
+         return
+    }
+    if (!params.country) {
+        errorArea.text(window.i18n('国家不能为空'))
+        errorArea.show()
+        return
+    }
 
      $.betterPost('/api/1/user/edit', params)
             .done(function (data) {

@@ -137,16 +137,33 @@
                     </tr>
                     <tr>
                         <td>{{_('性别')}}</td>
-                        <td><label><input name="gender" type="radio" value="male" checked/> {{_('男')}}</label>
-                            <label><input name="gender" type="radio" value="female"/> {{_('女')}}</label></td>
+                        <td><label><input name="gender" type="radio" value="male"
+                                          %if user.get('gender') == 'male':
+                                          checked
+                                          %end
+                                          /> {{_('男')}}</label>
+                            <label><input name="gender" type="radio" value="female"
+                                          %if user.get('gender') == 'female':
+                                          checked
+                                          %end
+                                          /> {{_('女')}}</label></td>
                     </tr>
                     <tr>
                         <td>{{_('国家')}}</td>
                         <td>
                             %if country_list:
                             <select name="country" class="country ghostSelect" style="color:#4d4d4d;">
+                                %if not user.get('country'):
+                                <option value="">
+                                    {{_('请选择')}}
+                                </option>
+                                %end
                                 %for index, country  in enumerate(country_list):
-                                <option value="{{country.get('id')}}">
+                                <option value="{{country.get('id')}}"
+                                        %if user.get('country') and user.get('country').get('id') == country.get('id'):
+                                        selected
+                                        %end
+                                        >
                                     {{_i18n(country.get('value'))}}
                                 </option>
                                 %end
