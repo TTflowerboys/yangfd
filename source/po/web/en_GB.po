@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-10 19:42+0800\n"
-"PO-Revision-Date: 2014-10-10 19:53+0800\n"
+"POT-Creation-Date: 2014-10-13 12:00+0800\n"
+"PO-Revision-Date: 2014-10-13 12:02+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -209,6 +209,13 @@ msgstr "To get investment recommendations"
 msgid "房间"
 msgstr "Room"
 
+#: ../web/src/index.html:146 ../web/src/property.html:159
+#: ../web/src/user_favorites.html:37 ../web/src/user_intentions.html:31
+#: ../web/src/user_properties.html:33
+#: ../web/src/partials/localization_manager.html:21
+msgid "卫生间"
+msgstr "Bathrooms"
+
 #: ../web/src/index.html:164 ../web/src/user_favorites.html:55
 #: ../web/src/user_intentions.html:49
 #: ../web/src/partials/localization_manager.html:22
@@ -352,10 +359,6 @@ msgstr "House Area"
 #: ../web/src/property.html:152
 msgid "卧室"
 msgstr "Bedrooms"
-
-#: ../web/src/property.html:159
-msgid "卫生间"
-msgstr "Bathrooms"
 
 #: ../web/src/property.html:166
 msgid "厅堂"
@@ -559,8 +562,8 @@ msgid "联系我们（免费）"
 msgstr "Contact Us (Free)"
 
 #: ../web/src/property.html:655
-msgid "拨打 400-700-8888 转 19872123"
-msgstr "Call 400-700-8888"
+msgid "拨打 4000926433"
+msgstr ""
 
 #: ../web/src/property.html:662
 msgid "投资标签"
@@ -922,7 +925,7 @@ msgstr "Update notifications"
 
 #: ../web/src/user_settings.html:77
 msgid "登录密码"
-msgstr "to login"
+msgstr "Password"
 
 #: ../web/src/user_settings.html:78
 msgid "注册时设置的密码"
@@ -1329,10 +1332,6 @@ msgstr "Sign Up Failed"
 msgid "重置密码失败"
 msgstr "Reset password failed"
 
-#: ../web/src/partials/localization_manager.html:21
-msgid "洗手间"
-msgstr "Bathroom"
-
 #: ../web/src/partials/localization_manager.html:25
 msgid "修改邮箱失败"
 msgstr "Change email failed"
@@ -1603,23 +1602,23 @@ msgstr "Got new property request ticket:"
 
 #: ../web/src/static/emails/new_ticket.html:6
 msgid "用户姓名："
-msgstr "Name"
+msgstr "Name: "
 
 #: ../web/src/static/emails/new_ticket.html:7
 msgid "用户手机："
-msgstr "Phone:"
+msgstr "Phone: "
 
 #: ../web/src/static/emails/new_ticket.html:8
 msgid "用户邮箱："
-msgstr "Email:"
+msgstr "Email: "
 
 #: ../web/src/static/emails/new_ticket.html:10
 msgid "用户预算："
-msgstr "Budget:"
+msgstr "Budget: "
 
 #: ../web/src/static/emails/new_ticket.html:12
 msgid "需求描述："
-msgstr "Description"
+msgstr "Description: "
 
 #: ../web/src/static/emails/new_ticket_title.html:1
 msgid "收到新的置业需求"
@@ -1753,3 +1752,9 @@ msgstr "Load More"
 
 #~ msgid "资产保值详述"
 #~ msgstr "Introduction for Asset Preservation"
+
+#~ msgid "拨打 400-700-8888 转 19872123"
+#~ msgstr "Call 400-700-8888"
+
+#~ msgid "洗手间"
+#~ msgstr "Bathroom"
