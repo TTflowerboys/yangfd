@@ -10,14 +10,14 @@
                 .logo {
                     margin: 40px 0 0 32px; width: 209px;
                 }
-                @content-margin-left: 102px;
+                @content-margin-left: 32px;
                 > p {
                     color: #dcdcdc;
                     &.address {
                         margin-left: @content-margin-left;
                         margin-top: 24px;
                         margin-bottom: 0px;
-                        max-width: 180px;
+                        max-width: 320px;
                         font-size: 14px;
                     }
                     &.postalCode {
@@ -34,9 +34,10 @@
                         }
                     }
                 }
+                > h3 { margin-left: @content-margin-left; margin-top: @support-margin-top; color: #aaaaaa; font-size: 16px; margin-bottom: 0px;}
             }
 
-            @support-margin-top: 72px;
+            @support-margin-top: 24px;
             .social {
                 float: left;
                 width: 330px;

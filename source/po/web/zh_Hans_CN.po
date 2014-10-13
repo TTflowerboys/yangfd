@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-13 12:00+0800\n"
+"POT-Creation-Date: 2014-10-13 19:10+0800\n"
 "PO-Revision-Date: 2014-09-17 10:39+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: ../web/src/coming_soon.html:17 ../web/src/coming_soon.html:90
 #: ../web/src/masters/big_picture_bg_master.html:20
 #: ../web/src/masters/big_picture_bg_master.html:34
-#: ../web/src/masters/master.html:27 ../web/src/masters/master.html:115
+#: ../web/src/masters/master.html:27 ../web/src/masters/master.html:114
 msgid "洋房东"
 msgstr ""
 
@@ -107,51 +107,51 @@ msgstr ""
 msgid "置业需求已提交，稍后我们的工作人员会联系你"
 msgstr ""
 
-#: ../web/src/coming_soon.html:90 ../web/src/masters/master.html:115
+#: ../web/src/coming_soon.html:90 ../web/src/masters/master.html:114
 msgid "鄂ICP备14015315号-1"
 msgstr ""
 
 #: ../web/src/coming_soon.html:95 ../web/src/user_settings.html:100
-#: ../web/src/user_settings.html:107 ../web/src/masters/master.html:96
-#: ../web/src/partials/localization_manager.html:51
+#: ../web/src/user_settings.html:107 ../web/src/masters/master.html:95
+#: ../web/src/partials/localization_manager.html:55
 msgid "简体中文(中国)"
 msgstr ""
 
 #: ../web/src/coming_soon.html:96 ../web/src/user_settings.html:98
 #: ../web/src/user_settings.html:108
 #: ../web/src/masters/big_picture_bg_master.html:49
-#: ../web/src/masters/master.html:97
-#: ../web/src/partials/localization_manager.html:50
+#: ../web/src/masters/master.html:96
+#: ../web/src/partials/localization_manager.html:54
 msgid "English (United Kingdom)"
 msgstr ""
 
 #: ../web/src/coming_soon.html:101
 #: ../web/src/masters/big_picture_bg_master.html:54
-#: ../web/src/masters/master.html:102
+#: ../web/src/masters/master.html:101
 msgid "人民币"
 msgstr ""
 
 #: ../web/src/coming_soon.html:102
 #: ../web/src/masters/big_picture_bg_master.html:55
-#: ../web/src/masters/master.html:103
+#: ../web/src/masters/master.html:102
 msgid "英镑"
 msgstr ""
 
 #: ../web/src/coming_soon.html:103
 #: ../web/src/masters/big_picture_bg_master.html:56
-#: ../web/src/masters/master.html:104
+#: ../web/src/masters/master.html:103
 msgid "美元"
 msgstr ""
 
 #: ../web/src/coming_soon.html:104
 #: ../web/src/masters/big_picture_bg_master.html:57
-#: ../web/src/masters/master.html:105
+#: ../web/src/masters/master.html:104
 msgid "欧元"
 msgstr ""
 
 #: ../web/src/coming_soon.html:105
 #: ../web/src/masters/big_picture_bg_master.html:58
-#: ../web/src/masters/master.html:106
+#: ../web/src/masters/master.html:105
 msgid "港币"
 msgstr ""
 
@@ -179,28 +179,23 @@ msgstr ""
 msgid "获取为您推荐的房产投资机会"
 msgstr ""
 
-#: ../web/src/index.html:143 ../web/src/user_favorites.html:34
-#: ../web/src/user_intentions.html:28 ../web/src/user_properties.html:30
+#: ../web/src/index.html:143 ../web/src/user_intentions.html:28
+#: ../web/src/user_properties.html:30
 #: ../web/src/partials/localization_manager.html:20
 msgid "房间"
 msgstr ""
 
 #: ../web/src/index.html:146 ../web/src/property.html:159
-#: ../web/src/user_favorites.html:37 ../web/src/user_intentions.html:31
-#: ../web/src/user_properties.html:33
+#: ../web/src/user_intentions.html:31 ../web/src/user_properties.html:33
 #: ../web/src/partials/localization_manager.html:21
 msgid "卫生间"
 msgstr ""
 
-#: ../web/src/index.html:164 ../web/src/user_favorites.html:55
-#: ../web/src/user_intentions.html:49
-#: ../web/src/partials/localization_manager.html:22
+#: ../web/src/index.html:164 ../web/src/partials/localization_manager.html:22
 msgid "预期年租金"
 msgstr ""
 
-#: ../web/src/index.html:164 ../web/src/user_favorites.html:55
-#: ../web/src/user_intentions.html:49
-#: ../web/src/partials/localization_manager.html:23
+#: ../web/src/index.html:164 ../web/src/partials/localization_manager.html:23
 msgid "收益率"
 msgstr ""
 
@@ -501,7 +496,8 @@ msgstr ""
 msgid "收藏"
 msgstr ""
 
-#: ../web/src/property.html:572 ../web/src/user_favorites.html:81
+#: ../web/src/property.html:572
+#: ../web/src/partials/localization_manager.html:32
 msgid "取消收藏"
 msgstr ""
 
@@ -617,7 +613,7 @@ msgid "打开微信，使用 “扫一扫” 即可将网页分享到朋友圈"
 msgstr ""
 
 #: ../web/src/property_list.html:31
-#: ../web/src/partials/localization_manager.html:52
+#: ../web/src/partials/localization_manager.html:56
 msgid "我想在"
 msgstr ""
 
@@ -627,7 +623,7 @@ msgid "任意国家/地区"
 msgstr ""
 
 #: ../web/src/property_list.html:35
-#: ../web/src/partials/localization_manager.html:53
+#: ../web/src/partials/localization_manager.html:57
 msgid "的"
 msgstr ""
 
@@ -637,7 +633,7 @@ msgid "任意城市"
 msgstr ""
 
 #: ../web/src/property_list.html:39
-#: ../web/src/partials/localization_manager.html:54
+#: ../web/src/partials/localization_manager.html:58
 msgid "投资"
 msgstr ""
 
@@ -750,28 +746,24 @@ msgstr ""
 msgid "验证"
 msgstr ""
 
-#: ../web/src/user_favorites.html:9 ../web/src/masters/user_master.html:43
+#: ../web/src/user_favorites.html:10 ../web/src/masters/user_master.html:43
 msgid "我的收藏"
 msgstr ""
 
-#: ../web/src/user_favorites.html:12 ../web/src/user_properties.html:12
+#: ../web/src/user_favorites.html:13 ../web/src/user_properties.html:12
 msgid "(共"
 msgstr ""
 
-#: ../web/src/user_favorites.html:12
+#: ../web/src/user_favorites.html:13
 msgid "条收藏)"
 msgstr ""
 
-#: ../web/src/user_favorites.html:84
-msgid "撤销"
-msgstr ""
-
-#: ../web/src/user_favorites.html:101
+#: ../web/src/user_favorites.html:25
 msgid "您还没有收藏"
 msgstr ""
 
-#: ../web/src/user_favorites.html:104 ../web/src/user_intentions.html:108
-#: ../web/src/user_properties.html:73
+#: ../web/src/user_favorites.html:28 ../web/src/user_intentions.html:96
+#: ../web/src/user_properties.html:83
 msgid "去<a href=\"/property_list\">房产列表</a>看看吧"
 msgstr ""
 
@@ -779,24 +771,24 @@ msgstr ""
 msgid "投资意向单"
 msgstr ""
 
-#: ../web/src/user_intentions.html:71 ../web/src/user_intentions.html:89
+#: ../web/src/user_intentions.html:59 ../web/src/user_intentions.html:77
 msgid "微信"
 msgstr ""
 
-#: ../web/src/user_intentions.html:72 ../web/src/user_intentions.html:90
+#: ../web/src/user_intentions.html:60 ../web/src/user_intentions.html:78
 #: ../web/src/partials/localization_manager.html:8
 msgid "电话"
 msgstr ""
 
-#: ../web/src/user_intentions.html:79
+#: ../web/src/user_intentions.html:67
 msgid "预算："
 msgstr ""
 
-#: ../web/src/user_intentions.html:83
+#: ../web/src/user_intentions.html:71
 msgid "提交日期："
 msgstr ""
 
-#: ../web/src/user_intentions.html:105
+#: ../web/src/user_intentions.html:93
 msgid "没有投资意向单"
 msgstr ""
 
@@ -836,11 +828,11 @@ msgstr ""
 msgid "条房产)"
 msgstr ""
 
-#: ../web/src/user_properties.html:53
+#: ../web/src/user_properties.html:63
 msgid "移除"
 msgstr ""
 
-#: ../web/src/user_properties.html:70
+#: ../web/src/user_properties.html:80
 msgid "没有房产"
 msgstr ""
 
@@ -870,7 +862,7 @@ msgstr ""
 
 #: ../web/src/user_settings.html:37 ../web/src/user_settings.html:66
 #: ../web/src/user_settings.html:86 ../web/src/user_settings.html:119
-#: ../web/src/partials/localization_manager.html:42
+#: ../web/src/partials/localization_manager.html:46
 msgid "修改"
 msgstr ""
 
@@ -980,7 +972,7 @@ msgid "不好意思，邮箱验证失败，请重新验证"
 msgstr ""
 
 #: ../web/src/masters/big_picture_bg_master.html:38
-#: ../web/src/masters/master.html:88
+#: ../web/src/masters/master.html:87
 msgid "服务条款"
 msgstr ""
 
@@ -989,7 +981,7 @@ msgid "隐私协议"
 msgstr ""
 
 #: ../web/src/masters/big_picture_bg_master.html:44
-#: ../web/src/masters/master.html:90
+#: ../web/src/masters/master.html:89
 msgid "业务流程"
 msgstr ""
 
@@ -1025,19 +1017,27 @@ msgstr ""
 msgid "注册"
 msgstr ""
 
-#: ../web/src/masters/master.html:80
+#: ../web/src/masters/master.html:69
+msgid "联系我们"
+msgstr ""
+
+#: ../web/src/masters/master.html:71 ../web/src/partials/float_bar.html:17
+msgid "电话："
+msgstr ""
+
+#: ../web/src/masters/master.html:79
 msgid "社交"
 msgstr ""
 
-#: ../web/src/masters/master.html:87
+#: ../web/src/masters/master.html:86
 msgid "服务支持"
 msgstr ""
 
-#: ../web/src/masters/master.html:89
+#: ../web/src/masters/master.html:88
 msgid "隐私声明"
 msgstr ""
 
-#: ../web/src/masters/master.html:93
+#: ../web/src/masters/master.html:92
 msgid "语言和货币"
 msgstr ""
 
@@ -1087,17 +1087,17 @@ msgid "性别"
 msgstr ""
 
 #: ../web/src/masters/user_master.html:97
-#: ../web/src/masters/user_master.html:140
+#: ../web/src/masters/user_master.html:144
 msgid "男"
 msgstr ""
 
 #: ../web/src/masters/user_master.html:99
-#: ../web/src/masters/user_master.html:141
+#: ../web/src/masters/user_master.html:149
 msgid "女"
 msgstr ""
 
 #: ../web/src/masters/user_master.html:104
-#: ../web/src/masters/user_master.html:144
+#: ../web/src/masters/user_master.html:152
 msgid "国家"
 msgstr ""
 
@@ -1110,8 +1110,8 @@ msgstr ""
 msgid "请填写姓名"
 msgstr ""
 
-#: ../web/src/partials/float_bar.html:17
-msgid "电话："
+#: ../web/src/masters/user_master.html:158
+msgid "请选择"
 msgstr ""
 
 #: ../web/src/partials/get_area_unit.html:3
@@ -1321,112 +1321,124 @@ msgstr ""
 msgid "更新失败"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:32
+#: ../web/src/partials/localization_manager.html:33
 msgid "取消收藏失败"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:33
+#: ../web/src/partials/localization_manager.html:34
 msgid "撤销失败"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:34
+#: ../web/src/partials/localization_manager.html:35
 msgid "移除失败"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:35
+#: ../web/src/partials/localization_manager.html:36
+msgid "撤销"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:37
 msgid "确定"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:36
+#: ../web/src/partials/localization_manager.html:38
 #: ../web/src/static/templates/message_cell.tpl.html:11
 msgid "展开"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:37
+#: ../web/src/partials/localization_manager.html:39
 msgid "收起"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:38
+#: ../web/src/partials/localization_manager.html:40
 msgid "修改成功"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:39
+#: ../web/src/partials/localization_manager.html:41
 msgid "修改失败"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:40
+#: ../web/src/partials/localization_manager.html:42
 msgid "验证成功"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:41
+#: ../web/src/partials/localization_manager.html:43
 msgid "验证失败"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:43
-msgid "原手机号不正确"
-msgstr ""
-
 #: ../web/src/partials/localization_manager.html:44
-msgid "原手机号不能为空"
+msgid "性别不能为空"
 msgstr ""
 
 #: ../web/src/partials/localization_manager.html:45
-msgid "原手机号格式不正确"
-msgstr ""
-
-#: ../web/src/partials/localization_manager.html:46
-msgid "当前密码不能为空"
+msgid "国家不能为空"
 msgstr ""
 
 #: ../web/src/partials/localization_manager.html:47
-msgid "确认密码不能为空"
+msgid "原手机号不正确"
 msgstr ""
 
 #: ../web/src/partials/localization_manager.html:48
+msgid "原手机号不能为空"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:49
+msgid "原手机号格式不正确"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:50
+msgid "当前密码不能为空"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:51
+msgid "确认密码不能为空"
+msgstr ""
+
+#: ../web/src/partials/localization_manager.html:52
 msgid "新密码和确认密码输入不一致"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:55
+#: ../web/src/partials/localization_manager.html:59
 msgid "，价值为"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:56
+#: ../web/src/partials/localization_manager.html:60
 msgid "的房产，投资意向为"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:57
+#: ../web/src/partials/localization_manager.html:61
 msgid "。"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:59
+#: ../web/src/partials/localization_manager.html:63
 msgid "现金流保障介绍"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:60
+#: ../web/src/partials/localization_manager.html:64
 msgid "子女留学介绍"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:61
+#: ../web/src/partials/localization_manager.html:65
 msgid "移民投资介绍"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:62
+#: ../web/src/partials/localization_manager.html:66
 msgid "超额收益介绍"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:63
+#: ../web/src/partials/localization_manager.html:67
 msgid "资产保值介绍"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:64
+#: ../web/src/partials/localization_manager.html:68
 msgid "移民自住介绍"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:65
+#: ../web/src/partials/localization_manager.html:69
 msgid "度假旅行介绍"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:68
+#: ../web/src/partials/localization_manager.html:72
 msgid "服务器忙，请稍后重试。"
 msgstr ""
 
@@ -1622,7 +1634,7 @@ msgstr ""
 msgid "洋房东开放注册了!"
 msgstr ""
 
-#: ../web/src/static/templates/suggestion_house_card.tpl.html:9
+#: ../web/src/static/templates/suggestion_house_card.tpl.html:7
 msgid "更多"
 msgstr ""
 
