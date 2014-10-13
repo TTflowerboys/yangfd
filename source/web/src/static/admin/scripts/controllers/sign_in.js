@@ -16,6 +16,11 @@
             $scope.submitDisabled = true;
             userApi.signIn($scope.user)
                 .success(function (data, status, headers, config) {
+                    if (_.isEmpty(data.val.role)) {
+                        $http.get('/logout', {errorMessage: true})
+                        return
+                    }
+                    angular.extend($scope.user,data.val)
                     $state.go($stateParams.from || 'dashboard')
                 })
         }
