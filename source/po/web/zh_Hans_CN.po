@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-10 19:42+0800\n"
+"POT-Creation-Date: 2014-10-13 12:00+0800\n"
 "PO-Revision-Date: 2014-09-17 10:39+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -185,6 +185,13 @@ msgstr ""
 msgid "房间"
 msgstr ""
 
+#: ../web/src/index.html:146 ../web/src/property.html:159
+#: ../web/src/user_favorites.html:37 ../web/src/user_intentions.html:31
+#: ../web/src/user_properties.html:33
+#: ../web/src/partials/localization_manager.html:21
+msgid "卫生间"
+msgstr ""
+
 #: ../web/src/index.html:164 ../web/src/user_favorites.html:55
 #: ../web/src/user_intentions.html:49
 #: ../web/src/partials/localization_manager.html:22
@@ -327,10 +334,6 @@ msgstr ""
 
 #: ../web/src/property.html:152
 msgid "卧室"
-msgstr ""
-
-#: ../web/src/property.html:159
-msgid "卫生间"
 msgstr ""
 
 #: ../web/src/property.html:166
@@ -535,7 +538,7 @@ msgid "联系我们（免费）"
 msgstr ""
 
 #: ../web/src/property.html:655
-msgid "拨打 400-700-8888 转 19872123"
+msgid "拨打 4000926433"
 msgstr ""
 
 #: ../web/src/property.html:662
@@ -1290,10 +1293,6 @@ msgstr ""
 msgid "重置密码失败"
 msgstr ""
 
-#: ../web/src/partials/localization_manager.html:21
-msgid "洗手间"
-msgstr ""
-
 #: ../web/src/partials/localization_manager.html:25
 msgid "修改邮箱失败"
 msgstr ""
@@ -1976,5 +1975,11 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "看看吧"
+#~ msgstr ""
+
+#~ msgid "拨打 400-700-8888 转 19872123"
+#~ msgstr ""
+
+#~ msgid "洗手间"
 #~ msgstr ""
 

@@ -113,8 +113,11 @@ main {
                     }
                 }
             }
-            > label { width: 140px; font-size: 24px; color:#333;  position: absolute; }
-            > .controls { margin-left: 140px;
+            > label { font-size: 24px; color:#333; float:left; display:inline-block; }
+            > .controls { margin-left: 20px; float:left; display:inline-block;
+                          li {
+                              min-width:120px;
+                          }
                 input { display: none; }
             }
         }
