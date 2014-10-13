@@ -150,7 +150,6 @@
         var usedBudget = ''
         if (!budgetType) {
             usedBudget = '' //getLastBudgetTypeId()
-            needShowSuggetionTip = true
         }
         else {
             usedBudget = budgetType
