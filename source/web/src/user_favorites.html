@@ -31,30 +31,18 @@
                </span>
                <p class=size>
                    %if fav.get('property').get('living_room_count'):
-                   {{fav.get('property').get('livint_room_count')}} {{_('房间')}},
+                   {{fav.get('property').get('living_room_count')}} {{_('房间')}},
                    %end
                    %if fav.get('property').get('bathroom_count'):
                    {{fav.get('property').get('bathroom_count')}} {{_('卫生间')}},
                    %end
                    %if fav.get('property').get('space'):
                    {{float("{0:.2f}".format(float(fav.get('property').get('space').get('value'))))}}
-                   %if (fav.get('property').get('space').get('unit') == 'foot ** 2'):
-                   foot <sup>2</sup>
-                   %elif (fav.get('property').get('space').get('unit') == 'acre'):
-                   acre
-                   %elif (fav.get('property').get('space').get('unit') == 'meter ** 2'):
-                   m <sup>2</sup>
-                   %elif (fav.get('property').get('space').get('unit') == 'kilometer ** 2'):
-                   km <sup>2</sup>
-                   %else:
-                   {{fav.get('property').get('space').get('unit')}}
-                   %end
+                   % unit = fav.get('property').get('space',{}).get('unit','')
+                   <!--@@include=partials/get_area_unit.html {"unit":"unit"}-->
                    %end
                </p>
-               %if (fav.get('property').get('annual_return_estimated')) :
-               <p class=estimate><span class=label>{{_('预期年租金')}} <br/>{{_('收益率')}}</span><span class=value>
-                       <strong>{{ fav.get('property').get('annual_return_estimated')}}</strong></span></p>
-               %end
+              
                <ul class=properties>
 
                    %if (fav.get('property').get('intention') and len(fav.get('property').get('intention'))) :
