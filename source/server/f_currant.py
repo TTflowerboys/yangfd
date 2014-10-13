@@ -10,7 +10,6 @@ from pymongo import ASCENDING, DESCENDING
 import six
 from six.moves import urllib
 from pyquery import PyQuery as q
-import json
 from libfelix.f_common import f_app
 from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
@@ -537,7 +536,7 @@ class f_currant_plugins(f_app.plugin_base):
                                 query.pop('w', None)
                                 img_url = img_url._replace(query=urllib.parse.urlencode(query, True))
                                 property_images.append(urllib.parse.urlunparse(img_url))
-                            params["reality_images"] = {"en_GB": property_images}
+                            params["reality_images"] = {"en_GB": property_images, "zh_Hans_CN": property_images}
 
                         total_price = re.findall(r'[0-9,]+', property_page_price)
                         if total_price:
@@ -587,7 +586,7 @@ class f_currant_plugins(f_app.plugin_base):
                     images = property_page_dom_root('ul.slides img')
                     videos = property_page_dom_root('div#panel3 a.property-video')
                     if images:
-                        params["reality_images"] = {"en_GB": [x.attrib['src'] for x in images]}
+                        params["reality_images"] = {"en_GB": [x.attrib['src'] for x in images], "zh_Hans_CN": [x.attrib['src'] for x in images]}
                     if videos:
                         params["videos"] = {"en_GB": [x.attrib['href'] for x in videos]}
                     params["name"] = {"en_GB": property_page_dom_root('span.single-property__heading--highlight').text()}
@@ -659,7 +658,7 @@ class f_currant_plugins(f_app.plugin_base):
                             params["videos"] = {"en_GB": [video.attrib['src'] for video in property_videos]}
 
                         if property_images:
-                            params["reality_images"] = {"en_GB": [image.attrib['src'] for image in property_images]}
+                            params["reality_images"] = {"en_GB": [image.attrib['src'] for image in property_images], "zh_Hans_CN": [image.attrib['src'] for image in property_images]}
 
                         if property_highlights:
                             params["highlight"] = {"en_GB": [property_highlight.text for property_highlight in property_highlights]}
@@ -755,7 +754,7 @@ class f_currant_plugins(f_app.plugin_base):
                                     if total_price:
                                         params["total_price"] = {"value": total_price[0].replace(',', ''), "type": "currency", "unit": "GBP"}
                                     if property_images_urls:
-                                        params["reality_images"] = {"en_GB": [property_images_url for property_images_url in property_images_urls]}
+                                        params["reality_images"] = {"en_GB": [property_images_url for property_images_url in property_images_urls], "zh_Hans_CN": [property_images_url for property_images_url in property_images_urls]}
                                 else:
                                     self.logger.debug("Failed crawling abacusinvestor for reason: no html text in property_document_data")
                                 f_app.property.crawler_insert_update(params)
