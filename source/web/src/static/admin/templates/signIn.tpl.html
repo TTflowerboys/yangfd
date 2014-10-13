@@ -15,8 +15,7 @@
                                 <div class="controls row">
                                     <div class="input-group col-sm-12">
                                         <label class="input-group-addon">国家:</label>
-                                        <div select-enum name="country" ng-model="user.country" required></div>
-
+                                        <div select-phone-country ng-model="user.country" required></div>
                                     </div>
                                     <span ng-show="submitted && signIn.country.$error.required">必填</span>
                                 </div>

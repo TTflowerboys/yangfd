@@ -11,7 +11,7 @@
     <div class="form-group">
         <label class="control-label">手机号码 *</label>
         <div class="controls form-inline">
-            <div select-enum name="country" ng-model="item.country"></div>
+            <div select-phone-country ng-model="item.country"></div>
 
             <input class="form-control col-sm6" ng-model="item.phone" type="text" size="15"/>
             <span ng-show="isCheckingPhone">正在查询...</span>

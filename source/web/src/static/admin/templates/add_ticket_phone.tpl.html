@@ -1,6 +1,6 @@
 <div>
     <div class="controls form-inline" ng-if="!phone">
-        <div select-enum name="country" ng-model="phoneCountry" text="国家"></div>
+        <div select-phone-country ng-model="phoneCountry" text="国家"></div>
         <input type="text" class="form-control" ng-model="phoneNumber"/>
         <input type="button" ng-click="checkPhone(phoneCountry,phoneNumber)" class="btn btn-primary" value="确认号码">
     </div>
