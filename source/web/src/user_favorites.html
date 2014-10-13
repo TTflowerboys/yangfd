@@ -5,80 +5,16 @@
 <!--@@close-->
 <!--@@block = main -->
 <div class="content">
+    <textarea  id="favoriteData" style="display:none;">{{json_dumps(_i18n(favorite_list))}}</textarea>
     <div class="contentHeader">
     <h1>{{_('我的收藏')}}</h1>
-      %if (_i18n(favorite_list)):
+    
     <label class="count_wrapper">
         {{_('(共')}} <i class="count">{{len(favorite_list)}}</i> {{_('条收藏)')}}</label>
     </div>
-    <div class="list">
-        %for index, fav in enumerate(_i18n(favorite_list)) :
-           %if fav.get("property"):
-               
-           <div class=houseCard>
-           %if fav.get('property').get('reality_images', []) :
-           <img src="{{_i18n(fav.get('property').get('reality_images'))[0]}}" width=320 height=240/>
-           %else :
-           <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
-           %end
-
-           <div class=description>
-                       <h1 class=name><a href=/property/{{fav.get('property').get('id')}} style="text-decoration:none; color:#333;">{{fav.get('property').get('name', '')}}</a></h1>
-               <span class=price>
-                   %if fav.get('property').get('total_price'):
-                   {{fav.get('property').get('total_price').get('unit_symbol')}} <strong>{{str(int(float(fav.get('property').get('total_price').get('value'))))}}</strong>
-                   %end
-               </span>
-               <p class=size>
-                   %if fav.get('property').get('living_room_count'):
-                   {{fav.get('property').get('living_room_count')}} {{_('房间')}},
-                   %end
-                   %if fav.get('property').get('bathroom_count'):
-                   {{fav.get('property').get('bathroom_count')}} {{_('卫生间')}},
-                   %end
-                   %if fav.get('property').get('space'):
-                   {{float("{0:.2f}".format(float(fav.get('property').get('space').get('value'))))}}
-                   % unit = fav.get('property').get('space',{}).get('unit','')
-                   <!--@@include=partials/get_area_unit.html {"unit":"unit"}-->
-                   %end
-               </p>
-              
-               <ul class=properties>
-
-                   %if (fav.get('property').get('intention') and len(fav.get('property').get('intention'))) :
-                   <li><img src="/static/images/icon/house-card-tag.png" alt="" />
-                       <span>
-                           %for index, oneIntention in enumerate(fav.get('property').get('intention')):
-                           %if 'value' in oneIntention:
-                           {{oneIntention.get('value')}}
-                           %end
-                           %end
-                       </span>
-                   </li>
-                   %end
-                   
-                   %if (fav.get('property').get('equity_type')) :
-                   <li><img src="/static/images/icon/house-card-house.png" alt="" /> <span> {{fav.get('property').get('equity_type', '').get('value')}}</span></li>
-                   %end
-                   %if (_i18n(fav.get('property').get('street'))) :
-                   <li><img src="/static/images/icon/house-card-location.png" alt="" /> <span>{{fav.get('property').get('street', '')}} </span></li>
-                   %end
-               </ul>
-
-               <div class="otherAction">
-                   <button id="cancelFavorite" data-id={{fav.get('id')}} class="ghostButton darkGray">{{_('取消收藏')}}</button>
-               </div>
-               <div class="undo_shadow" style="display:none;">
-                   <button id="undoFavorite"  data-id={{fav.get('id')}} data-property-id="{{fav.get('property').get('id')}}" class="undo"> <img alt="" src="/static/images/icon/favorites/undo.png"/><span>{{_('撤销')}}</span></button>
-               </div>
-           </div>          
+    <div id="list" class="list">
+      
     </div>
-
-            %end
-        %end
-    %end
-    </div>
-
      <div id="emptyPlaceHolder" class="emptyPlaceHolder"
           %if len(favorite_list):
           style="display:none;"
@@ -93,7 +29,7 @@
             </p>
         </div>
     </div>
-    
+    <!-- @@include=static/templates/favorite_house_card._tpl.html-->
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
