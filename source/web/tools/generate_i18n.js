@@ -26,9 +26,19 @@ glob(pattern, null, function (error, filePaths) {
 
     var i18nTemplate = ''
     for (var name in result) {
-        var escaped= encodeAttr(name)
-        i18nTemplate += ['<input type="hidden" id="i18n-', escaped, '" value="', escaped, '">'].join('') + '\n'
+        var escaped = encodeAttr(name)
+        i18nTemplate += ['<input type="hidden" id="i18n-str-', escaped, '" value="', escaped, '">'].join('') + '\n'
     }
+
+    i18nTemplate += [
+        '<script>',
+        'window.i18n = function (name) {' ,
+        '   var input = document.getElementById(\'i18n-str-\' + name)' ,
+        '   if (!input) { return name }' ,
+        '   return input.value' ,
+        '}',
+        '</script>'
+    ].join('\n')
 
     var destPath = path.join('./', dest)
     fs.writeFileSync(destPath, i18nTemplate)
@@ -36,10 +46,7 @@ glob(pattern, null, function (error, filePaths) {
 
 })
 
-function splitByLine(string) {
-    return string.split(/\n|\r|\r\n/)
-}
-
 function encodeAttr(string) {
-    return string.replace(/"/g, '&quot;')
+    return string.replace(/"/g, '&#34;')
+        .replace(/'/g, '&#39;')
 }

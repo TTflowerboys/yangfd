@@ -1,1 +1,8 @@
-<input type="hidden" id="i18n-&quot;管理员登录&quot;" value="&quot;管理员登录&quot;">
+<input type="hidden" id="i18n-str-&#34;管理员登录&#34;" value="&#34;管理员登录&#34;">
+<script>
+window.i18n = function (name) {
+   var input = document.getElementById('i18n-str-' + name)
+   if (!input) { return name }
+   return input.value
+}
+</script>
