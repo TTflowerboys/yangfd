@@ -183,7 +183,7 @@
         }
 
         _.each(usedIntention, function (oneIntention) {
-            var params = {'per_page': 1, 'intention': oneIntention}
+            var params = {'per_page': 1, 'random': '1', 'intention': oneIntention}
             if (usedBudget) {
                 params.budget = usedBudget
             }
