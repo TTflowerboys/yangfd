@@ -1,4 +1,20 @@
 <h1 id="currant">Currant</h1>
+<h2 id="i18n">i18n</h2>
+<p>Bottle 模板中的 <code>{{_(&#39;文字&#39;)}}</code> 会自动支持多语言。但 JS 中的字符串却无法得到支持。
+解决的办法是运行 <code>npm run i18n</code>，这个任务会将 <code>i18n(&#39;文字&#39;)</code> 提取为 </p>
+<pre><code>&lt;input type=&quot;hidden&quot; id=&quot;i18n-str-文字&quot; value=&quot;文字&quot;&gt;
+</code></pre><p>并保存至 i18n.html 或 i18n_admin.html。并提供如下方法供 JS 调用</p>
+<pre><code>window.i18n = function (name) {
+   var input = document.getElementById(&#39;i18n-str-&#39; + name)
+   if (!input) { return name }
+   return input.value
+}
+</code></pre><p>总而言之，界面里需要国际化的字符串只能有如下两种形式：</p>
+<ol>
+<li><code>{{_(&#39;任意字符串&#39;)}}</code></li>
+<li><code>i18n(&#39;任意字符串&#39;)</code></li>
+</ol>
+<p>P.S. 上面两行中的单引号皆可换为双引号。</p>
 <h2 id="bottle-">Bottle 模板</h2>
 <p><a href="https://docs.google.com/a/bbtechgroup.com/document/d/1T99uqrI7_rqBi0vYYAbPTed-f9qMT9PopjEQKEt4gAY/edit">参考文档</a></p>
 <p>Bottle 支持两种文件复用语法</p>
