@@ -119,7 +119,6 @@
             var houseResult = {}
             if (house.isEmpty) {
                 houseResult = _.template($('#empty_houseCard_template').html())({house: house})
-                console.log(houseResult)
                 $('#suggestionHouses #list').append(houseResult)
 
             }
