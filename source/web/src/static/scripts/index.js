@@ -16,13 +16,13 @@
         return ''
     }
 
-    function getSelectedBudgetTypeValue() {
-        var $selectedChild = $('#tags #budgetTag').children('.selected')
-        if ($selectedChild.length) {
-            return $selectedChild.first().text()
-        }
-        return ''
-    }
+    // function getSelectedBudgetTypeValue() {
+    //     var $selectedChild = $('#tags #budgetTag').children('.selected')
+    //     if ($selectedChild.length) {
+    //         return $selectedChild.first().text()
+    //     }
+    //     return ''
+    // }
 
     function getSelectedIntentionIds() {
         var $selectedChildren = $('#tags #intentionTag ul').children('.selected')
@@ -41,22 +41,22 @@
         return ''
     }
 
-    function getSelectedIntentionValues() {
-        var $selectedChildren = $('#tags #intentionTag ul').children('.selected')
-        if ($selectedChildren.length) {
-            var ids = ''
-            _.each($selectedChildren, function (child) {
-                ids += $(child).clone().children().remove().end().text()
-                ids += ','
-            })
+    // function getSelectedIntentionValues() {
+    //     var $selectedChildren = $('#tags #intentionTag ul').children('.selected')
+    //     if ($selectedChildren.length) {
+    //         var ids = ''
+    //         _.each($selectedChildren, function (child) {
+    //             ids += $(child).clone().children().remove().end().text()
+    //             ids += ','
+    //         })
 
-            if (_.last(ids) === ',') {
-                ids = ids.substring(0, ids.length - 1)
-            }
-            return ids
-        }
-        return ''
-    }
+    //         if (_.last(ids) === ',') {
+    //             ids = ids.substring(0, ids.length - 1)
+    //         }
+    //         return ids
+    //     }
+    //     return ''
+    // }
 
     function getAllIntentionIds() {
         var rawIntentionList = $('#dataIntentionList').text()
