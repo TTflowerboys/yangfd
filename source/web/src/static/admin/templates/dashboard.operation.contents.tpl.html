@@ -44,7 +44,7 @@
                     <a class="btn btn-info" href ui-sref=".edit({id:item.id,channel:item.channel})" title="Edit">
                         <i class="fa fa-edit"></i>
                     </a>
-                    <a class="btn btn-danger" ng-click="onRemove(item,$index)" title="Remove">
+                    <a class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
                         <i class="fa fa-trash-o"></i>
                     </a>
                 </td>

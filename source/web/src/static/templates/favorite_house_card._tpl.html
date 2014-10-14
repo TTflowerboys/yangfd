@@ -10,7 +10,7 @@
             <h1 class=name>{=fav.property.name=}</h1>
 
         <span class=price>
-            {_if(fav.property.property_type.slug === 'new_property'){_}
+            {_if(fav.property.property_type && fav.property.property_type.slug === 'new_property'){_}
              {=fav.property.unit_price.price.unit_symbol=}
               <strong>{=team.encodeCurrency(parseInt(fav.property.unit_price.price.value))=}</strong>
              /

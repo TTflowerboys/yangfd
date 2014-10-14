@@ -2,13 +2,13 @@
     <div ng-repeat="text in textArray" class="input-group" style="margin-bottom: 8px;">
         <input class="form-control" type="text" ng-model="text">
         <span class="input-group-btn">
-            <button class="btn" type="button" ng-click="onRemove($index)">Remove</button>
+            <button class="btn" type="button" ng-click="onRemove($index)">{%$root.i18n('移除')%}</button>
         </span>
     </div>
     <div class="input-group" style="margin-bottom: 8px;">
         <input class="form-control" type="text" ng-model="newText">
         <span class="input-group-btn">
-            <button class="btn" type="button" ng-click="onAdd(newText)">Add</button>
+            <button class="btn" type="button" ng-click="onAdd(newText)">{%$root.i18n('添加')%}</button>
         </span>
     </div>
 </div>

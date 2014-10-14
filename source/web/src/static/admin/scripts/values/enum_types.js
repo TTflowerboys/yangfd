@@ -3,19 +3,19 @@
  */
 angular.module('app')
     .constant('enumTypes', [
-        { name: '房产类型', value: 'property_type' },
-        { name: '投资类型', value: 'investment_type' },
-        { name: '产权类型', value: 'equity_type' },
-        { name: '装修风格', value: 'decorative_style' },
-        { name: '朝向', value: 'facing_direction' },
-        { name: '学校类型', value: 'school_type' },
-        { name: '学校年级', value: 'school_grade' },
-        { name: '生活设施', value: 'facilities' },
-        { name: '房产价格类型', value: 'property_price_type' },
-        { name: '平台资讯类别', value: 'news_category' },
-        { name: '平台消息类别', value: 'message_type' },
-        { name: '投资意向单状态', value: 'intention_ticket_status' },
-        { name: '客服单状态', value: 'support_ticket_status' }
+        { name: i18n('房产类型'), value: 'property_type' },
+        { name: i18n('投资类型'), value: 'investment_type' },
+        { name: i18n('产权类型'), value: 'equity_type' },
+        { name: i18n('装修风格'), value: 'decorative_style' },
+        { name: i18n('朝向'), value: 'facing_direction' },
+        { name: i18n('学校类型'), value: 'school_type' },
+        { name: i18n('学校年级'), value: 'school_grade' },
+        { name: i18n('生活设施'), value: 'facilities' },
+        { name: i18n('房产价格类型'), value: 'property_price_type' },
+        { name: i18n('平台资讯类别'), value: 'news_category' },
+        { name: i18n('平台消息类别'), value: 'message_type' },
+        { name: i18n('投资意向单状态'), value: 'intention_ticket_status' },
+        { name: i18n('客服单状态'), value: 'support_ticket_status' }
     ]).run(function ($rootScope, enumTypes) {
         $rootScope.enumTypes = enumTypes
     })
