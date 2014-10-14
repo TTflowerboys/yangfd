@@ -1,0 +1,31 @@
+<script id="empty_houseCard_template" type="text/template">
+    <div class="houseCard_wrapper" data-category-intention-id="{=house.category_intention.id=}">
+    <div class="houseCard_header">
+    <img alt="" src="/static/images/intention/icon/{=house.category_intention.slug=}-grey.png" />
+    <h2 class="title">{=house.category_budget.value + ' - ' + house.category_intention.value=}</h2>
+    </div>
+    <div class=houseCard>
+    <div id="emptyPlaceHolder" class="emptyPlaceHolder">
+        <img src="/static/images/icon/notice.png" alt="" />
+        <div class="holderText">
+            <h2>{{_('不好意思，平台暂时没有')}}
+                <span id="budget">{=house.category_budget.value=}</span>
+                {{_('合适')}}
+                <span id="intention">{=house.category_intention.value=}</span>
+                {{_('的投资机会')}}
+            </h2>
+            <p>
+                {{_('您可以先')}}
+                <a href="/property_list">{{_('看看其他房产')}}</a>
+                {{_('，或者')}}
+                <a href="javascript:window.openRequirementForm()">{{_('提交您的置业需求')}}</a>
+            </p>
+        </div>
+    </div>
+    </div>
+    <div class="tagDetail">
+          <h3 class="tag">{=house.category_intention.value=}</h3>
+          <p class="description">{=house.category_intention.description=}</p>
+       </div>
+    </div>
+</script>
