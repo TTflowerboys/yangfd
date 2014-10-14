@@ -1,0 +1,66 @@
+<h1 id="currant">Currant</h1>
+<h2 id="i18n">i18n</h2>
+<p>Bottle 模板中的 <code>{{_(&#39;文字&#39;)}}</code> 会自动支持多语言。但 JS 中的字符串却无法得到支持。
+解决的办法是运行 <code>npm run i18n</code>，这个任务会将 <code>i18n(&#39;文字&#39;)</code> 提取为 </p>
+<pre><code>&lt;input type=&quot;hidden&quot; id=&quot;i18n-str-文字&quot; value=&quot;文字&quot;&gt;
+</code></pre><p>并保存至 i18n.html 或 i18n_admin.html。并提供如下方法供 JS 调用</p>
+<pre><code>window.i18n = function (name) {
+   var input = document.getElementById(&#39;i18n-str-&#39; + name)
+   if (!input) { return name }
+   return input.value
+}
+</code></pre><p>总而言之，界面里需要国际化的字符串只能有如下两种形式：</p>
+<ol>
+<li><code>{{_(&#39;任意字符串&#39;)}}</code></li>
+<li><code>i18n(&#39;任意字符串&#39;)</code></li>
+</ol>
+<p>P.S. 上面两行中的单引号皆可换为双引号。</p>
+<h2 id="bottle-">Bottle 模板</h2>
+<p><a href="https://docs.google.com/a/bbtechgroup.com/document/d/1T99uqrI7_rqBi0vYYAbPTed-f9qMT9PopjEQKEt4gAY/edit">参考文档</a></p>
+<p>Bottle 支持两种文件复用语法</p>
+<ul>
+<li>% include(“路径”, 变量=...)</li>
+<li>% rebase(“路径”, 变量=...) 和 {{!base}}</li>
+</ul>
+<p>Gulp 也提供了对应的支持</p>
+<ul>
+<li>&lt;!-- include=路径 {&quot;JSON&quot;:&quot;JSON&quot;} --&gt;</li>
+<li>&lt;!-- master=路径 {&quot;JSON&quot;:&quot;JSON&quot;} --&gt;</li>
+</ul>
+<h2 id="-">文案规范</h2>
+<pre><code>login, sign in 对应的中文：
+✔︎︎ 登录
+✖︎ 登陆
+</code></pre><h2 id="css-">CSS 规范</h2>
+<h3 id="css-">CSS 命名</h3>
+<p>CSS 命名使用 camelCase，两个camelCase 之间可以使用下划线（<code>_</code>）连接。
+CSS 命名的核心规则只有一条：影响最小化。</p>
+<p>举例：</p>
+<h4 id="1-title-header-nav-aside">1 不要将常用的单词作为一级选择器，如 title / header / nav / aside</h4>
+<pre><code>✖︎ .title{font-weight: bold}
+</code></pre><pre><code>✔︎︎ .siteTitle{font-weight: bold} // 使用不常见的单词
+✔︎︎ .article .title{font-weight: bold} // 或者将 title 作为二级选择器
+</code></pre><p>解释：CSS 没有作用域，一旦你单独声明了 .title 的样式，那么全页面所有的 .title 都会被你影响。违背“影响最小化”原则</p>
+<h4 id="2-">2 不要滥用标签</h4>
+<pre><code>✖︎ .nav a{color:blue}
+</code></pre><pre><code>✔︎︎ .nav &gt; li &gt; a{color:blue}
+</code></pre><p>解释：如果你无法确保 .nav 的后代中所有的 a 都是蓝色的，请使用子代选择器（<code>&gt;</code>）</p>
+<h2 id="javascript-">JavaScript 规范</h2>
+<h3 id="javascript-">JavaScript 命名</h3>
+<ol>
+<li>统一采用 camelCase，如 <code>renderHtml()</code> / <code>donationAmount</code> / <code>isLoading</code> / <code>active</code></li>
+<li>选择正确的单词：<ol>
+<li>✔︎︎ 数字、字符串、对象变量使用名词（单数形式）命名，如 <code>age</code> / <code>nickname</code> / <code>responseData</code></li>
+<li>✔︎︎ 数组变量使用名词的复数形式命名，或者以 <code>List</code> / <code>Collection</code> / <code>Array</code> 等词结尾，如 users / userList</li>
+<li>✔︎︎ Bool变量命名以形容词、be 动词或情态动词开头，如 <code>selected</code>/ <code>isLoading</code> / <code>canSubmit</code></li>
+<li>✔︎︎ 函数以动词开头，如 <code>sendRequest()</code> / <code>showAlert()</code> 等</li>
+<li>✔︎︎ 事件处理函数和回调以 on / after 等介词开头，如 <code>onSendRequest()</code> / <code>afterShowAlert()</code></li>
+</ol>
+</li>
+<li>命名时尽量不要使用意义模糊的单词，如<ol>
+<li>✖︎ 将某对象命名为 <code>data</code>。（大部分变量都是数据（data））</li>
+<li>✖︎ 将某 bool 变量命名为 <code>flag</code>。（所有 bool 都是标志（flag））</li>
+<li>✖︎ 将某函数命名为 <code>operate()</code>。（所有函数都是操作（operate））</li>
+</ol>
+</li>
+</ol>
