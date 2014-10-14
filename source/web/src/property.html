@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
 <link rel="stylesheet" href="/static/styles/propertyCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
+<link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
+
 <!--[if lte IE 8]>
 <script src="/static/vendors/excanvas.min.js"></script>
 <![endif]-->
@@ -288,28 +290,65 @@
         % if property.get('main_house_types'):
         <div id="propertyDetails_houseTypes" class="houseTypes">
             <h3 class="propertyDetails_title">{{_('楼盘户型')}}</h3>
-            <!--<div class="rslides_wrapper">-->
-            <!--<ul class="rslides">-->
-            <ul>
-                % for item in property.get('main_house_types') :
-                % if item:
-                <li>
-                    <a href="{{item.get('floor_plan')}}" target="_blank">
-                        <img src="{{item.get('floor_plan')}}" alt="" width="800" height="480"/>
-                    </a>
-                    <span class="text">
-                        {{item.get('name','')}}
-                        % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
-                        {{_('面积')}}
-                        {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}}
+            <div class="jcarousel-wrapper">
+                <div class="jcarousel">
+                    <ul>
+                        % for item in property.get('main_house_types') :
+                        % if item:
+                        <li>
+                            <div style="position:relative;">
+                                <a href="{{item.get('floor_plan')}}" target="_blank">
+                                    <img src="{{item.get('floor_plan')}}" alt="" width="480" height="480"/>
+                                </a>
+                                <span class="text">
+                                    {{item.get('name','')}}
+                                    % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
+                                    {{_('面积')}}
+                                    {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}}
+                                    % end
+                                    {{type.get('bedroom_count',0)}}室{{type.get('living_room_count',0)}}厅{{type.get('kitchen_count',0)}}厨{{type.get('bathroom_count',0)}}卫
+                                </span>
+                            </div>
+                            <span class="text2">
+                                {{item.get('name','')}}
+                                % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
+                                {{_('面积')}}
+                                {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}}
+                                % end
+                                {{type.get('bedroom_count',0)}}室{{type.get('living_room_count',0)}}厅{{type.get('kitchen_count',0)}}厨{{type.get('bathroom_count',0)}}卫
+                            </span>
+                        </li>
+                        <li>
+                            <div style="position:relative;">
+                                <a href="{{item.get('floor_plan')}}" target="_blank">
+                                    <img src="{{item.get('floor_plan')}}" alt="" width="480" height="480"/>
+                                </a>
+                                <span class="text">
+                                    {{item.get('name','')}}
+                                    % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
+                                    {{_('面积')}}
+                                    {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}}
+                                    % end
+                                    {{type.get('bedroom_count',0)}}室{{type.get('living_room_count',0)}}厅{{type.get('kitchen_count',0)}}厨{{type.get('bathroom_count',0)}}卫
+                                </span>
+                            </div>
+                            <span class="text2">
+                                {{item.get('name','')}}
+                                % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
+                                {{_('面积')}}
+                                {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}}
+                                % end
+                                {{type.get('bedroom_count',0)}}室{{type.get('living_room_count',0)}}厅{{type.get('kitchen_count',0)}}厨{{type.get('bathroom_count',0)}}卫
+                            </span>
+                        </li>
                         % end
-                        {{type.get('bedroom_count',0)}}室{{type.get('living_room_count',0)}}厅{{type.get('kitchen_count',0)}}厨{{type.get('bathroom_count',0)}}卫
-                    </span>
-                </li>
-                % end
-                % end
-            </ul>
-            <!--</div>-->
+                        % end
+                    </ul>
+                </div>
+                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+            </div>
         </div>
         <hr/>
         %end
@@ -874,6 +913,8 @@
 <script src="/static/scripts/intentionForm.js"></script>
 <script src="/static/scripts/data_type.js"></script>
 <script src="/static/scripts/mortgageForm.js"></script>
+<script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
+<script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
 <!--endbuild-->
 
 <!--@@close-->
