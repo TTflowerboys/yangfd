@@ -10,7 +10,8 @@
     "styleguideinit": "kss-node --init",
     "styleguide": "kss-node ./src/static/styles/ --less ./src/static/styles/styleguide.less --template ./.styleguide-template/",
     "theme": "gulp styleless2css",
-    "i18n": "node tools/generate_i18n.js 'src/static/admin/**/*.{js,html}' 'src/partials/admin_i18n.html'"
+    "i18n": "node tools/generate_i18n.js 'src/static/admin/**/*.{js,html}' 'src/partials/admin_i18n.html'",
+    "readme": "node tools/generate_readme.js 'README.md' 'README.html'"
   },
   "repository": {
     "type": "git",
@@ -62,7 +63,8 @@
   },
   "devDependencies": {
     "bootstrap": "~3.2.0",
-    "normalize.css": "~3.0.1",
-    "kss": "~1.0.0"
+    "kss": "~1.0.0",
+    "marked": "^0.3.2",
+    "normalize.css": "~3.0.1"
   }
 }

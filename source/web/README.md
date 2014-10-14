@@ -11,13 +11,13 @@ Bottle 支持两种文件复用语法
 
 Gulp 也提供了对应的支持
 
-* \<!-- include=路径 {"JSON":"JSON"} --\>
-* \<!-- master=路径 {"JSON":"JSON"} --\>
+* <\!-- include=路径 {"JSON":"JSON"} -->
+* <\!-- master=路径 {"JSON":"JSON"} -->
 
 ## 文案规范
 
 ```
-login, sign in 对应的中文： 
+login, sign in 对应的中文：
 ✔︎︎ 登录
 ✖︎ 登陆
 ```
