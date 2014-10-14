@@ -612,7 +612,7 @@ class f_currant_plugins(f_app.plugin_base):
         search_url_parsed = urllib.parse.urlparse(search_url)
         search_url_prefix = "%s://%s" % (search_url_parsed.scheme, search_url_parsed.netloc)
         while not is_end:
-            list_page = f_app.request.get(search_url % list_page_counter)
+            list_page = f_app.request.get(search_url % list_page_counter, retry=3)
             if list_page.status_code == 200:
                 self.logger.debug("Start crawling knightknox page %d" % list_page_counter)
                 f_app.task.update_set(task, {"start_page": list_page_counter})
@@ -631,7 +631,7 @@ class f_currant_plugins(f_app.plugin_base):
                     }
                     property_url = "%s%s" % (search_url_prefix, link.attrib['href'])
                     logger.debug("property_url", property_url)
-                    property_page = f_app.request.get(property_url)
+                    property_page = f_app.request.get(property_url, retry=3)
                     if property_page.status_code == 200:
                         params["property_crawler_id"] = property_url
                         property_page_dom_root = q(property_page.content)
@@ -687,15 +687,15 @@ class f_currant_plugins(f_app.plugin_base):
                                     if "Apartment" in feature:
                                         params["property_type"] = ObjectId(f_app.enum.get_by_slug('apartment')["id"])
                                     elif "Student Accommodation" == feature:  # what is the property_type
-                                        pass
+                                        params["investment_type"] = ObjectId(f_app.enum.get_by_slug('studenthousing')["id"])
 
                         f_app.property.crawler_insert_update(params)
 
                     else:
-                        self.logger.debug("Failed crawling knightknox property_page %s, status_code is %d" % (property_url, property_page.status_code))
+                        self.logger.error("Failed crawling knightknox property_page %s, status_code is %d" % (property_url, property_page.status_code))
                 list_page_counter += 1
             else:
-                self.logger.debug("Failed crawling knightknox page %d, status_code is %d" % (list_page_counter, list_page.status_code))
+                self.logger.error("Failed crawling knightknox page %d, status_code is %d" % (list_page_counter, list_page.status_code))
 
         f_app.task.put(dict(
             type="crawler_knightknox",
@@ -704,7 +704,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_crawler_abacusinvestor(self, task):
         search_url = "http://www.abacusinvestor.com"
-        list_page = f_app.request.get(search_url)
+        list_page = f_app.request.get(search_url, retry=3)
         if list_page.status_code == 200:
             self.logger.debug("Start crawling abacusinvestor")
             list_page_dom_root = q(list_page.content)
@@ -715,7 +715,7 @@ class f_currant_plugins(f_app.plugin_base):
                 masterPage = list_page_model_json.get("pageList", {}).get("masterPage", [])
                 pages = list_page_model_json.get("pageList", {}).get("pages", [])
                 if masterPage and pages:
-                    masterPage_json = f_app.request.get(masterPage[2])
+                    masterPage_json = f_app.request.get(masterPage[2], retry=3)
                     page_ids = []
                     if masterPage_json.status_code == 200:
                         masterPage_document_data = json.loads(masterPage_json.content).get("data", {}).get("document_data", {})
@@ -724,16 +724,16 @@ class f_currant_plugins(f_app.plugin_base):
                             if data_item.get("type", None) == "Page" and data_item.get("pageUriSEO", None) and data_item.get("pageUriSEO", None) != "student-property-report" and data_item.get("hidePage", False) and data_item.get("indexable", False):
                                 page_ids.append(key)
                     else:
-                        self.logger.debug("Failed crawling abacusinvestor  masterPage in script publicModel%s, status_code is %d" % (masterPage[2], masterPage.status_code))
+                        self.logger.error("Failed crawling abacusinvestor  masterPage in script publicModel%s, status_code is %d" % (masterPage[2], masterPage.status_code))
                     if page_ids:
                         crawling_pages = [(page["pageId"], page["urls"][2]) for page in pages if page["pageId"] in page_ids]
                         for crawling_page in crawling_pages:
                             params = {
                                 "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
                             }
-                            self.logger.debug("Start crawling abacusinvestor page id %s, page url %s" % crawling_page)
+                            self.logger.error("Start crawling abacusinvestor page id %s, page url %s" % crawling_page)
                             params["property_crawler_id"] = crawling_page[1]
-                            property_page = f_app.request.get(crawling_page[1])
+                            property_page = f_app.request.get(crawling_page[1], retry=3)
                             if property_page.status_code == 200:
                                 property_document_data = json.loads(property_page.content).get("data", {}).get("document_data", {})
                                 property_images = [property_document_data[key]["items"] for key in property_document_data if property_document_data[key]["type"] == "ImageList"]
@@ -759,19 +759,19 @@ class f_currant_plugins(f_app.plugin_base):
                                         reality_images = [property_images_url for property_images_url in property_images_urls]
                                         params["reality_images"] = {"en_GB": reality_images, "zh_Hans_CN": reality_images, "zh_Hant_HK": reality_images}
                                 else:
-                                    self.logger.debug("Failed crawling abacusinvestor for reason: no html text in property_document_data")
+                                    self.logger.error("Failed crawling abacusinvestor for reason: no html text in property_document_data")
                                 f_app.property.crawler_insert_update(params)
                             else:
-                                self.logger.debug("Failed crawling abacusinvestor page id %s, page url %s, status_code is %d" % (crawling_page[0], crawling_page[1], property_page.status_code))
+                                self.logger.error("Failed crawling abacusinvestor page id %s, page url %s, status_code is %d" % (crawling_page[0], crawling_page[1], property_page.status_code))
                     else:
-                        self.logger.debug("Failed crawling abacusinvestor for reason: no pageids")
+                        self.logger.error("Failed crawling abacusinvestor for reason: no pageids")
 
                 else:
-                    self.logger.debug("Failed crawling abacusinvestor for reason: no masterPage ,pages or pageList in script publicModel")
+                    self.logger.error("Failed crawling abacusinvestor for reason: no masterPage ,pages or pageList in script publicModel")
             else:
-                self.logger.debug("Failed crawling abacusinvestor for reason: no publicModel in script")
+                self.logger.error("Failed crawling abacusinvestor for reason: no publicModel in script")
         else:
-            self.logger.debug("Failed crawling abacusinvestor home page %s ,status_code is %d" % (search_url, list_page.status_code))
+            self.logger.error("Failed crawling abacusinvestor home page %s ,status_code is %d" % (search_url, list_page.status_code))
 
         f_app.task.put(dict(
             type="crawler_abacusinvestor",
