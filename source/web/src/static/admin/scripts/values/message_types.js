@@ -3,7 +3,7 @@
  */
 angular.module('app')
     .constant('messageTypes', [
-        { name: '系统消息', value: 'system' },
+        { name: i18n('系统消息'), value: 'system' },
     ]).run(function ($rootScope, messageTypes) {
         $rootScope.messageTypes = messageTypes
     })

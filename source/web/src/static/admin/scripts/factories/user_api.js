@@ -38,7 +38,7 @@
             sendVerification: function (user) {
                 var params = _.pick(user, 'country', 'phone')
                 return $http.post('/api/1/user/sms_verification/send', params,
-                    {successMessage: '验证码已发送至你的手机', errorMessage: true})
+                    {successMessage: i18n('验证码已发送至你的手机'), errorMessage: true})
 
             },
             resetPassword: function (id, code, password) {

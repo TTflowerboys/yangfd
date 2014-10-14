@@ -116,7 +116,7 @@
                                                 <input type="text" ng-model="item.highlight[userLanguage.value][$index]"/>
                                             </td>
                                             <td>
-                                                <span class="btn btn-danger" ng-click="onRemoveHighlight($index)" title="Remove">
+                                                <span class="btn btn-danger" ng-click="onRemoveHighlight($index)" title="{%$root.i18n('移除')%}">
                                                     <i class="fa fa-trash-o"></i>
                                                 </span>
                                             </td>
@@ -275,7 +275,7 @@
                                                     placeholder="{%$root.i18n('成交价格')%}"></div>
                                             </td>
                                             <td>
-                                                <span class="btn btn-danger" ng-click="onRemoveHistoricalPrice($index)" title="Remove">
+                                                <span class="btn btn-danger" ng-click="onRemoveHistoricalPrice($index)" title="{%$root.i18n('移除')%}">
                                                     <i class="fa fa-trash-o"></i>
                                                 </span>
                                             </td>
@@ -328,7 +328,7 @@
                                                 <div type-i18n-unit unit="cost.price.unit||userCurrency" ng-model="cost.price" data="i18nCurrency" placeholder="{%$root.i18n('支出费用')%}"></div>
                                             </td>
                                             <td>
-                                                <span class="btn btn-danger" ng-click="onRemoveCost($index)" title="Remove">
+                                                <span class="btn btn-danger" ng-click="onRemoveCost($index)" title="{%$root.i18n('移除')%}">
                                                     <i class="fa fa-trash-o"></i>
                                                 </span>
                                             </td>
@@ -578,7 +578,7 @@
                                                     text="{%$root.i18n('户型图')%}" style="width: 200px;"></edit-single-image>
                                             </td>
                                             <td>
-                                                <span class="btn btn-danger" ng-click="onRemoveHouse($index)" title="Remove">
+                                                <span class="btn btn-danger" ng-click="onRemoveHouse($index)" title="{%$root.i18n('移除')%}">
                                                     <i class="fa fa-trash-o"></i>
                                                 </span>
                                             </td>
