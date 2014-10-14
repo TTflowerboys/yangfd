@@ -1,7 +1,7 @@
 <div class="login-box clearfix">
 
     <div class="header">
-        注册帐号
+        {%$root.i18n('注册帐号')%}
     </div>
 
     <form class="form-horizontal register" method="post" ng-submit="submit()">
@@ -10,7 +10,7 @@
 
 
             <div class="form-group">
-                <label class="control-label" for="phone">手机号</label>
+                <label class="control-label" for="phone">{%$root.i18n('手机号')%}</label>
                 <div class="controls row">
                     <div class="input-group col-sm-12">
                         <input type="text" class="form-control" id="phone"/>
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label" for="nickname">姓名</label>
+                <label class="control-label" for="nickname">{%$root.i18n('姓名')%}</label>
                 <div class="controls row">
                     <div class="input-group col-sm-12">
                         <input type="text" class="form-control" id="nickname"/>
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label" for="email">邮箱</label>
+                <label class="control-label" for="email">{%$root.i18n('邮箱')%}</label>
                 <div class="controls row">
                     <div class="input-group col-sm-12">
                         <input type="text" class="form-control" id="email"/>
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label" for="password">密码</label>
+                <label class="control-label" for="password">{%$root.i18n('密码')%}</label>
                 <div class="controls row">
                     <div class="input-group col-sm-12">
                         <input type="password" class="form-control" id="password"/>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label" for="checkpassword">确认密码</label>
+                <label class="control-label" for="checkpassword">{%$root.i18n('确认密码')%}</label>
                 <div class="controls row">
                     <div class="input-group col-sm-12">
                         <input type="password" class="form-control" id="checkpassword"/>
@@ -52,13 +52,13 @@
 
             <div class="confirm">
                 <input type="checkbox" name="agree"/>
-                <label>已阅读并同意 <a href="page-register.html#">服务条款</a></label>
+                <label>{%$root.i18n('已阅读并同意')%} <a href="page-register.html#">{%$root.i18n('服务条款')%}</a></label>
             </div>
 
 
             <div class="row">
 
-                <button type="submit" class="btn btn-primary btn-lg col-xs-12">提交</button>
+                <button type="submit" class="btn btn-primary btn-lg col-xs-12">{%$root.i18n('提交')%}</button>
 
             </div>
 

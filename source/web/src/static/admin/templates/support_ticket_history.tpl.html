@@ -1,5 +1,5 @@
 <div class="form-group col-xs-12 col-sm-12" ng-if="history">
-    <label class="control-label">变更记录</label>
+    <label class="control-label">{%$root.i18n('变更记录')%}</label>
 
     <div class="controls">
         <table class="table table-bordered table-striped table-condensed"
@@ -10,9 +10,9 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th>修改时间</th>
-                    <th>修改内容</th>
-                    <th>变更内容</th>
+                    <th>{%$root.i18n('修改时间')%}</th>
+                    <th>{%$root.i18n('修改内容')%}</th>
+                    <th>{%$root.i18n('变更内容')%}</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,35 +22,35 @@
                     <td>
                         <table class="table table-bordered table-striped table-condensed">
                             <tr>
-                                <td>字段</td>
-                                <td>内容</td>
+                                <td>{%$root.i18n('字段')%}</td>
+                                <td>{%$root.i18n('内容')%}</td>
                             </tr>
                             <tr ng-if="h._set.nickname">
-                                <td>姓名</td>
+                                <td>{%$root.i18n('姓名')%}</td>
                                 <td>{%h._set.nickname%}</td>
                             </tr>
                             <tr ng-if="h._set.phone">
-                                <td>电话</td>
+                                <td>{%$root.i18n('电话')%}</td>
                                 <td>{%h._set.phone%}</td>
                             </tr>
                             <tr ng-if="h._set.email">
-                                <td>邮箱</td>
+                                <td>{%$root.i18n('邮箱')%}</td>
                                 <td>{%h._set.email%}</td>
                             </tr>
                             <tr ng-if="h._set.status">
-                                <td>状态</td>
+                                <td>{%$root.i18n('状态')%}</td>
                                 <td>{%h._set.status | supportTicketStatusName%}</td>
                             </tr>
                             <tr ng-if="h._set.description">
-                                <td>文字描述</td>
+                                <td>{%$root.i18n('文字描述')%}</td>
                                 <td>{%h._set.description%}</td>
                             </tr>
                             <tr ng-if="h._set.country">
-                                <td>国家</td>
+                                <td>{%$root.i18n('国家')%}</td>
                                 <td>{%h._set.country.value[userLanguage.value]%}</td>
                             </tr>
                             <tr ng-if="h._set.custom_fields">
-                                <td>自定义描述</td>
+                                <td>{%$root.i18n('自定义描述')%}</td>
                                 <td>
                                     <table class="table table-bordered table-striped table-condensed">
                                         <colgroup>

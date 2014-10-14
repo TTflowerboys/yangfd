@@ -1,6 +1,6 @@
 <div class="buttons">
     <span class="btn-group">
-        <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
+        <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
     </span>
 </div>
 <div ng-init="getEditEnumItem()"></div>
@@ -8,18 +8,18 @@
     style="max-width: 800px; padding-bottom: 100px;" ng-submit="editI18nEnum($event,enumEditForm)"
     novalidate>
     <div class="form-group">
-        <label class="control-label">类别 *</label>
+        <label class="control-label">{%$root.i18n('类别')%} *</label>
 
         <div class="controls">
             <select class="form-control" ng-model="item.type" style="width: 185px;"
                 ng-options="p.value as p.name for p in enumTypes">
-                <option value="">-- 选择 --</option>
+                <option value="">-- {%$root.i18n('选择')%} --</option>
             </select>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="control-label">标识</label>
+        <label class="control-label">{%$root.i18n('标识')%}</label>
 
         <div class="controls">
             <input class="form-control" type="text" ng-model="item.slug"/>
@@ -27,7 +27,7 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label">内容 *</label>
+        <label class="control-label">{%$root.i18n('内容')%} *</label>
 
         <div class="controls">
             <table class="table table-bordered table-striped table-condensed "
@@ -38,9 +38,9 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>语言</th>
-                        <th>内容</th>
-                        <th>删除</th>
+                        <th>{%$root.i18n('语言')%}</th>
+                        <th>{%$root.i18n('内容')%}</th>
+                        <th>{%$root.i18n('删除')%}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,16 +61,16 @@
 
             <select class="span3 form-control" ng-model="item.tempI18n" style="width: 185px;"
                     ng-options="p.value as p.name for p in availableLanguages">
-                <option value="">-- 选择语言 --</option>
+                <option value="">-- {%$root.i18n('选择语言')%} --</option>
             </select>
-            <input class="span4 form-control" type="text" ng-model="item.tempValue" placeholder="内容"/>
-            <input type="button" ng-click="addI18nValue()" class="btn btn-primary" value="添加">
+            <input class="span4 form-control" type="text" ng-model="item.tempValue" placeholder="{%$root.i18n('内容')%}"/>
+            <input type="button" ng-click="addI18nValue()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
         </div>
     </div>
 
     <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" value="提交">
-        <input type="button" ng-click="$state.go('^')" class="btn" value="Cancel">
+        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
+        <input type="button" ng-click="$state.go('^')" class="btn" value="{%$root.i18n('取消')%}">
     </div>
-    <div class="help-block">* 必填</div>
+    <div class="help-block">* {%$root.i18n('必填')%}</div>
 </form>

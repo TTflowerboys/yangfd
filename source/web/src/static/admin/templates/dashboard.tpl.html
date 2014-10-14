@@ -30,8 +30,8 @@
                                 </div>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/user_settings"><i class="fa fa-cog"></i> Settings</a></li>
-                                <li><a ng-click="logout()"><i class="fa fa-off"></i> Logout</a></li>
+                                <li><a href="/user_settings"><i class="fa fa-cog"></i> {%$root.i18n('设置')%}</a></li>
+                                <li><a ng-click="logout()"><i class="fa fa-off"></i> {%$root.i18n('登出')%}</a></li>
                             </ul>
                         </li>
                         <!-- end: User Dropdown -->
@@ -51,43 +51,43 @@
                         <ul class="nav main-menu">
                             <li has-permission="admin" ng-class="{active:$state.includes('dashboard.admins')}">
                                 <a href ui-sref="dashboard.admins">
-                                    <i class="fa fa-laptop"></i><span class="hidden-sm text">人员管理</span></a>
+                                    <i class="fa fa-laptop"></i><span class="hidden-sm text">{%$root.i18n('人员管理')%}</span></a>
                             </li>
                             <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums')}">
                                 <a href ui-sref="dashboard.enums.normal" ui-sref-active="active">
-                                    <i class="fa fa-book"></i><span class="hidden-sm text">枚举数据管理</span>
+                                    <i class="fa fa-book"></i><span class="hidden-sm text">{%$root.i18n('枚举数据管理')%}</span>
                                     <span class="chevron"
                                         ng-class="{closed:!$state.includes('dashboard.enums'),opened:$state.includes('dashboard.enums')}"></span></a>
                                 <ul ng-style="{display:$state.includes('dashboard.enums')?'block':'none'}">
                                     <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.normal')}">
                                         <a class="submenu" href ui-sref="dashboard.enums.normal">
                                             <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">常用类型</span>
+                                            <span class="hidden-sm text">{%$root.i18n('常用类型')%}</span>
                                         </a>
                                     </li>
 
                                     <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.country')}">
                                         <a class="submenu" href ui-sref="dashboard.enums.country">
                                             <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">国家</span>
+                                            <span class="hidden-sm text">{%$root.i18n('国家')%}</span>
                                         </a>
                                     </li>
                                     <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.city')}">
                                         <a class="submenu" href ui-sref="dashboard.enums.city">
                                             <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">城市</span>
+                                            <span class="hidden-sm text">{%$root.i18n('城市')%}</span>
                                         </a>
                                     </li>
                                     <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.budget')}">
                                         <a class="submenu" href ui-sref="dashboard.enums.budget">
                                             <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">预算</span>
+                                            <span class="hidden-sm text">{%$root.i18n('预算')%}</span>
                                         </a>
                                     </li>
                                     <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.intention')}">
                                         <a class="submenu" href ui-sref="dashboard.enums.intention">
                                             <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">投资意向</span>
+                                            <span class="hidden-sm text">{%$root.i18n('投资意向')%}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -96,17 +96,17 @@
                             <li has-permission="admin,jr_admin,operation,jr_operation,developer,agency"
                                 ng-class="{active:$state.includes('dashboard.property')}">
                                 <a href ui-sref="dashboard.property" ui-sref-active="active"><i
-                                    class="fa fa-building-o"></i><span class="hidden-sm text">房产数据管理</span></a>
+                                    class="fa fa-building-o"></i><span class="hidden-sm text">{%$root.i18n('房产数据管理')%}</span></a>
                             </li>
                             <li has-permission="admin,jr_admin,sales,jr_sales"
                                 ng-class="{active:$state.includes('dashboard.intention')}">
                                 <a href ui-sref="dashboard.intention" ui-sref-active="active"><i
-                                    class="fa fa-tasks"></i><span class="hidden-sm text">投资意向单管理</span></a>
+                                    class="fa fa-tasks"></i><span class="hidden-sm text">{%$root.i18n('投资意向单管理')%}</span></a>
                             </li>
                             <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.operation')}">
                                 <a class="dropmenu" href ui-sref="dashboard.operation.news">
-                                    <i class="fa fa-coffee"></i><span class="hidden-sm text">品牌运营管理</span>
+                                    <i class="fa fa-coffee"></i><span class="hidden-sm text">{%$root.i18n('品牌运营管理')%}</span>
                                     <span class="chevron"
                                         ng-class="{closed:!$state.includes('dashboard.operation'),opened:$state.includes('dashboard.operation')}"></span>
                                 </a>
@@ -115,13 +115,13 @@
                                         ng-class="{active:$state.includes('dashboard.operation.news')}">
                                         <a class="submenu" href ui-sref="dashboard.operation.news">
                                             <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">房产资讯编辑</span>
+                                            <span class="hidden-sm text">{%$root.i18n('房产资讯编辑')%}</span>
                                         </a>
                                     </li>
                                     <li has-permission="admin,jr_admin,operation,jr_operation" ng-class="{active:$state.includes('dashboard.operation.contents')}">
                                         <a class="submenu" href ui-sref="dashboard.operation.contents">
                                             <i class="fa fa-angle-right"></i>
-                                            <span class="hidden-sm text">网站内容管理</span>
+                                            <span class="hidden-sm text">{%$root.i18n('网站内容管理')%}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -129,17 +129,17 @@
                             <li has-permission="admin,jr_admin,support,jr_support"
                                 ng-class="{active:$state.includes('dashboard.support')}">
                                 <a href ui-sref="dashboard.support" ui-sref-active="active">
-                                    <i class="fa fa-phone"></i><span class="hidden-sm text">客服单管理</span></a>
+                                    <i class="fa fa-phone"></i><span class="hidden-sm text">{%$root.i18n('客服单管理')%}</span></a>
                             </li>
                             <li has-permission="admin,jr_admin,sales,jr_sales,support,jr_support"
                                 ng-class="{active:$state.includes('dashboard.users')}">
                                 <a href ui-sref="dashboard.users" ui-sref-active="active">
-                                    <i class="fa fa-group"></i><span class="hidden-sm text">投资人管理</span></a>
+                                    <i class="fa fa-group"></i><span class="hidden-sm text">{%$root.i18n('投资人管理')%}</span></a>
                             </li>
                             <li has-permission="admin,jr_admin"
                                 ng-class="{active:$state.includes('dashboard.message')}">
                                 <a href ui-sref="dashboard.message" ui-sref-active="active">
-                                    <i class="fa fa-comment-o"></i><span class="hidden-sm text">消息管理</span></a>
+                                    <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('消息管理')%}</span></a>
                             </li>
                         </ul>
                     </div>

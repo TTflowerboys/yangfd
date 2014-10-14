@@ -1,7 +1,7 @@
 <div ui-view>
     <span class="btn-group">
         <button class="btn" ui-sref=".create">
-            <span class="fa fa-plus-circle"></span>添加国家
+            <span class="fa fa-plus-circle"></span>{%$root.i18n('添加国家')%}
         </button>
     </span>
     <div class="btn-group form-inline pull-right">
@@ -19,9 +19,9 @@
         </colgroup>
         <tbody>
             <tr>
-                <th>国家</th>
-                <th>国家标识</th>
-                <th>编辑</th>
+                <th>{%$root.i18n('国家')%}</th>
+                <th>{%$root.i18n('国家标识')%}</th>
+                <th>{%$root.i18n('编辑')%}</th>
             </tr>
             <tr ng-repeat="item in countries">
                 <td>{%item.value[userLanguage.value]%}</td>

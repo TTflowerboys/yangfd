@@ -1,7 +1,7 @@
 <div ui-view>
     <span class="btn-group">
         <button class="btn" ui-sref=".create">
-            <span class="fa fa-plus-circle"></span>添加预算
+            <span class="fa fa-plus-circle"></span>{%$root.i18n('添加预算')%}
         </button>
     </span>
     <div class="btn-group form-inline pull-right">
@@ -20,11 +20,11 @@
         </colgroup>
         <tbody>
             <tr>
-                <th>描述</th>
-                <th>货币下限</th>
-                <th>货币上限</th>
-                <th>货币单位</th>
-                <th>编辑</th>
+                <th>{%$root.i18n('描述')%}</th>
+                <th>{%$root.i18n('货币下限')%}</th>
+                <th>{%$root.i18n('货币上限')%}</th>
+                <th>{%$root.i18n('货币单位')%}</th>
+                <th>{%$root.i18n('编辑')%}</th>
             </tr>
             <tr ng-repeat="item in budget">
                 <td>{%item.value[userLanguage.value]%}</td>

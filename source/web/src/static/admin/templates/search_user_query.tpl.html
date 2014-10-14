@@ -1,6 +1,6 @@
 <span class="input-group">
-    <input class="form-control" size="24" type="text" ng-model="searchText" on-enter="onSearch(searchText)" placeholder="输入姓名，手机或邮箱">
+    <input class="form-control" size="24" type="text" ng-model="searchText" on-enter="onSearch(searchText)" placeholder="{%$root.i18n('输入姓名，手机或邮箱')%}">
     <span class="input-group-btn">
-        <button class="btn" type="button" ng-click="onSearch(searchText)">搜索</button>
+        <button class="btn" type="button" ng-click="onSearch(searchText)">{%$root.i18n('搜索')%}</button>
     </span>
 </span>

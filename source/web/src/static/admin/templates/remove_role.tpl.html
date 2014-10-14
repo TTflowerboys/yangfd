@@ -1,7 +1,7 @@
 <div class="form-inline">
     <select ng-options="p | permissionName for p in item.role" ng-model="roleToRemove"
         class="form-control input-sm" style="width: 130px;">
-        <option value="">-- 选择权限 --</option>
+        <option value="">-- {%$root.i18n('选择权限')%} --</option>
     </select>
-    <button ng-show="roleToRemove" class="btn btn-sm btn-danger" ng-click="onRemoveRole(item,roleToRemove)">提交</button>
+    <button ng-show="roleToRemove" class="btn btn-sm btn-danger" ng-click="onRemoveRole(item,roleToRemove)">{%$root.i18n('提交')%}</button>
 </div>

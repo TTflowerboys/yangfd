@@ -1,6 +1,6 @@
 <div class="buttons">
     <span class="btn-group">
-        <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
+        <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
     </span>
     <span class="btn-group">
         <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
@@ -11,7 +11,7 @@
 
     <div class="form-group">
         <div class="row col-sm-3">
-            <label class="control-label">频道名 *</label>
+            <label class="control-label">{%$root.i18n('频道名')%} *</label>
             <div class="controls">
                 <span class="uneditable-input ">{%item.channel%}</span>
             </div>
@@ -20,7 +20,7 @@
 
     <div class="form-group">
         <div class="row col-sm-3">
-            <label class="control-label">描述</label>
+            <label class="control-label">{%$root.i18n('描述')%}</label>
 
             <div class="controls">
                 <span class="uneditable-input" type-i18n="item.description">{%item.description[userLanguage.value]%}</span>
@@ -31,7 +31,7 @@
     <div class="form-group">
         <div class="row">
             <div class="form-group col-sm-6">
-                <label class="control-label">链接</label>
+                <label class="control-label">{%$root.i18n('链接')%}</label>
 
                 <div class="controls">
                     <span class="uneditable-input">{%item.link%}</span>
@@ -43,7 +43,7 @@
     <div class="form-group">
         <div class="row" ng-if="item.image">
             <div class="form-group col-sm-12">
-                <label class="control-label">图片</label>
+                <label class="control-label">{%$root.i18n('图片')%}</label>
 
                 <div class="controls row">
                     <div style="margin-bottom:30px" class="col-sm-3 col-xs-6">
@@ -54,7 +54,7 @@
         </div>
         <div class="row">
             <div class="form-group col-sm-12">
-                <label class="control-label">图片缺失时的内容</label>
+                <label class="control-label">{%$root.i18n('图片缺失时的内容')%}</label>
                 <div class="controls">
                     <span class="uneditable-input" type-i18n="item.image_alt">{%item.image_alt[userLanguage.value]%}</span>
                 </div>
@@ -63,7 +63,7 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label">文本内容</label>
+        <label class="control-label">{%$root.i18n('文本内容')%}</label>
 
         <div class="controls">
             <table class="table table-bordered table-striped table-condensed "
@@ -74,8 +74,8 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>语言</th>
-                        <th>内容</th>
+                        <th>{%$root.i18n('语言')%}</th>
+                        <th>{%$root.i18n('内容')%}</th>
                     </tr>
                 </thead>
                 <tbody>

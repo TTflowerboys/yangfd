@@ -1,6 +1,6 @@
 <div class="buttons">
     <span class="btn-group">
-        <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> 返回</button>
+        <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
     </span>
     <span class="btn-group">
         <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="form-group col-sm-6">
-            <label class="control-label">标题 *</label>
+            <label class="control-label">{%$root.i18n('标题')%} *</label>
 
             <div class="controls">
                 <input class="form-control col-sm6" type-i18n="item.title" ng-model="item.title[userLanguage.value]"
@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-6">
-            <label class="control-label">链接</label>
+            <label class="control-label">{%$root.i18n('链接')%}</label>
 
             <div class="controls">
                 <input class="form-control col-sm6" ng-model="item.link" type="text"/>
@@ -32,7 +32,7 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-3">
-            <label class="control-label">类别 *</label>
+            <label class="control-label">{%$root.i18n('类别')%} *</label>
 
             <div get-news-category-list></div>
             <div class="controls">
@@ -44,16 +44,16 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-6">
-            <label class="control-label">图片</label>
+            <label class="control-label">{%$root.i18n('图片')%}</label>
 
             <div class="controls">
-                <edit-images ng-model="item.images" width-limit="1280" ratio="2" thumbnail-size="400,400" text="添加图片"></edit-images>
+                <edit-images ng-model="item.images" width-limit="1280" ratio="2" thumbnail-size="400,400" text="{%$root.i18n('添加图片')%}"></edit-images>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-12">
-            <label class="control-label">内容 *</label>
+            <label class="control-label">{%$root.i18n('内容')%} *</label>
 
             <div class="controls">
                 <div type-i18n="item.content"></div>
@@ -64,7 +64,7 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-12">
-            <label class="control-label">地域</label>
+            <label class="control-label">{%$root.i18n('地域')%}</label>
             <div class="controls">
                 <edit-region country="item.country" city="item.city" zip="item.zipcode_index"></edit-region>
             </div>
@@ -75,10 +75,10 @@
 
 
     <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" ng-hide="existingItem" value="提交">
-        <input type="button" class="btn btn-primary" ng-show="existingItem" value="更新" ng-click="updateExisting()">
+        <input type="submit" class="btn btn-primary" ng-hide="existingItem" value="{%$root.i18n('提交')%}">
+        <input type="button" class="btn btn-primary" ng-show="existingItem" value="{%$root.i18n('更新')%}" ng-click="updateExisting()">
         <input type="button" ng-click="$state.go('^')" class="btn" value="Cancel">
     </div>
 
-    <div class="help-block">* 必填</div>
+    <div class="help-block">* {%$root.i18n('必填')%}</div>
 </form>
