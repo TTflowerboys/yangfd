@@ -300,46 +300,54 @@
                                 <a href="{{item.get('floor_plan')}}" target="_blank">
                                     <img src="{{item.get('floor_plan')}}" alt="" width="480" height="480"/>
                                 </a>
-                                <span class="text">
-                                    {{item.get('name','')}}
-                                    % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
-                                    {{_('面积')}}
-                                    {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}}
-                                    % end
-                                    {{type.get('bedroom_count',0)}}室{{type.get('living_room_count',0)}}厅{{type.get('kitchen_count',0)}}厨{{type.get('bathroom_count',0)}}卫
-                                </span>
+                                <div class="table_wrapper">
+                                    <table class="text">
+                                        <tr>
+                                            <td>
+                                                <span class="name">{{_('房间')}}</span>
+                                                <span class="value">{{type.get('bedroom_count',0)}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="name">{{_('客厅')}}</span>
+                                                <span class="value">{{type.get('living_room_count',0)}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="name">{{_('卫生间')}}</span>
+                                                <span class="value">{{type.get('kitchen_count',0)}}</span>
+                                            </td>
+                                            <td>
+                                                <span class="name">{{_('厨房')}}</span>
+                                                <span class="value">{{type.get('bathroom_count',0)}}</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
-                            <span class="text2">
-                                {{item.get('name','')}}
-                                % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
-                                {{_('面积')}}
-                                {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}}
-                                % end
-                                {{type.get('bedroom_count',0)}}室{{type.get('living_room_count',0)}}厅{{type.get('kitchen_count',0)}}厨{{type.get('bathroom_count',0)}}卫
-                            </span>
-                        </li>
-                        <li>
-                            <div style="position:relative;">
-                                <a href="{{item.get('floor_plan')}}" target="_blank">
-                                    <img src="{{item.get('floor_plan')}}" alt="" width="480" height="480"/>
-                                </a>
-                                <span class="text">
-                                    {{item.get('name','')}}
-                                    % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
-                                    {{_('面积')}}
-                                    {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}}
-                                    % end
-                                    {{type.get('bedroom_count',0)}}室{{type.get('living_room_count',0)}}厅{{type.get('kitchen_count',0)}}厨{{type.get('bathroom_count',0)}}卫
-                                </span>
+                            <div class="text2">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <span class="name">面积</span>
+                                            <span class="value">
+                                                <strong>
+                                                    {{type.get('building_area',{}).get('value')}}
+                                                    % unit = type.get('building_area',{}).get('unit')
+                                                    <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                                                </strong>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="name">售价</span>
+                                            <span class="value">
+                                                <strong>
+                                                    {{type.get('total_price',{}).get('unit_symbol')}}
+                                                    {{type.get('total_price',{}).get('value')}}
+                                                </strong>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                            <span class="text2">
-                                {{item.get('name','')}}
-                                % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
-                                {{_('面积')}}
-                                {{type.get('total_price',{}).get('unit_symbol')}} {{type.get('total_price',{}).get('value')}}
-                                % end
-                                {{type.get('bedroom_count',0)}}室{{type.get('living_room_count',0)}}厅{{type.get('kitchen_count',0)}}厨{{type.get('bathroom_count',0)}}卫
-                            </span>
                         </li>
                         % end
                         % end

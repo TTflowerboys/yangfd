@@ -82,13 +82,25 @@
     .description {
         font-size: 12px;
     }
-    .houseTypes {
-        .text { position: absolute; bottom: 0; color: white; background: fade(black, 60%); text-align: center; padding: 8px; width: 100%; left: 0; }
+    .houseTypes { line-height: 1;
+        .table_wrapper { position: absolute; bottom: 0; color: white; background: fade(black, 60%); padding: 8px 0;
+            left: 0; }
         ul {
-            > li { position: relative; }
-            //            .horizontalList();
+            > li { position: relative; padding: 0 16px; }
         }
-        .jcarousel-wrapper { padding-left: 36px; padding-right: 36px; border: none; }
+        table { text-align: left; width: 100%;
+            td { border-left: 1px solid #444; padding: 0 8px;
+                &:first-child { border-left: none; }
+                .name { display: block; font-size: 12px; margin-bottom: 8px; }
+                .value { font-size: 18px; }
+            }
+
+        }
+        .text2 { background: #eee; padding: 8px 0;
+            td { border-color: #ccc; }
+        }
+        strong { color: @red; }
+        .jcarousel-wrapper { padding-left: 24px; padding-right: 24px; border: none; }
         .jcarousel-control-prev { left: 0; }
         .jcarousel-control-next { right: 0; }
     }
