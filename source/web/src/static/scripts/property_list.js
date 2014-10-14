@@ -218,20 +218,20 @@
         $('#tags #intentionTag').find('[data-id=' + id + ']').toggleClass('selected', true)
     }
 
-    function updateUserTags() {
-        var budgetId = getSelectedBudgetType()
-        var intentionIds = getSelectedIntention()
+    // function updateUserTags() {
+    //     var budgetId = getSelectedBudgetType()
+    //     var intentionIds = getSelectedIntention()
 
-        $.betterPost('/api/1/user/edit', {'budget':budgetId, 'intention':intentionIds})
-            .done(function (data) {
-                window.user= data
-            })
-            .fail(function (ret) {
-            })
-            .always(function () {
+    //     $.betterPost('/api/1/user/edit', {'budget':budgetId, 'intention':intentionIds})
+    //         .done(function (data) {
+    //             window.user= data
+    //         })
+    //         .fail(function (ret) {
+    //         })
+    //         .always(function () {
 
-            })
-    }
+    //         })
+    // }
 
     $(function () {
         window.countryData = getData('countryData')
@@ -300,7 +300,7 @@
 
         resetData()
         loadPropertyList()
-        updateUserTags()
+        //updateUserTags()
     })
 
     $('#tags #intentionTag').on('click', '.toggleTag', function (event) {
@@ -315,20 +315,20 @@
 
         resetData()
         loadPropertyList()
-        updateUserTags()
+        //updateUserTags()
     })
 
     //load first property list base on user's choose
-    if (window.user) {
-        if (window.user.budget) {
-            selectBudget(window.user.budget.id)
-        }
-        if (window.user.intention) {
-            _.each(window.user.intention, function (item) {
-                selectIntention(item.id)
-            })
-        }
-    }
+    // if (window.user) {
+    //     if (window.user.budget) {
+    //         selectBudget(window.user.budget.id)
+    //     }
+    //     if (window.user.intention) {
+    //         _.each(window.user.intention, function (item) {
+    //             selectIntention(item.id)
+    //         })
+    //     }
+    // }
 
     var intentionFromURL = window.team.getQuery('intention', location.href)
     if (intentionFromURL) {
