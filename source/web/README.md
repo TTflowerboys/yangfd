@@ -1,5 +1,33 @@
 # Currant
 
+## i18n
+
+Bottle 模板中的 `{{_('文字')}}` 会自动支持多语言。但 JS 中的字符串却无法得到支持。
+解决的办法是运行 `npm run i18n`，这个任务会将 `i18n('文字')` 提取为 
+
+```
+<input type="hidden" id="i18n-str-文字" value="文字">
+```
+
+并保存至 i18n.html 或 i18n_admin.html。并提供如下方法供 JS 调用
+
+```
+window.i18n = function (name) {
+   var input = document.getElementById('i18n-str-' + name)
+   if (!input) { return name }
+   return input.value
+}
+``` 
+
+总而言之，界面里需要国际化的字符串只能有如下两种形式：
+
+1. `{{_('任意字符串')}}`
+2. `i18n('任意字符串')`
+
+P.S. 上面两行中的单引号皆可换为双引号。
+
+
+
 ## Bottle 模板
 
 [参考文档](https://docs.google.com/a/bbtechgroup.com/document/d/1T99uqrI7_rqBi0vYYAbPTed-f9qMT9PopjEQKEt4gAY/edit)
@@ -11,13 +39,13 @@ Bottle 支持两种文件复用语法
 
 Gulp 也提供了对应的支持
 
-* \<!-- include=路径 {"JSON":"JSON"} --\>
-* \<!-- master=路径 {"JSON":"JSON"} --\>
+* <\!-- include=路径 {"JSON":"JSON"} -->
+* <\!-- master=路径 {"JSON":"JSON"} -->
 
 ## 文案规范
 
 ```
-login, sign in 对应的中文： 
+login, sign in 对应的中文：
 ✔︎︎ 登录
 ✖︎ 登陆
 ```

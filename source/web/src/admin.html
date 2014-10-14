@@ -112,14 +112,7 @@
         </div>
 
 
-        <!--@@include partials/admin_i18n.html-->
-        <script>
-            window.i18n = function (name) {
-                var input = document.getElementById('i18n-' + name)
-                if (!input) { return name }
-                return input.value
-            }
-        </script>
+        <!--@@include partials/i18n_admin.html-->
 
         <script>
             window.lang = '{{_.lang}}'
