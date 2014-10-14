@@ -5,13 +5,7 @@ var path = require('path')
 var md = require('marked')
 
 md.setOptions({
-    gfm: true,
-    tables: true,
-    breaks: false,
-    pedantic: false,
-    sanitize: true,
-    smartLists: true,
-    smartypants: false
+    gfm: true
 })
 
 if (process.argv.length < 4) {
