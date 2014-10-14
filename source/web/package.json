@@ -6,7 +6,7 @@
     "debug": "npm install && gulp clean && gulp debug",
     "dev": "npm install && gulp clean && gulp debug",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install --production && npm i18n && gulp build",
+    "build": "npm install --production && npm run i18n && gulp build",
     "styleguideinit": "kss-node --init",
     "styleguide": "kss-node ./src/static/styles/ --less ./src/static/styles/styleguide.less --template ./.styleguide-template/",
     "theme": "gulp styleless2css",
