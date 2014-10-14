@@ -10,7 +10,7 @@
     "styleguideinit": "kss-node --init",
     "styleguide": "kss-node ./src/static/styles/ --less ./src/static/styles/styleguide.less --template ./.styleguide-template/",
     "theme": "gulp styleless2css",
-    "i18n": "node tools/generate_i18n.js 'src/static/admin/**/*.{js,html}' 'src/partials/admin_i18n.html'; node tools/generate_i18n.js 'src/{,static/scripts/**/,static/templates/**/}*.{html,js}' 'src/partials/admin_i18n.html'",
+    "i18n": "node tools/generate_i18n.js 'src/static/admin/**/*.{js,html}' 'src/partials/i18n_admin.html'; node tools/generate_i18n.js 'src/{,static/scripts/**/,static/templates/**/}*.{html,js}' 'src/partials/i18n.html'",
     "readme": "node tools/generate_readme.js 'README.md' 'README.html'"
   },
   "repository": {
