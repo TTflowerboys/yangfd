@@ -111,8 +111,20 @@
             <!-- /.modal-dialog -->
         </div>
 
+        <!--@@include partials/admin_i18n.html-->
+        <script>
+            window.i18n = function (name) {
+                var inputs = document.getElementsByName('i18n-' + name)
+                if (inputs.length < 1) {
+                    return name
+                }
+                return inputs[0].value
+            }
+        </script>
+
         <script>
             window.lang = '{{_.lang}}'
+            alert(i18n('超额收益'))
         </script>
 
         <!-- jQuery -->
