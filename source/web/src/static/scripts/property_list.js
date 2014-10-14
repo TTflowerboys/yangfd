@@ -210,6 +210,10 @@
         $item.addClass('selected')
     }
 
+    function removeAllSelectedIntentions() {
+        $('#tags #intentionTag').find('.toggleTag').toggleClass('selected', false)
+    }
+
     function selectIntention(id) {
         $('#tags #intentionTag').find('[data-id=' + id + ']').toggleClass('selected', true)
     }
@@ -328,7 +332,12 @@
 
     var intentionFromURL = window.team.getQuery('intention', location.href)
     if (intentionFromURL) {
+        removeAllSelectedIntentions() //remove all selected, only use the url intention
         selectIntention(intentionFromURL)
+    }
+    var budgetFromURL = window.team.getQuery('budget', location.href)
+    if (budgetFromURL) {
+        selectBudget(budgetFromURL)
     }
 
     loadPropertyList()

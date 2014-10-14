@@ -126,9 +126,42 @@
         });
     }
 
-    window.openRequirementForm = function () {
+    window.openRequirementForm = function (event, budgetId, intentionId) {
         var popup = $('#requirement_popup')
-        window.resetRequirementForm(popup)
+        window.resetRequirementForm(popup, budgetId)
+        if (budgetId) {
+            popup.find('select.budget option[value=' + budgetId + ']').attr('selected', 'selected')
+        }
+
+        if (budgetId && intentionId) {
+
+            var selectedBudget =  popup.find('select.budget option[value=' + budgetId + ']').text()
+            var selectedIntention
+            var rawIntentionList = $('#dataIntentionList').text()
+            if (rawIntentionList) {
+                var intentionArray = JSON.parse(rawIntentionList)
+                _.each(intentionArray, function (item) {
+                    if (item.id === intentionId) {
+                        selectedIntention = item.value
+                    }
+                })
+
+            }
+
+            var description =  window.i18n('我想投资价值为')
+            if (selectedBudget) {
+                description = description  + ' ' +
+                    selectedBudget + ' '
+            }
+
+            if (selectedIntention) {
+                description = description + window.i18n('的房产comma投资意向为') + ' ' +
+                    selectedIntention
+            }
+            description = description + window.i18n('period')
+
+            popup.find('[name=description]').text(description)
+        }
         popup.find('.requirement_title').show()
         window.showRequirementCancelButton(popup)
 
@@ -147,7 +180,7 @@
         }
         else {
             wrapper.css('top',
-                    $(window).scrollTop() - headerHeight + ($(window).height() - (wrapper.outerHeight() - headerHeight)) / 2)
+                        $(window).scrollTop() - headerHeight + ($(window).height() - (wrapper.outerHeight() - headerHeight)) / 2)
         }
     }
 
