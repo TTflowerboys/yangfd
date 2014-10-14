@@ -78,33 +78,39 @@
     }
 
     function getIntentionById(id) {
-        var rawIntentionList = $('#dataIntentionList').text()
-        var array = JSON.parse(rawIntentionList)
-        var ret
-        if (array.length) {
-            _.each(array, function (item) {
-                if (item.id === id) {
-                    ret = item
-                }
-            })
+        if (id) {
+            var rawIntentionList = $('#dataIntentionList').text()
+            var array = JSON.parse(rawIntentionList)
+            var ret
+            if (array.length) {
+                _.each(array, function (item) {
+                    if (item.id === id) {
+                        ret = item
+                    }
+                })
 
+            }
+            return ret
         }
-        return ret
+        return undefined
     }
 
-     function getBudgetById(id) {
-        var rawBudgetList = $('#dataBudgetList').text()
-        var array = JSON.parse(rawBudgetList)
-        var ret
-        if (array.length) {
-            _.each(array, function (item) {
-                if (item.id === id) {
-                    ret = item
-                }
-            })
+    function getBudgetById(id) {
+        if (id) {
+            var rawBudgetList = $('#dataBudgetList').text()
+            var array = JSON.parse(rawBudgetList)
+            var ret
+            if (array.length) {
+                _.each(array, function (item) {
+                    if (item.id === id) {
+                        ret = item
+                    }
+                })
 
+            }
+            return ret
         }
-        return ret
+        return undefined
     }
 
     function updatePropertyCards(array) {
@@ -113,6 +119,7 @@
             var houseResult = {}
             if (house.isEmpty) {
                 houseResult = _.template($('#empty_houseCard_template').html())({house: house})
+                console.log(houseResult)
                 $('#suggestionHouses #list').append(houseResult)
 
             }
@@ -195,10 +202,14 @@
                     }
                     else {
                         item.isEmpty = true
-                        item.category_budget = getBudgetById(usedBudget)
-                        item.category_intention = getIntentionById(oneIntention)
+                        if (usedBudget) {
+                            item.category_budget = getBudgetById(usedBudget)
+                        }
+                        if (oneIntention) {
+                            item.category_intention = getIntentionById(oneIntention)
                         item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ',
                             '_') + '_description')
+                        }
                         responseArray.push(item)
                     }
                 })

@@ -1,15 +1,26 @@
 <script id="empty_houseCard_template" type="text/template">
+    {_var categoryName = ''_}
+    {_var budgetName = ''_}
+    {_var budgeId = null_}
+    {_if(house.category_budget) {_}
+    {_budgetId = house.category_budget.id_}
+    {_budgetName = house.category_budget.value_}
+    {_categoryName = house.category_budget.value_}
+    {_categoryName = categoryName + ' - '_}
+    {_}_}
+    {_categoryName = categoryName + house.category_intention.value_}
+
     <div class="houseCard_wrapper" data-category-intention-id="{=house.category_intention.id=}">
     <div class="houseCard_header">
     <img alt="" src="/static/images/intention/icon/{=house.category_intention.slug=}-grey.png" />
-    <h2 class="title">{=house.category_budget.value + ' - ' + house.category_intention.value=}</h2>
+    <h2 class="title">{=categoryName=}</h2>
     </div>
     <div class=houseCard>
     <div id="emptyPlaceHolder" class="emptyPlaceHolder">
         <img src="/static/images/icon/notice.png" alt="" />
         <div class="holderText">
             <h2>{{_('不好意思，平台暂时没有')}}
-                <span id="budget">{=house.category_budget.value=}</span>
+                <span id="budget">{=budgetName=}</span>
                 {{_('合适')}}
                 <span id="intention">{=house.category_intention.value=}</span>
                 {{_('的投资机会')}}
@@ -18,7 +29,7 @@
                 {{_('您可以先')}}
                 <a href="/property_list">{{_('看看其他房产')}}</a>
                 {{_('，或者')}}
-                <a href="javascript:window.openRequirementForm(null, '{=house.category_budget.id=}', '{=house.category_intention.id=}')">{{_('提交您的置业需求')}}</a>
+                <a href="javascript:window.openRequirementForm(null, '{=budgetId=}', '{=house.category_intention.id=}')">{{_('提交您的置业需求')}}</a>
             </p>
         </div>
     </div>

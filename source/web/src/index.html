@@ -133,7 +133,7 @@
         <div class=description>
             <h1 class=name>{{property.get('name', '')}}</h1>
             <span class=price>
-                % if property.get('property_type',{}).get('slug') == 'new_property':
+                % if property.get('property_type') and property.get('property_type',{}).get('slug') == 'new_property':
                 {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
                 <strong data-type="currency">
                     {{property.get('unit_price',{}).get('price',{}).get('value','')}}
