@@ -11,9 +11,9 @@
         </colgroup>
         <thead>
             <tr>
-                <th>房产名称</th>
-                <th>状态</th>
-                <th>购买时间</th>
+                <th>{%$root.i18n('房产名称')%}</th>
+                <th>{%$root.i18n('状态')%}</th>
+                <th>{%$root.i18n('购买时间')%}</th>
                 <th></th>
             </tr>
         </thead>
@@ -39,8 +39,8 @@
     <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">No results</div>
     <div class="buttons">
         <span class="btn-group pull-right">
-            <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
-            <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+            <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+            <button ng-hide="noNext" class="btn" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
         </span>
     </div>
 </div>

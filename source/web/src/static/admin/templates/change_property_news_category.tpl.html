@@ -12,7 +12,7 @@
     </select>
 
     <button type="button" ng-show="item[name].toStrong()!==newValue.toString()" class="btn btn-sm btn-primary"
-        ng-click="onSubmit(item,newValue)">提交
+        ng-click="onSubmit(item,newValue)">{%$root.i18n('提交')%}
     </button>
-    <button type="button" class="btn btn-sm btn-inverse" ng-click="open = false">取消</button>
+    <button type="button" class="btn btn-sm btn-inverse" ng-click="open = false">{%$root.i18n('取消')%}</button>
 </div>

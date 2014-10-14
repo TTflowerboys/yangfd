@@ -5,7 +5,7 @@
                 <div class="login-box">
 
                     <div class="header">
-                        {%i18n('"管理员登录"')%}
+                        {%$root.i18n('"管理员登录"')%}
                     </div>
 
                     <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
@@ -14,10 +14,10 @@
                             <div class="form-group">
                                 <div class="controls row">
                                     <div class="input-group col-sm-12">
-                                        <label class="input-group-addon">国家:</label>
+                                        <label class="input-group-addon">{%$root.i18n('国家')%}:</label>
                                         <div select-phone-country ng-model="user.country" required></div>
                                     </div>
-                                    <span ng-show="submitted && signIn.country.$error.required">必填</span>
+                                    <span ng-show="submitted && signIn.country.$error.required">{%$root.i18n('必填')%}</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -25,12 +25,12 @@
                                     <div class="input-group col-sm-12">
                                         <input ng-model="user.phone" name="phone" ng-pattern="/^[0-9 ]*$/"
                                             type="text" class="form-control" ng-change="onChangeText()"
-                                            placeholder="电话号码" required>
+                                            placeholder="{%$root.i18n('电话号码')%}" required>
                                         <span class="input-group-addon" style="width: 40px"><i
                                             class="fa fa-mobile-phone"></i></span>
                                     </div>
-                                    <span ng-show="submitted && signIn.phone.$error.required">必填</span>
-                                    <span ng-show="submitted && signIn.phone.$error.pattern">请输入数字</span>
+                                    <span ng-show="submitted && signIn.phone.$error.required">{%$root.i18n('必填')%}</span>
+                                    <span ng-show="submitted && signIn.phone.$error.pattern">{%$root.i18n('请输入数字')%}</span>
                                 </div>
                             </div>
 
@@ -39,18 +39,18 @@
                                     <div class="input-group col-sm-12">
                                         <input ng-model="user.password"
                                             type="password" class="form-control" name="password"
-                                            ng-change="onChangeText()" placeholder="密码" required>
+                                            ng-change="onChangeText()" placeholder="{%$root.i18n('密码')%}" required>
                                         <span class="input-group-addon" style="width: 40px"><i
                                             class="fa fa-key"></i></span>
                                     </div>
-                                    <span ng-show="submitted && signIn.password.$error.required">必填</span>
+                                    <span ng-show="submitted && signIn.password.$error.required">{%$root.i18n('必填')%}</span>
                                 </div>
                             </div>
 
                             <div class="row">
 
                                 <button type="submit" class="btn btn-lg btn-primary col-xs-12"
-                                    ng-disabled="submitDisabled">登录
+                                    ng-disabled="submitDisabled">{%$root.i18n('登录')%}
                                 </button>
 
                             </div>
@@ -60,7 +60,7 @@
                     </form>
 
 
-                    <a class="pull-left" ui-sref="forgot">忘记密码</a>
+                    <a class="pull-left" ui-sref="forgot">{%$root.i18n('忘记密码')%}</a>
 
                     <div class="clearfix"></div>
 

@@ -25,7 +25,8 @@
       "team":      true,
       "Chart":     true,
       "currency":  true,
-      "lang":      true
+      "lang":      true,
+      "i18n":      true
   },
   "globalstrict":  false,
   "immed":         false,

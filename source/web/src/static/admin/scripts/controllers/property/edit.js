@@ -12,7 +12,15 @@
 
 
         if (itemFromParent) {
-            onGetItem(itemFromParent)
+            if(itemFromParent.target_property_id){
+                api.getOne(itemFromParent.target_property_id, {errorMessage: true})
+                    .success(function (data) {
+                        itemFromParent = angular.extend(data.val, itemFromParent)
+                        onGetItem(itemFromParent)
+                    })
+            }else {
+                onGetItem(itemFromParent)
+            }
         } else {
             api.getOne($stateParams.id)
                 .success(function (data) {

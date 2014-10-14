@@ -1,7 +1,7 @@
 <div ui-view>
     <div class="buttons">
         <span class="btn-group">
-            <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span>返回</button>
+            <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span>{%$root.i18n('返回')%}</button>
         </span>
         <span class="btn-group">
             <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"
@@ -11,7 +11,7 @@
     <form class="form-horizontal login" ng-init="initId()">
         <div class="row">
             <div class="form-group col-xs-6 col-sm-3">
-                <label class="control-label">姓名</label>
+                <label class="control-label">{%$root.i18n('姓名')%}</label>
 
                 <div class="controls">
                     {%item.nickname%}
@@ -20,14 +20,14 @@
         </div>
         <div class="row">
             <div class="form-group col-xs-6 col-sm-3">
-                <label class="control-label">电话</label>
+                <label class="control-label">{%$root.i18n('电话')%}</label>
 
                 <div class="controls">
                     {%item.phone%}
                 </div>
             </div>
             <div class="form-group col-xs-6 col-sm-3">
-                <label class="control-label">邮箱</label>
+                <label class="control-label">{%$root.i18n('邮箱')%}</label>
 
                 <div class="controls">
                     {%item.email%}
@@ -36,7 +36,7 @@
         </div>
         <div class="row" ng-if="item.budget">
             <div class="form-group col-xs-6 col-sm-3">
-                <label class="control-label">预算</label>
+                <label class="control-label">{%$root.i18n('预算')%}</label>
 
                 <div class="controls">
                     {%item.budget.value[userLanguage.value]%}
@@ -45,7 +45,7 @@
         </div>
         <div class="row" ng-if="item.description">
             <div class="form-group col-xs-6 col-sm-3">
-                <label class="control-label">文字描述</label>
+                <label class="control-label">{%$root.i18n('文字描述')%}</label>
 
                 <div class="controls">
                     {%item.description%}
@@ -55,14 +55,14 @@
         </div>
         <div class="row" ng-if="item.country">
             <div class="form-group col-xs-6 col-sm-3">
-                <label class="control-label">国家</label>
+                <label class="control-label">{%$root.i18n('国家')%}</label>
 
                 <div class="controls">
                     {%item.country.value[userLanguage.value]%}
                 </div>
             </div>
             <div class="form-group col-xs-6 col-sm-3" ng-if="item.city">
-                <label class="control-label">城市</label>
+                <label class="control-label">{%$root.i18n('城市')%}</label>
 
                 <div class="controls">
                     {%item.city.value[userLanguage.value]%}
@@ -72,14 +72,14 @@
         </div>
         <div class="row">
             <div class="form-group col-xs-6 col-sm-3" ng-if="item.equity_type">
-                <label class="control-label">产权类型</label>
+                <label class="control-label">{%$root.i18n('产权类型')%}</label>
 
                 <div class="controls">
                     {%item.equity_type.value[userLanguage.value]%}
                 </div>
             </div>
             <div class="form-group col-xs-6 col-sm-3" ng-if="item.intention">
-                <label class="control-label">投资意向标签</label>
+                <label class="control-label">{%$root.i18n('投资意向标签')%}</label>
 
                 <div class="controls" ng-repeat="i in item.intention">
 
@@ -90,14 +90,14 @@
         </div>
         <div class="row">
             <div class="form-group col-xs-6 col-sm-3">
-                <label class="control-label">提交时间</label>
+                <label class="control-label">{%$root.i18n('提交时间')%}</label>
 
                 <div class="controls">
                     {%(item.time?(item.time * 1000 | date : 'short'):'')%}
                 </div>
             </div>
             <div class="form-group col-xs-6 col-sm-3" ng-if="item.assigned_time">
-                <label class="control-label">受理时间</label>
+                <label class="control-label">{%$root.i18n('受理时间')%}</label>
 
                 <div class="controls">
 
@@ -108,7 +108,7 @@
         </div>
         <div class="row" ng-if="item.assignee">
             <div class="form-group col-xs-6 col-sm-3">
-                <label class="control-label">指派</label>
+                <label class="control-label">{%$root.i18n('指派')%}</label>
                 <div class="controls" ng-repeat="a in item.assignee">
                     {%a.nickname%}
                 </div>
@@ -117,7 +117,7 @@
         <div class="row" ng-if="item.custom_fields">
             <div add-custom-fields></div>
             <div class="form-group col-xs-6 col-sm-3">
-                <label class="control-label">销售自定义描述</label>
+                <label class="control-label">{%$root.i18n('销售自定义描述')%}</label>
 
                 <div class="controls">
                     <table class="table table-bordered table-striped table-condensed"

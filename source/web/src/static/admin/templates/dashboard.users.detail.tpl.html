@@ -1,6 +1,6 @@
 <div class="buttons">
     <span class="btn-group">
-        <button class="btn" ng-click="$state.go('^.^')"><span class="fa fa-chevron-left"></span> 返回</button>
+        <button class="btn" ng-click="$state.go('^.^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
     </span>
 </div>
 
@@ -17,19 +17,19 @@
 
                 <ul class="profile-details">
                     <li>
-                        <div><i class="fa fa-briefcase"></i> 姓名</div>
+                        <div><i class="fa fa-briefcase"></i> {%$root.i18n('姓名')%}</div>
                         <span data-ng-bind="item.nickname"></span>
                     </li>
                     <li>
-                        <div><i class="fa fa-building-o"></i> 性别</div>
+                        <div><i class="fa fa-building-o"></i> {%$root.i18n('性别')%}</div>
                         <span data-ng-bind="item.gender"></span>
                     </li>
                     <li>
-                        <div><i class="fa fa-building-o"></i> 国家</div>
+                        <div><i class="fa fa-building-o"></i> {%$root.i18n('国家')%}</div>
                         <span data-ng-bind="item.country.value"></span>
                     </li>
                     <li>
-                        <div><i class="fa fa-building-o"></i> 城市</div>
+                        <div><i class="fa fa-building-o"></i> {%$root.i18n('城市')%}</div>
                         <span data-ng-bind="item.city.value"></span>
                     </li>
                 </ul>
@@ -42,11 +42,11 @@
                         <span>+{%item.country_code%} {%item.phone%}</span>
                     </li>
                     <li>
-                        <div><i class="fa fa-envelope"></i> e-mail</div>
+                        <div><i class="fa fa-envelope"></i> {%$root.i18n('邮箱')%}</div>
                         <span>{%item.email%}</span>
                     </li>
                     <li>
-                        <div><i class="fa fa-envelope"></i> 微信</div>
+                        <div><i class="fa fa-envelope"></i> {%$root.i18n('微信')%}</div>
                         <span>{%item.wechat_id%}</span>
                     </li>
                 </ul>
@@ -61,16 +61,16 @@
 
         <ul class="nav nav-tabs" id="userInfoTab">
             <li ng-class="{active:$state.includes('dashboard.users.detail.favs')}">
-                <a style="cursor: pointer;" ui-sref=".favs">收藏房产</a>
+                <a style="cursor: pointer;" ui-sref=".favs">{%$root.i18n('收藏房产')%}</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.intentions')}">
-                <a style="cursor: pointer;" ui-sref=".intentions">投资意向单{%item.counter.intention === 0? '':'('+item.counter.intention+')'%}</a>
+                <a style="cursor: pointer;" ui-sref=".intentions"><span>{%$root.i18n('投资意向单')%}</span>{%item.counter.intention === 0? '':'('+item.counter.intention+')'%}</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.boughts')}">
-                <a style="cursor: pointer;" ui-sref=".boughts">已购房产</a>
+                <a style="cursor: pointer;" ui-sref=".boughts">{%$root.i18n('已购房产')%}</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.supports')}">
-                <a style="cursor: pointer;" ui-sref=".supports">客服单{%item.counter.support === 0? '':'('+item.counter.support+')'%}</a>
+                <a style="cursor: pointer;" ui-sref=".supports"><span>{%$root.i18n('客服单')%}</span>{%item.counter.support === 0? '':'('+item.counter.support+')'%}</a>
             </li>
         </ul>
 

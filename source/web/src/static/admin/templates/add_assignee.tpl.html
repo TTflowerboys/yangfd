@@ -4,4 +4,4 @@
 <span ng-style="{'visibility':searchingUser?'visibility':'hidden'}">
     <i class="fa fa-spinner fa-spin"></i>
 </span>
-<button class="btn btn-primary btn-sm" ng-style="{'visibility':newAssignee.id && newAssignee.id !== item.assignee[0].id ?'visibility':'hidden'}" ng-click="onAssign(newAssignee)">提交</button>
+<button class="btn btn-primary btn-sm" ng-style="{'visibility':newAssignee.id && newAssignee.id !== item.assignee[0].id ?'visibility':'hidden'}" ng-click="onAssign(newAssignee)">{%$root.i18n('提交')%}</button>

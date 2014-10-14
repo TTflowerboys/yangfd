@@ -4,7 +4,7 @@
 angular.module('app',
     ['ui.router', 'angular-loading-bar', 'angularFileUpload', 'ui.bootstrap', 'angular-growl', 'wysiwyg.module', 'multi-select'])
     .run(function ($rootScope, $state, $stateParams, $sce) {
-
+        $rootScope.i18n = i18n;
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
         $rootScope.renderHtml = function (html) {

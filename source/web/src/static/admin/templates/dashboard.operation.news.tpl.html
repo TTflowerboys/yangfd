@@ -6,18 +6,18 @@
 
             <span class="btn-group">
                 <button class="btn" ui-sref=".create">
-                    <span class="fa fa-plus-circle"></span> 添加资讯
+                    <span class="fa fa-plus-circle"></span> {%$root.i18n('添加资讯')%}
                 </button>
             </span>
             <div class="btn-group form-inline">
                 <select class="form-control" ng-options="p as p.value[userLanguage.value] for p in newsCategoryList"
                     ng-model="selected.category">
-                    <option value="">-- 过滤条件 --</option>
+                    <option value="">-- {%$root.i18n('过滤条件')%} --</option>
                 </select>
             </div>
             <span class="btn-group pull-right">
-                <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
-                <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+                <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
             </span>
             <div class="btn-group form-inline pull-right" style="margin-right: 10px">
                 <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
@@ -33,10 +33,10 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th>标题</th>
-                    <th>作者</th>
-                    <th>创建时间</th>
-                    <th>类型</th>
+                    <th>{%$root.i18n('标题')%}</th>
+                    <th>{%$root.i18n('作者')%}</th>
+                    <th>{%$root.i18n('创建时间')%}</th>
+                    <th>{%$root.i18n('类型')%}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -73,8 +73,8 @@
 
 
             <span class="btn-group pull-right">
-                <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
-                <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+                <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
             </span>
 
         </div>

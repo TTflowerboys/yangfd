@@ -2,5 +2,5 @@
     <select ng-options="p.value as p.name for p in propertyStatus" ng-model="newStatus" ng-init="newStatus=item.status"
         class="form-control input-sm">
     </select>
-    <button ng-show="item.status!==newStatus" class="btn btn-sm btn-primary" ng-click="onUpdateStatus(item,newStatus)">提交</button>
+    <button ng-show="item.status!==newStatus" class="btn btn-sm btn-primary" ng-click="onUpdateStatus(item,newStatus)">{%$root.i18n('提交')%}</button>
 </div>

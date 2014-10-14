@@ -6,13 +6,13 @@
 
                 <span class="btn-group">
                     <button class="btn" ui-sref=".create">
-                        <span class="fa fa-plus-circle"></span> 添加人员
+                        <span class="fa fa-plus-circle"></span> {%$root.i18n('添加人员')%}
                     </button>
                 </span>
 
                 <span class="btn-group pull-right">
-                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
-                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
                 </span>
 
             </div>
@@ -27,12 +27,12 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>姓名</th>
-                        <th>邮箱</th>
-                        <th>手机</th>
-                        <th>权限</th>
-                        <th>增加权限</th>
-                        <th>取消权限</th>
+                        <th>{%$root.i18n('姓名')%}</th>
+                        <th>{%$root.i18n('邮箱')%}</th>
+                        <th>{%$root.i18n('手机')%}</th>
+                        <th>{%$root.i18n('权限')%}</th>
+                        <th>{%$root.i18n('增加权限')%}</th>
+                        <th>{%$root.i18n('取消权限')%}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,8 +65,8 @@
 
 
                 <span class="btn-group pull-right">
-                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← 上一页</button>
-                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">下一页 →</button>
+                    <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                    <button ng-hide="noNext" class="btn" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
                 </span>
 
             </div>

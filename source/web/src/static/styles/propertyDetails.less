@@ -84,9 +84,9 @@
     }
     .houseTypes {
         .text { position: absolute; bottom: 0; background: fade(white, 30%); text-align: center; padding: 8px; width: 100%; left: 0; }
-        > ul {
-            .horizontalList();
-        }
+//        > ul {
+//            .horizontalList();
+//        }
     }
     .brief {
         .table { width: 100%;
@@ -159,13 +159,13 @@
             }
         }
     }
-    .intentionForm { padding: 8px 24px 8px; margin-top: 16px; background: #f6f6f6; overflow: hidden;
+    .intentionForm { padding: 8px 24px 8px; margin-top: 16px; background: #f6f6f6; overflow: hidden; margin-bottom: 16px;
         .row { .clearfix(); }
         @input-size: 14px;
         @input-height: 44px;
         @input-color: #333;
         input[type=text], textarea { border: 1px solid @border-color; border-radius: 4px; display: block; width: 100%;
-            height: @input-height; padding: 16px; margin: 8px 0; font-size: @input-size;
+            height: @input-height; padding: 4px 16px; margin: 8px 0; font-size: @input-size;
             color: @input-color; vertical-align: middle;
         }
         input[type=text][readonly] { background: #f6f6f6; }
