@@ -8,10 +8,28 @@
         {_}_}
         <div class=description>
             <h1 class=name>{=fav.property.name=}</h1>
+
         <span class=price>
+            {_if(fav.property.property_type.slug === 'new_property'){_}
+             {=fav.property.unit_price.price.unit_symbol=}
+              <strong>{=team.encodeCurrency(parseInt(fav.property.unit_price.price.value))=}</strong>
+             /
+             {_if (fav.property.unit_price.unit.unit === 'foot ** 2'){_}
+              foot <sup>2</sup>
+              {_} else if(fav.property.unit_price.unit.unit=== 'acre'){_}
+              acre
+              {_} else if (fav.property.unit_price.unit.unit=== 'meter ** 2') {_}
+              m <sup>2</sup>
+              {_} else if (fav.property.unit_price.unit.unit=== 'kilometer ** 2') {_}
+              km <sup>2</sup>
+              {_} else {_}
+              {=fav.property.unit_price.unit.unit=}
+              {_}_}
+            {_} else {_}
             {_if(fav.property.total_price) {_}
             {=fav.property.total_price.unit_symbol=}
               <strong>{=team.encodeCurrency(parseInt(fav.property.total_price.value))=}</strong>
+            {_}_}
             {_}_}
         </span>
             <div class=details>

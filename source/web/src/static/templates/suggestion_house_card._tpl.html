@@ -16,9 +16,26 @@
         <div class=description>
             <h1 class=name>{=house.name=}</h1>
         <span class=price>
+            {_if(house.property_type.slug === 'new_property'){_}
+             {=house.unit_price.price.unit_symbol=}
+              <strong>{=team.encodeCurrency(parseInt(house.unit_price.price.value))=}</strong>
+             /
+             {_if (house.unit_price.unit.unit === 'foot ** 2'){_}
+              foot <sup>2</sup>
+              {_} else if(house.unit_price.unit.unit=== 'acre'){_}
+              acre
+              {_} else if (house.unit_price.unit.unit=== 'meter ** 2') {_}
+              m <sup>2</sup>
+              {_} else if (house.unit_price.unit.unit=== 'kilometer ** 2') {_}
+              km <sup>2</sup>
+              {_} else {_}
+              {=house.unit_price.unit.unit=}
+              {_}_}
+            {_} else {_}
             {_if(house.total_price) {_}
             {=house.total_price.unit_symbol=}
               <strong>{=team.encodeCurrency(parseInt(house.total_price.value))=}</strong>
+            {_}_}
             {_}_}
         </span>
             <div class=details>

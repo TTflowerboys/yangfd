@@ -133,11 +133,24 @@
         <div class=description>
             <h1 class=name>{{property.get('name', '')}}</h1>
             <span class=price>
-                %if property.get('total_price'):
+                % if property.get('property_type',{}).get('slug') == 'new_property':
+                {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
+                <strong data-type="currency">
+                    {{property.get('unit_price',{}).get('price',{}).get('value','')}}
+                </strong>
+                <span>
+                    % unit = property.get('unit_price',{}).get('unit',{}).get('unit')
+                    /
+                    <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                </span>
+                % else:
                 {{property.get('total_price').get('unit_symbol')}}
-                <strong data-type="currency">{{str(int(float(property.get('total_price').get('value'))))}}</strong>
-                %end
+                <strong data-type="currency">
+                    {{property.get('total_price',{}).get('value','')}}
+                </strong>
+                % end
             </span>
+
             <div class=details>
                 <p class=size>
                     %if property.get('living_room_count'):
