@@ -224,7 +224,10 @@
                             {{_('产权地址')}}
                         </td>
                         <td class="value">
-                            {{property.get('address','')}}
+                            % from urllib import quote_plus
+                            <a target="_blank" href="//maps.google.com/?q={{ quote_plus( property.get('address','') ) }}">
+                                {{property.get('address')}}
+                            </a>
                         </td>
                         <td class="name">
                             <i>
@@ -247,13 +250,16 @@
                             % if property.get('main_house_types'):
                             % for type in property.get('main_house_types'):
                             <span class="toggleTag selected">
-                                {{type.get('bedroom_count',0)}}室
-                                {{type.get('living_room_count',0)}}厅
-                                {{type.get('kitchen_count',0)}}厨
-                                {{type.get('bathroom_count',0)}}卫
-                                % if 'value' in type.get('total_price',{}) and 'unit_symbol' in type.get('total_price',{}):
-                                ( {{type.get('total_price',{}).get('unit_symbol')}}
-                                <span data-type="currency">{{type.get('total_price',{}).get('value')}}</span> )
+                                {{type.get('bedroom_count',0)}}{{_('室')}}
+                                {{type.get('living_room_count',0)}}{{_('厅')}}
+                                {{type.get('kitchen_count',0)}}{{_('厨')}}
+                                {{type.get('bathroom_count',0)}}{{_('卫')}}
+                                % if 'value' in type.get('building_area',{}) and 'unit' in type.get('building_area',{}):
+                                (
+                                {{type.get('building_area',{}).get('value')}}
+                                % unit = type.get('building_area',{}).get('unit')
+                                <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                                )
                                 % end
                             </span>
                             % end
@@ -513,8 +519,9 @@
             </div>
             % end
             % if property.get('address'):
+            % from urllib import quote_plus
             <div class="tag"><img src="/static/images/property_details/location-icon.png" alt=""/>
-                {{property.get('address')}}
+                <a target="_blank" href="//maps.google.com/?q={{ quote_plus( property.get('address') ) }}">{{property.get('address')}}</a>
             </div>
             % end
             <p class="price">

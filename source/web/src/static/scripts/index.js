@@ -16,22 +16,13 @@
         return ''
     }
 
-    function getSelectedBudgetTypeValue() {
-        var $selectedChild = $('#tags #budgetTag').children('.selected')
-        if ($selectedChild.length) {
-            return $selectedChild.first().text()
-        }
-        return ''
-    }
-
-    // function getLastBudgetTypeId() {
-    //     var $selectedChild = $('#tags #budgetTag').children()
+    // function getSelectedBudgetTypeValue() {
+    //     var $selectedChild = $('#tags #budgetTag').children('.selected')
     //     if ($selectedChild.length) {
-    //         return $selectedChild.last().attr('data-id')
+    //         return $selectedChild.first().text()
     //     }
     //     return ''
     // }
-
 
     function getSelectedIntentionIds() {
         var $selectedChildren = $('#tags #intentionTag ul').children('.selected')
@@ -50,22 +41,22 @@
         return ''
     }
 
-    function getSelectedIntentionValues() {
-        var $selectedChildren = $('#tags #intentionTag ul').children('.selected')
-        if ($selectedChildren.length) {
-            var ids = ''
-            _.each($selectedChildren, function (child) {
-                ids += $(child).clone().children().remove().end().text()
-                ids += ','
-            })
+    // function getSelectedIntentionValues() {
+    //     var $selectedChildren = $('#tags #intentionTag ul').children('.selected')
+    //     if ($selectedChildren.length) {
+    //         var ids = ''
+    //         _.each($selectedChildren, function (child) {
+    //             ids += $(child).clone().children().remove().end().text()
+    //             ids += ','
+    //         })
 
-            if (_.last(ids) === ',') {
-                ids = ids.substring(0, ids.length - 1)
-            }
-            return ids
-        }
-        return ''
-    }
+    //         if (_.last(ids) === ',') {
+    //             ids = ids.substring(0, ids.length - 1)
+    //         }
+    //         return ids
+    //     }
+    //     return ''
+    // }
 
     function getAllIntentionIds() {
         var rawIntentionList = $('#dataIntentionList').text()
@@ -101,10 +92,34 @@
         return ret
     }
 
+     function getBudgetById(id) {
+        var rawBudgetList = $('#dataBudgetList').text()
+        var array = JSON.parse(rawBudgetList)
+        var ret
+        if (array.length) {
+            _.each(array, function (item) {
+                if (item.id === id) {
+                    ret = item
+                }
+            })
+
+        }
+        return ret
+    }
+
     function updatePropertyCards(array) {
         _.each(array, function (house) {
-            var houseResult = _.template($('#houseCard_template').html())({house: house})
-            $('#suggestionHouses #list').append(houseResult)
+
+            var houseResult = {}
+            if (house.isEmpty) {
+                houseResult = _.template($('#empty_houseCard_template').html())({house: house})
+                $('#suggestionHouses #list').append(houseResult)
+
+            }
+            else {
+                houseResult = _.template($('#houseCard_template').html())({house: house})
+                $('#suggestionHouses #list').append(houseResult)
+            }
         })
     }
 
@@ -115,7 +130,7 @@
     function updateUserTags(budgetId, intentionIds) {
         $.betterPost('/api/1/user/edit', {'budget': budgetId, 'intention': intentionIds})
             .done(function (data) {
-                window.user = data.val
+                window.user = data
             })
             .fail(function (ret) {
             })
@@ -132,7 +147,6 @@
     function loadPropertyListWithBudgetAndIntention(budgetType, intention) {
 
         $('#suggestionHouses #loadIndicator').show()
-        $('#suggestionHouses #emptyPlaceHolder').hide()
 
         var requestArray = []
         var responseArray = []
@@ -170,8 +184,18 @@
             var apiCall = $.betterPost('/api/1/property/search',params)
                 .done(function (val) {
                     var array = val.content
+                    var item = {}
                     if (!_.isEmpty(array)) {
-                        var item = _.first(array)
+                        item = _.first(array)
+                        item.category_budget = getBudgetById(usedBudget)
+                        item.category_intention = getIntentionById(oneIntention)
+                        item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ',
+                            '_') + '_description')
+                        responseArray.push(item)
+                    }
+                    else {
+                        item.isEmpty = true
+                        item.category_budget = getBudgetById(usedBudget)
                         item.category_intention = getIntentionById(oneIntention)
                         item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ',
                             '_') + '_description')
@@ -195,16 +219,6 @@
                 $('#suggestionHouses #loadIndicator').hide()
             })
             .always(function () {
-                var currentItemCount = $('#suggestionHouses #list').children().length
-                if (currentItemCount) {
-                    $('#suggestionHouses #emptyPlaceHolder').hide()
-                }
-                else {
-                    var $emptyPlaceHolder = $('#suggestionHouses #emptyPlaceHolder')
-                    $emptyPlaceHolder.find('#budget').text(getSelectedBudgetTypeValue())
-                    $emptyPlaceHolder.find('#intention').text(getSelectedIntentionValues())
-                    $emptyPlaceHolder.show()
-                }
             })
     }
 
