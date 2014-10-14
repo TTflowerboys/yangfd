@@ -16,7 +16,10 @@
     </div>
     <hr/>
     <div class="row budget">
-        <label>您的预算：</label>
+        <label>{{_('您的预算')}}
+            (
+            <!--@@include=partials/current_currency.html -->
+            ):&nbsp;</label>
         <div class="controls">
 
             %for index, budget in enumerate(budget_list):

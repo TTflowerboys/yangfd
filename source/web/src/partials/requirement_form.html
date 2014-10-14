@@ -11,7 +11,11 @@
         <input class="email ghostInput" name="email" type="text" placeholder="{{_('邮箱(必填)')}}" data-validator="required, trim email"/>
     </div>
     <div class="form_row">
-        <p class="budgetHint">{{_('您的预算')}}</p>
+        <p class="budgetHint">{{_('您的预算')}}
+            (
+            <!--@@include=current_currency.html -->
+            )
+        </p>
     </div>
     <select class="budget ghostSelect" name="budget" style="color:#4d4d4d;">
         %for index, budget in enumerate(_i18n(budget_list)):

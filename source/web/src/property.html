@@ -694,7 +694,11 @@
             </div>
             <div class="row">
                 <select name="budget">
-                    <option value="">-- {{_('您的预算')}}({{_('可选')}}) --</option>
+                    <option value="">-- {{_('您的预算')}}
+                        (
+                        {{_('可选')}},
+                        <!--@@include=partials/current_currency.html -->
+                        ) --</option>
                     %for index, budget in enumerate(_i18n(budget_list)):
                     %if budget.get('currency') == _.currency:
                     <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>

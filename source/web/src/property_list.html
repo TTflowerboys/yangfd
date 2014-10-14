@@ -72,7 +72,13 @@
 
         <div class="price">
             <img class="price_icon" alt="" src="/static/images/icon/price-tag.png"/>
-            <h4 class="price_title">{{_('价格(单选)')}}</h4>
+            <h4 class="price_title">{{_('价格')}}
+                (
+                {{_('单选')}}
+                ,
+                <!--@@include=partials/current_currency.html -->
+                )
+            </h4>
             <div id="budgetTag" class="inner">
                 %for index, budget in enumerate(budget_list):
                 %if budget.get('currency') == _.currency:
