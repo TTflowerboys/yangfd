@@ -548,12 +548,22 @@
                 % end
             </p>
             <ul class="numbers">
+                % if property.get('annual_return_estimated'):
                 <li>
                     <span class="percentage emphasized"><strong>
                         {{property.get('annual_return_estimated')}}
                     </strong></span>
-                    <span class="text">{{!_('预期年化<br/>收益率')}}</span>
+                    <span class="text">{{!_('预估总<br/>年化收益率')}}</span>
                 </li>
+                % end
+                % if property.get('annual_cash_return_estimated'):
+                <li>
+                    <span class="percentage emphasized"><strong>
+                        {{property.get('annual_cash_return_estimated')}}
+                    </strong></span>
+                    <span class="text">{{!_('预估现金<br/>年化收益率')}}</span>
+                </li>
+                % end
             </ul>
             <hr/>
             <table class="actions">
