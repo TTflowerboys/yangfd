@@ -224,7 +224,7 @@
 
         $.betterPost('/api/1/user/edit', {'budget':budgetId, 'intention':intentionIds})
             .done(function (data) {
-                window.user= data.val
+                window.user= data
             })
             .fail(function (ret) {
             })
