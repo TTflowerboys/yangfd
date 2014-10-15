@@ -87,7 +87,8 @@
         <div id="budgetTag" class="budget">
             <label class="hint" for="">{{_('您的预算')}}
                 (
-                {{_('单选')}},<!--@@include=partials/current_currency.html -->
+                {{_('单选')}},
+                <!--@@include=partials/current_currency.html -->
                 ):&nbsp;</label>
             %for index, budget in enumerate(_i18n(budget_list)):
             %if budget.get('currency') == _.currency:
