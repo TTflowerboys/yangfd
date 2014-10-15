@@ -15,8 +15,7 @@ angular.module('app')
         { name: i18n('平台资讯类别'), value: 'news_category' },
         { name: i18n('平台消息类别'), value: 'message_type' },
         { name: i18n('投资意向单状态'), value: 'intention_ticket_status' },
-        { name: i18n('客服单状态'), value: 'support_ticket_status' },
-        { name: i18n('还款类型'), value: 'repayment_type' }
+        { name: i18n('客服单状态'), value: 'support_ticket_status' }
     ]).run(function ($rootScope, enumTypes) {
         $rootScope.enumTypes = enumTypes
     })
