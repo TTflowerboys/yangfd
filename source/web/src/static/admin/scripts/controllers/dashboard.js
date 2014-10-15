@@ -20,6 +20,9 @@
                     $state.go('signIn')
                 })
         }
+        $scope.changeLanguage = function () {
+            location.href=team.setQuery('_i18n',$scope.pageLanguage)
+        }
     }
 
     angular.module('app').controller('ctrlDashboard', ctrlDashboard)

@@ -36,6 +36,11 @@
                         </li>
                         <!-- end: User Dropdown -->
                     </ul>
+                    <ul class="nav navbar-nav pull-right">
+                        <li>
+                            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="pageLanguage" ng-change="changeLanguage()"></select>
+                        </li>
+                    </ul>
                 </div>
                 <!-- end: Header Menu -->
 
@@ -154,6 +159,5 @@
 
             </div>
         </div>
-
     </body>
 </html>
