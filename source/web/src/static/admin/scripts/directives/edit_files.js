@@ -5,7 +5,7 @@ angular.module('app')
     .directive('editFiles', function ($upload) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/files_edit.tpl.html',
+            templateUrl: '/static/admin/templates/edit_files.tpl.html',
             replace: true,
             scope: {
                 files: '=ngModel',

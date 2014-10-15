@@ -3,7 +3,7 @@ angular.module('app')
     .directive('editDate', function () {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/date_edit.tpl.html',
+            templateUrl: '/static/admin/templates/edit_date.tpl.html',
             replace: true,
             scope: {
                 model: '=ngModel'

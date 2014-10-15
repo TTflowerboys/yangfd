@@ -5,7 +5,7 @@ angular.module('app')
     .directive('editTicketStatus', function ($filter, intentionStatusDictionary, supportStatusDictionary) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/change_ticket_status.tpl.html',
+            templateUrl: '/static/admin/templates/edit_ticket_status.tpl.html',
             scope: {
                 item: '=ngModel',
                 type: '@type'

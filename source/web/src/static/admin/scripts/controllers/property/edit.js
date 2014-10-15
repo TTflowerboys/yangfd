@@ -12,15 +12,7 @@
 
 
         if (itemFromParent) {
-            if(itemFromParent.target_property_id){
-                api.getOne(itemFromParent.target_property_id, {errorMessage: true})
-                    .success(function (data) {
-                        itemFromParent = angular.extend(data.val, itemFromParent)
-                        onGetItem(itemFromParent)
-                    })
-            }else {
-                onGetItem(itemFromParent)
-            }
+            onGetItem(itemFromParent)
         } else {
             api.getOne($stateParams.id)
                 .success(function (data) {
@@ -35,19 +27,18 @@
                         onGetItem(res)
                     }
                 })
-            api.getAll({params: {target_property_id: $stateParams.id, status: 'draft,not translated,translating,not reviewed,rejected'}})
-                .success(function (data) {
-                    var res = data.val.content
-                    if (!_.isEmpty(res)) {
-                        $scope.draftId = res[0].id
-                    }
-                })
         }
-
-
+        api.getAll({params: {target_property_id: $stateParams.id, status: 'draft,not translated,translating,not reviewed,rejected'}})
+            .success(function (data) {
+                var res = data.val.content
+                if (!_.isEmpty(res)) {
+                    $scope.draftId = res[0].id
+                }
+            })
         function onGetItem(item) {
             var editItem = angular.copy(item)
             if (!_.isEmpty(editItem.property_type)) {
+                $scope.propertyType = editItem.property_type.slug
                 editItem.property_type = editItem.property_type.id
             }
             if (!_.isEmpty(editItem.intention)) {
@@ -74,6 +65,7 @@
                 editItem.decorative_style = editItem.decorative_style.id
             }
             if (!_.isEmpty(editItem.property_price_type)) {
+                $scope.propertyPriceType = editItem.property_price_type.slug
                 editItem.property_price_type = editItem.property_price_type.id
             }
             if (!_.isEmpty(editItem.facing_direction)) {

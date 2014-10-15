@@ -3,7 +3,7 @@ angular.module('app')
     .directive('editSingleImage', function ($upload) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/single_image_edit.tpl.html',
+            templateUrl: '/static/admin/templates/edit_single_image.tpl.html',
             replace: true,
             scope: {
                 image: '=ngModel',

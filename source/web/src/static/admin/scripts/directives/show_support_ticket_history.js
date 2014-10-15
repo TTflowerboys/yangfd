@@ -5,7 +5,7 @@ angular.module('app')
     .directive('showSupportTicketHistory', function ($rootScope, supportApi) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/support_ticket_history.tpl.html',
+            templateUrl: '/static/admin/templates/show_support_ticket_history.tpl.html',
             replace: false,
             scope: {
                 id: '=id'

@@ -309,7 +309,7 @@ def mortgage_calculate(params):
         ),
         repayment=dict(
             monthly=repayment,
-            total_interest=repayment * params["term"] * 12,
-            total=repayment * params["term"] * 12 + params["loan"],
+            total_interest=repayment * params["term"] * 12 - params["loan"],
+            total=repayment * params["term"] * 12,
         ),
     )

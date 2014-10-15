@@ -5,7 +5,7 @@ angular.module('app')
     .directive('showIntentionTicketHistory', function ($rootScope, intentionApi) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/intention_ticket_history.tpl.html',
+            templateUrl: '/static/admin/templates/show_intention_ticket_history.tpl.html',
             replace: false,
             scope: {
                 id: '=id'
