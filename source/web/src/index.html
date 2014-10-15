@@ -7,7 +7,7 @@
 <!--endbuild-->
 <!--@@close-->
 <!--@@block=main -->
-
+%if (not user):
 <div class="gallery">
     %if homepage_ad_list:
     % homepage_ad_list = _i18n(homepage_ad_list)
@@ -36,6 +36,7 @@
     </div>
     %end
 </div>
+%end
 
 %if (not user):
 <div class="howItWorks">
@@ -124,106 +125,106 @@
     %if (_i18n(property_list)):
     %for index, property in enumerate(_i18n(property_list)) :
     %if (index >= 0 and index < 2):
-    %if property.get('news_category'):
-    <h2 class="houseCard_category">{{property.get('news_category')[0].get('value')}}</h2>
-    %end
-    <div class=houseCard>
-        %if property.get('reality_images', []) :
-        <img src="{{_i18n(property.get('reality_images'))[0]}}" width=320 height=240/>
-        %else :
-        <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
-        %end
+                                %if property.get('news_category'):
+                                <h2 class="houseCard_category">{{property.get('news_category')[0].get('value')}}</h2>
+                                %end
+                                <div class=houseCard>
+                                    %if property.get('reality_images', []) :
+                                    <img src="{{_i18n(property.get('reality_images'))[0]}}" width=320 height=240/>
+                                    %else :
+                                    <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
+                                    %end
 
-        <div class=description>
-            <h1 class=name>{{property.get('name', '')}}</h1>
-            <span class=price>
-                % if property.get('property_type') and property.get('property_type',{}).get('slug') == 'new_property':
-                {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
-                <strong data-type="currency">
-                    {{property.get('unit_price',{}).get('price',{}).get('value','')}}
-                </strong>
-                <span>
-                    % unit = property.get('unit_price',{}).get('unit',{}).get('unit')
-                    /
-                    <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
-                </span>
-                % else:
-                {{property.get('total_price').get('unit_symbol')}}
-                <strong data-type="currency">
-                    {{property.get('total_price',{}).get('value','')}}
-                </strong>
-                % end
-            </span>
+                                    <div class=description>
+                                        <h1 class=name>{{property.get('name', '')}}</h1>
+                                        <span class=price>
+                                            % if property.get('property_type') and property.get('property_type',{}).get('slug') == 'new_property':
+                                            {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
+                                            <strong data-type="currency">
+                                                {{property.get('unit_price',{}).get('price',{}).get('value','')}}
+                                            </strong>
+                                            <span>
+                                                % unit = property.get('unit_price',{}).get('unit',{}).get('unit')
+                                                /
+                                                <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                                            </span>
+                                            % else:
+                                            {{property.get('total_price').get('unit_symbol')}}
+                                            <strong data-type="currency">
+                                                {{property.get('total_price',{}).get('value','')}}
+                                            </strong>
+                                            % end
+                                        </span>
 
-            <div class=details>
-                <p class=size>
-                    %if property.get('living_room_count'):
-                    {{property.get('living_room_count')}} {{_('房间')}},
-                    %end
-                    %if property.get('bathroom_count'):
-                    {{property.get('bathroom_count')}} {{_('卫生间')}},
-                    %end
-                    %if property.get('space'):
-                    {{float("{0:.2f}".format(float(property.get('space').get('value'))))}}
-                    %if (property.get('space').get('unit') == 'foot ** 2'):
-                    foot <sup>2</sup>
-                    %elif (property.get('space').get('unit') == 'acre'):
-                    acre
-                    %elif (property.get('space').get('unit') == 'meter ** 2'):
-                    m <sup>2</sup>
-                    %elif (property.get('space').get('unit') == 'kilometer ** 2'):
-                    km <sup>2</sup>
-                    %else:
-                    {{property.get('space').get('unit')}}
-                    %end
-                    %end
-                </p>
-                %if (property.get('annual_return_estimated')) :
-                <p class=estimate><span class=label>{{_('预期年租金')}} <br/>{{_('收益率')}}</span><span class=value>
-                    <strong>{{ property.get('annual_return_estimated')}}</strong></span></p>
-                %end
-                <ul class=properties>
-                    %if (property.get('intention') and len(property.get('intention'))) :
-                    <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
-                        <span>
-                            %for index, oneIntention in enumerate(property.get('intention')):
-                            %if 'value' in oneIntention:
-                            {{oneIntention.get('value')}}
-                            %end
-                            %end
-                        </span>
-                    </li>
-                    %end
-                    %if (property.get('equity_type')) :
-                    <li><img src="/static/images/icon/house-card-house.png" alt=""/>
-                        <span> {{property.get('equity_type', '').get('value')}}</span></li>
-                    %end
-                    %if (_i18n(property.get('street'))) :
-                    <li><img src="/static/images/icon/house-card-location.png" alt=""/>
-                        <span>{{property.get('street', '')}} </span></li>
-                    %end
-                </ul>
-            </div>
-            <div class=action>
-                <a href="/property/{{property.get('id')}}" class="button red">{{_('查看详情')}}</a>
-            </div>
-        </div>
-        %if property.get('related_news'):
-        <div class="relatedNews">
-            <h3 class="title">{{_('相关动态')}}</h3>
-            <div class="list">
-                %for index, news in enumerate(property.get('related_news')):
-                <a class="item" href=/news/{{news.get('id')}}>{{news.get('title')}}</a>
-                %end
-            </div>
-        </div>
-        %end
+                                        <div class=details>
+                                            <p class=size>
+                                                %if property.get('living_room_count'):
+                                                {{property.get('living_room_count')}} {{_('房间')}},
+                                                %end
+                                                %if property.get('bathroom_count'):
+                                                {{property.get('bathroom_count')}} {{_('卫生间')}},
+                                                %end
+                                                %if property.get('space'):
+                                                {{float("{0:.2f}".format(float(property.get('space').get('value'))))}}
+                                                %if (property.get('space').get('unit') == 'foot ** 2'):
+                                                foot <sup>2</sup>
+                                                %elif (property.get('space').get('unit') == 'acre'):
+                                                acre
+                                                %elif (property.get('space').get('unit') == 'meter ** 2'):
+                                                m <sup>2</sup>
+                                                %elif (property.get('space').get('unit') == 'kilometer ** 2'):
+                                                km <sup>2</sup>
+                                                %else:
+                                                {{property.get('space').get('unit')}}
+                                                %end
+                                                %end
+                                            </p>
+                                            %if (property.get('annual_return_estimated')) :
+                                            <p class=estimate><span class=label>{{_('预期年租金')}} <br/>{{_('收益率')}}</span><span class=value>
+                                                    <strong>{{ property.get('annual_return_estimated')}}</strong></span></p>
+                                            %end
+                                            <ul class=properties>
+                                                %if (property.get('intention') and len(property.get('intention'))) :
+                                                <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
+                                                    <span>
+                                                        %for index, oneIntention in enumerate(property.get('intention')):
+                                                        %if 'value' in oneIntention:
+                                                        {{oneIntention.get('value')}}
+                                                        %end
+                                                        %end
+                                                    </span>
+                                                </li>
+                                                %end
+                                                %if (property.get('equity_type')) :
+                                                <li><img src="/static/images/icon/house-card-house.png" alt=""/>
+                                                    <span> {{property.get('equity_type', '').get('value')}}</span></li>
+                                                %end
+                                                %if (_i18n(property.get('street'))) :
+                                                <li><img src="/static/images/icon/house-card-location.png" alt=""/>
+                                                    <span>{{property.get('street', '')}} </span></li>
+                                                %end
+                                            </ul>
+                                        </div>
+                                        <div class=action>
+                                            <a href="/property/{{property.get('id')}}" class="button red">{{_('查看详情')}}</a>
+                                        </div>
+                                    </div>
+                                    %if property.get('related_news'):
+                                    <div class="relatedNews">
+                                        <h3 class="title">{{_('相关动态')}}</h3>
+                                        <div class="list">
+                                            %for index, news in enumerate(property.get('related_news')):
+                                            <a class="item" href=/news/{{news.get('id')}}>{{news.get('title')}}</a>
+                                            %end
+                                        </div>
+                                    </div>
+                                    %end
 
-    </div>
+                                </div>
 
-    %end
-    %end
-    %end
+                                %end
+                                %end
+                                %end
 </div>
 %else:
 <div id="suggestionHouses" class="suggestionHouses">
@@ -258,15 +259,15 @@
             <div class="list">
                 %for index, item in enumerate(news_list):
                 %if (index > 0 and index < 6):
-                <a class="item" href="/news/{{item.get('id')}}">{{_i18n(item.get('title', ''))}}</a>
-                %end
-                %end
+                                           <a class="item" href="/news/{{item.get('id')}}">{{_i18n(item.get('title', ''))}}</a>
+                                           %end
+                                           %end
             </div>
             <a class="ghostButton red more" href="/news_list">{{_('了解更多')}}</a>
         </div>
         %end
-    </div>
-    %end
+</div>
+%end
 </div>
 
 <!-- @@include=/static/templates/suggestion_house_card._tpl.html -->
