@@ -32,6 +32,7 @@ API Reference
    enum_api
    message_api
    news_api
+   plot_api
    property_api
    subscription_api
    ticket_api
