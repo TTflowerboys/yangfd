@@ -14,9 +14,8 @@
     <a ng-if="draftId" class="btn btn-danger" ui-sref='^.edit({id:draftId})' title="Edit">
         {%$root.i18n('此房产已存在草稿，点击跳转至草稿编辑')%}
     </a>
-    <a ng-if="item.status === 'not reviewed'" class="btn btn-danger">
-        {%$root.i18n('此房产处于待审核状态，请先将状态改为草稿再编辑此房产。')%}
-    </a>
+    <input type="button" ng-click="makeStatusToDraft()" class="btn btn-danger" ng-if="item.status === 'not reviewed'"
+        value="{%$root.i18n('此房产处于待审核状态，请先将状态改为草稿再编辑此房产。')%}">
 
     <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
         ng-submit="submit($event,editProperty)" name="editProperty" novalidate>

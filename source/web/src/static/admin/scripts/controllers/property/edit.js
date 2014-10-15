@@ -112,6 +112,21 @@
             $scope.item.status = 'not reviewed'
             $scope.submit($event, form)
         }
+
+        $scope.makeStatusToDraft = function () {
+            api.update({status: 'draft', id: $scope.item.id}, {
+                successMessage: 'Update successfully',
+                errorMessage: 'Update failed'
+            }).success(function (data) {
+                if (itemFromParent) {
+                    itemFromParent = data.val
+                }
+                $scope.$parent.refreshList()
+                onGetItem(data.val)
+            })['finally'](function () {
+                $scope.loading = false
+            })
+        }
     }
 
     angular.module('app').controller('ctrlPropertyEdit', ctrlPropertyEdit)
