@@ -3,7 +3,7 @@ angular.module('app')
     .directive('editNewsCategory', function (propertyApi, userApi, $rootScope, misc) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/change_property_news_category.tpl.html',
+            templateUrl: '/static/admin/templates/edit_news_category.tpl.html',
             scope: {
                 item: '=ngModel',
                 newsCategoryList: '=newsCategoryList',
