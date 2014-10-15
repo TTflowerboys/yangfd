@@ -1,5 +1,5 @@
 /* Created by frank on 14-10-6. */
-(function ($) {
+$(function () {
     $('[data-type]').on('keyup', function (e) {
         if (e.keyCode >= '48' && e.keyCode <= 57) {
 
@@ -30,4 +30,4 @@
         }
     }
 
-})(jQuery)
+})
