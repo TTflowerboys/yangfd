@@ -2,14 +2,13 @@
     <span class="btn-group">
         <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
     </span>
+    <div class="btn-group form-inline pull-right" style="margin-right: 10px">
+        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+    </div>
 </div>
 <form name="messageCreateForm" class="form-horizontal"
     style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,messageCreateForm)"
     novalidate>
-    <div class="form-group col-sm-3">
-        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"
-            ng-model="userLanguage.value"></select>
-    </div>
     <div class="form-group">
         <label class="control-label">{%$root.i18n('类别')%} *</label>
 
