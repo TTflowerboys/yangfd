@@ -27,7 +27,7 @@ plot_params = dict(
 
 @f_api('/plot/add', params=plot_params)
 @f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'jr_sales'])
-def plot_add(params):
+def plot_add(user, params):
     return f_app.plot.add(params)
 
 
@@ -36,25 +36,28 @@ def plot_get(plot_id):
     return f_app.plot.output([plot_id])[0]
 
 
-@f_api('/plot/<plot_id>/search', params=dict(
+@f_api('/plot/search', params=dict(
     property_id=ObjectId,
     status=(list, None, str),
     per_page=int,
     time=datetime,
 ))
 @f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'jr_sales'])
-def plot_search(plot_id, params):
+def plot_search(user, params):
     per_page = params.pop("per_page", 0)
+    if "status" in params:
+        params["status"] = {"$in": params["status"]}
+    logger.debug(params)
     return f_app.plot.output(f_app.plot.search(params, per_page=per_page))
 
 
 @f_api('/plot/<plot_id>/edit', params=plot_params)
 @f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'jr_sales'])
-def plot_edit(plot_id, params):
+def plot_edit(user, plot_id, params):
     return f_app.plot.update_set(plot_id, params)
 
 
 @f_api('/plot/<plot_id>/remove')
 @f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'jr_sales'])
-def plot_remove(plot_id):
+def plot_remove(user, plot_id):
     return f_app.plot.remove(plot_id)
