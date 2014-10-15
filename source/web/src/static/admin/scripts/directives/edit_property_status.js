@@ -3,7 +3,7 @@ angular.module('app')
     .directive('editPropertyStatus', function (propertyApi, propertyStatus, userApi) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/change_property_status.tpl.html',
+            templateUrl: '/static/admin/templates/edit_property_status.tpl.html',
             replace: false,
             scope: {
                 item: '=ngModel'
