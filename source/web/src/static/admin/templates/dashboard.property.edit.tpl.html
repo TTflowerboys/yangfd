@@ -223,12 +223,12 @@
                             <label class="control-label">{%$root.i18n('房产价格类型')%}</label>
 
                             <div class="controls">
-                                <div select-enum name="property_price_type" ng-model="item.property_price_type"></div>
+                                <div select-enum name="property_price_type" ng-model="item.property_price_type" slug="propertyPriceType"></div>
 
                             </div>
                         </div>
                     </div>
-                    <div class="row" ng-if="item.property_price_type === '5417fab8c6e47b1566a8a98a'">
+                    <div class="row" ng-if="propertyPriceType === 'similar_history_price'">
                         <div class="form-group col-xs-6 col-sm-3">
                             <label class="control-label">{%$root.i18n('同等房产描述')%}</label>
 
@@ -337,7 +337,7 @@
                         </div>
                     </div>
                 </tab>
-                <tab heading="{%$root.i18n('非楼盘特有信息')%}" ng-if="item.property_type !== '54100a14c6e47b14331ad29f'">
+                <tab heading="{%$root.i18n('非楼盘特有信息')%}" ng-if="propertyType !== 'new_property'&&propertyType!=='student_housing'">
                     <div class="row">
                         <div class="form-group col-xs-4 col-sm-2">
                             <label class="control-label">{%$root.i18n('总价格')%}</label>
@@ -408,7 +408,7 @@
                         </div>
                     </div>
                 </tab>
-                <tab heading="{%$root.i18n('楼盘信息')%}" ng-if="item.property_type === '54100a14c6e47b14331ad29f'">
+                <tab heading="{%propertyType==='new_property'?$root.i18n('楼盘信息'):$root.i18n('学生公寓信息')%}" ng-if="propertyType === 'new_property'||propertyType==='student_housing'">
                     <div class="row">
                         <div class="form-group col-xs-6 col-sm-3">
                             <label class="control-label">{%$root.i18n('开发商')%}</label>
