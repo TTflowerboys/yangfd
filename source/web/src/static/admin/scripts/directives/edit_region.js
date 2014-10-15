@@ -3,7 +3,7 @@ angular.module('app')
     .directive('editRegion', function ($rootScope, apiFactory) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/region_edit.tpl.html',
+            templateUrl: '/static/admin/templates/edit_region.tpl.html',
             scope: {
                 country: '=country',
                 city: '=city',
