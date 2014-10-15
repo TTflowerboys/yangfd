@@ -3,7 +3,7 @@ angular.module('app')
     .directive('addOnSearch', function () {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/search_user_query.tpl.html',
+            templateUrl: '/static/admin/templates/add_on_search.tpl.html',
             replace: true,
             link: function ($scope, elm, attrs) {
                 $scope.onSearch = function (searchText) {
