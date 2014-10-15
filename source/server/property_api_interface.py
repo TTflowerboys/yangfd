@@ -129,12 +129,12 @@ property_params = dict(
     bathroom_count=int,
     kitchen_count=int,
     facing_direction="enum:facing_direction",
-    space="i18n:area",
+    space=("i18n:area", None, "meter ** 2, foot ** 2"),
     floor_plan=("i18n", None, list, None, str),
 
     # Project params
     unit_price=dict(
-        unit="i18n:area",
+        unit=("i18n:area", None, "meter ** 2, foot ** 2"),
         price="i18n:currency",
     ),
     main_house_types=(list, None, dict(
@@ -145,14 +145,14 @@ property_params = dict(
         kitchen_count=int,
         total_price="i18n:currency",
         floor_plan=("i18n", None, str),
-        building_area="i18n:area",
+        building_area=("i18n:area", None, "meter ** 2, foot ** 2"),
     )),
     opening_time=datetime,
     building_type=("i18n", None, str),
     property_management_type=("i18n", None, str),
-    building_area="i18n:area",
+    building_area=("i18n:area", None, "meter ** 2, foot ** 2"),
     plot_ratio=float,
-    planning_area="i18n:area",
+    planning_area=("i18n:area", None, "meter ** 2, foot ** 2"),
     greening_rate=float,
     parking_space_count=int,
     planning_household_count=int,
