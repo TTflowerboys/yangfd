@@ -5,7 +5,7 @@ angular.module('app')
     .directive('selectMultipleEnums', function ($parse, enumApi, $rootScope) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/multi_enum_select.tpl.html',
+            templateUrl: '/static/admin/templates/select_multiple_enums.tpl.html',
             scope: {
                 item: '=ngModel',
                 type: '@name'
