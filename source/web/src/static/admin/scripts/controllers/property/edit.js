@@ -38,7 +38,7 @@
         function onGetItem(item) {
             var editItem = angular.copy(item)
             if (!_.isEmpty(editItem.property_type)) {
-                editItem.propertyType = editItem.property_type.slug
+                $scope.propertyType = editItem.property_type.slug
                 editItem.property_type = editItem.property_type.id
             }
             if (!_.isEmpty(editItem.intention)) {
@@ -65,7 +65,7 @@
                 editItem.decorative_style = editItem.decorative_style.id
             }
             if (!_.isEmpty(editItem.property_price_type)) {
-                editItem.propertyPriceType = editItem.property_price_type.slug
+                $scope.propertyPriceType = editItem.property_price_type.slug
                 editItem.property_price_type = editItem.property_price_type.id
             }
             if (!_.isEmpty(editItem.facing_direction)) {
