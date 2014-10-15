@@ -5,7 +5,7 @@ angular.module('app')
     .directive('selectBudget', function ($rootScope, enumApi, i18nCurrency) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/budget_select.tpl.html',
+            templateUrl: '/static/admin/templates/select_budget.tpl.html',
             scope: {
                 enumId: '=ngModel',
                 enumOption: '@text'
