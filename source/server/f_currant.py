@@ -836,7 +836,18 @@ class f_property(f_app.module_base):
         return str(property_id)
 
     def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
+        ignore_sales_comment = True
+        user = f_app.user.login.get()
         propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        if user:
+            user_roles = f_app.user.get_role(user["id"])
+            if set(["admin", "jr_admin", "sales", "jr_sales"]) & set(user_roles):
+                ignore_sales_comment = False
+
+        if ignore_sales_comment:
+            for property in propertys:
+                property.pop("sales_comment", None)
+
         return propertys
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False):

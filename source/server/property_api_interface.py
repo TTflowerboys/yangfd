@@ -168,6 +168,8 @@ property_params = dict(
         url=str,
         description=str,
     )),
+    # Params for sales
+    sales_comment=str,
 )
 
 
