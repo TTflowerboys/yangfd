@@ -566,11 +566,8 @@ class f_currant_plugins(f_app.plugin_base):
         ))
 
     def task_on_fortis_developments(self, task):
-        # Please use f_app.request for ANY HTTP(s) requests.
         list_url = 'http://www.fortisdevelopments.com/projects/'
-        # Fetch the list
         list_page = f_app.request.get(list_url)
-        # Fetch the pages
         if list_page.status_code == 200:
             self.logger.debug("Start crawling page %s" % list_url)
             list_page_dom_root = q(list_page.content)
@@ -593,12 +590,9 @@ class f_currant_plugins(f_app.plugin_base):
                     params["name"] = {"en_GB": property_page_dom_root('span.single-property__heading--highlight').text()}
                     params["description"] = {"en_GB": property_page_dom_root('div#panel1').text()}
 
-                # Save an identifier property_crawler_id into the params. It's recommended to use the page URL whenever applicable.
                 params["property_crawler_id"] = property_page_link_url
-                # Call f_app.property.crawler_insert_update for each property
                 f_app.property.crawler_insert_update(params)
 
-                # Add a new task for next fetch. For example, if you want to craw every day:
         f_app.task.put(dict(
             type="fortis_developments",
             start=datetime.utcnow() + timedelta(days=1),
