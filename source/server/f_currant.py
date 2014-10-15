@@ -940,6 +940,97 @@ class f_property(f_app.module_base):
 f_property()
 
 
+class f_plot(f_app.module_base):
+    plot_database = "plots"
+
+    def __init__(self):
+        f_app.module_install("plot", self)
+        f_app.dependency_register("pymongo", race="python")
+
+    def get_database(self, m):
+        return getattr(m, self.plot_database)
+
+    @f_cache("plot")
+    def get(self, plot_id_or_list, force_reload=False, ignore_nonexist=False):
+        def _format_each(plot):
+            plot["id"] = str(plot.pop("_id"))
+            return plot
+
+        if isinstance(plot_id_or_list, (tuple, list, set)):
+            result = {}
+
+            with f_app.mongo() as m:
+                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(plot_id) for plot_id in plot_id_or_list]}, "status": {"$ne": "deleted"}}))
+
+            if not force_reload and len(result_list) < len(plot_id_or_list) and not ignore_nonexist:
+                found_list = map(lambda plot: str(plot["_id"]), result_list)
+                abort(40400, logger.warning("Non-exist plot:", filter(lambda plot_id: plot_id not in found_list, plot_id_or_list), exc_info=False))
+            elif ignore_nonexist:
+                logger.warning("Non-exist plot:", filter(lambda plot_id: plot_id not in found_list, plot_id_or_list), exc_info=False)
+
+            for plot in result_list:
+                result[plot["id"]] = _format_each(plot)
+
+            return result
+
+        else:
+            with f_app.mongo() as m:
+                result = self.get_database(m).find_one({"_id": ObjectId(plot_id_or_list), "status": {"$ne": "deleted"}})
+
+                if result is None:
+                    if not force_reload and not ignore_nonexist:
+                        abort(40400, logger.warning("Non-exist plot:", plot_id_or_list, exc_info=False))
+                    elif ignore_nonexist:
+                        logger.warning("Non-exist plot:", plot_id_or_list, exc_info=False)
+                    return None
+
+            return _format_each(result)
+
+    def add(self, params):
+        params.setdefault("status", "new")
+        params.setdefault("time", datetime.utcnow())
+        with f_app.mongo() as m:
+            plot_id = self.get_database(m).insert(params)
+
+        return str(plot_id)
+
+    def output(self, plot_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
+        plots = self.get(plot_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        return plots
+
+    def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
+        params.setdefault("status", "new")
+        if sort is not None:
+            try:
+                sort_field, sort_orientation = sort
+            except:
+                abort(40000, logger.warning("sort param not well in format:", sort))
+
+        else:
+            sort_field = sort_orientation = None
+
+        plot_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)["content"]
+
+        return plot_id_list
+
+    def remove(self, plot_id):
+        self.update_set(plot_id, {"status": "deleted"})
+
+    def update(self, plot_id, params):
+        with f_app.mongo() as m:
+            self.get_database(m).update(
+                {"_id": ObjectId(plot_id)},
+                params,
+            )
+        plot = self.get(plot_id, force_reload=True)
+        return plot
+
+    def update_set(self, plot_id, params):
+        return self.update(plot_id, {"$set": params})
+
+f_plot()
+
+
 class f_report(f_app.module_base):
     report_database = "reports"
 

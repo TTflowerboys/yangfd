@@ -21,6 +21,7 @@ import upload_api_interface
 import user_api_interface
 import content_api_interface
 import message_api_interface
+import plot_api_interface
 
 
 application = f_app(__name__)

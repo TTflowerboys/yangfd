@@ -8,11 +8,17 @@ body {
 
 .registerForm {
     margin-top: 44px;
+    @media @phone {
+        margin-top:20px;
+    }
     .phone {
         > select {
             display: inline-block;
             vertical-align: middle;
             width: 100px;
+            @media @phone {
+                width:~"calc(35% - 12px)";
+            }
         }
         > input {
             display: inline-block;
@@ -20,14 +26,18 @@ body {
             margin-left: 8px;
             padding: 8px 0 8px 0;
             width: 200px;
+            @media @phone {
+                width:~"calc(65% - 36px)";
+            }
+
         }
     }
     input[name=phone] {
-        width: 270px;
+        max-width: 270px;
     }
 
     input[name=password] {
-        width: 270px;
+        max-width: 270px;
     }
 
     .formsHint {
@@ -38,6 +48,10 @@ body {
     .captchaCode {
         margin-top: 16px;
         max-height: 130px;
+        @media @phone {
+            max-width:270px;
+            width:270px;
+        }
     }
     .terms {
         margin-top: 20px;
