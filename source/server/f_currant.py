@@ -687,7 +687,7 @@ class f_currant_plugins(f_app.plugin_base):
                                     if "Apartment" in feature:
                                         params["property_type"] = ObjectId(f_app.enum.get_by_slug('apartment')["id"])
                                     elif "Student Accommodation" == feature:  # what is the property_type
-                                        params["investment_type"] = ObjectId(f_app.enum.get_by_slug('studenthousing')["id"])
+                                        params["investment_type"] = [ObjectId(f_app.enum.get_by_slug('studenthousing')["id"])]
 
                         f_app.property.crawler_insert_update(params)
 
@@ -731,7 +731,7 @@ class f_currant_plugins(f_app.plugin_base):
                             params = {
                                 "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
                             }
-                            self.logger.error("Start crawling abacusinvestor page id %s, page url %s" % crawling_page)
+                            self.logger.debug("Start crawling abacusinvestor page id %s, page url %s" % crawling_page)
                             params["property_crawler_id"] = crawling_page[1]
                             property_page = f_app.request.get(crawling_page[1], retry=3)
                             if property_page.status_code == 200:
