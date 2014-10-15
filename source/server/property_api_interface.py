@@ -54,9 +54,9 @@ def property_search(user, params):
             else:
                 condition["total_price.value_float"] = {}
                 if budget[0]:
-                    condition["total_price.value_float"]["$gte"] = float(f_app.util.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
+                    condition["total_price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
                 if budget[1]:
-                    condition["total_price.value_float"]["$lte"] = float(f_app.util.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
+                    condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
             params["$or"].append(condition)
 
     if "name" in params:
