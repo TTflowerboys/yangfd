@@ -125,6 +125,10 @@
                     width + ', height=' + height + ', top=' + top + ', left=' + left)
 
             return false
+        },
+
+        isPhone: function () {
+            return $(window).width() < 768 //
         }
     }
 })();

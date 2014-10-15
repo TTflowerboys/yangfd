@@ -1,6 +1,11 @@
 $('#login').click(function () {
-    $('#modal_shadow').show()
-    $('#modal').show()
+    if (team.isPhone()) {
+        window.project.goToSignIn()
+    }
+    else {
+        $('#modal_shadow').show()
+        $('#modal').show()
+    }
 });
 $('#modal_shadow').click(function () {
     $('#modal_shadow').hide()
