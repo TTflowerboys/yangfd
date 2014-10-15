@@ -2,23 +2,26 @@
 
 .signinForm {
     margin-top: 44px;
+    @media @phone {
+        margin-top:20px;
+    }
     .phone {
         > select {
             display: inline-block;
             vertical-align: middle;
-            width: 100px;
+            width:~"calc(35% - 12px)";
         }
         > input {
             display: inline-block;
             vertical-align: middle;
             margin-left: 8px;
             padding: 8px 0 8px 0;
-            width: 200px;
+            width:~"calc(65% - 36px)";
         }
     }
 
     input[name=password] {
-        width: 220px;
+        max-width: 220px;
     }
 
     > button[type=submit] {
