@@ -54,17 +54,22 @@ def property_search(user, params):
             else:
                 condition["total_price.value_float"] = {}
                 if budget[0]:
-                    condition["total_price.value_float"]["$gte"] = float(f_app.util.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
+                    condition["total_price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
                 if budget[1]:
-                    condition["total_price.value_float"]["$lte"] = float(f_app.util.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
+                    condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
             params["$or"].append(condition)
 
     if "name" in params:
         name = params.pop("name")
-        if "$or" not in params:
-            params["$or"] = []
+        name_filter = []
         for locale in f_app.common.i18n_locales:
-            params["$or"].append({"name.%s" % locale: name})
+            name_filter.append({"name.%s" % locale: name})
+
+        if "$or" not in params:
+            params["$or"] = name_filter
+        else:
+            budget_filter = params.pop("$or")
+            params["$and"] = [{"$or": budget_filter}, {"$or": name_filter}]
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
@@ -124,12 +129,12 @@ property_params = dict(
     bathroom_count=int,
     kitchen_count=int,
     facing_direction="enum:facing_direction",
-    space="i18n:area",
+    space=("i18n:area", None, "meter ** 2, foot ** 2"),
     floor_plan=("i18n", None, list, None, str),
 
     # Project params
     unit_price=dict(
-        unit="i18n:area",
+        unit=("i18n:area", None, "meter ** 2, foot ** 2"),
         price="i18n:currency",
     ),
     main_house_types=(list, None, dict(
@@ -140,14 +145,14 @@ property_params = dict(
         kitchen_count=int,
         total_price="i18n:currency",
         floor_plan=("i18n", None, str),
-        building_area="i18n:area",
+        building_area=("i18n:area", None, "meter ** 2, foot ** 2"),
     )),
     opening_time=datetime,
     building_type=("i18n", None, str),
     property_management_type=("i18n", None, str),
-    building_area="i18n:area",
+    building_area=("i18n:area", None, "meter ** 2, foot ** 2"),
     plot_ratio=float,
-    planning_area="i18n:area",
+    planning_area=("i18n:area", None, "meter ** 2, foot ** 2"),
     greening_rate=float,
     parking_space_count=int,
     planning_household_count=int,
@@ -163,6 +168,8 @@ property_params = dict(
         url=str,
         description=str,
     )),
+    # Params for sales
+    sales_comment=str,
 )
 
 

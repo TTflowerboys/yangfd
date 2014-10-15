@@ -133,7 +133,7 @@ def intention_ticket_add(params):
                 template_invoke_name = "new_ticket_cn"
             else:
                 template_invoke_name = "new_ticket_en"
-            budget = f_app.util.match_i18n(budget_enum["value"], _i18n=[locale]) if budget_enum else ""
+            budget = f_app.i18n.match_i18n(budget_enum["value"], _i18n=[locale]) if budget_enum else ""
             substitution_vars = {
                 "to": [sales["email"]],
                 "sub": {

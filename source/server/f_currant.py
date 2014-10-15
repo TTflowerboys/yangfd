@@ -566,11 +566,8 @@ class f_currant_plugins(f_app.plugin_base):
         ))
 
     def task_on_fortis_developments(self, task):
-        # Please use f_app.request for ANY HTTP(s) requests.
         list_url = 'http://www.fortisdevelopments.com/projects/'
-        # Fetch the list
         list_page = f_app.request.get(list_url)
-        # Fetch the pages
         if list_page.status_code == 200:
             self.logger.debug("Start crawling page %s" % list_url)
             list_page_dom_root = q(list_page.content)
@@ -593,12 +590,9 @@ class f_currant_plugins(f_app.plugin_base):
                     params["name"] = {"en_GB": property_page_dom_root('span.single-property__heading--highlight').text()}
                     params["description"] = {"en_GB": property_page_dom_root('div#panel1').text()}
 
-                # Save an identifier property_crawler_id into the params. It's recommended to use the page URL whenever applicable.
                 params["property_crawler_id"] = property_page_link_url
-                # Call f_app.property.crawler_insert_update for each property
                 f_app.property.crawler_insert_update(params)
 
-                # Add a new task for next fetch. For example, if you want to craw every day:
         f_app.task.put(dict(
             type="fortis_developments",
             start=datetime.utcnow() + timedelta(days=1),
@@ -687,7 +681,7 @@ class f_currant_plugins(f_app.plugin_base):
                                     if "Apartment" in feature:
                                         params["property_type"] = ObjectId(f_app.enum.get_by_slug('apartment')["id"])
                                     elif "Student Accommodation" == feature:  # what is the property_type
-                                        params["investment_type"] = ObjectId(f_app.enum.get_by_slug('studenthousing')["id"])
+                                        params["investment_type"] = [ObjectId(f_app.enum.get_by_slug('studenthousing')["id"])]
 
                         f_app.property.crawler_insert_update(params)
 
@@ -731,7 +725,7 @@ class f_currant_plugins(f_app.plugin_base):
                             params = {
                                 "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
                             }
-                            self.logger.error("Start crawling abacusinvestor page id %s, page url %s" % crawling_page)
+                            self.logger.debug("Start crawling abacusinvestor page id %s, page url %s" % crawling_page)
                             params["property_crawler_id"] = crawling_page[1]
                             property_page = f_app.request.get(crawling_page[1], retry=3)
                             if property_page.status_code == 200:
@@ -842,7 +836,18 @@ class f_property(f_app.module_base):
         return str(property_id)
 
     def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
+        ignore_sales_comment = True
+        user = f_app.user.login.get()
         propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        if user:
+            user_roles = f_app.user.get_role(user["id"])
+            if set(["admin", "jr_admin", "sales", "jr_sales"]) & set(user_roles):
+                ignore_sales_comment = False
+
+        if ignore_sales_comment:
+            for property in propertys:
+                property.pop("sales_comment", None)
+
         return propertys
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False):

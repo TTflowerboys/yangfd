@@ -159,9 +159,17 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
     //.pipe(emailFilter.restore())
 })
 
-gulp.task('watch', function () {
+var livereload = require('gulp-livereload')
+gulp.task('watch', ['symlink', 'less2css', 'html-extend'], function () {
+    livereload.listen();
     gulp.watch(myPaths.less, ['less2css'])
     gulp.watch(myPaths.html, ['html-extend'])
     gulp.watch(myPaths.js, ['debug:lint'])
+
+    gulp.watch(myPaths.src + '**/*.*').on('change', function (event) {
+        console.log(event.type)
+        console.log(event.path)
+        livereload.changed(event.path)
+    })
 })
 
