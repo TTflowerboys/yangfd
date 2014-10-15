@@ -61,10 +61,15 @@ def property_search(user, params):
 
     if "name" in params:
         name = params.pop("name")
-        if "$or" not in params:
-            params["$or"] = []
+        name_filter = []
         for locale in f_app.common.i18n_locales:
-            params["$or"].append({"name.%s" % locale: name})
+            name_filter.append({"name.%s" % locale: name})
+
+        if "$or" not in params:
+            params["$or"] = name_filter
+        else:
+            budget_filter = params.pop("$or")
+            params["$and"] = [{"$or": budget_filter}, {"$or": name_filter}]
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
