@@ -5,7 +5,7 @@ angular.module('app')
     .directive('selectEnum', function ($rootScope, enumApi) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/enum_select.tpl.html',
+            templateUrl: '/static/admin/templates/select_enum.tpl.html',
             replace: true,
             scope: {
                 enumId: '=ngModel',
