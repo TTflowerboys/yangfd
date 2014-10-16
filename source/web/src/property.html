@@ -214,7 +214,9 @@
                             % end
                         </td>
                         <td class="value">
-                            {{property.get('opening_time','')}}
+                            % if 'opening_time' in property:
+                            {{property.get('opening_time').strftime('%Y-%m-%d')}}
+                            % end
                         </td>
                     </tr>
                     % if 'decorative_style' in property:
@@ -769,7 +771,7 @@
         <form class="intentionForm calculator" name="mortgageForm">
             <div class="row">
                 <!--partial include must be in seperate line for translation extract-->
-                <label class="label">{{_('购房总价')}}(
+                <label class="label">{{_('购房总价')}} (
                     <!--@@include=partials/current_currency.html -->
                     )</label>
                 % if property.get('property_type',{}).get('slug') == 'new_property':
@@ -788,7 +790,7 @@
                 % end
             </div>
             <div class="row">
-                <label class="label">{{_('首付款')}}(
+                <label class="label">{{_('首付款')}} (
                     <!--@@include=partials/current_currency.html -->
                     )</label>
                 <input name="_down_payment" type="text" placeholder=""
@@ -797,7 +799,7 @@
                     data-validator="decimal, trim, required" data-message-decimal="{{_('必须为数字')}}"/>
             </div>
             <div class="row">
-                <label class="label">{{_('贷款金额')}}(
+                <label class="label">{{_('贷款金额')}} (
                     <!--@@include=partials/current_currency.html -->
                     )</label>
                 <input readonly name="loan" type="text" placeholder=""
