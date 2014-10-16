@@ -46,7 +46,7 @@
                     </div>
 
                     % else :
-                    <img src="/static/images/placeholder/image.jpg" alt="" width="800" height="480"/>
+                    <img src="about:blank" alt="" width="800" height="480"/>
                     % end
 
                 </div>
@@ -205,15 +205,18 @@
                             {{property.get('equity_type',{}).get('value','') }}
                         </td>
                         <td class="name">
+                            % if 'opening_time' in property:
                             <i>
                                 <img src="/static/images/property_details/icon-clock.png" alt=""/>
                             </i>
                             {{_('开盘时间')}}
+                            % end
                         </td>
                         <td class="value">
                             {{property.get('opening_time','')}}
                         </td>
                     </tr>
+                    % if 'decorative_style' in property:
                     <tr>
                         <td class="name">
                             <i>
@@ -225,6 +228,7 @@
                             {{property.get('decorative_style',{}).get('value')}}
                         </td>
                     </tr>
+                    % end
                     <tr>
 
                         <td class="name">
@@ -576,7 +580,9 @@
             </div>
             % end
             <p class="price">
+
                 % if property.get('property_type',{}).get('slug') == 'new_property':
+
                 <span class="mute">{{_('价格')}}</span>
                 <span>
                     {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
@@ -585,16 +591,19 @@
                     {{property.get('unit_price',{}).get('price',{}).get('value','')}}
                 </strong>
                 <span>
-                    % unit = property.get('unit_price',{}).get('unit',{}).get('unit')
                     /
+                    % unit = property.get('unit_price',{}).get('unit',{}).get('unit')
                     <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
                 </span>
+
                 % else:
+
                 <span class="mute">{{_('价格')}}</span>
-                <span>{{property.get('total_price').get('unit_symbol')}}</span>
+                <span>{{property.get('total_price',{}).get('unit_symbol','')}}</span>
                 <strong data-type="currency">
                     {{int(float(property.get('total_price',{}).get('value','')))}}
                 </strong>
+
                 % end
             </p>
             <ul class="numbers">
@@ -701,7 +710,8 @@
                         (
                         {{_('可选')}},
                         <!--@@include=partials/current_currency.html -->
-                        ) --</option>
+                        ) --
+                    </option>
                     %for index, budget in enumerate(_i18n(budget_list)):
                     %if budget.get('currency') == _.currency:
                     <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
@@ -763,17 +773,17 @@
                     )</label>
                 % if property.get('property_type',{}).get('slug') == 'new_property':
                 <input name="_total" type="text" placeholder=""
-                       data-type="currency"
-                       data-validator="decimal, trim, required"
-                       data-message-required="{{_('必填')}}"
-                       data-message-decimal="{{_('必须为数字')}}"/>
+                    data-type="currency"
+                    data-validator="decimal, trim, required"
+                    data-message-required="{{_('必填')}}"
+                    data-message-decimal="{{_('必须为数字')}}"/>
                 % else:
                 <input name="_total" type="text" placeholder=""
-                       data-type="currency"
-                       value = {{int(float(property.get('total_price',{}).get('value','')))}}
-                       data-validator="decimal, trim, required"
-                       data-message-required="{{_('必填')}}"
-                       data-message-decimal="{{_('必须为数字')}}"/>
+                    data-type="currency"
+                    value={{int(float(property.get('total_price',{}).get('value','')))}}
+                    data-validator="decimal, trim, required"
+                    data-message-required="{{_('必填')}}"
+                    data-message-decimal="{{_('必须为数字')}}"/>
                 % end
             </div>
             <div class="row">
