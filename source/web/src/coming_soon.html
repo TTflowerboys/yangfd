@@ -20,19 +20,20 @@
     </head>
     <body>
         <!-- @@include =./partials/localization_manager.html -->
-
         <div class="opening">
-            <div class="opening_inner">
-                <img class="logo" src="/static/images/logo-yfd.png" alt=""/>
-                <h1 class="hint">{{_('金秋十月，即将开放！')}}</h1>
-                <form name="subscription" class="subscription">
-                    <input class="email" name="email" type="text" placeholder="{{_('请填写邮箱订阅网站上线通知')}}" data-validator="required, trim email"/>
-                    <button type="submit" class="button red">{{_('订阅')}}</button>
-                    <p class="errorMessage" style="display:none"></p>
-                </form>
-                <h2 class="successMessage" style="display:none">{{_('谢谢你的订阅!')}} <br>{{_('在网站开放后，我们将第一时间告知您！')}}</h2>
-                <img class="wechat" src="/static/images/media/wechat.png" alt=""/>
+            <div class="shadow">
             </div>
+        </div>
+        <div class="opening_inner">
+            <img class="logo" src="/static/images/logo-yfd.png" alt=""/>
+            <h1 class="hint">{{_('金秋十月，即将开放！')}}</h1>
+            <form name="subscription" class="subscription">
+                <input class="email" name="email" type="text" placeholder="{{_('请填写邮箱订阅网站上线通知')}}" data-validator="required, trim email"/>
+                <button type="submit" class="button red">{{_('订阅')}}</button>
+                <p class="errorMessage" style="display:none"></p>
+            </form>
+            <h2 class="successMessage" style="display:none">{{_('谢谢你的订阅!')}} <br>{{_('在网站开放后，我们将第一时间告知您！')}}</h2>
+            <img class="wechat" src="/static/images/media/wechat.png" alt=""/>
         </div>
         <div class="whatWeDo_wrapper">
             <div class="whatWeDo">
@@ -46,7 +47,7 @@
         <div class="requirement">
             <div class="requirement_title">
                 <H2 class="title">{{_('提交置业需求')}}</h2>
-                <h3 class="subtitle">{{_('如果您有海外置业的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您')}}
+                <h3 class="subtitle">{{_('如果您有海外置业的意向，请提交置业需求或者致电4000926433告诉我们，我们将收集相应的资源并且及时反馈给您')}}
                 </h3>
             </div>
             <form class="requirement_form" name="requirement">
