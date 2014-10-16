@@ -22,6 +22,27 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-6">
+            <label class="control-label">{%$root.i18n('链接')%}</label>
+
+            <div class="controls">
+                <input class="form-control col-sm6" ng-model="item.link" type="text"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-3">
+            <label class="control-label">{%$root.i18n('类别')%} *</label>
+
+            <div get-news-category-list></div>
+            <div class="controls">
+                <select ng-options="p.id as p.value[userLanguage.value] for p in newsCategoryList" ng-model="item.category"
+                    class="form-control input-sm" multiple required>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
             <label class="control-label">{%$root.i18n('图片')%}</label>
 
             <div class="controls">
@@ -30,14 +51,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('内容')%} *</label>
+        <div class="form-group col-sm-6">
+            <label class="control-label">{%$root.i18n('摘要')%} *</label>
 
             <div class="controls">
-                <div type-i18n="item.content"></div>
-                <wysiwyg textarea-class="form-control" textarea-height="200px" textarea-name="content"
-                    textarea-required ng-model="item.content[userLanguage.value]" enable-bootstrap-title="false"></wysiwyg>
+                <input class="form-control col-sm6" type-i18n="item.summary" ng-model="item.summary[userLanguage.value]"
+                    type="text" required/>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12">
+            <label class="control-label">{%$root.i18n('内容')%} *</label>
+            <div ng-include=" '/static/admin/templates/edit_rich_content.html' "></div>
         </div>
     </div>
     <div class="row">

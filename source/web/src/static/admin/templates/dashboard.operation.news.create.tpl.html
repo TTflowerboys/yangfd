@@ -53,6 +53,16 @@
         </div>
     </div>
     <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="control-label">{%$root.i18n('摘要')%} *</label>
+
+            <div class="controls">
+                <input class="form-control col-sm6" type-i18n="item.summary" ng-model="item.summary[userLanguage.value]"
+                    type="text" required/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="form-group col-sm-12">
             <label class="control-label">{%$root.i18n('内容')%} *</label>
             <div ng-include=" '/static/admin/templates/edit_rich_content.html' "></div>

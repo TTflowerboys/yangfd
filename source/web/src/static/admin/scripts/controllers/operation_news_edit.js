@@ -28,6 +28,13 @@
             if (!_.isEmpty(editItem.city)) {
                 editItem.city = editItem.city.id
             }
+            if (!_.isEmpty(editItem.category)) {
+                var temp = []
+                angular.forEach(editItem.category, function (value, key) {
+                    temp.push(value.id)
+                })
+                editItem.category = temp
+            }
             $scope.itemOrigin = editItem
             $scope.item = angular.copy($scope.itemOrigin)
         }
