@@ -32,7 +32,7 @@
             <tabset justified="true" style="margin: 16px 0;" ng-if="userLanguage.value && userArea && userCurrency">
                 <tab heading="{%$root.i18n('房产通用信息')%}">
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('名称')%}</label>
 
                             <div class="controls">
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('房产类型')%}</label>
 
                             <div class="controls">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('国家')%}</label>
 
                             <div class="controls">
@@ -58,7 +58,7 @@
 
                             </div>
                         </div>
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('城市')%}</label>
 
                             <div class="controls">
@@ -68,14 +68,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('街区')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" type-i18n="item.street" ng-model="item.street[userLanguage.value]"/>
                             </div>
                         </div>
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('邮编')%}</label>
 
                             <div class="controls">
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-6">
+                        <div class="form-group  col-sm-6">
                             <label class="control-label">{%$root.i18n('地址详情')%}</label>
 
                             <div class="controls">
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-6">
+                        <div class="form-group  col-sm-6">
 
                             <div class="controls">
                                 <div type-i18n="item.highlight"></div>
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-12">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('详情')%}</label>
 
                             <div class="controls">
@@ -142,7 +142,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('年化现金回报率预估')%}</label>
 
                             <div class="controls">
@@ -151,7 +151,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('年化回报预估')%}</label>
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.annual_return_estimated"/>
@@ -160,7 +160,7 @@
                     </div>
                     <div class="row">
 
-                        <div class="form-group  col-xs-12 col-sm-12">
+                        <div class="form-group   col-sm-12">
                             <label class="control-label">{%$root.i18n('投资标签')%}</label>
                             <div class="controls">
                                 <div select-multiple-enums name="intention" ng-model="item.intention"></div>
@@ -169,7 +169,7 @@
                     </div>
                     <div class="row">
 
-                        <div class="form-group  col-xs-12 col-sm-12">
+                        <div class="form-group   col-sm-12">
                             <label class="control-label">{%$root.i18n('投资类型')%}</label>
                             <div class="controls">
                                 <div select-multiple-enums name="investment_type" ng-model="item.investment_type"></div>
@@ -177,7 +177,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('产权类型')%}</label>
 
                             <div class="controls">
@@ -185,7 +185,7 @@
 
                             </div>
                         </div>
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('装修风格')%}</label>
 
                             <div class="controls">
@@ -196,19 +196,19 @@
                     </div>
                     <hr/>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-6">
+                        <div class="form-group  col-sm-6">
                             <label class="control-label">{%$root.i18n('地图位置')%}</label>
 
                             <div class="form-inline">
-                                <input type="text" class="form-control col-xs-6 col-sm-3" ng-model="item.latitude"
+                                <input type="text" class="form-control  col-sm-3" ng-model="item.latitude"
                                     placeholder="Latitude"/>
-                                <input type="text" class="form-control col-xs-6 col-sm-3" ng-model="item.longitude"
+                                <input type="text" class="form-control  col-sm-3" ng-model="item.longitude"
                                     placeholder="Longitude"/>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-12">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('实景图')%}</label>
 
                             <div class="controls">
@@ -219,7 +219,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-12">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('生活配设施图')%}</label>
 
                             <div class="controls">
@@ -230,7 +230,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('房产价格类型')%}</label>
                             <div class="controls">
                                 <div select-enum name="property_price_type" ng-model="item.property_price_type" slug="propertyPriceType"></div>
@@ -239,7 +239,7 @@
                         </div>
                     </div>
                     <div class="row" ng-if="propertyPriceType === 'similar_history_price'">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('同等房产描述')%}</label>
 
                             <div class="controls">
@@ -249,7 +249,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-6">
+                        <div class="form-group  col-sm-6">
                             <label class="control-label">{%$root.i18n('历史成交价格')%}</label>
 
                             <div class="controls">
@@ -294,7 +294,7 @@
                     </div>
                     <hr/>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-12">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('估计月租金收入')%}</label>
                             <div class="controls">
                                 <div type-i18n-unit unit="userCurrency" data="i18nCurrency" ng-model="item.estimated_monthly_rent"></div>
@@ -302,7 +302,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-12">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('估计月平均支出')%}</label>
 
                             <div class="controls">
@@ -348,7 +348,7 @@
                 </tab>
                 <tab heading="{%$root.i18n('非楼盘特有信息')%}" ng-if="propertyType !== 'new_property'&&propertyType!=='student_housing'">
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('总价格')%}</label>
                             <div class="controls">
                                 <div type-i18n-unit unit="userCurrency" data="i18nCurrency" ng-model="item.total_price" placeholder="{%$root.i18n('总价格')%}"></div>
@@ -356,28 +356,28 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-4 col-sm-2">
+                        <div class="form-group  col-sm-2">
                             <label class="control-label">{%$root.i18n('居室数')%}</label>
 
                             <div class="controls">
                                 <input type="number" class="form-control" ng-model="item.bedroom_count"/>
                             </div>
                         </div>
-                        <div class="form-group col-xs-4 col-sm-2">
+                        <div class="form-group  col-sm-2">
                             <label class="control-label">{%$root.i18n('客厅数')%}</label>
 
                             <div class="controls">
                                 <input type="number" class="form-control" ng-model="item.living_room_count"/>
                             </div>
                         </div>
-                        <div class="form-group col-xs-4 col-sm-2">
+                        <div class="form-group  col-sm-2">
                             <label class="control-label">{%$root.i18n('卫生间数')%}</label>
 
                             <div class="controls">
                                 <input type="number" class="form-control" ng-model="item.bathroom_count"/>
                             </div>
                         </div>
-                        <div class="form-group col-xs-4 col-sm-2">
+                        <div class="form-group  col-sm-2">
                             <label class="control-label">{%$root.i18n('厨房数')%}</label>
 
                             <div class="controls">
@@ -386,7 +386,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('朝向')%}</label>
 
                             <div class="controls">
@@ -396,7 +396,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('面积')%}</label>
 
                             <div class="controls">
@@ -405,7 +405,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-12">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('户型图')%}</label>
 
                             <div class="controls">
@@ -418,7 +418,7 @@
                 </tab>
                 <tab heading="{%propertyType==='new_property'?$root.i18n('楼盘信息'):$root.i18n('学生公寓信息')%}" ng-if="propertyType === 'new_property'||propertyType==='student_housing'">
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('开发商')%}</label>
 
                             <div class="controls">
@@ -426,7 +426,7 @@
                                     ng-model="item.developer[userLanguage.value]"/>
                             </div>
                         </div>
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('建筑类型')%}</label>
 
                             <div class="controls">
@@ -436,7 +436,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group row col-xs-6 col-sm-6">
+                        <div class="form-group row  col-sm-6">
                             <label class="control-label">{%$root.i18n('单位面积参考价格')%}</label>
 
                             <div class="controls form-inline">
@@ -446,7 +446,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-8 col-sm-4">
+                        <div class=" col-sm-4">
                             <label class="control-label">{%$root.i18n('开盘时间')%}</label>
 
                             <div class="controls">
@@ -456,28 +456,28 @@
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('建筑面积')%}</label>
 
                             <div class="controls">
                                 <div type-i18n-unit unit="userArea" data="i18nArea" ng-model="item.building_area"></div>
                             </div>
                         </div>
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('规划面积')%}</label>
 
                             <div class="controls">
                                 <div type-i18n-unit unit="userArea" data="i18nArea" ng-model="item.planning_area"></div>
                             </div>
                         </div>
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('容积率')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.plot_ratio"/>
                             </div>
                         </div>
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('绿化率')%}</label>
 
                             <div class="controls">
@@ -486,14 +486,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('规划户数')%}</label>
 
                             <div class="controls">
                                 <input type="number" class="form-control" ng-model="item.planning_household_count"/>
                             </div>
                         </div>
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('车位数')%}</label>
 
                             <div class="controls">
@@ -502,7 +502,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('物业类型')%}</label>
 
                             <div class="controls">
@@ -510,7 +510,7 @@
                                     ng-model="item.property_management_type[userLanguage.value]"/>
                             </div>
                         </div>
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('物业公司')%}</label>
 
                             <div class="controls">
@@ -520,7 +520,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-12">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('主要户型')%}</label>
 
                             <div class="controls">
@@ -596,7 +596,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-12">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('效果图')%}</label>
 
                             <div class="controls">
@@ -607,7 +607,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-12">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('室内样板间图')%}</label>
 
                             <div class="controls">
@@ -618,7 +618,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-12">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('规划图')%}</label>
 
                             <div class="controls">
@@ -631,7 +631,7 @@
                 </tab>
                 <tab heading="{%$root.i18n('房产审核单')%}">
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('审核备注')%}</label>
 
                             <div class="controls">
@@ -640,7 +640,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6 col-sm-3">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('审核附件')%}</label>
 
                             <div class="controls">

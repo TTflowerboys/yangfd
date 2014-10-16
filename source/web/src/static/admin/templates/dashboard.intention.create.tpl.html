@@ -10,7 +10,7 @@
     <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
         ng-submit="submit($event,createProperty)" name="createProperty" novalidate>
         <div class="row">
-            <div class="form-group col-xs-6 col-sm-3">
+            <div class="form-group  col-sm-3">
                 <label class="control-label">{%$root.i18n('姓名')%}</label>
 
                 <div class="controls">
@@ -19,13 +19,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-xs-12 col-sm-12">
+            <div class="form-group  col-sm-12">
                 <label class="control-label">{%$root.i18n('电话')%}</label>
                 <div add-ticket-phone ng-model="item.phone" user-id="item.userId"></div>
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-xs-6 col-sm-3">
+            <div class="form-group  col-sm-3">
                 <label class="control-label">{%$root.i18n('邮箱')%}</label>
 
                 <div class="controls">
@@ -35,7 +35,7 @@
         </div>
         <div ng-if="item.phone">
             <div class="row" ng-if="!item.userId">
-                <div class="form-group col-xs-6 col-sm-3">
+                <div class="form-group  col-sm-3">
                     <label class="control-label">{%$root.i18n('是否愿意注册会员')%}</label>
 
                     <div class="controls">
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-xs-6 col-sm-3">
+                <div class="form-group  col-sm-3">
                     <label class="control-label">{%$root.i18n('预算')%}</label>
 
                     <div class="controls">
@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-xs-6 col-sm-3">
+                <div class="form-group  col-sm-3">
                     <label class="control-label">{%$root.i18n('文字描述')%}</label>
 
                     <div class="controls">
@@ -65,14 +65,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-xs-6 col-sm-3">
+                <div class="form-group  col-sm-3">
                     <label class="control-label">{%$root.i18n('国家')%}</label>
 
                     <div class="controls">
                         <div select-enum name="country" ng-model="item.country" required></div>
                     </div>
                 </div>
-                <div class="form-group col-xs-6 col-sm-3">
+                <div class="form-group  col-sm-3">
                     <label class="control-label">{%$root.i18n('城市')%}</label>
 
                     <div class="controls">
@@ -82,7 +82,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-xs-6 col-sm-3">
+                <div class="form-group  col-sm-3">
                     <label class="control-label">{%$root.i18n('产权类型')%}</label>
 
                     <div class="controls">
@@ -101,7 +101,7 @@
 
             <div class="row">
                 <div add-custom-fields></div>
-                <div class="form-group col-xs-12 col-sm-6">
+                <div class="form-group  col-sm-6">
                     <label class="control-label">{%$root.i18n('销售自定义描述')%}</label>
 
                     <div class="controls">
@@ -131,7 +131,7 @@
             </div>
 
             <div class="row">
-                <div class="form-group col-xs-6 col-sm-3">
+                <div class="form-group  col-sm-3">
                     <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
                 </div>
             </div>

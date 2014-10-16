@@ -1,6 +1,6 @@
 <div>
     <div class="row">
-        <div ng-repeat="image in images track by $index" style="" class="col-sm-3 col-xs-6">
+        <div ng-repeat="image in images track by $index" style="" class="col-sm-3 ">
             <div style="margin-bottom:8px; position: relative;">
                 <a target="_blank" ng-href="{% image %}" ng-style="{'visibility':image===''?'hidden':'visibility'}">
                     <img class="img-thumbnail" ng-src="{% image | thumbnail %}">
