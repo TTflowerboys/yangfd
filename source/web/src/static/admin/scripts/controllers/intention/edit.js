@@ -30,8 +30,7 @@
                 var temp = []
                 angular.forEach(editItem.intention, function (value, key) {
 
-                    value = value.id
-                    temp.push(value)
+                    temp.push(value.id)
                 })
                 editItem.intention = temp
             }

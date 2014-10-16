@@ -44,17 +44,14 @@
             if (!_.isEmpty(editItem.intention)) {
                 var temp = []
                 angular.forEach(editItem.intention, function (value, key) {
-
-                    value = value.id
-                    temp.push(value)
+                    temp.push(value.id)
                 })
                 editItem.intention = temp
             }
             if (!_.isEmpty(editItem.investment_type)) {
                 var temp1 = []
                 angular.forEach(editItem.investment_type, function (value, key) {
-                    value = value.id
-                    temp1.push(value)
+                    temp1.push(value.id)
                 })
                 editItem.investment_type = temp1
             }
