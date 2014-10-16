@@ -28,8 +28,7 @@
 
 %if 'time' in news:
 <label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>
-    % timeStamp = news.get('time')
-    <!--@@include=partials/format_time.html-->
+    {{news.get('time').strftime('%Y-%m-%d %H:%M:%S')}}
 </label>
 %end
 
