@@ -297,8 +297,11 @@
         </div>
         %end
         %if property.get('description'):
-        <div class="description">
+        <div class="description" data-ui="description">
             {{property.get('description')}}
+        </div>
+        <div class="clearfix">
+            <button data-fn="expendDescription" class="ghostButton red" style="float:right;">{{_('展开')}}</button>
         </div>
         <hr/>
         %end
@@ -342,7 +345,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <span class="name">面积</span>
+                                            <span class="name">{{_('面积')}}</span>
                                             <span class="value">
                                                 <strong>
                                                     {{type.get('building_area',{}).get('value')}}
@@ -352,10 +355,12 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <span class="name">售价</span>
+                                            <span class="name">{{_('售价')}}</span>
                                             <span class="value">
                                                 <strong>
                                                     {{type.get('total_price',{}).get('unit_symbol')}}
+                                                </strong>
+                                                <strong data-type="currency">
                                                     {{int(float(type.get('total_price',{}).get('value')))}}
                                                 </strong>
                                             </span>
@@ -965,5 +970,12 @@
 <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
 <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
 <!--endbuild-->
+
+<script>
+    $('[data-fn=expendDescription]').on('click', function () {
+        $(this).parent().hide()
+            .parent().find('[data-ui=description]').height('auto')
+    })
+</script>
 
 <!--@@close-->
