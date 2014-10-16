@@ -208,19 +208,46 @@ def news(news_id):
 @f_get('/notice_list')
 @check_landing
 def notice_list():
-    return template("notice_list", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    news_list = f_app.blog.post_output(
+        f_app.blog.post_search(
+            {
+                "category": {"$in": [
+                    {'_id': ObjectId(f_app.enum.get_by_slug('announcement')["id"]), 'type': 'news_category', '_enum': 'news_category'}
+                ]}
+            }, per_page=6
+        )
+    )
+    return template("notice_list", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
 
 
 @f_get('/guides')
 @check_landing
 def guides():
-    return template("guides", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    news_list = f_app.blog.post_output(
+        f_app.blog.post_search(
+            {
+                "category": {"$in": [
+                    {'_id': ObjectId(f_app.enum.get_by_slug('purchase_process')["id"]), 'type': 'news_category', '_enum': 'news_category'}
+                ]}
+            }, per_page=6
+        )
+    )
+    return template("guides", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
 
 
 @f_get('/laws')
 @check_landing
 def laws():
-    return template("laws", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    news_list = f_app.blog.post_output(
+        f_app.blog.post_search(
+            {
+                "category": {"$in": [
+                    {'_id': ObjectId(f_app.enum.get_by_slug('legal_resource')["id"]), 'type': 'news_category', '_enum': 'news_category'}
+                ]}
+            }, per_page=6
+        )
+    )
+    return template("laws", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
 
 
 @f_get('/coming_soon')

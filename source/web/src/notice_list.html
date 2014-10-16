@@ -1,47 +1,30 @@
 
 <!--@@master=masters/news_master.html-->
 <!--@@block=head -->
- <link rel="stylesheet" href="/static/styles/noticeList.css"/>
+<link rel="stylesheet" href="/static/styles/noticeList.css"/>
+<link href="/static/styles/pager.css" rel="stylesheet"/>
 <!--@@close-->
 
 <!--@@block=main -->
 
+<span class="newsData" style="display:none">
+    {{json_dumps(_i18n(news_list))}}
+</span>
+
 <h1 class="contentTitle">{{_('网站公告')}}</h1>
 
-<div class="contentList">
-    <div class="noticeCell">
-        <h2 class="title">服务通知，网扎新版升级上线通知</h2>
-        <label class="date"> 2014年9月26日 13:00</label>
-    </div>
-    <div class="noticeCell">
-        <h2 class="title">服务通知，网扎新版升级上线通知</h2>
-        <label class="date"> 2014年9月26日 13:00</label>
-    </div>
-    <div class="noticeCell">
-        <h2 class="title">服务通知，网扎新版升级上线通知</h2>
-        <label class="date"> 2014年9月26日 13:00</label>
-    </div>
-    <div class="noticeCell">
-        <h2 class="title">服务通知，网扎新版升级上线通知</h2>
-        <label class="date"> 2014年9月26日 13:00</label>
-    </div>
-    <div class="noticeCell">
-        <h2 class="title">服务通知，网扎新版升级上线通知</h2>
-        <label class="date"> 2014年9月26日 13:00</label>
-    </div>
-    <div class="noticeCell">
-        <h2 class="title">服务通知，网扎新版升级上线通知</h2>
-        <label class="date"> 2014年9月26日 13:00</label>
-    </div>
-    <div class="noticeCell">
-        <h2 class="title">服务通知，网扎新版升级上线通知</h2>
-        <label class="date"> 2014年9月26日 13:00</label>
-    </div>
+<div id="list" class="contentList">
+
 </div>
+
+<!--@@include=/partials/pager.html -->
+<!-- @@include=/static/templates/notice_card.tpl.html-->
 <!--@@close-->
 
 
 
 <!--@@block=scripts -->
+<script src="/static/scripts/paging.js"></script>
+<script src="/static/scripts/notice_list.js"></script>
 <!--@@close-->
 

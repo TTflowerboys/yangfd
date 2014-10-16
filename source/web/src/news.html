@@ -28,7 +28,7 @@
 
 %if 'time' in news:
 <label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>
-    {{news.get('time').strftime('%Y-%m-%d %H:%M:%S')}}
+    {{news.get('time').strftime('%Y-%m-%d')}}
 </label>
 %end
 
@@ -37,9 +37,9 @@
     <img alt="" src="{{news.get('images')[0]}}" />
     %end
     %if 'content' in news:
-    <p class="fullText">
-      {{news.get('content')}}
-    </p>
+    <div class="fullText">
+      {{!news.get('content')}}
+    </div>
     %end
 </div>
 
