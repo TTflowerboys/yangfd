@@ -1,0 +1,12 @@
+<div>
+    <div ng-if="image" class="row">
+        <div class="col-sm-12 col-xs-12">
+            <div >
+                请复制图片地址<input type="text" value="{% image %}"/>
+            </div>
+        </div>
+    </div>
+    <div ng-file-select="onFileSelected($files)"
+        title="select file" onclick="this.value = null" class="btn btn-primary">{%text%}
+    </div>
+</div>
