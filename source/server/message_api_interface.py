@@ -6,12 +6,12 @@ from libfelix.f_interface import f_api, abort, ObjectId
 
 
 @f_api("/message", params=dict(
-    status=(list, [], str),
-    type=(list, [], str),
+    status=(list, None, str),
+    type=(list, None, str),
     mark=(str, None),
 ))
 @f_app.user.login.check(force=True)
-def message_search(user, params):
+def message_receive(user, params):
     """
     ``status`` of a message can be "new" or "read".
     Current message types::
@@ -32,6 +32,24 @@ def message_search(user, params):
         user['id'],
         params,
     )
+    return messages
+
+
+@f_api("/message/search", params=dict(
+    status=(list, None, str),
+    type=(list, None, str),
+    user_id=ObjectId,
+    time=datetime,
+    per_page=int,
+))
+@f_app.user.login.check(force=True)
+def message_search(user, params):
+    per_page = params.pop("per_page", 0)
+    if "status" in params:
+        params["state"] = {"$in": params.pop("status", [])}
+    if "type" in params:
+        params["type"] = {"$in": params["type"]}
+    messages = [f_app.message.output(i) for i in f_app.message.search(params, per_page=per_page)]
     return messages
 
 
