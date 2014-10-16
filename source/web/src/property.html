@@ -1,6 +1,19 @@
 <!--@@master = masters/master.html-->
 
 <!--@@block = head-->
+%if property:
+% property = _i18n(property)
+
+% tags = []
+% for index,item in enumerate(property.get('intention')):
+% tags.append(item.get('value',''))
+% end
+% tagString = ', '.join(tags)
+
+<title>{{property.get('name',_('房产详情'))}}</title>
+<meta name="Description" content="{{property.get('name',_('房产详情'))}}">
+<meta name="Keywords" content="{{property.get('name',_('房产详情'))+','+tagString+u',洋房东,海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property'}}">
+
 <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
 <link rel="stylesheet" href="/static/styles/propertyCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
@@ -9,13 +22,8 @@
 <!--[if lte IE 8]>
 <script src="/static/vendors/excanvas.min.js"></script>
 <![endif]-->
-
-<title>房产详情</title>
 <!--@@close-->
-
-
 <!--@@block = main-->
-% property = _i18n(property)
 <div class="propertyDetails" style="margin-top: 100px;">
     <div class="content">
         <div class="pictures" data-tabs>
@@ -558,11 +566,6 @@
             % if property.get('intention'):
             <div class="tag">
                 <img src="/static/images/property_details/tag-icon.png" alt=""/>
-                % tags = []
-                % for index,item in enumerate(property.get('intention')):
-                % tags.append(item.get('value',''))
-                % end
-                % tagString = ', '.join(tags)
                 {{tagString}}
             </div>
             % end
