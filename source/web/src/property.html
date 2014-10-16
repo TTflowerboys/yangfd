@@ -1,6 +1,19 @@
 <!--@@master = masters/master.html-->
 
 <!--@@block = head-->
+%if property:
+% property = _i18n(property)
+
+% tags = []
+% for index,item in enumerate(property.get('intention')):
+% tags.append(item.get('value',''))
+% end
+% tagString = ', '.join(tags)
+
+<title>{{property.get('name',_('房产详情'))}}</title>
+<meta name="Description" content="{{property.get('name',_('房产详情'))}}">
+<meta name="Keywords" content="{{property.get('name',_('房产详情'))+','+tagString+u',洋房东,海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property'}}">
+
 <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
 <link rel="stylesheet" href="/static/styles/propertyCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
@@ -9,13 +22,8 @@
 <!--[if lte IE 8]>
 <script src="/static/vendors/excanvas.min.js"></script>
 <![endif]-->
-
-<title>房产详情</title>
 <!--@@close-->
-
-
 <!--@@block = main-->
-% property = _i18n(property)
 <div class="propertyDetails" style="margin-top: 100px;">
     <div class="content">
         <div class="pictures" data-tabs>
@@ -38,7 +46,7 @@
                     </div>
 
                     % else :
-                    <img src="/static/images/placeholder/image.jpg" alt="" width="800" height="480"/>
+                    <img src="about:blank" alt="" width="800" height="480"/>
                     % end
 
                 </div>
@@ -197,15 +205,18 @@
                             {{property.get('equity_type',{}).get('value','') }}
                         </td>
                         <td class="name">
+                            % if 'opening_time' in property:
                             <i>
                                 <img src="/static/images/property_details/icon-clock.png" alt=""/>
                             </i>
                             {{_('开盘时间')}}
+                            % end
                         </td>
                         <td class="value">
                             {{property.get('opening_time','')}}
                         </td>
                     </tr>
+                    % if 'decorative_style' in property:
                     <tr>
                         <td class="name">
                             <i>
@@ -217,6 +228,7 @@
                             {{property.get('decorative_style',{}).get('value')}}
                         </td>
                     </tr>
+                    % end
                     <tr>
 
                         <td class="name">
@@ -558,11 +570,6 @@
             % if property.get('intention'):
             <div class="tag">
                 <img src="/static/images/property_details/tag-icon.png" alt=""/>
-                % tags = []
-                % for index,item in enumerate(property.get('intention')):
-                % tags.append(item.get('value',''))
-                % end
-                % tagString = ', '.join(tags)
                 {{tagString}}
             </div>
             % end
@@ -573,7 +580,9 @@
             </div>
             % end
             <p class="price">
+
                 % if property.get('property_type',{}).get('slug') == 'new_property':
+
                 <span class="mute">{{_('价格')}}</span>
                 <span>
                     {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
@@ -582,16 +591,19 @@
                     {{property.get('unit_price',{}).get('price',{}).get('value','')}}
                 </strong>
                 <span>
-                    % unit = property.get('unit_price',{}).get('unit',{}).get('unit')
                     /
+                    % unit = property.get('unit_price',{}).get('unit',{}).get('unit')
                     <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
                 </span>
+
                 % else:
+
                 <span class="mute">{{_('价格')}}</span>
-                <span>{{property.get('total_price').get('unit_symbol')}}</span>
+                <span>{{property.get('total_price',{}).get('unit_symbol','')}}</span>
                 <strong data-type="currency">
                     {{int(float(property.get('total_price',{}).get('value','')))}}
                 </strong>
+
                 % end
             </p>
             <ul class="numbers">
@@ -698,7 +710,8 @@
                         (
                         {{_('可选')}},
                         <!--@@include=partials/current_currency.html -->
-                        ) --</option>
+                        ) --
+                    </option>
                     %for index, budget in enumerate(_i18n(budget_list)):
                     %if budget.get('currency') == _.currency:
                     <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
@@ -760,17 +773,17 @@
                     )</label>
                 % if property.get('property_type',{}).get('slug') == 'new_property':
                 <input name="_total" type="text" placeholder=""
-                       data-type="currency"
-                       data-validator="decimal, trim, required"
-                       data-message-required="{{_('必填')}}"
-                       data-message-decimal="{{_('必须为数字')}}"/>
+                    data-type="currency"
+                    data-validator="decimal, trim, required"
+                    data-message-required="{{_('必填')}}"
+                    data-message-decimal="{{_('必须为数字')}}"/>
                 % else:
                 <input name="_total" type="text" placeholder=""
-                       data-type="currency"
-                       value = {{int(float(property.get('total_price',{}).get('value','')))}}
-                       data-validator="decimal, trim, required"
-                       data-message-required="{{_('必填')}}"
-                       data-message-decimal="{{_('必须为数字')}}"/>
+                    data-type="currency"
+                    value={{int(float(property.get('total_price',{}).get('value','')))}}
+                    data-validator="decimal, trim, required"
+                    data-message-required="{{_('必填')}}"
+                    data-message-decimal="{{_('必须为数字')}}"/>
                 % end
             </div>
             <div class="row">
