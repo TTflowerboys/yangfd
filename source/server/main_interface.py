@@ -411,3 +411,7 @@ def logout(params):
     f_app.user.login.logout()
     baseurl = "://".join(request.urlparts[:2])
     redirect(baseurl + return_url)
+
+@f_get('/upload_image')
+def upload_image():
+    return template("upload_image")

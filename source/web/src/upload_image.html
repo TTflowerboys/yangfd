@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Upload Image</title>
+        <style>
+            label { display: block; }
+        </style>
+    </head>
+    <body>
+        <form>
+            <label>
+                <input name="image" type="file"/>
+            </label>
+            <label> 宽度
+                <input name="width" type="text" value="800"/>
+            </label>
+            <label> 高度
+                <input name="height" type="text" value="600"/>
+            </label>
+            <label> 缩略图高度
+                <input name="thumb_width" type="text" value="400"/>
+            </label>
+            <label> 缩略图高度
+                <input name="thumb_height" type="text" value="300"/>
+            </label>
+            <button type="submit">提交</button>
+            <span id="loading" style="display: none;">上传中...</span>
+        </form>
+        <div id="result"></div>
+
+        <!-- jQuery-->
+        <!--[if !IE]>-->
+        <script src="/static/themes/genius_dashboard/js/jquery-2.1.0.min.js"></script>
+        <!--<![endif]-->
+        <!--[if IE]>
+        <script src="/static/themes/genius_dashboard/js/jquery-1.11.0.min.js"></script>
+        <![endif]-->
+        <script src="/static/themes/genius_dashboard/js/jquery-migrate-1.2.1.min.js"></script>
+        <!-- /jQuery-->
+
+        <script>
+            var $form = $('form')
+            var form = $form.get(0)
+            var count = 0
+            $form.on('submit', function (event) {
+                event.preventDefault()
+                var formData = new FormData()
+                formData.append('data', form.image.files[0])
+                formData.append('width_limit', form.width.value)
+                formData.append('ratio', (form.width.value / form.height.value).toFixed(2))
+                formData.append('thumbnail_size', form.thumb_width.value + ',' + form.thumb_height.value)
+                count += 1
+                $('#loading').show()
+                $.ajax({
+                    url: '/api/1/upload_image',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false
+                }).done(function (response) {
+                    var div = $('<div><span></span><br/><img src="" alt=""/><hr/></div>')
+                    $('#result').append(div)
+                    div.find('img').prop('src', response.val.url)
+                    div.find('span').text(response.val.url)
+                }).always(function () {
+                    count -= 1
+                    if (count <= 0) {
+                        $('#loading').hide()
+                    }
+                })
+            })
+        </script>
+    </body>
+</html>
