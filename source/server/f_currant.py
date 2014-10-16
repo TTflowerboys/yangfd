@@ -958,6 +958,23 @@ class f_property(f_app.module_base):
     def update_set(self, property_id, params):
         return self.update(property_id, {"$set": params})
 
+    @f_cache("propertybyslug")
+    def get_by_slug(self, slug, force_reload=False):
+        if f_app.common.test:
+            return f_app.mock_data["property_get_by_slug"]
+
+        with f_app.mongo() as m:
+            property = self.get_database(m).find_one({
+                "slug": slug,
+                "status": {
+                    "$ne": "deleted",
+                }
+            })
+            if not force_reload:
+                assert property is not None, abort(40000)
+
+        return f_app.util.process_objectid(property)
+
 f_property()
 
 
