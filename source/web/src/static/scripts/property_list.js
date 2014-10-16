@@ -218,6 +218,19 @@
         $('#tags #intentionTag').find('[data-id=' + id + ']').toggleClass('selected', true)
     }
 
+    function selectCountry(id) {
+        $('select[name=propertyCountry]').find('option[value=' + id + ']').prop('selected', true)
+    }
+
+    function selectCity(id) {
+        $('select[name=propertyCity]').find('option[value=' + id + ']').prop('selected', true)
+    }
+
+    function selectPropertyType(id) {
+        $('select[name=propertyType]').find('option[value=' + id + ']').prop('selected', true)
+    }
+
+
     // function updateUserTags() {
     //     var budgetId = getSelectedBudgetType()
     //     var intentionIds = getSelectedIntention()
@@ -241,13 +254,6 @@
         window.budgetData = getData('budgetData')
 
         var $countrySelect = $('select[name=propertyCountry]')
-        $countrySelect.empty()
-        $countrySelect.append('<option value=>' + window.i18n('任意国家slash地区') + '</option>')
-        _.each(window.countryData, function (country) {
-            var item = '<option value=' + country.id + '>' + country.value[window.lang] + '</option))>'
-            $countrySelect.append(item)
-        })
-
         $countrySelect.change(function () {
             resetCityDataWhenCountryChange()
             resetData()
@@ -255,26 +261,12 @@
         })
 
         var $citySelect = $('select[name=propertyCity]')
-        $citySelect.empty()
-        $citySelect.append('<option value=>' + window.i18n('任意城市') + '</option>')
-        _.each(window.cityData, function (city) {
-            var item = '<option value=' + city.id + '>' + city.value[window.lang] + '</option>'
-            $citySelect.append(item)
-        })
-
         $citySelect.change(function () {
             resetData()
             loadPropertyList()
         })
 
         var $propertyTypeSelect = $('select[name=propertyType]')
-        $propertyTypeSelect.empty()
-        $propertyTypeSelect.append('<option value=>' + window.i18n('任意房屋类型') + '</option>')
-        _.each(window.propertyTypeData, function (type) {
-            var item = '<option value=' + type.id + '>' + type.value[window.lang] + '</option>'
-            $propertyTypeSelect.append(item)
-        })
-
         $propertyTypeSelect.change(function () {
             resetData()
             loadPropertyList();
@@ -330,11 +322,27 @@
     //     }
     // }
 
+    var countryFromURL = window.team.getQuery('country', location.href)
+    if (countryFromURL) {
+        selectCountry(countryFromURL)
+    }
+
+    var cityFromURL = window.team.getQuery('city', location.href)
+    if (cityFromURL) {
+        selectCity(cityFromURL)
+    }
+
+    var propertyTypeFromURL = window.team.getQuery('property_type', location.href)
+    if (propertyTypeFromURL) {
+        selectPropertyType(propertyTypeFromURL)
+    }
+
     var intentionFromURL = window.team.getQuery('intention', location.href)
     if (intentionFromURL) {
         removeAllSelectedIntentions() //remove all selected, only use the url intention
         selectIntention(intentionFromURL)
     }
+
     var budgetFromURL = window.team.getQuery('budget', location.href)
     if (budgetFromURL) {
         selectBudget(budgetFromURL)
