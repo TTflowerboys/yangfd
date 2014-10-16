@@ -131,9 +131,11 @@ gulp.task('styleless2css', function () {
 })
 
 
+var preprocess = require('gulp-preprocess')
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
         .pipe(extender())
+        .pipe(preprocess({context: {DEBUG: true}})) 
         .pipe(gulp.dest(myPaths.dist))
 })
 
@@ -145,6 +147,7 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
 
     return gulp.src(myPaths.html, {base: './src/'})
         .pipe(extender({verbose: true}))
+        .pipe(preprocess({context: {DEBUG: true}})) 
         .pipe(publicHtmlFilter)
         .pipe(usemin({
             css: ['concat', rev()],
