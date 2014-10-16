@@ -46,7 +46,7 @@
                     </div>
 
                     % else :
-                    <img src="about:blank" alt="" width="800" height="480"/>
+                    <img src="/static/images/placeholder/image.jpg" alt="" width="800" height="480"/>
                     % end
 
                 </div>
@@ -54,11 +54,12 @@
                 % if property.get('longitude') and property.get('latitude'):
                 % long = property.get('longitude')
                 % lat = property.get('latitude')
-                <a href="https://www.google.com.au/maps/@{{long}},{{lat}},14z" target="_blank" class="item" data-tab-name="map">
+                <a href="https://www.google.com/maps/?q={{long}},{{lat}}&z=14" target="_blank"
+                    class="item" data-tab-name="map">
                     <img id="propertyMap"
                         data-longitude="{{long}}"
                         data-latitude="{{lat}}"
-                        src="/static/images/placeholder/map.jpg" width="800" height="480"/>
+                        src="about:blank;" width="800" height="480"/>
                 </a>
                 % end
 
