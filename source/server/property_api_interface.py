@@ -27,6 +27,7 @@ logger = logging.getLogger(__name__)
     budget="enum:budget",
     random=bool,
     name=str,
+    slug=str,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
@@ -97,6 +98,7 @@ property_params = dict(
     intention=(list, None, 'enum:intention'),
     equity_type='enum:equity_type',
     investment_type=(list, None, 'enum:investment_type'),
+    slug=str,
 
     # Listing options
     status=str,

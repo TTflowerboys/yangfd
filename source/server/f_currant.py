@@ -14,6 +14,7 @@ from libfelix.f_common import f_app
 from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
 from libfelix.f_log import f_log
+from libfelix.f_message import f_message
 from libfelix.f_interface import abort
 from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
@@ -21,6 +22,25 @@ from libfelix.f_util import f_util
 import logging
 logger = logging.getLogger(__name__)
 f_app.dependency_register('pyquery', race="python")
+
+
+class f_currant_message(f_message):
+    def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
+        params.setdefault("status", {"$ne": "deleted"})
+        if sort is not None:
+            try:
+                sort_field, sort_orientation = sort
+            except:
+                abort(40000, logger.warning("sort param not well in format:", sort))
+
+        else:
+            sort_field = sort_orientation = None
+
+        message_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)["content"]
+
+        return message_id_list
+
+f_currant_message()
 
 
 class f_currant_log(f_log):
@@ -432,6 +452,7 @@ class f_currant_plugins(f_app.plugin_base):
         return params
 
     def message_output_each(self, message):
+        logger.debug(message)
         message["status"] = message.pop("state", "deleted")
         return message
 
@@ -937,6 +958,23 @@ class f_property(f_app.module_base):
     def update_set(self, property_id, params):
         return self.update(property_id, {"$set": params})
 
+    @f_cache("propertybyslug")
+    def get_by_slug(self, slug, force_reload=False):
+        if f_app.common.test:
+            return f_app.mock_data["property_get_by_slug"]
+
+        with f_app.mongo() as m:
+            property = self.get_database(m).find_one({
+                "slug": slug,
+                "status": {
+                    "$ne": "deleted",
+                }
+            })
+            if not force_reload:
+                assert property is not None, abort(40000)
+
+        return f_app.util.process_objectid(property)
+
 f_property()
 
 
@@ -999,7 +1037,7 @@ class f_plot(f_app.module_base):
         return plots
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
-        params.setdefault("status", "new")
+        params.setdefault("status", {"$ne": "deleted"})
         if sort is not None:
             try:
                 sort_field, sort_orientation = sort
@@ -1090,7 +1128,7 @@ class f_report(f_app.module_base):
         return reports
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
-        params.setdefault("status", "new")
+        params.setdefault("status", {"$ne": "deleted"})
         if sort is not None:
             try:
                 sort_field, sort_orientation = sort
