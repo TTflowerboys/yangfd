@@ -1,8 +1,13 @@
 <!--@@master = masters/user_master.html-->
 <!--@@block =head -->
-<link rel="stylesheet" href="/static/styles/project/houseCard.css" />
-<link rel="stylesheet" href="/static/styles/userMessages.css" />
-<link href="/static/styles/pager.css" rel="stylesheet"/>
+<title>{{_('消息')}}</title>
+<meta name="Description" content={{_("我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")}}>
+<meta name="Keywords" content="洋房东，海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property">
+<!--build:css(dist) /static/styles/project/user_messages.html.css-->
+<link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
+<link rel="stylesheet" href="/static/styles/userMessages.css"/>
+<link rel="stylesheet" href="/static/styles/pager.css"/>
+<!--endbuild-->
 <!--@@close-->
 <!--@@block = main -->
 
@@ -13,7 +18,7 @@
     <div class="contentHeader">
         <h1>{{_('消息')}}</h1>
         <div class="buttons">
-            <button id="showAll"  class="all button red">{{_('全部')}}</button>
+            <button id="showAll" class="all button red">{{_('全部')}}</button>
             <button id="showNew" class="new ghostButton red">{{_('未读')}}</button>
             <button id="showRead" class="read ghostButton red">{{_('已读')}}</button>
         </div>
@@ -41,12 +46,13 @@
     </div>
 
 
-
-<!-- @@include=/static/templates/message_cell.tpl.html-->
+    <!-- @@include=/static/templates/message_cell.tpl.html-->
 
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
+<!--build:js /static/scripts/user_messages.html.js-->
 <script src="/static/scripts/paging.js"></script>
 <script src="/static/scripts/message_list.js"></script>
+<!--endbuild-->
 <!--@@close-->
