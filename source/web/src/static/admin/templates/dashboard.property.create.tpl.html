@@ -450,7 +450,8 @@
                             <label class="control-label">{%$root.i18n('开盘时间')%}</label>
 
                             <div class="controls">
-                                <edit-date ng-model="item.opening_time"></edit-date>
+                                <input type="text" class="form-control" type-i18n="item.opening_time"
+                                    ng-model="item.opening_time[userLanguage.value]"/>
                             </div>
                         </div>
                     </div>

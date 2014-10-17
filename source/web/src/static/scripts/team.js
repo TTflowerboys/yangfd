@@ -137,7 +137,22 @@
         },
 
         isPhone: function () {
-            return $(window).width() < 768 //
+            return $(window).width() < 768
+        },
+
+        /**
+         * convert to https link
+         * @param {object} {url:'',property_id:'',news_id:''}
+         * @returns {string}
+         */
+        convertToHttps: function (options) {
+            var idString = ''
+            if (options.property_id) {
+                idString = 'property_id=' + options.property_id
+            } else if (options.news_id) {
+                idString = 'news_id=' + options.news_id
+            }
+            return ['/image/fetch?link=', encodeURIComponent(options.link), '&', idString].join('')
         }
     }
 })();

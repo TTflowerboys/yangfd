@@ -319,12 +319,56 @@ def admin_user_add(user, params):
         schema = "http://"
     admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
 
+    if f_app.common.i18n_default_locale in ["zh_Hans_CN", "zh_Hant_HK"]:
+        template_invoke_name = "new_admin_cn"
+    else:
+        template_invoke_name = "new_admin_en"
+    roles = template('''<ul>
+    % for r in role:
+    <li>
+        % if r == "admin":
+        {{_('高级平台管理员')}}
+        % elif r == "jr_admin":
+        {{_('初级平台管理员')}}
+        % elif r == "sales":
+        {{_('高级销售人员')}}
+        % elif r == "jr_sales":
+        {{_('初级销售人员')}}
+        % elif r == "operation":
+        {{_('高级运营人员')}}
+        % elif r == "jr_operation":
+        {{_('初级运营人员')}}
+        % elif r == "support":
+        {{_('高级客服人员')}}
+        % elif r == "jr_support":
+        {{_('初级客服人员')}}
+        % elif r == "developer":
+        {{_('房产开发商')}}
+        % elif r == "agency":
+        {{_('房产中介')}}
+        % end
+    </li>
+    % end
+    </ul>''', role=params["role"])
+    substitution_vars = {
+        "to": [params["email"]],
+        "sub": {
+            "%nickname%": [params["nickname"]],
+            "%password%": [params["password"]],
+            "%role%": [roles],
+            "%admin_console_url%": [admin_console_url],
+            "%phone%": ["*" * (len(params["phone"]) - 4) + params["phone"][-4:]]
+        }
+    }
+
     f_app.email.schedule(
         target=params["email"],
         subject=template("static/emails/new_admin_title"),
         text=template("static/emails/new_admin", password=params["password"], nickname=params["nickname"], role=params[
             "role"], admin_console_url=admin_console_url, phone="*" * (len(params["phone"]) - 4) + params["phone"][-4:]),
         display="html",
+        template_invoke_name=template_invoke_name,
+        substitution_vars=substitution_vars,
     )
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
@@ -353,11 +397,55 @@ def admin_user_add_role(user, user_id, params):
             else:
                 schema = "http://"
             admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
+            locale = user_info.get("locales", [f_app.common.i18n_default_locale])[0]
+            request._requested_i18n_locales_list = [locale]
+            if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
+                template_invoke_name = "set_as_admin_cn"
+            else:
+                template_invoke_name = "set_as_admin_en"
+            roles = template('''<ul>
+            % for r in role:
+            <li>
+                % if r == "admin":
+                {{_('高级平台管理员')}}
+                % elif r == "jr_admin":
+                {{_('初级平台管理员')}}
+                % elif r == "sales":
+                {{_('高级销售人员')}}
+                % elif r == "jr_sales":
+                {{_('初级销售人员')}}
+                % elif r == "operation":
+                {{_('高级运营人员')}}
+                % elif r == "jr_operation":
+                {{_('初级运营人员')}}
+                % elif r == "support":
+                {{_('高级客服人员')}}
+                % elif r == "jr_support":
+                {{_('初级客服人员')}}
+                % elif r == "developer":
+                {{_('房产开发商')}}
+                % elif r == "agency":
+                {{_('房产中介')}}
+                % end
+            </li>
+            % end
+            </ul>''', role=f_app.user.get_role(user_id))
+            substitution_vars = {
+                "to": [user_info.get("email")],
+                "sub": {
+                    "%nickname%": [user_info.get("nickname")],
+                    "%role%": [roles],
+                    "%admin_console_url%": [admin_console_url],
+                    "%phone%": ["*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]]
+                }
+            }
             f_app.email.schedule(
                 target=user_info.get("email"),
                 subject=template("static/emails/set_as_admin_title"),
                 text=template("static/emails/set_as_admin", nickname=user_info.get("nickname"), role=f_app.user.get_role(user_id), admin_console_url=admin_console_url, phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
                 display="html",
+                template_invoke_name=template_invoke_name,
+                substitution_vars=substitution_vars,
             )
         else:
             abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
@@ -551,11 +639,27 @@ def email_send(user_id):
     else:
         schema = "http://"
     verification_url = schema + request.urlparts[1] + "/verify_email_status?code=" + f_app.user.email.request(user_id) + "&user_id=" + user_id
+    locale = user.get("locales", [f_app.common.i18n_default_locale])[0]
+    request._requested_i18n_locales_list = [locale]
+    if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
+        template_invoke_name = "verify_email_cn"
+    else:
+        template_invoke_name = "verify_email_en"
+    substitution_vars = {
+        "to": [user.get("email")],
+        "sub": {
+            "%nickname%": [user.get("nickname")],
+            "%verification_url%": [verification_url],
+        }
+    }
     f_app.email.schedule(
         target=user["email"],
         subject=template("static/emails/verify_email_title"),
         text=template("static/emails/verify_email", verification_url=verification_url, nickname=user.get("nickname")),
         display="html",
+        template_invoke_name=template_invoke_name,
+        substitution_vars=substitution_vars
+
     )
 
 

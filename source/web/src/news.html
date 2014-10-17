@@ -2,7 +2,9 @@
 <!--@@block=head -->
 %if news:
 % news = _i18n(news)
+%end
 
+%if news:
 <title>{{news.get('title',_('洋房东'))}}</title>
 
 %if 'summary' in news:
@@ -13,45 +15,49 @@
 <meta name="Keywords" content="洋房东，海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property">
 
 <link rel="stylesheet" href="/static/styles/news.css"/>
+%end
 
 
 <!--@@close-->
 
 <!--@@block=main -->
-
+%if news:
 <textarea id="newsData" style="display:none;">{{json_dumps(_i18n(news))}}</textarea>
 
-%if 'title' in news:
-<h1 class="title">{{news.get('title')}}</h1>
-%end
-%if 'link' in news :
-<label class="source" for=""> <i class="hint">{{_('来源：')}}</i> <a href={{news.get('link')}}>{{_('原文地址')}}</a></label>
-%end
+<div class="container">
 
-%if 'time' in news:
-<label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>
-    {{news.get('time').strftime('%Y-%m-%d')}}
-</label>
-%end
-
-<div class="share">
-<a data-fn="shareToWeChat" class="shareButton">
-    <img class="wechat" src="/static/images/icon/share/wechat.png" height=23 alt=""/>
-</a>
-<a data-fn="shareToWeibo" class="shareButton">
-    <img src="/static/images/icon/share/weibo.png" height=20 alt=""/>
-</a>
-</div>
-
-<div class="content">
-    %if ('images' in news) and news.get('images'):
-    <img alt="" src="{{news.get('images')[0]}}" />
+    %if 'title' in news:
+    <h1 class="title">{{news.get('title')}}</h1>
     %end
-    %if 'content' in news:
-    <div class="fullText">
-        {{!news.get('content')}}
+    %if 'link' in news :
+    <label class="source" for=""> <i class="hint">{{_('来源：')}}</i> <a href={{news.get('link')}}>{{_('原文地址')}}</a></label>
+    %end
+
+    %if 'time' in news:
+    <label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>
+        {{news.get('time').strftime('%Y-%m-%d')}}
+    </label>
+    %end
+
+    <div class="share">
+        <a data-fn="shareToWeChat" class="shareButton">
+            <img class="wechat" src="/static/images/icon/share/wechat.png" height=23 alt=""/>
+        </a>
+        <a data-fn="shareToWeibo" class="shareButton">
+            <img src="/static/images/icon/share/weibo.png" height=20 alt=""/>
+        </a>
     </div>
-    %end
+
+    <div class="content">
+        %if ('images' in news) and news.get('images'):
+        <img alt="" src="{{news.get('images')[0]}}" />
+        %end
+        %if 'content' in news:
+        <div class="fullText">
+            {{!news.get('content')}}
+        </div>
+        %end
+    </div>
 </div>
 
 %end
