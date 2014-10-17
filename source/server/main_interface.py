@@ -432,6 +432,11 @@ def images_proxy(params):
                 if params["link"] in v:
                     allowed = True
                     break
+        for k, v in property.get("planning_map", {}).iteritems():
+            if isinstance(v, list):
+                if params["link"] in v:
+                    allowed = True
+                    break
         for k, v in property.get("floor_plan", {}).iteritems():
             if isinstance(v, list):
                 if params["link"] in v:
