@@ -60,10 +60,7 @@
                 % lat = property.get('latitude')
                 <a href="https://www.google.com/maps/?q={{long}},{{lat}}&z=14" target="_blank"
                     class="item" data-tab-name="map">
-                    <img id="propertyMap"
-                        data-longitude="{{long}}"
-                        data-latitude="{{lat}}"
-                        src="about:blank;" width="800" height="480"/>
+                    <img id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;" width="800" height="480"/>
                 </a>
                 % end
 
@@ -74,7 +71,8 @@
 
                     % if property.get('reality_images'):
                     <li data-tab="reality_images">
-                        <img src="{{property.get('reality_images')[0]}}" alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}"
+                            alt="" width="200" height="120"/>
                         <span class="text_wrapper"> <span class="text">{{_('实景图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -82,7 +80,8 @@
 
                     % if property.get('surroundings_images'):
                     <li data-tab="surroundings_images">
-                        <img src="{{property.get('surroundings_images')[0]}}" alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('surroundings_images')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}"
+                            alt="" width="200" height="120"/>
                         <span class="text_wrapper"> <span class="text">{{_('设施图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -90,7 +89,7 @@
 
                     % if property.get('floor_plan'):
                     <li data-tab="floor_plan">
-                        <img src="{{property.get('floor_plan')[0]}}" alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('floor_plan')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="200" height="120"/>
                         <span class="text_wrapper"> <span class="text">{{_('户型图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -98,7 +97,7 @@
 
                     % if property.get('effect_pictures'):
                     <li data-tab="effect_pictures">
-                        <img src="{{property.get('effect_pictures')[0]}}" alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('effect_pictures')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="200" height="120"/>
                         <span class="text_wrapper"> <span class="text">{{_('效果图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -106,7 +105,7 @@
 
                     % if property.get('indoor_sample_room_picture'):
                     <li data-tab="indoor_sample_room_picture">
-                        <img src="{{property.get('indoor_sample_room_picture')[0]}}" alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('indoor_sample_room_picture')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="200" height="120"/>
                         <span class="text_wrapper"> <span class="text">{{_('样板间图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -114,7 +113,7 @@
 
                     % if property.get('planning_map'):
                     <li data-tab="planning_map">
-                        <img src="{{property.get('planning_map')[0]}}" alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('planning_map')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="200" height="120"/>
                         <span class="text_wrapper"> <span class="text">{{_('规划图')}}</span> </span>
                         <span class="border"></span>
                     </li>
