@@ -4,8 +4,9 @@
     box-sizing: border-box;
 }
 
-main {
-    max-width:800px;
+.page > main {
+    min-width:800px;
+    width:800px;
     margin: 120px auto;
 
     .title {
@@ -37,6 +38,22 @@ main {
         margin-left:24px;
         i {
             font-style:normal;
+        }
+    }
+
+    .share {
+        float:right;
+        display:inline-block;
+        .shareButton {
+            float:left;
+            margin-left:20px;
+            vertical-align: middle;
+            border: 0px solid;
+            display: inline-block;
+            background: transparent;
+            img {
+                cursor:pointer;
+            }
         }
     }
 

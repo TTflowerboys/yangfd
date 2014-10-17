@@ -48,13 +48,22 @@
         },
         setQuery: function (name, value, url) {
             var _url = url || location.href
+            var urlWithoutHash = _url
+            var hash = ''
+
+            var indexOfHash = _url.indexOf('#')
+            if (indexOfHash >= 0) {
+                hash = _url.substring(indexOfHash)
+                urlWithoutHash = _url.substring(0, indexOfHash)
+            }
+
             var re = new RegExp('([?&])' + name + '=.*?(&|$)', 'i');
-            var separator = _url.indexOf('?') !== -1 ? '&' : '?';
-            if (_url.match(re)) {
-                return _url.replace(re, '$1' + name + '=' + encodeURIComponent(value) + '$2');
+            var separator = urlWithoutHash.indexOf('?') !== -1 ? '&' : '?';
+            if (urlWithoutHash.match(re)) {
+                return urlWithoutHash.replace(re, '$1' + name + '=' + encodeURIComponent(value) + '$2') + hash
             }
             else {
-                return _url + separator + name + '=' + encodeURIComponent(value);
+                return urlWithoutHash + separator + name + '=' + encodeURIComponent(value) + hash
             }
         },
         getHash: function (n) {

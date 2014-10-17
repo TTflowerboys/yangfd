@@ -3,6 +3,7 @@
 <!--@@block = head-->
 %if property:
 % property = _i18n(property)
+% property_type_slug = property.get('property_type',{}).get('slug')
 
 % tags = []
 % for index,item in enumerate(property.get('intention')):
@@ -10,6 +11,7 @@
 % end
 % tagString = ', '.join(tags)
 
+% from urllib import quote_plus
 <title>{{property.get('name',_('房产详情'))}}</title>
 <meta name="Description" content="{{property.get('name',_('房产详情'))}}">
 <meta name="Keywords" content="{{property.get('name',_('房产详情'))+','+tagString+u',洋房东,海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property'}}">
@@ -39,7 +41,7 @@
                         <ul class="rslides">
                             % for image in property.get(name):
                             <li>
-                                <img src="{{image}}" alt="" width="800" height="480"/>
+                                <img src="/image/fetch?link={{quote_plus(image)}}&property_id={{property.get('id','')}}" alt="" width="800" height="480"/>
                             </li>
                             % end
                         </ul>
@@ -134,7 +136,7 @@
                 % if property.get('main_house_types'):
                 <li><a href="#propertyDetails_houseTypes">{{_('户型')}}</a></li>
                 % end
-                % if property.get('property_type') == 'new_property':
+                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
                 <li><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
                 %end
                 % if property.get('historical_price') :
@@ -241,7 +243,6 @@
                             {{_('产权地址')}}
                         </td>
                         <td class="value">
-                            % from urllib import quote_plus
                             <a target="_blank" href="//maps.google.com/?q={{ quote_plus( property.get('address','') ) }}">
                                 {{property.get('address')}}
                             </a>
@@ -316,7 +317,8 @@
                         <li>
                             <div style="position:relative;">
                                 <a href="{{item.get('floor_plan')}}" target="_blank">
-                                    <img src="{{item.get('floor_plan')}}" alt="" width="480" height="480"/>
+                                    <img src="/image/fetch?link={{ quote_plus( item.get('floor_plan') ) }}&property_id={{property.get('id','')}}"
+                                        alt="" width="480" height="480"/>
                                 </a>
                                 <div class="table_wrapper">
                                     <table class="text">
@@ -380,7 +382,7 @@
         </div>
         <hr/>
         %end
-        % if property.get('property_type') == 'new_property':
+        % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
         <div id="propertyDetails_project" class="brief">
             <h3 class="propertyDetails_title">{{_('楼盘介绍')}}</h3>
             <div class="table_wrapper">
@@ -581,15 +583,19 @@
                 {{tagString}}
             </div>
             % end
-            % if property.get('address'):
+            % if 'country' in property or 'city' in property:
+            % country = property.get('country',{}).get('value')
+            % city = property.get('city',{}).get('value')
+            % city_string = ', '.join([x for x in [country,city] if x])
             % from urllib import quote_plus
             <div class="tag"><img src="/static/images/property_details/location-icon.png" alt=""/>
-                <a target="_blank" href="//maps.google.com/?q={{ quote_plus( property.get('address') ) }}">{{property.get('address')}}</a>
+                {{city_string}}
             </div>
             % end
+
             <p class="price">
 
-                % if property.get('property_type',{}).get('slug') == 'new_property':
+                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
 
                 <span class="mute">{{_('价格')}}</span>
                 <span>
@@ -779,7 +785,7 @@
                 <label class="label">{{_('购房总价')}} (
                     <!--@@include=partials/current_currency.html -->
                     )</label>
-                % if property.get('property_type',{}).get('slug') == 'new_property':
+                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
                 <input name="_total" type="text" placeholder=""
                     data-type="currency"
                     data-validator="decimal, trim, required"

@@ -18,7 +18,8 @@
         <ul class="rslides">
             % for ad in homepage_ad_list:
             <li>
-                <img src="{{ad.get('image', '')}}" width="1920" height="800">
+                <!-- remove "http:" -->
+                <img src="{{ad.get('image', '')[5:]}}">
 
                 <div class="imageText_table">
                     <div class="imageText_wrapper">
@@ -48,13 +49,14 @@
 
 %if user:
 <div class="announcement_wrapper" style="background:#eee">
-    <div id="announcement" class="announcement">
+    <div id="announcement" class="announcement" style="border-bottom: 0px solid #ccc;">
         <ul>
             %for index, anno in enumerate(announcement_list):
             <li class="item">
                 <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
-                <a class="title" href="{{anno.get('link', '')}}">{{_i18n(anno.get('title', ''))}}</a>
-                <img class="close" alt="" src="/static/images/icon/announcement_close.png"/>
+                <a class="title" href="/news/{{anno.get('id')}}">{{_i18n(anno.get('title', ''))}}</a>
+                <a class="more" href="/notice_list">{{_('更多公告')}}</a>
+                <img class="close" style="display:none" alt="" src="/static/images/icon/announcement_close.png"/>
             </li>
             %end
         </ul>
@@ -63,13 +65,14 @@
 %else:
 
 <div class="announcement_wrapper">
-    <div id="announcement" class="announcement" style="border-bottom: 1px solid #ccc;">
+    <div id="announcement" class="announcement" >
         <ul>
             % for anno in announcement_list:
             <li class="item">
                 <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
-                <a class="title" href="{{anno.get('link', '')}}">{{_i18n(anno.get('title', ''))}}</a>
-                <img class="close" alt="" src="/static/images/icon/announcement_close.png"/>
+                <a class="title" href="/news/{{anno.get('id')}}">{{_i18n(anno.get('title', ''))}}</a>
+                <a class="more" href="/notice_list">{{_('更多公告')}}</a>
+                <img class="close" style="display:none" alt="" src="/static/images/icon/announcement_close.png"/>
             </li>
             % end
         </ul>

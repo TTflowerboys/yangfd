@@ -5,7 +5,15 @@ body { font: 14px/1.6 @font-normal; }
 
 .page {
     background: #ffffff;
-    > main { min-height: 300px; }
+    > main {
+        min-height: 300px;
+        width:100%;
+        min-width:@min-page-width;
+
+        @media @phone {
+            min-width:0;
+        }
+    }
 }
 
 .textCenter {

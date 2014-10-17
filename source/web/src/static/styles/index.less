@@ -41,6 +41,14 @@ main {
         li {
             position: relative;
 
+            img {
+                min-height:800px;
+                @media @phone {
+                    min-height:200px;
+                }
+            }
+
+
             .imageText {
                 &_table {
                     padding: 10px;
@@ -63,9 +71,19 @@ main {
                 .slogan {
                     color: #ffffff;
                     font-size: 60px;
+
+                    @media @phone {
+                        font-size:20px;
+                        line-height:1em;
+                    }
                 }
                 .button {
                     margin-top: 60px;
+
+                    @media @phone {
+                        margin-top:35px;
+
+                    }
                 }
             }
         }
@@ -76,6 +94,10 @@ main {
         background: #f6f6f6;
         width: 100%;
         overflow: hidden;
+
+        @media @phone {
+            display:none;
+        }
 
         [data-tabs] {
             margin-top: 60px;
@@ -291,17 +313,32 @@ main {
     .announcement {
         &_wrapper {
             width: 100%;
+
+            @media @phone {
+                background:#eee;
+            }
         }
 
         overflow: hidden;
         width: @max-width;
         margin: 0 auto;
         padding-top: 22px;
-        padding-bottom: 14px;
+        padding-bottom: 22px;
+        border-bottom: 1px solid #ccc;
+
+        @media @phone {
+            width:100%;
+            padding-left:12px;
+            padding-right:25px;
+            padding-top:10px;
+            padding-bottom:10px;
+            border-bottom: none;
+        }
+
         .item {
             display: block;
             height: 16px;
-            margin-bottom: 8px;
+            vertical-align:middle;
             .icon {
                 float: left;
             }
@@ -312,9 +349,21 @@ main {
                 line-height: 16px;
                 color: #999;
                 text-decoration: none;
+
+                @media @phone {
+                    font-size:10px;
+                }
+            }
+            .more {
+                float:right;
+                font-size: 14px;
+                line-height: 16px;
+                text-decoration:none;
+                color:#aaaaaa;
             }
             .close {
                 float: right;
+                line-height:16px;
             }
         }
     }

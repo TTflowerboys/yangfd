@@ -18,18 +18,18 @@
                     ng-model="userLanguage.value"></select>
             </div>
             <div class="form-group col-sm-3">
-                <select class="form-control" ng-options="item for item in i18nArea" ng-model="userArea">
+                <select class="form-control" ng-options="item for item in i18nArea" ng-model="userArea.value">
                     <option value="">-- {%$root.i18n('面积单位')%} --</option>
                 </select>
             </div>
             <div class="form-group col-sm-3">
-                <select class="form-control" ng-options="item for item in i18nCurrency" ng-model="userCurrency">
+                <select class="form-control" ng-options="item for item in i18nCurrency" ng-model="userCurrency.value">
                     <option value="">-- {%$root.i18n('货币单位')%} --</option>
                 </select>
             </div>
         </div>
         <div ng-controller="ctrlPropertyItems">
-            <tabset justified="true" style="margin: 16px 0;" ng-if="userLanguage.value && userArea && userCurrency">
+            <tabset justified="true" style="margin: 16px 0;" ng-if="userLanguage.value && userArea.value && userCurrency.value">
                 <tab heading="{%$root.i18n('房产通用信息')%}">
                     <div class="row">
                         <div class="form-group  col-sm-3">
@@ -143,18 +143,18 @@
                     </div>
                     <div class="row">
                         <div class="form-group  col-sm-3">
-                            <label class="control-label">{%$root.i18n('年化现金回报率预估')%}</label>
+                            <label class="control-label">{%$root.i18n('预估现金年化回报率')%}</label>
 
                             <div class="controls">
-                                <input type="text" class="form-control" ng-model="item.annual_cash_return_estimated" placeholder="比如 10%"/>
+                                <input type="text" class="form-control" ng-model="item.annual_cash_return_estimated" placeholder="e.g. 10%"/>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group  col-sm-3">
-                            <label class="control-label">{%$root.i18n('年化回报预估')%}</label>
+                            <label class="control-label">{%$root.i18n('预估总年化收益率')%}</label>
                             <div class="controls">
-                                <input type="text" class="form-control" ng-model="item.annual_return_estimated"/>
+                                <input type="text" class="form-control" ng-model="item.annual_return_estimated" placeholder="e.g. 15%"/>
                             </div>
                         </div>
                     </div>
@@ -272,7 +272,7 @@
                                                 <edit-date style="width: 185px;" ng-model="price.time"></edit-date>
                                             </td>
                                             <td>
-                                                <div type-i18n-unit unit="price.price.unit||userCurrency" data="i18nCurrency" ng-model="price.price"
+                                                <div type-i18n-unit unit="price.price.unit||userCurrency.value" data="i18nCurrency" ng-model="price.price"
                                                     placeholder="{%$root.i18n('成交价格')%}"></div>
                                             </td>
                                             <td>
@@ -297,7 +297,7 @@
                         <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('估计月租金收入')%}</label>
                             <div class="controls">
-                                <div type-i18n-unit unit="userCurrency" data="i18nCurrency" ng-model="item.estimated_monthly_rent"></div>
+                                <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.estimated_monthly_rent"></div>
                             </div>
                         </div>
                     </div>
@@ -326,7 +326,7 @@
                                                     placeholder="{%$root.i18n('支出名称')%}" class="form-control"/>
                                             </td>
                                             <td>
-                                                <div type-i18n-unit unit="cost.price.unit||userCurrency" ng-model="cost.price" data="i18nCurrency" placeholder="{%$root.i18n('支出费用')%}"></div>
+                                                <div type-i18n-unit unit="cost.price.unit||userCurrency.value" ng-model="cost.price" data="i18nCurrency" placeholder="{%$root.i18n('支出费用')%}"></div>
                                             </td>
                                             <td>
                                                 <span class="btn btn-danger" ng-click="onRemoveCost($index)" title="{%$root.i18n('移除')%}">
@@ -351,7 +351,7 @@
                         <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('总价格')%}</label>
                             <div class="controls">
-                                <div type-i18n-unit unit="userCurrency" data="i18nCurrency" ng-model="item.total_price" placeholder="{%$root.i18n('总价格')%}"></div>
+                                <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.total_price" placeholder="{%$root.i18n('总价格')%}"></div>
                             </div>
                         </div>
                     </div>
@@ -400,7 +400,7 @@
                             <label class="control-label">{%$root.i18n('面积')%}</label>
 
                             <div class="controls">
-                                <div type-i18n-unit unit="userArea" data="i18nArea" ng-model="item.space"></div>
+                                <div type-i18n-unit unit="userArea.value" data="i18nArea" ng-model="item.space"></div>
                             </div>
                         </div>
                     </div>
@@ -440,8 +440,8 @@
                             <label class="control-label">{%$root.i18n('单位面积参考价格')%}</label>
 
                             <div class="controls form-inline">
-                                <div type-i18n-unit unit="userCurrency" data="i18nCurrency" ng-model="item.unit_price.price"></div>
-                                <div type-i18n-unit unit="userArea" data="i18nArea" ng-model="item.unit_price.unit"></div>
+                                <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.unit_price.price"></div>
+                                <div type-i18n-unit unit="userArea.value" data="i18nArea" ng-model="item.unit_price.unit"></div>
                             </div>
                         </div>
                     </div>
@@ -460,14 +460,14 @@
                             <label class="control-label">{%$root.i18n('建筑面积')%}</label>
 
                             <div class="controls">
-                                <div type-i18n-unit unit="userArea" data="i18nArea" ng-model="item.building_area"></div>
+                                <div type-i18n-unit unit="userArea.value" data="i18nArea" ng-model="item.building_area"></div>
                             </div>
                         </div>
                         <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('规划面积')%}</label>
 
                             <div class="controls">
-                                <div type-i18n-unit unit="userArea" data="i18nArea" ng-model="item.planning_area"></div>
+                                <div type-i18n-unit unit="userArea.value" data="i18nArea" ng-model="item.planning_area"></div>
                             </div>
                         </div>
                         <div class="form-group  col-sm-3">
@@ -567,10 +567,10 @@
                                                 <input type="number" ng-model="main_type.kitchen_count" placeholder="{%$root.i18n('厨房数')%}" style="width:60px"/>
                                             </td>
                                             <td>
-                                                <div type-i18n-unit unit="main_type.building_area.unit||userArea" data="i18nArea" ng-model="main_type.building_area" placeholder="{%$root.i18n('面积')%}"></div>
+                                                <div type-i18n-unit unit="main_type.building_area.unit||userArea.value" data="i18nArea" ng-model="main_type.building_area" placeholder="{%$root.i18n('面积')%}"></div>
                                             </td>
                                             <td>
-                                                <div type-i18n-unit unit="main_type.total_price.unit||userCurrency" data="i18nCurrency" ng-model="main_type.total_price" placeholder="{%$root.i18n('户型总价')%}"></div>
+                                                <div type-i18n-unit unit="main_type.total_price.unit||userCurrency.value" data="i18nCurrency" ng-model="main_type.total_price" placeholder="{%$root.i18n('户型总价')%}"></div>
                                             </td>
                                             <td>
                                                 <div type-i18n="main_type.floor_plan"></div>
@@ -651,7 +651,7 @@
                 </tab>
             </tabset>
         </div>
-        <input type="submit" class="btn btn-primary" value="{%$root.i18n('创建草稿')%}" ng-if="userLanguage.value && userArea && userCurrency">
-        <input type="button" class="btn btn-primary" value="{%$root.i18n('提交审核')%}" ng-if="userLanguage.value && userArea && userCurrency" ng-click="submitForReview($event,createProperty)">
+        <input type="submit" class="btn btn-primary" value="{%$root.i18n('创建草稿')%}" ng-if="userLanguage.value && userArea.value && userCurrency.value">
+        <input type="button" class="btn btn-primary" value="{%$root.i18n('提交审核')%}" ng-if="userLanguage.value && userArea.value && userCurrency.value" ng-click="submitForReview($event,createProperty)">
     </form>
 </div>
