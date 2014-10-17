@@ -48,13 +48,15 @@
         },
         setQuery: function (name, value, url) {
             var _url = url || location.href
+            var urlWithoutHash = _url
+            var hash = ''
+
             var indexOfHash = _url.indexOf('#')
-            var hash
-            var urlWithoutHash
             if (indexOfHash >= 0) {
                 hash = _url.substring(indexOfHash)
                 urlWithoutHash = _url.substring(0, indexOfHash)
             }
+
             var re = new RegExp('([?&])' + name + '=.*?(&|$)', 'i');
             var separator = urlWithoutHash.indexOf('?') !== -1 ? '&' : '?';
             if (urlWithoutHash.match(re)) {
