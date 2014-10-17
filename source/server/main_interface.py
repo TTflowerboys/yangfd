@@ -416,6 +416,18 @@ def images_proxy(params):
             if isinstance(v, list):
                 if params["link"] in v:
                     allowed = True
+                    break
+        for k, v in property.get("floor_plan", {}).iteritems():
+            if isinstance(v, list):
+                if params["link"] in v:
+                    allowed = True
+                    break
+        for main_house_type in property.get("main_house_types", []):
+            for k, v in main_house_type.get("floor_plan", {}).iteritems():
+                if params["link"] == v:
+                    allowed = True
+                    break
+
     if "news_id" in params:
         news = f_app.blog.post_get(params["news_id"])
         if params["link"] in news.get("images", []):
