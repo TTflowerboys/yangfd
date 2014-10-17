@@ -45,12 +45,12 @@ angular.module('app',
             window.localStorage.setItem('adminUserCurrency', newValue.value)
         }, true)
         //dashboardLanguage
-        var dashboardLanguageAtLocal = localStorage.getItem('dashboardLanguage')
+        var dashboardLanguageAtLocal = localStorage.getItem('adminDashboardLanguage')
         $rootScope.dashboardLanguage = {
             value: dashboardLanguageAtLocal || window.lang
         }
         $rootScope.$watch('dashboardLanguage', function (newValue, oldValue) {
-            localStorage.setItem('dashboardLanguage', newValue.value)
+            localStorage.setItem('adminDashboardLanguage', newValue.value)
         }, true)
     })
 
