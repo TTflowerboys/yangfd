@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-16 17:42+0800\n"
+"POT-Creation-Date: 2014-10-17 12:04+0800\n"
 "PO-Revision-Date: 2014-09-17 10:39+0800\n"
 "Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -166,7 +166,7 @@ msgstr ""
 msgid "港币"
 msgstr ""
 
-#: ../web/src/guides.html:4 ../web/src/guides.html:12
+#: ../web/src/guides.html:4 ../web/src/guides.html:17
 #: ../web/src/masters/news_master.html:17
 msgid "购房指南"
 msgstr ""
@@ -238,7 +238,7 @@ msgstr ""
 msgid "了解更多"
 msgstr ""
 
-#: ../web/src/laws.html:4 ../web/src/laws.html:13
+#: ../web/src/laws.html:4 ../web/src/laws.html:17
 #: ../web/src/masters/news_master.html:18
 msgid "法律法规"
 msgstr ""
@@ -260,7 +260,7 @@ msgstr ""
 msgid "房产资讯"
 msgstr ""
 
-#: ../web/src/notice_list.html:9 ../web/src/masters/news_master.html:16
+#: ../web/src/notice_list.html:14 ../web/src/masters/news_master.html:16
 msgid "网站公告"
 msgstr ""
 
@@ -2071,263 +2071,5 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "收益率"
-#~ msgstr ""
-
-#~ msgid "实景图"
-#~ msgstr ""
-
-#~ msgid "设施图"
-#~ msgstr ""
-
-#~ msgid "户型图"
-#~ msgstr ""
-
-#~ msgid "效果图"
-#~ msgstr ""
-
-#~ msgid "样板间图"
-#~ msgstr ""
-
-#~ msgid "规划图"
-#~ msgstr ""
-
-#~ msgid "地图"
-#~ msgstr ""
-
-#~ msgid "详情"
-#~ msgstr ""
-
-#~ msgid "户型"
-#~ msgstr ""
-
-#~ msgid "楼盘介绍"
-#~ msgstr ""
-
-#~ msgid "价格趋势"
-#~ msgstr ""
-
-#~ msgid "收入分析"
-#~ msgstr ""
-
-#~ msgid "房屋面积"
-#~ msgstr ""
-
-#~ msgid "卧室"
-#~ msgstr ""
-
-#~ msgid "厅堂"
-#~ msgstr ""
-
-#~ msgid "厨房"
-#~ msgstr ""
-
-#~ msgid "产权类型"
-#~ msgstr ""
-
-#~ msgid "开盘时间"
-#~ msgstr ""
-
-#~ msgid "装修风格"
-#~ msgstr ""
-
-#~ msgid "产权地址"
-#~ msgstr ""
-
-#~ msgid "街区"
-#~ msgstr ""
-
-#~ msgid "主要户型"
-#~ msgstr ""
-
-#~ msgid "室"
-#~ msgstr ""
-
-#~ msgid "厅"
-#~ msgstr ""
-
-#~ msgid "厨"
-#~ msgstr ""
-
-#~ msgid "卫"
-#~ msgstr ""
-
-#~ msgid "楼盘户型"
-#~ msgstr ""
-
-#~ msgid "客厅"
-#~ msgstr ""
-
-#~ msgid "建筑类型"
-#~ msgstr ""
-
-#~ msgid "物业类型"
-#~ msgstr ""
-
-#~ msgid "建筑面积"
-#~ msgstr ""
-
-#~ msgid "容积率间"
-#~ msgstr ""
-
-#~ msgid "规划面积"
-#~ msgstr ""
-
-#~ msgid "绿化率"
-#~ msgstr ""
-
-#~ msgid "车位数"
-#~ msgstr ""
-
-#~ msgid "规划户数"
-#~ msgstr ""
-
-#~ msgid "开发商"
-#~ msgstr ""
-
-#~ msgid "物业公司"
-#~ msgstr ""
-
-#~ msgid "支出"
-#~ msgstr ""
-
-#~ msgid "预期净收益"
-#~ msgstr ""
-
-#~ msgid "预期总收入"
-#~ msgstr ""
-
-#~ msgid "周边配套"
-#~ msgstr ""
-
-#~ msgid "交通设施"
-#~ msgstr ""
-
-#~ msgid "条地铁线"
-#~ msgstr ""
-
-#~ msgid "个公交车站"
-#~ msgstr ""
-
-#~ msgid "个汽车租赁点"
-#~ msgstr ""
-
-#~ msgid "查看详细交通"
-#~ msgstr ""
-
-#~ msgid "周边学校"
-#~ msgstr ""
-
-#~ msgid "所小学"
-#~ msgstr ""
-
-#~ msgid "所高中"
-#~ msgstr ""
-
-#~ msgid "所大学"
-#~ msgstr ""
-
-#~ msgid "便民设施"
-#~ msgstr ""
-
-#~ msgid "所公园"
-#~ msgstr ""
-
-#~ msgid "所健身馆"
-#~ msgstr ""
-
-#~ msgid "所游泳馆"
-#~ msgstr ""
-
-#~ msgid "已经收藏过了"
-#~ msgstr ""
-
-#~ msgid "收藏"
-#~ msgstr ""
-
-#~ msgid "分享到微信"
-#~ msgstr ""
-
-#~ msgid "分享到微博"
-#~ msgstr ""
-
-#~ msgid "提交成功"
-#~ msgstr ""
-
-#~ msgid "你填写的手机或邮箱的格式不正确"
-#~ msgstr ""
-
-#~ msgid "服务器忙，请稍后"
-#~ msgstr ""
-
-#~ msgid "可选"
-#~ msgstr ""
-
-#~ msgid "免费成为会员，查看详细报告"
-#~ msgstr ""
-
-#~ msgid "联系我们（免费）"
-#~ msgstr ""
-
-#~ msgid "拨打 4000926433"
-#~ msgstr ""
-
-#~ msgid "投资标签"
-#~ msgstr ""
-
-#~ msgid "房贷计算"
-#~ msgstr ""
-
-#~ msgid "购房总价"
-#~ msgstr ""
-
-#~ msgid "必填"
-#~ msgstr ""
-
-#~ msgid "必须为数字"
-#~ msgstr ""
-
-#~ msgid "首付款"
-#~ msgstr ""
-
-#~ msgid "贷款金额"
-#~ msgstr ""
-
-#~ msgid "贷款利率"
-#~ msgstr ""
-
-#~ msgid "更多贷款选择"
-#~ msgstr ""
-
-#~ msgid "贷款年限"
-#~ msgstr ""
-
-#~ msgid "必须为整数"
-#~ msgstr ""
-
-#~ msgid "还款类型"
-#~ msgstr ""
-
-#~ msgid "本息按揭"
-#~ msgstr ""
-
-#~ msgid "仅还利息"
-#~ msgstr ""
-
-#~ msgid "计算贷款"
-#~ msgstr ""
-
-#~ msgid "贷款流程"
-#~ msgstr ""
-
-#~ msgid "总支付利息"
-#~ msgstr ""
-
-#~ msgid "本息合计"
-#~ msgstr ""
-
-#~ msgid "每月还款"
-#~ msgstr ""
-
-#~ msgid "打开微信，使用 “扫一扫” 即可将网页分享到朋友圈"
 #~ msgstr ""
 

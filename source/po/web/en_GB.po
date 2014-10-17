@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-16 17:42+0800\n"
-"PO-Revision-Date: 2014-10-16 16:56+0800\n"
+"POT-Creation-Date: 2014-10-17 12:04+0800\n"
+"PO-Revision-Date: 2014-10-15 17:43+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -87,11 +87,12 @@ msgid "提交置业需求"
 msgstr "Submit Your Investment Needs"
 
 #: ../web/src/coming_soon.html:50
+#, fuzzy
 msgid "如果您有海外置业的意向，请提交置业需求或者致电4000926433告诉我们，我们将收集相应的资源并且及时反馈给您"
 msgstr ""
 "If you are interested in investing UK property, please submit your "
-"investment needs here, or call 4000926433 tell us your investment needs. "
-"We will get in touch and help your with your needs."
+"investment needs here. We will get in touch and help your with your "
+"needs."
 
 #: ../web/src/coming_soon.html:55 ../web/src/partials/requirement_form.html:3
 msgid "姓名(必填)"
@@ -184,7 +185,7 @@ msgstr "Euro"
 msgid "港币"
 msgstr "Hong Kong Dollar"
 
-#: ../web/src/guides.html:4 ../web/src/guides.html:12
+#: ../web/src/guides.html:4 ../web/src/guides.html:17
 #: ../web/src/masters/news_master.html:17
 msgid "购房指南"
 msgstr "Property Purchase Guide"
@@ -256,7 +257,7 @@ msgstr "More"
 msgid "了解更多"
 msgstr "Learn More"
 
-#: ../web/src/laws.html:4 ../web/src/laws.html:13
+#: ../web/src/laws.html:4 ../web/src/laws.html:17
 #: ../web/src/masters/news_master.html:18
 msgid "法律法规"
 msgstr "Laws & Regulations"
@@ -278,7 +279,7 @@ msgstr "Publish Date"
 msgid "房产资讯"
 msgstr "Property News"
 
-#: ../web/src/notice_list.html:9 ../web/src/masters/news_master.html:16
+#: ../web/src/notice_list.html:14 ../web/src/masters/news_master.html:16
 msgid "网站公告"
 msgstr "Announcement"
 
@@ -288,114 +289,113 @@ msgstr "Privacy"
 
 #: ../web/src/property.html:13 ../web/src/property.html:14
 #: ../web/src/property.html:15
+#, fuzzy
 msgid "房产详情"
-msgstr ""
+msgstr "Details"
 
 #: ../web/src/property.html:74
 msgid "实景图"
-msgstr ""
+msgstr "Photos"
 
 #: ../web/src/property.html:82
 msgid "设施图"
-msgstr ""
+msgstr "Facilities"
 
 #: ../web/src/property.html:90
 msgid "户型图"
-msgstr ""
+msgstr "House Type"
 
 #: ../web/src/property.html:98
 msgid "效果图"
-msgstr ""
+msgstr "Renderings"
 
 #: ../web/src/property.html:106
 msgid "样板间图"
-msgstr ""
+msgstr "Open House"
 
 #: ../web/src/property.html:114
 msgid "规划图"
-msgstr ""
+msgstr "Plannings"
 
 #: ../web/src/property.html:122
 msgid "地图"
-msgstr ""
+msgstr "Map"
 
 #: ../web/src/property.html:132
-#, fuzzy
 msgid "详情"
-msgstr "View Details"
+msgstr "Details"
 
 #: ../web/src/property.html:135
 msgid "户型"
-msgstr ""
+msgstr "House Type"
 
 #: ../web/src/property.html:138 ../web/src/property.html:385
 msgid "楼盘介绍"
-msgstr ""
+msgstr "Introduction"
 
 #: ../web/src/property.html:141 ../web/src/property.html:448
-#, fuzzy
 msgid "价格趋势"
-msgstr "Price"
+msgstr "Values History"
 
 #: ../web/src/property.html:144 ../web/src/property.html:456
 msgid "收入分析"
-msgstr ""
+msgstr "Income Analysis"
 
 #: ../web/src/property.html:151
 msgid "房屋面积"
-msgstr ""
+msgstr "House Area"
 
 #: ../web/src/property.html:163
 msgid "卧室"
-msgstr ""
+msgstr "Bedrooms"
 
 #: ../web/src/property.html:177
 msgid "厅堂"
-msgstr ""
+msgstr "Living Room"
 
 #: ../web/src/property.html:184 ../web/src/property.html:337
 msgid "厨房"
-msgstr ""
+msgstr "Kitchen"
 
 #: ../web/src/property.html:203
 msgid "产权类型"
-msgstr ""
+msgstr "Equity Type"
 
 #: ../web/src/property.html:213 ../web/src/property.html:393
 msgid "开盘时间"
-msgstr ""
+msgstr "Opening time"
 
 #: ../web/src/property.html:228
 msgid "装修风格"
-msgstr ""
+msgstr "Decoration style"
 
 #: ../web/src/property.html:241
 msgid "产权地址"
-msgstr ""
+msgstr "Address"
 
 #: ../web/src/property.html:253
 msgid "街区"
-msgstr ""
+msgstr "Block"
 
 #: ../web/src/property.html:264
 msgid "主要户型"
-msgstr ""
+msgstr "Main House Type"
 
 #: ../web/src/property.html:270
 msgid "室"
-msgstr ""
+msgstr "Bedrooms"
 
 #: ../web/src/property.html:271
 msgid "厅"
-msgstr ""
+msgstr "Living Room"
 
 #: ../web/src/property.html:272
 msgid "厨"
-msgstr ""
+msgstr "Kitchen"
 
 #: ../web/src/property.html:273
 msgid "卫"
-msgstr ""
+msgstr "Bathrooms"
 
 #: ../web/src/property.html:304
 #: ../web/src/partials/localization_manager.html:38
@@ -405,15 +405,16 @@ msgstr "Expand"
 
 #: ../web/src/property.html:310
 msgid "楼盘户型"
-msgstr ""
+msgstr "House Type"
 
 #: ../web/src/property.html:329
 msgid "客厅"
-msgstr ""
+msgstr "Living Room"
 
 #: ../web/src/property.html:348
+#, fuzzy
 msgid "面积"
-msgstr ""
+msgstr "Planning Area"
 
 #: ../web/src/property.html:358
 msgid "售价"
@@ -421,102 +422,100 @@ msgstr ""
 
 #: ../web/src/property.html:397
 msgid "建筑类型"
-msgstr ""
+msgstr "Building Type"
 
 #: ../web/src/property.html:401
 msgid "物业类型"
-msgstr ""
+msgstr "Property Management"
 
 #: ../web/src/property.html:405
 msgid "建筑面积"
-msgstr ""
+msgstr "Building Area"
 
 #: ../web/src/property.html:414
 msgid "容积率间"
-msgstr ""
+msgstr "Plot Ratio"
 
 #: ../web/src/property.html:418
 msgid "规划面积"
-msgstr ""
+msgstr "Planning Area"
 
 #: ../web/src/property.html:422
 msgid "绿化率"
-msgstr ""
+msgstr "Greening Rate"
 
 #: ../web/src/property.html:426
 msgid "车位数"
-msgstr ""
+msgstr "Number of parking spaces"
 
 #: ../web/src/property.html:430
 msgid "规划户数"
-msgstr ""
+msgstr "Planning Households"
 
 #: ../web/src/property.html:434
-#, fuzzy
 msgid "开发商"
 msgstr "Property Developer"
 
 #: ../web/src/property.html:438
 msgid "物业公司"
-msgstr ""
+msgstr "Property Management Company"
 
 #: ../web/src/property.html:477
 msgid "支出"
-msgstr ""
+msgstr "Expense"
 
 #: ../web/src/property.html:482 ../web/src/property.html:508
 msgid "预期净收益"
-msgstr ""
+msgstr "Estimated Net Returns"
 
 #: ../web/src/property.html:485
 msgid "预期总收入"
-msgstr ""
+msgstr "Estimated Total Returns"
 
 #: ../web/src/property.html:520
 msgid "周边配套"
-msgstr ""
+msgstr "Nearby"
 
 #: ../web/src/property.html:523
 msgid "交通设施"
-msgstr ""
+msgstr "Transport"
 
 #: ../web/src/property.html:527
 msgid "条地铁线"
-msgstr ""
+msgstr "Metro Lines"
 
 #: ../web/src/property.html:528
 msgid "个公交车站"
-msgstr ""
+msgstr "Bus Stops"
 
 #: ../web/src/property.html:529
 msgid "个汽车租赁点"
-msgstr ""
+msgstr "Car Rental Points"
 
 #: ../web/src/property.html:531 ../web/src/property.html:542
 #: ../web/src/property.html:556 ../web/src/property.html:570
-#, fuzzy
 msgid "查看详细交通"
-msgstr "View Details"
+msgstr "View Transport Details"
 
 #: ../web/src/property.html:534
 msgid "周边学校"
-msgstr ""
+msgstr "Nearby Schools"
 
 #: ../web/src/property.html:538
 msgid "所小学"
-msgstr ""
+msgstr "Primary School"
 
 #: ../web/src/property.html:539
 msgid "所高中"
-msgstr ""
+msgstr "High School"
 
 #: ../web/src/property.html:540
 msgid "所大学"
-msgstr ""
+msgstr "University"
 
 #: ../web/src/property.html:547 ../web/src/property.html:561
 msgid "便民设施"
-msgstr ""
+msgstr "Facilities"
 
 #: ../web/src/property.html:552 ../web/src/property.html:566
 msgid "所公园"
@@ -537,12 +536,11 @@ msgstr "Price"
 
 #: ../web/src/property.html:643
 msgid "已经收藏过了"
-msgstr ""
+msgstr "Already Favourited"
 
 #: ../web/src/property.html:646
-#, fuzzy
 msgid "收藏"
-msgstr "items in total)"
+msgstr "Favourite"
 
 #: ../web/src/property.html:657
 #: ../web/src/partials/localization_manager.html:32
@@ -551,127 +549,123 @@ msgstr "Un-favourite"
 
 #: ../web/src/property.html:663
 msgid "分享到微信"
-msgstr ""
+msgstr "WeChat Share"
 
 #: ../web/src/property.html:670
 msgid "分享到微博"
-msgstr ""
+msgstr "Weibo Share"
 
 #: ../web/src/property.html:678
-#, fuzzy
 msgid "提交成功"
-msgstr "Submit"
+msgstr "Submit Successfully"
 
 #: ../web/src/property.html:679
 msgid "你填写的手机或邮箱的格式不正确"
-msgstr ""
+msgstr "Your phone or email format may be wrong"
 
 #: ../web/src/property.html:680
-#, fuzzy
 msgid "服务器忙，请稍后"
 msgstr "Server is busy, please try again later"
 
 #: ../web/src/property.html:719 ../web/src/property.html:731
 msgid "可选"
-msgstr ""
+msgstr "Optional"
 
 #: ../web/src/property.html:736
 msgid "免费成为会员，查看详细报告"
-msgstr ""
+msgstr "Sign up for free to get detail reports"
 
 #: ../web/src/property.html:740
-#, fuzzy
 msgid "联系我们（免费）"
-msgstr "Contact Us"
+msgstr "Contact Us (Free)"
 
 #: ../web/src/property.html:745
 msgid "拨打 4000926433"
-msgstr ""
+msgstr "Call 4000926433"
 
 #: ../web/src/property.html:752
-#, fuzzy
 msgid "投资标签"
-msgstr "for"
+msgstr "Intention"
 
 #: ../web/src/property.html:775
 msgid "房贷计算"
-msgstr ""
+msgstr "Mortgage Payment Calculator"
 
 #: ../web/src/property.html:779
 msgid "购房总价"
-msgstr ""
+msgstr "Property Price"
 
 #: ../web/src/property.html:786 ../web/src/property.html:793
 #: ../web/src/property.html:803 ../web/src/property.html:822
 #: ../web/src/property.html:830 ../web/src/property.html:836
 msgid "必填"
-msgstr ""
+msgstr "Required"
 
 #: ../web/src/property.html:787 ../web/src/property.html:794
 #: ../web/src/property.html:804 ../web/src/property.html:813
 #: ../web/src/property.html:823
 msgid "必须为数字"
-msgstr ""
+msgstr "Must be numbers"
 
 #: ../web/src/property.html:798
 msgid "首付款"
-msgstr ""
+msgstr "Deposit"
 
 #: ../web/src/property.html:807
 msgid "贷款金额"
-msgstr ""
+msgstr "How much"
 
 #: ../web/src/property.html:816
 msgid "贷款利率"
-msgstr ""
+msgstr "Annual Interest"
 
 #: ../web/src/property.html:818
 msgid "更多贷款选择"
-msgstr ""
+msgstr "More mortgages options"
 
 #: ../web/src/property.html:828
 msgid "贷款年限"
-msgstr ""
+msgstr "Mortgage Term"
 
 #: ../web/src/property.html:831
 msgid "必须为整数"
-msgstr ""
+msgstr "Must be integer"
 
 #: ../web/src/property.html:834
 msgid "还款类型"
-msgstr ""
+msgstr "Repayment Type"
 
 #: ../web/src/property.html:838
 msgid "本息按揭"
-msgstr ""
+msgstr "Monthly Repayment"
 
 #: ../web/src/property.html:839
 msgid "仅还利息"
-msgstr ""
+msgstr "Interest Only"
 
 #: ../web/src/property.html:843
 msgid "计算贷款"
-msgstr ""
+msgstr "Calculate"
 
 #: ../web/src/property.html:845
 msgid "贷款流程"
-msgstr ""
+msgstr "Mortgage Process Guideline"
 
 #: ../web/src/property.html:854
 msgid "总支付利息"
-msgstr ""
+msgstr "Total Interests"
 
 #: ../web/src/property.html:860
 msgid "本息合计"
-msgstr ""
+msgstr "Total Principal & Interest"
 
 #: ../web/src/property.html:866
 msgid "每月还款"
-msgstr ""
+msgstr "Monthly Pepayment"
 
 #: ../web/src/property.html:878
 msgid "打开微信，使用 “扫一扫” 即可将网页分享到朋友圈"
-msgstr ""
+msgstr "Open WeChat, Use \"Scan QR Code\" to share this page to friends"
 
 #: ../web/src/property_list.html:3 ../web/src/masters/master.html:38
 msgid "海外房产"
@@ -1828,253 +1822,4 @@ msgstr "Load More"
 
 #~ msgid "收益率"
 #~ msgstr "estimated annualized returns"
-
-#~ msgid "实景图"
-#~ msgstr "Photos"
-
-#~ msgid "设施图"
-#~ msgstr "Facilities"
-
-#~ msgid "户型图"
-#~ msgstr "House Type"
-
-#~ msgid "效果图"
-#~ msgstr "Renderings"
-
-#~ msgid "样板间图"
-#~ msgstr "Open House"
-
-#~ msgid "规划图"
-#~ msgstr "Plannings"
-
-#~ msgid "地图"
-#~ msgstr "Map"
-
-#~ msgid "详情"
-#~ msgstr "Details"
-
-#~ msgid "户型"
-#~ msgstr "House Type"
-
-#~ msgid "楼盘介绍"
-#~ msgstr "Introduction"
-
-#~ msgid "价格趋势"
-#~ msgstr "Values History"
-
-#~ msgid "收入分析"
-#~ msgstr "Income Analysis"
-
-#~ msgid "房屋面积"
-#~ msgstr "House Area"
-
-#~ msgid "卧室"
-#~ msgstr "Bedrooms"
-
-#~ msgid "厅堂"
-#~ msgstr "Living Room"
-
-#~ msgid "厨房"
-#~ msgstr "Kitchen"
-
-#~ msgid "产权类型"
-#~ msgstr "Equity Type"
-
-#~ msgid "开盘时间"
-#~ msgstr "Opening time"
-
-#~ msgid "装修风格"
-#~ msgstr "Decoration style"
-
-#~ msgid "产权地址"
-#~ msgstr "Address"
-
-#~ msgid "街区"
-#~ msgstr "Block"
-
-#~ msgid "主要户型"
-#~ msgstr "Main House Type"
-
-#~ msgid "室"
-#~ msgstr "Bedrooms"
-
-#~ msgid "厅"
-#~ msgstr "Living Room"
-
-#~ msgid "厨"
-#~ msgstr "Kitchen"
-
-#~ msgid "卫"
-#~ msgstr "Bathrooms"
-
-#~ msgid "楼盘户型"
-#~ msgstr "House Type"
-
-#~ msgid "客厅"
-#~ msgstr "Living Room"
-
-#~ msgid "建筑类型"
-#~ msgstr "Building Type"
-
-#~ msgid "物业类型"
-#~ msgstr "Property Management"
-
-#~ msgid "建筑面积"
-#~ msgstr "Building Area"
-
-#~ msgid "容积率间"
-#~ msgstr "Plot Ratio"
-
-#~ msgid "规划面积"
-#~ msgstr "Planning Area"
-
-#~ msgid "绿化率"
-#~ msgstr "Greening Rate"
-
-#~ msgid "车位数"
-#~ msgstr "Number of parking spaces"
-
-#~ msgid "规划户数"
-#~ msgstr "Planning Households"
-
-#~ msgid "开发商"
-#~ msgstr "Property Developer"
-
-#~ msgid "物业公司"
-#~ msgstr "Property Management Company"
-
-#~ msgid "支出"
-#~ msgstr "Expense"
-
-#~ msgid "预期净收益"
-#~ msgstr "Estimated Net Returns"
-
-#~ msgid "预期总收入"
-#~ msgstr "Estimated Total Returns"
-
-#~ msgid "周边配套"
-#~ msgstr "Nearby"
-
-#~ msgid "交通设施"
-#~ msgstr "Transport"
-
-#~ msgid "条地铁线"
-#~ msgstr "Metro Lines"
-
-#~ msgid "个公交车站"
-#~ msgstr "Bus Stops"
-
-#~ msgid "个汽车租赁点"
-#~ msgstr "Car Rental Points"
-
-#~ msgid "查看详细交通"
-#~ msgstr "View Transport Details"
-
-#~ msgid "周边学校"
-#~ msgstr "Nearby Schools"
-
-#~ msgid "所小学"
-#~ msgstr "Primary School"
-
-#~ msgid "所高中"
-#~ msgstr "High School"
-
-#~ msgid "所大学"
-#~ msgstr "University"
-
-#~ msgid "便民设施"
-#~ msgstr "Facilities"
-
-#~ msgid "已经收藏过了"
-#~ msgstr "Already Favourited"
-
-#~ msgid "收藏"
-#~ msgstr "Favourite"
-
-#~ msgid "分享到微信"
-#~ msgstr "WeChat Share"
-
-#~ msgid "分享到微博"
-#~ msgstr "Weibo Share"
-
-#~ msgid "提交成功"
-#~ msgstr "Submit Successfully"
-
-#~ msgid "你填写的手机或邮箱的格式不正确"
-#~ msgstr "Your phone or email format may be wrong"
-
-#~ msgid "服务器忙，请稍后"
-#~ msgstr "Server is busy, please try again later"
-
-#~ msgid "可选"
-#~ msgstr "Optional"
-
-#~ msgid "免费成为会员，查看详细报告"
-#~ msgstr "Sign up for free to get detail reports"
-
-#~ msgid "联系我们（免费）"
-#~ msgstr "Contact Us (Free)"
-
-#~ msgid "拨打 4000926433"
-#~ msgstr "Call 4000926433"
-
-#~ msgid "投资标签"
-#~ msgstr "Intention"
-
-#~ msgid "房贷计算"
-#~ msgstr "Mortgage Payment Calculator"
-
-#~ msgid "购房总价"
-#~ msgstr "Property Price"
-
-#~ msgid "必填"
-#~ msgstr "Required"
-
-#~ msgid "必须为数字"
-#~ msgstr "Must be numbers"
-
-#~ msgid "首付款"
-#~ msgstr "Deposit"
-
-#~ msgid "贷款金额"
-#~ msgstr "How much"
-
-#~ msgid "贷款利率"
-#~ msgstr "Annual Interest"
-
-#~ msgid "更多贷款选择"
-#~ msgstr "More mortgages options"
-
-#~ msgid "贷款年限"
-#~ msgstr "Mortgage Term"
-
-#~ msgid "必须为整数"
-#~ msgstr "Must be integer"
-
-#~ msgid "还款类型"
-#~ msgstr "Repayment Type"
-
-#~ msgid "本息按揭"
-#~ msgstr "Monthly Repayment"
-
-#~ msgid "仅还利息"
-#~ msgstr "Interest Only"
-
-#~ msgid "计算贷款"
-#~ msgstr "Calculate"
-
-#~ msgid "贷款流程"
-#~ msgstr "Mortgage Process Guideline"
-
-#~ msgid "总支付利息"
-#~ msgstr "Total Interests"
-
-#~ msgid "本息合计"
-#~ msgstr "Total Principal & Interest"
-
-#~ msgid "每月还款"
-#~ msgstr "Monthly Pepayment"
-
-#~ msgid "打开微信，使用 “扫一扫” 即可将网页分享到朋友圈"
-#~ msgstr "Open WeChat, Use \"Scan QR Code\" to share this page to friends"
 
