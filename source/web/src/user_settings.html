@@ -1,6 +1,8 @@
 <!--@@master = masters/user_master.html-->
 <!--@@block = head -->
+<!--build:css(dist) /static/styles/userSettings.css-->
 <link rel="stylesheet" href="/static/styles/userSettings.css"/>
+<!--endbuild-->
 <!--@@close -->
 
 <!--@@block = main -->
@@ -34,11 +36,11 @@
                 <td class="action">
                     %if user.get('phone_verified'):
                     <a class="ghostButton red" href="/user_change_phone_1">
-                    {{_('修改')}}
+                        {{_('修改')}}
                     </a>
                     %else:
                     <a class="ghostButton red" href="/user_verify_phone_1">
-                    {{_('认证')}}
+                        {{_('认证')}}
                     </a>
                     %end
                 </td>
@@ -69,7 +71,7 @@
                     <a class="ghostButton red" href="/user_verify_email">
                         {{_('认证')}}
                     </a>
-                     %end
+                    %end
                 </td>
             </tr>
             <tr>
@@ -94,13 +96,13 @@
                 <td style="font-size:20px;">
                     %if user.get('locales') and len(user.get('locales')):
                     <label name="userLanguage">
-                    %if (user.get('locales')[0] == 'en_GB'):
-                    {{_('English (United Kingdom)')}}
-                    %elif (user.get('locales')[0] == 'zh_Hans_CN'):
-                    {{_('简体中文(中国)')}}
-                    %else:
-                    {{user.get('locales')[0]}}
-                    %end
+                        %if (user.get('locales')[0] == 'en_GB'):
+                        {{_('English (United Kingdom)')}}
+                        %elif (user.get('locales')[0] == 'zh_Hans_CN'):
+                        {{_('简体中文(中国)')}}
+                        %else:
+                        {{user.get('locales')[0]}}
+                        %end
                     </label>
                     %end
                     <select name="userLanguage" class="ghostSelect" style="display:none;">
@@ -148,17 +150,17 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                           %if  ('mine' in user.get('system_message_type')):
-                           checked
-                           %end
-                           />
+                    %if ('mine' in user.get('system_message_type')):
+                    checked
+                    %end
+                    />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                           %if  ('mine' in user.get('email_message_type')):
-                           checked
-                           %end
-                           />
+                    %if ('mine' in user.get('email_message_type')):
+                    checked
+                    %end
+                    />
                 </td>
             </tr>
             <tr>
@@ -168,17 +170,17 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                           %if  ('intention' in user.get('system_message_type')):
-                           checked
-                           %end
-                           />
+                    %if ('intention' in user.get('system_message_type')):
+                    checked
+                    %end
+                    />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                           %if  ('intention' in user.get('email_message_type')):
-                           checked
-                           %end
-                           />
+                    %if ('intention' in user.get('email_message_type')):
+                    checked
+                    %end
+                    />
                 </td>
             </tr>
             <tr>
@@ -188,17 +190,17 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                           %if('favorite' in user.get('system_message_type')):
-                           checked
-                           %end
-                           />
+                    %if('favorite' in user.get('system_message_type')):
+                    checked
+                    %end
+                    />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                           %if  ('favorite' in user.get('email_message_type')):
-                           checked
-                           %end
-                           />
+                    %if ('favorite' in user.get('email_message_type')):
+                    checked
+                    %end
+                    />
                 </td>
             </tr>
             <tr>
@@ -208,17 +210,17 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                           %if  ('system' in user.get('system_message_type')):
-                           checked
-                           %end
-                           />
+                    %if ('system' in user.get('system_message_type')):
+                    checked
+                    %end
+                    />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                           %if  ('system' in user.get('email_message_type')):
-                           checked
-                           %end
-                           />
+                    %if ('system' in user.get('email_message_type')):
+                    checked
+                    %end
+                    />
                 </td>
             </tr>
         </tbody>
@@ -228,8 +230,10 @@
 <!--@@block=scripts-->
 <script>
     $(function () {
-    $('#cvView').show() // only this page show the user info edit
+        $('#cvView').show() // only this page show the user info edit
     })
 </script>
+<!--build:js /static/scripts/settings.js-->
 <script src="/static/scripts/settings.js"></script>
+<!--endbuild-->
 <!--@@close-->

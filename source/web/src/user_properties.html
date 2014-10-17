@@ -1,92 +1,100 @@
 <!--@@master = masters/user_master.html-->
 <!--@@block =head -->
-<link rel="stylesheet" href="/static/styles/project/houseCard.css" />
-<link rel="stylesheet" href="/static/styles/userFavorites.css" />
+<!--build:css(dist) /static/styles/user_properties.html.css-->
+<link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
+<link rel="stylesheet" href="/static/styles/userFavorites.css"/>
+<!--endbuild-->
 <!--@@close-->
 <!--@@block = main -->
 <div class="content">
     <div class="contentHeader">
-    <h1>{{_('我的房产')}}</h1>
-    %if (_i18n(intention_ticket_list)):
-    <label class="count_wrapper">
-        {{_('(共')}} <i class="count">{{len(intention_ticket_list)}}</i> {{_('条房产)')}}</label>
+        <h1>{{_('我的房产')}}</h1>
+        %if (_i18n(intention_ticket_list)):
+        <label class="count_wrapper">
+            {{_('(共')}} <i class="count">{{len(intention_ticket_list)}}</i> {{_('条房产)')}}</label>
     </div>
     <div class="list">
         %for index, ticket in enumerate(_i18n(intention_ticket_list)) :
-           %if ticket.get('property'):
+        %if ticket.get('property'):
 
-           <div class=houseCard>
-           %if ticket.get('property').get('reality_images', []) :
-           <img src="{{_i18n(ticket.get('property').get('reality_images'))[0]}}" width=320 height=240/>
-           %else :
-           <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
-           %end
+        <div class=houseCard>
+            %if ticket.get('property').get('reality_images', []) :
+            <img src="{{_i18n(ticket.get('property').get('reality_images'))[0]}}" width=320 height=240/>
+            %else :
+            <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
+            %end
 
-           <div class=description>
-               <h1 class=name><a href=/property/{{ticket.get('property').get('id')}} style="text-decoration:none; color:#333;"> {{ticket.get('property').get('name', '')}}</a></h1>
-               <div class=details>
-                   <p class=size>
-                       %if ticket.get('property').get('living_room_count'):
-                       {{ticket.get('property').get('living_room_count')}} {{_('房间')}},
-                       %end
-                       %if ticket.get('property').get('bathroom_count'):
-                       {{ticket.get('property').get('bathroom_count')}} {{_('卫生间')}},
-                       %end
-                       %if ticket.get('property').get('space'):
-                       {{ticket.get('property').get('space').get('value')}}
+            <div class=description>
+                <h1 class=name>
+                    <a href=/property/{{ticket.get('property').get('id')}} style="text-decoration:none; color:#333;"> {{ticket.get('property').get('name', '')}}</a>
+                </h1>
+                <div class=details>
+                    <p class=size>
+                        %if ticket.get('property').get('living_room_count'):
+                        {{ticket.get('property').get('living_room_count')}} {{_('房间')}},
+                        %end
+                        %if ticket.get('property').get('bathroom_count'):
+                        {{ticket.get('property').get('bathroom_count')}} {{_('卫生间')}},
+                        %end
+                        %if ticket.get('property').get('space'):
+                        {{ticket.get('property').get('space').get('value')}}
 
-                       % unit = ticket.get('property').get('space',{}).get('unit','')
-                       <!--@@include=partials/get_area_unit.html {"unit":"unit"}-->
-                       %end
-                   </p>
+                        % unit = ticket.get('property').get('space',{}).get('unit','')
+                        <!--@@include=partials/get_area_unit.html {"unit":"unit"}-->
+                        %end
+                    </p>
 
                     <ul class=properties>
-                       %if (ticket.get('property').get('intention') and len(ticket.get('property').get('intention'))) :
-                       <li><img src="/static/images/icon/house-card-tag.png" alt="" /> <span>
-                                %for index,  oneIntention in enumerate(ticket.get('property').get('intention', [])):
-                                %if 'value' in oneIntention:
-                                {{oneIntention.get('value')}}
-                                %end
-                                %end
-                       </span></li>
-                       %end
-                       %if (ticket.get('property').get('equity_type')) :
-                       <li><img src="/static/images/icon/house-card-house.png" alt="" /> <span> {{ticket.get('property').get('equity_type', '').get('value')}}</span></li>
-                       %end
-                       %if (_i18n(ticket.get('property').get('street'))) :
-                       <li><img src="/static/images/icon/house-card-location.png" alt="" /> <span>{{ticket.get('property').get('street', '')}} </span></li>
-                       %end
-                   </ul>
-               </div>
+                        %if (ticket.get('property').get('intention') and len(ticket.get('property').get('intention'))) :
+                        <li><img src="/static/images/icon/house-card-tag.png" alt=""/> <span>
+                            %for index, oneIntention in enumerate(ticket.get('property').get('intention', [])):
+                            %if 'value' in oneIntention:
+                            {{oneIntention.get('value')}}
+                            %end
+                            %end
+                        </span></li>
+                        %end
+                        %if (ticket.get('property').get('equity_type')) :
+                        <li><img src="/static/images/icon/house-card-house.png" alt=""/>
+                            <span> {{ticket.get('property').get('equity_type', '').get('value')}}</span></li>
+                        %end
+                        %if (_i18n(ticket.get('property').get('street'))) :
+                        <li><img src="/static/images/icon/house-card-location.png" alt=""/>
+                            <span>{{ticket.get('property').get('street', '')}} </span></li>
+                        %end
+                    </ul>
+                </div>
 
-               <div class="otherAction">
-                     <button id="removeProperty" data-id="{{ticket.get('id')}}" class="ghostButton darkGray">{{_('移除')}}</button>
-               </div>
-           </div>
-    </div>
-
-            %end
-        %end
-    %end
-    </div>
-
-     <div id="emptyPlaceHolder" class="emptyPlaceHolder"
-          %if len(intention_ticket_list):
-          style="display:none;"
-          %end
-          >
-        <img src="/static/images/icon/notice.png" alt="" />
-        <div class="holderText">
-            <h2>{{_('没有房产')}}
-            </h2>
-            <p>
-                {{!_('去<a href="/property_list">房产列表</a>看看吧')}}
-            </p>
+                <div class="otherAction">
+                    <button id="removeProperty" data-id="{{ticket.get('id')}}" class="ghostButton darkGray">{{_('移除')}}</button>
+                </div>
+            </div>
         </div>
+
+        %end
+        %end
+        %end
     </div>
+
+    <div id="emptyPlaceHolder" class="emptyPlaceHolder"
+    %if len(intention_ticket_list):
+    style="display:none;"
+    %end
+    >
+    <img src="/static/images/icon/notice.png" alt=""/>
+    <div class="holderText">
+        <h2>{{_('没有房产')}}
+        </h2>
+        <p>
+            {{!_('去<a href="/property_list">房产列表</a>看看吧')}}
+        </p>
+    </div>
+</div>
 
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
+<!--build:js /static/scripts/user_properties.js-->
 <script src="/static/scripts/user_properties.js"></script>
+<!--endbuild-->
 <!--@@close-->

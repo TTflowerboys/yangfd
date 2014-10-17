@@ -1,26 +1,24 @@
 <!--@@master = masters/user_master.html-->
 <!--@@block =head -->
-<link rel="stylesheet" href="/static/styles/project/houseCard.css" />
-<link rel="stylesheet" href="/static/styles/userFavorites.css" />
+<!--build:css(dist) /static/styles/user_favorites.html.css-->
+<link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
+<link rel="stylesheet" href="/static/styles/userFavorites.css"/>
+<!--endbuild-->
 <!--@@close-->
 <!--@@block = main -->
 <div class="content">
-    <textarea  id="favoriteData" style="display:none;">{{json_dumps(_i18n(favorite_list))}}</textarea>
+    <textarea id="favoriteData" style="display:none;">{{json_dumps(_i18n(favorite_list))}}</textarea>
     <div class="contentHeader">
-    <h1>{{_('我的收藏')}}</h1>
-    
-    <label class="count_wrapper">
-        {{_('(共')}} <i class="count">{{len(favorite_list)}}</i> {{_('条收藏)')}}</label>
+        <h1>{{_('我的收藏')}}</h1>
+
+        <label class="count_wrapper">
+            {{_('(共')}} <i class="count">{{len(favorite_list)}}</i> {{_('条收藏)')}}</label>
     </div>
     <div id="list" class="list">
-      
+
     </div>
-     <div id="emptyPlaceHolder" class="emptyPlaceHolder"
-          %if len(favorite_list):
-          style="display:none;"
-          %end
-          >
-        <img src="/static/images/icon/notice.png" alt="" />
+    <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="{{'display:none;' if len(favorite_list) else ''}}">
+        <img src="/static/images/icon/notice.png" alt=""/>
         <div class="holderText">
             <h2>{{_('您还没有收藏')}}
             </h2>
@@ -33,5 +31,7 @@
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
+<!--build:js /static/scripts/favorites.js-->
 <script src="/static/scripts/favorites.js"></script>
+<!--endbuild-->
 <!--@@close-->
