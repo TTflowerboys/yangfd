@@ -558,10 +558,10 @@
                                                 <input type="number" ng-model="main_type.kitchen_count" placeholder="{%$root.i18n('厨房数')%}" style="width:60px"/>
                                             </td>
                                             <td>
-                                                <div type-i18n-unit unit="main_type.building_area.unit||userArea" data="i18nArea" ng-model="main_type.building_area" placeholder="{%$root.i18n('面积')%}"></div>
+                                                <div type-i18n-unit unit="main_type.building_area.unit||userArea.value" data="i18nArea" ng-model="main_type.building_area" placeholder="{%$root.i18n('面积')%}"></div>
                                             </td>
                                             <td>
-                                                <div type-i18n-unit unit="main_type.total_price.unit||userCurrency" data="i18nCurrency" ng-model="main_type.total_price" placeholder="{%$root.i18n('户型总价')%}"></div>
+                                                <div type-i18n-unit unit="main_type.total_price.unit||userCurrency.value" data="i18nCurrency" ng-model="main_type.total_price" placeholder="{%$root.i18n('户型总价')%}"></div>
                                             </td>
                                             <td>
                                                 <div type-i18n="main_type.floor_plan"></div>
@@ -636,6 +636,17 @@
 
                             <div class="controls">
                                 <edit-files ng-model="item.attachment" text="{%$root.i18n('上传附件')%}"></edit-files>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{%$root.i18n('销售备注')%}" ng-if="">
+                    <div class="row">
+                        <div class="form-group  col-sm-3">
+                            <label class="control-label">{%$root.i18n('审核备注')%}</label>
+
+                            <div class="controls">
+                                <input type="text" class="form-control" ng-model="item.comment"/>
                             </div>
                         </div>
                     </div>

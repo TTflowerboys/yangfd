@@ -21,7 +21,7 @@
                 })
         }
         $scope.changeLanguage = function () {
-            location.href=team.setQuery('_i18n',$scope.pageLanguage)
+            location.href=team.setQuery('_i18n',$scope.dashboardLanguage.value)
         }
     }
 
