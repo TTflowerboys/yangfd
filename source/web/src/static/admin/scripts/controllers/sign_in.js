@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlSignIn($scope, $state, $http, $rootScope, userApi, $stateParams) {
+    function ctrlSignIn($scope, $state, $http, $rootScope, userApi, $stateParams, growl,errors) {
         $scope.user = {}
         $scope.submitDisabled = true
 
@@ -17,10 +17,11 @@
             userApi.signIn($scope.user)
                 .success(function (data, status, headers, config) {
                     if (_.isEmpty(data.val.role)) {
+                        growl.addErrorMessage($rootScope.renderHtml(errors[40105]), {enableHtml: true})
                         $http.get('/logout', {errorMessage: true})
                         return
                     }
-                    angular.extend($scope.user,data.val)
+                    angular.extend($scope.user, data.val)
                     $state.go($stateParams.from || 'dashboard')
                 })
         }

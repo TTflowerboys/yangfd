@@ -149,7 +149,7 @@ property_params = dict(
         floor_plan=("i18n", None, str),
         building_area=("i18n:area", None, "meter ** 2, foot ** 2"),
     )),
-    opening_time=datetime,
+    opening_time=("i18n", None, str),
     building_type=("i18n", None, str),
     property_management_type=("i18n", None, str),
     building_area=("i18n:area", None, "meter ** 2, foot ** 2"),
