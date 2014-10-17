@@ -26,8 +26,9 @@ glob(pattern, null, function (error, filePaths) {
 
     var i18nTemplate = ''
     for (var name in result) {
-        var escaped = encodeAttr(name)
-        i18nTemplate += ['<input type="hidden" id="i18n-str-', escaped, '" value="', escaped, '">'].join('') + '\n'
+        var attr = encodeAttr(name)
+        var template = encodeAttr(name)
+        i18nTemplate += ['<input type="hidden" id="i18n-str-', attr, '" value="{{_(\"', template, '\")}}">'].join('') + '\n'
     }
 
     i18nTemplate += [
@@ -46,7 +47,21 @@ glob(pattern, null, function (error, filePaths) {
 
 })
 
+/**
+ * Encode html attribute
+ * @param {string} input
+ * @returns {string} escaped
+ */
 function encodeAttr(string) {
     return string.replace(/"/g, '&#34;')
         .replace(/'/g, '&#39;')
+}
+
+/**
+ * Encode bottle template string
+ * @param {string} input
+ * @returns {string} escaped
+ */
+function encodeTemplate(string) {
+    return string.replace(/"/g, '\\"')
 }
