@@ -43,7 +43,7 @@
                         <ul class="rslides">
                             % for image in property.get(name):
                             <li>
-                                <img src="/image/fetch?link={{quote_plus(image)}}&property_id={{property.get('id','')}}" alt="" width="800" height="480"/>
+                                <img src="/image/fetch?link={{quote_plus(image.encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="800" height="480"/>
                             </li>
                             % end
                         </ul>
@@ -245,7 +245,7 @@
                             {{_('产权地址')}}
                         </td>
                         <td class="value">
-                            <a target="_blank" href="//maps.google.com/?q={{ quote_plus( property.get('address','') ) }}">
+                            <a target="_blank" href="//maps.google.com/?q={{ quote_plus( property.get('address','').encode('utf-8') ) }}">
                                 {{property.get('address')}}
                             </a>
                         </td>
@@ -319,7 +319,7 @@
                         <li>
                             <div style="position:relative;">
                                 <a href="{{item.get('floor_plan')}}" target="_blank">
-                                    <img src="/image/fetch?link={{ quote_plus( item.get('floor_plan') ) }}&property_id={{property.get('id','')}}"
+                                    <img src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8') ) }}&property_id={{property.get('id','')}}"
                                         alt="" width="480" height="480"/>
                                 </a>
                                 <div class="table_wrapper">
@@ -618,7 +618,6 @@
             % country = property.get('country',{}).get('value')
             % city = property.get('city',{}).get('value')
             % city_string = ', '.join([x for x in [country,city] if x])
-            % from urllib import quote_plus
             <div class="tag"><img src="/static/images/property_details/location-icon.png" alt=""/>
                 {{city_string}}
             </div>

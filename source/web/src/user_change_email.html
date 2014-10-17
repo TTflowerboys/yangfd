@@ -1,6 +1,8 @@
 <!--@@master = masters/user_master.html-->
 <!--@@block = head -->
-<link rel="stylesheet" href="/static/styles/userVerifyEmail.css" />
+<!--build:css(dist) /static/styles/userVerifyEmail.css-->
+<link rel="stylesheet" href="/static/styles/userVerifyEmail.css"/>
+<!--endbuild-->
 <!--@@close-->
 
 <!--@@block = main -->
@@ -14,7 +16,7 @@
         <div class="inner">
             <div class="email row">
                 <label>{{_('新邮箱')}}</label>
-                <input name="email" type="text" value={{user.get('email')}}  data-validator="required email"/>
+                <input name="email" type="text" value={{user.get('email')}} data-validator="required email"/>
 
             </div>
             <p class="resultMessage" style="display:none"></p>
@@ -24,5 +26,7 @@
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
+<!--build:js /static/scripts/change_email.js-->
 <script src="/static/scripts/change_email.js"></script>
+<!--endbuild-->
 <!--@@close-->

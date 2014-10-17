@@ -1,7 +1,9 @@
 <!--@@master = masters/user_master.html-->
 <!--@@block = head -->
-<link rel="stylesheet" href="/static/styles/userVerifyEmail.css" />
+<!--build:css(dist) /static/styles/user_change_phone.html.css-->
+<link rel="stylesheet" href="/static/styles/userVerifyEmail.css"/>
 <link rel="stylesheet" href="/static/styles/userChangePhone.css">
+<!--endbuild-->
 <!--@@close-->
 
 <!--@@block = main -->
@@ -17,12 +19,12 @@
             <div class="phone row">
                 <label>{{_('原手机号')}}</label>
                 <!-- @@include =partials/country_select.html -->
-                <input name="old_phone" type="tel"  value={{user.get('phone')}}  data-validator="required number"/>
+                <input name="old_phone" type="tel" value={{user.get('phone')}} data-validator="required number"/>
             </div>
             <div class="phone row">
                 <label>{{_('新手机号')}}</label>
                 <!-- @@include =partials/country_select.html -->
-                <input name="phone" type="tel"  data-validator="required number"/>
+                <input name="phone" type="tel" data-validator="required number"/>
             </div>
             <p class="resultMessage" style="display:none"></p>
             <button class="button red" type="submit">{{_('继续')}}</button>
@@ -33,5 +35,7 @@
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
+<!--build:js /static/scripts/change_phone_1.js-->
 <script src="/static/scripts/change_phone_1.js"></script>
+<!--endbuild-->
 <!--@@close-->

@@ -1,7 +1,9 @@
 <!--@@master = master.html-->
 <!--@@block = head-->
+<!--build:css(dist) /static/styles/user_master.html.css-->
 <link rel="stylesheet" href="/static/styles/userPage.css"/>
 <link rel="stylesheet" href="/static/styles/project/userProfile.css"/>
+<!--endbuild-->
 <!--@@placeholder=head -->
 <!--@@close-->
 <!--@@block = main-->
@@ -10,22 +12,24 @@
         <div class="account">
             <h1>{{user.get('nickname')}}</h1>
 
-                %if user.get('phone_verified'):
+            %if user.get('phone_verified'):
             <a class="verificationStatus" href="/user_change_phone_1">
                 <i><img src="/static/images/icon/user-phone.png" style="margin-top:2px;"/></i>
                 {{_('手机已验证')}}
-                %else:
+            </a>
+            %else:
             <a class="verificationStatus red" href="/user_verify_phone_1">
                 <i><img src="/static/images/icon/user-phone.png" style="margin-top:2px;"/></i>
                 {{_('手机未验证')}}
                 %end
             </a>
 
-                %if user.get('email_verified'):
+            %if user.get('email_verified'):
             <a class="verificationStatus" href="/user_change_email">
-                <i><img src="/static/images/icon/user-email.png" style="margin-top: 3px;" /></i>
+                <i><img src="/static/images/icon/user-email.png" style="margin-top: 3px;"/></i>
                 {{_('邮箱已验证')}}
-                %else:
+            </a>
+            %else:
             <a class="verificationStatus red" href="/user_verify_email">
                 <i><img src="/static/images/icon/user-email.png" style="margin-top: 3px;"/></i>
                 {{_('邮箱未验证')}}
@@ -59,15 +63,15 @@
         <script>
 
             (function () {
-            var urlPath = location.pathname.split('/')[1]
-            var icon = document.getElementById('icon-' + urlPath)
-            if (icon) {
-                var iconImagePath = icon.getAttribute('src')
-                var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
-                var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
-                var newIconImagePath = iconImageName  + '-active' + iconImageExtention
-                icon.setAttribute('src', newIconImagePath)
-            }
+                var urlPath = location.pathname.split('/')[1]
+                var icon = document.getElementById('icon-' + urlPath)
+                if (icon) {
+                    var iconImagePath = icon.getAttribute('src')
+                    var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
+                    var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
+                    var newIconImagePath = iconImageName + '-active' + iconImageExtention
+                    icon.setAttribute('src', newIconImagePath)
+                }
 
             })()
 
@@ -132,21 +136,22 @@
                 <tbody>
                     <tr>
                         <td>{{_('姓名')}}</td>
-                        <td><input name="nickname" type="text" value={{user.get('nickname')}}  data-validator="required,trim"
-                            data-msg-required="{{_('请填写姓名')}}"/></td>
+                        <td>
+                            <input name="nickname" type="text" value={{user.get('nickname')}} data-validator="required,trim"
+                                data-msg-required="{{_('请填写姓名')}}"/></td>
                     </tr>
                     <tr>
                         <td>{{_('性别')}}</td>
                         <td><label><input name="gender" type="radio" value="male"
-                                          %if user.get('gender') == 'male':
-                                          checked
-                                          %end
-                                          /> {{_('男')}}</label>
+                            %if user.get('gender') == 'male':
+                            checked
+                            %end
+                            /> {{_('男')}}</label>
                             <label><input name="gender" type="radio" value="female"
-                                          %if user.get('gender') == 'female':
-                                          checked
-                                          %end
-                                          /> {{_('女')}}</label></td>
+                                %if user.get('gender') == 'female':
+                                checked
+                                %end
+                                /> {{_('女')}}</label></td>
                     </tr>
                     <tr>
                         <td>{{_('国家')}}</td>
@@ -158,13 +163,13 @@
                                     {{_('请选择')}}
                                 </option>
                                 %end
-                                %for index, country  in enumerate(country_list):
+                                %for index, country in enumerate(country_list):
                                 <option value="{{country.get('id')}}"
-                                        %if user.get('country') and user.get('country').get('id') == country.get('id'):
-                                        selected
-                                        %end
-                                        >
-                                    {{_i18n(country.get('value'))}}
+                                %if user.get('country') and user.get('country').get('id') == country.get('id'):
+                                selected
+                                %end
+                                >
+                                {{_i18n(country.get('value'))}}
                                 </option>
                                 %end
                             </select>
@@ -182,7 +187,11 @@
 </div>
 <!--@@close-->
 <!--@@block = scripts-->
+
+<!--build:js /static/scripts/user_master.html.js-->
 <script src="/static/scripts/resize_main.js"></script>
 <script src="/static/scripts/user_edit.js"></script>
+<!--endbuild-->
+
 <!--@@placeholder=scripts-->
 <!--@@close-->

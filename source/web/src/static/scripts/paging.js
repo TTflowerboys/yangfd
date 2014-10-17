@@ -40,35 +40,35 @@ window.startPaging = function (dataArray, pageItemCount, $preButton, $nextButton
         loadData(dataArray.slice(0, pageItemCount))
         enablePrePage(false)
         enableNextPage(true)
-   }
+    }
 
-   $preButton.click(function () {
-       currentPage = currentPage - 1
+    $preButton.click(function () {
+        currentPage = currentPage - 1
 
-       if (currentPage > 0) {
-           loadData(dataArray.slice(currentPage * pageItemCount, (currentPage + 1) * pageItemCount))
-           enablePrePage(true)
-           enableNextPage(true)
-       }
-       else {
-           loadData(dataArray.slice(currentPage * pageItemCount, (currentPage + 1) * pageItemCount))
-           enablePrePage(false)
-           enableNextPage(true)
-       }
-   })
+        if (currentPage > 0) {
+            loadData(dataArray.slice(currentPage * pageItemCount, (currentPage + 1) * pageItemCount))
+            enablePrePage(true)
+            enableNextPage(true)
+        }
+        else {
+            loadData(dataArray.slice(currentPage * pageItemCount, (currentPage + 1) * pageItemCount))
+            enablePrePage(false)
+            enableNextPage(true)
+        }
+    })
 
-   $nextButton.click(function () {
-       currentPage = currentPage + 1
+    $nextButton.click(function () {
+        currentPage = currentPage + 1
 
-       if (currentPage === pageCount -1) {
-           loadData(dataArray.slice(currentPage * pageItemCount, dataArray.length))
-           enablePrePage(true)
-           enableNextPage(false)
-       }
-       else {
-           loadData(dataArray.slice(currentPage * pageItemCount, (currentPage + 1) * pageItemCount))
-           enablePrePage(true)
-           enableNextPage(true)
-       }
-   })
+        if (currentPage === pageCount - 1) {
+            loadData(dataArray.slice(currentPage * pageItemCount, dataArray.length))
+            enablePrePage(true)
+            enableNextPage(false)
+        }
+        else {
+            loadData(dataArray.slice(currentPage * pageItemCount, (currentPage + 1) * pageItemCount))
+            enablePrePage(true)
+            enableNextPage(true)
+        }
+    })
 }
