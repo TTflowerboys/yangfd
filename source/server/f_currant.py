@@ -756,7 +756,10 @@ class f_currant_plugins(f_app.plugin_base):
             property_plot_page = f_app.request.get(property_params["property_crawler_id"])
             if property_plot_page.status_code == 200:
                 property_plot_page_dom_root = q(property_plot_page.content)
-
+                data_rows = property_plot_page_dom_root('#myTable tbody tr')
+                plot_params = {}
+                for item in data_rows:
+                    item.text()
 
     def task_on_crawler_abacusinvestor(self, task):
         search_url = "http://www.abacusinvestor.com"

@@ -417,6 +417,21 @@ def images_proxy(params):
                 if params["link"] in v:
                     allowed = True
                     break
+        for k, v in property.get("surroundings_images", {}).iteritems():
+            if isinstance(v, list):
+                if params["link"] in v:
+                    allowed = True
+                    break
+        for k, v in property.get("effect_pictures", {}).iteritems():
+            if isinstance(v, list):
+                if params["link"] in v:
+                    allowed = True
+                    break
+        for k, v in property.get("indoor_sample_room_picture", {}).iteritems():
+            if isinstance(v, list):
+                if params["link"] in v:
+                    allowed = True
+                    break
         for k, v in property.get("floor_plan", {}).iteritems():
             if isinstance(v, list):
                 if params["link"] in v:
