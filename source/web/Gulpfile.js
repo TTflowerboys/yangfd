@@ -135,7 +135,7 @@ var preprocess = require('gulp-preprocess')
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
         .pipe(extender())
-        .pipe(preprocess({context: {ENV: 'debug'}})) 
+        .pipe(preprocess({context: {ENV: 'debug'}}))
         .pipe(gulp.dest(myPaths.dist))
 })
 
@@ -147,11 +147,11 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
 
     return gulp.src(myPaths.html, {base: './src/'})
         .pipe(extender({verbose: false}))
-        .pipe(preprocess({context: {ENV: 'production'}})) 
+        .pipe(preprocess({context: {ENV: 'production'}}))
         .pipe(publicHtmlFilter)
         .pipe(usemin({
             css: ['concat', rev()],
-            js: [ footer(';/*EOF*/;'), 'concat', rev()]
+            js: [ footer(';;;'), 'concat', rev()]
         }))
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
