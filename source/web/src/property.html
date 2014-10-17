@@ -134,7 +134,8 @@
                 % if property.get('main_house_types'):
                 <li><a href="#propertyDetails_houseTypes">{{_('户型')}}</a></li>
                 % end
-                % if property.get('property_type') == 'new_property':
+                % property_type_slug = property.get('property_type',{}).get('slug')
+                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
                 <li><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
                 %end
                 % if property.get('historical_price') :
@@ -380,7 +381,8 @@
         </div>
         <hr/>
         %end
-        % if property.get('property_type') == 'new_property':
+        % property_type_slug = property.get('property_type',{}).get('slug')
+        % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
         <div id="propertyDetails_project" class="brief">
             <h3 class="propertyDetails_title">{{_('楼盘介绍')}}</h3>
             <div class="table_wrapper">
@@ -589,7 +591,8 @@
             % end
             <p class="price">
 
-                % if property.get('property_type',{}).get('slug') == 'new_property':
+                % property_type_slug = property.get('property_type',{}).get('slug')
+                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
 
                 <span class="mute">{{_('价格')}}</span>
                 <span>
@@ -779,7 +782,8 @@
                 <label class="label">{{_('购房总价')}} (
                     <!--@@include=partials/current_currency.html -->
                     )</label>
-                % if property.get('property_type',{}).get('slug') == 'new_property':
+                % property_type_slug = property.get('property_type',{}).get('slug')
+                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
                 <input name="_total" type="text" placeholder=""
                     data-type="currency"
                     data-validator="decimal, trim, required"
