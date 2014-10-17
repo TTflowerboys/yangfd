@@ -988,7 +988,7 @@ class f_plot(f_app.module_base):
     def get_database(self, m):
         return getattr(m, self.plot_database)
 
-    @f_cache("plot")
+    @f_cache("plot", support_multi=True)
     def get(self, plot_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(plot):
             plot["id"] = str(plot.pop("_id"))
@@ -1025,6 +1025,10 @@ class f_plot(f_app.module_base):
             return _format_each(result)
 
     def add(self, params):
+        if "property_id" in params:
+            f_app.property.get(params["property_id"])
+        else:
+            abort(40000, logger.warning("Invalid params: property_id not present"))
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
