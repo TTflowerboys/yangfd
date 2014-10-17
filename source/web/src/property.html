@@ -217,7 +217,7 @@
                         </td>
                         <td class="value">
                             % if 'opening_time' in property:
-                            {{property.get('opening_time').strftime('%Y-%m-%d')}}
+                            {{property.get('opening_time','')}}
                             % end
                         </td>
                     </tr>
@@ -391,18 +391,25 @@
                         <col style="width: 16em;">
                         <col>
                     </colgroup>
+                    % if 'opening_time' in property:
                     <tr>
                         <td>{{_('开盘时间')}}</td>
                         <td>{{property.get('opening_time','')}}</td>
                     </tr>
+                    % end
+                    % if 'building_type' in property:
                     <tr>
                         <td>{{_('建筑类型')}}</td>
                         <td>{{property.get('building_type','')}}</td>
                     </tr>
+                    % end
+                    % if 'property_management_type' in property:
                     <tr>
                         <td>{{_('物业类型')}}</td>
                         <td>{{property.get('property_management_type','')}}</td>
                     </tr>
+                    % end
+                    % if 'building_area' in property:
                     <tr>
                         <td>{{_('建筑面积')}}</td>
                         <td>
@@ -412,34 +419,49 @@
                             %end
                         </td>
                     </tr>
+                    % end
+                    % if 'plot_ratio' in property:
                     <tr>
                         <td>{{_('容积率间')}}</td>
-                        <td>{{property.get('plot_ratioe','')}}</td>
+                        <td>{{property.get('plot_ratio','')}}</td>
                     </tr>
+                    % end
+                    % if 'planning_area' in property:
                     <tr>
                         <td>{{_('规划面积')}}</td>
-                        <td>{{property.get('planning_areae','')}}</td>
+                        <td>{{property.get('planning_area','')}}</td>
                     </tr>
+                    % end
+                    % if 'greening_rate' in property:
                     <tr>
                         <td>{{_('绿化率')}}</td>
-                        <td>{{property.get('greening_ratee','')}}</td>
+                        <td>{{property.get('greening_rate','')}}</td>
                     </tr>
+                    % end
+                    % if 'parking_space_count' in property:
                     <tr>
                         <td>{{_('车位数')}}</td>
                         <td>{{property.get('parking_space_count','')}}</td>
                     </tr>
+                    % end
+                    % if 'planning_household_count' in property:
                     <tr>
                         <td>{{_('规划户数')}}</td>
-                        <td>{{property.get('planning_household_counte','')}}</td>
+                        <td>{{property.get('planning_household_count','')}}</td>
                     </tr>
+                    % end
+                    % if 'developer' in property:
                     <tr>
                         <td>{{_('开发商')}}</td>
-                        <td>{{property.get('developere','')}}</td>
+                        <td>{{property.get('developer','')}}</td>
                     </tr>
+                    % end
+                    % if 'property_management_company' in property:
                     <tr>
                         <td>{{_('物业公司')}}</td>
                         <td>{{property.get('property_management_company','')}}</td>
                     </tr>
+                    % end
                 </table>
             </div>
         </div>
