@@ -371,7 +371,7 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["crawler_example", "assign_property_short_id", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor"]
+    task = ["crawler_example", "assign_property_short_id", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor", "crawler_knightknox_agents"]
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -716,6 +716,37 @@ class f_currant_plugins(f_app.plugin_base):
             type="crawler_knightknox",
             start=datetime.utcnow() + timedelta(days=1),
         ))
+
+    def task_on_crawler_knightknox_agents(self, task):
+        headers = {
+            "Host": "agents.knightknox.com"
+        }
+        login_url = "http://agents.knightknox.com/login"
+        login_credentials = {
+            "username": f_app.common.knightknox_agents_username,
+            "password": f_app.common.knightknox_agents_password
+        }
+        login_result = f_app.request.post(login_url, login_credentials, headers=headers)
+
+        search_url = "http://agents.knightknox.com/projects/"
+        list_page = f_app.request.get(search_url, retry=3)
+        if list_page.status_code == 200:
+            project_dict = {}
+            list_page_dom_root = q(list_page.content)
+            options = list_page_dom_root('select[name=project]').children()
+            for option in options:
+                if option.attrib["value"].strip():
+                    project_dict[option.attrib["value"]] = option.text.strip()
+
+        for key, value in project_dict.iteritems():
+            params = {
+                "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
+            }
+            params["property_crawler_id"] = "%s%s" % (search_url, key)
+
+
+
+
 
     def task_on_crawler_abacusinvestor(self, task):
         search_url = "http://www.abacusinvestor.com"
