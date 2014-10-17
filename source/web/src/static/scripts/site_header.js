@@ -10,6 +10,7 @@
                     var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
                     var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
                     var newIconImagePath = iconImageName  + '-notif' + iconImageExtention
+                    icon.setAttribute('src', '')//reset
                     icon.setAttribute('src', newIconImagePath)
                     $(icon).css('margin-top', '1px')
                 }
