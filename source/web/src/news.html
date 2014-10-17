@@ -30,7 +30,8 @@
     <h1 class="title">{{news.get('title')}}</h1>
     %end
     %if 'link' in news :
-    <label class="source" for=""> <i class="hint">{{_('来源：')}}</i> <a href={{news.get('link')}}>{{_('原文地址')}}</a></label>
+    <label class="source" for=""> <i class="hint">{{_('来源：')}}</i>
+        <a href={{news.get('link')}}>{{_('原文地址')}}</a></label>
     %end
 
     %if 'time' in news:
@@ -49,8 +50,9 @@
     </div>
 
     <div class="content">
+        % from urllib import quote_plus
         %if ('images' in news) and news.get('images'):
-        <img alt="" src="{{news.get('images')[0]}}" />
+        <img alt="" src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8'))}}&news_id={{news.get('id','')}}"/>
         %end
         %if 'content' in news:
         <div class="fullText">
@@ -72,16 +74,16 @@
 <!--@@block=scripts -->
 
 <script>
- $('[data-fn=shareToWeChat]').on('click', function () {
-     $('#popupShareToWeChat')
-                .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
-                .modal()
- })
+    $('[data-fn=shareToWeChat]').on('click', function () {
+        $('#popupShareToWeChat')
+            .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
+            .modal()
+    })
 
- $('[data-fn=shareToWeibo]').on('click', function () {
-     var news = JSON.parse($('#newsData').text())
-     team.shareToWeibo({'title':news.title,'url':location.href,'pic':news.images[0]})
- })
+    $('[data-fn=shareToWeibo]').on('click', function () {
+        var news = JSON.parse($('#newsData').text())
+        team.shareToWeibo({'title': news.title, 'url': location.href, 'pic': news.images[0]})
+    })
 </script>
 
 <!--@@close-->
