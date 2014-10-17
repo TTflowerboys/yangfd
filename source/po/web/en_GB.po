@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2014-10-17 16:15+0800\n"
-"PO-Revision-Date: 2014-10-17 16:16+0800\n"
+"PO-Revision-Date: 2014-10-17 16:51+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1849,7 +1849,7 @@ msgstr "Type"
 
 #: ../web/src/partials/i18n_admin.html:129
 msgid "品牌运营管理"
-msgstr "Content Operation Management"
+msgstr "Content Operation"
 
 #: ../web/src/partials/i18n_admin.html:130
 msgid "面积单位"
@@ -2064,43 +2064,43 @@ msgstr "Logout"
 
 #: ../web/src/partials/i18n_admin.html:201
 msgid "人员管理"
-msgstr "Administrator Management"
+msgstr "Administrator"
 
 #: ../web/src/partials/i18n_admin.html:202
 msgid "枚举数据管理"
-msgstr "Enum Management"
+msgstr "System Enums"
 
 #: ../web/src/partials/i18n_admin.html:203
 msgid "常用类型"
-msgstr "System Enums"
+msgstr "Common Enums"
 
 #: ../web/src/partials/i18n_admin.html:204
 msgid "房产数据管理"
-msgstr "Property Data Management"
+msgstr "Property Datas"
 
 #: ../web/src/partials/i18n_admin.html:205
 msgid "投资意向单管理"
-msgstr "Intentions Management"
+msgstr "Intention Tickets"
 
 #: ../web/src/partials/i18n_admin.html:206
 msgid "房产资讯编辑"
-msgstr "News Management"
+msgstr "News"
 
 #: ../web/src/partials/i18n_admin.html:207
 msgid "网站内容管理"
-msgstr "Website Content Management"
+msgstr "Website Content"
 
 #: ../web/src/partials/i18n_admin.html:208
 msgid "客服单管理"
-msgstr "Support Ticket Management"
+msgstr "Support Tickets"
 
 #: ../web/src/partials/i18n_admin.html:209
 msgid "投资人管理"
-msgstr "Investors Management"
+msgstr "Investors"
 
 #: ../web/src/partials/i18n_admin.html:210
 msgid "消息管理"
-msgstr "Message Managment"
+msgstr "Message"
 
 #: ../web/src/partials/i18n_admin.html:211
 msgid "房产名称"
