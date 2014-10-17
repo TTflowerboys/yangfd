@@ -2,11 +2,19 @@
 
 .siteFooter {
     &_wrapper {
-        width: 100%; min-width:@min-page-width;
-        .clearfix();  overflow: hidden;  background: @footer-bg; height: @footer-height;
+        width: 100%;
+        min-width:@min-page-width;
+        .clearfix();
+        overflow: hidden;
+        background: @footer-bg;
+        height: @footer-height;
+        @media @phone {
+            display:none;
+        }
         > footer {
             margin: 0 auto; height: 100%; width: @max-width;
-            .contact { float: left;
+            .contact {
+                float: left;
                 .logo {
                     margin: 40px 0 0 32px; width: 209px;
                 }
@@ -116,6 +124,25 @@
     }
 }
 
-.copyright{ .clearfix(); overflow: hidden; background: @copyright-bg; height:40px; width: 100%; min-width:@min-page-width;
-    > p{margin: 12px auto; height: 100%; width: @max-width; font-size: 14px; text-align: center; color: #ffffff;}
+.copyright{
+    .clearfix();
+    overflow: hidden;
+    background: @copyright-bg;
+    height:40px;
+    width: 100%;
+    min-width:@min-page-width;
+    @media @phone {
+        min-width:none;
+    }
+    > p{
+        margin: 12px auto;
+        height: 100%;
+        width: @max-width;
+        font-size: 14px;
+        text-align: center;
+        color: #ffffff;
+        @media @phone {
+            width:320px;
+        }
+    }
 }
