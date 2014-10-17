@@ -739,13 +739,23 @@ class f_currant_plugins(f_app.plugin_base):
                     project_dict[option.attrib["value"]] = option.text.strip()
 
         for key, value in project_dict.iteritems():
-            params = {
+            property_params = {
                 "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
             }
-            params["property_crawler_id"] = "%s%s" % (search_url, key)
+            property_params["property_crawler_id"] = "%s%s" % (search_url, key)
+            value = value.split[',']
+            if len(value) == 2:
+                name, city = value
+                property_params["name"] = name
+                property_params["slug"] = name.strip().lower().replace(' ', '-')
+                property_params["city"] = ObjectId(f_app.enum.get_by_slug("city:%s" % city.strip().lower())['id'])
+            elif len(value):
+                property_params["name"] = value
+                property_params["slug"] = value.strip().lower().replace(' ', '-')
 
-
-
+            property_plot_page = f_app.request.get(property_params["property_crawler_id"])
+            if property_plot_page.status_code == 200:
+                property_plot_page_dom_root = q(property_plot_page.content)
 
 
     def task_on_crawler_abacusinvestor(self, task):
