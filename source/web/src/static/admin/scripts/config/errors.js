@@ -3,7 +3,7 @@ angular.module('app')
     .constant('errors', {
         40000: '参数错误',
         40100: '请先<a href="/admin#/signIn">登录</a>',
-        40101: 'rate limit exceeded',
+        40101: '请求过于频繁，请稍后再试',
         40103: '电话或密码错误',
         40105: '没有管理员权限或管理员级别不够',
         40109: 'required information not present',
@@ -24,11 +24,11 @@ angular.module('app')
         40356: '已存在的标签',
         40399: '没有权限',
         40400: '找不到数据',
-        404: 'API not found',
-        40501: '请使用https，并重试',
+        404: '找不到资源',
+        40501: '请使用HTTPS重试',
         50000: '服务器异常',
         50300: '外部服务的错误',
         50308: 'SMS未知错误',
         50314: '验证码错误',
-        unknown: 'Something is not right, please try later.'
+        unknown: '服务器繁忙，请稍后再试'
     })
