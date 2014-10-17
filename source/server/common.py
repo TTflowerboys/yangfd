@@ -104,6 +104,9 @@ class common(f_common):
         }
     }
 
+    knightknox_agents_username = "digitalenterprise"
+    knightknox_agents_password = "digital4853"
+
     user_email_verification_code_expire_in = timedelta(hours=24)
 
     custom_error_codes = {

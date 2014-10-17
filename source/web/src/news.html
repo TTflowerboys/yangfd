@@ -19,6 +19,8 @@
 
 <!--@@block=main -->
 
+<textarea id="newsData" style="display:none;">{{json_dumps(_i18n(news))}}</textarea>
+
 %if 'title' in news:
 <h1 class="title">{{news.get('title')}}</h1>
 %end
@@ -32,22 +34,49 @@
 </label>
 %end
 
+<div class="share">
+<a data-fn="shareToWeChat" class="shareButton">
+    <img class="wechat" src="/static/images/icon/share/wechat.png" height=23 alt=""/>
+</a>
+<a data-fn="shareToWeibo" class="shareButton">
+    <img src="/static/images/icon/share/weibo.png" height=20 alt=""/>
+</a>
+</div>
+
 <div class="content">
     %if ('images' in news) and news.get('images'):
     <img alt="" src="{{news.get('images')[0]}}" />
     %end
     %if 'content' in news:
     <div class="fullText">
-      {{!news.get('content')}}
+        {{!news.get('content')}}
     </div>
     %end
 </div>
 
 %end
 
+<div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
+    <img src="" alt="二维码" width="220" height="220"/>
+    <p>{{_('打开微信，使用 “扫一扫” 即可将网页分享到朋友圈')}}</p>
+</div>
+
 <!--@@close-->
 
 <!--@@block=scripts -->
+
+<script>
+ $('[data-fn=shareToWeChat]').on('click', function () {
+     $('#popupShareToWeChat')
+                .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
+                .modal()
+ })
+
+ $('[data-fn=shareToWeibo]').on('click', function () {
+     var news = JSON.parse($('#newsData').text())
+     team.shareToWeibo({'title':news.title,'url':location.href,'pic':news.images[0]})
+ })
+</script>
 
 <!--@@close-->
 

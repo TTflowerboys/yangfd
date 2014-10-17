@@ -18,7 +18,8 @@
         <ul class="rslides">
             % for ad in homepage_ad_list:
             <li>
-                <img src="{{ad.get('image', '')}}">
+                <!-- remove "http:" -->
+                <img src="{{ad.get('image', '')[5:]}}">
 
                 <div class="imageText_table">
                     <div class="imageText_wrapper">
