@@ -4,7 +4,7 @@
 angular.module('app')
     .constant('i18nLanguages', [
         { name: '简体中文(中国)', value: 'zh_Hans_CN' },
-        { name: '繁體中文(香港)', value: 'zh_Hant_HK' },
+//        { name: '繁體中文(香港)', value: 'zh_Hant_HK' },
         { name: 'English (UK)', value: 'en_GB' }
     ])
     .constant('i18nCurrency', [
