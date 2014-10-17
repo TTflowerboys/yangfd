@@ -1,7 +1,7 @@
 <script id="houseCard_template" type="text/template">
     <div class=houseCard>
         {_if(house.reality_images && house.reality_images.length) {_}
-        <img src="{=team.convertToHttps( {link:house.reality_images[0], property_id:house.id} ) =}" width=320 height=240/>
+        <img src="{=house.reality_images[0]=}" width=320 height=240/>
         {_ }else { _}
         <img src="/static/images/placeholder/property.jpg" width="320" height="240"/>
         {_}_}
