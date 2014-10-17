@@ -2,7 +2,7 @@
 
 .siteFooter {
     &_wrapper {
-        width: 100%; min-width: @max-width;
+        width: 100%; min-width:@min-page-width;
         .clearfix();  overflow: hidden;  background: @footer-bg; height: @footer-height;
         > footer {
             margin: 0 auto; height: 100%; width: @max-width;
@@ -116,6 +116,6 @@
     }
 }
 
-.copyright{ .clearfix(); overflow: hidden; background: @copyright-bg; height:40px; width: 100%; min-width: @max-width;
+.copyright{ .clearfix(); overflow: hidden; background: @copyright-bg; height:40px; width: 100%; min-width:@min-page-width;
     > p{margin: 12px auto; height: 100%; width: @max-width; font-size: 14px; text-align: center; color: #ffffff;}
 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-16 17:42+0800\n"
+"POT-Creation-Date: 2014-10-17 12:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,7 +165,7 @@ msgstr ""
 msgid "港币"
 msgstr ""
 
-#: ../web/src/guides.html:4 ../web/src/guides.html:12
+#: ../web/src/guides.html:4 ../web/src/guides.html:17
 #: ../web/src/masters/news_master.html:17
 msgid "购房指南"
 msgstr ""
@@ -237,7 +237,7 @@ msgstr ""
 msgid "了解更多"
 msgstr ""
 
-#: ../web/src/laws.html:4 ../web/src/laws.html:13
+#: ../web/src/laws.html:4 ../web/src/laws.html:17
 #: ../web/src/masters/news_master.html:18
 msgid "法律法规"
 msgstr ""
@@ -259,7 +259,7 @@ msgstr ""
 msgid "房产资讯"
 msgstr ""
 
-#: ../web/src/notice_list.html:9 ../web/src/masters/news_master.html:16
+#: ../web/src/notice_list.html:14 ../web/src/masters/news_master.html:16
 msgid "网站公告"
 msgstr ""
 
