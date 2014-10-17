@@ -415,7 +415,8 @@
                         <td>
                             %if property.get('building_area'):
                             {{property.get('building_area').get('value') }}
-                            {{property.get('building_area').get('unit') }}
+                            % unit = property.get('building_area').get('unit')
+                            <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
                             %end
                         </td>
                     </tr>
@@ -429,7 +430,13 @@
                     % if 'planning_area' in property:
                     <tr>
                         <td>{{_('规划面积')}}</td>
-                        <td>{{property.get('planning_area','')}}</td>
+                        <td>
+                            %if property.get('planning_area'):
+                            {{property.get('planning_area').get('value') }}
+                            % unit = property.get('planning_area').get('unit')
+                            <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                            %end
+                        </td>
                     </tr>
                     % end
                     % if 'greening_rate' in property:
