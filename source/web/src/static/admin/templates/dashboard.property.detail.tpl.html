@@ -381,7 +381,7 @@
                         <label class="control-label">{%$root.i18n('开盘时间')%}</label>
 
                         <div class="controls">
-                            <td>{%item.opening_time * 1000 | date : 'short'%}</td>
+                            <span class="input-xlarge uneditable-input">{%item.opening_time[userLanguage.value]%}</span>
                         </div>
                     </div>
                 </div>
