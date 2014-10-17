@@ -582,12 +582,16 @@
                 {{tagString}}
             </div>
             % end
-            % if property.get('address'):
+            % if 'country' in property or 'city' in property:
+            % country = property.get('country',{}).get('value')
+            % city = property.get('city',{}).get('value')
+            % city_string = ', '.join([x for x in [country,city] if x])
             % from urllib import quote_plus
             <div class="tag"><img src="/static/images/property_details/location-icon.png" alt=""/>
-                <a target="_blank" href="//maps.google.com/?q={{ quote_plus( property.get('address') ) }}">{{property.get('address')}}</a>
+                {{city_string}}
             </div>
             % end
+
             <p class="price">
 
                 % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
