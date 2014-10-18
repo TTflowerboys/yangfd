@@ -3,7 +3,7 @@
  */
 (function () {
 
-    function ctrlPropertyItems($scope, $state, $http, userApi, misc, $rootScope) {
+    function ctrlPropertyItems($scope, $rootScope) {
 
         $scope.addHighlight = function () {
             if (_.isEmpty($scope.item.highlight)) {

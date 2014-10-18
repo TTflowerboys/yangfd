@@ -13,9 +13,10 @@ angular.module('app')
             link: function (scope, attrs) {
                 scope.userLanguage = $rootScope.userLanguage
 
-                supportApi.getHistory(scope.id, {params: {_i18n: 'disabled'}}).success(function (data) {
-                    scope.history = data.val
-                })
+                supportApi.getHistory(scope.id,
+                    {params: {_i18n: 'disabled'}, errorMessage: true}).success(function (data) {
+                        scope.history = data.val
+                    })
             }
         }
     })

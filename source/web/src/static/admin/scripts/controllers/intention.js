@@ -27,7 +27,7 @@
             }
 
             params.status = $scope.selected.status
-            intentionApi.getAll({ params: params }).success($scope.onGetList)
+            intentionApi.getAll({ params: params, errorMessage: true }).success($scope.onGetList)
         }, true)
     }
 
