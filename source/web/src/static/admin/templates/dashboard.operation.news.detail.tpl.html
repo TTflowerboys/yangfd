@@ -34,6 +34,17 @@
             <div ng-repeat="i in item.category">{%i.value[userLanguage.value]%}</div>
         </div>
     </div>
+    <div class="row" ng-if="item.images">
+        <div class="form-group col-sm-12">
+            <label class="control-label">{%$root.i18n('封面图片')%}</label>
+
+            <div class="controls row">
+                <div ng-repeat="image in item.images" style="margin-bottom:30px" class="col-sm-3 ">
+                    <img class="img-thumbnail" ng-src="{%image%}">
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="form-group col-sm-6">
             <label class="control-label">{%$root.i18n('摘要')%}</label>
@@ -54,17 +65,7 @@
         </div>
     </div>
 
-    <div class="row" ng-if="item.images">
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('图片')%}</label>
 
-            <div class="controls row">
-                <div ng-repeat="image in item.images" style="margin-bottom:30px" class="col-sm-3 ">
-                    <img class="img-thumbnail" ng-src="{%image%}">
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="row" ng-if="item.country || item.city || item.zipcode_index">
         <div class="form-group col-sm-3">

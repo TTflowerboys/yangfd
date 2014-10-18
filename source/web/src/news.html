@@ -29,16 +29,17 @@
     %if 'title' in news:
     <h1 class="title">{{news.get('title')}}</h1>
     %end
-    %if 'link' in news :
-    <label class="source" for=""> <i class="hint">{{_('来源：')}}</i>
-        <a href={{news.get('link')}}>{{_('原文地址')}}</a></label>
-    %end
-
     %if 'time' in news:
     <label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>
         {{news.get('time').strftime('%Y-%m-%d')}}
     </label>
     %end
+
+    %if 'link' in news :
+    <label class="source" for=""> <i class="hint">{{_('来源：')}}</i>
+        <a href={{news.get('link')}}>{{_('原文地址')}}</a></label>
+    %end
+
 
     <div class="share">
         <a data-fn="shareToWeChat" class="shareButton">
