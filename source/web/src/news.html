@@ -29,6 +29,7 @@
     %if 'title' in news:
     <h1 class="title">{{news.get('title')}}</h1>
     %end
+
     %if 'time' in news:
     <label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>
         {{news.get('time').strftime('%Y-%m-%d')}}
@@ -83,7 +84,11 @@
 
     $('[data-fn=shareToWeibo]').on('click', function () {
         var news = JSON.parse($('#newsData').text())
-        team.shareToWeibo({'title': news.title, 'url': location.href, 'pic': news.images[0]})
+        var params = {'title': news.title, 'url': location.href}
+        if (news.images && news.images.length > 0) {
+            params.pic = news.images[0]
+        }
+        team.shareToWeibo(params)
     })
 </script>
 
