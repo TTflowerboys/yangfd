@@ -99,7 +99,7 @@
                     itemFromParent = data.val
                 }
                 $scope.$parent.refreshList()
-                onGetItem(data.val)
+                $state.go('^')
             })['finally'](function () {
                 $scope.loading = false
             })
