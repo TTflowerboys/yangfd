@@ -17,7 +17,7 @@
         if (itemFromParent) {
             $scope.item = itemFromParent
         } else {
-            api.getOne($state.params.id)
+            api.getOne($state.params.id, { errorMessage: true})
                 .success(function (data) {
                     $scope.item = data.val
                 })

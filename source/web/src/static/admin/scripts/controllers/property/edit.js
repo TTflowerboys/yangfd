@@ -14,7 +14,7 @@
         if (itemFromParent) {
             onGetItem(itemFromParent)
         } else {
-            api.getOne($stateParams.id)
+            api.getOne($stateParams.id, {errorMessage: true})
                 .success(function (data) {
                     var res = data.val
                     if (res.target_property_id) {
@@ -28,7 +28,7 @@
                     }
                 })
         }
-        api.getAll({params: {target_property_id: $stateParams.id, status: 'draft,not translated,translating,not reviewed,rejected'}})
+        api.getAll({params: {target_property_id: $stateParams.id, status: 'draft,not translated,translating,not reviewed,rejected'}, errorMessage: true})
             .success(function (data) {
                 var res = data.val.content
                 if (!_.isEmpty(res)) {

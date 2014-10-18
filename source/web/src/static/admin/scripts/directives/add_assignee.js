@@ -10,7 +10,7 @@ angular.module('app')
             templateUrl: '/static/admin/templates/add_assignee.tpl.html',
             link: function (scope) {
                 scope.searchUser = function (name) {
-                    return $http.get('/api/1/user/admin/search', {params: {query: name}})
+                    return $http.get('/api/1/user/admin/search', {params: {query: name}, errorMessage: true})
                         .then(function (res) {
                             return $filter('limitTo')(res.data.val, 5)
                         })

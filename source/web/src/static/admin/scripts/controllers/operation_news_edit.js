@@ -13,7 +13,7 @@
         if (itemFromParent) {
             onGetItem(itemFromParent)
         } else {
-            api.getOne($stateParams.id)
+            api.getOne($stateParams.id, {errorMessage: true})
                 .success(function (data) {
                     onGetItem(data.val)
                 })

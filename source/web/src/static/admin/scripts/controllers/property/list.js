@@ -19,10 +19,10 @@
             per_page: $scope.perPage
         }
 
-        api.getAll({ params: params }).success(onGetList)
+        api.getAll({ params: params, errorMessage: true}).success(onGetList)
 
         $scope.refreshList = function () {
-            api.getAll({ params: params}).success(onGetList)
+            api.getAll({ params: params, errorMessage: true}).success(onGetList)
         }
 
         $scope.$watch('selected.status', function (newValue, oldValue) {
@@ -39,7 +39,7 @@
 
         $scope.onRemove = function (item) {
             fctModal.show('Do you want to remove it?', undefined, function () {
-                api.remove(item.id).success(function () {
+                api.remove(item.id, {errorMessage: true}).success(function () {
                     $scope.list.splice($scope.list.indexOf(item), 1)
                 })
             })
@@ -90,7 +90,7 @@
                 delete params.insert_time
             }
 
-            api.getAll({params: params})
+            api.getAll({params: params, errorMessage: true})
                 .success(function () {
                     $scope.currentPageNumber -= 1
                 })

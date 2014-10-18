@@ -27,7 +27,7 @@
             }
 
             params.category = $scope.selected.category.id
-            newsApi.getAll({ params: params }).success($scope.onGetList)
+            newsApi.getAll({ params: params, errorMessage: true }).success($scope.onGetList)
         }, true)
     }
 

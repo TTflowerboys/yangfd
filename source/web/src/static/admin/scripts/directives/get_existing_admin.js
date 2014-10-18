@@ -64,7 +64,7 @@ angular.module('app')
                         params: {
                             country: scope.item.country,
                             phone: scope.item.phone
-                        }
+                        }, errorMessage: true
                     })
                 }
 
@@ -73,7 +73,7 @@ angular.module('app')
                         params: {
                             country: scope.item.country,
                             phone: scope.item.phone
-                        }
+                        }, errorMessage: true
                     })
                 }
 

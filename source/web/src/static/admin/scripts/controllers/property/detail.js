@@ -10,7 +10,7 @@
         if (itemFromParent) {
             $scope.item = itemFromParent
         } else {
-            api.getOne($stateParams.id)
+            api.getOne($stateParams.id, {errorMessage: true})
                 .success(function (data) {
                     var res = data.val
                     if (res.target_property_id) {

@@ -38,11 +38,11 @@
             }
 
             $scope.adApiFactory = adApiFactory($scope.selected.channel)
-            $scope.adApiFactory.getAll({ params: params }).success(onGetList)
+            $scope.adApiFactory.getAll({ params: params, errorMessage: true }).success(onGetList)
         }, true)
 
         $scope.refreshList = function () {
-            $scope.adApiFactory.getAll({ params: params}).success(onGetList)
+            $scope.adApiFactory.getAll({ params: params, errorMessage: true}).success(onGetList)
         }
 
         $scope.onRemove = function (item) {
@@ -65,7 +65,7 @@
                 params.insert_time = lastItem.insert_time
             }
 
-            $scope.adApiFactory.getAll({params: params})
+            $scope.adApiFactory.getAll({params: params, errorMessage: true})
                 .success(function () {
                     $scope.currentPageNumber += 1
                 })
@@ -98,7 +98,7 @@
                 delete params.insert_time
             }
 
-            $scope.adApiFactory.getAll({params: params})
+            $scope.adApiFactory.getAll({params: params, errorMessage: true})
                 .success(function () {
                     $scope.currentPageNumber -= 1
                 })
