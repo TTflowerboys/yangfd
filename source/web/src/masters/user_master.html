@@ -24,16 +24,21 @@
                 %end
             </a>
 
-            %if user.get('email_verified'):
+            %if user.get('email') and user.get('email_verified'):
             <a class="verificationStatus" href="/user_change_email">
                 <i><img src="/static/images/icon/user-email.png" style="margin-top: 3px;"/></i>
                 {{_('邮箱已验证')}}
             </a>
-            %else:
+            %elif user.get('email') and (not user.get('email_verified')):
             <a class="verificationStatus red" href="/user_verify_email">
                 <i><img src="/static/images/icon/user-email.png" style="margin-top: 3px;"/></i>
                 {{_('邮箱未验证')}}
-                %end
+            %else:
+            <a class="verificationStatus red" href="/user_change_email">
+                <i><img src="/static/images/icon/user-email.png" style="margin-top: 3px;"/></i>
+                {{_('邮箱未设置')}}
+            </a>
+            %end
             </a>
         </div>
         <div class="settings">
@@ -62,18 +67,18 @@
         </div>
         <script>
 
-            (function () {
-                var urlPath = location.pathname.split('/')[1]
-                var icon = document.getElementById('icon-' + urlPath)
-                if (icon) {
-                    var iconImagePath = icon.getAttribute('src')
-                    var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
-                    var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
-                    var newIconImagePath = iconImageName + '-active' + iconImageExtention
-                    icon.setAttribute('src', newIconImagePath)
-                }
+         (function () {
+             var urlPath = location.pathname.split('/')[1]
+             var icon = document.getElementById('icon-' + urlPath)
+             if (icon) {
+                 var iconImagePath = icon.getAttribute('src')
+                 var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
+                 var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
+                 var newIconImagePath = iconImageName + '-active' + iconImageExtention
+                 icon.setAttribute('src', newIconImagePath)
+             }
 
-            })()
+         })()
 
 
         </script>
@@ -138,20 +143,20 @@
                         <td>{{_('姓名')}}</td>
                         <td>
                             <input name="nickname" type="text" value={{user.get('nickname')}} data-validator="required,trim"
-                                data-msg-required="{{_('请填写姓名')}}"/></td>
+                                   data-msg-required="{{_('请填写姓名')}}"/></td>
                     </tr>
                     <tr>
                         <td>{{_('性别')}}</td>
                         <td><label><input name="gender" type="radio" value="male"
-                            %if user.get('gender') == 'male':
-                            checked
-                            %end
-                            /> {{_('男')}}</label>
+                                          %if user.get('gender') == 'male':
+                                          checked
+                                          %end
+                                          /> {{_('男')}}</label>
                             <label><input name="gender" type="radio" value="female"
-                                %if user.get('gender') == 'female':
-                                checked
-                                %end
-                                /> {{_('女')}}</label></td>
+                                          %if user.get('gender') == 'female':
+                                          checked
+                                          %end
+                                          /> {{_('女')}}</label></td>
                     </tr>
                     <tr>
                         <td>{{_('国家')}}</td>
@@ -165,11 +170,11 @@
                                 %end
                                 %for index, country in enumerate(country_list):
                                 <option value="{{country.get('id')}}"
-                                %if user.get('country') and user.get('country').get('id') == country.get('id'):
-                                selected
-                                %end
-                                >
-                                {{_i18n(country.get('value'))}}
+                                        %if user.get('country') and user.get('country').get('id') == country.get('id'):
+                                        selected
+                                        %end
+                                        >
+                                    {{_i18n(country.get('value'))}}
                                 </option>
                                 %end
                             </select>

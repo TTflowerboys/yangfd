@@ -19,7 +19,11 @@
         <div class="inner">
             <div class="email row">
                 <label>{{_('新邮箱')}}</label>
+                %if user.get('email'):
                 <input name="email" type="text" value={{user.get('email')}} data-validator="required email"/>
+                %else:
+                <input name="email" type="text" data-validator="required email"/>
+                %end
 
             </div>
             <p class="resultMessage" style="display:none"></p>
