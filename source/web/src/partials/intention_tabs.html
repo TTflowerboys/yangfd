@@ -1,6 +1,6 @@
 <div data-tabs>
     <div class="row intention">
-        <label class="title">投资意向：</label>
+        <label class="title">{{_('投资意向：')}}</label>
         <ul class="controls">
             % for index, intention in enumerate(_i18n(intention_list)):
             % slug = intention.get('slug','')
