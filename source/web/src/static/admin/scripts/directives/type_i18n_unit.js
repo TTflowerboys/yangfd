@@ -9,13 +9,14 @@ angular.module('app')
                 i18nUnit: '=ngModel',
                 placeholder: '@placeholder',
                 data: '=data',
-                unit: '=unit'
+                unit: '=?unit'
             },
             link: function (scope, elm, attrs, ctrl) {
                 if (!scope.i18nUnit) {
                     scope.i18nUnit = {}
                 }
                 scope.i18nUnit.value = scope.i18nUnit.value || ''
+                scope.i18nUnit.unit = scope.i18nUnit.unit || scope.unit || ''
                 scope.isDefaultValue = true
                 scope.$watch('unit', function (value) {
                     if (_.isEmpty(value)) {
