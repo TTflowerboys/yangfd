@@ -59,20 +59,26 @@
                     %end
                 </td>
                 <td>
-                    %if user.get('email_verified'):
+                    %if user.get('email') and user.get('email_verified'):
                     <i></i> {{_('已认证')}}
-                    %else:
+                    %elif user.get('email') and (not user.get('email_verified')):
                     <i></i> {{_('未认证')}}
+                    %else:
+                    <i></i> {{_('未设置')}}
                     %end
                 </td>
                 <td class="action">
-                    %if user.get('email_verified'):
+                    %if user.get('email') and user.get('email_verified'):
                     <a class="ghostButton red" href="/user_change_email">
                         {{_('修改')}}
                     </a>
-                    %else:
+                    %elif user.get('email') and (not user.get('email_verified')):
                     <a class="ghostButton red" href="/user_verify_email">
                         {{_('认证')}}
+                    </a>
+                    %else:
+                    <a class="ghostButton red" href="/user_change_email">
+                        {{_('设置')}}
                     </a>
                     %end
                 </td>
@@ -154,17 +160,17 @@
                 <td class="textCenter">
                     <input type="checkbox"
 
-                    %if isinstance(user.get('system_message_type'), list) and 'my_property_news' in user.get('system_message_type'):
-                    checked
-                    %end
-                    />
+                           %if isinstance(user.get('system_message_type'), list) and 'my_property_news' in user.get('system_message_type'):
+                           checked
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if isinstance(user.get('email_message_type'), list) and ('my_property_news' in user.get('email_message_type', [])):
+                           %if isinstance(user.get('email_message_type'), list) and ('my_property_news' in user.get('email_message_type', [])):
                     checked
-                    %end
-                    />
+                           %end
+                           />
                 </td>
             </tr>
             <tr>
@@ -174,17 +180,17 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if isinstance(user.get('system_message_type'), list) and ('intention_property_news' in user.get('system_message_type', [])):
+                           %if isinstance(user.get('system_message_type'), list) and ('intention_property_news' in user.get('system_message_type', [])):
                     checked
-                    %end
-                    />
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if isinstance(user.get('email_message_type'), list) and ('intention_property_news' in user.get('email_message_type', [])):
+                           %if isinstance(user.get('email_message_type'), list) and ('intention_property_news' in user.get('email_message_type', [])):
                     checked
-                    %end
-                    />
+                           %end
+                           />
                 </td>
             </tr>
             <tr>
@@ -194,17 +200,17 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if isinstance(user.get('system_message_type'), list) and ('favorited_property_news' in user.get('system_message_type', [])):
+                           %if isinstance(user.get('system_message_type'), list) and ('favorited_property_news' in user.get('system_message_type', [])):
                     checked
-                    %end
-                    />
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if isinstance(user.get('email_message_type'), list) and ('favorited_property_news' in user.get('email_message_type', [])):
+                           %if isinstance(user.get('email_message_type'), list) and ('favorited_property_news' in user.get('email_message_type', [])):
                     checked
-                    %end
-                    />
+                           %end
+                           />
                 </td>
             </tr>
             <tr>
@@ -214,17 +220,17 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if isinstance(user.get('system_message_type'), list) and  ('system' in user.get('system_message_type', [])):
+                           %if isinstance(user.get('system_message_type'), list) and  ('system' in user.get('system_message_type', [])):
                     checked
-                    %end
-                    />
+                           %end
+                           />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if isinstance(user.get('email_message_type'), list) and ('system' in user.get('email_message_type', [])):
+                           %if isinstance(user.get('email_message_type'), list) and ('system' in user.get('email_message_type', [])):
                     checked
-                    %end
-                    />
+                           %end
+                           />
                 </td>
             </tr>
         </tbody>
@@ -233,9 +239,9 @@
 <!--@@close-->
 <!--@@block=scripts-->
 <script>
-    $(function () {
-        $('#cvView').show() // only this page show the user info edit
-    })
+ $(function () {
+     $('#cvView').show() // only this page show the user info edit
+ })
 </script>
 <!--build:js /static/scripts/settings.js-->
 <script src="/static/scripts/settings.js"></script>
