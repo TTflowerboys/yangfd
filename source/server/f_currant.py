@@ -727,12 +727,12 @@ class f_currant_plugins(f_app.plugin_base):
             "password": f_app.common.knightknox_agents_password
         }
         login_result = f_app.request.post(login_url, login_credentials, headers=headers)
+        cookies = login_result.cookies
 
         search_url = "http://agents.knightknox.com/projects/"
-        list_page = f_app.request.get(search_url, retry=3)
-        if list_page.status_code == 200:
+        if login_result.status_code == 200:
             project_dict = {}
-            list_page_dom_root = q(list_page.content)
+            list_page_dom_root = q(login_result.content)
             options = list_page_dom_root('select[name=project]').children()
             for option in options:
                 if option.attrib["value"].strip():
@@ -760,8 +760,9 @@ class f_currant_plugins(f_app.plugin_base):
             f_app.property.crawler_insert_update(property_params)
             property_id = f_app.property.search({"property_crawler_id": property_params["property_crawler_id"]})[0]
 
-            property_plot_page = f_app.request.get(property_params["property_crawler_id"])
+            property_plot_page = f_app.request.get(property_params["property_crawler_id"], headers=headers, cookies=cookies)
             if property_plot_page.status_code == 200:
+                logger.debug("Start crawling page %s" % property_params["property_crawler_id"])
                 property_plot_page_dom_root = q(property_plot_page.content)
                 data_rows = property_plot_page_dom_root('#myTable tbody tr')
                 plot_params = dict()
@@ -792,6 +793,11 @@ class f_currant_plugins(f_app.plugin_base):
                 plot_params["description"] = data_rows[8].text()
 
                 f_app.plot.crawler_insert_update(plot_params)
+
+        # f_app.task.put(dict(
+        #     type="crawler_knightknox_agents",
+        #     start=datetime.utcnow() + timedelta(days=1),
+        # ))
 
     def task_on_crawler_abacusinvestor(self, task):
         search_url = "http://www.abacusinvestor.com"
