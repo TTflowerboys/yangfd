@@ -134,6 +134,21 @@
     }
 
     function updateUserTags(budgetId, intentionIds) {
+        var param  = {}
+        if (budgetId) {
+            param.budget = budgetId
+        }
+        else {
+            param.budget = '' //TODO now cannot reset
+        }
+
+        if (intentionIds) {
+            param.intention = intentionIds
+        }
+        else {
+            param.intention = ''
+        }
+
         $.betterPost('/api/1/user/edit', {'budget': budgetId, 'intention': intentionIds})
             .done(function (data) {
                 window.user = data
@@ -188,33 +203,33 @@
                 params.budget = usedBudget
             }
             var apiCall = $.betterPost('/api/1/property/search',params)
-                .done(function (val) {
-                    var array = val.content
-                    var item = {}
-                    if (!_.isEmpty(array)) {
-                        item = _.first(array)
-                        item.category_budget = getBudgetById(usedBudget)
-                        item.category_intention = getIntentionById(oneIntention)
-                        item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ',
-                            '_') + '_description')
-                        responseArray.push(item)
-                    }
-                    else {
-                        item.isEmpty = true
-                        if (usedBudget) {
+                    .done(function (val) {
+                        var array = val.content
+                        var item = {}
+                        if (!_.isEmpty(array)) {
+                            item = _.first(array)
                             item.category_budget = getBudgetById(usedBudget)
-                        }
-                        if (oneIntention) {
                             item.category_intention = getIntentionById(oneIntention)
-                        item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ',
-                            '_') + '_description')
+                            item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ',
+                                                                                                                   '_') + '_description')
+                            responseArray.push(item)
                         }
-                        responseArray.push(item)
-                    }
-                })
-                .fail(function (ret) {
+                        else {
+                            item.isEmpty = true
+                            if (usedBudget) {
+                                item.category_budget = getBudgetById(usedBudget)
+                            }
+                            if (oneIntention) {
+                                item.category_intention = getIntentionById(oneIntention)
+                                item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ',
+                                                                                                                       '_') + '_description')
+                            }
+                            responseArray.push(item)
+                        }
+                    })
+                    .fail(function (ret) {
 
-                })
+                    })
 
             requestArray.push(apiCall)
         })
@@ -271,9 +286,9 @@
 
     function addIntetionTag(id, value) {
         $intentionTag.find('#list').append('<li class="toggleTag selected" data-id="' + id + '">' +
-                value +
-                '<img alt="" src="/static/images/intention/close.png"/></li>'
-        )
+                                           value +
+                                           '<img alt="" src="/static/images/intention/close.png"/></li>'
+                                          )
     }
 
     function removeIntentionTag(id) {
