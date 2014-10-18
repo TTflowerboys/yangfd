@@ -19,7 +19,7 @@
     <div class="list">
         %for index, ticket in enumerate(_i18n(intention_ticket_list)) :
         %if ticket.get('property'):
-
+        % property = ticket.get('property')
         <div class=houseCard>
             %if ticket.get('property').get('reality_images', []) :
             <img src="{{_i18n(ticket.get('property').get('reality_images'))[0]}}" width=320 height=240/>
@@ -33,18 +33,7 @@
                 </h1>
                 <div class=details>
                     <p class=size>
-                        %if ticket.get('property').get('living_room_count'):
-                        {{ticket.get('property').get('living_room_count')}} {{_('房间')}},
-                        %end
-                        %if ticket.get('property').get('bathroom_count'):
-                        {{ticket.get('property').get('bathroom_count')}} {{_('卫生间')}},
-                        %end
-                        %if ticket.get('property').get('space'):
-                        {{ticket.get('property').get('space').get('value')}}
-
-                        % unit = ticket.get('property').get('space',{}).get('unit','')
-                        <!--@@include=partials/get_area_unit.html {"unit":"unit"}-->
-                        %end
+                        <!-- @@include=partials/get_size.html-->
                     </p>
 
                     <ul class=properties>
