@@ -166,7 +166,7 @@ angular.module('app')
                         delete i18nData[i]
                         continue
                     }
-                    if (i18nData[i].unit === undefined) {
+                    if (i18nData[i].unit === undefined || i18nData[i].unit === '') {
                         if (_.isEmpty(i18nData[i].value)) {
                             delete i18nData[i].value
                         }

@@ -153,14 +153,14 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('mine' in user.get('system_message_type')):
+                    %if ('my_property_news' in user.get('system_message_type', [])):
                     checked
                     %end
                     />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('mine' in user.get('email_message_type')):
+                    %if ('my_property_news' in user.get('email_message_type', [])):
                     checked
                     %end
                     />
@@ -173,14 +173,14 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('intention' in user.get('system_message_type')):
+                    %if ('intention_property_news' in user.get('system_message_type', [])):
                     checked
                     %end
                     />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('intention' in user.get('email_message_type')):
+                    %if ('intention_property_news' in user.get('email_message_type', [])):
                     checked
                     %end
                     />
@@ -193,14 +193,14 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if('favorite' in user.get('system_message_type')):
+                    %if('favorited_property_news' in user.get('system_message_type', [])):
                     checked
                     %end
                     />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('favorite' in user.get('email_message_type')):
+                    %if ('favorited_property_news' in user.get('email_message_type', [])):
                     checked
                     %end
                     />
@@ -213,14 +213,14 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('system' in user.get('system_message_type')):
+                    %if ('system' in user.get('system_message_type', [])):
                     checked
                     %end
                     />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('system' in user.get('email_message_type')):
+                    %if ('system' in user.get('email_message_type', [])):
                     checked
                     %end
                     />
