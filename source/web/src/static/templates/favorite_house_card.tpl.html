@@ -7,7 +7,7 @@
         <img src="/static/images/placeholder/property.jpg" width="320" height="240"/>
         {_}_}
         <div class=description>
-            <h1 class=name>{=fav.property.name=}</h1>
+            <h1 class=name> <a href="/property/{=fav.property.id=}" style="text-decoration:none; color:#333;">{=fav.property.name=}</a></h1>
 
             <span class=price>
                 <!--@@include=../../partials/get_unit_price.tpl.html -->

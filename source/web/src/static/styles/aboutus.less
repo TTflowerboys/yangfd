@@ -1,0 +1,74 @@
+@import "project/_imports";
+
+* {
+    box-sizing: border-box;
+}
+
+.page > main {
+    .container {
+        width:800px;
+        .title {
+            font-size:24px;
+            color:#333;
+            line-height:1;
+            margin-bottom:40px;
+        }
+
+        .source {
+            font-size:12px;
+            color:#999;
+            line-height:1;
+            margin-left:24px;
+            i {
+                font-style:normal;
+            }
+            a {
+                color:#e60012;
+                text-decoration:none;
+            }
+        }
+
+        .date {
+            font-size:12px;
+            font-style:normal;
+            color:#999;
+            line-height:1;
+            i {
+                font-style:normal;
+            }
+        }
+
+        .share {
+            float:right;
+            display:inline-block;
+            .shareButton {
+                float:left;
+                margin-left:20px;
+                vertical-align: middle;
+                border: 0px solid;
+                display: inline-block;
+                background: transparent;
+                img {
+                    cursor:pointer;
+                }
+            }
+        }
+
+        .content {
+            border-top:2px solid #ccc;
+            padding:40px 0;
+
+            img {
+                margin-bottom:28px;
+            }
+
+            .fullText {
+                font-size:14px;
+                line-height:26px;
+                color:#666;
+                margin:0px;
+            }
+        }
+    }
+
+}
