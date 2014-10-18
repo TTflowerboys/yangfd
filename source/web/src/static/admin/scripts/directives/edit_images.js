@@ -32,6 +32,8 @@ angular.module('app')
                     if (file) {
                         if (!scope.images) {
                             scope.images = []
+                        }
+                        if (!scope.fileNames) {
                             scope.fileNames = []
                         }
                         scope.fileNames.push(file.name)
