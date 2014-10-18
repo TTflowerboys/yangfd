@@ -153,14 +153,15 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('my_property_news' in user.get('system_message_type', [])):
+
+                    %if isinstance(user.get('system_message_type'), list) and 'my_property_news' in user.get('system_message_type'):
                     checked
                     %end
                     />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('my_property_news' in user.get('email_message_type', [])):
+                    %if isinstance(user.get('email_message_type'), list) and ('my_property_news' in user.get('email_message_type', [])):
                     checked
                     %end
                     />
@@ -173,14 +174,14 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('intention_property_news' in user.get('system_message_type', [])):
+                    %if isinstance(user.get('system_message_type'), list) and ('intention_property_news' in user.get('system_message_type', [])):
                     checked
                     %end
                     />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('intention_property_news' in user.get('email_message_type', [])):
+                    %if isinstance(user.get('email_message_type'), list) and ('intention_property_news' in user.get('email_message_type', [])):
                     checked
                     %end
                     />
@@ -193,14 +194,14 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if('favorited_property_news' in user.get('system_message_type', [])):
+                    %if isinstance(user.get('system_message_type'), list) and ('favorited_property_news' in user.get('system_message_type', [])):
                     checked
                     %end
                     />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('favorited_property_news' in user.get('email_message_type', [])):
+                    %if isinstance(user.get('email_message_type'), list) and ('favorited_property_news' in user.get('email_message_type', [])):
                     checked
                     %end
                     />
@@ -213,14 +214,14 @@
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('system' in user.get('system_message_type', [])):
+                    %if isinstance(user.get('system_message_type'), list) and  ('system' in user.get('system_message_type', [])):
                     checked
                     %end
                     />
                 </td>
                 <td class="textCenter">
                     <input type="checkbox"
-                    %if ('system' in user.get('email_message_type', [])):
+                    %if isinstance(user.get('email_message_type'), list) and ('system' in user.get('email_message_type', [])):
                     checked
                     %end
                     />
