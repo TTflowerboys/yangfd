@@ -742,62 +742,66 @@ class f_currant_plugins(f_app.plugin_base):
             property_params = {
                 "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
             }
-            property_params["property_crawler_id"] = "%s%s" % (search_url, key)
-            value = value.split[',']
+            property_crawler_id = "%s%s" % (search_url, key)
+            property_params["property_crawler_id"] = property_crawler_id
+            value = value.split(',')
+
             if len(value) == 2:
                 name, city = value
-                property_params["name"] = name
+                property_params["name"] = {"en_GB": name.strip(), "zh_Hans_CN": name.strip()}
                 property_params["slug"] = name.strip().lower().replace(' ', '-')
                 property_params["city"] = ObjectId(f_app.enum.get_by_slug("%s" % city.strip().lower())['id'])
             elif len(value) == 1:
-                property_params["name"] = value[0].strip()
+                property_params["name"] = {"en_GB": value[0].strip(), "zh_Hans_CN": value[0].strip()}
                 property_params["slug"] = value[0].strip().lower().replace(' ', '-')
                 if "Liverpool" in property_params["name"]:
                     property_params["city"] = ObjectId(f_app.enum.get_by_slug("liverpool")['id'])
             else:
                 logger.warning("Invalid knightknox agents plot name, this may be a bug!")
 
+            logger.debug(property_params)
             f_app.property.crawler_insert_update(property_params)
-            property_id = f_app.property.search({"property_crawler_id": property_params["property_crawler_id"]})[0]
+            property_id = f_app.property.search({"property_crawler_id": property_crawler_id})[0]
 
-            property_plot_page = f_app.request.get(property_params["property_crawler_id"], headers=headers, cookies=cookies)
+            property_plot_page = f_app.request.get(property_crawler_id, headers=headers, cookies=cookies)
             if property_plot_page.status_code == 200:
-                logger.debug("Start crawling page %s" % property_params["property_crawler_id"])
+                logger.debug("Start crawling page %s" % property_crawler_id)
                 property_plot_page_dom_root = q(property_plot_page.content)
                 data_rows = property_plot_page_dom_root('#myTable tbody tr')
-                plot_params = dict()
-                plot_params["property_id"] = ObjectId(property_id)
-                plot_params["name"] = {"en_GB": data_rows[0].text(), "zh_Hans_CN": data_rows[0].text()}
-                plot_params["plot_crawler_id"] = data_rows[0].text()
-                status = data_rows[1].text().strip()
-                if status == "Available":
-                    plot_params["status"] = "selling"
-                elif status == "Reservation Issued":
-                    plot_params["status"] = "sold out"
-                investment_type = data_rows[2].text().strip()
-                if "Studio" in investment_type:
-                    plot_params["investment_type"] = ObjectId(f_app.enum.get_by_slug("investment_type:studio")["id"])
-                elif "Apartment" in investment_type:
-                    plot_params["investment_type"] = ObjectId(f_app.enum.get_by_slug("investment_type:apartment")["id"])
-                elif "Double Room" in investment_type:
-                    plot_params["investment_type"] = ObjectId(f_app.enum.get_by_slug("investment_type:double_room")["id"])
-                else:
-                    logger.warning("Unknown investment_type %s, this may be a bug!" % investment_type)
-                plot_params["bedroom_count"] = int(data_rows[3].text())
-                plot_params["bathroom_count"] = int(data_rows[4].text())
-                plot_params["space"] = {"type": "area", "unit": "meter ** 2", "value": float(data_rows[5].text())}
-                total_price = re.findall(r'[0-9,]+', data_rows[6].text())
-                if total_price:
-                    plot_params["total_price"] = {"value": total_price[0].replace(',', ''), "type": "currency", "unit": "GBP"}
-                plot_params["floor"] = data_rows[7].text()
-                plot_params["description"] = data_rows[8].text()
+                for row in data_rows:
+                    plot_params = dict()
+                    plot_params["property_id"] = ObjectId(property_id)
+                    plot_params["name"] = {"en_GB": row[0].text, "zh_Hans_CN": row[0].text}
+                    plot_params["plot_crawler_id"] = row[0].text
+                    status = row[1].text.strip()
+                    if status == "Available":
+                        plot_params["status"] = "selling"
+                    elif status == "Reservation Issued":
+                        plot_params["status"] = "sold out"
+                    investment_type = row[2].text.strip()
+                    if "Studio" in investment_type:
+                        plot_params["investment_type"] = ObjectId(f_app.enum.get_by_slug("investment_type:studio")["id"])
+                    elif "Apartment" in investment_type:
+                        plot_params["investment_type"] = ObjectId(f_app.enum.get_by_slug("investment_type:apartment")["id"])
+                    elif "Double Room" in investment_type:
+                        plot_params["investment_type"] = ObjectId(f_app.enum.get_by_slug("investment_type:double_room")["id"])
+                    else:
+                        logger.warning("Unknown investment_type %s, this may be a bug!" % investment_type)
+                    plot_params["bedroom_count"] = int(row[3].text)
+                    plot_params["bathroom_count"] = int(row[4].text)
+                    plot_params["space"] = {"type": "area", "unit": "meter ** 2", "value": row[5].text}
+                    total_price = re.findall(r'[0-9,]+', row[6].text)
+                    if total_price:
+                        plot_params["total_price"] = {"value": total_price[0].replace(',', ''), "type": "currency", "unit": "GBP"}
+                    plot_params["floor"] = row[7].text
+                    plot_params["description"] = row[8].text
 
-                f_app.plot.crawler_insert_update(plot_params)
+                    f_app.plot.crawler_insert_update(plot_params)
 
-        # f_app.task.put(dict(
-        #     type="crawler_knightknox_agents",
-        #     start=datetime.utcnow() + timedelta(days=1),
-        # ))
+        f_app.task.put(dict(
+            type="crawler_knightknox_agents",
+            start=datetime.utcnow() + timedelta(days=1),
+        ))
 
     def task_on_crawler_abacusinvestor(self, task):
         search_url = "http://www.abacusinvestor.com"
