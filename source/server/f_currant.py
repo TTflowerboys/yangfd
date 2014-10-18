@@ -757,9 +757,21 @@ class f_currant_plugins(f_app.plugin_base):
             if property_plot_page.status_code == 200:
                 property_plot_page_dom_root = q(property_plot_page.content)
                 data_rows = property_plot_page_dom_root('#myTable tbody tr')
-                plot_params = {}
-                for item in data_rows:
-                    item.text()
+                plot_params = dict()
+                plot_params["name"] = data_rows[0].text()
+                status = data_rows[1].text().strip()
+                if status == "Available":
+                    plot_params["status"] = "selling"
+                elif status == "Reservation Issued":
+                    plot_params["status"] = "sold out"
+                plot_params["bedroom_count"] = int(data_rows[3].text())
+                plot_params["bathroom_count"] = int(data_rows[4].text())
+                plot_params["space"] = {"type": "area", "unit": "meter ** 2", "value": float(data_rows[5].text())}
+                total_price = re.findall(r'[0-9,]+', data_rows[6].text())
+                if total_price:
+                    plot_params["total_price"] = {"value": total_price[0].replace(',', ''), "type": "currency", "unit": "GBP"}
+                plot_params["floor"] = data_rows[7].text()
+                plot_params["description"] = data_rows[8].text()
 
     def task_on_crawler_abacusinvestor(self, task):
         search_url = "http://www.abacusinvestor.com"
@@ -1113,6 +1125,50 @@ class f_plot(f_app.module_base):
 
     def update_set(self, plot_id, params):
         return self.update(plot_id, {"$set": params})
+
+    def crawler_insert_update(self, params):
+        from plot_api_interface import plot_params
+        plot_crawler_id = params.pop("plot_crawler_id")
+
+        params = f_app.param_parser(_source=params, **plot_params)
+
+        current_records = self.search({"plot_crawler_id": plot_crawler_id, "target_plot_id": {"$exists": False}, "status": {"$exists": True}})
+        assert len(current_records) <= 2, self.logger.error("Multiple plot found for plot_crawler_id:", plot_crawler_id)
+
+        if len(current_records):
+            current_record = self.get(current_records[0], ignore_nonexist=True)
+
+            if current_record is None:
+                return
+
+            else:
+                if "target_plot_id" in current_record and current_record["target_plot_id"] == current_records[-1]:
+                    current_record = self.get(current_records[-1], ignore_nonexist=True)
+
+                    if current_record is None:
+                        current_record = self.get(current_records[0], ignore_nonexist=True)
+
+            for key in list(params.keys()):
+                if params[key] == current_record.get(key):
+                    params.pop(key)
+
+            plot_id = current_record["id"]
+            existing_draft = f_app.plot.search({"target_plot_id": plot_id, "status": {"$ne": "deleted"}})
+
+            if existing_draft:
+                action = lambda _params: f_app.plot.update_set(existing_draft[0], _params)
+
+            else:
+                params.setdefault("status", "draft")
+                params["target_plot_id"] = plot_id
+                action = lambda params: f_app.plot.add(params)
+
+        else:
+            params.setdefault("status", "draft")
+            params.setdefault("plot_crawler_id", plot_crawler_id)
+            action = lambda params: f_app.plot.add(params)
+
+        return action(params)
 
 f_plot()
 
