@@ -135,18 +135,6 @@ def resetPassword():
     return template("reset_password", user=get_current_user(), country_list=get_country_list())
 
 
-@f_get('/terms')
-@check_landing
-def terms():
-    return template("terms", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
-
-
-@f_get('/privacy')
-@check_landing
-def privacy():
-    return template("privacy", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
-
-
 @f_get('/process')
 @check_landing
 def process():
@@ -249,6 +237,29 @@ def laws():
     )
     return template("laws", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
 
+@f_get('/about')
+@check_landing
+def about():
+    news_list = f_app.blog.post_output(
+        f_app.blog.post_search(
+            {
+                "title.en_GB": "About Us"
+            }, per_page=1
+        )
+    )
+    return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
+
+@f_get('/terms')
+@check_landing
+def terms():
+    news_list = f_app.blog.post_output(
+        f_app.blog.post_search(
+            {
+                "title.en_GB": "YoungFunding Terms Of Use"
+            }, per_page=1
+        )
+    )
+    return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
 
 @f_get('/coming_soon')
 def coming_soon():

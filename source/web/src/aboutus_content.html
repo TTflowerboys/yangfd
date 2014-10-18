@@ -1,0 +1,30 @@
+<!--@@master=masters/aboutus_master.html-->
+<!--@@block=head -->
+%if news:
+% news = _i18n(news)
+%end
+
+%if news:
+<title>{{news.get('title',_('洋房东'))}}</title>
+<link rel="stylesheet" href="/static/styles/aboutus.css"/>
+<!--@@close-->
+
+<!--@@block=main -->
+<div class="container">
+
+    %if 'title' in news:
+    <h1 class="title">{{news.get('title')}}</h1>
+    %end
+
+    <div class="content">
+        %if 'content' in news:
+        <div class="fullText">
+            {{!news.get('content')}}
+        </div>
+        %end
+    </div>
+</div>
+
+%end
+<!--@@close-->
+

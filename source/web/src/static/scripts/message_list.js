@@ -107,24 +107,27 @@ $(function () {
         showMessageListWithState('read')
     })
 
-    $('.list').on('click', '.cell #showHide', function (event){
-        var $currentTarget = $(event.currentTarget)
-        var status = $currentTarget.attr('data-status')
-        var state =  $currentTarget.attr('data-state')
+    $('.list').on('click', '.cell', function (event){
+        if ($(event.target).attr('id') === 'showHide' || $(event.target).attr('id') === 'title') {
+            var $currentTarget = $(event.currentTarget)
+            var $showHide = $currentTarget.find('#showHide')
+            var status = $showHide.attr('data-status')
+            var state =  $showHide.attr('data-state')
 
-        if (state === 'close') {
-            $currentTarget.parent().parent().find('.content').show()
-            $currentTarget.attr('data-state', 'open')
-            $currentTarget.text(window.i18n('收起'))
+            if (state === 'close') {
+                $currentTarget.find('.content').show()
+                $showHide.attr('data-state', 'open')
+                $showHide.text(window.i18n('收起'))
 
-            if (status === 'new') {
-                markMessageRead($currentTarget.attr('data-id'))
+                if (status === 'new') {
+                    markMessageRead($showHide.attr('data-id'))
+                }
             }
-        }
-        else {
-            $currentTarget.parent().parent().find('.content').hide()
-            $currentTarget.attr('data-state', 'close')
-            $currentTarget.text(window.i18n('展开'))
+            else {
+                $currentTarget.find('.content').hide()
+                $showHide.attr('data-state', 'close')
+                $showHide.text(window.i18n('展开'))
+            }
         }
     })
 })

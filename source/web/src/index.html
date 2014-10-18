@@ -144,46 +144,12 @@
         <div class=description>
             <h1 class=name>{{property.get('name', '')}}</h1>
             <span class=price>
-                % if property.get('property_type') and property.get('property_type',{}).get('slug') == 'new_property':
-                {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
-                <strong data-type="currency">
-                    {{int(float(property.get('unit_price',{}).get('price',{}).get('value','')))}}
-                </strong>
-                <span>
-                    % unit = property.get('unit_price',{}).get('unit',{}).get('unit')
-                    /
-                    <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
-                </span>
-                % else:
-                {{property.get('total_price').get('unit_symbol')}}
-                <strong data-type="currency">
-                    {{int(float(property.get('total_price',{}).get('value','')))}}
-                </strong>
-                % end
+                <!--@@include=partials/get_unit_price.html-->
             </span>
 
             <div class=details>
                 <p class=size>
-                    %if property.get('living_room_count'):
-                    {{property.get('living_room_count')}} {{_('房间')}},
-                    %end
-                    %if property.get('bathroom_count'):
-                    {{property.get('bathroom_count')}} {{_('卫生间')}},
-                    %end
-                    %if property.get('space'):
-                    {{float("{0:.2f}".format(float(property.get('space').get('value'))))}}
-                    %if (property.get('space').get('unit') == 'foot ** 2'):
-                    foot <sup>2</sup>
-                    %elif (property.get('space').get('unit') == 'acre'):
-                    acre
-                    %elif (property.get('space').get('unit') == 'meter ** 2'):
-                    m <sup>2</sup>
-                    %elif (property.get('space').get('unit') == 'kilometer ** 2'):
-                    km <sup>2</sup>
-                    %else:
-                    {{property.get('space').get('unit')}}
-                    %end
-                    %end
+                    <!--@@include=partials/get_size.html -->
                 </p>
                 <p class=estimate>
                     %if (property.get('annual_return_estimated')):
@@ -253,11 +219,15 @@
             {{_('资讯')}}
         </h2>
         <div class="featuredNews">
-            <img class="picture" src="{{news_list[0].get('images', ['/static/images/placeholder/news.png'])[0]}}"/>
+            % from urllib import quote_plus
+            % news = news_list[0]
+            %if ('images' in news) and news.get('images'):
+            <img class="picture" src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8'))}}&news_id={{news.get('id','')}}"/>
+            %end
             <div class="content_wrapper">
                 <h3 class="title">{{_i18n(news_list[0].get('title', ''))}}</h3>
                 <p class="content">
-                    {{_i18n(news_list[0].get('content', ''))}}
+                    {{!_i18n(news_list[0].get('content', ''))}}
                 </p>
                 <a class="ghostButton red detail" href="/news/{{news_list[0].get('id')}}">{{_('详细')}}</a>
             </div>

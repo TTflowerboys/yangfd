@@ -142,7 +142,7 @@
 
         /**
          * convert to https link
-         * @param {object} {url:'',property_id:'',news_id:''}
+         * @param {object} {link:'',property_id:'',news_id:''}
          * @returns {string}
          */
         convertToHttps: function (options) {
