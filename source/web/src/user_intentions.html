@@ -22,7 +22,8 @@
         % property = ticket.get('property')
         <div class=houseCard>
             %if ticket.get('property').get('reality_images', []) :
-            <img src="{{ticket.get('property').get('reality_images')[0]}}" width=320 height=240/>
+            % from urllib import quote_plus
+            <img src="/image/fetch?link={{quote_plus(_i18n(property.get('reality_images'))[0])}}&property_id={{property.get('id')}}" width=320 height=240/>
             %else :
             <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
             %end

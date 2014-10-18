@@ -2,7 +2,7 @@
     {_var house = fav.property_}
     <div class=houseCard data-property-id="{=fav.property.id=}">
         {_if(fav.property.reality_images && fav.property.reality_images.length) {_}
-        <img src="{=fav.property.reality_images[0]=}" width=320 height=240/>
+        <img src="{=team.convertToHttps({'link':fav.property.reality_images[0],'property_id':fav.property.id})=}" width=320 height=240/>
         {_ }else { _}
         <img src="/static/images/placeholder/property.jpg" width="320" height="240"/>
         {_}_}
