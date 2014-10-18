@@ -748,22 +748,40 @@ class f_currant_plugins(f_app.plugin_base):
                 name, city = value
                 property_params["name"] = name
                 property_params["slug"] = name.strip().lower().replace(' ', '-')
-                property_params["city"] = ObjectId(f_app.enum.get_by_slug("city:%s" % city.strip().lower())['id'])
-            elif len(value):
-                property_params["name"] = value
-                property_params["slug"] = value.strip().lower().replace(' ', '-')
+                property_params["city"] = ObjectId(f_app.enum.get_by_slug("%s" % city.strip().lower())['id'])
+            elif len(value) == 1:
+                property_params["name"] = value[0].strip()
+                property_params["slug"] = value[0].strip().lower().replace(' ', '-')
+                if "Liverpool" in property_params["name"]:
+                    property_params["city"] = ObjectId(f_app.enum.get_by_slug("liverpool")['id'])
+            else:
+                logger.warning("Invalid knightknox agents plot name, this may be a bug!")
+
+            f_app.property.crawler_insert_update(property_params)
+            property_id = f_app.property.search({"property_crawler_id": property_params["property_crawler_id"]})[0]
 
             property_plot_page = f_app.request.get(property_params["property_crawler_id"])
             if property_plot_page.status_code == 200:
                 property_plot_page_dom_root = q(property_plot_page.content)
                 data_rows = property_plot_page_dom_root('#myTable tbody tr')
                 plot_params = dict()
-                plot_params["name"] = data_rows[0].text()
+                plot_params["property_id"] = ObjectId(property_id)
+                plot_params["name"] = {"en_GB": data_rows[0].text(), "zh_Hans_CN": data_rows[0].text()}
+                plot_params["plot_crawler_id"] = data_rows[0].text()
                 status = data_rows[1].text().strip()
                 if status == "Available":
                     plot_params["status"] = "selling"
                 elif status == "Reservation Issued":
                     plot_params["status"] = "sold out"
+                investment_type = data_rows[2].text().strip()
+                if "Studio" in investment_type:
+                    plot_params["investment_type"] = ObjectId(f_app.enum.get_by_slug("investment_type:studio")["id"])
+                elif "Apartment" in investment_type:
+                    plot_params["investment_type"] = ObjectId(f_app.enum.get_by_slug("investment_type:apartment")["id"])
+                elif "Double Room" in investment_type:
+                    plot_params["investment_type"] = ObjectId(f_app.enum.get_by_slug("investment_type:double_room")["id"])
+                else:
+                    logger.warning("Unknown investment_type %s, this may be a bug!" % investment_type)
                 plot_params["bedroom_count"] = int(data_rows[3].text())
                 plot_params["bathroom_count"] = int(data_rows[4].text())
                 plot_params["space"] = {"type": "area", "unit": "meter ** 2", "value": float(data_rows[5].text())}
@@ -772,6 +790,8 @@ class f_currant_plugins(f_app.plugin_base):
                     plot_params["total_price"] = {"value": total_price[0].replace(',', ''), "type": "currency", "unit": "GBP"}
                 plot_params["floor"] = data_rows[7].text()
                 plot_params["description"] = data_rows[8].text()
+
+                f_app.plot.crawler_insert_update(plot_params)
 
     def task_on_crawler_abacusinvestor(self, task):
         search_url = "http://www.abacusinvestor.com"
@@ -922,8 +942,13 @@ class f_property(f_app.module_base):
                 ignore_sales_comment = False
 
         if ignore_sales_comment:
-            for property in propertys:
-                property.pop("sales_comment", None)
+            if isinstance(propertys, list):
+                for property in propertys:
+                    property.pop("sales_comment", None)
+            else:
+                for id, property in propertys.iteritems():
+                    property.pop("sales_comment", None)
+
 
         return propertys
 
@@ -1132,8 +1157,8 @@ class f_plot(f_app.module_base):
 
         params = f_app.param_parser(_source=params, **plot_params)
 
-        current_records = self.search({"plot_crawler_id": plot_crawler_id, "target_plot_id": {"$exists": False}, "status": {"$exists": True}})
-        assert len(current_records) <= 2, self.logger.error("Multiple plot found for plot_crawler_id:", plot_crawler_id)
+        current_records = self.search({"plot_crawler_id": plot_crawler_id, "status": {"$exists": True}})
+        assert len(current_records) <= 1, self.logger.error("Multiple plot found for plot_crawler_id:", plot_crawler_id)
 
         if len(current_records):
             current_record = self.get(current_records[0], ignore_nonexist=True)
@@ -1141,30 +1166,15 @@ class f_plot(f_app.module_base):
             if current_record is None:
                 return
 
-            else:
-                if "target_plot_id" in current_record and current_record["target_plot_id"] == current_records[-1]:
-                    current_record = self.get(current_records[-1], ignore_nonexist=True)
-
-                    if current_record is None:
-                        current_record = self.get(current_records[0], ignore_nonexist=True)
-
             for key in list(params.keys()):
                 if params[key] == current_record.get(key):
                     params.pop(key)
 
             plot_id = current_record["id"]
-            existing_draft = f_app.plot.search({"target_plot_id": plot_id, "status": {"$ne": "deleted"}})
 
-            if existing_draft:
-                action = lambda _params: f_app.plot.update_set(existing_draft[0], _params)
-
-            else:
-                params.setdefault("status", "draft")
-                params["target_plot_id"] = plot_id
-                action = lambda params: f_app.plot.add(params)
+            action = lambda _params: f_app.plot.update_set(plot_id, _params)
 
         else:
-            params.setdefault("status", "draft")
             params.setdefault("plot_crawler_id", plot_crawler_id)
             action = lambda params: f_app.plot.add(params)
 
