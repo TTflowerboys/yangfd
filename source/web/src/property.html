@@ -623,31 +623,8 @@
             % end
 
             <p class="price">
-
-                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-
                 <span class="mute">{{_('价格')}}</span>
-                <span>
-                    {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
-                </span>
-                <strong data-type="currency">
-                    {{property.get('unit_price',{}).get('price',{}).get('value','')}}
-                </strong>
-                <span>
-                    /
-                    % unit = property.get('unit_price',{}).get('unit',{}).get('unit')
-                    <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
-                </span>
-
-                % else:
-
-                <span class="mute">{{_('价格')}}</span>
-                <span>{{property.get('total_price',{}).get('unit_symbol','')}}</span>
-                <strong data-type="currency">
-                    {{int(float(property.get('total_price',{}).get('value','')))}}
-                </strong>
-
-                % end
+                <!--@@include=partials/get_unit_price.html-->
             </p>
             <ul class="numbers">
                 % if property.get('annual_return_estimated'):

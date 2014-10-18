@@ -1,0 +1,21 @@
+% if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing'):
+<span>
+    {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
+</span>
+<strong data-type="currency">
+    {{int(float(str(property.get('unit_price',{}).get('price',{}).get('value',''))) / float(str(property.get('unit_price').get('unit').get('value'))))}}
+</strong>
+<span>
+    /
+    % unit = property.get('unit_price',{}).get('unit',{}).get('unit')
+    <!--@@include get_area_unit.html {"unit":"unit"}-->
+</span>
+
+% else:
+
+<span>{{property.get('total_price',{}).get('unit_symbol','')}}</span>
+<strong data-type="currency">
+    {{int(float(property.get('total_price',{}).get('value','')))}}
+</strong>
+
+% end
