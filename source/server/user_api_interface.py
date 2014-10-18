@@ -323,33 +323,7 @@ def admin_user_add(user, params):
         template_invoke_name = "new_admin_cn"
     else:
         template_invoke_name = "new_admin_en"
-    roles = template('''<ul>
-    % for r in role:
-    <li>
-        % if r == "admin":
-        {{_('高级平台管理员')}}
-        % elif r == "jr_admin":
-        {{_('初级平台管理员')}}
-        % elif r == "sales":
-        {{_('高级销售人员')}}
-        % elif r == "jr_sales":
-        {{_('初级销售人员')}}
-        % elif r == "operation":
-        {{_('高级运营人员')}}
-        % elif r == "jr_operation":
-        {{_('初级运营人员')}}
-        % elif r == "support":
-        {{_('高级客服人员')}}
-        % elif r == "jr_support":
-        {{_('初级客服人员')}}
-        % elif r == "developer":
-        {{_('房产开发商')}}
-        % elif r == "agency":
-        {{_('房产中介')}}
-        % end
-    </li>
-    % end
-    </ul>''', role=params["role"])
+    roles = template("static/emails/new_admin_role", role=params["role"])
     substitution_vars = {
         "to": [params["email"]],
         "sub": {
@@ -403,33 +377,7 @@ def admin_user_add_role(user, user_id, params):
                 template_invoke_name = "set_as_admin_cn"
             else:
                 template_invoke_name = "set_as_admin_en"
-            roles = template('''<ul>
-            % for r in role:
-            <li>
-                % if r == "admin":
-                {{_('高级平台管理员')}}
-                % elif r == "jr_admin":
-                {{_('初级平台管理员')}}
-                % elif r == "sales":
-                {{_('高级销售人员')}}
-                % elif r == "jr_sales":
-                {{_('初级销售人员')}}
-                % elif r == "operation":
-                {{_('高级运营人员')}}
-                % elif r == "jr_operation":
-                {{_('初级运营人员')}}
-                % elif r == "support":
-                {{_('高级客服人员')}}
-                % elif r == "jr_support":
-                {{_('初级客服人员')}}
-                % elif r == "developer":
-                {{_('房产开发商')}}
-                % elif r == "agency":
-                {{_('房产中介')}}
-                % end
-            </li>
-            % end
-            </ul>''', role=f_app.user.get_role(user_id))
+            roles = template("static/emails/new_admin_role", role=f_app.user.get_role(user_id))
             substitution_vars = {
                 "to": [user_info.get("email")],
                 "sub": {
