@@ -10,10 +10,11 @@ angular.module('app')
                 errorCode = response.data.ret
             }
             if (errorCode === 0) { return }
-            if (!response.config.errorMessage) {return}
-
-            return response.config.errorMessage[errorCode] || errors[errorCode] ||
-                errors.unknown + ' Error code: ' + errorCode
+            return response.data.debug_msg//TODO
+//            if (!response.config.errorMessage) {return}
+//
+//            return response.config.errorMessage[errorCode] || errors[errorCode] ||
+//                errors.unknown + ' Error code: ' + errorCode
         }
 
         $provide.factory('myHttpInterceptor', function ($q, growl, $rootScope, $sce) {
