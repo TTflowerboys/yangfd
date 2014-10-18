@@ -967,7 +967,7 @@
 </script>
 
 % if property.get('historical_price') :
-<textarea id="python_historical_price" style="display: block;">
+<textarea id="python_historical_price" style="display: none;">
     {{json_dumps(sorted(property.get('historical_price'), key=lambda price:price['time']))}}
 </textarea>
 <script>
