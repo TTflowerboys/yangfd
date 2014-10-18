@@ -128,7 +128,7 @@
 
     window.openRequirementForm = function (event, budgetId, intentionId) {
         var popup = $('#requirement_popup')
-        window.resetRequirementForm(popup, budgetId)
+        window.resetRequirementForm(popup)
         if (budgetId) {
             popup.find('select.budget option[value=' + budgetId + ']').attr('selected', 'selected')
         }
