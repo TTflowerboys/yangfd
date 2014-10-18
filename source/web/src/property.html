@@ -68,8 +68,7 @@
 
             <div class="thumbnails">
                 <ul>
-
-                    % if property.get('reality_images'):
+                    % if property.get('reality_images', []) and len(property.get('reality_images', [])):
                     <li data-tab="reality_images">
                         <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}"
                             alt="" width="200" height="120"/>

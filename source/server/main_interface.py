@@ -79,10 +79,10 @@ def default(user):
         f_app.blog.post_search(
             {
                 "category": {"$in": [
-                    {'_id': ObjectId(f_app.enum.get_by_slug('announcement')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('purchase_process')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('legal_resource')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                     {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('property_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('schoolhouse_manchester')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('property_liverpool')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                 ]}
             }, per_page=6
         )
