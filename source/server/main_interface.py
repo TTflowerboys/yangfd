@@ -249,6 +249,7 @@ def laws():
     )
     return template("laws", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
 
+
 @f_get('/aboutus')
 @check_landing
 def aboutus():
@@ -260,6 +261,7 @@ def aboutus():
         )
     )
     return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
+
 
 @f_get('/coming_soon')
 def coming_soon():

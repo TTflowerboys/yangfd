@@ -942,8 +942,13 @@ class f_property(f_app.module_base):
                 ignore_sales_comment = False
 
         if ignore_sales_comment:
-            for property in propertys:
-                property.pop("sales_comment", None)
+            if isinstance(propertys, list):
+                for property in propertys:
+                    property.pop("sales_comment", None)
+            else:
+                for id, property in propertys.iteritems():
+                    property.pop("sales_comment", None)
+
 
         return propertys
 
