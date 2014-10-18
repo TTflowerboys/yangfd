@@ -269,49 +269,73 @@ def coming_soon():
 @f_get('/user_settings')
 @check_landing
 def user_settings():
-    return template("user_settings", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    if get_current_user() is not None:
+        return template("user_settings", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_verify_email')
 @check_landing
 def user_verify_email():
-    return template("user_verify_email", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    if get_current_user():
+        return template("user_verify_email", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_change_email')
 @check_landing
 def user_change_email():
-    return template("user_change_email", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    if get_current_user():
+        return template("user_change_email", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_change_password')
 @check_landing
 def user_change_password():
-    return template("user_change_password", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    if get_current_user():
+        return template("user_change_password", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_change_phone_1')
 @check_landing
 def user_change_phone_1():
-    return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    if get_current_user():
+        return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_change_phone_2')
 @check_landing
 def user_change_phone_2():
-    return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    if get_current_user():
+        return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_verify_phone_1')
 @check_landing
 def user_verify_phone_1():
-    return template("user_verify_phone_1", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    if get_current_user():
+        return template("user_verify_phone_1", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_verify_phone_2')
 @check_landing
 def user_verify_phone_2():
-    return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    if get_current_user():
+        return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/user_favorites')
@@ -357,18 +381,21 @@ def user_properties():
 @f_get('/user_messages')
 @check_landing
 def user_messages():
-    message_list = f_app.message.get_by_user(
-        get_current_user()['id'],
-        {"state": {"$in": ["read", "new"]}},
-    )
-    message_type_list = get_message_type_list()
+    if get_current_user() is not None:
+        message_list = f_app.message.get_by_user(
+            get_current_user()['id'],
+            {"state": {"$in": ["read", "new"]}},
+        )
+        message_type_list = get_message_type_list()
 
-    for message in message_list:
-        for message_type in message_type_list:
-            if ('message_type:' + message['type'] == message_type['slug']):
-                message['type_presentation'] = message_type
+        for message in message_list:
+            for message_type in message_type_list:
+                if ('message_type:' + message['type'] == message_type['slug']):
+                    message['type_presentation'] = message_type
 
-    return template("user_messages", user=get_current_user(), country_list=get_country_list(), message_list=message_list, budget_list=get_budget_list())
+        return template("user_messages", user=get_current_user(), country_list=get_country_list(), message_list=message_list, budget_list=get_budget_list())
+    else:
+        redirect("://".join(request.urlparts[:2]))
 
 
 @f_get('/verify_email_status')
