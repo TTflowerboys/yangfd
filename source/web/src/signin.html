@@ -26,8 +26,8 @@
             .done(function () {
                 project.goBackFromURL()
             })
-            .fail(function (errorCode) {
-                alert("Error Code: " + errorCode);
+            .fail(function (ret) {
+                alert(window.getErrorMessageFromErrorCode(ret))
             })
     })
 </script>

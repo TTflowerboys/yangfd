@@ -30,8 +30,8 @@ $('form[name=signin]').submit(function (e) {
             $('#modal_shadow').hide()
             $('#modal').hide()
         })
-        .fail(function () {
-            errorArea.text(window.i18n('登录失败'))
+        .fail(function (ret) {
+            errorArea.text(window.getErrorMessageFromErrorCode(ret))
             errorArea.show()
         })
 })

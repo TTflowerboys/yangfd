@@ -50,8 +50,8 @@
             $.betterPost("/api/1/user/register", params)
                 .done(function () {
                     project.goToIntention()
-                }).fail(function () {
-                    errorArea.text(window.i18n('注册失败'))
+                }).fail(function (ret) {
+                    errorArea.text(window.getErrorMessageFromErrorCode(ret))
                     errorArea.show()
                 }).always(function () {
                     //refresh it for may user submit fail, or submit again with another account
