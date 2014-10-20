@@ -282,13 +282,9 @@
     $('#tags #budgetTag').on('click', '.toggleTag', function (event) {
 
         var $item = $(event.target)
-        var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
         $parent.find('.toggleTag').removeClass('selected')
-
-        if (!alreadySelected) {
-            $item.addClass('selected')
-        }
+        $item.addClass('selected')
 
         resetData()
         loadPropertyList()
