@@ -237,6 +237,7 @@ def laws():
     )
     return template("laws", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
 
+
 @f_get('/about')
 @check_landing
 def about():
@@ -249,6 +250,7 @@ def about():
     )
     return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
 
+
 @f_get('/terms')
 @check_landing
 def terms():
@@ -260,6 +262,7 @@ def terms():
         )
     )
     return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
+
 
 @f_get('/coming_soon')
 def coming_soon():
@@ -445,6 +448,7 @@ def qrcode_generate(params):
     link=(str, True),
     news_id=str,
     property_id=str,
+    content_id=str,
 ))
 def images_proxy(params):
     allowed = False
@@ -489,6 +493,10 @@ def images_proxy(params):
     if "news_id" in params:
         news = f_app.blog.post_get(params["news_id"])
         if params["link"] in news.get("images", []):
+            allowed = True
+
+    if "content_id" in params:
+        if params["link"] == f_app.ad.get(params["content_id"]).get("image"):
             allowed = True
 
     if not allowed:
