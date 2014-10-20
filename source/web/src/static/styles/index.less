@@ -444,21 +444,33 @@ main {
             .action > a {
                 width: 260px;
             }
-            .relatedNews {
-                float: right;
-                margin-top: 18px;
-                .newsList();
-                width: 320px;
-                height: 220px;
-                @media @phone {
-                    float:left;
 
-                }
+        }
 
-                .title {
-                    margin-top: 20px;
-                }
+        .relatedNews {
+            float: right;
+            margin-top: 18px;
+            .newsList();
+            width: 320px;
+            height: 220px;
+            @media @phone {
+                float:left;
 
+            }
+
+            .title {
+                margin-top: 20px;
+            }
+        }
+    }
+
+    .houseCard_phone {
+         .relatedNews {
+             height:215px;
+            .newsList();
+
+            .title {
+                margin-top: 20px;
             }
         }
     }
@@ -569,7 +581,6 @@ main {
                 }
             }
         }
-
     }
 
     .news {
@@ -581,7 +592,6 @@ main {
             width:100%;
         }
 
-
         &_wrapper {
             height: 440px;
             background: #f6f6f6;
@@ -590,7 +600,6 @@ main {
             @media @phone {
                 height:auto;
             }
-
         }
 
         .title {

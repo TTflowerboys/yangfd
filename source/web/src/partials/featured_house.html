@@ -1,0 +1,145 @@
+<div class="houseFeatured">
+    %if (_i18n(property_list)):
+        %for index, property in enumerate(_i18n(property_list)) :
+            %if (index >= 0 and index < 2):
+                %if property.get('news_category'):
+                    <h2 class="houseCard_category">{{property.get('news_category')[0].get('value')}}</h2>
+                %end
+
+                <div class="houseCard_phone">
+                    <div class="imagePart">
+                        %if property.get('reality_images', []) and len(property.get('reality_images', [])):
+                            <img src="/image/fetch?link={{quote_plus(_i18n(property.get('reality_images'))[0])}}&property_id={{property.get('id')}}"/>
+                        %else :
+                            <img src="/static/images/placeholder/property.jpg"/>
+                        %end
+
+                        <div class="imageText">
+                            <div class="left">
+                                <label class=name>{{property.get('name', '')}}</label>
+                                <p class=size>
+                                    <!--@@include=get_size.html -->
+                                </p>
+                            </div>
+                            <div class="right">
+                                <label class=price>
+                                    <!--@@include=get_unit_price.html-->
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="textPart">
+                        <ul class=properties>
+                            %if (property.get('intention') and len(property.get('intention'))) :
+                                <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
+                                    <span>
+                                        %for index, oneIntention in enumerate(property.get('intention')):
+                                            %if 'value' in oneIntention:
+                                                {{oneIntention.get('value')}}
+                                            %end
+                                        %end
+                                    </span>
+                                </li>
+                            %end
+                            %if (property.get('equity_type')) :
+                                <li><img src="/static/images/icon/house-card-house.png" alt=""/>
+                                    <span> {{property.get('equity_type', '').get('value')}}</span></li>
+                            %end
+                            %if (_i18n(property.get('street'))) :
+                                <li><img src="/static/images/icon/house-card-location.png" alt=""/>
+                                    <span>{{property.get('street', '')}} </span></li>
+                            %end
+                        </ul>
+                        <p class=estimate>
+                            %if (property.get('annual_return_estimated')):
+                                <span class=label>{{!_('预估总<br/>年化收益率')}}</span>
+                                <span class=value>
+                                    <strong>{{ property.get('annual_return_estimated')}}</strong>
+                                </span>
+                            %elif (property.get('annual_cash_return_estimated')):
+                                    <span class=label>{{!_('预估现金<br/>年化收益率')}}</span>
+                                    <span class=value>
+                                        <strong>{{ property.get('annual_cash_return_estimated')}}</strong>
+                                    </span>
+                            %end
+                        </p>
+                    </div>
+                    %if property.get('related_news'):
+                        <div class="relatedNews">
+                            <h3 class="title">{{_('相关动态')}}</h3>
+                            <div class="list">
+                                %for index, news in enumerate(property.get('related_news')):
+                                    <a class="item" href=/news/{{news.get('id')}}>{{news.get('title')}}</a>
+                                %end
+                            </div>
+                        </div>
+                    %end
+                </div>
+
+                <div class=houseCard>
+                    %if property.get('reality_images', []) and len(property.get('reality_images', [])):
+                        <img src="/image/fetch?link={{quote_plus(_i18n(property.get('reality_images'))[0])}}&property_id={{property.get('id')}}" width=320 height=240/>
+                    %else :
+                        <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
+                    %end
+                    <div class=description>
+                        <h1 class=name>{{property.get('name', '')}}</h1>
+                        <span class=price>
+                            <!--@@include=get_unit_price.html-->
+                        </span>
+
+                        <div class=details>
+                            <p class=size>
+                                <!--@@include=get_size.html -->
+                            </p>
+                            <p class=estimate>
+                                %if (property.get('annual_return_estimated')):
+                                    <span class=label>{{!_('预估总<br/>年化收益率')}}</span><span class=value>
+                                        <strong>{{ property.get('annual_return_estimated')}}</strong></span>
+                                %elif (property.get('annual_cash_return_estimated')):
+                                        <span class=label>{{!_('预估现金<br/>年化收益率')}}</span><span class=value>
+                                            <strong>{{ property.get('annual_cash_return_estimated')}}</strong></span>
+                                %end
+                            </p>
+                            <ul class=properties>
+                                %if (property.get('intention') and len(property.get('intention'))) :
+                                    <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
+                                        <span>
+                                            %for index, oneIntention in enumerate(property.get('intention')):
+                                                %if 'value' in oneIntention:
+                                                    {{oneIntention.get('value')}}
+                                                %end
+                                            %end
+                                        </span>
+                                    </li>
+                                %end
+                                %if (property.get('equity_type')) :
+                                    <li><img src="/static/images/icon/house-card-house.png" alt=""/>
+                                        <span> {{property.get('equity_type', '').get('value')}}</span></li>
+                                %end
+                                %if (_i18n(property.get('street'))) :
+                                    <li><img src="/static/images/icon/house-card-location.png" alt=""/>
+                                        <span>{{property.get('street', '')}} </span></li>
+                                %end
+                            </ul>
+                        </div>
+                        <div class=action>
+                            <a href="/property/{{property.get('id')}}" class="button red">{{_('查看详情')}}</a>
+                        </div>
+                    </div>
+                    %if property.get('related_news'):
+                        <div class="relatedNews">
+                            <h3 class="title">{{_('相关动态')}}</h3>
+                            <div class="list">
+                                %for index, news in enumerate(property.get('related_news')):
+                                    <a class="item" href=/news/{{news.get('id')}}>{{news.get('title')}}</a>
+                                %end
+                            </div>
+                        </div>
+                    %end
+                </div>
+            %end
+        %end
+    %end
+</div>
