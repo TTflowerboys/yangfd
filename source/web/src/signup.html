@@ -14,12 +14,21 @@
 <!--@@block=scripts -->
 <script type="text/javascript" src="/static/vendors/recaptcha_ajax.js"></script>
 <script>
-    function showRecaptcha() {
-        Recaptcha.create("6LfNfvkSAAAAACXjRTaEqvN-aLyG6w5Swp2kh9yz", "recaptcha_div",
+    function showRecaptcha(containerId) {
+        Recaptcha.create("6LfNfvkSAAAAACXjRTaEqvN-aLyG6w5Swp2kh9yz", containerId,
             {theme: "white", callback: Recaptcha.focus_response_field});
     }
+
+    function getRecaptchaChallenge() {
+        return  Recaptcha.get_challenge()
+    }
+
+    function getRecaptchaResponse() {
+        return  Recaptcha.get_response()
+    }
+
     $(function () {
-        showRecaptcha()
+        showRecaptcha('recaptcha_div')
         var errorArea = $('form[name=register]').find('.errorMessage')
         $('form[name=register]').submit(function (e) {
             e.preventDefault()
@@ -36,8 +45,8 @@
 
             var params = $(this).serializeObject()
             params.password = Base64.encode(params.password)
-            params['challenge'] = Recaptcha.get_challenge()
-            params['solution'] = Recaptcha.get_response()
+            params['challenge'] = getRecaptchaChallenge()
+            params['solution'] = getRecaptchaResponse()
             $.betterPost("/api/1/user/register", params)
                 .done(function () {
                     project.goToIntention()
