@@ -1,6 +1,6 @@
 <span>
     <select class="form-control" ng-model="enumId"
-        ng-options="p.id as getCodeBySlug(p.value[userLanguage.value] ,p.slug) for p in enumList">
+        ng-options="p.id as getCodeBySlug(p.value[$root.userLanguage.value] ,p.slug) for p in enumList">
         <option value="">-- {%enumOption?enumOption:$root.i18n('选择')%} --</option>
     </select>
 </span>

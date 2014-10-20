@@ -12,18 +12,14 @@ angular.module('app')
                 enumOption: '@text'
             },
             link: function (scope) {
-                scope.userLanguage = $rootScope.userLanguage
                 scope.getCodeBySlug = function (country, slug) {
                     if (slug === 'CN') {
                         return '(+86) ' + country
-                    }
-                    if (slug === 'GB') {
+                    } else if (slug === 'GB') {
                         return '(+44) ' + country
-                    }
-                    if (slug === 'US') {
+                    } else if (slug === 'US') {
                         return '(+1) ' + country
-                    }
-                    if (slug === 'HK') {
+                    } else if (slug === 'HK') {
                         return '(+85) ' + country
                     }
                     return country

@@ -15,7 +15,7 @@
                                 <div class="controls row">
                                     <div class="input-group col-sm-12">
                                         <label class="input-group-addon">{%$root.i18n('国家')%}:</label>
-                                        <div select-phone-country ng-model="user.country" required></div>
+                                        <span select-phone-country ng-model="user.country" name="country" required></span>
                                     </div>
                                     <span ng-show="submitted && signIn.country.$error.required">{%$root.i18n('必填')%}</span>
                                 </div>
