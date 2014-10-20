@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-10-20 10:24+0800\n"
+"POT-Creation-Date: 2014-10-20 13:36+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -742,7 +742,7 @@ msgstr ""
 msgid "提交成功后请检查您的收件箱并点击邮件中的链接进行验证，如果没有收到请检查您的垃圾邮箱，或者直接与洋房东客服联系"
 msgstr ""
 
-#: ../web/src/user_change_email.html:30 ../web/src/user_change_password.html:35
+#: ../web/src/user_change_email.html:29 ../web/src/user_change_password.html:35
 #: ../web/src/user_verify_phone_1.html:24
 #: ../web/src/partials/i18n_admin.html:234
 msgid "确认"
