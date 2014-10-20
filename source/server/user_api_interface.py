@@ -123,7 +123,7 @@ def register(params):
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
 
-    f_app.captcha.validate(params["solution"], params["challenge"], request.remote_route[-1], "recaptcha")
+    f_app.captcha.validate(params["solution"], params["challenge"], request.remote_route[-1])
 
     user_id = f_app.user.add(params)
 
@@ -652,7 +652,7 @@ def captcha_generate(params):
     """
     if params["style"] not in ["html", "ajax"]:
         abort(40000, logger.warning("Invalid params: style", params["style"], exc_info=False))
-    return f_app.captcha.generate(method="recaptcha", style=params["style"])
+    return f_app.captcha.generate(style=params["style"])
 
 
 @f_api("/captcha/test")
