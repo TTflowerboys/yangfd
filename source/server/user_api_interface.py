@@ -655,7 +655,6 @@ def captcha_generate(params):
     return f_app.captcha.generate(method="recaptcha", style=params["style"])
 
 
-
 @f_api("/captcha/test")
 def captcha_test():
-    return {"remote_route": request.remote_route[-1], "remote_addr": request.remote_addr}
+    return {"remote_route": request.remote_route, "remote_addr": request.remote_addr}
