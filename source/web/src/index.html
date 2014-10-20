@@ -19,7 +19,7 @@
                 <ul class="rslides">
                     % for ad in homepage_ad_list:
                         <li>
-                            <img src="/image/fetch?link={{quote_plus(_i18n(ad.get('image', '')[5:]))}}&content_id={{ad.get('id')}}"/>
+                            <img src="/image/fetch?link={{quote_plus(_i18n(ad.get('image', '')))}}&content_id={{ad.get('id')}}"/>
                             <div class="imageText_table">
                                 <div class="imageText_wrapper">
                                     <div class="imageText">
