@@ -654,7 +654,3 @@ def captcha_generate(params):
         abort(40000, logger.warning("Invalid params: style", params["style"], exc_info=False))
     return f_app.captcha.generate(style=params["style"])
 
-
-@f_api("/captcha/test")
-def captcha_test():
-    return {"remote_route": request.remote_route, "remote_addr": request.remote_addr}
