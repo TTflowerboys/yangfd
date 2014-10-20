@@ -2,7 +2,8 @@
     <div class="buttons">
 
         <span class="btn-group">
-            <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
+            <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+            </button>
             <button ng-if="item.status !== 'not reviewed'" class="btn" ng-click="$state.go('^.edit',{id:item.id})">
                 <span class="fa fa-edit"></span> {%$root.i18n('编辑')%}
             </button>
@@ -234,7 +235,7 @@
                                 <tbody>
                                     <tr ng-repeat="price in item.historical_price">
                                         <td>{%price.time * 1000 | date : 'short'%}</td>
-                                        <td>{%price.price.value %} {%price.price.unit %}</td>
+                                        <td>{%price.price.value | number : 2%} {%price.price.unit %}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -247,7 +248,7 @@
                         <label class="control-label">{%$root.i18n('估计月租金收入')%}</label>
 
                         <div class="controls">
-                            <span class="input-xlarge uneditable-input">{%item.estimated_monthly_rent.unit%}{%item.estimated_monthly_rent.value%}</span>
+                            <span class="input-xlarge uneditable-input">{%item.estimated_monthly_rent.unit%}{%item.estimated_monthly_rent.value | number : 2%}</span>
                         </div>
                     </div>
                 </div>
@@ -271,7 +272,7 @@
                                 <tbody>
                                     <tr ng-repeat="cost in item.estimated_monthly_cost">
                                         <td>{%cost.item[userLanguage.value]%}</td>
-                                        <td>{%cost.price.value %} {%cost.price.unit %}</td>
+                                        <td>{%cost.price.value | number : 2 %} {%cost.price.unit %}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -285,7 +286,7 @@
                         <label class="control-label">{%$root.i18n('总价格')%}</label>
 
                         <div class="controls">
-                            <span class="input-xlarge uneditable-input">{%item.total_price.unit%}{%item.total_price.value%}</span>
+                            <span class="input-xlarge uneditable-input">{%item.total_price.unit%}{%item.total_price.value | number : 2%}</span>
                         </div>
                     </div>
                     <div class="form-group  col-sm-2" ng-if="item.bedroom_count">
@@ -333,7 +334,7 @@
                         <label class="control-label">{%$root.i18n('面积')%}</label>
 
                         <div class="controls">
-                            <span class="input-xlarge uneditable-input">{%item.space.value%} {%item.space.unit %}</span>
+                            <span class="input-xlarge uneditable-input">{%item.space.value | number : 2%} {%item.space.unit %}</span>
                         </div>
                     </div>
                 </div>
@@ -371,8 +372,8 @@
                         <label class="control-label">{%$root.i18n('单位面积参考价格')%}</label>
 
                         <div class="controls form-inline">
-                            <span class="input-xlarge uneditable-input">{%item.unit_price.price.unit%}{%item.unit_price.price.value%}</span>
-                            <span class="input-xlarge uneditable-input">{%item.unit_price.unit.value%}{%item.unit_price.unit.unit%}</span>
+                            <span class="input-xlarge uneditable-input">{%item.unit_price.price.unit%}{%item.unit_price.price.value | number : 2%}</span>
+                            <span class="input-xlarge uneditable-input">{%item.unit_price.unit.value | number : 2%}{%item.unit_price.unit.unit%}</span>
                         </div>
                     </div>
                 </div>
@@ -391,14 +392,14 @@
                         <label class="control-label">{%$root.i18n('建筑面积')%}</label>
 
                         <div class="controls">
-                            <span class="input-xlarge uneditable-input">{%item.building_area.value%} {%item.building_area.unit%}</span>
+                            <span class="input-xlarge uneditable-input">{%item.building_area.value | number : 2%} {%item.building_area.unit%}</span>
                         </div>
                     </div>
                     <div class="form-group  col-sm-3" ng-if="item.planning_area">
                         <label class="control-label">{%$root.i18n('规划面积')%}</label>
 
                         <div class="controls">
-                            <span class="input-xlarge uneditable-input">{%item.planning_area.value%}{%item.planning_area.unit%}</span>
+                            <span class="input-xlarge uneditable-input">{%item.planning_area.value | number : 2%}{%item.planning_area.unit%}</span>
                         </div>
                     </div>
                     <div class="form-group  col-sm-3" ng-if="item.plot_ratio">
@@ -484,8 +485,8 @@
                                         <td>{%main_type.living_room_count%}</td>
                                         <td>{%main_type.bathroom_count%}</td>
                                         <td>{%main_type.kitchen_count%}</td>
-                                        <td>{%main_type.space.value%} {%main_type.space.unit%}</td>
-                                        <td>{%main_type.total_price.value%} {%main_type.total_price.unit%}</td>
+                                        <td>{%main_type.space.value | number : 2%} {%main_type.space.unit%}</td>
+                                        <td>{%main_type.total_price.value | number : 2%} {%main_type.total_price.unit%}</td>
                                         <td>
                                             <img class="img-thumbnail" ng-src="{%main_type.floor_plan[userLanguage.value]%} ">
                                         </td>

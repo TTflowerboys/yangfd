@@ -12,6 +12,7 @@ angular.module('app')
                 placeholder: '@placeholder'
             },
             link: function (scope) {
+                scope.tempValue = scope.value
                 var oldValue
                 scope.$watch('tempValue', function (newValue) {
                     if (_.isEmpty(newValue)) {
