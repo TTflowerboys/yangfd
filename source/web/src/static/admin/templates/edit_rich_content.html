@@ -1,10 +1,12 @@
 <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-11">
         <div type-i18n="item.content"></div>
-        <wysiwyg textarea-class="form-control" textarea-height="200px" textarea-name="content" required
-            textarea-required ng-model="item.content[userLanguage.value]" enable-bootstrap-title="false"></wysiwyg>
+        <!--<wysiwyg textarea-class="form-control" textarea-height="200px" textarea-name="content" required-->
+        <!--textarea-required ng-model="item.content[userLanguage.value]" enable-bootstrap-title="false"></wysiwyg>-->
+        <div text-angular text-angular-name="content" ng-model="item.content[userLanguage.value]"
+            ta-toolbar="[['h1','h2','h3','p','pre','quote'],['bold','italics','underline'],['ul','ol'],['insertImage','insertLink'],['html']]"></div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-1">
         <div get-upload-file-name width-limit="1920" ratio="2" thumbnail-size="800,400" text="{%$root.i18n('上传图片')%}"></div>
     </div>
 </div>

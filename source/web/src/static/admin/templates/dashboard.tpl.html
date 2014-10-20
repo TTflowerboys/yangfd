@@ -24,9 +24,6 @@
                                 <div class="avatar"></div>
                                 <div class="user">
                                     <span class="hello">{%user.nickname%}</span>
-                                    <span class="role" ng-repeat="role in user.role">
-                                        {%role | permissionName %}
-                                    </span>
                                 </div>
                             </a>
                             <ul class="dropdown-menu">
@@ -38,7 +35,11 @@
                     </ul>
                     <ul class="nav navbar-nav pull-right">
                         <li>
-                            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="dashboardLanguage.value" ng-change="changeLanguage()"></select>
+                            <select class="form-control" style="height: 30px; margin: 5px 0;"
+                                ng-options="p.value as p.name for p in i18nLanguages" ng-model="dashboardLanguage.value"
+                                ng-change="changeLanguage()">
+                                <option value="" disabled>-- 界面语言 --</option>
+                                </select>
                         </li>
                     </ul>
                 </div>

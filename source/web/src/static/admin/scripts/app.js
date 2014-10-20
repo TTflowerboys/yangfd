@@ -2,15 +2,13 @@
 
 
 angular.module('app',
-    ['ui.router', 'angular-loading-bar', 'angularFileUpload', 'ui.bootstrap', 'angular-growl', 'wysiwyg.module', 'multi-select'])
+    ['ui.router', 'angular-loading-bar', 'angularFileUpload', 'ui.bootstrap', 'angular-growl', 'multi-select', 'textAngular'])
     .run(function ($rootScope, $state, $stateParams, $sce) {
         $rootScope.i18n = i18n;
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
         $rootScope.renderHtml = function (html) {
-            if (typeof  html !== 'string') {
-                return ''
-            }
+            if (typeof  html !== 'string') { return '' }
             return $sce.trustAsHtml(html || '');
         }
         $rootScope.$on('$stateChangeStart',

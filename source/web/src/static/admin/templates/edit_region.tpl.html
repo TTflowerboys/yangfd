@@ -1,7 +1,4 @@
 <div class="form-inline">
-    <div select-enum name="country" ng-model="country" text="{%$root.i18n('国家')%}"></div>
-
-    <div select-city-by-country country="country" ng-model="city" text="{%$root.i18n('城市')%}"></div>
-
-    <!--<input class="form-control" ng-model="zip" type="text" placeholder="邮编"/>-->
+    <span select-enum name="country" ng-model="country" text="{%$root.i18n('国家')%}"></span>
+    <span select-city-by-country country="country" ng-model="city" text="{%$root.i18n('城市')%}"></span>
 </div>
