@@ -19,8 +19,9 @@
                 })
         }
 
-
+        var currectItem
         function onGetItem(item) {
+            currectItem = item
             var editItem = angular.copy(item)
             if (!_.isEmpty(editItem.country)) {
                 editItem.country = editItem.country.id
@@ -55,7 +56,7 @@
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function () {
-                angular.extend($scope.itemOrigin, changed)
+                angular.extend(currectItem, changed)
             })['finally'](function () {
                 $scope.loading = false
             })
