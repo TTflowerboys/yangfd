@@ -38,7 +38,6 @@
             padding-top:0;
         }
 
-
         > h1 {
             font-size: 24px;
             font-weight: bold;
@@ -46,7 +45,14 @@
             color: @black;
             font-family: @font-normal;
             max-width:60%;
-            .limitedLines(2, 34px)
+            .limitedLines(2, 34px);
+
+            @media @phone {
+                font-size:14px;
+                .limitedLines(1, 14px);
+                width:100%;
+            }
+
         }
         > .price {
             color: @red;
