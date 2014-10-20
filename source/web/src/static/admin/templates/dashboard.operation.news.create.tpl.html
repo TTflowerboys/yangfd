@@ -53,12 +53,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-10">
             <label class="control-label">{%$root.i18n('摘要')%} *</label>
 
             <div class="controls">
-                <input class="form-control col-sm6" type-i18n="item.summary" ng-model="item.summary[userLanguage.value]"
-                    type="text" required/>
+                <textarea class="form-control col-sm6" type-i18n="item.summary" ng-model="item.summary[userLanguage.value]"
+                    required style="width: 100%; height: 6em;"></textarea>
             </div>
         </div>
     </div>
