@@ -653,3 +653,9 @@ def captcha_generate(params):
     if params["style"] not in ["html", "ajax"]:
         abort(40000, logger.warning("Invalid params: style", params["style"], exc_info=False))
     return f_app.captcha.generate(method="recaptcha", style=params["style"])
+
+
+
+@f_api("/captcha/test")
+def captcha_test():
+    return {"remote_route": request.remote_route[-1], "remote_addr": request.remote_addr}
