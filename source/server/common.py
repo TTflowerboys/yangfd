@@ -79,8 +79,8 @@ class common(f_common):
     clickatell_user = "marco388"
     clickatell_password = "EaSeURGSXGXNbM"
 
-    recaptcha_public_key = "6LfNfvkSAAAAACXjRTaEqvN-aLyG6w5Swp2kh9yz"
-    recaptcha_private_key = "6LfNfvkSAAAAAEPFsTe5y8g5zReShTthbHZtWrcj"
+    recaptcha_public_key = "6LdOPfwSAAAAALlc4POi3YiUJmKe_rUw6-xO6NsN"
+    recaptcha_private_key = "6LdOPfwSAAAAACd2X9w4fbI8L4afGWXC-gV3QuDr"
 
     sendcloud_api_user = "postmaster@yangfd.sendcloud.org"
     sendcloud_api_key = "p5WEtUrypcHiNWgL"
