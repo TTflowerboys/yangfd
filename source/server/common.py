@@ -82,6 +82,9 @@ class common(f_common):
     recaptcha_public_key = "6LdOPfwSAAAAALlc4POi3YiUJmKe_rUw6-xO6NsN"
     recaptcha_private_key = "6LdOPfwSAAAAACd2X9w4fbI8L4afGWXC-gV3QuDr"
 
+    touclick_public_key = "7ba2ba84-1ebe-4bf5-9fb4-c888612d5204"
+    touclick_private_key = "0160ee89-06bb-4535-bb24-3fa517feea9d"
+
     sendcloud_api_user = "postmaster@yangfd.sendcloud.org"
     sendcloud_api_key = "p5WEtUrypcHiNWgL"
     sendcloud_sender_name = "YangFd"
