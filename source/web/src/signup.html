@@ -2,13 +2,13 @@
 
 <!--@@block=head -->
 <!--build:css(dist) /static/styles/project/signup.html.css-->
-<link rel="stylesheet" href="/static/styles/project/registerForm.css"/>
+<link rel="stylesheet" href="/static/styles/project/signupForm.css"/>
 <link href="/static/styles/recaptcha.css" rel="stylesheet"/>
 <!--endbuild-->
 <!--@@close-->
 
 <!--@@block=main -->
-<!-- @@include =partials/register_form.html -->
+<!-- @@include =partials/signup_form.html -->
 <!--@@close-->
 
 <!--@@block=scripts -->
@@ -51,13 +51,15 @@
                 .done(function () {
                     project.goToIntention()
                 }).fail(function (ret) {
-                    errorArea.text(window.getErrorMessageFromErrorCode(ret))
+                    errorArea.append(window.getErrorMessageFromErrorCode(ret))
                     errorArea.show()
                 }).always(function () {
                     //refresh it for may user submit fail, or submit again with another account
                     showRecaptcha()
                 })
         })
+
+
     })
 
 

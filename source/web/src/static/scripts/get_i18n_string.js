@@ -36,7 +36,7 @@ window.getErrorMessageFromErrorCode = function (errorCode) {
         40103: i18n('账户或密码错误'),
         40324: i18n('账户不存在'),
         40325: i18n('邮箱已被使用'),
-        40351: i18n('电话已被使用'),
+        40351: i18n('电话已被使用, 请<a href="#" onclick="project.goToSignIn()">“登陆”</a>或者<a href="#" onclick="project.goToResetPassword()">“找回密码”</a>'),
         40357: i18n('验证失败'),
         40399: i18n('权限错误'),
         50314: i18n('第三方服务异常')
