@@ -33,10 +33,12 @@ glob(pattern, null, function (error, filePaths) {
 
     i18nTemplate += [
         '<script>',
-        'window.i18n = function (name) {' ,
-        '   var input = document.getElementById(\'i18n-str-\' + name)' ,
-        '   if (!input) { return name }' ,
-        '   return input.value' ,
+        'if(!window.i18n){',
+        '   window.i18n = function (name) {',
+        '       var input = document.getElementById(\'i18n-str-\' + name)',
+        '       if (!input) { return name }',
+        '       return input.value',
+        '   }',
         '}',
         '</script>'
     ].join('\n')
