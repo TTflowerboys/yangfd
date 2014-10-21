@@ -74,13 +74,8 @@
 
 </div>
 
-<span id="current_Language" style="display:none">{{_.lang}}</span>
-<span id="current_Currency" style="display:none">{{_.currency}}</span>
-
 <script>
 
-    window.lang = document.getElementById('current_Language').innerHTML
-    window.currency = document.getElementById('current_Currency').innerHTML
 
     window.i18n = function (key) {
         return $('#data_localization #' + key).text()
