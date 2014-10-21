@@ -959,7 +959,6 @@ class f_property(f_app.module_base):
                 for id, property in propertys.iteritems():
                     property.pop("sales_comment", None)
 
-
         return propertys
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False):

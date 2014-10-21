@@ -653,4 +653,3 @@ def captcha_generate(params):
     if params["style"] not in ["html", "ajax"]:
         abort(40000, logger.warning("Invalid params: style", params["style"], exc_info=False))
     return f_app.captcha.generate(style=params["style"])
-
