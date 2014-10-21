@@ -12,54 +12,7 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
-
-<script>
- function showRecaptcha() {
-
- }
-
- function getRecaptchaChallenge() {
-     return  ''
- }
-
- function getRecaptchaResponse() {
-     return  ''
- }
-
- $(function () {
-     showRecaptcha()
-     var errorArea = $('form[name=register]').find('.errorMessage')
-     $('form[name=register]').submit(function (e) {
-         e.preventDefault()
-         errorArea.hide()
-
-         var valid = $.validate(this, {onError: function (dom, validator, index) {
-             errorArea.text(window.getErrorMessage(dom.name, validator))
-             errorArea.show()
-         }})
-
-         if (!valid) {
-             return
-         }
-
-         var params = $(this).serializeObject()
-         params.password = Base64.encode(params.password)
-         params['challenge'] = getRecaptchaChallenge()
-         params['solution'] = getRecaptchaResponse()
-         $.betterPost("/api/1/user/register", params)
-                                 .done(function () {
-                                     project.goToIntention()
-                                 }).fail(function (ret) {
-                                     errorArea.append(window.getErrorMessageFromErrorCode(ret))
-                                 }).always(function () {
-                                     //refresh it for may user submit fail, or submit again with another account
-                                     showRecaptcha()
-                                 })
-     })
-
-
- })
-
-
-</script>
+<!--build:js /static/scripts/signup.html.js-->
+<script src="/static/scripts/signup.js"></script>
+<!--endbuild-->
 <!--@@close-->
