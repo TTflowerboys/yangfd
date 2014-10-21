@@ -15,10 +15,10 @@ window.changeLanguage = function(language) {
 
 window.getI18nOfLanguage = function (language) {
     if (language === 'zh_Hans_CN') {
-        return window.i18n('简体中文quote中国quote')
+        return window.i18n('简体中文(中国)')
     }
     else if (language === 'en_GB') {
-        return window.i18n('EnglishquoteUnitedblankKingdomquote')
+        return window.i18n('English (United Kingdom)')
     }
     else {
         return language

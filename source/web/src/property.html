@@ -934,7 +934,7 @@
                     if (errorCode === 40100) {
                         project.goToSignIn()
                     } else {
-                        alert($button.attr('data-message-' + errorCode) || i18n('unknown_error'))
+                        alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
                     }
                 })
         })
@@ -950,7 +950,7 @@
                     if (errorCode === 40100) {
                         project.goToSignIn()
                     } else {
-                        alert($button.attr('data-message-' + errorCode) || i18n('unknown_error'))
+                        alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
                     }
                 })
         })

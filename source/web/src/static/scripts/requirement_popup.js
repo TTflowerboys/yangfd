@@ -155,10 +155,10 @@
             }
 
             if (selectedIntention) {
-                description = description + window.i18n('的房产comma投资意向为') + ' ' +
+                description = description + window.i18n('的房产，投资意向为为') + ' ' +
                     selectedIntention
             }
-            description = description + window.i18n('period')
+            description = description + window.i18n('。')
 
             popup.find('[name=description]').text(description)
         }

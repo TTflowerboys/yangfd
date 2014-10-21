@@ -181,16 +181,16 @@
 
             if (selectedBudget) {
                 description = description  +
-                    window.i18n('comma价值为') + ' ' +
+                    window.i18n('，价值为') + ' ' +
                     selectedBudget + ' '
             }
 
             if (selectedIntention) {
-                description = description + window.i18n('的房产comma投资意向为') + ' ' +
+                description = description + window.i18n('的房产，投资意向为为') + ' ' +
                     selectedIntention
             }
 
-            description = description + window.i18n('period')
+            description = description + window.i18n('。')
 
             emptyPlaceHolder.find('textarea[name=description]').text(description)
 

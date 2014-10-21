@@ -134,7 +134,7 @@
     }
 
     function updateUserTags(budgetId, intentionIds) {
-        var param  = {}
+        var param = {}
         if (budgetId) {
             param.budget = budgetId
         }
@@ -202,34 +202,32 @@
             if (usedBudget) {
                 params.budget = usedBudget
             }
-            var apiCall = $.betterPost('/api/1/property/search',params)
-                    .done(function (val) {
-                        var array = val.content
-                        var item = {}
-                        if (!_.isEmpty(array)) {
-                            item = _.first(array)
+            var apiCall = $.betterPost('/api/1/property/search', params)
+                .done(function (val) {
+                    var array = val.content
+                    var item = {}
+                    if (!_.isEmpty(array)) {
+                        item = _.first(array)
+                        item.category_budget = getBudgetById(usedBudget)
+                        item.category_intention = getIntentionById(oneIntention)
+                        item.category_intention.description = window.getIntentionDescption(item.category_intention.slug)
+                        responseArray.push(item)
+                    }
+                    else {
+                        item.isEmpty = true
+                        if (usedBudget) {
                             item.category_budget = getBudgetById(usedBudget)
+                        }
+                        if (oneIntention) {
                             item.category_intention = getIntentionById(oneIntention)
-                            item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ',
-                                                                                                                   '_') + '_description')
-                            responseArray.push(item)
+                            item.category_intention.description = window.getIntentionDescption(item.category_intention.slug)
                         }
-                        else {
-                            item.isEmpty = true
-                            if (usedBudget) {
-                                item.category_budget = getBudgetById(usedBudget)
-                            }
-                            if (oneIntention) {
-                                item.category_intention = getIntentionById(oneIntention)
-                                item.category_intention.description = window.i18n(item.category_intention.slug.replace(' ',
-                                                                                                                       '_') + '_description')
-                            }
-                            responseArray.push(item)
-                        }
-                    })
-                    .fail(function (ret) {
+                        responseArray.push(item)
+                    }
+                })
+                .fail(function (ret) {
 
-                    })
+                })
 
             requestArray.push(apiCall)
         })
@@ -286,15 +284,14 @@
 
     function addIntetionTag(id, value) {
         $intentionTag.find('#list').append('<li class="toggleTag selected" data-id="' + id + '">' +
-                                           value +
-                                           '<img alt="" src="/static/images/intention/close.png"/></li>'
-                                          )
+            value +
+            '<img alt="" src="/static/images/intention/close.png"/></li>'
+        )
     }
 
     function removeIntentionTag(id) {
         $intentionTag.find('#list li[data-id=' + id + ']').remove()
     }
-
 
 
     if (window.user) {
