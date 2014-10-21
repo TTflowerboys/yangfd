@@ -82,6 +82,10 @@ class common(f_common):
     recaptcha_public_key = "6LdOPfwSAAAAALlc4POi3YiUJmKe_rUw6-xO6NsN"
     recaptcha_private_key = "6LdOPfwSAAAAACd2X9w4fbI8L4afGWXC-gV3QuDr"
 
+    opencaptcha_width = 100
+    opencaptcha_height = 48
+    opencaptcha_html = "<input type='hidden' name='challenge' value='%(challenge)s'><a href='http://www.opencaptcha.com'><img src='http://www.opencaptcha.com/img/%(challenge)s'  height='%(height)s' alt='captcha' width='%(width)s' border='0'/></a><input name='code' size=10 type=text data-validator='required, trim'>"
+
     touclick_public_key = "7ba2ba84-1ebe-4bf5-9fb4-c888612d5204"
     touclick_private_key = "0160ee89-06bb-4535-bb24-3fa517feea9d"
 
@@ -110,15 +114,15 @@ class common(f_common):
     captcha_provider_smart = {
         "CN":
         {
-            "method": "virtual",
+            "method": "opencaptcha",
         },
         "INTRANET":
         {
-            "method": "virtual",
+            "method": "opencaptcha",
         },
         "default":
         {
-            "method": "recaptcha",
+            "method": "opencaptcha",
         }
     }
 

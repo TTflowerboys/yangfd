@@ -40,6 +40,32 @@ body {
         max-width: 270px;
     }
 
+    .captchaCode {
+        > a  > img {
+            display: inline-block;
+            vertical-align: middle;
+            width: 100px;
+            @media @phone {
+                width:~"calc(35% - 12px)";
+            }
+        }
+
+        > input {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 8px;
+            padding: 8px 0 8px 0;
+            border-radius:6px;
+            border:0;
+            height:48px;
+
+            width: 200px;
+            @media @phone {
+                width:~"calc(65% - 36px)";
+            }
+        }
+    }
+
     .formsHint {
         margin-top: 8px;
         font-size: 12px;
@@ -70,6 +96,12 @@ body {
     }
     > .errorMessage {
         display: none; color: red; margin-top: 10px; margin-bottom: 0px;
+
+        a {
+            color:blue;
+            text-decoration:underline;
+            cursor:pointer;
+        }
     }
     .hasAccountHint {
         margin-top: 20px;

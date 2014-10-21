@@ -13,12 +13,16 @@
         </div>
     </div>
     <h4 class="formsHint">{{_('手机号为登录和找回密码凭证，请填写真实号码')}}</h4>
-    <div class="captchaCode">
-        <div id="recaptcha_div"></div>
+    <div class="form_row captchaCode">
+        <input type='hidden' name='challenge' value='chanllenge'>
+        <a href="">
+            <img src='http://www.opencaptcha.com/open-captcha-header.png' height='48' alt='captcha' width='100' border='0'/>
+        </a>
+        <input name='code' size=10 type=text data-validator='required, trim'>
     </div>
     <div class="terms"><input type="checkbox" checked/> {{_('我同意')}}<a href="/terms">{{_('会员服务须知')}}</a></div>
     <button type="submit" class="register button gray">{{_('注册')}}</button>
-    <p class="errorMessage" style="display:none"></p>
+
     <h3 class="hasAccountHint">{{_('已经拥有账号？请')}} <a href="#" onclick="project.goToSignIn()">{{_('登录')}}</a></h3>
 </form>
 
