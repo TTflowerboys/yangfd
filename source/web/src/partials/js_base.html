@@ -1,6 +1,24 @@
 <script>
     window.lang = "{{_.lang}}"
     window.currency = "{{_.currency}}"
+
+    window.getErrorMessage = function (domName, validator) {
+        var inputMessageDic = {
+            'nickname_required': '姓名不能为空',
+            'phone_required': '电话不能为空',
+            'phone_number': '电话格式不正确',
+            'email_required': '邮箱不能为空',
+            'email_email': '邮箱格式不合法',
+            'code_required': '验证码不能为空',
+            'password_required': '密码不能为空',
+            'old_phone_required': '原手机号不能为空',
+            'old_phone_number': '原手机号格式不正确',
+            'old_password_required': '当前密码不能为空',
+            'confirm_password_required': '确认密码不能为空',
+            'confirm_password_sameAs': '新密码和确认密码输入不一致'
+        }
+        return i18n(inputMessageDic[domName + '_' + validator])
+    }
 </script>
 <!-- jQuery-->
 <!--[if !IE]>-->
