@@ -114,15 +114,15 @@ class common(f_common):
     captcha_provider_smart = {
         "CN":
         {
-            "method": "virtual",
+            "method": "opencaptcha",
         },
         "INTRANET":
         {
-            "method": "virtual",
+            "method": "opencaptcha",
         },
         "default":
         {
-            "method": "recaptcha",
+            "method": "opencaptcha",
         }
     }
 
