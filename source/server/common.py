@@ -107,6 +107,21 @@ class common(f_common):
         }
     }
 
+    captcha_provider_smart = {
+        "CN":
+        {
+            "method": "virtual",
+        },
+        "INTRANET":
+        {
+            "method": "virtual",
+        },
+        "default":
+        {
+            "method": "recaptcha",
+        }
+    }
+
     knightknox_agents_username = "digitalenterprise"
     knightknox_agents_password = "digital4853"
 
