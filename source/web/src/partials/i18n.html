@@ -1,7 +1,6 @@
 <input type="hidden" id="i18n-str-unknown_error" value="{{_('unknown_error')}}">
 <input type="hidden" id="i18n-str-请点击“获取验证码”" value="{{_('请点击“获取验证码”')}}">
 <input type="hidden" id="i18n-str-重置密码失败" value="{{_('重置密码失败')}}">
-<input type="hidden" id="i18n-str-注册失败" value="{{_('注册失败')}}">
 <input type="hidden" id="i18n-str-修改邮箱成功" value="{{_('修改邮箱成功')}}">
 <input type="hidden" id="i18n-str-修改邮箱失败" value="{{_('修改邮箱失败')}}">
 <input type="hidden" id="i18n-str-修改成功" value="{{_('修改成功')}}">
@@ -26,7 +25,6 @@
 <input type="hidden" id="i18n-str-period" value="{{_('period')}}">
 <input type="hidden" id="i18n-str-我想投资价值为" value="{{_('我想投资价值为')}}">
 <input type="hidden" id="i18n-str-确定" value="{{_('确定')}}">
-<input type="hidden" id="i18n-str-登录失败" value="{{_('登录失败')}}">
 <input type="hidden" id="i18n-str-性别不能为空" value="{{_('性别不能为空')}}">
 <input type="hidden" id="i18n-str-国家不能为空" value="{{_('国家不能为空')}}">
 <input type="hidden" id="i18n-str-更新成功" value="{{_('更新成功')}}">
@@ -40,9 +38,11 @@
 <input type="hidden" id="i18n-str-预估现金newline年化收益率" value="{{_('预估现金newline年化收益率')}}">
 <input type="hidden" id="i18n-str-查看详情" value="{{_('查看详情')}}">
 <script>
-window.i18n = function (name) {
-   var input = document.getElementById('i18n-str-' + name)
-   if (!input) { return name }
-   return input.value
+if(!window.i18n){
+   window.i18n = function (name) {
+       var input = document.getElementById('i18n-str-' + name)
+       if (!input) { return name }
+       return input.value
+   }
 }
 </script>

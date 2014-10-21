@@ -275,9 +275,11 @@
 <input type="hidden" id="i18n-str-服务声明" value="{{_('服务声明')}}">
 <input type="hidden" id="i18n-str-请选择" value="{{_('请选择')}}">
 <script>
-window.i18n = function (name) {
-   var input = document.getElementById('i18n-str-' + name)
-   if (!input) { return name }
-   return input.value
+if(!window.i18n){
+   window.i18n = function (name) {
+       var input = document.getElementById('i18n-str-' + name)
+       if (!input) { return name }
+       return input.value
+   }
 }
 </script>
