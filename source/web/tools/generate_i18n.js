@@ -28,7 +28,7 @@ glob(pattern, null, function (error, filePaths) {
     for (var name in result) {
         var attr = encodeAttr(name)
         var template = encodeTemplate(name)
-        i18nTemplate += ['<input type="hidden" id="i18n-str-', attr, '" value="{{_(\'', template, '\')}}">'].join('') + '\n'
+        i18nTemplate += ['<input type="hidden" id="i18n-str-', attr, '" value="{{_(', template, ')}}">'].join('') + '\n'
     }
 
     i18nTemplate += [
@@ -65,6 +65,9 @@ function encodeAttr(string) {
  * @returns {string} escaped
  */
 function encodeTemplate(string) {
-    return string.replace(/"/g, '\\"')
-        .replace(/'/g, '\\\'')
+    if (string.indexOf('\'') >= 0) {
+        return ['"', string, '"'].join('')
+    } else {
+        return ['\'', string, '\''].join('')
+    }
 }
