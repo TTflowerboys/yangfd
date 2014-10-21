@@ -23,53 +23,66 @@
             (
             <!--@@include=partials/current_currency.html -->
             ):&nbsp;</label>
-        <div class="controls">
-
-            %for index, budget in enumerate(budget_list):
-            %if budget.get('currency') == _.currency:
-            <label class="toggleTag"><input name="budget" type="radio" value="{{budget.get('id')}}"/>{{_i18n(budget.get('value'))}}</label>
-            %end
-            %end
-        </div>
+            <div class="controls">
+                %for index, budget in enumerate(budget_list):
+                    %if budget.get('currency') == _.currency:
+                        <label class="toggleTag"><input name="budget" type="radio" value="{{budget.get('id')}}"/>{{_i18n(budget.get('value'))}}</label>
+                    %end
+                %end
+            </div>
     </div>
     <!-- @@include=partials/intention_tabs.html -->
 </form>
 <!--@@close-->
 <!--@@block = scripts-->
 <script>
-    (function () {
+ (function () {
 
-        $('[data-tabs]').tabs({trigger: 'hover'})
+     $('[data-tabs]').tabs({trigger: 'hover'})
 
-        var $intentionform = $('form[name=intentionForm]')
+     var $intentionform = $('form[name=intentionForm]')
 
-        $intentionform.find('[name=budget]').on('change', function () {
-            $(this).parent().toggleClass('selected', this.checked)
+     $intentionform.find('[name=budget]').on('change', function () {
+         $(this).parent().toggleClass('selected', this.checked)
                 .siblings().removeClass('selected')
-        })
+     })
 
-        $intentionform.find('[name=intention]').on('change', function () {
-            $(this).closest('li').toggleClass('selected', this.checked)
-        })
+     $intentionform.find('[name=intention]').on('change', function () {
+         $(this).closest('li').toggleClass('selected', this.checked)
+     })
 
-        $intentionform.find('[name]').on('change', function () {
-            var data = $intentionform.serializeObject()
-            $intentionform.find('[type=submit]').prop('disabled', _.isEmpty(data))
-        })
+     $intentionform.find('[name]').on('change', function () {
+         var data = $intentionform.serializeObject()
+         $intentionform.find('[type=submit]').prop('disabled', _.isEmpty(data))
+     })
 
-        $intentionform.submit(function (e) {
-            e.preventDefault()
-            var data = $(this).serializeObject()
-            if (_.isEmpty(data)) { location.href = '/' }
-            $intentionform.find('[type=submit]').css({cursor: 'wait'})
-            $.betterPost('/api/1/user/edit', data)
-                .always(function () {
-                    location.href = '/'
-                    $intentionform.find('[type=submit]').css({cursor: 'default'})
-                })
-        })
+     $intentionform.submit(function (e) {
+         e.preventDefault()
+         var data = $(this).serializeObject()
+
+         var intentionTags = $(this).find('.intention .controls').children('.selected')
+         var intention = ''
+         _.each(intentionTags, function (item) {
+             intention =  intention + $(item).attr('data-id') + ','
+         })
+
+         if (intention) {
+             if (_.last(intention) === ',') {
+                 intention = intention.substring(0, intention.length - 1)
+             }
+             data.intention = intention
+         }
+
+         if (!data.budget && !data.intention) { location.href = '/';  return;}
+         $intentionform.find('[type=submit]').css({cursor: 'wait'})
+         $.betterPost('/api/1/user/edit', data)
+                       .always(function () {
+                           location.href = '/'
+                           $intentionform.find('[type=submit]').css({cursor: 'default'})
+                       })
+     })
 
 
-    })()
+ })()
 </script>
 <!--@@close-->
