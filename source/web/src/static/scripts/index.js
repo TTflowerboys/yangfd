@@ -210,7 +210,7 @@
                         item = _.first(array)
                         item.category_budget = getBudgetById(usedBudget)
                         item.category_intention = getIntentionById(oneIntention)
-                        item.category_intention.description = window.getIntentionDescption(item.category_intention.slug)
+                        item.category_intention.description = window.getIntentionDescription(item.category_intention.slug)
                         responseArray.push(item)
                     }
                     else {
@@ -220,7 +220,7 @@
                         }
                         if (oneIntention) {
                             item.category_intention = getIntentionById(oneIntention)
-                            item.category_intention.description = window.getIntentionDescption(item.category_intention.slug)
+                            item.category_intention.description = window.getIntentionDescription(item.category_intention.slug)
                         }
                         responseArray.push(item)
                     }

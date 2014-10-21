@@ -1,9 +1,9 @@
 %if user:
-<textarea  id="userData" style="display: none">
+<textarea id="pythonUserData" style="display: none">
     {{json_dumps(_i18n(user))}}
 </textarea>
 <script>
-    var userElement = document.getElementById("userData")
+    var userElement = document.getElementById("pythonUserData")
     window.user = JSON.parse(userElement.innerHTML)
 </script>
 %end

@@ -2,38 +2,8 @@
 <script>
     window.lang = "{{_.lang}}"
     window.currency = "{{_.currency}}"
-
-    window.getErrorMessage = function (domName, validator) {
-        var inputMessageDic = {
-            'nickname_required': i18n('姓名不能为空'),
-            'phone_required': i18n('电话不能为空'),
-            'phone_number': i18n('电话格式不正确'),
-            'email_required': i18n('邮箱不能为空'),
-            'email_email': i18n('邮箱格式不合法'),
-            'code_required': i18n('验证码不能为空'),
-            'password_required': i18n('密码不能为空'),
-            'old_phone_required': i18n('原手机号不能为空'),
-            'old_phone_number': i18n('原手机号格式不正确'),
-            'old_password_required': i18n('当前密码不能为空'),
-            'confirm_password_required': i18n('确认密码不能为空'),
-            'confirm_password_sameAs': i18n('新密码和确认密码输入不一致')
-        }
-        return inputMessageDic[domName + '_' + validator]
-    }
-
-    window.getIntentionDescption = function (slug) {
-        var stringMap = {
-            stable_cashflow: i18n('现金流保障介绍'),
-            study_abroad: i18n('子女留学介绍'),
-            immigration_investment: i18n('移民投资介绍'),
-            excess_earnings: i18n('超额收益介绍'),
-            asset_preservation: i18n('资产保值介绍'),
-            live_after_immigration: i18n('移民自住介绍'),
-            leisure_property: i18n('度假旅行介绍')
-        }
-        return stringMap[slug] || ''
-    }
 </script>
+
 <!-- jQuery-->
 <!--[if !IE]>-->
 <script src="/static/themes/genius_dashboard/js/jquery-2.1.0.min.js"></script>
@@ -44,11 +14,13 @@
 <script src="/static/themes/genius_dashboard/js/jquery-migrate-1.2.1.min.js"></script>
 <!-- /jQuery-->
 
+<!--build:js /static/vendors/ie_fix.js -->
 <!--[if lte IE 8]>
 <script src="/static/vendors/jquery.placeholder.js"></script>
 <script src="/static/vendors/es5-shim.min.js"></script>
 <script src="/static/vendors/json3.min.js"></script>
 <![endif]-->
+<!--endbuild-->
 
 <!--[if lte IE 8]>
 <script>
@@ -69,72 +41,13 @@
 <script src="/static/vendors/jquery-dateFormat.min.js"></script>
 <script src="/static/vendors/responsive_slides/responsiveslides.js"></script>
 
-
+<script src="/static/scripts/get_i18n_string.js"></script>
 <script src="/static/scripts/team.js"></script>
 <script src="/static/scripts/project.js"></script>
 <script src="/static/scripts/data_type.js"></script>
+<script src="/static/scripts/better_ajax.js"></script>
+<script src="/static/scripts/underscore_settings.js"></script>
+<script src="/static/scripts/ga.js"></script>
 
 <!--endbuild-->
-
-
-<script>
-    $.each(['Post', 'Get'], function (index, key) {
-        var newName = 'better' + key
-        var oldName = key.toLowerCase()
-        var hiddenName = '_' + oldName
-        $[hiddenName] = $[oldName]
-        $[oldName] = function () {
-            console && console.log(['Please use', '$.' + newName + '()', 'instead of', '$.' + oldName + '()'].join(' '))
-            return $[hiddenName].apply($, arguments)
-        }
-        $['better' + key] = function () {
-            var deferred = $.Deferred()
-            $[hiddenName].apply($, arguments).done(function (data, textStatus, jqXHR) {
-                if (data.ret !== undefined) {
-                    if (data.ret === 0) {
-                        deferred.resolve(data.val)
-                    } else {
-                        deferred.reject(data.ret)
-                    }
-                } else {
-                    deferred.resolve(data, textStatus, jqXHR)
-                }
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                deferred.reject(jqXHR.status)
-            })
-            return deferred.promise()
-        }
-    })
-
-    _.templateSettings = {
-        evaluate: /{_([\s\S]+?)_}/g,
-        interpolate: /{!([\s\S]+?)!}/g,
-        escape: /{=([\s\S]+?)=}/g
-    }
-</script>
-
-<script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-    ga('create', 'UA-55542465-1', 'auto');
-
-    //Enable Google User-ID feature if is existing user
-    if (window.user) {
-        ga('set', '&uid', window.user.id) // Set the user ID using signed-in user_id.
-    }
-
-    ga('send', 'pageview');
-</script>
-
-
 
