@@ -12,55 +12,53 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
-<script type="text/javascript" src="/static/vendors/recaptcha_ajax.js"></script>
+
 <script>
-    function showRecaptcha(containerId) {
-        Recaptcha.create("6LdOPfwSAAAAALlc4POi3YiUJmKe_rUw6-xO6NsN", containerId,
-            {theme: "white", callback: Recaptcha.focus_response_field});
-    }
+ function showRecaptcha() {
 
-    function getRecaptchaChallenge() {
-        return  Recaptcha.get_challenge()
-    }
+ }
 
-    function getRecaptchaResponse() {
-        return  Recaptcha.get_response()
-    }
+ function getRecaptchaChallenge() {
+     return  ''
+ }
 
-    $(function () {
-        showRecaptcha('recaptcha_div')
-        var errorArea = $('form[name=register]').find('.errorMessage')
-        $('form[name=register]').submit(function (e) {
-            e.preventDefault()
-            errorArea.hide()
+ function getRecaptchaResponse() {
+     return  ''
+ }
 
-            var valid = $.validate(this, {onError: function (dom, validator, index) {
-                errorArea.text(window.getErrorMessage(dom.name, validator))
-                errorArea.show()
-            }})
+ $(function () {
+     showRecaptcha()
+     var errorArea = $('form[name=register]').find('.errorMessage')
+     $('form[name=register]').submit(function (e) {
+         e.preventDefault()
+         errorArea.hide()
 
-            if (!valid) {
-                return
-            }
+         var valid = $.validate(this, {onError: function (dom, validator, index) {
+             errorArea.text(window.getErrorMessage(dom.name, validator))
+             errorArea.show()
+         }})
 
-            var params = $(this).serializeObject()
-            params.password = Base64.encode(params.password)
-            params['challenge'] = getRecaptchaChallenge()
-            params['solution'] = getRecaptchaResponse()
-            $.betterPost("/api/1/user/register", params)
-                .done(function () {
-                    project.goToIntention()
-                }).fail(function (ret) {
-                    errorArea.append(window.getErrorMessageFromErrorCode(ret))
-                    errorArea.show()
-                }).always(function () {
-                    //refresh it for may user submit fail, or submit again with another account
-                    showRecaptcha()
-                })
-        })
+         if (!valid) {
+             return
+         }
+
+         var params = $(this).serializeObject()
+         params.password = Base64.encode(params.password)
+         params['challenge'] = getRecaptchaChallenge()
+         params['solution'] = getRecaptchaResponse()
+         $.betterPost("/api/1/user/register", params)
+                                 .done(function () {
+                                     project.goToIntention()
+                                 }).fail(function (ret) {
+                                     errorArea.append(window.getErrorMessageFromErrorCode(ret))
+                                 }).always(function () {
+                                     //refresh it for may user submit fail, or submit again with another account
+                                     showRecaptcha()
+                                 })
+     })
 
 
-    })
+ })
 
 
 </script>
