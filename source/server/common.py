@@ -88,6 +88,7 @@ class common(f_common):
 
     touclick_public_key = "7ba2ba84-1ebe-4bf5-9fb4-c888612d5204"
     touclick_private_key = "0160ee89-06bb-4535-bb24-3fa517feea9d"
+    touclick_api_version = "v2-2"
 
     sendcloud_api_user = "postmaster@yangfd.sendcloud.org"
     sendcloud_api_key = "p5WEtUrypcHiNWgL"

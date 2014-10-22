@@ -26,6 +26,7 @@ import libfelix.f_storage.f_aws_s3
 import libfelix.f_user
 import libfelix.f_captcha.f_opencaptcha
 import libfelix.f_captcha.f_recaptcha
+#import libfelix.f_captcha.f_touclick
 
 import f_currant
 
