@@ -143,6 +143,9 @@
         if (intentionIds) {
             params.intention = intentionIds
         }
+        else {
+            params.intention = ''
+        }
 
         if (!_.isEmpty(params)) {
             $.betterPost('/api/1/user/edit', params)
