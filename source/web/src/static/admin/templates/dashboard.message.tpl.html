@@ -5,37 +5,44 @@
                 <span class="fa fa-plus-circle"></span>{%$root.i18n('添加消息')%}
             </button>
         </span>
-        <div class="btn-group form-inline pull-right" style="margin-right: 10px">
+        <div class="btn-group form-inline">
+            <select class="form-control" ng-options="type.value as type.name for type in messageTypes" ng-model="currentType"></select>
+        </div>
+
+        <span class="btn-group pull-right" style="margin-left: 10px">
+            <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+            <button ng-hide="noNext" class="btn" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+        </span>
+        <div class="btn-group form-inline pull-right">
             <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
         </div>
     </div>
-    <hr/>
+    <table class="table table-bordered table-striped table-condensed" style="margin-bottom:30px">
+        <colgroup>
+            <col style="width: 200px;">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>{%$root.i18n('标题')%}</th>
+                <th>{%$root.i18n('内容')%}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in list">
+                <td>{%item.title[userLanguage.value]%}</td>
+                <td>{%item.text[userLanguage.value]%}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+    <div class="buttons">
 
-    <div ng-init="getMessages()"></div>
-    <tabset justified="true">
-        <tab ng-repeat="type in messageTypes">
-            <tab-heading>{%type.name%}</tab-heading>
-            <table class="table table-bordered table-striped table-condensed" style="margin-bottom:30px">
-                <colgroup>
-                    <col style="width: 200px;">
-                    <col>
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>{%$root.i18n('标题')%}</th>
-                        <th>{%$root.i18n('内容')%}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in messageList[$index]">
-                        <td>{%item.title[userLanguage.value]%}</td>
-                        <td>{%item.text[userLanguage.value]%}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div ng-show="enums[$index].length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+        <span class="btn-group pull-right" style="margin-right: 10px">
+            <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+            <button ng-hide="noNext" class="btn" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+        </span>
 
-        </tab>
+    </div>
 
-    </tabset>
 </div>
