@@ -52,9 +52,9 @@ $(function () {
                 errorArea.empty()
                 errorArea.append(window.getErrorMessageFromErrorCode(ret))
                 errorArea.show()
-            }).always(function () {
                 //refresh it for may user submit fail, or submit again with another account
                 showRecaptcha('captcha_div')
+            }).always(function () {
             })
     })
 })
