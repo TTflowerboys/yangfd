@@ -141,10 +141,10 @@
                 % from urllib import quote_plus
                 % news = news_list[0]
                 %if ('images' in news) and news.get('images'):
-                    <img class="picture" src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8'))}}&news_id={{news.get('id','')}}"/>
+                    <a href="/news/{{news_list[0].get('id')}}"  style="text-decoration:none;"><img class="picture" src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8'))}}&news_id={{news.get('id','')}}"/></a>
                 %end
                 <div class="content_wrapper">
-                    <h3 class="title">{{_i18n(news_list[0].get('title', ''))}}</h3>
+                    <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><h3 class="title">{{_i18n(news_list[0].get('title', ''))}}</h3></a>
                     <p class="content">
                         {{!_i18n(news_list[0].get('summary', ''))}}
                     </p>

@@ -477,6 +477,8 @@ main {
         .relatedNews {
             max-height:215px;
             display:block;
+            width:100%;
+            border-bottom:1px solid #ccc;
             .newsList();
 
             .title {
@@ -621,6 +623,15 @@ main {
             font-size: 24px;
             color: #333;
             line-height: 1;
+
+            @media @phone {
+                font-size:12px;
+                margin-top:25px;
+                margin-bottom:15px;
+                margin-left:12px;
+
+            }
+
         }
 
         .featuredNews {
@@ -632,6 +643,7 @@ main {
             @media @phone {
                 width:100%;
                 height:auto;
+                margin-top:0;
             }
 
             .picture {
@@ -639,6 +651,11 @@ main {
                 display: inline-block;
                 width: 320px;
                 margin-right:20px;
+
+                @media @phone {
+                    width:100%;
+                }
+
             }
 
             .content_wrapper {
@@ -653,6 +670,7 @@ main {
                     height:auto;
                     width:100%;
                     display:block;
+                    padding:12px;
                 }
 
 
@@ -661,6 +679,13 @@ main {
                     font-size: 18px;
                     color: #666666;
                     font-weight: bold;
+                    text-decoration:none;
+
+                    @media @phone {
+                        font-size:14px;
+                        margin-left:0px;
+                    }
+
                 }
 
                 .content {
@@ -669,7 +694,12 @@ main {
                     color: #666666;
                     max-height: 168px;
                     overflow: hidden;
-                    .limitedLines(7, 24px, #f6f6f6)
+
+                    @media @phone {
+                        border-bottom:1px solid #ccc;
+                        .limitedLines(3, 24px, #f6f6f6);
+
+                    }
                 }
 
                 .detail {
@@ -679,8 +709,8 @@ main {
                     @media @phone {
                         position:static;
                         float:left;
+                        display:none;
                     }
-
                 }
             }
         }
