@@ -49,11 +49,12 @@ $(function () {
             .done(function () {
                 window.project.goToIntention()
             }).fail(function (ret) {
+                errorArea.empty()
                 errorArea.append(window.getErrorMessageFromErrorCode(ret))
                 errorArea.show()
             }).always(function () {
                 //refresh it for may user submit fail, or submit again with another account
-                showRecaptcha()
+                showRecaptcha('captcha_div')
             })
     })
 })
