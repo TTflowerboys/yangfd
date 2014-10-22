@@ -134,30 +134,27 @@
     }
 
     function updateUserTags(budgetId, intentionIds) {
-        var param = {}
+        var params = {}
         if (budgetId) {
-            param.budget = budgetId
-        }
-        else {
-            param.budget = '' //TODO now cannot reset
+            // cause the now cannot set budgetId to '', so if user not set budgetId, don't pass it
+            params.budget = budgetId
         }
 
         if (intentionIds) {
-            param.intention = intentionIds
-        }
-        else {
-            param.intention = ''
+            params.intention = intentionIds
         }
 
-        $.betterPost('/api/1/user/edit', {'budget': budgetId, 'intention': intentionIds})
-            .done(function (data) {
-                window.user = data
-            })
-            .fail(function (ret) {
-            })
-            .always(function () {
+        if (!_.isEmpty(params)) {
+            $.betterPost('/api/1/user/edit', params)
+                .done(function (data) {
+                    window.user = data
+                })
+                .fail(function (ret) {
+                })
+                .always(function () {
 
-            })
+                })
+        }
     }
 
     function commaStringToArray(str) {
@@ -203,31 +200,31 @@
                 params.budget = usedBudget
             }
             var apiCall = $.betterPost('/api/1/property/search', params)
-                .done(function (val) {
-                    var array = val.content
-                    var item = {}
-                    if (!_.isEmpty(array)) {
-                        item = _.first(array)
-                        item.category_budget = getBudgetById(usedBudget)
-                        item.category_intention = getIntentionById(oneIntention)
-                        item.category_intention.description = window.getIntentionDescription(item.category_intention.slug)
-                        responseArray.push(item)
-                    }
-                    else {
-                        item.isEmpty = true
-                        if (usedBudget) {
+                    .done(function (val) {
+                        var array = val.content
+                        var item = {}
+                        if (!_.isEmpty(array)) {
+                            item = _.first(array)
                             item.category_budget = getBudgetById(usedBudget)
-                        }
-                        if (oneIntention) {
                             item.category_intention = getIntentionById(oneIntention)
                             item.category_intention.description = window.getIntentionDescription(item.category_intention.slug)
+                            responseArray.push(item)
                         }
-                        responseArray.push(item)
-                    }
-                })
-                .fail(function (ret) {
+                        else {
+                            item.isEmpty = true
+                            if (usedBudget) {
+                                item.category_budget = getBudgetById(usedBudget)
+                            }
+                            if (oneIntention) {
+                                item.category_intention = getIntentionById(oneIntention)
+                                item.category_intention.description = window.getIntentionDescription(item.category_intention.slug)
+                            }
+                            responseArray.push(item)
+                        }
+                    })
+                    .fail(function (ret) {
 
-                })
+                    })
 
             requestArray.push(apiCall)
         })
@@ -284,9 +281,9 @@
 
     function addIntetionTag(id, value) {
         $intentionTag.find('#list').append('<li class="toggleTag selected" data-id="' + id + '">' +
-            value +
-            '<img alt="" src="/static/images/intention/close.png"/></li>'
-        )
+                                           value +
+                                           '<img alt="" src="/static/images/intention/close.png"/></li>'
+                                          )
     }
 
     function removeIntentionTag(id) {
