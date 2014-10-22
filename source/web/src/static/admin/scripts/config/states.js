@@ -29,6 +29,27 @@ angular.module('app')
             }
         }
 
+        var newsResolve = {
+            api: function (newsApi) {
+                return newsApi
+            }
+        }
+
+        var supportResolve = {
+            api: function (supportApi) {
+                return supportApi
+            }
+        }
+
+        var plotResolve = {
+            api: function (apiFactory) {
+                return apiFactory('plot')
+            },
+            propertyApi: function (propertyApi) {
+                return propertyApi
+            }
+        }
+
         $stateProvider
             .state('dashboard', {
                 url: '/dashboard',
@@ -213,41 +234,25 @@ angular.module('app')
                 url: '/news',
                 templateUrl: '/static/admin/templates/dashboard.operation.news.tpl.html',
                 controller: 'ctrlList',
-                resolve: {
-                    api: function (newsApi) {
-                        return newsApi
-                    }
-                }
+                resolve: newsResolve
             })
             .state('dashboard.operation.news.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.operation.news.edit.tpl.html',
                 controller: 'ctrlNewsEdit',
-                resolve: {
-                    api: function (newsApi) {
-                        return newsApi
-                    }
-                }
+                resolve: newsResolve
             })
             .state('dashboard.operation.news.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.operation.news.create.tpl.html',
                 controller: 'ctrlCreate',
-                resolve: {
-                    api: function (newsApi) {
-                        return newsApi
-                    }
-                }
+                resolve: newsResolve
             })
             .state('dashboard.operation.news.detail', {
                 url: '/:id',
                 templateUrl: '/static/admin/templates/dashboard.operation.news.detail.tpl.html',
                 controller: 'ctrlDetail',
-                resolve: {
-                    api: function (newsApi) {
-                        return newsApi
-                    }
-                }
+                resolve: newsResolve
             })
         /**
          * operation.content
@@ -329,41 +334,25 @@ angular.module('app')
                 url: '/support',
                 templateUrl: '/static/admin/templates/dashboard.support.tpl.html',
                 controller: 'ctrlList',
-                resolve: {
-                    api: function (supportApi) {
-                        return supportApi
-                    }
-                }
+                resolve: supportResolve
             })
             .state('dashboard.support.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.support.create.tpl.html',
                 controller: 'ctrlCreate',
-                resolve: {
-                    api: function (supportApi) {
-                        return supportApi
-                    }
-                }
+                resolve: supportResolve
             })
             .state('dashboard.support.detail', {
                 url: '/:id',
                 templateUrl: '/static/admin/templates/dashboard.support.detail.tpl.html',
                 controller: 'ctrlDetail',
-                resolve: {
-                    api: function (supportApi) {
-                        return supportApi
-                    }
-                }
+                resolve: supportResolve
             })
             .state('dashboard.support.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.support.edit.tpl.html',
                 controller: 'ctrlSupportEdit',
-                resolve: {
-                    api: function (supportApi) {
-                        return supportApi
-                    }
-                }
+                resolve: supportResolve
             })
 
         /**
@@ -448,6 +437,16 @@ angular.module('app')
                         return apiFactory('message')
                     }
                 }
+            })
+            .state('dashboard.sales', {
+                url: '/sales',
+                templateUrl: '/static/admin/templates/dashboard.sales.tpl.html'
+            })
+            .state('dashboard.sales.plot', {
+                url: '/plot',
+                templateUrl: '/static/admin/templates/dashboard.sales.plot.tpl.html',
+                controller: 'ctrlPlotList',
+                resolve: plotResolve
             })
         /**
          * others

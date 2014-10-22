@@ -1,0 +1,49 @@
+<div ui-view>
+    <div class="buttons">
+        <span class="btn-group">
+            <button class="btn" ui-sref=".create">
+                <span class="fa fa-plus-circle"></span>{%$root.i18n('添加物业销售状态')%}
+            </button>
+        </span>
+        <div class="btn-group form-inline">
+            <select class="form-control" ng-options="type.value as type.name for type in messageTypes" ng-model="currentType"></select>
+        </div>
+
+        <div class="btn-group form-inline pull-right">
+            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-condensed" style="margin-bottom:30px">
+        <colgroup>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>{%$root.i18n('名称')%}</th>
+                <th>{%$root.i18n('状态')%}</th>
+                <th>{%$root.i18n('类型')%}</th>
+                <th>{%$root.i18n('卧室数')%}</th>
+                <th>{%$root.i18n('浴室数')%}</th>
+                <th>{%$root.i18n('面积')%}</th>
+                <th>{%$root.i18n('价格')%}</th>
+                <th>{%$root.i18n('楼层')%}</th>
+                <th>{%$root.i18n('备注')%}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in list">
+                <td>{%item.name%}</td>
+                <td>{%item.status%}</td>
+                <td>
+                    <div ng-repeat="t in item.investment_type">{%t.value%}</div>
+                </td>
+                <td>{%item.bedroom_count%}</td>
+                <td>{%item.bathroom_count%}</td>
+                <td>{%item.space.value%}{%item.space.unit%}</td>
+                <td>{%item.total_price.value%}{%item.total_price.unit%}</td>
+                <td>{%item.floor%}</td>
+                <td>{%item.description||''%}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+</div>
