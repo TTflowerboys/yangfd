@@ -216,7 +216,7 @@
 
                                 <!--<div type-i18n="item.reality_images"></div>-->
                                 <!--<edit-images ng-model="item.reality_images[userLanguage.value]" width-limit="1920" ratio="2"-->
-                                    <!--thumbnail-size="800,400" text="{%$root.i18n('添加图片')%}"></edit-images>-->
+                                <!--thumbnail-size="800,400" text="{%$root.i18n('添加图片')%}"></edit-images>-->
                             </div>
                         </div>
                     </div>
@@ -228,7 +228,7 @@
                                 <div edit-i18n-images="item.surroundings_images"></div>
                                 <!--<div type-i18n="item.surroundings_images"></div>-->
                                 <!--<edit-images ng-model="item.surroundings_images[userLanguage.value]" width-limit="1920" ratio="2"-->
-                                    <!--thumbnail-size="800,400" text="{%$root.i18n('添加图片')%}"></edit-images>-->
+                                <!--thumbnail-size="800,400" text="{%$root.i18n('添加图片')%}"></edit-images>-->
                             </div>
                         </div>
                     </div>
@@ -416,7 +416,7 @@
 
                                 <!--<div type-i18n="item.floor_plan"></div>-->
                                 <!--<edit-images text="{%$root.i18n('添加图片')%}" ng-model="item.floor_plan[userLanguage.value]" width-limit="1920"-->
-                                    <!--ratio="1" thumbnail-size="800,800"></edit-images>-->
+                                <!--ratio="1" thumbnail-size="800,800"></edit-images>-->
                             </div>
                         </div>
                     </div>
@@ -610,7 +610,7 @@
 
                                 <!--<div type-i18n="item.effect_pictures"></div>-->
                                 <!--<edit-images ng-model="item.effect_pictures[userLanguage.value]" width-limit="1920" ratio="2"-->
-                                    <!--text="{%$root.i18n('添加图片')%}" thumbnail-size="800,400"></edit-images>-->
+                                <!--text="{%$root.i18n('添加图片')%}" thumbnail-size="800,400"></edit-images>-->
                             </div>
                         </div>
                     </div>
@@ -623,7 +623,7 @@
 
                                 <!--<div type-i18n="item.indoor_sample_room_picture"></div>-->
                                 <!--<edit-images ng-model="item.indoor_sample_room_picture[userLanguage.value]" width-limit="1920" ratio="2"-->
-                                    <!--text="{%$root.i18n('添加图片')%}" thumbnail-size="800,400"></edit-images>-->
+                                <!--text="{%$root.i18n('添加图片')%}" thumbnail-size="800,400"></edit-images>-->
                             </div>
                         </div>
                     </div>
@@ -636,7 +636,7 @@
 
                                 <!--<div type-i18n="item.planning_map"></div>-->
                                 <!--<edit-images ng-model="item.planning_map[userLanguage.value]" width-limit="1920" ratio="2"-->
-                                    <!--text="{%$root.i18n('添加图片')%}" thumbnail-size="800,400"></edit-images>-->
+                                <!--text="{%$root.i18n('添加图片')%}" thumbnail-size="800,400"></edit-images>-->
                             </div>
                         </div>
                     </div>
@@ -657,6 +657,18 @@
 
                             <div class="controls">
                                 <edit-files ng-model="item.attachment" text="{%$root.i18n('上传附件')%}"></edit-files>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{%$root.i18n('销售备注')%}" has-permission="admin,jr_admin,sales,jr_sales">
+                    <div class="row">
+                        <div class="form-group  col-sm-3">
+                            <label class="control-label">{%$root.i18n('销售备注')%}</label>
+
+                            <div class="controls">
+                                <textarea ng-model="item.sales_comment" class="form-control" rows="10"></textarea>
+
                             </div>
                         </div>
                     </div>
