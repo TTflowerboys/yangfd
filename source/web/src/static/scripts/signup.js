@@ -5,6 +5,7 @@ $(function () {
         $.betterPost('/api/1/captcha/generate', {})
             .done(function (data) {
                 if (data) {
+                    $('#' + containerId).empty()
                     $('#' + containerId).append(data)
                 }
             })

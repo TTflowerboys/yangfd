@@ -32,6 +32,7 @@ body {
 
         }
     }
+
     input[name=phone] {
         max-width: 270px;
     }
@@ -41,13 +42,13 @@ body {
     }
 
     .captchaCode {
+        max-width:100%;
+
         > a  > img {
             display: inline-block;
             vertical-align: middle;
             width: 100px;
-            @media @phone {
-                width:~"calc(35% - 12px)";
-            }
+
         }
 
         > input[name=code] {
@@ -61,7 +62,7 @@ body {
 
             width: 200px;
             @media @phone {
-                width:~"calc(65% - 36px)";
+                width:~"calc(100% - 104px)";
             }
         }
     }
@@ -71,14 +72,7 @@ body {
         font-size: 12px;
         color: #666666;
     }
-    .captchaCode {
-        margin-top: 16px;
-        max-height: 130px;
-        @media @phone {
-            max-width:270px;
-            width:270px;
-        }
-    }
+
     .terms {
         margin-top: 20px;
         font-size: 14px;
