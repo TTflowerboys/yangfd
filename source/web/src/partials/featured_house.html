@@ -81,29 +81,26 @@
                         %else :
                             <img src="/static/images/placeholder/property.jpg"/>
                         %end
-
                         <div class="imageText">
-                            <table class="left">
-                                <tr>
-                                    <td>
-                                        <label class=name>{{property.get('name', '')}}</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class=size>
-                                            <!--@@include=get_size.html -->
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="left">
+                                <p class=name>{{property.get('name', '')}}</p>
+                                <p class=size>
+                                    <!--@@include=get_size.html -->
+                                </p>
+                            </div>
                             <div class="right">
-                                <label class=price>
-                                    <!--@@include=get_unit_price.html-->
-                                </label>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label class=price>
+                                                <!--@@include=get_unit_price.html-->
+                                            </label>
+                                        </td>
+                                    </tr>
+
+                                </table>
                             </div>
                         </div>
-
                     </div>
                     <div class="textPart">
                         <ul class=properties>
@@ -127,20 +124,27 @@
                                     <span>{{property.get('street', '')}} </span></li>
                             %end
                         </ul>
-                        <p class=estimate>
-                            %if (property.get('annual_return_estimated')):
-                                <span class=label>{{!_('预估总<br/>年化收益率')}}</span>
-                                <span class=value>
-                                    <strong>{{ property.get('annual_return_estimated')}}</strong>
-                                </span>
-                            %elif (property.get('annual_cash_return_estimated')):
-                                <span class=label>{{!_('预估现金<br/>年化收益率')}}</span>
-                                <span class=value>
-                                    <strong>{{ property.get('annual_cash_return_estimated')}}</strong>
-                                </span>
-                            %end
-                        </p>
-                        in                    </div>
+                        <div class=estimate>
+                            <table>
+                                <tr>
+                                    <td>
+                                        %if (property.get('annual_return_estimated')):
+                                            <span class=label>{{!_('预估总<br/>年化收益率')}}</span>
+                                            <span class=value>
+                                                <strong>{{ property.get('annual_return_estimated')}}</strong>
+                                            </span>
+                                        %elif (property.get('annual_cash_return_estimated')):
+                                            <span class=label>{{!_('预估现金<br/>年化收益率')}}</span>
+                                            <span class=value>
+                                                <strong>{{ property.get('annual_cash_return_estimated')}}</strong>
+                                            </span>
+                                        %end
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
 
 
                     %if property.get('related_news'):
