@@ -4,7 +4,10 @@ $(function () {
 
         $.betterPost('/api/1/captcha/generate', {})
             .done(function (data) {
-
+                if (data) {
+                    $('#' + containerId).empty()
+                    $('#' + containerId).append(data)
+                }
             })
             .fail(function (ret) {
             })
@@ -15,12 +18,11 @@ $(function () {
     }
 
     function getRecaptchaChallenge() {
-
-        return  ''
+        return $('form[name=register]').find('input[name=challenge]').val()
     }
 
     function getRecaptchaResponse() {
-        return  ''
+        return $('form[name=register]').find('input[name=code]').val()
     }
 
 
@@ -47,10 +49,12 @@ $(function () {
             .done(function () {
                 window.project.goToIntention()
             }).fail(function (ret) {
+                errorArea.empty()
                 errorArea.append(window.getErrorMessageFromErrorCode(ret))
+                errorArea.show()
             }).always(function () {
                 //refresh it for may user submit fail, or submit again with another account
-                showRecaptcha()
+                showRecaptcha('captcha_div')
             })
     })
 })

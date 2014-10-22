@@ -123,7 +123,7 @@ def register(params):
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
 
-    f_app.captcha.validate(params["solution"], params["challenge"], request.remote_route[-1])
+    f_app.captcha.validate(params["solution"], params["challenge"])
 
     user_id = f_app.user.add(params)
 

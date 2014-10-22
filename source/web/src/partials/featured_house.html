@@ -83,13 +83,20 @@
                         %end
 
                         <div class="imageText">
-                            <div class="left">
-                                <label class=name>{{property.get('name', '')}}</label>
-
-                                <p class=size>
-                                    <!--@@include=get_size.html -->
-                                </p>
-                            </div>
+                            <table class="left">
+                                <tr>
+                                    <td>
+                                        <label class=name>{{property.get('name', '')}}</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class=size>
+                                            <!--@@include=get_size.html -->
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
                             <div class="right">
                                 <label class=price>
                                     <!--@@include=get_unit_price.html-->
@@ -133,7 +140,7 @@
                                 </span>
                             %end
                         </p>
-                    </div>
+                        in                    </div>
 
 
                     %if property.get('related_news'):
