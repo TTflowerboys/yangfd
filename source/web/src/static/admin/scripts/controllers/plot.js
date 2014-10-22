@@ -18,7 +18,7 @@
         var params = {
             per_page: $scope.perPage
         }
-        propertyApi.search().success()
+//        propertyApi.search().success()
 
         api.search({ params: params }).success(onGetList)
 
