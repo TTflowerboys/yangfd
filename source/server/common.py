@@ -33,6 +33,8 @@ class common(f_common):
     memcache_server = ["172.20.1.1:11211"]
     memcache_lib = "memcache"
 
+    route_log = True
+
     blog_id = "53f839246b80992f831b2269"
 
     user_login_type = "phone"
