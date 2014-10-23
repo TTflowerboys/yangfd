@@ -569,6 +569,11 @@ main {
         margin-right: auto;
         overflow: hidden;
 
+        @media @phone {
+            width:100%;
+        }
+
+
         .loadIndicator {
             margin-top: 60px;
             margin-bottom: 20px;
@@ -577,33 +582,59 @@ main {
             display: block;
         }
 
+        .houseCard_header {
+            margin-top: 45px;
+            margin-bottom: 20px;
+            height:90px;
+            overflow:hidden;
+
+            @media @phone {
+                margin-top:32px;
+                height:64px;
+                width:100%;
+                margin-bottom:12px;
+                float:left;
+            }
+
+            img {
+                height: 22px;
+                vertical-align: middle;
+            }
+            h2 {
+                display: inline-block;
+                font-size: 16px;
+                color: #333;
+                margin-left: 12px;
+
+                @media @phone {
+                    font-size:12px;
+                }
+
+            }
+
+            a {
+                text-decoration: none;
+                color: #e60012;
+                margin-left: 20px;
+
+                @media @phone {
+                    float:right;
+                    font-size:12px;
+                    margin-left:auto;
+                    margin-right:12px;
+                }
+            }
+        }
+
         .houseCard {
             display: inline-block;
             width: 860px;
 
             @media @phone {
+                display:none;
                 width:100%;
             }
-            &_header {
-                margin-top: 45px;
-                margin-bottom: 20px;
-                img {
-                    height: 22px;
-                    vertical-align: middle;
-                }
-                h2 {
-                    display: inline-block;
-                    font-size: 16px;
-                    color: #333;
-                    margin-left: 12px;
-                }
 
-                a {
-                    text-decoration: none;
-                    color: #e60012;
-                    margin-left: 20px;
-                }
-            }
         }
 
         .tagDetail {
@@ -616,11 +647,28 @@ main {
             border: 1px solid #e0c1c4;
             padding: 33px 16px 16px 16px;
 
+            @media @phone {
+                float:left;
+                display:block;
+                border: 0px;
+                width:100%;
+                height:auto;
+                margin-left:0;
+                padding-top:10px;
+            }
+
+
             h3 {
                 font-size: 16px;
                 color: #e60012;
                 line-height: 1;
                 margin-bottom: 34px;
+
+                @media @phone {
+                    font-size:10px;
+                    margin-bottom:20px;
+                }
+
             }
 
             p {
