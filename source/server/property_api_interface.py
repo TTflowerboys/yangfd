@@ -172,6 +172,9 @@ property_params = dict(
     )),
     # Params for sales
     sales_comment=str,
+    # rental guarantee fields
+    rental_guarantee_term=str,
+    rental_guarantee_rate=float,
 )
 
 
