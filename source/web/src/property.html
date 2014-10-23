@@ -146,6 +146,7 @@
             </ul>
         </div>
         <div id="propertyDetails_description" class="meta">
+            % if property_type_slug != 'new_property' and property_type_slug != 'student_housing':
             <ul class="numbers">
                 <li>
                     {{_('房屋面积')}}
@@ -187,6 +188,7 @@
                 % end
             </ul>
             <hr/>
+            %end
             <table class="other">
                 <colgroup>
                     <col class="col-name">
@@ -241,10 +243,13 @@
                             {{_('产权地址')}}
                         </td>
                         <td class="value">
+                            {{property.get('address')}}
                             <a target="_blank" href="//maps.google.com/?q={{ quote_plus( property.get('address','').encode('utf-8') ) }}">
-                                {{property.get('address')}}
+                                {{_(' (查看地图)')}}
                             </a>
                         </td>
+                    </tr>
+                    <tr>
                         <td class="name">
                             <i>
                                 <img src="/static/images/property_details/icon-map.png" alt=""/>
@@ -255,6 +260,7 @@
                             {{property.get('street','')}}
                         </td>
                     </tr>
+                    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
                     <tr>
                         <td colspan="1" class="name">
                             <i>
@@ -268,8 +274,6 @@
                             <span class="toggleTag selected">
                                 {{type.get('bedroom_count',0)}}{{_('室')}}
                                 {{type.get('living_room_count',0)}}{{_('厅')}}
-                                {{type.get('kitchen_count',0)}}{{_('厨')}}
-                                {{type.get('bathroom_count',0)}}{{_('卫')}}
                                 % if 'value' in type.get('building_area',{}) and 'unit' in type.get('building_area',{}):
                                 (
                                 {{type.get('building_area',{}).get('value')}}
@@ -283,6 +287,7 @@
 
                         </td>
                     </tr>
+                    % end
                 </tbody>
             </table>
         </div>
@@ -389,25 +394,25 @@
                         <col style="width: 16em;">
                         <col>
                     </colgroup>
-                    % if 'opening_time' in property:
+                    % if property.get('opening_time'):
                     <tr>
                         <td>{{_('开盘时间')}}</td>
                         <td>{{property.get('opening_time','')}}</td>
                     </tr>
                     % end
-                    % if 'building_type' in property:
+                    % if property.get('building_type'):
                     <tr>
                         <td>{{_('建筑类型')}}</td>
                         <td>{{property.get('building_type','')}}</td>
                     </tr>
                     % end
-                    % if 'property_management_type' in property:
+                    % if property.get('property_management_type'):
                     <tr>
                         <td>{{_('物业类型')}}</td>
                         <td>{{property.get('property_management_type','')}}</td>
                     </tr>
                     % end
-                    % if 'building_area' in property:
+                    % if property.get('building_area'):
                     <tr>
                         <td>{{_('建筑面积')}}</td>
                         <td>
@@ -419,13 +424,13 @@
                         </td>
                     </tr>
                     % end
-                    % if 'plot_ratio' in property:
+                    % if property.get('plot_ratio'):
                     <tr>
                         <td>{{_('容积率间')}}</td>
                         <td>{{property.get('plot_ratio','')}}</td>
                     </tr>
                     % end
-                    % if 'planning_area' in property:
+                    % if property.get('planning_area'):
                     <tr>
                         <td>{{_('规划面积')}}</td>
                         <td>
@@ -437,31 +442,31 @@
                         </td>
                     </tr>
                     % end
-                    % if 'greening_rate' in property:
+                    % if property.get('greening_rate'):
                     <tr>
                         <td>{{_('绿化率')}}</td>
                         <td>{{property.get('greening_rate','')}}</td>
                     </tr>
                     % end
-                    % if 'parking_space_count' in property:
+                    % if property.get('parking_space_count'):
                     <tr>
                         <td>{{_('车位数')}}</td>
                         <td>{{property.get('parking_space_count','')}}</td>
                     </tr>
                     % end
-                    % if 'planning_household_count' in property:
+                    % if property.get('planning_household_count'):
                     <tr>
                         <td>{{_('规划户数')}}</td>
                         <td>{{property.get('planning_household_count','')}}</td>
                     </tr>
                     % end
-                    % if 'developer' in property:
+                    % if property.get('developer'):
                     <tr>
                         <td>{{_('开发商')}}</td>
                         <td>{{property.get('developer','')}}</td>
                     </tr>
                     % end
-                    % if 'property_management_company' in property:
+                    % if property.get('property_management_company'):
                     <tr>
                         <td>{{_('物业公司')}}</td>
                         <td>{{property.get('property_management_company','')}}</td>
@@ -629,7 +634,7 @@
                     <span class="percentage emphasized"><strong>
                         {{property.get('annual_return_estimated')}}
                     </strong></span>
-                    <span class="text">{{!_('预估总<br/>年化收益率')}}</span>
+                    <span class="text">{{!_('预计总<br/>年化收益率')}}</span>
                 </li>
                 % end
                 % if property.get('annual_cash_return_estimated'):
@@ -637,7 +642,7 @@
                     <span class="percentage emphasized"><strong>
                         {{property.get('annual_cash_return_estimated')}}
                     </strong></span>
-                    <span class="text">{{!_('预估现金<br/>年化收益率')}}</span>
+                    <span class="text">{{!_('预计租金<br/>年化收益率')}}</span>
                 </li>
                 % end
             </ul>
@@ -690,7 +695,7 @@
             >
             <input name="property_id" type="hidden" value="{{property.get('id','')}}"/>
             <div class="row">
-                <input name="nickname" type="text" placeholder="您的姓名" data-validator="trim, required"
+                <input name="nickname" type="text" placeholder="{{_('您的姓名')}}" data-validator="trim, required"
                     value="{{ user.get('nickname') if user else ''}}"/>
             </div>
             <div class="row">
@@ -714,11 +719,11 @@
                     </option>
                     %end
                 </select>
-                <input name="phone" type="text" placeholder="您的电话" data-validator="trim, required"
+                <input name="phone" type="text" placeholder="{{_('您的电话')}}" data-validator="trim, required"
                     value="{{user.get('phone','') if user else ''}}"/>
             </div>
             <div class="row">
-                <input name="email" type="text" placeholder="您的邮箱" data-validator="trim, required, email"
+                <input name="email" type="text" placeholder="{{_('您的邮箱')}}" data-validator="trim, required, email"
                     value="{{user.get('email','') if user else ''}}"/>
             </div>
             <div class="row">
