@@ -161,9 +161,17 @@ main {
         width: @max-width;
         margin: 0 auto;
 
+        @media @phone {
+            width:auto;
+            margin:12px;
+
+        }
+
+
         &_wrapper {
             background: #f6f6f6;
             width: 100%;
+            overflow:hidden;
         }
 
         .title {
@@ -174,15 +182,34 @@ main {
             line-height: 1;
             color: #333;
             border-bottom: 1px solid #ccc;
+
+            @media @phone {
+                font-size:12px;
+                padding-top:12px;
+                padding-bottom:12px;
+            }
         }
 
         .budget {
             margin-top: 40px;
             margin-bottom: 50px;
 
+            @media @phone {
+                margin-top:12px;
+                margin-bottom:12px;
+            }
+
             .hint {
                 font-size: 16px;
                 color: #333;
+
+                @media @phone {
+                    display:block;
+                    font-size:12px;
+                    color:#b6b6b6;
+                    margin-bottom:20px;
+                }
+
             }
         }
 
@@ -191,6 +218,13 @@ main {
             .hint {
                 font-size: 16px;
                 color: #333;
+
+                @media @phone {
+                    display:block;
+                    font-size:12px;
+                    color:#b6b6b6;
+                    margin-bottom:20px;
+                }
             }
 
             ul {
@@ -207,6 +241,11 @@ main {
             .add {
                 padding: 1px 10px;
                 margin-top: -2px;
+                @media @phone {
+                    font-size:12px;
+                    height:24px;
+                }
+
             }
 
             .suggestionTip {
@@ -253,44 +292,68 @@ main {
         .row { .clearfix(); position: relative;
                width: @max-width;
                margin: 0 auto;
+
+               @media @phone {
+                   width:100%;
+               }
+
                &.budget {
                    @height: 40px;
                    height: @height; line-height: @height;
                    margin: @height 0;
                }
-               &.intention {
-                   > ul { .clearfix(); text-align: center;
-                          li { float: left; width: 16.66%; height: 110px; position: relative; line-height: 1;
-                               > label { height: 60px; display: block; cursor: pointer; }
-                               img.grey { display: inline-block; }
-                               img.red { display: none; }
-                               color: #999;
-                               &.selected {
-                                   img.grey { display: none; }
-                                   img.red { display: inline-block; }
-                                   color: #e60012;
-                               }
-                               &:after {
-                                   .arrow(@direction: up; @fg:#222; @width: 20px;);
-                                   display: none;
-                                   content: ' ';
-                                   position: absolute; bottom: 0; left: 50%;
-                               }
-                               &.selectedTab:after {
-                                   display: block;
-                               }
-                             }
-                        }
-               }
                > label { width: 88px; font-size: 16px; position: absolute; display: none; }
-               > .controls { margin-left: 88px;
-                             input { display: none; }
-                           }
-             }
+               > .controls {
+                   .clearfix(); text-align: center;
+                   li { float: left; width: 16.66%; height: 110px; position: relative; line-height: 1;
+                        @media @phone {
+                            width:82px;
+                        }
+
+                        > label { height: 60px; display: block; cursor: pointer; }
+                        img.grey { display: inline-block; }
+                        img.red { display: none; }
+                        color: #999;
+                        &.selected {
+                            img.grey { display: none; }
+                            img.red { display: inline-block; }
+                            color: #e60012;
+                        }
+                        &:after {
+                            .arrow(@direction: up; @fg:#222; @width: 20px;);
+                            display: none;
+                            content: ' ';
+                            position: absolute; bottom: 0; left: 50%;
+
+                            @media @phone {
+                                display:none;
+                            }
+                        }
+                        &.selectedTab:after {
+                            display: block;
+
+                            @media @phone {
+                                display:none;
+                            }
+
+                        }
+                        margin-left: 88px;
+                        @media @phone {
+                            margin-left:12px;
+                            margin-right:12px;
+                        }
+                        input { display: none; }
+                      }
+                   }
+               }
 
         .details {
             width: @max-width;
             margin: 0 auto;
+            @media @phone {
+                display:none;
+            }
+
             > div { @height: 270px; line-height: @height; height: @height; text-align: center;
                     background: #222; position: relative; display: none;
                     img { vertical-align: middle; }
@@ -311,6 +374,11 @@ main {
             display: block;
             margin: 28px auto 28px auto;
             width: 60px;
+
+            @media @phone {
+                margin-bottom:0;
+                margin-top:auto;
+            }
         }
     }
 
@@ -431,9 +499,7 @@ main {
                 height:auto;
             }
 
-
             .description {
-                // margin-right: 340px;
                 height: 240px;
                 width: 520px;
                 display: inline-block;
