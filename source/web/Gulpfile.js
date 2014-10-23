@@ -150,6 +150,7 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
         .pipe(preprocess({context: {ENV: 'production'}}))
         .pipe(publicHtmlFilter)
         .pipe(usemin({
+            //TODO: Rev images
             css: ['concat', rev()],
             js: [ footer(';;;'), 'concat', rev()]
         }))

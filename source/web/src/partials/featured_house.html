@@ -27,10 +27,10 @@
 
                             <p class=estimate>
                                 %if (property.get('annual_return_estimated')):
-                                    <span class=label>{{!_('预估总<br/>年化收益率')}}</span><span class=value>
+                                    <span class=label>{{!_('预计总年化收益率')}}</span><span class=value>
                                         <strong>{{ property.get('annual_return_estimated')}}</strong></span>
                                 %elif (property.get('annual_cash_return_estimated')):
-                                        <span class=label>{{!_('预估现金<br/>年化收益率')}}</span><span class=value>
+                                        <span class=label>{{!_('预计租金年化收益率')}}</span><span class=value>
                                             <strong>{{
                                                 property.get('annual_cash_return_estimated')}}</strong></span>
                                 %end
@@ -129,12 +129,12 @@
                                 <tr>
                                     <td>
                                         %if (property.get('annual_return_estimated')):
-                                            <span class=label>{{!_('预估总<br/>年化收益率')}}</span>
+                                            <span class=label>{{!_('预计总年化收益率')}}</span>
                                             <span class=value>
                                                 <strong>{{ property.get('annual_return_estimated')}}</strong>
                                             </span>
                                         %elif (property.get('annual_cash_return_estimated')):
-                                            <span class=label>{{!_('预估现金<br/>年化收益率')}}</span>
+                                            <span class=label>{{!_('预计租金年化收益率')}}</span>
                                             <span class=value>
                                                 <strong>{{ property.get('annual_cash_return_estimated')}}</strong>
                                             </span>

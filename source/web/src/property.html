@@ -629,7 +629,7 @@
                     <span class="percentage emphasized"><strong>
                         {{property.get('annual_return_estimated')}}
                     </strong></span>
-                    <span class="text">{{!_('预估总<br/>年化收益率')}}</span>
+                    <span class="text">{{!_('预计总<br/>年化收益率')}}</span>
                 </li>
                 % end
                 % if property.get('annual_cash_return_estimated'):
@@ -637,7 +637,7 @@
                     <span class="percentage emphasized"><strong>
                         {{property.get('annual_cash_return_estimated')}}
                     </strong></span>
-                    <span class="text">{{!_('预估现金<br/>年化收益率')}}</span>
+                    <span class="text">{{!_('预计租金<br/>年化收益率')}}</span>
                 </li>
                 % end
             </ul>
@@ -690,7 +690,7 @@
             >
             <input name="property_id" type="hidden" value="{{property.get('id','')}}"/>
             <div class="row">
-                <input name="nickname" type="text" placeholder="您的姓名" data-validator="trim, required"
+                <input name="nickname" type="text" placeholder="{{_('您的姓名')}}" data-validator="trim, required"
                     value="{{ user.get('nickname') if user else ''}}"/>
             </div>
             <div class="row">
@@ -714,11 +714,11 @@
                     </option>
                     %end
                 </select>
-                <input name="phone" type="text" placeholder="您的电话" data-validator="trim, required"
+                <input name="phone" type="text" placeholder="{{_('您的电话')}}" data-validator="trim, required"
                     value="{{user.get('phone','') if user else ''}}"/>
             </div>
             <div class="row">
-                <input name="email" type="text" placeholder="您的邮箱" data-validator="trim, required, email"
+                <input name="email" type="text" placeholder="{{_('您的邮箱')}}" data-validator="trim, required, email"
                     value="{{user.get('email','') if user else ''}}"/>
             </div>
             <div class="row">
