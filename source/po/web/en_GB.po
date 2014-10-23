@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2014-10-23 11:26+0800\n"
-"PO-Revision-Date: 2014-10-23 12:13+0800\n"
+"PO-Revision-Date: 2014-10-23 12:43+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -535,7 +535,7 @@ msgstr "Annualized Total<br/>Estimated Return"
 
 #: ../web/src/property.html:640 ../web/src/partials/i18n.html:66
 msgid "预计租金<br/>年化收益率"
-msgstr "Annualized Estimated<br/>Cash-on-Cash Return"
+msgstr "Annualized Estimated<br/>Rental Return"
 
 #: ../web/src/property.html:652
 msgid "已经收藏过了"
@@ -2098,7 +2098,7 @@ msgstr "Add Highlight"
 
 #: ../web/src/partials/i18n_admin.html:170
 msgid "预计租金年化回报率"
-msgstr "Annualized Estimated Cash-on-Cash Return"
+msgstr "Annualized Estimated Rental Return"
 
 #: ../web/src/partials/i18n_admin.html:173
 msgid "地图位置"
