@@ -452,7 +452,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class=" col-sm-4">
+                            <label class="control-label">{%$root.i18n('完工时间')%}</label>
 
+                            <div class="controls">
+                                <input type="text" class="form-control" type-i18n="item.completion_time"
+                                       ng-model="item.completion_time[userLanguage.value]"/>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('建筑面积')%}</label>
@@ -653,7 +662,7 @@
                         </div>
                     </div>
                 </tab>
-                <tab heading="{%$root.i18n('销售备注')%}" has-permission="admin,jr_admin,sales,jr_sales">
+                <!--<tab heading="{%$root.i18n('销售备注')%}" has-permission="admin,jr_admin,sales,jr_sales">
                     <div class="row">
                         <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('销售备注')%}</label>
@@ -663,7 +672,7 @@
                             </div>
                         </div>
                     </div>
-                </tab>
+                </tab>-->
             </tabset>
         </div>
         <input ng-if="!draftId" type="submit" class="btn btn-primary" value="{%$root.i18n('保存更改')%}">
