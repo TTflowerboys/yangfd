@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2014-10-23 15:48+0800\n"
-"PO-Revision-Date: 2014-10-23 15:49+0800\n"
+"PO-Revision-Date: 2014-10-23 15:56+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -2589,7 +2589,7 @@ msgstr "Phone number is your login credential, please enter real phone number"
 
 #: ../web/src/partials/signup_form.html:18
 msgid "我同意"
-msgstr "Agree"
+msgstr "I Agree "
 
 #: ../web/src/partials/signup_form.html:18
 msgid "会员服务须知"
