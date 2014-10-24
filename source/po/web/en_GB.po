@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2014-10-24 18:57+0800\n"
-"PO-Revision-Date: 2014-10-24 19:00+0800\n"
+"PO-Revision-Date: 2014-10-24 19:20+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -2489,18 +2489,23 @@ msgstr "Enter your budget, country or region"
 #: ../web/src/partials/intention_processCards.html:19
 msgid "按“现金流保障”标签筛选出合适出租的房产"
 msgstr ""
+"Filter out the proper rental property by the \" cash flow security\" tag"
 
 #: ../web/src/partials/intention_processCards.html:28
 msgid "提交投资意向，获取详细街区投资分析信息，包括附近就业，流动人口等"
 msgstr ""
+"Submit the intentions of investment, get information about the investment "
+"analysis of detailed blocks, including the employment and migrants nearby"
 
 #: ../web/src/partials/intention_processCards.html:37
 msgid "在置业顾问的协助下完成房产购买"
-msgstr ""
+msgstr "Complete house purchase with the assistance of property consultant"
 
 #: ../web/src/partials/intention_processCards.html:46
 msgid "由平台英国合作方提供售后出租管理服务，按季度给您打入租金"
 msgstr ""
+"Provide after-sales rental management services by the platform of UK "
+"partners, pay the rental to you quarterly"
 
 #: ../web/src/partials/intention_processCards.html:62
 msgid "填写子女留学学校/国家/城市/以及家庭预算"
