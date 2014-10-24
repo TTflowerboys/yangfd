@@ -47,6 +47,12 @@ angular.module('app')
             }
         }
 
+        var housingResolve = {
+            api: function (apiFactory) {
+                return apiFactory('housing')
+            }
+        }
+
         $stateProvider
             .state('dashboard', {
                 url: '/dashboard',
@@ -444,6 +450,24 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.sales.plot.tpl.html',
                 controller: 'ctrlPlotList',
                 resolve: plotResolve
+            })
+            .state('dashboard.sales.plot.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.sales.plot.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: plotResolve
+            })
+            .state('dashboard.sales.plot.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.sales.plot.edit.tpl.html',
+                controller: 'ctrlEdit',
+                resolve: plotResolve
+            })
+            .state('dashboard.sales.housing', {
+                url: '/housing',
+                templateUrl: '/static/admin/templates/dashboard.sales.housing.tpl.html',
+                controller: 'ctrlHousingList',
+                resolve: housingResolve
             })
         /**
          * others
