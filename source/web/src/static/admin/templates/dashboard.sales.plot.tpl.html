@@ -6,7 +6,9 @@
             </button>
         </span>
         <div class="btn-group form-inline">
-            <select class="form-control" ng-options="type.value as type.name for type in messageTypes" ng-model="currentType"></select>
+            <select class="form-control" ng-options="p.id as p.name[userLanguage.value] for p in propertyList" ng-model="item.propertyId" ng-change="onPropertyChange()">
+                <option value="">-- {%$root.i18n('请选择')%} --</option>
+            </select>
         </div>
 
         <div class="btn-group form-inline pull-right">
