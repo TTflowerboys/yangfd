@@ -43,7 +43,7 @@
                         <ul class="rslides">
                             % for image in property.get(name):
                             <li>
-                                <img src="/image/fetch?link={{quote_plus(image.encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="800" height="480"/>
+                                <img src="/image/fetch?link={{quote_plus(image.encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="800" height="533"/>
                             </li>
                             % end
                         </ul>
@@ -58,7 +58,7 @@
                 % lat = property.get('latitude')
                 <a href="https://www.google.com/maps/?q={{long}},{{lat}}&z=14" target="_blank"
                     class="item" data-tab-name="map">
-                    <img id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;" width="800" height="480"/>
+                    <img id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;" width="800" height="533"/>
                 </a>
                 % end
 
@@ -68,8 +68,8 @@
                 <ul>
                     % if property.get('reality_images', []) and len(property.get('reality_images', [])):
                     <li data-tab="reality_images">
-                        <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}"
-                            alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                            alt="" width="200" height="133"/>
                         <span class="text_wrapper"> <span class="text">{{_('实景图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -77,8 +77,8 @@
 
                     % if property.get('surroundings_images'):
                     <li data-tab="surroundings_images">
-                        <img src="/image/fetch?link={{quote_plus(property.get('surroundings_images')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}"
-                            alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('surroundings_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                            alt="" width="200" height="133"/>
                         <span class="text_wrapper"> <span class="text">{{_('设施图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -86,7 +86,8 @@
 
                     % if property.get('floor_plan'):
                     <li data-tab="floor_plan">
-                        <img src="/image/fetch?link={{quote_plus(property.get('floor_plan')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('floor_plan')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                             alt="" width="200" height="133"/>
                         <span class="text_wrapper"> <span class="text">{{_('户型图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -94,7 +95,8 @@
 
                     % if property.get('effect_pictures'):
                     <li data-tab="effect_pictures">
-                        <img src="/image/fetch?link={{quote_plus(property.get('effect_pictures')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('effect_pictures')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                             alt="" width="200" height="133"/>
                         <span class="text_wrapper"> <span class="text">{{_('效果图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -102,7 +104,8 @@
 
                     % if property.get('indoor_sample_room_picture'):
                     <li data-tab="indoor_sample_room_picture">
-                        <img src="/image/fetch?link={{quote_plus(property.get('indoor_sample_room_picture')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('indoor_sample_room_picture')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                             alt="" width="200" height="133"/>
                         <span class="text_wrapper"> <span class="text">{{_('样板间图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -110,7 +113,8 @@
 
                     % if property.get('planning_map'):
                     <li data-tab="planning_map">
-                        <img src="/image/fetch?link={{quote_plus(property.get('planning_map')[0].encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="200" height="120"/>
+                        <img src="/image/fetch?link={{quote_plus(property.get('planning_map')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                             alt="" width="200" height="133"/>
                         <span class="text_wrapper"> <span class="text">{{_('规划图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -118,7 +122,7 @@
 
                     % if property.get('longitude') and property.get('latitude'):
                     <li data-tab="map">
-                        <img src="/static/images/placeholder/map.jpg" alt="" width="200" height="120"/>
+                        <img src="/static/images/placeholder/map.jpg" alt="" width="200" height="133"/>
                         <span class="text_wrapper"> <span class="text">{{_('地图')}}</span> </span>
                         <span class="border"></span>
                     </li>
@@ -141,7 +145,7 @@
                 <li><a href="#propertyDetails_price">{{_('价格趋势')}}</a></li>
                 % end
                 % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
-                <li><a href="#propertyDetails_incoming">{{_('收入分析')}}</a></li>
+                <li><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
                 % end
             </ul>
         </div>
@@ -320,8 +324,8 @@
                         <li>
                             <div style="position:relative;">
                                 <a href="{{item.get('floor_plan')}}" target="_blank">
-                                    <img src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8') ) }}&property_id={{property.get('id','')}}"
-                                        alt="" width="480" height="480"/>
+                                    <img src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                        alt=""/>
                                 </a>
                                 <div class="table_wrapper">
                                     <table class="text">
@@ -352,8 +356,8 @@
                                         <td>
                                             <span class="name">{{_('面积')}}</span>
                                             <span class="value">
-                                                <strong>
-                                                    {{type.get('building_area',{}).get('value')}}
+                                                <strong >
+                                                    {{float("{0:.2f}".format(float(type.get('building_area',{}).get('value'))))}}
                                                     % unit = type.get('building_area',{}).get('unit')
                                                     <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
                                                 </strong>
@@ -423,7 +427,7 @@
                         <td>{{_('建筑面积')}}</td>
                         <td>
                             %if property.get('building_area'):
-                            {{property.get('building_area').get('value') }}
+                            {{float("{0:.2f}".format(float(property.get('building_area').get('value'))))}}
                             % unit = property.get('building_area').get('unit')
                             <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
                             %end
@@ -441,7 +445,7 @@
                         <td>{{_('规划面积')}}</td>
                         <td>
                             %if property.get('planning_area'):
-                            {{property.get('planning_area').get('value') }}
+                            {{float("{0:.2f}".format(float(property.get('planning_area').get('value'))))}}
                             % unit = property.get('planning_area').get('unit')
                             <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
                             %end
@@ -493,7 +497,7 @@
 
         % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
         <div id="propertyDetails_incoming" class="incoming">
-            <h3 class="propertyDetails_title">{{_('收入分析')}}</h3>
+            <h3 class="propertyDetails_title">{{_('月收支分析')}}</h3>
             <div class="stackedBar">
                 % total = float(property.get('estimated_monthly_rent',{}).get('value',0))
                 % cost = 0
@@ -631,7 +635,7 @@
             % end
 
             <p class="price">
-                <span class="mute">{{_('价格')}}</span>
+                <span class="mute">{{_('参考价格')}}</span>
                 <!--@@include=partials/get_unit_price.html-->
             </p>
             <ul class="numbers">
