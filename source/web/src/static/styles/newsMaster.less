@@ -7,6 +7,12 @@
 main {
     max-width:@max-width;
     margin:80px auto;
+
+    @media @phone {
+        width:100%;
+        margin:0;
+    }
+
     .main_container{
       max-width:@max-width;
       margin:0px auto;
@@ -16,6 +22,9 @@ main {
         display:inline-block;
         float:left;
 
+        @media @phone {
+            width:100%;
+        }
     }
 
 
@@ -25,6 +34,10 @@ main {
         width: 360px;
         padding: 26px 20px 0px 20px;
         overflow:hidden;
+
+        @media @phone {
+            display:none;
+        }
 
         .title {
             margin-top:0px;
