@@ -8,7 +8,11 @@ angular.module('app')
             templateUrl: '/static/admin/templates/edit_i18n_images.tpl.html',
             replace: true,
             scope: {
-                images: '=editI18nImages'
+                images: '=editI18nImages',
+                widthLimit: '@widthLimit',
+                ratio: '@ratio',
+                thumbnailSize: '@thumbnailSize',
+                text: '@text'
             },
             link: function (scope, elm, attrs) {
                 scope.userLanguage = $rootScope.userLanguage
