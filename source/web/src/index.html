@@ -117,7 +117,12 @@
 %end
 
 %if not user:
-    <!--@@include=partials/featured_house.html  -->
+    <textarea id="dataPropertyList" style="display:none">
+    {{json_dumps(_i18n(property_list))}}
+    </textarea>
+    <div class="houseFeatured">
+
+    </div>
 %else:
     <div id="suggestionHouses" class="suggestionHouses">
         <img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
@@ -165,7 +170,10 @@
 %end
 
 <!-- @@include=/static/templates/suggestion_house_card.tpl.html -->
+
 <!-- @@include=/static/templates/suggestion_empty_house_card.tpl.html -->
+
+<!-- @@include=/static/templates/featured_house_card.tpl.html -->
 
 <!--@@close-->
 

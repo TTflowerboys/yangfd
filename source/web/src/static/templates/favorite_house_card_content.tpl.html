@@ -1,0 +1,15 @@
+<!--@@master=master/house_card_content_master.tpl.html-->
+<!--@@block=price -->
+<span class=price>
+    <!--@@include=../../partials/get_unit_price.tpl.html -->
+</span>
+<!--@@close -->
+
+<!--@@block=action -->
+<div class="otherAction">
+    <button id="cancelFavorite" data-id={=fav.id=} class="ghostButton darkGray">{=window.i18n('取消收藏')=}</button>
+</div>
+<div class="undo_shadow" style="display:none;">
+    <button id="undoFavorite"  data-id={=fav.id=} data-property-id="{=fav.property.id=}" class="undo"> <img alt="" src="/static/images/icon/favorites/undo.png"/><span>{=window.i18n('撤销')=}</span></button>
+</div>
+<!--@@close-->

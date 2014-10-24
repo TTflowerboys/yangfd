@@ -12,86 +12,14 @@
 <!--@@close-->
 <!--@@block = main -->
 <div class="content">
+    <textarea id="dataTicketList" style="display:none;">{{json_dumps(_i18n(intention_ticket_list))}}</textarea>
     <div class="contentHeader">
         <h1>{{_('投资意向单')}}</h1>
     </div>
-    <div class="list">
-        %if (_i18n(intention_ticket_list)):
-        %for index, ticket in enumerate(_i18n(intention_ticket_list)) :
-        %if (ticket.get('property')):
-        % property = ticket.get('property')
-        <div class=houseCard>
-            %if ticket.get('property').get('reality_images', []) and len(property.get('reality_images', [])):
-            % from urllib import quote_plus
-            <img src="/image/fetch?link={{quote_plus(_i18n(property.get('reality_images'))[0])}}&property_id={{property.get('id')}}" width=320 height=240/>
-            %else :
-            <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
-            %end
-            <div class=description>
-                <h1 class=name>
-                    <a href=/property/{{ticket.get('property').get('id')}} style="text-decoration:none; color:#333;">{{ticket.get('property').get('name', '')}}</a>
-                </h1>
-                <label class="status"> {{ticket.get('status_presentation').get('value')}}</label>
-                <div class=details>
-                    <p class=size>
-                        <!-- @@include=partials/get_size.html-->
-                    </p>
-
-                    <ul class=properties>
-                        %if (ticket.get('property').get('intention') and len(ticket.get('property').get('intention'))) :
-                        <li><img src="/static/images/icon/house-card-tag.png" alt=""/> <span>
-                            %for index, oneIntention in enumerate(ticket.get('property').get('intention', [])):
-                            %if 'value' in oneIntention:
-                            {{oneIntention.get('value')}}
-                            %end
-                            %end
-                        </span></li>
-                        %end
-                        %if (ticket.get('property').get('equity_type')) :
-                        <li><img src="/static/images/icon/house-card-house.png" alt=""/>
-                            <span> {{ticket.get('property').get('equity_type', '').get('value')}}</span></li>
-                        %end
-                        %if (_i18n(ticket.get('property').get('street'))) :
-                        <li><img src="/static/images/icon/house-card-location.png" alt=""/>
-                            <span>{{ticket.get('property').get('street', '')}} </span></li>
-                        %end
-                    </ul>
-                </div>
-                <!-- <div class="otherAction"> -->
-                <!--       <button class="button red">{{_('微信')}}</button> -->
-                <!--       <button class="button red">{{_('电话')}}</button> -->
-                <!-- </div> -->
-            </div>
-        </div>
-        %else:
-        <div class="intentionCard">
-            %if ticket.get('budget'):
-            <h2 class="budget"><i>{{_('预算')}}
-                (
-                <!--@@include=partials/current_currency.html -->
-                ):&nbsp;
-            </i>{{ticket.get('budget').get('value')}}
-            </h2>
-            %end
-            <p class="detail">{{ticket.get('description')}}</p>
-
-            %if 'time' in ticket:
-            <label class="date"> <i>{{_('提交日期：')}}</i>
-                {{ticket.get('time').strftime('%Y-%m-%d')}}
-            </label>
-            %end
-            <label class="status"> {{ticket.get('status_presentation').get('value')}}</label>
-            <!-- <div class="otherAction"> -->
-            <!--       <button class="button red">{{_('微信')}}</button> -->
-            <!--       <button class="button red">{{_('电话')}}</button> -->
-            <!-- </div> -->
-        </div>
-        %end
-        %end
-        %end
+    <div id="list" class="list">
     </div>
 
-    <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="{{'display:none;' if len(intention_ticket_list) else ''}}">
+    <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="display:none;">
         <img src="/static/images/icon/notice.png" alt=""/>
         <div class="holderText">
             <h2>{{_('没有投资意向单')}}
@@ -101,7 +29,13 @@
             </p>
         </div>
     </div>
+    <!-- @@include=static/templates/intention_house_card.tpl.html-->
+    <!-- @@include=static/templates/intention_card.tpl.html-->
+
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
+<!--build:js /static/scripts/user_intentions.js-->
+<script src="/static/scripts/user_intentions.js"></script>
+<!--endbuild-->
 <!--@@close-->

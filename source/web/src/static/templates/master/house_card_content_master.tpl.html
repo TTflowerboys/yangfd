@@ -1,0 +1,35 @@
+{_if(house.reality_images && house.reality_images.length) {_}
+<img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id})=}" width=320 height=240/>
+{_ }else { _}
+<img src="/static/images/placeholder/property.jpg" width="320" height="240"/>
+{_}_}
+
+<div class=description>
+    <h1 class=name>{=house.name=}</h1>
+    <!--@@placeholder=price -->
+    <div class=details>
+        <p class=size>
+            <!--@@include=../../../partials/get_size.tpl.html -->
+        </p>
+        <!--@@placeholder=estimate -->
+        <ul class=properties>
+            {_if(house.intention && house.intention.length) {_}
+            <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
+                <span>
+                    {_ _.each(house.intention, function(oneIntention) { _}
+                    {=oneIntention.value=}
+                    {_})_}
+                </span></li>
+            {_}_}
+            {_if(house.property_type) {_}
+            <li><img src="/static/images/icon/house-card-house.png" alt=""/>
+                <span>{=house.property_type.value=}</span></li>
+            {_}_}
+            {_if(house.street) {_}
+            <li><img src="/static/images/icon/house-card-location.png" alt=""/> <span>{=house.street=}</span>
+            </li>
+            {_}_}
+        </ul>
+    </div>
+    <!--@@placeholder=action -->
+</div>

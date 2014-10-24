@@ -34,7 +34,7 @@
     "gulp-file-include": "~0.4.0",
     "gulp-filter": "^1.0.1",
     "gulp-footer": "~1.0.5",
-    "gulp-html-extend": "~0.5.0",
+    "gulp-html-extend": "https://github.com/Fykec/gulp-html-extend/archive/v0.5.1.tar.gz",
     "gulp-if": "^1.2.4",
     "gulp-ignore": "~1.2.0",
     "gulp-img64": "0.0.6",

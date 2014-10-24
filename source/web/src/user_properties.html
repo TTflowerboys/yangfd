@@ -10,79 +10,33 @@
 <!--@@close-->
 <!--@@block = main -->
 <div class="content">
+    <textarea id="dataTicketList" style="display:none;">{{json_dumps(_i18n(intention_ticket_list))}}</textarea>
     <div class="contentHeader">
         <h1>{{_('我的房产')}}</h1>
         %if (_i18n(intention_ticket_list)):
-        <label class="count_wrapper">
-            {{_('(共')}} <i class="count">{{len(intention_ticket_list)}}</i> {{_('条房产)')}}</label>
+            <label class="count_wrapper">
+                {{_('(共')}} <i class="count">{{len(intention_ticket_list)}}</i> {{_('条房产)')}}
+            </label>
+        %end
     </div>
-    <div class="list">
-        %for index, ticket in enumerate(_i18n(intention_ticket_list)) :
-        %if ticket.get('property'):
-        % property = ticket.get('property')
-        <div class=houseCard>
-            %if ticket.get('property').get('reality_images', []) and len(property.get('reality_images', [])):
-            % from urllib import quote_plus
-            <img src="/image/fetch?link={{quote_plus(_i18n(property.get('reality_images'))[0])}}&property_id={{property.get('id')}}" width=320 height=240/>
-            %else :
-            <img src="/static/images/placeholder/property.jpg" width=320 height=240/>
-            %end
+    <div id="list" class="list">
 
-            <div class=description>
-                <h1 class=name>
-                    <a href=/property/{{ticket.get('property').get('id')}} style="text-decoration:none; color:#333;"> {{ticket.get('property').get('name', '')}}</a>
-                </h1>
-                <div class=details>
-                    <p class=size>
-                        <!-- @@include=partials/get_size.html-->
-                    </p>
 
-                    <ul class=properties>
-                        %if (ticket.get('property').get('intention') and len(ticket.get('property').get('intention'))) :
-                        <li><img src="/static/images/icon/house-card-tag.png" alt=""/> <span>
-                            %for index, oneIntention in enumerate(ticket.get('property').get('intention', [])):
-                            %if 'value' in oneIntention:
-                            {{oneIntention.get('value')}}
-                            %end
-                            %end
-                        </span></li>
-                        %end
-                        %if (ticket.get('property').get('equity_type')) :
-                        <li><img src="/static/images/icon/house-card-house.png" alt=""/>
-                            <span> {{ticket.get('property').get('equity_type', '').get('value')}}</span></li>
-                        %end
-                        %if (_i18n(ticket.get('property').get('street'))) :
-                        <li><img src="/static/images/icon/house-card-location.png" alt=""/>
-                            <span>{{ticket.get('property').get('street', '')}} </span></li>
-                        %end
-                    </ul>
-                </div>
 
-                <div class="otherAction">
-                    <button id="removeProperty" data-id="{{ticket.get('id')}}" class="ghostButton darkGray">{{_('移除')}}</button>
-                </div>
-            </div>
+    </div>
+
+    <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="display:none;">
+        <img src="/static/images/icon/notice.png" alt=""/>
+        <div class="holderText">
+            <h2>{{_('没有房产')}}
+            </h2>
+            <p>
+                {{!_('去<a href="/property_list">房产列表</a>看看吧')}}
+            </p>
         </div>
-
-        %end
-        %end
-        %end
     </div>
+    <!-- @@include=static/templates/ticket_house_card.tpl.html-->
 
-    <div id="emptyPlaceHolder" class="emptyPlaceHolder"
-    %if len(intention_ticket_list):
-    style="display:none;"
-    %end
-    >
-    <img src="/static/images/icon/notice.png" alt=""/>
-    <div class="holderText">
-        <h2>{{_('没有房产')}}
-        </h2>
-        <p>
-            {{!_('去<a href="/property_list">房产列表</a>看看吧')}}
-        </p>
-    </div>
-</div>
 
 </div>
 <!--@@close-->
