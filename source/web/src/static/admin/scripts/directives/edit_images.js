@@ -34,9 +34,9 @@ angular.module('app')
                             file: file,
                             fileFormDataName: 'data',
                             data: {
-                                width_limit: scope.widthLimit || 1920,
+                                width_limit: scope.widthLimit || 0,
                                 ratio: scope.ratio || 0,
-                                thumbnail_size: scope.thumbnailSize || '400,400',
+                                thumbnail_size: scope.thumbnailSize || '0',
                                 filename: file.name
                             }
                         })
