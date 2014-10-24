@@ -131,8 +131,10 @@ def intention_ticket_add(params):
             request._requested_i18n_locales_list = [locale]
             if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
                 template_invoke_name = "new_ticket_cn"
+                sendgrid_template_id = "35489862-87a8-491b-be84-e20069c8495e"
             else:
                 template_invoke_name = "new_ticket_en"
+                sendgrid_template_id = "b59446de-5d8b-45b6-8fe1-f8bf64c8a99c"
             budget = f_app.i18n.match_i18n(budget_enum["value"], _i18n=[locale]) if budget_enum else ""
             substitution_vars = {
                 "to": [sales["email"]],
@@ -144,13 +146,17 @@ def intention_ticket_add(params):
                     "%budget%": [budget]
                 }
             }
+            xsmtpapi = substitution_vars
+            xsmtpapi["category"] = ["new_ticket"]
+            xsmtpapi["template_id"] = sendgrid_template_id
             f_app.email.schedule(
                 target=sales["email"],
                 subject=template("static/emails/new_ticket_title"),
                 text=template("static/emails/new_ticket", params=params),
                 display="html",
                 template_invoke_name=template_invoke_name,
-                substitution_vars=substitution_vars
+                substitution_vars=substitution_vars,
+                xsmtpapi=xsmtpapi,
             )
 
     return ticket_id

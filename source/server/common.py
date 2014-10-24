@@ -96,6 +96,10 @@ class common(f_common):
     sendcloud_api_key = "p5WEtUrypcHiNWgL"
     sendcloud_sender_name = "YangFd"
 
+    sendgrid_api_user = "arnold wang"
+    sendgrid_api_key = "AH0ecwSNWsaz"
+    sendgrid_sender_name = "YangFd"
+
     email_send_provider_smart = {
         "cn": "sendcloud",
         "default": "aws_ses",
