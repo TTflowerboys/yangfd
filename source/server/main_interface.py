@@ -500,7 +500,7 @@ def images_proxy(params):
             allowed = True
 
     if "bbt-currant.s3.amazonaws.com" in params["link"]:
-        allowed= True
+        allowed = True
 
     if not allowed:
         abort(40089, logger.warning("Invalid image source: not from existing property or news", exc_info=False))

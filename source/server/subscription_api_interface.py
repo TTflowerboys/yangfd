@@ -83,5 +83,5 @@ def subscription_notification_ready(user, params):
             display="html",
             substitution_vars=substitution_vars,
             template_invoke_name=template_invoke_name,
-            xsmtpapi = xsmtpapi
+            xsmtpapi=xsmtpapi
         )
