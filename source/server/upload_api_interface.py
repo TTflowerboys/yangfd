@@ -43,7 +43,7 @@ def upload_image(params):
             background.paste(im)
         im = background
 
-    if "ratio" in params:
+    if params.get("ratio"):
         if float(width) / height > params["ratio"]:
             # crop based on height
             w_cut = int((width - params["ratio"] * height) // 2)
@@ -57,7 +57,7 @@ def upload_image(params):
             im = im.crop(box)
 
     if params["width_limit"] > 0:
-        if "ratio" in params:
+        if params.get("ratio"):
             width, height = im.size
 
         if width <= 1280:
