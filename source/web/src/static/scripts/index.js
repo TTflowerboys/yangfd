@@ -264,8 +264,18 @@
                 _.each(deleteIntentionArray, function (item) {
                     removePropertyCard(item)
                 })
+
+                //if remove all intention restore back to all intention
+                if ($('#suggestionHouses').find('#list').children().length === 0)  {
+                    loadPropertyListWithBudgetAndIntention(budgetType, '')
+                }
             }
             else if (!_.isEmpty(newAddIntentionArray) && _.isEmpty(deleteIntentionArray)) {
+
+                //if the result is from suggestion, when user have new newAddIntentionArray, remove them
+                if (currentIntentionArray.length === 0) {
+                    $('#suggestionHouses #list').empty()
+                }
                 //append data
                 loadPropertyListWithBudgetAndIntention(budgetType, newAddIntentionArray)
             }
@@ -323,6 +333,11 @@
 
 
         loadPropertyList(initBudgetId, initIntentionList)
+
+        //if user don't choose one intention, show the tabs
+        if (!commaStringToArray(initIntentionList).length) {
+            $('.intentionTabs_wrapper').animate({height: '530px'}, 400, 'swing')
+        }
 
         $budgetTag.on('click', '.toggleTag', function (event) {
 
