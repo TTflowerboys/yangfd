@@ -14,15 +14,6 @@ angular.module('app')
             },
             link: function (scope, elm, attrs) {
 
-                if (!scope.widthLimit) {
-                    throw 'Needs width-limit'
-                }
-                if (!scope.ratio) {
-                    throw 'Needs ratio'
-                }
-                if (!scope.thumbnailSize) {
-                    throw 'Needs thumbnail-size'
-                }
                 if (!scope.text) {
                     throw 'Needs text'
                 }
@@ -44,7 +35,7 @@ angular.module('app')
                             fileFormDataName: 'data',
                             data: {
                                 width_limit: scope.widthLimit || 1920,
-                                ratio: scope.ratio || 1,
+                                ratio: scope.ratio || 0,
                                 thumbnail_size: scope.thumbnailSize || '400,400',
                                 filename: file.name
                             }
