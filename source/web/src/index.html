@@ -77,7 +77,6 @@
 %end
 
 %if user:
-
     <textarea id="dataBudgetList" style="display:none;">{{json_dumps(_i18n(budget_list))}}</textarea>
     <textarea id="dataIntentionList" style="display:none">
     {{json_dumps(_i18n(intention_list))}}
@@ -97,7 +96,6 @@
                     %end
                 %end
             </div>
-
             <div id="intentionTag" class="intention">
                 <label class="hint" for="">{{_('投资意向(多选)')}}:&nbsp;</label>
                 <ul id="list">
@@ -111,13 +109,11 @@
                 </div>
             </div>
         </div>
-
         <div class="intentionTabs_wrapper" style="height:0;">
-                        <!-- @@include=partials/intention_tabs.html-->
-                        <img class="collapseButton" id="collapseButton" src="/static/images/intention/collapse.png" style="cursor: pointer;"/>
+            <!-- @@include=partials/intention_tabs.html-->
+            <img class="collapseButton" id="collapseButton" src="/static/images/intention/collapse.png" style="cursor: pointer;"/>
         </div>
     </div>
-
 %end
 
 %if not user:
@@ -127,7 +123,6 @@
         <img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
         <div id="list" class="list">
         </div>
-
     </div>
 %end
 

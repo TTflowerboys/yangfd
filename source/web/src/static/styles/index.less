@@ -635,7 +635,6 @@ main {
                 display:none;
                 width:100%;
             }
-
         }
 
         .tagDetail {
@@ -681,41 +680,83 @@ main {
 
         }
 
-        .emptyPlaceHolder {
-            width:525px;
-            margin:50px auto 0 auto;
-            overflow:hidden;
-            img {
-                display:inline-block;
-                float:left;
+        .houseCard_suggestionHolder {
+            position: relative; border-top:2px solid #d2d2d2; font-size: 14px; color: #a3a3a3;
+            min-height: 240px; min-width: 700px;
+
+            @media @phone {
+                position:static;
+                min-height:0;
+                min-width:0;
             }
 
-            .holderText {
-                display:inline-block;
-                float:left;
-                width:420px;
-                margin-left:20px;
+            .emptyPlaceHolder {
+                width:525px;
+                margin:50px auto 0 auto;
+                overflow:hidden;
 
-                h2 {
-                    margin:0;
-                    font-size:24px;
-                    line-height:1.5;
-                    color:#999;
+                @media @phone {
+                    width:100%;
+                    margin: 20px auto;
                 }
 
-                p {
-                    margin: 0;
-                    font-size:16px;
-                    line-height:36px;
-                    color:#ccc;
+                img {
+                    display:inline-block;
+                    float:left;
+                    width:80px;
 
-                    a {
-                        text-decoration:none;
-                        color:#e60012;
+                    @media @phone {
+                        display:block;
+                        margin:10px auto;
+                        float:none;
+                    }
+
+                }
+
+                .holderText {
+                    display:inline-block;
+                    float:left;
+                    width:420px;
+                    margin-left:20px;
+
+                    @media @phone {
+                        width:auto;
+                        margin-left:12px;
+                        margin-right:12px;
+
+                    }
+
+                    h2 {
+                        margin:0;
+                        font-size:24px;
+                        line-height:1.5;
+                        color:#999;
+
+                        @media @phone {
+                            font-size:14px;
+                        }
+
+                    }
+
+                    p {
+                        margin: 0;
+                        font-size:16px;
+                        line-height:36px;
+                        color:#ccc;
+
+                        @media @phone {
+                            font-size:12px;
+                        }
+
+                        a {
+                            text-decoration:none;
+                            color:#e60012;
+                        }
                     }
                 }
             }
         }
+
     }
 
     .news {
