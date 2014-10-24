@@ -152,9 +152,20 @@
                     </div>
                     <div class="row">
                         <div class="form-group  col-sm-3">
-                            <label class="control-label">{%$root.i18n('预计总年化收益率')%}</label>
+                            <label class="control-label" >{%$root.i18n('预计总年化收益率')%}</label>
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.annual_return_estimated" placeholder="e.g. 15%"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group  col-sm-12">
+                            <label class="control-label">{%$root.i18n('开发商包租')%}</label>
+                            <div class="controls form-inline">
+                                <input type="text" class="form-control" style="width: 40px" ng-model="item.rental_guarantee_rate"/>
+                                <span>{%$root.i18n('%开发商保证最低收益率')%}</span>
+                                <input type="text" class="form-control" style="width: 40px" ng-model="item.rental_guarantee_term"/>
+                                <span>{%$root.i18n('年')%}</span>
                             </div>
                         </div>
                     </div>
