@@ -166,7 +166,7 @@ angular.module('app')
                         delete i18nData[i]
                         continue
                     }
-                    if (i18nData[i].unit === undefined || i18nData[i].unit === '') {
+                    if (i18nData[i].unit === undefined) {
                         if (_.isEmpty(i18nData[i].value)) {
                             delete i18nData[i].value
                         }
@@ -174,6 +174,9 @@ angular.module('app')
                             delete i18nData[i]
                             continue
                         }
+                    } else if (i18nData[i].unit === '') {
+                        delete i18nData[i]
+                        continue
                     } else {
                         if (_.isObject(i18nData[i])) {
                             if (_.isString(i18nData[i].unit)) {

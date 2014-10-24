@@ -47,6 +47,9 @@ angular.module('app')
             },
             propertyApi: function (propertyApi) {
                 return propertyApi
+            },
+            enumApi: function (enumApi) {
+                return enumApi
             }
         }
 

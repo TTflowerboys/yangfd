@@ -132,29 +132,29 @@
                                     </li>
                                 </ul>
                             </li>
-                            <!--<li has-permission="admin,jr_admin,sales,jr_sales"-->
-                                <!--ng-class="{active:$state.includes('dashboard.sales')}">-->
-                                <!--<a class="dropmenu" href ui-sref="dashboard.sales.plot">-->
-                                    <!--<i class="fa fa-coffee"></i><span class="hidden-sm text">{%$root.i18n('房产销售管理')%}</span>-->
-                                    <!--<span class="chevron"-->
-                                        <!--ng-class="{closed:!$state.includes('dashboard.sales'),opened:$state.includes('dashboard.sales')}"></span>-->
-                                <!--</a>-->
-                                <!--<ul ng-style="{display:$state.includes('dashboard.sales')?'block':'none'}">-->
-                                    <!--<li has-permission="admin,jr_admin,sales,jr_sales"-->
-                                        <!--ng-class="{active:$state.includes('dashboard.sales.plot')}">-->
-                                        <!--<a class="submenu" href ui-sref="dashboard.sales.plot">-->
-                                            <!--<i class="fa fa-angle-right"></i>-->
-                                            <!--<span class="hidden-sm text">{%$root.i18n('物业销售状态')%}</span>-->
-                                        <!--</a>-->
-                                    <!--</li>-->
-                                    <!--<li has-permission="admin,jr_admin,sales,jr_sales" ng-class="{active:$state.includes('dashboard.sales.housing')}">-->
-                                        <!--<a class="submenu" href ui-sref="dashboard.sales.housing">-->
-                                            <!--<i class="fa fa-angle-right"></i>-->
-                                            <!--<span class="hidden-sm text">{%$root.i18n('房源信息')%}</span>-->
-                                        <!--</a>-->
-                                    <!--</li>-->
-                                <!--</ul>-->
-                            <!--</li>-->
+                            <li has-permission="admin,jr_admin,sales,jr_sales"
+                                ng-class="{active:$state.includes('dashboard.sales')}">
+                                <a class="dropmenu" href ui-sref="dashboard.sales.plot">
+                                    <i class="fa fa-coffee"></i><span class="hidden-sm text">{%$root.i18n('房产销售管理')%}</span>
+                                    <span class="chevron"
+                                        ng-class="{closed:!$state.includes('dashboard.sales'),opened:$state.includes('dashboard.sales')}"></span>
+                                </a>
+                                <ul ng-style="{display:$state.includes('dashboard.sales')?'block':'none'}">
+                                    <li has-permission="admin,jr_admin,sales,jr_sales"
+                                        ng-class="{active:$state.includes('dashboard.sales.plot')}">
+                                        <a class="submenu" href ui-sref="dashboard.sales.plot">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('物业销售状态')%}</span>
+                                        </a>
+                                    </li>
+                                    <li has-permission="admin,jr_admin,sales,jr_sales" ng-class="{active:$state.includes('dashboard.sales.housing')}">
+                                        <a class="submenu" href ui-sref="dashboard.sales.housing">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('房源信息')%}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li has-permission="admin,jr_admin,support,jr_support"
                                 ng-class="{active:$state.includes('dashboard.support')}">
                                 <a href ui-sref="dashboard.support" ui-sref-active="active">
