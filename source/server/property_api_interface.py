@@ -39,7 +39,6 @@ def property_search(user, params):
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_property_id")
     if "property_type" in params:
         params["property_type"] = {"$in": params["property_type"]}
-    logger.debug(params)
 
     if "intention" in params:
         params["intention"] = {"$in": params.pop("intention", [])}
@@ -49,19 +48,27 @@ def property_search(user, params):
         params["$or"] = []
         for currency in f_app.common.currency:
             condition = {"total_price.unit": currency}
+            house_condition = {"main_house_types.total_price.unit": currency}
             if currency == budget[2]:
                 condition["total_price.value_float"] = {}
+                house_condition["main_house_types.total_price.value_float"] = {}
                 if budget[0]:
                     condition["total_price.value_float"]["$gte"] = budget[0]
+                    house_condition["main_house_types.total_price.value_float"]["$gte"] = budget[0]
                 if budget[1]:
                     condition["total_price.value_float"]["$lte"] = budget[1]
+                    house_condition["main_house_types.total_price.value_float"]["$lte"] = budget[1]
             else:
                 condition["total_price.value_float"] = {}
+                house_condition["main_house_types.total_price.value_float"] = {}
                 if budget[0]:
                     condition["total_price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
+                    house_condition["main_house_types.total_price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
                 if budget[1]:
                     condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
+                    house_condition["main_house_types.total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
             params["$or"].append(condition)
+            params["$or"].append(house_condition)
 
     if "name" in params:
         name = params.pop("name")
@@ -77,6 +84,7 @@ def property_search(user, params):
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
+    logger.debug(params)
     property_list = f_app.property.search(params, per_page=per_page, count=True)
     if random and property_list["content"]:
         import random
