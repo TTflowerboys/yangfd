@@ -70,14 +70,18 @@ def subscription_notification_ready(user, params):
         #TODO  how to match locales with template name in sendcloud
         if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
             template_invoke_name = "we_are_ready_cn"
+            sendgrid_template_id = "02664aeb-17b3-4cad-b8c4-309d70531667"
         else:
             template_invoke_name = "we_are_ready_en"
+            sendgrid_template_id = "9fc8e78b-a093-4de1-b466-013230b5c03f"
         substitution_vars = {"to": [subscription["email"]], "sub": {}}
+        xsmtpapi = {"to": [subscription["email"]], "sub": {}, "category": ["subscription_notification_ready"], "template_id": sendgrid_template_id}
         f_app.email.schedule(
             target=subscription["email"],
             subject=template("static/emails/we_are_ready_title"),
             text=template("static/emails/we_are_ready"),
             display="html",
             substitution_vars=substitution_vars,
-            template_invoke_name=template_invoke_name
+            template_invoke_name=template_invoke_name,
+            xsmtpapi = xsmtpapi
         )

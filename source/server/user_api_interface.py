@@ -321,8 +321,10 @@ def admin_user_add(user, params):
 
     if f_app.common.i18n_default_locale in ["zh_Hans_CN", "zh_Hant_HK"]:
         template_invoke_name = "new_admin_cn"
+        sendgrid_template_id = " d224c59f-76ee-49be-be7d-35695bc4d090"
     else:
         template_invoke_name = "new_admin_en"
+        sendgrid_template_id = "0ada154f-0b38-473a-8e01-87dcdb827f6f"
     roles = template("static/emails/new_admin_role", role=params["role"])
     substitution_vars = {
         "to": [params["email"]],
@@ -334,6 +336,9 @@ def admin_user_add(user, params):
             "%phone%": ["*" * (len(params["phone"]) - 4) + params["phone"][-4:]]
         }
     }
+    xsmtpapi = substitution_vars
+    xsmtpapi["category"] = ["new_admin"]
+    xsmtpapi["template_id"] = sendgrid_template_id
 
     f_app.email.schedule(
         target=params["email"],
@@ -343,6 +348,7 @@ def admin_user_add(user, params):
         display="html",
         template_invoke_name=template_invoke_name,
         substitution_vars=substitution_vars,
+        xsmtpapi=xsmtpapi
     )
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
@@ -375,8 +381,10 @@ def admin_user_add_role(user, user_id, params):
             request._requested_i18n_locales_list = [locale]
             if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
                 template_invoke_name = "set_as_admin_cn"
+                sendgrid_template_id = "b3a978ac-5096-4633-a505-d76041b314f2"
             else:
                 template_invoke_name = "set_as_admin_en"
+                sendgrid_template_id = "26a4015b-65c3-4097-b9b6-998cbcc124b5"
             roles = template("static/emails/new_admin_role", role=f_app.user.get_role(user_id))
             substitution_vars = {
                 "to": [user_info.get("email")],
@@ -387,6 +395,9 @@ def admin_user_add_role(user, user_id, params):
                     "%phone%": ["*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]]
                 }
             }
+            xsmtpapi = substitution_vars
+            xsmtpapi["category"] = ["set_as_admin"]
+            xsmtpapi["template_id"] = sendgrid_template_id
             f_app.email.schedule(
                 target=user_info.get("email"),
                 subject=template("static/emails/set_as_admin_title"),
@@ -394,6 +405,7 @@ def admin_user_add_role(user, user_id, params):
                 display="html",
                 template_invoke_name=template_invoke_name,
                 substitution_vars=substitution_vars,
+                xsmtpapi=xsmtpapi
             )
         else:
             abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
@@ -591,8 +603,10 @@ def email_send(user_id):
     request._requested_i18n_locales_list = [locale]
     if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
         template_invoke_name = "verify_email_cn"
+        sendgrid_template_id = "099f8043-7390-4e59-b171-1d0071c7e12a"
     else:
         template_invoke_name = "verify_email_en"
+        sendgrid_template_id = "35408672-ce97-49bd-9544-e25767e2bbf3"
     substitution_vars = {
         "to": [user.get("email")],
         "sub": {
@@ -600,13 +614,18 @@ def email_send(user_id):
             "%verification_url%": [verification_url],
         }
     }
+    xsmtpapi = substitution_vars
+    xsmtpapi["category"] = ["email_verification_send"]
+    xsmtpapi["template_id"] = sendgrid_template_id
+
     f_app.email.schedule(
         target=user["email"],
         subject=template("static/emails/verify_email_title"),
         text=template("static/emails/verify_email", verification_url=verification_url, nickname=user.get("nickname")),
         display="html",
         template_invoke_name=template_invoke_name,
-        substitution_vars=substitution_vars
+        substitution_vars=substitution_vars,
+        xsmtpapi=xsmtpapi
 
     )
 
