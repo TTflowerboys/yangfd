@@ -8,9 +8,12 @@
         $scope.api = api
         $scope.fetched = false
 
-        $scope.onPropertyChange = function () {
-            api.search({ params: {property_id: $scope.item.propertyId}}).success(onGetList)
-        }
+        $scope.$watch('item.propertyId', function (newValue) {
+            if (_.isEmpty(newValue)) {
+                return
+            }
+            api.search({params: {property_id: newValue}}).success(onGetList)
+        })
 
         $scope.onGetList = onGetList
 
