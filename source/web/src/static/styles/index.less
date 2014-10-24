@@ -683,11 +683,15 @@ main {
         .houseCard_suggestionHolder {
             position: relative; border-top:2px solid #d2d2d2; font-size: 14px; color: #a3a3a3;
             min-height: 240px; min-width: 700px;
+            display:inline-block;
+            width:860px;
 
             @media @phone {
                 position:static;
                 min-height:0;
                 min-width:0;
+                display:block;
+                width:100%;
             }
 
             .emptyPlaceHolder {
