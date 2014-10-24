@@ -6,7 +6,7 @@
             </button>
         </span>
         <div class="btn-group form-inline">
-            <select class="form-control" ng-options="type.value as type.name for type in messageTypes" ng-model="currentType"></select>
+            <div select-property-or-student-item="item.propertyId" ng-change="onPropertyChange()"></div>
         </div>
 
         <div class="btn-group form-inline pull-right">

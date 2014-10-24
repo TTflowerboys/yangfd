@@ -44,9 +44,6 @@ angular.module('app')
         var plotResolve = {
             api: function (apiFactory) {
                 return apiFactory('plot')
-            },
-            propertyApi: function (propertyApi) {
-                return propertyApi
             }
         }
 

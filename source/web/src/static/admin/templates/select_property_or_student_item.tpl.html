@@ -1,0 +1,3 @@
+<select class="form-control" ng-options="p.id as p.name[userLanguage.value] for p in propertyList" ng-model="propertyId">{%propertyList%}
+    <option value="">-- {%$root.i18n('请选择')%} --</option>
+</select>

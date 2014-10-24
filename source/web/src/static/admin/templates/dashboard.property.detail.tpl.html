@@ -124,6 +124,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="row" ng-if="item.rental_guarantee_rate">
+                    <div class="form-group  col-sm-12">
+                        <label class="control-label">{%$root.i18n('开发商包租')%}</label>
+                        <div class="controls form-inline">
+                            {%item.rental_guarantee_rate%}
+                            <span>{%$root.i18n('%开发商保证最低收益率')%}</span>
+                            {%item.rental_guarantee_term%}
+                            <span>{%$root.i18n('年')%}</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="row" ng-if="item.intention">
                     <div class="form-group  col-sm-3">
                         <label class="control-label">{%$root.i18n('投资标签')%}</label>
