@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2014-10-24 18:57+0800\n"
-"PO-Revision-Date: 2014-10-24 19:20+0800\n"
+"PO-Revision-Date: 2014-10-27 12:02+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -325,7 +325,7 @@ msgstr "Values History"
 
 #: ../web/src/property.html:148 ../web/src/property.html:500
 msgid "月收支分析"
-msgstr "Monthly Income Analysis"
+msgstr "Monthly Financials"
 
 #: ../web/src/property.html:156
 msgid "房屋面积"
@@ -2114,11 +2114,11 @@ msgstr "Developer rental guarantee"
 
 #: ../web/src/partials/i18n_admin.html:174
 msgid "%开发商保证最低收益率"
-msgstr ""
+msgstr "%Developer rental garantee"
 
 #: ../web/src/partials/i18n_admin.html:175
 msgid "年"
-msgstr ""
+msgstr "year"
 
 #: ../web/src/partials/i18n_admin.html:177
 msgid "地图位置"
@@ -2488,8 +2488,7 @@ msgstr "Enter your budget, country or region"
 
 #: ../web/src/partials/intention_processCards.html:19
 msgid "按“现金流保障”标签筛选出合适出租的房产"
-msgstr ""
-"Filter out the proper rental property by the \" cash flow security\" tag"
+msgstr "Filter out the proper rental property by the \" Stable Cashflow\" tag"
 
 #: ../web/src/partials/intention_processCards.html:28
 msgid "提交投资意向，获取详细街区投资分析信息，包括附近就业，流动人口等"
