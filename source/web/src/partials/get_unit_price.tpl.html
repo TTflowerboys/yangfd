@@ -1,4 +1,4 @@
-{_if(house.property_type && (house.property_type.slug === 'new_property' || house.property_type.slug === 'student_housing')){_}
+{_if(house.property_type && (house.property_type.slug === 'new_property' || house.property_type.slug === 'student_housing') && house.unit_price){_}
 {=house.unit_price.price.unit_symbol=}
 <strong>{=team.encodeCurrency(parseInt(house.unit_price.price.value/house.unit_price.unit.value))=}</strong>
 /

@@ -1,4 +1,4 @@
-% if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing'):
+% if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and property.get('unit_price'):
 <span>
     {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
 </span>

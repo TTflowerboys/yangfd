@@ -32,7 +32,7 @@ var gutil = require('gulp-util')
 var myPaths = {
     src: './src/',
     dist: './dist/',
-    html: './src/{,*/,static/emails/,static/templates/}{*.tpl.html,*.html}',
+    html: './src/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,admin/scripts,admin/templates}',
     static: './src/static/**/*.*',
     less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
@@ -134,7 +134,7 @@ gulp.task('styleless2css', function () {
 var preprocess = require('gulp-preprocess')
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
-        .pipe(extender({verbose:true}))
+        .pipe(extender({verbose:false}))
         .pipe(preprocess({context: {ENV: 'debug'}}))
         .pipe(gulp.dest(myPaths.dist))
 })
