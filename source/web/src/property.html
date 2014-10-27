@@ -267,6 +267,7 @@
                         <td colspan="3" class="value">
                             % if property.get('main_house_types'):
                             % for type in property.get('main_house_types'):
+                            <a href="#propertyDetails_houseTypes">
                             <span class="toggleTag selected">
                                 {{type.get('bedroom_count',0)}}{{_('室')}}
                                 {{type.get('living_room_count',0)}}{{_('厅')}}
@@ -278,6 +279,7 @@
                                 )
                                 % end
                             </span>
+                            </a>
                             % end
                             % end
 
@@ -529,9 +531,17 @@
                     <col style="width: 150px;">
                 </colgroup>
                 <tr>
-                    % for item in property.get('estimated_monthly_cost'):
                     <td>
                         <span class="bar bar0"></span>
+                        <p class="name">{{_('预期总收入')}}</p>
+                        <p class="value">
+                            {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
+                            <strong>{{ '%.2f' % float(property.get('estimated_monthly_rent',{}).get('value',0)) }}</strong>
+                        </p>
+                    </td>
+                    % for item in property.get('estimated_monthly_cost'):
+                    <td>
+                        <span class="bar bar1"></span>
                         <p class="name">{{item.get('item')}}</p>
                         <p class="value">
                             {{item.get('price',{}).get('unit_symbol','')}}
@@ -543,7 +553,7 @@
                         <span class="bar bar3"></span>
                         <p class="name">{{_('预期净收益')}}</p>
                         <p class="value">
-                            {{ property.get('estimated_monthly_rent',{}).get('unit_symbol') }}
+                            {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
                             <strong>{{ '%.2f' % (total - cost) }}</strong>
                         </p>
                     </td>
