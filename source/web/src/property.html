@@ -56,7 +56,7 @@
                 % if property.get('longitude') and property.get('latitude'):
                 % long = property.get('longitude')
                 % lat = property.get('latitude')
-                <a href="https://www.google.com/maps/?q={{long}},{{lat}}&z=14" target="_blank"
+                <a href="https://ditu.google.cn/maps/?q={{long}},{{lat}}&z=14" target="_blank"
                     class="item" data-tab-name="map">
                     <img id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;" width="800" height="533"/>
                 </a>
@@ -211,14 +211,6 @@
                         <td class="value">
                             {{property.get('equity_type',{}).get('value','') }}
                         </td>
-                        <td class="name">
-                            % if 'opening_time' in property:
-                            <i>
-                                <img src="/static/images/property_details/icon-clock.png" alt=""/>
-                            </i>
-                            {{_('开盘时间')}}
-                            % end
-                        </td>
                         <td class="value">
                             % if 'opening_time' in property:
                             {{property.get('opening_time','')}}
@@ -248,7 +240,7 @@
                         </td>
                         <td class="value">
                             {{property.get('address')}}
-                            <a target="_blank" href="//maps.google.com/?q={{ quote_plus( property.get('address','').encode('utf-8') ) }}">
+                            <a target="_blank" href="https://ditu.google.cn/maps?q={{ quote_plus( property.get('address','').encode('utf-8')) }}">
                                 {{_(' (查看地图)')}}
                             </a>
                         </td>
