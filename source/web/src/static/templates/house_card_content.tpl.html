@@ -8,7 +8,7 @@
 <p class=estimate>
     {_if(house.rental_guarantee_rate) {_}
     <span class=label>{=window.i18n('年租金收益')=}</span>
-    <span class=value><strong>{=house.rental_guarantee_rate=}</strong></span>
+    <span class=value><strong>{=parseFloat(house.rental_guarantee_rate).toFixed(2)=}</strong><strong>%</strong></span>
     {_} else if (house.annual_return_estimated) { _}
     <span class=label>{=window.i18n('预计总年化收益率')=}</span>
     <span class=value><strong>{=house.annual_return_estimated=}</strong></span>

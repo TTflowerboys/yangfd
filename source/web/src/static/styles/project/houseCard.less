@@ -30,7 +30,6 @@
             top: 0;
             left: 0;
             height:100%;
-            z-index:1;
 
             @media @phone {
                 position:static;
@@ -45,7 +44,7 @@
             top:0;
             height:40px;
             width:100%;
-            z-index:3;
+            z-index:@house_card-image-text-z-index;
             label {
                 position:static;
                 float:right;
@@ -70,12 +69,12 @@
                 left: 0;
                 top:0;
                 height:100%;
-                z-index:2;
+                z-index:@house_card-sold-out-background-z-index;
             }
 
             label {
                 position:absolute;
-                z-index:3;
+                z-index:@house_card-image-text-z-index;
                 width:100%;
                 height:100%;
                 color:#666666;
