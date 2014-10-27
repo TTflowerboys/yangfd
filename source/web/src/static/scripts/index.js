@@ -123,7 +123,7 @@
 
             }
             else {
-                houseResult = _.template($('#houseCard_template').html())({house: house})
+                houseResult = _.template($('#suggestion_houseCard_template').html())({house: house})
                 $('#suggestionHouses #list').append(houseResult)
             }
         })
@@ -384,6 +384,14 @@
     }
     else {
         $('[data-tabs]').tabs({trigger: 'hover'})
+
+        //load featured data
+        var houseArray = JSON.parse($('#dataPropertyList').text())
+         _.each(houseArray, function (house) {
+            var houseResult = {}
+             houseResult = _.template($('#featured_houseCard_template').html())({house: house})
+             $('.houseFeatured').append(houseResult)
+        })
     }
 
 })()

@@ -1,0 +1,30 @@
+<script id="featured_houseCard_template" type="text/template">
+    <div class="houseCard_wrapper">
+        <h2 class="houseCard_category">{=house.news_category[0].value=}</h2>
+        <div class="houseCard_phone">
+            <!--@@include=house_card_content_phone.tpl.html  -->
+            <div class="relatedNews">
+                <h3 class="title">{{_('相关动态')}}</h3>
+
+                <div class="list">
+                    {_ _.each(house.related_news, function (item) {_}
+                        <a class="item" href=/news/{=item.id=}>{=item.title=}</a>
+                    {_})_}
+                </div>
+            </div>
+        </div>
+
+        <div class=houseCard>
+            <!--@@include=house_card_content.tpl.html  -->
+            <div class="relatedNews">
+                <h3 class="title">{{_('相关动态')}}</h3>
+
+                <div class="list">
+                    {_ _.each(house.related_news, function (item) {_}
+                        <a class="item" href=/news/{=item.id=}>{=item.title=}</a>
+                    {_})_}
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

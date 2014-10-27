@@ -1,5 +1,18 @@
+$(function () {
+    //reload data or setup empty place holder
+    var ticketArray = JSON.parse($('#dataTicketList').text())
+    if (_.isEmpty(ticketArray)) {
+        $('#emptyPlaceHolder').show()
+    }
+    else {
+        _.each(ticketArray, function (ticket) {
+            var houseResult = _.template($('#houseCard_template').html())({ticket: ticket})
+            $('#list').append(houseResult)
+        })
+    }
+})
 
-$('.list').on('click', '.houseCard #removeProperty', function (event) {
+$('#list').on('click', '.houseCard #removeProperty', function (event) {
     var ticketId = $(event.target).attr('data-id')
     $.betterPost('/api/1/intention_ticket/' + ticketId + '/remove')
         .done(function (data) {

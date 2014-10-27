@@ -1,47 +1,6 @@
 <script id="houseCard_template" type="text/template">
     {_var house = fav.property_}
     <div class=houseCard data-property-id="{=fav.property.id=}">
-        {_if(fav.property.reality_images && fav.property.reality_images.length) {_}
-        <img src="{=team.convertToHttps({'link':fav.property.reality_images[0],'property_id':fav.property.id})=}" width=320 height=240/>
-        {_ }else { _}
-        <img src="/static/images/placeholder/property.jpg" width="320" height="240"/>
-        {_}_}
-        <div class=description>
-            <h1 class=name> <a href="/property/{=fav.property.id=}" style="text-decoration:none; color:#333;">{=fav.property.name=}</a></h1>
-
-            <span class=price>
-                <!--@@include=../../partials/get_unit_price.tpl.html -->
-            </span>
-            <div class=details>
-                <p class=size>
-                    <!--@@include=../../partials/get_size.tpl.html -->
-                </p>
-                <ul class=properties>
-                    {_if(fav.property.intention && fav.property.intention.length) {_}
-                    <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
-                        <span>
-                            {_ _.each(fav.property.intention, function(oneIntention) { _}
-                            {=oneIntention.value=}
-                            {_})_}
-                        </span></li>
-                    {_}_}
-                    {_if(fav.property.property_type) {_}
-                    <li><img src="/static/images/icon/house-card-house.png" alt=""/>
-                        <span>{=fav.property.property_type.value=}</span></li>
-                    {_}_}
-                    {_if(fav.property.street) {_}
-                    <li><img src="/static/images/icon/house-card-location.png" alt=""/> <span>{=fav.property.street=}</span>
-                    </li>
-                    {_}_}
-                </ul>
-            </div>
-
-            <div class="otherAction">
-                <button id="cancelFavorite" data-id={=fav.id=} class="ghostButton darkGray">{=window.i18n('取消收藏')=}</button>
-            </div>
-            <div class="undo_shadow" style="display:none;">
-                <button id="undoFavorite"  data-id={=fav.id=} data-property-id="{=fav.property.id=}" class="undo"> <img alt="" src="/static/images/icon/favorites/undo.png"/><span>{=window.i18n('撤销')=}</span></button>
-            </div>
-        </div>
+        <!--@@include=favorite_house_card_content.tpl.html  -->
     </div>
 </script>

@@ -6,7 +6,6 @@ $(function () {
     $('select[name=currency]').find('option[value=' + currency + ']').prop('selected', true)
 })
 
-
 window.changeLanguage = function(language) {
     var newUrl = team.setQuery('_i18n', language)
     $.cookie('currant_lang', language)
@@ -23,13 +22,30 @@ window.getI18nOfLanguage = function (language) {
     else {
         return language
     }
-
 }
 
 window.changeCurrency = function(currency) {
     var newUrl = team.setQuery('_currency', currency)
     $.cookie('currant_currency', currency)
     location.href = newUrl
+}
+
+window.getCurrencyPresentation = function (currency) {
+    if (currency === 'CNY') {
+        return window.i18n('人民币')
+    }
+    else if (currency === 'GBP') {
+        return window.i18n('英镑')
+    }
+    else if (currency === 'USD') {
+        return window.i18n('美元')
+    }
+    else if (currency === 'EUR') {
+        return window.i18n('欧元')
+    }
+    else if (currency === 'HKD') {
+        return window.i18n('港币')
+    }
 }
 
 $('select[name=language]').change(function () {
