@@ -113,7 +113,7 @@ class common(f_common):
         },
         "default":
         {
-            "method": "aws_ses",
+            "method": "sendgrid",
             "sender": "noreply@youngfunding.co.uk"
         }
     }
