@@ -3,7 +3,7 @@
  */
 (function () {
 
-    function ctrlSupportEdit($scope, $state, api, $stateParams, enumApi, $rootScope, i18nLanguages, misc, growl) {
+    function ctrlSupportEdit($scope, $state, api, $stateParams, misc, growl) {
 
         $scope.item = {}
 
@@ -12,13 +12,16 @@
         if (itemFromParent) {
             onGetItem(itemFromParent)
         } else {
-            api.getOne($stateParams.id, { errorMessage: true})
+            api.getOne($stateParams.id, {errorMessage: true})
                 .success(function (data) {
                     onGetItem(data.val)
                 })
         }
 
+        var currentItem
+
         function onGetItem(item) {
+            currentItem = item
             var editItem = angular.copy(item)
 
             if (!_.isEmpty(editItem.country)) {
@@ -45,11 +48,8 @@
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {
-                if (itemFromParent) {
-                    itemFromParent = data.val
-                }
-                $scope.$parent.refreshList()
-                onGetItem(data.val)
+                angular.extend(currentItem, data.val)
+                $state.go('^')
             })['finally'](function () {
                 $scope.loading = false
             })

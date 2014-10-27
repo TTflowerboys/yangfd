@@ -63,7 +63,6 @@ main {
       }
 
       .imageText {
-        z-index:@modal-shadow-z-index;
         &_table {
           padding: 10px;
           display: table;
@@ -100,7 +99,6 @@ main {
           }
         }
       }
-
     }
   }
 
@@ -492,8 +490,13 @@ main {
 
     .houseCard {
 
+      .description_wrapper {
+        padding-right:320px;
+      }
       .relatedNews {
-        float: right;
+        position:absolute;
+        top:0;
+        right:0;
         margin-top: 18px;
         .newsList();
         width: 320px;

@@ -4,7 +4,7 @@
 
 (function () {
 
-    function ctrlContentEdit($scope, api, $stateParams, misc, growl) {
+    function ctrlContentEdit($scope, api, $stateParams, misc, growl, $state) {
         $scope.api = api
 
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
@@ -59,6 +59,7 @@
                 errorMessage: 'Update failed'
             }).success(function () {
                 angular.extend($scope.itemOrigin, changed)
+                $state.go('^')
             })['finally'](function () {
                 $scope.loading = false
             })

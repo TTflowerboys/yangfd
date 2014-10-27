@@ -20,8 +20,10 @@
                 })
         }
 
+        var currentItem
 
         function onGetItem(item) {
+            currentItem = item
             var editItem = angular.copy(item)
             if (!_.isEmpty(editItem.budget)) {
                 editItem.budget = editItem.budget.id
@@ -64,11 +66,8 @@
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {
-                if (itemFromParent) {
-                    itemFromParent = data.val
-                }
-                $scope.$parent.refreshList()
-                onGetItem(data.val)
+                angular.extend(currentItem, data.val)
+                $state.go('^')
             })['finally'](function () {
                 $scope.loading = false
             })

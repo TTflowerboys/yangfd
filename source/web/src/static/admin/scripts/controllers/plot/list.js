@@ -12,7 +12,7 @@
             if (_.isEmpty(newValue)) {
                 return
             }
-            api.search({params: {property_id: newValue}}).success(onGetList)
+            api.search({params: {property_id: newValue, _i18n: 'disabled'}}).success(onGetList)
         })
 
         $scope.onGetList = onGetList
