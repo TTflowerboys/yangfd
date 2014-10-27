@@ -43,7 +43,7 @@
                 errorMessage: 'Update failed'
             }).success(function () {
                 angular.extend($scope.itemOrigin, changed)
-                $scope.$parent.refreshList()
+                $state.go('^')
             })['finally'](function () {
                 $scope.loading = false
             })

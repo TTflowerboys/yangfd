@@ -1,10 +1,10 @@
 <div ui-view>
     <div class="buttons">
-        <!--<span class="btn-group">-->
-            <!--<button class="btn" ui-sref=".create">-->
-                <!--<span class="fa fa-plus-circle"></span>{%$root.i18n('添加物业销售状态')%}-->
-            <!--</button>-->
-        <!--</span>-->
+        <span class="btn-group">
+            <button class="btn" ui-sref=".create">
+                <span class="fa fa-plus-circle"></span>{%$root.i18n('添加物业销售状态')%}
+            </button>
+        </span>
         <div class="btn-group form-inline">
             <div select-property-or-student-item="item.propertyId"></div>
         </div>
@@ -22,26 +22,36 @@
                 <th>{%$root.i18n('状态')%}</th>
                 <th>{%$root.i18n('类型')%}</th>
                 <th>{%$root.i18n('卧室数')%}</th>
+                <th>{%$root.i18n('客厅数')%}</th>
                 <th>{%$root.i18n('浴室数')%}</th>
+                <th>{%$root.i18n('厨房数')%}</th>
                 <th>{%$root.i18n('面积')%}</th>
                 <th>{%$root.i18n('价格')%}</th>
                 <th>{%$root.i18n('楼层')%}</th>
                 <th>{%$root.i18n('备注')%}</th>
+                <th>{%$root.i18n('编辑')%}</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="item in list">
-                <td>{%item.name%}</td>
-                <td>{%item.status%}</td>
+                <td>{%item.name[userLanguage.value]%}</td>
+                <td>{%item.status|plotStatusName%}</td>
                 <td>
-                    <div ng-repeat="t in item.investment_type">{%t.value%}</div>
+                    <div ng-repeat="t in item.investment_type">{%t.value[userLanguage.value]%}</div>
                 </td>
                 <td>{%item.bedroom_count%}</td>
+                <td>{%item.living_room_count%}</td>
                 <td>{%item.bathroom_count%}</td>
+                <td>{%item.kitchen_count%}</td>
                 <td>{%item.space.value%}{%item.space.unit%}</td>
                 <td>{%item.total_price.value%}{%item.total_price.unit%}</td>
                 <td>{%item.floor%}</td>
                 <td>{%item.description||''%}</td>
+                <td style="text-align:center;">
+                    <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
+                        <i class="fa fa-edit "></i>
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>

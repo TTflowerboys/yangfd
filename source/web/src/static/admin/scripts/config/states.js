@@ -454,13 +454,13 @@ angular.module('app')
             .state('dashboard.sales.plot.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.sales.plot.create.tpl.html',
-                controller: 'ctrlCreate',
+                controller: 'ctrlPropertyCreate',
                 resolve: plotResolve
             })
             .state('dashboard.sales.plot.edit', {
                 url: '/:id/edit',
                 templateUrl: '/static/admin/templates/dashboard.sales.plot.edit.tpl.html',
-                controller: 'ctrlEdit',
+                controller: 'ctrlPlotEdit',
                 resolve: plotResolve
             })
             .state('dashboard.sales.housing', {

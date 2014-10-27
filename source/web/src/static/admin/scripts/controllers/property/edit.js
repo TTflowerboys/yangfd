@@ -28,14 +28,24 @@
                     }
                 })
         }
-        api.getAll({params: {target_property_id: $stateParams.id, status: 'draft,not translated,translating,not reviewed,rejected'}, errorMessage: true})
+
+        api.getAll({
+            params: {
+                target_property_id: $stateParams.id,
+                status: 'draft,not translated,translating,not reviewed,rejected'
+            }, errorMessage: true
+        })
             .success(function (data) {
                 var res = data.val.content
                 if (!_.isEmpty(res)) {
                     $scope.draftId = res[0].id
                 }
             })
+
+        var currentItem
+
         function onGetItem(item) {
+            currentItem = item
             var editItem = angular.copy(item)
             if (!_.isEmpty(editItem.property_type)) {
                 $scope.propertyType = editItem.property_type.slug
@@ -95,10 +105,7 @@
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {
-                if (itemFromParent) {
-                    itemFromParent = data.val
-                }
-                $scope.$parent.refreshList()
+                angular.extend(currentItem, data.val)
                 $state.go('^')
             })['finally'](function () {
                 $scope.loading = false
