@@ -48,7 +48,6 @@
                         if (lastItemTime > house.time) {
                             lastItemTime = house.time
                         }
-                        console.log(house)
                     })
 
                     var currentTotalCount = $('#result_list').children().length
