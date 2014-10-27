@@ -418,10 +418,12 @@ class f_currant_plugins(f_app.plugin_base):
             f_app.message.add(message, user_list)
         if "category" in params:
             # Favorite
-            related_property_list = f_app.property.search({"news_category": params["category"], "status": {"$in": ["selling", "sold out"]}})
+            related_property_list = f_app.property.search({"news_category": {"$in": params["category"]}, "status": {"$in": ["selling", "sold out"]}})
             related_property_list = [ObjectId(property) for property in related_property_list]
-            favorite_user_list = f_app.user.favorite.search({"property_id": related_property_list}, per_page=0)
+            logger.debug(related_property_list)
+            favorite_user_list = [fav["user_id"] for fav in f_app.user.favorite.get(f_app.user.favorite.search({"property_id": {"$in": related_property_list}}, per_page=0))]
             favorite_user_list = [_id for _id in favorite_user_list if "favorited_property_news" in f_app.user.get(_id).get("system_message_type", [])]
+            logger.debug(favorite_user_list)
             message = {
                 "type": "favorited_property_news",
                 "title": params["title"],
