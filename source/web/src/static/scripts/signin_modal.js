@@ -3,10 +3,10 @@ $('#login').click(function () {
         window.project.goToSignIn()
     }
     else {
-        $('#modal_shadow').show()
-        $('#modal').show()
+        window.project.showSignInModal()
     }
 });
+
 $('#modal_shadow').click(function () {
     $('#modal_shadow').hide()
     $('#modal').hide()

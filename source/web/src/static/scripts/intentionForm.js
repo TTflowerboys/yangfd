@@ -14,12 +14,15 @@
         data.noregister = data.register === 'on' ? false : true
         data.register = undefined
 
-        $.betterPost('/api/1/intention_ticket/add', data)
+        var api = '/api/1/intention_ticket/add'
+        $.betterPost(api, data)
             .done(function () {
                 $feedback.show().text($form.attr('data-message-success'))
             })
             .fail(function (errorCode) {
-                $feedback.show().text($form.attr('data-message-' + errorCode) || $form.attr('data-message-unknown'))
+                $feedback.empty()
+                $feedback.append(window.getErrorMessageFromErrorCode(errorCode, api))
+                $feedback.show()
             })
             .always(function () {
                 $submit.prop('disabled', false)

@@ -101,7 +101,8 @@
 
             var button = $('form[name=requirement] button[type=submit]')
             button.css('cursor', 'wait')
-            $.betterPost('/api/1/intention_ticket/add', params)
+            var api = '/api/1/intention_ticket/add'
+            $.betterPost(api, params)
                 .done(function (val) {
                     successArea.show()
                     container.find('.requirement_form').hide()
@@ -109,8 +110,9 @@
                     submitSuccessCallBack()
 
                 })
-                .fail(function () {
-                    errorArea.text(window.i18n('提交需求失败'))
+                .fail(function (ret) {
+                    errorArea.empty()
+                    errorArea.append(window.getErrorMessageFromErrorCode(ret, api))
                     errorArea.show()
                 })
                 .always(function () {

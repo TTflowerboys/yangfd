@@ -27,6 +27,11 @@
             window.location.href = team.getQuery('from');
             return false //prevent default action for <a>
         },
+        showSignInModal: function () {
+            $('#modal_shadow').show()
+            $('#modal').show()
+            return false
+        },
         repaintHowItWorks: function () {
 
         },
