@@ -150,7 +150,7 @@
             % news = news_list[0]
             %if ('images' in news) and news.get('images'):
             <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><img class="picture"
-                                                                                          src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8'))}}&news_id={{news.get('id','')}}"/></a>
+                                                                                          src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8')) + '_thumbnail'}}&news_id={{news.get('id','')}}"/></a>
             %end
             <div class="content_wrapper">
                 <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><h3 class="title">

@@ -342,7 +342,7 @@ def admin_user_add(user, params):
 
     f_app.email.schedule(
         target=params["email"],
-        subject=template("static/emails/new_admin_title"),
+        subject=f_app.util.get_format_email_subject(template("static/emails/new_admin_title")),
         text=template("static/emails/new_admin", password=params["password"], nickname=params["nickname"], role=params[
             "role"], admin_console_url=admin_console_url, phone="*" * (len(params["phone"]) - 4) + params["phone"][-4:]),
         display="html",
@@ -400,7 +400,7 @@ def admin_user_add_role(user, user_id, params):
             xsmtpapi["template_id"] = sendgrid_template_id
             f_app.email.schedule(
                 target=user_info.get("email"),
-                subject=template("static/emails/set_as_admin_title"),
+                subject=f_app.util.get_format_email_subject(template("static/emails/set_as_admin_title")),
                 text=template("static/emails/set_as_admin", nickname=user_info.get("nickname"), role=f_app.user.get_role(user_id), admin_console_url=admin_console_url, phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
                 display="html",
                 template_invoke_name=template_invoke_name,
@@ -620,7 +620,7 @@ def email_send(user_id):
 
     f_app.email.schedule(
         target=user["email"],
-        subject=template("static/emails/verify_email_title"),
+        subject=f_app.util.get_format_email_subject(template("static/emails/verify_email_title")),
         text=template("static/emails/verify_email", verification_url=verification_url, nickname=user.get("nickname")),
         display="html",
         template_invoke_name=template_invoke_name,

@@ -147,12 +147,16 @@
          */
         convertToHttps: function (options) {
             var idString = ''
+            var thumbnail = ''
             if (options.property_id) {
                 idString = 'property_id=' + options.property_id
             } else if (options.news_id) {
                 idString = 'news_id=' + options.news_id
             }
-            return ['/image/fetch?link=', encodeURIComponent(options.link), '&', idString].join('')
+            if (options.thumbnail) {
+                thumbnail = '_thumbnail'
+            }
+            return ['/image/fetch?link=', encodeURIComponent(options.link), thumbnail, '&', idString].join('')
         }
     }
 })();
