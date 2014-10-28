@@ -421,8 +421,9 @@ class f_currant_plugins(f_app.plugin_base):
             related_property_list = f_app.property.search({"news_category": {"$in": params["category"]}, "status": {"$in": ["selling", "sold out"]}})
             related_property_list = [ObjectId(property) for property in related_property_list]
             logger.debug(related_property_list)
-            favorite_user_list = [fav["user_id"] for fav in f_app.user.favorite.get(f_app.user.favorite.search({"property_id": {"$in": related_property_list}}, per_page=0))]
-            favorite_user_list = [_id for _id in favorite_user_list if "favorited_property_news" in f_app.user.get(_id).get("system_message_type", [])]
+            favorite_user_id_list = [fav["user_id"] for fav in f_app.user.favorite.get(f_app.user.favorite.search({"property_id": {"$in": related_property_list}}, per_page=0))]
+            favorite_user_list = f_app.user.get(favorite_user_id_list, multi_return=dict)
+            favorite_user_list = [_id for _id in favorite_user_list if "favorited_property_news" in favorite_user_list.get(_id).get("system_message_type", [])]
             logger.debug(favorite_user_list)
             message = {
                 "type": "favorited_property_news",
@@ -432,8 +433,9 @@ class f_currant_plugins(f_app.plugin_base):
             f_app.message.add(message, favorite_user_list)
             # Intention
             intention_ticket_list = f_app.ticket.search({"property_id": {"$in": related_property_list}, "status": {"$in": ["new", "assigned", "in_progress", "deposit"]}}, per_page=0)
-            intention_user_list = [t.get("user_id") for t in f_app.ticket.get(intention_ticket_list)]
-            intention_user_list = [_id for _id in intention_user_list if "intention_property_news" in f_app.user.get(_id).get("system_message_type", [])]
+            intention_user_id_list = [t.get("user_id") for t in f_app.ticket.get(intention_ticket_list)]
+            intention_user_list = f_app.user.get(intention_user_id_list, multi_return=dict)
+            intention_user_list = [_id for _id in intention_user_list if "intention_property_news" in intention_user_list.get(_id).get("system_message_type", [])]
             message = {
                 "type": "intention_property_news",
                 "title": params["title"],
@@ -442,7 +444,8 @@ class f_currant_plugins(f_app.plugin_base):
             f_app.message.add(message, intention_user_list)
             # my_property_news
             bought_ticket_list = f_app.ticket.search({"property_id": {"$in": related_property_list}, "status": "bought"}, per_page=0)
-            bought_user_list = [t.get("user_id") for t in f_app.ticket.get(bought_ticket_list)]
+            bought_user_id_list = [t.get("user_id") for t in f_app.ticket.get(bought_ticket_list)]
+            bought_user_list = f_app.user.get(bought_user_id_list, multi_return=dict)
             bought_user_list = [_id for _id in intention_user_list if "my_property_news" in f_app.user.get(_id).get("system_message_type", [])]
             message = {
                 "type": "my_property_news",
