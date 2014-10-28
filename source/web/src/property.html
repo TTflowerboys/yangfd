@@ -701,7 +701,14 @@
                     </table>
                 </div>
                 <ul class="numbers">
-                    % if property.get('annual_return_estimated'):
+                    %if property.get('rental_guarantee_rate'):
+                        <li>
+                            <span class="percentage emphasized">
+                                <strong>{{float("{0:.2f}".format(property.get('rental_guarantee_rate')))}}</strong><strong>%</strong>
+                            </span>
+                            <span class="text">{{!_('年租金<br/>收益')}}</span>
+                        </li>
+                    %elif property.get('annual_return_estimated'):
                         <li>
                             <span class="percentage emphasized"><strong>
                                 {{property.get('annual_return_estimated')}}
@@ -710,12 +717,12 @@
                         </li>
                     % end
 
-                    %if property.get('rental_guarantee_rate'):
-                        <li>
+                    %if property.get('rental_guarantee_term'):
+                       <li>
                             <span class="percentage emphasized">
-                                <strong>{{float("{0:.2f}".format(property.get('rental_guarantee_rate')))}}</strong><strong>%</strong>
+                                <strong>{{property.get('rental_guarantee_term')}}</strong><strong>{{_('年')}}</strong>
                             </span>
-                            <span class="text">{{!_('年租金<br/>收益')}}</span>
+                            <span class="text">{{!_('包租')}}</span>
                         </li>
                     % elif property.get('annual_cash_return_estimated'):
                         <li>
