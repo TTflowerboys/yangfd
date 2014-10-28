@@ -1,18 +1,18 @@
 <!--@@master=masters/master.html-->
 <!--@@block=head -->
 %if news:
-% news = _i18n(news)
+    % news = _i18n(news)
 %end
 
 %if news:
-<title>{{news.get('title',_('洋房东'))}}</title>
+    <title>{{news.get('title',_('洋房东'))}}</title>
 
-%if 'summary' in news:
-<meta name="Description" content={{news.get('summary')}}>
-% else :
-<meta name="Description" content={{_("我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")}}>
-%end
-<meta name="Keywords" content="洋房东，海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property">
+    %if 'summary' in news:
+        <meta name="Description" content={{news.get('summary')}}>
+    % else :
+        <meta name="Description" content={{_("我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")}}>
+    %end
+    <meta name="Keywords" content="洋房东，海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property">
 %end
 
 <!--build:css(dist) /static/styles/news.html.css-->
@@ -23,48 +23,48 @@
 
 <!--@@block=main -->
 %if news:
-<textarea id="newsData" style="display:none;">{{json_dumps(_i18n(news))}}</textarea>
-
-<div class="container">
-
-    %if 'title' in news:
-    <h1 class="title">{{news.get('title')}}</h1>
-    %end
-
-    %if 'time' in news:
-    <label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>
-        {{news.get('time').strftime('%Y-%m-%d')}}
-    </label>
-    %end
-
-    %if 'link' in news :
-    <label class="source" for=""> <i class="hint">{{_('来源：')}}</i>
-        <a href={{news.get('link')}}>{{_('原文地址')}}</a></label>
-    %end
-
-
-    <div class="share">
-        <a data-fn="shareToWeChat" class="shareButton">
-            <img class="wechat" src="/static/images/icon/share/wechat.png" height=23 alt=""/>
-        </a>
-        <a data-fn="shareToWeibo" class="shareButton">
-            <img src="/static/images/icon/share/weibo.png" height=20 alt=""/>
-        </a>
-    </div>
-
-    <div class="content">
+    <textarea id="newsData" style="display:none;">{{json_dumps(_i18n(news))}}</textarea>
+    <div class="container">
         % from urllib import quote_plus
         %if ('images' in news) and news.get('images'):
-        <img alt="" src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8'))}}&news_id={{news.get('id','')}}"/>
+            <img class="phone" alt="" src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8')) + '_thumbnail'}}&news_id={{news.get('id','')}}"/>
         %end
-        %if 'content' in news:
-        <div class="fullText">
-            {{!news.get('content')}}
-        </div>
+        
+        %if 'title' in news:
+            <h1 class="title">{{news.get('title')}}</h1>
         %end
-    </div>
-</div>
 
+        %if 'time' in news:
+            <label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>
+                {{news.get('time').strftime('%Y-%m-%d')}}
+            </label>
+        %end
+
+        %if 'link' in news :
+            <label class="source" for=""> <i class="hint">{{_('来源：')}}</i>
+                <a href={{news.get('link')}}>{{_('原文地址')}}</a></label>
+        %end
+
+        <div class="share">
+            <a data-fn="shareToWeChat" class="shareButton">
+                <img class="wechat" src="/static/images/icon/share/wechat.png" height=23 alt=""/>
+            </a>
+            <a data-fn="shareToWeibo" class="shareButton">
+                <img src="/static/images/icon/share/weibo.png" height=20 alt=""/>
+            </a>
+        </div>
+        <div class="content">
+            % from urllib import quote_plus
+            %if ('images' in news) and news.get('images'):
+                <img alt="" src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8'))}}&news_id={{news.get('id','')}}"/>
+            %end
+            %if 'content' in news:
+                <div class="fullText">
+                    {{!news.get('content')}}
+                </div>
+            %end
+        </div>
+    </div>
 %end
 
 <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
@@ -77,20 +77,20 @@
 <!--@@block=scripts -->
 
 <script>
-    $('[data-fn=shareToWeChat]').on('click', function () {
-        $('#popupShareToWeChat')
+ $('[data-fn=shareToWeChat]').on('click', function () {
+     $('#popupShareToWeChat')
             .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
             .modal()
-    })
+ })
 
-    $('[data-fn=shareToWeibo]').on('click', function () {
-        var news = JSON.parse($('#newsData').text())
-        var params = {'title': news.title, 'url': location.href}
-        if (news.images && news.images.length > 0) {
-            params.pic = news.images[0]
-        }
-        team.shareToWeibo(params)
-    })
+ $('[data-fn=shareToWeibo]').on('click', function () {
+     var news = JSON.parse($('#newsData').text())
+     var params = {'title': news.title, 'url': location.href}
+     if (news.images && news.images.length > 0) {
+         params.pic = news.images[0]
+     }
+     team.shareToWeibo(params)
+ })
 </script>
 
 <!--@@close-->

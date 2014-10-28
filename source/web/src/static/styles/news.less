@@ -9,11 +9,30 @@
         width:800px;
         margin: 120px auto;
 
+        @media @phone {
+            width:100%;
+            margin:0;
+        }
+
+        img.phone {
+            display:none;
+            @media @phone {
+                display:block;
+                width:100%;
+            }
+        }
         .title {
             font-size:24px;
             color:#333;
             line-height:1;
             margin-bottom:40px;
+
+            @media @phone {
+                font-size:16px;
+                line-height:25px;
+                margin:5px 12px 15px 12px;
+            }
+
         }
 
         .source {
@@ -38,6 +57,11 @@
             i {
                 font-style:normal;
             }
+
+            @media @phone {
+                margin-left:12px;
+            }
+
         }
 
         .share {
@@ -54,14 +78,29 @@
                     cursor:pointer;
                 }
             }
+
+            @media @phone {
+                margin-right:12px;
+            }
+
         }
 
         .content {
             border-top:2px solid #ccc;
             padding:40px 0;
 
+            @media @phone {
+                padding:20px 12px;
+            }
+
+
             img {
                 margin-bottom:28px;
+
+                @media @phone {
+                    display:none;
+                    margin-bottom:0;
+                }
             }
 
             .fullText {
@@ -69,6 +108,12 @@
                 line-height:26px;
                 color:#666;
                 margin:0px;
+
+                @media @phone {
+                    font-size:12px;
+                    line-height:20px;
+                }
+
             }
         }
     }
