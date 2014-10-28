@@ -22,12 +22,14 @@ plot_params = dict(
     space=("i18n:area", None, "meter ** 2, foot ** 2"),
     total_price="i18n:currency",
     description=str,
+    unset_fields=(list, None, str),
 )
 
 
 @f_api('/plot/add', params=plot_params)
 @f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'jr_sales'])
 def plot_add(user, params):
+    params.pop("unset_fields", [])
     return f_app.plot.add(params)
 
 
@@ -54,7 +56,12 @@ def plot_search(user, params):
 @f_api('/plot/<plot_id>/edit', params=plot_params)
 @f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'jr_sales'])
 def plot_edit(user, plot_id, params):
-    return f_app.plot.update_set(plot_id, params)
+    unset_fields = params.pop("unset_fields", [])
+    f_app.plot.update_set(plot_id, params)
+    if unset_fields:
+        f_app.plot.update(plot_id, {"$unset": {i:"" for i in unset_fields}})
+
+    return f_app.plot.output([plot_id])[0]
 
 
 @f_api('/plot/<plot_id>/remove')
