@@ -187,6 +187,7 @@ property_params = dict(
     # rental guarantee fields
     rental_guarantee_term=str,
     rental_guarantee_rate=float,
+    unset_fields=(list, None, str),
 )
 
 
@@ -246,7 +247,14 @@ def property_edit(property_id, user, params):
 
     else:
         property = f_app.property.get(property_id)
-        action = lambda params: f_app.property.update_set(property_id, params)
+        def _action(params):
+            unset_fields = params.get("unset_fields", [])
+            f_app.property.update_set(property_id, params)
+            if unset_fields:
+                f_app.property.update(property_id, {"$unset": {i:"" for i in unset_fields}})
+            return f_app.property.get(property_id)
+
+        action = _action
 
         # Status-only updates
         if len(params) == 1 and "status" in params:
@@ -271,9 +279,13 @@ def property_edit(property_id, user, params):
                                 property = f_app.property.get_database(m).find_one({"_id": ObjectId(property_id)})
                             property.pop("_id")
                             property["status"] = params["status"]
-                            result = f_app.property.update_set(property.pop("target_property_id"), property)
+                            target_property_id = property.pop("target_property_id")
+                            unset_fields = property.pop("unset_fields", [])
+                            f_app.property.update_set(target_property_id, property)
+                            if unset_fields:
+                                f_app.property.update(target_property_id, {"$unset": {i:"" for i in unset_fields}})
                             f_app.property.update_set(property_id, {"status": "deleted"})
-                            return result
+                            return f_app.property.get(target_property_id)
 
                 if params["status"] == "not reviewed":
                     # TODO: make sure all needed fields are present
