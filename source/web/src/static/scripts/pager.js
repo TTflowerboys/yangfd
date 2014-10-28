@@ -38,6 +38,8 @@ window.startPaging = function (dataArray, pageItemCount, $preButton, $nextButton
     }
     else {
         loadData(dataArray.slice(0, pageItemCount))
+        $preButton.show()
+        $nextButton.show()
         enablePrePage(false)
         enableNextPage(true)
     }
