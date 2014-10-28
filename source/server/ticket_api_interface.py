@@ -70,7 +70,7 @@ def intention_ticket_add(params):
                     user_params["password"] = password
                     f_app.email.schedule(
                         target=params["email"],
-                        subject=template("static/emails/new_user_title"),
+                        subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
                         text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"]),
                         display="html",
                     )
@@ -108,7 +108,7 @@ def intention_ticket_add(params):
                     user_params["password"] = password
                     f_app.email.schedule(
                         target=params["email"],
-                        subject=template("static/emails/new_user_title"),
+                        subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
                         text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"]),
                         display="html",
                     )
@@ -151,7 +151,7 @@ def intention_ticket_add(params):
             xsmtpapi["template_id"] = sendgrid_template_id
             f_app.email.schedule(
                 target=sales["email"],
-                subject=template("static/emails/new_ticket_title"),
+                subject=f_app.util.get_format_email_subject(template("static/emails/new_ticket_title")),
                 text=template("static/emails/new_ticket", params=params),
                 display="html",
                 template_invoke_name=template_invoke_name,

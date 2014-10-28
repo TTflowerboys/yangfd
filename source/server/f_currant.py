@@ -15,7 +15,7 @@ from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
 from libfelix.f_log import f_log
 from libfelix.f_message import f_message
-from libfelix.f_interface import abort
+from libfelix.f_interface import abort, request
 from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
 
@@ -1312,5 +1312,15 @@ class f_currant_util(f_util):
         price_group[1] = float(price_group[1])if price_group[1] else None
 
         return price_group
+
+    def get_format_email_subject(self, subject):
+        host = request.urlparts[1]
+        if "currant-dev" in host:
+            return "<currant-dev>" + subject
+        elif "currant-test" in host:
+            return "<currant-test>" + subject
+        elif "127.0.0.1" in host:
+            return "<currant-localhost>" + subject
+        return subject
 
 f_currant_util()

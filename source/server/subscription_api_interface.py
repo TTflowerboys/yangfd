@@ -78,7 +78,7 @@ def subscription_notification_ready(user, params):
         xsmtpapi = {"to": [subscription["email"]], "sub": {}, "category": ["subscription_notification_ready"], "template_id": sendgrid_template_id}
         f_app.email.schedule(
             target=subscription["email"],
-            subject=template("static/emails/we_are_ready_title"),
+            subject=f_app.util.get_format_email_subject(template("static/emails/we_are_ready_title")),
             text=template("static/emails/we_are_ready"),
             display="html",
             substitution_vars=substitution_vars,
