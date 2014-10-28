@@ -571,13 +571,30 @@
                         </div>
                     </div>
                 </tab>
-                <tab ng-if="hasPermission('admin,jr_admin,sales,jr_sales')" heading="{%$root.i18n('销售备注')%}">
+                <tab ng-if="hasPermission('admin,jr_admin,sales,jr_sales') && salesCommentEnabled!==undefined" heading="{%$root.i18n('销售备注')%}">
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label class="control-label">{%$root.i18n('销售备注')%}</label>
 
                             <div class="controls">
-                                <textarea ng-model="item.sales_comment" class="form-control" rows="10"></textarea>
+                                <textarea ng-model="item.sales_comment" id="sales_comment" disabled="disabled" class="form-control" rows="10"></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="!salesCommentEnabled">
+                        <div class="form-group col-sm-3">
+                            <div class="controls">
+                                <button class="btn btn-private" type="button" ng-click="editSalesComment()">修改</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="salesCommentEnabled">
+                        <div class="form-group col-sm-12">
+                            <div class="controls">
+                                <button class="btn btn-private" type="button" ng-click="updateSalesComment()">提交</button>
+                                <button class="btn btn-private" type="button" ng-click="cancelEditSalesComment()">取消</button>
 
                             </div>
                         </div>

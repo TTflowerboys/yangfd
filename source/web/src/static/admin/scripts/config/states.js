@@ -47,12 +47,6 @@ angular.module('app')
             }
         }
 
-        var housingResolve = {
-            api: function (apiFactory) {
-                return apiFactory('housing')
-            }
-        }
-
         $stateProvider
             .state('dashboard', {
                 url: '/dashboard',
@@ -467,7 +461,13 @@ angular.module('app')
                 url: '/housing',
                 templateUrl: '/static/admin/templates/dashboard.sales.housing.tpl.html',
                 controller: 'ctrlHousingList',
-                resolve: housingResolve
+                resolve: propertyResolve
+            })
+            .state('dashboard.sales.housing.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.property.detail.tpl.html',
+                controller: 'ctrlHousingDetail',
+                resolve: propertyResolve
             })
         /**
          * others

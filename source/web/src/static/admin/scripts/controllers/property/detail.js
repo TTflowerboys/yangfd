@@ -24,7 +24,6 @@
                     }
                 })
         }
-
     }
 
     angular.module('app').controller('ctrlPropertyDetail', ctrlPropertyDetail)
