@@ -1,4 +1,18 @@
 {_if(house.property_type && (house.property_type.slug === 'new_property' || house.property_type.slug === 'student_housing') && house.unit_price){_}
+
+{_if (house.main_house_types && house.main_house_types.length){_}
+{=window.i18n('最低投资')=}
+<br/>
+{=house.main_house_types[0].total_price.unit_symbol=}
+        {_var minPrice = house.main_house_types[0].total_price.value_}
+        {_ _.each(house.main_house_types, function (type) {_}
+            {_if (minPrice > type.total_price.value){_}
+                {_minPrice = type.total_price.value_}
+            {_}_}
+        {_})_}
+<strong>{=team.encodeCurrency(parseInt(minPrice))=}</strong>
+
+{_} else if(house_unit_price){_}
 {=house.unit_price.price.unit_symbol=}
 <strong>{=team.encodeCurrency(parseInt(house.unit_price.price.value/house.unit_price.unit.value))=}</strong>
 /
@@ -13,6 +27,8 @@ km <sup>2</sup>
 {_} else {_}
 {=house.unit_price.unit.unit=}
 {_}_}
+{_}_}
+
 {_} else {_}
 {_if(house.total_price) {_}
 {=house.total_price.unit_symbol=}
