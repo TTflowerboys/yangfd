@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
     <link rel="stylesheet" href="/static/styles/propertyCard.css"/>
     <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
+    <link rel="stylesheet" href="/static/styles/mainHouseTypePopup.css"/>
     <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
     <!--endbuild-->
 
@@ -337,19 +338,19 @@
                                                         <tr>
                                                             <td>
                                                                 <span class="name">{{_('房间')}}</span>
-                                                                <span class="value">{{type.get('bedroom_count',0)}}</span>
+                                                                <span class="value">{{item.get('bedroom_count',0)}}</span>
                                                             </td>
                                                             <td>
                                                                 <span class="name">{{_('客厅')}}</span>
-                                                                <span class="value">{{type.get('living_room_count',0)}}</span>
+                                                                <span class="value">{{item.get('living_room_count',0)}}</span>
                                                             </td>
                                                             <td>
                                                                 <span class="name">{{_('卫生间')}}</span>
-                                                                <span class="value">{{type.get('kitchen_count',0)}}</span>
+                                                                <span class="value">{{item.get('kitchen_count',0)}}</span>
                                                             </td>
                                                             <td>
                                                                 <span class="name">{{_('厨房')}}</span>
-                                                                <span class="value">{{type.get('bathroom_count',0)}}</span>
+                                                                <span class="value">{{item.get('bathroom_count',0)}}</span>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -362,8 +363,8 @@
                                                             <span class="name">{{_('面积')}}</span>
                                                             <span class="value">
                                                                 <strong >
-                                                                    {{float("{0:.2f}".format(float(type.get('building_area',{}).get('value'))))}}
-                                                                    % unit = type.get('building_area',{}).get('unit')
+                                                                    {{float("{0:.2f}".format(float(item.get('building_area',{}).get('value'))))}}
+                                                                    % unit = item.get('building_area',{}).get('unit')
                                                                     <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
                                                                 </strong>
                                                             </span>
@@ -371,12 +372,12 @@
                                                         <td>
                                                             <span class="name">{{_('售价')}}</span>
                                                             <span class="value">
-                                                                %if 'total_price' in type and type.get('total_price'):
+                                                                %if 'total_price' in item and item.get('total_price'):
                                                                     <strong>
-                                                                        {{type.get('total_price',{}).get('unit_symbol')}}
+                                                                        {{item.get('total_price',{}).get('unit_symbol')}}
                                                                     </strong>
                                                                     <strong data-type="currency">
-                                                                        {{int(float(type.get('total_price',{}).get('value')))}}
+                                                                        {{int(float(item.get('total_price',{}).get('value')))}}
                                                                     </strong>
                                                                 %end
                                                             </span>
@@ -967,6 +968,7 @@
             </form>
         </div>
     </div>
+    <!--@@include=partials/main_house_type_popup.html -->
     <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
         <img src="" alt="二维码" width="220" height="220"/>
         <p>{{_('打开微信，使用 “扫一扫” 即可将网页分享到朋友圈')}}</p>
