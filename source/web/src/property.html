@@ -765,7 +765,7 @@
                                 </div>
                                 <div class="row">
                                     <input name="email" type="text" placeholder="{{_('您的邮箱')}}" data-validator="trim, required, email"
-                                           value="{{user.get('email','') if user else ''}}"/>
+                                           value="{{user.get('email','') if user and user.get('email') else ''}}"/>
                                 </div>
                                 <div class="row">
                                     <select name="budget">
