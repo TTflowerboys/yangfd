@@ -509,67 +509,67 @@
                             % price = float(item.get('price',{}).get('value',0))
                             % cost += price
                             <div class="bar bar1" style="width: {{price/total*100}}%">
-                                 {{item.get('price',{}).get('unit_symbol','')}}
-                                 {{'%.2f' % float(item.get('price',{}).get('value',0))}}
-                                </div>
+                                {{item.get('price',{}).get('unit_symbol','')}}
+                                {{'%.2f' % float(item.get('price',{}).get('value',0))}}
+                            </div>
                         % end
 
                         <div class="bar last" style="width: {{100 - cost / total * 100}}%">
-                                 {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
-                                 {{ '%.2f' % (total - cost) }}
+                            {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
+                            {{ '%.2f' % (total - cost) }}
                         </div>
 
-                                 % if cost != 0:
-                                     <div class="annotation annotation4" style="width: {{cost / total * 100}}%;">
-                                 {{_('支出')}}
-                                     </div>
-                                 % end
-
-                                 <div class="annotation annotation6" style="width: {{100 - cost / total * 100}}%;">
-                                 {{_('预期净收益')}}
-                                 </div>
-                                 <div class="annotation annotation5" style="width: 100%;">
-                                 {{_('预期总收入')}}
-                                 </div>
-                                 </div>
-                                 <table class="text">
-                                 <colgroup>
-                                     <col style="width: 150px;">
-                                     <col style="width: 150px;">
-                                     <col>
-                                     <col style="width: 150px;">
-                                 </colgroup>
-                                 <tr>
-                                     <td>
-                                         <span class="bar bar0"></span>
-                                         <p class="name">{{_('预期总收入')}}</p>
-                                         <p class="value">
-                                             {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
-                                             <strong>{{ '%.2f' % float(property.get('estimated_monthly_rent',{}).get('value',0)) }}</strong>
-                                         </p>
-                                     </td>
-                                     % for item in property.get('estimated_monthly_cost'):
-                                         <td>
-                                             <span class="bar bar1"></span>
-                                             <p class="name">{{item.get('item')}}</p>
-                                             <p class="value">
-                                                 {{item.get('price',{}).get('unit_symbol','')}}
-                                                 <strong>{{ '%.2f' % float(item.get('price',{}).get('value',0)) }}</strong>
-                                             </p>
-                                         </td>
-                                     %end
-                                     <td>
-                                         <span class="bar bar3"></span>
-                                         <p class="name">{{_('预期净收益')}}</p>
-                                         <p class="value">
-                                             {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
-                                             <strong>{{ '%.2f' % (total - cost) }}</strong>
-                                         </p>
-                                     </td>
-                                 </tr>
-                </table>
+                        % if cost != 0:
+                            <div class="annotation annotation4" style="width: {{cost / total * 100}}%;">
+                                {{_('支出')}}
                             </div>
-                            <hr/>
+                        % end
+
+                        <div class="annotation annotation6" style="width: {{100 - cost / total * 100}}%;">
+                            {{_('预期净收益')}}
+                        </div>
+                        <div class="annotation annotation5" style="width: 100%;">
+                            {{_('预期总收入')}}
+                        </div>
+                    </div>
+                    <table class="text">
+                        <colgroup>
+                            <col style="width: 150px;">
+                            <col style="width: 150px;">
+                            <col>
+                            <col style="width: 150px;">
+                        </colgroup>
+                        <tr>
+                            <td>
+                                <span class="bar bar0"></span>
+                                <p class="name">{{_('预期总收入')}}</p>
+                                <p class="value">
+                                    {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
+                                    <strong>{{ '%.2f' % float(property.get('estimated_monthly_rent',{}).get('value',0)) }}</strong>
+                                </p>
+                            </td>
+                            % for item in property.get('estimated_monthly_cost'):
+                                <td>
+                                    <span class="bar bar1"></span>
+                                    <p class="name">{{item.get('item')}}</p>
+                                    <p class="value">
+                                        {{item.get('price',{}).get('unit_symbol','')}}
+                                        <strong>{{ '%.2f' % float(item.get('price',{}).get('value',0)) }}</strong>
+                                    </p>
+                                </td>
+                            %end
+                            <td>
+                                <span class="bar bar3"></span>
+                                <p class="name">{{_('预期净收益')}}</p>
+                                <p class="value">
+                                    {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
+                                    <strong>{{ '%.2f' % (total - cost) }}</strong>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <hr/>
             % end
             <div class="nearby" style="display: none;">
                 <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
@@ -584,8 +584,8 @@
                             <li>?{{_('个汽车租赁点') }}</li>
                         </ul>
                         <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
-                        </li>
-                        <li>
+                    </li>
+                    <li>
                         <h4><i><img src="/static/images/property_details/icon-cap.png" alt=""/></i>{{_('周边学校')}}</h4>
                         <strong>??</strong>
                         <hr/>
@@ -595,11 +595,11 @@
                             <li>?{{_('所大学')}}</li>
                         </ul>
                         <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
-                        </li>
-                        <li>
+                    </li>
+                    <li>
                         <h4>
-                        <i><img src="/static/images/property_details/icon-briefcase.png" alt=""/></i>
-                        {{_('便民设施')}}
+                            <i><img src="/static/images/property_details/icon-briefcase.png" alt=""/></i>
+                            {{_('便民设施')}}
                         </h4>
                         <strong>??</strong>
                         <hr/>
@@ -609,11 +609,11 @@
                             <li>?{{_('所游泳馆')}}</li>
                         </ul>
                         <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
-                        </li>
-                        <li>
+                    </li>
+                    <li>
                         <h4>
-                        <i><img src="/static/images/property_details/icon-shield.png" alt=""/></i>
-                        {{_('便民设施')}}
+                            <i><img src="/static/images/property_details/icon-shield.png" alt=""/></i>
+                            {{_('便民设施')}}
                         </h4>
                         <strong>??</strong>
                         <hr/>
@@ -623,414 +623,414 @@
                             <li>?{{_('所游泳馆')}}</li>
                         </ul>
                         <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
-                            </li>
-                            </ul>
-                            </div>
-                            </div>
-                            <div class="aside">
-                            <div class="propertyCard">
-                                <h1>{{property.get('name','')}}</h1>
-                                % if property.get('intention'):
-                                    <div class="tag">
-                                        <img src="/static/images/property_details/tag-icon.png" alt=""/>
-                                        {{tagString}}
-                                    </div>
-                                % end
-                                % if 'country' in property or 'city' in property:
-                                    % country = property.get('country',{}).get('value')
-                                    % city = property.get('city',{}).get('value')
-                                    % city_string = ', '.join([x for x in [country,city] if x])
-                                    <div class="tag"><img src="/static/images/property_details/location-icon.png" alt=""/>
-                                        {{city_string}}
-                                    </div>
-                                % end
-
-
-                                <div class="price">
-                                    <table>
-                                        <tr>
-                                            <td class="price_inner">
-                                                <span class="mute">{{_('参考价格')}}</span>
-                                                <!--@@include=partials/get_unit_price.html-->
-                                            </td>
-                                            %if property.get('status') == 'sold out':
-                                                <td class="soldOut">
-                                                    <span>{{_('售罄')}}</span>
-                                                </td>
-                                            %end
-                                        </tr>
-                                    </table>
-                                </div>
-                                <ul class="numbers">
-                                    % if property.get('annual_return_estimated'):
-                                        <li>
-                                            <span class="percentage emphasized"><strong>
-                                                {{property.get('annual_return_estimated')}}
-                                            </strong></span>
-                                            <span class="text">{{!_('预计总<br/>年化收益率')}}</span>
-                                        </li>
-                                    % end
-
-                                    %if property.get('rental_guarantee_rate'):
-                                        <li>
-                                            <span class="percentage emphasized">
-                                                <strong>{{float("{0:.2f}".format(property.get('rental_guarantee_rate')))}}</strong><strong>%</strong>
-                                            </span>
-                                            <span class="text">{{!_('年租金<br/>收益')}}</span>
-                                        </li>
-                                    % elif property.get('annual_cash_return_estimated'):
-                                        <li>
-                                            <span class="percentage emphasized"><strong>
-                                                {{property.get('annual_cash_return_estimated')}}
-                                            </strong></span>
-                                            <span class="text">{{!_('预计租金<br/>年化收益率')}}</span>
-                                        </li>
-                                    %end
-                                </ul>
-                                <hr/>
-                                <table class="actions">
-                                    <tr>
-                                        <td style="text-align:left;">
-                                            % isFavorite = property.get('id') in [i.get('property',{}).get('id') for i in favorite_list]
-                                            <button data-fn="addFav" data-property-id="{{property.get('id','')}}"
-                                                    class="flatButton"
-                                                    style="{{ 'display:none' if isFavorite else ''}}"
-                                                    data-message-40090="{{_('已经收藏过了')}}"
-                                                    >
-                                                <img src="/static/images/property_details/icon-star.png" alt=""/>
-                                                <span class="text"> {{_('收藏')}} </span>
-                                            </button>
-                                            <button data-fn="removeFav"
-                                                    class="flatButton"
-                                                    style="{{ 'display:none' if not isFavorite else ''}}"
-                                                    % if isFavorite:
-                                                    % foundId = [x for x in favorite_list if x.get('property',{}).get('id') == property.get('id')][0].get('id')
-                                                    data-favorite-id="{{foundId}}"
-                                                    % end
-                                                    >
-                                                    <img src="/static/images/property_details/icon-star.png" alt=""/>
-                                                    <span class="text"> {{_('取消收藏') }} </span>
-                                            </button>
-                                        </td>
-                                        <td style="text-align:center;">
-                                            <button data-fn="shareToWeChat" class="flatButton green">
-                                                <img src="/static/images/property_details/icon-wechat.png" alt=""/>
-                                                {{_('分享到微信')}}
-                                            </button>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            % name = property.get('name','')
-                                            <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{name}}'}) ">
-                                                <img src="/static/images/property_details/icon-weibo.png" alt=""/>
-                                                {{_('分享到微博')}}
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                            <form class="intentionForm" name="intentionForm"
-                                  data-message-success="{{_('提交成功')}}"
-                                  data-message-40000="{{_('你填写的手机或邮箱的格式不正确')}}"
-                                  data-message-unknown="{{_('服务器忙，请稍后')}}"
-                                  >
-                                <input name="property_id" type="hidden" value="{{property.get('id','')}}"/>
-                                <div class="row">
-                                    <input name="nickname" type="text" placeholder="{{_('您的姓名')}}" data-validator="trim, required"
-                                           value="{{ user.get('nickname') if user else ''}}"/>
-                                </div>
-                                <div class="row">
-                                    <select name="country">
-                                        %for index, country in enumerate(country_list):
-                                            <option value="{{country.get('id')}}"
-                                                    % if country.get('id') == user.get('country',{}).get('id') if user and user.get('country') else None:
-                                                    selected
-                                                    %end
-                                                    >
-                                                    %if (country.get('slug') == 'CN'):
-                                                        (+86)
-                                                    %elif (country.get('slug') == 'GB') :
-                                                        (+44)
-                                                    %elif (country.get('slug') == 'US') :
-                                                        (+1)
-                                                    %elif (country.get('slug') == 'HK') :
-                                                        (+85)
-                                                    %end
-                                                    {{_i18n(country.get('value'))}}
-                                            </option>
-                                        %end
-                                    </select>
-                                    <input name="phone" type="text" placeholder="{{_('您的电话')}}" data-validator="trim, required"
-                                           value="{{user.get('phone','') if user else ''}}"/>
-                                </div>
-                                <div class="row">
-                                    <input name="email" type="text" placeholder="{{_('您的邮箱')}}" data-validator="trim, required, email"
-                                           value="{{user.get('email','') if user and user.get('email') else ''}}"/>
-                                </div>
-                                <div class="row">
-                                    <select name="budget">
-                                        <option value="">-- {{_('您的预算')}}
-                                            (
-                                            {{_('可选')}},
-                                            <!--@@include=partials/current_currency.html -->
-                                            ) --
-                                        </option>
-                                        %for index, budget in enumerate(_i18n(budget_list)):
-                                            %if budget.get('currency') == _.currency:
-                                                <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
-                                            %end
-                                        %end
-                                    </select>
-                                </div>
-                                <div class="row">
-                                    <textarea name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}({{ _('可选') }})"></textarea>
-                                </div>
-                                % if not user:
-                                    <div class="row">
-                                        <input id="c77a0b1a-1612-42e6-abbf-2ddc38095ad1" type="checkbox" name="register" checked/>
-                                        <label for="c77a0b1a-1612-42e6-abbf-2ddc38095ad1">{{_('免费成为会员，查看详细报告') }}</label>
-                                    </div>
-                                % end
-                                <div class="action">
-                                    <button class="flatButton" type="submit" disabled>{{_('联系我们（免费）')}}</button>
-                                </div>
-                                <div class="row" data-role="serverFeedback" style="display: none; text-align:center;"></div>
-                                <hr/>
-                                <div class="contact">
-                                    {{_('拨打 4000926433')}}
-                                </div>
-                            </form>
-                            <hr/>
-
-                            % if property.get('intention'):
-                                <div class="intentionTags" data-tabs>
-                                    <h2 class="propertyDetails_title">{{_('投资标签')}}</h2>
-                                    <ul class="tab">
-                                        % for intention in property.get('intention'):
-                                            <li data-tab="{{intention.get('slug','')}}">
-                                                <div class="image_wrapper">
-                                                    <img src="/static/images/intention/icon/{{intention.get('slug')}}-red.png" alt=""/>
-                                                </div>
-                                                <div class="text">
-                                                    {{intention.get('value')}}
-                                                </div>
-                                            </li>
-                                        % end
-                                    </ul>
-                                    <ul class="content">
-                                        % for intention in property.get('intention'):
-                                            <li data-tab-name="{{intention.get('slug','')}}">
-                                                {{intention.get('description','')}}
-                                            </li>
-                                        % end
-                                    </ul>
-                                </div>
-                                <hr/>
-                            % end
-                            <h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
-                            <form class="intentionForm calculator" name="mortgageForm">
-                                <div class="row">
-                                    <!--partial include must be in seperate line for translation extract-->
-                                    <label class="label">{{_('购房总价')}} (
-                                        <!--@@include=partials/current_currency.html -->
-                                        )</label>
-                                    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-                                        <input name="_total" type="text" placeholder=""
-                                               data-type="currency"
-                                               data-validator="decimal, trim, required"
-                                               data-message-required="{{_('必填')}}"
-                                               data-message-decimal="{{_('必须为数字')}}"/>
-                                    % else:
-                                        <input name="_total" type="text" placeholder=""
-                                               data-type="currency"
-                                               value={{int(float(property.get('total_price',{}).get('value','')))}}
-                                               data-validator="decimal, trim, required"
-                                               data-message-required="{{_('必填')}}"
-                                               data-message-decimal="{{_('必须为数字')}}"/>
-                                    % end
-                                </div>
-                                <div class="row">
-                                    <label class="label">{{_('首付款')}} (
-                                        <!--@@include=partials/current_currency.html -->
-                                        )</label>
-                                    <input name="_down_payment" type="text" placeholder=""
-                                           data-type="currency"
-                                           data-message-required="{{_('必填')}}"
-                                           data-validator="decimal, trim, required" data-message-decimal="{{_('必须为数字')}}"/>
-                                </div>
-                                <div class="row">
-                                    <label class="label">{{_('贷款金额')}} (
-                                        <!--@@include=partials/current_currency.html -->
-                                        )</label>
-                                    <input readonly name="loan" type="text" placeholder=""
-                                           data-type="currency"
-                                           data-message-required="必填"
-                                           data-validator="decimal, trim, required" data-message-decimal="{{_('必须为数字')}}"/>
-                                </div>
-                                <div class="row">
-                                    <label class="label">{{_('贷款利率')}}
-                                        (
-                                        <a class="link" target="_blank" href="http://www.moneysupermarket.com/mortgages/search/results/?goal=MOR_BTL">{{_('更多贷款选择')}}</a> )
-                                    </label>
-                                    <div class="inputAddOn">
-                                        <input name="rate" type="text" placeholder=""
-                                               data-message-required="{{_('必填')}}"
-                                               data-validator="decimal, trim, required" data-message-decimal="{{_('必须为数字')}}"/>
-                                        <span class="addOn">%</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="label">{{_('贷款年限')}}</label>
-                                    <input name="term" type="text" placeholder=""
-                                           data-message-required="{{_('必填')}}"
-                                           data-validator="number, trim, required" data-message-decimal="{{_('必须为整数')}}"/>
-                                </div>
-                                <div class="row">
-                                    <label class="label">{{_('还款类型')}}</label>
-                                    <select name="_type" data-validator="required"
-                                            data-message-required="{{_('必填')}}"
-                                            >
-                                        <option value="repayment">{{_('本息按揭')}}</option>
-                                        <option value="interestonly">{{_('仅还利息')}}</option>
-                                    </select>
-                                </div>
-                                <div class="action">
-                                    <button type="submit" class="flatButton">{{_('计算贷款')}}</button>
-                                </div>
-                                <a class="link" target="_blank" href="/news_list">{{_('贷款流程')}}</a>
-                                <hr/>
-                                <div class="table_wrapper" data-ui="result" style="display: none;">
-                                    <table>
-                                        <colgroup>
-                                            <col class="col-name">
-                                            <col class="col-value">
-                                        </colgroup>
-                                        <tr>
-                                            <td class="name">{{_('总支付利息')}}</td>
-                                            <td class="value">
-                                                <!--@@include=partials/current_currency_sympol.html -->
-                                                <span data-name="total_interest"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="name">{{_('本息合计')}}</td>
-                                            <td class="value">
-                                                <!--@@include=partials/current_currency_sympol.html -->
-                                                <span data-name="total"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="name">{{_('每月还款')}}</td>
-                                            <td class="value">
-                                                <!--@@include=partials/current_currency_sympol.html -->
-                                                <span data-name="monthly"></span></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </form>
+                    </li>
+                </ul>
             </div>
+        </div>
+        <div class="aside">
+            <div class="propertyCard">
+                <h1>{{property.get('name','')}}</h1>
+                % if property.get('intention'):
+                    <div class="tag">
+                        <img src="/static/images/property_details/tag-icon.png" alt=""/>
+                        {{tagString}}
                     </div>
-                    <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
-                        <img src="" alt="二维码" width="220" height="220"/>
-                        <p>{{_('打开微信，使用 “扫一扫” 即可将网页分享到朋友圈')}}</p>
+                % end
+                % if 'country' in property or 'city' in property:
+                    % country = property.get('country',{}).get('value')
+                    % city = property.get('city',{}).get('value')
+                    % city_string = ', '.join([x for x in [country,city] if x])
+                    <div class="tag"><img src="/static/images/property_details/location-icon.png" alt=""/>
+                        {{city_string}}
                     </div>
-                    <!--@@close-->
-
-                    <!--@@block = scripts-->
-                    <script src="/static/vendors/Chart.min.js"></script>
+                % end
 
 
-                    <script>
-                     (function () {
-
-                         $(".rslides").responsiveSlides({
-                             pager: true,
-                             auto: false,
-                             nav: true,
-                             prevText: '<',
-                             nextText: '>'
-                         })
-
-
-                         $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-                             if (tabName === 'map') {
-                                 var $propertyMap = $('#propertyMap')
-                                 var longitude = $propertyMap.attr('data-longitude')
-                                 var latitude = $propertyMap.attr('data-latitude')
-                                 var url = 'https://maps.googleapis.com/maps/api/staticmap'
-                                 if ($propertyMap.get(0).src.indexOf(url) === 0) { return }
-                                 var result = team.setQuery('center', longitude + ',' + latitude, url)
-                                 result = team.setQuery('zoom', 15, result)
-                                 result = team.setQuery('size', '640x384', result)
-                                 result = team.setQuery('markers', longitude + ',' + latitude, result)
-                                 $propertyMap.get(0).src = result
-                             }
-                         })
-
-                         $('[data-fn=addFav]').on('click', function () {
-                             var $button = $(this)
-                             var property_id = $button.attr('data-property-id')
-                             $.betterPost('/api/1/user/favorite/add', {
-                                 property_id: property_id
-                             })
-                                                      .done(function (val) {
-                                                          $button.hide().parent().find('[data-fn=removeFav]').show().attr('data-favorite-id', val)
-                                                      })
-                                                      .fail(function (errorCode) {
-                                                          if (errorCode === 40100) {
-                                                              project.goToSignIn()
-                                                          } else {
-                                                              alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
-                                                          }
-                                                      })
-                         })
-
-                         $('[data-fn=removeFav]').on('click', function () {
-                             var $button = $(this)
-                             var favorite_id = $button.attr('data-favorite-id')
-                             $.betterPost('/api/1/user/favorite/' + favorite_id + '/remove')
-                                                      .done(function () {
-                                                          $button.hide().parent().find('[data-fn=addFav]').show()
-                                                      })
-                                                      .fail(function (errorCode) {
-                                                          if (errorCode === 40100) {
-                                                              project.goToSignIn()
-                                                          } else {
-                                                              alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
-                                                          }
-                                                      })
-                         })
-
-                         $('[data-fn=shareToWeChat]').on('click', function () {
-                             $('#popupShareToWeChat')
-                                                      .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
-                                                      .modal()
-                         })
-
-                     })()
-
-                    </script>
-
-                    % if property.get('historical_price') :
-                        <textarea id="python_historical_price" style="display: none;">
-    {{json_dumps(sorted(property.get('historical_price'), key=lambda price:price['time']))}}
-                        </textarea>
-                        <script>
-                         window.historical_price = JSON.parse(document.getElementById('python_historical_price').innerHTML) || null
-                        </script>
+                <div class="price">
+                    <table>
+                        <tr>
+                            <td class="price_inner">
+                                <span class="mute">{{_('参考价格')}}</span>
+                                <!--@@include=partials/get_unit_price.html-->
+                            </td>
+                            %if property.get('status') == 'sold out':
+                                <td class="soldOut">
+                                    <span>{{_('售罄')}}</span>
+                                </td>
+                            %end
+                        </tr>
+                    </table>
+                </div>
+                <ul class="numbers">
+                    % if property.get('annual_return_estimated'):
+                        <li>
+                            <span class="percentage emphasized"><strong>
+                                {{property.get('annual_return_estimated')}}
+                            </strong></span>
+                            <span class="text">{{!_('预计总<br/>年化收益率')}}</span>
+                        </li>
                     % end
 
-                    <!--build:js /static/scripts/property.html.js-->
-                    <script src="/static/scripts/showHistoricalPrice.js"></script>
-                    <script src="/static/scripts/intentionForm.js"></script>
-                    <script src="/static/scripts/mortgageForm.js"></script>
-                    <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
-                    <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
-                    <!--endbuild-->
+                    %if property.get('rental_guarantee_rate'):
+                        <li>
+                            <span class="percentage emphasized">
+                                <strong>{{float("{0:.2f}".format(property.get('rental_guarantee_rate')))}}</strong><strong>%</strong>
+                            </span>
+                            <span class="text">{{!_('年租金<br/>收益')}}</span>
+                        </li>
+                    % elif property.get('annual_cash_return_estimated'):
+                        <li>
+                            <span class="percentage emphasized"><strong>
+                                {{property.get('annual_cash_return_estimated')}}
+                            </strong></span>
+                            <span class="text">{{!_('预计租金<br/>年化收益率')}}</span>
+                        </li>
+                    %end
+                </ul>
+                <hr/>
+                <table class="actions">
+                    <tr>
+                        <td style="text-align:left;">
+                            % isFavorite = property.get('id') in [i.get('property',{}).get('id') for i in favorite_list]
+                            <button data-fn="addFav" data-property-id="{{property.get('id','')}}"
+                                    class="flatButton"
+                                    style="{{ 'display:none' if isFavorite else ''}}"
+                                    data-message-40090="{{_('已经收藏过了')}}"
+                                    >
+                                <img src="/static/images/property_details/icon-star.png" alt=""/>
+                                <span class="text"> {{_('收藏')}} </span>
+                            </button>
+                            <button data-fn="removeFav"
+                                    class="flatButton"
+                                    style="{{ 'display:none' if not isFavorite else ''}}"
+                                    % if isFavorite:
+                                    % foundId = [x for x in favorite_list if x.get('property',{}).get('id') == property.get('id')][0].get('id')
+                                    data-favorite-id="{{foundId}}"
+                                    % end
+                                    >
+                                    <img src="/static/images/property_details/icon-star.png" alt=""/>
+                                    <span class="text"> {{_('取消收藏') }} </span>
+                            </button>
+                        </td>
+                        <td style="text-align:center;">
+                            <button data-fn="shareToWeChat" class="flatButton green">
+                                <img src="/static/images/property_details/icon-wechat.png" alt=""/>
+                                {{_('分享到微信')}}
+                            </button>
+                        </td>
+                        <td style="text-align:right;">
+                            % name = property.get('name','')
+                            <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{name}}'}) ">
+                                <img src="/static/images/property_details/icon-weibo.png" alt=""/>
+                                {{_('分享到微博')}}
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-                    <script>
-                     $('[data-fn=expendDescription]').on('click', function () {
-                         $(this).parent().hide()
+            <form class="intentionForm" name="intentionForm"
+                  data-message-success="{{_('提交成功')}}"
+                  data-message-40000="{{_('你填写的手机或邮箱的格式不正确')}}"
+                  data-message-unknown="{{_('服务器忙，请稍后')}}"
+                  >
+                <input name="property_id" type="hidden" value="{{property.get('id','')}}"/>
+                <div class="row">
+                    <input name="nickname" type="text" placeholder="{{_('您的姓名')}}" data-validator="trim, required"
+                           value="{{ user.get('nickname') if user else ''}}"/>
+                </div>
+                <div class="row">
+                    <select name="country">
+                        %for index, country in enumerate(country_list):
+                            <option value="{{country.get('id')}}"
+                                    % if country.get('id') == user.get('country',{}).get('id') if user and user.get('country') else None:
+                                    selected
+                                    %end
+                                    >
+                                    %if (country.get('slug') == 'CN'):
+                                        (+86)
+                                    %elif (country.get('slug') == 'GB') :
+                                        (+44)
+                                    %elif (country.get('slug') == 'US') :
+                                        (+1)
+                                    %elif (country.get('slug') == 'HK') :
+                                        (+85)
+                                    %end
+                                    {{_i18n(country.get('value'))}}
+                            </option>
+                        %end
+                    </select>
+                    <input name="phone" type="text" placeholder="{{_('您的电话')}}" data-validator="trim, required"
+                           value="{{user.get('phone','') if user else ''}}"/>
+                </div>
+                <div class="row">
+                    <input name="email" type="text" placeholder="{{_('您的邮箱')}}" data-validator="trim, required, email"
+                           value="{{user.get('email','') if user and user.get('email') else ''}}"/>
+                </div>
+                <div class="row">
+                    <select name="budget">
+                        <option value="">-- {{_('您的预算')}}
+                            (
+                            {{_('可选')}},
+                            <!--@@include=partials/current_currency.html -->
+                            ) --
+                        </option>
+                        %for index, budget in enumerate(_i18n(budget_list)):
+                            %if budget.get('currency') == _.currency:
+                                <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
+                            %end
+                        %end
+                    </select>
+                </div>
+                <div class="row">
+                    <textarea name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}({{ _('可选') }})"></textarea>
+                </div>
+                % if not user:
+                    <div class="row">
+                        <input id="c77a0b1a-1612-42e6-abbf-2ddc38095ad1" type="checkbox" name="register" checked/>
+                        <label for="c77a0b1a-1612-42e6-abbf-2ddc38095ad1">{{_('免费成为会员，查看详细报告') }}</label>
+                    </div>
+                % end
+                <div class="action">
+                    <button class="flatButton" type="submit" disabled>{{_('联系我们（免费）')}}</button>
+                </div>
+                <div class="row" data-role="serverFeedback" style="display: none; text-align:center;"></div>
+                <hr/>
+                <div class="contact">
+                    {{_('拨打 4000926433')}}
+                </div>
+            </form>
+            <hr/>
+
+            % if property.get('intention'):
+                <div class="intentionTags" data-tabs>
+                    <h2 class="propertyDetails_title">{{_('投资标签')}}</h2>
+                    <ul class="tab">
+                        % for intention in property.get('intention'):
+                            <li data-tab="{{intention.get('slug','')}}">
+                                <div class="image_wrapper">
+                                    <img src="/static/images/intention/icon/{{intention.get('slug')}}-red.png" alt=""/>
+                                </div>
+                                <div class="text">
+                                    {{intention.get('value')}}
+                                </div>
+                            </li>
+                        % end
+                    </ul>
+                    <ul class="content">
+                        % for intention in property.get('intention'):
+                            <li data-tab-name="{{intention.get('slug','')}}">
+                                {{intention.get('description','')}}
+                            </li>
+                        % end
+                    </ul>
+                </div>
+                <hr/>
+            % end
+            <h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
+            <form class="intentionForm calculator" name="mortgageForm">
+                <div class="row">
+                    <!--partial include must be in seperate line for translation extract-->
+                    <label class="label">{{_('购房总价')}} (
+                        <!--@@include=partials/current_currency.html -->
+                        )</label>
+                    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
+                        <input name="_total" type="text" placeholder=""
+                               data-type="currency"
+                               data-validator="decimal, trim, required"
+                               data-message-required="{{_('必填')}}"
+                               data-message-decimal="{{_('必须为数字')}}"/>
+                    % else:
+                        <input name="_total" type="text" placeholder=""
+                               data-type="currency"
+                               value={{int(float(property.get('total_price',{}).get('value','')))}}
+                               data-validator="decimal, trim, required"
+                               data-message-required="{{_('必填')}}"
+                               data-message-decimal="{{_('必须为数字')}}"/>
+                    % end
+                </div>
+                <div class="row">
+                    <label class="label">{{_('首付款')}} (
+                        <!--@@include=partials/current_currency.html -->
+                        )</label>
+                    <input name="_down_payment" type="text" placeholder=""
+                           data-type="currency"
+                           data-message-required="{{_('必填')}}"
+                           data-validator="decimal, trim, required" data-message-decimal="{{_('必须为数字')}}"/>
+                </div>
+                <div class="row">
+                    <label class="label">{{_('贷款金额')}} (
+                        <!--@@include=partials/current_currency.html -->
+                        )</label>
+                    <input readonly name="loan" type="text" placeholder=""
+                           data-type="currency"
+                           data-message-required="必填"
+                           data-validator="decimal, trim, required" data-message-decimal="{{_('必须为数字')}}"/>
+                </div>
+                <div class="row">
+                    <label class="label">{{_('贷款利率')}}
+                        (
+                        <a class="link" target="_blank" href="http://www.moneysupermarket.com/mortgages/search/results/?goal=MOR_BTL">{{_('更多贷款选择')}}</a> )
+                    </label>
+                    <div class="inputAddOn">
+                        <input name="rate" type="text" placeholder=""
+                               data-message-required="{{_('必填')}}"
+                               data-validator="decimal, trim, required" data-message-decimal="{{_('必须为数字')}}"/>
+                        <span class="addOn">%</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="label">{{_('贷款年限')}}</label>
+                    <input name="term" type="text" placeholder=""
+                           data-message-required="{{_('必填')}}"
+                           data-validator="number, trim, required" data-message-decimal="{{_('必须为整数')}}"/>
+                </div>
+                <div class="row">
+                    <label class="label">{{_('还款类型')}}</label>
+                    <select name="_type" data-validator="required"
+                            data-message-required="{{_('必填')}}"
+                            >
+                        <option value="repayment">{{_('本息按揭')}}</option>
+                        <option value="interestonly">{{_('仅还利息')}}</option>
+                    </select>
+                </div>
+                <div class="action">
+                    <button type="submit" class="flatButton">{{_('计算贷款')}}</button>
+                </div>
+                <a class="link" target="_blank" href="/news_list">{{_('贷款流程')}}</a>
+                <hr/>
+                <div class="table_wrapper" data-ui="result" style="display: none;">
+                    <table>
+                        <colgroup>
+                            <col class="col-name">
+                            <col class="col-value">
+                        </colgroup>
+                        <tr>
+                            <td class="name">{{_('总支付利息')}}</td>
+                            <td class="value">
+                                <!--@@include=partials/current_currency_sympol.html -->
+                                <span data-name="total_interest"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="name">{{_('本息合计')}}</td>
+                            <td class="value">
+                                <!--@@include=partials/current_currency_sympol.html -->
+                                <span data-name="total"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="name">{{_('每月还款')}}</td>
+                            <td class="value">
+                                <!--@@include=partials/current_currency_sympol.html -->
+                                <span data-name="monthly"></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
+        <img src="" alt="二维码" width="220" height="220"/>
+        <p>{{_('打开微信，使用 “扫一扫” 即可将网页分享到朋友圈')}}</p>
+    </div>
+    <!--@@close-->
+
+    <!--@@block = scripts-->
+    <script src="/static/vendors/Chart.min.js"></script>
+
+
+    <script>
+     (function () {
+
+         $(".rslides").responsiveSlides({
+             pager: true,
+             auto: false,
+             nav: true,
+             prevText: '<',
+             nextText: '>'
+         })
+
+
+         $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+             if (tabName === 'map') {
+                 var $propertyMap = $('#propertyMap')
+                 var longitude = $propertyMap.attr('data-longitude')
+                 var latitude = $propertyMap.attr('data-latitude')
+                 var url = 'https://maps.googleapis.com/maps/api/staticmap'
+                 if ($propertyMap.get(0).src.indexOf(url) === 0) { return }
+                 var result = team.setQuery('center', longitude + ',' + latitude, url)
+                 result = team.setQuery('zoom', 15, result)
+                 result = team.setQuery('size', '640x384', result)
+                 result = team.setQuery('markers', longitude + ',' + latitude, result)
+                 $propertyMap.get(0).src = result
+             }
+         })
+
+         $('[data-fn=addFav]').on('click', function () {
+             var $button = $(this)
+             var property_id = $button.attr('data-property-id')
+             $.betterPost('/api/1/user/favorite/add', {
+                 property_id: property_id
+             })
+                                      .done(function (val) {
+                                          $button.hide().parent().find('[data-fn=removeFav]').show().attr('data-favorite-id', val)
+                                      })
+                                      .fail(function (errorCode) {
+                                          if (errorCode === 40100) {
+                                              project.goToSignIn()
+                                          } else {
+                                              alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
+                                          }
+                                      })
+         })
+
+         $('[data-fn=removeFav]').on('click', function () {
+             var $button = $(this)
+             var favorite_id = $button.attr('data-favorite-id')
+             $.betterPost('/api/1/user/favorite/' + favorite_id + '/remove')
+                                      .done(function () {
+                                          $button.hide().parent().find('[data-fn=addFav]').show()
+                                      })
+                                      .fail(function (errorCode) {
+                                          if (errorCode === 40100) {
+                                              project.goToSignIn()
+                                          } else {
+                                              alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
+                                          }
+                                      })
+         })
+
+         $('[data-fn=shareToWeChat]').on('click', function () {
+             $('#popupShareToWeChat')
+                                      .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
+                                      .modal()
+         })
+
+     })()
+
+    </script>
+
+    % if property.get('historical_price') :
+        <textarea id="python_historical_price" style="display: none;">
+    {{json_dumps(sorted(property.get('historical_price'), key=lambda price:price['time']))}}
+        </textarea>
+        <script>
+         window.historical_price = JSON.parse(document.getElementById('python_historical_price').innerHTML) || null
+        </script>
+    % end
+
+    <!--build:js /static/scripts/property.html.js-->
+    <script src="/static/scripts/showHistoricalPrice.js"></script>
+    <script src="/static/scripts/intentionForm.js"></script>
+    <script src="/static/scripts/mortgageForm.js"></script>
+    <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
+    <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
+    <!--endbuild-->
+
+    <script>
+     $('[data-fn=expendDescription]').on('click', function () {
+         $(this).parent().hide()
             .parent().find('[data-ui=description]').height('auto')
-                     })
-                    </script>
+     })
+    </script>
 
-                    <!--@@close-->
+    <!--@@close-->
