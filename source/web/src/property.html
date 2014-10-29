@@ -498,6 +498,9 @@
             % if property.get('historical_price') :
                 <div id="propertyDetails_price" class="trend">
                     <h3 class="propertyDetails_title">{{_('价格趋势')}} ({{_.currency}})</h3>
+                    % if property.get('equal_property_description'):
+                    <div class="historical_price_description">{{property.get('equal_property_description','')}}</div>
+                    % end
                     <canvas id="lineChart" width="800" height="400"></canvas>
                 </div>
                 <hr/>
