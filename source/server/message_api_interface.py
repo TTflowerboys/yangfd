@@ -103,6 +103,9 @@ def admin_message_add(user, params):
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "operation", "jr_operation"])
 def message_statistics(user, params):
+    if params["type"] not in f_app.common.message_type:
+        abort(40000)
+
     func_map = Code("""
         function(){
             var key = {"batch_id": this.batch_id, "title": this.title, "text": this.text, "type": this.type};
@@ -130,6 +133,6 @@ def message_statistics(user, params):
     """)
     with f_app.mongo() as m:
         f_app.message.get_database(m).map_reduce(func_map, func_reduce, "messages_statistics")
-        result = m.messages_statistics.find({})
+        result = m.messages_statistics.find({"_id.type": params["type"]})
 
     return list(result)
