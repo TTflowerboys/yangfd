@@ -14,13 +14,43 @@ main {
             width:100%;
             background:#f6f6f6;
             overflow: hidden;
+
+            @media @phone {
+                height:auto;
+            }
+        }
+
+        &_title {
+            display:none;
+            @media @phone {
+                display:block;
+                text-align:left;
+                font-size:14px;
+                color:#333;
+            }
+
+        }
+
+        @media @phone {
+            margin-top:0;
+            padding:12px;
         }
 
         span {
             color:#333333;
+            @media @phone {
+                display:none;
+            }
+
         }
         select {
             color:#333333;
+            @media @phone {
+                display:block;
+                width:100%;
+                margin-top:12px;
+                font-size:12px;
+            }
         }
     }
 
@@ -46,6 +76,7 @@ main {
                 float:left;
                 margin:0;
                 width:100%;
+                padding:0 12px;
             }
 
 
@@ -56,6 +87,10 @@ main {
                 font-size:18px;
                 line-height: 1em;
                 color: #333333;
+
+                @media @phone {
+                    display:none;
+                }
             }
 
             .price, .intention {
@@ -64,10 +99,21 @@ main {
                 display:block;
                 min-height: 180px;
                 overflow:hidden;
+
+                @media @phone {
+                    min-height:135px;
+                }
+
+
                 &_icon {
                     float:left;
                     display:inline-block;
                     margin-top:16px;
+
+                    @media @phone {
+                        margin-top:20px;
+                    }
+
                 }
                 &_title {
                     float:left;
@@ -76,6 +122,10 @@ main {
                     margin-left:8px;
                     font-size:12px;
                     line-height:14px;
+
+                    @media @phone {
+                        margin-top:20px;
+                    }
                 }
 
                 .inner {
@@ -86,6 +136,11 @@ main {
                         margin-right:12px;
                         margin-bottom:12px;
                     }
+
+                    @media @phone {
+                        margin-top:46px;
+                    }
+
                 }
             }
         }
@@ -94,9 +149,14 @@ main {
             font-size:16px;
             line-height:1em;
             margin:0px;
+
+            @media @phone {
+                font-size:9px;
+                margin-left:12px;
+            }
+
             .number {
                 color:#e82633;
-                font-size:9px;
             }
         }
         .result_list {
@@ -149,6 +209,13 @@ main {
             margin-right: auto;
             width: 132px;
             display:block;
+
+            @media @phone {
+                margin-top:20px;
+                margin-bottom:40px;
+                width:auto;
+            }
+
         }
 
         .emptyPlaceHolder {
