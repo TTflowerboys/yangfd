@@ -1,35 +1,50 @@
 @import "_imports";
 
-.siteHeader { margin: 0 auto; height: 100%; max-width: @max-width;
-              &_wrapper {
-                  .clearfix();
-                  background: @header-bg;
-                  position: relative;
-                  height: @header-height;
-                  z-index: 1;
-                  width: 100%;
-                  min-width:@min-page-width;
-                  @media @phone {
-                      display:none;
-                  }
-              }
+.siteHeader {
+    margin: 0 auto; height: 100%; max-width: @max-width;
+    @media @phone {
+        display:none;
+    }
+    &_wrapper {
+        .clearfix();
+        background: @header-bg;
+        position: relative;
+        height: @header-height;
+        z-index: 1;
+        width: 100%;
+        min-width:@min-page-width;
+
+        @media @phone {
+            position:static;
+            height:44px;
+            min-width:0;
+        }
+    }
+
+    &_phone {
+        display:none;
+        @media @phone {
+            display:block;
+        }
+    }
+
     .logo { float: left; margin-top: 24px; width: 304px; }
     .country { display: none; }
     .navbar { .horizontalList(@padding: 16px); float: left; margin-top: 32px; margin-left: 70px;
-        > li {
-            > a {
-                color: @mute-color;
-                text-decoration: none;
-                font-size: 16px;
+              > li {
+                  > a {
+                      color: @mute-color;
+                      text-decoration: none;
+                      font-size: 16px;
+                  }
+                  &:hover {
+                      > a {
+                          color: @light-color;
+                          text-decoration: none;
+                      }
+                  }
+              }
             }
-            &:hover {
-                > a {
-                    color: @light-color;
-                    text-decoration: none;
-                }
-            }
-        }
-    }
 
     .user { float: right; margin-top: 28px; white-space: nowrap; text-align: right;
             overflow:hidden;
@@ -84,5 +99,5 @@
 
                 }
             }
-    }
+          }
 }
