@@ -54,6 +54,34 @@ angular.module('app')
                     scope.images.splice(imageIndex, 1)
                     scope.fileNames.splice(imageIndex, 1)
                 }
+
+                scope.isOurImage = function (img) {
+                    return img.indexOf('bbt-currant.s3.amazonaws.com') < 0
+                }
+
+                scope.uploadImage = function (img) {
+                    //$upload.upload({
+                    //    url: '/api/1/upload_image',
+                    //    file: img,
+                    //    fileFormDataName: 'data',
+                    //    data: {
+                    //        width_limit: scope.widthLimit || 0,
+                    //        ratio: scope.ratio || 0,
+                    //        thumbnail_size: scope.thumbnailSize || '0',
+                    //        filename: img
+                    //    }
+                    //})
+                    //    .success(function (data, status, headers, config) {
+                    //        //for (var key in scope.images) {
+                    //        //    if (file.name === scope.fileNames[key]) {
+                    //        //        scope.images[key] = data.val.url
+                    //        //        break
+                    //        //    }
+                    //        //}
+                    //        console.log("1111111111111111111111+data")
+                    //        console.log(data)
+                    //    })
+                }
             }
         }
     })
