@@ -1,8 +1,12 @@
 <div class="imagePart">
     {_if(house.reality_images && house.reality_images.length) {_}
-    <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" width=320 height=213/>
+    <a href="/property/{=house.id=}">
+        <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" width=320 height=213/>
+    </a>
     {_ }else { _}
-    <img src="/static/images/placeholder/property.jpg" width="320" height="213"/>
+    <a href="/property/{=house.id=}">
+        <img src="/static/images/placeholder/property.jpg" width="320" height="213"/>
+    </a>
     {_}_}
     <div class="labels">
         {_if (house.rental_guarantee_term){_}
@@ -22,7 +26,11 @@
 
 <div class="description_wrapper">
     <div class=description>
-        <h1 class=name>{=house.name=}</h1>
+        <h1 class=name>
+            <a href="/property/{=house.id=}">
+                {=house.name=}
+            </a>
+        </h1>
         <!--@@placeholder=price -->
         <div class=details>
             <p class=size>

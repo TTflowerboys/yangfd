@@ -511,7 +511,7 @@ main {
         }
       }
 
-      height: 213px;
+      height: @house_card-height;
       margin-bottom: 100px;
 
       @media @phone {
@@ -519,16 +519,16 @@ main {
       }
 
       .description {
-        height: 213px;
-        width: 520px;
-        display: inline-block;
-        position: relative;
+          height: @house_card-height;
+          width: 520px;
+          display: inline-block;
+          position: relative;
 
         @media @phone {
-          position:static;
-          width:100%;
-          height:auto;
-          display:block;
+            position:static;
+            width:100%;
+            height:auto;
+            display:block;
         }
 
         .properties {
@@ -653,7 +653,7 @@ main {
     .tagDetail {
       float: right;
       width: 320px;
-      height: 213px;
+      height: @house_card-height;
       margin-left: 20px;
       display: inline-block;
       background: #fffafa;
@@ -695,7 +695,8 @@ main {
 
     .houseCard_suggestionHolder {
       position: relative; border-top:2px solid #d2d2d2; font-size: 14px; color: #a3a3a3;
-      min-height: 213px; min-width: 700px;
+      min-height:@house_card-height;
+      min-width: 700px;
       display:inline-block;
       width:860px;
 

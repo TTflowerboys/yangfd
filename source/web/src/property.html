@@ -430,7 +430,7 @@
                                     <td>{{property.get('property_management_type','')}}</td>
                                 </tr>
                             % end
-                            % if property.get('building_area'):
+                            % if property.get('building_area') and float(property.get('building_area').get('value'))!=0:
                                 <tr>
                                     <td>{{_('建筑面积')}}</td>
                                     <td>
@@ -448,7 +448,7 @@
                                     <td>{{property.get('plot_ratio','')}}</td>
                                 </tr>
                             % end
-                            % if property.get('planning_area'):
+                            % if property.get('planning_area') and float(property.get('planning_area').get('value'))!=0:
                                 <tr>
                                     <td>{{_('规划面积')}}</td>
                                     <td>
@@ -498,6 +498,9 @@
             % if property.get('historical_price') :
                 <div id="propertyDetails_price" class="trend">
                     <h3 class="propertyDetails_title">{{_('价格趋势')}} ({{_.currency}})</h3>
+                    % if property.get('equal_property_description'):
+                    <div class="historical_price_description">{{property.get('equal_property_description','')}}</div>
+                    % end
                     <canvas id="lineChart" width="800" height="400"></canvas>
                 </div>
                 <hr/>
