@@ -225,10 +225,21 @@ main {
             display:inline-block;
             overflow:hidden;
 
+            @media @phone {
+                width:100%;
+                margin-top:20px;
+                margin-bottom:20px;
+            }
+
 
             img {
-                //display:inline-block;
                 float:left;
+                @media @phone {
+                    float:none;
+                    display:block;
+                    margin-left:auto;
+                    margin-right:auto;
+                }
             }
 
             .info {
@@ -241,6 +252,11 @@ main {
                     line-height:1;
                     margin-top:14px;
                     color:#e60012;
+
+                    @media @phone {
+                        font-size:14px;
+                    }
+
                 }
 
                 .addition {
@@ -251,6 +267,12 @@ main {
                     strong {
                         color:#666;
                     }
+
+                    @media @phone {
+                        margin-bottom:20px;
+                        font-size:12px;
+                    }
+
                 }
             }
 
@@ -258,6 +280,7 @@ main {
             .requirement_form {
                 float:left;
                 margin-top:0px;
+                width:100%;
             }
 
             .successMessage {

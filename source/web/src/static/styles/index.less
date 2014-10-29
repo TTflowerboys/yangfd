@@ -1,933 +1,937 @@
 @import "project/_imports";
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .horizontalCenter(@width:100px) {
-  position: absolute;
-  left: 50%;
-  width: @width;
-  margin-left: -@width /2;
+    position: absolute;
+    left: 50%;
+    width: @width;
+    margin-left: -@width /2;
 }
 
 .newsList() {
-  display: inline-block;
-  border-left: 1px solid #CCCCCC;
-  padding: 0 0 0 20px;
+    display: inline-block;
+    border-left: 1px solid #CCCCCC;
+    padding: 0 0 0 20px;
 
-  .title {
-    font-size: 14px;
-    line-height: 1;
-    color: #e60012;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    .title {
+        font-size: 14px;
+        line-height: 1;
+        color: #e60012;
+        margin-top: 0px;
+        margin-bottom: 0px;
 
-    @media @phone {
-      font-size:10px;
+        @media @phone {
+            font-size:10px;
+        }
     }
-  }
 
-  .list {
-    margin-top: 28px;
-    .item {
-      display: block;
-      font-size: 14px;
-      line-height: 28px;
-      color: #666666;
-      text-decoration: none;
+    .list {
+        margin-top: 28px;
+        .item {
+            display: block;
+            font-size: 14px;
+            line-height: 28px;
+            color: #666666;
+            text-decoration: none;
+        }
     }
-  }
 }
 
 main {
-  .gallery {
-    li {
-      position: relative;
-
-      .img {
-        min-height:800px;
-        height: 100%;
-        @media @phone {
-          min-height:200px;
-          height:200px;
-        }
-      }
-
-      .img_shadow{
-        background:#000000;
-        opacity:0.2;
-        min-width: 100%;
-        min-height: 100%;
-        position: absolute;
-      }
-
-      .imageText {
-        &_table {
-          padding: 10px;
-          display: table;
-          position: absolute;
-          top: 0;
-          left: 0;
-          margin-top: 15%;
-          width: 100%;
-        }
-        &_wrapper {
-          display: table-cell;
-          vertical-align: middle;
-          text-align: center;
-          height: 100%;
-          width: 100%;
-        }
-
-        margin: 0 auto;
-        .slogan {
-          color: #ffffff;
-          font-size: 60px;
-
-          @media @phone {
-            font-size:20px;
-            line-height:1em;
-          }
-        }
-        .button {
-          margin-top: 60px;
-
-          @media @phone {
-            margin-top:35px;
-
-          }
-        }
-      }
-    }
-  }
-
-  .howItWorks {
-    height: 460px;
-    background: #f6f6f6;
-    width: 100%;
-    overflow: hidden;
-
-    @media @phone {
-      display:none;
-    }
-
-    [data-tabs] {
-      margin-top: 60px;
-    }
-
-    .row { .clearfix(); position: relative;
-      width: @max-width;
-      margin: 0 auto;
-      &.intention {
-        > ul { .clearfix(); text-align: center;  border-bottom:1px solid #ccc;
-          li { float: left; width: 16.66%; height: 30px; margin-top:11px; position: relative; line-height: 1;
-            color: #999;
-            &.selectedTab {
-              color: #333;
-            }
-            > label {
-              height: 20px;
-              display: block;
-              cursor: pointer;
-            }
-
-            &:after {
-              border-top:2px solid #e60012;
-              height:0px;
-              width:100%;
-              display: none;
-              content: ' ';
-              position: absolute;
-              bottom: 0;
-              left: 0;
-            }
-            &.selectedTab:after {
-              display: block;
-            }
-          }
-        }
-      }
-      > label { font-size: 24px; color:#333; float:left; display:inline-block; }
-      > .controls { margin-left: 20px; float:left; display:inline-block;
+    .gallery {
         li {
-          min-width:120px;
-        }
-        input { display: none; }
-      }
-    }
+            position: relative;
 
-    .details {
-      width: @max-width;
-      margin: 50px auto 0 auto;
-
-    }
-
-  }
-
-  .tags {
-    overflow: hidden;
-    width: @max-width;
-    margin: 0 auto;
-
-    @media @phone {
-      width:auto;
-      margin:12px;
-
-    }
-
-
-    &_wrapper {
-      background: #f6f6f6;
-      width: 100%;
-      overflow:hidden;
-    }
-
-    .title {
-      font-size: 24px;
-      margin: 0;
-      padding-top: 56px;
-      padding-bottom: 20px;
-      line-height: 1;
-      color: #333;
-      border-bottom: 1px solid #ccc;
-
-      @media @phone {
-        font-size:12px;
-        padding-top:12px;
-        padding-bottom:12px;
-      }
-    }
-
-    .budget {
-      margin-top: 40px;
-      margin-bottom: 50px;
-
-      @media @phone {
-        margin-top:12px;
-        margin-bottom:12px;
-      }
-
-      .hint {
-        font-size: 16px;
-        color: #333;
-
-        @media @phone {
-          display:block;
-          font-size:12px;
-          color:#b6b6b6;
-          margin-bottom:20px;
-        }
-
-      }
-    }
-
-    .intention {
-      margin-bottom: 40px;
-      @media @phone {
-        margin-bottom:0px;
-      }
-
-      .hint {
-        font-size: 16px;
-        color: #333;
-
-        @media @phone {
-          display:block;
-          font-size:12px;
-          color:#b6b6b6;
-          margin-bottom:20px;
-        }
-      }
-
-      ul {
-        display: inline-block;
-      }
-
-      .toggleTag {
-        img {
-          vertical-align: middle;
-          margin-left: 6px;
-        }
-      }
-
-      .add {
-        padding: 1px 10px;
-        margin-top: -2px;
-        @media @phone {
-          font-size:12px;
-          height:24px;
-        }
-
-      }
-
-      .suggestionTip {
-        background: #ff6773;
-        display: inline-block;
-        padding: 4px;
-        margin-left: 12px;
-        position: relative;
-
-        &:before {
-          content: '';
-          display: block;
-          width: 0px;
-          height: 0px;
-          position: absolute;
-          top: 50%;
-          margin-top: -5px;
-          right: 100%;
-          border: 5px solid #ff6773;
-          border-left-color: transparent;
-          border-top-color: transparent;
-          border-bottom-color: transparent;
-        }
-
-        p {
-          display: inline-block;
-          margin: 0;
-          font-size: 12px;
-          color: white;
-        }
-      }
-    }
-  }
-
-  .intentionTabs_wrapper {
-    width: 100%;
-    background: #333;
-    overflow: hidden;
-
-    [data-tabs] {
-      margin-top: 80px;
-    }
-    .row { .clearfix(); position: relative;
-      width: @max-width;
-      margin: 0 auto;
-
-      @media @phone {
-        width:100%;
-      }
-
-      &.budget {
-        @height: 40px;
-        height: @height; line-height: @height;
-        margin: @height 0;
-      }
-      > label { width: 88px; font-size: 16px; position: absolute; display: none; }
-      > .controls {
-        .clearfix(); text-align: center;
-        margin-left: 88px;
-        @media @phone {
-          margin-left:0;
-
-        }
-        li { float: left; width: 14.14%; height: 110px; position: relative; line-height: 1;
-          @media @phone {
-            width:33.33%;
-            height:140px;
-          }
-
-          > label { height: 60px; display: block; cursor: pointer; }
-          img.grey { display: inline-block; }
-          img.red { display: none; }
-          color: #999;
-          &.selected {
-            img.grey { display: none; }
-            img.red { display: inline-block; }
-            color: #e60012;
-          }
-          &:after {
-            .arrow(@direction: up; @fg:#222; @width: 20px;);
-            display: none;
-            content: ' ';
-            position: absolute; bottom: 0; left: 50%;
-
-            @media @phone {
-              display:none;
-            }
-          }
-          &.selectedTab:after {
-            display: block;
-
-            @media @phone {
-              display:none;
+            .img {
+                min-height:800px;
+                height: 100%;
+                @media @phone {
+                    min-height:200px;
+                    height:200px;
+                }
             }
 
-          }
-
-          input { display: none; }
-        }
-      }
-    }
-
-    .details {
-      width: @max-width;
-      margin: 0 auto;
-      @media @phone {
-        display:none;
-      }
-
-      > div { @height: 270px; line-height: @height; height: @height; text-align: center;
-        background: #222; position: relative; display: none;
-        img { vertical-align: middle; }
-        &.selected { display: block; }
-        .arrow { position: absolute; width: 100%; bottom: 100%;
-          span { margin-left: 88px; display: block; position: relative;
-            &:before {
-              content: ' ';
-              position: absolute; bottom: 100%;
-              .arrow(@direction: up; @fg:#ddd; @width: 20px;)
+            .img_shadow{
+                background:#000000;
+                opacity:0.2;
+                min-width: 100%;
+                min-height: 100%;
+                position: absolute;
             }
-          }
+
+            .imageText {
+                &_table {
+                    padding: 10px;
+                    display: table;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    margin-top: 15%;
+                    width: 100%;
+                }
+                &_wrapper {
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center;
+                    height: 100%;
+                    width: 100%;
+                }
+
+                margin: 0 auto;
+                .slogan {
+                    color: #ffffff;
+                    font-size: 60px;
+
+                    @media @phone {
+                        font-size:20px;
+                        line-height:1em;
+                    }
+                }
+                .button {
+                    margin-top: 60px;
+
+                    @media @phone {
+                        margin-top:35px;
+
+                        font-size:10px;
+                        line-height:15px;
+                        padding: 2px 10px;
+                        border-radius: 3px;
+                    }
+                }
+            }
         }
-      }
     }
 
-    .collapseButton {
-      display: block;
-      margin: 28px auto 28px auto;
-      width: 60px;
-
-      @media @phone {
-        margin-bottom:0;
-        margin-top:auto;
-      }
-    }
-  }
-
-  .announcement {
-    &_wrapper {
-      width: 100%;
-
-      @media @phone {
-        background:#eee;
-      }
-    }
-
-    overflow: hidden;
-    width: @max-width;
-    margin: 0 auto;
-    padding-top: 22px;
-    padding-bottom: 22px;
-    border-bottom: 1px solid #ccc;
-
-    @media @phone {
-      width:100%;
-      padding-left:12px;
-      padding-right:25px;
-      padding-top:10px;
-      padding-bottom:10px;
-      border-bottom: none;
-    }
-
-    .item {
-      display: block;
-      height: 16px;
-      vertical-align:middle;
-      .icon {
-        float: left;
-      }
-      .title {
-        float: left;
-        margin-left: 10px;
-        font-size: 14px;
-        line-height: 16px;
-        color: #999;
-        text-decoration: none;
+    .howItWorks {
+        height: 460px;
+        background: #f6f6f6;
+        width: 100%;
+        overflow: hidden;
 
         @media @phone {
-          font-size:10px;
+            display:none;
         }
-      }
-      .more {
-        float:right;
-        font-size: 14px;
-        line-height: 16px;
-        text-decoration:none;
-        color:#aaaaaa;
-      }
-      .close {
-        float: right;
-        line-height:16px;
-      }
+
+        [data-tabs] {
+            margin-top: 60px;
+        }
+
+        .row { .clearfix(); position: relative;
+               width: @max-width;
+               margin: 0 auto;
+               &.intention {
+                   > ul { .clearfix(); text-align: center;  border-bottom:1px solid #ccc;
+                          li { float: left; width: 16.66%; height: 30px; margin-top:11px; position: relative; line-height: 1;
+                               color: #999;
+                               &.selectedTab {
+                                   color: #333;
+                               }
+                               > label {
+                                   height: 20px;
+                                   display: block;
+                                   cursor: pointer;
+                               }
+
+                               &:after {
+                                   border-top:2px solid #e60012;
+                                   height:0px;
+                                   width:100%;
+                                   display: none;
+                                   content: ' ';
+                                   position: absolute;
+                                   bottom: 0;
+                                   left: 0;
+                               }
+                               &.selectedTab:after {
+                                   display: block;
+                               }
+                             }
+                        }
+               }
+               > label { font-size: 24px; color:#333; float:left; display:inline-block; }
+               > .controls { margin-left: 20px; float:left; display:inline-block;
+                             li {
+                                 min-width:120px;
+                             }
+                             input { display: none; }
+                           }
+             }
+
+        .details {
+            width: @max-width;
+            margin: 50px auto 0 auto;
+
+        }
+
     }
-  }
 
-  .houseFeatured {
-    margin: 0 auto;
-    width: @max-width;
-    min-height:400px;
+    .tags {
+        overflow: hidden;
+        width: @max-width;
+        margin: 0 auto;
 
-    @media @phone {
-      width:100%;
-      min-height:auto;
-    }
-
-    .more {
-      float: right;
-      text-decoration: none;
-      color: #aaaaaa;
-      font-size: 14px;
-      line-height: 30px;
-    }
-
-    .houseCard_category {
-      margin-top: 100px;
-      margin-bottom: 32px;
-      font-size: 24px;
-      line-height: 30px;
-
-      @media @phone {
-        display:block;
-        margin-top:34px;
-        margin-bottom:15px;
-        margin-left:12px;
-        font-size:12px;
-        line-height:12px;
-      }
-    }
-
-    .houseCard {
-
-      .description_wrapper {
-        padding-right:320px;
-      }
-      .relatedNews {
-        position:absolute;
-        top:0;
-        right:0;
-        margin-top: 18px;
-        .newsList();
-        width: 320px;
-        height: 220px;
         @media @phone {
-          float:left;
+            width:auto;
+            margin:12px;
 
+        }
+
+
+        &_wrapper {
+            background: #f6f6f6;
+            width: 100%;
+            overflow:hidden;
         }
 
         .title {
-          margin-top: 20px;
-        }
-      }
-
-      height: @house_card-height;
-      margin-bottom: 100px;
-
-      @media @phone {
-        height:auto;
-      }
-
-      .description {
-          height: @house_card-height;
-          width: 520px;
-          display: inline-block;
-          position: relative;
-
-        @media @phone {
-            position:static;
-            width:100%;
-            height:auto;
-            display:block;
-        }
-
-        .properties {
-          width: 50%;
-
-          li {
-            margin-bottom: 8px;
-            img {
-              height: 16px;
-              vertical-align: middle;
-            }
-            span {
-              font-size: 12px;
-              height: 16px;
-              line-height: 16px;
-              margin-left: 8px;
-            }
-          }
-        }
-      }
-      .action > a {
-        width: 260px;
-      }
-
-    }
-
-
-  }
-
-  .houseCard_phone {
-    .relatedNews {
-      max-height:215px;
-      display:block;
-      width:100%;
-      border-bottom:1px solid #ccc;
-      .newsList();
-
-      .title {
-        margin-top: 10px;
-      }
-      .list {
-        margin-bottom:23px;
-      }
-    }
-  }
-
-  .suggestionHouses {
-    width: @max-width;
-    margin-top: 0;
-    margin-bottom: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    overflow: hidden;
-
-    @media @phone {
-      width:100%;
-    }
-
-
-    .loadIndicator {
-      margin-top: 60px;
-      margin-bottom: 20px;
-      margin-left: auto;
-      margin-right: auto;
-      display: block;
-    }
-
-    .houseCard_header {
-
-      margin-top: 45px;
-      margin-bottom: 20px;
-      overflow:hidden;
-
-      @media @phone {
-        padding-top:32px;
-        height:51px;
-        width:100%;
-        paddingn-bottom:0px;
-
-      }
-
-      img {
-        height: 22px;
-        vertical-align: middle;
-      }
-      h2 {
-        display: inline-block;
-        font-size: 16px;
-        color: #333;
-        margin-left: 12px;
-
-        @media @phone {
-          font-size:12px;
-        }
-
-      }
-
-      a {
-        text-decoration: none;
-        color: #e60012;
-        margin-left: 20px;
-
-        @media @phone {
-          float:right;
-          font-size:12px;
-          margin-left:auto;
-          margin-right:12px;
-        }
-      }
-    }
-
-    .houseCard {
-      display: inline-block;
-      width: 860px;
-
-      @media @phone {
-        display:none;
-        width:100%;
-      }
-    }
-
-    .tagDetail {
-      float: right;
-      width: 320px;
-      height: @house_card-height;
-      margin-left: 20px;
-      display: inline-block;
-      background: #fffafa;
-      border: 1px solid #e0c1c4;
-      padding: 33px 16px 16px 16px;
-
-      @media @phone {
-        float:left;
-        display:block;
-        border: 0px;
-        width:100%;
-        height:auto;
-        margin-left:0;
-        padding-top:10px;
-      }
-
-
-      h3 {
-        font-size: 16px;
-        color: #e60012;
-        line-height: 1;
-        margin-bottom: 34px;
-
-        @media @phone {
-          font-size:10px;
-          margin-bottom:20px;
-        }
-
-      }
-
-      p {
-        font-size: 12px;
-        color: #666;
-        line-height: 2;
-        margin: 0;
-      }
-
-    }
-
-    .houseCard_suggestionHolder {
-      position: relative; border-top:2px solid #d2d2d2; font-size: 14px; color: #a3a3a3;
-      min-height:@house_card-height;
-      min-width: 700px;
-      display:inline-block;
-      width:860px;
-
-      @media @phone {
-        position:static;
-        min-height:0;
-        min-width:0;
-        display:block;
-        width:100%;
-      }
-
-      .emptyPlaceHolder {
-        width:525px;
-        margin:50px auto 0 auto;
-        overflow:hidden;
-
-        @media @phone {
-          width:100%;
-          margin: 20px auto;
-        }
-
-        img {
-          display:inline-block;
-          float:left;
-          width:80px;
-
-          @media @phone {
-            display:block;
-            margin:10px auto;
-            float:none;
-          }
-
-        }
-
-        .holderText {
-          display:inline-block;
-          float:left;
-          width:420px;
-          margin-left:20px;
-
-          @media @phone {
-            width:auto;
-            margin-left:12px;
-            margin-right:12px;
-
-          }
-
-          h2 {
-            margin:0;
-            font-size:24px;
-            line-height:1.5;
-            color:#999;
-
-            @media @phone {
-              font-size:14px;
-            }
-
-          }
-
-          p {
+            font-size: 24px;
             margin: 0;
-            font-size:16px;
-            line-height:36px;
-            color:#ccc;
+            padding-top: 56px;
+            padding-bottom: 20px;
+            line-height: 1;
+            color: #333;
+            border-bottom: 1px solid #ccc;
 
             @media @phone {
-              font-size:12px;
+                font-size:12px;
+                padding-top:12px;
+                padding-bottom:12px;
+            }
+        }
+
+        .budget {
+            margin-top: 40px;
+            margin-bottom: 50px;
+
+            @media @phone {
+                margin-top:12px;
+                margin-bottom:12px;
+            }
+
+            .hint {
+                font-size: 16px;
+                color: #333;
+
+                @media @phone {
+                    display:block;
+                    font-size:12px;
+                    color:#b6b6b6;
+                    margin-bottom:20px;
+                }
+
+            }
+        }
+
+        .intention {
+            margin-bottom: 40px;
+            @media @phone {
+                margin-bottom:0px;
+            }
+
+            .hint {
+                font-size: 16px;
+                color: #333;
+
+                @media @phone {
+                    display:block;
+                    font-size:12px;
+                    color:#b6b6b6;
+                    margin-bottom:20px;
+                }
+            }
+
+            ul {
+                display: inline-block;
+            }
+
+            .toggleTag {
+                img {
+                    vertical-align: middle;
+                    margin-left: 6px;
+                }
+            }
+
+            .add {
+                padding: 1px 10px;
+                margin-top: -2px;
+                @media @phone {
+                    font-size:12px;
+                    height:24px;
+                }
+
+            }
+
+            .suggestionTip {
+                background: #ff6773;
+                display: inline-block;
+                padding: 4px;
+                margin-left: 12px;
+                position: relative;
+
+                &:before {
+                    content: '';
+                    display: block;
+                    width: 0px;
+                    height: 0px;
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -5px;
+                    right: 100%;
+                    border: 5px solid #ff6773;
+                    border-left-color: transparent;
+                    border-top-color: transparent;
+                    border-bottom-color: transparent;
+                }
+
+                p {
+                    display: inline-block;
+                    margin: 0;
+                    font-size: 12px;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .intentionTabs_wrapper {
+        width: 100%;
+        background: #333;
+        overflow: hidden;
+
+        [data-tabs] {
+            margin-top: 80px;
+        }
+        .row { .clearfix(); position: relative;
+               width: @max-width;
+               margin: 0 auto;
+
+               @media @phone {
+                   width:100%;
+               }
+
+               &.budget {
+                   @height: 40px;
+                   height: @height; line-height: @height;
+                   margin: @height 0;
+               }
+               > label { width: 88px; font-size: 16px; position: absolute; display: none; }
+               > .controls {
+                   .clearfix(); text-align: center;
+                   margin-left: 88px;
+                   @media @phone {
+                       margin-left:0;
+
+                   }
+                   li { float: left; width: 14.14%; height: 110px; position: relative; line-height: 1;
+                        @media @phone {
+                            width:33.33%;
+                            height:140px;
+                        }
+
+                        > label { height: 60px; display: block; cursor: pointer; }
+                        img.grey { display: inline-block; }
+                        img.red { display: none; }
+                        color: #999;
+                        &.selected {
+                            img.grey { display: none; }
+                            img.red { display: inline-block; }
+                            color: #e60012;
+                        }
+                        &:after {
+                            .arrow(@direction: up; @fg:#222; @width: 20px;);
+                            display: none;
+                            content: ' ';
+                            position: absolute; bottom: 0; left: 50%;
+
+                            @media @phone {
+                                display:none;
+                            }
+                        }
+                        &.selectedTab:after {
+                            display: block;
+
+                            @media @phone {
+                                display:none;
+                            }
+
+                        }
+
+                        input { display: none; }
+                      }
+               }
+             }
+
+        .details {
+            width: @max-width;
+            margin: 0 auto;
+            @media @phone {
+                display:none;
+            }
+
+            > div { @height: 270px; line-height: @height; height: @height; text-align: center;
+                    background: #222; position: relative; display: none;
+                    img { vertical-align: middle; }
+                    &.selected { display: block; }
+                    .arrow { position: absolute; width: 100%; bottom: 100%;
+                             span { margin-left: 88px; display: block; position: relative;
+                                    &:before {
+                                        content: ' ';
+                                        position: absolute; bottom: 100%;
+                                        .arrow(@direction: up; @fg:#ddd; @width: 20px;)
+                                    }
+                                  }
+                           }
+                  }
+        }
+
+        .collapseButton {
+            display: block;
+            margin: 28px auto 28px auto;
+            width: 60px;
+
+            @media @phone {
+                margin-bottom:0;
+                margin-top:auto;
+            }
+        }
+    }
+
+    .announcement {
+        &_wrapper {
+            width: 100%;
+
+            @media @phone {
+                background:#eee;
+            }
+        }
+
+        overflow: hidden;
+        width: @max-width;
+        margin: 0 auto;
+        padding-top: 22px;
+        padding-bottom: 22px;
+        border-bottom: 1px solid #ccc;
+
+        @media @phone {
+            width:100%;
+            padding-left:12px;
+            padding-right:25px;
+            padding-top:10px;
+            padding-bottom:10px;
+            border-bottom: none;
+        }
+
+        .item {
+            display: block;
+            height: 16px;
+            vertical-align:middle;
+            .icon {
+                float: left;
+            }
+            .title {
+                float: left;
+                margin-left: 10px;
+                font-size: 14px;
+                line-height: 16px;
+                color: #999;
+                text-decoration: none;
+
+                @media @phone {
+                    font-size:10px;
+                }
+            }
+            .more {
+                float:right;
+                font-size: 14px;
+                line-height: 16px;
+                text-decoration:none;
+                color:#aaaaaa;
+            }
+            .close {
+                float: right;
+                line-height:16px;
+            }
+        }
+    }
+
+    .houseFeatured {
+        margin: 0 auto;
+        width: @max-width;
+        min-height:400px;
+
+        @media @phone {
+            width:100%;
+            min-height:auto;
+        }
+
+        .more {
+            float: right;
+            text-decoration: none;
+            color: #aaaaaa;
+            font-size: 14px;
+            line-height: 30px;
+        }
+
+        .houseCard_category {
+            margin-top: 100px;
+            margin-bottom: 32px;
+            font-size: 24px;
+            line-height: 30px;
+
+            @media @phone {
+                display:block;
+                margin-top:34px;
+                margin-bottom:15px;
+                margin-left:12px;
+                font-size:12px;
+                line-height:12px;
+            }
+        }
+
+        .houseCard {
+
+            .description_wrapper {
+                padding-right:320px;
+            }
+            .relatedNews {
+                position:absolute;
+                top:0;
+                right:0;
+                margin-top: 18px;
+                .newsList();
+                width: 320px;
+                height: 220px;
+                @media @phone {
+                    float:left;
+
+                }
+
+                .title {
+                    margin-top: 20px;
+                }
+            }
+
+            height: @house_card-height;
+            margin-bottom: 100px;
+
+            @media @phone {
+                height:auto;
+            }
+
+            .description {
+                height: @house_card-height;
+                width: 520px;
+                display: inline-block;
+                position: relative;
+
+                @media @phone {
+                    position:static;
+                    width:100%;
+                    height:auto;
+                    display:block;
+                }
+
+                .properties {
+                    width: 50%;
+
+                    li {
+                        margin-bottom: 8px;
+                        img {
+                            height: 16px;
+                            vertical-align: middle;
+                        }
+                        span {
+                            font-size: 12px;
+                            height: 16px;
+                            line-height: 16px;
+                            margin-left: 8px;
+                        }
+                    }
+                }
+            }
+            .action > a {
+                width: 260px;
+            }
+
+        }
+
+
+    }
+
+    .houseCard_phone {
+        .relatedNews {
+            max-height:215px;
+            display:block;
+            width:100%;
+            border-bottom:1px solid #ccc;
+            .newsList();
+
+            .title {
+                margin-top: 10px;
+            }
+            .list {
+                margin-bottom:23px;
+            }
+        }
+    }
+
+    .suggestionHouses {
+        width: @max-width;
+        margin-top: 0;
+        margin-bottom: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow: hidden;
+
+        @media @phone {
+            width:100%;
+        }
+
+
+        .loadIndicator {
+            margin-top: 60px;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .houseCard_header {
+
+            margin-top: 45px;
+            margin-bottom: 20px;
+            overflow:hidden;
+
+            @media @phone {
+                padding-top:32px;
+                height:51px;
+                width:100%;
+                paddingn-bottom:0px;
+
+            }
+
+            img {
+                height: 22px;
+                vertical-align: middle;
+            }
+            h2 {
+                display: inline-block;
+                font-size: 16px;
+                color: #333;
+                margin-left: 12px;
+
+                @media @phone {
+                    font-size:12px;
+                }
+
             }
 
             a {
-              text-decoration:none;
-              color:#e60012;
+                text-decoration: none;
+                color: #e60012;
+                margin-left: 20px;
+
+                @media @phone {
+                    float:right;
+                    font-size:12px;
+                    margin-left:auto;
+                    margin-right:12px;
+                }
             }
-          }
         }
-      }
+
+        .houseCard {
+            display: inline-block;
+            width: 860px;
+
+            @media @phone {
+                display:none;
+                width:100%;
+            }
+        }
+
+        .tagDetail {
+            float: right;
+            width: 320px;
+            height: @house_card-height;
+            margin-left: 20px;
+            display: inline-block;
+            background: #fffafa;
+            border: 1px solid #e0c1c4;
+            padding: 33px 16px 16px 16px;
+
+            @media @phone {
+                float:left;
+                display:block;
+                border: 0px;
+                width:100%;
+                height:auto;
+                margin-left:0;
+                padding-top:10px;
+            }
+
+
+            h3 {
+                font-size: 16px;
+                color: #e60012;
+                line-height: 1;
+                margin-bottom: 34px;
+
+                @media @phone {
+                    font-size:10px;
+                    margin-bottom:20px;
+                }
+
+            }
+
+            p {
+                font-size: 12px;
+                color: #666;
+                line-height: 2;
+                margin: 0;
+            }
+
+        }
+
+        .houseCard_suggestionHolder {
+            position: relative; border-top:2px solid #d2d2d2; font-size: 14px; color: #a3a3a3;
+            min-height:@house_card-height;
+            min-width: 700px;
+            display:inline-block;
+            width:860px;
+
+            @media @phone {
+                position:static;
+                min-height:0;
+                min-width:0;
+                display:block;
+                width:100%;
+            }
+
+            .emptyPlaceHolder {
+                width:525px;
+                margin:50px auto 0 auto;
+                overflow:hidden;
+
+                @media @phone {
+                    width:100%;
+                    margin: 20px auto;
+                }
+
+                img {
+                    display:inline-block;
+                    float:left;
+                    width:80px;
+
+                    @media @phone {
+                        display:block;
+                        margin:10px auto;
+                        float:none;
+                    }
+
+                }
+
+                .holderText {
+                    display:inline-block;
+                    float:left;
+                    width:420px;
+                    margin-left:20px;
+
+                    @media @phone {
+                        width:auto;
+                        margin-left:12px;
+                        margin-right:12px;
+
+                    }
+
+                    h2 {
+                        margin:0;
+                        font-size:24px;
+                        line-height:1.5;
+                        color:#999;
+
+                        @media @phone {
+                            font-size:14px;
+                        }
+
+                    }
+
+                    p {
+                        margin: 0;
+                        font-size:16px;
+                        line-height:36px;
+                        color:#ccc;
+
+                        @media @phone {
+                            font-size:12px;
+                        }
+
+                        a {
+                            text-decoration:none;
+                            color:#e60012;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
-  }
-
-  .news {
-    margin: 0 auto;
-    width: @max-width;
-    overflow: hidden;
-
-    @media @phone {
-      width:100%;
-    }
-
-    &_wrapper {
-      height: 440px;
-      background: #f6f6f6;
-      width: 100%;
-
-      @media @phone {
-        height:auto;
-      }
-    }
-
-    .title {
-      margin-top: 60px;
-      margin-bottom: 0px;
-      font-size: 24px;
-      color: #333;
-      line-height: 1;
-
-      @media @phone {
-        font-size:12px;
-        margin-top:25px;
-        margin-bottom:15px;
-        margin-left:12px;
-
-      }
-
-    }
-
-    .featuredNews {
-      float: left;
-      display: inline-block;
-      overflow: hidden;
-      width: 860px;
-      margin-top: 40px;
-      @media @phone {
-        width:100%;
-        height:auto;
-        margin-top:0;
-      }
-
-      .picture {
-        float: left;
-        display: inline-block;
-        width: 320px;
-        margin-right:20px;
+    .news {
+        margin: 0 auto;
+        width: @max-width;
+        overflow: hidden;
 
         @media @phone {
-          width:100%;
+            width:100%;
         }
 
-      }
+        &_wrapper {
+            height: 440px;
+            background: #f6f6f6;
+            width: 100%;
 
-      .content_wrapper {
-        float: left;
-        width: 490px;
-        height: 240px;
-        display: inline-block;
-        position: relative;
-
-        @media @phone {
-          position:static;
-          height:auto;
-          width:100%;
-          display:block;
-          padding:12px;
+            @media @phone {
+                height:auto;
+            }
         }
-
 
         .title {
-          margin-top: 0;
-          font-size: 18px;
-          color: #666666;
-          font-weight: bold;
-          text-decoration:none;
+            margin-top: 60px;
+            margin-bottom: 0px;
+            font-size: 24px;
+            color: #333;
+            line-height: 1;
 
-          @media @phone {
-            font-size:14px;
-            margin-left:0px;
-          }
+            @media @phone {
+                font-size:12px;
+                margin-top:25px;
+                margin-bottom:15px;
+                margin-left:12px;
+
+            }
 
         }
 
-        .content {
-          font-size: 12px;
-          line-height: 2;
-          color: #666666;
-          max-height: 168px;
-          overflow: hidden;
+        .featuredNews {
+            float: left;
+            display: inline-block;
+            overflow: hidden;
+            width: 860px;
+            margin-top: 40px;
+            @media @phone {
+                width:100%;
+                height:auto;
+                margin-top:0;
+            }
 
-          @media @phone {
-            border-bottom:1px solid #ccc;
-            .limitedLines(3, 24px, #f6f6f6);
+            .picture {
+                float: left;
+                display: inline-block;
+                width: 320px;
+                margin-right:20px;
 
-          }
+                @media @phone {
+                    width:100%;
+                }
+
+            }
+
+            .content_wrapper {
+                float: left;
+                width: 490px;
+                height: 240px;
+                display: inline-block;
+                position: relative;
+
+                @media @phone {
+                    position:static;
+                    height:auto;
+                    width:100%;
+                    display:block;
+                    padding:12px;
+                }
+
+
+                .title {
+                    margin-top: 0;
+                    font-size: 18px;
+                    color: #666666;
+                    font-weight: bold;
+                    text-decoration:none;
+
+                    @media @phone {
+                        font-size:14px;
+                        margin-left:0px;
+                    }
+
+                }
+
+                .content {
+                    font-size: 12px;
+                    line-height: 2;
+                    color: #666666;
+                    max-height: 168px;
+                    overflow: hidden;
+
+                    @media @phone {
+                        border-bottom:1px solid #ccc;
+                        .limitedLines(3, 24px, #f6f6f6);
+
+                    }
+                }
+
+                .detail {
+                    position: absolute;
+                    bottom: 0;
+
+                    @media @phone {
+                        position:static;
+                        float:left;
+                        display:none;
+                    }
+                }
+            }
         }
 
-        .detail {
-          position: absolute;
-          bottom: 0;
+        .moreNews {
+            float: right;
+            margin-top: 40px;
+            position: relative;
+            .newsList();
+            width: 320px;
+            height: 240px;
 
-          @media @phone {
-            position:static;
-            float:left;
-            display:none;
-          }
+            @media @phone {
+                width:100%;
+                height:auto;
+                padding:0;
+                margin-top:0;
+            }
+
+            .list {
+                @media @phone {
+
+                    padding: 0 12px;
+                    margin-top:20px;
+                    margin-bottom:20px;
+                }
+            }
+
+            .more {
+                position: absolute;
+                bottom: 0;
+
+                @media @phone {
+                    bottom:auto;
+                    right:12px;
+                    top:0;
+                }
+            }
         }
-      }
     }
-
-    .moreNews {
-      float: right;
-      margin-top: 40px;
-      position: relative;
-      .newsList();
-      width: 320px;
-      height: 240px;
-
-      @media @phone {
-        width:100%;
-        height:auto;
-        padding:0;
-        margin-top:0;
-      }
-
-      .list {
-        @media @phone {
-
-          padding: 0 12px;
-          margin-top:20px;
-          margin-bottom:20px;
-        }
-      }
-
-      .more {
-        position: absolute;
-        bottom: 0;
-
-        @media @phone {
-          bottom:auto;
-          right:12px;
-          top:0;
-        }
-      }
-    }
-  }
 }

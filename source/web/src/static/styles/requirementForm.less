@@ -1,9 +1,15 @@
 @import "project/_imports";
 
-
 .requirement_form {
     float: right;
     margin-right: 20px;
+
+    @media @phone {
+        float: none;
+        padding: 12px;
+        margin-right:0;
+    }
+
     input {
         width: 270px;
         padding-left: 0.5em;
@@ -11,6 +17,14 @@
         &.phone {
             width: 154px;
         }
+
+        @media @phone {
+            width: 100%;
+            &.phone {
+                width:  ~"calc(100% - 116px)";
+            }
+        }
+
     }
     .form_row { line-height: 1.5; }
     .budgetHint {
@@ -18,11 +32,20 @@
         color: #333333;
         margin-top: 20px;
         margin-bottom: 0px;
+
+        @media @phone {
+
+        }
+
     }
     select {
         width: 270px;
         &.country {
             width: 112px;
+        }
+
+        @media @phone {
+            width: 100%;
         }
     }
     textarea {
@@ -30,37 +53,24 @@
         height: 150px;
         padding: 0.5em;
         margin-top: 20px;
+        @media @phone {
+            width: 100%;
+        }
     }
     button {
         margin-top: 8px;
+        @media @phone {
+            width: 100%;
+        }
     }
     button[name=cancel] {
         margin-left:20px;
+        @media @phone {
+            width: 100%;
+            margin-left:0;
+        }
     }
     > .errorMessage {
         display: none; color: red; margin-top: 10px; margin-bottom: 0px;
-    }
-    @media @phone {
-        float: none;
-        padding: 10px;
-        input {
-            width: 100%;
-            &.phone {
-                width:  ~"calc(100% - 116px)";
-            }
-        }
-        select {
-            width: 100%;
-        }
-        textarea {
-            width: 100%;
-        }
-        button {
-            width: 100%;
-        }
-        button[name=cancel] {
-            margin-left:0px;
-            width: 100%;
-        }
     }
 }
