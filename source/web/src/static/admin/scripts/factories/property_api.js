@@ -19,6 +19,9 @@
             },
             create: function (data, config) {
                 return $http.post('/api/1/property/none/edit', data, config)
+            },
+            editSalesComment: function (id, data, config) {
+                return $http.post('/api/1/property/' + id + '/edit/sales_comment', data, config)
             }
         }
 
