@@ -13,172 +13,172 @@
 <!--@@close-->
 <!--@@block=main -->
 %if (not user):
-<div class="gallery">
-    %if homepage_ad_list:
-    % homepage_ad_list = _i18n(homepage_ad_list)
-    <div class="rslides_wrapper">
-        <ul class="rslides">
-            % for ad in homepage_ad_list:
-            <li>
-                <div class="img" style="background:url('/image/fetch?link={{quote_plus(_i18n(ad.get('image', '')))}}&content_id={{ad.get('id')}}') no-repeat;background-size: 100% 100%;">
-                    <div class="img_shadow"></div>
-                </div>
-                <div class="imageText_table">
-                    <div class="imageText_wrapper">
-                        <div class="imageText">
-                            %for index, text in enumerate(ad.get('text')):
-                            <h1 class="slogan">{{text}}</h1>
-                            %end
-                            <a class="button red" href="{{ad.get('link')}}">{{ad.get('image_alt','')}}</a>
-                        </div>
-                    </div>
-                </div>
+    <div class="gallery">
+        %if homepage_ad_list:
+            % homepage_ad_list = _i18n(homepage_ad_list)
+            <div class="rslides_wrapper">
+                <ul class="rslides">
+                    % for ad in homepage_ad_list:
+                        <li>
+                            <div class="img" style="background:url('/image/fetch?link={{quote_plus(_i18n(ad.get('image', '')))}}&content_id={{ad.get('id')}}') no-repeat;background-size: 100% 100%;">
+                                <div class="img_shadow"></div>
+                            </div>
+                            <div class="imageText_table">
+                                <div class="imageText_wrapper">
+                                    <div class="imageText">
+                                        %for index, text in enumerate(ad.get('text')):
+                                            <h1 class="slogan">{{text}}</h1>
+                                        %end
+                                        <a class="button red" href="{{ad.get('link')}}">{{ad.get('image_alt','')}}</a>
+                                    </div>
+                                </div>
+                            </div>
 
-            </li>
-            % end
-        </ul>
+                        </li>
+                    % end
+                </ul>
+            </div>
+        %end
     </div>
-    %end
-</div>
 %end
 
 %if (not user):
-<div class="howItWorks">
-    <!-- @@include=partials/how_it_works_tabs.html-->
-</div>
+    <div class="howItWorks">
+        <!-- @@include=partials/how_it_works_tabs.html-->
+    </div>
 %end
 
 %if user:
-<div class="announcement_wrapper" style="background:#eee">
-    <div id="announcement" class="announcement" style="border-bottom: 0px solid #ccc;">
-        <ul>
-            %for index, anno in enumerate(announcement_list):
-            <li class="item">
-                <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
-                <a class="title" href="/news/{{anno.get('id')}}">{{_i18n(anno.get('title', ''))}}</a>
-                <a class="more" href="/notice_list">{{_('更多公告')}}</a>
-                <img class="close" style="display:none" alt="" src="/static/images/icon/announcement_close.png"/>
-            </li>
-            %end
-        </ul>
-    </div>
-</div>
-%else:
-<div class="announcement_wrapper">
-    <div id="announcement" class="announcement">
-        <ul>
-            % for anno in announcement_list:
-            <li class="item">
-                <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
-                <a class="title" href="/news/{{anno.get('id')}}">{{_i18n(anno.get('title', ''))}}</a>
-                <a class="more" href="/notice_list">{{_('更多公告')}}</a>
-                <img class="close" style="display:none" alt="" src="/static/images/icon/announcement_close.png"/>
-            </li>
-            % end
-        </ul>
-    </div>
-</div>
-%end
-
-%if user:
-<textarea id="dataBudgetList" style="display:none;">{{json_dumps(_i18n(budget_list))}}</textarea>
-<textarea id="dataIntentionList" style="display:none">
-    {{json_dumps(_i18n(intention_list))}}
-</textarea>
-<div class="tags_wrapper" name="intentionForm">
-    <div id="tags" class="tags">
-        <h2 class="title">{{_('为您推荐')}}</h2>
-
-        <div id="budgetTag" class="budget">
-            <label class="hint" for="">{{_('您的预算')}}
-                (
-                {{_('单选')}},
-                <!--@@include=partials/current_currency.html -->
-                ):&nbsp;</label>
-            %for index, budget in enumerate(_i18n(budget_list)):
-            %if budget.get('currency') == _.currency:
-            <div class="toggleTag" data-id="{{budget.get('id')}}">{{budget.get('value')}}</div>
-            %end
-            %end
-        </div>
-        <div id="intentionTag" class="intention">
-            <label class="hint" for="">{{_('投资意向(多选)')}}:&nbsp;</label>
-            <ul id="list">
-
+    <div class="announcement_wrapper" style="background:#eee">
+        <div id="announcement" class="announcement" style="border-bottom: 0px solid #ccc;">
+            <ul>
+                %for index, anno in enumerate(announcement_list):
+                    <li class="item">
+                        <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
+                        <a class="title" href="/news/{{anno.get('id')}}">{{_i18n(anno.get('title', ''))}}</a>
+                        <a class="more" href="/notice_list">{{_('更多公告')}}</a>
+                        <img class="close" style="display:none" alt="" src="/static/images/icon/announcement_close.png"/>
+                    </li>
+                %end
             </ul>
-            <button id="add" class="ghostButton red add">
-                <img alt="" src="/static/images/intention/add.png"/> {{_('添加')}}
-            </button>
-            <div id="suggestionTip" class="suggestionTip" style="display:none">
-                <p>{{_('获取为您推荐的房产投资机会')}}</p>
+        </div>
+    </div>
+%else:
+    <div class="announcement_wrapper">
+        <div id="announcement" class="announcement">
+            <ul>
+                % for anno in announcement_list:
+                    <li class="item">
+                        <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
+                        <a class="title" href="/news/{{anno.get('id')}}">{{_i18n(anno.get('title', ''))}}</a>
+                        <a class="more" href="/notice_list">{{_('更多公告')}}</a>
+                        <img class="close" style="display:none" alt="" src="/static/images/icon/announcement_close.png"/>
+                    </li>
+                % end
+            </ul>
+        </div>
+    </div>
+%end
+
+%if user:
+    <textarea id="dataBudgetList" style="display:none;">{{json_dumps(_i18n(budget_list))}}</textarea>
+    <textarea id="dataIntentionList" style="display:none">
+    {{json_dumps(_i18n(intention_list))}}
+    </textarea>
+    <div class="tags_wrapper" name="intentionForm">
+        <div id="tags" class="tags">
+            <h2 class="title">{{_('为您推荐')}}</h2>
+
+            <div id="budgetTag" class="budget">
+                <label class="hint" for="">{{_('您的预算')}}
+                    (
+                    {{_('单选')}},
+                    <!--@@include=partials/current_currency.html -->
+                    ):&nbsp;</label>
+                %for index, budget in enumerate(_i18n(budget_list)):
+                    %if budget.get('currency') == _.currency:
+                        <div class="toggleTag" data-id="{{budget.get('id')}}">{{budget.get('value')}}</div>
+                    %end
+                %end
+            </div>
+            <div id="intentionTag" class="intention">
+                <label class="hint" for="">{{_('投资意向(多选)')}}:&nbsp;</label>
+                <ul id="list">
+
+                </ul>
+                <button id="add" class="ghostButton red add">
+                    <img alt="" src="/static/images/intention/add.png"/> {{_('添加')}}
+                </button>
+                <div id="suggestionTip" class="suggestionTip" style="display:none">
+                    <p>{{_('获取为您推荐的房产投资机会')}}</p>
+                </div>
             </div>
         </div>
+        <div class="intentionTabs_wrapper" style="height:0;">
+            <!-- @@include=partials/intention_tabs.html-->
+            <img class="collapseButton" id="collapseButton" src="/static/images/intention/collapse.png"
+                 style="cursor: pointer;"/>
+        </div>
     </div>
-    <div class="intentionTabs_wrapper" style="height:0;">
-        <!-- @@include=partials/intention_tabs.html-->
-        <img class="collapseButton" id="collapseButton" src="/static/images/intention/collapse.png"
-             style="cursor: pointer;"/>
-    </div>
-</div>
 %end
 
 %if not user:
-<textarea id="dataPropertyList" style="display:none">
+    <textarea id="dataPropertyList" style="display:none">
     {{json_dumps(_i18n(property_list))}}
-</textarea>
-<div class="houseFeatured">
+    </textarea>
+    <div class="houseFeatured">
 
-</div>
-%else:
-<div id="suggestionHouses" class="suggestionHouses">
-    <img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
-
-    <div id="list" class="list">
     </div>
-</div>
+%else:
+    <div id="suggestionHouses" class="suggestionHouses">
+        <img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+
+        <div id="list" class="list">
+        </div>
+    </div>
 %end
 
 %if (news_list) :
-<div class="news_wrapper">
-    <div class="news">
-        <h2 class="title">
-            {{_('资讯')}}
-        </h2>
+    <div class="news_wrapper">
+        <div class="news">
+            <h2 class="title">
+                {{_('资讯')}}
+            </h2>
 
-        <div class="featuredNews">
-            % from urllib import quote_plus
-            % news = news_list[0]
-            %if ('images' in news) and news.get('images'):
-            <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><img class="picture"
-                                                                                          src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8')) + '_thumbnail'}}&news_id={{news.get('id','')}}"/></a>
+            <div class="featuredNews">
+                % from urllib import quote_plus
+                % news = news_list[0]
+                %if ('images' in news) and news.get('images'):
+                    <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><img class="picture"
+                                                                                                  src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8')) + '_thumbnail'}}&news_id={{news.get('id','')}}"/></a>
+                %end
+                <div class="content_wrapper">
+                    <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><h3 class="title">
+                        {{_i18n(news_list[0].get('title', ''))}}</h3></a>
+
+                    <p class="content">
+                        {{!_i18n(news_list[0].get('summary', ''))}}
+                    </p>
+                    <a class="ghostButton red detail" href="/news/{{news_list[0].get('id')}}">{{_('详细')}}</a>
+                </div>
+            </div>
+
+            %if (len(news_list) > 1) :
+                <div class="moreNews">
+                    <h3 class="title">{{_('更多资讯')}}</h3>
+
+                    <div class="list">
+                        %for index, item in enumerate(news_list):
+                            %if (index > 0 and index < 6):
+                                <a class="item" href="/news/{{item.get('id')}}">{{_i18n(item.get('title', ''))}}</a>
+                            %end
+                        %end
+                    </div>
+                    <a class="ghostButton red more" href="/news_list">{{_('了解更多')}}</a>
+                </div>
             %end
-            <div class="content_wrapper">
-                <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><h3 class="title">
-                    {{_i18n(news_list[0].get('title', ''))}}</h3></a>
-
-                <p class="content">
-                    {{!_i18n(news_list[0].get('summary', ''))}}
-                </p>
-                <a class="ghostButton red detail" href="/news/{{news_list[0].get('id')}}">{{_('详细')}}</a>
-            </div>
         </div>
-
-        %if (len(news_list) > 1) :
-        <div class="moreNews">
-            <h3 class="title">{{_('更多资讯')}}</h3>
-
-            <div class="list">
-                %for index, item in enumerate(news_list):
-                %if (index > 0 and index < 6):
-                <a class="item" href="/news/{{item.get('id')}}">{{_i18n(item.get('title', ''))}}</a>
-                %end
-                %end
-            </div>
-            <a class="ghostButton red more" href="/news_list">{{_('了解更多')}}</a>
-        </div>
-        %end
     </div>
-</div>
 %end
 
 <!-- @@include=/static/templates/suggestion_house_card.tpl.html -->
@@ -191,11 +191,11 @@
 
 <!--@@block=scripts -->
 <script>
-    $(function () {
-        $(".rslides").responsiveSlides({
-            pager: true
-        })
-    })
+ $(function () {
+     $(".rslides").responsiveSlides({
+         pager: true
+     })
+ })
 </script>
 <!--build:js /static/scripts/index.html.js-->
 <script src="/static/scripts/index.js"></script>
