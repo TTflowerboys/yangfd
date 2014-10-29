@@ -28,12 +28,75 @@ main {
         overflow:hidden;
         width:@max-width;
         margin: 0 auto;
+
+        @media @phone {
+            width:100%;
+        }
+
+        .tags {
+            float: right;
+            margin-left: 60px;
+            margin-top:140px;
+            margin-bottom:60px;
+            background:#f6f6f6;
+            width: 340px;
+            padding: 24px 20px 10px 20px;
+
+            @media @phone {
+                float:left;
+                margin:0;
+                width:100%;
+            }
+
+
+            .title {
+                margin-top:0px;
+                margin-left:0px;
+                margin-bottom: 24px;
+                font-size:18px;
+                line-height: 1em;
+                color: #333333;
+            }
+
+            .price, .intention {
+                margin: 0px;
+                border-top: 1px solid #ccc;
+                display:block;
+                min-height: 180px;
+                overflow:hidden;
+                &_icon {
+                    float:left;
+                    display:inline-block;
+                    margin-top:16px;
+                }
+                &_title {
+                    float:left;
+                    display:inline-block;
+                    margin-top:16px;
+                    margin-left:8px;
+                    font-size:12px;
+                    line-height:14px;
+                }
+
+                .inner {
+                    margin-top:72px;
+                    margin-bottom:0px;
+                    .toggleTag {
+                        float: left;
+                        margin-right:12px;
+                        margin-bottom:12px;
+                    }
+                }
+            }
+        }
+
         .result_number {
             font-size:16px;
             line-height:1em;
             margin:0px;
             .number {
                 color:#e82633;
+                font-size:9px;
             }
         }
         .result_list {
@@ -42,28 +105,25 @@ main {
                 width: 800px;
                 display:inline-block;
                 float:left;
+
+                @media @phone {
+                    width:100%;
+                    margin-top:20px;
+                }
+
             }
             margin-top:44px;
+
+            @media @phone {
+                margin-top:15px;
+            }
+
             .houseCard {
                 margin-top:0px;
                 margin-bottom:60px;
 
-                .properties {
-//                    width: 50%;
-
-                    li {
-                        margin-bottom:8px;
-                        img {
-                            height:16px;
-                            vertical-align:middle;
-                        }
-                        span {
-                            font-size:12px;
-                            height:16px;
-                            line-height: 16px;
-                            margin-left:8px;
-                        }
-                    }
+                @media @phone {
+                    display:none;
                 }
             }
         }
@@ -140,54 +200,6 @@ main {
 
         }
 
-        .tags {
-            float: right;
-            margin-left: 60px;
-            margin-top:140px;
-            margin-bottom:60px;
-            background:#f6f6f6;
-            width: 340px;
-            padding: 24px 20px 10px 20px;
 
-            .title {
-                margin-top:0px;
-                margin-left:0px;
-                margin-bottom: 24px;
-                font-size:18px;
-                line-height: 1em;
-                color: #333333;
-            }
-
-            .price, .intention {
-                margin: 0px;
-                border-top: 1px solid #ccc;
-                display:block;
-                min-height: 180px;
-                overflow:hidden;
-                &_icon {
-                    float:left;
-                    display:inline-block;
-                    margin-top:16px;
-                }
-                &_title {
-                    float:left;
-                    display:inline-block;
-                    margin-top:16px;
-                    margin-left:8px;
-                    font-size:12px;
-                    line-height:14px;
-                }
-
-                .inner {
-                    margin-top:72px;
-                    margin-bottom:0px;
-                    .toggleTag {
-                        float: left;
-                        margin-right:12px;
-                        margin-bottom:12px;
-                    }
-                }
-            }
-        }
     }
 }
