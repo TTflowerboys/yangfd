@@ -182,8 +182,6 @@ property_params = dict(
         url=str,
         description=str,
     )),
-    # Params for sales
-    sales_comment=str,
     # rental guarantee fields
     rental_guarantee_term=str,
     rental_guarantee_rate=float,
@@ -317,6 +315,16 @@ def property_edit(property_id, user, params):
 
 @f_api('/property/<property_id>')
 def property_get(property_id):
+    return f_app.property.output([property_id])[0]
+
+
+@f_api('/property/<property_id>/edit/sales_comment', params=dict(
+    content=str,
+))
+@f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'junior_sales'])
+def property_edit_sales_comment(user, property_id, params):
+    params = {"sales_comment": params.pop("content", None)}
+    f_app.property.update_set(property_id, params)
     return f_app.property.output([property_id])[0]
 
 
