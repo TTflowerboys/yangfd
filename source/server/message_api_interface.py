@@ -128,7 +128,8 @@ def message_statistics(user, params):
                 sum_sent += value['counter_sent'] ? value['counter_sent'] : 0;
                 sum_read += value['counter_read'] ? value['counter_read'] : 0;
             })
-            return {"counter_new": sum_new, "counter_sent": sum_sent, "counter_read": sum_read};
+            sum_all = sum_new + sum_read + sum_sent
+            return {"counter_new": sum_new, "counter_sent": sum_sent, "counter_read": sum_read, "rate_sent": sum_sent / sum_all, "rate_read": sum_read / sum_all};
         }
     """)
     with f_app.mongo() as m:
