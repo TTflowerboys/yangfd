@@ -3,6 +3,7 @@ from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from app import f_app
 from libfelix.f_interface import f_api, abort, ObjectId
+from bson.code import Code
 
 
 @f_api("/message", params=dict(
@@ -13,7 +14,7 @@ from libfelix.f_interface import f_api, abort, ObjectId
 @f_app.user.login.check(force=True)
 def message_receive(user, params):
     """
-    ``status`` of a message can be "new" or "read".
+    ``status`` of a message can be "new" or "sent", "read".
     Current message types::
 
         Type: system
@@ -95,3 +96,40 @@ def admin_message_add(user, params):
     target = params.pop("target")
 
     return f_app.message.add(params, target)
+
+
+@f_api("/message/statistics", params=dict(
+    type=(str, True)
+))
+@f_app.user.login.check(force=True, role=["admin", "jr_admin", "operation", "jr_operation"])
+def message_statistics(user, params):
+    func_map = Code("""
+        function(){
+            var key = {"batch_id": this.batch_id, "title": this.title, "text": this.text, "type": this.type};
+            if (this.batch_id) {
+                if (this.state == 'new') {
+                    emit(key, {"counter_new": 1});
+                } else if (this.state == 'sent') {
+                    emit(key, {"counter_sent": 1});
+                } else if (this.state == 'read') {
+                    emit(key, {"counter_read": 1});
+                }
+            }
+        }
+    """)
+    func_reduce = Code("""
+        function(key, values){
+            var sum_new = sum_sent = sum_read = 0;
+            values.forEach(function(value){
+                sum_new += value['counter_new'] ? value['counter_new'] : 0;
+                sum_sent += value['counter_sent'] ? value['counter_sent'] : 0;
+                sum_read += value['counter_read'] ? value['counter_read'] : 0;
+            })
+            return {"counter_new": sum_new, "counter_sent": sum_sent, "counter_read": sum_read};
+        }
+    """)
+    with f_app.mongo() as m:
+        f_app.message.get_database(m).map_reduce(func_map, func_reduce, "messages_statistics")
+        result = m.messages_statistics.find({})
+
+    return list(result)
