@@ -285,7 +285,7 @@
                                                     {{type.get('living_room_count',0)}}{{_('厅')}}
                                                     % if 'value' in type.get('building_area',{}) and 'unit' in type.get('building_area',{}):
                                                         (
-                                                        {{type.get('building_area',{}).get('value')}}
+                                                        {{float("{0:.2f}".format(float(type.get('building_area',{}).get('value'))))}}
                                                         % unit = type.get('building_area',{}).get('unit')
                                                         <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
                                                         )
@@ -328,11 +328,10 @@
                                 % for item in property.get('main_house_types') :
                                     % if item:
                                         <li>
+                                            <a href="{{item.get('floor_plan')}}" target="_blank">
                                             <div style="position:relative;">
-                                                <a href="{{item.get('floor_plan')}}" target="_blank">
                                                     <img src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                                          alt=""/>
-                                                </a>
                                                 <div class="table_wrapper">
                                                     <table class="text">
                                                         <tr>
@@ -385,6 +384,7 @@
                                                     </tr>
                                                 </table>
                                             </div>
+                                            </a>
                                         </li>
                                     % end
                                 % end

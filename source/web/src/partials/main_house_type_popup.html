@@ -9,58 +9,54 @@
         </div>
         <div id="main_house_type" class="main_house_type">
             <div class="main_house_type_pic">
-                <img src="/image/fetch?link={{ quote_plus( property.get('main_house_types')[0].get('floor_plan','').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                <img class="main_house_type_floorplan" src="/image/fetch?link={{ quote_plus( property.get('main_house_types')[0].get('floor_plan','').encode('utf-8'))}}&property_id={{property.get('id','')}}"
                      alt=""/>
             </div>
             <div class="main_house_type_info">
-                <div style="position:relative;">
+                <div>
                     <div class="table_wrapper">
                         <table class="text">
                             <tr>
                                 <td>
                                     <span class="name">{{_('房间')}}</span>
-                                    <span class="value">{{type.get('bedroom_count',0)}}</span>
+                                    <span class="value">{{property.get('main_house_types')[0].get('bedroom_count',0)}}</span>
                                 </td>
                                 <td>
                                     <span class="name">{{_('客厅')}}</span>
-                                    <span class="value">{{type.get('living_room_count',0)}}</span>
+                                    <span class="value">{{property.get('main_house_types')[0].get('living_room_count',0)}}</span>
                                 </td>
                                 <td>
                                     <span class="name">{{_('卫生间')}}</span>
-                                    <span class="value">{{type.get('kitchen_count',0)}}</span>
+                                    <span class="value">{{property.get('main_house_types')[0].get('kitchen_count',0)}}</span>
                                 </td>
                                 <td>
                                     <span class="name">{{_('厨房')}}</span>
-                                    <span class="value">{{type.get('bathroom_count',0)}}</span>
+                                    <span class="value">{{property.get('main_house_types')[0].get('bathroom_count',0)}}</span>
                                 </td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <div class="text2">
-                    <table>
-                        <tr>
-                            <span class="name">{{_('面积')}}</span>
+                    <span class="name">{{_('面积')}}</span>
                             <span class="value">
                                         <strong>
-                                            {{float("{0:.2f}".format(float(type.get('building_area',{}).get('value'))))}}
-                                            % unit = type.get('building_area',{}).get('unit')
+                                            {{float("{0:.2f}".format(float(property.get('main_house_types')[0].get('building_area',{}).get('value'))))}}
+                                            % unit = property.get('main_house_types')[0].get('building_area',{}).get('unit')
                                             <!--@@include get_area_unit.html {"unit":"unit"}-->
                                         </strong>
-                            </span>
-                        </tr>
-                        <tr>
-                            <span class="name">{{_('售价')}}</span>
+                    </span>
+                </div>
+                <div class="text2">
+                    <span class="name">{{_('售价')}}</span>
                             <span class="value">
                                         <strong>
-                                            {{type.get('total_price',{}).get('unit_symbol')}}
+                                            {{property.get('main_house_types')[0].get('total_price',{}).get('unit_symbol')}}
                                         </strong>
                                         <strong data-type="currency">
-                                            {{int(float(type.get('total_price',{}).get('value')))}}
+                                            {{int(float(property.get('main_house_types')[0].get('total_price',{}).get('value')))}}
                                         </strong>
                             </span>
-                        </tr>
-                    </table>
                 </div>
             </div>
         </div>
