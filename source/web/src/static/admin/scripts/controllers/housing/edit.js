@@ -33,7 +33,7 @@
         }
 
         $scope.updateSalesComment = function () {
-            api.update({sales_comment: $scope.item.sales_comment, id: $scope.item.id}, {
+            api.editSalesComment($scope.item.id, {content: $scope.item.sales_comment}, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             })
