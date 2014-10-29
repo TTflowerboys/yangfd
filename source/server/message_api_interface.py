@@ -4,6 +4,7 @@ from datetime import datetime
 from app import f_app
 from libfelix.f_interface import f_api, abort, ObjectId
 from bson.code import Code
+from itertools import chain
 
 
 @f_api("/message", params=dict(
@@ -129,11 +130,12 @@ def message_statistics(user, params):
                 sum_read += value['counter_read'] ? value['counter_read'] : 0;
             })
             sum_all = sum_new + sum_read + sum_sent
-            return {"counter_new": sum_new, "counter_sent": sum_sent, "counter_read": sum_read, "rate_sent": sum_sent / sum_all, "rate_read": sum_read / sum_all};
+            return {"counter_all": sum_all, "counter_new": sum_new, "counter_sent": sum_sent, "counter_read": sum_read, "rate_sent": sum_sent / sum_all, "rate_read": sum_read / sum_all};
         }
     """)
     with f_app.mongo() as m:
         f_app.message.get_database(m).map_reduce(func_map, func_reduce, "messages_statistics")
         result = m.messages_statistics.find({"_id.type": params["type"]})
 
-    return list(result)
+    merged_result = map(lambda x:dict(chain(x["_id"].items(), x["value"].items())), result)
+    return merged_result
