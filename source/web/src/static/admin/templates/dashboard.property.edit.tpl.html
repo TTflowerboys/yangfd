@@ -580,8 +580,8 @@
                                             </td>
                                             <td>
                                                 <div type-i18n="main_type.floor_plan"></div>
-                                                <edit-single-image ng-model="main_type.floor_plan[userLanguage.value]" width-limit="1280" thumbnail-size="320,213"
-                                                    text="{%$root.i18n('户型图')%}" style="width: 200px;"></edit-single-image>
+                                                <div edit-i18n-single-image="main_type.floor_plan" width-limit="1280" thumbnail-size="320,213"
+                                                    text="{%$root.i18n('户型图')%}" style="width: 200px;"></div>
                                             </td>
                                             <td>
                                                 <span class="btn btn-danger" ng-click="onRemoveHouse($index)" title="{%$root.i18n('移除')%}">

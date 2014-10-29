@@ -36,7 +36,7 @@ angular.module('app')
                             data: {
                                 width_limit: scope.widthLimit || 0,
                                 ratio: scope.ratio || 0,
-                                thumbnail_size: scope.thumbnailSize || '0',
+                                thumbnail_size: scope.thumbnailSize || '0,0',
                                 filename: file.name
                             }
                         })
@@ -60,27 +60,7 @@ angular.module('app')
                 }
 
                 scope.uploadImage = function (img) {
-                    //$upload.upload({
-                    //    url: '/api/1/upload_image',
-                    //    file: img,
-                    //    fileFormDataName: 'data',
-                    //    data: {
-                    //        width_limit: scope.widthLimit || 0,
-                    //        ratio: scope.ratio || 0,
-                    //        thumbnail_size: scope.thumbnailSize || '0',
-                    //        filename: img
-                    //    }
-                    //})
-                    //    .success(function (data, status, headers, config) {
-                    //        //for (var key in scope.images) {
-                    //        //    if (file.name === scope.fileNames[key]) {
-                    //        //        scope.images[key] = data.val.url
-                    //        //        break
-                    //        //    }
-                    //        //}
-                    //        console.log("1111111111111111111111+data")
-                    //        console.log(data)
-                    //    })
+
                 }
             }
         }

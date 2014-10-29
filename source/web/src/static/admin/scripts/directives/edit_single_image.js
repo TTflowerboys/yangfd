@@ -21,9 +21,9 @@ angular.module('app')
                             file: file,
                             fileFormDataName: 'data',
                             data: {
-                                width_limit: scope.widthLimit || 1920,
-                                ratio: scope.ratio || 1,
-                                thumbnail_size: scope.thumbnailSize || '400,400',
+                                width_limit: scope.widthLimit || 0,
+                                ratio: scope.ratio || 0,
+                                thumbnail_size: scope.thumbnailSize || '0,0',
                                 filename: file.name
                             }
                         })
@@ -34,6 +34,13 @@ angular.module('app')
                 }
                 scope.removeImage = function (imageIndex) {
                     scope.image = ''
+                }
+                scope.isOurImage = function (img) {
+                    return img.indexOf('bbt-currant.s3.amazonaws.com') < 0
+                }
+
+                scope.uploadImage = function (img) {
+
                 }
             }
         }

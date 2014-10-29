@@ -20,10 +20,10 @@
             _i18n: 'disabled'
         }
 
-        api.search({ params: params }).success(onGetList)
+        api.getStatistics({ params: params }).success(onGetList)
 
         $scope.refreshList = function () {
-            api.search({ params: params}).success(onGetList)
+            api.getStatistics({ params: params}).success(onGetList)
         }
 
         $scope.onRemove = function (item) {
@@ -46,7 +46,7 @@
                 params.insert_time = lastItem.insert_time
             }
 
-            api.search({params: params})
+            api.getStatistics({params: params})
                 .success(function () {
                     $scope.currentPageNumber += 1
                 })
@@ -79,7 +79,7 @@
                 delete params.insert_time
             }
 
-            api.search({params: params})
+            api.getStatistics({params: params})
                 .success(function () {
                     $scope.currentPageNumber -= 1
                 })

@@ -420,8 +420,8 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.message.tpl.html',
                 controller: 'ctrlMessageList',
                 resolve: {
-                    api: function (apiFactory) {
-                        return apiFactory('message')
+                    api: function (messageApi) {
+                        return messageApi
                     }
                 }
             })
@@ -430,8 +430,8 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.message.create.tpl.html',
                 controller: 'ctrlCreate',
                 resolve: {
-                    api: function (apiFactory) {
-                        return apiFactory('message')
+                    api: function (messageApi) {
+                        return messageApi
                     }
                 }
             })
