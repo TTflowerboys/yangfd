@@ -24,19 +24,24 @@
         height:100%;
         min-height:213px;
         width:320px;
+        z-index:@house_card-image-z-index;
 
-        > img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height:100%;
+        a {
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height:100%;
+                cursor:pointer;
 
-            @media @phone {
-                position:static;
-                float:left;
-                width:100%;
+                @media @phone {
+                    position:static;
+                    float:left;
+                    width:100%;
+                }
             }
         }
+
 
         .labels {
             position: absolute;
@@ -115,6 +120,11 @@
             font-family: @font-normal;
             max-width:60%;
             .limitedLines(2, 34px);
+
+            a {
+                text-decoration:none;
+                color:@black;
+            }
         }
 
         .price {
