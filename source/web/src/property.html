@@ -325,10 +325,10 @@
                     <div class="jcarousel-wrapper">
                         <div class="jcarousel">
                             <ul>
-                                % for item in property.get('main_house_types') :
+                                % for index,item in enumerate(property.get('main_house_types')) :
                                     % if item:
-                                        <li>
-                                            <a href="{{item.get('floor_plan')}}" target="_blank">
+                                        <li class="item{{index}}">
+                                            <a href="javascript:window.openMainHouseType(null, '/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8'))}}&property_id={{property.get('id','')}}','{{index}}')" target="_blank">
                                             <div style="position:relative;">
                                                     <img src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                                          alt=""/>
@@ -369,7 +369,7 @@
                                                             </span>
                                                         </td>
                                                         <td>
-                                                            <span class="name">{{_('售价')}}</span>
+                                                            <span class="name">{{_('参考售价')}}</span>
                                                             <span class="value">
                                                                 %if 'total_price' in item and item.get('total_price'):
                                                                     <strong>
@@ -1057,7 +1057,6 @@
                                       .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
                                       .modal()
          })
-
      })()
 
     </script>
@@ -1075,6 +1074,7 @@
     <script src="/static/scripts/showHistoricalPrice.js"></script>
     <script src="/static/scripts/intentionForm.js"></script>
     <script src="/static/scripts/mortgageForm.js"></script>
+    <script src="/static/scripts/main_house_type_popup.js"></script>
     <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
     <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
     <!--endbuild-->
