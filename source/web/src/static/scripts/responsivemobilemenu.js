@@ -59,6 +59,7 @@ function adaptMenu() {
     /* 	toggle menu on resize */
     $('.rmm').each(function() {
 
+        $(this).css('width', $(window).width())
 	if ($(window).width() < 768 ) {
 	    $(this).children('.rmm-main-list').hide(0);
 	    $(this).children('.rmm-toggled').show(0);
