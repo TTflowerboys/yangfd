@@ -893,7 +893,7 @@
                     % else:
                         <input name="_total" type="text" placeholder=""
                                data-type="currency"
-                               value="{{int(float(type.get('total_price',{}).get('value')))}} if 'total_price' in type"
+                               value="{{int(float(property.get('total_price',{}).get('value'))) if 'total_price' in property else ''}}"
                                data-validator="decimal, trim, required"
                                data-message-required="{{_('必填')}}"
                                data-message-decimal="{{_('必须为数字')}}"/>
@@ -978,7 +978,9 @@
             </form>
         </div>
     </div>
+    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
     <!--@@include=partials/main_house_type_popup.html -->
+    %end
     <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
         <img src="" alt="二维码" width="220" height="220"/>
         <p>{{_('打开微信，使用 “扫一扫” 即可将网页分享到朋友圈')}}</p>
