@@ -10,7 +10,7 @@
         background: @header-bg;
         position: relative;
         height: @header-height;
-        z-index: 1;
+        z-index: @header-z-index;
         width: 100%;
         min-width:@min-page-width;
 
@@ -25,6 +25,7 @@
         display:none;
         @media @phone {
             display:block;
+            z-index: @header-z-index;
         }
     }
 
