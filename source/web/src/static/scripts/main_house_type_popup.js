@@ -14,7 +14,6 @@
             }
 
             //Clone living room part from property detail
-            console.log(popup.find('.main_house_type_info .table_wrapper .text'))
             popup.find('.main_house_type_info .table_wrapper .text').replaceWith($('#propertyDetails_houseTypes').find('.item'+index).find('.text')[0].cloneNode(true))
 
             //Clone area and value from property detail
