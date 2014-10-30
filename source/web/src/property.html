@@ -31,7 +31,7 @@
     <![endif]-->
     <!--@@close-->
     <!--@@block = main-->
-    <div class="propertyDetails" style="margin-top: 100px;">
+    <div class="propertyDetails">
         <div class="content">
             <div class="pictures" data-tabs>
                 <div class="labels">
@@ -56,13 +56,13 @@
                                     <ul class="rslides">
                                         % for image in property.get(name):
                                             <li>
-                                                <img src="/image/fetch?link={{quote_plus(image.encode('utf-8'))}}&property_id={{property.get('id','')}}" alt="" width="800" height="533"/>
+                                                <img src="/image/fetch?link={{quote_plus(image.encode('utf-8'))}}&property_id={{property.get('id','')}}" alt=""/>
                                             </li>
                                         % end
                                     </ul>
                                 </div>
                             % else :
-                                <img src="/static/images/placeholder/image.jpg" alt="" width="800" height="480"/>
+                                <img src="/static/images/placeholder/image.jpg" alt=""/>
                             % end
                         </div>
                     % end
@@ -81,7 +81,7 @@
                         % if property.get('reality_images', []) and len(property.get('reality_images', [])):
                             <li data-tab="reality_images">
                                 <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
-                                     alt="" width="200" height="133"/>
+                                     alt="" />
                                 <span class="text_wrapper"> <span class="text">{{_('实景图')}}</span> </span>
                                 <span class="border"></span>
                             </li>
@@ -90,7 +90,7 @@
                         % if property.get('surroundings_images'):
                             <li data-tab="surroundings_images">
                                 <img src="/image/fetch?link={{quote_plus(property.get('surroundings_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
-                                     alt="" width="200" height="133"/>
+                                     alt="" />
                                 <span class="text_wrapper"> <span class="text">{{_('设施图')}}</span> </span>
                                 <span class="border"></span>
                             </li>
@@ -99,7 +99,7 @@
                         % if property.get('floor_plan'):
                             <li data-tab="floor_plan">
                                 <img src="/image/fetch?link={{quote_plus(property.get('floor_plan')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
-                                     alt="" width="200" height="133"/>
+                                     alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('户型图')}}</span> </span>
                                 <span class="border"></span>
                             </li>
@@ -108,7 +108,7 @@
                         % if property.get('effect_pictures'):
                             <li data-tab="effect_pictures">
                                 <img src="/image/fetch?link={{quote_plus(property.get('effect_pictures')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
-                                     alt="" width="200" height="133"/>
+                                     alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('效果图')}}</span> </span>
                                 <span class="border"></span>
                             </li>
@@ -117,7 +117,7 @@
                         % if property.get('indoor_sample_room_picture'):
                             <li data-tab="indoor_sample_room_picture">
                                 <img src="/image/fetch?link={{quote_plus(property.get('indoor_sample_room_picture')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
-                                     alt="" width="200" height="133"/>
+                                     alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('样板间图')}}</span> </span>
                                 <span class="border"></span>
                             </li>
@@ -126,7 +126,7 @@
                         % if property.get('planning_map'):
                             <li data-tab="planning_map">
                                 <img src="/image/fetch?link={{quote_plus(property.get('planning_map')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
-                                     alt="" width="200" height="133"/>
+                                     alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('规划图')}}</span> </span>
                                 <span class="border"></span>
                             </li>
@@ -134,7 +134,7 @@
 
                         % if property.get('longitude') and property.get('latitude'):
                             <li data-tab="map">
-                                <img src="/static/images/placeholder/map.jpg" alt="" width="200" height="133"/>
+                                <img src="/static/images/placeholder/map.jpg" alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('地图')}}</span> </span>
                                 <span class="border"></span>
                             </li>
@@ -315,7 +315,7 @@
                     {{property.get('description')}}
                 </div>
                 <div class="clearfix">
-                    <button data-fn="expendDescription" class="ghostButton red" style="float:right;">{{_('展开')}}</button>
+                    <button data-fn="expendDescription" class="ghostButton red" >{{_('展开')}}</button>
                 </div>
                 <hr/>
             %end
@@ -358,7 +358,7 @@
                                             <div class="text2">
                                                 <table>
                                                     <tr>
-                                                        <td>
+                                                        <td class="space">
                                                             <span class="name">{{_('面积')}}</span>
                                                             <span class="value">
                                                                 <strong >
@@ -368,7 +368,7 @@
                                                                 </strong>
                                                             </span>
                                                         </td>
-                                                        <td>
+                                                        <td class="price">
                                                             <span class="name">{{_('参考售价')}}</span>
                                                             <span class="value">
                                                                 %if 'total_price' in item and item.get('total_price'):

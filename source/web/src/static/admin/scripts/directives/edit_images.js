@@ -1,6 +1,6 @@
 /* Created by frank on 14-8-21. */
 angular.module('app')
-    .directive('editImages', function ($upload) {
+    .directive('editImages', function ($upload, $http) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_images.tpl.html',
@@ -30,7 +30,7 @@ angular.module('app')
                         scope.fileNames.push(file.name)
                         scope.images.push('')
                         $upload.upload({
-                            url: '/api/1/upload_image',
+                            url: '/api/1/upload',
                             file: file,
                             fileFormDataName: 'data',
                             data: {
@@ -60,7 +60,20 @@ angular.module('app')
                 }
 
                 scope.uploadImage = function (img) {
-
+                    return $http.post('/api/1/upload_from_url', {
+                        link: img,
+                        width_limit: scope.widthLimit || 0,
+                        ratio: scope.ratio || 0,
+                        thumbnail_size: scope.thumbnailSize || '0,0'
+                    }, {errorMessage: true})
+                        .success(function (data, status, headers, config) {
+                            for (var key in scope.images) {
+                                if (img === scope.images[key]) {
+                                    scope.images[key] = data.val.url
+                                    break
+                                }
+                            }
+                        })
                 }
             }
         }
