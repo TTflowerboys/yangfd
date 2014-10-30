@@ -3,60 +3,29 @@
     <div class="main_house_type_wrapper">
 
         <div class="main_house_type_header" style="cursor: default;">
-            <a href="#" class="main_house_type_close">
+            <a href="javascript:window.closeMainHouseType()" class="main_house_type_close">
                 <img id="main_house_type_close" src="/static/images/icon/announcement_close.png"/>
             </a>
         </div>
         <div id="main_house_type" class="main_house_type">
             <div class="main_house_type_pic">
-                <img class="main_house_type_floorplan" src="/image/fetch?link={{ quote_plus( property.get('main_house_types')[0].get('floor_plan','').encode('utf-8'))}}&property_id={{property.get('id','')}}"
-                     alt=""/>
+                <img class="main_house_type_floorplan" alt=""/>
             </div>
             <div class="main_house_type_info">
                 <div>
                     <div class="table_wrapper">
                         <table class="text">
-                            <tr>
-                                <td>
-                                    <span class="name">{{_('房间')}}</span>
-                                    <span class="value">{{property.get('main_house_types')[0].get('bedroom_count',0)}}</span>
-                                </td>
-                                <td>
-                                    <span class="name">{{_('客厅')}}</span>
-                                    <span class="value">{{property.get('main_house_types')[0].get('living_room_count',0)}}</span>
-                                </td>
-                                <td>
-                                    <span class="name">{{_('卫生间')}}</span>
-                                    <span class="value">{{property.get('main_house_types')[0].get('kitchen_count',0)}}</span>
-                                </td>
-                                <td>
-                                    <span class="name">{{_('厨房')}}</span>
-                                    <span class="value">{{property.get('main_house_types')[0].get('bathroom_count',0)}}</span>
-                                </td>
-                            </tr>
+
                         </table>
                     </div>
                 </div>
                 <div class="text2">
                     <span class="name">{{_('面积')}}</span>
-                            <span class="value">
-                                        <strong>
-                                            {{float("{0:.2f}".format(float(property.get('main_house_types')[0].get('building_area',{}).get('value'))))}}
-                                            % unit = property.get('main_house_types')[0].get('building_area',{}).get('unit')
-                                            <!--@@include get_area_unit.html {"unit":"unit"}-->
-                                        </strong>
-                    </span>
+                    <span class="value"></span>
                 </div>
                 <div class="text2">
-                    <span class="name">{{_('售价')}}</span>
-                            <span class="value">
-                                        <strong>
-                                            {{property.get('main_house_types')[0].get('total_price',{}).get('unit_symbol')}}
-                                        </strong>
-                                        <strong data-type="currency">
-                                            {{int(float(property.get('main_house_types')[0].get('total_price',{}).get('value')))}}
-                                        </strong>
-                            </span>
+                    <span class="name">{{_('参考售价')}}</span>
+                    <span class="value"></span>
                 </div>
             </div>
         </div>
