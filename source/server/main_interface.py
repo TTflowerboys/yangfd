@@ -499,7 +499,7 @@ def images_proxy(params):
         if params["link"] == f_app.ad.get(params["content_id"]).get("image"):
             allowed = True
 
-    if "bbt-currant.s3.amazonaws.com" in params["link"]:
+    if "bbt-currant.s3.amazonaws.com" in params["link"] or "zoopla.co.uk" in params["link"]:
         allowed = True
 
     if not allowed:
