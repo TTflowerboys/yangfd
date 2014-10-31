@@ -35,7 +35,7 @@ def upload_image(params):
 
     f = params["data"].file
     # Make background to white if the file is PNG
-    if im.format == "PNG":
+    if im.format == "PNG" or im.format == "GIF":
         background = Image.new("RGB", im.size, (255, 255, 255))
         try:
             background.paste(im, mask=im)
@@ -191,7 +191,7 @@ def upload_from_url(params):
 
     f = StringIO(im_request.content)
     # Make background to white if the file is PNG
-    if im.format == "PNG":
+    if im.format == "PNG" or im.format == "GIF":
         background = Image.new("RGB", im.size, (255, 255, 255))
         try:
             background.paste(im, mask=im)
