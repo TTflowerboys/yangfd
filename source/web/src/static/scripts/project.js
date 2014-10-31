@@ -39,7 +39,7 @@
             return $.format.date(time * 1000, 'yyyy-MM-dd HH:mm:ss')
         },
         onImgError: function(img,defaultSrc){
-            img.onerror = ""
+            img.onerror = ''
 
             if(defaultSrc){
                 img.src = defaultSrc
