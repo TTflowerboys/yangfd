@@ -32,7 +32,7 @@ angular.module('app')
                             })
                     }
                 }
-                scope.removeImage = function (imageIndex) {
+                scope.removeImage = function () {
                     scope.image = ''
                 }
                 scope.isOurImage = function (img) {
