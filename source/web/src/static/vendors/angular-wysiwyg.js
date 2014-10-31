@@ -279,6 +279,9 @@ angular.module('wysiwyg.module',[])
 
 			scope.format('enableobjectresizing', true);
 			scope.format('styleWithCSS', true);
+			scope.$watch('value',function(newValue){
+				textarea.html(newValue)
+			})
         }
     };
 });
