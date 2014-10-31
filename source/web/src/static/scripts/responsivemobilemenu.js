@@ -50,7 +50,8 @@ function getMobileMenu() {
 	var $menulist = $(this).children('.rmm-main-list').html();
         var $menuTextButton = '<div class="rmm-toggled-title">' + menutitle + '</div>'
         var $menuButton = '<div class="rmm-button"><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span></div>'
-	var $menucontrols ='<div class="rmm-toggled-controls">' + $menuButton + $menuTextButton + '</div>'
+        var $menuCenterButton = '<div class="rmm-center"><img src="/static/images/icon/header/phone/logo.png" height=24></div>'
+	var $menucontrols ='<div class="rmm-toggled-controls">' + $menuButton  + $menuCenterButton + $menuTextButton + '</div>'
 	$(this).prepend('<div class="rmm-toggled rmm-closed">'+$menucontrols+'<ul>'+$menulist+'</ul></div>')
     });
 }

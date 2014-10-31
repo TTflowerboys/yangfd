@@ -37,6 +37,17 @@
         },
         formatTime: function(time) {
             return $.format.date(time * 1000, 'yyyy-MM-dd HH:mm:ss')
+        },
+        onImgError: function(img,defaultSrc){
+            img.onerror = ""
+
+            if(defaultSrc){
+                img.src = defaultSrc
+            }else{
+                img.src = '/static/images/placeholder/property.jpg'
+            }
+
+            return true;
         }
     }
 })();
