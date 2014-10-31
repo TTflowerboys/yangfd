@@ -223,11 +223,6 @@
                             <td class="value">
                                 {{property.get('equity_type',{}).get('value','') }}
                             </td>
-                            <td class="value">
-                                % if 'opening_time' in property:
-                                    {{property.get('opening_time','')}}
-                                % end
-                            </td>
                         </tr>
                         % if 'decorative_style' in property:
                             <tr>
