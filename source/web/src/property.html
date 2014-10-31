@@ -142,6 +142,38 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="propertyCard_phone">
+                <div class="left">
+                    <h1 class=name>{{property.get('name')}}</h1>
+                    % if 'intention' in property and property.get('intention'):
+                        <div class="tag">
+                            <img src="/static/images/property_details/tag-icon-phone.png" height=12 alt=""/>
+                            {{tagString}}
+                        </div>
+                    % end
+                    % if 'country' in property or 'city' in property:
+                        % country = property.get('country',{}).get('value')
+                        % city = property.get('city',{}).get('value')
+                        % city_string = ', '.join([x for x in [country,city] if x])
+                        <div class="tag"><img src="/static/images/property_details/location-icon-phone.png" height=12 alt=""/>
+                            {{city_string}}
+                        </div>
+                    % end
+                </div>
+                <div class="right">
+                    <table>
+                        <tr>
+                            <td>
+                                <label class=price>
+                                    <!--@@include=partials/get_unit_price.html  -->
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
             <div class="nav tabbar">
                 <ul>
                     <li>
@@ -692,44 +724,7 @@
                     <table>
                         <tr>
                             <td class="price_inner">
-                                % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing'):
-                                    %if 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
-                                        <span class="mute">{{_('最低投资')}}</span>
-                                        <span>
-                                            {{property.get('main_house_types',{})[0].get('total_price',{}).get('unit_symbol')}}
-                                        </span>
-                                        <strong data-type="currency">
-                                            % minPrice = int(float(property.get('main_house_types')[0].get('total_price').get('value')))
-                                            %for index, type  in enumerate(property.get('main_house_types')):
-                                                %if minPrice > int(float(type.get('total_price').get('value'))):
-                                                    %   minPrice = int(float(type.get('total_price').get('value')))
-                                                %end
-                                            %end
-                                            {{minPrice}}
-                                        </strong>
-                                    %elif 'unit_price' in property and property.get('unit_price'):
-                                        <span class="mute">{{_('参考价格')}}</span>
-                                        <span>
-                                            {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
-                                        </span>
-                                        <strong data-type="currency">
-                                            {{int(float(str(property.get('unit_price',{}).get('price',{}).get('value',''))) / float(str(property.get('unit_price').get('unit').get('value'))))}}
-                                        </strong>
-                                        <span>
-                                            /
-                                            % unit = property.get('unit_price',{}).get('unit',{}).get('unit')
-                                            <!--@@include=partials/get_area_unit.html {"unit":"unit"}-->
-                                        </span>
-                                    %end
-                                % else :
-                                    %if 'total_price' in property and property.get('total_price'):
-                                        <span class="mute">{{_('参考价格')}}</span>
-                                        <span>{{property.get('total_price',{}).get('unit_symbol','')}}</span>
-                                        <strong data-type="currency">
-                                            {{int(float(property.get('total_price',{}).get('value','')))}}
-                                        </strong>
-                                    %end
-                                % end
+                                <!--@@include=partials/get_unit_price.html  -->
                             </td>
                             %if property.get('status') == 'sold out':
                                 <td class="soldOut">
