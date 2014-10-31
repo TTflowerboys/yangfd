@@ -1,27 +1,25 @@
 /*! Created by frank on 14-9-29.  */
 @import "project/_imports";
-
 @border-color: #ccc;
 @light-text-color: #999;
 @dark-text-color: #555;
 .propertyDetails {
-    strong {
-        font-weight: normal;
-    }
+    strong { font-weight: normal; }
     color: @light-text-color;
-    .wrapped();
-    .clearfix();
-    margin-top: 100px;
+    .wrapped(); .clearfix();
+
+    margin-top:100px;
     @media @phone {
-        margin-top: 0;
+        margin-top:0;
     }
+
 
     > .content {
         width: 800px;
         float: left;
 
         @media @phone {
-            width: 100%;
+            width:100%;
         }
 
     }
@@ -30,88 +28,76 @@
         float: right;
 
         @media @phone {
-            display: none;
+            display:none;
         }
 
     }
-    &_title {
-        margin-bottom: 24px;
-        color: #666;
-        margin-top: 24px;
-        font-size: 16px;
-    }
+    &_title { margin-bottom: 24px; color: #666; margin-top: 24px; font-size: 16px; }
     hr {
-        color: @border-color;
-        margin-top: 24px;
-        margin-bottom: 24px;
+        color: @border-color; margin-top: 24px; margin-bottom: 24px;
         @media @phone {
-            display: none;
+            display:none;
         }
 
     }
     .pictures {
-        position: relative;
+        position:relative;
 
         .labels {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 50px;
-            z-index: @house_card-image-text-z-index;
+            position:absolute;
+            top:0;
+            left:0;
+            height:50px;
+            z-index:@house_card-image-text-z-index;
 
             @media @phone {
-                height: 30px;
+                height:30px;
             }
 
+
             label {
-                color: white;
-                font-size: 20px;
-                line-height: 50px;
-                padding: 0 14px;
-                margin: 0;
-                float: left;
+                color:white;
+                font-size:20px;
+                line-height:50px;
+                padding:0 14px;
+                margin:0;
+                float:left;
 
                 @media @phone {
-                    line-height: 30px;
-                    font-size: 16px;
-                    padding: 0 12px;
+                    line-height:30px;
+                    font-size:16px;
+                    padding:0 12px;
                 }
 
+
                 &.type {
-                    background: #333;
+                    background:#333;
                 }
                 &.rent {
-                    background: #e60012;
+                    background:#e60012;
                 }
             }
         }
 
         .big {
             img {
-                max-height: 533px;
-                max-width: 100%;
-                display: block;
-                margin: 0 auto;
-                width: 100%;
-                min-height: 480px;
+                max-height: 533px; max-width: 100%; display: block; margin: 0 auto;
+                width:100%;
+                min-height:480px;
                 @media @phone {
-                    min-height: 200px;
+                    min-height:200px;
                 }
 
             }
-            .item {
-                display: none;
-                &.selectedTab {
-                    display: block;
-                }
+            .item { display: none;
+                &.selectedTab { display: block; }
             }
         }
         .thumbnails {
-            margin-top: 24px;
-            margin-bottom: 48px;
+            margin-top: 24px; margin-bottom: 48px;
             @media @phone {
-                margin-top: 0;
-                margin-bottom: 0;
+                margin-top:0;
+                margin-bottom:0;
             }
 
             > ul {
@@ -124,53 +110,38 @@
                     > img {
                         display: block;
                         max-width: 100%;
-                        height: 106px;
+                        height:106px;
 
                         @media @phone {
-                            height: 53px;
+                            height:53px;
                         }
 
                     }
                     > span {
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        width: 100%;
-                        height: 100%;
+                        position: absolute; left: 0; top: 0; width: 100%; height: 100%;
                     }
                     .border {
-                        display: none;
-                        border: 3px solid @red;
+                        display: none; border: 3px solid @red;
                     }
                     .text {
-                        text-align: center;
-                        background: fade(white, 50%);
-                        font-size: 20px;
-                        color: black;
+                        text-align: center; background: fade(white, 50%); font-size: 20px; color: black;
                         @media @phone {
-                            font-size: 14px;
-                            color: #747474;
+                            font-size:14px;
+                            color:#747474;
                         }
 
                         &_wrapper {
-                            display: table;
-                            height: 106px;
+                            display: table; height: 106px;
                             @media @phone {
-                                height: 53px;
+                                height:53px;
                             }
 
                         }
-                        display: table-cell;
-                        vertical-align: middle;
-                        padding: 0 8px;
+                        display: table-cell; vertical-align: middle; padding: 0 8px;
                     }
                     &.selectedTab {
-                        .border {
-                            display: block;
-                        }
-                        .text {
-                            display: none;
-                        }
+                        .border { display: block; }
+                        .text { display: none; }
                     }
                 }
             }
@@ -180,58 +151,48 @@
         margin-bottom: 64px;
         margin-top: 48px;
         @media @phone {
-            margin-top: 0;
-            margin-bottom: 0px;
-            border-bottom: 0px;
-            height: 44px;
+            margin-top:0;
+            margin-bottom:0px;
+            border-bottom:0px;
+            height:44px;
         }
 
         ul {
 
             @media @phone {
-                display: block;
+                display:block;
             }
 
             li {
                 @media @phone {
-                    width: 20%;
-                    height: 44px;
-                    font-size: 12px;
-                    line-height: 44px;
-                    border: 0px;
-                    background: #eee;
+                    width:20%;
+                    height:44px;
+                    font-size:12px;
+                    line-height:44px;
+                    border:0px;
+                    background:#eee;
                 }
             }
         }
         a {
-            text-decoration: none;
-            color: inherit;
-            display: block;
+            text-decoration: none; color: inherit; display: block;
         }
     }
     .meta {
 
         @media @phone {
-            padding: 20px;
+            padding:20px;
         }
 
         .numbers {
-            .clearfix();
-            margin-bottom: 16px;
+            .clearfix(); margin-bottom: 16px;
             > li {
-                float: left;
-                width: 100% / 6;
-                border-left: 1px solid @border-color;
-                padding-left: 8px;
+                float: left; width: 100% / 6; border-left: 1px solid @border-color; padding-left: 8px;
                 &:first-child {
-                    border-left: none;
-                    padding-left: 0;
+                    border-left: none; padding-left: 0;
                 }
                 strong {
-                    display: block;
-                    font-size: 24px;
-                    font-weight: normal;
-                    color: @dark-text-color;
+                    display: block; font-size: 24px; font-weight: normal; color: @dark-text-color;
                     .unit {
                         font-size: 12px;
                     }
@@ -240,25 +201,18 @@
         }
         .other {
             width: 100%;
-            .col-name {
-                width: 180px;
-            }
+            .col-name { width: 180px; }
             .value {
                 padding-right: 16px;
                 @media @phone {
-                    width: 180px;
-                    padding-right: 0px;
-                    font-size: 12px;
+                    width:180px;
+                    padding-right:0px;
+                    font-size:12px;
                 }
 
             }
-            td {
-                padding: 8px 0;
-                vertical-align: top;
-            }
-            strong {
-                color: #555;
-            }
+            td { padding: 8px 0; vertical-align: top; }
+            strong { color: #555; }
             i {
                 display: inline-block;
                 width: 16px;
@@ -268,30 +222,26 @@
                 margin-right: 4px;
 
                 @media @phone {
-                    width: 12px;
-                    height: 12px;
-                    line-height: 12px;
+                    width:12px;
+                    height:12px;
+                    line-height:12px;
                 }
             }
             .name {
-                display: inline-block;
-                min-width: 6em;
+                display: inline-block; min-width: 6em;
                 @media @phone {
-                    font-size: 12px;
+                    font-size:12px;
                 }
 
             }
-            a {
-                text-decoration: none;
-            }
+            a { text-decoration: none; }
         }
     }
     .advantages {
-        margin-top: 48px;
-        margin-bottom: 48px;
+        margin-top: 48px; margin-bottom: 48px;
         @media @phone {
-            margin-top: 0;
-            margin-bottom: 0;
+            margin-top:0;
+            margin-bottom:0;
         }
 
         ul {
@@ -304,82 +254,68 @@
         padding: 24px 16px;
 
         @media @phone {
-            font-size: 12px;
-            padding: 20px 20px;
+            font-size:12px;
+            padding:20px 20px;
         }
+
 
     }
     .description {
-        font-size: 14px;
-        .limitedLines(5; 20px);
-        margin-top: 24px;
+        font-size: 14px; .limitedLines(5; 20px); margin-top: 24px;
 
         @media @phone {
-            font-size: 12px;
-            margin-top: 0;
-            padding: 20px;
+            font-size:12px;
+            margin-top:0;
+            padding:20px;
         }
     }
 
     button[data-fn=expendDescription] {
-        float: right;
+        float:right;
         @media @phone {
-            float: none;
-            width: ~"calc(100% - 40px)";
-            margin: 20px;
+            float:none;
+            width:~"calc(100% - 40px)";
+            margin:20px;
         }
     }
 
     .houseTypes {
         line-height: 1;
-        min-height: 246px;
+        min-height:246px;
+        a {color: inherit;text-decoration: none;}
 
         @media @phone {
-            background: #333;
-            padding-top: 20px;
+            background:#333;
+            padding-top:20px;
         }
 
         .propertyDetails_title {
 
             @media @phone {
-                margin-top: 0;
-                margin-bottom: 0;
-                color: white;
-                margin-left: 20px;
-                font-size: 12px;
+                margin-top:0;
+                margin-bottom:0;
+                color:white;
+                margin-left:20px;
+                font-size:12px;
             }
         }
 
         .table_wrapper {
-            position: absolute;
-            bottom: 0;
-            color: white;
-            background: fade(black, 60%);
-            padding: 8px 0;
-            left: 0;
-            width: 100%;
-        }
+            position: absolute; bottom: 0; color: white; background: fade(black, 60%); padding: 8px 0;
+            left: 0; width: 100%; }
         ul {
             > li {
-                position: relative;
-                padding: 0 8px;
+                position: relative; padding: 0 8px;
             }
         }
 
         table {
-            text-align: left;
-            width: 100%;
+            text-align: left; width: 100%;
             td {
-                border-left: 1px solid #444;
-                padding: 0 8px;
-                &:first-child {
-                    border-left: none;
-                }
+                border-left: 1px solid #444; padding: 0 8px;
+                &:first-child { border-left: none; }
                 .name {
-                    display: block;
-                    font-size: 12px;
-                    margin-bottom: 8px;
-                }
+                    display: block; font-size: 12px; margin-bottom: 8px; }
                 .value {
                     font-size: 18px;
                 }
@@ -387,510 +323,251 @@
 
         }
         .text2 {
-            background: #eee;
-            padding: 8px 0;
+            background: #eee; padding: 8px 0;
 
             @media @phone {
-                padding: 0;
+                padding:0;
             }
 
+
             td {
+
                 border-color: #ccc;
 
                 .name {
                     @media @phone {
-                        color: white;
+                        color:white;
                     }
                 }
 
-                .description {
-                    font-size: 14px;
-                    .limitedLines(5; 20px);
-                    margin-top: 24px;
-                }
-                .houseTypes {
-                    line-height: 1;
-                    a {
-                        color: inherit;
-                        text-decoration: none;
-                    }
-                    .table_wrapper {
-                        position: absolute;
-                        bottom: 0;
-                        color: white;
-                        background: fade(black, 60%);
-                        padding: 8px 0;
-                        left: 0;
-                        width: 100%;
-                    }
-                    ul {
-                        > li {
-                            position: relative;
-                            padding: 0 8px;
-                        }
-                    }
-                    table {
-                        text-align: left;
-                        width: 100%;
-                        td {
-                            border-left: 1px solid #444;
-                            padding: 0 8px;
-                            &:first-child {
-                                border-left: none;
-                            }
-                            .name {
-                                display: block;
-                                font-size: 12px;
-                                margin-bottom: 8px;
-                            }
-                            .value {
-                                font-size: 18px;
-                            }
-                        }
-
-                        &.space {
-                            @media @phone {
-                                border: 0;
-                                padding-left: 8px;
-                                height: 56px;
-                                background: #e60012;
-                            }
-
-                            strong {
-                                @media @phone {
-                                    color: white;
-                                }
-                            }
-                        }
-                        &.price {
-                            @media @phone {
-                                border: 0;
-                                padding-left: 8px;
-                                height: 56px;
-                                background: #e60012;
-                            }
-
-                            strong {
-                                @media @phone {
-                                    color: white;
-                                }
-                            }
-                        }
-                    }
-                }
-                strong {
-                    color: @red;
-                }
-                .jcarousel-wrapper {
-                    padding-left: 24px;
-                    padding-right: 24px;
-                    border: none;
-
+                &.space {
                     @media @phone {
-                        padding-left: 32px;
-                        padding-right: 32px;
+                        border:0;
+                        padding-left:8px;
+                        height:56px;
+                        background:#e60012;
                     }
 
-                    .jcarousel {
-                        ul {
-                            li {
-                                @media @phone {
-                                    border: 0;
-                                }
-
-                                div {
-                                    img {
-                                        min-height: 110px;
-                                    }
-                                }
-                            }
+                    strong {
+                        @media @phone {
+                            color:white;
                         }
                     }
                 }
-                .jcarousel-control-prev {
-                    left: 0;
+                &.price {
                     @media @phone {
-                        left: 8px;
+                        border:0;
+                        padding-left:8px;
+                        height:56px;
+                        background:#e60012;
                     }
 
-                }
-                .jcarousel-control-next {
-                    right: 0;
-
-                    @media @phone {
-                        right: 8px;
-                    }
-
-                }
-            }
-
-            .historical_price_description {
-                margin-bottom: 24px;
-            }
-            .brief {
-
-                .propertyDetails_title {
-
-                    @media @phone {
-                        margin-top: 20px;
-                        margin-bottom: 20px;
-                        margin-left: 20px;
-                        font-size: 12px;
-                    }
-                }
-
-                .table {
-                    width: 100%;
-                    &_wrapper {
-                        background: #f4f4f4;
-                        padding: 0 16px;
-                    }
-                    tr {
-                        border-top: 1px solid #c5c5c5;
-                        &:first-child {
-                            border-top: none;
-                        }
-                        td {
-                            padding: 16px 0;
-                            position: relative;
-                            &:first-child:after {
-                                content: ' ';
-                                color: #c5c5c5;
-                                display: block;
-                                position: absolute;
-                                width: 0;
-                                @height: 70%;
-                                height: @height;
-                                border-left: 1px solid;
-                                top: (100% - @height) /2;
-                                right: 24px;
-                            }
+                    strong {
+                        @media @phone {
+                            color:white;
                         }
                     }
-                }
-            }
-            .incoming {
-                .stackedBar {
-                    .clearfix();
-                    position: relative;
-                    margin-bottom: 88px;
-                    height: 50px;
-                    margin-top: 56px;
-                    > .bar {
-                        float: left;
-                        height: 100%;
-                        text-align: center;
-                        line-height: 50px;
-                        color: white;
-                        .clipped(auto);
-                        &.bar1 {
-                            background: #00d3ff;
-                        }
-                        &.bar2 {
-                            background: #00b7dd;
-                        }
-                        &.last {
-                            background: #e20013;
-                            float: right;
-                        }
-                    }
-                    > .annotation {
-                        position: absolute;
-                        border: 2px solid;
-                        text-align: center;
-                        .clipped(100%);
-                        &.annotation4 {
-                            color: #00d3ff;
-                            border-top: none;
-                            left: 0;
-                            top: 100%;
-                            margin-top: 8px;
-                            z-index: 2;
-                        }
-                        &.annotation5 {
-                            color: #c5c5c5;
-                            border-top: none;
-                            left: 0;
-                            top: 100%;
-                            margin-top: 8px;
-                            padding-top: 32px;
-                            z-index: 1;
-                        }
-                        &.annotation6 {
-                            color: #e20013;
-                            border-bottom: none;
-                            right: 0;
-                            bottom: 100%;
-                            margin-bottom: 8px;
-                        }
-                    }
-                }
-                .text {
-                    width: 100%;
-                    margin-top: 32px;
-                    margin-bottom: 32px;
-                    tr {
-                        height: 60px;
-                        td {
-                            position: relative;
-                            padding-left: 20px;
-                            .bar {
-                                position: absolute;
-                                width: 10px;
-                                height: 100%;
-                                left: 0;
-                                top: 0;
-                                &.bar0 {
-                                    background: #c5c5c5;
-                                }
-                                &.bar1 {
-                                    background: #00d3ff;
-                                }
-                                &.bar2 {
-                                    background: #00b7dd;
-                                }
-                                &.bar3 {
-                                    background: #e20013;
-                                }
-                            }
-                        }
-                    }
-                    p {
-                        margin: 0;
-                    }
-                    .name {
-                        color: #aaaaaa;
-                        font-size: 12px;
-                        line-height: 24px;
-                    }
-                    .value {
-                        font-size: 12px;
-                        color: #666;
-                        strong {
-                            font-size: 24px;
-                            color: @light-text-color;
-                        }
-                    }
-
-                }
-            }
-            .nearby {
-                > ul {
-                    .clearfix();
-                    margin: 0 -10px 56px;
-                    > li {
-                        float: left;
-                        margin: 0 10px;
-                        width: 185px;
-                        background: #f4f4f4;
-                        color: #666;
-                        padding: 16px;
-                        i {
-                            display: inline-block;
-                            vertical-align: middle;
-                            width: 20px;
-                            height: 20px;
-                            margin-right: 4px;
-                            img {
-                                vertical-align: top
-                            }
-                        }
-                        hr {
-                            margin: 8px 0 8px;
-                        }
-                        > strong {
-                            color: @red;
-                            font-size: 30px;
-                        }
-                        > ul {
-                            margin: 24px 0;
-                        }
-                    }
-                }
-            }
-            .intentionForm {
-                padding: 8px 24px 8px;
-                margin-top: 16px;
-                background: #f6f6f6;
-                overflow: hidden;
-                margin-bottom: 16px;
-                .row {
-                    .clearfix();
-                }
-                @input-size: 14px;
-                @input-height: 44px;
-                @input-color: #333;
-                input[type=text], textarea {
-                    border: 1px solid @border-color;
-                    border-radius: 4px;
-                    display: block;
-                    width: 100%;
-                    height: @input-height;
-                    padding: 4px 16px;
-                    margin: 8px 0;
-                    font-size: @input-size;
-                    color: @input-color;
-                    vertical-align: middle;
-                }
-                input[type=text][readonly] {
-                    background: #f6f6f6;
-                }
-                .label {
-                    margin: 16px 0 0;
-                    display: block;
-                }
-                .link {
-                    color: @red;
-                    text-decoration: none;
-                }
-                textarea {
-                    height: 200px;
-                    margin-top: 16px;
-                    font-size: 14px;
-                }
-                select {
-                    vertical-align: middle;
-                    font-size: @input-size;
-                    width: 100%;
-                    color: @input-color;
-                }
-                button {
-                    width: 100%;
-                    margin: 16px 0;
-                    padding: 16px 0;
-                    line-height: 1;
-                    font-size: 16px;
-                }
-                hr {
-                    margin: 8px 0;
-                }
-                .contact {
-                    color: @red;
-                    font-size: 16px;
-                    text-align: center;
-                    padding: 16px 0;
-                }
-                .inputAddOn {
-                    position: relative;
-                    input {
-                        padding-right: 32px;
-                    }
-                    .addOn {
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                        font-size: @input-size;
-                        line-height: @input-height;
-                        display: inline-block;
-                        width: 32px;
-                        text-align: center;
-                    }
-                }
-                select {
-                    height: @input-height;
-                    border: 1px solid @border-color;
-                    vertical-align: middle;
-                    margin: 8px 0;
-                    font-size: 14px;
-                    background: white;
-                    &[name=country] {
-                        width: 120px;
-                        float: left;
-                    }
-                }
-                input[name=phone] {
-                    width: 180px;
-                    float: right;
-                }
-            }
-            .intentionTags {
-                //> h2 { font-size: 16px; color: #666; margin-bottom: 24px; }
-                > .tab {
-                    color: @red;
-                    .clearfix();
-                    > li {
-                        float: left;
-                        text-align: center;
-                        position: relative;
-                        padding-bottom: 16px;
-                        width: 25%;
-                        cursor: pointer;
-                        height: 100px;
-                        font-size: 12px;
-                        img {
-                            display: block;
-                            margin: 0 auto;
-                        }
-                        .text {
-                            margin-top: 16px;
-                        }
-                        &:after {
-                            .arrow(up; #333; 16px;);
-                            position: absolute;
-                            bottom: 0;
-                            display: none;
-                        }
-                        &.selectedTab:after {
-                            display: inline-block;
-                        }
-                    }
-                }
-                .content {
-                    > li {
-                        display: none;
-                        color: #eee;
-                        font-size: 12px;
-                        background: #333;
-                        padding: 16px 8px;
-                        border-radius: 4px;
-                        &.selected {
-                            display: block;
-                        }
-                        > h3 {
-                            margin: 0;
-                        }
-                        > h4 {
-                            margin: 16px 0;
-                            color: #aaa;
-                        }
-                        > ul {
-                            padding-left: 2em;
-                        }
-                        > ol {
-                            padding-left: 2em;
-                        }
-                        .strong {
-                            color: @red;
-                            font-size: 14px;
-                        }
-                    }
-                }
-            }
-            .calculator {
-                .table_wrapper {
-                    padding: 16px 0px 16px 0;
-                }
-                table {
-                    width: 100%;
-                    td {
-                        padding: 8px 0;
-                    }
-                }
-                .col-name {
-                    width: 120px;
-                }
-                .col-value {
-                }
-                .name {
-                    text-align: right;
-                    color: #aaa;
-                }
-                .value {
-                    text-align: right;
-                    color: @red;
-                    font-size: 24px;
                 }
             }
         }
+        strong {
+            color: @red; }
+        .jcarousel-wrapper {
+            padding-left: 24px; padding-right: 24px; border: none;
+
+            @media @phone {
+                padding-left:32px;
+                padding-right:32px;
+            }
+
+
+            .jcarousel {
+                ul {
+                    li {
+                        @media @phone {
+                            border:0;
+                        }
+
+                        div {
+                            img {
+                                min-height:110px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .jcarousel-control-prev {
+            left: 0;
+            @media @phone {
+                left:8px;
+            }
+
+        }
+        .jcarousel-control-next {
+            right: 0;
+
+            @media @phone {
+                right:8px;
+            }
+
+        }
+    }
+
+    .historical_price_description{
+        margin-bottom: 24px;
+    }
+    .brief {
+
+        .propertyDetails_title {
+
+            @media @phone {
+                margin-top:20px;
+                margin-bottom:20px;
+                margin-left:20px;
+                font-size:12px;
+            }
+        }
+
+        .table { width: 100%;
+            &_wrapper {
+                background: #f4f4f4; padding: 0 16px;
+            }
+            tr { border-top: 1px solid #c5c5c5;
+                &:first-child { border-top: none; }
+                td { padding: 16px 0; position: relative;
+                    &:first-child:after {
+                        content: ' ';
+                        color: #c5c5c5;
+                        display: block;
+                        position: absolute;
+                        width: 0;
+                        @height: 70%;
+                        height: @height;
+                        border-left: 1px solid;
+                        top: (100% - @height) /2;
+                        right: 24px;
+                    }
+                }
+            }
+        }
+    }
+    .incoming {
+        .stackedBar { .clearfix(); position: relative; margin-bottom: 88px; height: 50px; margin-top: 56px;
+            > .bar { float: left; height: 100%; text-align: center; line-height: 50px; color: white; .clipped(auto);
+                &.bar1 { background: #00d3ff; }
+                &.bar2 { background: #00b7dd; }
+                &.last { background: #e20013; float: right; }
+            }
+            > .annotation { position: absolute; border: 2px solid; text-align: center; .clipped(100%);
+                &.annotation4 { color: #00d3ff; border-top: none; left: 0; top: 100%; margin-top: 8px; z-index: 2; }
+                &.annotation5 { color: #c5c5c5; border-top: none; left: 0; top: 100%; margin-top: 8px; padding-top: 32px; z-index: 1; }
+                &.annotation6 { color: #e20013; border-bottom: none; right: 0; bottom: 100%; margin-bottom: 8px; }
+            }
+        }
+        .text { width: 100%; margin-top: 32px; margin-bottom: 32px;
+            tr { height: 60px;
+                td {
+                    position: relative; padding-left: 20px;
+                    .bar { position: absolute; width: 10px; height: 100%; left: 0; top: 0;
+                        &.bar0 { background: #c5c5c5; }
+                        &.bar1 { background: #00d3ff; }
+                        &.bar2 { background: #00b7dd; }
+                        &.bar3 { background: #e20013; }
+                    }
+                }
+            }
+            p { margin: 0; }
+            .name { color: #aaaaaa; font-size: 12px; line-height: 24px; }
+            .value { font-size: 12px; color: #666;
+                strong { font-size: 24px; color: @light-text-color; }
+            }
+
+        }
+    }
+    .nearby {
+        > ul { .clearfix(); margin: 0 -10px 56px;
+            > li {
+                float: left; margin: 0 10px; width: 185px; background: #f4f4f4; color: #666; padding: 16px;
+                i { display: inline-block; vertical-align: middle; width: 20px; height: 20px; margin-right: 4px;
+                    img { vertical-align: top }
+                }
+                hr { margin: 8px 0 8px; }
+                > strong { color: @red; font-size: 30px; }
+                > ul {
+                    margin: 24px 0;
+                }
+            }
+        }
+    }
+    .intentionForm {
+        padding: 8px 24px 8px; margin-top: 16px; background: #f6f6f6; overflow: hidden; margin-bottom: 16px;
+        .row { .clearfix(); }
+        @input-size: 14px;
+        @input-height: 44px;
+        @input-color: #333;
+        input[type=text], textarea { border: 1px solid @border-color; border-radius: 4px; display: block; width: 100%;
+            height: @input-height; padding: 4px 16px; margin: 8px 0; font-size: @input-size;
+            color: @input-color; vertical-align: middle;
+        }
+        input[type=text][readonly] { background: #f6f6f6; }
+        .label { margin: 16px 0 0; display: block; }
+        .link { color: @red; text-decoration: none; }
+        textarea { height: 200px; margin-top: 16px; font-size: 14px; }
+        select { vertical-align: middle; font-size: @input-size; width: 100%; color: @input-color; }
+        button { width: 100%; margin: 16px 0; padding: 16px 0; line-height: 1; font-size: 16px; }
+        hr { margin: 8px 0; }
+        .contact { color: @red; font-size: 16px; text-align: center; padding: 16px 0; }
+        .inputAddOn { position: relative;
+            input { padding-right: 32px; }
+            .addOn { position: absolute; right: 0; top: 0; font-size: @input-size; line-height: @input-height;
+                display: inline-block; width: 32px; text-align: center;
+            }
+        }
+        select {
+            height: @input-height; border: 1px solid @border-color; vertical-align: middle; margin: 8px 0;
+            font-size: 14px; background: white;
+            &[name=country] {
+                width: 120px; float: left;
+            }
+        }
+        input[name=phone] {
+            width: 180px; float: right;
+        }
+    }
+    .intentionTags {
+        //> h2 { font-size: 16px; color: #666; margin-bottom: 24px; }
+        > .tab { color: @red; .clearfix();
+            > li { float: left; text-align: center; position: relative; padding-bottom: 16px; width: 25%; cursor: pointer;
+                height: 100px; font-size: 12px;
+                img { display: block; margin: 0 auto; }
+                .text { margin-top: 16px; }
+                &:after {
+                    .arrow(up; #333; 16px;); position: absolute; bottom: 0; display: none;
+                }
+                &.selectedTab:after { display: inline-block; }
+            }
+        }
+        .content {
+            > li { display: none; color: #eee; font-size: 12px;
+                background: #333; padding: 16px 8px; border-radius: 4px;
+                &.selected { display: block; }
+                > h3 { margin: 0; }
+                > h4 { margin: 16px 0; color: #aaa; }
+                > ul { padding-left: 2em; }
+                > ol { padding-left: 2em; }
+                .strong { color: @red; font-size: 14px; }
+            }
+        }
+    }
+    .calculator {
+        .table_wrapper { padding: 16px 0px 16px 0; }
+        table { width: 100%;
+            td { padding: 8px 0; }
+        }
+        .col-name { width: 120px; }
+        .col-value { }
+        .name { text-align: right; color: #aaa; }
+        .value { text-align: right; color: @red; font-size: 24px; }
     }
 }
