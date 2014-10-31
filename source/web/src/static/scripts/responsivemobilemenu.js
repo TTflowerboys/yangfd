@@ -57,7 +57,7 @@ function getMobileMenu() {
 	var $menucontrols ='<div class="rmm-toggled-controls">' + $menuButton  + $menuCenterButton + $menuTextButton + '</div>'
 
         var $centerMenulist = ''
-        if ($(this).children('.rmm-center-menu')) {
+        if ($(this).children('.rmm-center-menu').length) {
             $centerMenulist = '<ul class="rmm-center-menu">' + $(this).children('.rmm-center-menu').html() + '</ul>'
         }
         
