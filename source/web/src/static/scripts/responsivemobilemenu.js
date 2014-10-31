@@ -47,12 +47,21 @@ function getMobileMenu() {
 	else if ( menutitle === undefined ) {
 	    menutitle = window.i18n('注册');
 	}
-	var $menulist = $(this).children('.rmm-main-list').html();
+	var $menulist = $(this).children('.rmm-menu').html();
         var $menuTextButton = '<div class="rmm-toggled-title">' + menutitle + '</div>'
         var $menuButton = '<div class="rmm-button"><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span></div>'
         var $menuCenterButton = '<div class="rmm-center"><img src="/static/images/icon/header/phone/logo.png" height=24></div>'
+        if ($(this).find('.rmm-custom-center')) {
+            $menuCenterButton = $(this).find('.rmm-custom-center').html()
+        }
 	var $menucontrols ='<div class="rmm-toggled-controls">' + $menuButton  + $menuCenterButton + $menuTextButton + '</div>'
-	$(this).prepend('<div class="rmm-toggled rmm-closed">'+$menucontrols+'<ul>'+$menulist+'</ul></div>')
+
+        var $centerMenulist = ''
+        if ($(this).children('.rmm-center-menu')) {
+            $centerMenulist = '<ul class="rmm-center-menu">' + $(this).children('.rmm-center-menu').html() + '</ul>'
+        }
+        
+	$(this).prepend('<div class="rmm-toggled rmm-closed rmm-center-closed">'+$menucontrols+'<ul class="rmm-menu">'+$menulist+'</ul> ' + $centerMenulist +  '</div>')
     });
 }
 
@@ -80,18 +89,48 @@ $(function() {
     /* slide down mobile menu on click */
     $('.rmm-toggled .rmm-toggled-controls .rmm-button').on('click', function(){
         var $rmm = $('.rmm-toggled')
+
+        $rmm.find('.rmm-center-menu').stop().hide();
+	$rmm.addClass('rmm-center-closed');
+	
+        
 	if ( $rmm.is('.rmm-closed')) {
-	    $rmm.find('ul').stop().show(300);
+	    $rmm.find('.rmm-menu').stop().show(300);
 	    $rmm.removeClass('rmm-closed');
 	}
 	else {
-	    $rmm.find('ul').stop().hide(300);
+	    $rmm.find('.rmm-menu').stop().hide(300);
 	    $rmm.addClass('rmm-closed');
 	}
     });
 
-     $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-title').on('click', function(){
-       window.project.goToSignUp()
+    /* slide down mobile center menu on click */
+    $('.rmm-toggled .rmm-toggled-controls .rmm-center').on('click', function(){
+        
+        var $rmm = $('.rmm-toggled')
+        
+        if ($rmm.find('.rmm-center-menu')) {
+
+            $rmm.find('.rmm-menu').stop().hide();
+	    $rmm.addClass('rmm-closed');
+            
+            if ( $rmm.is('.rmm-center-closed')) {
+	        $rmm.find('.rmm-center-menu').stop().show(300);
+	        $rmm.removeClass('rmm-center-closed');
+	    }
+	    else {
+	        $rmm.find('.rmm-center-menu').stop().hide(300);
+	        $rmm.addClass('rmm-center-closed');
+	    }
+        }
+	
+    });
+
+
+    
+
+    $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-title').on('click', function(){
+        window.project.goToSignUp()
     });
 });
 /* 	hide mobile menu on resize */

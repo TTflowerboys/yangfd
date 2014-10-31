@@ -6,6 +6,32 @@
 <!--@@placeholder=head -->
 <!--@@close-->
 
+<!--@@block = custom_header-->
+<div class="newsHeader_phone rmm custom_rmm" >
+    <ul class="rmm-menu" style="display:none;">
+        <li><a href="/">{{_('首页')}}</a></li>
+        <li><a href="/property_list">{{_('海外房产')}}</a></li>
+        <li><a href="">{{_('海外众筹')}}</a></li>
+        <li><a href="/news_list">{{_('投资资讯')}}</a></li>
+    </ul>
+    <div class="rmm-custom-center" style="display:none;">
+        <table id="wrapper" class="rmm-center">
+            <tr>
+                <td>
+                    <label class="title" for="">{{_('新闻')}}</label>
+                    <img alt="" src="/static/images/icon/header/phone/indicator.png"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <ul class="rmm-center-menu" style="display:none;">
+        <li><a href="/notice_list">{{_('网站公告')}}</a></li>
+        <li><a href="/guide">{{_('购房指南')}}</a></li>
+        <li><a href="/laws">{{_('法律法规')}}</a></li>
+        <li><a href="/news_list">{{_('房产资讯')}}</a></li>
+    </ul>
+</div>
+<!--@@close-->
 
 <!--@@block = main-->
 
@@ -33,15 +59,15 @@
 </div>
 <script>
 
-    (function () {
-        var urlPath = location.pathname.split('/')[1]
-        var icon = document.getElementById('icon-' + urlPath)
-        var iconImagePath = icon.getAttribute('src')
-        var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
-        var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
-        var newIconImagePath = iconImageName + '-active' + iconImageExtention
-        icon.setAttribute('src', newIconImagePath)
-    })()
+ (function () {
+     var urlPath = location.pathname.split('/')[1]
+     var icon = document.getElementById('icon-' + urlPath)
+     var iconImagePath = icon.getAttribute('src')
+     var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
+     var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
+     var newIconImagePath = iconImageName + '-active' + iconImageExtention
+     icon.setAttribute('src', newIconImagePath)
+ })()
 
 
 </script>
