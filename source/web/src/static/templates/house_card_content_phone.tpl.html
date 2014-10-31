@@ -1,6 +1,6 @@
 <a class="imagePart" href="/property/{=house.id=}">
     {_if(house.reality_images && house.reality_images.length) {_}
-    <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id})=}"/>
+    <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id})=}" onerror="window.project.onImgError(this);"/>
     {_ }else { _}
     <img src="/static/images/placeholder/property.jpg"/>
     {_}_}

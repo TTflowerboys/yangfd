@@ -1,7 +1,7 @@
 <div class="imagePart">
     {_if(house.reality_images && house.reality_images.length) {_}
     <a href="/property/{=house.id=}">
-        <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" width=320 height=213/>
+        <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" width=320 height=213 onerror="window.project.onImgError(this);"/>
     </a>
     {_ }else { _}
     <a href="/property/{=house.id=}">
