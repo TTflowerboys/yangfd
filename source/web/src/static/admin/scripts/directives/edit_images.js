@@ -30,7 +30,7 @@ angular.module('app')
                         scope.fileNames.push(file.name)
                         scope.images.push('')
                         $upload.upload({
-                            url: '/api/1/upload',
+                            url: '/api/1/upload_image',
                             file: file,
                             fileFormDataName: 'data',
                             data: {

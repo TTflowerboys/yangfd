@@ -18,7 +18,7 @@
             <label> 高度
                 <input name="height" type="text" value="600"/>
             </label>
-            <label> 缩略图高度
+            <label> 缩略图宽度
                 <input name="thumb_width" type="text" value="400"/>
             </label>
             <label> 缩略图高度
@@ -47,9 +47,24 @@
                 event.preventDefault()
                 var formData = new FormData()
                 formData.append('data', form.image.files[0])
-                formData.append('width_limit', form.width.value)
-                formData.append('ratio', (form.width.value / form.height.value).toFixed(2))
-                formData.append('thumbnail_size', form.thumb_width.value + ',' + form.thumb_height.value)
+                var widthLimit
+                var ratio
+                if (!form.width.value) {
+                    widthLimit = '0'
+                    ratio = 0
+                } else {
+                    widthLimit = form.width.value
+                    if (!form.height.value) {
+                        ratio = 0
+                    } else {
+                        ratio = (form.width.value / form.height.value).toFixed(2)
+                    }
+                }
+                var thumbWidth = !form.thumb_width.value ? '0' : form.thumb_width.value
+                var thumbHeight = !form.thumb_height.value ? '0' : form.thumb_height.value
+                formData.append('width_limit', widthLimit)
+                formData.append('ratio', ratio)
+                formData.append('thumbnail_size', thumbWidth + ',' + thumbHeight)
                 count += 1
                 $('#loading').show()
                 $.ajax({
