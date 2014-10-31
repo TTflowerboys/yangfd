@@ -47,7 +47,7 @@ def news_list(params):
     link=str,
     slug=str,
 ))
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'operation', 'jr_operation'])
 def news_add(user, params):
     """
     ``blog_id`` is a constant "53f839246b80992f831b2269".
@@ -76,13 +76,13 @@ def news_get(news_id):
     slug=(str, None),
     summary=('i18n', None, str),
 ))
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'operation', 'jr_operation'])
 def news_edit(user, news_id, params):
     f_app.blog.post.update_set(news_id, params)
     return f_app.blog.post_output([news_id])[0]
 
 
 @f_api('/news/<news_id>/remove')
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'operation', 'jr_operation'])
 def news_remove(user, news_id):
     return f_app.blog.post.remove(news_id)
