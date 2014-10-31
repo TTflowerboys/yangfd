@@ -26,6 +26,9 @@ angular.module('app')
                         }
                         if (!scope.fileNames) {
                             scope.fileNames = []
+                            for (var i = 0; i < scope.images.length; i += 1) {
+                                scope.fileNames.push('')
+                            }
                         }
                         scope.fileNames.push(file.name)
                         scope.images.push('')
