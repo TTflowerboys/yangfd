@@ -36,6 +36,9 @@ angular.module('app')
                     scope.image = ''
                 }
                 scope.isOurImage = function (img) {
+                    if (_.isEmpty(img)) {
+                        return false
+                    }
                     return img.indexOf('bbt-currant.s3.amazonaws.com') < 0
                 }
 
