@@ -267,10 +267,9 @@ def property_edit(property_id, user, params):
 
             # Not approved properties
             else:
-                assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
-
                 # Submit for approval
                 if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed", "deleted"):
+                    assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
                     if "target_property_id" in property:
                         def action(params):
                             with f_app.mongo() as m:
@@ -281,7 +280,7 @@ def property_edit(property_id, user, params):
                             unset_fields = property.pop("unset_fields", [])
                             f_app.property.update_set(target_property_id, property)
                             if unset_fields:
-                                f_app.property.update(target_property_id, {"$unset": {i:"" for i in unset_fields}})
+                                f_app.property.update(target_property_id, {"$unset": {i: "" for i in unset_fields}})
                             f_app.property.update_set(property_id, {"status": "deleted"})
                             return f_app.property.get(target_property_id)
 
