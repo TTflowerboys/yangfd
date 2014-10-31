@@ -4,10 +4,10 @@
 {=window.i18n('最低投资')=}
 <br/>
 {=house.main_house_types[0].total_price.unit_symbol=}
-        {_var minPrice = house.main_house_types[0].total_price.value_}
+        {_var minPrice = parseInt(house.main_house_types[0].total_price.value)_}
         {_ _.each(house.main_house_types, function (type) {_}
-            {_if (minPrice > type.total_price.value){_}
-                {_minPrice = type.total_price.value_}
+            {_if (minPrice > parseInt(type.total_price.value)){_}
+                {_minPrice = parseInt(type.total_price.value)_}
             {_}_}
         {_})_}
 <strong>{=team.encodeCurrency(parseInt(minPrice))=}</strong>
