@@ -44,7 +44,7 @@
             if(defaultSrc){
                 img.src = defaultSrc
             }else{
-                img.src = "/static/images/placeholder/property.jpg"
+                img.src = '/static/images/placeholder/property.jpg'
             }
 
             return true;
