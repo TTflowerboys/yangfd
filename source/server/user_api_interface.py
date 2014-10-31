@@ -284,7 +284,7 @@ def admin_user_search(user, params):
     role=(list, True, str),
     country=("enum:country", True),
 ))
-@f_app.user.login.check(force=True, role=f_app.common.admin_roles)
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_add(user, params):
     """
     Add a new admin.
@@ -357,7 +357,7 @@ def admin_user_add(user, params):
 @f_api("/user/admin/<user_id>/add_role", params=dict(
     role=(str, True),
 ))
-@f_app.user.login.check(force=True, role=f_app.common.admin_roles)
+@f_app.user.login.check(force=True, role=f_app.advanced_admin_roles)
 def admin_user_add_role(user, user_id, params):
     """
     Add single role to specific user.
@@ -467,7 +467,7 @@ def admin_user_get_logs(user, user_id, params):
 @f_api("/user/admin/<user_id>/set_role", params=dict(
     role=(list, True, str)
 ))
-@f_app.user.login.check(force=True, role=f_app.common.admin_roles)
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_set_role(user, user_id, params):
     """
     Use this API to set a list of roles to specific user.
@@ -496,7 +496,7 @@ def admin_user_set_role(user, user_id, params):
 @f_api("/user/admin/<user_id>/unset_role", params=dict(
     role=(list, True, str)
 ))
-@f_app.user.login.check(force=True, role=f_app.common.admin_roles)
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_unset_role(user, user_id, params):
     """
     Use this API to remove (a role of an) admin
