@@ -501,7 +501,7 @@
                     % if property.get('equal_property_description'):
                     <div class="historical_price_description">{{property.get('equal_property_description','')}}</div>
                     % end
-                    <canvas id="lineChart" width="800" height="400"></canvas>
+                    <canvas id="lineChart"></canvas>
                 </div>
                 <hr/>
             % end
@@ -513,15 +513,14 @@
                         % total = float(property.get('estimated_monthly_rent',{}).get('value',0))
                         % cost = 0
 
-                        % for item in property.get('estimated_monthly_cost'):
+                        %for index, item in enumerate(property.get('estimated_monthly_cost')):
                             % price = float(item.get('price',{}).get('value',0))
                             % cost += price
-                            <div class="bar bar1" style="width: {{price/total*100}}%">
+                            <div class="bar bar{{index+1}}" style="width: {{price/total*100}}%">
                                 {{item.get('price',{}).get('unit_symbol','')}}
                                 {{'%.2f' % float(item.get('price',{}).get('value',0))}}
                             </div>
-                        % end
-
+                        %end
                         <div class="bar last" style="width: {{100 - cost / total * 100}}%">
                             {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
                             {{ '%.2f' % (total - cost) }}
@@ -544,7 +543,7 @@
                         <colgroup>
                             <col style="width: 150px;">
                             <col style="width: 150px;">
-                            <col>
+                            <col style="width: 150px;">
                             <col style="width: 150px;">
                         </colgroup>
                         <tr>
@@ -556,9 +555,10 @@
                                     <strong>{{ '%.2f' % float(property.get('estimated_monthly_rent',{}).get('value',0)) }}</strong>
                                 </p>
                             </td>
-                            % for item in property.get('estimated_monthly_cost'):
+
+                            %for index, item in enumerate(property.get('estimated_monthly_cost')):
                                 <td>
-                                    <span class="bar bar1"></span>
+                                    <span class="bar bar{{index+1}}"></span>
                                     <p class="name">{{item.get('item')}}</p>
                                     <p class="value">
                                         {{item.get('price',{}).get('unit_symbol','')}}
@@ -575,6 +575,46 @@
                                 </p>
                             </td>
                         </tr>
+                    </table>
+
+                    <table class="text_phone">
+                        <colgroup>
+                            <col style="width: 150px;">
+                            <col style="width: 150px;">
+                            <col style="width: 150px">
+                            <col style="width: 150px;">
+                        </colgroup>
+                        <tr>
+                            <td>
+                                <span class="bar bar0"></span>
+                                <p class="name">{{_('预期总收入')}}</p>
+                                <p class="value">
+                                    {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
+                                    <strong>{{ '%.2f' % float(property.get('estimated_monthly_rent',{}).get('value',0)) }}</strong>
+                                </p>
+                            </td>
+                            <td>
+                                <span class="bar bar3"></span>
+                                <p class="name">{{_('预期净收益')}}</p>
+                                <p class="value">
+                                    {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
+                                    <strong>{{ '%.2f' % (total - cost) }}</strong>
+                                </p>
+                            </td>
+                        </tr>
+                        %for index, item in enumerate(property.get('estimated_monthly_cost')):
+                            <tr class="gap"></tr>
+                            <tr>
+                                <td>
+                                    <span class="bar bar{{index+1}}"></span>
+                                    <p class="name">{{item.get('item')}}</p>
+                                    <p class="value">
+                                        {{item.get('price',{}).get('unit_symbol','')}}
+                                        <strong>{{ '%.2f' % float(item.get('price',{}).get('value',0)) }}</strong>
+                                    </p>
+                                </td>
+                            </tr>
+                        %end
                     </table>
                 </div>
                 <hr/>

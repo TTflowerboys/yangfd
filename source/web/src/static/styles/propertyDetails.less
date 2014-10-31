@@ -90,8 +90,8 @@
 
             }
             .item { display: none;
-                &.selectedTab { display: block; }
-            }
+                    &.selectedTab { display: block; }
+                  }
         }
         .thumbnails {
             margin-top: 24px; margin-bottom: 48px;
@@ -281,6 +281,7 @@
 
     .houseTypes {
         line-height: 1;
+        overflow:hidden;
         min-height:246px;
         a {color: inherit;text-decoration: none;}
 
@@ -414,91 +415,244 @@
         }
     }
 
-    .historical_price_description{
-        margin-bottom: 24px;
-    }
+
     .brief {
 
         .propertyDetails_title {
 
             @media @phone {
-                margin-top:20px;
-                margin-bottom:20px;
-                margin-left:20px;
+                margin-top:0px;
+                margin-bottom:0px;
+                margin-left:0px;
                 font-size:12px;
+                height:52px;
+                line-height:52px;
+                padding-left:12px;
+                background:#f4f4f4;
+                border-bottom:1px solid #c5c5c5;
             }
         }
 
         .table { width: 100%;
-            &_wrapper {
-                background: #f4f4f4; padding: 0 16px;
-            }
-            tr { border-top: 1px solid #c5c5c5;
-                &:first-child { border-top: none; }
-                td { padding: 16px 0; position: relative;
-                    &:first-child:after {
-                        content: ' ';
-                        color: #c5c5c5;
-                        display: block;
-                        position: absolute;
-                        width: 0;
-                        @height: 70%;
-                        height: @height;
-                        border-left: 1px solid;
-                        top: (100% - @height) /2;
-                        right: 24px;
+                 &_wrapper {
+                     background: #f4f4f4; padding: 0 16px;
+
+                     @media @phone {
+                         padding:0 0 0 20px;
+                     }
+
+                 }
+                 tr { border-top: 1px solid #c5c5c5;
+                      &:first-child { border-top: none; }
+                      td { padding: 16px 0; position: relative;
+                           @media @phone {
+                               font-size:12px;
+                           }
+
+                           &:first-child:after {
+                               content: ' ';
+                               color: #c5c5c5;
+                               display: block;
+                               position: absolute;
+                               width: 0;
+                               @height: 70%;
+                               height: @height;
+                               border-left: 1px solid;
+                               top: (100% - @height) /2;
+                               right: 24px;
+
+                               @media @phone {
+                                   display:none;
+                               }
+                           }
+                         }
                     }
-                }
+               }
+    }
+
+    .trend {
+        .propertyDetails_title {
+            @media @phone {
+                margin-top:20px;
+                margin-left:12px;
+                margin-bottom:12px;
+                font-size:12px;
+            }
+        }
+        .historical_price_description{
+            margin-bottom: 24px;
+            @media @phone {
+                margin-top:0;
+                margin-left:12px;
+                margin-right:12px;
+                margin-bottom:12px;
+
+                font-size:12px;
+            }
+        }
+
+        canvas {
+            width:800px;
+            height:400px;
+
+            @media @phone {
+                width:100%;
+                height:200px;
+                padding:0 12px 0 12px;
             }
         }
     }
+
     .incoming {
-        .stackedBar { .clearfix(); position: relative; margin-bottom: 88px; height: 50px; margin-top: 56px;
-            > .bar { float: left; height: 100%; text-align: center; line-height: 50px; color: white; .clipped(auto);
-                &.bar1 { background: #00d3ff; }
-                &.bar2 { background: #00b7dd; }
-                &.last { background: #e20013; float: right; }
-            }
-            > .annotation { position: absolute; border: 2px solid; text-align: center; .clipped(100%);
-                &.annotation4 { color: #00d3ff; border-top: none; left: 0; top: 100%; margin-top: 8px; z-index: 2; }
-                &.annotation5 { color: #c5c5c5; border-top: none; left: 0; top: 100%; margin-top: 8px; padding-top: 32px; z-index: 1; }
-                &.annotation6 { color: #e20013; border-bottom: none; right: 0; bottom: 100%; margin-bottom: 8px; }
+
+        @media @phone {
+            background:#333;
+            padding:20px 12px;
+        }
+
+        .propertyDetails_title {
+            @media @phone {
+                margin-top:0px;
+                margin-left:0px;
+                margin-bottom:12px;
+                font-size:12px;
+                color:white;
             }
         }
-        .text { width: 100%; margin-top: 32px; margin-bottom: 32px;
-            tr { height: 60px;
-                td {
-                    position: relative; padding-left: 20px;
-                    .bar { position: absolute; width: 10px; height: 100%; left: 0; top: 0;
-                        &.bar0 { background: #c5c5c5; }
-                        &.bar1 { background: #00d3ff; }
-                        &.bar2 { background: #00b7dd; }
-                        &.bar3 { background: #e20013; }
+
+        .stackedBar { .clearfix(); position: relative; margin-bottom: 88px; height: 50px; margin-top: 56px;
+                      > .bar { float: left; height: 100%; text-align: center; line-height: 50px; color: white; .clipped(auto);
+                               @media @phone {
+                                   font-size:12px;
+                               }
+
+                               &.bar1 { background: #00d3ff; }
+                               &.bar2 { background: #00b7dd; }
+                               &.last { background: #e20013; float: right; }
+                             }
+                      > .annotation { position: absolute; border: 2px solid; text-align: center; .clipped(100%);
+                                      @media @phone {
+                                          font-size:12px;
+                                      }
+
+                                      &.annotation4 { color: #00d3ff; border-top: none; left: 0; top: 100%; margin-top: 8px; z-index: 2;
+                                                      @media @phone {
+                                                          margin-top:4px;
+                                                      }
+
+                                                    }
+                                      &.annotation5 { color: #c5c5c5; border-top: none; left: 0; top: 100%; margin-top: 8px; padding-top: 32px; z-index: 1;
+                                                      @media @phone {
+                                                          margin-top:4px;
+                                                      }
+
+                                                    }
+                                      &.annotation6 { color: #e20013; border-bottom: none; right: 0; bottom: 100%; margin-bottom: 8px;
+                                                      @media @phone {
+                                                          margin-bottom:4px;
+                                                      }
+
+                                                    }
+                                    }
                     }
-                }
+        .text {
+            @media @phone {
+                display:none;
             }
+
+            width: 100%; margin-top: 32px; margin-bottom: 32px;
+            tr { height: 60px;
+                 td {
+                     position: relative; padding-left: 20px;
+                     .bar { position: absolute; width: 10px; height: 100%; left: 0; top: 0;
+                            &.bar0 { background: #c5c5c5; }
+                            &.bar1 { background: #00d3ff; }
+                            &.bar2 { background: #00b7dd; }
+                            &.bar3 { background: #e20013; }
+                          }
+                 }
+               }
+
             p { margin: 0; }
-            .name { color: #aaaaaa; font-size: 12px; line-height: 24px; }
+            .name { color: #aaaaaa; font-size: 12px; line-height: 24px;
+                  }
             .value { font-size: 12px; color: #666;
-                strong { font-size: 24px; color: @light-text-color; }
+                     strong { font-size: 24px; color: @light-text-color;
+                            }
+                   }
+
+        }
+
+        .text_phone {
+            display:none;
+            @media @phone {
+                display:block;
             }
+
+            width: 100%; margin-top: 32px; margin-bottom: 32px;
+            tr { height: 60px;
+
+                 &.gap {
+                     height:12px;
+                 }
+                 @media @phone {
+                     height:30px;
+                 }
+
+                 td {
+                     position: relative; padding-left: 20px;
+                     @media @phone {
+                         padding-left:8px;
+                     }
+
+                     .bar { position: absolute; width: 10px; height: 100%; left: 0; top: 0;
+                            @media @phone {
+                                width:4px;
+                            }
+
+                            &.bar0 { background: #c5c5c5; }
+                            &.bar1 { background: #00d3ff; }
+                            &.bar2 { background: #00b7dd; }
+                            &.bar3 { background: #e20013; }
+                          }
+                 }
+               }
+
+            p { margin: 0; }
+            .name { color: #aaaaaa; font-size: 12px; line-height: 24px;
+                    @media @phone {
+                        font-size:9px;
+                        line-height:18px;
+                        color:#8f8f8f;
+                    }
+
+                  }
+            .value { font-size: 12px; color: #666;
+                     strong { font-size: 24px; color: @light-text-color;
+                              @media @phone {
+                                  font-size:14px;
+                                  color:white;
+                              }
+
+                            }
+                   }
 
         }
     }
     .nearby {
         > ul { .clearfix(); margin: 0 -10px 56px;
-            > li {
-                float: left; margin: 0 10px; width: 185px; background: #f4f4f4; color: #666; padding: 16px;
-                i { display: inline-block; vertical-align: middle; width: 20px; height: 20px; margin-right: 4px;
-                    img { vertical-align: top }
-                }
-                hr { margin: 8px 0 8px; }
-                > strong { color: @red; font-size: 30px; }
-                > ul {
-                    margin: 24px 0;
-                }
-            }
-        }
+               > li {
+                   float: left; margin: 0 10px; width: 185px; background: #f4f4f4; color: #666; padding: 16px;
+                   i { display: inline-block; vertical-align: middle; width: 20px; height: 20px; margin-right: 4px;
+                       img { vertical-align: top }
+                     }
+                   hr { margin: 8px 0 8px; }
+                   > strong { color: @red; font-size: 30px; }
+                   > ul {
+                       margin: 24px 0;
+                   }
+               }
+             }
     }
     .intentionForm {
         padding: 8px 24px 8px; margin-top: 16px; background: #f6f6f6; overflow: hidden; margin-bottom: 16px;
@@ -507,9 +661,9 @@
         @input-height: 44px;
         @input-color: #333;
         input[type=text], textarea { border: 1px solid @border-color; border-radius: 4px; display: block; width: 100%;
-            height: @input-height; padding: 4px 16px; margin: 8px 0; font-size: @input-size;
-            color: @input-color; vertical-align: middle;
-        }
+                                     height: @input-height; padding: 4px 16px; margin: 8px 0; font-size: @input-size;
+                                     color: @input-color; vertical-align: middle;
+                                   }
         input[type=text][readonly] { background: #f6f6f6; }
         .label { margin: 16px 0 0; display: block; }
         .link { color: @red; text-decoration: none; }
@@ -519,11 +673,11 @@
         hr { margin: 8px 0; }
         .contact { color: @red; font-size: 16px; text-align: center; padding: 16px 0; }
         .inputAddOn { position: relative;
-            input { padding-right: 32px; }
-            .addOn { position: absolute; right: 0; top: 0; font-size: @input-size; line-height: @input-height;
-                display: inline-block; width: 32px; text-align: center;
-            }
-        }
+                      input { padding-right: 32px; }
+                      .addOn { position: absolute; right: 0; top: 0; font-size: @input-size; line-height: @input-height;
+                               display: inline-block; width: 32px; text-align: center;
+                             }
+                    }
         select {
             height: @input-height; border: 1px solid @border-color; vertical-align: middle; margin: 8px 0;
             font-size: 14px; background: white;
@@ -538,33 +692,33 @@
     .intentionTags {
         //> h2 { font-size: 16px; color: #666; margin-bottom: 24px; }
         > .tab { color: @red; .clearfix();
-            > li { float: left; text-align: center; position: relative; padding-bottom: 16px; width: 25%; cursor: pointer;
-                height: 100px; font-size: 12px;
-                img { display: block; margin: 0 auto; }
-                .text { margin-top: 16px; }
-                &:after {
-                    .arrow(up; #333; 16px;); position: absolute; bottom: 0; display: none;
-                }
-                &.selectedTab:after { display: inline-block; }
-            }
-        }
+                 > li { float: left; text-align: center; position: relative; padding-bottom: 16px; width: 25%; cursor: pointer;
+                        height: 100px; font-size: 12px;
+                        img { display: block; margin: 0 auto; }
+                        .text { margin-top: 16px; }
+                        &:after {
+                            .arrow(up; #333; 16px;); position: absolute; bottom: 0; display: none;
+                        }
+                        &.selectedTab:after { display: inline-block; }
+                      }
+               }
         .content {
             > li { display: none; color: #eee; font-size: 12px;
-                background: #333; padding: 16px 8px; border-radius: 4px;
-                &.selected { display: block; }
-                > h3 { margin: 0; }
-                > h4 { margin: 16px 0; color: #aaa; }
-                > ul { padding-left: 2em; }
-                > ol { padding-left: 2em; }
-                .strong { color: @red; font-size: 14px; }
-            }
+                   background: #333; padding: 16px 8px; border-radius: 4px;
+                   &.selected { display: block; }
+                   > h3 { margin: 0; }
+                   > h4 { margin: 16px 0; color: #aaa; }
+                   > ul { padding-left: 2em; }
+                   > ol { padding-left: 2em; }
+                   .strong { color: @red; font-size: 14px; }
+                 }
         }
     }
     .calculator {
         .table_wrapper { padding: 16px 0px 16px 0; }
         table { width: 100%;
-            td { padding: 8px 0; }
-        }
+                td { padding: 8px 0; }
+              }
         .col-name { width: 120px; }
         .col-value { }
         .name { text-align: right; color: #aaa; }
