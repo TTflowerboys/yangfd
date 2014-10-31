@@ -51,7 +51,7 @@ function getMobileMenu() {
         var $menuTextButton = '<div class="rmm-toggled-title">' + menutitle + '</div>'
         var $menuButton = '<div class="rmm-button"><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span></div>'
         var $menuCenterButton = '<div class="rmm-center"><img src="/static/images/icon/header/phone/logo.png" height=24></div>'
-        if ($(this).find('.rmm-custom-center')) {
+        if ($(this).find('.rmm-custom-center').length) {
             $menuCenterButton = $(this).find('.rmm-custom-center').html()
         }
 	var $menucontrols ='<div class="rmm-toggled-controls">' + $menuButton  + $menuCenterButton + $menuTextButton + '</div>'
