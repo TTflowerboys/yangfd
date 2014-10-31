@@ -71,7 +71,7 @@ def intention_ticket_add(params):
                     f_app.email.schedule(
                         target=params["email"],
                         subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
-                        text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"]),
+                        text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"], phone=user_params["phone"]),
                         display="html",
                     )
 
@@ -109,7 +109,7 @@ def intention_ticket_add(params):
                     f_app.email.schedule(
                         target=params["email"],
                         subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
-                        text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"]),
+                        text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"], phone=user_params["phone"]),
                         display="html",
                     )
 
