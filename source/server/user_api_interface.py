@@ -357,7 +357,7 @@ def admin_user_add(user, params):
 @f_api("/user/admin/<user_id>/add_role", params=dict(
     role=(str, True),
 ))
-@f_app.user.login.check(force=True, role=f_app.advanced_admin_roles)
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_add_role(user, user_id, params):
     """
     Add single role to specific user.
