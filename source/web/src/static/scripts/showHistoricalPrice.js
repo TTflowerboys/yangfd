@@ -38,7 +38,17 @@
 
     function showCharts() {
         var data = parseData(window.historical_price)
-        var ctx = document.getElementById('lineChart').getContext('2d');
+        var chart = document.getElementById('lineChart')
+        var ctx = chart.getContext('2d');
+        if (window.team.isPhone()) {
+            chart.setAttribute('width', $(window).width())
+            chart.setAttribute('height', $(window).width() / 2)
+        }
+        else {
+            chart.setAttribute('width', '800')
+            chart.setAttribute('height', '400')
+        }
+
         new Chart(ctx).Line(data, {
             bezierCurve: false,
             scaleLabel: '<%= team.encodeCurrency(value) %>',

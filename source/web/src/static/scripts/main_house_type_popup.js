@@ -8,6 +8,10 @@
         }
 
         window.openMainHouseType = function(event, floorplan, index) {
+
+            var wrapper = popup.find('.main_house_type_wrapper')
+            wrapper.css('top', $(window).scrollTop() + 30)
+
             //Set up floorplan
             if (floorplan) {
                 popup.find('.main_house_type_floorplan').attr('src', floorplan)
@@ -19,6 +23,8 @@
             //Clone area and value from property detail
             popup.find('.main_house_type_info .space').empty().append($($('#propertyDetails_houseTypes').find('.item'+index).find('.text2 tr td')[0]).children().clone())
             popup.find('.main_house_type_info .price').empty().append($($('#propertyDetails_houseTypes').find('.item'+index).find('.text2 tr td')[1]).children().clone())
+
+
             popup.show()
         }
 

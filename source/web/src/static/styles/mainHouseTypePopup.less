@@ -3,107 +3,109 @@
 @light-text-color: #999;
 @dark-text-color: #555;
 .main_house_type_popup {
-  color:@light-text-color;
+    color: @light-text-color;
 
-  &_shadow {
-    z-index: @main_house_type_popup-shadow-z-index;
-    background: #000000; opacity: 0.5; filter: alpha(opacity=50);
-    position: fixed; top: 0; left: 0; bottom: @copyright-height; width: 100%; height: 100%;
-  }
-
-  .main_house_type {
-
-    &_header {
-      text-align:right;
-      padding-top: 14px;
-      padding-bottom: 14px;
-      padding-right: 14px;
+    &_shadow {
+        z-index: @main_house_type_popup-shadow-z-index;
+        background: #000000; opacity: 0.5; filter: alpha(opacity=50);
+        position: fixed; top: 0; left: 0; bottom: @copyright-height; width: 100%; height: 100%;
     }
 
-    /* Center the wrapper(May not supported in IE8):http://stackoverflow.com/questions/2005954/center-element-with-positionfixed */
-    &_wrapper {
-      z-index: @main_house_type_popup-content-z-index;
-      position: fixed;
-      top:50%;
-      transform: translate(0, -50%);
-      padding-bottom:50px;
-      width:100%;
-      background:#333333;
-    }
+    .main_house_type {
 
-    max-width:1200px;
-    width: 100%;
-    margin:0 auto;
-    overflow:hidden;
-    background:#F6F6F6;
-
-    &_pic {
-      float: left;
-      margin:auto 0;
-      width: 70%;
-      max-height: 533px;
-
-      .main_house_type_floorplan{
-        margin: 0 auto;
-        display: block;
-        max-width: 100%;
-      }
-    }
-
-
-    &_info{
-      float: left;
-      width: 30%;
-      padding: 30px 20px;
-
-      .table_wrapper {
-        width: 100%;
-        padding-bottom: 30px;
-        border-bottom:1px solid @border-color;
-      }
-
-      ul {
-        > li { position: relative; padding: 0 8px; }
-      }
-
-      table { text-align: left; width: 100%;
-        td { border-left: 1px solid @border-color; padding: 0 8px;
-          &:first-child { border-left: none; }
-          .name { display: block; font-size: 18px; margin-bottom: 8px; }
-          .value { color:@dark-text-color; font-size: 24px; }
+        &_header {
+            text-align: right;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            padding-right: 14px;
         }
 
-      }
+        /* Center the wrapper(May not supported in IE8):http://stackoverflow.com/questions/2005954/center-element-with-positionfixed */
+        &_wrapper {
+            z-index: @main_house_type_popup-content-z-index;
+            /*position: fixed;
+            top:50%;
+            transform: translate(0, -50%);*/
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding-bottom: 50px;
+            width: 100%;
+            background: #333333;
+        }
 
-      .price {
-          width: 100%;
-          padding-top: 30px;
-          padding-bottom: 30px;
-          border-bottom:1px solid @border-color;
-
-          .name { display: inline; font-size: 18px; margin-right: 16px; }
-          .value { display: inline; font-size: 24px; }
-
-          strong { color: @red; }
-          .jcarousel-wrapper { padding-left: 24px; padding-right: 24px; border: none; }
-          .jcarousel-control-prev { left: 0; }
-          .jcarousel-control-next { right: 0; }
-      }
-
-      .space {
+        max-width: 1200px;
         width: 100%;
-        padding-top: 30px;
-        padding-bottom: 30px;
-        border-bottom:1px solid @border-color;
+        margin: 0 auto;
+        overflow: hidden;
+        background: #F6F6F6;
 
-        .name { display: inline; font-size: 18px; margin-right: 16px; }
-        .value { display: inline; font-size: 24px; }
+        &_pic {
+            float: left;
+            margin: auto 0;
+            width: 70%;
 
-        strong { color: @red; }
-        .jcarousel-wrapper { padding-left: 24px; padding-right: 24px; border: none; }
-        .jcarousel-control-prev { left: 0; }
-        .jcarousel-control-next { right: 0; }
-      }
+            .main_house_type_floorplan {
+                margin: 0 auto;
+                display: block;
+                max-width: 100%;
+                min-height: 533px;
+            }
+        }
+
+        &_info {
+            float: left;
+            width: 30%;
+            padding: 30px 20px;
+
+            .table_wrapper {
+                width: 100%;
+                padding-bottom: 30px;
+                border-bottom: 1px solid @border-color;
+            }
+
+            ul {
+                > li { position: relative; padding: 0 8px; }
+            }
+
+            table { text-align: left; width: 100%;
+                td { border-left: 1px solid @border-color; padding: 0 8px;
+                    &:first-child { border-left: none; }
+                    .name { display: block; font-size: 18px; margin-bottom: 8px; }
+                    .value { color: @dark-text-color; font-size: 24px; }
+                }
+
+            }
+
+            .price {
+                width: 100%;
+                padding-top: 30px;
+                padding-bottom: 30px;
+                border-bottom: 1px solid @border-color;
+
+                .name { display: inline; font-size: 18px; margin-right: 16px; }
+                .value { display: inline; font-size: 24px; }
+
+                strong { color: @red; }
+                .jcarousel-wrapper { padding-left: 24px; padding-right: 24px; border: none; }
+                .jcarousel-control-prev { left: 0; }
+                .jcarousel-control-next { right: 0; }
+            }
+
+            .space {
+                width: 100%;
+                padding-top: 30px;
+                padding-bottom: 30px;
+                border-bottom: 1px solid @border-color;
+
+                .name { display: inline; font-size: 18px; margin-right: 16px; }
+                .value { display: inline; font-size: 24px; }
+
+                strong { color: @red; }
+                .jcarousel-wrapper { padding-left: 24px; padding-right: 24px; border: none; }
+                .jcarousel-control-prev { left: 0; }
+                .jcarousel-control-next { right: 0; }
+            }
+        }
     }
-  }
 }

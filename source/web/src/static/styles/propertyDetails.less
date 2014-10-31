@@ -1,5 +1,6 @@
 /*! Created by frank on 14-9-29.  */
 @import "project/_imports";
+
 @border-color: #ccc;
 @light-text-color: #999;
 @dark-text-color: #555;
@@ -7,19 +8,17 @@
     strong { font-weight: normal; }
     color: @light-text-color;
     .wrapped(); .clearfix();
-
-    margin-top:100px;
+    margin-top: 100px;
     @media @phone {
-        margin-top:0;
+        margin-top: 0;
     }
-
 
     > .content {
         width: 800px;
         float: left;
 
         @media @phone {
-            width:100%;
+            width: 100%;
         }
 
     }
@@ -28,7 +27,7 @@
         float: right;
 
         @media @phone {
-            display:none;
+            display: none;
         }
 
     }
@@ -36,45 +35,43 @@
     hr {
         color: @border-color; margin-top: 24px; margin-bottom: 24px;
         @media @phone {
-            display:none;
+            display: none;
         }
 
     }
     .pictures {
-        position:relative;
+        position: relative;
 
         .labels {
-            position:absolute;
-            top:0;
-            left:0;
-            height:50px;
-            z-index:@house_card-image-text-z-index;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 50px;
+            z-index: @house_card-image-text-z-index;
 
             @media @phone {
-                height:30px;
+                height: 30px;
             }
 
-
             label {
-                color:white;
-                font-size:20px;
-                line-height:50px;
-                padding:0 14px;
-                margin:0;
-                float:left;
+                color: white;
+                font-size: 20px;
+                line-height: 50px;
+                padding: 0 14px;
+                margin: 0;
+                float: left;
 
                 @media @phone {
-                    line-height:30px;
-                    font-size:16px;
-                    padding:0 12px;
+                    line-height: 30px;
+                    font-size: 16px;
+                    padding: 0 12px;
                 }
-
 
                 &.type {
-                    background:#333;
+                    background: #333;
                 }
                 &.rent {
-                    background:#e60012;
+                    background: #e60012;
                 }
             }
         }
@@ -82,10 +79,10 @@
         .big {
             img {
                 max-height: 533px; max-width: 100%; display: block; margin: 0 auto;
-                width:100%;
-                min-height:480px;
+                width: 100%;
+                min-height: 480px;
                 @media @phone {
-                    min-height:200px;
+                    min-height: 200px;
                 }
 
             }
@@ -96,8 +93,8 @@
         .thumbnails {
             margin-top: 24px; margin-bottom: 48px;
             @media @phone {
-                margin-top:0;
-                margin-bottom:0;
+                margin-top: 0;
+                margin-bottom: 0;
             }
 
             > ul {
@@ -111,9 +108,10 @@
                         display: block;
                         max-width: 100%;
                         height:106px;
+                        width:233px;
 
                         @media @phone {
-                            height:53px;
+                            height: 53px;
                         }
 
                     }
@@ -126,14 +124,14 @@
                     .text {
                         text-align: center; background: fade(white, 50%); font-size: 20px; color: black;
                         @media @phone {
-                            font-size:14px;
-                            color:#747474;
+                            font-size: 14px;
+                            color: #747474;
                         }
 
                         &_wrapper {
                             display: table; height: 106px;
                             @media @phone {
-                                height:53px;
+                                height: 53px;
                             }
 
                         }
@@ -147,30 +145,85 @@
             }
         }
     }
+
+    .propertyCard_phone {
+        display: none;
+        overflow: hidden;
+
+        @media @phone {
+            display: block;
+        }
+
+        width: 100%;
+        height: 70px;
+        float: left;
+
+        .left {
+            display: inline-block;
+            background: #e60012;
+            float: left;
+            width: 60%;
+            height: 70px;
+            padding: 14px 12px;
+
+            .name {
+                margin: 0 0 6px 0;
+                font-size: 14px;
+                .limitedLines(1, 14px, #e60012);
+                color: white;
+            }
+            .tag {
+                margin: 0;
+                font-size: 9px;
+                line-height: 1em;
+                color: white;
+            }
+        }
+
+        .right {
+            display: inline-block;
+            background: #333333;
+            float: right;
+            width: 40%;
+            height: 70px;
+            table {
+                margin: 9px auto 0 auto;
+                .price {
+                    font-size: 9px;
+                    color: white;
+                    strong {
+                        color: #e60012;
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+
     .nav {
         margin-bottom: 64px;
         margin-top: 48px;
         @media @phone {
-            margin-top:0;
-            margin-bottom:0px;
-            border-bottom:0px;
-            height:44px;
+            margin-top: 0;
+            margin-bottom: 0px;
+            border-bottom: 0px;
+            height: 44px;
         }
 
         ul {
 
             @media @phone {
-                display:block;
+                display: block;
             }
 
             li {
                 @media @phone {
-                    width:20%;
-                    height:44px;
-                    font-size:12px;
-                    line-height:44px;
-                    border:0px;
-                    background:#eee;
+                    width: 20%;
+                    height: 44px;
+                    font-size: 12px;
+                    line-height: 44px;
+                    border: 0px;
+                    background: #eee;
                 }
             }
         }
@@ -181,7 +234,7 @@
     .meta {
 
         @media @phone {
-            padding:20px;
+            padding: 20px;
         }
 
         .numbers {
@@ -205,9 +258,9 @@
             .value {
                 padding-right: 16px;
                 @media @phone {
-                    width:180px;
-                    padding-right:0px;
-                    font-size:12px;
+                    width: 180px;
+                    padding-right: 0px;
+                    font-size: 12px;
                 }
 
             }
@@ -222,15 +275,15 @@
                 margin-right: 4px;
 
                 @media @phone {
-                    width:12px;
-                    height:12px;
-                    line-height:12px;
+                    width: 12px;
+                    height: 12px;
+                    line-height: 12px;
                 }
             }
             .name {
                 display: inline-block; min-width: 6em;
                 @media @phone {
-                    font-size:12px;
+                    font-size: 12px;
                 }
 
             }
@@ -240,8 +293,8 @@
     .advantages {
         margin-top: 48px; margin-bottom: 48px;
         @media @phone {
-            margin-top:0;
-            margin-bottom:0;
+            margin-top: 0;
+            margin-bottom: 0;
         }
 
         ul {
@@ -254,49 +307,49 @@
         padding: 24px 16px;
 
         @media @phone {
-            font-size:12px;
-            padding:20px 20px;
+            font-size: 12px;
+            padding: 20px 20px;
         }
-
 
     }
     .description {
         font-size: 14px; .limitedLines(5; 20px); margin-top: 24px;
 
         @media @phone {
-            font-size:12px;
-            margin-top:0;
-            padding:20px;
+            font-size: 12px;
+            margin-top: 0;
+            padding: 20px;
         }
     }
 
     button[data-fn=expendDescription] {
-        float:right;
+        float: right;
         @media @phone {
-            float:none;
-            width:~"calc(100% - 40px)";
-            margin:20px;
+            float: none;
+            width: ~"calc(100% - 40px)";
+            margin: 20px;
         }
     }
 
     .houseTypes {
         line-height: 1;
-        min-height:246px;
-        a {color: inherit;text-decoration: none;}
+        overflow: hidden;
+        min-height: 246px;
+        a { color: inherit; text-decoration: none; }
 
         @media @phone {
-            background:#333;
-            padding-top:20px;
+            background: #333;
+            padding-top: 20px;
         }
 
         .propertyDetails_title {
 
             @media @phone {
-                margin-top:0;
-                margin-bottom:0;
-                color:white;
-                margin-left:20px;
-                font-size:12px;
+                margin-top: 0;
+                margin-bottom: 0;
+                color: white;
+                margin-left: 20px;
+                font-size: 12px;
             }
         }
 
@@ -326,45 +379,48 @@
             background: #eee; padding: 8px 0;
 
             @media @phone {
-                padding:0;
+                padding: 0;
             }
 
-
             td {
-
                 border-color: #ccc;
 
                 .name {
                     @media @phone {
-                        color:white;
+                        color: white;
+                        font-size:9px;
                     }
                 }
 
                 &.space {
                     @media @phone {
-                        border:0;
-                        padding-left:8px;
-                        height:56px;
-                        background:#e60012;
+                       // border: 0;
+                        padding-left: 8px;
+                        height: 56px;
+                        background: #e60012;
+                        font-size:9px;
                     }
 
                     strong {
                         @media @phone {
-                            color:white;
+                            color: white;
+                            font-size:14px;
                         }
                     }
                 }
                 &.price {
                     @media @phone {
-                        border:0;
-                        padding-left:8px;
-                        height:56px;
-                        background:#e60012;
+                       // border: 0;
+                        padding-left: 8px;
+                        height: 56px;
+                        background: #e60012;
+                        font-size:9px;
                     }
 
                     strong {
                         @media @phone {
-                            color:white;
+                            color: white;
+                            font-size:14px;
                         }
                     }
                 }
@@ -376,21 +432,21 @@
             padding-left: 24px; padding-right: 24px; border: none;
 
             @media @phone {
-                padding-left:32px;
-                padding-right:32px;
+                padding-left: 32px;
+                padding-right: 32px;
             }
-
 
             .jcarousel {
                 ul {
                     li {
                         @media @phone {
-                            border:0;
+                            border: 0;
                         }
 
                         div {
                             img {
-                                min-height:110px;
+                                width:233px !important;
+                                height:155px !important;
                             }
                         }
                     }
@@ -400,7 +456,7 @@
         .jcarousel-control-prev {
             left: 0;
             @media @phone {
-                left:8px;
+                left: 8px;
             }
 
         }
@@ -408,34 +464,45 @@
             right: 0;
 
             @media @phone {
-                right:8px;
+                right: 8px;
             }
 
         }
     }
 
-    .historical_price_description{
-        margin-bottom: 24px;
-    }
     .brief {
 
         .propertyDetails_title {
 
             @media @phone {
-                margin-top:20px;
-                margin-bottom:20px;
-                margin-left:20px;
-                font-size:12px;
+                margin-top: 0px;
+                margin-bottom: 0px;
+                margin-left: 0px;
+                font-size: 12px;
+                height: 52px;
+                line-height: 52px;
+                padding-left: 12px;
+                background: #f4f4f4;
+                border-bottom: 1px solid #c5c5c5;
             }
         }
 
         .table { width: 100%;
             &_wrapper {
                 background: #f4f4f4; padding: 0 16px;
+
+                @media @phone {
+                    padding: 0 0 0 20px;
+                }
+
             }
             tr { border-top: 1px solid #c5c5c5;
                 &:first-child { border-top: none; }
                 td { padding: 16px 0; position: relative;
+                    @media @phone {
+                        font-size: 12px;
+                    }
+
                     &:first-child:after {
                         content: ' ';
                         color: #c5c5c5;
@@ -447,25 +514,107 @@
                         border-left: 1px solid;
                         top: (100% - @height) /2;
                         right: 24px;
+
+                        @media @phone {
+                            display: none;
+                        }
                     }
                 }
             }
         }
     }
+
+    .trend {
+        .propertyDetails_title {
+            @media @phone {
+                margin-top: 20px;
+                margin-left: 12px;
+                margin-bottom: 12px;
+                font-size: 12px;
+            }
+        }
+        .historical_price_description {
+            margin-bottom: 24px;
+            @media @phone {
+                margin-top: 0;
+                margin-left: 12px;
+                margin-right: 12px;
+                margin-bottom: 12px;
+
+                font-size: 12px;
+            }
+        }
+
+        canvas {
+            width: 800px;
+            height: 400px;
+
+            @media @phone {
+                width: 100%;
+                height: 200px;
+                padding: 0 12px 0 12px;
+            }
+        }
+    }
+
     .incoming {
+
+        @media @phone {
+            background: #333;
+            padding: 20px 12px;
+        }
+
+        .propertyDetails_title {
+            @media @phone {
+                margin-top: 0px;
+                margin-left: 0px;
+                margin-bottom: 12px;
+                font-size: 12px;
+                color: white;
+            }
+        }
+
         .stackedBar { .clearfix(); position: relative; margin-bottom: 88px; height: 50px; margin-top: 56px;
             > .bar { float: left; height: 100%; text-align: center; line-height: 50px; color: white; .clipped(auto);
+                @media @phone {
+                    font-size: 12px;
+                }
+
                 &.bar1 { background: #00d3ff; }
                 &.bar2 { background: #00b7dd; }
                 &.last { background: #e20013; float: right; }
             }
             > .annotation { position: absolute; border: 2px solid; text-align: center; .clipped(100%);
-                &.annotation4 { color: #00d3ff; border-top: none; left: 0; top: 100%; margin-top: 8px; z-index: 2; }
-                &.annotation5 { color: #c5c5c5; border-top: none; left: 0; top: 100%; margin-top: 8px; padding-top: 32px; z-index: 1; }
-                &.annotation6 { color: #e20013; border-bottom: none; right: 0; bottom: 100%; margin-bottom: 8px; }
+                @media @phone {
+                    font-size: 12px;
+                }
+
+                &.annotation4 { color: #00d3ff; border-top: none; left: 0; top: 100%; margin-top: 8px; z-index: 2;
+                    @media @phone {
+                        margin-top: 4px;
+                    }
+
+                }
+                &.annotation5 { color: #c5c5c5; border-top: none; left: 0; top: 100%; margin-top: 8px; padding-top: 32px; z-index: 1;
+                    @media @phone {
+                        margin-top: 4px;
+                    }
+
+                }
+                &.annotation6 { color: #e20013; border-bottom: none; right: 0; bottom: 100%; margin-bottom: 8px;
+                    @media @phone {
+                        margin-bottom: 4px;
+                    }
+
+                }
             }
         }
-        .text { width: 100%; margin-top: 32px; margin-bottom: 32px;
+        .text {
+            @media @phone {
+                display: none;
+            }
+
+            width: 100%; margin-top: 32px; margin-bottom: 32px;
             tr { height: 60px;
                 td {
                     position: relative; padding-left: 20px;
@@ -477,10 +626,69 @@
                     }
                 }
             }
+
             p { margin: 0; }
-            .name { color: #aaaaaa; font-size: 12px; line-height: 24px; }
+            .name { color: #aaaaaa; font-size: 12px; line-height: 24px;
+            }
             .value { font-size: 12px; color: #666;
-                strong { font-size: 24px; color: @light-text-color; }
+                strong { font-size: 24px; color: @light-text-color;
+                }
+            }
+
+        }
+
+        .text_phone {
+            display: none;
+            @media @phone {
+                display: block;
+            }
+
+            width: 100%; margin-top: 32px; margin-bottom: 32px;
+            tr { height: 60px;
+
+                &.gap {
+                    height: 12px;
+                }
+                @media @phone {
+                    height: 30px;
+                }
+
+                td {
+                    position: relative; padding-left: 20px;
+                    @media @phone {
+                        padding-left: 8px;
+                    }
+
+                    .bar { position: absolute; width: 10px; height: 100%; left: 0; top: 0;
+                        @media @phone {
+                            width: 4px;
+                        }
+
+                        &.bar0 { background: #c5c5c5; }
+                        &.bar1 { background: #00d3ff; }
+                        &.bar2 { background: #00b7dd; }
+                        &.bar3 { background: #e20013; }
+                    }
+                }
+            }
+
+            p { margin: 0; }
+            .name { color: #aaaaaa; font-size: 12px; line-height: 24px;
+                @media @phone {
+                    font-size: 9px;
+                    line-height: 18px;
+                    color: #8f8f8f;
+                }
+
+            }
+            .value { font-size: 12px; color: #666;
+                strong { font-size: 24px; color: @light-text-color;
+                    @media @phone {
+                        font-size: 14px;
+                        color: white;
+                    }
+
+                }
             }
 
         }

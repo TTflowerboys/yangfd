@@ -1,4 +1,4 @@
-<div class="imagePart">
+<a class="imagePart" href="/property/{=house.id=}">
     {_if(house.reality_images && house.reality_images.length) {_}
     <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id})=}"/>
     {_ }else { _}
@@ -23,9 +23,9 @@
             </table>
         </div>
     </div>
-</div>
-<div class="textPart">
-    <div class="textPart_inner">
+</a>
+<div class="textPart" >
+    <a class="textPart_inner" href="/property/{=house.id=}">
         <ul class=properties>
             {_if(house.intention && house.intention.length) {_}
             <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
@@ -61,5 +61,5 @@
             </table>
         </div>
         <p class="border"></p>
-    </div>
+    </a>
 </div>
