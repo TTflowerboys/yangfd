@@ -268,7 +268,7 @@
                                                 <edit-date style="width: 185px;" ng-model="price.time"></edit-date>
                                             </td>
                                             <td>
-                                                <div type-i18n-unit unit="price.price.unit||userCurrency" data="i18nCurrency" ng-model="price.price"
+                                                <div type-i18n-unit unit="price.price.unit||userCurrency.value" data="i18nCurrency" ng-model="price.price"
                                                     placeholder="{%$root.i18n('成交价格')%}"></div>
                                             </td>
                                             <td>
@@ -323,7 +323,7 @@
                                                     placeholder="{%$root.i18n('支出名称')%}" class="form-control"/>
                                             </td>
                                             <td>
-                                                <div type-i18n-unit unit="cost.price.unit||userCurrency" ng-model="cost.price" data="i18nCurrency" placeholder="{%$root.i18n('支出费用')%}"></div>
+                                                <div type-i18n-unit unit="cost.price.unit||userCurrency.value" ng-model="cost.price" data="i18nCurrency" placeholder="{%$root.i18n('支出费用')%}"></div>
                                             </td>
                                             <td>
                                                 <span class="btn btn-danger" ng-click="onRemoveCost($index)" title="{%$root.i18n('移除')%}">
