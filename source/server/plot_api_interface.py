@@ -59,7 +59,7 @@ def plot_edit(user, plot_id, params):
     unset_fields = params.pop("unset_fields", [])
     f_app.plot.update_set(plot_id, params)
     if unset_fields:
-        f_app.plot.update(plot_id, {"$unset": {i:"" for i in unset_fields}})
+        f_app.plot.update(plot_id, {"$unset": {i: "" for i in unset_fields}})
 
     return f_app.plot.output([plot_id])[0]
 

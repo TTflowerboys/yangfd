@@ -179,7 +179,7 @@ def news_list():
                     {'_id': ObjectId(f_app.enum.get_by_slug('primier_apartment_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                     {'_id': ObjectId(f_app.enum.get_by_slug('studenthouse_sheffield')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                 ]}
-            }
+            }, per_page=0
         )
     )
     return template("news_list", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
@@ -200,7 +200,7 @@ def notice_list():
                 "category": {"$in": [
                     {'_id': ObjectId(f_app.enum.get_by_slug('announcement')["id"]), 'type': 'news_category', '_enum': 'news_category'}
                 ]}
-            }
+            }, per_page=0
         )
     )
     return template("notice_list", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
@@ -215,7 +215,7 @@ def guides():
                 "category": {"$in": [
                     {'_id': ObjectId(f_app.enum.get_by_slug('purchase_process')["id"]), 'type': 'news_category', '_enum': 'news_category'}
                 ]}
-            }
+            }, per_page=0
         )
     )
     return template("guides", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
@@ -230,7 +230,7 @@ def laws():
                 "category": {"$in": [
                     {'_id': ObjectId(f_app.enum.get_by_slug('legal_resource')["id"]), 'type': 'news_category', '_enum': 'news_category'}
                 ]}
-            }
+            }, per_page=0
         )
     )
     return template("laws", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())

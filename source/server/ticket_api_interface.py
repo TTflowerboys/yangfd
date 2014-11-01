@@ -68,7 +68,7 @@ def intention_ticket_add(params):
                     password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
                     f_app.user.update_set(user_id, {"password": password})
                     user_params["password"] = password
-                    locale = user_params["locales"][0] if  user_params["locales"] else f_app.common.i18n_default_locale
+                    locale = user_params["locales"][0] if user_params["locales"] else f_app.common.i18n_default_locale
                     request._requested_i18n_locales_list = [locale]
                     if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
                         template_invoke_name = "new_user_cn"
@@ -96,7 +96,6 @@ def intention_ticket_add(params):
                         template_invoke_name=template_invoke_name,
                         xsmtpapi=xsmtpapi,
                     )
-
                     f_app.user.login.success(user_id)
             creator_user_id = user_id
     else:
@@ -129,7 +128,7 @@ def intention_ticket_add(params):
                     f_app.user.update_set(user_id, {"password": password})
                     user_params["password"] = password
 
-                    locale = user_params["locales"][0] if  user_params["locales"] else f_app.common.i18n_default_locale
+                    locale = user_params["locales"][0] if user_params["locales"] else f_app.common.i18n_default_locale
                     request._requested_i18n_locales_list = [locale]
                     if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
                         template_invoke_name = "new_user_cn"
