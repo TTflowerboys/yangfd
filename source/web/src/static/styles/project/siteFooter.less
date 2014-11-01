@@ -8,11 +8,21 @@
         overflow: hidden;
         background: @footer-bg;
         @media @phone {
-            display:none;
+            min-width: 0;
         }
         > footer {
             margin: 0 auto; height: 100%; width: @max-width;
+            @media @phone {
+                width: 100%;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-bottom: @support-margin-top;
+            }
             .contact {
+                @media @phone {
+                    float: none;
+                    display: inline-block;
+                }
                 float: left;
                 margin-top: @support-margin-top;
                 margin-bottom: @support-margin-top;
@@ -59,6 +69,9 @@
 
             @support-margin-top: 24px;
             .social {
+                @media @phone {
+                    display:none;
+                }
                 float: left;
                 width: 160px;
                 height: 120px;
@@ -113,6 +126,9 @@
             }
 
             .support {
+                @media @phone {
+                    display:none;
+                }
                 float: left;
                 margin-top: @support-margin-top;
                 margin-left: 80px;
@@ -129,12 +145,23 @@
                 > a {color: #EEEEEE; text-decoration: none; font-size: 14px; margin-bottom: 12px; display: inline-block;}
             }
             .localizationChanger {
+                @media @phone {
+                    float: none;
+                    display: block;
+                    max-width:100%;
+                    margin: 0 auto;
+                }
                 float: left;
                 margin-top: @support-margin-top;
                 margin-left: 100px;
                 max-width: 96px;
                 h3 { color: #aaaaaa; margin-top: 0px; margin-bottom: 16px; font-size: 16px; }
-                select {margin-bottom: 8px;}
+                select {
+                    margin-bottom: 8px;
+                    @media @phone {
+                        width:100%;
+                    }
+                }
             }
         }
     }
