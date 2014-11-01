@@ -135,7 +135,7 @@
                         % if property.get('longitude') and property.get('latitude'):
                             <li data-tab="map">
                                 <img onerror="window.project.onImgError(this);" src="/static/images/placeholder/map.jpg" alt=""/>
-                                <span class="text_wrapper"> <span class="text">{{_('地图')}}</span> </span>
+                                <span class="text_wrapper"> <span class="text">{{_('地理位置')}}</span> </span>
                                 <span class="border"></span>
                             </li>
                         % end
@@ -575,7 +575,7 @@
                         </colgroup>
                         <tr>
                             <td>
-                                <span class="bar bar0"></span>
+                                <span class="bar first"></span>
                                 <p class="name">{{_('预期总收入')}}</p>
                                 <p class="value">
                                     {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
@@ -594,7 +594,7 @@
                                 </td>
                             %end
                             <td>
-                                <span class="bar bar3"></span>
+                                <span class="bar last"></span>
                                 <p class="name">{{_('预期净收益')}}</p>
                                 <p class="value">
                                     {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
