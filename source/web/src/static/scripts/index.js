@@ -139,7 +139,7 @@
             params.budget = budgetId
         }
         else {
-            params.budget = ''
+            params.unset_fields = 'budget'
         }
 
         if (intentionIds) {
