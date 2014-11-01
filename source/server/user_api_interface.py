@@ -206,7 +206,7 @@ def current_user_edit(user, params):
     f_app.user.update_set(user["id"], params)
 
     if unset_fields:
-        f_app.user.update(user["id"], {"$unset": {i:"" for i in unset_fields}})
+        f_app.user.update(user["id"], {"$unset": {i: "" for i in unset_fields}})
 
     return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
 
