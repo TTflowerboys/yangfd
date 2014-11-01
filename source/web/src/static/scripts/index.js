@@ -136,8 +136,10 @@
     function updateUserTags(budgetId, intentionIds) {
         var params = {}
         if (budgetId) {
-            // cause the now cannot set budgetId to '', so if user not set budgetId, don't pass it
             params.budget = budgetId
+        }
+        else {
+            params.budget = ''
         }
 
         if (intentionIds) {
@@ -342,9 +344,13 @@
         $budgetTag.on('click', '.toggleTag', function (event) {
 
             var $item = $(event.target)
+            var alreadySelected = $item.hasClass('selected')
             var $parent = $(event.target.parentNode)
             $parent.find('.toggleTag').removeClass('selected')
-            $item.addClass('selected')
+
+            if (!alreadySelected) {
+                $item.addClass('selected')
+            }
 
             loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
         })
