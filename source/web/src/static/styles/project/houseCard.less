@@ -135,6 +135,7 @@
             right: 0;
             top: 0;
             max-width:35%;
+            text-align:right;
 
             @media @phone {
                 position:static;
@@ -157,13 +158,17 @@
                     float:left;
                     max-width:100%;
                 }
-                .label { float: left; line-height: 1; margin-right: 1em; }
+                .label { float: left; line-height: 32px; margin-right: 1em; }
                 .value { float: left; color: @red; font-size: 32px; line-height: 1; }
             }
             > .properties {
                 float: right;
                 max-width: 50%;
                 padding-left: 16px;
+
+                img {
+                    vertical-align:middle;
+                }
 
                 @media @phone {
                     float:left;
@@ -267,16 +272,18 @@
             display:inline-block;
             border-right:1px solid #ccc;
             padding-left:12px;
+            padding-top:12px;
 
             li {
                 vertical-align:middle;
                 font-size:10px;
                 line-height:15px;
-                margin-bottom:5px;
+                margin-bottom:8px;
                 color:#999;
 
                 img {
                     margin-right:5px;
+                    vertical-align:middle;
                 }
             }
         }
