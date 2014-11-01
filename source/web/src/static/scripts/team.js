@@ -88,8 +88,13 @@
             parts = numberString.split('.')
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             if (parts[1]) {
-                if (parts[1].length === 1) { parts[1] = parts[1] + '0' }
+                if (parts[1].length === 1) {
+                    parts[1] = parts[1] + '0'
+                }
                 if (parts[1].length > 2) { parts[1] = parts[1].substr(0, 2) }
+            }
+            else {
+                parts[1] = '00'
             }
             return parts.join('.')
         },
@@ -103,6 +108,30 @@
         decodeCurrency: function (currency) {
             return currency.replace(/[,\s]/g, '')
         },
+        formatCurrency: function (number, currencyType) {
+            if (!currencyType) {
+                currencyType = window.currency
+            }
+
+            if (currencyType === 'CNY') {
+                if (parseInt(number) > 10000) {
+                    return team.encodeCurrency(parseInt(number) / 10000)  + '万'
+                }
+                else {
+                    return team.encodeCurrency(number)
+                }
+            }
+            else {
+                if (parseInt(number) > 1000) {
+                    return team.encodeCurrency(parseInt(number) / 1000) + 'k'
+                }
+                else {
+                    return team.encodeCurrency(number)
+                }
+            }
+
+        },
+
         /**
          * Share something to Weibo
          * @param {object} {title:'',url:'',pic:''}

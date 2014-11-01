@@ -10,11 +10,11 @@
                 {_minPrice = parseInt(type.total_price.value)_}
             {_}_}
         {_})_}
-<strong>{=team.encodeCurrency(parseInt(minPrice))=}</strong>
+<strong>{=team.formatCurrency(parseInt(minPrice))=}</strong>
 
 {_} else if(house_unit_price){_}
 {=house.unit_price.price.unit_symbol=}
-<strong>{=team.encodeCurrency(parseInt(house.unit_price.price.value/house.unit_price.unit.value))=}</strong>
+<strong>{=team.formatCurrency(parseInt(house.unit_price.price.value/house.unit_price.unit.value))=}</strong>
 /
 {_if (house.unit_price.unit.unit === 'foot ** 2'){_}
 foot <sup>2</sup>
@@ -32,6 +32,6 @@ km <sup>2</sup>
 {_} else {_}
 {_if(house.total_price) {_}
 {=house.total_price.unit_symbol=}
-<strong>{=team.encodeCurrency(parseInt(house.total_price.value))=}</strong>
+<strong>{=team.formatCurrency(parseInt(house.total_price.value))=}</strong>
 {_}_}
 {_}_}
