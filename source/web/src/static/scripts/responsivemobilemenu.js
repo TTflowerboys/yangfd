@@ -88,47 +88,50 @@ $(function() {
 
     /* slide down mobile menu on click */
     $('.rmm-toggled .rmm-toggled-controls .rmm-button').on('click', function(){
-        var $rmm = $('.rmm-toggled')
+        var $allRmm = $('.rmm-toggled')
 
-        $rmm.find('.rmm-center-menu').stop().hide();
-	$rmm.addClass('rmm-center-closed');
-	
-        
-	if ( $rmm.is('.rmm-closed')) {
-	    $rmm.find('.rmm-menu').stop().show(300);
-	    $rmm.removeClass('rmm-closed');
-	}
-	else {
-	    $rmm.find('.rmm-menu').stop().hide(300);
-	    $rmm.addClass('rmm-closed');
-	}
+        _.each($allRmm, function(item) {
+            var $rmm = $(item)
+
+            $rmm.find('.rmm-center-menu').stop().hide();
+	    $rmm.addClass('rmm-center-closed');
+
+	    if ( $rmm.is('.rmm-closed')) {
+	        $rmm.find('.rmm-menu').stop().show(200);
+	        $rmm.removeClass('rmm-closed');
+	    }
+	    else {
+	        $rmm.find('.rmm-menu').stop().hide(200);
+	        $rmm.addClass('rmm-closed');
+	    }
+        })
     });
 
     /* slide down mobile center menu on click */
     $('.rmm-toggled .rmm-toggled-controls .rmm-center').on('click', function(){
-        
-        var $rmm = $('.rmm-toggled')
-        
-        if ($rmm.find('.rmm-center-menu')) {
+        var $allRmm = $('.rmm-toggled')
 
-            $rmm.find('.rmm-menu').stop().hide();
-	    $rmm.addClass('rmm-closed');
-            
-            if ( $rmm.is('.rmm-center-closed')) {
-	        $rmm.find('.rmm-center-menu').stop().show(300);
-	        $rmm.removeClass('rmm-center-closed');
-	    }
-	    else {
-	        $rmm.find('.rmm-center-menu').stop().hide(300);
-	        $rmm.addClass('rmm-center-closed');
-	    }
-        }
-	
+        _.each($allRmm, function (item) {
+            var $rmm = $(item)
+            if ($rmm.find('.rmm-center-menu')) {
+
+                $rmm.find('.rmm-menu').stop().hide();
+	        $rmm.addClass('rmm-closed');
+                if ( $rmm.is('.rmm-center-closed')) {
+	            $rmm.find('.rmm-center-menu').stop().show(200);
+                    $rmm.find('.rmm-center-indicator').addClass('rotated')
+	            $rmm.removeClass('rmm-center-closed');
+	        }
+	        else {
+	            $rmm.find('.rmm-center-menu').stop().hide(200);
+                    $rmm.find('.rmm-center-indicator').removeClass('rotated')
+	            $rmm.addClass('rmm-center-closed');
+	        }
+            }
+        })
+        
     });
-
-
     
-
     $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-title').on('click', function(){
         window.project.goToSignUp()
     });
