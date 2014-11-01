@@ -194,6 +194,43 @@
         return _.without(array, '')
     }
 
+
+    function loadIntentionDescription(callback) {
+        $.betterPost('/api/1/enum?type=intention', {})
+            .done(function (data) {
+                window.intentionDescription = data
+                callback()
+            })
+            .fail(function (ret) {
+            })
+            .always(function () {
+
+            })
+    }
+
+    function updateIntentionDescription() {
+        var callback = function () {
+            var allTagDiv = $('.houseCard_wrapper .tagDetail')
+            _.each(allTagDiv, function (tagDiv) {
+                var intentionId = $(tagDiv).attr('data-intention-id')
+                var description = ''
+                _.each(window.intentionDescription, function (oneDes) {
+                    if (oneDes.id === intentionId) {
+                        description = oneDes.description
+                    }
+                })
+                $(tagDiv).find('.description').text(description)
+            })
+        }
+
+        if (window.intentionDescription) {
+            callback()
+        }
+        else {
+            loadIntentionDescription(callback)
+        }
+    }
+
     function loadPropertyListWithBudgetAndIntention(budgetType, intention) {
 
         $('#suggestionHouses #loadIndicator').show()
@@ -239,7 +276,7 @@
                             item = _.first(array)
                             item.category_budget = getBudgetById(usedBudget)
                             item.category_intention = getIntentionById(oneIntention)
-                            item.category_intention.description = window.getIntentionDescription(item.category_intention.slug)
+                            item.category_intention.description = ''
                             responseArray.push(item)
                         }
                         else {
@@ -264,10 +301,12 @@
         $.when.apply($, requestArray)
             .done(function () {
                 updatePropertyCards(responseArray)
+                updateIntentionDescription()
                 $('#suggestionHouses #loadIndicator').hide()
             })
             .fail(function () {
                 updatePropertyCards(responseArray)
+                updateIntentionDescription()
                 $('#suggestionHouses #loadIndicator').hide()
             })
             .always(function () {
