@@ -33,9 +33,12 @@
         </h1>
         <!--@@placeholder=price -->
         <div class=details>
+            {_if (house.property_type.slug !== 'new_property' && house.property_type.slug !== 'student_housing'){_}
             <p class=size>
                 <!--@@include=../../../partials/get_size.tpl.html -->
             </p>
+            {_}_}
+
             <!--@@placeholder=estimate -->
             <ul class=properties>
                 {_if(house.intention && house.intention.length) {_}
