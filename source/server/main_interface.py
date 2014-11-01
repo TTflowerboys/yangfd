@@ -509,6 +509,18 @@ def images_proxy(params):
         return result.content
 
 
+@f_get('/reverse_proxy', params=dict(
+    link=(str, True),
+))
+def reverse_proxy(params):
+    result = f_app.request(params["link"])
+    if result.status_code == 200:
+        ext = params["link"].split('.')[-1]
+        if ext == "js":
+            response.set_header(b"Content-Type", b"application/javascript")
+        return result.content
+
+
 @f_get("/logout", params=dict(
     return_url=str,
 ))
