@@ -15,11 +15,12 @@
         <li><a href="/news_list">{{_('投资资讯')}}</a></li>
     </ul>
     <div class="rmm-custom-center" style="display:none;">
-        <table id="wrapper" class="rmm-center">
+        <table id="rmm-center-wrapper" class="rmm-center">
             <tr>
                 <td>
-                    <label class="title" for="">{{_('新闻')}}</label>
-                    <img alt="" src="/static/images/icon/header/phone/indicator.png"/>
+                    <label id="newsHeader_title" class="title" for="">
+                    </label>
+                    <img class="rmm-center-indicator" alt="" src="/static/images/icon/header/phone/indicator.png"/>
                 </td>
             </tr>
         </table>
@@ -67,6 +68,21 @@
      var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
      var newIconImagePath = iconImageName + '-active' + iconImageExtention
      icon.setAttribute('src', newIconImagePath)
+
+     var newsHeaderTitle = document.getElementById('newsHeader_title')
+     if (urlPath === 'notice_list') {
+         newsHeaderTitle.innerHTML = "{{_('网站公告')}}"
+     }
+     else if (urlPath === 'guides') {
+         newsHeaderTitle.innerHTML = "{{_('购房指南')}}"
+     }
+     else if (urlPath === 'laws') {
+         newsHeaderTitle.innerHTML = "{{_('法律法规')}}"
+     }
+     else if (urlPath === 'news_list') {
+         newsHeaderTitle.innerHTML = "{{_('房产资讯')}}"
+     }
+
  })()
 
 
