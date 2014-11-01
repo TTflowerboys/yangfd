@@ -134,6 +134,33 @@
     }
 
     function updateUserTags(budgetId, intentionIds) {
+
+        var changed = false
+        var oldBudgetId = ''
+        if (window.budget) {
+            oldBudgetId = window.budget.id
+        }
+        if (oldBudgetId !== budgetId) {
+            changed = true
+        }
+
+        if (window.intention) {
+            var oldIntentionArray = []
+            _.each(window.intention, function (item) {
+                oldIntentionArray.push(item.id)
+            })
+            var newIntentionArray = intentionIds.split(',')
+
+            if (!_.isEmpty(_.difference(oldIntentionArray, newIntentionArray)) ||
+                !_.isEmpty(_.difference(newIntentionArray, oldIntentionArray))) {
+                changed = true
+            }
+        }
+
+        if (!changed) {
+            return;
+        }
+
         var params = {}
         if (budgetId) {
             params.budget = budgetId
