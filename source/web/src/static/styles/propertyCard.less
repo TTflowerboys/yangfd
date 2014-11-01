@@ -11,11 +11,15 @@
 
     .price {
         margin:40px 0;
+        table {
+            width:100%;
+        }
         .price_inner {
+            width: 100%;
             background: #f4f4f4; padding: 16px 8px; color: @red; font-size: 20px;
             display:inline-block;
-            .mute { color: #999; font-size: 14px; margin-right: 16px; }
-            strong { font-size: 40px; }
+            .mute { color: #999; font-size: 14px; margin-right: 8px; }
+            strong { font-size: 36px; }
         }
 
         .soldOut {
@@ -24,12 +28,12 @@
         }
     }
 
-    > .numbers { .clearfix();
-                 > li { float: left; width: 50%; border-left: 1px solid #ccc; padding-left: 8px;
-                        .percentage { display: block; font-size: 20px; height: 32px; vertical-align: bottom;
+    .numbers { .clearfix(); width:100%;
+                  td { width: 50%; border-left: 1px solid #ccc; padding-left: 8px;
+                        .percentage { display: block; font-size: 20px; min-height: 32px; vertical-align: bottom;
                                       strong { line-height: 32px; }
                                       &.emphasized { color: @red;
-                                                     strong { font-size: 30px; }
+                                                     strong { font-size: 30px; word-break:break-all; display:block; }
                                                    }
                                     }
                       }

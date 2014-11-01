@@ -1,7 +1,6 @@
 % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing'):
     %if 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
         <span class="mute">{{_('最低投资')}}</span>
-        <br>
         <span>
             {{property.get('main_house_types',{})[0].get('total_price',{}).get('unit_symbol')}}
         </span>
@@ -16,7 +15,6 @@
         </strong>
     %elif 'unit_price' in property and property.get('unit_price'):
         <span class="mute">{{_('参考价格')}}</span>
-        <br>
         <span>
             {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
         </span>
@@ -32,7 +30,6 @@
 % else :
     %if 'total_price' in property and property.get('total_price'):
         <span class="mute">{{_('参考价格')}}</span>
-        <br>
         <span>{{property.get('total_price',{}).get('unit_symbol','')}}</span>
         <strong data-type="formatted_currency">
             {{int(float(property.get('total_price',{}).get('value','')))}}
