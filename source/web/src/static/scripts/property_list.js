@@ -29,8 +29,10 @@
             params.time = lastItemTime
         }
 
-         $('#result_list_container').show()
+        $('#result_list_container').show()
         showEmptyPlaceHolder(false)
+        $('#result #number_container').hide()
+
 
         $('#result #loadIndicator').show()
         $('#loadMore').hide()
