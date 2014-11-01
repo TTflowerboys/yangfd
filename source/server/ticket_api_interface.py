@@ -68,11 +68,33 @@ def intention_ticket_add(params):
                     password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
                     f_app.user.update_set(user_id, {"password": password})
                     user_params["password"] = password
+                    locale = user_params["locales"][0] if  user_params["locales"] else f_app.common.i18n_default_locale
+                    request._requested_i18n_locales_list = [locale]
+                    if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
+                        template_invoke_name = "new_user_cn"
+                        sendgrid_template_id = "1c4c392c-2c8d-4b8f-a6ca-556d757ac482"
+                    else:
+                        template_invoke_name = "new_user_en"
+                        sendgrid_template_id = "f69da86f-ba73-4196-840d-7696aa36f3ec"
+                    substitution_vars = {
+                        "to": [params["email"]],
+                        "sub": {
+                            "%nickname%": [user_params["nickname"]],
+                            "%phone%": [user_params["phone"]],
+                            "%password%": [user_params["password"]],
+                        }
+                    }
+                    xsmtpapi = substitution_vars
+                    xsmtpapi["category"] = ["new_user"]
+                    xsmtpapi["template_id"] = sendgrid_template_id
                     f_app.email.schedule(
                         target=params["email"],
                         subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
                         text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"], phone=user_params["phone"]),
                         display="html",
+                        substitution_vars=substitution_vars,
+                        template_invoke_name=template_invoke_name,
+                        xsmtpapi=xsmtpapi,
                     )
 
                     f_app.user.login.success(user_id)
@@ -106,11 +128,34 @@ def intention_ticket_add(params):
                     password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
                     f_app.user.update_set(user_id, {"password": password})
                     user_params["password"] = password
+
+                    locale = user_params["locales"][0] if  user_params["locales"] else f_app.common.i18n_default_locale
+                    request._requested_i18n_locales_list = [locale]
+                    if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
+                        template_invoke_name = "new_user_cn"
+                        sendgrid_template_id = "1c4c392c-2c8d-4b8f-a6ca-556d757ac482"
+                    else:
+                        template_invoke_name = "new_user_en"
+                        sendgrid_template_id = "f69da86f-ba73-4196-840d-7696aa36f3ec"
+                    substitution_vars = {
+                        "to": [params["email"]],
+                        "sub": {
+                            "%nickname%": [user_params["nickname"]],
+                            "%phone%": [user_params["phone"]],
+                            "%password%": [user_params["password"]],
+                        }
+                    }
+                    xsmtpapi = substitution_vars
+                    xsmtpapi["category"] = ["new_user"]
+                    xsmtpapi["template_id"] = sendgrid_template_id
                     f_app.email.schedule(
                         target=params["email"],
                         subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
                         text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"], phone=user_params["phone"]),
                         display="html",
+                        substitution_vars=substitution_vars,
+                        template_invoke_name=template_invoke_name,
+                        xsmtpapi=xsmtpapi,
                     )
 
     params["creator_user_id"] = ObjectId(creator_user_id)
