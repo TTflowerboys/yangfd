@@ -1,6 +1,10 @@
 <script id="messageCell_template" type="text/template">
     <div class="cell">
-        <label id="title" class="type" >
+        {_if (message.status === 'new'||message.status === 'sent'){_}
+        <label id="title" class="unread_type" >
+        {_}else{_}
+        <label id="title" class="read_type" >
+        {_}_}
             {=message.type_presentation.value=}
             {_if(message.title) {_}
             - {=message.title=}

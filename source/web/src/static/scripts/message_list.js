@@ -52,11 +52,11 @@ $(function () {
             }
         })
 
-        window.startPaging(allData, 4, $('.allList_wrapper #pager #pre'), $('.allList_wrapper #pager #next'), loadAllData)
+        window.startPaging(allData, 10, $('.allList_wrapper #pager #pre'), $('.allList_wrapper #pager #next'), loadAllData)
 
-        window.startPaging(newData, 4, $('.newList_wrapper #pager #pre'), $('.newList_wrapper #pager #next'), loadNewData)
+        window.startPaging(newData, 10, $('.newList_wrapper #pager #pre'), $('.newList_wrapper #pager #next'), loadNewData)
 
-        window.startPaging(readData, 4, $('.readList_wrapper #pager #pre'), $('.readList_wrapper #pager #next'), loadReadData)
+        window.startPaging(readData, 10, $('.readList_wrapper #pager #pre'), $('.readList_wrapper #pager #next'), loadReadData)
     }
 
     reloadData(window.allData)
