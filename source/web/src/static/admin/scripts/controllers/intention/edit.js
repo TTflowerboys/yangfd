@@ -4,7 +4,7 @@
 
 (function () {
 
-    function ctrlIntentionEdit($scope, $state, api, $stateParams, enumApi, $rootScope, i18nLanguages, misc, growl) {
+    function ctrlIntentionEdit($scope, $state, api, $stateParams, misc, growl) {
 
         $scope.item = {}
 

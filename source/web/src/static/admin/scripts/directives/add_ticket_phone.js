@@ -2,7 +2,7 @@
  * Created by Michael on 14/9/26.
  */
 angular.module('app')
-    .directive('addTicketPhone', function ($http, $filter) {
+    .directive('addTicketPhone', function ($http) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/add_ticket_phone.tpl.html',

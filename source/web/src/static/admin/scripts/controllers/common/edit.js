@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlEdit($scope, $state, api, $stateParams, $upload, misc, growl) {
+    function ctrlEdit($scope, $state, api, $stateParams, misc, growl) {
         $scope.api = api
 
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)

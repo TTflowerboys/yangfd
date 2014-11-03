@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlPropertyCreate($scope, $state, api, $rootScope, i18nLanguages, misc) {
+    function ctrlPropertyCreate($scope, $state, api, misc) {
 
         $scope.item = {}
 

@@ -3,7 +3,7 @@
  */
 (function () {
 
-    function ctrlOperationContent($scope, $state, adApiFactory, channelApi, misc, fctModal, $timeout) {
+    function ctrlOperationContent($scope, adApiFactory, channelApi, fctModal) {
         $scope.channelApi = channelApi
         $scope.list = []
         $scope.perPage = 12

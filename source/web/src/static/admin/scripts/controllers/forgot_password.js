@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlForgotPassword($scope, $timeout, $state, $http, $rootScope, userApi, $stateParams, growl) {
+    function ctrlForgotPassword($scope, $timeout, $state, userApi, $stateParams) {
         $scope.user = {}
         var sendText = '发送验证码至手机'
         var resendText = '重新发送'

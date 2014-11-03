@@ -3,7 +3,7 @@
 
 (function () {
 
-    function userApi($http, $state, $q) {
+    function userApi($http, $q) {
         return {
             getAll: function (config) {
                 return $http.get('/api/1/user/admin/search?has_role=false', config)

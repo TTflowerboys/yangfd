@@ -13,13 +13,6 @@
             per_page: $scope.perPage
         }
 
-        /*        $scope.$watch('newsCategoryList', function (value) {
-         console.log(value)
-         if(!_.isUndefined(value)&&value.length>0){
-         $scope.selected.category = value[0]
-         }
-         })*/
-
         $scope.$watch('selected.status', function (newValue, oldValue) {
             // Ignore initial setup.
             if (newValue === oldValue) {

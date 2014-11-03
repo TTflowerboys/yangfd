@@ -4,7 +4,7 @@
 
 (function () {
 
-    function ctrlPropertyEdit($scope, $state, api, $stateParams, $rootScope, i18nLanguages, misc, growl) {
+    function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl) {
 
         $scope.item = {}
 

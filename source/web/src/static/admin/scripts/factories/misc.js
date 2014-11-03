@@ -1,7 +1,7 @@
 /* Created by frank on 14-8-20. */
 
 angular.module('app')
-    .factory('misc', function (i18nLanguages) {
+    .factory('misc', function () {
         /**
          * Delayer constructor, do a task in the future, and you can update the task
          * @param options {data:{},task:function(){},delay:200}

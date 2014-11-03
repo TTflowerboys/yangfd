@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlDashboard($scope, $state, $http, userApi, misc, $rootScope) {
+    function ctrlDashboard($scope, $state, $http, userApi) {
 
         $scope.user = {}
 

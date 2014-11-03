@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlIntentionCreate($scope, $state, api, $http, $rootScope, i18nLanguages, misc) {
+    function ctrlIntentionCreate($scope, $state, api, misc) {
 
         $scope.item = {}
 

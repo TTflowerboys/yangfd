@@ -1,6 +1,6 @@
 /* Created by frank on 14-9-12. */
 angular.module('app')
-    .directive('typeI18n', function (i18nLanguages, $compile) {
+    .directive('typeI18n', function (i18nLanguages) {
         return {
             restrict: 'AE',
             scope: {

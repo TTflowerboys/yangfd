@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlPropertyDetail($scope, $state, $http, $rootScope, api, $stateParams, misc) {
+    function ctrlPropertyDetail($scope, api, $stateParams, misc) {
         $scope.api = api
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
 

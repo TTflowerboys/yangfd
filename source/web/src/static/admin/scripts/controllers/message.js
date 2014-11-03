@@ -4,7 +4,7 @@
 
 
 (function () {
-    function ctrlMessageList($scope, $state, $http, $rootScope, $stateParams, fctModal, $timeout, api) {
+    function ctrlMessageList($scope, fctModal, api) {
         $scope.list = []
         $scope.perPage = 12
         $scope.currentPageNumber = 1

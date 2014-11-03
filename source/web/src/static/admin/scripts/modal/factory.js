@@ -1,7 +1,7 @@
 /* Created by frank on 14-8-19. */
 (function () {
 
-    function fctModal($http, $state, $q, $modal) {
+    function fctModal($modal) {
         return {
             show: function (content, title, ok, cancel) {
                 $modal.open({

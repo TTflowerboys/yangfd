@@ -2,7 +2,7 @@
 
 (function () {
 
-    function enumApi($http, $state, $q) {
+    function enumApi($http) {
         return {
             addEnum: function (type, value,slug) {
                 var data = {

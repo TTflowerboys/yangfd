@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlList($scope, $state, $http, $rootScope, $stateParams, fctModal, $timeout, api) {
+    function ctrlList($scope, fctModal, api) {
         $scope.list = []
         $scope.perPage = 12
         $scope.currentPageNumber = 1
@@ -15,10 +15,10 @@
             per_page: $scope.perPage
         }
 
-        api.getAll({ params: params }).success(onGetList)
+        api.getAll({params: params}).success(onGetList)
 
         $scope.refreshList = function () {
-            api.getAll({ params: params}).success(onGetList)
+            api.getAll({params: params}).success(onGetList)
         }
 
         $scope.onRemove = function (item) {

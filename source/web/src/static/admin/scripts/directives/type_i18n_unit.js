@@ -1,6 +1,6 @@
 /* Created by frank on 14-9-15. */
 angular.module('app')
-    .directive('typeI18nUnit', function ($parse, $rootScope) {
+    .directive('typeI18nUnit', function () {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/type_i18n_unit.tpl.html',

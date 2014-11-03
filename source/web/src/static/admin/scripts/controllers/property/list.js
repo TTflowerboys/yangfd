@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlPropertyList($scope, $state, fctModal, $timeout, api) {
+    function ctrlPropertyList($scope, fctModal, api) {
 
         $scope.list = []
         $scope.perPage = 12
@@ -19,10 +19,10 @@
             per_page: $scope.perPage
         }
 
-        api.getAll({ params: params, errorMessage: true}).success(onGetList)
+        api.getAll({params: params, errorMessage: true}).success(onGetList)
 
         $scope.refreshList = function () {
-            api.getAll({ params: params, errorMessage: true}).success(onGetList)
+            api.getAll({params: params, errorMessage: true}).success(onGetList)
         }
 
         $scope.$watch('selected.status', function (newValue, oldValue) {
@@ -34,7 +34,7 @@
             params.status = newValue
             $scope.currentPageNumber = 1
             $scope.pages = []
-            api.getAll({ params: params}).success(onGetList)
+            api.getAll({params: params}).success(onGetList)
         }, true)
 
         $scope.onRemove = function (item) {
