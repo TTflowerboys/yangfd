@@ -350,3 +350,31 @@ def mortgage_calculate(params):
             total=repayment * params["term"] * 12,
         ),
     )
+
+
+@f_api("/property/walkscore", params=dict(
+    latitude=float,
+    longitude=float,
+    property_id=ObjectId,
+))
+def property_walkscore(params):
+    """
+    parse ``latitude`` and ``longitude`` or just ``property_id`` to get the location walkscore
+    """
+    if "property_id" in params:
+        property = f_app.property.get(params["property_id"])
+        if "latitude" not in property or "longitude" not in property:
+            abort(40088, "No latitude and longitude in property")
+        latitude = property["latitude"]
+        longitude = property["longitude"]
+    else:
+        if "latitude" not in params or "longitude" not in params:
+            abort(40000, "No latitude and longitude")
+        latitude = params["latitude"]
+        longitude = params["longitude"]
+    url = "http://api.walkscore.com/score?format=json&lat=%s&lon=%s&wsapikey=%s" % (latitude, longitude, f_app.common.walkscore_api_key)
+    result = f_app.request.get(url, format="json", retry=3)
+    if result["status"] in [1, 2]:
+        return {"walkscore": result.get("walkscore", "N/A"), "ws_link": result.get("ws_link", "")}
+    else:
+        abort(40088, "failed to get walkscore and walkscore api status is " + str(result["status"]))

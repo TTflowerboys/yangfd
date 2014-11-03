@@ -136,6 +136,8 @@ class common(f_common):
     knightknox_agents_username = "digitalenterprise"
     knightknox_agents_password = "digital4853"
 
+    walkscore_api_key = "0f25727a26eb30f4871c6b2e6c2e0318"
+
     user_email_verification_code_expire_in = timedelta(hours=24)
 
     custom_error_codes = {
@@ -150,6 +152,7 @@ class common(f_common):
         40091: "Invalid params: role",
         40090: "Invalid operation: This property has already been added to your favorites.",
         40089: "Invalid image source: not from existing property or news",
+        40088: "Failed to get walkscore",
 
         40399: "Permission denied",
     }
@@ -167,4 +170,5 @@ f_app.common.register_error_code(40492)
 f_app.common.register_error_code(40491)
 f_app.common.register_error_code(40490)
 f_app.common.register_error_code(40489)
+f_app.common.register_error_code(40488)
 f_app.common.register_error_code(40399)
