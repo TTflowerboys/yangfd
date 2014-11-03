@@ -17,18 +17,6 @@ window.getErrorMessage = function (domName, validator) {
     return inputMessageDic[domName + '_' + validator] || ''
 }
 
-window.getIntentionDescription = function (slug) {
-    var stringMap = {
-        stable_cashflow: i18n('现金流保障介绍'),
-        study_abroad: i18n('子女留学介绍'),
-        immigration_investment: i18n('移民投资介绍'),
-        excess_earnings: i18n('超额收益介绍'),
-        asset_preservation: i18n('资产保值介绍'),
-        live_after_immigration: i18n('移民自住介绍'),
-        leisure_property: i18n('度假旅行介绍')
-    }
-    return stringMap[slug] || slug
-}
 
 window.getErrorMessageFromErrorCode = function (errorCode, api) {
     var stringMap = {

@@ -264,7 +264,7 @@
         }
 
         _.each(usedIntention, function (oneIntention) {
-            var params = {'per_page': 1, 'random': '1', 'intention': oneIntention}
+            var params = {'random': true, 'intention': oneIntention}
             if (usedBudget) {
                 params.budget = usedBudget
             }
@@ -276,7 +276,6 @@
                             item = _.first(array)
                             item.category_budget = getBudgetById(usedBudget)
                             item.category_intention = getIntentionById(oneIntention)
-                            item.category_intention.description = ''
                             responseArray.push(item)
                         }
                         else {
@@ -286,7 +285,6 @@
                             }
                             if (oneIntention) {
                                 item.category_intention = getIntentionById(oneIntention)
-                                item.category_intention.description = window.getIntentionDescription(item.category_intention.slug)
                             }
                             responseArray.push(item)
                         }
