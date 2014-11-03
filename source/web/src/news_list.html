@@ -7,23 +7,20 @@
 <!--build:css(dist) /static/styles/news_list.html.css-->
 <link rel="stylesheet" href="/static/styles/newsList.css"/>
 <link rel="stylesheet" href="/static/styles/project/newsCard.css"/>
-<link href="/static/styles/pager.css" rel="stylesheet"/>
 <!--endbuild-->
 
 <!--@@close-->
 
 <!--@@block=main -->
 
-<span class="newsData" style="display:none">
-    {{json_dumps(_i18n(news_list))}}
-</span>
-
 <h1 class="contentTitle">{{_('房产资讯')}}</h1>
 
 <div id="list" class="contentList">
 
 </div>
-<!--@@include=/partials/pager.html -->
+<img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+<button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
+
 
 <!--@@include=/static/templates/news_card.tpl.html-->
 
@@ -32,7 +29,6 @@
 
 <!--@@block=scripts -->
 <!--build:js /static/scripts/news_list.js-->
-<script src="/static/scripts/pager.js"></script>
 <script src="/static/scripts/news_list.js"></script>
 <!--endbuild-->
 <!--@@close-->
