@@ -245,11 +245,12 @@ def property_edit(property_id, user, params):
 
     else:
         property = f_app.property.get(property_id)
+
         def _action(params):
             unset_fields = params.get("unset_fields", [])
             f_app.property.update_set(property_id, params)
             if unset_fields:
-                f_app.property.update(property_id, {"$unset": {i:"" for i in unset_fields}})
+                f_app.property.update(property_id, {"$unset": {i: "" for i in unset_fields}})
             return f_app.property.get(property_id)
 
         action = _action

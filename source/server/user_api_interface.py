@@ -154,6 +154,7 @@ def register(params):
     budget=("enum:budget", None),
     system_message_type=(list, None, str),
     email_message_type=(list, None, str),
+    unset_fields=(list, None, str),
 ))
 @f_app.user.login.check(force=True)
 def current_user_edit(user, params):
@@ -164,6 +165,8 @@ def current_user_edit(user, params):
 
     ``system_message_type`` and ``email_message_type`` are the message types that user accepts. It should be the subset of ``system``, ``favorited_property_news``, ``intention_property_news``, ``my_property_news``.
     """
+    unset_fields = params.pop("unset_fields", [])
+
     if "email" in params:
         if "@" not in params["email"]:
             abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
@@ -201,6 +204,10 @@ def current_user_edit(user, params):
             abort(40000, logger.warning("Invalid params: email_message_type", params["email_message_type"], exc_info=False))
 
     f_app.user.update_set(user["id"], params)
+
+    if unset_fields:
+        f_app.user.update(user["id"], {"$unset": {i: "" for i in unset_fields}})
+
     return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
 
 

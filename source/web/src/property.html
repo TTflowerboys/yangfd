@@ -135,7 +135,7 @@
                         % if property.get('longitude') and property.get('latitude'):
                             <li data-tab="map">
                                 <img onerror="window.project.onImgError(this);" src="/static/images/placeholder/map.jpg" alt=""/>
-                                <span class="text_wrapper"> <span class="text">{{_('地图')}}</span> </span>
+                                <span class="text_wrapper"> <span class="text">{{_('地理位置')}}</span> </span>
                                 <span class="border"></span>
                             </li>
                         % end
@@ -402,7 +402,7 @@
                                                                     <strong>
                                                                         {{item.get('total_price',{}).get('unit_symbol')}}
                                                                     </strong>
-                                                                    <strong data-type="currency">
+                                                                    <strong data-type="formatted_currency">
                                                                         {{int(float(item.get('total_price',{}).get('value')))}}
                                                                     </strong>
                                                                 %end
@@ -575,7 +575,7 @@
                         </colgroup>
                         <tr>
                             <td>
-                                <span class="bar bar0"></span>
+                                <span class="bar first"></span>
                                 <p class="name">{{_('预期总收入')}}</p>
                                 <p class="value">
                                     {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
@@ -594,7 +594,7 @@
                                 </td>
                             %end
                             <td>
-                                <span class="bar bar3"></span>
+                                <span class="bar last"></span>
                                 <p class="name">{{_('预期净收益')}}</p>
                                 <p class="value">
                                     {{ property.get('estimated_monthly_rent',{}).get('unit_symbol','') }}
@@ -720,53 +720,52 @@
                     </div>
                 % end
 
-                <div class="price">
-                    <table>
-                        <tr>
-                            <td class="price_inner">
-                                <!--@@include=partials/get_unit_price.html  -->
-                            </td>
-                            %if property.get('status') == 'sold out':
-                                <td class="soldOut">
-                                    <span>{{_('售罄')}}</span>
+                %if property.get('total_price') or property.get('unit_price') or (property.get('main_house_types') and len(property.get('main_house_types'))):
+                    <div class="price">
+                        <table>
+                            <tr>
+                                <td class="price_inner">
+                                    <!--@@include=partials/get_unit_price.html  -->
                                 </td>
-                            %end
-                        </tr>
-                    </table>
-                </div>
-                <ul class="numbers">
-                    %if property.get('rental_guarantee_rate'):
-                        <li>
-                            <span class="percentage emphasized">
-                                <strong>{{float("{0:.2f}".format(property.get('rental_guarantee_rate')))}}</strong><strong>%</strong>
-                            </span>
-                            <span class="text">{{!_('年租金<br/>收益')}}</span>
-                        </li>
-                    %elif property.get('annual_return_estimated'):
-                        <li>
-                            <span class="percentage emphasized"><strong>
-                                {{property.get('annual_return_estimated')}}
-                            </strong></span>
-                            <span class="text">{{!_('预计总<br/>年化收益率')}}</span>
-                        </li>
-                    % end
+                                %if property.get('status') == 'sold out':
+                                    <td class="soldOut">
+                                        <span>{{_('售罄')}}</span>
+                                    </td>
+                                %end
+                            </tr>
+                        </table>
+                    </div>
+                %end
 
-                    %if property.get('rental_guarantee_term'):
-                       <li>
-                            <span class="percentage emphasized">
-                                <strong>{{property.get('rental_guarantee_term')}}</strong><strong>{{_('年')}}</strong>
-                            </span>
-                            <span class="text">{{!_('包租')}}</span>
-                        </li>
-                    % elif property.get('annual_cash_return_estimated'):
-                        <li>
-                            <span class="percentage emphasized"><strong>
-                                {{property.get('annual_cash_return_estimated')}}
-                            </strong></span>
-                            <span class="text">{{!_('预计租金<br/>年化收益率')}}</span>
-                        </li>
-                    %end
-                </ul>
+                <table class="numbers">
+                    <tr>
+                        %if property.get('annual_return_estimated'):
+                            <td>
+                                <span class="percentage emphasized"><strong>
+                                    {{property.get('annual_return_estimated')}}
+                                </strong></span>
+                                <span class="text">{{!_('预计总<br/>年化收益率')}}</span>
+                            </td>
+                        % end
+
+                        %if property.get('rental_guarantee_rate'):
+                            <td>
+                                <span class="percentage emphasized">
+                                    <strong>{{str(float("{0:.2f}".format(property.get('rental_guarantee_rate')))) + '%'}}</strong>
+                                </span>
+                                <span class="text">{{!_('年租金<br/>收益')}}</span>
+                            </td>
+                        %elif property.get('annual_cash_return_estimated'):
+                            <td>
+                                <span class="percentage emphasized"><strong>
+                                    {{property.get('annual_cash_return_estimated')}}
+                                </strong></span>
+                                <span class="text">{{!_('预计租金<br/>年化收益率')}}</span>
+                            </td>
+                        %end
+                    </tr>
+                </table>
+
                 <hr/>
                 <table class="actions">
                     <tr>
@@ -827,7 +826,7 @@
                                     selected
                                     %end
                                     >
-                                    %if (country.get('slug') == 'CN'):
+                                    %if (country.get('slug') == 'CNN'):
                                         (+86)
                                     %elif (country.get('slug') == 'GB') :
                                         (+44)

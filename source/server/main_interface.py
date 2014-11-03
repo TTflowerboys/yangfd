@@ -60,7 +60,7 @@ def default(user):
         property_list = []
     else:
         property_id_list = []
-        for news_category in ("property_london", "schoolhouse_manchester"):
+        for news_category in ("primier_apartment_london", "studenthouse_sheffield"):
             property_id_list.extend(f_app.property.search({
                 "status": {"$in": ["selling", "sold out"]},
                 "news_category._id": ObjectId(f_app.enum.get_by_slug(news_category)["id"]),
@@ -80,9 +80,8 @@ def default(user):
             {
                 "category": {"$in": [
                     {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('property_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('schoolhouse_manchester')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('property_liverpool')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('primier_apartment_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('studenthouse_sheffield')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                 ]}
             }, per_page=6
         )
@@ -177,11 +176,10 @@ def news_list():
             {
                 "category": {"$in": [
                     {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('property_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('schoolhouse_manchester')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('property_liverpool')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('primier_apartment_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    {'_id': ObjectId(f_app.enum.get_by_slug('studenthouse_sheffield')["id"]), 'type': 'news_category', '_enum': 'news_category'},
                 ]}
-            }, per_page=6
+            }, per_page=0
         )
     )
     return template("news_list", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
@@ -202,7 +200,7 @@ def notice_list():
                 "category": {"$in": [
                     {'_id': ObjectId(f_app.enum.get_by_slug('announcement')["id"]), 'type': 'news_category', '_enum': 'news_category'}
                 ]}
-            }, per_page=6
+            }, per_page=0
         )
     )
     return template("notice_list", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
@@ -217,7 +215,7 @@ def guides():
                 "category": {"$in": [
                     {'_id': ObjectId(f_app.enum.get_by_slug('purchase_process')["id"]), 'type': 'news_category', '_enum': 'news_category'}
                 ]}
-            }, per_page=6
+            }, per_page=0
         )
     )
     return template("guides", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
@@ -232,7 +230,7 @@ def laws():
                 "category": {"$in": [
                     {'_id': ObjectId(f_app.enum.get_by_slug('legal_resource')["id"]), 'type': 'news_category', '_enum': 'news_category'}
                 ]}
-            }, per_page=6
+            }, per_page=0
         )
     )
     return template("laws", user=get_current_user(), country_list=get_country_list(), news_list=news_list, budget_list=get_budget_list())
@@ -508,6 +506,18 @@ def images_proxy(params):
     result = f_app.request(params["link"])
     if result.status_code == 200:
         response.set_header(b"Content-Type", b"image/png")
+        return result.content
+
+
+@f_get('/reverse_proxy', params=dict(
+    link=(str, True),
+))
+def reverse_proxy(params):
+    result = f_app.request(params["link"])
+    if result.status_code == 200:
+        ext = params["link"].split('.')[-1]
+        if ext == "js":
+            response.set_header(b"Content-Type", b"application/javascript")
         return result.content
 
 

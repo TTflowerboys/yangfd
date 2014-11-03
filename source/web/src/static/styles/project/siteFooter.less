@@ -7,14 +7,25 @@
         .clearfix();
         overflow: hidden;
         background: @footer-bg;
-        height: @footer-height;
         @media @phone {
-            display:none;
+            min-width: 0;
         }
         > footer {
             margin: 0 auto; height: 100%; width: @max-width;
+            @media @phone {
+                width: 100%;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-bottom: @support-margin-top;
+            }
             .contact {
+                @media @phone {
+                    float: none;
+                    display: inline-block;
+                }
                 float: left;
+                margin-top: @support-margin-top;
+                margin-bottom: @support-margin-top;
                 .logo {
                     margin: 40px 0 0 32px; width: 209px;
                 }
@@ -33,26 +44,40 @@
                         margin-top: 0px;
                         font-size: 14px;
                     }
-                    &.phoneAndEmail {
+                    &.phone {
                         margin-left: @content-margin-left;
-                        font-size: 14px;
+                        font-size: 16px;
+                        margin-bottom: 0px;
+                        > a {
+                            color: #dcdcdc;
+                            text-decoration: none;
+                        }
+                    }
+                    &.email {
+                        margin-left: @content-margin-left;
+                        font-size: 16px;
+                        margin-top: 0px;
+                        margin-bottom: 0px;
                         > a {
                             color: #dcdcdc;
                             text-decoration: none;
                         }
                     }
                 }
-                > h3 { margin-left: @content-margin-left; margin-top: @support-margin-top; color: #aaaaaa; font-size: 16px; margin-bottom: 0px;}
+                > h3 { margin-left: @content-margin-left; color: #aaaaaa; font-size: 16px; margin-bottom: 0px;}
             }
 
             @support-margin-top: 24px;
             .social {
+                @media @phone {
+                    display:none;
+                }
                 float: left;
-                width: 330px;
+                width: 160px;
                 height: 120px;
-                margin-left: 74px;
+                margin-left: 100px;
                 margin-top: @support-margin-top;
-                > h3 { position: absolute; margin-top: 0px; color: #aaaaaa; font-size: 16px;}
+                > h3 { margin-top: 0px; color: #aaaaaa; font-size: 16px;}
                 > img {
                     @social-icon-size: 50px;
                     @social-icon-margin: 16px;
@@ -65,7 +90,11 @@
                         width: 122px;
                     }
 
-                    &.weibo {
+                    &.weixin {
+                        margin-top: 14px;
+                    }
+
+/*                    &.weibo {
                         position: absolute;
                         margin-top: @social-icon-margin-top;
                         margin-right:@social-icon-margin;
@@ -92,14 +121,17 @@
                         margin-top: @social-icon-big-margin-top;
                         margin-left: @social-icon-size * 3 + @social-icon-margin * 3;
                         margin-right:@social-icon-margin;
-                    }
+                    }*/
                 }
             }
 
             .support {
+                @media @phone {
+                    display:none;
+                }
                 float: left;
                 margin-top: @support-margin-top;
-                margin-left: 40px;
+                margin-left: 80px;
                 min-width: 80px;
                 > h3 { color: #aaaaaa; margin-top: 0px;  margin-bottom: 30px; font-size: 16px;}
                 > a {color: #EEEEEE; text-decoration: none; font-size: 14px; margin-bottom: 12px; display: block;}
@@ -113,12 +145,23 @@
                 > a {color: #EEEEEE; text-decoration: none; font-size: 14px; margin-bottom: 12px; display: inline-block;}
             }
             .localizationChanger {
+                @media @phone {
+                    float: none;
+                    display: block;
+                    max-width:100%;
+                    margin: 0 auto;
+                }
                 float: left;
                 margin-top: @support-margin-top;
-                margin-left: 30px;
+                margin-left: 100px;
                 max-width: 96px;
                 h3 { color: #aaaaaa; margin-top: 0px; margin-bottom: 16px; font-size: 16px; }
-                select {margin-bottom: 8px;}
+                select {
+                    margin-bottom: 8px;
+                    @media @phone {
+                        width:100%;
+                    }
+                }
             }
         }
     }

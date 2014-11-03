@@ -2,6 +2,15 @@
 
     var lastItemTime
 
+    function getCurrentTotalCount() {
+        if (window.team.isPhone()) {
+            return $('#result_list').children('.houseCard_phone').length
+        }
+        else {
+            return $('#result_list').children('.houseCard').length
+        }
+    }
+
     function loadPropertyList() {
         var params = {'per_page': 5}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
@@ -29,8 +38,10 @@
             params.time = lastItemTime
         }
 
-         $('#result_list_container').show()
+        $('#result_list_container').show()
         showEmptyPlaceHolder(false)
+        $('#result #number_container').hide()
+
 
         $('#result #loadIndicator').show()
         $('#loadMore').hide()
@@ -50,8 +61,7 @@
                         }
                     })
 
-                    var currentTotalCount = $('#result_list').children().length
-                    if (resultCount > currentTotalCount) {
+                    if (resultCount > getCurrentTotalCount()) {
                         $('#loadMore').show()
                     }
                     else {
@@ -282,9 +292,13 @@
     $('#tags #budgetTag').on('click', '.toggleTag', function (event) {
 
         var $item = $(event.target)
+        var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
         $parent.find('.toggleTag').removeClass('selected')
-        $item.addClass('selected')
+
+        if (!alreadySelected) {
+            $item.addClass('selected')
+        }
 
         resetData()
         loadPropertyList()

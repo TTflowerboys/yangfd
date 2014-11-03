@@ -134,10 +134,39 @@
     }
 
     function updateUserTags(budgetId, intentionIds) {
+
+        var changed = false
+        var oldBudgetId = ''
+        if (window.budget) {
+            oldBudgetId = window.budget.id
+        }
+        if (oldBudgetId !== budgetId) {
+            changed = true
+        }
+
+        if (window.intention) {
+            var oldIntentionArray = []
+            _.each(window.intention, function (item) {
+                oldIntentionArray.push(item.id)
+            })
+            var newIntentionArray = intentionIds.split(',')
+
+            if (!_.isEmpty(_.difference(oldIntentionArray, newIntentionArray)) ||
+                !_.isEmpty(_.difference(newIntentionArray, oldIntentionArray))) {
+                changed = true
+            }
+        }
+
+        if (!changed) {
+            return;
+        }
+
         var params = {}
         if (budgetId) {
-            // cause the now cannot set budgetId to '', so if user not set budgetId, don't pass it
             params.budget = budgetId
+        }
+        else {
+            params.unset_fields = 'budget'
         }
 
         if (intentionIds) {
@@ -163,6 +192,43 @@
     function commaStringToArray(str) {
         var array = str.split(',')
         return _.without(array, '')
+    }
+
+
+    function loadIntentionDescription(callback) {
+        $.betterPost('/api/1/enum?type=intention', {})
+            .done(function (data) {
+                window.intentionDescription = data
+                callback()
+            })
+            .fail(function (ret) {
+            })
+            .always(function () {
+
+            })
+    }
+
+    function updateIntentionDescription() {
+        var callback = function () {
+            var allTagDiv = $('.houseCard_wrapper .tagDetail')
+            _.each(allTagDiv, function (tagDiv) {
+                var intentionId = $(tagDiv).attr('data-intention-id')
+                var description = ''
+                _.each(window.intentionDescription, function (oneDes) {
+                    if (oneDes.id === intentionId) {
+                        description = oneDes.description
+                    }
+                })
+                $(tagDiv).find('.description').text(description)
+            })
+        }
+
+        if (window.intentionDescription) {
+            callback()
+        }
+        else {
+            loadIntentionDescription(callback)
+        }
     }
 
     function loadPropertyListWithBudgetAndIntention(budgetType, intention) {
@@ -210,7 +276,7 @@
                             item = _.first(array)
                             item.category_budget = getBudgetById(usedBudget)
                             item.category_intention = getIntentionById(oneIntention)
-                            item.category_intention.description = window.getIntentionDescription(item.category_intention.slug)
+                            item.category_intention.description = ''
                             responseArray.push(item)
                         }
                         else {
@@ -235,10 +301,12 @@
         $.when.apply($, requestArray)
             .done(function () {
                 updatePropertyCards(responseArray)
+                updateIntentionDescription()
                 $('#suggestionHouses #loadIndicator').hide()
             })
             .fail(function () {
                 updatePropertyCards(responseArray)
+                updateIntentionDescription()
                 $('#suggestionHouses #loadIndicator').hide()
             })
             .always(function () {
@@ -342,9 +410,13 @@
         $budgetTag.on('click', '.toggleTag', function (event) {
 
             var $item = $(event.target)
+            var alreadySelected = $item.hasClass('selected')
             var $parent = $(event.target.parentNode)
             $parent.find('.toggleTag').removeClass('selected')
-            $item.addClass('selected')
+
+            if (!alreadySelected) {
+                $item.addClass('selected')
+            }
 
             loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
         })
