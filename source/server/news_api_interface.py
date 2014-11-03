@@ -23,11 +23,15 @@ logger = logging.getLogger(__name__)
     time=datetime,
     category=(list, None, "enum:news_category"),
     zipcode_index=str,
+    category_slugs=(list, None, str),
 ))
 def news_list(params):
     per_page = params.pop("per_page", 0)
     if "category" in params:
         params["category"] = {"$in": params["category"]}
+    if "category_slugs" in params:
+        category_slugs = params.pop("category_slugs")
+        params["category._id"] = {"$in": [ObjectId(f_app.enum.get_by_slug(x)["id"]) for x in category_slugs]}
     params["blog_id"] = ObjectId(f_app.common.blog_id)
 
     post_list = f_app.blog.post.search(params, per_page=per_page)
