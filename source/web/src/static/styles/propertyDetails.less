@@ -203,17 +203,22 @@
     .nav {
         margin-bottom: 64px;
         margin-top: 48px;
+
         @media @phone {
             margin-top: 0;
             margin-bottom: 0px;
             border-bottom: 0px;
             height: 44px;
+            width:100%;
+            overflow:hidden;
         }
 
         ul {
 
             @media @phone {
                 display: block;
+                height:44px;
+                background:#eee;
             }
 
             li {
@@ -234,26 +239,60 @@
     .meta {
 
         @media @phone {
-            padding: 20px;
+
         }
 
         .numbers {
+            @media @phone {
+                display:block;
+                border-bottom:1px solid #ccc;
+                padding-bottom:15px;
+                padding-top:15px;
+            }
+
             .clearfix(); margin-bottom: 16px;
             > li {
-                float: left; width: 100% / 6; border-left: 1px solid @border-color; padding-left: 8px;
-                &:first-child {
-                    border-left: none; padding-left: 0;
+                float: left; width: 100% / 5; border-right: 1px solid @border-color; padding-left: 8px;
+                @media @phone {
+                    font-size:12px;
+                    height:100%;
+                    min-height:70px;
                 }
+
+                &:first-child {
+                    @media @phone {
+                        padding-left: 8px;
+                    }
+
+                }
+
+                &:last-child {
+                    border-right:none;
+                }
+
                 strong {
                     display: block; font-size: 24px; font-weight: normal; color: @dark-text-color;
+                    @media @phone {
+                        font-size:16px;
+                    }
+
                     .unit {
-                        font-size: 12px;
+                        line-height:1;
+                        font-size:14px;
+
+                        @media @phone {
+                            font-size: 9px;
+                        }
                     }
                 }
             }
         }
         .other {
             width: 100%;
+            @media @phone {
+                margin:20px;
+            }
+
             .col-name { width: 180px; }
             .value {
                 padding-right: 16px;
