@@ -960,13 +960,15 @@ class f_property(f_app.module_base):
             for property in propertys:
                 if property and ignore_sales_comment:
                     property.pop("sales_comment", None)
-                assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+                if property and property["status"] not in ["selling", "sold out"]:
+                    assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
 
         else:
             for id, property in propertys.iteritems():
                 if property and ignore_sales_comment:
                     property.pop("sales_comment", None)
-                assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+                if property and property["status"] not in ["selling", "sold out"]:
+                    assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
 
         return propertys
 
