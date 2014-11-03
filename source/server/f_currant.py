@@ -947,7 +947,7 @@ class f_property(f_app.module_base):
 
         return str(property_id)
 
-    def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
+    def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, check_permission=True):
         ignore_sales_comment = True
         user = f_app.user.login.get()
         propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
@@ -956,15 +956,17 @@ class f_property(f_app.module_base):
             if set(["admin", "jr_admin", "sales", "jr_sales"]) & set(user_roles):
                 ignore_sales_comment = False
 
-        if ignore_sales_comment:
-            if isinstance(propertys, list):
-                for property in propertys:
-                    if property:
-                        property.pop("sales_comment", None)
-            else:
-                for id, property in propertys.iteritems():
-                    if property:
-                        property.pop("sales_comment", None)
+        if isinstance(propertys, list):
+            for property in propertys:
+                if property and ignore_sales_comment:
+                    property.pop("sales_comment", None)
+                assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+
+        else:
+            for id, property in propertys.iteritems():
+                if property and ignore_sales_comment:
+                    property.pop("sales_comment", None)
+                assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
 
         return propertys
 
