@@ -73,8 +73,19 @@ def upload_image(params):
     f.seek(0)
 
     if params["thumbnail_size"][0] > 0:
+        params["data"].file.seek(0)
+        im = f_app.storage.image_open(params["data"].file)
+        if im.format == "PNG" or im.format == "GIF":
+            background = Image.new("RGB", im.size, (255, 255, 255))
+            try:
+                background.paste(im, mask=im)
+            except:
+                background.paste(im)
+            im = background
+
         thumbnail_width, thumbnail_height = params["thumbnail_size"]
         thumbnail_ratio = float(thumbnail_width) / thumbnail_height
+
         if original_height < thumbnail_height:
             # abort(40000, logger.warning('Invalid thumbnail size: cannot be larger than width param', exc_info=False))
             if original_ratio > thumbnail_ratio:
@@ -97,6 +108,7 @@ def upload_image(params):
         else:
             # scale by thumbnail_height
             scaled_width = int(float(original_width) / original_height * thumbnail_height + 0.5)
+            im = im.resize((thumbnail_width, thumbnail_height), Image.ANTIALIAS)
             w_cut = int(float(scaled_width - thumbnail_width) // 2)
             box = (w_cut, 0, scaled_width - w_cut, thumbnail_height)
         im = im.crop(box)
@@ -116,6 +128,14 @@ def upload_image(params):
             result.update({"thumbnail": b.get_public_url(filename + "_thumbnail")})
 
         return result
+    # filename = f_app.util.uuid()
+    # b = open('/tmp/' + filename + '.jpg', 'w+')
+    # b.write(f.read())
+    # b.close()
+    # if params["thumbnail_size"][0] > 0:
+    #     b = open('/tmp/' + filename + "_thumbnail.jpg", 'w+')
+    #     b.write(f_thumbnail.read())
+    #     b.close()
 
 
 @f_api('/upload_file', params=dict(
