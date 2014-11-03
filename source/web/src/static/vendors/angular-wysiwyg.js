@@ -79,7 +79,8 @@ angular.module('wysiwyg.module',[])
 			textareaPlaceholder: '@textareaPlaceholder',
 			textareaClass: '@textareaClass',
 			textareaRequired: '@textareaRequired',
-			textareaId: '@textareaId',
+            textareaId: '@textareaId',
+            language: '=language'
 		},
 		replace: true,
 		require: 'ngModel',
@@ -279,8 +280,8 @@ angular.module('wysiwyg.module',[])
 
 			scope.format('enableobjectresizing', true);
 			scope.format('styleWithCSS', true);
-			scope.$watch('value',function(newValue){
-				textarea.html(newValue)
+			scope.$watch('language',function(newValue){
+                textarea.html(scope.value)
 			})
         }
     };
