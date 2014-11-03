@@ -12,6 +12,8 @@ $(function () {
         if (lastItemTime) {
             param.time = lastItemTime
         }
+        //category_slugs
+        param.category_slugs = $('#contentType').text()
 
         $.betterPost('/api/1/news/search', param)
             .done(function (data) {
