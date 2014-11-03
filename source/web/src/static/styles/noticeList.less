@@ -44,6 +44,11 @@
                 float:right;
                 font-size:12px;
                 color:#666;
+
+                @media @phone {
+                    font-size:10px;
+                }
+
             }
 
             @media @phone {
@@ -52,4 +57,31 @@
 
         }
     }
+
+
+
+    .loadIndicator {
+        margin-top: 60px;
+        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    .loadMore {
+        margin-top: 40px;
+        margin-bottom: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 132px;
+        display:block;
+
+        @media @phone {
+            margin-top:20px;
+            margin-bottom:40px;
+            width:auto;
+        }
+
+    }
+
 }

@@ -87,6 +87,7 @@ def property_search(user, params):
     logger.debug(params)
     property_list = f_app.property.search(params, per_page=per_page, count=True)
     if random and property_list["content"]:
+        logger.debug(property_list["content"])
         import random
         property_list["content"] = [random.choice(property_list["content"])]
     property_list['content'] = f_app.property.output(property_list['content'])
@@ -315,7 +316,13 @@ def property_edit(property_id, user, params):
 
 @f_api('/property/<property_id>')
 def property_get(property_id):
-    return f_app.property.output([property_id])[0]
+    property = f_app.property.output([property_id])[0]
+    if property["status"] not in ["selling", "sold out"]:
+        user = f_app.user.login.get()
+        if user:
+            user = f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+    return property
 
 
 @f_api('/property/<property_id>/edit/sales_comment', params=dict(
@@ -350,3 +357,31 @@ def mortgage_calculate(params):
             total=repayment * params["term"] * 12,
         ),
     )
+
+
+@f_api("/property/walkscore", params=dict(
+    latitude=float,
+    longitude=float,
+    property_id=ObjectId,
+))
+def property_walkscore(params):
+    """
+    parse ``latitude`` and ``longitude`` or just ``property_id`` to get the location walkscore
+    """
+    if "property_id" in params:
+        property = f_app.property.get(params["property_id"])
+        if "latitude" not in property or "longitude" not in property:
+            abort(40088, "No latitude and longitude in property")
+        latitude = property["latitude"]
+        longitude = property["longitude"]
+    else:
+        if "latitude" not in params or "longitude" not in params:
+            abort(40000, "No latitude and longitude")
+        latitude = params["latitude"]
+        longitude = params["longitude"]
+    url = "http://api.walkscore.com/score?format=json&lat=%s&lon=%s&wsapikey=%s" % (latitude, longitude, f_app.common.walkscore_api_key)
+    result = f_app.request.get(url, format="json", retry=3)
+    if result["status"] in [1, 2]:
+        return {"walkscore": result.get("walkscore", "N/A"), "ws_link": result.get("ws_link", "")}
+    else:
+        abort(40088, "failed to get walkscore and walkscore api status is " + str(result["status"]))
