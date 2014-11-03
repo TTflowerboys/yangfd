@@ -87,6 +87,7 @@ def property_search(user, params):
     logger.debug(params)
     property_list = f_app.property.search(params, per_page=per_page, count=True)
     if random and property_list["content"]:
+        logger.debug(property_list["content"])
         import random
         property_list["content"] = [random.choice(property_list["content"])]
     property_list['content'] = f_app.property.output(property_list['content'])
@@ -315,7 +316,13 @@ def property_edit(property_id, user, params):
 
 @f_api('/property/<property_id>')
 def property_get(property_id):
-    return f_app.property.output([property_id])[0]
+    property = f_app.property.output([property_id])[0]
+    if property["status"] not in ["selling", "sold out"]:
+        user = f_app.user.login.get()
+        if user:
+            user = f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+    return property
 
 
 @f_api('/property/<property_id>/edit/sales_comment', params=dict(
