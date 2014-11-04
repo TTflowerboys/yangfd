@@ -19,23 +19,17 @@
             per_page: $scope.perPage
         }
 
-        api.getAll({params: params, errorMessage: true}).success(onGetList)
-
-        $scope.refreshList = function () {
-            api.getAll({params: params, errorMessage: true}).success(onGetList)
+        $scope.searchProperty = function () {
+            api.getAll({
+                params: {
+                    status: $scope.selected.status,
+                    country: $scope.selected.country,
+                    city: $scope.selected.city,
+                    property_type: $scope.selected.property_type,
+                    per_page: $scope.perPage
+                }, errorMessage: true
+            }).success(onGetList)
         }
-
-        $scope.$watch('selected.status', function (newValue, oldValue) {
-            // Ignore initial setup.
-            if (newValue === oldValue) {
-                return;
-            }
-
-            params.status = newValue
-            $scope.currentPageNumber = 1
-            $scope.pages = []
-            api.getAll({params: params}).success(onGetList)
-        }, true)
 
         $scope.onRemove = function (item) {
             fctModal.show('Do you want to remove it?', undefined, function () {
