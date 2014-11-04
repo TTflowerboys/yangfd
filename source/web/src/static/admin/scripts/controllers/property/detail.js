@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlPropertyDetail($scope, api, $stateParams, misc) {
+    function ctrlPropertyDetail($scope, api, $stateParams, misc, $state) {
         $scope.api = api
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
 
@@ -30,7 +30,6 @@
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {
-                angular.extend(currentItem, data.val)
                 $state.go('^')
             })['finally'](function () {
                 $scope.loading = false
@@ -42,7 +41,6 @@
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {
-                angular.extend(currentItem, data.val)
                 $state.go('^')
             })['finally'](function () {
                 $scope.loading = false
