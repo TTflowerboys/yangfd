@@ -24,7 +24,8 @@ angular.module('app')
                                 width_limit: scope.widthLimit || 0,
                                 ratio: scope.ratio || 0,
                                 thumbnail_size: scope.thumbnailSize || '0,0',
-                                filename: file.name
+                                filename: file.name,
+                                ignoreLoadingBar: true
                             }
                         })
                             .success(function (data, status, headers, config) {

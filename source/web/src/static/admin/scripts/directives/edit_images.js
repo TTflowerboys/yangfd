@@ -41,7 +41,8 @@ angular.module('app')
                                 ratio: scope.ratio || 0,
                                 thumbnail_size: scope.thumbnailSize || '0,0',
                                 filename: file.name
-                            }
+                            },
+                            ignoreLoadingBar: true
                         })
                             .success(function (data, status, headers, config) {
                                 for (var key in scope.images) {
