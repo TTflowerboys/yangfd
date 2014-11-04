@@ -1,9 +1,9 @@
 <script id="newsCard_template" type="text/template">
     <div class="newsCard">
         {_if (news.images && news.images.length) {_}
-        <a href="/news/{=news.id=}"><img alt="" src="{=team.convertToHttps({'link':news.images[0], 'news_id':news.id, 'thumbnail':true})=}"/></a>
+        <a href="/news/{=news.id=}"><img alt="" src="{=team.convertToHttps({'link':news.images[0], 'news_id':news.id, 'thumbnail':true})=}" onerror="window.project.onImgError(this);"/></a>
         {_} else {_}
-        <a href="/news/{=news.id=}"><img alt="" src="/static/images/placeholder/news.png"/></a>
+        <a href="/news/{=news.id=}"><img alt="" class="withPlaceholder"/></a>
         {_}_}
         <div class="description">
             <h3 class="title"> <a href="/news/{=news.id=}">{=news.title=}</a></h3>

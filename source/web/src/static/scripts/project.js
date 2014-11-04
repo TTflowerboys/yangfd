@@ -44,9 +44,9 @@
             if(defaultSrc){
                 img.src = defaultSrc
             }else{
-                img.src = '/static/images/placeholder/property.jpg'
+                img.src = ''
+                img.classList.add('withPlaceholder')
             }
-
             return true;
         }
     }
