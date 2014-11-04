@@ -10,16 +10,16 @@
 <!--@@block = main-->
 <form class="box intentionPage" name="intentionForm">
     <div class="header">
-        <h1>还差最后一步就可以看到为您推荐的投资机会了！</h1>
+        <h1>{{_('还差最后一步就可以看到为您推荐的投资机会了！')}}</h1>
         <div class="action">
-            <a href="/">跳过 &gt;</a>
-            <button type="submit" disabled>确定</button>
+            <a href="/">{{_('跳过')}}</a>
+            <button type="submit" disabled>{{_('确定')}}</button>
         </div>
+        <a class="skip_phone ghostButton" href="/">{{_('跳过')}}</a>
     </div>
     <hr/>
     <div class="row budget">
         <label class="budget">{{_('您的预算')}}
-            <br/>
             (
             <!--@@include=partials/current_currency.html -->
             ):&nbsp;</label>
@@ -32,6 +32,9 @@
             </div>
     </div>
     <!-- @@include=partials/intention_tabs.html -->
+
+    <button class="submit_phone"  type="submit" disabled>{{_('确定')}}</button>
+
 </form>
 <!--@@close-->
 <!--@@block = scripts-->
