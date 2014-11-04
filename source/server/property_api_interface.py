@@ -375,12 +375,19 @@ def mortgage_calculate(params):
     latitude=float,
     longitude=float,
     property_id=ObjectId,
+    zipcode=("i18n", None, str),
 ))
 def property_walkscore(params):
     """
-    parse ``latitude`` and ``longitude`` or just ``property_id`` to get the location walkscore
+    parse ``zipcode`` or ``latitude`` and ``longitude`` or just ``property_id``to get the location walkscore
     """
-    if "property_id" in params:
+    if "zipcode" in params:
+        zipcode = f_app.zipcode.get_by_zipcode(f_app.i18n.match_i18n(params["zipcode"]))
+        if not zipcode:
+            abort(40088, "failed to get walkscore because zipcode doesnot exist")
+        latitude = zipcode["latitude"]
+        longitude = zipcode["longitude"]
+    elif "property_id" in params:
         property = f_app.property.get(params["property_id"])
         if "latitude" not in property or "longitude" not in property:
             abort(40088, "No latitude and longitude in property")

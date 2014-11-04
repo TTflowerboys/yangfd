@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlPropertyDetail($scope, api, $stateParams, misc) {
+    function ctrlPropertyDetail($scope, api, $stateParams, misc, $state) {
         $scope.api = api
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
 
@@ -23,6 +23,28 @@
                         $scope.item = res
                     }
                 })
+        }
+
+        $scope.submitForAccept = function () {
+            api.update({status: 'selling', id: $scope.item.id}, {
+                successMessage: 'Update successfully',
+                errorMessage: 'Update failed'
+            }).success(function (data) {
+                $state.go('^')
+            })['finally'](function () {
+                $scope.loading = false
+            })
+        }
+
+        $scope.submitForReject = function () {
+            api.update({status: 'rejected', id: $scope.item.id}, {
+                successMessage: 'Update successfully',
+                errorMessage: 'Update failed'
+            }).success(function (data) {
+                $state.go('^')
+            })['finally'](function () {
+                $scope.loading = false
+            })
         }
     }
 

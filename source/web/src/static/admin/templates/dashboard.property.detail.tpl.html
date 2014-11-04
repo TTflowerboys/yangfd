@@ -585,7 +585,7 @@
                     <div class="row" ng-if="!salesCommentEnabled">
                         <div class="form-group col-sm-3">
                             <div class="controls">
-                                <button class="btn btn-private" type="button" ng-click="editSalesComment()">修改</button>
+                                <button class="btn btn-private" type="button" ng-click="editSalesComment()">{%$root.i18n('修改')%}</button>
 
                             </div>
                         </div>
@@ -593,14 +593,20 @@
                     <div class="row" ng-if="salesCommentEnabled">
                         <div class="form-group col-sm-12">
                             <div class="controls">
-                                <button class="btn btn-private" type="button" ng-click="updateSalesComment()">提交</button>
-                                <button class="btn btn-private" type="button" ng-click="cancelEditSalesComment()">取消</button>
+                                <button class="btn btn-private" type="button" ng-click="updateSalesComment()">{%$root.i18n('提交')%}</button>
+                                <button class="btn btn-private" type="button" ng-click="cancelEditSalesComment()">{%$root.i18n('取消')%}</button>
 
                             </div>
                         </div>
                     </div>
                 </tab>
             </tabset>
+            <div ng-if="hasPermission('admin,jr_admin,operation') && salesCommentEnabled===undefined && item.status==='not reviewed'" >
+                <button class=" btn btn-private" type="button" ng-click="submitForAccept()">{%$root.i18n('批准审核')%}
+                </button>
+                <button class=" btn btn-danger" type="button" ng-click="submitForReject()">{%$root.i18n('拒绝审核')%}
+                </button>
+            </div>
         </div>
     </form>
 </div>
