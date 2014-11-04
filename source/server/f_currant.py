@@ -1345,7 +1345,7 @@ class f_zipcode(f_app.module_base):
         params.setdefault("time", datetime.utcnow())
         assert all(("zipcode" in params,
                     "country" in params,
-                    not self.search({"country": country, "zipcode": zipcode, "status": {"$ne": "deleted"}})
+                    not self.search({"country": params["country"], "zipcode": params["zipcode"], "status": {"$ne": "deleted"}})
             )), abort(40000, params, exc_info=False)
 
         with f_app.mongo() as m:
