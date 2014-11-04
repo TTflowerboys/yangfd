@@ -16,6 +16,7 @@ angular.module('app')
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
+                        scope.image = ''
                         $upload.upload({
                             url: '/api/1/upload_image',
                             file: file,
@@ -25,7 +26,8 @@ angular.module('app')
                                 ratio: scope.ratio || 0,
                                 thumbnail_size: scope.thumbnailSize || '0,0',
                                 filename: file.name
-                            }
+                            },
+                            ignoreLoadingBar: true
                         })
                             .success(function (data, status, headers, config) {
                                 scope.image = data.val.url
@@ -33,7 +35,7 @@ angular.module('app')
                     }
                 }
                 scope.removeImage = function () {
-                    scope.image = ''
+                    scope.image = undefined
                 }
                 scope.isOurImage = function (img) {
                     if (_.isEmpty(img)) {
