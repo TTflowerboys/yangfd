@@ -60,13 +60,10 @@ def upload_image(params):
         if params.get("ratio"):
             width, height = im.size
 
-        if width <= 1280:
-            if width > params["width_limit"]:
-                temp_width, temp_height = im.size
-                temp_ratio = float(temp_width) / temp_height
-                im = im.resize((params["width_limit"], int(params["width_limit"] / temp_ratio)), Image.ANTIALIAS)
-        else:
-            im = im.resize((1280, 1280 * height // width), Image.ANTIALIAS)
+        if width > params["width_limit"]:
+            temp_width, temp_height = im.size
+            temp_ratio = float(temp_width) / temp_height
+            im = im.resize((params["width_limit"], int(params["width_limit"] / temp_ratio)), Image.ANTIALIAS)
 
     f = StringIO()
     im.save(f, "JPEG", quality=95)
