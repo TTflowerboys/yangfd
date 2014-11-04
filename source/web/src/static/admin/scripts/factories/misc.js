@@ -92,7 +92,6 @@ angular.module('app')
                         if (oldJson[key]._i18n_unit !== undefined) {
                             newJson[key] = angular.copy(oldJson[key])
                             newJson[key].value = '0'
-                            delete newJson[key]._i18n_unit
                             delete newJson[key].type
                             delete newJson[key].value_float
                             addToResult(key, newJson[key])
@@ -120,12 +119,10 @@ angular.module('app')
                         var obj = newJson[key]
                         if (obj._i18n !== undefined) {
                             if (!angular.equals(newJson[key], oldJson[key])) {
-                                delete newJson[key]._i18n
                                 addToResult(key, newJson[key])
                             }
                         } else if (obj._i18n_unit !== undefined) {
                             if (!angular.equals(newJson[key], oldJson[key])) {
-                                delete newJson[key]._i18n_unit
                                 delete newJson[key].value_float
                                 delete newJson[key].type
                                 addToResult(key, newJson[key])
