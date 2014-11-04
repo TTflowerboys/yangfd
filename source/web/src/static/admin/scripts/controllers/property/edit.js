@@ -128,6 +128,16 @@
                 $scope.loading = false
             })
         }
+
+        $scope.submitForAccept = function ($event, form) {
+            $scope.item.status = 'selling'
+            $scope.submit($event, form)
+        }
+
+        $scope.submitForReject = function ($event, form) {
+            $scope.item.status = 'rejected'
+            $scope.submit($event, form)
+        }
     }
 
     angular.module('app').controller('ctrlPropertyEdit', ctrlPropertyEdit)

@@ -24,6 +24,30 @@
                     }
                 })
         }
+
+        $scope.submitForAccept = function () {
+            api.update({status: 'selling', id: $scope.item.id}, {
+                successMessage: 'Update successfully',
+                errorMessage: 'Update failed'
+            }).success(function (data) {
+                angular.extend(currentItem, data.val)
+                $state.go('^')
+            })['finally'](function () {
+                $scope.loading = false
+            })
+        }
+
+        $scope.submitForReject = function () {
+            api.update({status: 'rejected', id: $scope.item.id}, {
+                successMessage: 'Update successfully',
+                errorMessage: 'Update failed'
+            }).success(function (data) {
+                angular.extend(currentItem, data.val)
+                $state.go('^')
+            })['finally'](function () {
+                $scope.loading = false
+            })
+        }
     }
 
     angular.module('app').controller('ctrlPropertyDetail', ctrlPropertyDetail)
