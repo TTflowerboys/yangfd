@@ -20,7 +20,7 @@
                 <ul class="rslides">
                     % for ad in homepage_ad_list:
                         <li>
-                            <div class="img" style="background:url('/image/fetch?link={{quote_plus(_i18n(ad.get('image', '')))}}&content_id={{ad.get('id')}}') no-repeat;background-size: 100% 100%;">
+                            <div class="img" style="background:url('/image/fetch?link={{quote_plus(_i18n(ad.get('image', '')))}}&content_id={{ad.get('id')}}') no-repeat;background-size: cover;">
                                 <div class="img_shadow"></div>
                             </div>
                             <div class="imageText_table">
