@@ -1294,6 +1294,109 @@ class f_report(f_app.module_base):
 f_report()
 
 
+class f_zipcode(f_app.module_base):
+    zipcode_database = "zipcodes"
+
+    def __init__(self):
+        f_app.module_install("zipcode", self)
+        f_app.dependency_register("pymongo", race="python")
+
+    def get_database(self, m):
+        return getattr(m, self.zipcode_database)
+
+    @f_cache("zipcode")
+    def get(self, zipcode_id_or_list, force_reload=False, ignore_nonexist=False):
+        def _format_each(zipcode):
+            zipcode["id"] = str(zipcode.pop("_id"))
+            return zipcode
+
+        if isinstance(zipcode_id_or_list, (tuple, list, set)):
+            result = {}
+
+            with f_app.mongo() as m:
+                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(zipcode_id) for zipcode_id in zipcode_id_or_list]}, "status": {"$ne": "deleted"}}))
+
+            if not force_reload and len(result_list) < len(zipcode_id_or_list) and not ignore_nonexist:
+                found_list = map(lambda zipcode: str(zipcode["_id"]), result_list)
+                abort(40400, logger.warning("Non-exist zipcode:", filter(lambda zipcode_id: zipcode_id not in found_list, zipcode_id_or_list), exc_info=False))
+            elif ignore_nonexist:
+                logger.warning("Non-exist zipcode:", filter(lambda zipcode_id: zipcode_id not in found_list, zipcode_id_or_list), exc_info=False)
+
+            for zipcode in result_list:
+                result[zipcode["id"]] = _format_each(zipcode)
+
+            return result
+
+        else:
+            with f_app.mongo() as m:
+                result = self.get_database(m).find_one({"_id": ObjectId(zipcode_id_or_list), "status": {"$ne": "deleted"}})
+
+                if result is None:
+                    if not force_reload and not ignore_nonexist:
+                        abort(40400, logger.warning("Non-exist zipcode:", zipcode_id_or_list, exc_info=False))
+                    elif ignore_nonexist:
+                        logger.warning("Non-exist zipcode:", zipcode_id_or_list, exc_info=False)
+                    return None
+
+            return _format_each(result)
+
+    def add(self, params):
+        params.setdefault("status", "new")
+        params.setdefault("time", datetime.utcnow())
+        assert all(("zipcode" in params,
+                    "country" in params,
+                    not self.search({"country": country, "zipcode": zipcode, "status": {"$ne": "deleted"}})
+            )), abort(40000, params, exc_info=False)
+
+        with f_app.mongo() as m:
+            zipcode_id = self.get_database(m).insert(params)
+
+        return str(zipcode_id)
+
+    def output(self, zipcode_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
+        zipcodes = self.get(zipcode_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        return zipcodes
+
+    def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
+        params.setdefault("status", {"$ne": "deleted"})
+        if sort is not None:
+            try:
+                sort_field, sort_orientation = sort
+            except:
+                abort(40000, logger.warning("sort param not well in format:", sort))
+
+        else:
+            sort_field = sort_orientation = None
+
+        zipcode_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)["content"]
+
+        return zipcode_id_list
+
+    def get_by_zipcode(self, zipcode):
+        id_list = self.search({"zipcode": zipcode, "status": {"$ne": "deleted"}})
+        if id_list:
+            return self.output(id_list)[0]
+        else:
+            return None
+
+    def remove(self, zipcode_id):
+        self.update_set(zipcode_id, {"status": "deleted"})
+
+    def update(self, zipcode_id, params):
+        with f_app.mongo() as m:
+            self.get_database(m).update(
+                {"_id": ObjectId(zipcode_id)},
+                params,
+            )
+        zipcode = self.get(zipcode_id, force_reload=True)
+        return zipcode
+
+    def update_set(self, zipcode_id, params):
+        return self.update(zipcode_id, {"$set": params})
+
+f_zipcode()
+
+
 class f_currant_util(f_util):
     def parse_budget(self, budget):
         if isinstance(budget, six.string_types) or isinstance(budget, ObjectId):
