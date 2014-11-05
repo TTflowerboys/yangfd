@@ -4,7 +4,7 @@
         <span class="btn-group">
             <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
             </button>
-            <button ng-if="item.status !== 'not reviewed'" class="btn" ng-click="$state.go('^.edit',{id:item.id})">
+            <button ng-if="item.status !== 'not reviewed'" class="btn" ng-click="$state.go('^.edit',{id:$stateParams.id})">
                 <span class="fa fa-edit"></span> {%$root.i18n('编辑')%}
             </button>
         </span>
@@ -490,24 +490,48 @@
                                     <thead>
                                         <tr>
                                             <th>{%$root.i18n('户型名')%}</th>
-                                            <th>{%$root.i18n('居室数')%}</th>
-                                            <th>{%$root.i18n('客厅数')%}</th>
-                                            <th>{%$root.i18n('卫生间数')%}</th>
-                                            <th>{%$root.i18n('厨房数')%}</th>
-                                            <th>{%$root.i18n('面积')%}</th>
-                                            <th>{%$root.i18n('户型总价')%}</th>
+                                            <th>{%$root.i18n('结构')%}</th>
+                                            <th>{%$root.i18n('面积与价格')%}</th>
+                                            <th>{%$root.i18n('户型描述')%}</th>
                                             <th>{%$root.i18n('户型图')%}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="main_type in item.main_house_types">
                                             <td>{%main_type.name[userLanguage.value]%}</td>
-                                            <td>{%main_type.bedroom_count%}</td>
-                                            <td>{%main_type.living_room_count%}</td>
-                                            <td>{%main_type.bathroom_count%}</td>
-                                            <td>{%main_type.kitchen_count%}</td>
-                                            <td>{%main_type.space.value | number : 2%} {%main_type.space.unit%}</td>
-                                            <td>{%main_type.total_price.value | number : 2%} {%main_type.total_price.unit%}</td>
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        <td>{%$root.i18n('居室数')%}</td>
+                                                        <td>{%main_type.bedroom_count%}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{%$root.i18n('客厅数')%}</td>
+                                                        <td>{%main_type.living_room_count%}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{%$root.i18n('卫生间数')%}</td>
+                                                        <td>{%main_type.bathroom_count%}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{%$root.i18n('厨房数')%}</td>
+                                                        <td>{%main_type.kitchen_count%}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        <td>{%$root.i18n('面积')%}</td>
+                                                        <td>{%main_type.space.value | number : 2%} {%main_type.space.unit%}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{%$root.i18n('户型总价')%}</td>
+                                                        <td>{%main_type.total_price.value | number : 2%} {%main_type.total_price.unit%}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td>{%main_type.description[userLanguage.value]%}</td>
                                             <td>
                                                 <img class="img-thumbnail" ng-src="{%main_type.floor_plan[userLanguage.value]%} ">
                                             </td>
@@ -601,7 +625,7 @@
                     </div>
                 </tab>
             </tabset>
-            <div ng-if="hasPermission('admin,jr_admin,operation') && salesCommentEnabled===undefined && item.status==='not reviewed'" >
+            <div ng-if="hasPermission('admin,jr_admin,operation') && salesCommentEnabled===undefined && item.status==='not reviewed'">
                 <button class=" btn btn-private" type="button" ng-click="submitForAccept()">{%$root.i18n('批准审核')%}
                 </button>
                 <button class=" btn btn-danger" type="button" ng-click="submitForReject()">{%$root.i18n('拒绝审核')%}
