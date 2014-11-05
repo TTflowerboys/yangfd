@@ -957,20 +957,43 @@ class f_property(f_app.module_base):
                 ignore_sales_comment = False
 
         if isinstance(propertys, list):
+            new_properties = []
             for property in propertys:
-                if property and ignore_sales_comment:
-                    property.pop("sales_comment", None)
-                if property and property["status"] not in ["selling", "sold out"]:
-                    assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+                if isinstance(property, dict):
+                    if "target_property_id" in property:
+                        target_property_id = property.pop("target_property_id")
+                        target_property = f_app.property.output([target_property_id])[0]
+                        unset_fields = property.pop("unset_fields", [])
+                        unset_fields.append("id")
+                        target_property.update(property)
+                        for i in unset_fields:
+                            target_property.pop(i, None)
+                        property = target_property
+                    if ignore_sales_comment:
+                        property.pop("sales_comment", None)
+                    if property["status"] not in ["selling", "sold out"]:
+                        assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+                new_properties.append(property)
 
         else:
+            new_properties = {}
             for id, property in propertys.iteritems():
-                if property and ignore_sales_comment:
-                    property.pop("sales_comment", None)
-                if property and property["status"] not in ["selling", "sold out"]:
-                    assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
-
-        return propertys
+                if isinstance(property, dict):
+                    if "target_property_id" in property:
+                        target_property_id = property.pop("target_property_id")
+                        target_property = f_app.property.output([target_property_id])[0]
+                        unset_fields = property.pop("unset_fields", [])
+                        unset_fields.append("id")
+                        target_property.update(property)
+                        for i in unset_fields:
+                            target_property.pop(i, None)
+                        property = target_property
+                    if ignore_sales_comment:
+                        property.pop("sales_comment", None)
+                    if property["status"] not in ["selling", "sold out"]:
+                        assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+                new_properties[id] = property
+        return new_properties
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False):
         f_app.util.process_search_params(params)
@@ -1345,8 +1368,7 @@ class f_zipcode(f_app.module_base):
         params.setdefault("time", datetime.utcnow())
         assert all(("zipcode" in params,
                     "country" in params,
-                    not self.search({"country": params["country"], "zipcode": params["zipcode"], "status": {"$ne": "deleted"}})
-            )), abort(40000, params, exc_info=False)
+                    not self.search({"country": params["country"], "zipcode": params["zipcode"], "status": {"$ne": "deleted"}}))), abort(40000, params, exc_info=False)
 
         with f_app.mongo() as m:
             zipcode_id = self.get_database(m).insert(params)
