@@ -121,6 +121,7 @@ property_params = dict(
     latitude=float,
     longitude=float,
     reality_images=("i18n", None, list, None, str),
+    cover=("i18n", None, str),
     videos=("i18n", None, list, None, str),
     surroundings_images=("i18n", None, list, None, str),
     property_price_type="enum:property_price_type",
