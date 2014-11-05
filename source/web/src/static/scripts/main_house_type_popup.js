@@ -31,7 +31,8 @@
             if(description===''){
                 popup.find('.main_house_type_info .description').hide()
             }else{
-                popup.find('.main_house_type_info .description .value').val(description)
+                popup.find('.main_house_type_info .description').show()
+                $(popup.find('.main_house_type_info .description .value')).text(description)
             }
 
             popup.show()
