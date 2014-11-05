@@ -774,7 +774,13 @@
         select { vertical-align: middle; font-size: @input-size; width: 100%; color: @input-color; }
         button { width: 100%; margin: 16px 0; padding: 16px 0; line-height: 1; font-size: 16px; }
         hr { margin: 8px 0; }
-        .contact { color: @red; font-size: 16px; text-align: center; padding: 16px 0; }
+        .contact {
+            color: @red; font-size: 24px; text-align: center; padding: 16px 0;
+            a{
+                text-decoration: none;
+                color: @red;
+            }
+        }
         .inputAddOn { position: relative;
             input { padding-right: 32px; }
             .addOn { position: absolute; right: 0; top: 0; font-size: @input-size; line-height: @input-height;
