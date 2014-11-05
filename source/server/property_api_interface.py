@@ -160,6 +160,7 @@ property_params = dict(
         total_price="i18n:currency",
         floor_plan=("i18n", None, str),
         building_area=("i18n:area", None, "meter ** 2, foot ** 2"),
+        description=("i18n", None, str),
     )),
     opening_time=("i18n", None, str),
     completion_time=("i18n", None, str),
