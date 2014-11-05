@@ -16,18 +16,15 @@
 
         var params = {
             status: $scope.selected.status,
+            country: $scope.selected.country,
+            city: $scope.selected.city,
+            property_type: $scope.selected.property_type,
             per_page: $scope.perPage
         }
 
         $scope.searchProperty = function () {
             api.getAll({
-                params: {
-                    status: $scope.selected.status,
-                    country: $scope.selected.country,
-                    city: $scope.selected.city,
-                    property_type: $scope.selected.property_type,
-                    per_page: $scope.perPage
-                }, errorMessage: true
+                params: params, errorMessage: true
             }).success(onGetList)
         }
 
