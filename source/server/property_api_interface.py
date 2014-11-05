@@ -325,7 +325,7 @@ def property_get(property_id):
 
     if "target_property_id" in property:
         target_property_id = property.pop("target_property_id")
-        target_property = f_app.property.output([property_id])[0]
+        target_property = f_app.property.output([target_property_id])[0]
         unset_fields = property.pop("unset_fields", [])
         unset_fields.append("id")
         target_property.update(property)
