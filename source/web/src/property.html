@@ -71,7 +71,7 @@
                     % if property.get('longitude') and property.get('latitude'):
                         % long = property.get('longitude')
                         % lat = property.get('latitude')
-                        <a href="https://ditu.google.cn/maps/?q={{long}},{{lat}}&z=14" target="_blank"
+                        <a href="https://ditu.google.cn/maps/?q={{lat}},{{long}}&z=14" target="_blank"
                            class="item" data-tab-name="map">
                             <img onerror="window.project.onImgError(this);" id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;" width="800" height="533"/>
                         </a>
@@ -357,7 +357,7 @@
                                 % for index,item in enumerate(property.get('main_house_types')) :
                                     % if item:
                                         <li class="item{{index}}">
-                                            <a href="javascript:window.openMainHouseType(null, '/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8'))}}&property_id={{property.get('id','')}}','{{index}}')" target="_blank">
+                                            <a href="javascript:window.openMainHouseType(null, '{{index}}','/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8'))}}&property_id={{property.get('id',_('楼盘户型'))}}','{{item.get('name','')}}','{{item.get('description','')}}')" target="_blank">
                                             <div style="position:relative;">
                                                     <img src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                                          alt="" onerror="window.project.onImgError(this);"/>
@@ -755,7 +755,7 @@
                                 <span class="percentage emphasized"><strong>
                                     {{property.get('annual_cash_return_estimated')}}
                                 </strong></span>
-                                <span class="text">{{!_('预计租金<br/>年化收益率')}}</span>
+                                <span class="text">{{!_('预估现金<br/>年化收益率')}}</span>
                             </td>
                         %end
                     </tr>
@@ -1034,7 +1034,7 @@
                  var latitude = $propertyMap.attr('data-latitude')
                  var url = 'https://maps.googleapis.com/maps/api/staticmap'
                  if ($propertyMap.get(0).src.indexOf(url) === 0) { return }
-                 var result = team.setQuery('center', longitude + ',' + latitude, url)
+                 var result = team.setQuery('center', latitude + ',' + longitude, url)
                  result = team.setQuery('zoom', 15, result)
                  result = team.setQuery('size', '640x384', result)
                  result = team.setQuery('markers', longitude + ',' + latitude, result)

@@ -16,7 +16,7 @@ angular.module('app')
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
-                        scope.image = ''
+                        scope.image = undefined
                         $upload.upload({
                             url: '/api/1/upload_image',
                             file: file,
@@ -35,7 +35,7 @@ angular.module('app')
                     }
                 }
                 scope.removeImage = function () {
-                    scope.image = undefined
+                    scope.image = ''
                 }
                 scope.isOurImage = function (img) {
                     if (_.isEmpty(img)) {
