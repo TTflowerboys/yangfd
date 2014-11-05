@@ -101,7 +101,7 @@
                 return
             }
             $scope.loading = true
-            api.update(angular.extend(changed, {id: $scope.item.id}), {
+            api.update(angular.extend(changed, {id: $stateParams.id}), {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {
@@ -118,7 +118,7 @@
         }
 
         $scope.makeStatusToDraft = function () {
-            api.update({status: 'draft', id: $scope.item.id}, {
+            api.update({status: 'draft', id: $stateParams.id}, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {

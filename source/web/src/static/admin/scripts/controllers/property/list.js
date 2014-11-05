@@ -22,7 +22,15 @@
             per_page: $scope.perPage
         }
 
+        function updateParams(){
+            params.status = $scope.selected.status
+            params.country = $scope.selected.country
+            params.city = $scope.selected.city
+            params.property_type = $scope.selected.property_type
+        }
+
         $scope.searchProperty = function () {
+            updateParams()
             api.getAll({
                 params: params, errorMessage: true
             }).success(onGetList)
