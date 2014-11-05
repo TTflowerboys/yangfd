@@ -14,10 +14,19 @@
     .main_house_type {
 
         &_header {
-            text-align: right;
-            padding-top: 14px;
-            padding-bottom: 14px;
-            padding-right: 14px;
+            padding-top: 25px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        &_name {
+            display: inline;
+        }
+
+        &_close{
+            float: right;
+            margin-top: 10px;
         }
 
         /* Center the wrapper(May not supported in IE8):http://stackoverflow.com/questions/2005954/center-element-with-positionfixed */
@@ -57,11 +66,11 @@
         &_info {
             float: left;
             width: 30%;
-            padding: 30px 20px;
+            padding: 20px 20px;
 
             .table_wrapper {
                 width: 100%;
-                padding-bottom: 30px;
+                padding-bottom: 20px;
                 border-bottom: 1px solid @border-color;
             }
 
@@ -78,10 +87,10 @@
 
             }
 
-            .price {
+            .price{
                 width: 100%;
-                padding-top: 30px;
-                padding-bottom: 30px;
+                padding-top: 20px;
+                padding-bottom: 20px;
                 border-bottom: 1px solid @border-color;
 
                 .name { display: inline; font-size: 18px; margin-right: 16px; }
@@ -93,10 +102,10 @@
                 .jcarousel-control-next { right: 0; }
             }
 
-            .space {
+            .space{
                 width: 100%;
-                padding-top: 30px;
-                padding-bottom: 30px;
+                padding-top: 20px;
+                padding-bottom: 20px;
                 border-bottom: 1px solid @border-color;
 
                 .name { display: inline; font-size: 18px; margin-right: 16px; }
@@ -106,6 +115,16 @@
                 .jcarousel-wrapper { padding-left: 24px; padding-right: 24px; border: none; }
                 .jcarousel-control-prev { left: 0; }
                 .jcarousel-control-next { right: 0; }
+            }
+
+            .description {
+                width: 100%;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid @border-color;
+
+                .name { display: block; font-size: 18px; margin-right: 16px; }
+                .value { display: block; font-size: 18px; margin-right: 16px; overflow-wrap:break-word;}
             }
         }
     }

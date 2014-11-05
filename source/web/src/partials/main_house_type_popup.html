@@ -3,6 +3,7 @@
     <div class="main_house_type_wrapper">
 
         <div class="main_house_type_header" style="cursor: default;">
+            <h1 class="main_house_type_name"></h1>
             <a href="javascript:window.closeMainHouseType()" class="main_house_type_close">
                 <img id="main_house_type_close" src="/static/images/icon/announcement_close.png"/>
             </a>
@@ -25,6 +26,10 @@
                 </div>
                 <div class="price">
                     <span class="name">{{_('参考售价')}}</span>
+                    <span class="value"></span>
+                </div>
+                <div class="description">
+                    <span class="name">{{_('户型解析')}}</span>
                     <span class="value"></span>
                 </div>
             </div>
