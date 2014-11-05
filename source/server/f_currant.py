@@ -960,15 +960,6 @@ class f_property(f_app.module_base):
             new_properties = []
             for property in propertys:
                 if isinstance(property, dict):
-                    if "target_property_id" in property:
-                        target_property_id = property.pop("target_property_id")
-                        target_property = f_app.property.output([target_property_id])[0]
-                        unset_fields = property.pop("unset_fields", [])
-                        unset_fields.append("id")
-                        target_property.update(property)
-                        for i in unset_fields:
-                            target_property.pop(i, None)
-                        property = target_property
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
                     if property["status"] not in ["selling", "sold out"]:
@@ -979,15 +970,6 @@ class f_property(f_app.module_base):
             new_properties = {}
             for id, property in propertys.iteritems():
                 if isinstance(property, dict):
-                    if "target_property_id" in property:
-                        target_property_id = property.pop("target_property_id")
-                        target_property = f_app.property.output([target_property_id])[0]
-                        unset_fields = property.pop("unset_fields", [])
-                        unset_fields.append("id")
-                        target_property.update(property)
-                        for i in unset_fields:
-                            target_property.pop(i, None)
-                        property = target_property
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
                     if property["status"] not in ["selling", "sold out"]:

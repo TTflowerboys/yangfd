@@ -162,6 +162,14 @@ def property_list():
 @check_landing
 def property_get(property_id):
     property = f_app.property.output([property_id])[0]
+    if "target_property_id" in property:
+        target_property_id = property.pop("target_property_id")
+        target_property = f_app.property.output([target_property_id])[0]
+        unset_fields = property.pop("unset_fields", [])
+        target_property.update(property)
+        for i in unset_fields:
+            target_property.pop(i, None)
+        property = target_property
     country_list = get_country_list()
     budget_list = get_budget_list()
     favorite_list = get_favorite_list()
