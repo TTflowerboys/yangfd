@@ -4,7 +4,7 @@
 
 (function () {
 
-    function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl) {
+    function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window) {
 
         $scope.item = {}
 
@@ -137,6 +137,27 @@
         $scope.submitForReject = function ($event, form) {
             $scope.item.status = 'rejected'
             $scope.submit($event, form)
+        }
+
+        $scope.submitForPreview = function ($event, form) {
+            $scope.submitted = true
+            var changed = JSON.parse(angular.toJson($scope.item))
+            changed = misc.cleanTempData(changed)
+            changed = misc.cleanI18nEmptyUnit(changed)
+            changed = misc.getChangedI18nAttributes(changed, $scope.itemOrigin)
+            if (_.isEmpty(changed)) {
+                growl.addWarnMessage('Nothing to update')
+                return
+            }
+            $scope.loading = true
+            api.update(angular.extend(changed, {id: $stateParams.id}), {
+                successMessage: 'Update successfully',
+                errorMessage: 'Update failed'
+            }).success(function (data) {
+                $window.open('property/' + $stateParams.id, '_blank')
+            })['finally'](function () {
+                $scope.loading = false
+            })
         }
     }
 

@@ -673,7 +673,7 @@
         </div>
         <input ng-if="!draftId" type="submit" class="btn btn-primary" value="{%$root.i18n('保存更改')%}">
         <input ng-if="!draftId" type="button" class="btn btn-primary" value="{%$root.i18n('提交审核')%}" ng-click="submitForReview($event,editProperty)">
-        <a ng-if="!draftId" class="btn btn-primary" href="property/{%$stateParams.id%}" target="_blank">{%$root.i18n('预览(请先保存更改)')%}</a>
+        <input ng-if="!draftId" type="button" class="btn btn-primary" ng-click="submitForPreview()" value="{%$root.i18n('保存并预览')%}">
         <div ng-controller="ctrlHasPermission">
             <div ng-if="hasPermission('admin,jr_admin,operation') && salesCommentEnabled===undefined &&item.status==='not reviewed'">
                 <button class=" btn btn-private" type="button" ng-click="submitForAccept()">{%$root.i18n('批准审核')%}
