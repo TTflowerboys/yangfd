@@ -419,44 +419,44 @@ def qrcode_generate(params):
     content_id=str,
 ))
 def images_proxy(params):
+    def is_in_property(link, property):
+        for k, v in property.get("reality_images", {}).iteritems():
+            if isinstance(v, list):
+                if link in v:
+                    return True
+        for k, v in property.get("surroundings_images", {}).iteritems():
+            if isinstance(v, list):
+                if link in v:
+                    return True
+        for k, v in property.get("effect_pictures", {}).iteritems():
+            if isinstance(v, list):
+                if link in v:
+                    return True
+        for k, v in property.get("indoor_sample_room_picture", {}).iteritems():
+            if isinstance(v, list):
+                if link in v:
+                    return True
+        for k, v in property.get("planning_map", {}).iteritems():
+            if isinstance(v, list):
+                if link in v:
+                    return True
+        for k, v in property.get("floor_plan", {}).iteritems():
+            if isinstance(v, list):
+                if link in v:
+                    return True
+        for main_house_type in property.get("main_house_types", []):
+            for k, v in main_house_type.get("floor_plan", {}).iteritems():
+                if link == v:
+                    return True
+        return False
+
     allowed = False
     if "property_id" in params:
         property = f_app.property.get(params["property_id"])
-        for k, v in property.get("reality_images", {}).iteritems():
-            if isinstance(v, list):
-                if params["link"] in v:
-                    allowed = True
-                    break
-        for k, v in property.get("surroundings_images", {}).iteritems():
-            if isinstance(v, list):
-                if params["link"] in v:
-                    allowed = True
-                    break
-        for k, v in property.get("effect_pictures", {}).iteritems():
-            if isinstance(v, list):
-                if params["link"] in v:
-                    allowed = True
-                    break
-        for k, v in property.get("indoor_sample_room_picture", {}).iteritems():
-            if isinstance(v, list):
-                if params["link"] in v:
-                    allowed = True
-                    break
-        for k, v in property.get("planning_map", {}).iteritems():
-            if isinstance(v, list):
-                if params["link"] in v:
-                    allowed = True
-                    break
-        for k, v in property.get("floor_plan", {}).iteritems():
-            if isinstance(v, list):
-                if params["link"] in v:
-                    allowed = True
-                    break
-        for main_house_type in property.get("main_house_types", []):
-            for k, v in main_house_type.get("floor_plan", {}).iteritems():
-                if params["link"] == v:
-                    allowed = True
-                    break
+        allowed = is_in_property(params["link"], property)
+        if "target_property_id" in property:
+            target_property = f_app.property.get(property["target_property_id"])
+            allowed = is_in_property(params["link"], target_property)
 
     if "news_id" in params:
         news = f_app.blog.post_get(params["news_id"])
