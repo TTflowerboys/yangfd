@@ -1,8 +1,8 @@
 <div>
-    <div ng-if="image||image===''" class="row">
+    <div ng-if="image||image===undefined" class="row">
         <div class="col-sm-12 ">
             <div style="margin-bottom:8px; position: relative;">
-                <span ng-style="{'visibility':image===''?'visibility':'hidden'}">
+                <span ng-style="{'visibility':image===undefined?'visibility':'hidden'}">
                     <i class="fa fa-spinner fa-spin"></i>
                 </span>
                 <a target="_blank" ng-if="image" ng-href="{% image %}"><img class="img-thumbnail" ng-src="{% image %}"></a>
@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <div ng-file-select="onFileSelected($files)" ng-hide="image||image===''"
+    <div ng-file-select="onFileSelected($files)" ng-hide="image||image===undefined"
         title="select file" onclick="this.value = null" class="btn btn-primary">{%text%}
     </div>
 </div>
