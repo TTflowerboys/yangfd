@@ -1107,6 +1107,8 @@
      $('[data-fn=expendDescription]').on('click', function () {
          $(this).parent().hide()
             .parent().find('[data-ui=description]').height('auto')
+         $(this).parent().hide()
+             .parent().find('[data-ui=description]').toggleClass( "no-after" )
      })
     </script>
 
