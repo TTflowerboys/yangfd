@@ -2,15 +2,19 @@
 
 $('button[name=code]').click(function (e) {
 
+    var resultArea = $('form[name=changePhone2]').find('.resultMessage')
+    resultArea.text(window.i18n('发送中...'))
+    resultArea.show()
+
     var phone = window.user.phone
     var country = window.user.country.id
     var theParams = {'country':country, 'phone': phone}
     $.betterPost('/api/1/user/sms_verification/send', theParams)
         .done(function (val) {
-            //var  userId = val
+            resultArea.text(window.i18n('发送成功'))
         })
         .fail(function () {
-
+            resultArea.text(window.i18n('发送失败，请重试'))
         })
         .always(function () {
         })
