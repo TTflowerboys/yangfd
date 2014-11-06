@@ -64,7 +64,7 @@
         %if (budget_list):
             <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
             <div class="price">
-                <img class="price_icon" alt="" src="/static/images/icon/price-tag.png"/>
+                <img class="price_icon" alt="" src="/static/images/property_list/price-tag.png"/>
                 <h4 class="price_title">{{_('价格')}}
                     (
                     {{_('单选')}}
@@ -85,7 +85,7 @@
 
         %if (intention_list):
             <div class="intention">
-                <img class="intention_icon" alt="" src="/static/images/icon/intention-tag.png"/>
+                <img class="intention_icon" alt="" src="/static/images/property_list/intention-tag.png"/>
                 <h4 class="intention_title">{{_('投资意向(多选)')}}</h4>
 
                 <div id="intentionTag" class="inner">
@@ -106,12 +106,12 @@
 
         </div>
         <hr class="border">
-        <img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+        <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
         <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
     </div>
 
     <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="display:none">
-        <img alt="" src="/static/images/icon/property/empty-hint.png"/>
+        <img alt="" src="/static/images/property_list/empty-hint.png"/>
         <div class="info">
             <h2 class="hint">{{_('没有找到房产信息')}}</h2>
             <p class="addition">{{_('您可以更改筛选条件，或者')}}<strong>{{_('提交您的置业需求')}}</strong></p>

@@ -1435,3 +1435,40 @@ class f_currant_util(f_util):
         return subject
 
 f_currant_util()
+
+
+class f_policeuk(f_app.module_base):
+    def __init__(self):
+        f_app.module_install("policeuk", self)
+
+    def api(self, params, method="GET"):
+        """
+        fields for params:
+        lat: latitude
+        lng: longitude
+        date: YYYY-MM, from 2010-12
+        """
+        import urllib
+        params = urllib.urlencode({"lat": params["lat"], "lng": params["lng"], "date": params["date"]})
+        self.logger.debug(params)
+        url = "http://data.police.uk/api/crimes-street/all-crime?%s" % params
+        result = f_app.request(url)
+        if result.status_code == 200:
+            return json.loads(result.content)
+        else:
+            abort(50000)
+
+    def get_crime_by_zipcode(self, zipcode, date):
+        return self._get_crime_by_zipcode("%s|%s" % (zipcode, date), zipcode, date)
+
+    @f_cache("crimebyzipcode")
+    def _get_crime_by_zipcode(self, zipcode_date, zipcode, date):
+        zipcode_info = f_app.zipcode.get_by_zipcode(zipcode)
+        if zipcode_info:
+            params = {"lat": zipcode_info["latitude"], "lng": zipcode_info["longitude"], "date": date}
+            crime_info = self.api(params)
+            return crime_info
+        else:
+            return None
+
+f_policeuk()
