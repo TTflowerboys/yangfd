@@ -406,3 +406,17 @@ def property_walkscore(params):
         return {"walkscore": result.get("walkscore", "N/A"), "ws_link": result.get("ws_link", "")}
     else:
         abort(40088, "failed to get walkscore and walkscore api status is " + str(result["status"]))
+
+
+@f_api("/property/property_id/policeuk", params=dict(
+    date=str,
+))
+def property_police_uk(property_id, params):
+    property = f_app.property.get(property_id)
+    date = params.pop("date", "%s-%s" % datetime.utcnow().year, datetime.utcnow().month)
+    if "zipcode" in property:
+        return f_app.policeuk.get_crime_by_zipcode(property["zipcode"], date)
+    elif "latitude" in property and "longitude" in property:
+        return f_app.policeuk.api({"lat": property["latitude"], "lng": property["longitude"], "date": date})
+    else:
+        return []
