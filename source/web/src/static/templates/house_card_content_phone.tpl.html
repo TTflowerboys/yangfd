@@ -28,7 +28,7 @@
     <a class="textPart_inner" href="/property/{=house.id=}">
         <ul class=properties>
             {_if(house.intention && house.intention.length) {_}
-            <li><img src="/static/images/icon/house-card-tag.png" alt=""/>
+            <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
                 <span>
                     {_ _.each(house.intention, function(oneIntention) { _}
                     {=oneIntention.value=}
@@ -37,11 +37,11 @@
             </li>
             {_}_}
             {_if(house.property_type) {_}
-            <li><img src="/static/images/icon/house-card-house.png" alt=""/>
+            <li><img src="/static/images/common/house_card/house-card-house.png" alt=""/>
                 <span>{=house.property_type.value=}</span></li>
             {_}_}
             {_if(house.street) {_}
-            <li><img src="/static/images/icon/house-card-location.png" alt=""/> <span>{=house.street=}</span>
+            <li><img src="/static/images/common/house_card/house-card-location.png" alt=""/> <span>{=house.street=}</span>
             </li>
             {_}_}
         </ul>

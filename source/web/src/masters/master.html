@@ -41,13 +41,13 @@
                     <div class="user">
                         %if user:
                         <a class="nickname" href="/user_settings">
-                            <img alt="" src="/static/images/icon/header/user.png"/> {{user["nickname"]}}
+                            <img alt="" src="/static/images/common/header/user.png"/> {{user["nickname"]}}
                         </a>
                         <a class="message" id="message" href="/user_messages">
-                            <img id="icon-message" alt="" src="/static/images/icon/header/message.png"/>
+                            <img id="icon-message" alt="" src="/static/images/common/header/message.png"/>
                         </a>
                         <a id="logout" class="logout" href="/logout">
-                            <img alt="" src="/static/images/icon/header/logout.png"/>
+                            <img alt="" src="/static/images/common/header/logout.png"/>
                         </a>
                         %else:
                         <button id="login" class="login ghostButton red">{{_('登录')}}</button>
