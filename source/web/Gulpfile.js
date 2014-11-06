@@ -46,7 +46,19 @@ gulp.task('debug', ['debug:lint', 'symlink', 'less2css', 'html-extend', 'watch']
 })
 
 
-gulp.task('build', ['lint', 'clean', 'build:html-extend'],
+gulp.task('build_dev', ['lint', 'clean', 'build:html-extend-dev'],
+    function () {
+        console.info(chalk.black.bgWhite.bold('Building tasks done!'))
+    })
+
+
+gulp.task('build_test', ['lint', 'clean', 'build:html-extend-test'],
+    function () {
+        console.info(chalk.black.bgWhite.bold('Building tasks done!'))
+    })
+
+
+gulp.task('build_production', ['lint', 'clean', 'build:html-extend-production'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -140,14 +152,14 @@ gulp.task('html-extend', function () {
 })
 
 
-gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
+var buildExtend = function(env) {
 
     var publicHtmlFilter = filter('*.html')
     var emailFilter = filter('static/emails/*.html')
 
     return gulp.src(myPaths.html, {base: './src/'})
         .pipe(extender({verbose: false}))
-        .pipe(preprocess({context: {ENV: 'production'}}))
+        .pipe(preprocess({context: {ENV: env}}))
         .pipe(publicHtmlFilter)
         .pipe(usemin({
             //TODO: Rev images
@@ -157,11 +169,22 @@ gulp.task('build:html-extend', ['build:copy', 'build:less2css'], function () {
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
         .pipe(gulp.dest(myPaths.dist))
-    //.pipe(emailFilter)
-    //.pipe(base64())
-    //.pipe(gulp.dest(myPaths.dist))
-    //.pipe(emailFilter.restore())
+}
+
+gulp.task('build:html-extend-dev', ['build:copy', 'build:less2css'], function () {
+    return buildExtend('dev')
 })
+
+
+gulp.task('build:html-extend-test', ['build:copy', 'build:less2css'], function () {
+    return buildExtend('test')
+})
+
+
+gulp.task('build:html-extend-production', ['build:copy', 'build:less2css'], function () {
+    return buildExtend('production')
+})
+
 
 var livereload = require('gulp-livereload')
 gulp.task('watch', ['symlink', 'less2css', 'html-extend'], function () {

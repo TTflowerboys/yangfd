@@ -4,9 +4,10 @@
   "description": "currant",
   "scripts": {
     "debug": "npm install && gulp clean && gulp debug",
-    "dev": "npm install && gulp clean && gulp debug",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install --production && npm run i18n && gulp build",
+    "build_dev": "npm install --production && npm run i18n && gulp build_dev",
+    "build_test": "npm install --production && npm run i18n && gulp build_test",
+    "build_production": "npm install --production && npm run i18n && gulp build_production",
     "styleguideinit": "kss-node --init",
     "styleguide": "kss-node ./src/static/styles/ --less ./src/static/styles/styleguide.less --template ./.styleguide-template/",
     "theme": "gulp styleless2css",
