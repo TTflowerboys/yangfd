@@ -32,7 +32,7 @@
 
             <div id="header" class="siteHeader_wrapper">
                 <header class="siteHeader">
-                    <a href="/"><img class="logo" src="/static/images/logo-{{_.lang}}.png" alt=""/></a>
+                    <a href="/"><img class="logo" src="/static/images/logo/logo-header.png" alt=""/></a>
                     <ul class="navbar">
                         <li><a href="/">{{_('首页')}}</a></li>
                         <li><a href="/property_list">{{_('海外房产')}}</a></li>
@@ -41,13 +41,13 @@
                     <div class="user">
                         %if user:
                         <a class="nickname" href="/user_settings">
-                            <img alt="" src="/static/images/icon/header/user.png"/> {{user["nickname"]}}
+                            <img alt="" src="/static/images/common/header/user.png"/> {{user["nickname"]}}
                         </a>
                         <a class="message" id="message" href="/user_messages">
-                            <img id="icon-message" alt="" src="/static/images/icon/header/message.png"/>
+                            <img id="icon-message" alt="" src="/static/images/common/header/message.png"/>
                         </a>
                         <a id="logout" class="logout" href="/logout">
-                            <img alt="" src="/static/images/icon/header/logout.png"/>
+                            <img alt="" src="/static/images/common/header/logout.png"/>
                         </a>
                         %else:
                         <button id="login" class="login ghostButton red">{{_('登录')}}</button>
@@ -123,7 +123,7 @@
         </div>
         <div id="modal_shadow" class="modal_shadow" style="display: none"></div>
         <div id="modal" class="modal" style="display: none">
-            <a href="/"><img class="logo" src="/static/images/logo-login-{{_.lang}}.png" alt=""/></a>
+            <a href="/"><img class="logo" src="/static/images/logo/logo-login.png" alt=""/></a>
             <!-- @@include =../partials/signin_form.html -->
         </div>
 

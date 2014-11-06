@@ -14,10 +14,12 @@ $('form[name=changeEmail]').submit(function (e) {
     var params = $(this).serializeObject()
     $.betterPost('/api/1/user/edit', params).done(function (data) {
         window.user = data
+        resultArea.empty()
         resultArea.text(window.i18n('修改邮箱成功'))
         location.href = '/user_settings'
-    }).fail(function (data) {
-        resultArea.text(window.i18n('修改邮箱失败'))
+    }).fail(function (errorCode) {
+        resultArea.empty()
+        resultArea.append(window.getErrorMessageFromErrorCode(errorCode))
         resultArea.show()
     })
 })

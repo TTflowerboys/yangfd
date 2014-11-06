@@ -54,10 +54,10 @@
             <ul>
                 %for index, anno in enumerate(announcement_list):
                     <li class="item">
-                        <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
+                        <img class="icon" alt="" src="/static/images/index/announcement_icon.png"/>
                         <a class="title" href="/news/{{anno.get('id')}}">{{_i18n(anno.get('title', ''))}}</a>
                         <a class="more" href="/notice_list">{{_('更多公告')}}</a>
-                        <img class="close" style="display:none" alt="" src="/static/images/icon/announcement_close.png"/>
+                        <img class="close" style="display:none" alt="" src="/static/images/index/announcement_close.png"/>
                     </li>
                 %end
             </ul>
@@ -69,10 +69,10 @@
             <ul>
                 % for anno in announcement_list:
                     <li class="item">
-                        <img class="icon" alt="" src="/static/images/icon/announcement_icon.png"/>
+                        <img class="icon" alt="" src="/static/images/index/announcement_icon.png"/>
                         <a class="title" href="/news/{{anno.get('id')}}">{{_i18n(anno.get('title', ''))}}</a>
                         <a class="more" href="/notice_list">{{_('更多公告')}}</a>
-                        <img class="close" style="display:none" alt="" src="/static/images/icon/announcement_close.png"/>
+                        <img class="close" style="display:none" alt="" src="/static/images/index/announcement_close.png"/>
                     </li>
                 % end
             </ul>
@@ -131,7 +131,7 @@
     </div>
 %else:
     <div id="suggestionHouses" class="suggestionHouses">
-        <img src="/static/images/icon/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+        <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
 
         <div id="list" class="list">
         </div>

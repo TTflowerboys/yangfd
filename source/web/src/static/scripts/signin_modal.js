@@ -31,7 +31,8 @@ $('form[name=signin]').submit(function (e) {
             $('#modal').hide()
         })
         .fail(function (ret) {
-            errorArea.text(window.getErrorMessageFromErrorCode(ret))
+            errorArea.empty()
+            errorArea.append(window.getErrorMessageFromErrorCode(ret))
             errorArea.show()
         })
 })
