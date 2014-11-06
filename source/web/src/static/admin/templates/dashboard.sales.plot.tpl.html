@@ -21,14 +21,11 @@
                 <th ng-click="sort(0)">{%$root.i18n('名称')%}</th>
                 <th ng-click="sort(1)">{%$root.i18n('状态')%}</th>
                 <th>{%$root.i18n('类型')%}</th>
-                <th ng-click="sort(2)">{%$root.i18n('卧室数')%}</th>
-                <th ng-click="sort(3)">{%$root.i18n('客厅数')%}</th>
-                <th ng-click="sort(4)">{%$root.i18n('浴室数')%}</th>
-                <th ng-click="sort(5)">{%$root.i18n('厨房数')%}</th>
-                <th ng-click="sort(6)">{%$root.i18n('面积')%}</th>
-                <th ng-click="sort(7)">{%$root.i18n('价格')%}</th>
-                <th ng-click="sort(8)">{%$root.i18n('楼层')%}</th>
-                <th ng-click="sort(9)">{%$root.i18n('备注')%}</th>
+                <th>{%$root.i18n('户型结构')%}</th>
+                <th ng-click="sort(2)">{%$root.i18n('面积')%}</th>
+                <th ng-click="sort(3)">{%$root.i18n('价格')%}</th>
+                <th ng-click="sort(4)">{%$root.i18n('楼层')%}</th>
+                <th ng-click="sort(5)">{%$root.i18n('备注')%}</th>
                 <th>{%$root.i18n('编辑')%}</th>
             </tr>
         </thead>
@@ -39,10 +36,26 @@
                 <td>
                     <div ng-repeat="t in item.investment_type">{%t.value[userLanguage.value]%}</div>
                 </td>
-                <td>{%item.bedroom_count%}</td>
-                <td>{%item.living_room_count%}</td>
-                <td>{%item.bathroom_count%}</td>
-                <td>{%item.kitchen_count%}</td>
+                <td>
+                    <table>
+                        <tr ng-if="item.bedroom_count">
+                            <td>{%$root.i18n('居室数')%}</td>
+                            <td>{%item.bedroom_count%}</td>
+                        </tr>
+                        <tr ng-if="item.living_room_count">
+                            <td>{%$root.i18n('客厅数')%}</td>
+                            <td>{%item.living_room_count%}</td>
+                        </tr>
+                        <tr ng-if="item.bathroom_count">
+                            <td>{%$root.i18n('卫生间数')%}</td>
+                            <td>{%item.bathroom_count%}</td>
+                        </tr>
+                        <tr ng-if="item.kitchen_count">
+                            <td>{%$root.i18n('厨房数')%}</td>
+                            <td>{%item.kitchen_count%}</td>
+                        </tr>
+                    </table>
+                </td>
                 <td>{%item.space.value%}{%item.space.unit%}</td>
                 <td>{%item.total_price.value%}{%item.total_price.unit%}</td>
                 <td>{%item.floor%}</td>
