@@ -354,7 +354,7 @@
     .description {
         font-size: 14px; .limitedLines(5; 20px); margin-top: 24px;
 
-        .no-after {
+        &.no-after {
             font-size: 14px; margin-top: 24px;
             height: auto;
 
@@ -841,5 +841,46 @@
         .col-value { }
         .name { text-align: right; color: #aaa; }
         .value { text-align: right; color: @red; font-size: 24px; }
+    }
+}
+
+
+.floatBar_phone {
+    display:none;
+    @media @phone {
+        display:block;
+        overflow:hidden;
+        position:fixed;
+        z-index:@float_bar_phone-z-index;
+        bottom:0;
+        width:100%;
+        background:#333;
+    }
+
+    li {
+        @media @phone {
+            float:left;
+            display:inline-block;
+            width:100% / 3;
+            text-align:center;
+            height:40px;
+            font-size:16px;
+            line-height:40px;
+            color:white;
+        }
+
+        img {
+            @media @phone {
+                height:20px;
+                margin-top:10px;
+            }
+        }
+    }
+}
+
+
+.copyright {
+    @media @phone {
+        margin-bottom:40px;//left for float bar
     }
 }
