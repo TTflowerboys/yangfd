@@ -10,12 +10,27 @@
         $scope.pages = []
         $scope.api = api
         $scope.fetched = false
+        $scope.selected = {}
 
         var params = {
+            country: $scope.selected.country,
+            city: $scope.selected.city,
+            property_type: $scope.selected.property_type,
             per_page: $scope.perPage
         }
 
-        api.getAll({params: params}).success(onGetList)
+        function updateParams() {
+            params.country = $scope.selected.country
+            params.city = $scope.selected.city
+            params.property_type = $scope.selected.property_type
+        }
+
+        $scope.searchHousing = function () {
+            updateParams()
+            api.getAll({
+                params: params, errorMessage: true
+            }).success(onGetList)
+        }
 
         $scope.refreshList = function () {
             api.getAll({params: params}).success(onGetList)

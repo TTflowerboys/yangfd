@@ -1,7 +1,18 @@
 <div ui-view>
 
     <div class="buttons">
-
+        <div class="btn-group form-inline">
+            <div select-enum name="country" ng-model="selected.country" text="{%i18n('国家')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+            <div select-city-by-country country="selected.country" ng-model="selected.city" text="{%i18n('城市')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+            <div select-enum name="property_type" ng-model="selected.property_type" text="{%i18n('房产类型')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+            <button class="btn btn-primary" ng-click="searchHousing()">{%$root.i18n('搜索')%}</button>
+        </div>
         <span class="btn-group pull-right" style="margin-left: 10px">
             <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
             <button ng-hide="noNext" class="btn" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
