@@ -29,6 +29,7 @@ var debug = require('gulp-debug')
 var base64 = require('gulp-img64')
 var gutil = require('gulp-util')
 var preprocess = require('gulp-preprocess')
+var uglify = require('gulp-uglify');
 
 
 var myPaths = {
@@ -167,7 +168,7 @@ var buildExtend = function(env) {
         .pipe(usemin({
             //TODO: Rev images
             css: ['concat', rev()],
-            js: [ footer(';;;'), 'concat', rev()]
+            js: [ footer(';;;'), 'concat', uglify(), rev()]
         }))
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
