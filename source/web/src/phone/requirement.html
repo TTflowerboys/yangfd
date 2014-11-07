@@ -1,0 +1,38 @@
+<!--@@master = ../masters/master.html-->
+<!--@@block = head-->
+<!--build:css(dist) /static/styles/requirement.html.css-->
+<link rel="stylesheet" href="/static/styles/requirementPage.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+
+<!--@@block = main-->
+<div class="requirement_wrapper">
+    <div id="requirement" class="requirement">
+        <div class="requirement_title">
+            <H2 class="title">{{_('提交置业需求')}}</h2>
+            <h3 class="subtitle">{{_('如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且及时反馈给您')}}
+            </h3>
+        </div>
+        <!--@@include=../partials/requirement_form.html -->
+        <h2 class="successMessage" style="display:none">{{_('置业需求已提交，稍后我们的工作人员会联系你')}}</h2>
+    </div>
+</div>
+<!--@@close-->
+
+<!--@@block = scripts -->
+
+<script>
+ var requirementContainer = $('main')
+ window.resetRequirementForm(requirementContainer)
+ window.setupRequirementForm(requirementContainer, function () {
+     setTimeout(function () {
+         var propertyId = window.team.getQuery('property', location.href)
+         location.href= '/property/' + propertyId
+     }, 2000)
+ })
+
+</script>
+
+
+<!--@@close -->

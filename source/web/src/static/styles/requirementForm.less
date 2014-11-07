@@ -42,10 +42,15 @@
         width: 270px;
         &.country {
             width: 112px;
+
+            @media @phone {
+                margin:0;
+            }
         }
 
         @media @phone {
-            width: 100%;
+            width: ~"calc(100% - 8px)";
+            margin:0 4px;
         }
     }
     textarea {
@@ -72,5 +77,9 @@
     }
     > .errorMessage {
         display: none; color: red; margin-top: 10px; margin-bottom: 0px;
+        @media @phone {
+            margin-left:4px;
+        }
+
     }
 }

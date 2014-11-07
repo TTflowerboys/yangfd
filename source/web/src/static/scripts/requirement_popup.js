@@ -99,6 +99,12 @@
             var params = $(this).serializeObject()
             params.locales = window.lang
 
+            //for requirement phone page
+            var propertyId = window.team.getQuery('property', location.href)
+            if (propertyId) {
+                params.property_id = propertyId
+            }
+
             var button = $('form[name=requirement] button[type=submit]')
             button.css('cursor', 'wait')
             var api = '/api/1/intention_ticket/add'
@@ -106,9 +112,7 @@
                 .done(function (val) {
                     successArea.show()
                     container.find('.requirement_form').hide()
-
                     submitSuccessCallBack()
-
                 })
                 .fail(function (ret) {
                     errorArea.empty()
