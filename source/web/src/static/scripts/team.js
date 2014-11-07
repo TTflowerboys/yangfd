@@ -159,14 +159,22 @@
             var top = (screen.height / 2) - (height / 2)
 
             window.open(url, '_blank',
-                    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
-                    width + ', height=' + height + ', top=' + top + ', left=' + left)
+                        'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
+                        width + ', height=' + height + ', top=' + top + ', left=' + left)
 
             return false
         },
 
         isPhone: function () {
             return $(window).width() < 768
+        },
+        isWeChat: function () {
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i) === 'micromessenger') {
+                return true;
+            } else {
+                return false;
+            }
         },
 
         /**
