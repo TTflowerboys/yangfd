@@ -1,5 +1,7 @@
 <a class="imagePart" href="/property/{=house.id=}">
-    {_if(house.reality_images && house.reality_images.length) {_}
+    {_if (house.cover){_}
+    <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" onerror="window.project.onImgError(this);"/>
+    {_ } if(house.reality_images && house.reality_images.length) {_}
     <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" onerror="window.project.onImgError(this);"/>
     {_ }else { _}
     <img class="withPlaceholder"/>
