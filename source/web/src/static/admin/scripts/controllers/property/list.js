@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlPropertyList($scope, fctModal, api) {
+    function ctrlPropertyList($scope, fctModal, api, $state) {
 
         $scope.list = []
         $scope.perPage = 12
@@ -22,7 +22,7 @@
             per_page: $scope.perPage
         }
 
-        function updateParams(){
+        function updateParams() {
             params.status = $scope.selected.status
             params.country = $scope.selected.country
             params.city = $scope.selected.city
@@ -123,6 +123,24 @@
             } else {
                 $scope.noPrev = false
             }
+        }
+
+        $scope.toEditProperty = function (id) {
+            var result = id;
+            api.getAll({
+                params: {
+                    target_property_id: id,
+                    status: 'draft,not translated,translating,not reviewed,rejected'
+                }, errorMessage: true
+            })
+                .success(function (data) {
+                    var res = data.val.content
+                    if (!_.isEmpty(res)) {
+                        result = res[0].id
+                    }
+                })['finally'](function () {
+                $state.go('.edit', {id: result})
+            })
         }
 
     }
