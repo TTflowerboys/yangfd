@@ -12,8 +12,9 @@ logger = logging.getLogger(__name__)
 @f_api('/property/search', params=dict(
     per_page=int,
     time=datetime,
-    status=(list, ["selling", "sold out"], str),
+    sort=(list, None, str),
 
+    status=(list, ["selling", "sold out"], str),
     property_type=(list, None, "enum:property_type"),
     intention=(list, None, "enum:intention"),
     country='enum:country',
@@ -28,14 +29,21 @@ logger = logging.getLogger(__name__)
     random=bool,
     name=str,
     slug=str,
-    sort=(list, None, str),
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
     """
     Only ``admin``, ``jr_admin``, ``operation``, ``jr_operation``, ``developer`` and ``agency`` could use the ``target_property_id`` and ``status`` param.
+
+    Syntax examples for ``sort``:
+
+    * name.en_GB,asc
+    * mtime,desc
+
+    ``time`` should be a unix timestamp in utc.
     """
     random = params.pop("random", False)
+    sort = params.pop("sort", ["time", "desc"])
     if params["status"] != ["selling", "sold out"] or "target_property_id" in params:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_property_id")
     if "property_type" in params:
@@ -86,7 +94,7 @@ def property_search(user, params):
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
     logger.debug(params)
-    property_list = f_app.property.search(params, per_page=per_page, count=True)
+    property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort)
     if random and property_list["content"]:
         logger.debug(property_list["content"])
         import random
