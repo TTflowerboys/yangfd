@@ -375,6 +375,15 @@ def verify_email_status():
     return template("verify_email_status", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
+# phone specific pages
+
+
+@f_get('/requirement')
+@check_landing
+def requirement():
+    return template("phone/requirement", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+
+
 @f_get('/admin')
 @check_landing
 def admin():
