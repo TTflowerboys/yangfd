@@ -384,6 +384,12 @@ def requirement():
     return template("phone/requirement", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
+@f_get('/wechat_share')
+@check_landing
+def wechat_share():
+    return template("phone/wechat_share", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+
+
 @f_get('/admin')
 @check_landing
 def admin():
