@@ -246,8 +246,7 @@ def upload_from_url(params):
     f.seek(0)
 
     if params["thumbnail_size"][0] > 0:
-        params["data"].file.seek(0)
-        im = f_app.storage.image_open(params["data"].file)
+        im = f_app.storage.image_open(StringIO(im_request.content))
         if im.format == "PNG" or im.format == "GIF":
             background = Image.new("RGB", im.size, (255, 255, 255))
             try:
