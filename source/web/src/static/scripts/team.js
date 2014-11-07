@@ -169,12 +169,8 @@
             return $(window).width() < 768
         },
         isWeChat: function () {
-            var ua = navigator.userAgent.toLowerCase();
-            if(ua.match(/MicroMessenger/i) === 'micromessenger') {
-                return true;
-            } else {
-                return false;
-            }
+            var ua = navigator.userAgent.toLowerCase()
+            return (/micromessenger/.test(ua)) ? true : false
         },
 
         /**
