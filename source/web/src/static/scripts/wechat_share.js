@@ -1,5 +1,6 @@
 (function () {
 
+    $('main').append(navigator.userAgent)
     if (window.team.isWeChat()) {
         $('.wechatPage').show()
     } else {
