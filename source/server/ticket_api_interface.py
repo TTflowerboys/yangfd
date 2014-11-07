@@ -276,7 +276,6 @@ def intention_ticket_assign(user, ticket_id, user_id):
     city=("enum:city", None),
     block=(str, None),
     equity_type=("enum:equity_type", None),
-    intention=(list, None, 'enum:intention'),
     budget=("enum:budget", None),
     custom_fields=(list, None, dict(
         key=str,
