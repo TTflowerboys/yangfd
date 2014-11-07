@@ -1,13 +1,11 @@
 (function () {
-
-    $('main').append(navigator.userAgent)
     if (window.team.isWeChat()) {
         $('.wechatPage').show()
     } else {
-        $('.siteHeader_phone').show()
+        $('.siteHeader_wrapper').show()
         $('.mainPage').show()
         $('.guidePage').show()
-        
+
         var propertyId = team.getQuery('property', location.href)
         if (propertyId) {
             var link = location.origin + '/property/' + propertyId
