@@ -16,43 +16,22 @@ angular.module('app')
             },
             link: function (scope, elm, attrs) {
                 scope.userLanguage = $rootScope.userLanguage
-                var carouselLinks = [],
-                    linksContainer = $('#links'),
-                    baseUrl;
-                scope.$watch('images[userLanguage.value]', function (newValue) {
-                    if (!newValue) {
-                        return
-                    }
-                    linksContainer.children().remove()
-                    $.each(newValue, function (index, photo) {
-                        baseUrl = photo
-                        $('<a/>')
-                            .append($('<img width="120px" height="100px">').prop('src', $filter('thumbnail')(baseUrl)))
-                            .prop('href', baseUrl)
-                            .prop('title', index + 1)
-                            .attr('data-gallery', '')
-                            .appendTo(linksContainer);
-                        carouselLinks.push({
-                            href: baseUrl,
-                            title: 'abc'
-                        });
-                    });
-                })
 
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
+                    var currentLanguage = scope.userLanguage.value
                     if (file) {
-                        if (!scope.images) {
-                            scope.images = []
+                        if (!scope.images[currentLanguage]) {
+                            scope.images[currentLanguage] = []
                         }
-                        if (!scope.fileNames) {
-                            scope.fileNames = []
-                            for (var i = 0; i < scope.images.length; i += 1) {
-                                scope.fileNames.push('')
+                        if (!scope.fileNames[currentLanguage]) {
+                            scope.fileNames[currentLanguage] = []
+                            for (var i = 0; i < scope.images[currentLanguage].length; i += 1) {
+                                scope.fileNames[currentLanguage].push('')
                             }
                         }
-                        scope.fileNames.push(file.name)
-                        scope.images.push('')
+                        scope.fileNames[currentLanguage].push(file.name)
+                        scope.images[currentLanguage].push('')
                         $upload.upload({
                             url: '/api/1/upload_image',
                             file: file,
@@ -66,9 +45,9 @@ angular.module('app')
                             ignoreLoadingBar: true
                         })
                             .success(function (data, status, headers, config) {
-                                for (var key in scope.images) {
-                                    if (file.name === scope.fileNames[key]) {
-                                        scope.images[key] = data.val.url
+                                for (var key in scope.images[currentLanguage]) {
+                                    if (file.name === scope.fileNames[currentLanguage][key]) {
+                                        scope.images[currentLanguage][key] = data.val.url
                                         break
                                     }
                                 }
@@ -87,6 +66,13 @@ angular.module('app')
                             scope.images[itemLanguage] = _.uniq(scope.images[itemLanguage].concat(copyItem))
                         }
                     }
+                }
+
+                scope.isOurImage = function (img) {
+                    if (_.isEmpty(img)) {
+                        return false
+                    }
+                    return img.indexOf('bbt-currant.s3.amazonaws.com') < 0
                 }
             }
         }
