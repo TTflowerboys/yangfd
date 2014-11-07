@@ -117,7 +117,7 @@ class common(f_common):
         }
     }
 
-    email_template_logo_url = "http://yangfd.com/static/images/logo/logo.png"
+    email_template_logo_url = "http://yangfd.com/static/images/logo/logo-header.png"
 
     captcha_provider_smart = {
         "CN":
