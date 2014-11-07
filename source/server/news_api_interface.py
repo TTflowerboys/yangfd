@@ -32,7 +32,7 @@ def news_list(params):
     if "category_slugs" in params:
         category_slugs = params.pop("category_slugs")
         params["category._id"] = {"$in": [ObjectId(f_app.enum.get_by_slug(x)["id"]) for x in category_slugs]}
-    params["blog_id"] = ObjectId(f_app.common.blog_id)
+    params["blog_id"] = ObjectId(f_app.blog.get_by_slug(f_app.common.blog_slug)['id'])
 
     post_list = f_app.blog.post.search(params, per_page=per_page)
     return f_app.blog.post_output(post_list)
@@ -58,7 +58,7 @@ def news_add(user, params):
     ``zipcode_index`` is the key related to properties, internal use only.
     ``link`` is the source link, not the link to itself.
     """
-    params["blog_id"] = ObjectId(f_app.common.blog_id)
+    params["blog_id"] = ObjectId(f_app.blog.get_by_slug(f_app.common.blog_slug)['id'])
     return f_app.blog.post_add(params)
 
 

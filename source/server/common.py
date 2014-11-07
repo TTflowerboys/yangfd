@@ -10,6 +10,7 @@ class common(f_common):
     debug = True
 
     blog_name = "currant"
+    blog_slug = "currant"
 
     newrelic = False
     newrelic_config = "conf/currant_newrelic.ini"
@@ -34,8 +35,6 @@ class common(f_common):
     memcache_lib = "memcache"
 
     route_log = True
-
-    blog_id = "53f839246b80992f831b2269"
 
     user_login_type = "phone"
     user_custom_fields = ["email", "register_time", "phone", "city", "country", "state", "zip", "gender", "date_of_birth", "intention", "wechat_id", "counter", "system_message_type", "email_message_type", "locales", "currency", "budget"]
