@@ -2,7 +2,7 @@
  * Created by zhou on 14-11-6.
  */
 angular.module('app')
-    .directive('editI18nGalleryBox', function ($rootScope, $filter, $upload) {
+    .directive('editI18nGalleryBox', function ($rootScope, $filter, $upload, $http) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_i18n_gallery_box.tpl.html',
@@ -73,6 +73,28 @@ angular.module('app')
                         return false
                     }
                     return img.indexOf('bbt-currant.s3.amazonaws.com') < 0
+                }
+
+                scope.removeImage = function (imageIndex) {
+                    scope.images[scope.userLanguage.value].splice(imageIndex, 1)
+                    scope.fileNames[scope.userLanguage.value].splice(imageIndex, 1)
+                }
+
+                scope.uploadImage = function (img) {
+                    return $http.post('/api/1/upload_from_url', {
+                        link: img,
+                        width_limit: scope.widthLimit || 0,
+                        ratio: scope.ratio || 0,
+                        thumbnail_size: scope.thumbnailSize || '0,0'
+                    }, {errorMessage: true})
+                        .success(function (data, status, headers, config) {
+                            for (var key in scope.images) {
+                                if (img === scope.images[key]) {
+                                    scope.images[key] = data.val.url
+                                    break
+                                }
+                            }
+                        })
                 }
             }
         }
