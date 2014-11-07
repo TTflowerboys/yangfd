@@ -1,0 +1,33 @@
+<!--@@master = ../masters/master.html-->
+<!--@@block = head-->
+<!--build:css(dist) /static/styles/wechat_share.html.css-->
+<link rel="stylesheet" href="/static/styles/wechatShare.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+
+<!--@@block = main-->
+
+<div class="mainPage">
+    <img class="qrcode" alt="" src="/static/images/media/wechat.png"/>
+    <h1 class="tip"> {{!_('让好友打开微信<br/>使用“扫一扫”即可打开改页面')}}</h1>
+    <button> {{_('发送链接给微信好友？')}} </button>
+</div>
+
+<div class="guidePage">
+    <h2> {{_('发送链接给微信好友？')}}</h2>
+    <div class="url">
+        <input name="" type="text" value="http://www.youngfunding.com/property/fskladhkalghajklgjka"/>
+    </div>
+    <img class="guide" alt="" src="/static/images/property_details/wechat_share/phone/guide.png"/>
+</div>
+
+
+
+<!--@@close-->
+
+<!--@@block = scripts -->
+
+
+
+<!--@@close -->
