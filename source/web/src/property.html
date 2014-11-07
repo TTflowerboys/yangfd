@@ -368,7 +368,7 @@
                                 % for index,item in enumerate(property.get('main_house_types')) :
                                     % if item:
                                         <li class="item{{index}}">
-                                            <a href="javascript:window.openMainHouseType(null, '{{index}}','/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8'))}}&property_id={{property.get('id',_('楼盘户型'))}}','{{item.get('name','')}}','{{item.get('description','')}}')" target="_blank">
+                                            <a href="javascript:window.openMainHouseType(null, '{{index}}','/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8'))}}&property_id={{property.get('id',_('楼盘户型'))}}','{{item.get('name','')}}','{{item.get('description','')}}')">
                                             <div style="position:relative;">
                                                     <img src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                                          alt="" onerror="window.project.onImgError(this);"/>
