@@ -1024,7 +1024,20 @@
 
 
     <ul class="floatBar_phone">
-        <li class="favorite"><img src="/static/images/property_details/phone/favorite.png"></img></li>
+        <li class="favorite"
+            data-fn="addFav"
+            data-property-id="{{property.get('id','')}}"
+            style="{{ 'display:none' if isFavorite else ''}}"
+            data-message-40090="{{_('已经收藏过了')}}"
+            ><img src="/static/images/property_details/phone/favorite.png"></img></li>
+        <li class="favorite"
+            data-fn="removeFav"
+            style="{{ 'display:none' if not isFavorite else ''}}"
+            % if isFavorite:
+            % foundId = [x for x in favorite_list if x.get('property',{}).get('id') == property.get('id')][0].get('id')
+            data-favorite-id="{{foundId}}"
+            % end
+            ><img src="/static/images/property_details/icon-star.png"></img></li>
         <li class="requirement"><a href="/requirement?property={{property.get('id')}}">{{_('提交置业需求')}}</a></li>
         <li class="wechat"><a href="/wechat_share?property={{property.get('id')}}"><img src="/static/images/property_details/phone/wechat_share.png"></img></a></li>
     </ul>
@@ -1063,6 +1076,10 @@
          })
 
          $('[data-fn=addFav]').on('click', function () {
+             if (!window.user) {
+                 project.showSignInModal()
+                 return
+             }
              var $button = $(this)
              var property_id = $button.attr('data-property-id')
              $.betterPost('/api/1/user/favorite/add', {
@@ -1073,7 +1090,7 @@
                                       })
                                       .fail(function (errorCode) {
                                           if (errorCode === 40100) {
-                                              project.goToSignIn()
+                                              project.showSignInModal()
                                           } else {
                                               alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
                                           }
@@ -1081,6 +1098,10 @@
          })
 
          $('[data-fn=removeFav]').on('click', function () {
+             if (!window.user) {
+                 project.showSignInModal()
+                 return
+             }
              var $button = $(this)
              var favorite_id = $button.attr('data-favorite-id')
              $.betterPost('/api/1/user/favorite/' + favorite_id + '/remove')
@@ -1089,7 +1110,7 @@
                                       })
                                       .fail(function (errorCode) {
                                           if (errorCode === 40100) {
-                                              project.goToSignIn()
+                                              project.showSignInModal()
                                           } else {
                                               alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
                                           }
