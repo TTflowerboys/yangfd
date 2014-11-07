@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2014-11-07 17:28+0800\n"
-"PO-Revision-Date: 2014-11-07 17:34+0800\n"
+"POT-Creation-Date: 2014-11-07 18:45+0800\n"
+"PO-Revision-Date: 2014-11-07 18:46+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -94,7 +94,7 @@ msgstr ""
 "everything when you want to settle your investment, really make real estate "
 "investment easy."
 
-#: ../web/src/coming_soon.html:48 ../web/src/property.html:1028
+#: ../web/src/coming_soon.html:48 ../web/src/property.html:1041
 #: ../web/src/partials/float_bar.html:11
 #: ../web/src/partials/requirement_popup.html:6
 #: ../web/src/phone/requirement.html:13
@@ -371,7 +371,8 @@ msgstr "Monthly Financials"
 msgid "房屋面积"
 msgstr "House Area"
 
-#: ../web/src/property.html:214
+#: ../web/src/property.html:214 ../web/src/property.html:379
+#: ../web/src/partials/get_size.html:2 ../web/src/partials/i18n.html:1
 msgid "卧室"
 msgstr "Bedrooms"
 
@@ -380,8 +381,8 @@ msgstr "Bedrooms"
 msgid "卫生间"
 msgstr "Bathrooms"
 
-#: ../web/src/property.html:228
-msgid "厅堂"
+#: ../web/src/property.html:228 ../web/src/property.html:383
+msgid "客厅"
 msgstr "Living Room"
 
 #: ../web/src/property.html:235 ../web/src/property.html:391
@@ -414,7 +415,7 @@ msgstr "Main House Type"
 
 #: ../web/src/property.html:324
 msgid "室"
-msgstr "Bedrooms"
+msgstr "Bedroom"
 
 #: ../web/src/property.html:325
 msgid "厅"
@@ -428,15 +429,6 @@ msgstr "Expand"
 #: ../web/src/property.html:364 ../web/src/property.html:371
 msgid "楼盘户型"
 msgstr "House Type"
-
-#: ../web/src/property.html:379 ../web/src/partials/get_size.html:2
-#: ../web/src/partials/i18n.html:1
-msgid "房间"
-msgstr "Room"
-
-#: ../web/src/property.html:383
-msgid "客厅"
-msgstr "Living Room"
 
 #: ../web/src/property.html:402 ../web/src/partials/i18n_admin.html:201
 #: ../web/src/partials/main_house_type_popup.html:24
@@ -579,7 +571,7 @@ msgstr "Annualized Total<br/>Estimated Return"
 msgid "预估现金<br/>年化收益率"
 msgstr "Annualized Estimated<br/>Cash-to-cash Return"
 
-#: ../web/src/property.html:784
+#: ../web/src/property.html:784 ../web/src/property.html:1031
 msgid "已经收藏过了"
 msgstr "Already Favourited"
 
@@ -726,7 +718,7 @@ msgid "海外房产"
 msgstr "Properties"
 
 #: ../web/src/property_list.html:36 ../web/src/masters/user_master.html:168
-#: ../web/src/partials/i18n_admin.html:298
+#: ../web/src/partials/i18n_admin.html:299
 msgid "请选择"
 msgstr "Please select"
 
@@ -817,7 +809,7 @@ msgstr ""
 #: ../web/src/user_change_email.html:29
 #: ../web/src/user_change_password.html:35
 #: ../web/src/user_verify_phone_1.html:24
-#: ../web/src/partials/i18n_admin.html:295
+#: ../web/src/partials/i18n_admin.html:296
 msgid "确认"
 msgstr "Confirm"
 
@@ -838,7 +830,7 @@ msgid "新密码"
 msgstr "New Password"
 
 #: ../web/src/user_change_password.html:29
-#: ../web/src/partials/i18n_admin.html:293
+#: ../web/src/partials/i18n_admin.html:294
 msgid "确认密码"
 msgstr "Confirm Password"
 
@@ -960,7 +952,7 @@ msgid "账户信息"
 msgstr "Account"
 
 #: ../web/src/user_settings.html:24 ../web/src/user_verify_phone_1.html:19
-#: ../web/src/partials/i18n_admin.html:306
+#: ../web/src/partials/i18n_admin.html:307
 msgid "手机号"
 msgstr "Phone Number"
 
@@ -1030,43 +1022,43 @@ msgstr "Language"
 msgid "网站及各类通知邮件默认语言"
 msgstr "Default language for website and emails"
 
-#: ../web/src/user_settings.html:136
+#: ../web/src/user_settings.html:137
 msgid "消息设置"
 msgstr "Message Setting"
 
-#: ../web/src/user_settings.html:149 ../web/src/partials/i18n_admin.html:51
+#: ../web/src/user_settings.html:150 ../web/src/partials/i18n_admin.html:51
 msgid "系统消息"
 msgstr "System Message"
 
-#: ../web/src/user_settings.html:152
+#: ../web/src/user_settings.html:153
 msgid "邮件通知"
 msgstr "Email Notification"
 
-#: ../web/src/user_settings.html:157
+#: ../web/src/user_settings.html:158
 msgid "接收我的房产资讯"
 msgstr "Receive my property related news"
 
-#: ../web/src/user_settings.html:158
+#: ../web/src/user_settings.html:159
 msgid "当房产有新的资讯或更新时发送至您的账户邮箱中"
 msgstr "Email you when property have news or updates"
 
-#: ../web/src/user_settings.html:178
+#: ../web/src/user_settings.html:179
 msgid "接收已提交意向单的房产资讯"
 msgstr "Receive news and updates related to properties that I sent requests to"
 
-#: ../web/src/user_settings.html:179
+#: ../web/src/user_settings.html:180
 msgid "当意向有新的资讯或更新时发送至您的账户邮箱中"
 msgstr "Email me when news and updates"
 
-#: ../web/src/user_settings.html:198
+#: ../web/src/user_settings.html:199
 msgid "接收收藏房产的资讯"
 msgstr "Receive my favourite properties related news and updates"
 
-#: ../web/src/user_settings.html:199 ../web/src/user_settings.html:219
+#: ../web/src/user_settings.html:200 ../web/src/user_settings.html:220
 msgid "当收藏有新的资讯或更新时发送至您的账户邮箱中"
 msgstr "Email me when news and updates"
 
-#: ../web/src/user_settings.html:218
+#: ../web/src/user_settings.html:219
 msgid "接收平台通知"
 msgstr "System Message"
 
@@ -1102,7 +1094,7 @@ msgstr "About YoungFunding"
 
 #: ../web/src/masters/aboutus_master.html:26
 #: ../web/src/masters/big_picture_bg_master.html:42
-#: ../web/src/masters/master.html:94 ../web/src/partials/i18n_admin.html:308
+#: ../web/src/masters/master.html:94 ../web/src/partials/i18n_admin.html:309
 msgid "服务声明"
 msgstr "Terms Of Use"
 
@@ -1120,7 +1112,7 @@ msgstr "Home"
 msgid "投资资讯"
 msgstr "News"
 
-#: ../web/src/masters/master.html:53 ../web/src/partials/i18n_admin.html:304
+#: ../web/src/masters/master.html:53 ../web/src/partials/i18n_admin.html:305
 #: ../web/src/partials/signin_form.html:13
 #: ../web/src/partials/signup_form.html:21
 #: ../web/src/static/emails/new_admin.html:4
@@ -2511,69 +2503,73 @@ msgid "上传本站"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:287
+msgid "设为封面"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:288
 msgid "上传图片"
 msgstr "Upload Image"
 
-#: ../web/src/partials/i18n_admin.html:288
+#: ../web/src/partials/i18n_admin.html:289
 #: ../web/src/partials/signin_form.html:9
 msgid "忘记密码"
 msgstr "Forgot Password"
 
-#: ../web/src/partials/i18n_admin.html:289
+#: ../web/src/partials/i18n_admin.html:290
 msgid "电话号码"
 msgstr "Phone Number"
 
-#: ../web/src/partials/i18n_admin.html:290
+#: ../web/src/partials/i18n_admin.html:291
 msgid "请输入数字"
 msgstr "Enter number"
 
-#: ../web/src/partials/i18n_admin.html:291
+#: ../web/src/partials/i18n_admin.html:292
 msgid "验证码"
 msgstr "verification code"
 
-#: ../web/src/partials/i18n_admin.html:292
+#: ../web/src/partials/i18n_admin.html:293
 #: ../web/src/partials/signin_form.html:7
 #: ../web/src/partials/signup_form.html:12
 msgid "密码"
 msgstr "Password"
 
-#: ../web/src/partials/i18n_admin.html:294
+#: ../web/src/partials/i18n_admin.html:295
 msgid "两次输入的密码不一致"
 msgstr "Please make sure new passoword are same with confirm password"
 
-#: ../web/src/partials/i18n_admin.html:296
+#: ../web/src/partials/i18n_admin.html:297
 msgid "返回登录"
 msgstr "Back to sign in"
 
-#: ../web/src/partials/i18n_admin.html:297
+#: ../web/src/partials/i18n_admin.html:298
 msgid "没有权限。"
 msgstr "No permissions"
 
-#: ../web/src/partials/i18n_admin.html:299
+#: ../web/src/partials/i18n_admin.html:300
 msgid "变更记录"
 msgstr "Change log"
 
-#: ../web/src/partials/i18n_admin.html:300
+#: ../web/src/partials/i18n_admin.html:301
 msgid "修改时间"
 msgstr "Update time"
 
-#: ../web/src/partials/i18n_admin.html:301
+#: ../web/src/partials/i18n_admin.html:302
 msgid "变更内容"
 msgstr "Change value"
 
-#: ../web/src/partials/i18n_admin.html:302
+#: ../web/src/partials/i18n_admin.html:303
 msgid "字段"
 msgstr "Key"
 
-#: ../web/src/partials/i18n_admin.html:303
+#: ../web/src/partials/i18n_admin.html:304
 msgid "管理员登录"
 msgstr "Administrator login"
 
-#: ../web/src/partials/i18n_admin.html:305
+#: ../web/src/partials/i18n_admin.html:306
 msgid "注册帐号"
 msgstr "Sign Up"
 
-#: ../web/src/partials/i18n_admin.html:307
+#: ../web/src/partials/i18n_admin.html:308
 msgid "已阅读并同意"
 msgstr "Read and Agreed"
 
@@ -2758,10 +2754,10 @@ msgid "已经拥有账号？请"
 msgstr "Already got account? Please "
 
 #: ../web/src/phone/wechat_share.html:13
-msgid "让好友打开微信<br/>使用“扫一扫”即可打开改页面"
+msgid "让好友打开微信<br/>使用“扫一扫”即可打开该页面"
 msgstr ""
 
-#: ../web/src/phone/wechat_share.html:14 ../web/src/phone/wechat_share.html:18
+#: ../web/src/phone/wechat_share.html:14
 msgid "发送链接给微信好友？"
 msgstr "Send link to wechat friends? "
 
@@ -3157,3 +3153,9 @@ msgstr "More"
 
 #~ msgid "拨打 4000926433"
 #~ msgstr "Call 4000926433"
+
+#~ msgid "房间"
+#~ msgstr "Room"
+
+#~ msgid "厅堂"
+#~ msgstr "Living Room"
