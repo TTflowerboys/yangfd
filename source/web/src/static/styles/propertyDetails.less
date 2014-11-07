@@ -766,6 +766,38 @@
             }
         }
     }
+
+    .bottomBar_phone {
+        display:none;
+        @media @phone {
+            display:block;
+            overflow:hidden;
+            width:100%;
+            background:#333;
+        }
+
+        li {
+            @media @phone {
+                float:left;
+                display:inline-block;
+                width:100% / 3;
+                text-align:center;
+                height:40px;
+                font-size:16px;
+                line-height:40px;
+            }
+
+            img {
+                @media @phone {
+                    height:20px;
+                    margin-top:10px;
+                }
+            }
+        }
+
+
+
+    }
     .intentionForm {
         padding: 8px 24px 8px; margin-top: 16px; background: #f6f6f6; overflow: hidden; margin-bottom: 16px;
         .row { .clearfix(); }
