@@ -82,6 +82,7 @@ def intention_ticket_add(params):
                             "%nickname%": [user_params["nickname"]],
                             "%phone%": [user_params["phone"]],
                             "%password%": [user_params["password"]],
+                            "%logo_url%": [f_app.common.email_template_logo_url]
                         }
                     }
                     xsmtpapi = substitution_vars
@@ -142,6 +143,7 @@ def intention_ticket_add(params):
                             "%nickname%": [user_params["nickname"]],
                             "%phone%": [user_params["phone"]],
                             "%password%": [user_params["password"]],
+                            "%logo_url%": [f_app.common.email_template_logo_url]
                         }
                     }
                     xsmtpapi = substitution_vars
@@ -187,7 +189,8 @@ def intention_ticket_add(params):
                     "%phone%": [params["phone"]],
                     "%email%": [params["email"]],
                     "%description%": [params.get("description", "")],
-                    "%budget%": [budget]
+                    "%budget%": [budget],
+                    "%logo_url%": [f_app.common.email_template_logo_url]
                 }
             }
             xsmtpapi = substitution_vars

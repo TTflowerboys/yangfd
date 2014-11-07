@@ -340,7 +340,8 @@ def admin_user_add(user, params):
             "%password%": [params["password"]],
             "%role%": [roles],
             "%admin_console_url%": [admin_console_url],
-            "%phone%": ["*" * (len(params["phone"]) - 4) + params["phone"][-4:]]
+            "%phone%": ["*" * (len(params["phone"]) - 4) + params["phone"][-4:]],
+            "%logo_url%": [f_app.common.email_template_logo_url]
         }
     }
     xsmtpapi = substitution_vars
@@ -399,7 +400,8 @@ def admin_user_add_role(user, user_id, params):
                     "%nickname%": [user_info.get("nickname")],
                     "%role%": [roles],
                     "%admin_console_url%": [admin_console_url],
-                    "%phone%": ["*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]]
+                    "%phone%": ["*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]],
+                    "%logo_url%": [f_app.common.email_template_logo_url]
                 }
             }
             xsmtpapi = substitution_vars
@@ -619,6 +621,7 @@ def email_send(user_id):
         "sub": {
             "%nickname%": [user.get("nickname")],
             "%verification_url%": [verification_url],
+            "%logo_url%": [f_app.common.email_template_logo_url]
         }
     }
     xsmtpapi = substitution_vars

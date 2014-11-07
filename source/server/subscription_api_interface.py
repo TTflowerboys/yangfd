@@ -74,8 +74,10 @@ def subscription_notification_ready(user, params):
         else:
             template_invoke_name = "we_are_ready_en"
             sendgrid_template_id = "9fc8e78b-a093-4de1-b466-013230b5c03f"
-        substitution_vars = {"to": [subscription["email"]], "sub": {}}
-        xsmtpapi = {"to": [subscription["email"]], "sub": {}, "category": ["subscription_notification_ready"], "template_id": sendgrid_template_id}
+        substitution_vars = {"to": [subscription["email"]], "sub": {"%logo_url%": [f_app.common.email_template_logo_url]}}
+        xsmtpapi = substitution_vars
+        xsmtpapi["category"] = ["subscription_notification_ready"]
+        xsmtpapi["template_id"] = sendgrid_template_id
         f_app.email.schedule(
             target=subscription["email"],
             subject=f_app.util.get_format_email_subject(template("static/emails/we_are_ready_title")),
@@ -83,5 +85,5 @@ def subscription_notification_ready(user, params):
             display="html",
             substitution_vars=substitution_vars,
             template_invoke_name=template_invoke_name,
-            xsmtpapi=xsmtpapi
+            xsmtpapi=xsmtpapi,
         )
