@@ -18,7 +18,7 @@
                     <div type-i18n="images"></div>
                     <div type-i18n="fileNames"></div>
                     <div id="links" class="links row">
-                        <div style="width: 200px ;height: 200px; margin:8px; position: relative;"
+                        <div style="width: 320px ;height: 213px; margin:8px; position: relative;"
                             ng-repeat="image in images[userLanguage.value] track by $index" class="col-sm-3">
                             <a ng-href="{% image %}" ng-style="{'visibility':image===''?'hidden':'visibility'}" title="{%$index+1%}" data-gallery>
                                 <img class="img-thumbnail" style="width:100%; height: 100%" ng-src="{% image | thumbnail %}">
