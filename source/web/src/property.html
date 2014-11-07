@@ -271,8 +271,8 @@
                                 </td>
                             </tr>
                         % end
+                        % if 'address' in property:
                         <tr>
-
                             <td class="name">
                                 <i>
                                     <img src="/static/images/property_details/icon-location.png" alt=""/>
@@ -281,11 +281,21 @@
                             </td>
                             <td class="value">
                                 {{property.get('address')}}
+                                % if property.get('longitude') and property.get('latitude'):
+                                % long = property.get('longitude')
+                                % lat = property.get('latitude')
+                                <a href="https://ditu.google.cn/maps/?q=loc:{{lat}},{{long}}&z=14" target="_blank">
+                                    {{_(' (查看地图)')}}
+                                </a>
+                                % else:
                                 <a target="_blank" href="https://ditu.google.cn/maps?q={{ quote_plus( property.get('address','').encode('utf-8')) }}">
                                     {{_(' (查看地图)')}}
                                 </a>
+                                %end
                             </td>
                         </tr>
+                        % end
+                        % if 'street' in property:
                         <tr>
                             <td class="name">
                                 <i>
@@ -297,6 +307,7 @@
                                 {{property.get('street','')}}
                             </td>
                         </tr>
+                        % end
                         % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
                             <tr>
                                 <td colspan="1" class="name">
@@ -1044,7 +1055,7 @@
                  var result = team.setQuery('center', latitude + ',' + longitude, url)
                  result = team.setQuery('zoom', 15, result)
                  result = team.setQuery('size', '640x384', result)
-                 result = team.setQuery('markers', longitude + ',' + latitude, result)
+                 result = team.setQuery('markers', latitude + ',' + longitude, result)
                  $propertyMap.get(0).src = result
              }
          })
