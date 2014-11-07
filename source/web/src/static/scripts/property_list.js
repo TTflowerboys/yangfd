@@ -196,7 +196,7 @@
             }
 
             if (selectedIntention) {
-                description = description + window.i18n('的房产，投资意向为为') + ' ' +
+                description = description + window.i18n('的房产，投资意向为') + ' ' +
                     selectedIntention
             }
 
