@@ -28,6 +28,7 @@ logger = logging.getLogger(__name__)
     random=bool,
     name=str,
     slug=str,
+    sort=(list, None, str),
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
@@ -189,6 +190,7 @@ property_params = dict(
     rental_guarantee_term=str,
     rental_guarantee_rate=float,
     unset_fields=(list, None, str),
+    mtime=datetime,
 )
 
 
@@ -251,6 +253,7 @@ def property_edit(property_id, user, params):
 
         def _action(params):
             unset_fields = params.get("unset_fields", [])
+            params["mtime"] = datetime.utcnow()
             f_app.property.update_set(property_id, params)
             if unset_fields:
                 f_app.property.update(property_id, {"$unset": {i: "" for i in unset_fields}})
@@ -280,6 +283,7 @@ def property_edit(property_id, user, params):
                                 property = f_app.property.get_database(m).find_one({"_id": ObjectId(property_id)})
                             property.pop("_id")
                             property["status"] = params["status"]
+                            property["mtime"] = datetime.utcnow()
                             target_property_id = property.pop("target_property_id")
                             unset_fields = property.pop("unset_fields", [])
                             f_app.property.update_set(target_property_id, property)
@@ -345,6 +349,7 @@ def property_get(property_id):
 @f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'junior_sales'])
 def property_edit_sales_comment(user, property_id, params):
     params = {"sales_comment": params.pop("content", None)}
+    params = {"mtime": datetime.utcnow()}
     f_app.property.update_set(property_id, params)
     return f_app.property.output([property_id])[0]
 
