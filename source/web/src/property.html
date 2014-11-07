@@ -225,7 +225,7 @@
 
                         % if property.get('living_room_count',''):
                             <li>
-                                {{_('厅堂')}}
+                                {{_('客厅')}}
                                 <strong>{{ property.get('living_room_count','') }}</strong>
                             </li>
                         % end
@@ -376,7 +376,7 @@
                                                     <table class="text">
                                                         <tr>
                                                             <td>
-                                                                <span class="name">{{_('房间')}}</span>
+                                                                <span class="name">{{_('卧室')}}</span>
                                                                 <span class="value">{{item.get('bedroom_count',0)}}</span>
                                                             </td>
                                                             <td>
@@ -983,7 +983,7 @@
                 <div class="action">
                     <button type="submit" class="flatButton">{{_('计算贷款')}}</button>
                 </div>
-                <a class="link" target="_blank" href="/news_list">{{_('贷款流程')}}</a>
+                <a class="link" target="_blank" href="/news/545c9019ec0e01024c586f53">{{_('贷款流程')}}</a>
                 <hr/>
                 <div class="table_wrapper" data-ui="result" style="display: none;">
                     <table>
