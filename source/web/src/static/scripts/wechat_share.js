@@ -1,7 +1,7 @@
 (function () {
-    if (window.team.isWeChat()) {
-        $('.wechatPage').show()
-    } else {
+    // if (window.team.isWeChat()) {
+    //     $('.wechatPage').show()
+    // } else {
         $('.siteHeader_wrapper').show()
         $('.mainPage').show()
         $('.guidePage').show()
@@ -19,5 +19,5 @@
             $('html, body').animate({scrollTop: $('.guidePage').offset().top -10 }, 'fast')
 
         })
-    }
+    //}
 })()
