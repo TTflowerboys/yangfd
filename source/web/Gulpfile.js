@@ -26,8 +26,11 @@ var useref = require('gulp-useref')
 var when = require('gulp-if')
 var filter = require('gulp-filter')
 var debug = require('gulp-debug')
-var base64 = require('gulp-img64');
+var base64 = require('gulp-img64')
 var gutil = require('gulp-util')
+var preprocess = require('gulp-preprocess')
+var uglify = require('gulp-uglify');
+
 
 var myPaths = {
     src: './src/',
@@ -124,10 +127,12 @@ gulp.task('less2css', function (done) {
 gulp.task('build:less2css', ['build:copy'], function (done) {
     gulp.src(myPaths.css)
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
+        .pipe(minifyCss({keepSpecialComments: 0}))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     return gulp.src(myPaths.less)
         .pipe(less())
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
+        .pipe(minifyCss({keepSpecialComments: 0}))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     done()
 })
@@ -143,7 +148,6 @@ gulp.task('styleless2css', function () {
 })
 
 
-var preprocess = require('gulp-preprocess')
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
         .pipe(extender({verbose:false}))
@@ -164,7 +168,7 @@ var buildExtend = function(env) {
         .pipe(usemin({
             //TODO: Rev images
             css: ['concat', rev()],
-            js: [ footer(';;;'), 'concat', rev()]
+            js: [ footer(';;;'), 'concat', uglify(), rev()]
         }))
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())

@@ -32,6 +32,20 @@
             $('#modal').show()
             return false
         },
+        checkLoginIfNot: function () {
+            if (!window.user) {
+                if (team.isPhone()) {
+                    window.project.goToSignIn()
+                }
+                else {
+                    window.project.showSignInModal()
+                }
+                return true
+            }
+            else {
+                return false
+            }
+        },
         repaintHowItWorks: function () {
 
         },
