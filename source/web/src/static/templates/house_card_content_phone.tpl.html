@@ -4,14 +4,16 @@
     {_ } else if(house.reality_images && house.reality_images.length) {_}
     <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" onerror="window.project.onImgError(this);"/>
     {_ }else { _}
-    <img class="withPlaceholder"/>
+    <img clas=s"withPlaceholder"/>
     {_}_}
     <div class="imageText">
         <div class="left">
             <p class=name>{=house.name=}</p>
+            {_if (house.property_type && house.property_type.slug !== 'new_property' && house.property_type.slug !== 'student_housing'){_}
             <p class=size>
                 <!--@@include=../../partials/get_size.tpl.html -->
             </p>
+            {_}_}
         </div>
         <div class="right">
             <table>
