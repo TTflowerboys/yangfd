@@ -89,9 +89,9 @@ angular.module('app')
                         thumbnail_size: scope.thumbnailSize || '0,0'
                     }, {errorMessage: true})
                         .success(function (data, status, headers, config) {
-                            for (var key in scope.images) {
-                                if (img === scope.images[key]) {
-                                    scope.images[key] = data.val.url
+                            for (var key in scope.images[scope.userLanguage.value]) {
+                                if (img === scope.images[scope.userLanguage.value][key]) {
+                                    scope.images[scope.userLanguage.value][key] = data.val.url
                                     break
                                 }
                             }
