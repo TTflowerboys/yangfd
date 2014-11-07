@@ -23,7 +23,10 @@
                             <a ng-href="{% image %}" ng-style="{'visibility':image===''?'hidden':'visibility'}" title="{%$index+1%}" data-gallery>
                                 <img class="img-thumbnail" style="width:100%; height: 100%" ng-src="{% image | thumbnail %}">
                             </a>
-                            <span ng-style="{'visibility':image===''?'visibility':'hidden'}"  style="position: absolute; top:50%; left: 50%;">
+                            <div ng-if="!isNotCover($index)" style="width: 100%; height: 100%;line-height:200px;text-align: center;vertical-align: middle;background-color: #ff8a00;opacity:0.4;position: absolute;left:0;right:0;top:0;bottom:0">
+                                <h1>{%'封面'%}</h1>
+                            </div>
+                            <span ng-style="{'visibility':image===''?'visibility':'hidden'}" style="position: absolute; top:50%; left: 50%;">
                                 <i class="fa fa-spinner fa-spin"></i>
                             </span>
                             <button ng-if="isOurImage(image)" class="btn btn-sm" style="position: absolute; bottom:0; left: 0;" ng-click="uploadImage(image)"
