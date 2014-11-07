@@ -168,7 +168,7 @@ var buildExtend = function(env) {
         .pipe(usemin({
             //TODO: Rev images
             css: ['concat', rev()],
-            js: [ footer(';;;'), 'concat', uglify(), rev()]
+            js: [ footer(';;;'), 'concat', rev()]
         }))
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
