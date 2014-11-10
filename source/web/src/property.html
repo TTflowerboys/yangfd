@@ -344,8 +344,12 @@
                                         % for type in property.get('main_house_types'):
                                             <a href="#propertyDetails_houseTypes">
                                                 <span class="toggleTag selected">
+                                                    %if 'bedroom_count' in type and type.get('bedroom_count') != 0:
                                                     {{type.get('bedroom_count',0)}}{{_('室')}}
+                                                    %end
+                                                    %if 'living_room_count' in type and type.get('living_room_count') != 0:
                                                     {{type.get('living_room_count',0)}}{{_('厅')}}
+                                                    %end
                                                     % if 'value' in type.get('building_area',{}) and 'unit' in type.get('building_area',{}):
                                                         (
                                                         {{float("{0:.2f}".format(float(type.get('building_area',{}).get('value'))))}}
@@ -398,22 +402,30 @@
                                                 <div class="table_wrapper">
                                                     <table class="text">
                                                         <tr>
+                                                            %if 'bedroom_count' in item and item.get('bedroom_count') != 0:
                                                             <td>
                                                                 <span class="name">{{_('卧室')}}</span>
                                                                 <span class="value">{{item.get('bedroom_count',0)}}</span>
                                                             </td>
+                                                            %end
+                                                            %if 'living_room_count' in item and item.get('living_room_count') != 0:
                                                             <td>
                                                                 <span class="name">{{_('客厅')}}</span>
                                                                 <span class="value">{{item.get('living_room_count',0)}}</span>
                                                             </td>
+                                                            %end
+                                                            %if 'bathroom_count' in item and item.get('bathroom_count') != 0:
                                                             <td>
                                                                 <span class="name">{{_('卫生间')}}</span>
-                                                                <span class="value">{{item.get('kitchen_count',0)}}</span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="name">{{_('厨房')}}</span>
                                                                 <span class="value">{{item.get('bathroom_count',0)}}</span>
                                                             </td>
+                                                            %end
+                                                            %if 'kitchen_count' in item and item.get('kitchen_count') != 0:
+                                                            <td>
+                                                                <span class="name">{{_('厨房')}}</span>
+                                                                <span class="value">{{item.get('kitchen_count',0)}}</span>
+                                                            </td>
+                                                            %end
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -1084,6 +1096,9 @@
      (function () {
          window.openWeChatShare = function (propertyId) {
              if (window.team.isWeChat()) {
+                 if (window.team.isWeChatiOS()) {
+                     $('.wetchatPage_popup .buttonHolder').attr('src', '/static/images/property_details/wechat_share/phone/wechat_button_ios.png')
+                 }
                  $('.wechatPage_popup').modal()
                  $('.wechatPage_popup').find('.close-modal').hide()
              }

@@ -172,7 +172,10 @@
             var ua = navigator.userAgent.toLowerCase()
             return (/micromessenger/.test(ua)) ? true : false
         },
-
+        isWeChatiOS: function () {
+            var ua = navigator.userAgent.toLowerCase()
+            return (/micromessenger/.test(ua)) && ((/iphone/.test(ua)) || /ipad/.test(ua)) ? true : false
+        },
         /**
          * convert to https link
          * @param {object} {link:'',property_id:'',news_id:''}
