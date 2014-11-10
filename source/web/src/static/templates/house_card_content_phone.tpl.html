@@ -6,6 +6,24 @@
     {_ }else { _}
     <img clas=s"withPlaceholder"/>
     {_}_}
+    <div class="labels">
+        {_if (house.property_type && house.property_type.value){_}
+        <label class="type" for="">{=house.property_type.value=}</label>
+        {_}_}
+        {_if (house.rental_guarantee_term){_}
+        <label class="rent" for="">{=house.rental_guarantee_term + ' ' + window.i18n('年包租')=}
+            {_if (house.rental_guarantee_rate){_}
+            {=' ' +  parseFloat(house.rental_guarantee_rate).toFixed(2) + '%'=}
+            {_}_}
+        </label>
+        {_}_}
+    </div>
+    {_if (house.status === 'sold out'){_}
+    <div class="soldOut">
+        <img alt="" src="/static/images/background/sold-out.png"/>
+        <label for="">{=window.i18n('售罄')=}</label>
+    </div>
+    {_}_}
     <div class="imageText">
         <div class="left">
             <p class=name>{=house.name=}</p>

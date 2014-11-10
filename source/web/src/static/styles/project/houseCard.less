@@ -205,14 +205,67 @@
     }
     .imagePart {
         overflow:hidden;
+        position:relative;
+        display:block;
         img {
             width:100%;
             float:left;
             min-height:@house_card_image-height;
         }
+
+        .labels {
+            position: absolute;
+            left: 0;
+            top:0;
+            height:40px;
+            width:100%;
+            z-index:@house_card-image-text-z-index;
+            label {
+                position:static;
+                float:left;
+                color:white;
+                font-size:16px;
+                line-height:40px;
+                padding:0 12px;
+
+                &.type {
+                    background:#333;
+                }
+                &.rent {
+                    background:#e60012;
+                }
+
+            }
+        }
+
+        @imagePart-height:85px;
+
+         .soldOut {
+            img {
+                position: absolute;
+                left: 0;
+                top:0;
+                height:~"calc(100% - 85px)";
+                z-index:@house_card-sold-out-background-z-index;
+            }
+
+            label {
+                position:absolute;
+                z-index:@house_card-image-text-z-index;
+                width:100%;
+                height:~"calc(100% - 85px)";
+                color:#666666;
+                text-align: center;
+                display: block;
+                line-height: ~"calc(100% - 85px)"
+                font-size:44px;
+            }
+        }
+
+
         .imageText {
             width:100%;
-            height:85px;
+            height:@imagePart-height;
             float:left;
 
             .left {
