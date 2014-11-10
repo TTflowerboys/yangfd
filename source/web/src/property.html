@@ -1045,7 +1045,6 @@
         <p>{{_('打开微信，使用 “扫一扫” 即可将网页分享到朋友圈')}}</p>
     </div>
 
-    <div id="wechatPage_popup_shadow" class="main_house_type_popup_shadow"></div>
     <div class="wechatPage_popup" style="display:none;">
         <h1 class="tip"> {{!_('点击右上角')}}</h1>
         <img class="buttonHolder"  alt="" src="/static/images/property_details/wechat_share/phone/wechat_button.png"/>
@@ -1053,6 +1052,7 @@
         <div class="guide">
             <img  alt="" src="/static/images/property_details/wechat_share/phone/wechat_guide.png"/>
         </div>
+        <a class="gotIt" href ="#close-modal" rel="modal:close">{{_('我知道了')}}</a>
     </div>
 
     <ul class="floatBar_phone">
@@ -1085,10 +1085,10 @@
          window.openWeChatShare = function (propertyId) {
              if (window.team.isWeChat()) {
                  $('.wechatPage_popup').modal()
+                 $('.wechatPage_popup').find('.close-modal').hide()
              }
              else {
-              //   location.href = "/wechat_share?property=" + propertyId
-                 $('.wechatPage_popup').modal()
+                 location.href = "/wechat_share?property=" + propertyId
              }
          }
 
