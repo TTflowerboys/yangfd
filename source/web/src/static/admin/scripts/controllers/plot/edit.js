@@ -47,7 +47,7 @@
                 return
             }
             $scope.loading = true
-            api.update(angular.extend(changed, {id: $scope.item.id}), {
+            api.update(angular.extend(changed, {id: $stateParams.id}), {
                 params: {_i18n: 'disabled'},
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'

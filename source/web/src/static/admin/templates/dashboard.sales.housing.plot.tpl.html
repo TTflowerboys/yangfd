@@ -1,14 +1,10 @@
 <div ui-view>
     <div class="buttons">
         <span class="btn-group">
-            <button class="btn" ui-sref=".create">
-                <span class="fa fa-plus-circle"></span>{%$root.i18n('添加物业销售状态')%}
+            <button class="btn" ng-click="$state.go('^')">
+                <span class="fa fa-chevron-left"></span>{%$root.i18n('返回')%}
             </button>
         </span>
-        <div class="btn-group form-inline">
-            <div select-property-or-student-item="item.propertyId"></div>
-        </div>
-
         <div class="btn-group form-inline pull-right">
             <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
         </div>
@@ -27,7 +23,6 @@
                     <th ng-click="sort(3)">{%$root.i18n('价格')%}</th>
                     <th ng-click="sort(4)">{%$root.i18n('楼层')%}</th>
                     <th ng-click="sort(5)">{%$root.i18n('备注')%}</th>
-                    <th>{%$root.i18n('编辑')%}</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,11 +57,6 @@
                     <td>{%item.floor%}</td>
                     <td>
                         <div style="max-width: 360px">{%item.description||''%}</div>
-                    </td>
-                    <td style="text-align:center;">
-                        <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
-                            <i class="fa fa-edit "></i>
-                        </a>
                     </td>
                 </tr>
             </tbody>

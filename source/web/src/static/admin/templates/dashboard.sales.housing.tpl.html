@@ -31,6 +31,10 @@
         <thead>
             <tr>
                 <th>{%$root.i18n('名称')%}</th>
+                <th>{%$root.i18n('地址')%}</th>
+                <th>{%$root.i18n('房产类型')%}</th>
+                <th>{%$root.i18n('售价')%}</th>
+                <th>{%$root.i18n('标签')%}</th>
                 <th>{%$root.i18n('状态')%}</th>
                 <th></th>
             </tr>
@@ -41,9 +45,32 @@
                     {%item.name[userLanguage.value]%}
                 </td>
                 <td>
+                    {%item.address[userLanguage.value]%}
+                </td>
+                <td>
+                    {%item.property_type.value[userLanguage.value]%}
+                </td>
+                <td>
+                    <div ng-if="item.property_type.slug!=='new_property'&&item.property_type.slug!=='student_housing'">
+                        {%item.total_price.value%} {%item.total_price.unit%}
+                    </div>
+                    <div ng-if="item.property_type.slug==='new_property'||item.property_type.slug==='student_housing'" ng-repeat="m in item.main_house_types">
+                        {%m.total_price.value%} {%m.total_price.unit%}
+                    </div>
+                </td>
+                <td>
+                    <div ng-repeat="i in item.intention">
+                        {%i.value[userLanguage.value]%}
+                    </div>
+                </td>
+                <td>
                     {%item.status|plotStatusName%}
                 </td>
                 <td style="text-align:center;">
+                    <a ng-if="item.property_type.slug==='new_property'||item.property_type.slug==='student_housing'"
+                        class="btn btn-info" href ui-sref=".plot({id:item.id})" title="View">
+                        <i class="fa fa-list-alt "></i>
+                    </a>
                     <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
                         <i class="fa fa-search-plus "></i>
                     </a>
