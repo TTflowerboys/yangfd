@@ -27,6 +27,7 @@
             params.country = $scope.selected.country
             params.city = $scope.selected.city
             params.property_type = $scope.selected.property_type
+            params.time = undefined
         }
 
         $scope.searchProperty = function () {
