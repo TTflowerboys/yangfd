@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2014-11-07 18:45+0800\n"
-"PO-Revision-Date: 2014-11-07 18:46+0800\n"
+"PO-Revision-Date: 2014-11-10 17:07+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -415,7 +415,7 @@ msgstr "Main House Type"
 
 #: ../web/src/property.html:324
 msgid "室"
-msgstr "Bedroom"
+msgstr "Bedrooms"
 
 #: ../web/src/property.html:325
 msgid "厅"
