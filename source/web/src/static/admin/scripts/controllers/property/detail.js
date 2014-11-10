@@ -26,7 +26,7 @@
         }
 
         $scope.submitForAccept = function () {
-            api.update({status: 'selling', id: $scope.item.id}, {
+            api.update({status: 'selling', id: $stateParams.id}, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {
@@ -37,7 +37,7 @@
         }
 
         $scope.submitForReject = function () {
-            api.update({status: 'rejected', id: $scope.item.id}, {
+            api.update({status: 'rejected', id: $stateParams.id}, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {

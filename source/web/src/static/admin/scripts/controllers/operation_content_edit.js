@@ -54,7 +54,7 @@
 
             $scope.loading = true
 
-            $scope.api.update(angular.extend(changed, {id: $scope.item.id}), {
+            $scope.api.update(angular.extend(changed, {id: $stateParams.id}), {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function () {

@@ -469,6 +469,12 @@ angular.module('app')
                 controller: 'ctrlHousingDetail',
                 resolve: propertyResolve
             })
+            .state('dashboard.sales.housing.plot', {
+                url: '/plot/:id',
+                templateUrl: '/static/admin/templates/dashboard.sales.housing.plot.tpl.html',
+                controller: 'ctrlHousingPlot',
+                resolve: plotResolve
+            })
         /**
          * others
          */
