@@ -36,6 +36,7 @@ var myPaths = {
     src: './src/',
     dist: './dist/',
     html: './src/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
+    image:'./src/static/images/',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,admin/scripts,admin/templates}',
     static: './src/static/**/*.*',
     less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
@@ -148,6 +149,25 @@ gulp.task('styleless2css', function () {
 })
 
 
+var spritesmith = require('gulp.spritesmith')
+gulp.task('sprite', function () {
+    var spriteData = 
+        gulp.src(myPaths.image) 
+            .pipe(spritesmith({
+                imgName: 'sprite.png',
+                cssName: 'sprite.css',
+                algorithm: 'binary-tree',
+                cssVarMap: function(sprite) {
+                    sprite.name = 's-' + sprite.name
+                }
+            }));
+
+    spriteData.img.pipe(gulp.dest(myPaths.dist  + 'static/images/sprite/'))
+    spriteData.css.pipe(gulp.dest(myPaths.dist + 'static/styles/sprite/'))
+
+})
+
+var preprocess = require('gulp-preprocess')
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
         .pipe(extender({verbose:false}))

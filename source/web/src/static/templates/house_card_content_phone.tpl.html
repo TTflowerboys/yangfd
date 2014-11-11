@@ -26,7 +26,15 @@
     {_}_}
     <div class="imageText">
         <div class="left">
-            <p class=name>{=house.name=}</p>
+            <p class=name>
+                {_if (house.country){_}
+                {=house.country.value=}
+                {_}_}
+                {_if (house.city){_}
+                {=house.city.value=}
+                {_}_}
+                {=house.name=}
+            </p>
             {_if (house.property_type && house.property_type.slug !== 'new_property' && house.property_type.slug !== 'student_housing'){_}
             <p class=size>
                 <!--@@include=../../partials/get_size.tpl.html -->
