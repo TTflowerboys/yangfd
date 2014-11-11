@@ -936,6 +936,7 @@ class f_property(f_app.module_base):
     def add(self, params):
         params.setdefault("status", "draft")
         params.setdefault("time", datetime.utcnow())
+        params.setdefault("mtime", datetime.utcnow())
         with f_app.mongo() as m:
             property_id = self.get_database(m).insert(params)
 
@@ -1046,6 +1047,9 @@ class f_property(f_app.module_base):
         self.update_set(property_id, {"status": "deleted"})
 
     def update(self, property_id, params):
+        if "$set" in params:
+            params["$set"].setdefault("mtime", datetime.utcnow())
+
         with f_app.mongo() as m:
             self.get_database(m).update(
                 {"_id": ObjectId(property_id)},

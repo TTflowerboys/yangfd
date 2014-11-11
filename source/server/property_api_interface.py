@@ -204,7 +204,6 @@ property_params = dict(
     rental_guarantee_term=str,
     rental_guarantee_rate=float,
     unset_fields=(list, None, str),
-    mtime=(datetime, datetime.utcnow()),
     brochure=(list, None, str),
 )
 
