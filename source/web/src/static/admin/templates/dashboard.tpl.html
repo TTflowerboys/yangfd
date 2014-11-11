@@ -110,6 +110,11 @@
                                     class="fa fa-tasks"></i><span class="hidden-sm text">{%$root.i18n('投资意向单管理')%}</span></a>
                             </li>
                             <li has-permission="admin,jr_admin,operation,jr_operation"
+                                ng-class="{active:$state.includes('dashboard.report')}">
+                                <a href ui-sref="dashboard.report" ui-sref-active="active"><i
+                                    class="fa fa-tasks"></i><span class="hidden-sm text">{%$root.i18n('街区报告')%}</span></a>
+                            </li>
+                            <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.operation')}">
                                 <a class="dropmenu" href ui-sref="dashboard.operation.news">
                                     <i class="fa fa-coffee"></i><span class="hidden-sm text">{%$root.i18n('品牌运营管理')%}</span>

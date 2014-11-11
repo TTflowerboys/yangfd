@@ -47,6 +47,12 @@ angular.module('app')
             }
         }
 
+        var reportResolve = {
+            api: function (apiFactory) {
+                return apiFactory('report')
+            }
+        }
+
         $stateProvider
             .state('dashboard', {
                 url: '/dashboard',
@@ -474,6 +480,12 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.sales.housing.plot.tpl.html',
                 controller: 'ctrlHousingPlot',
                 resolve: plotResolve
+            })
+            .state('dashboard.report', {
+                url: '/report',
+                templateUrl: '/static/admin/templates/dashboard.report.tpl.html',
+                controller: 'ctrlList',
+                resolve: reportResolve
             })
         /**
          * others
