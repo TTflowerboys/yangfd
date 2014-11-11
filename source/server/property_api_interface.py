@@ -93,8 +93,13 @@ def property_search(user, params):
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
-    logger.debug(params)
-    property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort)
+
+    # Only support mtime, desc
+    if "mtime" in sort:
+        property_list = f_app.property.search(params, per_page=per_page, count=True, time_field="mtime", notime=False, sort=["mtime", "desc"])
+    else:
+        property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort)
+
     if random and property_list["content"]:
         logger.debug(property_list["content"])
         import random

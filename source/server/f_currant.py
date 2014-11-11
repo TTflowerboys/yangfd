@@ -977,7 +977,7 @@ class f_property(f_app.module_base):
                 new_properties[id] = property
         return new_properties
 
-    def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False):
+    def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False, time_field="time"):
         f_app.util.process_search_params(params)
         params.setdefault("status", {"$ne": "deleted"})
         if sort is not None:
@@ -990,9 +990,9 @@ class f_property(f_app.module_base):
             sort_field = sort_orientation = None
 
         if count:
-            property_id_list = f_app.mongo_index.search(self.get_database, params, count=count, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)
+            property_id_list = f_app.mongo_index.search(self.get_database, params, count=count, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime, time_field=time_field)
         else:
-            property_id_list = f_app.mongo_index.search(self.get_database, params, count=count, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime)['content']
+            property_id_list = f_app.mongo_index.search(self.get_database, params, count=count, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime, time_field=time_field)['content']
 
         return property_id_list
 
