@@ -38,3 +38,4 @@ API Reference
    ticket_api
    upload_api
    user_api
+   report_api

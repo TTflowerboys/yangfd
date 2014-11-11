@@ -28,19 +28,19 @@ logger = logging.getLogger(__name__)
     transit_score=float,
     railway_lines=dict(
         name=str,
-        distance=float,
+        distance=("i18n:distance", None, "meter, foot"),
     ),
     bus_lines=dict(
         name=str,
-        distance=float,
+        distance=("i18n:distance", None, "meter, foot"),
     ),
     car_rental_location=dict(
         place=str,
-        distance=float,
+        distance=("i18n:distance", None, "meter, foot"),
     ),
     bicycle_rental_location=dict(
         place=str,
-        distance=float,
+        distance=("i18n:distance", None, "meter, foot"),
     ),
     population=int,
     population_description=str,
@@ -79,19 +79,19 @@ def report_get(report_id):
     transit_score=(float, None),
     railway_lines=dict(
         name=(str, None),
-        distance=(float, None),
+        distance=("i18n:distance", None, "meter, foot"),
     ),
     bus_lines=(dict(
         name=(str, None),
-        distance=(float, None),
+        distance=("i18n:distance", None, "meter, foot"),
     ), None),
     car_rental_location=(dict(
         place=(str, None),
-        distance=(float, None),
+        distance=("i18n:distance", None, "meter, foot"),
     ), None),
     bicycle_rental_location=(dict(
         place=(str, None),
-        distance=(float, None),
+        distance=("i18n:distance", None, "meter, foot"),
     ), None),
     population=(int, None),
     population_description=(str, None),
