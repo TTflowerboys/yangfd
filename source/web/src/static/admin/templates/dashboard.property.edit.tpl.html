@@ -644,6 +644,9 @@
                 </tab>
             </tabset>
         </div>
+        <select ng-options="p.value as p.name for p in propertyStatus" ng-model="item.status"
+            class="input-sm">
+        </select>
         <input ng-if="!draftId" type="submit" class="btn btn-primary" value="{%$root.i18n('保存更改')%}">
         <input ng-if="!draftId" type="button" class="btn btn-primary" value="{%$root.i18n('提交审核')%}" ng-click="submitForReview($event,editProperty)">
         <input ng-if="!draftId" type="button" class="btn btn-primary" ng-click="submitForPreview()" value="{%$root.i18n('保存并预览')%}">
