@@ -29,6 +29,7 @@ logger = logging.getLogger(__name__)
     random=bool,
     name=str,
     slug=str,
+    mtime=datetime,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
