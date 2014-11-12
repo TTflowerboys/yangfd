@@ -626,7 +626,7 @@
                 </tab>
             </tabset>
             <div ng-if="hasPermission('admin,jr_admin,operation') && salesCommentEnabled===undefined && item.status==='not reviewed'">
-                <button class=" btn btn-private" type="button" ng-click="submitForAccept()">{%$root.i18n('批准审核')%}
+                <button class=" btn btn-primary" type="button" ng-click="submitForAccept()">{%$root.i18n('批准审核')%}
                 </button>
                 <button class=" btn btn-danger" type="button" ng-click="submitForReject()">{%$root.i18n('拒绝审核')%}
                 </button>
