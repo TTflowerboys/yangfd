@@ -95,7 +95,7 @@ def property_search(user, params):
     per_page = params.pop("per_page", 0)
 
     # Default to mtime,desc
-    property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort)
+    property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort, time_field="mtime")
 
     if random and property_list["content"]:
         logger.debug(property_list["content"])
