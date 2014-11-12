@@ -930,7 +930,7 @@
                     <h2 class="propertyDetails_title">{{_('投资标签')}}</h2>
                     <ul class="tab">
                         % for intention in property.get('intention'):
-                            %if intention.get('slug'):
+                            %if intention.get('slug') and intention.get('value'):
                                 <li data-tab="{{intention.get('slug','')}}">
                                     <div class="image_wrapper">
                                         <img src="/static/images/intention/icon/{{intention.get('slug')}}-red.png" alt=""/>
