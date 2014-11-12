@@ -30,13 +30,15 @@ var base64 = require('gulp-img64')
 var gutil = require('gulp-util')
 var preprocess = require('gulp-preprocess')
 var uglify = require('gulp-uglify');
+var pageSprite = require('gulp-page-sprite')
 
 
 var myPaths = {
     src: './src/',
+    sprite: './sprite/',
     dist: './dist/',
     html: './src/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
-    image:'./src/static/images/',
+    image:'./src/static/images/**/*.png',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,admin/scripts,admin/templates}',
     static: './src/static/**/*.*',
     less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
@@ -56,7 +58,7 @@ gulp.task('build_dev', ['lint', 'clean', 'build:html-extend-dev'],
     })
 
 
-gulp.task('build_test', ['lint', 'clean', 'build:html-extend-test'],
+gulp.task('build_test', ['lint', 'clean',  'build:html-extend-test'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -149,23 +151,13 @@ gulp.task('styleless2css', function () {
 })
 
 
-var spritesmith = require('gulp.spritesmith')
+
 gulp.task('sprite', function () {
-    var spriteData = 
-        gulp.src(myPaths.image) 
-            .pipe(spritesmith({
-                imgName: 'sprite.png',
-                cssName: 'sprite.css',
-                algorithm: 'binary-tree',
-                cssVarMap: function(sprite) {
-                    sprite.name = 's-' + sprite.name
-                }
-            }));
-
-    spriteData.img.pipe(gulp.dest(myPaths.dist  + 'static/images/sprite/'))
-    spriteData.css.pipe(gulp.dest(myPaths.dist + 'static/styles/sprite/'))
-
+    return gulp.src(myPaths.html, {base: './src/'})
+        .pipe(pageSprite({image_src:'./src', image_dist:'/Users/fosteryin/workspace/currant/source/web/dist/static/images/sprite/', css_dist:'/Users/fosteryin/workspace/currant/source/web/dist/static/styles/sprite/'}))
+    .pipe(gulp.dest(myPaths.sprite))
 })
+
 
 var preprocess = require('gulp-preprocess')
 gulp.task('html-extend', function () {
@@ -186,10 +178,10 @@ var buildExtend = function(env) {
         .pipe(preprocess({context: {ENV: env}}))
         .pipe(publicHtmlFilter)
         .pipe(usemin({
-            //TODO: Rev images
-            css: ['concat', rev()],
-            js: [ footer(';;;'), 'concat', uglify({mangle: false}),rev()]
-        }))
+             //TODO: Rev images
+             css: ['concat', rev()],
+             js: [ footer(';;;'), 'concat', uglify({mangle: false}),rev()]
+         }))
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
         .pipe(gulp.dest(myPaths.dist))
