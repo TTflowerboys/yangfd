@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 @f_api('/property/search', params=dict(
     per_page=int,
-    time=datetime,
+    mtime=datetime,
     sort=(list, None, str),
 
     status=(list, ["selling", "sold out"], str),
@@ -29,7 +29,6 @@ logger = logging.getLogger(__name__)
     random=bool,
     name=str,
     slug=str,
-    mtime=datetime,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
@@ -44,7 +43,7 @@ def property_search(user, params):
     ``time`` should be a unix timestamp in utc.
     """
     random = params.pop("random", False)
-    sort = params.pop("sort", ["time", "desc"])
+    sort = params.pop("sort", ["mtime", "desc"])
     if params["status"] != ["selling", "sold out"] or "target_property_id" in params:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_property_id")
     if "property_type" in params:
@@ -95,11 +94,8 @@ def property_search(user, params):
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
 
-    # Only support mtime, desc
-    if "mtime" in sort:
-        property_list = f_app.property.search(params, per_page=per_page, count=True, time_field="mtime", notime=False, sort=["mtime", "desc"])
-    else:
-        property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort)
+    # Default to mtime,desc
+    property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort)
 
     if random and property_list["content"]:
         logger.debug(property_list["content"])
