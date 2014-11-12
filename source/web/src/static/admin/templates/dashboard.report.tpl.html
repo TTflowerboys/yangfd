@@ -16,17 +16,9 @@
     <!--</div>-->
 
     <!--<table class="table table-bordered table-striped table-condensed">-->
-        <!--<colgroup>-->
-            <!--<col class="name">-->
-            <!--<col class="status">-->
-            <!--<col class="changeStatus">-->
-            <!--<col class="actions">-->
-        <!--</colgroup>-->
         <!--<thead>-->
             <!--<tr>-->
-                <!--<th>{%$root.i18n('名称')%}</th>-->
-                <!--<th>{%$root.i18n('状态')%}</th>-->
-                <!--<th>{%$root.i18n('新闻类型')%}</th>-->
+                <!--<th>{%$root.i18n('街区名称')%}</th>-->
                 <!--<th></th>-->
             <!--</tr>-->
         <!--</thead>-->
@@ -34,12 +26,6 @@
             <!--<tr ng-repeat="item in list">-->
                 <!--<td>-->
                     <!--{%item.name[userLanguage.value]%}-->
-                <!--</td>-->
-                <!--<td>-->
-                    <!--<edit-property-status ng-model="item"></edit-property-status>-->
-                <!--</td>-->
-                <!--<td>-->
-                    <!--<edit-news-category name="news_category" ng-model="item" news-category-list="newsCategoryList" api="api"></edit-news-category>-->
                 <!--</td>-->
                 <!--<td style="text-align:center;">-->
                     <!--<a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">-->

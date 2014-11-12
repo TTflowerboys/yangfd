@@ -487,6 +487,24 @@ angular.module('app')
                 controller: 'ctrlList',
                 resolve: reportResolve
             })
+            .state('dashboard.report.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.report.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: reportResolve
+            })
+            .state('dashboard.report.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.report.detail.tpl.html',
+                controller: 'ctrlList',
+                resolve: reportResolve
+            })
+            .state('dashboard.report.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.report.edit.tpl.html',
+                controller: 'ctrlEdit',
+                resolve: reportResolve
+            })
         /**
          * others
          */
