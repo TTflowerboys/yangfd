@@ -46,10 +46,12 @@
         $('#result #loadIndicator').show()
         $('#loadMore').hide()
         var resultCount = 0
+        var totalResultCount = getCurrentTotalCount()
         $.betterPost('/api/1/property/search', params)
             .done(function (val) {
                 var array = val.content
                 resultCount = val.count
+                totalResultCount = totalResultCount + resultCount
                 if (!_.isEmpty(array)) {
                     lastItemTime = _.last(array).time
                     _.each(array, function (house) {
@@ -77,7 +79,7 @@
                   $('#loadMore').show()
             })
             .always(function () {
-                updateResultCount(resultCount)
+                updateResultCount(totalResultCount)
                 $('#result #loadIndicator').hide()
             })
     }
