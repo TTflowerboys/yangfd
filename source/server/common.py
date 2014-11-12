@@ -58,6 +58,7 @@ class common(f_common):
 
     # i18n_locales = ["zh_Hans_CN", "zh_Hant_HK", "en_GB"]
     i18n_locales = ["zh_Hans_CN"]
+    i18n_additional_param_locales = ["en_GB", "zh_Hant_HK"]
     i18n_default_locale = "zh_Hans_CN"
     i18n_custom_convert_dict = {
         "en_US": "en_GB",
