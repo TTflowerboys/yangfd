@@ -56,8 +56,9 @@ class common(f_common):
     message_self_hosted_push_port = 8286
     parse_delay = 5
 
-    i18n_locales = ["zh_Hans_CN", "zh_Hant_HK", "en_GB"]
-    i18n_default_locale = "en_GB"
+    # i18n_locales = ["zh_Hans_CN", "zh_Hant_HK", "en_GB"]
+    i18n_locales = ["zh_Hans_CN"]
+    i18n_default_locale = "zh_Hans_CN"
     i18n_custom_convert_dict = {
         "en_US": "en_GB",
         "en": "en_GB",
