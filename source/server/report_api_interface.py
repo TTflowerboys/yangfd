@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
     population_description=str,
     age_distribution=dict(
     ),
-    cosumption_ability_distribution=dict(
+    consumption_ability_distribution=dict(
     ),
     crime_statistics=(list, None, str),
 ))
@@ -97,7 +97,7 @@ def report_get(report_id):
     population_description=(str, None),
     age_distribution=(dict(
     ), None),
-    cosumption_ability_distribution=(dict(
+    consumption_ability_distribution=(dict(
     ), None),
     crime_statistics=(list, None, str),
 ))
