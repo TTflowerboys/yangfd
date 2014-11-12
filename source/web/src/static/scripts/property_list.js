@@ -35,7 +35,7 @@
             params.intention = intention
         }
         if (lastItemTime) {
-            params.time = lastItemTime
+            params.mtime = lastItemTime
         }
 
         $('#result_list_container').show()
