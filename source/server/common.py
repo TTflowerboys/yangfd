@@ -64,6 +64,9 @@ class common(f_common):
         "en_US": "en_GB",
         "en": "en_GB",
     }
+    i18n_sitemap_enable_locales = False
+
+    sitemap_domain = "www.yangfd.com"
 
     email_default_method = "aws_ses"
     email_default_sender = "noreply@youngfunding.co.uk"

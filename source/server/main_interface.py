@@ -3,6 +3,7 @@ from __future__ import unicode_literals, absolute_import
 from app import f_app
 from bottle import response
 from bson.objectid import ObjectId
+from lxml import etree
 from libfelix.f_interface import f_get, static_file, template, request, redirect, error, abort
 from six.moves import cStringIO as StringIO
 import qrcode
@@ -519,3 +520,13 @@ def logout(params):
 @f_get('/upload_image')
 def upload_image():
     return template("upload_image")
+
+
+@f_get('/sitemap_location.xml')
+def sitemap():
+    root = etree.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
+    url = etree.SubElement(root, "url")
+    etree.SubElement(url, "loc")
+
+    response.set_header(b"Content-Type", b"application/xml")
+    return etree.tostring(root, xml_declaration=True, encoding="UTF-8")
