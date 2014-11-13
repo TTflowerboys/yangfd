@@ -29,7 +29,6 @@ def check_ip_and_redirect_domain(func):
         try:
             gi = pygeoip.GeoIP(f_app.common.geoip_data_file)
             country = gi.country_code_by_name(request.remote_route[0])
-            logger.debug("Visitor country detected:", country)
             host = request.urlparts[1]
 
             # Don't redirect dev & test
@@ -40,9 +39,11 @@ def check_ip_and_redirect_domain(func):
                     request_url = request_url.replace("beta.", "")
 
                 if country == "CN":
+                    logger.debug("Visitor country detected:", country, "redirecting to yangfd.cn if not already. Host:", host)
                     assert host.endswith("yangfd.cn"), redirect(request_url.replace("yangfd.com", "yangfd.cn").replace("youngfunding.co.uk", "yangfd.cn"))
 
                 elif country:
+                    logger.debug("Visitor country detected:", country, "redirecting to youngfunding.co.uk if not already. Host:", host)
                     assert host.endswith(("yangfd.com", "youngfunding.co.uk")), redirect(request_url.replace("yangfd.cn", "youngfunding.co.uk"))
 
         except bottle.HTTPError:
