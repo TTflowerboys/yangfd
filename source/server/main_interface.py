@@ -35,14 +35,15 @@ def check_ip_and_redirect_domain(func):
             # Don't redirect dev & test
             if "bbtechgroup.com" not in host:
                 # Special hack to remove "beta."
-                if "/coming_soon" in request.url:
-                    request.url = request.url.replace("beta.", "")
+                request_url = request.url
+                if "/coming_soon" in request_url:
+                    request_url = request_url.replace("beta.", "")
 
                 if country == "CN":
-                    assert host.endswith("yangfd.cn"), redirect(request.url.replace("yangfd.com", "yangfd.cn").replace("youngfunding.co.uk", "yangfd.cn"))
+                    assert host.endswith("yangfd.cn"), redirect(request_url.replace("yangfd.com", "yangfd.cn").replace("youngfunding.co.uk", "yangfd.cn"))
 
                 elif country:
-                    assert host.endswith(("yangfd.com", "youngfunding.co.uk")), redirect(request.url.replace("yangfd.cn", "youngfunding.co.uk"))
+                    assert host.endswith(("yangfd.com", "youngfunding.co.uk")), redirect(request_url.replace("yangfd.cn", "youngfunding.co.uk"))
 
         except bottle.HTTPError:
             raise
