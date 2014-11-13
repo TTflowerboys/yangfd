@@ -9,8 +9,9 @@
                 <span class="fa fa-plus-circle"></span> {%$root.i18n('添加房产信息')%}
             </button>
         </span>
-        <div class="btn-group form-inline">
-            <select class="form-control" ng-options="p.value as p.name for p in propertyStatus" ng-model="selected.status"></select>
+        <div class="btn-group form-inline" ng-controller="ctrlHasPermission">
+            <select class="form-control" ng-if="hasPermission('admin,jr_admin,operation')" ng-options="p.value as p.name for p in propertyStatus" ng-model="selected.status"></select>
+            <select class="form-control" ng-if="hasPermission('jr_operation')" ng-options="p.value as p.name for p in propertyNormalStatus" ng-model="selected.status"></select>
         </div>
         <div class="btn-group form-inline">
             <div select-enum name="country" ng-model="selected.country" text="{%i18n('国家')%}"></div>
@@ -33,7 +34,7 @@
         </div>
     </div>
 
-    <table class="table table-bordered table-striped table-condensed">
+    <table class="table table-bordered table-striped table-condensed" ng-controller="ctrlHasEditPropertyPermission">
         <colgroup>
             <col class="name">
             <col class="status">
@@ -63,7 +64,7 @@
                     <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
                         <i class="fa fa-search-plus "></i>
                     </a>
-                    <a ng-if="item.status !== 'not reviewed'" class="btn btn-info" href ng-click="toEditProperty(item.id)" title="Edit">
+                    <a ng-if="hasEditPermission(item.status)" class="btn btn-info" href ng-click="toEditProperty(item.id)" title="Edit">
                         <i class="fa fa-edit "></i>
                     </a>
                     <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
