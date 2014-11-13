@@ -36,7 +36,7 @@ def check_ip_and_redirect_domain(func):
             if "bbtechgroup.com" not in host:
                 # Special hack to remove "beta."
                 if "/coming_soon" in request.url:
-                    host = host.replace("beta.", "")
+                    request.url = request.url.replace("beta.", "")
 
                 if country == "CN":
                     assert host.endswith("yangfd.cn"), redirect(request.url.replace("yangfd.com", "yangfd.cn").replace("youngfunding.co.uk", "yangfd.cn"))
