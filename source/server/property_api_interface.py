@@ -131,7 +131,7 @@ property_params = dict(
     longitude=float,
     reality_images=("i18n", None, list, None, str),
     cover=("i18n", None, str),
-    videos=("i18n", None, list, None, str),
+    videos=dict(),
     surroundings_images=("i18n", None, list, None, str),
     property_price_type="enum:property_price_type",
     equal_property_description=("i18n", None, str),
@@ -420,7 +420,7 @@ def property_walkscore(params):
         abort(40088, "failed to get walkscore and walkscore api status is " + str(result["status"]))
 
 
-@f_api("/property/property_id/policeuk", params=dict(
+@f_api("/property/<property_id>/policeuk", params=dict(
     date=str,
 ))
 def property_police_uk(property_id, params):
@@ -432,3 +432,117 @@ def property_police_uk(property_id, params):
         return f_app.policeuk.api({"lat": property["latitude"], "lng": property["longitude"], "date": date})
     else:
         return []
+
+
+@f_api("/property/<property_id>/add_video_url", params=dict(
+    url=(str, True),
+    video_id=str,
+))
+@f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer', 'agency'])
+def property_add_video_url(property_id, user, params):
+    """
+    parse ``url`` of the video ,such as ``http://bbt-currant.s3.amazonaws.com/6f77a385528e464887d71b11343a83b4.png``
+
+    parse  ``video_id`` to edit or add a video url of certain video. If video url belongs to  aws_s3, if the url is in property, then edit the aws_s3 url
+
+    if not, then add an aws_s3 url  to the video
+    """
+    url = params.get("url")
+    video_id = params.get("video_id", None)
+    is_remove = params.get("is_remove")
+    property = f_app.property.get(property_id)
+    with f_app.storage.aws_s3() as b:
+        aws_s3_bucket = b.get_bucket()
+    with f_app.storage.qiniu() as q:
+        qiniu_bucket = q.get_bucket()
+    aws_s3_host = aws_s3_bucket + ".s3.amazonaws.com" if f_app.common.aws_cloudfront_domain is None else f_app.common.aws_cloudfront_domain
+    qiniu_host = qiniu_bucket + ".qiniudn.com"
+    if aws_s3_host in url:
+        video_platform = "aws_s3"
+    elif qiniu_host in url:
+        video_platform = "qiniu"
+    else:
+        abort(40000, logger.warning("Invalid video url"))
+    videos = property.get("videos", None)
+    if videos:
+        if video_id:
+            if video_id not in videos:
+                abort(40000, logger.warning("video id does not exist"))
+            videos[video_id][video_platform] = url
+            property_params = {"videos": videos}
+        else:
+            video_id = f_app.util.uuid()
+            videos[video_id] = {video_platform: url}
+            property_params = {"videos": videos}
+    else:
+        video_id = f_app.util.uuid()
+        property_params = {"videos": {video_id: {video_platform: url}}}
+
+    f_app.property.update_set(property_id, property_params)
+
+
+@f_api("/property/<property_id>/remove_video_url", params=dict(
+    url=(str, True),
+    video_id=(str, True)
+))
+@f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer', 'agency'])
+def property_remove_video_url(property_id, user, params):
+    """
+    remove video url
+    """
+    url = params.get("url")
+    video_id = params.get("video_id")
+    property = f_app.property.get(property_id)
+    videos = property.get("videos", None)
+    if videos:
+        if video_id not in videos:
+            abort(40000, logger.warning("video id does not exist"))
+        remove_key = None
+        for key in videos[video_id]:
+            if url == videos[video_id][key]:
+                remove_key = key
+                break
+        if remove_key:
+            videos[video_id].pop(remove_key, None)
+            if len(videos[video_id]) == 0:
+                videos.pop(video_id, None)
+        else:
+            abort(40000, logger.warning("the video url does not exist in the property"))
+        property_params = {"videos": videos}
+        f_app.property.update_set(property_id, property_params)
+
+
+@f_api("/property/<property_id>/get_video_url")
+def property_get_video_url(property_id):
+    """
+    according to user ip, get the videos of property, the return result is as below
+
+    To qiniu video, the api will return temporary_url
+    {
+    "msg": "ok",
+    "ret": 0,
+    "val": [
+        "http://bbt-currant.qiniudn.com/123.mov?e=1415867529&token=wVRJocfeRVWT5i9fwlYlMSp45a_BiicklAysYPeb:ySm2VpTmc3rn7zUytjviClcMGwA=",
+        "http://bbt-currant.s3.amazonaws.com/6f77a385528e464887d71b11343a83b4.mov"
+    ]
+}
+    """
+    property = f_app.property.get(property_id)
+    videos = property.get("videos", None)
+    if not videos:
+        return []
+    resource_method = f_app.storage.get_resource_method()
+    result = []
+    for key in videos:
+        url = videos[key].get(resource_method, "")
+        if not url:
+            if resource_method == "aws_s3":
+                url = videos[key].get("qiniu", "")   # if no aws_s3 video, then use qiniu
+            elif resource_method == "qiniu":
+                url = videos[key].get("aws_s3", "")   # if no qiniu video, then use aws_s3
+        if url:
+            if resource_method == "qiniu" and url == videos[key].get("qiniu", ""):
+                with f_app.storage.qiniu() as q:
+                    url = q.get_temporary_url(url)
+            result.append(url)
+    return result
