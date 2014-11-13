@@ -4,7 +4,8 @@
 
 (function () {
 
-    function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window, propertyStatus, userApi) {
+    function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window, propertyStatus, userApi,
+                              propertySellingStatus, propertyReviewStatus) {
 
         $scope.item = {}
 
@@ -188,8 +189,8 @@
                     return
                 }
                 if (_.contains(roles, 'jr_operation')) {
-                    if (newValue === 'draft' || newValue === 'not translated'
-                        || newValue === 'translating' || newValue === 'not reviewed' || newValue === 'rejected') {
+                    if (newValue === 'draft' || newValue === 'not translated' ||
+                        newValue === 'translating' || newValue === 'not reviewed' || newValue === 'rejected') {
                         $scope.propertyStatus = propertyStatus.filter(function (one, index, array) {
                             return _.contains(['draft', 'not translated', 'translating', 'not reviewed'],
                                     one.value) || one.value === $scope.item.status
