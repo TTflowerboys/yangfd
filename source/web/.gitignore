@@ -27,6 +27,9 @@ build/Release
 # https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules
 
+# Ignore sprite folder
+sprite
+
 # Users Environment Variables
 .lock-wscript
 .idea
