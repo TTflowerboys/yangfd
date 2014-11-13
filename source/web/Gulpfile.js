@@ -38,7 +38,7 @@ var myPaths = {
     sprite: './sprite/',
     dist: './dist/',
     html: './src/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
-    image:'./src/static/images/**/*.png',
+    sprite_html: './sprite/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,admin/scripts,admin/templates}',
     static: './src/static/**/*.*',
     less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
@@ -52,19 +52,19 @@ gulp.task('debug', ['debug:lint', 'symlink', 'less2css', 'html-extend', 'watch']
 })
 
 
-gulp.task('build_dev', ['lint', 'clean', 'build:html-extend-dev'],
+gulp.task('build_dev', ['lint', 'clean', 'sprite', 'build:html-extend-dev'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
 
 
-gulp.task('build_test', ['lint', 'clean',  'build:html-extend-test'],
+gulp.task('build_test', ['lint', 'clean', 'sprite', 'build:html-extend-test'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
 
 
-gulp.task('build_production', ['lint', 'clean', 'build:html-extend-production'],
+gulp.task('build_production', ['lint', 'clean', 'sprite', 'build:html-extend-production'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -154,7 +154,7 @@ gulp.task('styleless2css', function () {
 
 gulp.task('sprite', function () {
     return gulp.src(myPaths.html, {base: './src/'})
-        .pipe(pageSprite({image_src:'./src', image_dist:'/Users/fosteryin/workspace/currant/source/web/dist/static/images/sprite/', css_dist:'/Users/fosteryin/workspace/currant/source/web/dist/static/styles/sprite/'}))
+        .pipe(pageSprite({image_src:'./src', image_dist:'./dist/static/sprite/', css_dist:'./dist/static/sprite/'}))
     .pipe(gulp.dest(myPaths.sprite))
 })
 
@@ -173,15 +173,15 @@ var buildExtend = function(env) {
     var publicHtmlFilter = filter('*.html')
     var emailFilter = filter('static/emails/*.html')
 
-    return gulp.src(myPaths.html, {base: './src/'})
+    return gulp.src(myPaths.sprite_html, {base: './sprite/'})
         .pipe(extender({verbose: false}))
         .pipe(preprocess({context: {ENV: env}}))
         .pipe(publicHtmlFilter)
-        .pipe(usemin({
-             //TODO: Rev images
-             css: ['concat', rev()],
-             js: [ footer(';;;'), 'concat', uglify({mangle: false}),rev()]
-         }))
+        // .pipe(usemin({
+        //      //TODO: Rev images
+        //      css: ['concat', rev()],
+        //      js: [ footer(';;;'), 'concat', uglify({mangle: false}),rev()]
+        //  }))
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
         .pipe(gulp.dest(myPaths.dist))
