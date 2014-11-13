@@ -45,13 +45,12 @@
 
         $('#result #loadIndicator').show()
         $('#loadMore').hide()
-        var resultCount = 0
+
         var totalResultCount = getCurrentTotalCount()
         $.betterPost('/api/1/property/search', params)
             .done(function (val) {
                 var array = val.content
-                resultCount = val.count
-                totalResultCount = totalResultCount + resultCount
+                totalResultCount = val.count
                 if (!_.isEmpty(array)) {
                     lastItemTime = _.last(array).time
                     _.each(array, function (house) {
@@ -63,7 +62,7 @@
                         }
                     })
 
-                    if (resultCount > getCurrentTotalCount()) {
+                    if (totalResultCount > getCurrentTotalCount()) {
                         $('#loadMore').show()
                     }
                     else {
@@ -361,4 +360,17 @@
     }
 
     loadPropertyList()
+
+
+    $(window).scroll(function () {
+        var scrollPos = $(window).scrollTop();
+        var windowHeight = $(window).height();
+        var listHeight = $('#result_list').height();
+
+        setTimeout(function () {
+            if (windowHeight  + scrollPos > listHeight &&  $('#loadMore').is(':visible')) {
+                loadPropertyList()
+            }
+        }, 500)
+    })
 })()
