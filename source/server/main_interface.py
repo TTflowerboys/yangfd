@@ -43,7 +43,7 @@ def check_ip_and_redirect_domain(func):
                     assert host.endswith("yangfd.cn"), redirect(request_url.replace("yangfd.com", "yangfd.cn").replace("youngfunding.co.uk", "yangfd.cn"))
 
                 elif country:
-                    logger.debug("Visitor country detected:", country, "redirecting to youngfunding.co.uk if not already. Host:", host)
+                    logger.debug("Visitor country detected:", country, "redirecting to youngfunding.co.uk if it's currently on yangfd.cn. Host:", host)
                     assert host.endswith(("yangfd.com", "youngfunding.co.uk")), redirect(request_url.replace("yangfd.cn", "youngfunding.co.uk"))
 
         except bottle.HTTPError:
