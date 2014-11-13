@@ -4,7 +4,8 @@
 
 (function () {
 
-    function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window, propertyStatus, userApi) {
+    function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window, propertyStatus, userApi,
+                              propertySellingStatus, propertyReviewStatus) {
 
         $scope.item = {}
 
@@ -168,19 +169,40 @@
         if (!user) {
             return
         }
+        var need_init = true
         var roles = user.role
-        if (_.contains(roles, 'admin') || _.contains(roles, 'jr_admin') || _.contains(roles, 'operation')) {
-            $scope.propertyStatus = propertyStatus
-        } else if (_.contains(roles, 'jr_operation')) {
-            $scope.propertyStatus = propertyStatus.filter(function (one, index, array) {
-                return _.contains(['draft', 'not translated', 'translating', 'not reviewed'],
-                        one.value) || one.value === $scope.item.status
-            })
-        } else {
-            $scope.propertyStatus = propertyStatus.filter(function (one, index, array) {
-                return one.value === $scope.item.status
-            })
-        }
+        $scope.$watch('item.status', function (newValue) {
+            if (need_init && newValue) {
+                need_init = false
+                if (_.contains(roles, 'admin') || _.contains(roles, 'jr_admin') || _.contains(roles,
+                        'operation')) {
+                    if (newValue === 'not reviewed') {
+                        $scope.propertyStatus = propertyReviewStatus
+                    } else if (newValue === 'selling' || newValue === 'hidden' || newValue === 'sold out') {
+                        $scope.propertyStatus = propertySellingStatus
+                    } else {
+                        $scope.propertyStatus = propertyStatus.filter(function (one, index, array) {
+                            return _.contains(['draft', 'not translated', 'translating', 'not reviewed'],
+                                    one.value) || one.value === $scope.item.status
+                        })
+                    }
+                    return
+                }
+                if (_.contains(roles, 'jr_operation')) {
+                    if (newValue === 'draft' || newValue === 'not translated' ||
+                        newValue === 'translating' || newValue === 'not reviewed' || newValue === 'rejected') {
+                        $scope.propertyStatus = propertyStatus.filter(function (one, index, array) {
+                            return _.contains(['draft', 'not translated', 'translating', 'not reviewed'],
+                                    one.value) || one.value === $scope.item.status
+                        })
+                        return
+                    }
+                }
+                $scope.propertyStatus = propertyStatus.filter(function (one, index, array) {
+                    return one.value === $scope.item.status
+                })
+            }
+        })
     }
 
     angular.module('app').controller('ctrlPropertyEdit', ctrlPropertyEdit)

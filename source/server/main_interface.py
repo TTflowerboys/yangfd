@@ -7,7 +7,9 @@ from lxml import etree
 from libfelix.f_interface import f_get, static_file, template, request, redirect, error, abort
 from six.moves import cStringIO as StringIO
 import qrcode
+import bottle
 import logging
+import pygeoip
 logger = logging.getLogger(__name__)
 f_app.dependency_register("qrcode", race="python")
 
@@ -20,6 +22,32 @@ def check_landing(func):
             return func(*args, **kwargs)
 
     return __check_landing_replace_func
+
+
+def check_ip_and_redirect_domain(func):
+    def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
+        try:
+            gi = pygeoip.GeoIP(f_app.common.geoip_data_file)
+            country = gi.country_code_by_name(request.remote_route[0])
+            logger.debug("Visitor country detected:", country)
+            host = request.urlparts[1]
+
+            # Don't redirect dev & test
+            if "bbtechgroup.com" not in host:
+                if country == "CN":
+                    assert host.endswith("yangfd.cn"), redirect(request.url.replace("yangfd.com", "yangfd.cn").replace("youngfunding.co.uk", "yangfd.cn"))
+
+                elif country:
+                    assert host.endswith(("yangfd.com", "youngfunding.co.uk")), redirect(request.url.replace("yangfd.cn", "youngfunding.co.uk"))
+
+        except bottle.HTTPError:
+            raise
+        except IndexError:
+            pass
+
+        return func(*args, **kwargs)
+
+    return __check_ip_and_redirect_domain_replace_func
 
 
 def get_current_user():
@@ -55,6 +83,7 @@ def get_favorite_list():
 
 @f_get('/')
 @check_landing
+@check_ip_and_redirect_domain
 @f_app.user.login.check()
 def default(user):
     if user:
@@ -111,18 +140,21 @@ def default(user):
 
 @f_get('/signup')
 @check_landing
+@check_ip_and_redirect_domain
 def signup():
     return template("signup", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/signin')
 @check_landing
+@check_ip_and_redirect_domain
 def signin():
     return template("signin", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/intention')
 @check_landing
+@check_ip_and_redirect_domain
 def intention():
     budget_list = f_app.enum.get_all('budget')
     intention_list = f_app.enum.get_all('intention')
@@ -131,18 +163,21 @@ def intention():
 
 @f_get('/reset_password')
 @check_landing
+@check_ip_and_redirect_domain
 def resetPassword():
     return template("reset_password", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/process')
 @check_landing
+@check_ip_and_redirect_domain
 def process():
     return template("process", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/property_list')
 @check_landing
+@check_ip_and_redirect_domain
 def property_list():
     city_list = f_app.enum.get_all('city')
     property_type_list = f_app.enum.get_all('property_type')
@@ -161,6 +196,7 @@ def property_list():
 
 @f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
 @check_landing
+@check_ip_and_redirect_domain
 def property_get(property_id):
     property = f_app.property.output([property_id])[0]
     if "target_property_id" in property:
@@ -179,36 +215,42 @@ def property_get(property_id):
 
 @f_get('/news_list')
 @check_landing
+@check_ip_and_redirect_domain
 def news_list():
     return template("news_list", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/news/<news_id:re:[0-9a-fA-F]{24}>')
 @check_landing
+@check_ip_and_redirect_domain
 def news(news_id):
     return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=f_app.blog.post.output([news_id])[0])
 
 
 @f_get('/notice_list')
 @check_landing
+@check_ip_and_redirect_domain
 def notice_list():
     return template("notice_list", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/guides')
 @check_landing
+@check_ip_and_redirect_domain
 def guides():
     return template("guides", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/laws')
 @check_landing
+@check_ip_and_redirect_domain
 def laws():
     return template("laws", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/about')
 @check_landing
+@check_ip_and_redirect_domain
 def about():
     news_list = f_app.blog.post_output(
         f_app.blog.post_search(
@@ -222,6 +264,7 @@ def about():
 
 @f_get('/terms')
 @check_landing
+@check_ip_and_redirect_domain
 def terms():
     news_list = f_app.blog.post_output(
         f_app.blog.post_search(
@@ -234,12 +277,14 @@ def terms():
 
 
 @f_get('/coming_soon')
+@check_ip_and_redirect_domain
 def coming_soon():
     return template("coming_soon", country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/user_settings')
 @check_landing
+@check_ip_and_redirect_domain
 def user_settings():
     if get_current_user() is not None:
         return template("user_settings", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
@@ -249,6 +294,7 @@ def user_settings():
 
 @f_get('/user_verify_email')
 @check_landing
+@check_ip_and_redirect_domain
 def user_verify_email():
     if get_current_user():
         return template("user_verify_email", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
@@ -258,6 +304,7 @@ def user_verify_email():
 
 @f_get('/user_change_email')
 @check_landing
+@check_ip_and_redirect_domain
 def user_change_email():
     if get_current_user():
         return template("user_change_email", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
@@ -267,6 +314,7 @@ def user_change_email():
 
 @f_get('/user_change_password')
 @check_landing
+@check_ip_and_redirect_domain
 def user_change_password():
     if get_current_user():
         return template("user_change_password", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
@@ -276,6 +324,7 @@ def user_change_password():
 
 @f_get('/user_change_phone_1')
 @check_landing
+@check_ip_and_redirect_domain
 def user_change_phone_1():
     if get_current_user():
         return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
@@ -285,6 +334,7 @@ def user_change_phone_1():
 
 @f_get('/user_change_phone_2')
 @check_landing
+@check_ip_and_redirect_domain
 def user_change_phone_2():
     if get_current_user():
         return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
@@ -294,6 +344,7 @@ def user_change_phone_2():
 
 @f_get('/user_verify_phone_1')
 @check_landing
+@check_ip_and_redirect_domain
 def user_verify_phone_1():
     if get_current_user():
         return template("user_verify_phone_1", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
@@ -303,6 +354,7 @@ def user_verify_phone_1():
 
 @f_get('/user_verify_phone_2')
 @check_landing
+@check_ip_and_redirect_domain
 def user_verify_phone_2():
     if get_current_user():
         return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
@@ -312,6 +364,7 @@ def user_verify_phone_2():
 
 @f_get('/user_favorites')
 @check_landing
+@check_ip_and_redirect_domain
 def user_favorites():
     if get_current_user() is not None:
         return template("user_favorites", user=get_current_user(), country_list=get_country_list(), favorite_list=get_favorite_list(), budget_list=get_budget_list())
@@ -321,6 +374,7 @@ def user_favorites():
 
 @f_get('/user_intentions')
 @check_landing
+@check_ip_and_redirect_domain
 def user_intentions():
     if get_current_user() is not None:
         intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [
@@ -341,6 +395,7 @@ def user_intentions():
 
 @f_get('/user_properties')
 @check_landing
+@check_ip_and_redirect_domain
 def user_properties():
     if get_current_user() is not None:
         intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}), ignore_nonexist=True)
@@ -352,6 +407,7 @@ def user_properties():
 
 @f_get('/user_messages')
 @check_landing
+@check_ip_and_redirect_domain
 def user_messages():
     if get_current_user() is not None:
         message_list = f_app.message.get_by_user(
@@ -372,6 +428,7 @@ def user_messages():
 
 @f_get('/verify_email_status')
 @check_landing
+@check_ip_and_redirect_domain
 def verify_email_status():
     return template("verify_email_status", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
@@ -381,18 +438,21 @@ def verify_email_status():
 
 @f_get('/requirement')
 @check_landing
+@check_ip_and_redirect_domain
 def requirement():
     return template("phone/requirement", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/wechat_share')
 @check_landing
+@check_ip_and_redirect_domain
 def wechat_share():
     return template("phone/wechat_share", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/admin')
 @check_landing
+@check_ip_and_redirect_domain
 def admin():
     return template("admin")
 
@@ -510,6 +570,7 @@ def reverse_proxy(params):
 @f_get("/logout", params=dict(
     return_url=str,
 ))
+@check_ip_and_redirect_domain
 def logout(params):
     return_url = params.pop("return_url", "/")
     f_app.user.login.logout()

@@ -44,23 +44,23 @@
         <div class="settings">
             <ul>
                 <li>
-                    <a href="/user_settings"><img id="icon-user_settings" src="/static/images/user/gear.png"/></a>
+                    <a href="/user_settings"><img id="icon-user_settings" src="/static/images/user/gear.png" data-img="/static/images/user/gear.png"/></a>
                     {{_('账户管理')}}
                 </li>
                 <li>
-                    <a href="/user_favorites"><img id="icon-user_favorites" src="/static/images/user/star.png"/></a>
+                    <a href="/user_favorites"><img id="icon-user_favorites" src="/static/images/user/star.png" data-img="/static/images/user/star.png"/></a>
                     {{_('我的收藏')}}
                 </li>
                 <li>
-                    <a href="/user_intentions"><img id="icon-user_intentions" src="/static/images/user/sheet.png"/></a>
+                    <a href="/user_intentions"><img id="icon-user_intentions" src="/static/images/user/sheet.png" data-img="/static/images/user/sheet.png"/></a>
                     {{_('投资意向单')}}
                 </li>
                 <li>
-                    <a href="/user_properties"><img id="icon-user_properties" src="/static/images/user/house.png"/></a>
+                    <a href="/user_properties"><img id="icon-user_properties" src="/static/images/user/house.png" data-img="/static/images/user/house.png"/></a>
                     {{_('我的房产')}}
                 </li>
                 <li>
-                    <a href="/user_messages"><img id="icon-user_messages" src="/static/images/user/email.png"/></a>
+                    <a href="/user_messages"><img id="icon-user_messages" src="/static/images/user/email.png" data-img="/static/images/user/email.png"/></a>
                     {{_('消息')}}
                 </li>
             </ul>
@@ -71,7 +71,7 @@
              var urlPath = location.pathname.split('/')[1]
              var icon = document.getElementById('icon-' + urlPath)
              if (icon) {
-                 var iconImagePath = icon.getAttribute('src')
+                 var iconImagePath = icon.getAttribute('data-img')
                  var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
                  var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
                  var newIconImagePath = iconImageName + '-active' + iconImageExtention
