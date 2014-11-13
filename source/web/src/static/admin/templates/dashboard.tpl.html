@@ -179,7 +179,7 @@
                     </div>
                 </div>
 
-                <div id="content" class="col-lg-10 col-sm-11" ui-view one-screen style="min-height: 400px;">
+                <div id="content" class="col-lg-10 col-sm-11" ui-view one-screen>
                     {%user.nickname || user.email%}
                     <div ng-repeat="role in user.role">
                         {%role | permissionName %}

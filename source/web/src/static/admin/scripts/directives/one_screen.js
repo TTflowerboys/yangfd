@@ -10,11 +10,11 @@ angular.module('app')
 
                 function recalculateMinHeight() {
                     var $elm = $(elm)
-                    var siblingsHeight = 0
-                    $elm.siblings().each(function (index, dom) {
-                        siblingsHeight += $(dom).height()
-                    })
-                    $elm.css({minHeight: $(window).height() - siblingsHeight})
+                    //var siblingsHeight = 0
+                    //$elm.siblings().each(function (index, dom) {
+                    //    siblingsHeight += $(dom).height()
+                    //})
+                    $elm.css({minHeight: $(window).height()})
 
                 }
             }
