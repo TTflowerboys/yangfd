@@ -67,13 +67,16 @@ class common(f_common):
 
     email_default_method = "aws_ses"
     email_default_sender = "noreply@youngfunding.co.uk"
-    email_cn_sender = "noreply@yangfd.com"
 
     aws_ses_location = "eu-west-1"
     aws_s3_location = "eu-west-1"
     aws_s3_bucket = "bbt-currant"
     aws_access_key_id = "AKIAIPHINPVIPJRSE2KQ"
     aws_secret_access_key = "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"
+
+    qiniu_access_key = "wVRJocfeRVWT5i9fwlYlMSp45a_BiicklAysYPeb"
+    qiniu_secret_key = "Byktg1aTZxoTOwjW1MaMebFL-vFMGz6OJZB4CR8b"
+    qiniu_bucket = "bbt-currant"
 
     openexchangerates_app_id = "c4918aa900a343da948ff31b122cba1e"
 
@@ -100,11 +103,6 @@ class common(f_common):
     sendgrid_api_user = "arnold wang"
     sendgrid_api_key = "AH0ecwSNWsaz"
     sendgrid_sender_name = "YangFd"
-
-    email_send_provider_smart = {
-        "cn": "sendcloud",
-        "default": "aws_ses",
-    }
 
     email_provider_sender_smart = {
         "CN":
@@ -133,6 +131,21 @@ class common(f_common):
         "default":
         {
             "method": "opencaptcha",
+        }
+    }
+
+    resource_provider_smart = {
+        "CN":
+        {
+            "method": "qiniu",
+        },
+        "INTRANET":
+        {
+            "method": "qiniu",
+        },
+        "default":
+        {
+            "method": "aws_s3",
         }
     }
 
