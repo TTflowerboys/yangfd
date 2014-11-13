@@ -47,6 +47,12 @@ angular.module('app')
             }
         }
 
+        var reportResolve = {
+            api: function (apiFactory) {
+                return apiFactory('report')
+            }
+        }
+
         $stateProvider
             .state('dashboard', {
                 url: '/dashboard',
@@ -474,6 +480,30 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.sales.housing.plot.tpl.html',
                 controller: 'ctrlHousingPlot',
                 resolve: plotResolve
+            })
+            .state('dashboard.report', {
+                url: '/report',
+                templateUrl: '/static/admin/templates/dashboard.report.tpl.html',
+                controller: 'ctrlList',
+                resolve: reportResolve
+            })
+            .state('dashboard.report.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.report.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: reportResolve
+            })
+            .state('dashboard.report.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.report.detail.tpl.html',
+                controller: 'ctrlList',
+                resolve: reportResolve
+            })
+            .state('dashboard.report.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.report.edit.tpl.html',
+                controller: 'ctrlEdit',
+                resolve: reportResolve
             })
         /**
          * others

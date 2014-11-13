@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 @f_api('/property/search', params=dict(
     per_page=int,
-    time=datetime,
+    mtime=datetime,
     sort=(list, None, str),
 
     status=(list, ["selling", "sold out"], str),
@@ -43,7 +43,7 @@ def property_search(user, params):
     ``time`` should be a unix timestamp in utc.
     """
     random = params.pop("random", False)
-    sort = params.pop("sort", ["time", "desc"])
+    sort = params.pop("sort", ["mtime", "desc"])
     if params["status"] != ["selling", "sold out"] or "target_property_id" in params:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_property_id")
     if "property_type" in params:
@@ -93,8 +93,10 @@ def property_search(user, params):
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
-    logger.debug(params)
-    property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort)
+
+    # Default to mtime,desc
+    property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort, time_field="mtime")
+
     if random and property_list["content"]:
         logger.debug(property_list["content"])
         import random
@@ -198,7 +200,6 @@ property_params = dict(
     rental_guarantee_term=str,
     rental_guarantee_rate=float,
     unset_fields=(list, None, str),
-    mtime=(datetime, datetime.utcnow()),
     brochure=(list, None, str),
 )
 
@@ -262,10 +263,10 @@ def property_edit(property_id, user, params):
 
         def _action(params):
             unset_fields = params.get("unset_fields", [])
-            f_app.property.update_set(property_id, params)
+            result = f_app.property.update_set(property_id, params)
             if unset_fields:
-                f_app.property.update(property_id, {"$unset": {i: "" for i in unset_fields}})
-            return f_app.property.get(property_id)
+                result = f_app.property.update(property_id, {"$unset": {i: "" for i in unset_fields}})
+            return result
 
         action = _action
 

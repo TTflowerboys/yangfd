@@ -13,9 +13,15 @@ logger = logging.getLogger(__name__)
     name=("i18n", None, str),
     zipcode=(str, True),
     description=("i18n", None, str),
-    villa_price="i18n:currency",
+    villa_price=(list, None, dict(
+        price=("i18n:currency", None),
+        date=(datetime, None),
+    )),
     villa_rental="i18n:currency",
-    flat_price="i18n:currency",
+    flat_price=(list, None, dict(
+        price=("i18n:currency", None),
+        date=(datetime, None),
+    )),
     flat_rental="i18n:currency",
     schools=(list, None, dict(
         name=("i18n", None, str),
@@ -28,25 +34,25 @@ logger = logging.getLogger(__name__)
     transit_score=float,
     railway_lines=dict(
         name=str,
-        distance=float,
+        distance=("i18n:distance", None, "meter, foot"),
     ),
     bus_lines=dict(
         name=str,
-        distance=float,
+        distance=("i18n:distance", None, "meter, foot"),
     ),
     car_rental_location=dict(
         place=str,
-        distance=float,
+        distance=("i18n:distance", None, "meter, foot"),
     ),
     bicycle_rental_location=dict(
         place=str,
-        distance=float,
+        distance=("i18n:distance", None, "meter, foot"),
     ),
     population=int,
     population_description=str,
     age_distribution=dict(
     ),
-    cosumption_ability_distribution=dict(
+    consumption_ability_distribution=dict(
     ),
     crime_statistics=(list, None, str),
 ))
@@ -79,25 +85,25 @@ def report_get(report_id):
     transit_score=(float, None),
     railway_lines=dict(
         name=(str, None),
-        distance=(float, None),
+        distance=("i18n:distance", None, "meter, foot"),
     ),
     bus_lines=(dict(
         name=(str, None),
-        distance=(float, None),
+        distance=("i18n:distance", None, "meter, foot"),
     ), None),
     car_rental_location=(dict(
         place=(str, None),
-        distance=(float, None),
+        distance=("i18n:distance", None, "meter, foot"),
     ), None),
     bicycle_rental_location=(dict(
         place=(str, None),
-        distance=(float, None),
+        distance=("i18n:distance", None, "meter, foot"),
     ), None),
     population=(int, None),
     population_description=(str, None),
     age_distribution=(dict(
     ), None),
-    cosumption_ability_distribution=(dict(
+    consumption_ability_distribution=(dict(
     ), None),
     crime_statistics=(list, None, str),
 ))

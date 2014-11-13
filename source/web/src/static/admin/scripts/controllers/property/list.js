@@ -19,7 +19,8 @@
             country: $scope.selected.country,
             city: $scope.selected.city,
             property_type: $scope.selected.property_type,
-            per_page: $scope.perPage
+            per_page: $scope.perPage,
+            sort:'mtime,desc'
         }
 
         function updateParams() {
@@ -27,7 +28,7 @@
             params.country = $scope.selected.country
             params.city = $scope.selected.city
             params.property_type = $scope.selected.property_type
-            params.time = undefined
+            params.mtime = undefined
         }
 
         $scope.searchProperty = function () {
@@ -47,8 +48,8 @@
 
         $scope.nextPage = function () {
             var lastItem = $scope.list[$scope.list.length - 1]
-            if (lastItem.time) {
-                params.time = lastItem.time
+            if (lastItem.mtime) {
+                params.mtime = lastItem.mtime
             }
             if (lastItem.register_time) {
                 params.register_time = lastItem.register_time
@@ -75,8 +76,8 @@
             }
 
             if (lastItem) {
-                if (lastItem.time) {
-                    params.time = lastItem.time
+                if (lastItem.mtime) {
+                    params.mtime = lastItem.mtime
                 }
                 if (lastItem.register_time) {
                     params.register_time = lastItem.register_time
@@ -85,7 +86,7 @@
                     params.insert_time = lastItem.insert_time
                 }
             } else {
-                delete params.time
+                delete params.mtime
                 delete params.register_time
                 delete params.insert_time
             }

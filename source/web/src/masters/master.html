@@ -83,9 +83,6 @@
                     </div>
                     <div class="social">
                         <h3>{{_('关注我们')}}</h3>
-<!--                        <img class="weibo" src="/static/images/media/weibo.png" alt=""/>
-                        <img class="twitter" src="/static/images/media/twitter.png" alt=""/>
-                        <img class="facebook" src="/static/images/media/facebook.png" alt=""/>-->
                         <img class="weixin" src="/static/images/media/wechat.png" alt=""/>
                     </div>
                     <div class="support">
@@ -95,6 +92,7 @@
                         <!--<a href="/process">{{_('业务流程')}}</a>-->
                     </div>
                     <div class="localizationChanger">
+                        <!-- @if ENV!='production' -->
                         <h3>{{_('语言和货币')}}</h3>
                         <div class="language">
                             <select name="language" class="ghostSelect" style="min-width: 140px;">
@@ -111,6 +109,19 @@
                                 <option value="HKD">{{_('港币')}}</option>
                             </select>
                         </div>
+                        <!-- @endif -->
+                        <!-- @if ENV='production' -->
+                        <h3>{{_('货币')}}</h3>
+                        <div class="currency">
+                            <select name="currency" class="ghostSelect" style="min-width: 140px;">
+                                <option value="CNY" selected>{{_('人民币')}}</option>
+                                <option value="GBP">{{_('英镑')}}</option>
+                                <option value="USD">{{_('美元')}}</option>
+                                <option value="EUR">{{_('欧元')}}</option>
+                                <option value="HKD">{{_('港币')}}</option>
+                            </select>
+                        </div>
+                        <!-- @endif -->
                     </div>
 
                 </footer>

@@ -30,6 +30,7 @@ var base64 = require('gulp-img64')
 var gutil = require('gulp-util')
 var preprocess = require('gulp-preprocess')
 var uglify = require('gulp-uglify');
+var pageSprite = require('gulp-page-sprite')
 
 
 var myPaths = {
@@ -38,6 +39,9 @@ var myPaths = {
     html: './src/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,admin/scripts,admin/templates}',
     static: './src/static/**/*.*',
+    sprite: './sprite/',
+    sprite_html: './sprite/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
+    sprite_dist: './dist/static/sprite/',
     less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
     css: './src/static/styles/**/*.css',
     js: './src/static/{,admin/}scripts/**/*.js'
@@ -49,19 +53,19 @@ gulp.task('debug', ['debug:lint', 'symlink', 'less2css', 'html-extend', 'watch']
 })
 
 
-gulp.task('build_dev', ['lint', 'clean', 'build:html-extend-dev'],
+gulp.task('build_dev', ['lint', 'clean', 'clean-sprite', 'sprite', 'build:html-extend-dev'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
 
 
-gulp.task('build_test', ['lint', 'clean', 'build:html-extend-test'],
+gulp.task('build_test', ['lint', 'clean', 'clean-sprite', 'sprite', 'build:html-extend-test'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
 
 
-gulp.task('build_production', ['lint', 'clean', 'build:html-extend-production'],
+gulp.task('build_production', ['lint', 'clean', 'clean-sprite', 'sprite', 'build:html-extend-production'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -106,7 +110,12 @@ gulp.task('symlink', function () {
 
 gulp.task('clean', function () {
     return gulp.src(myPaths.dist, {read: false})
-        .pipe(rimraf({force: true, verbose: false}))
+        .pipe(rimraf({force: true, verbose: true}))
+})
+
+gulp.task('clean-sprite', function () {
+    return gulp.src(myPaths.sprite, {read: false})
+        .pipe(rimraf({force: true, verbose: true}))
 })
 
 
@@ -147,7 +156,14 @@ gulp.task('styleless2css', function () {
         .pipe(gulp.dest(myPaths.src + 'static/themes/genius_dashboard/css/'))
 })
 
+gulp.task('sprite', ['clean', 'clean-sprite'], function () {
+    return gulp.src(myPaths.html, {base: './src/'})
+        .pipe(pageSprite({image_src:'./src', image_dist:myPaths.sprite_dist, css_dist:myPaths.sprite_dist}))
+    .pipe(gulp.dest(myPaths.sprite))
+})
 
+
+var preprocess = require('gulp-preprocess')
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
         .pipe(extender({verbose:false}))
@@ -161,15 +177,15 @@ var buildExtend = function(env) {
     var publicHtmlFilter = filter('*.html')
     var emailFilter = filter('static/emails/*.html')
 
-    return gulp.src(myPaths.html, {base: './src/'})
+    return gulp.src(myPaths.sprite_html, {base: './sprite/'})
         .pipe(extender({verbose: false}))
         .pipe(preprocess({context: {ENV: env}}))
         .pipe(publicHtmlFilter)
-        .pipe(usemin({
-            //TODO: Rev images
-            css: ['concat', rev()],
-            js: [ footer(';;;'), 'concat', uglify({mangle: false}),rev()]
-        }))
+        // .pipe(usemin({
+        //      //TODO: Rev images
+        //      css: ['concat', rev()],
+        //      js: [ footer(';;;'), 'concat', uglify({mangle: false}),rev()]
+        //  }))
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
         .pipe(gulp.dest(myPaths.dist))

@@ -4,7 +4,7 @@
 
 (function () {
 
-    function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window) {
+    function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window, propertyStatus, userApi) {
 
         $scope.item = {}
 
@@ -107,6 +107,10 @@
             }).success(function (data) {
                 angular.extend(currentItem, data.val)
                 $state.go('^')
+            }).error(function () {
+                if ($scope.item.status !== $scope.itemOrigin.status) {
+                    $scope.item.status = $scope.itemOrigin.status
+                }
             })['finally'](function () {
                 $scope.loading = false
             })
@@ -157,6 +161,24 @@
                 $window.open('property/' + $stateParams.id, '_blank')
             })['finally'](function () {
                 $scope.loading = false
+            })
+        }
+
+        var user = userApi.getCurrentUser()
+        if (!user) {
+            return
+        }
+        var roles = user.role
+        if (_.contains(roles, 'admin') || _.contains(roles, 'jr_admin') || _.contains(roles, 'operation')) {
+            $scope.propertyStatus = propertyStatus
+        } else if (_.contains(roles, 'jr_operation')) {
+            $scope.propertyStatus = propertyStatus.filter(function (one, index, array) {
+                return _.contains(['draft', 'not translated', 'translating', 'not reviewed'],
+                        one.value) || one.value === $scope.item.status
+            })
+        } else {
+            $scope.propertyStatus = propertyStatus.filter(function (one, index, array) {
+                return one.value === $scope.item.status
             })
         }
     }
