@@ -13,9 +13,15 @@ logger = logging.getLogger(__name__)
     name=("i18n", None, str),
     zipcode=(str, True),
     description=("i18n", None, str),
-    villa_price="i18n:currency",
+    villa_price=(list, None, dict(
+        price=("i18n:currency", None),
+        date=(datetime, None),
+    )),
     villa_rental="i18n:currency",
-    flat_price="i18n:currency",
+    flat_price=(list, None, dict(
+        price=("i18n:currency", None),
+        date=(datetime, None),
+    )),
     flat_rental="i18n:currency",
     schools=(list, None, dict(
         name=("i18n", None, str),
