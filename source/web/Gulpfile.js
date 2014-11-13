@@ -39,43 +39,22 @@ var myPaths = {
     html: './src/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,admin/scripts,admin/templates}',
     static: './src/static/**/*.*',
+    less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
+    css: './src/static/styles/**/*.css',
+    js: './src/static/{,admin/}scripts/**/*.js',
     sprite: './sprite/',
     sprite_html: './sprite/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
     sprite_dist: './dist/static/sprite/',
-    less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
-    css: './src/static/styles/**/*.css',
-    js: './src/static/{,admin/}scripts/**/*.js'
+    sprite_static: './sprite/static/**/*.*',
+    sprite_less: ['./sprite/static/styles/**/*.less', '!**/flycheck_*.*'],
+    sprite_css: './sprite/static/styles/**/*.css',
+    sprite_js: './sprite/static/{,admin/}scripts/**/*.js'
 }
 
+//Debug
 
 gulp.task('debug', ['debug:lint', 'symlink', 'less2css', 'html-extend', 'watch'], function () {
     console.info(chalk.black.bgWhite.bold('You can debug now!'))
-})
-
-
-gulp.task('build_dev', ['lint', 'clean', 'clean-sprite', 'sprite', 'build:html-extend-dev'],
-    function () {
-        console.info(chalk.black.bgWhite.bold('Building tasks done!'))
-    })
-
-
-gulp.task('build_test', ['lint', 'clean', 'clean-sprite', 'sprite', 'build:html-extend-test'],
-    function () {
-        console.info(chalk.black.bgWhite.bold('Building tasks done!'))
-    })
-
-
-gulp.task('build_production', ['lint', 'clean', 'clean-sprite', 'sprite', 'build:html-extend-production'],
-    function () {
-        console.info(chalk.black.bgWhite.bold('Building tasks done!'))
-    })
-
-
-gulp.task('lint', function () {
-    return gulp.src(myPaths.js)
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
-        .pipe(jshint.reporter('fail'));
 })
 
 
@@ -87,35 +66,11 @@ gulp.task('debug:lint', function () {
 })
 
 
-gulp.task('build:copy', ['clean'], function () {
-    return gulp.src(myPaths.static)
-        .pipe(gulp.dest(myPaths.dist + 'static/'))
-})
-
-
-gulp.task('build:ngAnnotate', ['build:copy'], function () {
-    return gulp.src(myPaths.src + '/static/{,admin/}scripts/**/*.js')
-        .pipe(ngAnnotate())
-        .pipe(gulp.dest(myPaths.dist + 'static/'));
-})
-
-
 gulp.task('symlink', function () {
     return gulp.src(myPaths.symlink)
         .pipe(symlink(function (file) {
             return file.path.replace('/src/', '/dist/')
         }))
-})
-
-
-gulp.task('clean', function () {
-    return gulp.src(myPaths.dist, {read: false})
-        .pipe(rimraf({force: true, verbose: true}))
-})
-
-gulp.task('clean-sprite', function () {
-    return gulp.src(myPaths.sprite, {read: false})
-        .pipe(rimraf({force: true, verbose: true}))
 })
 
 
@@ -133,20 +88,6 @@ gulp.task('less2css', function (done) {
 })
 
 
-gulp.task('build:less2css', ['build:copy'], function (done) {
-    gulp.src(myPaths.css)
-        .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
-        .pipe(minifyCss({keepSpecialComments: 0}))
-        .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
-    return gulp.src(myPaths.less)
-        .pipe(less())
-        .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
-        .pipe(minifyCss({keepSpecialComments: 0}))
-        .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
-    done()
-})
-
-
 gulp.task('styleless2css', function () {
     gulp.src(myPaths.src + 'static/themes/genius_dashboard/css/style.less')
         .pipe(sourcemaps.init())
@@ -156,14 +97,7 @@ gulp.task('styleless2css', function () {
         .pipe(gulp.dest(myPaths.src + 'static/themes/genius_dashboard/css/'))
 })
 
-gulp.task('sprite', ['clean', 'clean-sprite'], function () {
-    return gulp.src(myPaths.html, {base: './src/'})
-        .pipe(pageSprite({image_src:'./src', image_dist:myPaths.sprite_dist, css_dist:myPaths.sprite_dist}))
-    .pipe(gulp.dest(myPaths.sprite))
-})
 
-
-var preprocess = require('gulp-preprocess')
 gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
         .pipe(extender({verbose:false}))
@@ -172,36 +106,119 @@ gulp.task('html-extend', function () {
 })
 
 
+
+gulp.task('clean', function () {
+    return gulp.src(myPaths.dist, {read: false})
+        .pipe(rimraf({force: true, verbose: true}))
+})
+
+
+//Production 
+
+gulp.task('build_dev', ['lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend-dev'],
+    function () {
+        console.info(chalk.black.bgWhite.bold('Building tasks done!'))
+    })
+
+
+gulp.task('build_test', ['lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend-test'],
+    function () {
+        console.info(chalk.black.bgWhite.bold('Building tasks done!'))
+    })
+
+
+gulp.task('build_production', ['lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static','build:less2css',  'build:html-extend-production'],
+    function () {
+        console.info(chalk.black.bgWhite.bold('Building tasks done!'))
+    })
+
+
+gulp.task('lint', function () {
+    return gulp.src(myPaths.js)
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(jshint.reporter('fail'));
+})
+
+
+gulp.task('build:copy-sprite-static', ['clean', 'sprite'], function () {
+    return gulp.src(myPaths.sprite_static)
+        .pipe(gulp.dest(myPaths.dist + 'static/'))
+})
+
+
+gulp.task('build:ngAnnotate', ['build:copy-sprite-static'], function () {
+    return gulp.src(myPaths.src + '/static/{,admin/}scripts/**/*.js')
+        .pipe(ngAnnotate())
+        .pipe(gulp.dest(myPaths.dist + 'static/'));
+})
+
+
+
+gulp.task('build:clean-sprite', function () {
+    return gulp.src(myPaths.sprite, {read: false})
+        .pipe(rimraf({force: true, verbose: true}))
+})
+
+
+gulp.task('build:copy-src-to-sprite', ['build:clean-sprite'], function () {
+    return gulp.src(myPaths.src + '**/*.*')
+        .pipe(gulp.dest(myPaths.sprite))
+})
+
+
+gulp.task('build:less2css', ['build:copy-sprite-static'], function (done) {
+    gulp.src(myPaths.sprite_css)
+        .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
+        .pipe(minifyCss({keepSpecialComments: 0}))
+        .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
+    return gulp.src(myPaths.sprite_less)
+        .pipe(less())
+        .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
+        .pipe(minifyCss({keepSpecialComments: 0}))
+        .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
+    done()
+})
+
+
+
+gulp.task('sprite', ['clean', 'build:clean-sprite', 'build:copy-src-to-sprite'], function () {
+    return gulp.src(myPaths.sprite_html, {base: './sprite/'})
+        .pipe(pageSprite({image_src:'./sprite', image_dist:myPaths.sprite_dist, css_dist:myPaths.sprite_dist}))
+    .pipe(gulp.dest(myPaths.sprite))
+})
+
+
 var buildExtend = function(env) {
 
     var publicHtmlFilter = filter('*.html')
-    var emailFilter = filter('static/emails/*.html')
+  //  var emailFilter = filter('static/emails/*.html')
 
     return gulp.src(myPaths.sprite_html, {base: './sprite/'})
         .pipe(extender({verbose: false}))
         .pipe(preprocess({context: {ENV: env}}))
         .pipe(publicHtmlFilter)
-        // .pipe(usemin({
-        //      //TODO: Rev images
-        //      css: ['concat', rev()],
-        //      js: [ footer(';;;'), 'concat', uglify({mangle: false}),rev()]
-        //  }))
+        .pipe(usemin({
+            //TODO: Rev images
+            css: ['concat', rev()],
+            js: [ footer(';;;'), 'concat', uglify({mangle: false}),rev()]
+        }))
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
         .pipe(gulp.dest(myPaths.dist))
 }
 
-gulp.task('build:html-extend-dev', ['build:copy', 'build:less2css'], function () {
+gulp.task('build:html-extend-dev', ['build:less2css'], function () {
     return buildExtend('dev')
 })
 
 
-gulp.task('build:html-extend-test', ['build:copy', 'build:less2css'], function () {
+gulp.task('build:html-extend-test', ['build:less2css'], function () {
     return buildExtend('test')
 })
 
 
-gulp.task('build:html-extend-production', ['build:copy', 'build:less2css'], function () {
+gulp.task('build:html-extend-production', ['build:less2css'], function () {
     return buildExtend('production')
 })
 
