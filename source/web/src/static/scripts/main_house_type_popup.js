@@ -25,7 +25,7 @@
             wrapper.css('top', $(window).scrollTop() + 30)
 
             //Set up floorplan
-            var floorplan = $('#propertyDetails_houseTypes').find('.item' + index).find('.floor_plan').attr('src', '')
+            var floorplan = $('#propertyDetails_houseTypes').find('.item' + index).find('.floor_plan').attr('src').replace('_thumbnail','')
             if (floorplan !== '') {
                 popup.find('.main_house_type_floorplan').attr('src', floorplan)
             }
