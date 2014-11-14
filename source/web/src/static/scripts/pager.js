@@ -7,22 +7,26 @@ window.startPaging = function (dataArray, pageItemCount, $preButton, $nextButton
     function enablePrePage(enable) {
         if (enable) {
             $preButton.removeAttr('disabled')
-            $preButton.find('img').attr('src', '/static/images/user/pre-page.png')
+            $preButton.find('img.pre').show()
+            $preButton.find('img.pre-disabled').hide()
         }
         else {
             $preButton.attr('disabled', 'disabled')
-            $preButton.find('img').attr('src', '/static/images/user/pre-page-disabled.png')
+            $preButton.find('img.pre').hide()
+            $preButton.find('img.pre-disabled').show()
         }
     }
 
     function enableNextPage(enable) {
         if (enable) {
             $nextButton.removeAttr('disabled')
-            $nextButton.find('img').attr('src', '/static/images/user/next-page.png')
+            $nextButton.find('img.next').show()
+            $nextButton.find('img.next-disabled').hide()
         }
         else {
             $nextButton.attr('disabled', 'disabled')
-            $nextButton.find('img').attr('src', '/static/images/user/next-page-disabled.png')
+            $nextButton.find('img.next').hide()
+            $nextButton.find('img.next-disabled').show()
         }
     }
 

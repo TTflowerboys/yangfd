@@ -10,6 +10,7 @@ var include = require('gulp-file-include')
 var less = require('gulp-less')
 var sourcemaps = require('gulp-sourcemaps')
 var minifyCss = require('gulp-minify-css')
+var imagemin = require('gulp-imagemin');
 var newer = require('gulp-newer')
 var ngAnnotate = require('gulp-ng-annotate')
 var notify = require('gulp-notify')
@@ -147,6 +148,7 @@ gulp.task('lint', function () {
 
 gulp.task('build:copy-sprite-static', ['clean', 'sprite'], function () {
     return gulp.src(myPaths.sprite_static)
+        .pipe(imagemin())
         .pipe(gulp.dest(myPaths.dist + 'static/'))
 })
 

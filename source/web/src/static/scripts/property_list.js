@@ -2,6 +2,14 @@
 
     var lastItemTime
 
+    var onePageItemCount = 5
+    //better check is phone cell
+    var onePageMinItemCount = Math.ceil($('#main').height() / $('#houseCard_template').attr('data-cell-height'))
+    if (onePageItemCount < onePageMinItemCount) {
+        onePageItemCount = onePageMinItemCount;
+    }
+
+
     function getCurrentTotalCount() {
         if (window.team.isPhone()) {
             return $('#result_list').children('.houseCard_phone').length
@@ -12,7 +20,7 @@
     }
 
     function loadPropertyList() {
-        var params = {'per_page': 5}
+        var params = {'per_page': onePageItemCount}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
         if (country) {
             params.country = country

@@ -2,6 +2,10 @@ $(function () {
 
     var lastItemTime
     var onePageItemCount = 6
+    var onePageMinItemCount = Math.ceil($('#main').height() / $('#newsCard_template').attr('data-cell-height'))
+    if (onePageItemCount < onePageMinItemCount) {
+        onePageItemCount = onePageMinItemCount;
+    }
 
     // on page load
     function loadData() {
@@ -46,4 +50,16 @@ $(function () {
     })
 
     loadData()
+
+     $(window).scroll(function () {
+        var scrollPos = $(window).scrollTop();
+        var windowHeight = $(window).height();
+        var listHeight = $('#list').height();
+
+        setTimeout(function () {
+            if (windowHeight  + scrollPos > listHeight &&  $('#loadMore').is(':visible')) {
+                loadData()
+            }
+        }, 500)
+    })
 })

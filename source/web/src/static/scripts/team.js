@@ -193,6 +193,41 @@
                 thumbnail = '_thumbnail'
             }
             return ['/image/fetch?link=', encodeURIComponent(options.link), thumbnail, '&', idString].join('')
+        },
+        getCaretPostion: function (elem) {
+            var caretPos = 0;
+            // IE Support
+            if (document.selection) {
+
+                elem.focus ();
+                var sel = document.selection.createRange ();
+                sel.moveStart ('character', -elem.value.length);
+                caretPos = sel.text.length;
+            }
+            // Firefox support
+            else if (elem.selectionStart || elem.selectionStart === '0') {
+                caretPos = elem.selectionStart;
+            }
+
+            return (caretPos);
+        },
+        setCaretPosition: function (elem, caretPos) {
+            if(elem !== null) {
+                if(elem.createTextRange) {
+                    var range = elem.createTextRange();
+                    range.move('character', caretPos);
+                    range.select();
+                }
+                else {
+                    if(elem.selectionStart) {
+                        elem.focus();
+                        elem.setSelectionRange(caretPos, caretPos);
+                    }
+                    else {
+                        elem.focus();
+                    }
+                }
+            }
         }
     }
 })();
