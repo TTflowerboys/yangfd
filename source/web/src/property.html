@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
     <!--endbuild-->
 
+    <!-- @if ENV='debug' -->
+    <link rel="stylesheet" href="/static/vendors/video-js/video-js.css">
+    <!-- @endif-->
+
     <!--[if lte IE 8]>
     <script src="/static/vendors/excanvas.min.js"></script>
     <![endif]-->
@@ -77,6 +81,19 @@
                             <img onerror="window.project.onImgError(this);" id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;" width="800" height="533"/>
                         </a>
                     % end
+                    <!-- @if ENV='debug' -->
+                    <div class="item videocontent" data-tab-name="video">
+                        <video id="property_video" class="video-js vjs-default-skin vjs-big-play-centered"
+                            controls preload="auto" width="auto" height="auto"
+                            poster="http://video-js.zencoder.com/oceans-clip.png"
+                            data-setup='{}'>
+                            <source src="http://bbt-currant.qiniudn.com/71a67babbe1d4004999a2c6c4952d619.mp4?attname=&e=1416037460&token=wVRJocfeRVWT5i9fwlYlMSp45a_BiicklAysYPeb:lDWgabCo3yDuCQaV4yA9iChm_9U" type='video/mp4'/>
+                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
+                                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                            </p>
+                        </video>
+                    </div>
+                    <!-- @endif -->
                 </div>
 
                 <div class="thumbnails">
@@ -142,6 +159,14 @@
                                 <span class="border"></span>
                             </li>
                         % end
+
+                        <!-- @if ENV='debug' -->
+                        <li data-tab="video">
+                            <img onerror="window.project.onImgError(this);" src="/static/images/placeholder/map.jpg" alt=""/>
+                            <span class="text_wrapper"> <span class="text">{{_('视频')}}</span></span>
+                            <span class="border"></span>
+                        </li>
+                        <!-- @endif -->
                     </ul>
                 </div>
             </div>
@@ -1182,7 +1207,7 @@
                                       .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
                                       .modal()
          })
-     })()
+     })();
 
     </script>
 
@@ -1205,12 +1230,23 @@
     <!--endbuild-->
 
     <script>
+     videojs.options.flash.swf = "http://example.com/path/to/video-js.swf";
+
      $('[data-fn=expendDescription]').on('click', function () {
          $(this).parent().hide()
             .parent().find('[data-ui=description]').height('auto')
          $(this).parent().hide()
              .parent().find('[data-ui=description]').toggleClass( "no-after" )
-     })
+     });
     </script>
+
+    <!-- @if ENV='debug' -->
+    <script src="/static/vendors/video-js/video.js"></script>
+    <script>
+        videojs.options.flash.swf = "/static/vendors/video-js/video-js.swf";
+
+
+    </script>
+    <!-- @endif -->
 
     <!--@@close-->

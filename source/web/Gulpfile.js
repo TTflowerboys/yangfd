@@ -113,7 +113,11 @@ gulp.task('clean', function () {
 })
 
 
-//Production 
+// Build Target:
+// 'debug': local python server
+// 'dev': xxx-dev.bbtechgroup.com
+// 'test': xxx-test.bbtechgroup.com
+// 'production': online production version
 
 gulp.task('build_dev', ['lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend-dev'],
     function () {
