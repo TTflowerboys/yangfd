@@ -201,6 +201,13 @@ property_params = dict(
     rental_guarantee_rate=float,
     unset_fields=(list, None, str),
     brochure=(list, None, str),
+    videos=(list, None, dict(
+        source=(list, None, str),
+        sub=dict(
+            lang=str,
+            url=str,
+        ),
+    ))
 )
 
 
