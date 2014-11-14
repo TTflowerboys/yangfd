@@ -591,13 +591,43 @@ def upload_image():
 
 @f_get('/sitemap_location.xml')
 def sitemap():
+    xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9"
     domain = request.urlparts[1]
-    root = etree.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
-
+    xhtml = "http://www.w3.org/1999/xhtml"
+    root = etree.Element("{%s}urlset" % xmlns, encoding="UTF-8", nsmap={'xhtml': xhtml, None: xmlns})
+    logger.debug(etree.tostring(root))
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s" % domain
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/signup" % domain
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/signin" % domain
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/about" % domain
+
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list" % domain
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list?country=541bf6616b809946e81c2bd3" % domain
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list?country=541c09286b8099496db84f56" % domain
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list?country=541d32eb6b80992a1f209045" % domain
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list?country=541d334d6b80992a1f209046" % domain
+    for property in f_app.property.search({"status": {"$in": ["selling", "sold out"]}}, per_page=0):
+        etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property/%s" % (domain, property)
+
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/news_list" % domain
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/news_list?category=5417ecd46b80992d07638187" % domain
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/news_list?category=5417ecf86b80992d07638188" % domain
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/news_list?category=54180eeb6b80994dcea5600d" % domain
+    for news in f_app.blog.post.search({"status": {"$ne": "deleted"}}, per_page=0):
+        etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/news/%s" % (domain, news)
+
+    for child in root:
+        if f_app.common.i18n_sitemap_enable_locales:
+            if "?" in child[0].text:
+                etree.SubElement(child, "{http://www.w3.org/1999/xhtml}link", rel="alternate", hreflang="en", href="%s&_i18n=en_GB" % child[0].text)
+                etree.SubElement(child, "{http://www.w3.org/1999/xhtml}link", rel="alternate", hreflang="en", href="%s&_i18n=zh_Hant_HK" % child[0].text)
+            else:
+                etree.SubElement(child, "{http://www.w3.org/1999/xhtml}link", rel="alternate", hreflang="en", href="%s?_i18n=en_GB" % child[0].text)
+                etree.SubElement(child, "{http://www.w3.org/1999/xhtml}link", rel="alternate", hreflang="en", href="%s?_i18n=zh_Hant_HK" % child[0].text)
+        if "?" in child[0].text:
+            child[0].text = "%s&_i18n=zh_Hans_CN" % child[0].text
+        else:
+            child[0].text = "%s?_i18n=zh_Hans_CN" % child[0].text
 
     response.set_header(b"Content-Type", b"application/xml")
     return etree.tostring(root, xml_declaration=True, encoding="UTF-8")
