@@ -30,7 +30,11 @@ logger = logging.getLogger(__name__)
         ranking=int,
     )),
     walk_score=float,
-    facilities=(list, None, "enum:facilities"),
+    facilities=(list, None, dict(
+        name=("i18n", None, str),
+        type="enum:facilities",
+        address=("i18n", None, str),
+    )),
     transit_score=float,
     railway_lines=dict(
         name=str,
@@ -81,7 +85,11 @@ def report_get(report_id):
         ranking=(int, None),
     )),
     walk_score=(float, None),
-    facilities=(list, None, str),
+    facilities=(list, None, dict(
+        name=("i18n", None, str),
+        type="enum:facilities",
+        address=("i18n", None, str),
+    )),
     transit_score=(float, None),
     railway_lines=dict(
         name=(str, None),
