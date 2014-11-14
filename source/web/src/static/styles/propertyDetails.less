@@ -156,6 +156,23 @@ body{
         }
     }
 
+    .videocontent{
+        .video-js{
+            width:800px;
+            height:533px;
+
+            // Making VideoJS videos scale in all browsers, tablets and phones for responsive design
+            // http://coolestguidesontheplanet.com/videodrome/videojs/
+            @media @phone {
+                width:auto;
+                height:auto;
+                padding-top: 56.25%
+            }
+        }
+
+        .vjs-fullscreen {padding-top: 0px}
+    }
+
     .propertyCard_phone {
         display: none;
         overflow: hidden;

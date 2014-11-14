@@ -15,11 +15,11 @@
 
         if (type === 'currency') {
             if (dom.tagName.toLowerCase() === 'input') {
-                $dom.val(
-                    team.encodeCurrency(
-                        $dom.val()
-                    )
-                )
+                var oldPos = team.getCaretPostion(dom)
+                var oldValue = $dom.val()
+                var newValue = team.encodeCurrency(oldValue)
+                $dom.val(newValue)
+                team.setCaretPosition(dom, oldPos + (newValue.match(/,/g) || []).length -  (oldValue.match(/,/g) || []).length)
             } else {
                 $dom.html(
                     team.encodeCurrency(
@@ -29,7 +29,7 @@
             }
         }
         else if (type === 'formatted_currency') {
-                if (dom.tagName.toLowerCase() === 'input') {
+            if (dom.tagName.toLowerCase() === 'input') {
                 $dom.val(
                     team.formatCurrency(
                         $dom.val()
