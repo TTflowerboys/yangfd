@@ -26,6 +26,7 @@
             margin: 0 auto;
 
             @media @phone {
+                padding-top: 5px;
                 padding-left: 20px;
                 padding-right: 20px;
             }
@@ -77,6 +78,10 @@
             float: left;
             margin: auto 0;
             width: 70%;
+            @media @phone {
+                float: none;
+                width: 100%;
+            }
 
             .main_house_type_floorplan {
                 margin: 0 auto;
@@ -87,11 +92,6 @@
                 @media @phone {
                     min-height: 213px;
                 }
-            }
-
-            @media @phone {
-                float: none;
-                width: 100%;
             }
         }
 
