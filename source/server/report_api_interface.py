@@ -89,6 +89,7 @@ def report_get(report_id):
         name=("i18n", None, str),
         type="enum:facilities",
         address=("i18n", None, str),
+        distance=("i18n:distance", None, "meter, foot"),
     )),
     transit_score=(float, None),
     railway_lines=dict(
