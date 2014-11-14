@@ -14,7 +14,7 @@ angular.module('app')
         'EUR',
         'HKD'
     ])
-    .constant('i18nLength', [
+    .constant('i18nDistance', [
         'mile',
         'foot',
         'inch',
@@ -28,10 +28,10 @@ angular.module('app')
         'meter ** 2',
         'kilometer ** 2'
     ])
-    .run(function ($rootScope, i18nLanguages, i18nCurrency, i18nLength, i18nArea) {
+    .run(function ($rootScope, i18nLanguages, i18nCurrency, i18nDistance, i18nArea) {
         $rootScope.i18nLanguages = i18nLanguages
         $rootScope.i18nCurrency = i18nCurrency
-        $rootScope.i18nLength = i18nLength
+        $rootScope.i18nDistance = i18nDistance
         $rootScope.i18nArea = i18nArea
 
     })

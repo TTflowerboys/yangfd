@@ -1,266 +1,366 @@
-<div class="buttons">
-    <span class="btn-group">
-        <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
-        </button>
-    </span>
-    <div class="btn-group form-inline pull-right" style="margin-right: 10px">
-        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+<div>
+    <div class="buttons">
+        <span class="btn-group">
+            <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+            </button>
+        </span>
     </div>
+    <form name="reportEditForm" class="form-horizontal" ng-controller="ctrlReportItems"
+        style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,reportEditForm)"
+        novalidate>
+        <div class="row">
+            <div class="form-group col-sm-3">
+                <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"
+                    ng-model="userLanguage.value"></select>
+            </div>
+            <div class="form-group col-sm-3">
+                <select class="form-control" ng-options="item for item in i18nDistance" ng-model="userDistance.value">
+                    <option value="">-- {%$root.i18n('长度单位')%} --</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">{%$root.i18n('街区名称')%}</label>
+            <div class="controls form-inline">
+                <input class="form-control" type="text" type-i18n="item.name" ng-model="item.name[userLanguage.value]"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">{%$root.i18n('街区ID')%}</label>
+            <div class="controls form-inline">
+                <input class="form-control" type="text" ng-model="item.zipcode"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">{%$root.i18n('街区介绍')%}</label>
+            <div class="controls form-inline">
+                <input class="form-control" type="text" type-i18n="item.description" ng-model="item.description[userLanguage.value]"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label">{%$root.i18n('别墅售价')%}</label>
+                <div class="controls">
+                    <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.villa_price"></div>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label class="control-label">{%$root.i18n('别墅租金')%}</label>
+                <div class="controls">
+                    <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.villa_rental"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label">{%$root.i18n('公寓售价')%}</label>
+                <div class="controls">
+                    <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.flat_price"></div>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label class="control-label">{%$root.i18n('公寓租金')%}</label>
+                <div class="controls">
+                    <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.flat_rental"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('附近学校')%}</label>
+                <div class="controls">
+                    <table class="table table-bordered table-striped table-condensed"
+                        style="margin-bottom:30px">
+                        <thead>
+                            <tr>
+                                <th>{%$root.i18n('学校名')%}</th>
+                                <th>{%$root.i18n('学校类型')%}</th>
+                                <th>{%$root.i18n('年级')%}</th>
+                                <th>{%$root.i18n('排名')%}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="school in item.schools">
+                                <td>
+                                    <input type="text" type-i18n="school.name" ng-model="school.name[userLanguage.value]"
+                                        class="form-control"/>
+                                </td>
+                                <td>
+                                    <select class="form-control" ng-options="p.id as p.value[userLanguage.value] for p in schoolTypeList" ng-model="school.type"></select>
+                                </td>
+                                <td>
+                                    <select class="form-control" ng-options="p.id as p.value[userLanguage.value] for p in gradeTypeList" ng-model="school.grade"></select>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="school.ranking"/>
+                                </td>
+                                <td>
+                                    <span class="btn btn-danger" ng-click="onRemoveSchool($index)" title="{%$root.i18n('移除')%}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <input type="button" ng-click="addSchool()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">{%$root.i18n('附近生活服务设施得分')%}</label>
+            <div class="controls form-inline">
+                <input class="form-control" type="text" ng-model="item.walk_score"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('附近生活设施')%}</label>
+                <div class="controls">
+                    <table class="table table-bordered table-striped table-condensed"
+                        style="margin-bottom:30px">
+                        <thead>
+                            <tr>
+                                <th>{%$root.i18n('设施名称')%}</th>
+                                <th>{%$root.i18n('设施类型')%}</th>
+                                <th>{%$root.i18n('设施地址')%}</th>
+                                <th>{%$root.i18n('距离')%}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="facility in item.facilities">
+                                <td>
+                                    <input type="text" type-i18n="facility.name" ng-model="facility.name[userLanguage.value]"
+                                        class="form-control"/>
+                                </td>
+                                <td>
+                                    <select class="form-control" ng-options="p.id as p.value[userLanguage.value] for p in facilitiesList" ng-model="facility.type"></select>
+                                </td>
+                                <td>
+                                    <input type="text" type-i18n="facility.address" ng-model="facility.address[userLanguage.value]"
+                                        class="form-control"/>
+                                </td>
+                                <td>
+                                    <div type-i18n-unit unit="userDistance.value" data="i18nDistance" ng-model="facility.distance"></div>
+                                </td>
+                                <td>
+                                    <span class="btn btn-danger" ng-click="onRemoveFacilities($index)" title="{%$root.i18n('移除')%}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <input type="button" ng-click="addFacilities()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">{%$root.i18n('附近交通设施综合得分')%}</label>
+            <div class="controls form-inline">
+                <input class="form-control" type="text" ng-model="item.transit_score"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('铁路线')%}</label>
+                <div class="controls">
+                    <table class="table table-bordered table-striped table-condensed"
+                        style="margin-bottom:30px">
+                        <thead>
+                            <tr>
+                                <th>{%$root.i18n('路线名称')%}</th>
+                                <th>{%$root.i18n('距离')%}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="railway in item.railway_lines">
+                                <td>
+                                    <input type="text" type-i18n="railway.name" ng-model="railway.name[userLanguage.value]"
+                                        class="form-control"/>
+                                </td>
+                                <td>
+                                    <div type-i18n-unit unit="userDistance.value" data="i18nDistance" ng-model="railway.distance"></div>
+                                </td>
+                                <td>
+                                    <span class="btn btn-danger" ng-click="onRemoveRailway($index)" title="{%$root.i18n('移除')%}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <input type="button" ng-click="addRailway()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('公交路线')%}</label>
+                <div class="controls">
+                    <table class="table table-bordered table-striped table-condensed"
+                        style="margin-bottom:30px">
+                        <thead>
+                            <tr>
+                                <th>{%$root.i18n('路线名称')%}</th>
+                                <th>{%$root.i18n('距离')%}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="bus in item.bus_lines">
+                                <td>
+                                    <input type="text" type-i18n="bus.name" ng-model="bus.name[userLanguage.value]"
+                                        class="form-control"/>
+                                </td>
+                                <td>
+                                    <div type-i18n-unit unit="userDistance.value" data="i18nDistance" ng-model="bus.distance"></div>
+                                </td>
+                                <td>
+                                    <span class="btn btn-danger" ng-click="onRemoveBusStation($index)" title="{%$root.i18n('移除')%}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <input type="button" ng-click="addBusStation()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('汽车租赁点')%}</label>
+                <div class="controls">
+                    <table class="table table-bordered table-striped table-condensed"
+                        style="margin-bottom:30px">
+                        <thead>
+                            <tr>
+                                <th>{%$root.i18n('租赁地点')%}</th>
+                                <th>{%$root.i18n('距离')%}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="car in item.car_rental_location">
+                                <td>
+                                    <input type="text" type-i18n="car.place" ng-model="car.place[userLanguage.value]"
+                                        class="form-control"/>
+                                </td>
+                                <td>
+                                    <div type-i18n-unit unit="userDistance.value" data="i18nDistance" ng-model="car.distance"></div>
+                                </td>
+                                <td>
+                                    <span class="btn btn-danger" ng-click="onRemoveCarRental($index)" title="{%$root.i18n('移除')%}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <input type="button" ng-click="addCarRental()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('自行车租赁点')%}</label>
+                <div class="controls">
+                    <div ng-model="item.bicycle_rental_location"></div>
+                    <table class="table table-bordered table-striped table-condensed"
+                        style="margin-bottom:30px">
+                        <thead>
+                            <tr>
+                                <th>{%$root.i18n('租赁地点')%}</th>
+                                <th>{%$root.i18n('距离')%}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="bicycle in item.bicycle_rental_location">
+                                <td>
+                                    <input type="text" type-i18n="bicycle.place" ng-model="bicycle.place[userLanguage.value]"
+                                        class="form-control"/>
+                                </td>
+                                <td>
+                                    <div type-i18n-unit unit="userDistance.value" data="i18nDistance" ng-model="bicycle.distance"></div>
+                                </td>
+                                <td>
+                                    <span class="btn btn-danger" ng-click="onRemoveBicycleRental($index)" title="{%$root.i18n('移除')%}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <input type="button" ng-click="addBicycleRental()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">{%$root.i18n('街区常驻人口数量')%}</label>
+            <div class="controls form-inline">
+                <input class="form-control" type="text" ng-model="item.population"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">{%$root.i18n('街区常驻人口趋势描述')%}</label>
+            <div class="controls form-inline">
+                <input class="form-control" type="text" ng-model="item.population_description"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('街区年龄分布')%}</label>
+                <div class="controls">
+                    <div ng-model="item.age_distribution"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('街区消费能力分布')%}</label>
+                <div class="controls">
+                    <div ng-model="item.consumption_ability_distribution"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">{%$root.i18n('街区犯罪率统计图')%} </label>
+            <div class="controls form-inline">
+                <input class="form-control" type="text" ng-model="item.crime_statistics"/>
+            </div>
+        </div>
+        <div class="form-actions" style="margin-bottom: 80px;">
+            <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
+            <input type="button" ng-click="$state.go('^')" class="btn" value="{%$root.i18n('取消')%}">
+        </div>
+        <div class="help-block">* {%$root.i18n('必填')%}</div>
+    </form>
 </div>
-<form name="reportCreateForm" class="form-horizontal"
-    style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,reportCreateForm)"
-    novalidate>
-    <div class="form-group">
-        <label class="control-label">{%$root.i18n('街区名称')%} *</label>
-
-
-        <div class="controls form-inline">
-
-            <input class="form-control" type="text" type-i18n="item.name" ng-model="item.name[userLanguage.value]"/>
-
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label">{%$root.i18n('街区ID')%} *</label>
-
-
-        <div class="controls form-inline">
-
-            <input class="form-control" type="text" ng-model="item.zipcode"/>
-
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label">{%$root.i18n('街区介绍')%} *</label>
-
-
-        <div class="controls form-inline">
-
-            <input class="form-control" type="text" type-i18n="item.description" ng-model="item.description[userLanguage.value]"/>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('别墅售价')%}</label>
-            <div class="controls">
-                <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.villa_price"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('别墅租金')%}</label>
-            <div class="controls">
-                <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.villa_rental"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('公寓售价')%}</label>
-            <div class="controls">
-                <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.flat_price"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('公寓租金')%}</label>
-            <div class="controls">
-                <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.flat_rental"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('附近学校')%}</label>
-            <div class="controls">
-                <table class="table table-bordered table-striped table-condensed"
-                    style="margin-bottom:30px">
-                    <thead>
-                        <tr>
-                            <th>{%$root.i18n('学校名')%}</th>
-                            <th>{%$root.i18n('学校类型')%}</th>
-                            <th>{%$root.i18n('年级')%}</th>
-                            <th>{%$root.i18n('排名')%}</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="school in item.schools">
-                            <td>
-                                <input type="text" type-i18n="school.name" ng-model="school.name[userLanguage.value]"
-                                    class="form-control"/>
-                            </td>
-                            <td>
-                                <div ng-model="school.type" placeholder="{%$root.i18n('支出费用')%}"></div>
-                            </td>
-                            <td>
-                                <div ng-model="school.grade" placeholder="{%$root.i18n('支出费用')%}"></div>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" ng-model="school.ranking"/>
-                            </td>
-                            <td>
-                                <span class="btn btn-danger" ng-click="onRemoveCost($index)" title="{%$root.i18n('移除')%}">
-                                    <i class="fa fa-trash-o"></i>
-                                </span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="5">
-                                <input type="button" ng-click="addSchool()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label">{%$root.i18n('附近生活服务设施得分')%} *</label>
-
-
-        <div class="controls form-inline">
-
-            <input class="form-control" type="text" ng-model="item.walk_score"/>
-
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('附近生活设施')%}</label>
-            <div class="controls">
-                <div select-multiple-enums name="facilities" ng-model="item.facilities"></div>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label">{%$root.i18n('附近交通设施综合得分')%} *</label>
-
-
-        <div class="controls form-inline">
-
-            <input class="form-control" type="text" ng-model="item.transit_score"/>
-
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('铁路线')%}</label>
-            <div class="controls">
-                <div ng-model="item.railway_lines"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('公交路线')%}</label>
-            <div class="controls">
-                <div ng-model="item.bus_lines"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('汽车租赁点')%}</label>
-            <div class="controls">
-                <div ng-model="item.car_rental_location"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('自行车租赁点')%}</label>
-            <div class="controls">
-                <div ng-model="item.bike_rental_location"></div>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label">{%$root.i18n('街区常驻人口数量')%} *</label>
-
-
-        <div class="controls form-inline">
-
-            <input class="form-control" type="text" ng-model="item.population"/>
-
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label">{%$root.i18n('街区常驻人口趋势描述')%} *</label>
-
-
-        <div class="controls form-inline">
-
-            <input class="form-control" type="text" type-i18n="item.population_description" ng-model="item.population_description"/>
-
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('街区年龄分布')%}</label>
-            <div class="controls">
-                <div ng-model="item.age_distribution"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('街区消费能力分布')%}</label>
-            <div class="controls">
-                <div ng-model="item.consumption_ability_distribution"></div>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label">{%$root.i18n('街区犯罪率统计图')%} </label>
-
-
-        <div class="controls form-inline">
-            <input class="form-control" type="text" ng-model="item.crime_statistics"/>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('街区规划资讯')%}</label>
-            <div class="controls">
-                <div ng-model="item.planning_news"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('街区房屋供给资讯')%}</label>
-            <div class="controls">
-                <div ng-model="item.supplement_news"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="form-group col-sm-12">
-            <label class="control-label">{%$root.i18n('街区就业机会资讯')%}</label>
-            <div class="controls">
-                <div ng-model="item.job_news"></div>
-            </div>
-        </div>
-    </div>
-    <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
-        <input type="button" ng-click="$state.go('^')" class="btn" value="{%$root.i18n('取消')%}">
-    </div>
-    <div class="help-block">* {%$root.i18n('必填')%}</div>
-</form>
