@@ -78,7 +78,7 @@
                         % lat = property.get('latitude')
                         <a href="https://ditu.google.cn/maps/?q={{lat}},{{long}}&z=14" target="_blank"
                            class="item" data-tab-name="map">
-                            <img onerror="window.project.onImgError(this);" id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;" width="800" height="533"/>
+                            <img onerror="window.project.onImgError(this);" id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;"/>
                         </a>
                     % end
                     <!-- @if ENV='debug' -->
@@ -1154,7 +1154,7 @@
                  if ($propertyMap.get(0).src.indexOf(url) === 0) { return }
                  var result = team.setQuery('center', latitude + ',' + longitude, url)
                  result = team.setQuery('zoom', 15, result)
-                 result = team.setQuery('size', '640x384', result)
+                 result = team.setQuery('size', '800x533', result)
                  result = team.setQuery('markers', latitude + ',' + longitude, result)
                  $propertyMap.get(0).src = result
              }
