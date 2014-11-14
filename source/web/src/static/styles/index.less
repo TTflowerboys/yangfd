@@ -475,6 +475,7 @@ main {
         margin: 0 auto;
         width: @max-width;
         min-height:400px;
+        overflow:hidden;
 
         @media @phone {
             width:100%;
@@ -516,7 +517,7 @@ main {
                 margin-top: 18px;
                 .newsList();
                 width: 320px;
-                height: 220px;
+                height: 195px;
                 @media @phone {
                     float:left;
 
@@ -528,6 +529,7 @@ main {
             }
 
             height: @house_card-height;
+            width:100%;
             margin-bottom: 100px;
 
             @media @phone {
@@ -535,7 +537,7 @@ main {
             }
 
             .description {
-                height: @house_card-height;
+                height: @house_card-height - 20px;
                 width: 520px;
                 display: inline-block;
                 position: relative;
