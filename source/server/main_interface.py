@@ -591,9 +591,13 @@ def upload_image():
 
 @f_get('/sitemap_location.xml')
 def sitemap():
+    domain = request.urlparts[1]
     root = etree.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
-    url = etree.SubElement(root, "url")
-    etree.SubElement(url, "loc")
+
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s" % domain
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/signup" % domain
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/signin" % domain
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/about" % domain
 
     response.set_header(b"Content-Type", b"application/xml")
     return etree.tostring(root, xml_declaration=True, encoding="UTF-8")
