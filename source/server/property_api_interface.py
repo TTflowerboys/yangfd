@@ -133,7 +133,6 @@ property_params = dict(
     longitude=float,
     reality_images=("i18n", None, list, None, str),
     cover=("i18n", None, str),
-    videos=dict(),
     surroundings_images=("i18n", None, list, None, str),
     property_price_type="enum:property_price_type",
     equal_property_description=("i18n", None, str),
