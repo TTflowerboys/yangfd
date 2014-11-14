@@ -5,15 +5,8 @@
         $.betterPost('/api/1/message', {'status': 'new'})
             .done(function (data) {
                 if (data.length > 0) {
-                    var icon = document.getElementById('icon-message')
-                    var iconImagePath = icon.getAttribute('data-img')
-                    var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
-                    var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
-                    var newIconImagePath = iconImageName  + '-notif' + iconImageExtention
-                    icon.setAttribute('src', '')//reset
-                    icon.setAttribute('src', newIconImagePath)
-                    $(icon).css('background-image', 'none') //remove background image by css sprite
-                    $(icon).css('margin-top', '1px')
+                    document.getElementById('icon-message').style.display = 'none'
+                    document.getElementById('icon-message-notif').style.display = 'inline'
                 }
             })
             .fail(function (ret) {
