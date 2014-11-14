@@ -137,7 +137,7 @@ class common(f_common):
         }
     }
 
-    resource_provider_smart = {
+    storage_provider_smart = {
         "CN":
         {
             "method": "qiniu",
