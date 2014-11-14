@@ -307,7 +307,7 @@ def upload_from_url(params):
     data=("file", True),
     filename=str,
 ))
-def upload_file(params):
+def qiniu_upload_file(params):
     """
     Upload a file to Qiniu
 
