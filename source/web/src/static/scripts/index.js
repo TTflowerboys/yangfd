@@ -386,10 +386,12 @@
 
         if (window.user.intention) {
             _.each(window.user.intention, function (item) {
-                addIntetionTag(item.id, item.value)
-                $intentionDetails.find('li[data-id=' + item.id + ']').addClass('selected')
-                $intentionDetails.find('input[value=' + item.id + ']').prop('checked', true)
-                initIntentionList = initIntentionList + item.id + ','
+                if (item.value && item.slug) {
+                    addIntetionTag(item.id, item.value)
+                    $intentionDetails.find('li[data-id=' + item.id + ']').addClass('selected')
+                    $intentionDetails.find('input[value=' + item.id + ']').prop('checked', true)
+                    initIntentionList = initIntentionList + item.id + ','
+                }
             })
 
             if (_.last(initIntentionList) === ',') {
