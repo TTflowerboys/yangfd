@@ -45,6 +45,7 @@ angular.module('app')
                 }
 
                 function updateSource(url) {
+                    need_init = false
                     if (!scope.sources) {
                         scope.sources = []
                         scope.sources.push({url: url, host: scope.host, type: scope.type})
