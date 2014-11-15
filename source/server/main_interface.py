@@ -216,7 +216,7 @@ def property_get(property_id):
     country_list = get_country_list()
     budget_list = get_budget_list()
     favorite_list = get_favorite_list()
-    return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list)
+    return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip)
 
 
 @f_get('/news_list')
