@@ -310,6 +310,16 @@ main {
         background: #333;
         overflow: hidden;
 
+        .howItWorks_button {
+            display:none;
+            @media @phone {
+	        display:block;
+                float:right;
+                margin-right:12px;
+                margin-top:15px;
+            }
+        }
+        
         [data-tabs] {
             margin-top: 80px;
         }
