@@ -82,17 +82,22 @@
                         </a>
                     % end
                     <!-- @if ENV='debug' -->
+                    % if property.get('videos') and len(property.get('videos')) > 0:
                     <div class="item videocontent" data-tab-name="video">
                         <video id="property_video" class="video-js vjs-default-skin vjs-big-play-centered"
                             controls preload="auto" width="auto" height="auto"
                             poster="/static/images/placeholder/video_holder_800x_141114.jpg"
                             data-setup='{}'>
-                            <source src="http://bbt-currant.qiniudn.com/71a67babbe1d4004999a2c6c4952d619.mp4?attname=&e=1416037460&token=wVRJocfeRVWT5i9fwlYlMSp45a_BiicklAysYPeb:lDWgabCo3yDuCQaV4yA9iChm_9U" type='video/mp4'/>
-                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
-                                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                            </p>
+                            % rec_videos = get_videos_by_ip(property.get('videos'))
+                            % if(rec_videos and len(rec_videos) > 0):
+                                %for source in rec_videos[0].get('sources'):
+                                <source src="{{source.get('url')}}" type="{{source.get('type')}}"/>
+                                % end
+                            % end
+                            <p class="vjs-no-js">{{!_('对不起，您的浏览器不支持视频播放，请下载<a href="http://se.360.cn/" target="_blank">360安全浏览器</a>重新打开')}}</p>
                         </video>
                     </div>
+                    % end
                     <!-- @endif -->
                 </div>
 
@@ -161,11 +166,13 @@
                         % end
 
                         <!-- @if ENV='debug' -->
+                        % if property.get('videos') and len(property.get('videos')) > 0:
                         <li data-tab="video">
                             <img onerror="window.project.onImgError(this);" src="/static/images/placeholder/video_holder_150x_141114.jpg" alt=""/>
                             <span class="text_wrapper"> <span class="text">{{_('视频')}}</span></span>
                             <span class="border"></span>
                         </li>
+                        % end
                         <!-- @endif -->
                     </ul>
                 </div>
