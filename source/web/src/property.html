@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
     <!--endbuild-->
 
-    <!-- @if ENV='production' -->
+    <!-- @if ENV!='production' -->
     <link rel="stylesheet" href="/static/vendors/video-js/video-js.css">
     <!-- @endif-->
 
@@ -165,7 +165,7 @@
                             </li>
                         % end
 
-                        <!-- @if ENV='production' -->
+                        <!-- @if ENV!='production' -->
                         % if property.get('videos') and len(property.get('videos')) > 0:
                         <li data-tab="video">
                             <img onerror="window.project.onImgError(this);" src="/static/images/placeholder/video_holder_150x_141114.jpg" alt=""/>
@@ -1239,7 +1239,7 @@
      });
     </script>
 
-    <!-- @if ENV='production' -->
+    <!-- @if ENV!='production' -->
     <script src="/static/vendors/video-js/video.js"></script>
     <script>
         videojs.options.flash.swf = "/static/vendors/video-js/video-js.swf";
