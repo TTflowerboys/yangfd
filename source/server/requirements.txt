@@ -1,5 +1,6 @@
 dict2xml
 markdown
+wand
 Cython
 Babel
 qiniu
