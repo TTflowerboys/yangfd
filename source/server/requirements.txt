@@ -2,7 +2,7 @@ dict2xml
 markdown
 Cython
 Babel
-qiniu<7.0
+qiniu
 Twisted
 gevent>0.99
 newrelic
