@@ -456,6 +456,13 @@ def wechat_share():
     return template("phone/wechat_share", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
+@f_get('/how_it_works')
+@check_landing
+@check_ip_and_redirect_domain
+def how_it_works():
+    return template("phone/how_it_works", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
+
+
 @f_get('/admin')
 @check_landing
 @check_ip_and_redirect_domain
