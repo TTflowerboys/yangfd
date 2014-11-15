@@ -223,9 +223,9 @@
                         //elem.focus();
                         elem.setSelectionRange(caretPos, caretPos);
                     }
-                    else {
+                    //else {
                         //elem.focus();
-                    }
+                    //}
                 }
             }
         }
