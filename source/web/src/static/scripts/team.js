@@ -199,7 +199,6 @@
             // IE Support
             if (document.selection) {
 
-                //elem.focus ();
                 var sel = document.selection.createRange ();
                 sel.moveStart ('character', -elem.value.length);
                 caretPos = sel.text.length;
@@ -220,12 +219,8 @@
                 }
                 else {
                     if(elem.selectionStart) {
-                        //elem.focus();
                         elem.setSelectionRange(caretPos, caretPos);
                     }
-                    //else {
-                        //elem.focus();
-                    //}
                 }
             }
         }
