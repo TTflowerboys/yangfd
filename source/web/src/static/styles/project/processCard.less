@@ -2,10 +2,6 @@
 @import "_imports";
 .processCard {
     position: relative;
-    @media @phone {
-        position:static;
-
-    }
 
     .line {
         background: #ccc; position: absolute; top: 50%; height: 6px; width: 100%; margin: -3px 0 0;
@@ -14,7 +10,8 @@
             width: 6px;
             left: 30px;
             margin: 0 0 0 -3px;
-            position:static;
+            //position:static;
+
         }
 
     }
@@ -60,6 +57,11 @@
     }
     ol {
         .clearfix();
+
+        @media @phone {
+            position:relative;
+        }
+
         li { float: left; position: relative; text-align: center;
             @height: 270px;
             @icon-height: 60px;
@@ -106,7 +108,7 @@
                         @media @phone {
                             .arrow(@direction: left; @fg:#333; @width: 10px;);
                             position: absolute;  left:70px;
-                            display:none;
+
                             margin-top:0;
                         }
                     }
