@@ -139,10 +139,7 @@ property_params = dict(
             type=str,
             host=str
             )),
-        sub=(list, None, dict(
-            lang=str,
-            url=str,
-        )),
+        sub=("i18n", None, str),
         poster=str,
     )),
     surroundings_images=("i18n", None, list, None, str),
