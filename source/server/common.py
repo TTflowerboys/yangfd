@@ -95,8 +95,8 @@ class common(f_common):
     opencaptcha_height = 48
     opencaptcha_html = "<input type='hidden' name='challenge' value='%(challenge)s'><a href='#' onclick='refreshCaptcha()'><img src='http://www.opencaptcha.com/img/%(challenge)s'  height='%(height)s' alt='captcha' width='%(width)s' border='0'/></a><input name='code' size=10 type=text data-validator='required, trim'>"
 
-    touclick_public_key = "7ba2ba84-1ebe-4bf5-9fb4-c888612d5204"
-    touclick_private_key = "0160ee89-06bb-4535-bb24-3fa517feea9d"
+    touclick_public_key = "031024af-e0a6-4f38-a189-8f51378be624"
+    touclick_private_key = "89fbafb1-083c-41f1-a580-86396121bb16"
     touclick_api_version = "v2-2"
 
     sendcloud_api_user = "postmaster@yangfd.sendcloud.org"
