@@ -1,0 +1,7 @@
+<div>
+    <div style="width: 100%; height: 200px;line-height:200px;text-align: center;vertical-align: middle;background-color: #bbb"
+        ng-file-select="onFileSelected($files)" onclick="this.value = null">
+        <span ng-if="host==='aws'">{%video?$root.i18n('已上传'):$root.i18n('视频拖到此处上传或点击上传至AWS')%}</span>
+        <span ng-if="host==='qiniu'">{%video?$root.i18n('已上传'):$root.i18n('视频拖到此处上传或点击上传至七牛')%}</span>
+    </div>
+</div>
