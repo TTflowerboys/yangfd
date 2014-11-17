@@ -291,6 +291,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" ng-if="item.videos">
+                        <div class="form-group  col-sm-3">
+                            <label class="control-label">{%$root.i18n('视频')%}</label>
+
+                            <div class="controls">
+                                <a class="btn btn-info" href="property/{%$stateParams.id%}" target="_blank">点击预览视频</a>
+                            </div>
+                        </div>
+                    </div>
                 </tab>
                 <tab heading="{%$root.i18n('非楼盘特有信息')%}" ng-if="item.property_type.slug !== 'new_property'&&item.property_type.slug!=='student_housing'">
                     <div class="row">
