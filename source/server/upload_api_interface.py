@@ -206,7 +206,7 @@ def upload_pdf(params):
         for img in image_jpeg.sequence:
             img_page = Image(image=img)
             filename = f_app.util.uuid() + ".jpg"
-            b.upload(filename, img_page.read(), policy="public-read")
+            b.upload(filename, img_page.make_blob(), policy="public-read")
             result["rendered"].append(b.get_public_url(filename))
 
     return result
