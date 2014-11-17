@@ -78,7 +78,7 @@
                         % lat = property.get('latitude')
                         <a href="https://ditu.google.cn/maps/?q={{lat}},{{long}}&z=14" target="_blank"
                            class="item" data-tab-name="map">
-                            <img onerror="window.project.onImgError(this);" id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;"/>
+                            <img onerror="window.onImgError(this);" id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;"/>
                         </a>
                     % end
                     <!-- @if ENV!='production' -->
@@ -105,7 +105,7 @@
                     <ul>
                         % if property.get('reality_images', []) and len(property.get('reality_images', [])):
                             <li data-tab="reality_images">
-                                <img onerror="window.project.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                      alt="" />
                                 <span class="text_wrapper"> <span class="text">{{_('实景图')}}</span> </span>
                                 <span class="border"></span>
@@ -114,7 +114,7 @@
 
                         % if property.get('surroundings_images'):
                             <li data-tab="surroundings_images">
-                                <img onerror="window.project.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('surroundings_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('surroundings_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                      alt="" />
                                 <span class="text_wrapper"> <span class="text">{{_('设施图')}}</span> </span>
                                 <span class="border"></span>
@@ -123,7 +123,7 @@
 
                         % if property.get('floor_plan'):
                             <li data-tab="floor_plan">
-                                <img onerror="window.project.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('floor_plan')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('floor_plan')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                      alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('户型图')}}</span> </span>
                                 <span class="border"></span>
@@ -132,7 +132,7 @@
 
                         % if property.get('effect_pictures'):
                             <li data-tab="effect_pictures">
-                                <img onerror="window.project.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('effect_pictures')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('effect_pictures')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                      alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('效果图')}}</span> </span>
                                 <span class="border"></span>
@@ -141,7 +141,7 @@
 
                         % if property.get('indoor_sample_room_picture'):
                             <li data-tab="indoor_sample_room_picture">
-                                <img onerror="window.project.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('indoor_sample_room_picture')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('indoor_sample_room_picture')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                      alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('样板间图')}}</span> </span>
                                 <span class="border"></span>
@@ -150,7 +150,7 @@
 
                         % if property.get('planning_map'):
                             <li data-tab="planning_map">
-                                <img onerror="window.project.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('planning_map')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('planning_map')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                      alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('规划图')}}</span> </span>
                                 <span class="border"></span>
@@ -159,7 +159,7 @@
 
                         % if property.get('longitude') and property.get('latitude'):
                             <li data-tab="map">
-                                <img onerror="window.project.onImgError(this);" src="/static/images/placeholder/map.jpg" alt=""/>
+                                <img onerror="window.onImgError(this);" src="/static/images/placeholder/map.jpg" alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('地理位置')}}</span> </span>
                                 <span class="border"></span>
                             </li>
@@ -168,7 +168,7 @@
                         <!-- @if ENV!='production' -->
                         % if property.get('videos') and len(property.get('videos')) > 0:
                         <li data-tab="video">
-                            <img onerror="window.project.onImgError(this);" src="/static/images/placeholder/video_holder_150x_141114.jpg" alt=""/>
+                            <img onerror="window.onImgError(this);" src="/static/images/placeholder/video_holder_150x_141114.jpg" alt=""/>
                             <span class="text_wrapper"> <span class="text">{{_('视频')}}</span></span>
                             <span class="border"></span>
                         </li>
@@ -430,7 +430,7 @@
                                             <a href="javascript:window.openMainHouseType(null, '{{index}}')">
                                             <div style="position:relative;">
                                                 <img class="floor_plan" src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
-                                                         alt="" onerror="window.project.onImgError(this);"/>
+                                                         alt="" onerror="window.onImgError(this);"/>
                                                 <span class="propertyDetails_houseType_name" style="display: none">{{item.get('name','')}}</span>
                                                 <span class="propertyDetails_houseType_description" style="display: none">{{item.get('description','')}}</span>
                                                 <div class="table_wrapper">
