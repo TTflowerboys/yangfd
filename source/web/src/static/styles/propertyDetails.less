@@ -132,7 +132,12 @@ body{
                         display: none; border: 3px solid @red;
                     }
                     .text {
-                        text-align: center; background: fade(white, 50%); font-size: 20px; color: black;
+                        text-align: center;
+                        //background: fade(white, 50%);
+
+                        font-size: 20px;
+                        color: black;
+
                         @media @phone {
                             font-size: 14px;
                             color: #747474;
@@ -140,6 +145,10 @@ body{
 
                         &_wrapper {
                             display: table; height: 106px;
+                            .imageOpacity(0.5);
+                            background: white;
+
+
                             @media @phone {
                                 height: 53px;
                             }
