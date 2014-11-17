@@ -63,6 +63,11 @@ main {
             .img_shadow{
                 background:#000000;
                 opacity:0.2;
+                opacity: .20; /* Standards Compliant Browsers */
+                filter: alpha(opacity=20); /* IE 7 and Earlier */
+                /* Next 2 lines IE8 */
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+                filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
                 min-width: 100%;
                 min-height: 100%;
                 position: absolute;
