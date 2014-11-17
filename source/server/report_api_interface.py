@@ -34,6 +34,7 @@ logger = logging.getLogger(__name__)
         name=("i18n", None, str),
         type="enum:facilities",
         address=("i18n", None, str),
+        distance=("i18n:distance", None, "meter, foot"),
     )),
     transit_score=float,
     railway_lines=dict(
@@ -59,6 +60,21 @@ logger = logging.getLogger(__name__)
     consumption_ability_distribution=dict(
     ),
     crime_statistics=(list, None, str),
+    planning_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
+    supplement_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
+    job_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "operation", "jr_operation"])
 def report_add(user, params):
@@ -115,6 +131,21 @@ def report_get(report_id):
     consumption_ability_distribution=(dict(
     ), None),
     crime_statistics=(list, None, str),
+    planning_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
+    supplement_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
+    job_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
 ))
 def report_edit(report_id, params):
     return f_app.report.update_set(report_id, params)
