@@ -115,6 +115,7 @@ property_params = dict(
     zipcode=("i18n", None, str),
     zipcode_index=str,
     address=("i18n", None, str),
+    real_address=("i18n", None, str),
     highlight=("i18n", None, list, None, str),
     annual_return_estimated=str,
     annual_cash_return_estimated=str,
@@ -138,7 +139,7 @@ property_params = dict(
             url=str,
             type=str,
             host=str
-            )),
+        )),
         sub=("i18n", None, str),
         poster=str,
     )),
