@@ -78,6 +78,16 @@
   -o-transform: rotate(180deg); /* Opera */
 }
 
+
+.imageOpacity(@opacity) {
+    opacity: @opacity; /* Standards Compliant Browsers */
+    @opacity-ie:@opacity * 100;
+    filter: alpha(opacity=@opacity-ie); /* IE 7 and Earlier */
+    /* Next 2 lines IE8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@opacity-ie)";
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=@opacity-ie);
+
+}
 .horizontalList(@padding: 16px;) {
     list-style: none; padding: 0; margin: 0;
     .clearfix();
