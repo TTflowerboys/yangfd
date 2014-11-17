@@ -59,7 +59,7 @@
                 img.src = defaultSrc
             }else{
                 img.src = ''
-                img.classList.add('withPlaceholder')
+                $(img).addClass('withPlaceholder')
             }
             return true;
         }
