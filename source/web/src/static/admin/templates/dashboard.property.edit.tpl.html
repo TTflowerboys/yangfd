@@ -88,6 +88,16 @@
                     </div>
                     <div class="row">
                         <div class="form-group  col-sm-6">
+                            <label class="control-label">{%$root.i18n('真实地址')%}</label>
+
+                            <div class="controls">
+                                <input type="text" class="form-control" type-i18n="item.real_address"
+                                    ng-model="item.real_address[userLanguage.value]"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group  col-sm-6">
 
                             <div class="controls">
                                 <div type-i18n="item.highlight"></div>

@@ -76,6 +76,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" ng-if="item.real_address">
+                        <div class="form-group  col-sm-6">
+                            <label class="control-label">{%$root.i18n('真实地址')%}</label>
+
+                            <div class="controls">
+                                <span class="input-xlarge uneditable-input">{%item.real_address[userLanguage.value]%}</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row" ng-if="item.highlight">
                         <div class="form-group  col-sm-6">
                             <div type-i18n="item.highlight"></div>
