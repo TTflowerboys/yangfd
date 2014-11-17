@@ -37,22 +37,22 @@ logger = logging.getLogger(__name__)
         distance=("i18n:distance", None, "meter, foot"),
     )),
     transit_score=float,
-    railway_lines=dict(
-        name=str,
+    railway_lines=(list, None, dict(
+        name=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ),
-    bus_lines=dict(
-        name=str,
+    )),
+    bus_lines=(list, None, dict(
+        name=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ),
-    car_rental_location=dict(
-        place=str,
+    )),
+    car_rental_location=(list, None, dict(
+        place=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ),
-    bicycle_rental_location=dict(
-        place=str,
+    )),
+    bicycle_rental_location=(list, None, dict(
+        place=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ),
+    )),
     population=int,
     population_description=str,
     age_distribution=dict(
@@ -108,22 +108,22 @@ def report_get(report_id):
         distance=("i18n:distance", None, "meter, foot"),
     )),
     transit_score=(float, None),
-    railway_lines=dict(
+    railway_lines=(list, None, dict(
         name=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ),
-    bus_lines=(dict(
+    )),
+    bus_lines=(list, None, dict(
         name=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ), None),
-    car_rental_location=(dict(
+    )),
+    car_rental_location=(list, None, dict(
         place=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ), None),
-    bicycle_rental_location=(dict(
+    )),
+    bicycle_rental_location=(list, None, dict(
         place=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ), None),
+    )),
     population=(int, None),
     population_description=(str, None),
     age_distribution=(dict(
