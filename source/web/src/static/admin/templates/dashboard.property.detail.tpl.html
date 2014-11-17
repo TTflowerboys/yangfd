@@ -76,6 +76,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" ng-if="item.real_address">
+                        <div class="form-group  col-sm-6">
+                            <label class="control-label">{%$root.i18n('真实地址')%}</label>
+
+                            <div class="controls">
+                                <span class="input-xlarge uneditable-input">{%item.real_address[userLanguage.value]%}</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row" ng-if="item.highlight">
                         <div class="form-group  col-sm-6">
                             <div type-i18n="item.highlight"></div>
@@ -288,6 +297,15 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="item.videos">
+                        <div class="form-group  col-sm-3">
+                            <label class="control-label">{%$root.i18n('视频')%}</label>
+
+                            <div class="controls">
+                                <a class="btn btn-info" href="property/{%$stateParams.id%}" target="_blank">点击预览视频</a>
                             </div>
                         </div>
                     </div>
