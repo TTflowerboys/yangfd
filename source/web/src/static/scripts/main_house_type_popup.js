@@ -26,7 +26,12 @@
 
             //Set up floorplan
             var floorplan = $('#propertyDetails_houseTypes').find('.item' + index).find('.floor_plan').attr('src').replace('_thumbnail','')
-            popup.find('.main_house_type_floorplan').attr('src', floorplan)
+            if(floorplan !== ''){
+                popup.find('.main_house_type_floorplan').attr('src', floorplan)
+            }else{
+                //To workaround onerror can not fire on firefox
+                popup.find('.main_house_type_floorplan').addClass('withPlaceholder')
+            }
 
             //Set name
             var name = $('#propertyDetails_houseTypes').find('.item' + index).find('.propertyDetails_houseType_name').text()

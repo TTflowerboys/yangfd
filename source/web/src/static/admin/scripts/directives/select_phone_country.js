@@ -20,7 +20,7 @@ angular.module('app')
                     } else if (slug === 'US') {
                         return '(+1) ' + country
                     } else if (slug === 'HK') {
-                        return '(+85) ' + country
+                        return '(+852) ' + country
                     }
                     return country
                 }
