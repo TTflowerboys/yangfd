@@ -99,6 +99,33 @@ body{
             .item { display: none;
                 &.selectedTab { display: block; }
             }
+
+            .leftPressArea {
+                position:absolute;
+                height:100%;
+                width:20%;
+                z-index:2;
+                box-shadow:none;
+                background:transparent;
+                cursor:pointer;
+                border-radius:0;
+                left:0;
+                top:0;
+            }
+
+            .rightPressArea {
+
+                position:absolute;
+                height:100%;
+                width:20%;
+                z-index:2;
+                box-shadow:none;
+                background:transparent;
+                cursor:pointer;
+                border-radius:0;
+                right:0;
+                top:0;
+            }
         }
         .thumbnails {
             margin-top: 24px; margin-bottom: 48px;
