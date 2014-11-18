@@ -13,7 +13,9 @@ angular.module('app')
                 text: '@text'
             },
             link: function (scope, elm, attrs) {
-                scope.image = ''
+                if (!scope.image) {
+                    scope.image = ''
+                }
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
