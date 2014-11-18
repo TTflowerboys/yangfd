@@ -867,15 +867,22 @@ body{
     .intentionTags {
         //> h2 { font-size: 16px; color: #666; margin-bottom: 24px; }
         > .tab { color: @red; .clearfix();
-            > li { float: left; text-align: center; position: relative; padding-bottom: 16px; width: 25%; cursor: pointer;
+            > li { float: left;
+                   position: relative;
+                   padding-bottom: 16px; width: 25%; cursor: pointer;
                 height: 100px; font-size: 12px;
                 img { display: block; margin: 0 auto; }
-                .text { margin-top: 16px; }
+                .text { margin: 16px auto; text-align:center; }
                 &:after {
-                    .arrow(up; #333; 16px;); position: absolute; bottom: 0; display: none;
+                    .arrow(up; #333; 16px;);
+                    position: absolute;
+                    bottom: 0;
+                    left:36px;
+                    display: none;
+                    margin:0 auto;
                 }
                 &.selectedTab:after {
-                    display: inline-block;
+                    display: block;
                 }
             }
         }
