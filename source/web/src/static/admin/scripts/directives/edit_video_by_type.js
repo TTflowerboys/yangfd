@@ -26,7 +26,7 @@ angular.module('app')
                                 file: file,
                                 fileFormDataName: 'data',
                                 ignoreLoadingBar: true
-                            })
+                            }, {errorMessage: true})
                                 .success(function (data, status, headers, config) {
                                     scope.video = data.val.url
                                     updateSource(scope.video)
@@ -41,7 +41,7 @@ angular.module('app')
                                 file: file,
                                 fileFormDataName: 'data',
                                 ignoreLoadingBar: true
-                            })
+                            }, {errorMessage: true})
                                 .success(function (data, status, headers, config) {
                                     scope.video = data.val.url
                                     updateSource(scope.video)
@@ -88,7 +88,7 @@ angular.module('app')
                             var type = scope.sources[index].type
                             var host = scope.sources[index].host
                             if (type === scope.type && host === scope.host) {
-                                scope.video = scope.source[index].url
+                                scope.video = scope.sources[index].url
                             }
                         }
                         need_init = false
