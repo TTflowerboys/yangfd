@@ -954,12 +954,16 @@
             <hr/>
 
             % if 'intention' in property and property.get('intention'):
+                % item_width = '25%'
+                %if len(property.get('intention')) > 4:
+                    % item_width = str("{0:.2f}".format(float(1.0 / len(property.get('intention'))) * 100))  + '%'
+                %end
                 <div class="intentionTags" data-tabs>
                     <h2 class="propertyDetails_title">{{_('投资标签')}}</h2>
                     <ul class="tab">
                         % for intention in property.get('intention'):
                             %if intention.get('slug') and intention.get('value'):
-                                <li data-tab="{{intention.get('slug','')}}">
+                                <li data-tab="{{intention.get('slug','')}}" style="width:{{item_width}}">
                                     <div class="image_wrapper">
                                         <img src="/static/images/intention/icon/{{intention.get('slug')}}-red.png" alt=""/>
                                     </div>

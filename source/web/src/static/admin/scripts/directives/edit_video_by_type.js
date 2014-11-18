@@ -13,20 +13,26 @@ angular.module('app')
                 type: '@type'
             },
             link: function (scope, elm, attrs) {
-
+                if (!scope.video) {
+                    scope.video = ''
+                }
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
                         if (scope.host === 'aws') {
+                            scope.video = undefined
                             $upload.upload({
                                 url: '/api/1/upload_file',
                                 file: file,
                                 fileFormDataName: 'data',
                                 ignoreLoadingBar: true
-                            })
+                            }, {errorMessage: true})
                                 .success(function (data, status, headers, config) {
                                     scope.video = data.val.url
                                     updateSource(scope.video)
+                                })
+                                .error(function () {
+                                    scope.video = ''
                                 })
                         } else {
                             scope.video = undefined
@@ -35,10 +41,13 @@ angular.module('app')
                                 file: file,
                                 fileFormDataName: 'data',
                                 ignoreLoadingBar: true
-                            })
+                            }, {errorMessage: true})
                                 .success(function (data, status, headers, config) {
                                     scope.video = data.val.url
                                     updateSource(scope.video)
+                                })
+                                .error(function () {
+                                    scope.video = ''
                                 })
                         }
                     }
@@ -79,7 +88,7 @@ angular.module('app')
                             var type = scope.sources[index].type
                             var host = scope.sources[index].host
                             if (type === scope.type && host === scope.host) {
-                                scope.video = scope.source[index].url
+                                scope.video = scope.sources[index].url
                             }
                         }
                         need_init = false
