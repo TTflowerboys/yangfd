@@ -175,6 +175,8 @@ def upload_file(params):
     f.seek(0)
 
     with f_app.storage.aws_s3() as b:
+        if not extension:
+            extension = ""
         filename = f_app.util.uuid() + extension
         b.upload(filename, f.read(), policy="public-read")
         result = {"url": b.get_public_url(filename)}
@@ -350,7 +352,7 @@ def qiniu_upload_file(params):
     if "filename" in params:
         if "." in params['filename']:
             extension = "." + params['filename'].split('.')[-1]
-    #Guess extension
+    # Guess extension
     if not extension:
         try:
             import magic
@@ -372,6 +374,8 @@ def qiniu_upload_file(params):
     f.seek(0)
 
     with f_app.storage.qiniu() as q:
+        if not extension:
+            extension = ""
         filename = f_app.util.uuid() + extension
         q.upload(filename, f.read())
         return {"url": q.get_public_url(filename)}
