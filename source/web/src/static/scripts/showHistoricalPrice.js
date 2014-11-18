@@ -38,8 +38,24 @@
 
     function showCharts() {
         var data = parseData(window.historical_price)
+
+
         var chart = document.getElementById('lineChart')
-        var ctx = chart.getContext('2d');
+        var ctx;
+        // var G_vmlCanvasManager;
+        // // code for IE browsers
+        // if (window.G_vmlCanvasManager)
+        // {
+        //     chart = window.G_vmlCanvasManager.initElement(chart);
+        //     ctx = chart.getContext('2d');
+        // }
+        // // Non IE browsers
+        // else
+        // {
+        //     ctx = chart.getContext('2d');
+        // }
+
+        ctx = chart.getContext('2d');
         if (window.team.isPhone()) {
             chart.setAttribute('width', $(window).width())
             chart.setAttribute('height', $(window).width() / 2)
@@ -55,6 +71,7 @@
             tooltipTemplate: '<%= team.encodeCurrency(value) %>',
             showTooltips: true
         })
+
     }
 
 
