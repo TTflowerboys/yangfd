@@ -1,0 +1,12 @@
+ <script>
+  window.onImgError = function(img,defaultSrc){
+      img.onerror = ''
+      if(defaultSrc){
+          img.src = defaultSrc
+      }else{
+          img.src = ''
+          img.className = img.className + ' withPlaceholder'
+      }
+      return true;
+  }
+ </script>

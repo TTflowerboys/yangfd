@@ -34,24 +34,25 @@ logger = logging.getLogger(__name__)
         name=("i18n", None, str),
         type="enum:facilities",
         address=("i18n", None, str),
+        distance=("i18n:distance", None, "meter, foot"),
     )),
     transit_score=float,
-    railway_lines=dict(
-        name=str,
+    railway_lines=(list, None, dict(
+        name=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ),
-    bus_lines=dict(
-        name=str,
+    )),
+    bus_lines=(list, None, dict(
+        name=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ),
-    car_rental_location=dict(
-        place=str,
+    )),
+    car_rental_location=(list, None, dict(
+        place=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ),
-    bicycle_rental_location=dict(
-        place=str,
+    )),
+    bicycle_rental_location=(list, None, dict(
+        place=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ),
+    )),
     population=int,
     population_description=str,
     age_distribution=dict(
@@ -59,6 +60,21 @@ logger = logging.getLogger(__name__)
     consumption_ability_distribution=dict(
     ),
     crime_statistics=(list, None, str),
+    planning_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
+    supplement_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
+    job_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "operation", "jr_operation"])
 def report_add(user, params):
@@ -92,22 +108,22 @@ def report_get(report_id):
         distance=("i18n:distance", None, "meter, foot"),
     )),
     transit_score=(float, None),
-    railway_lines=dict(
+    railway_lines=(list, None, dict(
         name=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ),
-    bus_lines=(dict(
+    )),
+    bus_lines=(list, None, dict(
         name=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ), None),
-    car_rental_location=(dict(
+    )),
+    car_rental_location=(list, None, dict(
         place=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ), None),
-    bicycle_rental_location=(dict(
+    )),
+    bicycle_rental_location=(list, None, dict(
         place=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
-    ), None),
+    )),
     population=(int, None),
     population_description=(str, None),
     age_distribution=(dict(
@@ -115,6 +131,21 @@ def report_get(report_id):
     consumption_ability_distribution=(dict(
     ), None),
     crime_statistics=(list, None, str),
+    planning_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
+    supplement_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
+    job_news=(list, None, dict(
+        title=("i18n", None, str),
+        summary=("i18n", None, str),
+        link=(str, None),
+    )),
 ))
 def report_edit(report_id, params):
     return f_app.report.update_set(report_id, params)

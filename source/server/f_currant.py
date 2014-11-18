@@ -960,9 +960,9 @@ class f_property(f_app.module_base):
         if isinstance(propertys, list):
             new_properties = []
             for property in propertys:
-                if len(user_roles) < 1:
-                    property.pop("real_address", None)
                 if isinstance(property, dict):
+                    if user and len(user_roles) < 1:
+                        property.pop("real_address", None)
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
                     if property["status"] not in ["selling", "sold out"]:
@@ -972,9 +972,9 @@ class f_property(f_app.module_base):
         else:
             new_properties = {}
             for id, property in propertys.iteritems():
-                if len(user_roles) < 1:
-                    property.pop("real_address", None)
                 if isinstance(property, dict):
+                    if user and len(user_roles) < 1:
+                        property.pop("real_address", None)
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
                     if property["status"] not in ["selling", "sold out"]:

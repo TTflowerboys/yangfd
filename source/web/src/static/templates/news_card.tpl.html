@@ -1,7 +1,7 @@
 <script id="newsCard_template" type="text/template" data-cell-height=300>
     <div class="newsCard" >
         {_if (news.images && news.images.length) {_}
-        <a href="/news/{=news.id=}"><img alt="" src="{=team.convertToHttps({'link':news.images[0], 'news_id':news.id, 'thumbnail':true})=}" onerror="window.project.onImgError(this);"/></a>
+        <a href="/news/{=news.id=}"><img alt="" src="{=team.convertToHttps({'link':news.images[0], 'news_id':news.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/></a>
         {_} else {_}
         <a href="/news/{=news.id=}"><img alt="" class="withPlaceholder"/></a>
         {_}_}
