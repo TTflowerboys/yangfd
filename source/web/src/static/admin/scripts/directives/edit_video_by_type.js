@@ -13,11 +13,14 @@ angular.module('app')
                 type: '@type'
             },
             link: function (scope, elm, attrs) {
-
+                if (!scope.video) {
+                    scope.video = ''
+                }
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
                         if (scope.host === 'aws') {
+                            scope.video = undefined
                             $upload.upload({
                                 url: '/api/1/upload_file',
                                 file: file,
@@ -27,6 +30,9 @@ angular.module('app')
                                 .success(function (data, status, headers, config) {
                                     scope.video = data.val.url
                                     updateSource(scope.video)
+                                })
+                                .error(function () {
+                                    scope.video = ''
                                 })
                         } else {
                             scope.video = undefined
@@ -39,6 +45,9 @@ angular.module('app')
                                 .success(function (data, status, headers, config) {
                                     scope.video = data.val.url
                                     updateSource(scope.video)
+                                })
+                                .error(function () {
+                                    scope.video = ''
                                 })
                         }
                     }
