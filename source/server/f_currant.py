@@ -371,7 +371,7 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["crawler_example", "assign_property_short_id", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor", "crawler_knightknox_agents"]
+    task = ["assign_property_short_id", "render_pdf", "crawler_example", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor", "crawler_knightknox_agents"]
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -479,6 +479,41 @@ class f_currant_plugins(f_app.plugin_base):
                 break
 
         f_app.property.update_set(task["property_id"], {"short_id": new_short_id})
+
+    def task_on_render_pdf(self, task):
+        property_id = task["property_id"]
+        try:
+            property = f_app.property.get(property_id)
+            assert property["status"] in ["draft", "not translated", "translating"]
+            for n, item in enumerate(property[task["property_field"]]):
+                if item["url"] == task["url"]:
+                    def update(value):
+                        property[task["property_field"]][n] = value
+                    break
+
+            else:
+                raise ValueError
+
+        except:
+            self.logger.warning("render_pdf task no longer valid, ignoring", task["id"], exc_info=False)
+            return
+
+        from wand.image import Image
+        image_pdf = Image(blob=f_app.request(task["url"]).content)
+
+        result = {"url": task["url"], "rendered": []}
+
+        with f_app.storage.aws_s3() as b:
+            for page in image_pdf.sequence:
+                pdf_page = Image(image=page)
+                img = pdf_page.convert('jpeg')
+                filename = f_app.util.uuid() + ".jpg"
+                b.upload(filename, img.make_blob(), policy="public-read")
+                result["rendered"].append(b.get_public_url(filename))
+
+        update(result)
+
+        f_app.property.update_set(task["property_id"], {task["property_field"]: property[task["property_field"]]})
 
     def task_on_crawler_example(self, task):
         # Please use f_app.request for ANY HTTP(s) requests.
@@ -946,6 +981,15 @@ class f_property(f_app.module_base):
                 property_id=str(property_id),
             ))
 
+        elif "brochure" in params and params["brochure"]:
+            for item in params["brochure"]:
+                f_app.task.add(dict(
+                    type="render_pdf",
+                    url=item["url"],
+                    property_id=str(property_id),
+                    property_field="brochure",
+                ))
+
         return str(property_id)
 
     def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, check_permission=True):
@@ -1054,6 +1098,9 @@ class f_property(f_app.module_base):
         if "$set" in params:
             params["$set"].setdefault("mtime", datetime.utcnow())
 
+            if "brochure" in params["$set"] and params["$set"]["brochure"]:
+                old_property = f_app.property.get(property_id)
+
         with f_app.mongo() as m:
             self.get_database(m).update(
                 {"_id": ObjectId(property_id)},
@@ -1061,11 +1108,24 @@ class f_property(f_app.module_base):
             )
         property = self.get(property_id, force_reload=True)
 
-        if property is not None and property["status"] in ("selling", "hidden", "sold out") and "short_id" not in property:
-            f_app.task.put(dict(
-                type="assign_property_short_id",
-                property_id=property_id,
-            ))
+        if property is not None:
+            if property["status"] in ("selling", "hidden", "sold out"):
+                if "short_id" not in property:
+                    f_app.task.put(dict(
+                        type="assign_property_short_id",
+                        property_id=property_id,
+                    ))
+
+            elif "brochure" in params["$set"] and params["$set"]["brochure"]:
+                old_urls = map(lambda item: item["url"], old_property.get("brochure", []))
+                for item in params["$set"]["brochure"]:
+                    if item["url"] not in old_urls:
+                        f_app.task.add(dict(
+                            type="render_pdf",
+                            url=item["url"],
+                            property_id=str(property_id),
+                            property_field="brochure",
+                        ))
 
         return property
 
