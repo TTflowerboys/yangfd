@@ -210,6 +210,7 @@ property_params = dict(
     rental_guarantee_rate=float,
     unset_fields=(list, None, str),
     brochure=(list, None, str),
+    estimated_income_description=("i18n", None, str),
 )
 
 
