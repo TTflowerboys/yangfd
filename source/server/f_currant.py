@@ -5,6 +5,7 @@ import random
 import re
 import phonenumbers
 import json
+import csv
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, DESCENDING
 import six
@@ -1480,3 +1481,74 @@ class f_policeuk(f_app.module_base):
             return None
 
 f_policeuk()
+
+
+class f_landregistry(f_app.module_base):
+
+    landregistry_database = "landregistry"
+
+    def __init__(self):
+        f_app.module_install("landregistry", self)
+
+    def get_database(self):
+        return getattr(self.landregistry_database)
+
+    def import_new(self, path):
+        with f_app.mongo() as m:
+            with open(path, 'rw+') as f:
+                rows = csv.reader(f)
+                for r in rows:
+                    params = {
+                        "tid": r[0],
+                        "price": float(r[1]),
+                        "date": datetime.strptime(r[2], "%Y-%m-%d %H:%M"),
+                        "zipcode": r[3],
+                        "zipcode_index": r[3].split(' ')[0],
+                        "type": r[4],
+                        "is_new": r[5],
+                        "duration": r[6],
+                        "paon": r[7],
+                        "saon": r[8],
+                        "street": r[9],
+                        "locality": r[10],
+                        "city": r[11],
+                        "district": r[12],
+                        "country": r[13],
+                        "status": r[14]
+                    }
+                    self.get_database(m).insert(params)
+
+    def import_update(self, path):
+        with f_app.mongo() as m:
+            with open(path, 'rw+') as f:
+                rows = csv.reader(f)
+                for r in rows:
+                    if self.get_database(m).find_one({"tid": r[0], "status": r[14]}):
+                        logger.warning("Already added %s" % r[0])
+                    else:
+                        params = {
+                            "tid": r[0],
+                            "price": float(r[1]),
+                            "date": datetime.strptime(r[2], "%Y-%m-%d %H:%M"),
+                            "zipcode": r[3],
+                            "zipcode_index": r[3].split(' ')[0],
+                            "type": r[4],
+                            "is_new": r[5],
+                            "duration": r[6],
+                            "paon": r[7],
+                            "saon": r[8],
+                            "street": r[9],
+                            "locality": r[10],
+                            "city": r[11],
+                            "district": r[12],
+                            "country": r[13],
+                            "status": r[14]
+                        }
+                        self.get_database(m).insert(params)
+
+    def get_month_average_by_zipcode_index(self, zipcode_index):
+        with f_app.mongo() as m:
+            changed_record_tid_list = self.get_database(m).distinct("tid", {"status": "C", "zipcode_index": zipcode_index})
+            deleted_record_tid_list = self.get_database(m).distinct("tid", {"zipcode_index": zipcode_index, "status": "D"})
+            changed_record_tid_list.extend(deleted_record_tid_list)
+            all_record = self.get_database(m).find({"$or": [{"status": "A", "zipcode_index": zipcode_index, "tid": {"$nin": changed_record_tid_list}}, {"status": "C", "zipcode_index": zipcode_index}]}).sort("date", ASCENDING)
