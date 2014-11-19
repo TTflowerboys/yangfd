@@ -5,6 +5,7 @@ import random
 import re
 import phonenumbers
 import json
+import csv
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, DESCENDING
 import six
@@ -371,7 +372,7 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["crawler_example", "assign_property_short_id", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor", "crawler_knightknox_agents"]
+    task = ["assign_property_short_id", "render_pdf", "crawler_example", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor", "crawler_knightknox_agents"]
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -479,6 +480,41 @@ class f_currant_plugins(f_app.plugin_base):
                 break
 
         f_app.property.update_set(task["property_id"], {"short_id": new_short_id})
+
+    def task_on_render_pdf(self, task):
+        property_id = task["property_id"]
+        try:
+            property = f_app.property.get(property_id)
+            assert property["status"] in ["draft", "not translated", "translating"]
+            for n, item in enumerate(property[task["property_field"]]):
+                if item["url"] == task["url"]:
+                    def update(value):
+                        property[task["property_field"]][n] = value
+                    break
+
+            else:
+                raise ValueError
+
+        except:
+            self.logger.warning("render_pdf task no longer valid, ignoring", task["id"], exc_info=False)
+            return
+
+        from wand.image import Image
+        image_pdf = Image(blob=f_app.request(task["url"]).content)
+
+        result = {"url": task["url"], "rendered": []}
+
+        with f_app.storage.aws_s3() as b:
+            for page in image_pdf.sequence:
+                pdf_page = Image(image=page)
+                img = pdf_page.convert('jpeg')
+                filename = f_app.util.uuid() + ".jpg"
+                b.upload(filename, img.make_blob(), policy="public-read")
+                result["rendered"].append(b.get_public_url(filename))
+
+        update(result)
+
+        f_app.property.update_set(task["property_id"], {task["property_field"]: property[task["property_field"]]})
 
     def task_on_crawler_example(self, task):
         # Please use f_app.request for ANY HTTP(s) requests.
@@ -946,6 +982,15 @@ class f_property(f_app.module_base):
                 property_id=str(property_id),
             ))
 
+        elif "brochure" in params and params["brochure"]:
+            for item in params["brochure"]:
+                f_app.task.add(dict(
+                    type="render_pdf",
+                    url=item["url"],
+                    property_id=str(property_id),
+                    property_field="brochure",
+                ))
+
         return str(property_id)
 
     def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, check_permission=True):
@@ -1054,6 +1099,9 @@ class f_property(f_app.module_base):
         if "$set" in params:
             params["$set"].setdefault("mtime", datetime.utcnow())
 
+            if "brochure" in params["$set"] and params["$set"]["brochure"]:
+                old_property = f_app.property.get(property_id)
+
         with f_app.mongo() as m:
             self.get_database(m).update(
                 {"_id": ObjectId(property_id)},
@@ -1061,11 +1109,24 @@ class f_property(f_app.module_base):
             )
         property = self.get(property_id, force_reload=True)
 
-        if property is not None and property["status"] in ("selling", "hidden", "sold out") and "short_id" not in property:
-            f_app.task.put(dict(
-                type="assign_property_short_id",
-                property_id=property_id,
-            ))
+        if property is not None:
+            if property["status"] in ("selling", "hidden", "sold out"):
+                if "short_id" not in property:
+                    f_app.task.put(dict(
+                        type="assign_property_short_id",
+                        property_id=property_id,
+                    ))
+
+            elif "brochure" in params["$set"] and params["$set"]["brochure"]:
+                old_urls = map(lambda item: item["url"], old_property.get("brochure", []))
+                for item in params["$set"]["brochure"]:
+                    if item["url"] not in old_urls:
+                        f_app.task.add(dict(
+                            type="render_pdf",
+                            url=item["url"],
+                            property_id=str(property_id),
+                            property_field="brochure",
+                        ))
 
         return property
 
@@ -1480,3 +1541,74 @@ class f_policeuk(f_app.module_base):
             return None
 
 f_policeuk()
+
+
+class f_landregistry(f_app.module_base):
+
+    landregistry_database = "landregistry"
+
+    def __init__(self):
+        f_app.module_install("landregistry", self)
+
+    def get_database(self):
+        return getattr(self.landregistry_database)
+
+    def import_new(self, path):
+        with f_app.mongo() as m:
+            with open(path, 'rw+') as f:
+                rows = csv.reader(f)
+                for r in rows:
+                    params = {
+                        "tid": r[0],
+                        "price": float(r[1]),
+                        "date": datetime.strptime(r[2], "%Y-%m-%d %H:%M"),
+                        "zipcode": r[3],
+                        "zipcode_index": r[3].split(' ')[0],
+                        "type": r[4],
+                        "is_new": r[5],
+                        "duration": r[6],
+                        "paon": r[7],
+                        "saon": r[8],
+                        "street": r[9],
+                        "locality": r[10],
+                        "city": r[11],
+                        "district": r[12],
+                        "country": r[13],
+                        "status": r[14]
+                    }
+                    self.get_database(m).insert(params)
+
+    def import_update(self, path):
+        with f_app.mongo() as m:
+            with open(path, 'rw+') as f:
+                rows = csv.reader(f)
+                for r in rows:
+                    if self.get_database(m).find_one({"tid": r[0], "status": r[14]}):
+                        logger.warning("Already added %s" % r[0])
+                    else:
+                        params = {
+                            "tid": r[0],
+                            "price": float(r[1]),
+                            "date": datetime.strptime(r[2], "%Y-%m-%d %H:%M"),
+                            "zipcode": r[3],
+                            "zipcode_index": r[3].split(' ')[0],
+                            "type": r[4],
+                            "is_new": r[5],
+                            "duration": r[6],
+                            "paon": r[7],
+                            "saon": r[8],
+                            "street": r[9],
+                            "locality": r[10],
+                            "city": r[11],
+                            "district": r[12],
+                            "country": r[13],
+                            "status": r[14]
+                        }
+                        self.get_database(m).insert(params)
+
+    def get_month_average_by_zipcode_index(self, zipcode_index):
+        with f_app.mongo() as m:
+            changed_record_tid_list = self.get_database(m).distinct("tid", {"status": "C", "zipcode_index": zipcode_index})
+            deleted_record_tid_list = self.get_database(m).distinct("tid", {"zipcode_index": zipcode_index, "status": "D"})
+            changed_record_tid_list.extend(deleted_record_tid_list)
+            all_record = self.get_database(m).find({"$or": [{"status": "A", "zipcode_index": zipcode_index, "tid": {"$nin": changed_record_tid_list}}, {"status": "C", "zipcode_index": zipcode_index}]}).sort("date", ASCENDING)

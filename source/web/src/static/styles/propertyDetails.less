@@ -224,7 +224,7 @@ body{
             display: inline-block;
             background: #e60012;
             float: left;
-            width: 60%;
+            width: ~"calc(60% - 25px)";
             height: 100%;
             padding: 14px 12px;
 
@@ -242,11 +242,11 @@ body{
             }
         }
 
-        .right {
+        .middle {
             display: inline-block;
             background: #333333;
-            float: right;
-            width: 40%;
+            float: left;
+            width: ~"calc(40% - 25px)";
             height: 100%;
             table {
                 margin: 9px auto 0 auto;
@@ -258,7 +258,20 @@ body{
                         font-size: 20px;
                     }
                 }
+
             }
+        }
+
+        .right {
+            display: inline-block;
+            background: #222;
+            float: left;
+            width:50px;
+            height: 100%;
+
+            img {
+                margin: 28px 13px;
+
         }
     }
 

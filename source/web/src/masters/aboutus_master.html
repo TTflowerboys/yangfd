@@ -19,19 +19,29 @@
     <div class="category">
         <h2 class="title">{{_('关于洋房东')}}</h2>
         <ul>
-            <li><a href="/about"> <img id="icon-notice_list" alt="" src="/static/images/news/notice.png"/>
-                <h3 for="">{{_('关于洋房东')}}</h3>
+            <li><a href="/about"> <img id="icon-about" alt="" src="/static/images/news/about_us.png"/>
+                <h3>{{_('关于洋房东')}}</h3>
             </a></li>
-            <li><a href="/terms"> <img id="icon-guides" alt="" src="/static/images/news/guide.png"/>
+            <li><a href="/terms"> <img id="icon-terms" alt="" src="/static/images/news/declaration.png"/>
                 <h3>{{_('服务声明')}}</h3>
             </a></li>
+            <li><a href="/about/marketing"> <img id="icon-marketing" alt="" src="/static/images/news/marketing.png"/>
+                <h3>{{_('市场合作')}}</h3>
+            </a></li>
+            <li><a href="/about/media"> <img id="icon-media" alt="" src="/static/images/news/media.png"/>
+                <h3>{{_('媒体合作')}}</h3>
+            </a></li>
+            <!--<li><a href="/partners"> <img id="icon-partners" alt="" src="/static/images/news/partner.png"/>
+                <h3>{{_('合作伙伴')}}</h3>
+            </a></li>-->
         </ul>
     </div>
 </div>
 <script>
 
     (function () {
-        var urlPath = location.pathname.split('/')[1]
+        //Get icon name
+        var urlPath = location.pathname.split('/')[location.pathname.split('/').length - 1]
         var icon = document.getElementById('icon-' + urlPath)
         var iconImagePath = icon.getAttribute('src')
         var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
