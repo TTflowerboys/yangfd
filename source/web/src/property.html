@@ -618,6 +618,9 @@
             % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
                 <div id="propertyDetails_incoming" class="incoming">
                     <h3 class="propertyDetails_title">{{_('月收支分析')}}</h3>
+                    % if property.get('estimated_income_description'):
+                    <div class="historical_price_description">{{property.get('estimated_income_description','')}}</div>
+                    % end
                     <div class="stackedBar">
                         % total = float(property.get('estimated_monthly_rent',{}).get('value',0))
                         % cost = 0

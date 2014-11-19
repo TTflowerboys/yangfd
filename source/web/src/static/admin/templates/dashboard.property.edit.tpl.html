@@ -293,6 +293,16 @@
                     <hr/>
                     <div class="row">
                         <div class="form-group  col-sm-3">
+                            <label class="control-label">{%$root.i18n('月收支分析简要描述')%}</label>
+
+                            <div class="controls">
+                                <input type="text" class="form-control" type-i18n="item.estimated_income_description"
+                                    ng-model="item.estimated_income_description[userLanguage.value]"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('估计月租金收入')%}</label>
 
                             <div class="controls">
