@@ -77,6 +77,13 @@ angular.module('app')
 
                 scope.removeVideo = function () {
                     scope.video = ''
+                    for (var index in scope.sources) {
+                        var type = scope.sources[index].type
+                        var host = scope.sources[index].host
+                        if (type === scope.type && host === scope.host) {
+                            scope.sources.split(index, 1)
+                        }
+                    }
                 }
                 var need_init = true
                 scope.$watch('sources', function (newValue) {
