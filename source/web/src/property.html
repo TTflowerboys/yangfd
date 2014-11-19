@@ -57,10 +57,12 @@
                 </div>
 
                 <div class="big">
+                    % slides_index = 0
                     % for name in ['reality_images','surroundings_images','floor_plan','effect_pictures',
                         % 'indoor_sample_room_picture','planning_map']:
                         <div class="item" data-tab-name="{{name}}">
                             % if property.get(name):
+                                % slides_index = slides_index + 1
                                 <div class="rslides_wrapper">
                                     <ul class="rslides">
                                         % for image in property.get(name):
@@ -69,8 +71,8 @@
                                             </li>
                                         % end
                                     </ul>
-                                    <div class="leftPressArea rslides_nav rslides1_nav prev"></div>
-                                    <div class="rightPressArea rslides_nav rslides1_nav next"></div>
+                                    <div class="leftPressArea rslides_nav rslides{{slides_index}}_nav prev"></div>
+                                    <div class="rightPressArea rslides_nav rslides{{slides_index}}_nav next"></div>
                                 </div>
                             % else :
                                 <img class="withPlaceholder" alt=""/>
