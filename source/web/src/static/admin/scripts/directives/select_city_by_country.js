@@ -16,7 +16,7 @@ angular.module('app')
                 scope.$watch('country', function (newValue) {
                     if (_.isEmpty(newValue)) {
                         scope.enumList = []
-                        scope.enumId = ''
+                        scope.enumId = undefined
                         return
                     }
                     enumApi.searchCityByCountryId(newValue)
