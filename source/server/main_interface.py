@@ -464,6 +464,13 @@ def how_it_works():
     return template("phone/how_it_works", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
 
 
+@f_get('/calculator')
+@check_landing
+@check_ip_and_redirect_domain
+def calculator():
+    return template("phone/calculator", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
+
+
 @f_get('/admin')
 @check_landing
 @check_ip_and_redirect_domain
