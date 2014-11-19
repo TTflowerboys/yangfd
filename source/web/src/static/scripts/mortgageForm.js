@@ -1,6 +1,17 @@
 /* Created by frank on 14-10-6. */
 (function ($) {
 
+    function isScrolledIntoView(elem)
+    {
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
+
+        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    }
+
     var $mortgageForm = $('form[name=mortgageForm]')
     $mortgageForm.on('change blur keyup', '[name]', function (e) {
         var data = $mortgageForm.serializeObject({noEmptyString: true})
@@ -9,10 +20,10 @@
             if (!data.loan || data.loan < 0) {data.loan = 0}
             $mortgageForm.find('[name=loan]').val(team.encodeCurrency(data.loan))
         }
+        $.validate($mortgageForm, {onError: function () { }})
         var valid = $.validate($mortgageForm, {onError: function () { }})
         if (valid) {
-            $mortgageForm
-                .find('[type=submit]').prop('disabled', false)
+            $mortgageForm.find('[type=submit]').prop('disabled', false)
         }
 
     }).submit(function (e) {
@@ -26,9 +37,16 @@
             $dom.closest('.row').get(0).scrollIntoView(true)
         }})
 
-        if (!valid) { return }
+        if (!valid) {
+            $mortgageForm.find('[type=submit]').prop('disabled', false)
+            return
+        }
 
-        $mortgageForm.find('[data-ui=result]').slideDown()
+        var $result = $mortgageForm.find('[data-ui=result]')
+        $result.slideDown()
+        if (!isScrolledIntoView($result[0])) {
+            $('html, body').animate({scrollTop: $result.offset().top - ($(window).height() - $result.height() - 20) }, 'fast');
+        }
 
         var data = $mortgageForm.serializeObject({includeUnderscore: false})
         data.loan = team.decodeCurrency(data.loan)

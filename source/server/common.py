@@ -172,22 +172,24 @@ class common(f_common):
         40090: "Invalid operation: This property has already been added to your favorites.",
         40089: "Invalid image source: not from existing property or news",
         40088: "Failed to get walkscore",
+        40087: "background process are still processing the property, try again later",
 
         40399: "Permission denied",
     }
 
 common()
 
-f_app.common.register_error_code(40499)
-f_app.common.register_error_code(40498)
-f_app.common.register_error_code(40497)
-f_app.common.register_error_code(40496)
-f_app.common.register_error_code(40495)
-f_app.common.register_error_code(40494)
-f_app.common.register_error_code(40493)
-f_app.common.register_error_code(40492)
-f_app.common.register_error_code(40491)
-f_app.common.register_error_code(40490)
-f_app.common.register_error_code(40489)
-f_app.common.register_error_code(40488)
+f_app.common.register_error_code(40099)
+f_app.common.register_error_code(40098)
+f_app.common.register_error_code(40097)
+f_app.common.register_error_code(40096)
+f_app.common.register_error_code(40095)
+f_app.common.register_error_code(40094)
+f_app.common.register_error_code(40093)
+f_app.common.register_error_code(40092)
+f_app.common.register_error_code(40091)
+f_app.common.register_error_code(40090)
+f_app.common.register_error_code(40089)
+f_app.common.register_error_code(40088)
+f_app.common.register_error_code(40087)
 f_app.common.register_error_code(40399)

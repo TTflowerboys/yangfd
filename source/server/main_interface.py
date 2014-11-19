@@ -282,6 +282,32 @@ def terms():
     )
     return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
 
+@f_get('/about/marketing')
+@check_landing
+@check_ip_and_redirect_domain
+def marketing():
+    news_list = f_app.blog.post_output(
+        f_app.blog.post_search(
+            {
+                "title.en_GB": "Marketing Cooperation"
+            }, per_page=1
+        )
+    )
+    return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
+
+@f_get('/about/media')
+@check_landing
+@check_ip_and_redirect_domain
+def media():
+    news_list = f_app.blog.post_output(
+        f_app.blog.post_search(
+            {
+                "title.en_GB": "Media Cooperation"
+            }, per_page=1
+        )
+    )
+    return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
+
 
 @f_get('/coming_soon')
 @check_ip_and_redirect_domain

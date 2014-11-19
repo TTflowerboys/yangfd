@@ -209,7 +209,9 @@ property_params = dict(
     rental_guarantee_term=str,
     rental_guarantee_rate=float,
     unset_fields=(list, None, str),
-    brochure=(list, None, str),
+    brochure=(list, None, dict(
+        url=str,
+    )),
     estimated_income_description=("i18n", None, str),
 )
 
@@ -296,6 +298,9 @@ def property_edit(property_id, user, params):
             # Not approved properties
             else:
                 # Submit for approval
+                if len(f_app.task.search({"status": {"$nin": ["completed", "canceled"]}, "property_id": property_id, "type": "render_pdf"})):
+                    abort(40087, "pdf is still rendering")
+
                 if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed", "deleted"):
                     assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
                     if "target_property_id" in property:

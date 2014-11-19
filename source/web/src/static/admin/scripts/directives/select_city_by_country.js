@@ -9,12 +9,14 @@ angular.module('app')
             scope: {
                 enumId: '=ngModel',
                 enumOption: '@text',
-                country: '=country',
+                country: '=country'
             },
             link: function (scope) {
                 scope.userLanguage = $rootScope.userLanguage
                 scope.$watch('country', function (newValue) {
-                    if (newValue === undefined) {
+                    if (_.isEmpty(newValue)) {
+                        scope.enumList = []
+                        scope.enumId = ''
                         return
                     }
                     enumApi.searchCityByCountryId(newValue)

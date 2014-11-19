@@ -184,36 +184,6 @@ def upload_file(params):
         return result
 
 
-@f_api('/upload_pdf', params=dict(
-    nolog=("data"),
-    data=("file", True),
-))
-def upload_pdf(params):
-    """
-    Upload a PDF file to Amazon S3, and render it to JPEG.
-    """
-    # Try to get extension via params first
-    f = params["data"].file
-    f.seek(0)
-
-    from wand.image import Image
-    image_pdf = Image(blob=f)
-    image_jpeg = image_pdf.convert('jpeg')
-
-    with f_app.storage.aws_s3() as b:
-        filename = f_app.util.uuid() + ".pdf"
-        b.upload(filename, f.read(), policy="public-read")
-        result = {"url": b.get_public_url(filename), "rendered": []}
-
-        for img in image_jpeg.sequence:
-            img_page = Image(image=img)
-            filename = f_app.util.uuid() + ".jpg"
-            b.upload(filename, img_page.make_blob(), policy="public-read")
-            result["rendered"].append(b.get_public_url(filename))
-
-    return result
-
-
 @f_api('/upload_from_url', params=dict(
     link=(str, True),
     thumbnail_size=(list, [600, 300], int),
