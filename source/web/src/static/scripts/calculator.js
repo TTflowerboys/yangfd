@@ -1,5 +1,5 @@
-/*(function () {
-    var propertyFromURL = window.team.getQuery('property', location.href)
+(function () {
+/*    var propertyFromURL = window.team.getQuery('property', location.href)
     if (propertyFromURL) {
         $.betterGet('/api/1/property/' + propertyFromURL, {})
             .done(function (data) {
@@ -17,7 +17,9 @@
                 
             })
     }
-
-})()
-
 */
+
+    $('.row').click(function (event) {
+        $(event.target).find('input').focus()
+    })
+})()
