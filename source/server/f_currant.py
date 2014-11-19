@@ -6,7 +6,8 @@ import re
 import phonenumbers
 import json
 import csv
-from bson.objectid import ObjectId, Code
+from bson.objectid import ObjectId
+from bson.code import Code
 from pymongo import ASCENDING, DESCENDING
 import six
 from six.moves import urllib
