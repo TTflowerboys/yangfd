@@ -6,6 +6,7 @@ from bson.objectid import ObjectId
 from lxml import etree
 from libfelix.f_interface import f_get, static_file, template, request, redirect, error, abort
 from six.moves import cStringIO as StringIO
+from six.moves import urllib
 import qrcode
 import bottle
 import logging
@@ -463,6 +464,13 @@ def how_it_works():
     return template("phone/how_it_works", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
 
 
+@f_get('/calculator')
+@check_landing
+@check_ip_and_redirect_domain
+def calculator():
+    return template("phone/calculator", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
+
+
 @f_get('/admin')
 @check_landing
 @check_ip_and_redirect_domain
@@ -540,32 +548,43 @@ def images_proxy(params):
         return False
 
     allowed = False
-    if "property_id" in params:
+    ssl_bypass = False
+
+    if "bbt-currant.s3.amazonaws.com" in params["link"] or "zoopla.co.uk" in params["link"] or "zoocdn.com" in params["link"]:
+        allowed = True
+        ssl_bypass = True
+        url_parsed = urllib.parse.urlparse(params["link"])
+        url_parsed = url_parsed._replace(scheme="https")
+        params["link"] = urllib.parse.urlunparse(url_parsed)
+
+    elif "property_id" in params:
         property = f_app.property.get(params["property_id"])
         allowed = is_in_property(params["link"], property)
         if "target_property_id" in property:
             target_property = f_app.property.get(property["target_property_id"])
             allowed = is_in_property(params["link"], target_property)
 
-    if "news_id" in params:
+    elif "news_id" in params:
         news = f_app.blog.post_get(params["news_id"])
         if params["link"] in news.get("images", []):
             allowed = True
 
-    if "content_id" in params:
+    elif "content_id" in params:
         if params["link"] == f_app.ad.get(params["content_id"]).get("image"):
             allowed = True
-
-    if "bbt-currant.s3.amazonaws.com" in params["link"] or "zoopla.co.uk" in params["link"]:
-        allowed = True
 
     if not allowed:
         abort(40089, logger.warning("Invalid image source: not from existing property or news", exc_info=False))
 
-    result = f_app.request(params["link"])
-    if result.status_code == 200:
-        response.set_header(b"Content-Type", b"image/png")
-        return result.content
+    if f_app.common.use_ssl and not ssl_bypass:
+        result = f_app.request(params["link"])
+        if result.status_code == 200:
+            response.set_header(b"Content-Type", b"image/png")
+            return result.content
+        else:
+            abort(40000, logger.warning("Failed to fetch image source: timeout or non-exists."))
+    else:
+        bottle.redirect(params["link"])
 
 
 @f_get('/reverse_proxy', params=dict(
