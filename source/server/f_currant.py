@@ -6,7 +6,7 @@ import re
 import phonenumbers
 import json
 import csv
-from bson.objectid import ObjectId
+from bson.objectid import ObjectId, Code
 from pymongo import ASCENDING, DESCENDING
 import six
 from six.moves import urllib
@@ -1612,3 +1612,32 @@ class f_landregistry(f_app.module_base):
             deleted_record_tid_list = self.get_database(m).distinct("tid", {"zipcode_index": zipcode_index, "status": "D"})
             changed_record_tid_list.extend(deleted_record_tid_list)
             all_record = self.get_database(m).find({"$or": [{"status": "A", "zipcode_index": zipcode_index, "tid": {"$nin": changed_record_tid_list}}, {"status": "C", "zipcode_index": zipcode_index}]}).sort("date", ASCENDING)
+
+    def aggregation_monthly(self):
+        func_map = Code("""
+            function() {
+                var key = {
+                    "zipcode_index": this.zipcode_index,
+                    "year": this.date.getFullYear(),
+                    "month": this.date.getMonth(),
+                };
+                var value = {
+                    "price": this.price,
+                    "count": 1
+                };
+                emit(key, value);
+            }
+        """)
+        func_reduce = Code("""
+            function(key, values) {
+                average_price = 0;
+                sum_price = 0;
+                sum_count = 0;
+                values.forEach(function(value) {
+                    sum_count += value['count'];
+                    sum_price += value['price'];
+                })
+                return {"price": sum_price / sum_price}
+            }
+
+        """)
