@@ -61,6 +61,14 @@
         $scope.onRemoveHouse = function (index) {
             $scope.item.main_house_types.splice(index, 1)
         }
+
+        $scope.onReset = function ($event, data) {
+
+        }
+
+        $scope.onDelete = function ($event, data) {
+
+        }
     }
 
     angular.module('app').controller('ctrlPropertyItems', ctrlPropertyItems)

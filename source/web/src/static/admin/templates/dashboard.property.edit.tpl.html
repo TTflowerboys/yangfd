@@ -18,12 +18,12 @@
         value="{%$root.i18n('此房产处于待审核状态，请先将状态改为草稿再编辑此房产。')%}">
 
     <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
-        ng-submit="submit($event,editProperty)" name="editProperty" novalidate>
-        <div ng-controller="ctrlPropertyItems">
+        ng-submit="submit($event,editProperty)" name="editProperty" novalidate ng-controller="ctrlPropertyItems">
+        <div>
             <tabset justified="true" style="margin: 16px 0;">
                 <tab heading="{%$root.i18n('房产通用信息')%}">
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'name'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('名称')%}</label>
 
                             <div class="controls">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'property_type'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('房产类型')%}</label>
 
                             <div class="controls">
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'country'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('国家')%}</label>
 
                             <div class="controls">
@@ -50,7 +50,7 @@
 
                             </div>
                         </div>
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'city'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('城市')%}</label>
 
                             <div class="controls">
@@ -60,14 +60,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'street'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('街区')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" type-i18n="item.street" ng-model="item.street[userLanguage.value]"/>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'zipcode'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('邮编')%}</label>
 
                             <div class="controls">
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-6">
+                        <div class="form-group  col-sm-6" ui-draggable="true" drag="'address'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('地址详情')%}</label>
 
                             <div class="controls">
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-6">
+                        <div class="form-group  col-sm-6" ui-draggable="true" drag="'real_address'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('真实地址')%}</label>
 
                             <div class="controls">
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-6">
+                        <div class="form-group  col-sm-6" ui-draggable="true" drag="'highlight'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
 
                             <div class="controls">
                                 <div type-i18n="item.highlight"></div>
@@ -135,7 +135,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-12">
+                        <div class="form-group  col-sm-12" ui-draggable="true" drag="'description'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('详情')%}</label>
 
                             <div class="controls">
@@ -144,7 +144,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'annual_cash_return_estimated'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('预计租金年化回报率')%}</label>
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.annual_cash_return_estimated" placeholder="e.g. 10%"/>
@@ -152,7 +152,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'annual_return_estimated'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('预计总年化收益率')%}</label>
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.annual_return_estimated" placeholder="e.g. 15%"/>
@@ -160,7 +160,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-12">
+                        <div class="form-group  col-sm-12" ui-draggable="true" drag="'rental_guarantee'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('开发商包租')%}</label>
                             <div class="controls form-inline">
                                 <input type="text" class="form-control" style="width: 40px" ng-model="item.rental_guarantee_rate"/>
@@ -171,7 +171,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group   col-sm-12">
+                        <div class="form-group   col-sm-12" ui-draggable="true" drag="'intention'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('投资标签')%}</label>
                             <div class="controls">
                                 <div select-multiple-enums name="intention" ng-model="item.intention"></div>
@@ -179,7 +179,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group   col-sm-12">
+                        <div class="form-group   col-sm-12" ui-draggable="true" drag="'investment_type'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('投资类型')%}</label>
                             <div class="controls">
                                 <div select-multiple-enums name="investment_type" ng-model="item.investment_type"></div>
@@ -187,14 +187,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'equity_type'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('产权类型')%}</label>
 
                             <div class="controls">
                                 <div select-enum name="equity_type" ng-model="item.equity_type"></div>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'decorative_style'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('装修风格')%}</label>
 
                             <div class="controls">
@@ -205,7 +205,7 @@
                     </div>
                     <hr/>
                     <div class="row">
-                        <div class="form-group  col-sm-6">
+                        <div class="form-group  col-sm-6" ui-draggable="true" drag="'latitude_longitude'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('地图位置')%}</label>
 
                             <div class="form-inline">
@@ -217,17 +217,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-12">
+                        <div class="form-group  col-sm-12" ui-draggable="true" drag="'reality_images'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <div edit-i18n-gallery-box="item.reality_images" cover="item.cover" width-limit="1280" thumbnail-size="320,213" text="{%$root.i18n('实景图')%}{%$root.i18n('(最大宽度是1280px)')%}"></div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-12">
+                        <div class="form-group  col-sm-12" ui-draggable="true" drag="'surroundings_images'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <div edit-i18n-gallery-box="item.surroundings_images" cover="item.cover" width-limit="1280" thumbnail-size="320,213" text="{%$root.i18n('生活配套设施图')%}{%$root.i18n('(最大宽度是1280px)')%}"></div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'property_price_type'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('房产价格类型')%}</label>
 
                             <div class="controls">
@@ -237,7 +237,7 @@
                         </div>
                     </div>
                     <div class="row" ng-if="propertyPriceType === 'similar_history_price'">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'equal_property_description'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('同等房产描述')%}</label>
 
                             <div class="controls">
@@ -247,7 +247,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-6">
+                        <div class="form-group  col-sm-6" ui-draggable="true" drag="'historical_price'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('历史成交价格')%}</label>
 
                             <div class="controls">
@@ -292,7 +292,7 @@
                     </div>
                     <hr/>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'estimated_income_description'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('月收支分析简要描述')%}</label>
 
                             <div class="controls">
@@ -302,7 +302,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'estimated_monthly_rent'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('估计月租金收入')%}</label>
 
                             <div class="controls">
@@ -311,7 +311,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-12">
+                        <div class="form-group  col-sm-12" ui-draggable="true" drag="'estimated_monthly_cost'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('估计月平均支出')%}{%$root.i18n('(最多4项)')%}</label>
 
                             <div class="controls">
@@ -355,14 +355,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-12">
+                        <div class="form-group col-sm-12" ui-draggable="true" drag="'videos'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <div edit-videos="item.videos" text="视频"></div>
                         </div>
                     </div>
                 </tab>
                 <tab heading="{%$root.i18n('非楼盘特有信息')%}" ng-if="propertyType !== 'new_property'&&propertyType!=='student_housing'">
                     <div class="row">
-                        <div class="form-group  col-sm-2">
+                        <div class="form-group  col-sm-2" ui-draggable="true" drag="'total_price'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('总价格')%}</label>
 
                             <div class="controls">
@@ -371,28 +371,28 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-2">
+                        <div class="form-group  col-sm-2" ui-draggable="true" drag="'bedroom_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('居室数')%}</label>
 
                             <div class="controls">
                                 <input type="number" class="form-control" ng-model="item.bedroom_count"/>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-2">
+                        <div class="form-group  col-sm-2" ui-draggable="true" drag="'living_room_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('客厅数')%}</label>
 
                             <div class="controls">
                                 <input type="number" class="form-control" ng-model="item.living_room_count"/>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-2">
+                        <div class="form-group  col-sm-2" ui-draggable="true" drag="'bathroom_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('卫生间数')%}</label>
 
                             <div class="controls">
                                 <input type="number" class="form-control" ng-model="item.bathroom_count"/>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-2">
+                        <div class="form-group  col-sm-2" ui-draggable="true" drag="'kitchen_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('厨房数')%}</label>
 
                             <div class="controls">
@@ -401,7 +401,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'facing_direction'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('朝向')%}</label>
 
                             <div class="controls">
@@ -411,7 +411,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'space'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('面积')%}</label>
 
                             <div class="controls">
@@ -420,14 +420,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-12">
+                        <div class="form-group  col-sm-12" ui-draggable="true" drag="'floor_plan'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <div edit-i18n-gallery-box="item.floor_plan" cover="item.cover" width-limit="1280" thumbnail-size="320,213" text="{%$root.i18n('户型图')%}{%$root.i18n('(最大宽度是1280px)')%}"></div>
                         </div>
                     </div>
                 </tab>
                 <tab heading="{%propertyType==='new_property'?$root.i18n('楼盘信息'):$root.i18n('学生公寓信息')%}" ng-if="propertyType === 'new_property'||propertyType==='student_housing'">
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'developer'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('开发商')%}</label>
 
                             <div class="controls">
@@ -435,7 +435,7 @@
                                     ng-model="item.developer[userLanguage.value]"/>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'building_type'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('建筑类型')%}</label>
 
                             <div class="controls">
@@ -445,7 +445,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group row  col-sm-6">
+                        <div class="form-group row  col-sm-6" ui-draggable="true" drag="'unit_price'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('单位面积参考价格')%}</label>
 
                             <div class="controls form-inline">
@@ -455,7 +455,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class=" col-sm-4">
+                        <div class="form-group col-sm-4" ui-draggable="true" drag="'opening_time'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('开盘时间')%}</label>
 
                             <div class="controls">
@@ -465,7 +465,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class=" col-sm-4">
+                        <div class="form-group col-sm-4" ui-draggable="true" drag="'completion_time'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('完工时间')%}</label>
 
                             <div class="controls">
@@ -475,28 +475,28 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'building_area'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('建筑面积')%}</label>
 
                             <div class="controls">
                                 <div type-i18n-unit data="i18nArea" ng-model="item.building_area"></div>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'planning_area'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('规划面积')%}</label>
 
                             <div class="controls">
                                 <div type-i18n-unit data="i18nArea" ng-model="item.planning_area"></div>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'plot_ratio'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('容积率')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.plot_ratio"/>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'greening_rate'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('绿化率')%}</label>
 
                             <div class="controls">
@@ -505,14 +505,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'planning_household_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('规划户数')%}</label>
 
                             <div class="controls">
                                 <input type="number" class="form-control" ng-model="item.planning_household_count"/>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'parking_space_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('车位数')%}</label>
 
                             <div class="controls">
@@ -521,7 +521,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'property_management_type'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('物业类型')%}</label>
 
                             <div class="controls">
@@ -529,7 +529,7 @@
                                     ng-model="item.property_management_type[userLanguage.value]"/>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'property_management_company'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('物业公司')%}</label>
 
                             <div class="controls">
@@ -539,7 +539,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-12">
+                        <div class="form-group  col-sm-12" ui-draggable="true" drag="'main_house_types'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('主要户型')%}</label>
 
                             <div class="controls">
@@ -632,24 +632,24 @@
                     </div>
 
                     <div class="row">
-                        <div class="form-group  col-sm-12">
+                        <div class="form-group  col-sm-12" ui-draggable="true" drag="'effect_pictures'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <div edit-i18n-gallery-box="item.effect_pictures" cover="item.cover" width-limit="1280" thumbnail-size="320,213" text="{%$root.i18n('效果图')%}{%$root.i18n('(最大宽度是1280px)')%}"></div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-12">
+                        <div class="form-group  col-sm-12" ui-draggable="true" drag="'indoor_sample_room_picture'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <div edit-i18n-gallery-box="item.indoor_sample_room_picture" cover="item.cover" width-limit="1280" thumbnail-size="320,213" text="{%$root.i18n('室内样板间图')%}{%$root.i18n('(最大宽度是1280px)')%}"></div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-12">
+                        <div class="form-group  col-sm-12" ui-draggable="true" drag="'planning_map'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <div edit-i18n-gallery-box="item.planning_map" cover="item.cover" width-limit="1280" thumbnail-size="320,213" text="{%$root.i18n('规划图')%}{%$root.i18n('(最大宽度是1280px)')%}"></div>
                         </div>
                     </div>
                 </tab>
                 <tab heading="{%$root.i18n('房产审核单')%}">
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'comment'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('审核备注')%}</label>
 
                             <div class="controls">
@@ -658,7 +658,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-3" ui-draggable="true" drag="'attachment'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
                             <label class="control-label">{%$root.i18n('审核附件')%}</label>
 
                             <div class="controls">
@@ -680,5 +680,15 @@
             class="input-sm">
         </select>
         <input ng-if="!draftId" type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
+        <!--<div class="row" style="position:fixed;bottom:0;width:100%">-->
+            <!--<div class="form-group col-sm-3" ui-on-Drop="onDelete($event,$data)" drop-channel="delete" style="display:block;background-color:#aaaaaa;margin:20px;padding:20px">-->
+                <!--<div>拖动至此删除内容</div>-->
+                <!--<div class="btn btn-success">{%list2.real_address[userLanguage.value]%}</div>-->
+            <!--</div>-->
+
+            <!--<div class="form-group col-sm-3" ui-on-Drop="onReset($event,$data)" drop-channel="reset" style="display:block;background-color:#aaaaaa;margin:20px;padding:20px">-->
+                <!--<div>拖动至此还原内容</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </form>
 </div>
