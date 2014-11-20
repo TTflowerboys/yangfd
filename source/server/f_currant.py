@@ -1618,6 +1618,7 @@ class f_landregistry(f_app.module_base):
     def get_month_average_by_zipcode_index(self, zipcode_index):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index})
+            return result
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
         return merged_result
 
@@ -1637,19 +1638,27 @@ class f_landregistry(f_app.module_base):
         """)
         func_reduce = Code("""
             function(key, values) {
-                average_price = 0;
-                sum_price = 0;
-                sum_count = 0;
+                result = {"sum_price": 0, "sum_count": 0};
                 values.forEach(function(value) {
-                    sum_count += !isNaN(value['count']) ? value['count'] : 0;
-                    sum_price += !isNaN(value['price']) ? value['price'] : 0;
-                })
-                return {"average_price": sum_price / sum_count, "total_price": sum_price, "total_count": sum_count}
+                    result.sum_count += !isNaN(value['count']) ? value['count'] : 0;
+                    result.sum_price += !isNaN(value['price']) ? value['price'] : 0;
+                });
+                return result;
+            }
+        """)
+        func_finalize = Code("""
+            function (key, value) {
+                if (value.sum_count) {
+                    value.average_price = value.sum_price / value.sum_count;
+                } else {
+                    value.average_price = value.price;
+                }
+                return value;
             }
         """)
 
         with f_app.mongo() as m:
-            f_app.landregistry.get_database(m).map_reduce(func_map, func_reduce, "landregistry_statistics")
+            f_app.landregistry.get_database(m).map_reduce(func_map, func_reduce, "landregistry_statistics", finalize=func_finalize)
             result = m.landregistry_statistics.find({})
 
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
