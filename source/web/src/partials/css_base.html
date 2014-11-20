@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="/static/themes/genius_dashboard/css/font-awesome.min.css">
-<link rel="stylesheet" href="/static/sprite/sprite.css"/>
+
 <!-- the sprite css should not be packaged because it will change dir-->
+<!-- @if ENV!='debug' -->
+<link rel="stylesheet" href="/static/sprite/sprite.css"/>
+<!-- @endif-->
 
 <!--build:css(dist) /static/styles/project/all.css -->
 <link rel="stylesheet" href="/static/styles/team/reset.css"/>
