@@ -12,6 +12,7 @@ from pymongo import ASCENDING, DESCENDING
 import six
 from six.moves import urllib
 from pyquery import PyQuery as q
+from itertools import chain
 from libfelix.f_common import f_app
 from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
@@ -1616,16 +1617,16 @@ class f_landregistry(f_app.module_base):
 
     def get_month_average_by_zipcode_index(self, zipcode_index):
         with f_app.mongo() as m:
-            result = m.landregistry_statistics.find({"zipcode_index": zipcode_index}).sort("date", ASCENDING)
-        return result
+            result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index})
+        merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
+        return merged_result
 
     def aggregation_monthly(self):
         func_map = Code("""
             function() {
                 var key = {
                     "zipcode_index": this.zipcode_index,
-                    "year": this.date.getFullYear(),
-                    "month": this.date.getMonth(),
+                    "date": this.date
                 };
                 var value = {
                     "price": this.price,
@@ -1640,8 +1641,8 @@ class f_landregistry(f_app.module_base):
                 sum_price = 0;
                 sum_count = 0;
                 values.forEach(function(value) {
-                    sum_count += value['count'];
-                    sum_price += value['price'];
+                    sum_count += !isNaN(value['count']) ? value['count'] : 0;
+                    sum_price += !isNaN(value['price']) ? value['price'] : 0;
                 })
                 return {"average_price": sum_price / sum_count, "total_price": sum_price, "total_count": sum_count}
             }
@@ -1651,6 +1652,7 @@ class f_landregistry(f_app.module_base):
             f_app.landregistry.get_database(m).map_reduce(func_map, func_reduce, "landregistry_statistics")
             result = m.landregistry_statistics.find({})
 
-        return result
+        merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
+        return merged_result
 
 f_landregistry()
