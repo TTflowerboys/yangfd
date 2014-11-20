@@ -1618,7 +1618,6 @@ class f_landregistry(f_app.module_base):
     def get_month_average_by_zipcode_index(self, zipcode_index):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index})
-            return result
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
         return merged_result
 
