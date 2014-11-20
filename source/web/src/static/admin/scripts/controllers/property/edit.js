@@ -21,6 +21,7 @@
                     if (res.target_property_id) {
                         api.getOne(res.target_property_id, {errorMessage: true})
                             .success(function (data) {
+                                $scope.targetItem = data.val
                                 res = angular.extend(data.val, res)
                                 onGetItem(res)
                             })
@@ -203,6 +204,20 @@
                 })
             }
         })
+        $scope.onReset = function ($event, data) {
+
+        }
+
+        $scope.onRemoveDelete = function (index) {
+            $scope.item.unset_fields.splice(index, 1)
+        }
+
+        $scope.onDelete = function ($event, data) {
+            if (!$scope.item.unset_fields) {
+                $scope.item.unset_fields = []
+            }
+            $scope.item.unset_fields.push(data)
+        }
     }
 
     angular.module('app').controller('ctrlPropertyEdit', ctrlPropertyEdit)

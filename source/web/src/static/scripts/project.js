@@ -50,6 +50,9 @@
                 return false
             }
         },
+        updateMenuTitle: function (text)  {
+            $('.rmm-toggled .rmm-toggled-controls .rmm-center').text(text)
+        },
         repaintHowItWorks: function () {
 
         },

@@ -36,34 +36,6 @@ function responsiveMobileMenu() {
 	}
     });
 }
-function getMobileMenu() {
-
-    /* 	build toggled dropdown menu list */
-    $('.rmm').each(function() {	
-	var menutitle = $(this).attr('data-menu-title')
-	if ( menutitle === '' ) {
-	    menutitle = window.i18n('注册');
-	}
-	else if ( menutitle === undefined ) {
-	    menutitle = window.i18n('注册');
-	}
-	var $menulist = $(this).children('.rmm-menu').html();
-        var $menuTextButton = '<div class="rmm-toggled-title">' + '<img src="/static/images/common/header/phone/user.png" />'+ '</div>'
-        var $menuButton = '<div class="rmm-button"><img src="/static/images/common/header/phone/menu.png"/></div>'
-        var $menuCenterButton = '<div class="rmm-center">' + window.i18n('洋房东') + '</div>'
-        if ($(this).find('.rmm-custom-center').length) {
-            $menuCenterButton = $(this).find('.rmm-custom-center').html()
-        }
-	var $menucontrols ='<div class="rmm-toggled-controls">' + $menuButton  + $menuCenterButton + $menuTextButton + '</div>'
-
-        var $centerMenulist = ''
-        if ($(this).children('.rmm-center-menu').length) {
-            $centerMenulist = '<ul class="rmm-center-menu">' + $(this).children('.rmm-center-menu').html() + '</ul>'
-        }
-        
-	$(this).prepend('<div class="rmm-toggled rmm-closed rmm-center-closed">'+$menucontrols+'<ul class="rmm-menu">'+$menulist+'</ul> ' + $centerMenulist +  '</div>')
-    });
-}
 
 function adaptMenu() {
     /* 	toggle menu on resize */
@@ -83,7 +55,6 @@ function adaptMenu() {
 
 $(function() {
     responsiveMobileMenu();
-    getMobileMenu();
     adaptMenu();
 
     /* slide down mobile menu on click */

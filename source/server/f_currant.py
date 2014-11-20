@@ -1568,13 +1568,13 @@ class f_landregistry(f_app.module_base):
                         "type": r[4],
                         "is_new": r[5],
                         "duration": r[6],
-                        "paon": r[7],
-                        "saon": r[8],
-                        "street": r[9],
-                        "locality": r[10],
-                        "city": r[11],
-                        "district": r[12],
-                        "country": r[13],
+                        "paon": r[7].decode('latin1'),
+                        "saon": r[8].decode('latin1'),
+                        "street": r[9].decode('latin1'),
+                        "locality": r[10].decode('latin1'),
+                        "city": r[11].decode('latin1'),
+                        "district": r[12].decode('latin1'),
+                        "country": r[13].decode('latin1'),
                         "status": r[14]
                     }
                     self.get_database(m).insert(params)
@@ -1596,13 +1596,13 @@ class f_landregistry(f_app.module_base):
                             "type": r[4],
                             "is_new": r[5],
                             "duration": r[6],
-                            "paon": r[7],
-                            "saon": r[8],
-                            "street": r[9],
-                            "locality": r[10],
-                            "city": r[11],
-                            "district": r[12],
-                            "country": r[13],
+                            "paon": r[7].decode('latin1'),
+                            "saon": r[8].decode('latin1'),
+                            "street": r[9].decode('latin1'),
+                            "locality": r[10].decode('latin1'),
+                            "city": r[11].decode('latin1'),
+                            "district": r[12].decode('latin1'),
+                            "country": r[13].decode('latin1'),
                             "status": r[14]
                         }
                         self.get_database(m).insert(params)

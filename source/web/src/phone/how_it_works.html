@@ -9,28 +9,37 @@
 
 
 <!--@@block = custom_header-->
-<div class="howItWorksHeader_phone rmm custom_rmm" >
-    <ul class="rmm-menu" style="display:none;">
-        <li><a href="/">{{_('首页')}}</a></li>
-        <li><a href="/property_list">{{_('海外房产')}}</a></li>
-        <li><a href="/news_list">{{_('投资资讯')}}</a></li>
-    </ul>
-    <div class="rmm-custom-center" style="display:none;">
-        <div id="rmm-center-wrapper" class="rmm-center">
-            <label id="howItWorks_title" class="title" for="">
-                %if intention_list:
-                    {{_i18n(intention_list)[0].get('value')}}
-                %end
-            </label>
-            <img class="rmm-center-indicator" alt="" src="/static/images/common/header/phone/indicator.png"/>
+<div class="howItWorksHeader_phone  rmm" >
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+            <div class="rmm-button">
+                <img src="/static/images/common/header/phone/menu.png"/>
+            </div>
+            <div id="rmm-center-wrapper" class="rmm-center">
+                <label id="howItWorks_title" class="title" for="">
+                    %if intention_list:
+                        {{_i18n(intention_list)[0].get('value')}}
+                    %end
+                </label>
+                <img class="rmm-center-indicator" alt="" src="/static/images/common/header/phone/indicator.png"/>
+            </div>
+            <div class="rmm-toggled-title">
+                <img src="/static/images/common/header/phone/user.png" />
+            </div>
         </div>
+        <ul class="rmm-menu" style="display:none;">
+            <li><a href="/">{{_('首页')}}</a></li>
+            <li><a href="/property_list">{{_('海外房产')}}</a></li>
+            <li><a href="/news_list">{{_('投资资讯')}}</a></li>
+        </ul>
+        <ul class="rmm-center-menu" style="display:none;">
+            %for index, intention in enumerate(_i18n(intention_list)):
+                <li><a data-slug={{intention.get('slug')}} href=javascript:window.showGuide("{{intention.get('slug')}}")>{{intention.get('value')}}</a></li>
+            %end
+        </ul>
     </div>
-    <ul class="rmm-center-menu" style="display:none;">
-        %for index, intention in enumerate(_i18n(intention_list)):
-            <li><a data-slug={{intention.get('slug')}} href=javascript:window.showGuide("{{intention.get('slug')}}")>{{intention.get('value')}}</a></li>
-        %end
-    </ul>
 </div>
+
 <!--@@close-->
 
 
@@ -62,7 +71,13 @@
  }
 
  %if intention_list:
- window.showGuide("{{_i18n(intention_list)[0].get('slug')}}")
+ var slugFromURL = window.team.getQuery('slug', location.href)
+ if (slugFromURL) {
+     window.showGuide(slugFromURL)
+ }
+ else {
+     window.showGuide("{{_i18n(intention_list)[0].get('slug')}}")
+ }
  %end
 </script>
 
