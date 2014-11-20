@@ -71,7 +71,13 @@
  }
 
  %if intention_list:
- window.showGuide("{{_i18n(intention_list)[0].get('slug')}}")
+ var slugFromURL = window.team.getQuery('slug', location.href)
+ if (slugFromURL) {
+     window.showGuide(slugFromURL)
+ }
+ else {
+     window.showGuide("{{_i18n(intention_list)[0].get('slug')}}")
+ }
  %end
 </script>
 

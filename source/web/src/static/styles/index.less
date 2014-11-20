@@ -119,6 +119,48 @@ main {
         }
     }
 
+    .howItWorks_phone {
+        display:none;
+        @media @phone {
+	    display:block;
+        }
+        background:#eee;
+        overflow:hidden;
+        border-bottom:1px #ccc solid;
+
+        .title {
+            float:left;
+            display:block;
+            font-size:12px;
+            margin:20px 0 0 12px;
+            color:#333;
+        }
+        
+        ul {
+            width:100%;
+            float:left;
+            li {
+                float:left;
+                margin:25px 0;
+                text-align:center;
+
+                a {
+                    text-decoration:none;
+                    color:#999;
+                    font-size:10px;
+                    display:block;
+                    width:100%;
+                    height:100%;
+                    
+                    img {
+                        display:block;
+                        margin:0 auto 15px auto;
+                    }
+                }
+            }
+        }
+    }
+
     .howItWorks {
         height: 460px;
         background: #f6f6f6;
