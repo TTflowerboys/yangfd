@@ -48,8 +48,8 @@ function getMobileMenu() {
 	    menutitle = window.i18n('注册');
 	}
 	var $menulist = $(this).children('.rmm-menu').html();
-        var $menuTextButton = '<div class="rmm-toggled-title">' + menutitle + '</div>'
-        var $menuButton = '<div class="rmm-button"><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span></div>'
+        var $menuTextButton = '<div class="rmm-toggled-title">' + '<img src="/static/images/common/header/phone/user.png" />'+ '</div>'
+        var $menuButton = '<div class="rmm-button"><img src="/static/images/common/header/phone/menu.png"/></div>'
         var $menuCenterButton = '<div class="rmm-center">' + window.i18n('洋房东') + '</div>'
         if ($(this).find('.rmm-custom-center').length) {
             $menuCenterButton = $(this).find('.rmm-custom-center').html()
@@ -133,7 +133,12 @@ $(function() {
     });
     
     $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-title').on('click', function(){
-        window.project.goToSignUp()
+        if (window.user) {
+            window.project.goToUserSettings()
+        }
+        else {
+            window.project.goToSignUp()
+        }
     });
 });
 /* 	hide mobile menu on resize */
