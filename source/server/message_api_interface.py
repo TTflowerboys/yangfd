@@ -123,7 +123,9 @@ def message_statistics(user, params):
     """)
     func_reduce = Code("""
         function(key, values){
-            var sum_new = sum_sent = sum_read = 0;
+            var sum_new = 0;
+            var sum_sent = 0;
+            var sum_read = 0;
             values.forEach(function(value){
                 sum_new += value['counter_new'] ? value['counter_new'] : 0;
                 sum_sent += value['counter_sent'] ? value['counter_sent'] : 0;

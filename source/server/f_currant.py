@@ -1642,3 +1642,5 @@ class f_landregistry(f_app.module_base):
             }
 
         """)
+
+f_landregistry()
