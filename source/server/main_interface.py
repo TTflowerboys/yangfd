@@ -57,8 +57,9 @@ def check_ip_and_redirect_domain(func):
     return __check_ip_and_redirect_domain_replace_func
 
 
-def get_current_user():
-    user = f_app.user.login.get()
+def get_current_user(user=None):
+    if user is None:
+        user = f_app.user.login.get()
     if user:
         user = f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
     else:
@@ -282,6 +283,7 @@ def terms():
     )
     return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
 
+
 @f_get('/about/marketing')
 @check_landing
 @check_ip_and_redirect_domain
@@ -294,6 +296,7 @@ def marketing():
         )
     )
     return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
+
 
 @f_get('/about/media')
 @check_landing
@@ -318,152 +321,127 @@ def coming_soon():
 @f_get('/user_settings')
 @check_landing
 @check_ip_and_redirect_domain
-def user_settings():
-    if get_current_user() is not None:
-        return template("user_settings", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+def user_settings(user):
+    return template("user_settings", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/user_verify_email')
 @check_landing
 @check_ip_and_redirect_domain
-def user_verify_email():
-    if get_current_user():
-        return template("user_verify_email", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+@f_app.user.login.check(force=True)
+def user_verify_email(user):
+    return template("user_verify_email", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/user_change_email')
 @check_landing
 @check_ip_and_redirect_domain
-def user_change_email():
-    if get_current_user():
-        return template("user_change_email", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+@f_app.user.login.check(force=True)
+def user_change_email(user):
+    return template("user_change_email", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/user_change_password')
 @check_landing
 @check_ip_and_redirect_domain
-def user_change_password():
-    if get_current_user():
-        return template("user_change_password", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+def user_change_password(user):
+    return template("user_change_password", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/user_change_phone_1')
 @check_landing
 @check_ip_and_redirect_domain
-def user_change_phone_1():
-    if get_current_user():
-        return template("user_change_phone_1", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+@f_app.user.login.check(force=True)
+def user_change_phone_1(user):
+    return template("user_change_phone_1", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/user_change_phone_2')
 @check_landing
 @check_ip_and_redirect_domain
-def user_change_phone_2():
-    if get_current_user():
-        return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+@f_app.user.login.check(force=True)
+def user_change_phone_2(user):
+    return template("user_change_phone_2", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/user_verify_phone_1')
 @check_landing
 @check_ip_and_redirect_domain
-def user_verify_phone_1():
-    if get_current_user():
-        return template("user_verify_phone_1", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+@f_app.user.login.check(force=True)
+def user_verify_phone_1(user):
+    return template("user_verify_phone_1", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/user_verify_phone_2')
 @check_landing
 @check_ip_and_redirect_domain
-def user_verify_phone_2():
-    if get_current_user():
-        return template("user_change_phone_2", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+@f_app.user.login.check(force=True)
+def user_verify_phone_2(user):
+    return template("user_change_phone_2", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 @f_get('/user_favorites')
 @check_landing
 @check_ip_and_redirect_domain
-def user_favorites():
-    if get_current_user() is not None:
-        return template("user_favorites", user=get_current_user(), country_list=get_country_list(), favorite_list=get_favorite_list(), budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+@f_app.user.login.check(force=True)
+def user_favorites(user):
+    return template("user_favorites", user=get_current_user(user), country_list=get_country_list(), favorite_list=get_favorite_list(), budget_list=get_budget_list())
 
 
 @f_get('/user_intentions')
 @check_landing
 @check_ip_and_redirect_domain
-def user_intentions():
-    if get_current_user() is not None:
-        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [
-                                                    {"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}))
-        intention_ticket_status_list = get_intention_ticket_status_list()
-        logger.warning('hehe')
-        logger.warning(len(intention_ticket_status_list))
-        for ticket in intention_ticket_list:
-            for ticket_status in intention_ticket_status_list:
-                if ('intention_ticket_status:' + ticket['status'] == ticket_status['slug']):
-                    ticket['status_presentation'] = ticket_status
-                    logger.warning(ticket)
+@f_app.user.login.check(force=True)
+def user_intentions(user):
+    intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [
+                                                {"creator_user_id": ObjectId(get_current_user(user)["id"])}, {"user_id": ObjectId(get_current_user(user)["id"])}]}))
+    intention_ticket_status_list = get_intention_ticket_status_list()
+    logger.warning('hehe')
+    logger.warning(len(intention_ticket_status_list))
+    for ticket in intention_ticket_list:
+        for ticket_status in intention_ticket_status_list:
+            if ('intention_ticket_status:' + ticket['status'] == ticket_status['slug']):
+                ticket['status_presentation'] = ticket_status
+                logger.warning(ticket)
 
-        return template("user_intentions", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list, budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+    return template("user_intentions", user=get_current_user(user), country_list=get_country_list(), intention_ticket_list=intention_ticket_list, budget_list=get_budget_list())
 
 
 @f_get('/user_properties')
 @check_landing
 @check_ip_and_redirect_domain
-def user_properties():
-    if get_current_user() is not None:
-        intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user()["id"])}, {"user_id": ObjectId(get_current_user()["id"])}]}), ignore_nonexist=True)
-        intention_ticket_list = [i for i in intention_ticket_list if i.get("property")]
-        return template("user_properties", user=get_current_user(), country_list=get_country_list(), intention_ticket_list=intention_ticket_list, budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+@f_app.user.login.check(force=True)
+def user_properties(user):
+    intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user(user)["id"])}, {"user_id": ObjectId(get_current_user(user)["id"])}]}), ignore_nonexist=True)
+    intention_ticket_list = [i for i in intention_ticket_list if i.get("property")]
+    return template("user_properties", user=get_current_user(user), country_list=get_country_list(), intention_ticket_list=intention_ticket_list, budget_list=get_budget_list())
 
 
 @f_get('/user_messages')
 @check_landing
 @check_ip_and_redirect_domain
-def user_messages():
-    if get_current_user() is not None:
-        message_list = f_app.message.get_by_user(
-            get_current_user()['id'],
-            {"state": {"$in": ["read", "new"]}},
-        )
-        message_type_list = get_message_type_list()
+@f_app.user.login.check(force=True)
+def user_messages(user):
+    message_list = f_app.message.get_by_user(
+        get_current_user(user)['id'],
+        {"state": {"$in": ["read", "new"]}},
+    )
+    message_type_list = get_message_type_list()
 
-        for message in message_list:
-            for message_type in message_type_list:
-                if ('message_type:' + message['type'] == message_type['slug']):
-                    message['type_presentation'] = message_type
+    for message in message_list:
+        for message_type in message_type_list:
+            if ('message_type:' + message['type'] == message_type['slug']):
+                message['type_presentation'] = message_type
 
-        return template("user_messages", user=get_current_user(), country_list=get_country_list(), message_list=message_list, budget_list=get_budget_list())
-    else:
-        redirect("://".join(request.urlparts[:2]))
+    return template("user_messages", user=get_current_user(user), country_list=get_country_list(), message_list=message_list, budget_list=get_budget_list())
 
 
 @f_get('/verify_email_status')
 @check_landing
 @check_ip_and_redirect_domain
-def verify_email_status():
-    return template("verify_email_status", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+@f_app.user.login.check(force=True)
+def verify_email_status(user):
+    return template("verify_email_status", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 # phone specific pages
