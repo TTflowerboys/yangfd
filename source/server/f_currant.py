@@ -1584,35 +1584,40 @@ class f_landregistry(f_app.module_base):
             with open(path, 'rw+') as f:
                 rows = csv.reader(f)
                 for r in rows:
+                    params = {
+                        "tid": r[0],
+                        "price": float(r[1]),
+                        "date": datetime.strptime(r[2], "%Y-%m-%d %H:%M"),
+                        "zipcode": r[3],
+                        "zipcode_index": r[3].split(' ')[0],
+                        "type": r[4],
+                        "is_new": r[5],
+                        "duration": r[6],
+                        "paon": r[7].decode('latin1'),
+                        "saon": r[8].decode('latin1'),
+                        "street": r[9].decode('latin1'),
+                        "locality": r[10].decode('latin1'),
+                        "city": r[11].decode('latin1'),
+                        "district": r[12].decode('latin1'),
+                        "country": r[13].decode('latin1'),
+                        "status": r[14]
+                    }
+
                     if self.get_database(m).find_one({"tid": r[0], "status": r[14]}):
                         logger.warning("Already added %s" % r[0])
+                    elif r[14] != "A":
+                        if r[14] == "D":
+                            self.get_database(m).remove({"tid": r[0]})
+                        else:
+                            params.pop("status")
+                            self.get_database(m).update({"tid": r[0]}, params)
                     else:
-                        params = {
-                            "tid": r[0],
-                            "price": float(r[1]),
-                            "date": datetime.strptime(r[2], "%Y-%m-%d %H:%M"),
-                            "zipcode": r[3],
-                            "zipcode_index": r[3].split(' ')[0],
-                            "type": r[4],
-                            "is_new": r[5],
-                            "duration": r[6],
-                            "paon": r[7].decode('latin1'),
-                            "saon": r[8].decode('latin1'),
-                            "street": r[9].decode('latin1'),
-                            "locality": r[10].decode('latin1'),
-                            "city": r[11].decode('latin1'),
-                            "district": r[12].decode('latin1'),
-                            "country": r[13].decode('latin1'),
-                            "status": r[14]
-                        }
                         self.get_database(m).insert(params)
 
     def get_month_average_by_zipcode_index(self, zipcode_index):
         with f_app.mongo() as m:
-            changed_record_tid_list = self.get_database(m).distinct("tid", {"status": "C", "zipcode_index": zipcode_index})
-            deleted_record_tid_list = self.get_database(m).distinct("tid", {"zipcode_index": zipcode_index, "status": "D"})
-            changed_record_tid_list.extend(deleted_record_tid_list)
-            all_record = self.get_database(m).find({"$or": [{"status": "A", "zipcode_index": zipcode_index, "tid": {"$nin": changed_record_tid_list}}, {"status": "C", "zipcode_index": zipcode_index}]}).sort("date", ASCENDING)
+            result = m.landregistry_statistics.find({"zipcode_index": zipcode_index}).sort("date", ASCENDING)
+        return result
 
     def aggregation_monthly(self):
         func_map = Code("""
@@ -1638,9 +1643,14 @@ class f_landregistry(f_app.module_base):
                     sum_count += value['count'];
                     sum_price += value['price'];
                 })
-                return {"price": sum_price / sum_price}
+                return {"average_price": sum_price / sum_count, "total_price": sum_price, "total_count": sum_count}
             }
-
         """)
+
+        with f_app.mongo() as m:
+            f_app.landregistry.get_database(m).map_reduce(func_map, func_reduce, "landregistry_statistics")
+            result = m.landregistry_statistics.find({})
+
+        return result
 
 f_landregistry()
