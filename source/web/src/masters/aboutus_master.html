@@ -19,16 +19,24 @@
     <div class="category">
         <h2 class="title">{{_('关于洋房东')}}</h2>
         <ul>
-            <li><a href="/about"> <img id="icon-about" alt="" src="/static/images/news/about_us.png"/>
+            <li><a href="/about">
+                <img id="icon-about" alt="" src="/static/images/news/about_us.png"/>
+                <img id="icon-about-active"  style="display:none" alt="" src="/static/images/news/about_us-active.png"/>
                 <h3>{{_('关于洋房东')}}</h3>
             </a></li>
-            <li><a href="/terms"> <img id="icon-terms" alt="" src="/static/images/news/declaration.png"/>
+            <li><a href="/terms">
+                <img id="icon-terms" alt="" src="/static/images/news/declaration.png"/>
+                <img id="icon-terms-active"  style="display:none" alt="" src="/static/images/news/declaration-active.png"/>
                 <h3>{{_('服务声明')}}</h3>
             </a></li>
-            <li><a href="/about/marketing"> <img id="icon-marketing" alt="" src="/static/images/news/marketing.png"/>
+            <li><a href="/about/marketing">
+                <img id="icon-marketing" alt="" src="/static/images/news/marketing.png"/>
+                <img id="icon-marketing-active"  style="display:none" alt="" src="/static/images/news/marketing-active.png"/>
                 <h3>{{_('市场合作')}}</h3>
             </a></li>
-            <li><a href="/about/media"> <img id="icon-media" alt="" src="/static/images/news/media.png"/>
+            <li><a href="/about/media">
+                <img id="icon-media" alt="" src="/static/images/news/media.png"/>
+                <img id="icon-media-active"  style="display:none" alt="" src="/static/images/news/media-active.png"/>
                 <h3>{{_('媒体合作')}}</h3>
             </a></li>
             <!--<li><a href="/partners"> <img id="icon-partners" alt="" src="/static/images/news/partner.png"/>
@@ -40,14 +48,11 @@
 <script>
 
     (function () {
-        //Get icon name
+        //Get current icon name from url
         var urlPath = location.pathname.split('/')[location.pathname.split('/').length - 1]
-        var icon = document.getElementById('icon-' + urlPath)
-        var iconImagePath = icon.getAttribute('src')
-        var iconImageName = iconImagePath.substring(0, iconImagePath.lastIndexOf('.'))
-        var iconImageExtention = iconImagePath.substring(iconImagePath.lastIndexOf('.'))
-        var newIconImagePath = iconImageName + '-active' + iconImageExtention
-        icon.setAttribute('src', newIconImagePath)
+        
+        document.getElementById('icon-' + urlPath).style.display = 'none'
+        document.getElementById('icon-' + urlPath + '-active').style.display = 'inline'
     })()
 
 

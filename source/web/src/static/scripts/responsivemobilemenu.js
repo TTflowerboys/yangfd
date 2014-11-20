@@ -36,34 +36,6 @@ function responsiveMobileMenu() {
 	}
     });
 }
-function getMobileMenu() {
-
-    /* 	build toggled dropdown menu list */
-    $('.rmm').each(function() {	
-	var menutitle = $(this).attr('data-menu-title')
-	if ( menutitle === '' ) {
-	    menutitle = window.i18n('注册');
-	}
-	else if ( menutitle === undefined ) {
-	    menutitle = window.i18n('注册');
-	}
-	var $menulist = $(this).children('.rmm-menu').html();
-        var $menuTextButton = '<div class="rmm-toggled-title">' + menutitle + '</div>'
-        var $menuButton = '<div class="rmm-button"><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span></div>'
-        var $menuCenterButton = '<div class="rmm-center">' + window.i18n('洋房东') + '</div>'
-        if ($(this).find('.rmm-custom-center').length) {
-            $menuCenterButton = $(this).find('.rmm-custom-center').html()
-        }
-	var $menucontrols ='<div class="rmm-toggled-controls">' + $menuButton  + $menuCenterButton + $menuTextButton + '</div>'
-
-        var $centerMenulist = ''
-        if ($(this).children('.rmm-center-menu').length) {
-            $centerMenulist = '<ul class="rmm-center-menu">' + $(this).children('.rmm-center-menu').html() + '</ul>'
-        }
-        
-	$(this).prepend('<div class="rmm-toggled rmm-closed rmm-center-closed">'+$menucontrols+'<ul class="rmm-menu">'+$menulist+'</ul> ' + $centerMenulist +  '</div>')
-    });
-}
 
 function adaptMenu() {
     /* 	toggle menu on resize */
@@ -83,7 +55,6 @@ function adaptMenu() {
 
 $(function() {
     responsiveMobileMenu();
-    getMobileMenu();
     adaptMenu();
 
     /* slide down mobile menu on click */
@@ -133,7 +104,12 @@ $(function() {
     });
     
     $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-title').on('click', function(){
-        window.project.goToSignUp()
+        if (window.user) {
+            window.project.goToUserSettings()
+        }
+        else {
+            window.project.goToSignUp()
+        }
     });
 });
 /* 	hide mobile menu on resize */

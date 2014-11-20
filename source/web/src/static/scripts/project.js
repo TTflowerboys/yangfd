@@ -32,6 +32,10 @@
             $('#modal').show()
             return false
         },
+        goToUserSettings: function () {
+            window.location.href = '/user_settings';
+            return false //prevent default action for <a>
+        },
         checkLoginIfNot: function () {
             if (!window.user) {
                 if (team.isPhone()) {
@@ -45,6 +49,9 @@
             else {
                 return false
             }
+        },
+        updateMenuTitle: function (text)  {
+            $('.rmm-toggled .rmm-toggled-controls .rmm-center').text(text)
         },
         repaintHowItWorks: function () {
 
