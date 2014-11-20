@@ -393,15 +393,23 @@ body{
         }
         .other {
             width: 100%;
+            overflow:hidden;
             @media @phone {
-                margin:20px;
+                margin:20px 0;
             }
 
-            .col-name { width: 180px; }
+            .col-name {
+                width: 180px;
+                @media @phone {
+                    max-width: 180px;
+                    width:auto;
+                }
+
+            }
             .value {
                 padding-right: 16px;
                 @media @phone {
-                    width: 180px;
+                    max-width: 100px;
                     padding-right: 0px;
                     font-size: 12px;
                 }
@@ -427,6 +435,7 @@ body{
                 display: inline-block; min-width: 6em;
                 @media @phone {
                     font-size: 12px;
+                    padding-left:20px;
                 }
 
             }
