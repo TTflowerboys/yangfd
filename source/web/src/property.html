@@ -1044,6 +1044,9 @@
 
 
     <script>
+     window.project.updateMenuTitle("{{property.get('name', _('房产详情'))}}")
+    </script>
+    <script>
      (function () {
          window.openWeChatShare = function (propertyId) {
              if (window.team.isWeChat()) {

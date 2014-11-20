@@ -46,6 +46,22 @@
     <div class="howItWorks">
         <!-- @@include=partials/how_it_works_tabs.html-->
     </div>
+    <div class="howItWorks_phone">
+        <label class="title">{{_('为您定制')}}</label>
+        <ul class="controls">
+            % for index, intention in enumerate(_i18n(intention_list)):
+                % slug = intention.get('slug','')
+                <li style="width: {{99.99 / 3}}%" data-tab="{{slug}}"
+                    data-id="{{intention.get('id')}}"
+                    data-value="{{intention.get('value')}}">
+                    <a href="/how_it_works?slug={{slug}}">
+                        <img alt="" src="/static/images/intention/icon/{{slug}}-red.png"/>
+                        <label for="{{intention.get('id')}}">{{intention.get('value')}}</label>
+                    </a>
+                </li>
+            %end
+        </ul>
+    </div>
 %end
 
 %if user:
