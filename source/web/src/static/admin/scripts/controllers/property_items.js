@@ -35,14 +35,16 @@
             if (!$scope.item.main_house_types) {
                 $scope.item.main_house_types = []
             }
-            var temp = {name: '',
+            var temp = {
+                name: '',
                 bedroom_count: 0,
                 living_room_count: 0,
                 bathroom_count: 0,
                 kitchen_count: 0,
                 space: {},
                 total_price: {},
-                floor_plan: {}}
+                floor_plan: {}
+            }
             $scope.item.main_house_types.push(temp)
         }
 
@@ -62,13 +64,6 @@
             $scope.item.main_house_types.splice(index, 1)
         }
 
-        $scope.onReset = function ($event, data) {
-
-        }
-
-        $scope.onDelete = function ($event, data) {
-
-        }
     }
 
     angular.module('app').controller('ctrlPropertyItems', ctrlPropertyItems)
