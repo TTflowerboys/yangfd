@@ -482,6 +482,12 @@ def admin():
     return template("admin")
 
 
+@f_get('/401')
+@error(401)
+def error_401(error=None):
+    return template("401")
+
+
 @f_get('/404')
 @error(404)
 def error_404(error=None):
