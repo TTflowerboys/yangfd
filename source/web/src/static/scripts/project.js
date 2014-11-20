@@ -24,7 +24,12 @@
             return false //prevent default action for <a>
         },
         goBackFromURL: function () {
-            window.location.href = team.getQuery('from');
+            if(team.getQuery('from') !== ''){
+                window.location.href = team.getQuery('from');
+            }else{
+                // Return to home page if no from provide
+                window.location.href = window.location.origin;
+            }
             return false //prevent default action for <a>
         },
         showSignInModal: function () {
