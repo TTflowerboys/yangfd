@@ -1551,8 +1551,8 @@ class f_landregistry(f_app.module_base):
     def __init__(self):
         f_app.module_install("landregistry", self)
 
-    def get_database(self):
-        return getattr(self.landregistry_database)
+    def get_database(self, m):
+        return getattr(m, self.landregistry_database)
 
     def import_new(self, path):
         with f_app.mongo() as m:
