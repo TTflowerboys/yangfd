@@ -83,8 +83,7 @@
                         <tbody>
                             <tr ng-repeat="school in item.schools">
                                 <td>
-                                    <input type="text" type-i18n="school.name" ng-model="school.name[userLanguage.value]"
-                                        class="form-control"/>
+                                    <input type="text" ng-model="school.name" class="form-control"/>
                                 </td>
                                 <td>
                                     <select class="form-control" ng-options="p.id as p.value[userLanguage.value] for p in schoolTypeList" ng-model="school.type"></select>
@@ -135,15 +134,13 @@
                         <tbody>
                             <tr ng-repeat="facility in item.facilities">
                                 <td>
-                                    <input type="text" type-i18n="facility.name" ng-model="facility.name[userLanguage.value]"
-                                        class="form-control"/>
+                                    <input type="text" ng-model="facility.name" class="form-control"/>
                                 </td>
                                 <td>
                                     <select class="form-control" ng-options="p.id as p.value[userLanguage.value] for p in facilitiesList" ng-model="facility.type"></select>
                                 </td>
                                 <td>
-                                    <input type="text" type-i18n="facility.address" ng-model="facility.address[userLanguage.value]"
-                                        class="form-control"/>
+                                    <input type="text" ng-model="facility.address" class="form-control"/>
                                 </td>
                                 <td>
                                     <div type-i18n-unit unit="userDistance.value" data="i18nDistance" ng-model="facility.distance"></div>
@@ -186,7 +183,7 @@
                         <tbody>
                             <tr ng-repeat="railway in item.railway_lines">
                                 <td>
-                                    <input type="text" type-i18n="railway.name" ng-model="railway.name[userLanguage.value]"
+                                    <input type="text" ng-model="railway.name"
                                         class="form-control"/>
                                 </td>
                                 <td>
@@ -224,8 +221,7 @@
                         <tbody>
                             <tr ng-repeat="bus in item.bus_lines">
                                 <td>
-                                    <input type="text" type-i18n="bus.name" ng-model="bus.name[userLanguage.value]"
-                                        class="form-control"/>
+                                    <input type="text" ng-model="bus.name" class="form-control"/>
                                 </td>
                                 <td>
                                     <div type-i18n-unit unit="userDistance.value" data="i18nDistance" ng-model="bus.distance"></div>
@@ -262,8 +258,7 @@
                         <tbody>
                             <tr ng-repeat="car in item.car_rental_location">
                                 <td>
-                                    <input type="text" type-i18n="car.place" ng-model="car.place[userLanguage.value]"
-                                        class="form-control"/>
+                                    <input type="text" ng-model="car.place" class="form-control"/>
                                 </td>
                                 <td>
                                     <div type-i18n-unit unit="userDistance.value" data="i18nDistance" ng-model="car.distance"></div>
@@ -301,8 +296,7 @@
                         <tbody>
                             <tr ng-repeat="bicycle in item.bicycle_rental_location">
                                 <td>
-                                    <input type="text" type-i18n="bicycle.place" ng-model="bicycle.place[userLanguage.value]"
-                                        class="form-control"/>
+                                    <input type="text" ng-model="bicycle.place" class="form-control"/>
                                 </td>
                                 <td>
                                     <div type-i18n-unit unit="userDistance.value" data="i18nDistance" ng-model="bicycle.distance"></div>

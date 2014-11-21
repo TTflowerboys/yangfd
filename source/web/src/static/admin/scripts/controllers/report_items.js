@@ -22,7 +22,7 @@
             if (!$scope.item.schools) {
                 $scope.item.schools = []
             }
-            var temp = {name: {}}
+            var temp = {}
             $scope.item.schools.push(temp)
         }
 
@@ -30,7 +30,7 @@
             if (!$scope.item.railway_lines) {
                 $scope.item.railway_lines = []
             }
-            var temp = {name: {}, distance: {}}
+            var temp = { distance: {}}
             $scope.item.railway_lines.push(temp)
         }
 
@@ -38,7 +38,7 @@
             if (!$scope.item.bus_lines) {
                 $scope.item.bus_lines = []
             }
-            var temp = {name: {}, distance: {}}
+            var temp = { distance: {}}
             $scope.item.bus_lines.push(temp)
         }
 
@@ -47,7 +47,6 @@
                 $scope.item.car_rental_location = []
             }
             var temp = {
-                place: {},
                 distance: {}
             }
             $scope.item.car_rental_location.push(temp)
@@ -57,7 +56,6 @@
                 $scope.item.bicycle_rental_location = []
             }
             var temp = {
-                place: {},
                 distance: {}
             }
             $scope.item.bicycle_rental_location.push(temp)
@@ -67,8 +65,6 @@
                 $scope.item.facilities = []
             }
             var temp = {
-                name: {},
-                address: {},
                 distance: {}
             }
             $scope.item.facilities.push(temp)
