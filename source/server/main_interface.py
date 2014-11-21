@@ -441,7 +441,7 @@ def user_messages(user):
 @f_get('/verify_email_status')
 @check_landing
 @check_ip_and_redirect_domain
-def verify_email_status(user):
+def verify_email_status():
     return template("verify_email_status", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
