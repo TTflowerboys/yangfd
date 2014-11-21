@@ -21,7 +21,7 @@
                     if (res.target_property_id) {
                         api.getOne(res.target_property_id, {errorMessage: true})
                             .success(function (data) {
-                                $scope.targetItem = data.val
+                                $scope.targetItem = angular.copy(data.val)
                                 res = angular.extend(data.val, res)
                                 onGetItem(res)
                             })
@@ -205,7 +205,7 @@
             }
         })
         $scope.onReset = function ($event, data) {
-
+            //console.log($scope.targetItem)
         }
 
         $scope.onRemoveDelete = function (index) {

@@ -359,6 +359,15 @@
                             <div edit-videos="item.videos" text="视频"></div>
                         </div>
                     </div>
+                    <!--<div class="row">-->
+                        <!--<div class="form-group  col-sm-12" ui-draggable="true" drag="'brochure'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">-->
+                            <!--<label class="control-label">{%$root.i18n('推广资料')%}</label>-->
+
+                            <!--<div class="controls">-->
+                                <!--<div edit-brochure ng-model="item.brochure" text="{%$root.i18n('上传推广资料')%}"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </tab>
                 <tab heading="{%$root.i18n('非楼盘特有信息')%}" ng-if="propertyType !== 'new_property'&&propertyType!=='student_housing'">
                     <div class="row">
@@ -681,7 +690,7 @@
         </select>
         <input ng-if="!draftId" type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
         <!--<div style="height: 400px"></div>-->
-        <!--<div class="row" style="position:fixed;bottom:0;width:100%">-->
+        <!--<div class="row" style="position:fixed;bottom:0;width:100%;z-index: 100">-->
             <!--<div class="form-group col-sm-3" ui-on-Drop="onDelete($event,$data)" drop-channel="delete" style="display:block;background-color:#aaaaaa;margin:20px;padding:20px">-->
                 <!--<div>拖动至此删除内容</div>-->
                 <!--<table>-->

@@ -318,6 +318,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" ng-if="item.brochure">
+                        <div class="form-group col-sm-12">
+                            <label class="control-label">{%$root.i18n('推广资料')%}</label>
+
+                            <div class="controls">
+                                <a href="{%brochure.url%}">{%brochure.url%}</a>
+                            </div>
+                        </div>
+                    </div>
                 </tab>
                 <tab heading="{%$root.i18n('非楼盘特有信息')%}" ng-if="item.property_type.slug !== 'new_property'&&item.property_type.slug!=='student_housing'">
                     <div class="row">
