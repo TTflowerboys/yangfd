@@ -1,0 +1,9 @@
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-left">{%brochure.url%}</div>
+            <button class="pull-left btn btn-danger btn-sm" ng-click="removeBrochure($index)">{%$root.i18n('移除')%}</button>
+        </div>
+    </div>
+    <div ng-file-select="onFileSelected($files)" onclick="this.value = null" class="btn btn-primary">{%text%}</div>
+</div>
