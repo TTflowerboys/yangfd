@@ -6,7 +6,7 @@ import re
 import phonenumbers
 import json
 import csv
-import matplotlib.pylot as plt
+import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from bson.objectid import ObjectId
 from bson.code import Code
