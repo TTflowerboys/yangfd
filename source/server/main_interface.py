@@ -452,7 +452,7 @@ def verify_email_status(user):
 @check_landing
 @check_ip_and_redirect_domain
 def requirement():
-    return template("phone/requirement", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return template("phone/requirement", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(),     intention_list=f_app.enum.get_all('intention'))
 
 
 @f_get('/wechat_share')

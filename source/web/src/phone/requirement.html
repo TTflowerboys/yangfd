@@ -7,6 +7,10 @@
 <!--@@close-->
 
 <!--@@block = main-->
+<textarea id="dataBudgetList" style="display:none;">{{json_dumps(_i18n(budget_list))}}</textarea>
+<textarea id="dataIntentionList" style="display:none">
+    {{json_dumps(_i18n(intention_list))}}
+</textarea>
 <div class="requirement_wrapper">
     <div id="requirement" class="requirement">
         <div class="requirement_title">
@@ -25,10 +29,17 @@
 <script>
  var requirementContainer = $('main')
  window.resetRequirementForm(requirementContainer)
+ window.setRequirementFormContent(requirementContainer, team.getQuery('budget', location.href), team.getQuery('intention', location.href))
+
  window.setupRequirementForm(requirementContainer, function () {
      setTimeout(function () {
          var propertyId = window.team.getQuery('property', location.href)
-         location.href= '/property/' + propertyId
+         if (propertyId) {
+             location.href= '/property/' + propertyId
+         }
+         else {
+             history.go(-1)
+         }
      }, 2000)
  })
 
