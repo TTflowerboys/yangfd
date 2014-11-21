@@ -3,7 +3,7 @@
     <head>
         <meta name="description" content="我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"/>
         <meta charset="utf-8">
-        <title>找不到页面</title>
+        <title>没有权限</title>
         <style>
             * { margin: 0 }
             html { height: 100%; }
@@ -30,16 +30,16 @@
         <table class=table>
             <tr>
                 <td class=content>
-                    <h1>404</h1>
-                    <h2>对不起，没有您找的页面</h2>
-                    <h3 id="show">5秒后 <a href="/">返回首页</a></h3>
+                    <h1>401</h1>
+                    <h2>对不起，您没有访问该页面的权限，请登陆后重试</h2>
+                    <h3 id="show">5秒后 <a href="/signin">返回登陆页面</a></h3>
                 </td>
             </tr>
         </table>
     </body>
     <script>
         setTimeout(function () {
-            location.href = '/'
+            location.href = '/signin'
         }, 5000)
     </script>
 </html>

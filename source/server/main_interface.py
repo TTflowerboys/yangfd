@@ -321,6 +321,7 @@ def coming_soon():
 @f_get('/user_settings')
 @check_landing
 @check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
 def user_settings(user):
     return template("user_settings", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
 
@@ -344,6 +345,7 @@ def user_change_email(user):
 @f_get('/user_change_password')
 @check_landing
 @check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
 def user_change_password(user):
     return template("user_change_password", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
 
@@ -439,9 +441,8 @@ def user_messages(user):
 @f_get('/verify_email_status')
 @check_landing
 @check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
 def verify_email_status(user):
-    return template("verify_email_status", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
+    return template("verify_email_status", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
 # phone specific pages
@@ -474,12 +475,14 @@ def how_it_works():
 def calculator():
     return template("phone/calculator", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
 
+
 @f_get('/pdf_viewer')
 @check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def pdfviewer(user):
     return template("pdf_viewer")
+
 
 @f_get('/admin')
 @check_landing
