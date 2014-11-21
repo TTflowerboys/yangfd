@@ -12,7 +12,7 @@
         if (itemFromParent) {
             onGetItem(itemFromParent)
         } else {
-            api.getOne($stateParams.id, {errorMessage: true})
+            api.getOne($stateParams.id, {params: {_i18n: 'disabled'},errorMessage: true})
                 .success(function (data) {
                     var res = data.val
                     onGetItem(res)

@@ -42,6 +42,14 @@ angular.module('app',
         $rootScope.$watch('userCurrency', function (newValue, oldValue) {
             window.localStorage.setItem('adminUserCurrency', newValue.value)
         }, true)
+        //userDistance
+        var userDistanceAtLocal = window.localStorage.getItem('adminUserDistance')
+        $rootScope.userDistance = {
+            value: userDistanceAtLocal || ''
+        }
+        $rootScope.$watch('userDistance', function (newValue, oldValue) {
+            window.localStorage.setItem('adminUserDistance', newValue.value)
+        }, true)
         //dashboardLanguage
         var dashboardLanguageAtLocal = localStorage.getItem('adminDashboardLanguage')
         $rootScope.dashboardLanguage = {
