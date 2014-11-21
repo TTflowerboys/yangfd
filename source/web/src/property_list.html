@@ -13,6 +13,24 @@
 
 <!--@@block=main -->
 <div class="property_data_manager" style="display:none">
+    % tmp_country_list = []
+    % country_id_list = []
+    
+    %for index, country in enumerate(country_list):
+        %if country.get('slug') == 'US' or country.get('slug') == 'GB':
+           % tmp_country_list.append(country)
+           % country_id_list.append(country.get('id'))
+        %end
+    %end
+    % country_list = tmp_country_list
+
+    % tmp_city_list = []
+    %for index, city in enumerate(city_list):
+        %if city.get('country').get('id') in country_id_list:
+            % tmp_city_list.append(city)
+        %end
+    %end
+    % city_list = tmp_city_list
     <textarea id="countryData">
         {{json_dumps(country_list)}}
     </textarea>
