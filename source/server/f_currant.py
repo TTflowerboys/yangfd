@@ -6,10 +6,13 @@ import re
 import phonenumbers
 import json
 import csv
+import matplotlib.pylot as plt
+import matplotlib.dates as mdates
 from bson.objectid import ObjectId
 from bson.code import Code
 from pymongo import ASCENDING, DESCENDING
 import six
+from six.moves import cStringIO as StringIO
 from six.moves import urllib
 from pyquery import PyQuery as q
 from itertools import chain
@@ -1619,7 +1622,22 @@ class f_landregistry(f_app.module_base):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
-        return merged_result
+
+        fig, ax = plt.subplots()
+        ax.plot([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
+
+        years = mdates.YearLocator()
+        months = mdates.MonthLocator()
+        years_format = mdates.DateFormatter("%Y")
+
+        ax.xaxis.set_major_locator(years)
+        ax.xaxis.set_major_formatter(years_format)
+        ax.xaxis.set_minor_locator(months)
+
+        graph = StringIO()
+        plt.savefig(graph, format="png")
+
+        return graph
 
     def aggregation_monthly(self):
         func_map = Code("""

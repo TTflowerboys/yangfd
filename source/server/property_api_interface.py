@@ -450,9 +450,3 @@ def property_police_uk(property_id, params):
         return f_app.policeuk.api({"lat": property["latitude"], "lng": property["longitude"], "date": date})
     else:
         return []
-
-
-@f_api("/landregistry/<zipcode_index>")
-def landregistry(zipcode_index):
-    f_app.landregistry.aggregation_monthly()
-    return f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index)
