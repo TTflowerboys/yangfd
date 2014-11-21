@@ -205,7 +205,7 @@
             }
         })
         $scope.onReset = function ($event, data) {
-            console.log($scope.targetItem)
+            //console.log($scope.targetItem)
         }
 
         $scope.onRemoveDelete = function (index) {
