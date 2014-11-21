@@ -4,14 +4,31 @@
     box-sizing: border-box;
 }
 
+.siteHeader_phone {
+    @media @phone {
+        display:block;
+    }
+}
+
 .page > main {
     .container {
         width:800px;
+
+        @media @phone {
+            width:100%;
+            padding:20px 12px;
+        }
+
         .title {
             font-size:24px;
             color:#333;
             line-height:1;
             margin-bottom:40px;
+
+            @media @phone {
+                margin-bottom:20px;
+            }
+
         }
 
         .source {
@@ -57,6 +74,11 @@
         .content {
             border-top:2px solid #ccc;
             padding:40px 0;
+
+            @media @phone {
+                padding: 10px 0 20px 0;
+            }
+
 
             img {
                 margin-bottom:28px;
