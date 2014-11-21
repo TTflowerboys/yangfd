@@ -11,7 +11,16 @@ $('form[name=changeEmail]').submit(function (e) {
     }})
 
     if (!valid) {return}
+
+
     var params = $(this).serializeObject()
+
+    if (params.email === window.user.email) {
+        resultArea.text(window.i18n('请填入新邮箱'))
+        resultArea.show()
+        return;
+    }
+    
     $.betterPost('/api/1/user/edit', params).done(function (data) {
         window.user = data
         resultArea.empty()
