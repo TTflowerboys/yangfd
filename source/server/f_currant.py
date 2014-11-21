@@ -8,6 +8,7 @@ import json
 import csv
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from matplotlib.dates import DateFormatter
 from bson.objectid import ObjectId
 from bson.code import Code
 from pymongo import ASCENDING, DESCENDING
@@ -1123,7 +1124,7 @@ class f_property(f_app.module_base):
                         property_id=property_id,
                     ))
 
-            elif "brochure" in params["$set"] and params["$set"]["brochure"]:
+            elif "$set" in params and "brochure" in params["$set"] and params["$set"]["brochure"]:
                 old_urls = map(lambda item: item["url"], old_property.get("brochure", []))
                 for item in params["$set"]["brochure"]:
                     if item["url"] not in old_urls:
@@ -1634,6 +1635,9 @@ class f_landregistry(f_app.module_base):
         ax.xaxis.set_major_locator(years)
         ax.xaxis.set_major_formatter(years_format)
         ax.xaxis.set_minor_locator(months)
+
+        ax.fmt_xdata = DateFormatter('%Y-%m-%d %H:%M:%S')
+        fig.autofmt_xdate()
 
         graph = StringIO()
         plt.savefig(graph, format="png")
