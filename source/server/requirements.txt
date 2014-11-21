@@ -19,6 +19,7 @@ uWSGI
 pint
 PyYAML
 py-bcrypt
+matplotlib
 M2Crypto
 pytz
 python-dateutil
