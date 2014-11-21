@@ -83,7 +83,8 @@
                         <tbody>
                             <tr ng-repeat="school in item.schools">
                                 <td>
-                                    <input type="text" ng-model="school.name" class="form-control"/>
+                                    <input type="text" type-i18n="school.name" ng-model="school.name[userLanguage.value]"
+                                        class="form-control"/>
                                 </td>
                                 <td>
                                     <select class="form-control" ng-options="p.id as p.value[userLanguage.value] for p in schoolTypeList" ng-model="school.type"></select>
@@ -134,13 +135,15 @@
                         <tbody>
                             <tr ng-repeat="facility in item.facilities">
                                 <td>
-                                    <input type="text" ng-model="facility.name" class="form-control"/>
+                                    <input type="text" type-i18n="facility.name" ng-model="facility.name[userLanguage.value]"
+                                        class="form-control"/>
                                 </td>
                                 <td>
                                     <select class="form-control" ng-options="p.id as p.value[userLanguage.value] for p in facilitiesList" ng-model="facility.type"></select>
                                 </td>
                                 <td>
-                                    <input type="text" ng-model="facility.address" class="form-control"/>
+                                    <input type="text" type-i18n="facility.address" ng-model="facility.address[userLanguage.value]"
+                                        class="form-control"/>
                                 </td>
                                 <td>
                                     <div type-i18n-unit unit="userDistance.value" data="i18nDistance" ng-model="facility.distance"></div>
