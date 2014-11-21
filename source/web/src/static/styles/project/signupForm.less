@@ -10,6 +10,7 @@ body {
     margin-top: 44px;
     @media @phone {
         margin-top:20px;
+//        margin-bottom:50px;
     }
     .phone {
         > select {
@@ -43,6 +44,10 @@ body {
 
     .captchaCode {
         max-width:100%;
+
+        @media @phone {
+            height:64px;//left space for captcha, no need dyanmic update height of container, may trigger iphone overlay bug
+        }
 
         > a  > img {
             display: inline-block;

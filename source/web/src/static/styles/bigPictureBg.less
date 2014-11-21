@@ -58,6 +58,12 @@ body { font: 14px/1.6 @font-normal; }
         font-size: 14px;
         color: #ffffff;
         display: inline-block;
+
+        @media @phone {
+            text-align: center;
+            margin: 0 auto;
+            display: block;
+        }
     }
     .navbar { .horizontalList(@padding: 16px); float: right;
         > li {
