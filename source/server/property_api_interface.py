@@ -354,17 +354,6 @@ def property_get(property_id):
             user = f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
 
-    if "target_property_id" in property:
-        target_property_id = property.pop("target_property_id")
-        target_property = f_app.property.output([target_property_id])[0]
-        unset_fields = property.pop("unset_fields", [])
-        unset_fields.append("id")
-        target_property.update(property)
-        for i in unset_fields:
-            target_property.pop(i, None)
-
-        property = target_property
-
     return property
 
 
