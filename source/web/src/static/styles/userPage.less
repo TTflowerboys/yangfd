@@ -1,7 +1,10 @@
 /*! Created by frank on 14-9-19.  */
 @import "project/_imports";
 html .page main {
-    width:@min-page-width; //tmp set width for no mobile style
+
+    @media @phone {
+        width:@min-page-width; //tmp set width for no mobile style
+    }
 }
 
 .userPage { .clearfix(); width: 100%; max-width: 1200px; margin: 80px auto;
