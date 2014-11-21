@@ -33,15 +33,13 @@
             <div class="form-group col-sm-6">
                 <label class="control-label">{%$root.i18n('别墅售价')%}</label>
                 <div class="controls">
-                    {%item.villa_price.value%}
-                    {%item.villa_price.unit%}
+                    {%item.villa_price.value%}{%item.villa_price.unit%}
                 </div>
             </div>
             <div class="form-group col-sm-6">
                 <label class="control-label">{%$root.i18n('别墅租金')%}</label>
                 <div class="controls">
-                    {%item.villa_rental.value%}
-                    {%item.villa_rental.unit%}
+                    {%item.villa_rental.value%}{%item.villa_rental.unit%}
                 </div>
             </div>
         </div>
@@ -49,15 +47,13 @@
             <div class="form-group col-sm-6">
                 <label class="control-label">{%$root.i18n('公寓售价')%}</label>
                 <div class="controls">
-                    {%item.flat_price.value%}
-                    {%item.flat_price.unit%}
+                    {%item.flat_price.value%}{%item.flat_price.unit%}
                 </div>
             </div>
             <div class="form-group col-sm-6">
                 <label class="control-label">{%$root.i18n('公寓租金')%}</label>
                 <div class="controls">
-                    {%item.flat_rental.value%}
-                    {%item.flat_rental.unit%}
+                    {%item.flat_rental.value%}{%item.flat_rental.unit%}
                 </div>
             </div>
         </div>
@@ -112,9 +108,7 @@
                                 <td>{%facility.name[userLanguage.value]%}</td>
                                 <td>{%facility.type.value[userLanguage.value]%}</td>
                                 <td>{%facility.address[userLanguage.value]%}</td>
-                                <td> {%facility.distance.value%}
-                                    {%facility.distance.unit%}
-                                </td>
+                                <td>{%facility.distance.value%}{%facility.distance.unit%}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -141,10 +135,8 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="railway in item.railway_lines">
-                                <td>{%railway.name[userLanguage.value]%}</td>
-                                <td> {%railway.distance.value%}
-                                    {%railway.distance.unit%}
-                                </td>
+                                <td>{%railway.name%}</td>
+                                <td>{%railway.distance.value%}{%railway.distance.unit%}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -165,10 +157,8 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="bus in item.bus_lines">
-                                <td>{%bus.name[userLanguage.value]%}</td>
-                                <td> {%bus.distance.value%}
-                                    {%bus.distance.unit%}
-                                </td>
+                                <td>{%bus.name%}</td>
+                                <td>{%bus.distance.value%}{%bus.distance.unit%}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -189,10 +179,8 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="car in item.car_rental_location">
-                                <td>{%car.place[userLanguage.value]%}</td>
-                                <td> {%car.distance.value%}
-                                    {%car.distance.unit%}
-                                </td>
+                                <td>{%car.place%}</td>
+                                <td>{%car.distance.value%}{%car.distance.unit%}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -214,10 +202,8 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="bicycle in item.bicycle_rental_location">
-                                <td>{%bicycle.place[userLanguage.value]%}</td>
-                                <td> {%bicycle.distance.value%}
-                                    {%bicycle.distance.unit%}
-                                </td>
+                                <td>{%bicycle.place%}</td>
+                                <td>{%bicycle.distance.value%}{%bicycle.distance.unit%}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -257,6 +243,78 @@
             <label class="control-label">{%$root.i18n('街区犯罪率统计图')%} </label>
             <div class="controls form-inline">
                 {%item.crime_statistics%}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('街区规划资讯')%}</label>
+                <div class="controls">
+                    <table class="table table-bordered table-striped table-condensed"
+                        style="margin-bottom:30px">
+                        <thead>
+                            <tr>
+                                <th>{%$root.i18n('新闻标题')%}</th>
+                                <th>{%$root.i18n('新闻摘要')%}</th>
+                                <th>{%$root.i18n('来源')%}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="news in item.planning_news">
+                                <td>{%news.title[userLanguage.value]%}</td>
+                                <td>{%news.summary[userLanguage.value]%}</td>
+                                <td>{%news.link%}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('街区房屋供给资讯')%}</label>
+                <div class="controls">
+                    <table class="table table-bordered table-striped table-condensed"
+                        style="margin-bottom:30px">
+                        <thead>
+                            <tr>
+                                <th>{%$root.i18n('新闻标题')%}</th>
+                                <th>{%$root.i18n('新闻摘要')%}</th>
+                                <th>{%$root.i18n('来源')%}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="news in item.supplement_news">
+                                <td>{%news.title[userLanguage.value]%}</td>
+                                <td>{%news.summary[userLanguage.value]%}</td>
+                                <td>{%news.link%}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('街区就业机会资讯')%}</label>
+                <div class="controls">
+                    <table class="table table-bordered table-striped table-condensed"
+                        style="margin-bottom:30px">
+                        <thead>
+                            <tr>
+                                <th>{%$root.i18n('新闻标题')%}</th>
+                                <th>{%$root.i18n('新闻摘要')%}</th>
+                                <th>{%$root.i18n('来源')%}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="news in item.job_news">
+                                <td>{%news.title[userLanguage.value]%}</td>
+                                <td>{%news.summary[userLanguage.value]%}</td>
+                                <td>{%news.link%}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </form>
