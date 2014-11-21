@@ -28,9 +28,16 @@ body {
             padding: 8px 0 8px 0;
             width: 200px;
             @media @phone {
-                width:~"calc(65% - 36px)";
+                width:~"calc(65% - 20px)";
             }
 
+        }
+    }
+
+    input[name=nickname] {
+        width:270px;
+        @media @phone {
+            width:~"calc(100% - 20px)";
         }
     }
 
@@ -40,6 +47,12 @@ body {
 
     input[name=password] {
         max-width: 270px;
+        width:270px;
+
+        @media @phone {
+            max-width:100%;
+            width:~"calc(100% - 20px)";
+        }
     }
 
     .captchaCode {

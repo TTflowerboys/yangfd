@@ -61,6 +61,17 @@
         repaintHowItWorks: function () {
 
         },
+        openRequirement: function (event, budgetId, intentionId) {
+            if (team.isPhone()) {
+                if (!budgetId) { budgetId = ''}
+                if (!intentionId) {intentionId = ''}
+
+                location.href = '/requirement?budget=' + budgetId + '&intention=' + intentionId
+            }
+            else {
+                window.openRequirementForm(event, budgetId, intentionId)
+            }
+        },
         formatTime: function(time) {
             return $.format.date(time * 1000, 'yyyy-MM-dd HH:mm:ss')
         }

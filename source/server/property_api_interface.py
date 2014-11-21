@@ -138,7 +138,8 @@ property_params = dict(
         sources=(list, None, dict(
             url=str,
             type=str,
-            host=str
+            resolution=(list, None, int),
+            host=str,
         )),
         sub=("i18n", None, str),
         poster=str,
@@ -223,6 +224,8 @@ def property_edit(property_id, user, params):
     This API will act based on the ``property_id``. To add a new property, use "none" for ``property_id``.
 
     videos.sources.host must be in ``qiniu`` or ``aws_s3``
+
+    video.resolution uses two integers to represent width and height, e.g. 640x480 => ``[640, 480]``.
 
     For editing, if any field other than "status" is edited:
 

@@ -132,9 +132,7 @@
         });
     }
 
-    window.openRequirementForm = function (event, budgetId, intentionId) {
-        var popup = $('#requirement_popup')
-        window.resetRequirementForm(popup)
+    window.setRequirementFormContent = function (popup, budgetId, intentionId) {
         if (budgetId) {
             popup.find('select.budget option[value=' + budgetId + ']').attr('selected', 'selected')
         }
@@ -151,7 +149,6 @@
                         selectedIntention = item.value
                     }
                 })
-
             }
 
             var description =  window.i18n('我想投资价值为')
@@ -168,6 +165,12 @@
 
             popup.find('[name=description]').text(description)
         }
+    }
+
+    window.openRequirementForm = function (event, budgetId, intentionId) {
+        var popup = $('#requirement_popup')
+        window.resetRequirementForm(popup)
+        window.setRequirementFormContent(popup. budgetId, intentionId)
         popup.find('.requirement_title').show()
         window.showRequirementCancelButton(popup)
 
