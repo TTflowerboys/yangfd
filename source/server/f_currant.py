@@ -28,6 +28,7 @@ from libfelix.f_util import f_util
 import logging
 logger = logging.getLogger(__name__)
 f_app.dependency_register('pyquery', race="python")
+f_app.dependency_register('matplotlib', race="python")
 
 
 class f_currant_message(f_message):
