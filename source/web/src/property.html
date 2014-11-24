@@ -899,7 +899,7 @@
                   >
                 <input name="property_id" type="hidden" value="{{property.get('id','')}}"/>
                 <div class="row">
-                    <input name="nickname" type="text" placeholder="{{_('您的姓名')}}" data-validator="trim, required"
+                    <input name="nickname" type="text" placeholder="{{_('您的姓名(必填)')}}" data-validator="trim, required"
                            value="{{ user.get('nickname') if user else ''}}"/>
                 </div>
                 <div class="row">
@@ -910,7 +910,7 @@
                                     selected
                                     %end
                                     >
-                                    %if (country.get('slug') == 'CNN'):
+                                    %if (country.get('slug') == 'CN'):
                                         (+86)
                                     %elif (country.get('slug') == 'GB') :
                                         (+44)
@@ -923,11 +923,11 @@
                             </option>
                         %end
                     </select>
-                    <input name="phone" type="text" placeholder="{{_('您的电话')}}" data-validator="trim, required"
+                    <input name="phone" type="text" placeholder="{{_('您的电话(必填)')}}" data-validator="trim, required"
                            value="{{user.get('phone','') if user else ''}}"/>
                 </div>
                 <div class="row">
-                    <input name="email" type="text" placeholder="{{_('您的邮箱')}}" data-validator="trim, required, email"
+                    <input name="email" type="text" placeholder="{{_('您的邮箱(必填)')}}" data-validator="trim, required, email"
                            value="{{user.get('email','') if user and user.get('email') else ''}}"/>
                 </div>
                 <div class="row">
@@ -946,7 +946,7 @@
                     </select>
                 </div>
                 <div class="row">
-                    <textarea name="description" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}({{ _('可选') }})"></textarea>
+                    <textarea name="description" placeholder="{{_('请在这里写下您的其他需求和购房疑问，我们的置业顾问将与您取得联系，竭诚为您服务')}}({{ _('可选') }})"></textarea>
                 </div>
                 % if not user:
                     <div class="row">
@@ -955,7 +955,7 @@
                     </div>
                 % end
                 <div class="action">
-                    <button class="flatButton" type="submit" disabled>{{_('免费联系')}}</button>
+                    <button class="flatButton" type="submit" disabled>{{_('留言咨询')}}</button>
                 </div>
                 <div class="row" data-role="serverFeedback" style="display: none; text-align:center;"></div>
                 <hr/>
