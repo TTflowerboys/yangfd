@@ -14,6 +14,47 @@ body{
     user-select: none;
 }
 
+.siteHeader_phone {
+    @media @phone {
+        display: none;
+    }
+}
+
+.propertyHeader_phone{
+    z-index: @header-z-index;
+    @media @phone {
+        display: block;
+    }
+
+    #rmm-center-wrapper {
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        width: 170px;
+        text-align: center;
+
+        img {
+            height:5px;
+            margin-top: 8px;
+            vertical-align: top;
+        }
+    }
+}
+
+.rmm.graphite .rmm-toggled-share {
+    display:block;
+    position:absolute;
+    top:14px;
+    right:15px;
+    font-size:16px;
+    line-height:1;
+    color:white;
+    cursor:pointer;
+    text-shadow:1px 1px 1px black;
+}
+
 .propertyDetails {
     strong { font-weight: normal; }
     color: @light-text-color;

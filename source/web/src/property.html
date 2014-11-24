@@ -1,5 +1,31 @@
 <!--@@master = masters/master.html-->
 
+<!--@@block = custom_header-->
+<div class="propertyHeader_phone  rmm" >
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+            <div class="rmm-button">
+                <img src="/static/images/common/header/phone/menu.png"/>
+            </div>
+            <div id="rmm-center-wrapper" class="rmm-center">
+                <label id="newsHeader_title" class="title" for="">
+                </label>
+                <img class="rmm-center-indicator" alt="" src="/static/images/common/header/phone/indicator.png"/>
+            </div>
+            <div class="rmm-toggled-share">
+                <img src="/static/images/property_details/phone/wechat_share.png" />
+            </div>
+        </div>
+        <ul class="rmm-menu" style="display:none;">
+            <li><a href="/">{{_('首页')}}</a></li>
+            <li><a href="/property_list">{{_('海外房产')}}</a></li>
+            <li><a href="/news_list">{{_('投资资讯')}}</a></li>
+        </ul>
+    </div>
+</div>
+
+<!--@@close-->
+
 <!--@@block = head-->
 %if property:
     % property = _i18n(property)
@@ -1033,8 +1059,8 @@
             data-favorite-id="{{foundId}}"
             % end
             ><img src="/static/images/property_details/icon-star.png"></img></li>
-        <li class="requirement"><a href="/requirement?property={{property.get('id')}}">{{_('提交置业需求')}}</a></li>
-        <li class="wechat"><a href="javascript:window.openWeChatShare('{{property.get('id')}}')"><img src="/static/images/property_details/phone/wechat_share.png"></img></a></li>
+        <li class="phone"><a href="tel:4000926433" >{{_('拨打服务热线')}}</a></li>
+        <li class="requirement"><a href="/requirement?property={{property.get('id')}}"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
     </ul>
 
     <!--@@close-->
@@ -1048,6 +1074,10 @@
     </script>
     <script>
      (function () {
+         $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
+             window.openWeChatShare('{{property.get('id')}}')
+         });
+
          window.openWeChatShare = function (propertyId) {
              if (window.team.isWeChat()) {
                  if (window.team.isWeChatiOS()) {
