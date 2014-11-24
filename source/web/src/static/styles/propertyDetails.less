@@ -703,26 +703,35 @@ body{
             }
             tr { border-top: 1px solid #c5c5c5;
                 &:first-child { border-top: none; }
-                td { padding: 16px 0; position: relative;
+                td {
                     @media @phone {
                         font-size: 12px;
                     }
 
-                    &:first-child:after {
-                        content: ' ';
-                        color: #c5c5c5;
-                        display: block;
-                        position: absolute;
-                        width: 0;
-                        @height: 70%;
-                        height: @height;
-                        border-left: 1px solid;
-                        top: (100% - @height) /2;
-                        right: 24px;
+                    .hint {
+                        position:relative;
+                        padding: 16px 0;
 
-                        @media @phone {
-                            display: none;
+                        &:after {
+                            content: ' ';
+                            color: #c5c5c5;
+                            display: block;
+                            position: absolute;
+                            width: 0;
+                            @height: 70%;
+                            height: @height;
+                            border-left: 1px solid;
+                            top: (100% - @height) /2;
+                            right: 24px;
+
+                            @media @phone {
+                                display: none;
+                            }
                         }
+                    }
+
+                    .value {
+                        padding: 16px 0;
                     }
                 }
             }
