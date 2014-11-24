@@ -77,13 +77,13 @@ gulp.task('symlink', function () {
 
 gulp.task('less2css', function (done) {
     gulp.src(myPaths.css)
-        .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
+        .pipe(prefix('last 2 version', 'Firefox >= 20', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     gulp.src(myPaths.less)
         .pipe(less().on('error', function (error) {
             console.info(chalk.white.bgRed(error.message))
         }))
-        .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
+        .pipe(prefix('last 2 version', 'Firefox >= 20', 'ie 8'))
         .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     done()
 })
