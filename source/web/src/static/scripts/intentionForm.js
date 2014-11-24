@@ -3,6 +3,15 @@
     var $intentionForm = $('form[name=intentionForm]')
     var $feedback = $intentionForm.find('[data-role=serverFeedback]')
     var $submit = $intentionForm.find('[type=submit]')
+
+    function validateForm(){
+        var valid = $.validate($intentionForm, {onError: function () { }})
+        if (valid) {
+            $intentionForm.find('[type=submit]').prop('disabled', false)
+        } else {
+            $intentionForm.find('[type=submit]').prop('disabled', true)
+        }
+    }
     $intentionForm.submit(function (e) {
         e.preventDefault()
 
@@ -29,11 +38,8 @@
             })
 
     }).on('change blur keyup', '[name]', function (e) {
-        var valid = $.validate($intentionForm, {onError: function () { }})
-        if (valid) {
-            $intentionForm.find('[type=submit]').prop('disabled', false)
-        } else {
-            $intentionForm.find('[type=submit]').prop('disabled', true)
-        }
+        validateForm()
     })
+
+    validateForm() //user may have logged in all data is ready
 })(jQuery)
