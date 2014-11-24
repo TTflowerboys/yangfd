@@ -7,7 +7,6 @@ import phonenumbers
 import json
 import csv
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 from matplotlib.dates import DateFormatter
 from bson.objectid import ObjectId
 from bson.code import Code
@@ -1650,15 +1649,9 @@ class f_landregistry(f_app.module_base):
         fig, ax = plt.subplots()
         ax.plot([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
 
-        years = mdates.YearLocator()
-        months = mdates.MonthLocator()
-        years_format = mdates.DateFormatter("%d")
-
-        ax.xaxis.set_major_locator(years)
-        ax.xaxis.set_major_formatter(years_format)
-        ax.xaxis.set_minor_locator(months)
         ax.autoscale_view()
         ax.grid(True)
+        ax.set_ylabel('BGP')
 
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
         fig.autofmt_xdate()
