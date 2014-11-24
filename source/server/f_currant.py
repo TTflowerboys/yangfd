@@ -1585,40 +1585,62 @@ class f_landregistry(f_app.module_base):
                     }
                     self.get_database(m).insert(params)
 
-    def import_update(self, path):
-        with f_app.mongo() as m:
-            with open(path, 'rw+') as f:
-                rows = csv.reader(f)
-                for r in rows:
-                    params = {
-                        "tid": r[0],
-                        "price": float(r[1]),
-                        "date": datetime.strptime(r[2], "%Y-%m-%d %H:%M"),
-                        "zipcode": r[3],
-                        "zipcode_index": r[3].split(' ')[0],
-                        "type": r[4],
-                        "is_new": r[5],
-                        "duration": r[6],
-                        "paon": r[7].decode('latin1'),
-                        "saon": r[8].decode('latin1'),
-                        "street": r[9].decode('latin1'),
-                        "locality": r[10].decode('latin1'),
-                        "city": r[11].decode('latin1'),
-                        "district": r[12].decode('latin1'),
-                        "country": r[13].decode('latin1'),
-                        "status": r[14]
-                    }
+    def check_update(self):
+        csv_url = "http://publicdata.landregistry.gov.uk/market-trend-data/price-paid-data/b/pp-monthly-update-new-version.csv"
+        page_url = 'https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads'
+        page = f_app.request.get(page_url, retry=5)
 
-                    if self.get_database(m).find_one({"tid": r[0], "status": r[14]}):
-                        logger.warning("Already added %s" % r[0])
-                    elif r[14] != "A":
-                        if r[14] == "D":
-                            self.get_database(m).remove({"tid": r[0]})
-                        else:
-                            params.pop("status")
-                            self.get_database(m).update({"tid": r[0]}, params)
+        if page.status_code == 200:
+            dom_root = q(page.content)
+            date = q(dom_root('.govspeak h2')[0]).text()
+            with f_app.mongo() as m:
+                result = m.misc.find_one({"landregistry_last_modified": {"$type": 2}})
+                if result:
+                    if result["landregistry_last_modified"] == date:
+                        self.logger.debug("landregistry data is already up-to-date.")
                     else:
-                        self.get_database(m).insert(params)
+                        # Has new version
+                        m.misc.update({"_id": result["_id"]}, {"$set": {"landregistry_last_modified": date}})
+                        csv_request = f_app.requests.get(csv_url, retry=5)
+                        if csv_request.status_code == 200:
+                            csv_file = StringIO(csv_request.content)
+                            rows = csv.reader(csv_file.readlines())
+                            for r in rows:
+                                params = {
+                                    "tid": r[0],
+                                    "price": float(r[1]),
+                                    "date": datetime.strptime(r[2], "%Y-%m-%d %H:%M"),
+                                    "zipcode": r[3],
+                                    "zipcode_index": r[3].split(' ')[0],
+                                    "type": r[4],
+                                    "is_new": r[5],
+                                    "duration": r[6],
+                                    "paon": r[7].decode('latin1'),
+                                    "saon": r[8].decode('latin1'),
+                                    "street": r[9].decode('latin1'),
+                                    "locality": r[10].decode('latin1'),
+                                    "city": r[11].decode('latin1'),
+                                    "district": r[12].decode('latin1'),
+                                    "country": r[13].decode('latin1'),
+                                    "status": r[14]
+                                }
+
+                                if self.get_database(m).find_one({"tid": r[0], "status": r[14]}):
+                                    logger.warning("Already added %s" % r[0])
+                                elif r[14] != "A":
+                                    if r[14] == "D":
+                                        self.get_database(m).remove({"tid": r[0]})
+                                    else:
+                                        params.pop("status")
+                                        self.get_database(m).update({"tid": r[0]}, params)
+                                else:
+                                    self.get_database(m).insert(params)
+                        else:
+                            abort(40000, self.logger.warning("Failed to get latest csv file on landregistry", exc_info=False))
+                else:
+                    m.misc.insert({"landregistry_last_modified": date})
+        else:
+            abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
     def get_month_average_by_zipcode_index(self, zipcode_index):
         with f_app.mongo() as m:
@@ -1630,14 +1652,17 @@ class f_landregistry(f_app.module_base):
 
         years = mdates.YearLocator()
         months = mdates.MonthLocator()
-        years_format = mdates.DateFormatter("%Y")
+        years_format = mdates.DateFormatter("%d")
 
         ax.xaxis.set_major_locator(years)
         ax.xaxis.set_major_formatter(years_format)
         ax.xaxis.set_minor_locator(months)
+        ax.autoscale_view()
+        ax.grid(True)
 
-        ax.fmt_xdata = DateFormatter('%Y-%m-%d %H:%M:%S')
+        ax.fmt_xdata = DateFormatter('%Y-%m-%d')
         fig.autofmt_xdate()
+        ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
 
         graph = StringIO()
         plt.savefig(graph, format="png")
