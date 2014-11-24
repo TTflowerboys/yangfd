@@ -1,5 +1,31 @@
 <!--@@master = masters/master.html-->
 
+<!--@@block = custom_header-->
+<div class="propertyHeader_phone  rmm" >
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+            <div class="rmm-button">
+                <img src="/static/images/common/header/phone/menu.png"/>
+            </div>
+            <div id="rmm-center-wrapper" class="rmm-center">
+                <label id="newsHeader_title" class="title" for="">
+                </label>
+                <img class="rmm-center-indicator" alt="" src="/static/images/common/header/phone/indicator.png"/>
+            </div>
+            <div class="rmm-toggled-share">
+                <img src="/static/images/property_details/phone/wechat_share.png" />
+            </div>
+        </div>
+        <ul class="rmm-menu" style="display:none;">
+            <li><a href="/">{{_('首页')}}</a></li>
+            <li><a href="/property_list">{{_('海外房产')}}</a></li>
+            <li><a href="/news_list">{{_('投资资讯')}}</a></li>
+        </ul>
+    </div>
+</div>
+
+<!--@@close-->
+
 <!--@@block = head-->
 %if property:
     % property = _i18n(property)
@@ -528,80 +554,84 @@
                             </colgroup>
                             % if property.get('opening_time'):
                                 <tr>
-                                    <td>{{_('开盘时间')}}</td>
-                                    <td>{{property.get('opening_time','')}}</td>
+                                    <td><div class="hint">{{_('开盘时间')}}</div></td>
+                                    <td><div class="value">{{property.get('opening_time','')}}</div></td>
                                 </tr>
                             % end
                             % if property.get('completion_time'):
                                 <tr>
-                                    <td>{{_('完工时间')}}</td>
-                                    <td>{{property.get('completion_time','')}}</td>
+                                    <td><div class="hint">{{_('完工时间')}}</div></td>
+                                    <td><div class="value">{{property.get('completion_time','')}}</div></td>
                                 </tr>
                             % end
                             % if property.get('building_type'):
                                 <tr>
-                                    <td>{{_('建筑类型')}}</td>
-                                    <td>{{property.get('building_type','')}}</td>
+                                    <td><div class="hint">{{_('建筑类型')}}</div></td>
+                                    <td><div class="value">{{property.get('building_type','')}}</div></td>
                                 </tr>
                             % end
                             % if property.get('property_management_type'):
                                 <tr>
-                                    <td>{{_('物业类型')}}</td>
-                                    <td>{{property.get('property_management_type','')}}</td>
+                                    <td><div class="hint">{{_('物业类型')}}</div></td>
+                                    <td><div class="value">{{property.get('property_management_type','')}}</div></td>
                                 </tr>
                             % end
                             % if property.get('building_area') and float(property.get('building_area').get('value'))!=0:
                                 <tr>
-                                    <td>{{_('建筑面积')}}</td>
+                                    <td><div class="hint">{{_('建筑面积')}}</div></td>
                                     <td>
                                         %if property.get('building_area'):
-                                            {{float("{0:.2f}".format(float(property.get('building_area').get('value'))))}}
-                                            % unit = property.get('building_area').get('unit')
-                                            <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                                            <div class="value">
+                                                {{float("{0:.2f}".format(float(property.get('building_area').get('value'))))}}
+                                                % unit = property.get('building_area').get('unit')
+                                                <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                                            </div>
                                         %end
                                     </td>
                                 </tr>
                             % end
                             % if property.get('plot_ratio'):
                                 <tr>
-                                    <td>{{_('容积率间')}}</td>
-                                    <td>{{property.get('plot_ratio','')}}</td>
+                                    <td><div class="hint">{{_('容积率间')}}</div></td>
+                                    <td><div class="value">{{property.get('plot_ratio','')}}</div></td>
                                 </tr>
                             % end
                             % if property.get('planning_area') and float(property.get('planning_area').get('value'))!=0:
                                 <tr>
-                                    <td>{{_('规划面积')}}</td>
+                                    <td><div class="hint">{{_('规划面积')}}</div></td>
                                     <td>
                                         %if property.get('planning_area'):
-                                            {{float("{0:.2f}".format(float(property.get('planning_area').get('value'))))}}
-                                            % unit = property.get('planning_area').get('unit')
-                                            <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                                            <div class="value">
+                                                {{float("{0:.2f}".format(float(property.get('planning_area').get('value'))))}}
+                                                % unit = property.get('planning_area').get('unit')
+                                                <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                                            </div>
                                         %end
                                     </td>
                                 </tr>
                             % end
                             % if property.get('greening_rate'):
                                 <tr>
-                                    <td>{{_('绿化率')}}</td>
-                                    <td>{{property.get('greening_rate','')}}</td>
+                                    <td><div class="hint">{{_('绿化率')}}</div></td>
+                                    <td><div class="value">{{property.get('greening_rate','')}}</div></td>
                                 </tr>
                             % end
                             % if property.get('parking_space_count'):
                                 <tr>
-                                    <td>{{_('车位数')}}</td>
-                                    <td>{{property.get('parking_space_count','')}}</td>
+                                    <td><div class="hint">{{_('车位数')}}</div></td>
+                                    <td><div class="value">{{property.get('parking_space_count','')}}</div></td>
                                 </tr>
                             % end
                             % if property.get('planning_household_count'):
                                 <tr>
-                                    <td>{{_('规划户数')}}</td>
-                                    <td>{{property.get('planning_household_count','')}}</td>
+                                    <td><div class="hint">{{_('规划户数')}}</div></td>
+                                    <td><div class="value">{{property.get('planning_household_count','')}}</div></td>
                                 </tr>
                             % end
                             % if property.get('property_management_company'):
                                 <tr>
-                                    <td>{{_('物业公司')}}</td>
-                                    <td>{{property.get('property_management_company','')}}</td>
+                                    <td><div class="hint">{{_('物业公司')}}</div></td>
+                                    <td><div class="value">{{property.get('property_management_company','')}}</div></td>
                                 </tr>
                             % end
                         </table>
@@ -1033,8 +1063,8 @@
             data-favorite-id="{{foundId}}"
             % end
             ><img src="/static/images/property_details/icon-star.png"></img></li>
-        <li class="requirement"><a href="/requirement?property={{property.get('id')}}">{{_('提交置业需求')}}</a></li>
-        <li class="wechat"><a href="javascript:window.openWeChatShare('{{property.get('id')}}')"><img src="/static/images/property_details/phone/wechat_share.png"></img></a></li>
+        <li class="phone"><a href="tel:4000926433" >{{_('拨打服务热线')}}</a></li>
+        <li class="requirement"><a href="/requirement?property={{property.get('id')}}"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
     </ul>
 
     <!--@@close-->
@@ -1048,6 +1078,10 @@
     </script>
     <script>
      (function () {
+         $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
+             window.openWeChatShare('{{property.get('id')}}')
+         });
+
          window.openWeChatShare = function (propertyId) {
              if (window.team.isWeChat()) {
                  if (window.team.isWeChatiOS()) {
