@@ -127,13 +127,21 @@ body{
             }
         }
 
+        @big-image-height:533px;
+        @big-image-height-phone:213px;
         .big {
-            img {
-                max-height: 533px; max-width: 100%; display: block; margin: 0 auto;
-                width: 100%;
-                min-height: 480px;
+            height:@big-image-height;
+            @media @phone {
+                height:@big-image-height-phone;
+            }
+
+            img, .img {
+                height: @big-image-height;
+                max-width: 100%;
+                display: block;
+                margin: 0 auto;
                 @media @phone {
-                    min-height: 200px;
+                    height: @big-image-height-phone;
                 }
 
             }
