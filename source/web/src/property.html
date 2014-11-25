@@ -50,11 +50,8 @@
     <link rel="stylesheet" href="/static/styles/mainHouseTypePopup.css"/>
     <link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
     <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
-    <!--endbuild-->
-
-    <!-- @if ENV!='production' -->
     <link rel="stylesheet" href="/static/vendors/video-js/video-js.css">
-    <!-- @endif-->
+    <!--endbuild-->
 
     <!-- minor change from original repo https://github.com/Fykec/excanvas, detail can check change log -->
     <!--[if lte IE 8]>
@@ -114,7 +111,6 @@
                             <img onerror="window.onImgError(this);" id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;"/>
                         </a>
                     % end
-                    <!-- @if ENV!='production' -->
                     % # Make sure property have videos and every video have at least one source
                     % if property.get('videos') and all(map(lambda x: len(x["sources"]) > 0, property.get('videos'))):
                     <div class="item videocontent" data-tab-name="video">
@@ -126,11 +122,11 @@
                             % if(rec_videos and len(rec_videos) > 0):
                                 % if "iphone" in request.headers.get('User-Agent').lower() :
                                     % for source in [x for x in rec_videos[0].get('sources') if "mobile-ios" in x["tags"]] :
-                                    <source src="{{source.get('url')}}" type="{{source.get('type')}}" tags="{{source.get('tags')}}"/>
+                                    <source src="{{source.get('url')}}" type="{{source.get('type')}}"/>
                                     % end
                                 % else :
                                     % for source in [x for x in rec_videos[0].get('sources') if "web-normal" in x["tags"]] :
-                                    <source src="{{source.get('url')}}" type="{{source.get('type')}}" tags="{{source.get('tags')}}"/>
+                                    <source src="{{source.get('url')}}" type="{{source.get('type')}}"/>
                                     % end
                                 % end
                             % end
@@ -138,7 +134,6 @@
                         </video>
                     </div>
                     % end
-                    <!-- @endif -->
                 </div>
 
                 <div class="thumbnails">
@@ -205,7 +200,6 @@
                             </li>
                         % end
 
-                        <!-- @if ENV!='production' -->
                         % if property.get('videos') and all(map(lambda x: len(x["sources"]) > 0, property.get('videos'))):
                         <li data-tab="video">
                             <img onerror="window.onImgError(this);" src="/static/images/placeholder/video_holder_150x_141114.jpg" alt=""/>
@@ -213,7 +207,6 @@
                             <span class="border"></span>
                         </li>
                         % end
-                        <!-- @endif -->
                     </ul>
                 </div>
             </div>
@@ -1206,6 +1199,7 @@
     <script src="/static/scripts/main_house_type_popup.js"></script>
     <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
     <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
+    <script src="/static/vendors/video-js/video.js"></script>
     <!--endbuild-->
 
     <script>
@@ -1215,12 +1209,8 @@
          $(this).parent().hide()
              .parent().find('[data-ui=description]').toggleClass( "no-after" )
      });
-    </script>
 
-    <!-- @if ENV!='production' -->
-    <script src="/static/vendors/video-js/video.js"></script>
-    <script>
-        videojs.options.flash.swf = "/static/vendors/video-js/video-js.swf";
+     videojs.options.flash.swf = "/static/vendors/video-js/video-js.swf";
     </script>
     <!-- @endif -->
 
