@@ -57,14 +57,17 @@
             <ul class=properties>
                 {_if(house.intention && house.intention.length) {_}
                 <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
-                    <span>
+                    <label>
                         {_ _.each(house.intention, function(oneIntention) { _}
                         {=oneIntention.value=}
                         {_})_}
-                    </span></li>
+                    </label>
+                </li>
                 {_}_}
                 {_if(house.street) {_}
-                <li><img src="/static/images/common/house_card/house-card-location.png" alt=""/> <span>{=house.street=}</span>
+                <li>
+                    <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                    <label>{=house.street=}</label>
                 </li>
                 {_}_}
             </ul>

@@ -835,15 +835,20 @@
                 % if 'intention' in property and property.get('intention'):
                     <div class="tag">
                         <img src="/static/images/property_details/tag-icon.png" alt=""/>
-                        {{tagString}}
+                        <label>
+                            {{tagString}}
+                        </label>
                     </div>
                 % end
                 % if 'country' in property or 'city' in property:
                     % country = property.get('country',{}).get('value')
                     % city = property.get('city',{}).get('value')
                     % city_string = ', '.join([x for x in [country,city] if x])
-                    <div class="tag"><img src="/static/images/property_details/location-icon.png" alt=""/>
-                        {{city_string}}
+                    <div class="tag">
+                        <img src="/static/images/property_details/location-icon.png" alt=""/>
+                        <label>
+                            {{city_string}}
+                        </label>
                     </div>
                 % end
 
