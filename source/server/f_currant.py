@@ -1677,7 +1677,7 @@ class f_landregistry(f_app.module_base):
             function() {
                 var key = {
                     "zipcode_index": this.zipcode_index,
-                    "date": this.date
+                    "date": new Date(this.date.getFullYear(), this.date.getMonth(), 1 ,0 ,0 ,0 ,0)
                 };
                 var value = {
                     "price": this.price,
