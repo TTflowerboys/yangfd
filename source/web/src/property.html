@@ -124,12 +124,14 @@
                             data-setup='{}'>
                             % rec_videos = get_videos_by_ip(property.get('videos'))
                             % if(rec_videos and len(rec_videos) > 0):
-                                % if request.headers.get('User-Agent').lower().find("iphone") :
+                                % if "iphone" in request.headers.get('User-Agent').lower() :
                                     % for source in [x for x in rec_videos[0].get('sources') if "mobile-ios" in x["tags"]] :
                                     <source src="{{source.get('url')}}" type="{{source.get('type')}}" tags="{{source.get('tags')}}"/>
+                                    % end
                                 % else :
                                     % for source in [x for x in rec_videos[0].get('sources') if "web-normal" in x["tags"]] :
                                     <source src="{{source.get('url')}}" type="{{source.get('type')}}" tags="{{source.get('tags')}}"/>
+                                    % end
                                 % end
                             % end
                             <p class="vjs-no-js">{{!_('对不起，您的浏览器不支持视频播放，请下载<a href="http://se.360.cn/" target="_blank">360安全浏览器</a>或者最新的<a href="http://get.adobe.com/flashplayer/" target="_blank">Adobe Flash</a>重新打开')}}</p>
