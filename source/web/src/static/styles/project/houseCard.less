@@ -217,7 +217,6 @@
             width:100%;
             float:left;
             min-height:@house_card_image-height;
-            //max-height:350px;
         }
 
         .labels {
@@ -354,10 +353,19 @@
                 line-height:15px;
                 margin-bottom:8px;
                 color:#999;
+                overflow:hidden;
 
                 img {
+                    float:left;
+                    display:inline-block;
                     margin-right:5px;
                     vertical-align:middle;
+                }
+
+                label {
+                    float:left;
+                    display:inline-block;
+                    width:~"calc(100% - 30px)"
                 }
             }
         }
