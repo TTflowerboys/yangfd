@@ -160,16 +160,16 @@
 
     function updateResultCount(count) {
         var $numberContainer = $('#result #number_container')
-        var $number = $numberContainer.find('#number')
+        //var $number = $numberContainer.find('#number')
 
         if (count) {
-            $number.text(count)
+            //$number.text(count)
             $numberContainer.show()
             $('#result_list_container').show()
             showEmptyPlaceHolder(false)
         }
         else {
-            $number.text(count)
+            //$number.text(count)
             $('#result_list_container').hide()
             showEmptyPlaceHolder(true)
         }
