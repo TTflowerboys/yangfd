@@ -1017,8 +1017,8 @@ class f_property(f_app.module_base):
                             for item in property["brochure"]:
                                 item.pop("url", None)
                                 item["rendered"] = item.get("rendered", [])[:2]
-                        if not len(user_roles):
-                            property.pop("real_address", None)
+                    if not user or not len(user_roles):
+                        property.pop("real_address", None)
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
                     if property["status"] not in ["selling", "sold out"]:
@@ -1034,8 +1034,8 @@ class f_property(f_app.module_base):
                             for item in property["brochure"]:
                                 item.pop("url", None)
                                 item["rendered"] = item.get("rendered", [])[:2]
-                        if not len(user_roles):
-                            property.pop("real_address", None)
+                    if not user or not len(user_roles):
+                        property.pop("real_address", None)
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
                     if property["status"] not in ["selling", "sold out"]:
@@ -1677,7 +1677,7 @@ class f_landregistry(f_app.module_base):
             function() {
                 var key = {
                     "zipcode_index": this.zipcode_index,
-                    "date": this.date
+                    "date": new Date(this.date.getFullYear(), this.date.getMonth(), 1 ,0 ,0 ,0 ,0)
                 };
                 var value = {
                     "price": this.price,

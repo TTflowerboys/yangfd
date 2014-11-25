@@ -94,7 +94,7 @@
                                     <ul class="rslides">
                                         % for image in property.get(name):
                                             <li>
-                                                <img src="/image/fetch?link={{quote_plus(image.encode('utf-8'))}}&property_id={{property.get('id','')}}" alt=""/>
+                                                <div class="img" style="background:url('/image/fetch?link={{quote_plus(image.encode('utf-8'))}}&property_id={{property.get('id','')}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(image.encode('utf-8'))}}&property_id={{property.get('id','')}}', sizingMethod='scale');"></div>
                                             </li>
                                         % end
                                     </ul>
