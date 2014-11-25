@@ -138,7 +138,7 @@ property_params = dict(
         sources=(list, None, dict(
             url=str,
             type=str,
-            resolution=(list, None, int),
+            tags=(list, None, str),
             host=str,
         )),
         sub=("i18n", None, str),
@@ -225,7 +225,7 @@ def property_edit(property_id, user, params):
 
     videos.sources.host must be in ``qiniu`` or ``aws_s3``
 
-    video.resolution uses two integers to represent width and height, e.g. 640x480 => ``[640, 480]``.
+    video.tags should use the following values: ``mobile-ios``, ``web-normal``
 
     For editing, if any field other than "status" is edited:
 
