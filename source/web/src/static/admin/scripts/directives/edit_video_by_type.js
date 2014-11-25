@@ -11,7 +11,7 @@ angular.module('app')
                 sources: '=ngModel',
                 host: '@host',
                 type: '@type',
-                resolution:'@resolution'
+                tags:'@tags'
             },
             link: function (scope, elm, attrs) {
                 if (!scope.video) {
@@ -58,24 +58,24 @@ angular.module('app')
                     need_init = false
                     if (!scope.sources) {
                         scope.sources = []
-                        scope.sources.push({url: url, host: scope.host, type: scope.type, resolution: scope.resolution})
+                        scope.sources.push({url: url, host: scope.host, type: scope.type, tags: scope.tags})
                         return
                     }
                     var addFlag = true
                     for (var index in scope.sources) {
                         var type = scope.sources[index].type
                         var host = scope.sources[index].host
-                        var resolution = scope.sources[index].resolution
-                        if (type === scope.type && host === scope.host && resolution === scope.resolution) {
+                        var tags = scope.sources[index].tags.toString()
+                        if (type === scope.type && host === scope.host && tags === scope.tags) {
                             scope.sources[index].url = url
                             scope.sources[index].type = type
                             scope.sources[index].host = host
-                            scope.sources[index].resolution = resolution
+                            scope.sources[index].tags = tags
                             addFlag = false
                         }
                     }
                     if (addFlag) {
-                        var source = {url: url, host: scope.host, type: scope.type, resolution: scope.resolution}
+                        var source = {url: url, host: scope.host, type: scope.type, tags: scope.tags}
                         scope.sources.push(source)
                     }
                 }
@@ -85,8 +85,8 @@ angular.module('app')
                     for (var index in scope.sources) {
                         var type = scope.sources[index].type
                         var host = scope.sources[index].host
-                        var resolution = scope.sources[index].resolution
-                        if (type === scope.type && host === scope.host && resolution === scope.resolution) {
+                        var tags = scope.sources[index].tags.toString()
+                        if (type === scope.type && host === scope.host && tags === scope.tags) {
                             scope.sources.splice(index, 1)
                         }
                     }
@@ -100,12 +100,12 @@ angular.module('app')
                         for (var index in scope.sources) {
                             var type = scope.sources[index].type
                             var host = scope.sources[index].host
-                            var resolution = scope.sources[index].resolution
-                            if (type === scope.type && host === scope.host && resolution === scope.resolution) {
+                            var tags = scope.sources[index].tags.toString()
+                            if (type === scope.type && host === scope.host && tags === scope.tags) {
                                 scope.video = scope.sources[index].url
                                 scope.type = scope.sources[index].type
                                 scope.host = scope.sources[index].host
-                                scope.resolution = scope.sources[index].resolution
+                                scope.tags = scope.sources[index].tags.toString()
                             }
                         }
                         need_init = false
