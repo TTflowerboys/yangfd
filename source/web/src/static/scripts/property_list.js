@@ -1,3 +1,26 @@
+window.resizeCategory = function () {
+    var $categoryWrapper = $('.category_wrapper')
+    var $category = $categoryWrapper.find('.category')
+
+    if (window.team.isPhone()) {
+        $categoryWrapper.css({'height':'auto'});
+        $category.css('margin-top', '0px')
+        $categoryWrapper.show()
+    }
+    else {
+        var availHeight = window.screen.availHeight
+        var wrapperHeight =  availHeight / 8.0 > 100 ? availHeight / 8.0 : 100
+        var categoryHeight = 40
+        $categoryWrapper.css({'height':wrapperHeight+'px'});
+        $category.css('margin-top', (wrapperHeight - categoryHeight) / 2+ 'px')
+        $categoryWrapper.show()
+    }
+};
+
+$(window.resizeCategory);
+
+$(window).on('resize', window.resizeCategory);
+
 (function () {
 
     var lastItemTime
