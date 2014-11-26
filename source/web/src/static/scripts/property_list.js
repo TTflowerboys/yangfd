@@ -28,7 +28,7 @@ window.updateTagsFixed = function () {
         var listTop = $list.offset().top
         var $tags = $('#tags')
         var tagsLeft = $list.offset().left + $list.width() + 60
-        if (scrollOffset > listTop + 20) {
+        if (scrollOffset > listTop - 20) {
             $tags.css({'position':'fixed', 'top':'20px', left:tagsLeft, 'margin-top':'0'})
         }
         else {

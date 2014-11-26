@@ -40,7 +40,7 @@ window.updateCategoryFixed = function () {
         var listTop = $list.offset().top
         var $category = $('.category')
         var tagsLeft = $list.offset().left + $list.width() + 40
-        if (scrollOffset > listTop + 20) {
+        if (scrollOffset > listTop - 20) {
             $category.css({'position':'fixed', 'top':'20px', left:tagsLeft})
         }
         else {
