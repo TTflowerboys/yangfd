@@ -2,6 +2,7 @@
 
 /* jshint ignore:start */
 
+// Google Analytics
 (function (i, s, o, g, r, a, m) {
     i['GoogleAnalyticsObject'] = r;
     i[r] = i[r] || function () {
@@ -22,5 +23,15 @@ if (window.user) {
 }
 
 ga('send', 'pageview');
+
+// Mouse Flow
+var _mfq = _mfq || [];
+(function () {
+    var mf = document.createElement("script");
+    mf.type = "text/javascript";
+    mf.async = true;
+    mf.src = "//cdn.mouseflow.com/projects/cf781e50-74b4-43f3-9e9a-0a46076e63c5.js";
+    document.getElementsByTagName("head")[0].appendChild(mf);
+})();
 
 /* jshint ignore:end */
