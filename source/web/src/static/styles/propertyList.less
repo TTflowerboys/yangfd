@@ -81,7 +81,7 @@ main {
             margin-top:140px;
             margin-bottom:60px;
             background:#f6f6f6;
-            max-width: 340px;
+            width: 340px;
             padding: 24px 20px 10px 20px;
 
             @media @phone {
@@ -105,6 +105,30 @@ main {
                 @media @phone {
                     display:none;
                 }
+            }
+
+            .contact {
+                margin: 0px;
+                border-top: 1px solid #ccc;
+                display:block;
+                height: 50px;
+                overflow:hidden;
+
+                a {
+                    text-decoration:none;
+                    color:@red;
+                    font-size:20px;
+                    line-height:34px;
+                    margin-top:12px;
+                    text-align:center;
+                    display:block;
+                }
+
+                @media @phone {
+                    min-height:135px;
+                    display:none;
+                }
+
             }
 
             .price, .intention {

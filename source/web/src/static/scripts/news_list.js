@@ -1,3 +1,23 @@
+window.updateCategoryFixed = function () {
+    if (!window.team.isPhone()) {
+        var scrollOffset = $(window).scrollTop()
+        var $list = $('.content')
+        var listTop = $list.offset().top
+        var $category = $('.category')
+        var tagsLeft = $list.offset().left + $list.width() + 40
+        if (scrollOffset > listTop - 20) {
+            $category.css({'position':'fixed', 'top':'20px', left:tagsLeft})
+        }
+        else {
+            $category.css({'position':'static', 'top':'0', left:'0'})
+        }
+    }
+}
+
+$(window).scroll(window.updateCategoryFixed);
+$(window).resize(window.updateCategoryFixed);
+
+
 $(function () {
 
     var lastItemTime

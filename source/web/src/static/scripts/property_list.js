@@ -21,6 +21,25 @@ $(window.resizeCategory);
 
 $(window).on('resize', window.resizeCategory);
 
+window.updateTagsFixed = function () {
+    if (!window.team.isPhone()) {
+        var scrollOffset = $(window).scrollTop()
+        var $list = $('#result_list')
+        var listTop = $list.offset().top
+        var $tags = $('#tags')
+        var tagsLeft = $list.offset().left + $list.width() + 60
+        if (scrollOffset > listTop - 20) {
+            $tags.css({'position':'fixed', 'top':'20px', left:tagsLeft, 'margin-top':'0'})
+        }
+        else {
+            $tags.css({'position':'static', 'top':'0', left:'0', 'margin-top': '140px'})
+        }
+    }
+}
+
+$(window).scroll(window.updateTagsFixed);
+$(window).resize(window.updateTagsFixed);
+
 (function () {
 
     var lastItemTime
@@ -71,7 +90,8 @@ $(window).on('resize', window.resizeCategory);
 
         $('#result_list_container').show()
         showEmptyPlaceHolder(false)
-        $('#result #number_container').hide()
+        $('#result #number_container').text(window.i18n('加载中'))
+        $('#result #number_container').show()
 
 
         $('#result #loadIndicator').show()
@@ -187,6 +207,7 @@ $(window).on('resize', window.resizeCategory);
 
         if (count) {
             //$number.text(count)
+            $numberContainer.text(window.i18n('共找到下列房产'))
             $numberContainer.show()
             $('#result_list_container').show()
             showEmptyPlaceHolder(false)
