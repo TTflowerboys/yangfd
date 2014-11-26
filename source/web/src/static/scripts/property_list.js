@@ -105,7 +105,7 @@
         var $citySelect = $('select[name=propertyCity]')
         $citySelect.empty()
         $citySelect.append('<option value=>' + window.i18n('任意城市') + '</option>')
-        _.each(window.cityData, function (city) {
+        _.each(window.propertyCityData, function (city) {
             if (!selectedCountryId || city.country.id === selectedCountryId) {
                 var item = '<option value=' + city.id + '>' + city.value[window.lang] + '</option>'
                 $citySelect.append(item)
@@ -268,6 +268,8 @@
     $(function () {
         window.countryData = getData('countryData')
         window.cityData = getData('cityData')
+        window.propertyCountryData = getData('propertyCountryData')
+        window.propertyCityData = getData('propertyCityData')
         window.propertyTypeData = getData('propertyTypeData')
         window.intentionData = getData('intentionData')
         window.budgetData = getData('budgetData')
