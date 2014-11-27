@@ -9,8 +9,10 @@
             </div>
             <div id="rmm-center-wrapper" class="rmm-center">
                 <label id="newsHeader_title" class="title" for="">
+                    %if property:
+                        {{property.get('name',_('房产详情'))}}
+                    %end
                 </label>
-                <img class="rmm-center-indicator" alt="" src="/static/images/common/header/phone/indicator.png"/>
             </div>
             <div class="rmm-toggled-share">
                 <img src="/static/images/property_details/phone/wechat_share.png" />
@@ -1081,10 +1083,6 @@
     <!--@@block = scripts-->
     <script src="/static/vendors/Chart.min.js"></script>
 
-
-    <script>
-     window.project.updateMenuTitle("{{property.get('name', _('房产详情'))}}")
-    </script>
     <script>
      (function () {
          $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
