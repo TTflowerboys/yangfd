@@ -328,6 +328,9 @@ def property_edit(property_id, user, params):
             if "status" in params:
                 assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed"), abort(40000, "Editing and reviewing cannot happen at the same time")
 
+                if params["status"] == "not reviewed" and "brochure" in params and len(params["brochure"]):
+                    abort(40087, "pdf may need rendering")
+
             if property["status"] in ("selling", "hidden", "sold out"):
                 existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
                 if existing_draft:
