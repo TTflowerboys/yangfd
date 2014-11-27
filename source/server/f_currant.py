@@ -502,7 +502,7 @@ class f_currant_plugins(f_app.plugin_base):
                 raise ValueError
 
         except:
-            self.logger.warning("render_pdf task no longer valid, ignoring", task["id"], exc_info=False)
+            self.logger.warning("render_pdf task no longer valid, ignoring task:", task, exc_info=False)
             return
 
         from wand.image import Image
