@@ -9,8 +9,10 @@
             </div>
             <div id="rmm-center-wrapper" class="rmm-center">
                 <label id="newsHeader_title" class="title" for="">
+                    %if property:
+                        {{property.get('name',_('房产详情'))}}
+                    %end
                 </label>
-                <img class="rmm-center-indicator" alt="" src="/static/images/common/header/phone/indicator.png"/>
             </div>
             <div class="rmm-toggled-share">
                 <img src="/static/images/property_details/phone/wechat_share.png" />
@@ -209,46 +211,60 @@
                 </div>
             </div>
 
-            <div class="propertyCard_phone">
-                <div class="left">
-                    <h1 class=name>{{property.get('name')}}</h1>
-                    % if 'intention' in property and property.get('intention'):
-                        <div class="tag">
-                            <img src="/static/images/property_details/phone/tag-icon-phone.png" height=12 alt=""/>
-                            <label>
-                                {{tagString}}
-                            </label>
-                        </div>
-                    % end
-                    % if 'country' in property or 'city' in property:
-                        % country = property.get('country',{}).get('value')
-                        % city = property.get('city',{}).get('value')
-                        % city_string = ', '.join([x for x in [country,city] if x])
-                        <div class="tag">
-                            <img src="/static/images/property_details/phone/location-icon-phone.png" height=12 alt=""/>
-                            <label>
-                                {{city_string}}
-                            </label>
-                        </div>
-                    % end
-                </div>
-                <div class="middle">
-                    <table>
-                        <tr>
-                            <td>
-                                <label class=price>
-                                    <!--@@include=partials/get_unit_price.html  -->
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="right">
-                    <a href="/calculator?property={{property.get('id')}}" class=calculator>
-                        <img src="/static/images/property_details/phone/calculator.png"/>
-                    </a>
-                </div>
-            </div>
+            <table class="propertyCard_phone">
+                <tr>
+                    <td class="left">
+                        <table>
+                            <tr>
+                                <td>
+                                    <h1 class=name>{{property.get('name')}}</h1>
+                                    % if 'intention' in property and property.get('intention'):
+                                        <div class="tag">
+                                            <img src="/static/images/property_details/phone/tag-icon-phone.png" height=12 alt=""/>
+                                            <label>
+                                                {{tagString}}
+                                            </label>
+                                        </div>
+                                    % end
+                                    % if 'country' in property or 'city' in property:
+                                        % country = property.get('country',{}).get('value')
+                                        % city = property.get('city',{}).get('value')
+                                        % city_string = ', '.join([x for x in [country,city] if x])
+                                        <div class="tag">
+                                            <img src="/static/images/property_details/phone/location-icon-phone.png" height=12 alt=""/>
+                                            <label>
+                                                {{city_string}}
+                                            </label>
+                                        </div>
+                                    % end
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="middle">
+                        <table>
+                            <tr>
+                                <td>
+                                    <label class=price>
+                                        <!--@@include=partials/get_unit_price.html  -->
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="right">
+                        <table>
+                            <tr>
+                                <td>
+                                    <a href="/calculator?property={{property.get('id')}}" class=calculator>
+                                        <img src="/static/images/property_details/phone/calculator.png"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
 
             <table class="numbers_phone">
                 <tr>
@@ -1081,10 +1097,6 @@
     <!--@@block = scripts-->
     <script src="/static/vendors/Chart.min.js"></script>
 
-
-    <script>
-     window.project.updateMenuTitle("{{property.get('name', _('房产详情'))}}")
-    </script>
     <script>
      (function () {
          $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {

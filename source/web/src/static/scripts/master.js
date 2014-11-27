@@ -1,3 +1,5 @@
+window.project.updateMenuTitle($('title').text());
+
 $(window).scroll(function(){
     if ($(this).scrollTop() > $(this).height()) {
         $('#floatBar #scrollToTop').show();

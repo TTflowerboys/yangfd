@@ -56,7 +56,7 @@
             }
         },
         updateMenuTitle: function (text)  {
-            $('.rmm-toggled .rmm-toggled-controls .rmm-center').text(text)
+            $('.siteHeader_phone .rmm-toggled .rmm-toggled-controls .rmm-center').text(text)
         },
         repaintHowItWorks: function () {
 

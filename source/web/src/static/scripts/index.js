@@ -369,6 +369,9 @@
         $intentionTag.find('#list li[data-id=' + id + ']').remove()
     }
 
+    function getIntentionTabsHeight() {
+        return 80 + Math.ceil($('.intention .controls').children().length / 3.0) * 140  + 18 + 15
+    }
 
     if (window.user) {
         $('[data-tabs]').tabs({trigger: 'hover'})
@@ -404,7 +407,7 @@
 
         //if user don't choose one intention, show the tabs
         if (!commaStringToArray(initIntentionList).length) {
-            $('.intentionTabs_wrapper').animate({height: '530px'}, 400, 'swing')
+            $('.intentionTabs_wrapper').animate({height: getIntentionTabsHeight() + 'px'}, 400, 'swing')
         }
 
         $budgetTag.on('click', '.toggleTag', function (event) {
@@ -447,12 +450,14 @@
         })
 
         $intentionTag.find('#add').click(function () {
-            $('.intentionTabs_wrapper').animate({height: '530px'}, 400, 'swing')
+            $('html, body').animate({scrollTop: $('.intentionTabs_wrapper').offset().top - 60 }, 'fast')
+            $('.intentionTabs_wrapper').animate({height: getIntentionTabsHeight() + 'px'}, 400, 'swing')
         })
 
         $('.intentionTabs_wrapper').find('#collapseButton').click(function () {
             $('.intentionTabs_wrapper').animate({height: '0'}, 400, 'swing')
         })
+
     }
     else {
         $('[data-tabs]').tabs({trigger: 'hover'})

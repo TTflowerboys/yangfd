@@ -56,42 +56,50 @@
 </a>
 <div class="textPart" >
     <a class="textPart_inner" href="/property/{=house.id=}">
-        <ul class=properties>
-            {_if(house.intention && house.intention.length) {_}
-            <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
-                <label>
-                    {_ _.each(house.intention, function(oneIntention) { _}
-                    {=oneIntention.value=}
-                    {_})_}
-                </label>
-            </li>
-            {_}_}
-            {_if(house.property_type) {_}
-            <li><img src="/static/images/common/house_card/house-card-house.png" alt=""/>
-                <label>{=house.property_type.value=}</label>
-            </li>
-            {_}_}
-            {_if(house.street) {_}
-            <li><img src="/static/images/common/house_card/house-card-location.png" alt=""/>
-                <label>{=house.street=}</label>
-            </li>
-            {_}_}
-        </ul>
-        <div class=estimate>
-            <table>
-                <tr>
-                    <td>
-                        {_if(house.annual_return_estimated) {_}
-                        <span class=label>{=window.i18n('预计总年化收益率')=}</span>
-                        <span class=value><strong>{=house.annual_return_estimated=}</strong></span>
-                        {_} else if (house.annual_cash_return_estimated) { _}
-                        <span class=label>{=window.i18n('预估现金年化收益率')=}</span>
-                        <span class=value><strong>{=house.annual_cash_return_estimated=}</strong></span>
+        <table class="textPart_innerTable">
+            <tr>
+                <td class=properties>
+                    <ul >
+                        {_if(house.intention && house.intention.length) {_}
+                        <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                            <label>
+                                {_ _.each(house.intention, function(oneIntention) { _}
+                                {=oneIntention.value=}
+                                {_})_}
+                            </label>
+                        </li>
                         {_}_}
-                    </td>
-                </tr>
-            </table>
-        </div>
+                        {_if(house.property_type) {_}
+                        <li><img src="/static/images/common/house_card/house-card-house.png" alt=""/>
+                            <label>{=house.property_type.value=}</label>
+                        </li>
+                        {_}_}
+                        {_if(house.street) {_}
+                        <li><img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                            <label>{=house.street=}</label>
+                        </li>
+                        {_}_}
+                    </ul>
+                </td>
+                <td class=estimate>
+                    <div >
+                        <table class="inner">
+                            <tr>
+                                <td>
+                                    {_if(house.annual_return_estimated) {_}
+                                    <span class=label>{=window.i18n('预计总年化收益率')=}</span>
+                                    <span class=value><strong>{=house.annual_return_estimated=}</strong></span>
+                                    {_} else if (house.annual_cash_return_estimated) { _}
+                                    <span class=label>{=window.i18n('预估现金年化收益率')=}</span>
+                                    <span class=value><strong>{=house.annual_cash_return_estimated=}</strong></span>
+                                    {_}_}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
         <p class="border"></p>
     </a>
 </div>
