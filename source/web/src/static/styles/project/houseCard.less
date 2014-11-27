@@ -350,59 +350,64 @@
                 overflow:hidden;
             }
         }
+        &_innerTable {
+            table-layout:fixed;
+            width:100%;
+        }
+
         width:100%;
         min-height:100px;
         overflow:hidden;
         .properties {
-            float:left;
             width:60%;
-            display:inline-block;
             border-right:1px solid #ccc;
-            padding-left:12px;
-            padding-top:12px;
 
-            li {
-                vertical-align:middle;
-                font-size:10px;
-                line-height:15px;
-                margin-bottom:8px;
-                color:#999;
-                overflow:hidden;
-
-                img {
-                    float:left;
-                    display:inline-block;
-                    margin-right:5px;
+            ul {
+                margin: 12px;
+                li {
                     vertical-align:middle;
-                }
+                    font-size:10px;
+                    line-height:15px;
+                    margin-bottom:8px;
+                    color:#999;
+                    overflow:hidden;
 
-                label {
-                    float:left;
-                    display:inline-block;
-                    width:~"calc(100% - 30px)"
+                    img {
+                        float:left;
+                        display:inline-block;
+                        margin-right:5px;
+                        vertical-align:middle;
+                    }
+
+                    label {
+                        float:left;
+                        display:inline-block;
+                        width:~"calc(100% - 30px)"
+                    }
                 }
             }
         }
 
         .estimate {
-            float: right;
             width:40%;
-            display:inline-block;
-            padding-right:12px;
 
-            table {
-                margin:7px auto;
+            .inner {
+                //margin:12px 0 12px 12px;
 
                 .label {
                     display:block;
                     font-size:10px;
                     color:#999;
+                    padding-left:12px;
                 }
 
                 .value {
                     display:block;
-                    font-size:30px;
+                    font-size:24px;
                     color:#e60012;
+                    padding-left:12px;
+                    width: 80%;
+                    word-wrap:break-word;
                 }
             }
         }
