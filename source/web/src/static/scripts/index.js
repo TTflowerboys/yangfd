@@ -452,7 +452,6 @@
         $intentionTag.find('#add').click(function () {
             $('html, body').animate({scrollTop: $('.intentionTabs_wrapper').offset().top - 60 }, 'fast')
             $('.intentionTabs_wrapper').animate({height: getIntentionTabsHeight() + 'px'}, 400, 'swing')
-
         })
 
         $('.intentionTabs_wrapper').find('#collapseButton').click(function () {

@@ -31,20 +31,10 @@ main {
             }
         }
 
-        &_title {
-            display:none;
-            @media @phone {
-                display:block;
-                text-align:left;
-                font-size:14px;
-                color:#333;
-            }
-
-        }
-
         @media @phone {
             margin-top:0;
-            padding:12px;
+            padding:0px;
+            border-bottom:1px solid #ccc;
         }
 
         span {
@@ -57,12 +47,34 @@ main {
         select {
             color:#333333;
             @media @phone {
-                display:block;
-                width:100%;
-                margin-top:12px;
+                float:left;
+                display:inline-block;
+                width:33%;
+                margin-top:0;
                 font-size:12px;
                 font-weight:bold;
+                border:0px;
             }
+
+            &:after {
+                width:1px;
+                height:100%;
+                background:red;
+                content:"fsjdlk";
+            }
+        }
+
+        .seperator_phone {
+            display:none;
+            @media @phone {
+                float:left;
+                display:inline;
+                height:40px;
+                width:1px;
+                background:#ccc;
+                margin:0px;
+            }
+
         }
     }
 
@@ -85,12 +97,21 @@ main {
             padding: 24px 20px 10px 20px;
 
             @media @phone {
-                display:none;//hide in mobile for too long
+
                 float:left;
                 margin:0;
                 width:100%;
                 max-width: none;
                 padding:0 12px;
+            }
+
+            .tags_inner {
+                overflow:hidden;
+                @media @phone {
+                    height:auto; //collapse default
+                    display:none;
+                }
+
             }
 
 
@@ -131,6 +152,17 @@ main {
 
             }
 
+            .showTags {
+                display:none;
+                @media @phone {
+                    color:#999;
+                    display:block;
+                    text-align:center;
+                    padding:0px 10px;
+                    margin: 10px auto;
+                }
+            }
+
             .price, .intention {
                 margin: 0px;
                 border-top: 1px solid #ccc;
@@ -139,7 +171,8 @@ main {
                 overflow:hidden;
 
                 @media @phone {
-                    min-height:135px;
+                    min-height:0px;
+                    border-top: 0px;
                 }
 
 

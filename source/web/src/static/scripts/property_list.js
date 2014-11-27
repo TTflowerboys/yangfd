@@ -375,6 +375,28 @@ $(window).resize(window.updateTagsFixed);
         //updateUserTags()
     })
 
+
+    $('#tags #showTags').click(function (event) {
+        var $button = $(event.delegateTarget)
+        var $tags = $('#tags .tags_inner')
+        if ($button.attr('data-state') === 'closed') {
+            $tags.show()
+            //http://css-tricks.com/snippets/jquery/animate-heightwidth-to-auto/
+            $tags.animate({'max-height': 1000 + 'px'}, 400, 'swing') //make auto height
+            $button.find('label').text(window.i18n('收起'))
+            $button.find('img').addClass('rotated')
+            $button.attr('data-state', 'open')
+        }
+        else {
+            $tags.animate({'max-height':'0px'}, 400, 'swing')
+            $tags.slideUp(400)
+            $button.find('label').text(window.i18n('更多选择'))
+            $button.find('img').removeClass('rotated')
+            $button.attr('data-state', 'closed')
+
+        }
+    })
+
     //load first property list base on user's choose
     // if (window.user) {
     //     if (window.user.budget) {
