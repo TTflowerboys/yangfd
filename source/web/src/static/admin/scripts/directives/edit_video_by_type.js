@@ -33,6 +33,7 @@ angular.module('app')
                                     updateSource(scope.video)
                                 })
                                 .error(function () {
+                                    //TODO:need to handle error properly
                                     scope.video = ''
                                 })
                         } else {
@@ -48,6 +49,7 @@ angular.module('app')
                                     updateSource(scope.video)
                                 })
                                 .error(function () {
+                                    //TODO:need to handle error properly
                                     scope.video = ''
                                 })
                         }
