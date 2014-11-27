@@ -1653,7 +1653,28 @@ class f_landregistry(f_app.module_base):
 
     def get_month_average_by_zipcode_index(self, zipcode_index):
         with f_app.mongo() as m:
-            result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index})
+            result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
+        merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
+
+        fig, ax = plt.subplots()
+        ax.plot([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
+
+        ax.autoscale_view()
+        ax.grid(True)
+        ax.set_ylabel('BGP')
+
+        ax.fmt_xdata = DateFormatter('%Y-%m-%d')
+        fig.autofmt_xdate()
+        ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
+
+        graph = StringIO()
+        plt.savefig(graph, format="png")
+
+        return graph
+
+    def get_month_average_by_zipcode_index_type(self, zipcode_index):
+        with f_app.mongo() as m:
+            result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
 
         fig, ax = plt.subplots()
@@ -1675,15 +1696,21 @@ class f_landregistry(f_app.module_base):
     def aggregation_monthly(self):
         func_map = Code("""
             function() {
+                var key_with_type = {
+                    "zipcode_index": this.zipcode_index,
+                    "date": new Date(this.date.getFullYear(), this.date.getMonth(), 1 ,0 ,0 ,0 ,0),
+                    "type": this.type
+                };
                 var key = {
                     "zipcode_index": this.zipcode_index,
-                    "date": new Date(this.date.getFullYear(), this.date.getMonth(), 1 ,0 ,0 ,0 ,0)
+                    "date": new Date(this.date.getFullYear(), this.date.getMonth(), 1 ,0 ,0 ,0 ,0),
                 };
                 var value = {
                     "price": this.price,
                     "count": 1
                 };
                 emit(key, value);
+                emit(key_with_type, value);
             }
         """)
         func_reduce = Code("""
@@ -1692,6 +1719,9 @@ class f_landregistry(f_app.module_base):
                 values.forEach(function(value) {
                     result.sum_count += !isNaN(value['count']) ? value['count'] : 0;
                     result.sum_price += !isNaN(value['price']) ? value['price'] : 0;
+                    if (key.zipcode_index == 'AL3' && key.date.getMonth() == 5) {
+                        print(key.type, value.count, value.price, result.sum_count, result.sum_price);
+                    }
                 });
                 return result;
             }
