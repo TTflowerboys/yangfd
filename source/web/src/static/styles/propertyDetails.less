@@ -923,6 +923,122 @@ body{
 
         }
     }
+    .brochure {
+
+        .propertyDetails_title {
+            @media @phone {
+                margin-top: 20px;
+                margin-left: 12px;
+                margin-bottom: 12px;
+                font-size: 12px;
+            }
+        }
+
+        &_wrapper {
+            position: relative;
+        }
+
+        img, .img {
+            width: 800px;
+            display: block;
+            margin: 0 auto;
+
+            @media @phone {
+                //TODO:should align to brochures width
+                max-width: 320px;
+            }
+        }
+
+        /** Carousel **/
+
+        .brochures {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .brochures ul {
+            width: 20000em;
+            position: relative;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .brochures li {
+            float: left;
+        }
+
+        /** Carousel Controls **/
+
+        .brochures-control-prev,
+        .brochures-control-next {
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            background: #4E443C;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 0 1px #000;
+            font: 24px/27px Arial, sans-serif;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            border-radius: 30px;
+            -webkit-box-shadow: 0 0 2px #999;
+            -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+        }
+
+        .brochures-control-prev {
+            left: 0;
+            margin-left: 5%;
+        }
+
+        .brochures-control-next {
+            right: 0;
+            margin-right: 5%;
+        }
+
+        .brochures-control-prev:hover span,
+        .brochures-control-next:hover span {
+            display: block;
+        }
+
+        .brochures-control-prev.inactive,
+        .brochures-control-next.inactive {
+            opacity: .5;
+            cursor: default;
+        }
+
+        .leftPressArea {
+            position:absolute;
+            height:100%;
+            width:20%;
+            z-index:2;
+            box-shadow:none;
+            background:transparent;
+            cursor:pointer;
+            border-radius:0;
+            left:0;
+            top:0;
+        }
+
+        .rightPressArea {
+
+            position:absolute;
+            height:100%;
+            width:20%;
+            z-index:2;
+            box-shadow:none;
+            background:transparent;
+            cursor:pointer;
+            border-radius:0;
+            right:0;
+            top:0;
+        }
+    }
     .nearby {
         > ul { .clearfix(); margin: 0 -10px 56px;
             > li {

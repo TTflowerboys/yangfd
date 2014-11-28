@@ -450,7 +450,6 @@
                                             </a>
                                         % end
                                     % end
-
                                 </td>
                             </tr>
                         % end
@@ -786,6 +785,35 @@
                 </div>
                 <hr/>
             % end
+
+            % if property.get('brochure') and len(property.get('brochure')) > 0:
+            <div id="propertyDetails_brochure" class="brochure">
+                <h3 class="propertyDetails_title">{{_('相关资料')}}</h3>
+                % if user:
+                % pass
+                % else:
+                <div class="brochure_wrapper">
+                    <div class="brochures">
+                        <ul>
+                            % for image in property.get('brochure')[0].get('rendered'):
+                            <li><img src="{{image}}" alt=""></li>
+                            % end
+                            <li>
+                                <span class="guide">{{_('如需获取更多资料，请')}}<a href="#" onclick="project.goToSignIn()">登录</a>{{_('，或者')}}<a href="#" onclick="project.goToSignUp()">注册</a></span>
+                                <img src="/static/images/property_details/img_brochure_cover.png" alt="">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="leftPressArea"></div>
+                    <div class="rightPressArea"></div>
+
+                    <a href="#" class="brochures-control-prev">&lsaquo;</a>
+                    <a href="#" class="brochures-control-next">&rsaquo;</a>
+                </div>
+                % end
+            </div>
+            <hr/>
+            % end
             <div class="nearby" style="display: none;">
                 <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
                 <ul>
@@ -1042,7 +1070,7 @@
                         % end
                     </ul>
                     <ul class="content">
-                        % for intention in property.get('intention'):
+                        % for intention in property.get('intention') :
                             <li data-tab-name="{{intention.get('slug','')}}">
                                 {{intention.get('description','')}}
                             </li>
@@ -1234,6 +1262,38 @@
      });
 
      videojs.options.flash.swf = "/static/vendors/video-js/video-js.swf";
+
+     $('.brochure .brochures').jcarousel()
+
+     $('.brochures-control-prev')
+         .on('jcarouselcontrol:active', function() {
+             $(this).removeClass('inactive');
+         })
+         .on('jcarouselcontrol:inactive', function() {
+             $(this).addClass('inactive');
+         })
+         .jcarouselControl({
+             target: '-=1'
+         });
+
+     $('.brochures-control-next')
+         .on('jcarouselcontrol:active', function() {
+             $(this).removeClass('inactive');
+         })
+         .on('jcarouselcontrol:inactive', function() {
+             $(this).addClass('inactive');
+         })
+         .jcarouselControl({
+             target: '+=1'
+         });
+
+     $('.brochure .leftPressArea').click(function (event) {
+         $(event.target).parent().find('.brochures-control-prev').click()
+     })
+
+     $('.brochure .rightPressArea').click(function (event) {
+         $(event.target).parent().find('.brochures-control-next').click()
+     })
     </script>
     <!-- @endif -->
 
