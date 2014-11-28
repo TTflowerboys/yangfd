@@ -61,6 +61,17 @@ $(window).resize(window.updateTagsFixed);
         }
     }
 
+
+    function updatePropertyCardMouseEnter() {
+        $('.houseCard').mouseenter(function(event){
+            $(event.delegateTarget).find('button.openRequirement').show()
+        });
+
+        $('.houseCard').mouseleave(function(event){
+            $(event.delegateTarget).find('button.openRequirement').hide()
+        });
+    }
+
     function loadPropertyList() {
         var params = {'per_page': onePageItemCount}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
@@ -112,6 +123,7 @@ $(window).resize(window.updateTagsFixed);
                             lastItemTime = house.time
                         }
                     })
+                    updatePropertyCardMouseEnter()
 
                     if (totalResultCount > getCurrentTotalCount()) {
                         $('#loadMore').show()
