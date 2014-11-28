@@ -1672,21 +1672,62 @@ class f_landregistry(f_app.module_base):
 
         return graph
 
-    def get_month_average_by_zipcode_index_type(self, zipcode_index):
+    def get_type_distribution_by_zipcode_index(self, zipcode_index):
+        import numpy as np
+
+        with f_app.mongo() as m:
+            result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.date": {"$lt": datetime(2014, 7, 1, 0, 0), "$gte": datetime(2014, 6, 1, 0, 0)}, "_id.type": {"$exists": True}})
+        merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
+
+        ind = np.arange(len(merged_result))
+        width = 0.2
+
+        fig, ax = plt.subplots()
+        ax.bar(ind, [x['count'] for x in merged_result], width, color='r')
+
+        ax.autoscale_view()
+        ax.set_ylabel('Number')
+        ax.set_xticks(ind + width / 2)
+        ax.set_xticklabels([x['type'] for x in merged_result])
+
+        graph = StringIO()
+        plt.savefig(graph, format="png")
+
+        return graph
+
+    def get_month_average_by_zipcode_index_with_type(self, zipcode_index):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
 
+        dresult = []
+        sresult = []
+        tresult = []
+        fresult = []
+        for i in merged_result:
+            if i.get("type") == "D":
+                dresult.append(i)
+            elif i.get("type") == "S":
+                sresult.append(i)
+            elif i.get("type") == "T":
+                tresult.append(i)
+            else:
+                fresult.append(i)
+
         fig, ax = plt.subplots()
-        ax.plot([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
+        plt.gca().set_color_cycle(['red', 'green', 'blue', 'yellow'])
+
+        plt.plot([i['date'] for i in dresult], [i['average_price'] for i in dresult])
+        plt.plot([i['date'] for i in sresult], [i['average_price'] for i in sresult])
+        plt.plot([i['date'] for i in tresult], [i['average_price'] for i in tresult])
+        plt.plot([i['date'] for i in fresult], [i['average_price'] for i in fresult])
+        plt.legend(["detached", "semi-detached", "terrance", "flat"], loc='upper left')
 
         ax.autoscale_view()
-        ax.grid(True)
         ax.set_ylabel('BGP')
 
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
         fig.autofmt_xdate()
-        ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
 
         graph = StringIO()
         plt.savefig(graph, format="png")
@@ -1715,12 +1756,12 @@ class f_landregistry(f_app.module_base):
         """)
         func_reduce = Code("""
             function(key, values) {
-                result = {"sum_price": 0, "sum_count": 0};
+                result = {"price": 0, "count": 0};
                 values.forEach(function(value) {
-                    result.sum_count += !isNaN(value['count']) ? value['count'] : 0;
-                    result.sum_price += !isNaN(value['price']) ? value['price'] : 0;
+                    result.count += value.count;
+                    result.price += value.price;
                     if (key.zipcode_index == 'AL3' && key.date.getMonth() == 5) {
-                        print(key.type, value.count, value.price, result.sum_count, result.sum_price);
+                        print(key.type, value.count, value.price, result.count, result.price);
                     }
                 });
                 return result;
@@ -1728,11 +1769,7 @@ class f_landregistry(f_app.module_base):
         """)
         func_finalize = Code("""
             function (key, value) {
-                if (value.sum_count) {
-                    value.average_price = value.sum_price / value.sum_count;
-                } else {
-                    value.average_price = value.price;
-                }
+                value.average_price = value.price / value.count;
                 return value;
             }
         """)
