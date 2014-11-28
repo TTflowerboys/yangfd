@@ -680,7 +680,6 @@ def sitemap():
 
 @f_get("/landregistry/<zipcode_index>")
 def landregistry(zipcode_index):
-    f_app.landregistry.aggregation_monthly()
     result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index)
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
@@ -688,7 +687,6 @@ def landregistry(zipcode_index):
 
 @f_get("/landregistry/<zipcode_index>/with_type")
 def landregistry_with_type(zipcode_index):
-    f_app.landregistry.aggregation_monthly()
     result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index)
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
