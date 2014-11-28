@@ -61,15 +61,16 @@
         repaintHowItWorks: function () {
 
         },
-        openRequirement: function (event, budgetId, intentionId) {
+        openRequirement: function (event, budgetId, intentionId, propertyId) {
             if (team.isPhone()) {
                 if (!budgetId) { budgetId = ''}
                 if (!intentionId) {intentionId = ''}
+                if (!propertyId) {propertyId = ''}
 
-                location.href = '/requirement?budget=' + budgetId + '&intention=' + intentionId
+                location.href = '/requirement?budget=' + budgetId + '&intention=' + intentionId + '&property=' + propertyId
             }
             else {
-                window.openRequirementForm(event, budgetId, intentionId)
+                window.openRequirementForm(event, budgetId, intentionId, propertyId)
             }
         },
         formatTime: function(time) {

@@ -127,11 +127,23 @@
                 $('#suggestionHouses #list').append(houseResult)
             }
         })
+        updatePropertyCardMouseEnter()
     }
 
     function removePropertyCard(id) {
         $('#suggestionHouses #list .houseCard_wrapper[data-category-intention-id=' + id + ']').remove()
     }
+
+    function updatePropertyCardMouseEnter() {
+        $('.houseCard').mouseenter(function(event){
+            $(event.delegateTarget).find('button.openRequirement').show()
+        });
+
+        $('.houseCard').mouseleave(function(event){
+            $(event.delegateTarget).find('button.openRequirement').hide()
+        });
+    }
+
 
     function updateUserTags(budgetId, intentionIds) {
 
@@ -231,6 +243,7 @@
         }
     }
 
+
     function loadPropertyListWithBudgetAndIntention(budgetType, intention) {
 
         $('#suggestionHouses #loadIndicator').show()
@@ -308,6 +321,7 @@
                 $('#suggestionHouses #loadIndicator').hide()
             })
             .always(function () {
+
             })
     }
 
@@ -370,7 +384,12 @@
     }
 
     function getIntentionTabsHeight() {
-        return 80 + Math.ceil($('.intention .controls').children().length / 3.0) * 140  + 18 + 15
+        if (window.team.isPhone()) {
+            return 80 + Math.ceil($('.intention .controls').children().length / 3.0) * 140  + 18 + 15
+        }
+        else {
+            return 530
+        }
     }
 
     if (window.user) {
@@ -468,7 +487,9 @@
             var houseResult = {}
              houseResult = _.template($('#featured_houseCard_template').html())({house: house})
              $('.houseFeatured').append(houseResult)
-        })
+         })
+
+        updatePropertyCardMouseEnter()
     }
 
 })()

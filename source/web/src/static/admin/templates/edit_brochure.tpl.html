@@ -1,9 +1,16 @@
 <div>
     <div class="row">
         <div class="col-lg-12">
-            <div class="pull-left">{%brochure.url%}</div>
-            <button ng-if="brochure.url" type="button" class="pull-left btn btn-danger btn-sm" ng-click="removeBrochure()">{%$root.i18n('移除')%}</button>
+            <div ng-switch on="brochureStatus">
+                <div ng-switch-when="uploading" class="pull-left">{%$root.i18n('正在上传...')%}</div>
+                <div ng-switch-when="uploaded" class="pull-left">{%$root.i18n('已上传,将在提交草稿后生成预览（在此之前不能提交审核)')%}</div>
+                <div ng-switch-when="rendering" class="pull-left">{%$root.i18n('正在生成预览...（在此之前不能提交审核)')%}</div>
+                <div ng-switch-when="done" class="pull-left">{%$root.i18n('点击预览当前文档')%}</div>
+            </div>
+            <!--Hide remove function because server can not process submit to review while brochure removed-->
+            <!--<button ng-if="brochure.url" type="button" class="pull-left btn btn-danger btn-sm" ng-click="removeBrochure()">{%$root.i18n('移除')%}</button>-->
         </div>
     </div>
+
     <div ng-file-select="onFileSelected($files)" onclick="this.value = null" class="btn btn-primary">{%text%}</div>
 </div>

@@ -100,9 +100,14 @@
             params.locales = window.lang
 
             //for requirement phone page
-            var propertyId = window.team.getQuery('property', location.href)
-            if (propertyId) {
-                params.property_id = propertyId
+            var propertyIdFromURL = window.team.getQuery('property', location.href)
+            if (propertyIdFromURL) {
+                params.property_id = propertyIdFromURL
+            }
+
+            if (!params.property_id) {
+                //still don't have, remove it
+                delete params.property_id
             }
 
             var button = $('form[name=requirement] button[type=submit]')
@@ -132,7 +137,7 @@
         });
     }
 
-    window.setRequirementFormContent = function (popup, budgetId, intentionId) {
+    window.setRequirementFormContent = function (popup, budgetId, intentionId, propertyId) {
         if (budgetId) {
             popup.find('select.budget option[value=' + budgetId + ']').attr('selected', 'selected')
         }
@@ -165,12 +170,16 @@
 
             popup.find('[name=description]').text(description)
         }
+
+        if (propertyId) {
+            popup.find('input[name=property_id]').val(propertyId)
+        }
     }
 
-    window.openRequirementForm = function (event, budgetId, intentionId) {
+    window.openRequirementForm = function (event, budgetId, intentionId, propertyId) {
         var popup = $('#requirement_popup')
         window.resetRequirementForm(popup)
-        window.setRequirementFormContent(popup. budgetId, intentionId)
+        window.setRequirementFormContent(popup, budgetId, intentionId, propertyId)
         popup.find('.requirement_title').show()
         window.showRequirementCancelButton(popup)
 

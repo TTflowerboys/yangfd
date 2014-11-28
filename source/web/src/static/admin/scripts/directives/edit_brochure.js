@@ -13,24 +13,36 @@ angular.module('app')
             },
             link: function (scope, elm, attrs) {
 
+                var isInit = true
+
+                scope.$watch('brochure', function (newValue) {
+                    // Update brochure status when init directive
+                    if (isInit && scope.brochure && scope.brochure.length > 0) {
+                        scope.brochureStatus = 'done'
+                        //TODO:set up preview url
+                    }
+                })
+
                 scope.onFileSelected = function ($files) {
+                    isInit = false
                     var file = $files[0]
                     if (file) {
-                        if (!scope.brochure) {
-                            scope.brochure = {}
-                        }
-                        scope.brochure = {url: file.name}
+                        //Reset brochure
+                        scope.brochure = {}
+
+                        scope.brochureStatus = 'uploading'
                         $upload.upload({
                             url: '/api/1/upload_file',
                             file: file,
                             fileFormDataName: 'data',
                             ignoreLoadingBar: true
+                        }).success(function (data, status, headers, config) {
+                            scope.brochure.url = data.val.url
+                            scope.brochureStatus = 'uploaded'
                         })
-                            .success(function (data, status, headers, config) {
-                                scope.brochure.url = data.val.url
-                            })
                     }
                 }
+
                 scope.removeBrochure = function (index) {
                     scope.brochure = undefined
                 }

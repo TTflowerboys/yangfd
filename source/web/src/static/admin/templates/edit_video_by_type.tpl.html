@@ -4,8 +4,8 @@
         <span ng-style="{'visibility':video===undefined?'visibility':'hidden'}">
             <i class="fa fa-spinner fa-spin"></i>
         </span>
-        <span ng-if="host==='aws'&&video!==undefined">{%video?$root.i18n('已上传或点击重新上传'):$root.i18n('视频拖到此处上传或点击上传至AWS')%}</span>
-        <span ng-if="host==='qiniu'&&video!==undefined">{%video?$root.i18n('已上传或点击重新上传'):$root.i18n('视频拖到此处上传或点击上传至七牛')%}</span>
+        <span ng-if="host==='aws'&&video!==undefined">{%video?$root.i18n('已上传或点击重新上传'):$root.i18n('拖到此处上传或点击上传至AWS')%}</span>
+        <span ng-if="host==='qiniu'&&video!==undefined">{%video?$root.i18n('已上传或点击重新上传'):$root.i18n('拖到此处上传或点击上传至七牛')%}</span>
     </div>
     <button type="button" class="btn btn-danger" ng-if="video" ng-click="removeVideo()">{%$root.i18n('删除')%}</button>
 </div>

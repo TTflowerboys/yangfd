@@ -19,4 +19,7 @@
 <div class=action>
     <a href="/property/{=house.id=}" class="button red">{=window.i18n('查看详情')=}</a>
 </div>
+<div class="otherAction">
+    <button class="openRequirement ghostButton red" onclick="window.project.openRequirement(null, '', '', '{=house.id=}')"><img alt="" src="/static/images/common/house_card/house-card-requirement.png"/><label>{{_('我要咨询')}}</label> </button>
+</div>
 <!--@@close-->
