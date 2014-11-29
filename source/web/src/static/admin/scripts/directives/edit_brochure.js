@@ -39,6 +39,8 @@ angular.module('app')
                         }).success(function (data, status, headers, config) {
                             scope.brochure.url = data.val.url
                             scope.brochureStatus = 'uploaded'
+                        }).error(function () {
+                            scope.brochureStatus = 'error'
                         })
                     }
                 }

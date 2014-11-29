@@ -6,6 +6,7 @@
                 <div ng-switch-when="uploaded" class="pull-left">{%$root.i18n('已上传,将在提交草稿后生成预览（在此之前不能提交审核)')%}</div>
                 <div ng-switch-when="rendering" class="pull-left">{%$root.i18n('正在生成预览...（在此之前不能提交审核)')%}</div>
                 <div ng-switch-when="done" class="pull-left">{%$root.i18n('点击预览当前文档')%}</div>
+                <div ng-switch-when="error" class="pull-left">{%$root.i18n('上传失败，请稍后重试')%}</div>
             </div>
             <!--Hide remove function because server can not process submit to review while brochure removed-->
             <!--<button ng-if="brochure.url" type="button" class="pull-left btn btn-danger btn-sm" ng-click="removeBrochure()">{%$root.i18n('移除')%}</button>-->
