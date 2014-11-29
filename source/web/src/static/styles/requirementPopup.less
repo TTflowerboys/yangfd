@@ -19,40 +19,86 @@
             min-width:@min-page-width;
             background:#eeeeee;
             border-top: 125px solid #626262;
+
+            @media @phone {
+                min-width:0;
+            }
+
         }
 
         max-width:@max-width + 40px;
         margin:0 auto;
         overflow:hidden;
 
-        &_title {
+        .info {
             float: left;
             margin-left: 20px;
-            .title {
-                margin-top: 0px;
-                font-size: 36px;
-                color: #333333;
-            }
-            .subtitle {
-                font-size: 12px;
-                line-height: 2;
-                color: #999999;
-                max-width: 360px;
-            }
 
             @media @phone {
                 float: none;
-                padding: 10px;
+            }
+
+            .contact {
+                float:left;
+                margin-top: 365px;
+
+                @media @phone {
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    width: 100%;
+                }
+
+                .hint {
+                    font-size:16px;
+                    color:#999;
+                    line-height:24px;
+                    @media @phone {
+                        display:inline-block;
+                    }
+
+                }
+
+                a {
+                    font-size:24px;
+                    text-decoration:none;
+                    color:@red;
+                    line-height:24px;
+                    display:block;
+                    @media @phone {
+                        display:inline-block;
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .requirement_title {
+                float:left;
+                width: 100%;
 
                 .title {
                     margin-top: 0px;
-                    font-size: 24px;
+                    font-size: 36px;
+                    color: #333333;
                 }
                 .subtitle {
                     font-size: 12px;
-                    line-height: 1.6em;
-                    margin-top: 0px;
-                    margin-bottom: 0px;
+                    line-height: 2;
+                    color: #999999;
+                    max-width: 360px;
+                }
+
+                @media @phone {
+                    .title {
+                        margin-top: 0px;
+                        font-size: 24px;
+                    }
+                    .subtitle {
+                        font-size: 12px;
+                        line-height: 1.6em;
+                        margin-top: 0px;
+                        margin-bottom: 0px;
+                    }
                 }
             }
         }
