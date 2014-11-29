@@ -34,7 +34,7 @@
         </ul>
         <ul class="rmm-center-menu" style="display:none;">
             %for index, intention in enumerate(_i18n(intention_list)):
-                <li><a data-slug={{intention.get('slug')}} href=javascript:window.showGuide("{{intention.get('slug')}}")>{{intention.get('value')}}</a></li>
+                <li><a data-slug={{intention.get('slug')}} href=javascript:window.updatePage("{{intention.get('slug')}}")>{{intention.get('value')}}</a></li>
             %end
         </ul>
     </div>
@@ -45,7 +45,19 @@
 
 <!--@@block = main-->
 <textarea  id="dataIntentionList" style="display:none">{{json_dumps(_i18n(intention_list))}}</textarea>
-<!-- @@include=../partials/intention_processCards.html -->
+<p class="description">
+</p>
+<a class="button red view_property">
+    <img alt="" src=""/>
+    <label for=""></label>
+</a>
+<button class="textButton view_guide">
+    <label for="">{{_('查看购房相关流程')}}</label>
+    <img alt="" src="/static/images/property_list/tags-indicator-phone.png"/>
+</button>
+<div class="guide">
+    <!-- @@include=../partials/intention_processCards.html -->
+</div>
 
 <!--@@close-->
 
@@ -63,20 +75,75 @@
      return ret
  }
 
+  window.getId = function (slug) {
+     var array = JSON.parse($('#dataIntentionList').text())
+     var ret = ''
+     _.each(array, function (item) {
+         if (item.slug === slug) {
+             ret = item.id;
+         }
+     })
+     return ret
+  }
+
+ window.loadIntentionDescription = function (callback) {
+     $.betterGet('/api/1/enum?type=intention', {})
+                     .done(function (data) {
+                         window.intentionDescription = data
+                         callback()
+                     })
+                     .fail(function (ret) {
+                     })
+                     .always(function () {
+
+                     })
+ }
+
+window.updateIntentionDescription = function(slug) {
+    var callback = function () {
+        var description = ''
+        _.each(window.intentionDescription, function (oneDes) {
+            if (oneDes.slug === slug) {
+                description = oneDes.description
+            }
+        })
+        if (!description) {description = ''}
+        $('p.description').text(description)
+     }
+
+     if (window.intentionDescription) {
+         callback()
+     }
+     else {
+         loadIntentionDescription(callback)
+     }
+ }
+
  window.showGuide = function (slug) {
-     $('main').children().hide()
-     $('div[data-tab-name=' + slug + ']').show()
+     $('html, body').animate({scrollTop: $('.view_guide').offset().top + 30 }, 'fast')
+ }
+
+ window.updatePage = function (slug) {
      $('.rmm-toggled .rmm-toggled-controls .rmm-center #howItWorks_title').click()
      $('#howItWorks_title').text(window.getTitle(slug))
+
+     $('.view_property label').text(window.i18n('查看') + window.getTitle(slug) + window.i18n('的房产'))
+     $('.view_property img').attr('src', '/static/images/intention/icon/' + slug + '-grey.png')
+     $('.view_property img').attr('height', '14')
+     $('.view_property').attr('href', '/property_list?intention=' + window.getId(slug))
+     $('.view_guide').attr('onclick', 'window.showGuide(\'' + slug + '\')')
+     window.updateIntentionDescription(slug)
+     $('.guide').children().hide()
+     $('div[data-tab-name=' + slug + ']').show()
  }
 
  %if intention_list:
  var slugFromURL = window.team.getQuery('slug', location.href)
  if (slugFromURL) {
-     window.showGuide(slugFromURL)
+     window.updatePage(slugFromURL)
  }
  else {
-     window.showGuide("{{_i18n(intention_list)[0].get('slug')}}")
+     window.updatePage("{{_i18n(intention_list)[0].get('slug')}}")
  }
  %end
 </script>

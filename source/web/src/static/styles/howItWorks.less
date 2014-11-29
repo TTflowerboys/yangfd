@@ -41,11 +41,54 @@
 
 main {
     max-width: @max-width;
-    margin: 80px auto;
 
-    @media @phone {
+    .description {
+        margin: 30px 12px ;
+        color:#666;
+        font-size: 15px;
+        line-height: 2em;
+    }
+    .view_property {
+        display: block;
         width: 100%;
-        margin: 0;
-        padding:48px 16px;
+        position: fixed;
+        bottom:0;
+        z-index:@float_bar_phone-z-index;
+        padding: 13px 15px;
+        border-radius: 0;
+
+        img {
+            vertical-align:middle;
+        }
+        label {
+            vertical-align:middle;
+        }
+    }
+
+    .view_guide {
+        display: block;
+        margin: 0 auto;
+        color: #999;
+
+        &:active, &:visited {
+                      color: #999;
+                  }
+        &:hover {
+            color: lighten(#999, 10%);
+        }
+    }
+
+    .guide {
+        @media @phone {
+            width: 100%;
+            margin: 0;
+            padding:48px 16px;
+        }
+    }
+}
+
+.copyright {
+    @media @phone {
+        margin-bottom:40px;//left for float bar
     }
 }

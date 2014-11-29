@@ -2,10 +2,16 @@
     <div id="requirement_popup_shadow" class="requirement_popup_shadow"></div>
     <div class="requirement_wrapper">
         <div id="requirement" class="requirement">
-            <div class="requirement_title">
-                <H2 class="title">{{_('提交置业需求')}}</h2>
-                <h3 class="subtitle">{{_('如果您有海外投资置业的意向，请提交置业需求或者致电4000926433告诉我们，洋房东置业顾问将竭诚为您服务')}}
-                </h3>
+            <div class="info">
+                <div class="requirement_title">
+                    <h2 class="title">{{_('提交置业需求')}}</h2>
+                    <h3 class="subtitle">{{_('如果您有购买房子的意向，请告诉我们，我们将收集相应的资源并且既是反馈给您')}}
+                    </h3>
+                </div>
+                <div class="contact">
+                    <label class="hint">{{_('联系我们')}}</label>
+                    <a href="tel:4000926433" >400-0926-433</a>
+                </div>
             </div>
             <!--@@include=requirement_form.html -->
             <h2 class="successMessage" style="display:none">{{_('置业需求已提交，稍后我们的置业顾问会联系您')}}</h2>
