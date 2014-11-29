@@ -1734,6 +1734,40 @@ class f_landregistry(f_app.module_base):
 
         return graph
 
+    def get_price_distribution_by_zipcode_index(self, zipcode_index):
+        with f_app.mongo() as m:
+            result_lt_100k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$lt": 100000}}).count()
+            result_100k_200k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 100001, "$lt": 200000}}).count()
+            result_200k_300k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 200001, "$lt": 300000}}).count()
+            result_300k_400k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 300001, "$lt": 400000}}).count()
+            result_400k_500k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 400001, "$lt": 500000}}).count()
+            result_500k_600k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 500001, "$lt": 600000}}).count()
+            result_600k_700k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 600001, "$lt": 700000}}).count()
+            result_700k_800k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 700001, "$lt": 800000}}).count()
+            result_800k_900k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 800001, "$lt": 900000}}).count()
+            result_900k_1m = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 900001, "$lt": 1000000}}).count()
+            result_gte_1m = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 1000000}}).count()
+        
+        result_sum = result_lt_100k + result_100k_200k + result_200k_300k + result_300k_400k + result_400k_500k + result_500k_600k + result_600k_700k + result_700k_800k + result_800k_900k + result_900k_1m + result_gte_1m
+
+        import numpy as np
+
+        ind = np.arange(len(merged_result))
+        width = 0.2
+
+        fig, ax = plt.subplots()
+        ax.bar(ind, [x['count'] for x in merged_result], width, color='r')
+
+        ax.autoscale_view()
+        ax.set_ylabel('Number')
+        ax.set_xticks(ind + width / 2)
+        ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
+
+        graph = StringIO()
+        plt.savefig(graph, format="png")
+
+        return graph
+
     def aggregation_monthly(self):
         func_map = Code("""
             function() {
