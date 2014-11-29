@@ -24,10 +24,11 @@ $(window).on('resize', window.resizeCategory);
 window.updateTagsFixed = function () {
     if (!window.team.isPhone()) {
         var scrollOffset = $(window).scrollTop()
-        var $list = $('#result_list')
+        var $list = $('#result_list').width() > 0 ? $('#result_list'): $('#emptyPlaceHolder')
         var listTop = $list.offset().top
         var $tags = $('#tags')
-        var tagsLeft = $list.offset().left + $list.width() + 60
+        var listWidth = $list.width()
+        var tagsLeft = $list.offset().left + listWidth + 60
         if (scrollOffset > listTop - 20) {
             $tags.css({'position':'fixed', 'top':'20px', left:tagsLeft, 'margin-top':'0'})
         }
