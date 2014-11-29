@@ -790,7 +790,12 @@
             <div id="propertyDetails_brochure" class="brochure">
                 <h3 class="propertyDetails_title">{{_('相关资料')}}</h3>
                 % if user:
-                % pass
+                <div class="brochures_entry">
+                    <div class="brochures_entry_wrapper">
+                        <a href="/pdf_viewer?file={{property.get('brochure')[0].get('url')}}" class="ghostButton red" >{{_('点击查看完整资料')}}</a>
+                    </div>
+                    <img class="guide_img" src="/static/images/property_details/img_brochure_cover.png" alt="">
+                </div>
                 % else:
                 <div class="brochure_wrapper">
                     <div class="brochures">
@@ -799,8 +804,10 @@
                             <li><img src="{{image}}" alt=""></li>
                             % end
                             <li>
-                                <span class="guide">{{_('如需获取更多资料，请')}}<a href="#" onclick="project.goToSignIn()">登录</a>{{_('，或者')}}<a href="#" onclick="project.goToSignUp()">注册</a></span>
-                                <img src="/static/images/property_details/img_brochure_cover.png" alt="">
+                                <div class="guide">
+                                    <span class="guide_text">{{_('如需获取更多资料，请 ')}}<a href="#" onclick="project.checkLoginIfNot()">登录</a>{{_('，或者 ')}}<a href="#" onclick="project.goToSignUp()">注册</a></span>
+                                    <img class="guide_img" src="/static/images/property_details/img_brochure_cover.png" alt="">
+                                </div>
                             </li>
                         </ul>
                     </div>

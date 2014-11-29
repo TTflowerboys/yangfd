@@ -24,10 +24,11 @@ $(window).on('resize', window.resizeCategory);
 window.updateTagsFixed = function () {
     if (!window.team.isPhone()) {
         var scrollOffset = $(window).scrollTop()
-        var $list = $('#result_list')
+        var $list = $('#result_list').width() > 0 ? $('#result_list'): $('#emptyPlaceHolder')
         var listTop = $list.offset().top
         var $tags = $('#tags')
-        var tagsLeft = $list.offset().left + $list.width() + 60
+        var listWidth = $list.width()
+        var tagsLeft = $list.offset().left + listWidth + 60
         if (scrollOffset > listTop - 20) {
             $tags.css({'position':'fixed', 'top':'20px', left:tagsLeft, 'margin-top':'0'})
         }
@@ -387,9 +388,8 @@ $(window).resize(window.updateTagsFixed);
         //updateUserTags()
     })
 
-
-    $('#tags #showTags').click(function (event) {
-        var $button = $(event.delegateTarget)
+    function showTags() {
+        var $button = $('#showTags')
         var $tags = $('#tags .tags_inner')
         if ($button.attr('data-state') === 'closed') {
             $tags.show()
@@ -399,13 +399,27 @@ $(window).resize(window.updateTagsFixed);
             $button.find('img').addClass('rotated')
             $button.attr('data-state', 'open')
         }
-        else {
+    }
+
+    function hideTags() {
+        var $button = $('#showTags')
+        var $tags = $('#tags .tags_inner')
+        if ($button.attr('data-state') === 'open') {
             $tags.animate({'max-height':'0px'}, 400, 'swing')
             $tags.slideUp(400)
             $button.find('label').text(window.i18n('更多选择'))
             $button.find('img').removeClass('rotated')
             $button.attr('data-state', 'closed')
+        }
+    }
 
+    $('#tags #showTags').click(function (event) {
+        var $button = $(event.delegateTarget)
+        if ($button.attr('data-state') === 'closed') {
+            showTags()
+        }
+        else {
+            hideTags()
         }
     })
 
@@ -440,11 +454,19 @@ $(window).resize(window.updateTagsFixed);
     if (intentionFromURL) {
         removeAllSelectedIntentions() //remove all selected, only use the url intention
         selectIntention(intentionFromURL)
+
+        if (window.team.isPhone()){
+            showTags()
+        }
     }
 
     var budgetFromURL = window.team.getQuery('budget', location.href)
     if (budgetFromURL) {
         selectBudget(budgetFromURL)
+
+        if (window.team.isPhone()){
+            showTags()
+        }
     }
 
     loadPropertyList()

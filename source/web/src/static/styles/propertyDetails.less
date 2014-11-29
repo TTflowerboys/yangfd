@@ -4,6 +4,7 @@
 @border-color: #ccc;
 @light-text-color: #999;
 @dark-text-color: #555;
+@brochure-guide-color:#FFF7E4;
 
 body{
     -webkit-touch-callout: none;
@@ -938,23 +939,23 @@ body{
             position: relative;
         }
 
-        img, .img {
-            width: 800px;
-            display: block;
-            margin: 0 auto;
-
-            @media @phone {
-                //TODO:should align to brochures width
-                max-width: 320px;
-            }
-        }
-
         /** Carousel **/
 
         .brochures {
             position: relative;
             overflow: hidden;
             width: 100%;
+
+            img {
+                width: 800px;
+                display: block;
+                margin: 0 auto;
+
+                @media @phone {
+                    //TODO:should align to brochures width
+                    max-width: 320px;
+                }
+            }
         }
 
         .brochures ul {
@@ -1037,6 +1038,45 @@ body{
             border-radius:0;
             right:0;
             top:0;
+        }
+
+        .guide{
+            padding-top: 50%;
+            padding-bottom: 50%;
+            position: relative;
+            background-color:@brochure-guide-color ;
+            &_text{
+                z-index:3;
+                position: absolute;
+                left:0;
+                right: 0;
+                max-width: 100%;
+                font-size: 25px;
+                text-align: center;
+                a {
+                    color: @red ;
+                    text-decoration: none;
+                    font-weight: bold;
+                }
+            }
+
+
+        }
+
+        .brochures_entry{
+            position: relative;
+
+            &_wrapper{
+                width: 100%;
+                position: absolute;
+                text-align: center;
+                top: 20px;
+                a {
+                    font-size: 20px;
+                    padding: 6px 24px;
+                }
+            }
+
         }
     }
     .nearby {

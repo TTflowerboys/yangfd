@@ -519,7 +519,6 @@ class f_currant_plugins(f_app.plugin_base):
                 result["rendered"].append(b.get_public_url(filename))
 
         update(result)
-
         f_app.property.update_set(task["property_id"], {task["property_field"]: property[task["property_field"]]})
 
     def task_on_crawler_example(self, task):
@@ -979,6 +978,11 @@ class f_property(f_app.module_base):
         params.setdefault("status", "draft")
         params.setdefault("time", datetime.utcnow())
         params.setdefault("mtime", datetime.utcnow())
+
+        if "brochure" in params:
+            for item in params["brochure"]:
+                item["rendering"] = True
+
         with f_app.mongo() as m:
             property_id = self.get_database(m).insert(params)
 
@@ -1117,6 +1121,10 @@ class f_property(f_app.module_base):
 
             if "brochure" in params["$set"] and params["$set"]["brochure"]:
                 old_property = f_app.property.get(property_id)
+                old_urls = map(lambda item: item["url"], old_property.get("brochure", []))
+                for item in params["$set"]["brochure"]:
+                    if item["url"] not in old_urls:
+                        item["rendering"] = True
 
         with f_app.mongo() as m:
             self.get_database(m).update(
