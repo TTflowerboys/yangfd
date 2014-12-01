@@ -475,6 +475,7 @@ def how_it_works():
 def calculator():
     return template("phone/calculator", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
 
+
 @f_get('/admin')
 @check_landing
 @check_ip_and_redirect_domain
@@ -671,6 +672,7 @@ def sitemap():
 
 @f_get("/landregistry/<zipcode_index>")
 def landregistry(zipcode_index):
+    f_app.landregistry.aggregation_monthly()
     result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index)
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
@@ -686,5 +688,12 @@ def landregistry_with_type(zipcode_index):
 @f_get("/landregistry/<zipcode_index>/type_dist")
 def landregistry_type_dist(zipcode_index):
     result = f_app.landregistry.get_type_distribution_by_zipcode_index(zipcode_index)
+    response.set_header(b"Content-Type", b"image/png")
+    return result.getvalue()
+
+
+@f_get("/landregistry/<zipcode_index>/price_dist")
+def landregistry_price_dist(zipcode_index):
+    result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index)
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()

@@ -1755,21 +1755,23 @@ class f_landregistry(f_app.module_base):
             result_800k_900k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 800001, "$lt": 900000}}).count()
             result_900k_1m = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 900001, "$lt": 1000000}}).count()
             result_gte_1m = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 1000000}}).count()
-        
+
         result_sum = result_lt_100k + result_100k_200k + result_200k_300k + result_300k_400k + result_400k_500k + result_500k_600k + result_600k_700k + result_700k_800k + result_800k_900k + result_900k_1m + result_gte_1m
 
         import numpy as np
 
-        ind = np.arange(len(merged_result))
-        width = 0.2
+        ind = np.arange(11)
+        width = 0.5
 
         fig, ax = plt.subplots()
-        ax.bar(ind, [x['count'] for x in merged_result], width, color='r')
+        ax.bar(ind, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width)
 
         ax.autoscale_view()
-        ax.set_ylabel('Number')
-        ax.set_xticks(ind + width / 2)
+        ax.set_ylabel('Percentage %')
+        ax.set_xticks(ind + width)
         ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', rotation=45, fontsize=10)
+        plt.gcf().subplots_adjust(bottom=0.15)
 
         graph = StringIO()
         plt.savefig(graph, format="png")
