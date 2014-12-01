@@ -75,6 +75,7 @@ logger = logging.getLogger(__name__)
         summary=("i18n", None, str),
         link=(str, None),
     )),
+    image=str,
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "operation", "jr_operation"])
 def report_add(user, params):
@@ -146,6 +147,7 @@ def report_get(report_id):
         summary=("i18n", None, str),
         link=(str, None),
     )),
+    image=(str, None),
 ))
 def report_edit(report_id, params):
     return f_app.report.update_set(report_id, params)
@@ -160,6 +162,7 @@ def report_remove(report_id):
     per_page=int,
     time=datetime,
     status=str,
+    zipcode_index=str,
 ))
 def report_search(params):
     per_page = params.pop("per_page", 0)
