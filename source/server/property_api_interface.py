@@ -316,6 +316,7 @@ def property_edit(property_id, user, params):
                             unset_fields = property.pop("unset_fields", [])
                             f_app.property.update_set(target_property_id, property)
                             if unset_fields:
+                                unset_fields.append("unset_fields")
                                 f_app.property.update(target_property_id, {"$unset": {i: "" for i in unset_fields}})
                             f_app.property.update_set(property_id, {"status": "deleted"})
                             return f_app.property.get(target_property_id)
