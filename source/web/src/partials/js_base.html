@@ -28,8 +28,8 @@
 </script>
 <![endif]-->
 
-<!--build:js /static/scripts/dependencies.js-->
 
+<!--build:js /static/scripts/dependencies.js-->
 <script src="/static/vendors/jquery.serializeObject.js"></script>
 <script src="/static/vendors/jquery.validate.js"></script>
 <script src="/static/vendors/jquery.cookie.min.js"></script>
@@ -50,8 +50,12 @@
 <script src="/static/scripts/jquery_modal_settings.js"></script>
 <!--endbuild-->
 
-<!-- @if ENV='production' -->
+
+<!-- @if ENV='dev' -->
+<!--build:js /static/scripts/third-party.js-->
 <script src="/static/scripts/track.js"></script>
 <!--<script src="/static/scripts/zoho.js"></script>-->
+<!--endbuild-->
 <!-- @endif -->
+
 

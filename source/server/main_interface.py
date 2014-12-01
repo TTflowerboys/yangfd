@@ -183,6 +183,13 @@ def process():
     return template("process", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
+@f_get('/region_report')
+@check_landing
+@check_ip_and_redirect_domain
+def region_report():
+    return template("region_report", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+
+
 @f_get('/property_list')
 @check_landing
 @check_ip_and_redirect_domain
