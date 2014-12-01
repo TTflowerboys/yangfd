@@ -15,7 +15,16 @@
     m.parentNode.insertBefore(a, m)
 })(window, document, 'script', '/reverse_proxy?link=http://www.google-analytics.com/analytics.js', 'ga');
 
-ga('create', 'UA-55542465-1', 'auto');
+ga('create', 'UA-55542465-1', 'auto', {'allowLinker': true});
+// Load the plugin.
+ga('require', 'linker');
+// Define which domains to autoLink. Exclude current domain when add link.
+var domains = ['yangfd.com', 'yangfd.co.uk','yangfd.cn'];
+for(var i = domains.length - 1; i >= 0; i--) {
+    if(domains[i] === window.location.host) {
+        ga('linker:autoLink', domains.splice(i, 1));
+    }
+}
 
 //Enable Google User-ID feature if is existing user
 if (window.user) {
