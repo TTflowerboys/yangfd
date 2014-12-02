@@ -227,6 +227,21 @@ def property_get(property_id):
     favorite_list = get_favorite_list()
     return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip)
 
+@f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>')
+@check_landing
+@check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def pdfviewer(user,property_id):
+    property = f_app.property.output([property_id])[0]
+    if "target_property_id" in property:
+        target_property_id = property.pop("target_property_id")
+        target_property = f_app.property.output([target_property_id])[0]
+        unset_fields = property.pop("unset_fields", [])
+        target_property.update(property)
+        for i in unset_fields:
+            target_property.pop(i, None)
+        property = target_property
+    return template("pdf_viewer", user=get_current_user(), property=property)
 
 @f_get('/news_list')
 @check_landing
@@ -481,7 +496,6 @@ def how_it_works():
 @check_ip_and_redirect_domain
 def calculator():
     return template("phone/calculator", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
-
 
 @f_get('/admin')
 @check_landing
