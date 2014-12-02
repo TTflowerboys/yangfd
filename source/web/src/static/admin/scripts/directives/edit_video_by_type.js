@@ -26,14 +26,14 @@ angular.module('app')
                                 url: '/api/1/upload_file',
                                 file: file,
                                 fileFormDataName: 'data',
-                                ignoreLoadingBar: true
-                            }, {errorMessage: true})
+                                ignoreLoadingBar: true,
+                                errorMessage: true
+                            })
                                 .success(function (data, status, headers, config) {
                                     scope.video = data.val.url
                                     updateSource(scope.video)
                                 })
                                 .error(function () {
-                                    //TODO:need to handle error properly
                                     scope.video = ''
                                 })
                         } else {
@@ -42,14 +42,14 @@ angular.module('app')
                                 url: '/api/1/qiniu/upload_file',
                                 file: file,
                                 fileFormDataName: 'data',
-                                ignoreLoadingBar: true
-                            }, {errorMessage: true})
+                                ignoreLoadingBar: true,
+                                errorMessage: true
+                            })
                                 .success(function (data, status, headers, config) {
                                     scope.video = data.val.url
                                     updateSource(scope.video)
                                 })
                                 .error(function () {
-                                    //TODO:need to handle error properly
                                     scope.video = ''
                                 })
                         }

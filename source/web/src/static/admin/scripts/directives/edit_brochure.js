@@ -18,7 +18,13 @@ angular.module('app')
                 scope.$watch('brochure', function (newValue) {
                     // Update brochure status when init directive
                     if (isInit && scope.brochure && scope.brochure.length > 0) {
-                        scope.brochureStatus = 'done'
+                        if(scope.brochure[0].rendering){
+                            scope.brochureStatus = 'rendering'
+                        }else if(scope.brochure[0].rendered.length>0){
+                            scope.brochureStatus = 'done'
+                        }else{
+                            scope.brochureStatus = 'unknown'
+                        }
                         //TODO:set up preview url
                     }
                 })
@@ -35,7 +41,8 @@ angular.module('app')
                             url: '/api/1/upload_file',
                             file: file,
                             fileFormDataName: 'data',
-                            ignoreLoadingBar: true
+                            ignoreLoadingBar: true,
+                            errorMessage: true
                         }).success(function (data, status, headers, config) {
                             scope.brochure.url = data.val.url
                             scope.brochureStatus = 'uploaded'

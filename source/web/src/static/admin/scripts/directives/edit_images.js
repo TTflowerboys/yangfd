@@ -42,7 +42,8 @@ angular.module('app')
                                 thumbnail_size: scope.thumbnailSize || '0,0',
                                 filename: file.name
                             },
-                            ignoreLoadingBar: true
+                            ignoreLoadingBar: true,
+                            errorMessage: true
                         })
                             .success(function (data, status, headers, config) {
                                 for (var key in scope.images) {
