@@ -32,6 +32,7 @@ angular.module('app')
         {name: i18n('估计月租金收入'), value: 'estimated_monthly_rent'},
         {name: i18n('估计月平均支出'), value: 'estimated_monthly_cost'},
         {name: i18n('视频'), value: 'videos'},
+        {name: i18n('推广资料'), value: 'brochure'},
         {name: i18n('总价格'), value: 'total_price'},
         {name: i18n('居室数'), value: 'bedroom_count'},
         {name: i18n('客厅数'), value: 'living_room_count'},
