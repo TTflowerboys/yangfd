@@ -10,7 +10,7 @@ angular.module('app')
             scope: {
                 brochure: '=ngModel',
                 text: '@text',
-                property_id:"=propertyId"
+                property_id:'=propertyId'
             },
             link: function (scope, elm, attrs) {
 
@@ -24,7 +24,7 @@ angular.module('app')
                         }else if(scope.brochure[0].rendered.length>0){
                             scope.brochureStatus = 'done'
 
-                            scope.url = "/pdf_viewer/property/" + scope.property_id
+                            scope.url = '/pdf_viewer/property/' + scope.property_id
                         }else{
                             scope.brochureStatus = 'unknown'
                         }
