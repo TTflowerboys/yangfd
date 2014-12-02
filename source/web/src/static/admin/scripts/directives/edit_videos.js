@@ -12,27 +12,6 @@ angular.module('app')
                 text: '@text'
             },
             link: function (scope, elm, attrs) {
-                //scope.video = ''
-                //
-                //scope.onFileSelected = function ($files) {
-                //    var file = $files[0]
-                //    if (file) {
-                //        scope.video = undefined
-                //        $upload.upload({
-                //            url: '/api/1/upload_file',
-                //            file: file,
-                //            fileFormDataName: 'data',
-                //            ignoreLoadingBar: true
-                //        })
-                //            .success(function (data, status, headers, config) {
-                //                scope.video = data.val.url
-                //            })
-                //    }
-                //}
-                //
-                //scope.removeVideo = function () {
-                //    scope.video = ''
-                //}
 
                 scope.addVideo = function(){
                     if(!scope.videoList){
