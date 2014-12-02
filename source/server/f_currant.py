@@ -1154,8 +1154,8 @@ class f_property(f_app.module_base):
 
         return property
 
-    def update_set(self, property_id, params):
-        return self.update(property_id, {"$set": params})
+    def update_set(self, property_id, params, _ignore_render_pdf=False):
+        return self.update(property_id, {"$set": params}, _ignore_render_pdf=_ignore_render_pdf)
 
     @f_cache("propertybyslug")
     def get_by_slug(self, slug, force_reload=False):
