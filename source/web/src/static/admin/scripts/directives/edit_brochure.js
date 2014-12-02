@@ -18,7 +18,13 @@ angular.module('app')
                 scope.$watch('brochure', function (newValue) {
                     // Update brochure status when init directive
                     if (isInit && scope.brochure && scope.brochure.length > 0) {
-                        scope.brochureStatus = 'done'
+                        if(scope.brochure[0].rendering){
+                            scope.brochureStatus = 'rendering'
+                        }else if(scope.brochure[0].rendered.length>0){
+                            scope.brochureStatus = 'done'
+                        }else{
+                            scope.brochureStatus = 'unknown'
+                        }
                         //TODO:set up preview url
                     }
                 })
