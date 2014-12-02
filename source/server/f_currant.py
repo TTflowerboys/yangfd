@@ -974,12 +974,12 @@ class f_property(f_app.module_base):
 
             return _format_each(result)
 
-    def add(self, params):
+    def add(self, params, _ignore_render_pdf=False):
         params.setdefault("status", "draft")
         params.setdefault("time", datetime.utcnow())
         params.setdefault("mtime", datetime.utcnow())
 
-        if "brochure" in params:
+        if not _ignore_render_pdf and "brochure" in params:
             for item in params["brochure"]:
                 item["rendering"] = True
 
@@ -992,7 +992,7 @@ class f_property(f_app.module_base):
                 property_id=str(property_id),
             ))
 
-        elif "brochure" in params and params["brochure"]:
+        elif not _ignore_render_pdf and "brochure" in params and params["brochure"]:
             for item in params["brochure"]:
                 f_app.task.add(dict(
                     type="render_pdf",
@@ -1115,11 +1115,11 @@ class f_property(f_app.module_base):
             self.remove(child_property_id)
         self.update_set(property_id, {"status": "deleted"})
 
-    def update(self, property_id, params):
+    def update(self, property_id, params, _ignore_render_pdf=False):
         if "$set" in params:
             params["$set"].setdefault("mtime", datetime.utcnow())
 
-            if "brochure" in params["$set"] and params["$set"]["brochure"]:
+            if not _ignore_render_pdf and "brochure" in params["$set"] and params["$set"]["brochure"]:
                 old_property = f_app.property.get(property_id)
                 old_urls = map(lambda item: item["url"], old_property.get("brochure", []))
                 for item in params["$set"]["brochure"]:
@@ -1141,7 +1141,7 @@ class f_property(f_app.module_base):
                         property_id=property_id,
                     ))
 
-            elif "$set" in params and "brochure" in params["$set"] and params["$set"]["brochure"]:
+            elif not _ignore_render_pdf and "$set" in params and "brochure" in params["$set"] and params["$set"]["brochure"]:
                 old_urls = map(lambda item: item["url"], old_property.get("brochure", []))
                 for item in params["$set"]["brochure"]:
                     if item["url"] not in old_urls:
