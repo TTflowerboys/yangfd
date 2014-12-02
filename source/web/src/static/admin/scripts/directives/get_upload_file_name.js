@@ -26,7 +26,8 @@ angular.module('app')
                                 ratio: scope.ratio || 1,
                                 thumbnail_size: scope.thumbnailSize || '400,400',
                                 filename: file.name,
-                                ignoreLoadingBar: true
+                                ignoreLoadingBar: true,
+                                errorMessage: true
                             }
                         })
                             .success(function (data, status, headers, config) {

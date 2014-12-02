@@ -41,7 +41,8 @@ angular.module('app')
                             url: '/api/1/upload_file',
                             file: file,
                             fileFormDataName: 'data',
-                            ignoreLoadingBar: true
+                            ignoreLoadingBar: true,
+                            errorMessage: true
                         }).success(function (data, status, headers, config) {
                             scope.brochure.url = data.val.url
                             scope.brochureStatus = 'uploaded'
