@@ -320,6 +320,15 @@ def property_edit(property_id, user, params):
                                 f_app.property.update(target_property_id, {"$unset": {i: "" for i in unset_fields}})
                             f_app.property.update_set(property_id, {"status": "deleted"})
                             return f_app.property.get(target_property_id)
+                    else:
+                        def action(params):
+                            with f_app.mongo() as m:
+                                property = f_app.property.get_database(m).find_one({"_id": ObjectId(property_id)})
+                            unset_fields = property.pop("unset_fields", [])
+                            if unset_fields:
+                                unset_fields.append("unset_fields")
+                                f_app.property.update(property_id, {"$unset": {i: "" for i in unset_fields}})
+                            return f_app.property.get(property_id)
 
                 if params["status"] == "not reviewed":
                     # TODO: make sure all needed fields are present
