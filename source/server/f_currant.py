@@ -1684,19 +1684,19 @@ class f_landregistry(f_app.module_base):
         import numpy as np
 
         with f_app.mongo() as m:
-            result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.date": {"$lt": datetime(2014, 7, 1, 0, 0), "$gte": datetime(2014, 6, 1, 0, 0)}, "_id.type": {"$exists": True}})
-        merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
+            result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": "AL3"}}, {"$group": {"_id": "$_id.type", "count": {"$sum": "$value.count"}}}])['result']
+        merged_result = [i for i in result if i.get("_id")]
 
         ind = np.arange(len(merged_result))
         width = 0.2
 
         fig, ax = plt.subplots()
-        ax.bar(ind, [x['count'] for x in merged_result], width, color='r')
+        ax.bar(ind, [x['count'] for x in merged_result], width)
 
         ax.autoscale_view()
         ax.set_ylabel('Number')
         ax.set_xticks(ind + width / 2)
-        ax.set_xticklabels([x['type'] for x in merged_result])
+        ax.set_xticklabels([x['_id'] for x in merged_result])
 
         graph = StringIO()
         plt.savefig(graph, format="png")
