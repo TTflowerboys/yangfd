@@ -1111,7 +1111,7 @@ class f_property(f_app.module_base):
         return action(params)
 
     def remove(self, property_id):
-        for child_property_id in self.search({'target_property_id': ObjectId(property_id)}, per_page=0):
+        for child_property_id in self.search({'target_property_id': str(property_id)}, per_page=0):
             self.remove(child_property_id)
         self.update_set(property_id, {"status": "deleted"})
 
@@ -1758,9 +1758,7 @@ class f_landregistry(f_app.module_base):
 
         result_sum = result_lt_100k + result_100k_200k + result_200k_300k + result_300k_400k + result_400k_500k + result_500k_600k + result_600k_700k + result_700k_800k + result_800k_900k + result_900k_1m + result_gte_1m
 
-        import numpy as np
-
-        ind = np.arange(11)
+        ind = range(11)
         width = 0.5
 
         fig, ax = plt.subplots()
