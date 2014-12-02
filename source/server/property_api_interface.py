@@ -324,6 +324,7 @@ def property_edit(property_id, user, params):
                         def action(params):
                             with f_app.mongo() as m:
                                 property = f_app.property.get_database(m).find_one({"_id": ObjectId(property_id)})
+                            f_app.property.update_set(property_id, params)
                             unset_fields = property.pop("unset_fields", [])
                             if unset_fields:
                                 unset_fields.append("unset_fields")

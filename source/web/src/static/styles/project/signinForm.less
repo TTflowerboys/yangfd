@@ -11,6 +11,10 @@
             vertical-align: middle;
             width:100px;
             @media @phone {
+                margin:0;
+                padding: 8px 0 8px 8px;
+
+                width: 100px;               /* fallback for browsers without support for calc() */
                 width:~"calc(35% - 12px)";
             }
 
@@ -22,6 +26,9 @@
             padding: 8px 0 8px 0
             width:200px;
             @media @phone {
+                margin-left:0;
+                padding: 8px 0 8px 8px;
+                width: 130px;               /* fallback for browsers without support for calc() */
                 width:~"calc(65% - 20px)";
             }
         }
@@ -29,6 +36,9 @@
 
     input[name=nickname] {
         @media @phone {
+            margin-left:0;
+            width: 85%;
+            /* fallback for browsers without support for calc() */
             width:~"calc(100% - 20px)";
         }
     }
@@ -40,6 +50,9 @@
 
         @media @phone {
             max-width:100%;
+            margin-left:0;
+            width: 85%;
+            /* fallback for browsers without support for calc() */
             width:~"calc(100% - 80px)";
         }
     }
