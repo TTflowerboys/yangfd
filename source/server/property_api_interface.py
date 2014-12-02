@@ -314,7 +314,7 @@ def property_edit(property_id, user, params):
                             property["status"] = params["status"]
                             target_property_id = property.pop("target_property_id")
                             unset_fields = property.pop("unset_fields", [])
-                            f_app.property.update_set(target_property_id, property)
+                            f_app.property.update_set(target_property_id, property, _ignore_render_pdf=True)
                             if unset_fields:
                                 unset_fields.append("unset_fields")
                                 f_app.property.update(target_property_id, {"$unset": {i: "" for i in unset_fields}})
@@ -324,7 +324,7 @@ def property_edit(property_id, user, params):
                         def action(params):
                             with f_app.mongo() as m:
                                 property = f_app.property.get_database(m).find_one({"_id": ObjectId(property_id)})
-                            f_app.property.update_set(property_id, params)
+                            f_app.property.update_set(property_id, params, _ignore_render_pdf=True)
                             unset_fields = property.pop("unset_fields", [])
                             if unset_fields:
                                 unset_fields.append("unset_fields")
