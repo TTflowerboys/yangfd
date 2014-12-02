@@ -10,14 +10,26 @@ body {
     margin-top: 44px;
     @media @phone {
         margin-top:20px;
-//        margin-bottom:50px;
+        //        margin-bottom:50px;
+
     }
+
     .phone {
+
+        @media @phone {
+            width: 100%;
+            overflow:hidden;
+        }
+
         > select {
             display: inline-block;
             vertical-align: middle;
             width: 100px;
             @media @phone {
+                margin:0;
+                padding: 8px 0 8px 8px;
+
+                width: 100px;               /* fallback for browsers without support for calc() */
                 width:~"calc(35% - 12px)";
             }
         }
@@ -28,7 +40,11 @@ body {
             padding: 8px 0 8px 0;
             width: 200px;
             @media @phone {
+                margin-left:0;
+                padding: 8px 0 8px 8px;
+                width: 130px;               /* fallback for browsers without support for calc() */
                 width:~"calc(65% - 20px)";
+
             }
 
         }
@@ -37,6 +53,9 @@ body {
     input[name=nickname] {
         width:270px;
         @media @phone {
+            margin-left:0;
+            width: 85%;
+            /* fallback for browsers without support for calc() */
             width:~"calc(100% - 20px)";
         }
     }
@@ -50,15 +69,19 @@ body {
         width:270px;
 
         @media @phone {
-            max-width:100%;
+            margin-left:0;
+
+            width: 85%;
+            /* fallback for browsers without support for calc() */
             width:~"calc(100% - 20px)";
         }
     }
 
     .captchaCode {
-        max-width:100%;
 
         @media @phone {
+            max-width:100%;
+
             height:64px;//left space for captcha, no need dyanmic update height of container, may trigger iphone overlay bug
         }
 
@@ -66,7 +89,6 @@ body {
             display: inline-block;
             vertical-align: middle;
             width: 100px;
-
         }
 
         > input[name=code] {
@@ -80,6 +102,8 @@ body {
 
             width: 200px;
             @media @phone {
+
+                width: 150px;               /* fallback for browsers without support for calc() */
                 width:~"calc(100% - 104px)";
             }
         }
@@ -119,6 +143,7 @@ body {
         margin-top: 20px;
         font-size: 14px;
         color: #999999;
+
         > a {
             color: #e60012;
             text-decoration: none;

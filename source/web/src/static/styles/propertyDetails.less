@@ -299,6 +299,7 @@ body{
                     label {
                         float:left;
                         display:inline-block;
+                        width: 80%;
                         width:~"calc(100% - 30px)"
                     }
                 }
@@ -535,14 +536,19 @@ body{
         }
     }
 
-    button[data-fn=expendDescription] {
-        float: right;
+    .expendDescription_wrapper {
         @media @phone {
-            float: none;
-            width: ~"calc(100% - 40px)";
-            margin: 20px;
-            font-size:14px;
-            padding:9px 6px;
+            padding: 20px;
+        }
+
+        button[data-fn=expendDescription] {
+            float: right;
+            @media @phone {
+                float: none;
+                width: 100%;
+                font-size:14px;
+                padding:9px 6px;
+            }
         }
     }
 
