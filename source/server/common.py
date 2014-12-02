@@ -53,6 +53,7 @@ class common(f_common):
 
     version_more_dimension = ["channel", "platform"]
 
+    message_self_hosted_push_listen = "0.0.0.0"
     message_self_hosted_push_port = 8286
     parse_delay = 5
 
