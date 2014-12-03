@@ -26,7 +26,8 @@
       "Chart":     true,
       "currency":  true,
       "lang":      true,
-      "i18n":      true
+      "i18n":      true,
+      "ga":        true
   },
   "globalstrict":  false,
   "immed":         false,
