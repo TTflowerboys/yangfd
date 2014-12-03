@@ -2,7 +2,7 @@
  * Created by Michael on 14/11/15.
  */
 angular.module('app')
-    .directive('editVideoByType', function ($rootScope, $filter, $upload, $http, i18nLanguages) {
+    .directive('editVideoByType', function ($rootScope, $filter, $upload) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_video_by_type.tpl.html',
@@ -11,7 +11,7 @@ angular.module('app')
                 sources: '=ngModel',
                 host: '@host',
                 type: '@type',
-                tags:'@tags'
+                tags: '@tags'
             },
             link: function (scope, elm, attrs) {
                 if (!scope.video) {
@@ -23,7 +23,8 @@ angular.module('app')
                         if (scope.host === 'aws') {
                             scope.video = undefined
                             $upload.upload({
-                                url: '/api/1/upload_file',
+                                url: 'http://'+window.location.hostname+':8286/api/1/upload_file',
+                                method:'POST',
                                 file: file,
                                 fileFormDataName: 'data',
                                 ignoreLoadingBar: true,
@@ -39,7 +40,8 @@ angular.module('app')
                         } else {
                             scope.video = undefined
                             $upload.upload({
-                                url: '/api/1/qiniu/upload_file',
+                                url: 'http://'+window.location.hostname+':8286/api/1/qiniu/upload_file',
+                                method:'POST',
                                 file: file,
                                 fileFormDataName: 'data',
                                 ignoreLoadingBar: true,
