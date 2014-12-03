@@ -98,6 +98,9 @@ $(window).resize(window.updateTagsFixed);
         }
         if (lastItemTime) {
             params.mtime = lastItemTime
+
+            //Load more triggered
+            ga('send', 'event', 'property_list', 'trigger', 'load-more')
         }
 
         $('#result_list_container').show()
@@ -229,6 +232,8 @@ $(window).resize(window.updateTagsFixed);
             //$number.text(count)
             $('#result_list_container').hide()
             showEmptyPlaceHolder(true)
+
+            ga('send', 'event', 'property_list', 'result', 'empty-result',$('.emptyPlaceHolder').find('textarea[name=description]').text())
         }
     }
 
@@ -336,18 +341,24 @@ $(window).resize(window.updateTagsFixed);
             resetCityDataWhenCountryChange()
             resetData()
             loadPropertyList()
+
+            ga('send', 'event', 'property_list', 'change', 'select-country',$('select[name=propertyCountry]').children('option:selected').text())
         })
 
         var $citySelect = $('select[name=propertyCity]')
         $citySelect.change(function () {
             resetData()
             loadPropertyList()
+
+            ga('send', 'event', 'property_list', 'change', 'select-city',$('select[name=propertyCity]').children('option:selected').text())
         })
 
         var $propertyTypeSelect = $('select[name=propertyType]')
         $propertyTypeSelect.change(function () {
             resetData()
-            loadPropertyList();
+            loadPropertyList()
+
+            ga('send', 'event', 'property_list', 'change', 'select-proprty-type',$('select[name=propertyType]').children('option:selected').text())
         })
     })
 
@@ -371,6 +382,8 @@ $(window).resize(window.updateTagsFixed);
         resetData()
         loadPropertyList()
         //updateUserTags()
+
+        ga('send', 'event', 'property_list', 'change', 'change-budget',$item.text())
     })
 
     $('#tags #intentionTag').on('click', '.toggleTag', function (event) {
@@ -386,6 +399,8 @@ $(window).resize(window.updateTagsFixed);
         resetData()
         loadPropertyList()
         //updateUserTags()
+
+        ga('send', 'event', 'property_list', 'change', 'change-intention',$item.text())
     })
 
     function showTags() {
