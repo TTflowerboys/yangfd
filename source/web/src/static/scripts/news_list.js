@@ -35,6 +35,8 @@ $(function () {
         var param = {per_page:onePageItemCount}
         if (lastItemTime) {
             param.time = lastItemTime
+
+            ga('send', 'event', 'news_list', 'trigger', 'load-more')
         }
         //category_slugs
         param.category_slugs = $('#contentType').text()

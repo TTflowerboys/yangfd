@@ -925,6 +925,13 @@ class f_currant_plugins(f_app.plugin_base):
             start=datetime.utcnow() + timedelta(days=1),
         ))
 
+    def task_on_mapreduce_landregistry(self, taks):
+        f_app.landregistry.aggregation_monthly()
+        f_app.task.put(dict(
+            type="mapreduce_landregistry",
+            start=datetime.utcnow() + timedelta(days=30),
+        ))
+
 
 f_currant_plugins()
 
@@ -1667,6 +1674,11 @@ class f_landregistry(f_app.module_base):
         fig, ax = plt.subplots()
         ax.plot([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
 
+        fig_width, fig_height = size
+        fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
+        if fig_width and fig_height:
+            fig.set_size_inches(fig_width, fig_height)
+
         ax.autoscale_view()
         ax.grid(True)
         ax.set_ylabel('BGP')
@@ -1676,30 +1688,34 @@ class f_landregistry(f_app.module_base):
         ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
 
         graph = StringIO()
-        plt.savefig(graph, format="png")
+        plt.savefig(graph, format="png", dpi=100)
 
         return graph
 
     def get_type_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0]):
-        import numpy as np
 
         with f_app.mongo() as m:
             result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": "AL3"}}, {"$group": {"_id": "$_id.type", "count": {"$sum": "$value.count"}}}])['result']
         merged_result = [i for i in result if i.get("_id")]
 
-        ind = np.arange(len(merged_result))
-        width = 0.2
+        ind = range(len(merged_result))
+        width = 0.5
 
         fig, ax = plt.subplots()
         ax.bar(ind, [x['count'] for x in merged_result], width)
 
+        fig_width, fig_height = size
+        fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
+        if fig_width and fig_height:
+            fig.set_size_inches(fig_width, fig_height)
+
         ax.autoscale_view()
         ax.set_ylabel('Number')
-        ax.set_xticks(ind + width / 2)
+        ax.set_xticks([i + width / 2 for i in ind])
         ax.set_xticklabels([x['_id'] for x in merged_result])
 
         graph = StringIO()
-        plt.savefig(graph, format="png")
+        plt.savefig(graph, format="png", dpi=100)
 
         return graph
 
@@ -1737,8 +1753,13 @@ class f_landregistry(f_app.module_base):
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
         fig.autofmt_xdate()
 
+        fig_width, fig_height = size
+        fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
+        if fig_width and fig_height:
+            fig.set_size_inches(fig_width, fig_height)
+
         graph = StringIO()
-        plt.savefig(graph, format="png")
+        plt.savefig(graph, format="png", dpi=100)
 
         return graph
 
@@ -1766,13 +1787,18 @@ class f_landregistry(f_app.module_base):
 
         ax.autoscale_view()
         ax.set_ylabel('Percentage %')
-        ax.set_xticks([x + width for x in ind])
+        ax.set_xticks([i + width for i in ind])
         ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "400k~500k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
         plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', rotation=45, fontsize=10)
         plt.gcf().subplots_adjust(bottom=0.15)
 
+        fig_width, fig_height = size
+        fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
+        if fig_width and fig_height:
+            fig.set_size_inches(fig_width, fig_height)
+
         graph = StringIO()
-        plt.savefig(graph, format="png")
+        plt.savefig(graph, format="png", dpi=100)
 
         return graph
 

@@ -112,7 +112,7 @@ property_params = dict(
     country='enum:country',
     city='enum:city',
     street=("i18n", None, str),
-    zipcode=("i18n", None, str),
+    zipcode=str,
     zipcode_index=str,
     address=("i18n", None, str),
     real_address=("i18n", None, str),
@@ -413,14 +413,14 @@ def mortgage_calculate(params):
     latitude=float,
     longitude=float,
     property_id=ObjectId,
-    zipcode=("i18n", None, str),
+    zipcode=str,
 ))
 def property_walkscore(params):
     """
     parse ``zipcode`` or ``latitude`` and ``longitude`` or just ``property_id``to get the location walkscore
     """
     if "zipcode" in params:
-        zipcode = f_app.zipcode.get_by_zipcode(f_app.i18n.match_i18n(params["zipcode"]))
+        zipcode = f_app.zipcode.get_by_zipcode(params["zipcode"])
         if not zipcode:
             abort(40088, "failed to get walkscore because zipcode doesnot exist")
         latitude = zipcode["latitude"]

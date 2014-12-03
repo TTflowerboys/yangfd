@@ -136,8 +136,11 @@
         container.find('form[name=requirement] select[name=country]').on('change', onPhoneNumberChange)
         container.find('form[name=requirement] input[name=phone]').on('change', onPhoneNumberChange)
 
-        container.find('button[name=cancel]').click(function () {
+        //Only bind click once
+        container.find('button[name=cancel]').off('click').on('click', function () {
             container.hide()
+
+            ga('send', 'event', 'floatBar', 'click', 'cancel-requirement-popup')
         });
     }
 

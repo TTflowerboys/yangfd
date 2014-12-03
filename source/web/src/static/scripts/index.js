@@ -441,6 +441,8 @@
             }
 
             loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
+
+            ga('send', 'event', 'index', 'change', 'change-budget',$item.text())
         })
 
         $intentionTag.on('click', '.toggleTag img', function (event) {
@@ -451,6 +453,8 @@
             $intentionDetails.find('input[value=' + id + ']').prop('checked', false)
             $li.remove()
             loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
+
+            ga('send', 'event', 'index', 'change', 'remove-intention-on-tag',$li.text())
         })
 
         $intentionDetails.find('[name=intention]').on('change', function () {
@@ -459,11 +463,12 @@
             $li.toggleClass('selected', this.checked)
 
             if (this.checked) {
-
                 addIntetionTag($li.attr('data-id'), $li.attr('data-value'))
+                ga('send', 'event', 'index', 'change', 'add-intention',$li.text())
             }
             else {
                 removeIntentionTag($li.attr('data-id'))
+                ga('send', 'event', 'index', 'change', 'remove-intention-on-icon',$li.text())
             }
             loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
         })
@@ -471,10 +476,14 @@
         $intentionTag.find('#add').click(function () {
             $('html, body').animate({scrollTop: $('.intentionTabs_wrapper').offset().top - 60 }, 'fast')
             $('.intentionTabs_wrapper').animate({height: getIntentionTabsHeight() + 'px'}, 400, 'swing')
+
+            ga('send', 'event', 'index', 'click', 'extend-intention-selection')
         })
 
         $('.intentionTabs_wrapper').find('#collapseButton').click(function () {
             $('.intentionTabs_wrapper').animate({height: '0'}, 400, 'swing')
+
+            ga('send', 'event', 'index', 'click', 'collapse-intention-selection')
         })
 
     }
@@ -492,4 +501,38 @@
         updatePropertyCardMouseEnter()
     }
 
+    //GA Event - Home Slideshow
+    $('.gallery .rslides').find( 'li' ).find('.button').click(function(e){
+        ga('send', 'event', 'index', 'click', 'slideshow-button',$(e.currentTarget).text())
+    })
+
+    //GA Event - Announcement
+    $('.announcement ul .title').click(function(e){
+        ga('send', 'event', 'index', 'click', 'top-annoument',$(e.currentTarget).text())
+    })
+
+    $('.announcement ul .more').click(function(e){
+        ga('send', 'event', 'index', 'click', 'more-annoument')
+    })
+
+    //GA Event - Feature Property
+    $('.houseFeatured .houseCard .otherAction .openRequirement').click(function(e){
+        //Send pure property title to GA
+        ga('send', 'event', 'index', 'click', 'open-feature-requirementpopup',$(e.currentTarget).parent().parent().find('.name a').text().replace(/ /g,'').replace(/(\r\n|\n|\r)/gm,''))
+    })
+
+    $('.houseFeatured .houseCard .relatedNews .list a').click(function(e){
+        ga('send', 'event', 'index', 'click', 'click-related-news',$(e.currentTarget).text())
+    })
+
+    $('.houseFeatured .houseCard_phone .relatedNews .list a').click(function(e){
+        ga('send', 'event', 'index', 'click', 'click-related-news',$(e.currentTarget).text())
+    })
+
+    //GA Event - Recommended Property
+    //TODO Only this one Not working on debug mode
+    $('.suggestionHouses .houseCard .otherAction .openRequirement').click(function(e){
+        //Send pure property title to GA
+        ga('send', 'event', 'index', 'click', 'open-recommended-requirementpopup',$(e.currentTarget).parent().parent().find('.name a').text().replace(/ /g,'').replace(/(\r\n|\n|\r)/gm,''))
+    })
 })()
