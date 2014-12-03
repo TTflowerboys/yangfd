@@ -7,6 +7,7 @@
 <!--@@close-->
 
 <!--@@block = main-->
+% from urllib import quote_plus
 <div class="info">
     <img alt="" src=""/>
     <div class="img_shadow"></div>
@@ -137,7 +138,7 @@
                 <ul>
                     <li class="item0" style="width: 800px;">
                         <div class="image">
-                            <img alt="" src="http://www.zoopla.co.uk/dynimgs/graph/home_value/oc/W12?width=400&height=212"/>
+                            <img alt="" src="/image/fetch?link={{quote_plus('http://www.zoopla.co.uk/dynimgs/graph/home_value/oc/W12?width=400&height=212'.encode('utf-8'))}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
@@ -153,11 +154,11 @@
                     </li>
                     <li class="item1">
                         <div class="image">
-                            <img alt="" src="http://www.zoopla.co.uk/dynimgs/graph/average_prices/W12?width=400&height=212"/>
+                            <img alt="" src="/image/fetch?link={{quote_plus('http://www.zoopla.co.uk/dynimgs/graph/average_prices/W12?width=400&height=212'.encode('utf-8'))}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
-                                Hammersmith and Fulham 学校综合质量
+                                Hammersmith and Fulham 平均价格
                             </h3>
                             <p class="description">
                                 李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
@@ -169,12 +170,11 @@
                     </li>
                     <li class="item2">
                         <div class="image">
-                            <img alt="" src="http://www.zoopla.co.uk/dynimgs/graph/price_bands/W12?width=400&height=212
-"/>
+                            <img alt="" src="/image/fetch?link={{quote_plus('http://www.zoopla.co.uk/dynimgs/graph/price_bands/W12?width=400&height=212'.encode('utf-8'))}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
-                                Hammersmith and Fulham 学校综合质量
+                                Hammersmith and Fulham 价格波动范围
                             </h3>
                             <p class="description">
                                 李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
@@ -186,11 +186,11 @@
                     </li>
                     <li class="item3">
                         <div class="image">
-                            <img alt="" src="http://www.zoopla.co.uk/dynimgs/graph/local_type_trends/W12?width=400&height=212"/>
+                            <img alt="" src="/image/fetch?link={{quote_plus('http://www.zoopla.co.uk/dynimgs/graph/local_type_trends/W12?width=400&height=212'.encode('utf-8'))}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
-                                Hammersmith and Fulham 学校综合质量
+                                Hammersmith and Fulham 房产类型价格走势
                             </h3>
                             <p class="description">
                                 李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
@@ -202,8 +202,9 @@
                     </li>
                 </ul>
             </div>
-            <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-            <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+            <a href="#" class="jcarousel-control-next">
+                <img alt="" src="/static/images/region_report/jcarousel-next.png"/>
+            </a>
         </div>
     </div>
 </div>
