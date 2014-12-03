@@ -152,6 +152,85 @@ main {
             }
         }
 
+        .priceCharts {
+            width:100%;
+            overflow:hidden;
+            margin-bottom:90px;
+            >.title {
+                margin-bottom:60px;
+            }
+            .connected-carousels {
+                width:800px;
+                float:left;
+                display:inline-block;
+                .stage {
+                    width: 100%;
+                    margin: 0;
+                    .carousel-stage {
+                        border: 0;
+                        border-radius: 0;
+                        box-shadow: 0 0 0 transparent;
+
+                        ul {
+                            width: 100%;
+                            height: 100%;
+                            li {
+                                width: 100%;
+                                height: 100%;
+
+                                img {
+                                    width:100%;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .navigation {
+                    width:100%;
+                    .carousel-navigation {
+                        width:100%;
+                        width: 100%;
+                        height: 111px;
+                        border:0px;
+                        border-radius: 0;
+                        box-shadow: 0 0 0 transparent;
+                        ul {
+                            li {
+                                img {
+
+                                }
+
+                                &.active {
+                                    img {
+                                        border: 5px solid @red;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .text {
+                float:left;
+                display: inline-block;
+                margin-left:50px;
+                width:350px;
+
+                .title {
+                    font-size:24px;
+                    color:black;
+                }
+
+                .description {
+                    font-size:12px;
+                    line-height:2em;
+                    color:#666;
+                }
+            }
+        }
+
         .areaValueCharts {
             width: 100%;
             .jcarousel {
