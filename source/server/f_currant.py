@@ -925,6 +925,13 @@ class f_currant_plugins(f_app.plugin_base):
             start=datetime.utcnow() + timedelta(days=1),
         ))
 
+    def task_on_mapreduce_landregistry(self, taks):
+        f_app.landregistry.aggregation_monthly()
+        f_app.task.put(dict(
+            type="mapreduce_landregistry",
+            start=datetime.utcnow() + timedelta(days=30),
+        ))
+
 
 f_currant_plugins()
 
