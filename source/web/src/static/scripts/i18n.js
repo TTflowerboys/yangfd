@@ -51,11 +51,15 @@ window.getCurrencyPresentation = function (currency) {
 $('select[name=language]').change(function () {
     var language = $(this).children('option:selected').val();
     window.changeLanguage(language)
+
+    ga('send', 'event', 'i18n', 'change', 'language-change')
 })
 
 $('select[name=currency]').change(function () {
     var currency = $(this).children('option:selected').val()
     window.changeCurrency(currency)
+
+    ga('send', 'event', 'i18n', 'change', 'currency-change')
 })
 
 

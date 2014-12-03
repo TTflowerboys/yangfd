@@ -12,3 +12,7 @@ $('#floatBar #scrollToTop').click(function () {
     $('html, body').animate({scrollTop : 0},400);
     return false;
 })
+
+$('#floatBar .section').mouseenter(function (e) {
+    ga('send', 'event', 'floatBar', 'mouseEnter', e.currentTarget.id);
+})
