@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 @f_api('/report/add', params=dict(
     name=("i18n", None, str),
-    zipcode=(str, True),
+    zipcode_index=(str, True),
     description=("i18n", None, str),
     villa_price=(list, None, dict(
         price=("i18n:currency", None),
