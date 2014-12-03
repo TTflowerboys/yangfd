@@ -35,6 +35,7 @@ class common(f_common):
     memcache_lib = "memcache"
 
     route_log = True
+    use_ssl = False
 
     user_login_type = "phone"
     user_custom_fields = ["email", "register_time", "phone", "city", "country", "state", "zip", "gender", "date_of_birth", "intention", "wechat_id", "counter", "system_message_type", "email_message_type", "locales", "currency", "budget"]
@@ -53,6 +54,7 @@ class common(f_common):
 
     version_more_dimension = ["channel", "platform"]
 
+    message_self_hosted_push_listen = "0.0.0.0"
     message_self_hosted_push_port = 8286
     parse_delay = 5
 

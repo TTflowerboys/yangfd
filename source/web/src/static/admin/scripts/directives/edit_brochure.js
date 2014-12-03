@@ -10,7 +10,7 @@ angular.module('app')
             scope: {
                 brochure: '=ngModel',
                 text: '@text',
-                property_id:'=propertyId'
+                property_id: '=propertyId'
             },
             link: function (scope, elm, attrs) {
 
@@ -19,13 +19,13 @@ angular.module('app')
                 scope.$watch('brochure', function (newValue) {
                     // Update brochure status when init directive
                     if (isInit && scope.brochure && scope.brochure.length > 0) {
-                        if(scope.brochure[0].rendering){
+                        if (scope.brochure[0].rendering) {
                             scope.brochureStatus = 'rendering'
-                        }else if(scope.brochure[0].rendered.length>0){
+                        } else if (scope.brochure[0].rendered.length > 0) {
                             scope.brochureStatus = 'done'
 
                             scope.url = '/pdf_viewer/property/' + scope.property_id
-                        }else{
+                        } else {
                             scope.brochureStatus = 'unknown'
                         }
 
@@ -38,10 +38,15 @@ angular.module('app')
                     if (file) {
                         //Reset brochure
                         scope.brochure = {}
-
+                        var url
+                        if (window.location.hostname === 'localhost') {
+                            url = '/api/1/upload_file'
+                        } else {
+                            url = 'http://' + window.location.hostname + ':8286/api/1/upload_file'
+                        }
                         scope.brochureStatus = 'uploading'
                         $upload.upload({
-                            url: '/api/1/upload_file',
+                            url: url,
                             file: file,
                             fileFormDataName: 'data',
                             ignoreLoadingBar: true,

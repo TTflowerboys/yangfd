@@ -15,6 +15,19 @@
 
             })
 
+
+        //GA
+        $('.message').on('click', function() {
+            ga('send', 'event', 'header', 'click', 'setting-entry');
+        });
+
+        $('.nickname').on('click', function() {
+            ga('send', 'event', 'header', 'click', 'message-entry');
+        });
+
+        $('.logout').on('click', function() {
+            ga('send', 'event', 'header', 'click', 'logout');
+        });
     }
 
 })()

@@ -2,7 +2,7 @@
  * Created by Michael on 14/11/15.
  */
 angular.module('app')
-    .directive('editVideoByType', function ($rootScope, $filter, $upload, $http, i18nLanguages) {
+    .directive('editVideoByType', function ($rootScope, $filter, $upload) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_video_by_type.tpl.html',
@@ -11,7 +11,7 @@ angular.module('app')
                 sources: '=ngModel',
                 host: '@host',
                 type: '@type',
-                tags:'@tags'
+                tags: '@tags'
             },
             link: function (scope, elm, attrs) {
                 if (!scope.video) {
@@ -20,39 +20,35 @@ angular.module('app')
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
-                        if (scope.host === 'aws') {
-                            scope.video = undefined
-                            $upload.upload({
-                                url: '/api/1/upload_file',
-                                file: file,
-                                fileFormDataName: 'data',
-                                ignoreLoadingBar: true,
-                                errorMessage: true
-                            })
-                                .success(function (data, status, headers, config) {
-                                    scope.video = data.val.url
-                                    updateSource(scope.video)
-                                })
-                                .error(function () {
-                                    scope.video = ''
-                                })
+                        var url
+                        if (window.location.hostname === 'localhost') {
+                            if (scope.host === 'aws') {
+                                url = '/api/1/upload_file'
+                            } else {
+                                url = '/api/1/qiniu/upload_file'
+                            }
                         } else {
-                            scope.video = undefined
-                            $upload.upload({
-                                url: '/api/1/qiniu/upload_file',
-                                file: file,
-                                fileFormDataName: 'data',
-                                ignoreLoadingBar: true,
-                                errorMessage: true
-                            })
-                                .success(function (data, status, headers, config) {
-                                    scope.video = data.val.url
-                                    updateSource(scope.video)
-                                })
-                                .error(function () {
-                                    scope.video = ''
-                                })
+                            if (scope.host === 'aws') {
+                                url = 'http://' + window.location.hostname + ':8286/api/1/upload_file'
+                            } else {
+                                url = 'http://' + window.location.hostname + ':8286/api/1/qiniu/upload_file'
+                            }
                         }
+                        scope.video = undefined
+                        $upload.upload({
+                            url: url,
+                            file: file,
+                            fileFormDataName: 'data',
+                            ignoreLoadingBar: true,
+                            errorMessage: true
+                        })
+                            .success(function (data, status, headers, config) {
+                                scope.video = data.val.url
+                                updateSource(scope.video)
+                            })
+                            .error(function () {
+                                scope.video = ''
+                            })
                     }
                 }
 

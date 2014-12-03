@@ -301,10 +301,10 @@ def property_edit(property_id, user, params):
             # Not approved properties
             else:
                 # Submit for approval
-                if len(f_app.task.search({"status": {"$nin": ["completed", "canceled"]}, "property_id": property_id, "type": "render_pdf"})):
-                    abort(40087, "pdf is still rendering")
-
                 if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed", "deleted"):
+                    if len(f_app.task.search({"status": {"$nin": ["completed", "canceled"]}, "property_id": property_id, "type": "render_pdf"})):
+                        abort(40087, "pdf is still rendering")
+
                     assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
                     if "target_property_id" in property:
                         def action(params):

@@ -118,11 +118,15 @@
                     successArea.show()
                     container.find('.requirement_form').hide()
                     submitSuccessCallBack()
+
+                    ga('send', 'event', 'requirementPopup', 'result', 'submit-success');
                 })
                 .fail(function (ret) {
                     errorArea.empty()
                     errorArea.append(window.getErrorMessageFromErrorCode(ret, api))
                     errorArea.show()
+
+                    ga('send', 'event', 'requirementPopup', 'click', 'submit-failed',window.getErrorMessageFromErrorCode(ret, api));
                 })
                 .always(function () {
                     button.css('cursor', 'default')
@@ -202,5 +206,9 @@
         }
     }
 
-    $('.floatBar #requirement').click(window.openRequirementForm)
+    $('.floatBar #requirement').click(function(){
+        window.openRequirementForm()
+
+        ga('send', 'event', 'floatBar', 'click', 'open-requirement-popup');
+    })
 })()

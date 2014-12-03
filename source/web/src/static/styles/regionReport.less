@@ -151,5 +151,58 @@ main {
                 }
             }
         }
+
+        .areaValueCharts {
+            width: 100%;
+            .jcarousel {
+                ul {
+                    width:900px;
+                    height:212px !important;
+                    margin:0 auto;
+                    position: relative;
+                    overflow: hidden;
+
+                    li {
+                        overflow:hidden;
+                        width:100% !important;
+                        height:100% !important;
+                        display:inline-block;
+
+                        .image {
+                            float:left;
+                            display:inline-block
+                        }
+
+                        .text {
+                            float:left;
+                            display: inline-block;
+                            margin-left:70px;
+                            width:400px;
+
+                            .title {
+                                font-size:24px;
+                                color:black;
+                            }
+
+                            .description {
+                                font-size:12px;
+                                line-height:2em;
+                                color:#666;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .jcarousel-control-next {
+                height:102px;
+                width:36px;
+                background:transparent;
+                margin-top: -51px;
+                border-radius:0;
+                border-color:transparent;
+                box-shadow: 0 0 0px #F0EFE7
+            }
+        }
     }
 }
