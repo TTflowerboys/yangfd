@@ -5,7 +5,7 @@
 (function () {
 
     function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window, propertyStatus, userApi,
-                              propertySellingStatus, propertyReviewStatus) {
+                              propertySellingStatus, propertyReviewStatus, $rootScope) {
 
         $scope.item = {}
 
@@ -205,19 +205,61 @@
             }
         })
         $scope.onReset = function ($event, data) {
-            //console.log($scope.targetItem)
+            //console.log($scope.targetItem.get(data))
         }
 
         $scope.onRemoveDelete = function (index) {
             $scope.item.unset_fields.splice(index, 1)
+            if ($scope.item.unset_fields.length === 0) {
+                $scope.item.unset_fields = undefined
+            }
+            updateUnsetFieldsHeight()
         }
 
         $scope.onDelete = function ($event, data) {
             if (!$scope.item.unset_fields) {
                 $scope.item.unset_fields = []
             }
+            for (var index in $scope.item.unset_fields) {
+                var field = $scope.item.unset_fields[index]
+                if (field === data) {
+                    growl.addErrorMessage($rootScope.renderHtml('already exists'), {enableHtml: true})
+                    return
+                }
+            }
             $scope.item.unset_fields.push(data)
+            updateUnsetFieldsHeight()
         }
+
+        $rootScope.$on("ANGULAR_DRAG_START", function ($event, channel) {
+            setTimeout(function () {
+                $scope.$evalAsync(function () {
+                    if (!$scope.item.unset_fields) {
+                        $scope.item.unset_fields = []
+
+                    }
+                });
+            }, 0);
+        })
+
+        $rootScope.$on("ANGULAR_DRAG_END", function ($event, channel) {
+            setTimeout(function () {
+                $scope.$evalAsync(function () {
+                    if ($scope.item.unset_fields.length === 0) {
+                        $scope.item.unset_fields = undefined
+                    }
+                });
+            }, 0);
+        })
+
+        var updateUnsetFieldsHeight = function () {
+            setTimeout(function () {
+                $("#unset_fields_blank").height(function (n, c) {
+                    return $("#unset_fields").height() + 20
+                });
+            }, 100);
+        }
+        updateUnsetFieldsHeight()
     }
 
     angular.module('app').controller('ctrlPropertyEdit', ctrlPropertyEdit)

@@ -28,7 +28,7 @@ angular.module('app')
         {name: i18n('房产价格类型'), value: 'property_price_type'},
         {name: i18n('同等房产描述'), value: 'equal_property_description'},
         {name: i18n('历史成交价格'), value: 'historical_price'},
-        {name: i18n('历史成交价格'), value: 'estimated_income_description'},
+        {name: i18n('月收支分析简要描述'), value: 'estimated_income_description'},
         {name: i18n('估计月租金收入'), value: 'estimated_monthly_rent'},
         {name: i18n('估计月平均支出'), value: 'estimated_monthly_cost'},
         {name: i18n('视频'), value: 'videos'},
