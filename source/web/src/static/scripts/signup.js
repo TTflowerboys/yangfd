@@ -34,6 +34,8 @@ $(function () {
 
     var errorArea = $('form[name=register]').find('.errorMessage')
     $('form[name=register]').submit(function (e) {
+        ga('send', 'event', 'signup', 'click', 'signup-submit')
+
         e.preventDefault()
         errorArea.hide()
 
@@ -52,12 +54,16 @@ $(function () {
         params.solution = getRecaptchaResponse()
         $.betterPost('/api/1/user/register', params)
             .done(function () {
+                ga('send', 'event', 'signup', 'result', 'signup-success')
+
                 window.project.goToIntention()
             }).fail(function (ret) {
                 errorArea.empty()
                 errorArea.append(window.getErrorMessageFromErrorCode(ret))
                 errorArea.show()
                 //refresh it for may user submit fail, or submit again with another account
+
+                ga('send', 'event', 'signup', 'result', 'signup-failed',window.getErrorMessageFromErrorCode(ret))
                 showRecaptcha('captcha_div')
             }).always(function () {
             })
