@@ -1,4 +1,3 @@
-
 (function () {
 
     if (window.user) {
