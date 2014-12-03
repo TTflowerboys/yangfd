@@ -231,7 +231,7 @@
             updateUnsetFieldsHeight()
         }
 
-        $rootScope.$on("ANGULAR_DRAG_START", function ($event, channel) {
+        $rootScope.$on('ANGULAR_DRAG_START', function ($event, channel) {
             setTimeout(function () {
                 $scope.$evalAsync(function () {
                     if (!$scope.item.unset_fields) {
@@ -242,7 +242,7 @@
             }, 0);
         })
 
-        $rootScope.$on("ANGULAR_DRAG_END", function ($event, channel) {
+        $rootScope.$on('ANGULAR_DRAG_END', function ($event, channel) {
             setTimeout(function () {
                 $scope.$evalAsync(function () {
                     if ($scope.item.unset_fields.length === 0) {
@@ -254,8 +254,8 @@
 
         var updateUnsetFieldsHeight = function () {
             setTimeout(function () {
-                $("#unset_fields_blank").height(function (n, c) {
-                    return $("#unset_fields").height() + 20
+                $('#unset_fields_blank').height(function (n, c) {
+                    return $('#unset_fields').height() + 20
                 });
             }, 100);
         }
