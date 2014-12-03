@@ -138,7 +138,7 @@ main {
                         margin-bottom:35px;
                     }
 
-                     .news {
+                    .news {
                         margin:0 0 15px 0;
                         .title {
                             text-decoration:none;
@@ -152,11 +152,68 @@ main {
             }
         }
 
+        .relatedProperties {
+            width:100%;
+            overflow:hidden;
+            margin-bottom:90px;
+            >.title {
+                line-height:1em;
+                margin-bottom:60px;
+            }
+
+            .jcarousel-wrapper {
+                margin:0 auto;
+                display:none;
+
+                .jcarousel {
+                    height:213px;
+
+                    .houseCard {
+                        width: 600px;
+                        min-width: 0;
+                        .description {
+                            .name {
+                                max-width:100%;
+                            }
+                            .price {
+                                right: auto;
+                                left: 0;
+                                top: 63px;
+                                max-width: 100%;
+                            }
+                            .details {
+                                display:none;
+                            }
+                        }
+                    }
+                }
+                .jcarousel-control-next {
+                    height:102px;
+                    width:36px;
+                    background:transparent;
+                    margin-top: -51px;
+                    border-radius:0;
+                    border-color:transparent;
+                    box-shadow: 0 0 0px #F0EFE7
+                }
+
+            }
+
+            .loadIndicator {
+                margin-top: 60px;
+                margin-bottom:20px;
+                margin-left:auto;
+                margin-right:auto;
+                display:block;
+            }
+        }
+
         .priceCharts {
             width:100%;
             overflow:hidden;
             margin-bottom:90px;
             >.title {
+                line-height:1em;
                 margin-bottom:60px;
             }
             .connected-carousels {
@@ -230,6 +287,10 @@ main {
 
         .areaValueCharts {
             width: 100%;
+             >.title {
+                line-height:1em;
+                margin-bottom:60px;
+            }
             .jcarousel {
                 ul {
                     width:900px;

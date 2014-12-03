@@ -4,6 +4,7 @@
 <link href="/static/styles/regionReport.css" rel="stylesheet"/>
 <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
 <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.connected-carousels.css"/>
+<link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
 <!--endbuild-->
 <!--@@close-->
 
@@ -117,8 +118,16 @@
         <h2 class="title">
             {{_('街区热卖房产')}}
         </h2>
-        <ul>
-        </ul>
+          <div class="jcarousel-wrapper">
+            <div class="jcarousel">
+                <ul>
+                </ul>
+            </div>
+            <a href="#" class="jcarousel-control-next">
+                <img alt="" src="/static/images/region_report/jcarousel-next.png"/>
+            </a>
+          </div>
+          <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator"/>
     </div>
 
     <div class="priceCharts">
@@ -259,6 +268,8 @@
         </div>
     </div>
 </div>
+
+<!-- @@include=/static/templates/house_card.tpl.html-->
 
 <!--@@close-->
 
