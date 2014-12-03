@@ -1659,7 +1659,7 @@ class f_landregistry(f_app.module_base):
         else:
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
-    def get_month_average_by_zipcode_index(self, zipcode_index):
+    def get_month_average_by_zipcode_index(self, zipcode_index, size=[0, 0]):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
@@ -1680,7 +1680,7 @@ class f_landregistry(f_app.module_base):
 
         return graph
 
-    def get_type_distribution_by_zipcode_index(self, zipcode_index):
+    def get_type_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0]):
         import numpy as np
 
         with f_app.mongo() as m:
@@ -1703,7 +1703,7 @@ class f_landregistry(f_app.module_base):
 
         return graph
 
-    def get_month_average_by_zipcode_index_with_type(self, zipcode_index):
+    def get_month_average_by_zipcode_index_with_type(self, zipcode_index, size=[0, 0]):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
@@ -1742,7 +1742,7 @@ class f_landregistry(f_app.module_base):
 
         return graph
 
-    def get_price_distribution_by_zipcode_index(self, zipcode_index):
+    def get_price_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0]):
         with f_app.mongo() as m:
             result_lt_100k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$lt": 100000}}).count()
             result_100k_200k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 100001, "$lt": 200000}}).count()
@@ -1766,9 +1766,9 @@ class f_landregistry(f_app.module_base):
 
         ax.autoscale_view()
         ax.set_ylabel('Percentage %')
-        ax.set_xticks(ind + width)
-        ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', rotation=45, fontsize=10)
+        ax.set_xticks([x + width for x in ind])
+        ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "400k~500k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', rotation=45, fontsize=10)
         plt.gcf().subplots_adjust(bottom=0.15)
 
         graph = StringIO()
