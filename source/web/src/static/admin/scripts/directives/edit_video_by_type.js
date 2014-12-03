@@ -20,41 +20,35 @@ angular.module('app')
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
-                        if (scope.host === 'aws') {
-                            scope.video = undefined
-                            $upload.upload({
-                                url: 'http://'+window.location.hostname+':8286/api/1/upload_file',
-                                method:'POST',
-                                file: file,
-                                fileFormDataName: 'data',
-                                ignoreLoadingBar: true,
-                                errorMessage: true
-                            })
-                                .success(function (data, status, headers, config) {
-                                    scope.video = data.val.url
-                                    updateSource(scope.video)
-                                })
-                                .error(function () {
-                                    scope.video = ''
-                                })
+                        var url
+                        if (window.location.hostname === 'localhost') {
+                            if (scope.host === 'aws') {
+                                url = '/api/1/upload_file'
+                            } else {
+                                url = '/api/1/qiniu/upload_file'
+                            }
                         } else {
-                            scope.video = undefined
-                            $upload.upload({
-                                url: 'http://'+window.location.hostname+':8286/api/1/qiniu/upload_file',
-                                method:'POST',
-                                file: file,
-                                fileFormDataName: 'data',
-                                ignoreLoadingBar: true,
-                                errorMessage: true
-                            })
-                                .success(function (data, status, headers, config) {
-                                    scope.video = data.val.url
-                                    updateSource(scope.video)
-                                })
-                                .error(function () {
-                                    scope.video = ''
-                                })
+                            if (scope.host === 'aws') {
+                                url = 'http://' + window.location.hostname + ':8286/api/1/upload_file'
+                            } else {
+                                url = 'http://' + window.location.hostname + ':8286/api/1/qiniu/upload_file'
+                            }
                         }
+                        scope.video = undefined
+                        $upload.upload({
+                            url: url,
+                            file: file,
+                            fileFormDataName: 'data',
+                            ignoreLoadingBar: true,
+                            errorMessage: true
+                        })
+                            .success(function (data, status, headers, config) {
+                                scope.video = data.val.url
+                                updateSource(scope.video)
+                            })
+                            .error(function () {
+                                scope.video = ''
+                            })
                     }
                 }
 
