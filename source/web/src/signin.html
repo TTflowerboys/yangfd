@@ -18,9 +18,11 @@
         ga('send', 'event', 'signin', 'click', 'signin-submit')
 
         e.preventDefault()
+        var errorArea = $('form[name=register]').find('.errorMessage')
         var valid = $.validate(this, {
             onError: function (dom, validator, index) {
-                alert(dom.name + " validate error " + validator)
+                errorArea.text(window.getErrorMessage(dom.name, validator))
+                errorArea.show()
             }
         })
         if (!valid) {return}
@@ -33,7 +35,9 @@
                 project.goBackFromURL()
             })
             .fail(function (ret) {
-                alert(window.getErrorMessageFromErrorCode(ret))
+                errorArea.empty()
+                errorArea.append(window.getErrorMessageFromErrorCode(ret))
+                errorArea.show()
 
                 ga('send', 'event', 'signin', 'result', 'signin-failed',window.getErrorMessageFromErrorCode(ret))
             })
