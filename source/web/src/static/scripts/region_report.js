@@ -1,4 +1,12 @@
 (function () {
+
+    $('.rslides').responsiveSlides({
+        pager: true,
+        nav: true,
+        prevText: '<',
+        nextText: '>'
+    })
+
     $('#loadIndicator').show()
     $.betterPost('/api/1/property/search', {zipcode_index:'L3'})
         .done(function (val) {
