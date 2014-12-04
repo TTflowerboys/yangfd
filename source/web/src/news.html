@@ -81,6 +81,7 @@
      $('#popupShareToWeChat')
             .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
             .modal()
+     ga('send', 'event', 'news', 'share', 'open-wechat')
  })
 
  $('[data-fn=shareToWeibo]').on('click', function () {
@@ -90,6 +91,7 @@
          params.pic = news.images[0]
      }
      team.shareToWeibo(params)
+     ga('send', 'event', 'news', 'share', 'open-weibo')
  })
 </script>
 

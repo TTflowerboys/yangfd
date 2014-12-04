@@ -13,6 +13,7 @@
         }
     }
     $intentionForm.submit(function (e) {
+        ga('send', 'event', 'property_detail', 'submit', 'requirement-submit');
         e.preventDefault()
 
         $submit.prop('disabled', true)
@@ -27,11 +28,13 @@
         $.betterPost(api, data)
             .done(function () {
                 $feedback.show().text($form.attr('data-message-success'))
+                ga('send', 'event', 'property_detail', 'result', 'requirement-submit-success');
             })
             .fail(function (errorCode) {
                 $feedback.empty()
                 $feedback.append(window.getErrorMessageFromErrorCode(errorCode, api))
                 $feedback.show()
+                ga('send', 'event', 'property_detail', 'click', 'requirement-submit-failed',window.getErrorMessageFromErrorCode(errorCode, api));
             })
             .always(function () {
                 $submit.prop('disabled', false)

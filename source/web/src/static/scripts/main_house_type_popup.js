@@ -9,7 +9,7 @@
             popup.hide()
         }
 
-        window.openMainHouseType = function (event, index) {
+        window.openMainHouseType = function (event, index,isPopupExist) {
 
             cIndex = parseInt(index)
 
@@ -54,27 +54,38 @@
             }
 
             popup.show()
+
+            if(!isPopupExist){
+                ga('send', 'event', 'property_detail', 'open', 'main-house-type-open',name)
+            }
         }
 
         window.preMainHouseType = function () {
             if (cIndex > 0) {
-                window.openMainHouseType(null,cIndex - 1)
+                window.openMainHouseType(null,cIndex - 1,true)
             } else if (cIndex === 0) {
                 cIndex = totalLength - 1
-                window.openMainHouseType(null,cIndex)
+                window.openMainHouseType(null,cIndex,true)
             }
+
+            ga('send', 'event', 'property_detail', 'prev', 'main-house-type-popup-prev')
         }
 
         window.nextMainHouseType = function () {
             if (cIndex < totalLength - 1) {
-                window.openMainHouseType(null,cIndex + 1)
+                window.openMainHouseType(null,cIndex + 1,true)
             } else if (cIndex === totalLength - 1) {
                 cIndex = 0
-                window.openMainHouseType(null,cIndex)
+                window.openMainHouseType(null,cIndex,true)
             }
+
+            ga('send', 'event', 'property_detail', 'next', 'main-house-type-popup-next')
         }
 
-        $('#main_house_type_popup_shadow').click(window.closeMainHouseType)
+        $('#main_house_type_popup_shadow').click(function(){
+            window.closeMainHouseType()
+            ga('send', 'event', 'property_detail', 'close', 'main-house-type-close')
+        })
     })
 
 })(jQuery)

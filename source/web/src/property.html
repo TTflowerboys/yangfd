@@ -483,7 +483,7 @@
                                 % for index,item in enumerate(property.get('main_house_types')) :
                                     % if item:
                                         <li class="item{{index}}">
-                                            <a href="javascript:window.openMainHouseType(null, '{{index}}')">
+                                            <a href="javascript:window.openMainHouseType(null, '{{index}}',false)">
                                             <div style="position:relative;">
                                                 <img class="floor_plan" src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                                          alt="" onerror="window.onImgError(this);"/>
@@ -1136,6 +1136,7 @@
      (function () {
          $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
              window.openWeChatShare('{{property.get('id')}}')
+             ga('send', 'event', 'property_detail', 'share', 'open-wechat-mobile')
          });
 
          window.openWeChatShare = function (propertyId) {
@@ -1161,10 +1162,14 @@
 
          $('.rslides_wrapper .leftPressArea').click(function (event) {
              $(event.target).parent().find('a.prev').click()
+
+             ga('send', 'event', 'property_detail', 'click', 'prev-image',$(event.target).parent().parent().attr('data-tab-name'))
          })
 
          $('.rslides_wrapper .rightPressArea').click(function (event) {
              $(event.target).parent().find('a.next').click()
+
+             ga('send', 'event', 'property_detail', 'click', 'next-image',$(event.target).parent().parent().attr('data-tab-name'))
          })
 
 
@@ -1188,21 +1193,25 @@
              }else{
                  $('.content .pictures .labels').show()
              }
+
+             ga('send', 'event', 'property_detail', 'click', 'change-tab',tabName)
          })
 
-
-
          $('[data-fn=addFav]').on('click', function () {
+             ga('send', 'event', 'property_detail', 'click', 'add-fav')
              if (window.project.checkLoginIfNot()) {
                  return
              }
              var $button = $(this)
              var property_id = $button.attr('data-property-id')
+
              $.betterPost('/api/1/user/favorite/add', {
                  property_id: property_id
              })
                                       .done(function (val) {
                                           $button.hide().parent().find('[data-fn=removeFav]').show().attr('data-favorite-id', val)
+
+                                          ga('send', 'event', 'property_detail', 'click', 'add-fav-success')
                                       })
                                       .fail(function (errorCode) {
                                           if (errorCode === 40100) {
@@ -1210,10 +1219,15 @@
                                           } else {
                                               alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
                                           }
+
+                                          ga('send', 'event', 'property_detail', 'click', 'add-fav-failed',errorCode)
                                       })
+
+
          })
 
          $('[data-fn=removeFav]').on('click', function () {
+             ga('send', 'event', 'property_detail', 'click', 'remove-fav')
              if (window.project.checkLoginIfNot()) {
                  return
              }
@@ -1222,6 +1236,7 @@
              $.betterPost('/api/1/user/favorite/' + favorite_id + '/remove')
                                       .done(function () {
                                           $button.hide().parent().find('[data-fn=addFav]').show()
+                                          ga('send', 'event', 'property_detail', 'click', 'remove-fav-success')
                                       })
                                       .fail(function (errorCode) {
                                           if (errorCode === 40100) {
@@ -1229,13 +1244,20 @@
                                           } else {
                                               alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
                                           }
+                                          ga('send', 'event', 'property_detail', 'click', 'remove-fav-failed',errorCode)
                                       })
          })
 
          $('[data-fn=shareToWeChat]').on('click', function () {
              $('#popupShareToWeChat')
-                                      .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
-                                      .modal()
+             .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
+             .modal()
+             ga('send', 'event', 'property_detail', 'share', 'open-wechat-web')
+         })
+
+         //GA Event - Open Map
+         $('#propertyMap').click(function(){
+             ga('send', 'event', 'property_detail', 'click', 'image-tab-open-map')
          })
      })();
 
@@ -1266,6 +1288,7 @@
             .parent().find('[data-ui=description]').height('auto')
          $(this).parent().hide()
              .parent().find('[data-ui=description]').toggleClass( "no-after" )
+         ga('send', 'event', 'property_detail', 'click', 'extend-description')
      });
 
      videojs.options.flash.swf = "/static/vendors/video-js/video-js.swf";
@@ -1296,10 +1319,12 @@
 
      $('.brochure .leftPressArea').click(function (event) {
          $(event.target).parent().find('.brochures-control-prev').click()
+         ga('send', 'event', 'property_detail', 'prev', 'brochures-prev')
      })
 
      $('.brochure .rightPressArea').click(function (event) {
          $(event.target).parent().find('.brochures-control-next').click()
+         ga('send', 'event', 'property_detail', 'next', 'brochures-next')
      })
     </script>
     <!-- @endif -->
