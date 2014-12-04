@@ -15,6 +15,10 @@ main {
             display: table;
             width: 100%;
             border:0px;
+
+            @media @phone {
+                min-height:400px;
+            }
         }
 
         .img_shadow{
@@ -45,9 +49,21 @@ main {
             margin:60px auto;
             color:white;
 
+
+            @media @phone {
+                padding:0 20px;
+            }
+
             .name {
                 font-size:60px;
-                margin-bottom:40px
+                margin-bottom:40px;
+
+                @media @phone {
+                    font-size:24px;
+                    margin-bottom:20px;
+                }
+
+
             }
 
             .hint {
@@ -55,13 +71,24 @@ main {
                 padding-bottom:40px;
                 border-bottom: 5px solid white;
 
-                max-width: 240px
+                max-width: 240px;
+                @media @phone {
+                    font-size:16px;
+                    padding-bottom:20px;
+                    border-bottom: 3px solid white;
+                }
             }
 
             .description {
                 font-size:18px;
                 line-height:30px;
                 margin-top:80px;
+
+                @media @phone {
+                    margin-top:25px;
+                    font-size:12px;
+                    line-height:18px;
+                }
             }
         }
     }
@@ -70,9 +97,17 @@ main {
         max-width:1200px;
         margin:100px auto;
 
+        @media @phone {
+            margin: 25px auto;
+        }
+
         h2.title {
             font-size:20px;
             color:#333;
+
+            @media @phone {
+                font-size:16px;
+            }
         }
 
         .relatedNews {
@@ -82,13 +117,27 @@ main {
                 width: 760px;
                 display:inline-block;
 
+                @media @phone {
+                    width:100%;
+                    padding:0 20px;
+                }
+
                 >.title {
                     margin-bottom:35px;
+                    @media @phone {
+                        margin-bottom:20px;
+                    }
                 }
 
                 .news {
                     overflow:hidden;
                     margin-bottom:30px;
+
+                    @media @phone {
+                        margin-bottom:20px;
+                    }
+
+
                     .summary {
                         margin:0;
                         float:left;
@@ -96,6 +145,10 @@ main {
                         font-size:14px;
                         line-height:24px;
                         color:#999;
+
+                        @media @phone {
+                            font-size:12px;
+                        }
                     }
                     .title {
                         float:right;
@@ -103,6 +156,11 @@ main {
                         font-size:14px;
                         margin:0;
                         color:#666;
+
+                        @media @phone {
+                            font-size:12px;
+                        }
+
                     }
                 }
             }
@@ -111,12 +169,22 @@ main {
                 float:right;
                 width:400px;
                 display:inline-block;
+                @media @phone {
+                    width:100%;
+                }
 
                 .planningNews {
                     padding-bottom:43px;
+                    @media @phone {
+                        padding:20px 20px 0 20px;
+                        border-top:1px solid #ccc;
+                    }
 
                     >.title {
                         margin-bottom:35px;
+                        @media @phone {
+                            margin-bottom:20px;
+                        }
                     }
                     .news {
                         margin:0 0 15px 0;
@@ -125,6 +193,9 @@ main {
                             line-height:1em;
                             font-size:14px;
                             color:#666;
+                            @media @phone {
+                                font-size:12px;
+                            }
                         }
                     }
                 }
@@ -132,10 +203,16 @@ main {
                 .jobNews {
                     border-top:1px solid #ccc;
                     padding-top:20px;
+                    @media @phone {
+                        padding:20px 20px 0 20px;
+                    }
 
                     >.title {
                         line-height:1em;
                         margin-bottom:35px;
+                        @media @phone {
+                            margin-bottom:20px;
+                        }
                     }
 
                     .news {
@@ -156,9 +233,18 @@ main {
             width:100%;
             overflow:hidden;
             margin-bottom:90px;
+
+            @media @phone {
+                margin-top:30px;
+
+            }
             >.title {
                 line-height:1em;
                 margin-bottom:60px;
+                @media @phone {
+                    margin-bottom:20px;
+                    margin-left:20px;
+                }
             }
 
             .jcarousel-wrapper {
@@ -167,10 +253,17 @@ main {
 
                 .jcarousel {
                     height:213px;
+                    @media @phone {
+                        height:auto;
+                    }
 
                     li {
                         width:600px;
                         border:0;
+
+                        @media @phone {
+                            width:330px;
+                        }
 
                         .houseCard {
                             width: 590px;
@@ -190,6 +283,12 @@ main {
                                     display:none;
                                 }
                             }
+                        }
+
+                        .houseCard_phone {
+                            width:320px;
+                            margin-right:10px;
+
                         }
 
                     }
@@ -217,14 +316,26 @@ main {
             width:100%;
             overflow:hidden;
             margin-bottom:90px;
+            @media @phone {
+                margin-top:25px;
+            }
             >.title {
                 line-height:1em;
                 margin-bottom:60px;
+
+                @media @phone {
+                    margin-bottom:20px;
+                    margin-left:20px;
+                }
             }
             .connected-carousels {
                 width:800px;
                 float:left;
                 display:inline-block;
+
+                @media @phone {
+                    width:100%;
+                }
                 .stage {
                     width: 100%;
                     margin: 0;
@@ -237,7 +348,6 @@ main {
 
                             li {
                                 img {
-
                                     width:800px;
                                 }
                             }
@@ -257,7 +367,7 @@ main {
                         ul {
                             li {
                                 img {
-
+                                    width:200px;
                                 }
 
                                 &.active {
