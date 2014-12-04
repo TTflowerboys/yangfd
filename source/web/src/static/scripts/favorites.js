@@ -46,6 +46,7 @@ $('.list').on('click', '.houseCard #undoFavorite', function (event) {
         })
         .fail (function (ret) {
             window.alert(window.i18n('撤销失败'))
+            ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-failed')
         })
 })
 
