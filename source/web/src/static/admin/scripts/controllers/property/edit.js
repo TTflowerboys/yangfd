@@ -5,7 +5,7 @@
 (function () {
 
     function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window, propertyStatus, userApi,
-                              propertySellingStatus, propertyReviewStatus, $rootScope) {
+                              propertySellingStatus, propertyReviewStatus, $rootScope, $filter) {
 
         $scope.item = {}
 
@@ -21,7 +21,7 @@
                     if (res.target_property_id) {
                         api.getOne(res.target_property_id, {errorMessage: true})
                             .success(function (data) {
-                                $scope.targetItem = angular.copy(data.val)
+                                onGetTargetItem(data.val)
                                 res = angular.extend(data.val, res)
                                 onGetItem(res)
                             })
@@ -90,6 +90,46 @@
             $scope.item = angular.copy($scope.itemOrigin)
         }
 
+        function onGetTargetItem(item) {
+            var editTargetItem = angular.copy(item)
+            if (!_.isEmpty(editTargetItem.property_type)) {
+                editTargetItem.property_type = editTargetItem.property_type.id
+            }
+            if (!_.isEmpty(editTargetItem.intention)) {
+                var temp = []
+                angular.forEach(editTargetItem.intention, function (value, key) {
+                    temp.push(value.id)
+                })
+                editTargetItem.intention = temp
+            }
+            if (!_.isEmpty(editTargetItem.investment_type)) {
+                var temp1 = []
+                angular.forEach(editTargetItem.investment_type, function (value, key) {
+                    temp1.push(value.id)
+                })
+                editTargetItem.investment_type = temp1
+            }
+            if (!_.isEmpty(editTargetItem.equity_type)) {
+                editTargetItem.equity_type = editTargetItem.equity_type.id
+            }
+            if (!_.isEmpty(editTargetItem.decorative_style)) {
+                editTargetItem.decorative_style = editTargetItem.decorative_style.id
+            }
+            if (!_.isEmpty(editTargetItem.property_price_type)) {
+                $scope.propertyPriceType = editTargetItem.property_price_type.slug
+                editTargetItem.property_price_type = editTargetItem.property_price_type.id
+            }
+            if (!_.isEmpty(editTargetItem.facing_direction)) {
+                editTargetItem.facing_direction = editTargetItem.facing_direction.id
+            }
+            if (!_.isEmpty(editTargetItem.country)) {
+                editTargetItem.country = editTargetItem.country.id
+            }
+            if (!_.isEmpty(editTargetItem.city)) {
+                editTargetItem.city = editTargetItem.city.id
+            }
+            $scope.targetItem = editTargetItem
+        }
 
         $scope.submit = function ($event, form) {
             $event.preventDefault()
@@ -205,7 +245,24 @@
             }
         })
         $scope.onReset = function ($event, data) {
-            //console.log($scope.targetItem.get(data))
+            var dontHaveKey = true
+            Object.keys($scope.targetItem).forEach(function (key) {
+                if (key === data) {
+                    dontHaveKey = false
+                    if (angular.equals($scope.item[key], $scope.targetItem[key])) {
+                        growl.addErrorMessage($rootScope.renderHtml($filter('propertyKeyName')(key) + i18n('未修改')),
+                            {enableHtml: true})
+                    } else {
+                        growl.addSuccessMessage($rootScope.renderHtml($filter('propertyKeyName')(key) + i18n('已恢复')),
+                            {enableHtml: true})
+                        $scope.item[key] = $scope.targetItem[key];
+                    }
+                }
+            });
+            if (dontHaveKey) {
+                growl.addErrorMessage($rootScope.renderHtml(i18n('原始数据中不存在：') + $filter('propertyKeyName')(data)),
+                    {enableHtml: true})
+            }
         }
 
         $scope.onRemoveDelete = function (index) {

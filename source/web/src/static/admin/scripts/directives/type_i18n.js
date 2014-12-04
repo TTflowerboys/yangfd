@@ -13,6 +13,17 @@ angular.module('app')
                 for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
                     scope.model[i18nLanguages[i].value] = scope.model[i18nLanguages[i].value] || ''
                 }
+                scope.$watch('model', function (newValue) {
+                    if (newValue) {
+                        return
+                    }
+                    if (!scope.model) {
+                        scope.model = {}
+                    }
+                    for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
+                        scope.model[i18nLanguages[i].value] = scope.model[i18nLanguages[i].value] || ''
+                    }
+                })
             }
         }
     })

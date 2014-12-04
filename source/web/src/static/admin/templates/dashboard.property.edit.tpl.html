@@ -696,7 +696,7 @@
                     <div>{%$root.i18n('拖动至此删除内容')%}</div>
                     <table class="table table-bordered table-striped table-condensed ">
                         <tr ng-repeat="field in item.unset_fields">
-                            <td>{%field|unsetFieldsName%}</td>
+                            <td>{%field|propertyKeyName%}</td>
                             <td>
                                 <span class="btn btn-danger" ng-click="onRemoveDelete($index)" title="{%$root.i18n('移除')%}">
                                     <i class="fa fa-trash-o"></i>
@@ -705,9 +705,9 @@
                     </table>
                 </div>
 
-                <!--<div ng-if="targetItem" class="form-group col-sm-3" ui-on-Drop="onReset($event,$data)" drop-channel="reset" style="display:block;background-color:#aaaaaa;margin:20px;padding:20px">-->
-                    <!--<div>{%$root.i18n('拖动至此还原内容')%}</div>-->
-                <!--</div>-->
+                <div ng-if="targetItem" class="form-group col-sm-3" ui-on-Drop="onReset($event,$data)" drop-channel="reset" style="display:block;background-color:#aaaaaa;margin:20px;padding:20px">
+                    <div>{%$root.i18n('拖动至此还原内容')%}</div>
+                </div>
             </div>
         </div>
     </form>
