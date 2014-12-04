@@ -11,20 +11,27 @@ $(function () {
 })
 
 $('.list').on('click', '.houseCard #cancelFavorite', function (event) {
+    ga('send', 'event', 'user-fav', 'click', 'cancel-fav')
+
     var favoriteId = $(event.currentTarget).attr('data-id')
     $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
         .done(function (data) {
             $(event.currentTarget).hide()
             var $undoButton = $(event.currentTarget).parents('.houseCard').find('#undoFavorite[data-id=' + favoriteId + ']')
             $undoButton.parent().show()
+
+            ga('send', 'event', 'user-fav', 'click', 'cancel-fav-success')
         })
         .fail (function (ret) {
             window.alert(window.i18n('取消收藏失败'))
+
+            ga('send', 'event', 'user-fav', 'click', 'cancel-fav-failed')
         })
 })
 
 
 $('.list').on('click', '.houseCard #undoFavorite', function (event) {
+    ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav')
     var propertyId = $(event.currentTarget).attr('data-property-id')
     $.betterPost('/api/1/user/favorite/add', {'property_id':propertyId})
         .done(function (data) {
@@ -35,9 +42,7 @@ $('.list').on('click', '.houseCard #undoFavorite', function (event) {
                     var houseResult = _.template($('#houseCard_template').html())({fav: fav})
                     $('.houseCard[data-property-id=' + propertyId + ']').replaceWith(houseResult)
                 })
-		.fail(function (ret) {
-                    window.alert(window.i18n('撤销失败'))
-		})
+            ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-success')
         })
         .fail (function (ret) {
             window.alert(window.i18n('撤销失败'))

@@ -13,9 +13,8 @@
         }
     }
     $intentionForm.submit(function (e) {
-        ga('send', 'event', 'property_detail', 'submit', 'requirement-submit');
         e.preventDefault()
-
+        ga('send', 'event', 'property_detail', 'submit', 'requirement-submit')
         $submit.prop('disabled', true)
         $feedback.hide()
         var $form = $(this)

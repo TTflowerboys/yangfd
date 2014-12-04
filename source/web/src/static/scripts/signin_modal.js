@@ -19,9 +19,8 @@ $('#modal_shadow').click(function () {
 
 var errorArea = $('form[name=signin]').find('.errorMessage')
 $('form[name=signin]').submit(function (e) {
-    ga('send', 'event', 'signin', 'click', 'signin-submit')
-
     e.preventDefault()
+    ga('send', 'event', 'signin', 'click', 'signin-submit')
     errorArea.hide()
     var valid = $.validate(this, {onError: function (dom, validator, index) {
         errorArea.text(window.getErrorMessage(dom.name, validator))
