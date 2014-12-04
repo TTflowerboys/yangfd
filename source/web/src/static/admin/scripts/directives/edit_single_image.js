@@ -35,6 +35,10 @@ angular.module('app')
                         })
                             .success(function (data, status, headers, config) {
                                 scope.image = data.val.url
+                            }).error(function (data) {
+                                if (!data) {
+                                    growl.addErrorMessage($rootScope.renderHtml('No Response'), {enableHtml: true})
+                                }
                             })
                     }
                 }
