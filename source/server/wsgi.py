@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 
+import sys
+# TODO: A saner way?
+if len(sys.argv) and sys.argv[1] == "-u":
+    from gevent import monkey
+    monkey.patch_all()
+
 import os
 import sys
 
