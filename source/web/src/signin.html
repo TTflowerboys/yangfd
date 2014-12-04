@@ -15,9 +15,8 @@
 
 
     $('form[name=signin]').submit(function (e) {
-        ga('send', 'event', 'signin', 'click', 'signin-submit')
-
         e.preventDefault()
+        ga('send', 'event', 'signin', 'click', 'signin-submit')
         var errorArea = $('form[name=register]').find('.errorMessage')
         var valid = $.validate(this, {
             onError: function (dom, validator, index) {

@@ -48,10 +48,12 @@
      $intentionform.find('[name=budget]').on('change', function () {
          $(this).parent().toggleClass('selected', this.checked)
                 .siblings().removeClass('selected')
+         ga('send', 'event', 'intention-selection', 'change', 'change-budget',$(this).parent().text())
      })
 
      $intentionform.find('[name=intention]').on('change', function () {
          $(this).closest('li').toggleClass('selected', this.checked)
+         ga('send', 'event', 'intention-selection', 'change', 'change-intention',$(this).parent().text().replace(/ /g,'').replace(/(\r\n|\n|\r)/gm,''))
      })
 
      $intentionform.find('[name]').on('change', function () {
@@ -61,6 +63,8 @@
 
      $intentionform.submit(function (e) {
          e.preventDefault()
+         ga('send', 'event', 'intention-selection', 'click', 'intention-submit')
+
          var data = $(this).serializeObject()
 
          var intentionTags = $(this).find('.intention .controls').children('.selected')
@@ -79,13 +83,22 @@
          if (!data.budget && !data.intention) { location.href = '/';  return;}
          $intentionform.find('[type=submit]').css({cursor: 'wait'})
          $.betterPost('/api/1/user/edit', data)
-                       .always(function () {
-                           location.href = '/'
-                           $intentionform.find('[type=submit]').css({cursor: 'default'})
-                       })
+             .done(function(){
+                 location.href = '/'
+                 ga('send', 'event', 'intention-selection', 'result', 'intention-submit-success')
+             })
+             .fail(function(errorCode){
+                 ga('send', 'event', 'intention-submit', 'result', 'intention-submit-failed',errorCode)
+             })
+             .always(function () {
+                 $intentionform.find('[type=submit]').css({cursor: 'default'})
+            })
      })
 
-
+     function skipIntention(){
+         location.href = '/'
+         ga('send', 'event', 'intention-selection', 'click', 'skip-intention-selection')
+     }
  })()
 </script>
 <!--@@close-->
