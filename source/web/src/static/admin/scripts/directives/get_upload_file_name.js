@@ -2,7 +2,7 @@
  * Created by Michael on 14/10/16.
  */
 angular.module('app')
-    .directive('getUploadFileName', function ($upload) {
+    .directive('getUploadFileName', function ($upload, $rootScope, growl) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/get_upload_file_name.tpl.html',

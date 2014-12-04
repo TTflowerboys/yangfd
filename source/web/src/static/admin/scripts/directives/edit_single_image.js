@@ -1,6 +1,6 @@
 /* Created by frank on 14-8-21. */
 angular.module('app')
-    .directive('editSingleImage', function ($upload, $http) {
+    .directive('editSingleImage', function ($upload, $http, $rootScope, growl) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_single_image.tpl.html',

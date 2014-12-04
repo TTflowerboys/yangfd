@@ -2,7 +2,7 @@
  * Created by zhou on 14-11-6.
  */
 angular.module('app')
-    .directive('editI18nGalleryBox', function ($rootScope, $filter, $upload, $http, i18nLanguages) {
+    .directive('editI18nGalleryBox', function ($rootScope, $filter, $upload, $http, growl) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_i18n_gallery_box.tpl.html',

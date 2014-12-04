@@ -2,7 +2,7 @@
  * Created by Michael on 14/11/15.
  */
 angular.module('app')
-    .directive('editVideoByType', function ($rootScope, $filter, $upload) {
+    .directive('editVideoByType', function ($rootScope, $filter, $upload, growl) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_video_by_type.tpl.html',
@@ -47,7 +47,7 @@ angular.module('app')
                                 updateSource(scope.video)
                             })
                             .error(function (data) {
-                                if(!data){
+                                if (!data) {
                                     growl.addErrorMessage($rootScope.renderHtml('No Response'), {enableHtml: true})
                                 }
                                 scope.video = ''
