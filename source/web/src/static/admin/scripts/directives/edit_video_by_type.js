@@ -46,7 +46,10 @@ angular.module('app')
                                 scope.video = data.val.url
                                 updateSource(scope.video)
                             })
-                            .error(function () {
+                            .error(function (data) {
+                                if(!data){
+                                    growl.addErrorMessage($rootScope.renderHtml('No Response'), {enableHtml: true})
+                                }
                                 scope.video = ''
                             })
                     }

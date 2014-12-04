@@ -21,8 +21,14 @@
         var $form = $(this)
 
         var data = $form.serializeObject({noEmptyString: true})
-        data.noregister = data.register === 'on' ? false : true
-        data.register = undefined
+
+        if (window.user) {
+            data.register = undefined
+        }
+        else {
+            data.noregister = data.register === 'on' ? false : true
+            data.register = undefined
+        }
 
         var api = '/api/1/intention_ticket/add'
         $.betterPost(api, data)

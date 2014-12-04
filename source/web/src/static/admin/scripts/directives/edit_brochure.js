@@ -54,7 +54,10 @@ angular.module('app')
                         }).success(function (data, status, headers, config) {
                             scope.brochure.url = data.val.url
                             scope.brochureStatus = 'uploaded'
-                        }).error(function () {
+                        }).error(function (data) {
+                            if (!data) {
+                                growl.addErrorMessage($rootScope.renderHtml('No Response'), {enableHtml: true})
+                            }
                             scope.brochureStatus = 'error'
                         })
                     }

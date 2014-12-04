@@ -52,6 +52,10 @@ angular.module('app')
                                         break
                                     }
                                 }
+                            }).error(function (data) {
+                                if (!data) {
+                                    growl.addErrorMessage($rootScope.renderHtml('No Response'), {enableHtml: true})
+                                }
                             })
                     }
                 }
