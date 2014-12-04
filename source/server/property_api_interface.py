@@ -100,7 +100,7 @@ def property_search(user, params):
     if random and property_list["content"]:
         logger.debug(property_list["content"])
         import random
-        property_list["content"] = random.shuffle(property_list["content"])
+        random.shuffle(property_list["content"])
     property_list['content'] = f_app.property.output(property_list['content'])
     return property_list
 
