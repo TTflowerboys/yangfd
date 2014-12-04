@@ -25,7 +25,6 @@
         if (valid) {
             $mortgageForm.find('[type=submit]').prop('disabled', false)
         }
-
     }).submit(function (e) {
         e.preventDefault()
         $mortgageForm.find('.error').remove().end()
@@ -57,7 +56,9 @@
                 for (var key in result) {
                     $mortgageForm.find('[data-name=' + key + ']').text(team.encodeCurrency(result[key]))
                 }
-
+                ga('send', 'event', 'property_detail', 'result', 'mortgage-calculate-success')
+            }).fail(function (errorCode) {
+                ga('send', 'event', 'property_detail', 'result', 'mortgage-calculate-failed')
             })
             .always(function () {
                 $mortgageForm

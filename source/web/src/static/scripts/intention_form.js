@@ -13,6 +13,7 @@
         }
     }
     $intentionForm.submit(function (e) {
+        ga('send', 'event', 'property_detail', 'submit', 'requirement-submit');
         e.preventDefault()
 
         $submit.prop('disabled', true)
@@ -20,18 +21,26 @@
         var $form = $(this)
 
         var data = $form.serializeObject({noEmptyString: true})
-        data.noregister = data.register === 'on' ? false : true
-        data.register = undefined
+
+        if (window.user) {
+            data.register = undefined
+        }
+        else {
+            data.noregister = data.register === 'on' ? false : true
+            data.register = undefined
+        }
 
         var api = '/api/1/intention_ticket/add'
         $.betterPost(api, data)
             .done(function () {
                 $feedback.show().text($form.attr('data-message-success'))
+                ga('send', 'event', 'property_detail', 'result', 'requirement-submit-success');
             })
             .fail(function (errorCode) {
                 $feedback.empty()
                 $feedback.append(window.getErrorMessageFromErrorCode(errorCode, api))
                 $feedback.show()
+                ga('send', 'event', 'property_detail', 'click', 'requirement-submit-failed',window.getErrorMessageFromErrorCode(errorCode, api));
             })
             .always(function () {
                 $submit.prop('disabled', false)

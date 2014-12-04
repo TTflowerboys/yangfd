@@ -168,35 +168,40 @@ main {
                 .jcarousel {
                     height:213px;
 
-                    .houseCard {
-                        width: 600px;
-                        min-width: 0;
-                        .description {
-                            .name {
-                                max-width:100%;
-                            }
-                            .price {
-                                right: auto;
-                                left: 0;
-                                top: 63px;
-                                max-width: 100%;
-                            }
-                            .details {
-                                display:none;
+                    li {
+                        width:600px;
+                        border:0;
+
+                        .houseCard {
+                            width: 590px;
+                            margin-right:10px;
+                            min-width: 0;
+                            .description {
+                                .name {
+                                    max-width:100%;
+                                }
+                                .price {
+                                    right: auto;
+                                    left: 0;
+                                    top: 63px;
+                                    max-width: 100%;
+                                }
+                                .details {
+                                    display:none;
+                                }
                             }
                         }
+
                     }
                 }
-                .jcarousel-control-next {
-                    height:102px;
-                    width:36px;
-                    background:transparent;
-                    margin-top: -51px;
-                    border-radius:0;
-                    border-color:transparent;
-                    box-shadow: 0 0 0px #F0EFE7
+
+                .jcarousel-control-prev {
+                    z-index:@jcarousel-control-z-index;
                 }
 
+                .jcarousel-control-next {
+                    z-index:@jcarousel-control-z-index;
+                }
             }
 
             .loadIndicator {
@@ -287,7 +292,7 @@ main {
 
         .areaValueCharts {
             width: 100%;
-             >.title {
+            >.title {
                 line-height:1em;
                 margin-bottom:60px;
             }
