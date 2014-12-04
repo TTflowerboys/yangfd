@@ -316,9 +316,9 @@ class f_currant_ticket(f_ticket):
                 t.pop("custom_fields", None)
             user_id_set.add(t.get("creator_user_id"))
             user_id_set |= set(t.get("assignee", []))
-            if "budget" in t:
+            if t.get("budget"):
                 enum_id_set.add(t["budget"]["_id"])
-            if "property_id" in t:
+            if t.get("property_id"):
                 property_id_set.add(t["property_id"])
 
         user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields)
@@ -332,9 +332,9 @@ class f_currant_ticket(f_ticket):
             t["creator_user"] = user_dict.get(t.pop("creator_user_id"))
             if isinstance(t.get("assignee"), list):
                 t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
-            if "budget" in t:
+            if t.get("budget"):
                 t["budget"] = enum_dict.get(str(t["budget"]["_id"]))
-            if "property_id" in t:
+            if t.get("property_id"):
                 t["property"] = property_dict.get(str(t.pop("property_id")))
 
         return ticket_list
