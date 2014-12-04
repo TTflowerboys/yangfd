@@ -31,13 +31,13 @@
                             <div class="form-group col-sm-3">
                                 <label class="control-label">{%$root.i18n('上传iOS适配的至AWS')%}</label>
                                 <div class="controls">
-                                    <div edit-video-by-type host="aws" type="video/mp4" tags="mobile-ios" ng-model="video.sources"></div>
+                                    <div edit-video-by-type host="aws_s3" type="video/mp4" tags="mobile-ios" ng-model="video.sources"></div>
                                 </div>
                             </div>
                             <div class="form-group col-sm-3">
                                 <label class="control-label">{%$root.i18n('上传Web页面的MP4至AWS')%}</label>
                                 <div class="controls">
-                                    <div edit-video-by-type host="aws" type="video/mp4" tags="web-normal" ng-model="video.sources"></div>
+                                    <div edit-video-by-type host="aws_s3" type="video/mp4" tags="web-normal" ng-model="video.sources"></div>
                                 </div>
                             </div>
                         </div>
