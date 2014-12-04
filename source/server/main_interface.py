@@ -422,8 +422,6 @@ def user_intentions(user):
     intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [
                                                 {"creator_user_id": ObjectId(get_current_user(user)["id"])}, {"user_id": ObjectId(get_current_user(user)["id"])}]}))
     intention_ticket_status_list = get_intention_ticket_status_list()
-    logger.warning('hehe')
-    logger.warning(len(intention_ticket_status_list))
     for ticket in intention_ticket_list:
         for ticket_status in intention_ticket_status_list:
             if ('intention_ticket_status:' + ticket['status'] == ticket_status['slug']):
