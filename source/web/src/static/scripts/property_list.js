@@ -118,13 +118,13 @@ $(window).resize(window.updateTagsFixed);
                 var array = val.content
                 totalResultCount = val.count
                 if (!_.isEmpty(array)) {
-                    lastItemTime = _.last(array).time
+                    lastItemTime = _.last(array).mtime
                     _.each(array, function (house) {
                         var houseResult = _.template($('#houseCard_template').html())({house: house})
                         $('#result_list').append(houseResult)
 
-                        if (lastItemTime > house.time) {
-                            lastItemTime = house.time
+                        if (lastItemTime > house.mtime) {
+                            lastItemTime = house.mtime
                         }
                     })
                     updatePropertyCardMouseEnter()
