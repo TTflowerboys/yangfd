@@ -30,7 +30,7 @@ def current_user_favorites(user, params):
     """
     per_page = params.pop("per_page", 0)
     params["user_id"] = ObjectId(user["id"])
-    result = f_app.user.favorite.output(f_app.user.favorite.search(params, per_page=per_page))
+    result = f_app.user.favorite.output(f_app.user.favorite.search(params, per_page=per_page), ignore_nonexist=True)
     return result
 
 
@@ -58,6 +58,7 @@ def current_user_favorite_remove(user, favorite_id):
     """
     Delete a favorited item
     """
+    assert str(f_app.user.favorite_get(favorite_id)["user_id"]) == user["id"], abort(40399)
     return f_app.user.favorite.remove(favorite_id)
 
 
