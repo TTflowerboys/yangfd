@@ -7,6 +7,9 @@ if len(sys.argv) > 1 and sys.argv[1] == "-u":
     from gevent import monkey
     monkey.patch_all()
 
+import qiniu.config
+qiniu.config.set_default(default_up_host="qiniu-proxy.bbtechgroup.com")
+
 import os
 import sys
 
