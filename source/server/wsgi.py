@@ -8,7 +8,9 @@ if len(sys.argv) > 1 and sys.argv[1] == "-u":
     monkey.patch_all()
 
 import qiniu.config
-qiniu.config.set_default(default_up_host="qiniu-proxy.bbtechgroup.com")
+qiniu.config.set_default(
+    default_up_host="qiniu-proxy.bbtechgroup.com",
+    connection_timeout=1800)
 
 import os
 import sys
