@@ -33,15 +33,15 @@ def process_water_mark(img):
             im.save(f, "JPEG", quality=100)
             f.seek(0)
 
-            # with f_app.storage.aws_s3() as b:
-            #     filename = f_app.util.uuid()
-            #     b.upload(filename, f.read(), policy="public-read")
-            #     img = b.get_public_url(filename)
+            with f_app.storage.aws_s3() as b:
+                filename = f_app.util.uuid()
+                b.upload(filename, f.read(), policy="public-read")
+                img = b.get_public_url(filename)
             # logger.debug("Generated %s" % img)
-            filename = f_app.util.uuid()
-            b = open('/tmp/' + filename + '.jpg', 'w+')
-            b.write(f.read())
-            b.close()
+            # filename = f_app.util.uuid()
+            # b = open('/tmp/' + filename + '.jpg', 'w+')
+            # b.write(f.read())
+            # b.close()
 
             return filename + "_new.jpg"
         else:
