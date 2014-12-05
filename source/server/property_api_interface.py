@@ -380,7 +380,6 @@ def property_get(property_id):
 @f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'junior_sales'])
 def property_edit_sales_comment(user, property_id, params):
     params = {"sales_comment": params.pop("content", None)}
-    params = {"mtime": datetime.utcnow()}
     f_app.property.update_set(property_id, params)
     return f_app.property.output([property_id])[0]
 
