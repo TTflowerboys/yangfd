@@ -45,6 +45,12 @@
     <meta name="Description" content="{{property.get('name',_('房产详情'))}}">
     <meta name="Keywords" content="{{property.get('name',_('房产详情'))+','}}{{','.join(tags + [u'洋房东,海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property'])}}">
 
+
+    <!-- cause video-js.css has related path font resource, so package in the same dir-->
+    <!--build:css(dist) /static/vendors/video-js/video-js.css-->
+    <link rel="stylesheet" href="/static/vendors/video-js/video-js.css">
+    <!--endbuild-->
+
     <!--build:css(dist) /static/styles/property.html.css-->
     <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
     <link rel="stylesheet" href="/static/styles/propertyCard.css"/>
@@ -1271,6 +1277,8 @@
          window.historical_price = JSON.parse(document.getElementById('python_historical_price').innerHTML) || null
         </script>
     % end
+
+
 
     <!--build:js /static/scripts/property.html.js-->
     <script src="/static/scripts/show_historical_price.js"></script>
