@@ -236,7 +236,6 @@ main {
 
             @media @phone {
                 margin-top:30px;
-
             }
             >.title {
                 line-height:1em;
@@ -244,6 +243,51 @@ main {
                 @media @phone {
                     margin-bottom:20px;
                     margin-left:20px;
+                }
+            }
+
+            .rslides_wrapper {
+                display:none;
+
+                .rslides {
+                    li {
+                         .houseCard {
+                            .properties {
+                                li {
+                                    img {
+                                        width: auto;
+                                    }
+                                }
+                            }
+                        }
+                        .houseCard_phone {
+                            .properties {
+                                li {
+                                    img {
+                                        width: auto;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                .rslides_nav {
+                    @height: 32px;
+                    position: absolute; z-index: 1; text-decoration: none; font-weight: bold; color: @red;
+                    display: inline-block; width: @height; height: @height;
+                    top: 50%; margin-top: -16px;
+                    border-radius: 50%;
+                    background: fade(white, 30%); line-height: @height; text-align: center;
+                    box-shadow: inset 0 0 2px 0 fade(black, 30%);
+
+                    @media @phone {
+                        top:120px;
+                        margin-top:0px;
+                    }
+                    &.prev { left: 8px; }
+                    &.next { right: 8px; }
                 }
             }
 
@@ -318,6 +362,7 @@ main {
             margin-bottom:90px;
             @media @phone {
                 margin-top:25px;
+                margin-bottom:0;
             }
             >.title {
                 line-height:1em;
@@ -328,7 +373,8 @@ main {
                     margin-left:20px;
                 }
             }
-            .connected-carousels {
+
+            .rslides_wrapper {
                 width:800px;
                 float:left;
                 display:inline-block;
@@ -336,47 +382,66 @@ main {
                 @media @phone {
                     width:100%;
                 }
-                .stage {
+
+                .rslides {
                     width: 100%;
                     margin: 0;
-                    .carousel-stage {
-                        border: 0;
-                        border-radius: 0;
-                        box-shadow: 0 0 0 transparent;
-
-                        ul {
-
-                            li {
-                                img {
-                                    width:800px;
-                                }
-                            }
-                        }
-                    }
                 }
 
-                .navigation {
-                    width:100%;
-                    .carousel-navigation {
-                        width:100%;
-                        width: 100%;
-                        height: 111px;
-                        border:0px;
-                        border-radius: 0;
-                        box-shadow: 0 0 0 transparent;
-                        ul {
-                            li {
-                                img {
-                                    width:200px;
-                                }
+                .rslides_tabs {
+                    position:static;
+                    list-style: none;
+                    padding: 0;
+                    font-size: 18px;
+                    list-style: none;
+                    margin: 0 auto 0px;
+                    padding: 10px 0;
+                    text-align: center;
+                    width: 100%;
+                }
 
-                                &.active {
-                                    img {
-                                        border: 5px solid @red;
-                                    }
-                                }
-                            }
-                        }
+                .rslides_tabs li {
+                    display: inline;
+                    float: none;
+                    margin-right: 0px;
+                    margin-left: 0px;
+                    width:25%;
+                }
+
+                .rslides_tabs a {
+                    width: auto;
+                    line-height: 20px;
+                    padding: 0;
+                    height: auto;
+                    background: transparent;
+                    display: inline;
+                    border-radius:0px;
+                    max-width:95%;
+                }
+
+                .rslides_tabs li:first-child {
+                    margin-left: 0;
+                }
+
+                .rslides_tabs .rslides_here a {
+                    background: rgba(255,255,255,.1);
+                    color: #fff;
+                    font-weight: bold;
+                    background: transparent;
+                    box-shadow: 0 0 0 3px @red;
+                }
+
+                .rslidesPager a {
+                    display: inline-block;
+                    padding: 0;
+                }
+
+                .rslidesPager img {
+                    float: left;
+                    max-width:190px;
+
+                    @media @phone {
+                        max-width:74px;
                     }
                 }
             }
@@ -387,25 +452,49 @@ main {
                 margin-left:50px;
                 width:350px;
 
+                @media @phone {
+                    margin-left:0px;
+                    display:block;
+                    width:100%;
+                    padding:0 12px;
+                }
+
                 .title {
                     font-size:24px;
                     color:black;
+
+                    @media @phone {
+                        font-size:16px;
+                    }
                 }
 
                 .description {
                     font-size:12px;
                     line-height:2em;
                     color:#666;
+
+                    @media @phone {
+                        line-height:20px;
+                    }
                 }
             }
         }
 
         .areaValueCharts {
             width: 100%;
+              @media @phone {
+                margin-top:25px;
+            }
             >.title {
                 line-height:1em;
                 margin-bottom:60px;
+
+                @media @phone {
+                    margin-bottom:20px;
+                    margin-left:20px;
+                }
             }
+
             .rslides_wrapper {
                 ul.rslides {
                     width:900px;
@@ -413,6 +502,11 @@ main {
                     margin:0 auto;
                     position: relative;
                     overflow: hidden;
+
+                    @media @phone {
+                        width:100%;
+                        height:auto !important;
+                    }
 
                     li {
                         overflow:hidden;
@@ -423,8 +517,19 @@ main {
                         .image {
                             float:left;
                             display:inline-block;
+                            @media @phone {
+                                display:block;
+                                margin: 0 auto;
+                                float: none;
+                            }
                             img {
                                 width:400px;
+
+                                @media @phone {
+                                    width:300px;
+                                    margin: 0 auto;
+                                    float: none;
+                                }
                             }
 
                         }
@@ -435,15 +540,30 @@ main {
                             margin-left:70px;
                             width:400px;
 
+                            @media @phone {
+                                width:100%;
+                                display:block;
+                                margin-left:0;
+                                padding:0 12px;
+                            }
+
                             .title {
                                 font-size:24px;
                                 color:black;
+
+                                @media @phone {
+                                    font-size:16px;
+                                }
                             }
 
                             .description {
                                 font-size:12px;
                                 line-height:2em;
                                 color:#666;
+
+                                @media @phone {
+                                    line-height:20px;
+                                }
                             }
                         }
                     }
@@ -451,15 +571,22 @@ main {
 
                 }
 
-                   .rslides_nav {
-                        @height: 32px;
-                        position: absolute; z-index: 1; text-decoration: none; font-weight: bold; color: @red;
-                        display: inline-block; width: @height; height: @height; top: 50%; margin-top: -16px; border-radius: 50%;
-                        background: fade(white, 30%); line-height: @height; text-align: center;
-                        box-shadow: inset 0 0 2px 0 fade(black, 30%);
-                        &.prev { left: 8px; }
-                        &.next { right: 8px; }
+                .rslides_nav {
+                    @height: 32px;
+                    position: absolute; z-index: 1; text-decoration: none; font-weight: bold; color: @red;
+                    display: inline-block; width: @height; height: @height;
+                    top: 50%; margin-top: -16px;
+                    border-radius: 50%;
+                    background: fade(white, 30%); line-height: @height; text-align: center;
+                    box-shadow: inset 0 0 2px 0 fade(black, 30%);
+
+                    @media @phone {
+                        top:50px;
+                        margin-top:0px;
                     }
+                    &.prev { left: 8px; }
+                    &.next { right: 8px; }
+                }
             }
         }
     }
