@@ -1,7 +1,13 @@
 (function () {
+    $('#priceSlider').responsiveSlides({
+        manualControls: '#priceSliderPager',
+        auto: false,
+        maxwidth: 800
+    });
 
-    $('.rslides').responsiveSlides({
+    $('#areaValueSlider').responsiveSlides({
         pager: true,
+        auto: false,
         nav: true,
         prevText: '<',
         nextText: '>'
