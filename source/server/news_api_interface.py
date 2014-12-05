@@ -54,7 +54,6 @@ def news_list(params):
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'operation', 'jr_operation'])
 def news_add(user, params):
     """
-    ``blog_id`` is a constant "53f839246b80992f831b2269".
     ``zipcode_index`` is the key related to properties, internal use only.
     ``link`` is the source link, not the link to itself.
     """
