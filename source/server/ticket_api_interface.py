@@ -318,7 +318,7 @@ def intention_ticket_edit(user, ticket_id, params):
     status=(list, None, str),
     per_page=int,
     time=datetime,
-    sort=(list, None, str),
+    sort=(list, ["time", 'desc'], str),
     budget="enum:budget",
     phone=str,
     country="enum:country",
@@ -344,7 +344,7 @@ def intention_ticket_search(user, params):
         params["user_id"] = ObjectId(user["id"])
         enable_custom_fields = False
 
-    sort = params.pop("sort", ["time", 'desc'])
+    sort = params.pop("sort")
     per_page = params.pop("per_page", 0)
 
     if "status" in params:
@@ -500,7 +500,7 @@ def support_ticket_edit(user, ticket_id, params):
     status=(list, None, str),
     per_page=int,
     time=datetime,
-    sort=(list, None, str),
+    sort=(list, ["time", 'desc'], str),
     phone=str,
     country="enum:country",
     user_id=ObjectId,
@@ -524,9 +524,8 @@ def support_ticket_search(user, params):
         # General users
         params["user_id"] = ObjectId(user["id"])
         enable_custom_fields = False
-    sort = params.pop("sort", ["time", 'desc'])
     per_page = params.pop("per_page", 0)
-
+    sort = params.pop("sort")
     if "status" in params:
         if set(params["status"]) <= set(f_app.common.support_ticket_statuses):
             params["status"] = {"$in": params["status"]}
