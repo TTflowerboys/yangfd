@@ -177,6 +177,7 @@ class common(f_common):
         40087: "background process are still processing the property, try again later",
 
         40399: "Permission denied",
+        40398: "Permission denied: not a valid property_id",
     }
 
 common()
@@ -195,3 +196,4 @@ f_app.common.register_error_code(40089)
 f_app.common.register_error_code(40088)
 f_app.common.register_error_code(40087)
 f_app.common.register_error_code(40399)
+f_app.common.register_error_code(40398)

@@ -1828,9 +1828,6 @@ class f_landregistry(f_app.module_base):
                 values.forEach(function(value) {
                     result.count += value.count;
                     result.price += value.price;
-                    if (key.zipcode_index == 'AL3' && key.date.getMonth() == 5) {
-                        print(key.type, value.count, value.price, result.count, result.price);
-                    }
                 });
                 return result;
             }

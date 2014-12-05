@@ -42,6 +42,8 @@ def current_user_favorites_add(user, params):
     """
     Get current user favorites
     """
+    property = f_app.property.get(params["property_id"])
+    assert property["status"] in ["selling", "sold out"], abort(40398, logger.warning("Permission denied: not a valid property_id", exc_info=False))
     params["user_id"] = ObjectId(user["id"])
     result = f_app.user.favorite_search(params)
     if result:
