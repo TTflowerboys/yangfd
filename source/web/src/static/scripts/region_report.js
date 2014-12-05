@@ -13,6 +13,8 @@
         nextText: '>'
     })
 
+
+
     $('#loadIndicator').show()
     $.betterPost('/api/1/property/search', {zipcode_index:'L3'})
         .done(function (val) {
@@ -25,8 +27,26 @@
                     index = index + 1
                     var houseResult = _.template($('#houseCard_template').html())({house: house})
                     $('.relatedProperties .jcarousel ul').append('<li class=item' + index + ' >' +houseResult + '</li>')
+
+                    $('.relatedProperties .rslides').append('<li class=item' + index + ' >' +houseResult + '</li>')
                 })
-                $('.relatedProperties .jcarousel-wrapper').show()
+
+                if (window.team.isPhone())
+                {
+                    $('.relatedProperties .rslides_wrapper').show()
+                    $('#propertySlider').responsiveSlides({
+                        pager: true,
+                        auto: false,
+                        nav: true,
+                        prevText: '<',
+                        nextText: '>'
+                    })
+
+                }
+                else {
+                    $('.relatedProperties .jcarousel-wrapper').show()
+
+                }
                 if (array.length === 1)
                 {
                     $('.relatedProperties .jcarousel-wrapper').width('600px')

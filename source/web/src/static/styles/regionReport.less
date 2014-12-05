@@ -236,7 +236,6 @@ main {
 
             @media @phone {
                 margin-top:30px;
-
             }
             >.title {
                 line-height:1em;
@@ -244,6 +243,51 @@ main {
                 @media @phone {
                     margin-bottom:20px;
                     margin-left:20px;
+                }
+            }
+
+            .rslides_wrapper {
+                display:none;
+
+                .rslides {
+                    li {
+                         .houseCard {
+                            .properties {
+                                li {
+                                    img {
+                                        width: auto;
+                                    }
+                                }
+                            }
+                        }
+                        .houseCard_phone {
+                            .properties {
+                                li {
+                                    img {
+                                        width: auto;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                .rslides_nav {
+                    @height: 32px;
+                    position: absolute; z-index: 1; text-decoration: none; font-weight: bold; color: @red;
+                    display: inline-block; width: @height; height: @height;
+                    top: 50%; margin-top: -16px;
+                    border-radius: 50%;
+                    background: fade(white, 30%); line-height: @height; text-align: center;
+                    box-shadow: inset 0 0 2px 0 fade(black, 30%);
+
+                    @media @phone {
+                        top:120px;
+                        margin-top:0px;
+                    }
+                    &.prev { left: 8px; }
+                    &.next { right: 8px; }
                 }
             }
 
