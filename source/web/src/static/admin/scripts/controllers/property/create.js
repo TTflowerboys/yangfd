@@ -11,6 +11,9 @@
             $event.preventDefault()
             $scope.submitted = true
             $scope.loading = true
+            if ($scope.item.zipcode) {
+                $scope.item.zipcode_index = $scope.item.zipcode.substring(0, 3).toUpperCase()
+            }
             $scope.item = misc.cleanTempData($scope.item)
             $scope.item = misc.cleanI18nEmptyUnit($scope.item)
             api.create($scope.item, {
