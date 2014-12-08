@@ -20,7 +20,7 @@
             city: $scope.selected.city,
             property_type: $scope.selected.property_type,
             per_page: $scope.perPage,
-            sort:'mtime,desc'
+            sort: 'mtime,desc'
         }
 
         function updateParams() {
@@ -33,6 +33,12 @@
 
         $scope.searchProperty = function () {
             updateParams()
+            api.getAll({
+                params: params, errorMessage: true
+            }).success(onGetList)
+        }
+
+        $scope.refreshList = function () {
             api.getAll({
                 params: params, errorMessage: true
             }).success(onGetList)
