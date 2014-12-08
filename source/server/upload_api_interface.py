@@ -16,6 +16,7 @@ f_app.dependency_register("wand", race="python")
     thumbnail_size=(list, [600, 300], int),
     width_limit=(int, 1280),
     ratio=float,
+    watermark=bool,
 ))
 def upload_image(params):
     """
@@ -66,17 +67,18 @@ def upload_image(params):
             temp_ratio = float(temp_width) / temp_height
             im = im.resize((params["width_limit"], int(params["width_limit"] / temp_ratio)), Image.ANTIALIAS)
 
-    water_mark_url = 'http://' + request.urlparts[1] + '/static/images/logo/logo-watermark.png'
-    water_mark_request = f_app.request.get(water_mark_url)
-    if water_mark_request.status_code == 200:
-        water_mark = f_app.storage.image_open(StringIO(water_mark_request.content))
-        water_mark_padding = 10
-        layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
-        position = (im.size[0] - water_mark.size[0] - water_mark_padding, im.size[1] - water_mark.size[1] - water_mark_padding)
-        layer.paste(water_mark, position)
-        im = Image.composite(layer, im, layer)
-    else:
-        logger.warning("Cannot get water_mark file.")
+    if params.pop("watermark", True):
+        water_mark_url = 'http://' + request.urlparts[1] + '/static/images/logo/logo-watermark.png'
+        water_mark_request = f_app.request.get(water_mark_url)
+        if water_mark_request.status_code == 200:
+            water_mark = f_app.storage.image_open(StringIO(water_mark_request.content))
+            water_mark_padding = 10
+            layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
+            position = (im.size[0] - water_mark.size[0] - water_mark_padding, im.size[1] - water_mark.size[1] - water_mark_padding)
+            layer.paste(water_mark, position)
+            im = Image.composite(layer, im, layer)
+        else:
+            logger.warning("Cannot get water_mark file.")
 
     f = StringIO()
     im.save(f, "JPEG", quality=95)
@@ -201,6 +203,7 @@ def upload_file(params):
     thumbnail_size=(list, [600, 300], int),
     width_limit=(int, 1280),
     ratio=float,
+    watermark=bool,
 ))
 def upload_from_url(params):
     """
@@ -256,17 +259,18 @@ def upload_from_url(params):
         else:
             im = im.resize((1280, 1280 * height // width), Image.ANTIALIAS)
 
-    water_mark_url = 'http://' + request.urlparts[1] + '/static/images/logo/logo-watermark.png'
-    water_mark_request = f_app.request.get(water_mark_url)
-    if water_mark_request.status_code == 200:
-        water_mark = f_app.storage.image_open(StringIO(water_mark_request.content))
-        water_mark_padding = 10
-        layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
-        position = (im.size[0] - water_mark.size[0] - water_mark_padding, im.size[1] - water_mark.size[1] - water_mark_padding)
-        layer.paste(water_mark, position)
-        im = Image.composite(layer, im, layer)
-    else:
-        logger.warning("Cannot get water_mark file.")
+    if params.pop("watermark", True):
+        water_mark_url = 'http://' + request.urlparts[1] + '/static/images/logo/logo-watermark.png'
+        water_mark_request = f_app.request.get(water_mark_url)
+        if water_mark_request.status_code == 200:
+            water_mark = f_app.storage.image_open(StringIO(water_mark_request.content))
+            water_mark_padding = 10
+            layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
+            position = (im.size[0] - water_mark.size[0] - water_mark_padding, im.size[1] - water_mark.size[1] - water_mark_padding)
+            layer.paste(water_mark, position)
+            im = Image.composite(layer, im, layer)
+        else:
+            logger.warning("Cannot get water_mark file.")
 
     f = StringIO()
     im.save(f, "JPEG", quality=95)
