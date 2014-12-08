@@ -16,7 +16,7 @@ f_app.dependency_register("wand", race="python")
     thumbnail_size=(list, [600, 300], int),
     width_limit=(int, 1280),
     ratio=float,
-    watermark=bool,
+    watermark=(bool, False),
 ))
 def upload_image(params):
     """
@@ -67,7 +67,7 @@ def upload_image(params):
             temp_ratio = float(temp_width) / temp_height
             im = im.resize((params["width_limit"], int(params["width_limit"] / temp_ratio)), Image.ANTIALIAS)
 
-    if params.pop("watermark", True):
+    if params.pop("watermark"):
         water_mark_url = 'http://' + request.urlparts[1] + '/static/images/logo/logo-watermark.png'
         water_mark_request = f_app.request.get(water_mark_url)
         if water_mark_request.status_code == 200:
@@ -203,7 +203,7 @@ def upload_file(params):
     thumbnail_size=(list, [600, 300], int),
     width_limit=(int, 1280),
     ratio=float,
-    watermark=bool,
+    watermark=(bool, False),
 ))
 def upload_from_url(params):
     """
@@ -259,7 +259,7 @@ def upload_from_url(params):
         else:
             im = im.resize((1280, 1280 * height // width), Image.ANTIALIAS)
 
-    if params.pop("watermark", True):
+    if params.pop("watermark"):
         water_mark_url = 'http://' + request.urlparts[1] + '/static/images/logo/logo-watermark.png'
         water_mark_request = f_app.request.get(water_mark_url)
         if water_mark_request.status_code == 200:
