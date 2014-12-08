@@ -9,88 +9,87 @@
 <!--@@close-->
 
 <!--@@block = main-->
-% from urllib import quote_plus
-
-% report = _i18n(report)
-
-<div class="info">
-    <img alt="" src="" style="background-image:url('{{report.get('image')}}');"/>
-    <div class="img_shadow"></div>
-    <div class="text_container">
-        <div class="text">
-            <h1 class="name">
-                {{report.get('name')}}
-            </h1>
-            <h2 class="hint">{{_('地区投资分析报告')}}</h2>
-            <p class="description">
-                {{report.get('description')}}
-            </p>
+%if (report):
+    % from urllib import quote_plus
+    % report = _i18n(report)
+    <div class="info">
+        <img alt="" src="" style="background-image:url('{{report.get('image')}}');"/>
+        <div class="img_shadow"></div>
+        <div class="text_container">
+            <div class="text">
+                <h1 class="name">
+                    {{report.get('name')}}
+                </h1>
+                <h2 class="hint">{{_('地区投资分析报告')}}</h2>
+                <p class="description">
+                    {{report.get('description')}}
+                </p>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="relatedInfo">
-    <div class="relatedNews">
-        <div class="supplementNews">
+    <div class="relatedInfo">
+        <div class="relatedNews">
+            <div class="supplementNews">
+                <h2 class="title">
+                    {{_('房屋供给信息')}}
+                </h2>
+                <ul>
+                    %if (report.get('supplement_news')):
+                        % for item in report.get('supplement_news'):
+                            <li class="news">
+                                <p class="summary">
+                                    {{item.get('summary')}}
+                                </p>
+                                <a class="title" href="{{item.get('link')}}">
+                                    {{item.get('title')}}
+                                </a>
+                            </li>
+                        % end
+                    %end
+                </ul>
+            </div>
+            <div class="right">
+                <div class="planningNews">
+                    <h2 class="title">
+                        {{_('规划信息')}}
+                    </h2>
+                    <ul>
+                        %if (report.get('planning_news')):
+                            % for item in report.get('planning_news'):
+                                <li class="news">
+                                    <a class="title" href="{{item.get('link')}}">
+                                        {{item.get('title')}}
+                                    </a>
+                                </li>
+                            % end
+                        %end
+                    </ul>
+                </div>
+                <div class="jobNews">
+                    <h2 class="title">
+                        {{_('就业机会信息')}}
+                    </h2>
+                    <ul>
+                        %if (report.get('job_news')):
+                            % for item in report.get('job_news'):
+                                <li class="news">
+                                    <a class="title" href="{{item.get('link')}}">
+                                        {{item.get('title')}}
+                                    </a>
+                                </li>
+                            % end
+                        %end
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="relatedProperties">
             <h2 class="title">
-                {{_('房屋供给信息')}}
+                {{_('街区热卖房产')}}
             </h2>
-            <ul>
-                %if (report.get('supplement_news')):
-                    % for item in report.get('supplement_news'):
-                        <li class="news">
-                            <p class="summary">
-                                {{item.get('summary')}}
-                            </p>
-                            <a class="title" href="{{item.get('link')}}">
-                                {{item.get('title')}}
-                            </a>
-                        </li>
-                    % end
-                %end
-            </ul>
-        </div>
-        <div class="right">
-            <div class="planningNews">
-                <h2 class="title">
-                    {{_('规划信息')}}
-                </h2>
-                <ul>
-                    %if (report.get('planning_news')):
-                        % for item in report.get('planning_news'):
-                            <li class="news">
-                                <a class="title" href="{{item.get('link')}}">
-                                    {{item.get('title')}}
-                                </a>
-                            </li>
-                        % end
-                    %end
-                </ul>
-            </div>
-            <div class="jobNews">
-                <h2 class="title">
-                    {{_('就业机会信息')}}
-                </h2>
-                <ul>
-                     %if (report.get('job_news')):
-                        % for item in report.get('job_news'):
-                            <li class="news">
-                                <a class="title" href="{{item.get('link')}}">
-                                    {{item.get('title')}}
-                                </a>
-                            </li>
-                        % end
-                    %end
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="relatedProperties">
-        <h2 class="title">
-            {{_('街区热卖房产')}}
-        </h2>
-         <div class="jcarousel-wrapper">
+            <div class="jcarousel-wrapper">
                 <div class="jcarousel">
                     <ul>
                     </ul>
@@ -104,147 +103,153 @@
                 </ul>
             </div>
             <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator"/>
-    </div>
-
-    <div class="priceCharts">
-        <h2 class="title">
-            {{_('街区房屋价格')}}
-        </h2>
-
-        <div class="rslides_wrapper">
-            <!-- Slideshow 3 -->
-            <ul class="rslides" id="priceSlider">
-                <li>
-                    <img alt="" src="/landregistry/E14/price_dist?width=400&height=212"/>
-                </li>
-                <li>
-                    <img alt="" src="/landregistry/E14/price_dist?width=400&height=212"/>
-                </li>
-                <li>
-                    <img alt="" src="/landregistry/E14/price_dist?width=400&height=212"/>
-                </li>
-                <li>
-                    <img alt="" src="/landregistry/E14/price_dist?width=400&height=212"/>
-                </li>
-            </ul>
-
-            <!-- Slideshow 3 Pager -->
-            <ul class="rslidesPager" id="priceSliderPager">
-                <li>
-                    <a href="#">
-                    <img alt="" src="/landregistry/E14/price_dist?width=200&height=106"/>
-                    </a>
-                </li>
-                <li >
-                    <a href="#">
-                    <img alt="" src="/landregistry/E14/price_dist?width=200&height=106"/>
-                    </a>
-                </li>
-                <li >
-                    <a href="#">
-                    <img alt="" src="/landregistry/E14/price_dist?width=200&height=106"/>
-                    </a>
-                </li>
-                <li >
-                    <a href="#">
-                    <img alt="" src="/landregistry/E14/price_dist?width=200&height=106"/>
-                    </a>
-                </li>
-            </ul>
         </div>
 
-        <div class="text">
-            <h3 class="title">
-                Hammersmith and Fulham 学校综合质量
-            </h3>
-            <p class="description">
-                李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                和平重建的长期承诺，展现对阿富汗未来的坚定信心。
-            </p>
+        <div class="priceCharts">
+            <h2 class="title">
+                {{_('街区房屋价格')}}
+            </h2>
+
+            <div class="rslides_wrapper">
+                <!-- Slideshow 3 -->
+                <ul class="rslides" id="priceSlider">
+                    <li>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=400&height=212"/>
+                    </li>
+                    <li>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=400&height=212"/>
+                    </li>
+                    <li>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=400&height=212"/>
+                    </li>
+                    <li>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=400&height=212"/>
+                    </li>
+                </ul>
+
+                <!-- Slideshow 3 Pager -->
+                <ul class="rslidesPager" id="priceSliderPager">
+                    <li>
+                        <a href="#">
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=200&height=106"/>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="#">
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=200&height=106"/>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="#">
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=200&height=106"/>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="#">
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=200&height=106"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="text">
+                <h3 class="title">
+                    Hammersmith and Fulham 学校综合质量
+                </h3>
+                <p class="description">
+                    李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
+                    有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
+                    家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
+                    和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                </p>
+            </div>
+        </div>
+
+        <div class="maps">
+
+        </div>
+        <div class="areaValueCharts">
+            <h2 class="title">
+                {{_('地区投资价值')}}
+            </h2>
+            <div class="rslides_wrapper">
+                <ul class="rslides" id="areaValueSlider">
+                    <li class="item0">
+                        <div class="image">
+                            % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/home_value/oc/' + report.get('zipcode_index') +'?width=400&height=212'
+                            <img alt="" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                        </div>
+                        <div class="text">
+                            <h3 class="title">
+                                Hammersmith and Fulham 学校综合质量
+                            </h3>
+                            <p class="description">
+                                李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
+                                有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
+                                家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
+                                和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                            </p>
+                        </div>
+                    </li>
+                    <li class="item1">
+                        <div class="image">
+                            % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/average_prices/' + report.get('zipcode_index') +'?width=400&height=212'
+                            <img alt="" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                        </div>
+                        <div class="text">
+                            <h3 class="title">
+                                Hammersmith and Fulham 平均价格
+                            </h3>
+                            <p class="description">
+                                李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
+                                有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
+                                家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
+                                和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                            </p>
+                        </div>
+                    </li>
+                    <li class="item2">
+                        <div class="image">
+                            % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/price_bands/' + report.get('zipcode_index') +'?width=400&height=212'
+                            <img alt="" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                        </div>
+                        <div class="text">
+                            <h3 class="title">
+                                Hammersmith and Fulham 价格波动范围
+                            </h3>
+                            <p class="description">
+                                李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
+                                有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
+                                家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
+                                和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                            </p>
+                        </div>
+                    </li>
+                    <li class="item3">
+                        <div class="image">
+                            % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_type_trends/' + report.get('zipcode_index') +'?width=400&height=212'
+                            <img alt="" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                        </div>
+                        <div class="text">
+                            <h3 class="title">
+                                Hammersmith and Fulham 房产类型价格走势
+                            </h3>
+                            <p class="description">
+                                李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
+                                有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
+                                家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
+                                和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div class="maps">
+    <!-- @@include=/static/templates/house_card.tpl.html-->
 
-    </div>
-    <div class="areaValueCharts">
-        <h2 class="title">
-            {{_('地区投资价值')}}
-        </h2>
-        <div class="rslides_wrapper">
-            <ul class="rslides" id="areaValueSlider">
-                <li class="item0">
-                    <div class="image">
-                        <img alt="" src="/image/fetch?link={{quote_plus('http://www.zoopla.co.uk/dynimgs/graph/home_value/oc/W12?width=400&height=212'.encode('utf-8'))}}"/>
-                    </div>
-                    <div class="text">
-                        <h3 class="title">
-                            Hammersmith and Fulham 学校综合质量
-                        </h3>
-                        <p class="description">
-                            李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                            有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                            家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                            和平重建的长期承诺，展现对阿富汗未来的坚定信心。
-                        </p>
-                    </div>
-                </li>
-                <li class="item1">
-                    <div class="image">
-                        <img alt="" src="/image/fetch?link={{quote_plus('http://www.zoopla.co.uk/dynimgs/graph/average_prices/W12?width=400&height=212'.encode('utf-8'))}}"/>
-                    </div>
-                    <div class="text">
-                        <h3 class="title">
-                            Hammersmith and Fulham 平均价格
-                        </h3>
-                        <p class="description">
-                            李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                            有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                            家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                            和平重建的长期承诺，展现对阿富汗未来的坚定信心。
-                        </p>
-                    </div>
-                </li>
-                <li class="item2">
-                    <div class="image">
-                        <img alt="" src="/image/fetch?link={{quote_plus('http://www.zoopla.co.uk/dynimgs/graph/price_bands/W12?width=400&height=212'.encode('utf-8'))}}"/>
-                    </div>
-                    <div class="text">
-                        <h3 class="title">
-                            Hammersmith and Fulham 价格波动范围
-                        </h3>
-                        <p class="description">
-                            李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                            有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                            家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                            和平重建的长期承诺，展现对阿富汗未来的坚定信心。
-                        </p>
-                    </div>
-                </li>
-                <li class="item3">
-                    <div class="image">
-                        <img alt="" src="/image/fetch?link={{quote_plus('http://www.zoopla.co.uk/dynimgs/graph/local_type_trends/W12?width=400&height=212'.encode('utf-8'))}}"/>
-                    </div>
-                    <div class="text">
-                        <h3 class="title">
-                            Hammersmith and Fulham 房产类型价格走势
-                        </h3>
-                        <p class="description">
-                            李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                            有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                            家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                            和平重建的长期承诺，展现对阿富汗未来的坚定信心。
-                        </p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<!-- @@include=/static/templates/house_card.tpl.html-->
+%end
 
 <!--@@close-->
 
