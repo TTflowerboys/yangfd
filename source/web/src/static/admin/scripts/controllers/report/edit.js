@@ -12,7 +12,7 @@
         if (itemFromParent) {
             onGetItem(itemFromParent)
         } else {
-            api.getOne($stateParams.id, {params: {_i18n: 'disabled'},errorMessage: true})
+            api.getOne($stateParams.id, {params: {_i18n: 'disabled'}, errorMessage: true})
                 .success(function (data) {
                     var res = data.val
                     onGetItem(res)
@@ -62,8 +62,12 @@
                 growl.addWarnMessage('Nothing to update')
                 return
             }
+            if (changed.zipcode_index) {
+                changed.zipcode_index = changed.zipcode_index.toUpperCase()
+            }
             $scope.loading = true
             api.update(angular.extend(changed, {id: $stateParams.id}), {
+                params: {_i18n: 'disabled'},
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {

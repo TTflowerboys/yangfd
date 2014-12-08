@@ -12,6 +12,9 @@
             $scope.submitted = true
             $scope.loading = true
             $scope.item = misc.cleanI18nEmptyUnit($scope.item)
+            if($scope.item.zipcode_index){
+                $scope.item.zipcode_index = $scope.item.zipcode_index.toUpperCase()
+            }
             api.create($scope.item, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
