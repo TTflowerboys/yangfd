@@ -13,7 +13,7 @@
     % from urllib import quote_plus
     % report = _i18n(report)
     <div class="info">
-        <img alt="" src="" style="background-image:url('{{report.get('image')}}');"/>
+        <img alt="" src="" style="background:url('{{report.get('image')}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{report.get('image')}}', sizingMethod='scale');"/>
         <div class="img_shadow"></div>
         <div class="text_container">
             <div class="text">
