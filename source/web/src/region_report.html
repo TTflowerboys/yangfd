@@ -10,20 +10,20 @@
 
 <!--@@block = main-->
 % from urllib import quote_plus
+
+% report = _i18n(report)
+
 <div class="info">
-    <img alt="" src=""/>
+    <img alt="" src="" style="background-image:url('{{report.get('image')}}');"/>
     <div class="img_shadow"></div>
     <div class="text_container">
         <div class="text">
             <h1 class="name">
-                伦敦北  North London
+                {{report.get('name')}}
             </h1>
             <h2 class="hint">{{_('地区投资分析报告')}}</h2>
             <p class="description">
-                North London is the northern part of London, England. It is an imprecise description and the area it covers is defined differently for a range of
-                purposes. Common to these definitions is that it includes districts located north of the River Thames and is used in comparison with South London.
-
-                However, it is also often used in comparisons with Central London, East London and West London.
+                {{report.get('description')}}
             </p>
         </div>
     </div>
@@ -36,33 +36,18 @@
                 {{_('房屋供给信息')}}
             </h2>
             <ul>
-                <li class="news">
-                    <p class="summary">
-                        “North London is the northern part of London, England. It is an imprecise description and the area it covers is defined
-                        differently for a range of purposes. Common to these definitions is”
-                    </p>
-                    <a class="title" href="">
-                        —XX区规划中住房总量
-                    </a>
-                </li>
-                <li class="news">
-                    <p class="summary">
-                        “North London is the northern part of London, England. It is an imprecise description and the area it covers is defined
-                        differently for a range of purposes. Common to these definitions is”
-                    </p>
-                    <a class="title" href="">
-                        —XX区规划中住房总量
-                    </a>
-                </li>
-                <li class="news">
-                    <p class="summary">
-                        “North London is the northern part of London, England. It is an imprecise description and the area it covers is defined
-                        differently for a range of purposes. Common to these definitions is”
-                    </p>
-                    <a class="title" href="">
-                        —XX区规划中住房总量
-                    </a>
-                </li>
+                %if (report.get('supplement_news')):
+                    % for item in report.get('supplement_news'):
+                        <li class="news">
+                            <p class="summary">
+                                {{item.get('summary')}}
+                            </p>
+                            <a class="title" href="{{item.get('link')}}">
+                                {{item.get('title')}}
+                            </a>
+                        </li>
+                    % end
+                %end
             </ul>
         </div>
         <div class="right">
@@ -71,16 +56,15 @@
                     {{_('规划信息')}}
                 </h2>
                 <ul>
-                    <li class="news">
-                        <a class="title" href="">
-                            XX区路桥规划图
-                        </a>
-                    </li>
-                    <li class="news">
-                        <a class="title" href="">
-                            XX区路桥规划图
-                        </a>
-                    </li>
+                    %if (report.get('planning_news')):
+                        % for item in report.get('planning_news'):
+                            <li class="news">
+                                <a class="title" href="{{item.get('link')}}">
+                                    {{item.get('title')}}
+                                </a>
+                            </li>
+                        % end
+                    %end
                 </ul>
             </div>
             <div class="jobNews">
@@ -88,27 +72,15 @@
                     {{_('就业机会信息')}}
                 </h2>
                 <ul>
-                    <li class="news">
-                        <a class="title" href="">
-                            XX区路桥规划图
-                        </a>
-                    </li>
-                    <li class="news">
-                        <a class="title" href="">
-                            XX区路桥规划图
-                        </a>
-                    </li>
-                    <li class="news">
-                        <a class="title" href="">
-                            XX区路桥规划图
-                        </a>
-                    </li>
-                    <li class="news">
-                        <a class="title" href="">
-                            XX区路桥规划图
-                        </a>
-                    </li>
-
+                     %if (report.get('job_news')):
+                        % for item in report.get('job_news'):
+                            <li class="news">
+                                <a class="title" href="{{item.get('link')}}">
+                                    {{item.get('title')}}
+                                </a>
+                            </li>
+                        % end
+                    %end
                 </ul>
             </div>
         </div>
