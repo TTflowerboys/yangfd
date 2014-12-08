@@ -89,7 +89,7 @@ def report_get(report_id):
 
 @f_api('/report/<report_id>/edit', params=dict(
     name=("i18n", None, str),
-    zipcode=(str, None),
+    zipcode_index=(str, None),
     description=("i18n", None, str),
     villa_price=("i18n:currency", None),
     villa_rental=("i18n:currency", None),
