@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 @f_api('/report/add', params=dict(
     name=("i18n", None, str),
+    country='enum:country',
     zipcode_index=(str, True),
     description=("i18n", None, str),
     villa_price=(list, None, dict(
@@ -90,6 +91,7 @@ def report_get(report_id):
 @f_api('/report/<report_id>/edit', params=dict(
     name=("i18n", None, str),
     zipcode_index=(str, None),
+    country=('enum:country', None),
     description=("i18n", None, str),
     villa_price=("i18n:currency", None),
     villa_rental=("i18n:currency", None),
@@ -163,6 +165,7 @@ def report_remove(report_id):
     time=datetime,
     status=str,
     zipcode_index=str,
+    country='enum:country',
 ))
 def report_search(params):
     per_page = params.pop("per_page", 0)
