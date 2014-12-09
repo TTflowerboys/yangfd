@@ -106,6 +106,7 @@ def user_login(params):
     locales=(list, None, str),
     currency=(list, None, str),
     budget="enum:budget",
+    is_vip=bool,
 ))
 @rate_limit("register", ip=10)
 def register(params):
