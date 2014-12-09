@@ -770,6 +770,8 @@ def wechat_endpoint():
     for element in orig_xml.iter():
         message[element.tag] = element.text
 
+    logger.debug("Parsed wechat message:", message)
+
     if f_app.common.use_ssl:
         schema = "https://"
     else:
