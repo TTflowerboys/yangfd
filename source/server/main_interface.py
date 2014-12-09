@@ -796,9 +796,9 @@ def wechat_endpoint():
         for property in properties:
             item = etree.SubElement(articles, "item")
             if "name" in property:
-                etree.SubElement(item, "Title").text = property["name"].get("zh_Hans_CN", "")
+                etree.SubElement(item, "Title").text = etree.CDATA(property["name"].get("zh_Hans_CN", ""))
             if "description" in property and "zh_Hans_CN" in property["description"]:
-                etree.SubElement(item, "Description").text = property["description"]["zh_Hans_CN"]
+                etree.SubElement(item, "Description").text = etree.CDATA(property["description"]["zh_Hans_CN"])
             if "reality_images" in property and "zh_Hans_CN" in property["reality_images"] and len(property["reality_images"]["zh_Hans_CN"]):
                 etree.SubElement(item, "PicUrl").text = property["reality_images"]["zh_Hans_CN"][0]
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
