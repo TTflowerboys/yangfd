@@ -788,7 +788,7 @@ def wechat_endpoint():
         root = etree.Element("xml")
         etree.SubElement(root, "ToUserName").text = message["FromUserName"]
         etree.SubElement(root, "FromUserName").text = message["ToUserName"]
-        etree.SubElement(root, "CreateTime").text = calendar.timegm(datetime.utcnow().timetuple())
+        etree.SubElement(root, "CreateTime").text = str(calendar.timegm(datetime.utcnow().timetuple()))
         etree.SubElement(root, "MsgType").text = "news"
         etree.SubElement(root, "ArticleCount").text = str(len(properties))
 
