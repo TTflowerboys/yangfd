@@ -248,9 +248,17 @@ main {
 
             .rslides_wrapper {
                 display:none;
+                width:100%;
 
                 .rslides {
-                    li {
+                     max-width: 800px;
+                     margin: 0 auto;
+                     min-height:240px;
+
+                     @media @phone {
+                         max-width:100%;
+                     }
+                     li {
                          .houseCard {
                             .properties {
                                 li {
@@ -288,66 +296,6 @@ main {
                     }
                     &.prev { left: 8px; }
                     &.next { right: 8px; }
-                }
-            }
-
-            .jcarousel-wrapper {
-                margin:0 auto;
-                display:none;
-
-                @media @phone {
-                    display:none;
-                }
-
-                .jcarousel {
-                    height:213px;
-                    @media @phone {
-                        height:auto;
-                    }
-
-                    li {
-                        width:600px;
-                        border:0;
-
-                        @media @phone {
-                            width:330px;
-                        }
-
-                        .houseCard {
-                            width: 590px;
-                            margin-right:10px;
-                            min-width: 0;
-                            .description {
-                                .name {
-                                    max-width:100%;
-                                }
-                                .price {
-                                    right: auto;
-                                    left: 0;
-                                    top: 63px;
-                                    max-width: 100%;
-                                }
-                                .details {
-                                    display:none;
-                                }
-                            }
-                        }
-
-                        .houseCard_phone {
-                            width:320px;
-                            margin-right:10px;
-
-                        }
-
-                    }
-                }
-
-                .jcarousel-control-prev {
-                    z-index:@jcarousel-control-z-index;
-                }
-
-                .jcarousel-control-next {
-                    z-index:@jcarousel-control-z-index;
                 }
             }
 
