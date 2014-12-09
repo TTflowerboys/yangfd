@@ -150,8 +150,13 @@ def default(user):
 @check_landing
 @check_ip_and_redirect_domain
 def signup():
-    return template("sign_up_vip", user=get_current_user(), country_list=get_country_list())
+    return template("signup", user=get_current_user(), country_list=get_country_list())
 
+@f_get('/vip_sign_up')
+@check_landing
+@check_ip_and_redirect_domain
+def vip_sign_up():
+    return template("sign_up_vip", user=get_current_user(), country_list=get_country_list())
 
 @f_get('/signin')
 @check_landing
@@ -660,6 +665,7 @@ def sitemap():
     logger.debug(etree.tostring(root))
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s" % domain
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/signup" % domain
+    etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/vip_sign_up" % domain
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/signin" % domain
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/about" % domain
 
