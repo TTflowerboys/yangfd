@@ -150,7 +150,7 @@ def default(user):
 @check_landing
 @check_ip_and_redirect_domain
 def signup():
-    return template("signup", user=get_current_user(), country_list=get_country_list())
+    return template("sign_up_vip", user=get_current_user(), country_list=get_country_list())
 
 
 @f_get('/signin')
