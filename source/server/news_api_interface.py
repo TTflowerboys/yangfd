@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
     category=(list, None, "enum:news_category"),
     zipcode_index=str,
     category_slugs=(list, None, str),
+    country='enum:country',
 ))
 def news_list(params):
     per_page = params.pop("per_page", 0)

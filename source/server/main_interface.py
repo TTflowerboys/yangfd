@@ -183,11 +183,15 @@ def process():
     return template("process", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
 
 
-@f_get('/region_report')
+@f_get('/region_report/<zipcode_index:re:[A-Z0-9]{2,3}>')
 @check_landing
 @check_ip_and_redirect_domain
-def region_report():
-    return template("region_report", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+def region_report(zipcode_index):
+    report = f_app.report.output(f_app.report.search({"zipcode_index": {"$in": [zipcode_index]}}, per_page=1))
+    if (len(report)):
+        report = report[0]
+
+    return template("region_report", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), report=report)
 
 
 @f_get('/property_list')
@@ -698,7 +702,6 @@ def sitemap():
 ))
 def landregistry(zipcode_index, params):
     size = [params["width"], params["height"]]
-    f_app.landregistry.aggregation_monthly()
     result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
