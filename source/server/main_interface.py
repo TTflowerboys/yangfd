@@ -781,7 +781,7 @@ def wechat_endpoint():
 
     def build_property_list_by_country(country_id):
         properties = f_app.property.output(f_app.property.search({
-            "country.id": country_id,
+            "country._id": ObjectId(country_id),
             "status": {"$in": ["selling", "sold out"]},
         }, per_page=10, time_field="mtime"))
 
