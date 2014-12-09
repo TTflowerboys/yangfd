@@ -786,22 +786,22 @@ def wechat_endpoint():
         }, per_page=10, time_field="mtime"))
 
         root = etree.Element("xml")
-        etree.SubElement(root, "ToUserName", message["FromUserName"])
-        etree.SubElement(root, "FromUserName", message["ToUserName"])
-        etree.SubElement(root, "CreateTime", calendar.timegm(datetime.utcnow().timetuple()))
-        etree.SubElement(root, "MsgType", "news")
-        etree.SubElement(root, "ArticleCount", len(properties))
+        etree.SubElement(root, "ToUserName").text = message["FromUserName"]
+        etree.SubElement(root, "FromUserName").text = message["ToUserName"]
+        etree.SubElement(root, "CreateTime").text = calendar.timegm(datetime.utcnow().timetuple())
+        etree.SubElement(root, "MsgType").text = "news"
+        etree.SubElement(root, "ArticleCount").text = str(len(properties))
 
         articles = etree.SubElement(root, "Articles")
         for property in properties:
             item = etree.SubElement(articles, "item")
             if "name" in property:
-                etree.SubElement(item, "Title", property["name"].get("zh_Hans_CN", ""))
+                etree.SubElement(item, "Title").text = property["name"].get("zh_Hans_CN", "")
             if "description" in property and "zh_Hans_CN" in property["description"]:
-                etree.SubElement(item, "Description", property["description"]["zh_Hans_CN"])
+                etree.SubElement(item, "Description").text = property["description"]["zh_Hans_CN"]
             if "reality_images" in property and len(property["reality_images"]):
-                etree.SubElement(item, "PicUrl", property["reality_images"][0])
-            etree.SubElement(item, "Url", schema + request.urlparts[1] + "/property/" + property["id"])
+                etree.SubElement(item, "PicUrl").text = property["reality_images"][0]
+            etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
 
         return etree.tostring(root)
 
