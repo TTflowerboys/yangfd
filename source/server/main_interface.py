@@ -777,33 +777,42 @@ def wechat_endpoint():
 
     return_str = ""
 
-    if "MsgType" in message and message["MsgType"] == "event":
-        if message["Event"] == "CLICK":
-            if message["EventKey"].startswith("property_by_country/"):
-                properties = f_app.property.output(f_app.property.search({
-                    "country.id": message["EventKey"][len("property_by_country/"):],
-                    "status": {"$in": ["selling", "sold out"]},
-                }, per_page=10, time_field="mtime"))
+    def build_property_list_by_country(country_id):
+        properties = f_app.property.output(f_app.property.search({
+            "country.id": country_id,
+            "status": {"$in": ["selling", "sold out"]},
+        }, per_page=10, time_field="mtime"))
 
-                root = etree.Element("xml")
-                etree.SubElement(root, "ToUserName", message["FromUserName"])
-                etree.SubElement(root, "FromUserName", message["ToUserName"])
-                etree.SubElement(root, "CreateTime", calendar.timegm(datetime.utcnow().timetuple()))
-                etree.SubElement(root, "MsgType", "news")
-                etree.SubElement(root, "ArticleCount", len(properties))
+        root = etree.Element("xml")
+        etree.SubElement(root, "ToUserName", message["FromUserName"])
+        etree.SubElement(root, "FromUserName", message["ToUserName"])
+        etree.SubElement(root, "CreateTime", calendar.timegm(datetime.utcnow().timetuple()))
+        etree.SubElement(root, "MsgType", "news")
+        etree.SubElement(root, "ArticleCount", len(properties))
 
-                articles = etree.SubElement(root, "Articles")
-                for property in properties:
-                    item = etree.SubElement(articles, "item")
-                    if "name" in property:
-                        etree.SubElement(item, "Title", property["name"].get("zh_Hans_CN", ""))
-                    if "description" in property and "zh_Hans_CN" in property["description"]:
-                        etree.SubElement(item, "Description", property["description"]["zh_Hans_CN"])
-                    if "reality_images" in property and len(property["reality_images"]):
-                        etree.SubElement(item, "PicUrl", property["reality_images"][0])
-                    etree.SubElement(item, "Url", schema + request.urlparts[1] + "/property/" + property["id"])
+        articles = etree.SubElement(root, "Articles")
+        for property in properties:
+            item = etree.SubElement(articles, "item")
+            if "name" in property:
+                etree.SubElement(item, "Title", property["name"].get("zh_Hans_CN", ""))
+            if "description" in property and "zh_Hans_CN" in property["description"]:
+                etree.SubElement(item, "Description", property["description"]["zh_Hans_CN"])
+            if "reality_images" in property and len(property["reality_images"]):
+                etree.SubElement(item, "PicUrl", property["reality_images"][0])
+            etree.SubElement(item, "Url", schema + request.urlparts[1] + "/property/" + property["id"])
 
-                return_str = etree.tostring(root)
+        return etree.tostring(root)
+
+    if "MsgType" in message:
+        if message["MsgType"] == "event":
+            if message["Event"] == "CLICK":
+                if message["EventKey"].startswith("property_by_country/"):
+                    return_str = build_property_list_by_country(message["EventKey"][len("property_by_country/"):])
+
+        elif message["MsgType"] == "text":
+            if message["Content"] == "英国":
+                # TODO: don't hardcode
+                return_str = build_property_list_by_country("541c09286b8099496db84f56")
 
     response.set_header(b"Content-Type", b"application/xml")
     return return_str
