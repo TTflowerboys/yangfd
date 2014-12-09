@@ -47,6 +47,12 @@
                 })
                 editItem.facilities = temp1
             }
+            if (!_.isEmpty(editItem.country)) {
+                editItem.country = editItem.country.id
+            }
+            if (!_.isEmpty(editItem.city)) {
+                editItem.city = editItem.city.id
+            }
             $scope.itemOrigin = editItem
             $scope.item = angular.copy($scope.itemOrigin)
         }
