@@ -803,7 +803,7 @@ def wechat_endpoint():
                 etree.SubElement(item, "PicUrl").text = property["reality_images"]["zh_Hans_CN"][0]
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
 
-        return etree.tostring(root)
+        return etree.tostring(root, encoding="UTF-8")
 
     if "MsgType" in message:
         if message["MsgType"] == "event":
