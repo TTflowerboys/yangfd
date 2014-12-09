@@ -5,6 +5,7 @@ from bottle import response
 from bson.objectid import ObjectId
 from lxml import etree
 from datetime import datetime
+from hashlib import sha1
 from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, error, abort
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
@@ -747,6 +748,19 @@ def landregistry_price_dist(zipcode_index, params):
     result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
+
+
+@f_get("/wechat_endpoint", params=dict(
+    signature=str,
+    timestamp=str,
+    nonce=str,
+    echostr=str,
+))
+def wechat_endpoint_verifier(params):
+    if params["signature"] == sha1(params["nonce"] + params["timestamp"] + f_app.common.wechat_token).hexdigest():
+        return params["echostr"]
+    else:
+        abort(400)
 
 
 @f_post("/wechat_endpoint")

@@ -85,6 +85,8 @@ class common(f_common):
 
     openexchangerates_app_id = "c4918aa900a343da948ff31b122cba1e"
 
+    wechat_token = "chaichouzeec6ievashoSei8bahxathi"
+
     sms_default_method = "clickatell"
     clickatell_api_id = 3425954
     clickatell_user = "marco388"
