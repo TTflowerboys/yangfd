@@ -4,12 +4,14 @@ from app import f_app
 from bottle import response
 from bson.objectid import ObjectId
 from lxml import etree
-from libfelix.f_interface import f_get, static_file, template, request, redirect, error, abort
+from datetime import datetime
+from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, error, abort
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
 import qrcode
 import bottle
 import logging
+import calendar
 import pygeoip
 logger = logging.getLogger(__name__)
 f_app.dependency_register("qrcode", race="python")
@@ -745,3 +747,49 @@ def landregistry_price_dist(zipcode_index, params):
     result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
+
+
+@f_post("/wechat_endpoint")
+def wechat_endpoint():
+    orig_xml = etree.fromstring(request.body.getvalue())
+    message = {}
+    for element in orig_xml.iter():
+        message[element.tag] = element.text
+
+    if f_app.common.use_ssl:
+        schema = "https://"
+    else:
+        schema = "http://"
+
+    return_str = ""
+
+    if "MsgType" in message and message["MsgType"] == "event":
+        if message["Event"] == "CLICK":
+            if message["EventKey"].startswith("property_by_country/"):
+                properties = f_app.property.output(f_app.property.search({
+                    "country.id": message["EventKey"][len("property_by_country/"):],
+                    "status": {"$in": ["selling", "sold out"]},
+                }, per_page=10, time_field="mtime"))
+
+                root = etree.Element("xml")
+                etree.SubElement(root, "ToUserName", message["FromUserName"])
+                etree.SubElement(root, "FromUserName", message["ToUserName"])
+                etree.SubElement(root, "CreateTime", calendar.timegm(datetime.utcnow().timetuple()))
+                etree.SubElement(root, "MsgType", "news")
+                etree.SubElement(root, "ArticleCount", len(properties))
+
+                articles = etree.SubElement(root, "Articles")
+                for property in properties:
+                    item = etree.SubElement(articles, "item")
+                    if "name" in property:
+                        etree.SubElement(item, "Title", property["name"].get("zh_Hans_CN", ""))
+                    if "description" in property and "zh_Hans_CN" in property["description"]:
+                        etree.SubElement(item, "Description", property["description"]["zh_Hans_CN"])
+                    if "reality_images" in property and len(property["reality_images"]):
+                        etree.SubElement(item, "PicUrl", property["reality_images"][0])
+                    etree.SubElement(item, "Url", schema + request.urlparts[1] + "/property/" + property["id"])
+
+                return_str = etree.tostring(root)
+
+    response.set_header(b"Content-Type", b"application/xml")
+    return return_str
