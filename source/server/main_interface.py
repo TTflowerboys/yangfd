@@ -815,4 +815,5 @@ def wechat_endpoint():
                 return_str = build_property_list_by_country("541c09286b8099496db84f56")
 
     response.set_header(b"Content-Type", b"application/xml")
+    logger.debug("Responding to wechat:", return_str)
     return return_str
