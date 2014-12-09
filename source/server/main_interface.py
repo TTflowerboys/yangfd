@@ -152,11 +152,13 @@ def default(user):
 def signup():
     return template("signup", user=get_current_user(), country_list=get_country_list())
 
+
 @f_get('/vip_sign_up')
 @check_landing
 @check_ip_and_redirect_domain
 def vip_sign_up():
     return template("sign_up_vip", user=get_current_user(), country_list=get_country_list())
+
 
 @f_get('/signin')
 @check_landing
@@ -701,8 +703,7 @@ def sitemap():
     return etree.tostring(root, xml_declaration=True, encoding="UTF-8")
 
 
-@f_get("/landregistry/<zipcode_index>", params=dict(
-
+@f_get("/landregistry/<zipcode_index>/home_values", params=dict(
     width=(int, 0),
     height=(int, 0),
 ))
@@ -713,7 +714,7 @@ def landregistry(zipcode_index, params):
     return result.getvalue()
 
 
-@f_get("/landregistry/<zipcode_index>/with_type", params=dict(
+@f_get("/landregistry/<zipcode_index>/value_trend", params=dict(
     width=(int, 0),
     height=(int, 0),
 ))
@@ -724,18 +725,18 @@ def landregistry_with_type(zipcode_index, params):
     return result.getvalue()
 
 
-@f_get("/landregistry/<zipcode_index>/type_dist", params=dict(
+@f_get("/landregistry/<zipcode_index>/average_values", params=dict(
     width=(int, 0),
     height=(int, 0),
 ))
 def landregistry_type_dist(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_type_distribution_by_zipcode_index(zipcode_index, size=size)
+    result = f_app.landregistry.get_average_values_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
 
 
-@f_get("/landregistry/<zipcode_index>/price_dist", params=dict(
+@f_get("/landregistry/<zipcode_index>/value_ranges", params=dict(
     width=(int, 0),
     height=(int, 0),
 ))

@@ -1692,10 +1692,10 @@ class f_landregistry(f_app.module_base):
 
         return graph
 
-    def get_type_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0]):
+    def get_average_values_by_zipcode_index(self, zipcode_index, size=[0, 0]):
 
         with f_app.mongo() as m:
-            result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": "AL3"}}, {"$group": {"_id": "$_id.type", "count": {"$sum": "$value.count"}}}])['result']
+            result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": zipcode_index}}, {"$group": {"_id": "$_id.type", "avgAmount": {"$avg": {"$multiply": ["$value.price", "$value.count"]}}, "avgCount": {"$avg": "$value.count"}}}])['result']
         merged_result = [i for i in result if i.get("_id")]
 
         ind = range(len(merged_result))
