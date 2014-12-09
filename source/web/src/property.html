@@ -397,7 +397,9 @@
                                     {{_('产权地址')}}
                             </td>
                             <td class="value">
+                                <a href="/region_report/{{property.get('zipcode_index')}}">
                                 {{property.get('address')}}
+                                </a>
                                 % if property.get('longitude') and property.get('latitude'):
                                 % long = property.get('longitude')
                                 % lat = property.get('latitude')
