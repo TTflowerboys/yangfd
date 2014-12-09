@@ -16,6 +16,7 @@ from itertools import chain
 def message_receive(user, params):
     """
     ``status`` of a message can be "new" or "sent", "read".
+    ``type`` of a message can be "system", "favorited_property_news", "intention_property_news", "my_property_news".
     Current message types::
 
         Type: system
