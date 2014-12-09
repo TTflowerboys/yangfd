@@ -698,7 +698,6 @@ def sitemap():
 ))
 def landregistry(zipcode_index, params):
     size = [params["width"], params["height"]]
-    f_app.landregistry.aggregation_monthly()
     result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
