@@ -1695,14 +1695,14 @@ class f_landregistry(f_app.module_base):
     def get_average_values_by_zipcode_index(self, zipcode_index, size=[0, 0]):
 
         with f_app.mongo() as m:
-            result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": zipcode_index}}, {"$group": {"_id": "$_id.type", "avgAmount": {"$avg": {"$multiply": ["$value.price", "$value.count"]}}, "avgCount": {"$avg": "$value.count"}}}])['result']
+            result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": zipcode_index}}, {"$group": {"_id": "$_id.type", "sum_price": {"$sum": "$value.price"}, "sum_count": {"$sum": "$value.count"}}}])['result']
         merged_result = [i for i in result if i.get("_id")]
 
         ind = range(len(merged_result))
         width = 0.5
 
         fig, ax = plt.subplots()
-        ax.bar(ind, [x['count'] for x in merged_result], width)
+        ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width)
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
