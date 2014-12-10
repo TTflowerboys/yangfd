@@ -30,6 +30,10 @@ logger = logging.getLogger(__name__)
 f_app.dependency_register('pyquery', race="python")
 f_app.dependency_register('matplotlib', race="python")
 
+# Fix crash in environments that have no display.
+import matplotlib
+matplotlib.use('Agg')
+
 
 class f_currant_message(f_message):
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
