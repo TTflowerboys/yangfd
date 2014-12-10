@@ -4,12 +4,15 @@ from app import f_app
 from bottle import response
 from bson.objectid import ObjectId
 from lxml import etree
-from libfelix.f_interface import f_get, static_file, template, request, redirect, error, abort
+from datetime import datetime
+from hashlib import sha1
+from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, error, abort
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
 import qrcode
 import bottle
 import logging
+import calendar
 import pygeoip
 logger = logging.getLogger(__name__)
 f_app.dependency_register("qrcode", race="python")
@@ -745,3 +748,74 @@ def landregistry_price_dist(zipcode_index, params):
     result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
+
+
+@f_get("/wechat_endpoint", params=dict(
+    signature=str,
+    timestamp=str,
+    nonce=str,
+    echostr=str,
+))
+def wechat_endpoint_verifier(params):
+    if params["signature"] == sha1(params["nonce"] + params["timestamp"] + f_app.common.wechat_token).hexdigest():
+        return params["echostr"]
+    else:
+        abort(400)
+
+
+@f_post("/wechat_endpoint")
+def wechat_endpoint():
+    orig_xml = etree.fromstring(request.body.getvalue())
+    message = {}
+    for element in orig_xml.iter():
+        message[element.tag] = element.text
+
+    logger.debug("Parsed wechat message:", message)
+
+    if f_app.common.use_ssl:
+        schema = "https://"
+    else:
+        schema = "http://"
+
+    return_str = ""
+
+    def build_property_list_by_country(country_id):
+        properties = f_app.property.output(f_app.property.search({
+            "country._id": ObjectId(country_id),
+            "status": {"$in": ["selling", "sold out"]},
+        }, per_page=10, time_field="mtime"))
+
+        root = etree.Element("xml")
+        etree.SubElement(root, "ToUserName").text = message["FromUserName"]
+        etree.SubElement(root, "FromUserName").text = message["ToUserName"]
+        etree.SubElement(root, "CreateTime").text = str(calendar.timegm(datetime.utcnow().timetuple()))
+        etree.SubElement(root, "MsgType").text = "news"
+        etree.SubElement(root, "ArticleCount").text = str(len(properties))
+
+        articles = etree.SubElement(root, "Articles")
+        for property in properties:
+            item = etree.SubElement(articles, "item")
+            if "name" in property:
+                etree.SubElement(item, "Title").text = etree.CDATA(property["name"].get("zh_Hans_CN", ""))
+            if "description" in property and "zh_Hans_CN" in property["description"]:
+                etree.SubElement(item, "Description").text = etree.CDATA(property["description"]["zh_Hans_CN"])
+            if "reality_images" in property and "zh_Hans_CN" in property["reality_images"] and len(property["reality_images"]["zh_Hans_CN"]):
+                etree.SubElement(item, "PicUrl").text = property["reality_images"]["zh_Hans_CN"][0]
+            etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
+
+        return etree.tostring(root, encoding="UTF-8")
+
+    if "MsgType" in message:
+        if message["MsgType"] == "event":
+            if message["Event"] == "CLICK":
+                if message["EventKey"].startswith("property_by_country/"):
+                    return_str = build_property_list_by_country(message["EventKey"][len("property_by_country/"):])
+
+        elif message["MsgType"] == "text":
+            if message["Content"] == "英国":
+                # TODO: don't hardcode
+                return_str = build_property_list_by_country("541c09286b8099496db84f56")
+
+    response.set_header(b"Content-Type", b"application/xml")
+    logger.debug("Responding to wechat:", return_str)
+    return return_str
