@@ -6,8 +6,6 @@ import re
 import phonenumbers
 import json
 import csv
-import matplotlib.pyplot as plt
-from matplotlib.dates import DateFormatter
 from bson.objectid import ObjectId
 from bson.code import Code
 from pymongo import ASCENDING, DESCENDING
@@ -33,6 +31,10 @@ f_app.dependency_register('matplotlib', race="python")
 # Fix crash in environments that have no display.
 import matplotlib
 matplotlib.use('Agg')
+
+
+import matplotlib.pyplot as plt
+from matplotlib.dates import DateFormatter
 
 
 class f_currant_message(f_message):
