@@ -10,11 +10,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-# properties = f_app.property.search({"status": {"$in": ["selling", "sold out"]}}, per_page=0)
-properties = ['54539b0d6a57070260ddbe33', '545249246a570700df0fa4fe', '547be878e999fb0e6e5ea654', '545ce47bec0e0103ecc8b4a9', '544fc68d6a57070031e5eb47', '5446e58cc078a20042679379', '5461f3e7ec0e01057bed55b2', '5460a43fec0e0104f55add4a', '5448b506c078a200c7e31f75', '5450da5e6a57070039e5eb49', '5452d68a6a570700e60fa456', '5452336e6a57070040e5eb47', '545275a86a570700e00fa873', '54519c8b6a5707003de5eb49', '5451545c6a57070039e5eb4e', '5453c21ae7f2ca00310e291e', '5452eb706a570700e60fa5de', '545674ab6e9615039802c935', '5457d10eec0e010031b78003', '5457bb576e9615049e6a390b', '545569156e9615039702cb5d', '5447640fc078a20045679379']
-# properties = ['544362d0c8bd2305ffa488f4']
+properties = f_app.property.search({"status": {"$in": ["selling", "sold out"]}}, per_page=0)
 water_mark_padding = 10
-water_mark_base64 = "iVBORw0KGgoAAAANSUhEUgAAAIUAAAA4CAMAAADkUMulAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAB0VBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8AAADPRj0UAAAAmnRSTlMAOixGmTwIXDQdeIw1OIuWiQJSlBRrjSJ/cA0/BG6RJgp5hQGSW3F1Ox4oFQ8+X1UvIy0qAzEpFzIHOU5PDIiXj5V0SRx2U1h8LmowIWQLGT1iQTZeimgGgkB9G0eYBUQrZUMRFocTYwk3b4SAZydgUGEgSk1MRSWThndaSJBUH22BbHsSjhAkDjMYekJWc35XaUsag1FyWV1mqQoC9wAAAAFiS0dEAIgFHUgAAAAJcEhZcwAALiMAAC4jAXilP3YAAAg2SURBVFjDxZn5WxpJE4AHKA+C4KAIggpyRJGoAQWVHDAoXhgVURBZR4nEOxqJ8dyPaBLJaowma9zN7n/79ZwMitc+5qF+mKkuempeu6u7qkcMyy0iMZZ/kUBBvhGwwiKA4nxDSB+ADEryDCFXlOJ4nimUZeXleL4pVBWgxvNN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"
+water_mark_base64 = "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"
 
 
 def process_water_mark(img):
@@ -107,37 +105,39 @@ def upload_from_url(params):
         return result
 
 
-corrupted_properties = []
-for id in properties:
-    property = f_app.property.get(id)
-    update_params = {}
-    do_update = False
-    for field in ["reality_images", "surroundings_images", "effect_pictures", "indoor_sample_room_picture", "planning_map", "floor_plan"]:
-        field_update = False
-        for k, v in property.get(field, {}).iteritems():
-            if isinstance(v, list):
-                origin_images = v
-                new_images = []
-                for img in origin_images:
-                    logger.debug(img)
-                    if "bbt-currant.s3.amazonaws.com"in img:
-                        do_update = True
-                        new_img = process_water_mark(img)
-                        new_images.append(new_img)
-                    else:
-                        do_update = True
-                        new_img = upload_from_url({"link": img, "width_limit": 1280, "watermark": True})
-                        logger.debug(new_img)
-                        if new_img:
+def main():
+    corrupted_properties = []
+    for id in properties:
+        property = f_app.property.get(id)
+        update_params = {}
+        do_update = False
+        for field in ["reality_images", "surroundings_images", "effect_pictures", "indoor_sample_room_picture", "planning_map", "floor_plan"]:
+            for k, v in property.get(field, {}).iteritems():
+                if isinstance(v, list):
+                    origin_images = v
+                    new_images = []
+                    for img in origin_images:
+                        logger.debug(img)
+                        if "bbt-currant.s3.amazonaws.com"in img:
+                            do_update = True
+                            new_img = process_water_mark(img)
                             new_images.append(new_img)
                         else:
-                            corrupted_properties.append({"id": id, "field": field})
-                    update_params["%s.%s" % (field, k)] = new_images
+                            do_update = True
+                            new_img = upload_from_url({"link": img, "width_limit": 1280, "watermark": True})
+                            logger.debug(new_img)
+                            if new_img:
+                                new_images.append(new_img)
+                            else:
+                                corrupted_properties.append({"id": id, "field": field})
+                        update_params["%s.%s" % (field, k)] = new_images
 
-    if do_update:
-        logger.debug(id, update_params)
-        f_app.property.update_set(id, update_params)
+        if do_update:
+            logger.debug(id, update_params)
+            f_app.property.update_set(id, update_params)
 
+    for i in corrupted_properties:
+        logger.warning(i)
 
-for i in corrupted_properties:
-    logger.warning(i)
+if __name__ == '__main__':
+    main()
