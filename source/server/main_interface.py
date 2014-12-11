@@ -809,6 +809,7 @@ def wechat_endpoint():
                     if "total_price" not in house_type:
                         continue
                     if lowest_price is None or house_type["total_price"]["value"] < lowest_price:
+                        logger.debug("LOWEST_PRICE:", lowest_price)
                         lowest_price = house_type["total_price"]["value"]
                 if lowest_price is not None:
                     title += "（最低投资%.2f万起）" % (float(lowest_price) / 10000, )
