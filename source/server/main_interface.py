@@ -809,9 +809,9 @@ def wechat_endpoint():
                     if lowest_price is None or float(house_type["total_price"]["value"]) < lowest_price:
                         lowest_price = float(house_type["total_price"]["value"])
                 if lowest_price is not None:
-                    title += "(起投%.2f万 预期回报%s)" % (lowest_price / 10000, property.get("annual_return_estimated", ""))
+                    title += "(起投%.2f万 预期年收益%s)" % (lowest_price / 10000, property.get("annual_return_estimated", ""))
             elif "total_price" in property:
-                title += "(起投%.2f万 预期回报%s)" % (float(property["total_price"]["value"]) / 10000, property.get("annual_return_estimated", ""))
+                title += "(起投%.2f万 预期年收益%s)" % (float(property["total_price"]["value"]) / 10000, property.get("annual_return_estimated", ""))
 
             etree.SubElement(item, "Title").text = etree.CDATA(title)
 
