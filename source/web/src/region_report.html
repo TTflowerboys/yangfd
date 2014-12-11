@@ -162,10 +162,10 @@
 
         <div class="maps" data-tabs>
             <div class="map">
-                <div class="transitMapCanvas item selectedTab" data-tab-name="transit"></div>
-                <div class="schoolMapCanvas item" data-tab-name="school"></div>
-                <div class="facilityMapCanvas item" data-tab-name="facility"></div>
-                <div class="securityMapCanvas item" data-tab-name="security"></div>
+                <div id="transitMapCanvas" class="transitMapCanvas item selectedTab" data-tab-name="transit" style="position:relative; width:800px; height:480px;"></div>
+                <div id="schoolMapCanvas" class="schoolMapCanvas item" data-tab-name="school" style="position:relative; width:800px; height:480px;"></div>
+                <div id="facilityMapCanvas" class="facilityMapCanvas item" data-tab-name="facility" style="position:relative; width:800px; height:480px;"></div>
+                <div id="securityMapCanvas" class="securityMapCanvas item" data-tab-name="security" style="position:relative; width:800px; height:480px;"></div>
             </div>
             <div class="tabs">
                 <ul class="category">
@@ -284,7 +284,7 @@
 <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
 <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
 <script src="/static/vendors/jcarousel/jcarousel.connected-carousels.js"></script>
-<script type="text/javascript" src="http://ditu.google.cn/maps/api/js?libraries=geometry,places"></script>
+<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 <script src="/static/scripts/region_report.js"></script>
 <!--endbuild-->
 <!--@@close-->
