@@ -1673,12 +1673,25 @@ class f_landregistry(f_app.module_base):
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
     def get_month_average_by_zipcode_index(self, zipcode_index, size=[0, 0]):
+        import matplotlib.dates as mdates
+        import numpy as np
+        from scipy.interpolate import spline
+
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
 
+        x = [i['date'] for i in merged_result]
+        y = [i['average_price'] for i in merged_result]
+        xnew = mdates.date2num(x)
+        yy = np.polyfit(xnew, y, 3)
+        yyy = np.poly1d(yy)
+        xx = np.linspace(xnew.min(), xnew.max(), 50)
+        xxx = mdates.num2date(xx)
+        ysmooth = spline(xnew, y, xx)
         fig, ax = plt.subplots()
-        ax.plot([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
+        ax.plot(xxx, ysmooth, '-g')
+        # ax.plot(x, y, '-g')
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
@@ -1691,7 +1704,7 @@ class f_landregistry(f_app.module_base):
 
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
         fig.autofmt_xdate()
-        ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
+        # ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
 
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
