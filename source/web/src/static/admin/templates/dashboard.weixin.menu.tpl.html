@@ -1,0 +1,90 @@
+<div ui-view>
+    <form class="form-horizontal" method="post" autocomplete="on" ng-class="{submitted:submitted}"
+        ng-submit="submit($event,createPlot)" name="createPlot" novalidate>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('菜单')%}</label>
+                <div class="controls">
+                    <table class="table table-bordered table-striped table-condensed"
+                        style="margin-bottom:30px">
+                        <thead>
+                            <tr>
+                                <th>{%$root.i18n('按键名称')%}</th>
+                                <th>{%$root.i18n('交互方式')%}</th>
+                                <th>{%$root.i18n('内容')%}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="btn in item.button">
+                                <td>
+                                    <input type="text" ng-model="btn.name" class="form-control"/>
+                                </td>
+                                <td>
+                                    <select class="form-control" ng-model="btn.type">
+                                        <option value="" selected>展开子菜单</option>
+                                        <option value="click">点击触发事件</option>
+                                        <option value="view">查看页面</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <table ng-if="!btn.type" class="table table-bordered table-striped table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>{%$root.i18n('按键名称')%}</th>
+                                                <th>{%$root.i18n('交互方式')%}</th>
+                                                <th>{%$root.i18n('内容')%}</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="sub in btn.sub_button">
+                                                <td>
+                                                    <input type="text" ng-model="sub.name" class="form-control"/>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control" ng-model="sub.type" ng-init="sub.type='view'">
+                                                        <option value="click">点击触发事件</option>
+                                                        <option value="view">查看页面</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input ng-if="sub.type==='click'" type="text" class="form-control" ng-model="sub.key" placeholder="EventKey"/>
+                                                    <input ng-if="sub.type==='view'" type="text" class="form-control" ng-model="sub.url" placeholder="链接地址"/>
+                                                </td>
+                                                <td>
+                                                    <span class="btn btn-danger" ng-click="onRemoveSubButton(btn,$index)" title="{%$root.i18n('移除')%}">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <input type="button" ng-click="addSubButton(btn)" class="btn btn-primary" value="{%$root.i18n('添加子菜单')%}">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <input ng-if="btn.type==='click'" type="text" class="form-control" ng-model="btn.key" placeholder="EventKey"/>
+                                    <input ng-if="btn.type==='view'" type="text" class="form-control" ng-model="btn.url" placeholder="链接地址"/>
+                                </td>
+                                <td>
+                                    <span class="btn btn-danger" ng-click="onRemoveButton($index)" title="{%$root.i18n('移除')%}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <input type="button" ng-click="addButton()" class="btn btn-primary" value="{%$root.i18n('添加菜单')%}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
+
+    </form>
+</div>

@@ -505,6 +505,20 @@ angular.module('app')
                 controller: 'ctrlReportEdit',
                 resolve: reportResolve
             })
+            .state('dashboard.weixin', {
+                url: '/weixin',
+                templateUrl: '/static/admin/templates/dashboard.weixin.tpl.html'
+            })
+            .state('dashboard.weixin.menu', {
+                url: '/menu',
+                templateUrl: '/static/admin/templates/dashboard.weixin.menu.tpl.html',
+                controller: 'ctrlWeixinMenu',
+                resolve: {
+                    api: function (weixinApi) {
+                        return weixinApi
+                    }
+                }
+            })
         /**
          * others
          */
