@@ -797,8 +797,7 @@ def wechat_endpoint():
             item = etree.SubElement(articles, "item")
 
             title = ""
-            if "city" in property:
-                logger.debug("CITY:", property["city"])
+            if "city" in property and "value" in property["city"]:
                 title += "[" + property["city"]["value"] + "]"
             if "name" in property:
                 title += property["name"]
