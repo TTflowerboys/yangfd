@@ -780,10 +780,10 @@ def wechat_endpoint():
     return_str = ""
 
     def build_property_list_by_country(country_id):
-        properties = f_app.property.output(f_app.property.search({
+        properties = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
             "country._id": ObjectId(country_id),
             "status": {"$in": ["selling", "sold out"]},
-        }, per_page=10, time_field="mtime"))
+        }, per_page=10, time_field="mtime")))
 
         root = etree.Element("xml")
         etree.SubElement(root, "ToUserName").text = message["FromUserName"]
@@ -798,21 +798,18 @@ def wechat_endpoint():
 
             title = ""
             if "city" in property:
-                try:
-                    title += "[" + f_app.enum.get(property["city"]["id"])["value"]["zh_Hans_CN"] + "]"
-                except:
-                    logger.warning("Failed to get city:", property["city"])
+                title += "[" + property["city"] + "]"
             if "name" in property:
-                title += property["name"].get("zh_Hans_CN", "")
+                title += property["name"]
             if "total_price" in property:
                 title += "（最低投资" + property["total_price"].get("value") + "起）"
             etree.SubElement(item, "Title").text = etree.CDATA(title)
 
-            if "description" in property and "zh_Hans_CN" in property["description"]:
-                etree.SubElement(item, "Description").text = etree.CDATA(property["description"]["zh_Hans_CN"])
+            if "description" in property:
+                etree.SubElement(item, "Description").text = etree.CDATA(property["description"])
 
-            if "reality_images" in property and "zh_Hans_CN" in property["reality_images"] and len(property["reality_images"]["zh_Hans_CN"]):
-                picurl = property["reality_images"]["zh_Hans_CN"][0]
+            if "reality_images" in property and len(property["reality_images"]):
+                picurl = property["reality_images"][0]
                 if "bbt-currant.s3.amazonaws.com" in picurl:
                     picurl += "_thumbnail"
                 etree.SubElement(item, "PicUrl").text = picurl
