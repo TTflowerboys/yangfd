@@ -27,7 +27,8 @@
       "currency":  true,
       "lang":      true,
       "i18n":      true,
-      "ga":        true
+      "ga":        true,
+      "google":    true
   },
   "globalstrict":  false,
   "immed":         false,

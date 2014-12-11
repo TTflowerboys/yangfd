@@ -12,6 +12,9 @@
 %if (report):
     % from urllib import quote_plus
     % report = _i18n(report)
+
+    <textarea id="dataReport" style="display:none;">{{json_dumps(report)}}</textarea>
+
     <div class="info">
         <img alt="" src="" style="background:url('{{report.get('image')}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{report.get('image')}}', sizingMethod='scale');"/>
         <div class="img_shadow"></div>
@@ -159,18 +162,10 @@
 
         <div class="maps" data-tabs>
             <div class="map">
-                <iframe width="800" height="480" frameborder="0" style="border:0;" data-tab-name="transit" class="item selectedTab"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY&q=l3+london+transit">
-                </iframe>
-                <iframe width="800" height="480" frameborder="0" style="border:0;" data-tab-name="school" class="item"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY&q=l3+london+school">
-                </iframe>
-                <iframe width="800" height="480" frameborder="0" style="border:0;" data-tab-name="facility" class="item"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY&q=l3+london+facility">
-                </iframe>
-                <iframe width="800" height="480" frameborder="0" style="border:0;" data-tab-name="security" class="item"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY&q=l3+london+security">
-                </iframe>
+                <div class="transitMapCanvas item selectedTab" data-tab-name="transit"></div>
+                <div class="schoolMapCanvas item" data-tab-name="school"></div>
+                <div class="facilityMapCanvas item" data-tab-name="facility"></div>
+                <div class="securityMapCanvas item" data-tab-name="security"></div>
             </div>
             <div class="tabs">
                 <ul class="category">
@@ -289,6 +284,7 @@
 <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
 <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
 <script src="/static/vendors/jcarousel/jcarousel.connected-carousels.js"></script>
+<script type="text/javascript" src="http://ditu.google.cn/maps/api/js?libraries=geometry,places"></script>
 <script src="/static/scripts/region_report.js"></script>
 <!--endbuild-->
 <!--@@close-->
