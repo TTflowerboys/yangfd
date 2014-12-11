@@ -795,15 +795,28 @@ def wechat_endpoint():
         articles = etree.SubElement(root, "Articles")
         for property in properties:
             item = etree.SubElement(articles, "item")
+
+            title = ""
+            if "city" in property:
+                try:
+                    title += "[" + f_app.enum.get(property["city"]["id"])["value"]["zh_Hans_CN"] + "]"
+                except:
+                    logger.warning("Failed to get city:", property["city"])
             if "name" in property:
-                etree.SubElement(item, "Title").text = etree.CDATA(property["name"].get("zh_Hans_CN", ""))
+                title += property["name"].get("zh_Hans_CN", "")
+            if "total_price" in property:
+                title += "（最低投资" + property["total_price"].get("value") + "起）"
+            etree.SubElement(item, "Title").text = etree.CDATA(title)
+
             if "description" in property and "zh_Hans_CN" in property["description"]:
                 etree.SubElement(item, "Description").text = etree.CDATA(property["description"]["zh_Hans_CN"])
+
             if "reality_images" in property and "zh_Hans_CN" in property["reality_images"] and len(property["reality_images"]["zh_Hans_CN"]):
                 picurl = property["reality_images"]["zh_Hans_CN"][0]
                 if "bbt-currant.s3.amazonaws.com" in picurl:
                     picurl += "_thumbnail"
                 etree.SubElement(item, "PicUrl").text = picurl
+
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
 
         return etree.tostring(root, encoding="UTF-8")
