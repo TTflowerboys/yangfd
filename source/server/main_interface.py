@@ -802,7 +802,17 @@ def wechat_endpoint():
             if "name" in property:
                 title += property["name"]
             if "total_price" in property:
-                title += "（最低投资" + property["total_price"].get("value") + "起）"
+                title += "（最低投资" + property["total_price"]["value"] + "起）"
+            elif "main_house_types" in property:
+                lowest_price = None
+                for house_type in property["main_house_types"]:
+                    if "total_price" not in house_type:
+                        continue
+                    if lowest_price is None or house_type["total_price"]["value"] < lowest_price:
+                        lowest_price = house_type["total_price"]["value"]
+                if lowest_price is not None:
+                    title += "（最低投资" + lowest_price + "起）"
+
             etree.SubElement(item, "Title").text = etree.CDATA(title)
 
             if "description" in property:
