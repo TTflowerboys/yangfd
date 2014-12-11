@@ -798,6 +798,7 @@ def wechat_endpoint():
 
             title = ""
             if "city" in property:
+                logger.debug("CITY:", property["city"])
                 title += "[" + property["city"]["value"] + "]"
             if "name" in property:
                 title += property["name"]
