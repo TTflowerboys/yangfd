@@ -808,6 +808,7 @@ def wechat_endpoint():
                 for house_type in property["main_house_types"]:
                     if "total_price" not in house_type:
                         continue
+                    logger.debug(house_type["total_price"])
                     if lowest_price is None or float(house_type["total_price"]["value"]) < lowest_price:
                         lowest_price = float(house_type["total_price"]["value"])
                 if lowest_price is not None:
