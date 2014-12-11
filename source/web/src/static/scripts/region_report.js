@@ -156,7 +156,6 @@
 
     function showFacilityMap(location) {
         var map = getMap('facilityMapCanvas')
-        var currInfobox;
 
         function findNearByLocations(location) {
 
