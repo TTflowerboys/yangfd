@@ -780,10 +780,10 @@ def wechat_endpoint():
     return_str = ""
 
     def build_property_list_by_country(country_id):
-        properties = f_app.property.output(f_app.property.search({
+        properties = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
             "country._id": ObjectId(country_id),
             "status": {"$in": ["selling", "sold out"]},
-        }, per_page=10, time_field="mtime"))
+        }, per_page=10, time_field="mtime")))
 
         root = etree.Element("xml")
         etree.SubElement(root, "ToUserName").text = message["FromUserName"]
@@ -795,12 +795,35 @@ def wechat_endpoint():
         articles = etree.SubElement(root, "Articles")
         for property in properties:
             item = etree.SubElement(articles, "item")
+
+            title = ""
+            if "city" in property and "value" in property["city"]:
+                title += property["city"]["value"] + " "
             if "name" in property:
-                etree.SubElement(item, "Title").text = etree.CDATA(property["name"].get("zh_Hans_CN", ""))
-            if "description" in property and "zh_Hans_CN" in property["description"]:
-                etree.SubElement(item, "Description").text = etree.CDATA(property["description"]["zh_Hans_CN"])
-            if "reality_images" in property and "zh_Hans_CN" in property["reality_images"] and len(property["reality_images"]["zh_Hans_CN"]):
-                etree.SubElement(item, "PicUrl").text = property["reality_images"]["zh_Hans_CN"][0]
+                title += property["name"]
+            if "main_house_types" in property:
+                lowest_price = None
+                for house_type in property["main_house_types"]:
+                    if "total_price" not in house_type:
+                        continue
+                    if lowest_price is None or float(house_type["total_price"]["value"]) < lowest_price:
+                        lowest_price = float(house_type["total_price"]["value"])
+                if lowest_price is not None:
+                    title += "（最低投资%.2f万起）" % (lowest_price / 10000, )
+            elif "total_price" in property:
+                title += "（最低投资%.2f万起）" % (float(property["total_price"]["value"]) / 10000, )
+
+            etree.SubElement(item, "Title").text = etree.CDATA(title)
+
+            if "description" in property:
+                etree.SubElement(item, "Description").text = etree.CDATA(property["description"])
+
+            if "reality_images" in property and len(property["reality_images"]):
+                picurl = property["reality_images"][0]
+                if "bbt-currant.s3.amazonaws.com" in picurl:
+                    picurl += "_thumbnail"
+                etree.SubElement(item, "PicUrl").text = picurl
+
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
 
         return etree.tostring(root, encoding="UTF-8")

@@ -12,6 +12,9 @@
 %if (report):
     % from urllib import quote_plus
     % report = _i18n(report)
+
+    <textarea id="dataReport" style="display:none;">{{json_dumps(report)}}</textarea>
+
     <div class="info">
         <img alt="" src="" style="background:url('{{report.get('image')}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{report.get('image')}}', sizingMethod='scale');"/>
         <div class="img_shadow"></div>
@@ -159,18 +162,10 @@
 
         <div class="maps" data-tabs>
             <div class="map">
-                <iframe width="800" height="480" frameborder="0" style="border:0;" data-tab-name="transit" class="item selectedTab"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY&q=l3+london+transit">
-                </iframe>
-                <iframe width="800" height="480" frameborder="0" style="border:0;" data-tab-name="school" class="item"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY&q=l3+london+school">
-                </iframe>
-                <iframe width="800" height="480" frameborder="0" style="border:0;" data-tab-name="facility" class="item"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY&q=l3+london+facility">
-                </iframe>
-                <iframe width="800" height="480" frameborder="0" style="border:0;" data-tab-name="security" class="item"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY&q=l3+london+security">
-                </iframe>
+                <div id="transitMapCanvas" class="transitMapCanvas item selectedTab" data-tab-name="transit" style="position:relative; width:800px; height:480px;"></div>
+                <div id="schoolMapCanvas" class="schoolMapCanvas item" data-tab-name="school" style="position:relative; width:800px; height:480px;"></div>
+                <div id="facilityMapCanvas" class="facilityMapCanvas item" data-tab-name="facility" style="position:relative; width:800px; height:480px;"></div>
+                <div id="securityMapCanvas" class="securityMapCanvas item" data-tab-name="security" style="position:relative; width:800px; height:480px;"></div>
             </div>
             <div class="tabs">
                 <ul class="category">
@@ -289,6 +284,7 @@
 <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
 <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
 <script src="/static/vendors/jcarousel/jcarousel.connected-carousels.js"></script>
+<script src="/static/vendors/bing_map.js"></script>
 <script src="/static/scripts/region_report.js"></script>
 <!--endbuild-->
 <!--@@close-->
