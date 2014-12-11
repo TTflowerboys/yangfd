@@ -798,7 +798,7 @@ def wechat_endpoint():
 
             title = ""
             if "city" in property and "value" in property["city"]:
-                title += "[" + property["city"]["value"] + "]"
+                title += property["city"]["value"] + " "
             if "name" in property:
                 title += property["name"]
             if "total_price" in property:
