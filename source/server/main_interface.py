@@ -827,10 +827,11 @@ def wechat_endpoint():
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
 
         if len(properties):
+            logger.debug("Generating more...")
             more = etree.SubElement(articles, "item")
 
             etree.SubElement(more, "Title").text = etree.CDATA("更多%s房产..." % (property["country"]["value"], ))
-            etree.SubElement(more, "Url").text = schema + request.urlparts[1] + "/property_list?country" + country_id
+            etree.SubElement(more, "Url").text = schema + request.urlparts[1] + "/property_list?country=" + country_id
 
         return etree.tostring(root, encoding="UTF-8")
 
