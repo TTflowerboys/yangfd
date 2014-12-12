@@ -793,7 +793,7 @@ def wechat_endpoint():
         etree.SubElement(root, "ArticleCount").text = str(len(properties))
 
         articles = etree.SubElement(root, "Articles")
-        for property in properties:
+        for n, property in enumerate(properties):
             item = etree.SubElement(articles, "item")
 
             title = ""
@@ -818,7 +818,7 @@ def wechat_endpoint():
             if "description" in property:
                 etree.SubElement(item, "Description").text = etree.CDATA(property["description"])
 
-            if False and "reality_images" in property and len(property["reality_images"]):
+            if n == 0 and "reality_images" in property and len(property["reality_images"]):
                 picurl = property["reality_images"][0]
                 if "bbt-currant.s3.amazonaws.com" in picurl:
                     picurl += "_thumbnail"
