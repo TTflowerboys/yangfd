@@ -1690,21 +1690,36 @@ class f_landregistry(f_app.module_base):
         xxx = mdates.num2date(xx)
         ysmooth = spline(xnew, y, xx)
         fig, ax = plt.subplots()
-        ax.plot(xxx, ysmooth, '-g')
+        ax.plot(xxx, ysmooth, '#e70012', marker="o", markeredgecolor="#e70012")
         # ax.plot(x, y, '-g')
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=10)
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
         if fig_width and fig_height:
             fig.set_size_inches(fig_width, fig_height)
 
+        ax.set_axis_bgcolor("#f6f6f6")
         ax.autoscale_view()
-        ax.grid(True)
-        ax.set_ylabel('BGP')
+        ax.set_xlabel('Year', color="#999999", multialignment="right")
+        ax.set_ylabel('BGP', color="#999999", multialignment="right")
+        ax.tick_params(colors='#cccccc')
+        ax.xaxis.set_label_coords(1.05, -0.025)
 
+        for child in ax.get_children():
+            if isinstance(child, matplotlib.spines.Spine):
+                child.set_color('#cccccc')
+
+        ax.set_ylim(0)
+        ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.xaxis.set_ticks_position('none')
+        ax.yaxis.set_ticks_position('left')
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
-        fig.autofmt_xdate()
+        # fig.autofmt_xdate()
         # ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
+        [line.set_zorder(3) for line in ax.lines]
 
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
@@ -1760,10 +1775,10 @@ class f_landregistry(f_app.module_base):
         fig, ax = plt.subplots()
         plt.gca().set_color_cycle(['red', 'green', 'blue', 'yellow'])
 
-        plt.plot([i['date'] for i in dresult], [i['average_price'] for i in dresult])
-        plt.plot([i['date'] for i in sresult], [i['average_price'] for i in sresult])
-        plt.plot([i['date'] for i in tresult], [i['average_price'] for i in tresult])
-        plt.plot([i['date'] for i in fresult], [i['average_price'] for i in fresult])
+        plt.plot([i['date'] for i in dresult], [i['average_price'] for i in dresult], '#e70012')
+        plt.plot([i['date'] for i in sresult], [i['average_price'] for i in sresult], '#ff9c00')
+        plt.plot([i['date'] for i in tresult], [i['average_price'] for i in tresult], '#6fdb2d')
+        plt.plot([i['date'] for i in fresult], [i['average_price'] for i in fresult], '#00b8e6')
         plt.legend(["detached", "semi-detached", "terrance", "flat"], loc='upper left')
 
         ax.autoscale_view()
