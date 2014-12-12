@@ -790,7 +790,7 @@ def wechat_endpoint():
         etree.SubElement(root, "FromUserName").text = message["ToUserName"]
         etree.SubElement(root, "CreateTime").text = str(calendar.timegm(datetime.utcnow().timetuple()))
         etree.SubElement(root, "MsgType").text = "news"
-        etree.SubElement(root, "ArticleCount").text = str(len(properties))
+        etree.SubElement(root, "ArticleCount").text = str(len(properties) + 1)
 
         articles = etree.SubElement(root, "Articles")
         for n, property in enumerate(properties):
@@ -827,7 +827,6 @@ def wechat_endpoint():
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
 
         if len(properties):
-            logger.debug("Generating more...")
             more = etree.SubElement(articles, "item")
 
             etree.SubElement(more, "Title").text = etree.CDATA("更多%s房产..." % (property["country"]["value"], ))
