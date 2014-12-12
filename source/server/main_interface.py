@@ -818,7 +818,7 @@ def wechat_endpoint():
             if "description" in property:
                 etree.SubElement(item, "Description").text = etree.CDATA(property["description"])
 
-            if "reality_images" in property and len(property["reality_images"]):
+            if False and "reality_images" in property and len(property["reality_images"]):
                 picurl = property["reality_images"][0]
                 if "bbt-currant.s3.amazonaws.com" in picurl:
                     picurl += "_thumbnail"
