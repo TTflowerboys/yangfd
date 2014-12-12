@@ -783,7 +783,7 @@ def wechat_endpoint():
         properties = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
             "country._id": ObjectId(country_id),
             "status": {"$in": ["selling", "sold out"]},
-        }, per_page=10, time_field="mtime")))
+        }, per_page=9, time_field="mtime")))
 
         root = etree.Element("xml")
         etree.SubElement(root, "ToUserName").text = message["FromUserName"]
@@ -825,6 +825,12 @@ def wechat_endpoint():
                 etree.SubElement(item, "PicUrl").text = picurl
 
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
+
+        if len(properties):
+            more = etree.SubElement(articles, "item")
+
+            etree.SubElement(more, "Title").text = etree.CDATA("更多%s房产..." % (property["country"]["value"], ))
+            etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property_list?country" + country_id
 
         return etree.tostring(root, encoding="UTF-8")
 
