@@ -28,7 +28,7 @@
       "lang":      true,
       "i18n":      true,
       "ga":        true,
-      "Microsoft": true
+       "google":    true
   },
   "globalstrict":  false,
   "immed":         false,

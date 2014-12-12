@@ -2,8 +2,6 @@
 <!--@@block = head-->
 <!--build:css(dist) /static/styles/region_report.html.css-->
 <link href="/static/styles/regionReport.css" rel="stylesheet"/>
-<link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
-<link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.connected-carousels.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
 <!--endbuild-->
 <!--@@close-->
@@ -162,34 +160,46 @@
 
         <div class="maps" data-tabs>
             <div class="map">
-                <div id="transitMapCanvas" class="transitMapCanvas item selectedTab" data-tab-name="transit" style="position:relative; width:800px; height:480px;"></div>
-                <div id="schoolMapCanvas" class="schoolMapCanvas item" data-tab-name="school" style="position:relative; width:800px; height:480px;"></div>
-                <div id="facilityMapCanvas" class="facilityMapCanvas item" data-tab-name="facility" style="position:relative; width:800px; height:480px;"></div>
-                <div id="securityMapCanvas" class="securityMapCanvas item" data-tab-name="security" style="position:relative; width:800px; height:480px;"></div>
+                <div id="transitMapCanvas" class="transitMapCanvas item selectedTab" data-tab-name="transit"></div>
+                <div id="schoolMapCanvas" class="schoolMapCanvas item" data-tab-name="school"></div>
+                <div id="facilityMapCanvas" class="facilityMapCanvas item" data-tab-name="facility"></div>
+                <div id="securityMapCanvas" class="securityMapCanvas item" data-tab-name="security"></div>
             </div>
             <div class="tabs">
                 <ul class="category">
                     <li data-tab="transit" class="selectedTab">
                         <img alt="" src=""/>
-                        <labael> {{_('交通设施')}} </labael>
+                        <label> {{_('交通设施')}} </label>
                     </li>
                     <li data-tab="school">
                         <img alt="" src=""/>
-                        <labael> {{_('周边学校')}} </labael>
+                        <label> {{_('周边学校')}} </label>
                     </li>
                     <li data-tab="facility">
                         <img alt="" src=""/>
-                        <labael> {{_('便民设施')}} </labael>
+                        <label> {{_('便民设施')}} </label>
                     </li>
                     <li data-tab="security">
                         <img alt="" src=""/>
-                        <labael> {{_('周边治安')}} </labael>
+                        <label> {{_('周边治安')}} </label>
                     </li>
                 </ul>
                 <div class="list">
-                    <ul data-tab-name="transit" style="display:none;"></ul>
-                    <ul data-tab-name="school" style="display:none;"></ul>
-                    <ul data-tab-name="facility" style="display:none;"></ul>
+                    <div data-tab-name="transit" style="display:none;" >
+                        <ul>
+
+                        </ul>
+                    </div>
+                    <div data-tab-name="school" style="display:none;" >
+                        <ul >
+
+                        </ul>
+                    </div>
+                    <div data-tab-name="facility" style="display:none;">
+                        <ul >
+
+                        </ul>
+                    </div>
                     <div data-tab-name="security" style="display:none;"></div>
                 </div>
             </div>
@@ -275,16 +285,32 @@
 
     <!-- @@include=/static/templates/house_card.tpl.html-->
 
+    <script id="placeItem_template" type="text/template" >
+        <li data-lat={=item.geometry.location.lat()=} data-lng={=item.geometry.location.lng()=}>
+            <div class="content">
+                <div class="left">
+                    <h3 class="title">{=item.name=}</h3>
+                    <label class="subtitle"></label>
+                </div>
+                <div class="right">
+                    <img class="icon" src="{=item.icon=}"/>
+                    <label class="distance">{=item.distance=}</label>
+                </div>
+            </div>
+        </li>
+    </script>
 %end
 
 <!--@@close-->
 
 <!--@@block=scripts -->
+<!-- TODO fix google js compress unglify has not work -->
+<script src="/static/vendors/google/jsapi.js"></script>
+<script src="/static/vendors/google/google-maps.js"></script>
+<script src="/static/vendors/google-maps-utility/infobox.js"></script>
 <!--build:js /static/scripts/region_report.html.js-->
-<script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
-<script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
-<script src="/static/vendors/jcarousel/jcarousel.connected-carousels.js"></script>
-<script src="/static/vendors/bing_map.js"></script>
+<script src="/static/vendors/geoxml3/geoxml3.js"></script>
+<script src="/static/vendors/jquery.slimscroll.min.js"></script>
 <script src="/static/scripts/region_report.js"></script>
 <!--endbuild-->
 <!--@@close-->
