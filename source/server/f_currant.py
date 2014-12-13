@@ -1684,42 +1684,44 @@ class f_landregistry(f_app.module_base):
         x = [i['date'] for i in merged_result]
         y = [i['average_price'] for i in merged_result]
         xnew = mdates.date2num(x)
-        yy = np.polyfit(xnew, y, 3)
-        yyy = np.poly1d(yy)
+        # yy = np.polyfit(xnew, y, 3)
+        # yyy = np.poly1d(yy)
         xx = np.linspace(xnew.min(), xnew.max(), 50)
         xxx = mdates.num2date(xx)
         ysmooth = spline(xnew, y, xx)
+
         fig, ax = plt.subplots()
-        ax.plot(xxx, ysmooth, '#e70012', marker="o", markeredgecolor="#e70012")
+        ax.plot(xxx, ysmooth, '#e70012', marker="o", markeredgecolor="#e70012", markersize=3)
         # ax.plot(x, y, '-g')
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=10)
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
         if fig_width and fig_height:
             fig.set_size_inches(fig_width, fig_height)
 
-        ax.set_axis_bgcolor("#f6f6f6")
         ax.autoscale_view()
-        ax.set_xlabel('Year', color="#999999", multialignment="right")
-        ax.set_ylabel('BGP', color="#999999", multialignment="right")
-        ax.tick_params(colors='#cccccc')
+        ax.set_xlabel('YEAR', color="#999999", multialignment="right", fontsize=8)
+        ax.set_ylabel('BGP', color="#999999", multialignment="right", fontsize=8)
         ax.xaxis.set_label_coords(1.05, -0.025)
 
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=10)
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
 
-        ax.set_ylim(0)
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
+        ax.tick_params(colors='#cccccc')
+        ax.set_ylim(0)
+        ax.set_axis_bgcolor("#f6f6f6")
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
+        [line.set_zorder(3) for line in ax.lines]
+
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
         # fig.autofmt_xdate()
         # ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
-        [line.set_zorder(3) for line in ax.lines]
 
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
@@ -1736,7 +1738,7 @@ class f_landregistry(f_app.module_base):
         width = 0.5
 
         fig, ax = plt.subplots()
-        ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width)
+        ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width, color=['#e70012', '#ff9c00', '#6fdb2d', '#00b8e6'], edgecolor="none")
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
@@ -1744,9 +1746,24 @@ class f_landregistry(f_app.module_base):
             fig.set_size_inches(fig_width, fig_height)
 
         ax.autoscale_view()
-        ax.set_ylabel('Number')
+        ax.set_ylabel('NUMBER', color="#999999", fontsize=8)
         ax.set_xticks([i + width / 2 for i in ind])
         ax.set_xticklabels([x['_id'] for x in merged_result])
+
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=10)
+        for child in ax.get_children():
+            if isinstance(child, matplotlib.spines.Spine):
+                child.set_color('#cccccc')
+
+        ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
+        ax.tick_params(colors='#cccccc')
+        ax.set_ylim(0)
+        ax.set_axis_bgcolor("#f6f6f6")
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.xaxis.set_ticks_position('none')
+        ax.yaxis.set_ticks_position('left')
+        [bar.set_zorder(3) for bar in ax.get_children()]
 
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
@@ -1773,24 +1790,38 @@ class f_landregistry(f_app.module_base):
                 fresult.append(i)
 
         fig, ax = plt.subplots()
-        plt.gca().set_color_cycle(['red', 'green', 'blue', 'yellow'])
 
-        plt.plot([i['date'] for i in dresult], [i['average_price'] for i in dresult], '#e70012')
-        plt.plot([i['date'] for i in sresult], [i['average_price'] for i in sresult], '#ff9c00')
-        plt.plot([i['date'] for i in tresult], [i['average_price'] for i in tresult], '#6fdb2d')
-        plt.plot([i['date'] for i in fresult], [i['average_price'] for i in fresult], '#00b8e6')
+        plt.plot([i['date'] for i in dresult], [i['average_price'] for i in dresult], '#e70012', marker="o", markeredgecolor="#e70012", markersize=3)
+        plt.plot([i['date'] for i in sresult], [i['average_price'] for i in sresult], '#ff9c00', marker="o", markeredgecolor="#ff9c00", markersize=3)
+        plt.plot([i['date'] for i in tresult], [i['average_price'] for i in tresult], '#6fdb2d', marker="o", markeredgecolor="#6fdb2d", markersize=3)
+        plt.plot([i['date'] for i in fresult], [i['average_price'] for i in fresult], '#00b8e6', marker="o", markeredgecolor="#00b8e6", markersize=3)
         plt.legend(["detached", "semi-detached", "terrance", "flat"], loc='upper left')
 
         ax.autoscale_view()
-        ax.set_ylabel('BGP')
+        ax.set_xlabel('YEAR', color="#999999", fontsize=8)
+        ax.set_ylabel('BGP', color="#999999", fontsize=8)
 
+        for child in ax.get_children():
+            if isinstance(child, matplotlib.spines.Spine):
+                child.set_color('#cccccc')
+
+        ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
+        ax.tick_params(colors='#cccccc')
+        ax.set_ylim(0)
+        ax.set_axis_bgcolor("#f6f6f6")
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.xaxis.set_ticks_position('none')
+        ax.yaxis.set_ticks_position('left')
+        [line.set_zorder(3) for line in ax.lines]
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
-        fig.autofmt_xdate()
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
         if fig_width and fig_height:
             fig.set_size_inches(fig_width, fig_height)
+
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=10)
 
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
@@ -1820,25 +1851,36 @@ class f_landregistry(f_app.module_base):
         ax.bar(ind, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none")
 
         ax.autoscale_view()
-        ax.set_ylabel('Percentage %')
+        ax.set_ylabel('%', color="#999999", fontsize=8)
         ax.set_xticks([i + width for i in ind])
         ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "400k~500k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
 
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=10)
+        for child in ax.get_children():
+            if isinstance(child, matplotlib.spines.Spine):
+                child.set_color('#cccccc')
+
+        ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
+        ax.tick_params(colors='#cccccc')
+        ax.set_ylim(0)
+        ax.set_axis_bgcolor("#f6f6f6")
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
-        ax.yaxis.set_ticks_position('left')
         ax.xaxis.set_ticks_position('none')
+        ax.yaxis.set_ticks_position('left')
 
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', rotation=45, fontsize=10)
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', fontsize=10, rotation=30)
         plt.gcf().subplots_adjust(bottom=0.15)
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
         if fig_width and fig_height:
             fig.set_size_inches(fig_width, fig_height)
+
+        [bar.set_zorder(3) for bar in ax.get_children()]
 
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
