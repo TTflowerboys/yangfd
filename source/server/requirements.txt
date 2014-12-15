@@ -34,4 +34,3 @@ bottle
 python-memcached
 requests
 pillow
-scipy

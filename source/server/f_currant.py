@@ -27,6 +27,7 @@ import logging
 logger = logging.getLogger(__name__)
 f_app.dependency_register('pyquery', race="python")
 f_app.dependency_register('matplotlib', race="python")
+f_app.dependency_register('scipy', race="python")
 
 # Fix crash in environments that have no display.
 import matplotlib
