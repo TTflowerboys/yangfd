@@ -1554,8 +1554,10 @@ class f_policeuk(f_app.module_base):
         lng: longitude
         date: YYYY-MM, from 2010-12
         """
-        params = urllib.parse.urlencode({"lat": params["lat"], "lng": params["lng"], "date": params["date"]})
+        if params:
+            params = urllib.parse.urlencode(params)
         url = "http://data.police.uk/api/crimes-street/all-crime?%s" % params
+        self.logger.debug(url)
         result = f_app.request(url)
         if result.status_code == 200:
             return json.loads(result.content)
@@ -1563,7 +1565,8 @@ class f_policeuk(f_app.module_base):
             abort(50000)
 
     def api_categories(self, params, method="GET"):
-        params = urllib.parse.urlencode({"date": params["date"]})
+        if params:
+            params = urllib.parse.urlencode(params)
         url = "http://data.police.uk/api/crime-categories?%s" % params
         result = f_app.request(url)
         if result.status_code == 200:
@@ -1571,14 +1574,13 @@ class f_policeuk(f_app.module_base):
         else:
             abort(50000)
 
-    def get_crime_by_zipcode(self, zipcode, date):
-        return self._get_crime_by_zipcode("%s|%s" % (zipcode, date), zipcode, date)
-
-    @f_cache("crimebyzipcode")
-    def _get_crime_by_zipcode(self, zipcode_date, zipcode, date):
+    def get_crime_by_zipcode(self, zipcode, date=None):
         zipcode_info = f_app.zipcode.get_by_zipcode(zipcode)
         if zipcode_info:
-            params = {"lat": zipcode_info["latitude"], "lng": zipcode_info["longitude"], "date": date}
+            if date:
+                params = {"lat": zipcode_info["latitude"], "lng": zipcode_info["longitude"], "date": date}
+            else:
+                params = {"lat": zipcode_info["latitude"], "lng": zipcode_info["longitude"]}
             crime_info = self.api(params)
             return crime_info
         else:
