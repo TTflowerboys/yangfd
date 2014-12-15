@@ -361,7 +361,7 @@
             country = window.report.country.slug
         }
         var geocoderRequest = {
-            country:country,
+            region:country,
             address:zipCodeIndexFromURL,
         }
         geocoder.geocode(geocoderRequest, function (results, status) {
