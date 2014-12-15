@@ -208,10 +208,18 @@ def report_walkscore(params):
     zipcode=str,
 ))
 def report_police_uk(params):
-    date = params.pop("date", "%s-%s" % datetime.utcnow().year, datetime.utcnow().month)
+    date = params.pop("date", "%s-%s" % (datetime.utcnow().year, datetime.utcnow().month))
     if "zipcode" in params:
         return f_app.policeuk.get_crime_by_zipcode(params["zipcode"], date)
     elif "latitude" in params and "longitude" in params:
         return f_app.policeuk.api({"lat": params["latitude"], "lng": params["longitude"], "date": date})
     else:
         return []
+
+
+@f_api("/report/policeuk/categories", params=dict(
+    date=str,
+))
+def report_police_uk_categories(params):
+    date = params.pop("date", "%s-%s" % (datetime.utcnow().year, datetime.utcnow().month))
+    return f_app.policeuk.api_categories({"date": date})

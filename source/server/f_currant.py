@@ -1554,10 +1554,17 @@ class f_policeuk(f_app.module_base):
         lng: longitude
         date: YYYY-MM, from 2010-12
         """
-        import urllib
-        params = urllib.urlencode({"lat": params["lat"], "lng": params["lng"], "date": params["date"]})
-        self.logger.debug(params)
+        params = urllib.parse.urlencode({"lat": params["lat"], "lng": params["lng"], "date": params["date"]})
         url = "http://data.police.uk/api/crimes-street/all-crime?%s" % params
+        result = f_app.request(url)
+        if result.status_code == 200:
+            return json.loads(result.content)
+        else:
+            abort(50000)
+
+    def api_categories(self, params, method="GET"):
+        params = urllib.parse.urlencode({"date": params["date"]})
+        url = "http://data.police.uk/api/crime-categories?%s" % params
         result = f_app.request(url)
         if result.status_code == 200:
             return json.loads(result.content)
