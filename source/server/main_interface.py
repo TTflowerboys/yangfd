@@ -710,7 +710,7 @@ def sitemap():
     width=(int, 0),
     height=(int, 0),
 ))
-def landregistry(zipcode_index, params):
+def landregistry_home_values(zipcode_index, params):
     size = [params["width"], params["height"]]
     result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
@@ -721,7 +721,7 @@ def landregistry(zipcode_index, params):
     width=(int, 0),
     height=(int, 0),
 ))
-def landregistry_with_type(zipcode_index, params):
+def landregistry_value_trend(zipcode_index, params):
     size = [params["width"], params["height"]]
     result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
@@ -732,7 +732,7 @@ def landregistry_with_type(zipcode_index, params):
     width=(int, 0),
     height=(int, 0),
 ))
-def landregistry_type_dist(zipcode_index, params):
+def landregistry_average_values(zipcode_index, params):
     size = [params["width"], params["height"]]
     result = f_app.landregistry.get_average_values_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
@@ -743,7 +743,7 @@ def landregistry_type_dist(zipcode_index, params):
     width=(int, 0),
     height=(int, 0),
 ))
-def landregistry_price_dist(zipcode_index, params):
+def landregistry_value_ranges(zipcode_index, params):
     size = [params["width"], params["height"]]
     result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")

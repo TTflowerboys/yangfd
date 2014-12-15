@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from libfelix.f_common import f_app
-from libfelix.f_interface import f_api
+from libfelix.f_interface import f_api, abort
 
 
 import logging
@@ -171,3 +171,47 @@ def report_search(params):
     per_page = params.pop("per_page", 0)
     report_list = f_app.report.search(params, per_page=per_page)
     return f_app.report.output(report_list)
+
+
+@f_api("/report/walkscore", params=dict(
+    latitude=float,
+    longitude=float,
+    zipcode=str,
+))
+def report_walkscore(params):
+    """
+    parse ``zipcode`` or ``latitude`` and ``longitude`` to get the location walkscore
+    """
+    if "zipcode" in params:
+        zipcode = f_app.zipcode.get_by_zipcode(params["zipcode"])
+        if not zipcode:
+            abort(40088, "failed to get walkscore because zipcode doesnot exist")
+        latitude = zipcode["latitude"]
+        longitude = zipcode["longitude"]
+    else:
+        if "latitude" not in params or "longitude" not in params:
+            abort(40000, "No latitude and longitude")
+        latitude = params["latitude"]
+        longitude = params["longitude"]
+    url = "http://api.walkscore.com/score?format=json&lat=%s&lon=%s&wsapikey=%s" % (latitude, longitude, f_app.common.walkscore_api_key)
+    result = f_app.request.get(url, format="json", retry=3)
+    if result["status"] in [1, 2]:
+        return {"walkscore": result.get("walkscore", "N/A"), "ws_link": result.get("ws_link", "")}
+    else:
+        abort(40088, "failed to get walkscore and walkscore api status is " + str(result["status"]))
+
+
+@f_api("/report/policeuk", params=dict(
+    date=str,
+    latitude=float,
+    longitude=float,
+    zipcode=str,
+))
+def report_police_uk(params):
+    date = params.pop("date", "%s-%s" % datetime.utcnow().year, datetime.utcnow().month)
+    if "zipcode" in params:
+        return f_app.policeuk.get_crime_by_zipcode(params["zipcode"], date)
+    elif "latitude" in params and "longitude" in params:
+        return f_app.policeuk.api({"lat": params["latitude"], "lng": params["longitude"], "date": date})
+    else:
+        return []
