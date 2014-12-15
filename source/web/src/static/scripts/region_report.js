@@ -197,8 +197,44 @@
         //http://data.police.uk/api/crimes-street/all-crime?lat=52.629729&lng=-1.131592
 
         var map = getMap('securityMapCanvas')
+        var $list = $('.maps .list div[data-tab-name=security] ul')
         showRegion(map, zipCodeIndexFromURL, function () {
-            showLabel(map, window.report.location, window.i18n('犯罪') + '55', '200px')
+            $.betterGet('/api/1/report/policeuk', {lat:latlng.lat(), lng:latlng.lng()})
+                .done(function (data) {
+                    var length = data.length
+                    showLabel(map, window.report.location, window.i18n('犯罪数目') + length, '200px')
+
+                    $.betterGet('/api/1/report/policeuk/categories')
+                        .done(function (categoryData) {
+                            var categoryDic = {}
+                            _.each(categoryData, function (item) {
+                                categoryDic[item.url] = item.name
+                            })
+                            var categories = {}
+                            _.each(data, function (item) {
+                                if (categories[item.category]) {
+                                    categories[item.category] = categories[item.category] + 1
+                                }
+                                else {
+                                    categories[item.category] = + 1
+                                }
+                            })
+
+                            var categoryItem = {}
+                            for (var key in categories) {
+                                categoryItem.distance = categories[key] + window.i18n('起')
+                                categoryItem.name = categoryDic[key]
+                                createListItem($list, categoryItem)
+                            }
+
+                        })
+                        .fail(function (ret) {
+                        })
+                    //var infowindow = new google.maps.InfoWindow();
+                })
+                .fail(function (ret) {
+                    showLabel(map, window.report.location, zipCodeIndexFromURL)
+                })
 
             map.setOptions(getMapOptions())
         })
@@ -325,7 +361,7 @@
             country = window.report.country.slug
         }
         var geocoderRequest = {
-            country:country,
+            region:country,
             address:zipCodeIndexFromURL,
         }
         geocoder.geocode(geocoderRequest, function (results, status) {

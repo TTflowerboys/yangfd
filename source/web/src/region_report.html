@@ -206,7 +206,11 @@
 
                         </ul>
                     </div>
-                    <div data-tab-name="security" style="display:none;"></div>
+                    <div data-tab-name="security" style="display:none;">
+                        <ul >
+
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -292,7 +296,12 @@
     <!-- @@include=/static/templates/house_card.tpl.html-->
 
     <script id="placeItem_template" type="text/template" >
-        <li data-lat={=item.geometry.location.lat()=} data-lng={=item.geometry.location.lng()=}>
+        <li
+            {_if(item.geometry) {_}
+            data-lat={=item.geometry.location.lat()=}
+            data-lng={=item.geometry.location.lng()=}
+            {_}_}
+            >
             <div class="content">
                 <div class="left">
                     <h3 class="title">{=item.name=}</h3>
