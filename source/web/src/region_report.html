@@ -107,16 +107,16 @@
 
                 <ul class="rslides" id="priceSlider">
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=400&height=212"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=400&height=212"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/type_dist?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=400&height=212"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/with_type?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=400&height=212"/>
                     </li>
                 </ul>
 
@@ -124,22 +124,22 @@
                 <ul class="rslidesPager" id="priceSliderPager">
                     <li>
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=200&height=106"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=200&height=106"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/type_dist?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=200&height=106"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/with_type?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=200&height=106"/>
                         </a>
                     </li>
                 </ul>
@@ -168,19 +168,25 @@
             <div class="tabs">
                 <ul class="category">
                     <li data-tab="transit" class="selectedTab">
-                        <img alt="" src=""/>
+                        <img class="active" src="/static/images/region_report/icon_transit_active.png" />
+                        <img class="normal" src="/static/images/region_report/icon_transit.png"/>
                         <label> {{_('交通设施')}} </label>
                     </li>
                     <li data-tab="school">
+                        <img class="active" src="/static/images/region_report/icon_school_active.png"/>
+                        <img class="normal" src="/static/images/region_report/icon_school.png"/>
                         <img alt="" src=""/>
                         <label> {{_('周边学校')}} </label>
                     </li>
                     <li data-tab="facility">
+                        <img class="active" src="/static/images/region_report/icon_facility_active.png"/>
+                        <img class="normal" src="/static/images/region_report/icon_facility.png"/>
                         <img alt="" src=""/>
                         <label> {{_('便民设施')}} </label>
                     </li>
                     <li data-tab="security">
-                        <img alt="" src=""/>
+                        <img class="active" src="/static/images/region_report/icon_security_active.png"/>
+                        <img class="normal" src="/static/images/region_report/icon_security.png"/>
                         <label> {{_('周边治安')}} </label>
                     </li>
                 </ul>

@@ -23,8 +23,8 @@
     })
 
     $('#loadIndicator').show()
-    var zipcodeIndexFormURL = _.last(location.pathname.split('/'))
-    $.betterPost('/api/1/property/search', {zipcode_index:zipcodeIndexFormURL})
+    var zipCodeIndexFromURL = _.last(location.pathname.split('/'))
+    $.betterPost('/api/1/property/search', {zipcode_index:zipCodeIndexFromURL})
         .done(function (val) {
             var array = val.content
 
@@ -123,7 +123,8 @@
         var map = getMap('transitMapCanvas')
         var $list = $('.maps .list div[data-tab-name=transit] ul')
 
-        showRegion(map, zipcodeIndexFormURL, function () {
+        showRegion(map, zipCodeIndexFromURL, function () {
+            showLabel(map, window.report.location, zipCodeIndexFromURL)
             var transitLayer = new google.maps.TransitLayer();
             transitLayer.setMap(map);
 
@@ -148,7 +149,9 @@
     function showSchoolMap(latlng) {
         var map = getMap('schoolMapCanvas')
         var $list = $('.maps .list div[data-tab-name=school] ul')
-        showRegion(map, zipcodeIndexFormURL, function () {
+        showRegion(map, zipCodeIndexFromURL, function () {
+            showLabel(map, window.report.location, zipCodeIndexFromURL)
+
             var infowindow = new google.maps.InfoWindow();
             var placesService = new google.maps.places.PlacesService(map)
 
@@ -169,7 +172,9 @@
     function showFacilityMap(latlng) {
         var map = getMap('facilityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=facility] ul')
-        showRegion(map, zipcodeIndexFormURL, function () {
+        showRegion(map, zipCodeIndexFromURL, function () {
+            showLabel(map, window.report.location, zipCodeIndexFromURL)
+
             var infowindow = new google.maps.InfoWindow();
             var placesService = new google.maps.places.PlacesService(map)
             //https://developers.google.com/places/documentation/supported_types
@@ -186,6 +191,18 @@
             })
             map.setOptions(getMapOptions())
         })
+    }
+
+    function showSecurityMap(latlng) {
+        //http://data.police.uk/api/crimes-street/all-crime?lat=52.629729&lng=-1.131592
+
+        var map = getMap('securityMapCanvas')
+        showRegion(map, zipCodeIndexFromURL, function () {
+            showLabel(map, window.report.location, window.i18n('犯罪') + '55', '200px')
+
+            map.setOptions(getMapOptions())
+        })
+
     }
 
     function createMarker(map, infowindow, place) {
@@ -228,25 +245,28 @@
             geoXml.docs[0].gpolygons[0].setMap(map);
             map.fitBounds(geoXml.docs[0].gpolygons[0].bounds);
         }
+    }
 
-        var labels = []
-        var zip = zipcodeIndexFormURL
-        labels.push(new window.InfoBox({
-            content: zip,
+    function showLabel(map, position, content, widthString) {
+        if (!widthString) {
+            widthString = '50px'
+        }
+        var label = new window.InfoBox({
+            content: content,
             boxStyle: {
                 border: '1px solid black',
                 textAlign: 'center',
                 fontSize: '12pt',
-                width: '50px'
+                widthString: widthString
             },
             disableAutoPan: true,
             pixelOffset: new google.maps.Size(-25, 0),
-            position: window.report.location,
+            position: position,
             closeBoxURL: '',
             isHidden: false,
             enableEventPropagation: true
-        }));
-        labels[labels.length-1].open(map);
+        })
+        label.open(map)
     }
 
     function showRegion(map, zipCodeIndex, callback) {
@@ -306,7 +326,7 @@
         }
         var geocoderRequest = {
             country:country,
-            address:zipcodeIndexFormURL,
+            address:zipCodeIndexFromURL,
         }
         geocoder.geocode(geocoderRequest, function (results, status) {
             if (!_.isEmpty(results)) {
@@ -316,6 +336,7 @@
                 showTransitMap(latlng)
                 showSchoolMap(latlng)
                 showFacilityMap(latlng)
+                showSecurityMap(latlng)
             }
         })
 

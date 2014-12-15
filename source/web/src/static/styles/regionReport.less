@@ -467,10 +467,31 @@ main {
                         display:inline-block;
                         text-align:center;
                         label {
+                            vertical-align:middle;
                             line-height:60px;
+                        }
+
+                        img {
+                            vertical-align:middle;
+
+                            &.normal {
+                                display:inline-block;
+                            }
+                            &.active {
+                                display:none;
+                            }
                         }
                         &.selectedTab {
                             color:@red;
+
+                            img {
+                                &.normal {
+                                    display:none;
+                                }
+                                &.active {
+                                    display:inline-block;
+                                }
+                            }
                         }
                     }
                 }
