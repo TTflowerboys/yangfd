@@ -1,5 +1,7 @@
 (function () {
 
+    google.load('visualization', '1', {'packages':['corechart', 'table', 'geomap']});
+
     function getData(key) {
         return JSON.parse(document.getElementById(key).innerHTML)
     }
@@ -19,8 +21,6 @@
         prevText: '<',
         nextText: '>'
     })
-
-
 
     $('#loadIndicator').show()
     var zipcodeIndexFormURL = _.last(location.pathname.split('/'))
@@ -58,196 +58,267 @@
 
     $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
         $('[data-tab-name=' + tabName + ']').show()
+        //http://blog.codebusters.pl/en/google-maps-in-hidden-div
+        var mapId = $('.maps .map [data-tab-name=' + tabName + ']').attr('id')
+        google.maps.event.trigger(getMap(mapId), 'resize');
+        getMap(mapId).setOptions(getMapOptions())
     })
 
-    var bingMapKey = 'ApsJbXUENG-diuwrV1D4MkuamY_voaTpm8McrvYweG03awUvRGvL--mkkCKzW0DJ'
     window.mapCache = {}
-    window.mapInfoBoxCache = {}
+    window.markersCache = {}
 
-    function getMap(mapId)
-    {
+    function getMap(mapId) {
         if (!window.mapCache[mapId]) {
-            window.mapCache[mapId] = new Microsoft.Maps.Map(document.getElementById(mapId), {credentials: bingMapKey});
+            window.mapCache[mapId] = new google.maps.Map(document.getElementById(mapId));
         }
         return window.mapCache[mapId]
     }
 
-    function createMapPin(map, currInfobox, result) {
-        if (result) {
-            var location = new Microsoft.Maps.Location(result.Latitude, result.Longitude);
-            var pin = new Microsoft.Maps.Pushpin(location);
-            Microsoft.Maps.Events.addHandler(pin, 'click', function () { showInfoBox(map, currInfobox, result) });
-            map.entities.push(pin);
-        }
+    function getMapOptions() {
+         var mapOptions = {
+             zoom: 13,
+             center: window.report.location
+         }
+        return mapOptions;
     }
 
-    function showInfoBox(map, mapId, result) {
-        if (window.mapInfoBoxCache[mapId]) {
-            map.entities.remove(window.mapInfoBoxCache[mapId]);
+    function keepMarker(mapId, marker) {
+        if (!window.markersCache[mapId]) {
+            window.markersCache[mapId] = []
         }
-        var location = new Microsoft.Maps.Location(result.Latitude, result.Longitude);
-        var decription = [];
-        decription.push(window.i18n('地址') + ':' + result.AddressLine + '<br/>');
-        decription.push(window.i18n('电话') + ':' + result.Phone + '<br/>');
-        window.mapInfoBoxCache[mapId] = new Microsoft.Maps.Infobox(location, { title: result.DisplayName, description: decription.join(' '), showPointer: true});
-
-        window.mapInfoBoxCache[mapId].setOptions({ visible: true });
-        map.entities.push(window.mapInfoBoxCache[mapId]);
+        window.markersCache[mapId].push(marker)
     }
 
-    function showTransitMap(location) {
+    function getMarkers(mapId) {
+        return window.markersCache[mapId]
+    }
+
+
+    function rad(x) {
+        return x * Math.PI / 180;
+    }
+
+    function getDistance(p1, p2) {
+
+        //trim up to 5 decimal places because it is at that point where the difference
+        p1.latitude = parseFloat(p1.lat().toFixed(5));
+        p1.longitude = parseFloat(p1.lng().toFixed(5));
+
+        p2.latitude = parseFloat(p2.lat().toFixed(5));
+        p2.longitude = parseFloat(p2.lng().toFixed(5));
+
+        var R = 6378137; // Earth’s mean radius in meter
+        var dLat = rad(p2.latitude - p1.latitude);
+        var dLong = rad(p2.longitude - p1.longitude);
+
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(p1.latitude)) * Math.cos(rad(p2.latitude)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
+
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+
+        return d / 1000.0; // returns the distance in kilo meter
+    }
+
+    function showTransitMap(latlng) {
         var map = getMap('transitMapCanvas')
-        Microsoft.Maps.loadModule('Microsoft.Maps.Traffic', { callback: trafficModuleLoaded });
-        function trafficModuleLoaded()
-        {
-            map.setView({zoom: 13, center: location})
-            var pushpin = new Microsoft.Maps.Pushpin(location);
-            map.entities.push(pushpin);
-            var trafficLayer = new Microsoft.Maps.Traffic.TrafficLayer(map);
-            // show the traffic Layer
-            trafficLayer.show();
-        }
+        var $list = $('.maps .list div[data-tab-name=transit] ul')
+
+        showRegion(map, zipcodeIndexFormURL, function () {
+            var transitLayer = new google.maps.TransitLayer();
+            transitLayer.setMap(map);
+
+            var infowindow = new google.maps.InfoWindow();
+            var placesService = new google.maps.places.PlacesService(map)
+
+            placesService.nearbySearch({location:latlng, radius:'1000', types:['subway_station', 'bus_station']}, function (results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        results[i].distance = getDistance(latlng, results[i].geometry.location).toFixed(2) + 'km'
+                        var marker = createMarker(map, infowindow, results[i]);
+                        keepMarker('transitMapCanvas', marker)
+
+                        createListItem($list, results[i])
+                    }
+                }
+            })
+            map.setOptions(getMapOptions())
+        })
     }
 
-    function showSchoolMap(location) {
+    function showSchoolMap(latlng) {
         var map = getMap('schoolMapCanvas')
+        var $list = $('.maps .list div[data-tab-name=school] ul')
+        showRegion(map, zipcodeIndexFormURL, function () {
+            var infowindow = new google.maps.InfoWindow();
+            var placesService = new google.maps.places.PlacesService(map)
 
-        function findNearByLocations(location) {
-
-            var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',10)';
-            var select = '$select=EntityID,Latitude,Longitude,__Distance,DisplayName,AddressLine,Phone';
-            var top = '$top=100'
-            var queryOptions = '$filter=EntityTypeID%20Eq%208211'
-            var format = '$format=json';
-
-            var sdsRequest = 'http://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0acf75d1e6947b4/NavteqEU/NavteqPOIs?' +
-                    spatialFilter + '&' +
-                    select + '&' +
-                    top + '&' +
-                    queryOptions + '&' +
-                    format + '&jsonp=nearbySchoolServiceCallback' + '&key=' + bingMapKey;
-
-            var mapscript = document.createElement('script');
-            mapscript.type = 'text/javascript';
-            mapscript.src = sdsRequest;
-            document.getElementById('schoolMapCanvas').appendChild(mapscript);
-        }
-
-        window.nearbySchoolServiceCallback = function (result) {
-            map.setView({ zoom: 13, center: location});
-
-            result = result.d
-
-            map.entities.clear();
-            var searchResults = result && result.results;
-            if (searchResults) {
-                if (searchResults.length === 0) {
-                    window.alert('No results for the query');
-                }
-                else {
-                    for (var i = 0; i < searchResults.length; i++) {
-                        createMapPin(map, 'schoolMapCanvas', searchResults[i]);
+            placesService.nearbySearch({location:latlng, radius:'2000', types:['school', 'university']}, function (results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        results[i].distance = getDistance(latlng, results[i].geometry.location).toFixed(2) + 'km'
+                        var marker = createMarker(map, infowindow, results[i]);
+                        keepMarker('shcoolMapCanvas', marker)
+                        createListItem($list, results[i])
                     }
                 }
-            }
-        }
-        findNearByLocations(location)
+            })
+            map.setOptions(getMapOptions())
+        })
     }
 
-    function showFacilityMap(location) {
+    function showFacilityMap(latlng) {
         var map = getMap('facilityMapCanvas')
+        var $list = $('.maps .list div[data-tab-name=facility] ul')
+        showRegion(map, zipcodeIndexFormURL, function () {
+            var infowindow = new google.maps.InfoWindow();
+            var placesService = new google.maps.places.PlacesService(map)
+            //https://developers.google.com/places/documentation/supported_types
+            placesService.nearbySearch({location:latlng, radius:'2000', types:['food', 'store','park','gym','hair_care','health','bank']}, function (results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        results[i].distance = getDistance(latlng, results[i].geometry.location).toFixed(2) + 'km'
+                        var marker = createMarker(map, infowindow, results[i]);
+                        keepMarker('facilityMapCanvas', marker)
 
-        function findNearByLocations(location) {
-
-            var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',50)';
-            var select = '$select=EntityID,Latitude,Longitude,__Distance,DisplayName,AddressLine,Phone';
-            var top = '$top=100'
-            var queryOptions = '$filter=EntityTypeID%20Eq%204013%20or%20EntityTypeID%20Eq%204017%20or%20EntityTypeID%20Eq%205400%20or%20EntityTypeID%20Eq%205800%20or%20EntityTypeID%20Eq%206000%20or%20EntityTypeID%20Eq%206512%20or%20EntityTypeID%20Eq%207011'
-            var format = '$format=json';
-
-            var sdsRequest = 'http://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0acf75d1e6947b4/NavteqEU/NavteqPOIs?' +
-                    spatialFilter + '&' +
-                    select + '&' +
-                    top + '&' +
-                    queryOptions + '&' +
-                    format + '&jsonp=nearbyFacilityServiceCallback' + '&key=' + bingMapKey;
-
-            var mapscript = document.createElement('script');
-            mapscript.type = 'text/javascript';
-            mapscript.src = sdsRequest;
-            document.getElementById('facilityMapCanvas').appendChild(mapscript);
-        }
-
-        window.nearbyFacilityServiceCallback = function (result) {
-            map.setView({ zoom: 13, center: location});
-
-            result = result.d
-
-            map.entities.clear();
-            var searchResults = result && result.results;
-            if (searchResults) {
-                if (searchResults.length === 0) {
-                    window.alert('No results for the query');
-                }
-                else {
-                    for (var i = 0; i < searchResults.length; i++) {
-                        createMapPin(map, 'facilityMapCanvas', searchResults[i]);
+                        createListItem($list, results[i])
                     }
                 }
-            }
-        }
-        findNearByLocations(location)
+            })
+            map.setOptions(getMapOptions())
+        })
     }
+
+    function createMarker(map, infowindow, place) {
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+            var contentString = '<div id="content">'+
+                    '<img src=' + place.icon + ' style="height:32px; vertical-align:middle;">' +
+                    '<label style="font-size:14px; line-height:32px; vertical-align:middle;">' + place.name + '</label>'+
+                    '</div>';
+            infowindow.setContent(contentString);
+            infowindow.open(map, this);
+        });
+
+        return marker
+    }
+
+    function createListItem($list, item) {
+        var result = _.template($('#placeItem_template').html())({item: item})
+        $list.append(result)
+    }
+
+    function showPolygon(map, polygon) {
+        if (map.getZoom() < 11)  {return;}
+        //for more information on the response object, see the documentation
+        //http://code.google.com/apis/visualization/documentation/reference.html#QueryResponse
+        var numRows = polygon.getDataTable().getNumberOfRows();
+        for(var i = 0; i < numRows; i = i + 1) {
+            var kml = polygon.getDataTable().getValue(0,0);
+            // create a geoXml3 parser for the click handlers
+            var geoXml = new window.geoXML3.parser({
+                map: map,
+                zoom: false
+            });
+
+            geoXml.parseKmlString('<Placemark>'+kml+'</Placemark>');
+            geoXml.docs[0].gpolygons[0].setMap(map);
+            map.fitBounds(geoXml.docs[0].gpolygons[0].bounds);
+        }
+
+        var labels = []
+        var zip = zipcodeIndexFormURL
+        labels.push(new window.InfoBox({
+            content: zip,
+            boxStyle: {
+                border: '1px solid black',
+                textAlign: 'center',
+                fontSize: '12pt',
+                width: '50px'
+            },
+            disableAutoPan: true,
+            pixelOffset: new google.maps.Size(-25, 0),
+            position: window.report.location,
+            closeBoxURL: '',
+            isHidden: false,
+            enableEventPropagation: true
+        }));
+        labels[labels.length-1].open(map);
+    }
+
+    function showRegion(map, zipCodeIndex, callback) {
+        //http://stackoverflow.com/questions/18601186/google-maps-api-get-region-polygon
+        //http://geocodezip.com/v3_FusionTables_UKpostcode_map.html
+
+        var tableid =  '1jgWYtlqGSPzlIa-is8wl1cZkVIWEm_89rWUwqFU';
+        //set the query using the current bounds
+        var queryStr = 'SELECT \'Area data\', \'Postcode district\' FROM '+ tableid + ' WHERE \'Postcode district\' = \''+zipCodeIndex+'\'';
+        var queryText = encodeURIComponent(queryStr);
+        var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq='  + queryText);
+
+        //set the callback function
+        query.send(function (response) {
+            if (!response) {
+                window.alert('no response');
+                return;
+            }
+            if (response.isError()) {
+                window.alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                return;
+            }
+            showPolygon(map, response)
+            callback()
+        });
+    }
+
+    $('.maps .list div ul').slimScroll({
+        height: '420px'
+    });
+
+
+    $('.maps .list ul').click(function (event){
+        var tabName = $(event.currentTarget).closest('div[data-tab-name]').attr('data-tab-name')
+        var map = getMap(tabName + 'MapCanvas')
+
+        var $li = $(event.target).closest('li')
+        var location = new google.maps.LatLng($li.attr('data-lat'), $li.attr('data-lng'))
+
+        _.each(getMarkers(tabName + 'MapCanvas'), function (marker) {
+            if (google.maps.geometry.spherical.computeDistanceBetween(marker.position, location) === 0.0) {
+                map.setCenter(marker.getPosition());
+                google.maps.event.trigger(marker,'click')
+                return
+            }
+        })
+
+    })
 
     $(function () {
         //onload
-        function findLocation()
-        {
-            var region = 'GB'
-            if (window.report.country) {
-                region = window.report.country.slug
-            }
 
-            var schoolMapId = 'schoolMapCanvas'
-            var query = zipcodeIndexFormURL + ',' +region
-            var map = getMap(schoolMapId)
-
-            map.getCredentials(callSearchService);
-            function callSearchService(credentials)
-            {
-                var searchRequest = 'http://dev.virtualearth.net/REST/v1/Locations/' + query + '?output=json&jsonp=searchServiceCallback&key=' + credentials;
-                var mapscript = document.createElement('script');
-                mapscript.type = 'text/javascript';
-                mapscript.src = searchRequest;
-                document.getElementById(schoolMapId).appendChild(mapscript)
-            }
-
-            window.searchServiceCallback = function (result)
-            {
-                if (result &&
-                    result.resourceSets &&
-                    result.resourceSets.length > 0 &&
-                    result.resourceSets[0].resources &&
-                    result.resourceSets[0].resources.length > 0)
-                {
-                    var bbox = result.resourceSets[0].resources[0].bbox;
-                    var viewBoundaries = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(bbox[0], bbox[1]), new Microsoft.Maps.Location(bbox[2], bbox[3]));
-                    map.setView({ bounds: viewBoundaries});
-                    var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
-                    onLocationFind(location)
-
-                }
-            }
+        var geocoder = new google.maps.Geocoder()
+        var country = 'GB'
+        if (window.report.country) {
+            country = window.report.country.slug
         }
-
-
-        findLocation()
-
-        function onLocationFind(location) {
-            showTransitMap(location)
-            showSchoolMap(location)
-            showFacilityMap(location)
+        var geocoderRequest = {
+            country:country,
+            address:zipcodeIndexFormURL,
         }
+        geocoder.geocode(geocoderRequest, function (results, status) {
+            if (!_.isEmpty(results)) {
+                var geometry = results[0].geometry
+                var latlng = geometry.location
+                window.report.location = latlng
+                showTransitMap(latlng)
+                showSchoolMap(latlng)
+                showFacilityMap(latlng)
+            }
+        })
+
+
     })
-
 })();
