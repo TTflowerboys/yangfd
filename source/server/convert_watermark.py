@@ -186,14 +186,17 @@ def main():
                     origin_images = v
                     new_images = []
                     for img in origin_images:
-                        logger.debug(img)
-                        new_img = process_water_mark(img)['url']
-                        logger.debug(new_img)
-                        if new_img:
-                            new_images.append(new_img)
+                        if img.strip():
+                            logger.debug(img)
+                            new_img = process_water_mark(img)['url']
+                            logger.debug(new_img)
+                            if new_img:
+                                new_images.append(new_img)
+                            else:
+                                corrupted_properties.append({"id": id, "field": field})
                         else:
-                            corrupted_properties.append({"id": id, "field": field})
-                        update_params["%s.%s" % (field, k)] = new_images
+                            logger.warning('Invalid data found at %s %s' % (id, field))
+                    update_params["%s.%s" % (field, k)] = new_images
 
         logger.debug(id, update_params)
         f_app.property.update_set(id, update_params)
