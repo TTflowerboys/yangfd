@@ -707,8 +707,8 @@ def sitemap():
 
 
 @f_get("/landregistry/<zipcode_index>/home_values", params=dict(
-    width=(int, 0),
-    height=(int, 0),
+    width=(int, 400),
+    height=(int, 212),
 ))
 def landregistry_home_values(zipcode_index, params):
     size = [params["width"], params["height"]]
@@ -718,8 +718,8 @@ def landregistry_home_values(zipcode_index, params):
 
 
 @f_get("/landregistry/<zipcode_index>/value_trend", params=dict(
-    width=(int, 0),
-    height=(int, 0),
+    width=(int, 400),
+    height=(int, 212),
 ))
 def landregistry_value_trend(zipcode_index, params):
     size = [params["width"], params["height"]]
@@ -729,8 +729,8 @@ def landregistry_value_trend(zipcode_index, params):
 
 
 @f_get("/landregistry/<zipcode_index>/average_values", params=dict(
-    width=(int, 0),
-    height=(int, 0),
+    width=(int, 400),
+    height=(int, 212),
 ))
 def landregistry_average_values(zipcode_index, params):
     size = [params["width"], params["height"]]
@@ -740,8 +740,8 @@ def landregistry_average_values(zipcode_index, params):
 
 
 @f_get("/landregistry/<zipcode_index>/value_ranges", params=dict(
-    width=(int, 0),
-    height=(int, 0),
+    width=(int, 400),
+    height=(int, 212),
 ))
 def landregistry_value_ranges(zipcode_index, params):
     size = [params["width"], params["height"]]
