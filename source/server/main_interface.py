@@ -635,14 +635,28 @@ def images_proxy(params):
 
 @f_get('/reverse_proxy', params=dict(
     link=(str, True),
+    content_type=str,
 ))
 def reverse_proxy(params):
     result = f_app.request(params["link"])
     if result.status_code == 200:
+        content = result.content
         ext = params["link"].split('.')[-1]
+        import urllib
+        decoded_link = urllib.unquote(params["link"]).decode('utf8')
         if ext == "js":
             response.set_header(b"Content-Type", b"application/javascript")
-        return result.content
+
+        if "http://maps.googleapis.com/maps/api/js?libraries=geometry,places" == decoded_link:
+            content = content.replace("http://maps.gstatic.com/cat_js/maps-api-v3/api/js/19/3/%7Bmain,geometry,places%7D.js", "/reverse_proxy?link=" + urllib.quote("http://maps.gstatic.com/cat_js/maps-api-v3/api/js/19/3/%7Bmain,geometry,places%7D.js"))
+
+        elif "{main,geometry,places}.js" in decoded_link:
+            content = content.replace('a.src=b;', 'a.src="/reverse_proxy?link=" + decodeURIComponent(b);')
+
+        return content
+
+    else:
+        logger.debug("error in proxy %s", result)
 
 
 @f_get("/logout", params=dict(

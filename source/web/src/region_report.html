@@ -98,6 +98,9 @@
             <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator"/>
         </div>
 
+    </div>
+
+    <div class="relatedCharts">
         <div class="priceCharts">
             <h2 class="title">
                 {{_('街区房屋价格')}}
@@ -124,22 +127,22 @@
                 <ul class="rslidesPager" id="priceSliderPager">
                     <li>
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=400&height=212" width="200"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=400&height=212" width="200"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=400&height=212" width="200"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=400&height=212" width="200"/>
                         </a>
                     </li>
                 </ul>
@@ -291,6 +294,25 @@
                 </ul>
             </div>
         </div>
+
+        %if (not user):
+            <div class="nonLoginCover">
+                <div class="content">
+                    <h1 class="title">
+                        {{_('成为会员，查阅更多内容')}}
+                    </h1>
+                    <button class="button red register"  onclick="project.goToSignUp()">
+                        {{_('免费注册')}}
+                    </button>
+                    <label class="login">
+                        {{_('已经是会员？')}}
+                        <a href="javascript:project.showSignInModal()">
+                            {{_('请登录')}}
+                        </a>
+                    </label>
+                </div>
+            </div>
+        %end
     </div>
 
     <!-- @@include=/static/templates/house_card.tpl.html-->
@@ -321,7 +343,7 @@
 <!--@@block=scripts -->
 <!-- TODO fix google js compress unglify has not work -->
 <script src="/static/vendors/google/jsapi.js"></script>
-<script src="/static/vendors/google/google-maps.js"></script>
+<script src="/reverse_proxy?link=http%3A%2F%2Fmaps.googleapis.com%2Fmaps%2Fapi%2Fjs%3Flibraries%3Dgeometry%2Cplaces"></script>
 <script src="/static/vendors/google-maps-utility/infobox.js"></script>
 <!--build:js /static/scripts/region_report.html.js-->
 <script src="/static/vendors/geoxml3/geoxml3.js"></script>

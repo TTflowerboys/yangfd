@@ -75,11 +75,23 @@
     }
 
     function getMapOptions() {
-         var mapOptions = {
-             zoom: 13,
-             center: window.report.location
-         }
-        return mapOptions;
+        var mapOptions = {}
+        if (window.team.isPhone()) {
+            mapOptions = {
+                zoom: 12,
+                center: window.report.location
+            }
+            return mapOptions;
+
+        }
+        else {
+            mapOptions = {
+                zoom: 13,
+                center: window.report.location
+            }
+            return mapOptions;
+
+        }
     }
 
     function keepMarker(mapId, marker) {
@@ -330,9 +342,11 @@
         });
     }
 
-    $('.maps .list div ul').slimScroll({
-        height: '420px'
-    });
+    if (!window.team.isPhone()) {
+         $('.maps .list div ul').slimScroll({
+            height: '420px'
+        });
+    }
 
 
     $('.maps .list ul').click(function (event){
