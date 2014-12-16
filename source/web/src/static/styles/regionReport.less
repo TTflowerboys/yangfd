@@ -252,15 +252,15 @@ main {
                 width:100%;
 
                 .rslides {
-                     max-width: 800px;
-                     margin: 0 auto;
-                     min-height:240px;
+                    max-width: 800px;
+                    margin: 0 auto;
+                    min-height:240px;
 
-                     @media @phone {
-                         max-width:100%;
-                     }
-                     li {
-                         .houseCard {
+                    @media @phone {
+                        max-width:100%;
+                    }
+                    li {
+                        .houseCard {
                             .properties {
                                 li {
                                     img {
@@ -306,6 +306,69 @@ main {
                 margin-left:auto;
                 margin-right:auto;
                 display:block;
+            }
+        }
+
+    }
+
+    .relatedCharts {
+        max-width:1200px;
+        margin:100px auto;
+        position:relative;
+
+        @media @phone {
+            margin: 25px auto;
+        }
+
+        .nonLoginCover {
+            background:white;
+            opacity: .90; /* Standards Compliant Browsers */
+            filter: alpha(opacity=90); /* IE 7 and Earlier */
+            /* Next 2 lines IE8 */
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+            min-width: 100%;
+            min-height: 100%;
+            position: absolute;
+            top:0;
+            z-index:@region_report_cover-z-index;
+
+
+            .content {
+                max-width:1200px;
+                margin:230px auto;
+                text-align:center;
+
+                .title {
+                    font-size:56px;
+                    color:#333;
+                    margin-bottom:80px;
+
+                    @media @phone {
+                        font-size:24px;
+                        margin-bottom:35px;
+                    }
+                }
+
+                .register {
+                    margin-bottom:38px;
+
+                    @media @phone {
+                        margin-bottom:20px;
+                    }
+                }
+
+                .login {
+                    display:block;
+                    font-size:20px;
+                    color:#333;
+
+
+                    a {
+                        text-decoration:none;
+                        color:@red;
+                    }
+                }
             }
         }
 
@@ -598,7 +661,7 @@ main {
 
         .areaValueCharts {
             width: 100%;
-              @media @phone {
+            @media @phone {
                 margin-top:25px;
             }
             >.title {
