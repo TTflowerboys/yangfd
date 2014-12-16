@@ -635,19 +635,27 @@ def images_proxy(params):
 
 @f_get('/reverse_proxy', params=dict(
     link=(str, True),
-    content_type=str,
 ))
 def reverse_proxy(params):
     result = f_app.request(params["link"])
     if result.status_code == 200:
+        content = result.content
         ext = params["link"].split('.')[-1]
         if ext == "js":
             response.set_header(b"Content-Type", b"application/javascript")
 
-        if "content_type" in params:
-            import urllib
+        if "https://maps.googleapis.com/maps/api/js?libraries=geometry,places" == params["link"]:
             response.set_header(b"Content-Type", urllib.unquote(params["content_type"]).decode('utf8'))
-        return result.content
+            content = content.replace("http://maps.gstatic.com/", "/reverse_proxy?link=http%3A//maps.gstatic.com/")
+
+        elif "{main,geometry,places}.js" in params["link"]:
+            response.set_header(b"Content-Type", urllib.unquote(params["content_type"]).decode('utf8'))
+            content = content.replace(".src=", ".src=\"/reverse_proxy?\"+")
+
+        elif "googleapis.com/maps/api/js" in params["link"]:
+            response.set_header(b"Content-Type", urllib.unquote(params["content_type"]).decode('utf8'))
+
+        return content
 
 
 @f_get("/logout", params=dict(
