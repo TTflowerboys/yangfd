@@ -635,6 +635,7 @@ def images_proxy(params):
 
 @f_get('/reverse_proxy', params=dict(
     link=(str, True),
+    content_type=str,
 ))
 def reverse_proxy(params):
     result = f_app.request(params["link"])
@@ -642,6 +643,10 @@ def reverse_proxy(params):
         ext = params["link"].split('.')[-1]
         if ext == "js":
             response.set_header(b"Content-Type", b"application/javascript")
+
+        if "content_type" in params:
+            import urllib
+            response.set_header(b"Content-Type", urllib.unquote(params["content_type"]).decode('utf8'))
         return result.content
 
 
