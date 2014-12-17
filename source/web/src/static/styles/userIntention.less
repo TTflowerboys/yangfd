@@ -1,7 +1,10 @@
 @import "/project/_imports";
 
 .content {
-
+    display:block;
+    @media @phone {
+        display:none;
+    }
     .list {
 
         @border-width: 2px;

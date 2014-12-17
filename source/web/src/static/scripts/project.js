@@ -24,9 +24,9 @@
             return false //prevent default action for <a>
         },
         goBackFromURL: function () {
-            if(team.getQuery('from') !== ''){
+            if (team.getQuery('from') !== '') {
                 window.location.href = team.getQuery('from');
-            }else{
+            } else {
                 // Return to home page if no from provide
                 window.location.href = window.location.origin;
             }
@@ -38,7 +38,11 @@
             return false
         },
         goToUserSettings: function () {
-            window.location.href = '/user_settings';
+            if (team.isPhone()) {
+                window.location.href = '/user';
+            } else {
+                window.location.href = '/user_settings';
+            }
             return false //prevent default action for <a>
         },
         checkLoginIfNot: function () {
@@ -55,7 +59,7 @@
                 return false
             }
         },
-        updateMenuTitle: function (text)  {
+        updateMenuTitle: function (text) {
             $('.siteHeader_phone .rmm-toggled .rmm-toggled-controls .rmm-center').text(text)
         },
         repaintHowItWorks: function () {
@@ -73,7 +77,7 @@
                 window.openRequirementForm(event, budgetId, intentionId, propertyId)
             }
         },
-        formatTime: function(time) {
+        formatTime: function (time) {
             return $.format.date(time * 1000, 'yyyy-MM-dd HH:mm:ss')
         }
     }

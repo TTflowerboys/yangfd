@@ -7,7 +7,11 @@ $(function () {
     else {
         _.each(ticketArray, function (ticket) {
             var houseResult = _.template($('#houseCard_template').html())({ticket: ticket})
-            $('#list').append(houseResult)
+            if(team.isPhone()){
+                $('#list_phone').append(houseResult)
+            }else {
+                $('#list').append(houseResult)
+            }
         })
     }
 })
