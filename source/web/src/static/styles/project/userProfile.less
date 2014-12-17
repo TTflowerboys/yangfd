@@ -4,7 +4,10 @@
 @import "_imports";
 
 .userProfile { font-size: 12px;
-               margin-bottom:60px;
+    margin-bottom: 60px;
+    @media @phone {
+        margin-bottom: 0;
+    }
     > img { display: block; }
     .account { color: #cccccc; background: #222222; padding: 40px; text-align: center;
         h1 { font-size: 30px; }
@@ -37,23 +40,50 @@
         td:first-child { color: #999; }
         td {
             padding: 12px 0;
-             input[name=nickname] {
-                 height:40px;
-                 padding-left:4px;
-                 font-size:14px;
-                 border:1px solid #cccccc;
-                 border-radius:4px;
-                 background:white;
-             }
+            input[name=nickname] {
+                height: 40px;
+                padding-left: 4px;
+                font-size: 14px;
+                border: 1px solid #cccccc;
+                border-radius: 4px;
+                background: white;
+            }
 
-             select[name=country] {
-                 background:white;
-                 border:1px solid #cccccc;
-                 border-radius:4px;
-                 width:100%;
-             }
-           }
+            select[name=country] {
+                background: white;
+                border: 1px solid #cccccc;
+                border-radius: 4px;
+                width: 100%;
+            }
+        }
         .error { color: @red; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
         .success { color: @green; padding: 8px; border: 1px solid; border-radius: 4px; }
     }
 }
+.siteHeader_phone {
+    display: none;
+}
+.userPageHeader_phone {
+    display: none;
+    @media @phone {
+        display: block;
+    }
+
+    #rmm-center-wrapper {
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        width: 170px;
+        text-align: center;
+
+        img {
+            height: 5px;
+            margin-top: 6px;
+            vertical-align: top;
+        }
+    }
+}
+
+

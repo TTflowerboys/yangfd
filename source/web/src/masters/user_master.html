@@ -6,6 +6,33 @@
 <!--endbuild-->
 <!--@@placeholder=head -->
 <!--@@close-->
+
+<!--@@block = custom_header-->
+<div class="userPageHeader_phone  rmm">
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+            <div class="rmm-button rmm-button-back">
+                <img src="/static/images/common/header/phone/back.png"/>
+            </div>
+            <div id="rmm-center-wrapper" class="rmm-center">
+                <label id="userPageHeader_title" class="title" for="">
+                </label>
+                <img class="rmm-center-indicator" alt="" src="/static/images/common/header/phone/indicator.png"/>
+            </div>
+        </div>
+
+        <ul class="rmm-center-menu" style="display:none;">
+            <li><a href="/user_settings">{{_('账户管理')}}</a></li>
+            <li><a href="/user_favorites">{{_('我的收藏')}}</a></li>
+            <li><a href="/user_intentions">{{_('投资意向单')}}</a></li>
+            <li><a href="/user_properties">{{_('我的房产')}}</a></li>
+            <li><a href="/user_messages">{{_('消息')}}</a></li>
+        </ul>
+    </div>
+</div>
+
+<!--@@close-->
+
 <!--@@block = main-->
 <div class="userPage">
     <div class="aside userProfile">
@@ -33,13 +60,13 @@
             <a class="verificationStatus red" href="/user_verify_email">
                 <i><img src="/static/images/user/user-email.png" style="margin-top: 3px;"/></i>
                 {{_('邮箱未验证')}}
+            </a>
             %else:
             <a class="verificationStatus red" href="/user_change_email">
                 <i><img src="/static/images/user/user-email.png" style="margin-top: 3px;"/></i>
                 {{_('邮箱未设置')}}
             </a>
             %end
-            </a>
         </div>
         <div class="settings">
             <ul>
@@ -80,21 +107,6 @@
                 </li>
             </ul>
         </div>
-        <script>
-
-         (function () {
-             var urlPath = location.pathname.split('/')[1]
-             var icon = document.getElementById('icon-' + urlPath)
-             if (icon) {
-                 var urlPath = location.pathname.split('/')[1]
-                 document.getElementById('icon-' + urlPath).style.display = 'none'
-                 document.getElementById('icon-' + urlPath + '-active').style.display = 'inline'
-             }
-
-         })()
-
-
-        </script>
 
         <div id="cvView" class="cv" style="display:none">
             <div class="header">
@@ -203,6 +215,35 @@
         <!--@@placeholder = main-->
     </div>
 </div>
+<div class="main_phone">
+    <!--@@placeholder = main_phone-->
+</div>
+<script>
+    (function () {
+        var urlPath = location.pathname.split('/')[1]
+        document.getElementById('icon-' + urlPath).style.display = 'none'
+        document.getElementById('icon-' + urlPath + '-active').style.display = 'inline'
+
+        var userPageHeaderTitle = document.getElementById('userPageHeader_title')
+        if (urlPath === 'user_settings') {
+            userPageHeaderTitle.innerHTML = "{{_('账户管理')}}"
+        }
+        else if (urlPath === 'user_favorites') {
+            userPageHeaderTitle.innerHTML = "{{_('我的收藏')}}"
+        }
+        else if (urlPath === 'user_intentions') {
+            userPageHeaderTitle.innerHTML = "{{_('投资意向单')}}"
+        }
+        else if (urlPath === 'user_properties') {
+            userPageHeaderTitle.innerHTML = "{{_('我的房产')}}"
+        }
+        else if (urlPath === 'user_messages') {
+            userPageHeaderTitle.innerHTML = "{{_('消息')}}"
+        }
+
+    })()
+
+</script>
 <!--@@close-->
 <!--@@block = scripts-->
 

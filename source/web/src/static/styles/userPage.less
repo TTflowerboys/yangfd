@@ -1,13 +1,12 @@
 /*! Created by frank on 14-9-19.  */
 @import "project/_imports";
-html .page main {
 
+.userPage {
+    display:block;
     @media @phone {
-        width:@min-page-width; //tmp set width for no mobile style
+        display:none;
     }
-}
-
-.userPage { .clearfix(); width: 100%; max-width: 1200px; margin: 80px auto;
+    .clearfix(); width: 100%; max-width: 1200px; margin: 80px auto;
 
     > .aside { float: left; width: 30%; }
     > .main { float: left; width: 63%; margin-left: 7%; font-size: 12px;

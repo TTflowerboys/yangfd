@@ -1,0 +1,111 @@
+<!--@@master = ../masters/master.html-->
+<!--@@block = head-->
+<!--build:css(dist) /static/styles/user.html.css-->
+<link rel="stylesheet" href="/static/styles/project/userProfile.css"/>
+<!--endbuild-->
+<!--@@placeholder=head -->
+<!--@@close-->
+
+
+<!--@@block = custom_header-->
+<div class="userPageHeader_phone  rmm">
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+            <div class="rmm-button rmm-button-back">
+                <img src="/static/images/common/header/phone/back.png"/>
+            </div>
+            <div id="rmm-center-wrapper" class="rmm-center">
+                <label class="title">{{_('个人中心')}}</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--@@close-->
+
+
+<!--@@block = main-->
+<div class="userPage">
+    <div class="aside userProfile">
+        <div class="account">
+            <h1>{{user.get('nickname')}}</h1>
+
+            %if user.get('phone_verified'):
+            <a class="verificationStatus" href="/user_change_phone_1">
+                <i><img src="/static/images/user/user-phone.png" style="margin-top:2px;"/></i>
+                {{_('手机已验证')}}
+            </a>
+            %else:
+            <a class="verificationStatus red" href="/user_verify_phone_1">
+                <i><img src="/static/images/user/user-phone.png" style="margin-top:2px;"/></i>
+                {{_('手机未验证')}}
+                %end
+            </a>
+
+            %if user.get('email') and user.get('email_verified'):
+            <a class="verificationStatus" href="/user_change_email">
+                <i><img src="/static/images/user/user-email.png" style="margin-top: 3px;"/></i>
+                {{_('邮箱已验证')}}
+            </a>
+            %elif user.get('email') and (not user.get('email_verified')):
+            <a class="verificationStatus red" href="/user_verify_email">
+                <i><img src="/static/images/user/user-email.png" style="margin-top: 3px;"/></i>
+                {{_('邮箱未验证')}}
+                %else:
+                <a class="verificationStatus red" href="/user_change_email">
+                    <i><img src="/static/images/user/user-email.png" style="margin-top: 3px;"/></i>
+                    {{_('邮箱未设置')}}
+                </a>
+                %end
+            </a>
+        </div>
+        <div class="settings">
+            <ul>
+                <li>
+                    <a href="/user_settings">
+                        <img id="icon-user_settings" src="/static/images/user/gear.png"/>
+                        <img id="icon-user_settings-active" style="display:none" src="/static/images/user/gear-active.png"/>
+                    </a>
+                    {{_('账户管理')}}
+                </li>
+                <li>
+                    <a href="/user_favorites">
+                        <img id="icon-user_favorites" src="/static/images/user/star.png"/>
+                        <img id="icon-user_favorites-active" style="display:none" src="/static/images/user/star-active.png"/>
+                    </a>
+                    {{_('我的收藏')}}
+                </li>
+                <li>
+                    <a href="/user_intentions">
+                        <img id="icon-user_intentions" src="/static/images/user/sheet.png"/>
+                        <img id="icon-user_intentions-active" style="display:none" src="/static/images/user/sheet-active.png"/>
+                    </a>
+                    {{_('投资意向单')}}
+                </li>
+                <li>
+                    <a href="/user_properties">
+                        <img id="icon-user_properties" src="/static/images/user/house.png"/>
+                        <img id="icon-user_properties-active" style="display:none" src="/static/images/user/house-active.png"/>
+                    </a>
+                    {{_('我的房产')}}
+                </li>
+                <li>
+                    <a href="/user_messages">
+                        <img id="icon-user_messages" src="/static/images/user/email.png"/>
+                        <img id="icon-user_messages-active" style="display:none" src="/static/images/user/email-active.png"/>
+                    </a>
+                    {{_('消息')}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--@@close-->
+<!--@@block = scripts-->
+
+<!--build:js /static/scripts/user.html.js-->
+<script src="/static/scripts/resize_main.js"></script>
+<!--endbuild-->
+
+<!--@@placeholder=scripts-->
+<!--@@close-->

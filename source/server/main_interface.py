@@ -510,6 +510,13 @@ def how_it_works():
 def calculator():
     return template("phone/calculator", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
 
+@f_get('/user')
+@check_landing
+@check_ip_and_redirect_domain
+def user():
+    return template("phone/user", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+
+
 
 @f_get('/admin')
 @check_landing

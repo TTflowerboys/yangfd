@@ -109,6 +109,10 @@ $(function () {
             window.project.goToSignUp()
         }
     });
+
+    $('.rmm-toggled-controls .rmm-button-back').on('click',function(){
+        history.go(-1)
+    });
 });
 /* 	hide mobile menu on resize */
 $(window).resize(function () {
