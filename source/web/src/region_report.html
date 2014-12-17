@@ -319,19 +319,23 @@
 
     <script id="placeItem_template" type="text/template" >
         <li
-            {_if(item.geometry) {_}
-            data-lat={=item.geometry.location.lat()=}
-            data-lng={=item.geometry.location.lng()=}
+            {_if(item.Latitude && item.Longitude) {_}
+            data-lat={=item.Latitude=}
+            data-lng={=item.Longitude=}
             {_}_}
             >
             <div class="content">
                 <div class="left">
                     <h3 class="title">{=item.DisplayName=}</h3>
-                    <label class="subtitle">{=item.AddressLine=}</label>
+                    <label class="subtitle">
+                        {_if (item.AddressLine) {_}
+                        {=item.AddressLine=}
+                        {_}_}
+                    </label>
                 </div>
                 <div class="right">
                     <img class="icon" src=""/>
-                    <label class="distance">{=item.__Distance.toFixed(2)=}km</label>
+                    <label class="distance">{=item.Number=}</label>
                 </div>
             </div>
         </li>

@@ -61,7 +61,7 @@
     var bingMapKey = 'ApsJbXUENG-diuwrV1D4MkuamY_voaTpm8McrvYweG03awUvRGvL--mkkCKzW0DJ'
 
     window.mapCache = {}
-    window.markersCache = {}
+    window.mapPinCache = {}
     window.mapInfoBoxCache = {}
 
     function getMap(mapId) {
@@ -77,6 +77,12 @@
             var pin = new Microsoft.Maps.Pushpin(location);
             Microsoft.Maps.Events.addHandler(pin, 'click', function () { showInfoBox(map, mapId, result) });
             map.entities.push(pin);
+
+            if  (!window.mapPinCache[mapId]) {
+                window.mapPinCache[mapId] = []
+
+            }
+            window.mapPinCache[mapId].push(pin)
         }
     }
 
@@ -92,7 +98,62 @@
 
         window.mapInfoBoxCache[mapId].setOptions({ visible: true });
         map.entities.push(window.mapInfoBoxCache[mapId]);
+
+        ajustMapPosition(map, window.mapInfoBoxCache[mapId], location)
     }
+
+    //http://stackoverflow.com/questions/11148042/bing-maps-invoke-click-event-on-pushpin
+    function ajustMapPosition(map, infobox, location) {
+
+        var buffer = 50;
+        var infoboxOffset = infobox.getOffset();
+        var infoboxAnchor = infobox.getAnchor();
+        var infoboxLocation = map.tryLocationToPixel(location, Microsoft.Maps.PixelReference.control);
+        var dx = infoboxLocation.x + infoboxOffset.x - infoboxAnchor.x;
+        var dy = infoboxLocation.y - 25 - infoboxAnchor.y;
+
+        if (dy < buffer) { //Infobox overlaps with top of map.
+            //#### Offset in opposite direction.
+            dy *= -1;
+            //#### add buffer from the top edge of the map.
+            dy += buffer;
+        } else {
+            //#### If dy is greater than zero than it does not overlap.
+
+            dy = map.getHeight() - infoboxLocation.y + infoboxAnchor.y - infobox.getHeight();
+            if (dy > buffer) {
+                dy = 0;
+            } else {
+                dy -= buffer;
+            }
+        }
+
+        if (dx < buffer) { //Check to see if overlapping with left side of map.
+            //#### Offset in opposite direction.
+            dx *= -1;
+            //#### add a buffer from the left edge of the map.
+            dx += buffer;
+        } else { //Check to see if overlapping with right side of map.
+            dx = map.getWidth() - infoboxLocation.x + infoboxAnchor.x - infobox.getWidth();
+            //#### If dx is greater than zero then it does not overlap.
+            if (dx > buffer) {
+                dx = 0;
+            } else {
+                //#### add a buffer from the right edge of the map.
+                dx -= buffer;
+            }
+        }
+
+        //#### Adjust the map so infobox is in view
+        if (dx !== 0 || dy !== 0) {
+            map.setView({
+                centerOffset: new Microsoft.Maps.Point(dx, dy),
+                center: map.getCenter()
+            });
+        }
+    }
+
+
 
     function showTransitMap(location) {
         var map = getMap('transitMapCanvas')
@@ -144,6 +205,7 @@
                 else {
                     for (var i = 0; i < searchResults.length; i++) {
                         createMapPin(map, 'transitMapCanvas', searchResults[i]);
+                        searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
                         createListItem($list, searchResults[i])
                     }
                 }
@@ -191,6 +253,7 @@
                 else {
                     for (var i = 0; i < searchResults.length; i++) {
                         createMapPin(map, 'schoolMapCanvas', searchResults[i]);
+                        searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
                         createListItem($list, searchResults[i])
                     }
                 }
@@ -205,9 +268,9 @@
 
         function findNearByLocations(location) {
 
-            var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',50)';
+            var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',10)';
             var select = '$select=EntityID,Latitude,Longitude,__Distance,DisplayName,AddressLine,Phone';
-            var top = '$top=100'
+            var top = '$top=200'
             var queryOptions = '$filter=EntityTypeID%20Eq%204013%20or%20EntityTypeID%20Eq%204017%20or%20EntityTypeID%20Eq%205400%20or%20EntityTypeID%20Eq%205800%20or%20EntityTypeID%20Eq%206000%20or%20EntityTypeID%20Eq%206512%20or%20EntityTypeID%20Eq%207011'
             var format = '$format=json';
 
@@ -238,6 +301,7 @@
                 else {
                     for (var i = 0; i < searchResults.length; i++) {
                         createMapPin(map, 'facilityMapCanvas', searchResults[i]);
+                        searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
                         createListItem($list, searchResults[i])
                     }
                 }
@@ -248,9 +312,49 @@
 
     function showSecurityMap(latlng) {
         var map = getMap('securityMapCanvas')
+        var $list = $('.maps .list div[data-tab-name=security] ul')
         map.setView({ zoom: 13, center: location});
         var pushpin = new Microsoft.Maps.Pushpin(location);
         map.entities.push(pushpin);
+
+
+        $.betterGet('/api/1/report/policeuk', {lat:latlng.latitude, lng:latlng.longitude})
+                .done(function (data) {
+                   // var length = data.length
+                    //showLabel(map, window.report.location, window.i18n('犯罪数目') + length, '200px')
+
+                    $.betterGet('/api/1/report/policeuk/categories')
+                        .done(function (categoryData) {
+                            var categoryDic = {}
+                            _.each(categoryData, function (item) {
+                                categoryDic[item.url] = item.name
+                            })
+                            var categories = {}
+                            _.each(data, function (item) {
+                                if (categories[item.category]) {
+                                    categories[item.category] = categories[item.category] + 1
+                                }
+                                else {
+                                    categories[item.category] = + 1
+                                }
+                            })
+
+                            var categoryItem = {}
+                            for (var key in categories) {
+                                categoryItem.Number = categories[key] + window.i18n('起')
+                                categoryItem.DisplayName = categoryDic[key]
+                                createListItem($list, categoryItem)
+                            }
+
+                        })
+                        .fail(function (ret) {
+                        })
+                    //var infowindow = new google.maps.InfoWindow();
+                })
+                .fail(function (ret) {
+                   // showLabel(map, window.report.location, zipCodeIndexFromURL)
+                })
+
     }
 
     function createListItem($list, item) {
@@ -266,10 +370,21 @@
 
 
     $('.maps .list ul').click(function (event){
-        // var tabName = $(event.currentTarget).closest('div[data-tab-name]').attr('data-tab-name')
-        // var map = getMap(tabName + 'MapCanvas')
+        var tabName = $(event.currentTarget).closest('div[data-tab-name]').attr('data-tab-name')
+        //var map = getMap(tabName + 'MapCanvas')
 
-        // var $li = $(event.target).closest('li')
+        var $li = $(event.target).closest('li')
+        var lat = String($li.attr('data-lat'))
+        var lng = String($li.attr('data-lng'))
+
+        _.each(window.mapPinCache[tabName + 'MapCanvas'], function (pin) {
+            var location = pin._location
+            if (lat === String(location.latitude) && lng === String(location.longitude)) {
+                Microsoft.Maps.Events.invoke(pin, 'click');
+                return
+            }
+
+        })
         // var location = new google.maps.LatLng($li.attr('data-lat'), $li.attr('data-lng'))
 
         // _.each(getMarkers(tabName + 'MapCanvas'), function (marker) {
