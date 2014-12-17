@@ -597,7 +597,7 @@ def images_proxy(params):
     ssl_bypass = False
 
     if "bbt-currant.s3.amazonaws.com" in params["link"] or "zoopla.co.uk" in params["link"] or "zoocdn.com" in params["link"]:
-        params["link"] = params["link"].replace("bbt-currant.s3.amazonaws.com", "s3.yangfd.cn")
+        params["link"] = params["link"].replace("bbt-currant.s3.amazonaws.com", "s3.yangfd.cn").replace("https://", "http://")
         allowed = True
         ssl_bypass = True
         url_parsed = urllib.parse.urlparse(params["link"])
@@ -836,7 +836,7 @@ def wechat_endpoint():
             if "reality_images" in property and len(property["reality_images"]):
                 picurl = property["reality_images"][0]
                 if "bbt-currant.s3.amazonaws.com" in picurl:
-                    picurl = (picurl + "_thumbnail").replace("bbt-currant.s3.amazonaws.com", "s3.yangfd.cn")
+                    picurl = (picurl + "_thumbnail").replace("bbt-currant.s3.amazonaws.com", "s3.yangfd.cn").replace("https://", "http://")
                 etree.SubElement(item, "PicUrl").text = picurl
 
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
