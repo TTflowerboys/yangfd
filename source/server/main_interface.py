@@ -605,7 +605,7 @@ def images_proxy(params):
         params["link"] = urllib.parse.urlunparse(url_parsed)
 
         # TODO: make this saner
-        if "yangfd.cn" in request.urlparts[1] or "currant-dev" in request.urlparts[1]:
+        if "yangfd.com" not in request.urlparts[1] and "youngfunding.co.uk" not in request.urlparts[1] and "currant-test" not in request.urlparts[1]:
             params["link"] = params["link"].replace("bbt-currant.s3.amazonaws.com", "s3.yangfd.cn").replace("https://", "http://")
 
     elif "property_id" in params:
