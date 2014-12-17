@@ -2,8 +2,6 @@
 <!--@@block = head-->
 <!--build:css(dist) /static/styles/region_report.html.css-->
 <link href="/static/styles/regionReport.css" rel="stylesheet"/>
-<link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
-<link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.connected-carousels.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
 <!--endbuild-->
 <!--@@close-->
@@ -100,6 +98,9 @@
             <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator"/>
         </div>
 
+    </div>
+
+    <div class="relatedCharts">
         <div class="priceCharts">
             <h2 class="title">
                 {{_('街区房屋价格')}}
@@ -109,16 +110,16 @@
 
                 <ul class="rslides" id="priceSlider">
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=400&height=212"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=400&height=212"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/type_dist?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=400&height=212"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/with_type?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=400&height=212"/>
                     </li>
                 </ul>
 
@@ -126,22 +127,22 @@
                 <ul class="rslidesPager" id="priceSliderPager">
                     <li>
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=400&height=212" width="200"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/price_dist?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=400&height=212" width="200"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/type_dist?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=400&height=212" width="200"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/with_type?width=200&height=106"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=400&height=212" width="200"/>
                         </a>
                     </li>
                 </ul>
@@ -162,35 +163,57 @@
 
         <div class="maps" data-tabs>
             <div class="map">
-                <div class="transitMapCanvas item selectedTab" data-tab-name="transit"></div>
-                <div class="schoolMapCanvas item" data-tab-name="school"></div>
-                <div class="facilityMapCanvas item" data-tab-name="facility"></div>
-                <div class="securityMapCanvas item" data-tab-name="security"></div>
+                <div id="transitMapCanvas" class="transitMapCanvas item selectedTab" data-tab-name="transit" style="position:relative;"></div>
+                <div id="schoolMapCanvas" class="schoolMapCanvas item" data-tab-name="school" style="position:relative;"></div>
+                <div id="facilityMapCanvas" class="facilityMapCanvas item" data-tab-name="facility" style="position:relative;"></div>
+                <div id="securityMapCanvas" class="securityMapCanvas item" data-tab-name="security" style="position:relative;"></div>
             </div>
             <div class="tabs">
                 <ul class="category">
                     <li data-tab="transit" class="selectedTab">
-                        <img alt="" src=""/>
-                        <labael> {{_('交通设施')}} </labael>
+                        <img class="active" src="/static/images/region_report/icon_transit_active.png" />
+                        <img class="normal" src="/static/images/region_report/icon_transit.png"/>
+                        <label> {{_('交通设施')}} </label>
                     </li>
                     <li data-tab="school">
+                        <img class="active" src="/static/images/region_report/icon_school_active.png"/>
+                        <img class="normal" src="/static/images/region_report/icon_school.png"/>
                         <img alt="" src=""/>
-                        <labael> {{_('周边学校')}} </labael>
+                        <label> {{_('周边学校')}} </label>
                     </li>
                     <li data-tab="facility">
+                        <img class="active" src="/static/images/region_report/icon_facility_active.png"/>
+                        <img class="normal" src="/static/images/region_report/icon_facility.png"/>
                         <img alt="" src=""/>
-                        <labael> {{_('便民设施')}} </labael>
+                        <label> {{_('便民设施')}} </label>
                     </li>
                     <li data-tab="security">
-                        <img alt="" src=""/>
-                        <labael> {{_('周边治安')}} </labael>
+                        <img class="active" src="/static/images/region_report/icon_security_active.png"/>
+                        <img class="normal" src="/static/images/region_report/icon_security.png"/>
+                        <label> {{_('周边治安')}} </label>
                     </li>
                 </ul>
                 <div class="list">
-                    <ul data-tab-name="transit" style="display:none;"></ul>
-                    <ul data-tab-name="school" style="display:none;"></ul>
-                    <ul data-tab-name="facility" style="display:none;"></ul>
-                    <div data-tab-name="security" style="display:none;"></div>
+                    <div data-tab-name="transit" style="display:none;" >
+                        <ul>
+
+                        </ul>
+                    </div>
+                    <div data-tab-name="school" style="display:none;" >
+                        <ul >
+
+                        </ul>
+                    </div>
+                    <div data-tab-name="facility" style="display:none;">
+                        <ul >
+
+                        </ul>
+                    </div>
+                    <div data-tab-name="security" style="display:none;">
+                        <ul >
+
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -271,20 +294,60 @@
                 </ul>
             </div>
         </div>
+
+        %if (not user):
+            <div class="nonLoginCover">
+                <div class="content">
+                    <h1 class="title">
+                        {{_('成为会员，查阅更多内容')}}
+                    </h1>
+                    <button class="button red register"  onclick="project.goToSignUp()">
+                        {{_('免费注册')}}
+                    </button>
+                    <label class="login">
+                        {{_('已经是会员？')}}
+                        <a href="javascript:project.showSignInModal()">
+                            {{_('请登录')}}
+                        </a>
+                    </label>
+                </div>
+            </div>
+        %end
     </div>
 
     <!-- @@include=/static/templates/house_card.tpl.html-->
 
+    <script id="placeItem_template" type="text/template" >
+        <li
+            {_if(item.Latitude && item.Longitude) {_}
+            data-lat={=item.Latitude=}
+            data-lng={=item.Longitude=}
+            {_}_}
+            >
+            <div class="content">
+                <div class="left">
+                    <h3 class="title">{=item.DisplayName=}</h3>
+                    <label class="subtitle">
+                        {_if (item.AddressLine) {_}
+                        {=item.AddressLine=}
+                        {_}_}
+                    </label>
+                </div>
+                <div class="right">
+                    <img class="icon" src=""/>
+                    <label class="distance">{=item.Number=}</label>
+                </div>
+            </div>
+        </li>
+    </script>
 %end
 
 <!--@@close-->
 
 <!--@@block=scripts -->
+<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 <!--build:js /static/scripts/region_report.html.js-->
-<script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
-<script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
-<script src="/static/vendors/jcarousel/jcarousel.connected-carousels.js"></script>
-<script type="text/javascript" src="http://ditu.google.cn/maps/api/js?libraries=geometry,places"></script>
+<script src="/static/vendors/jquery.slimscroll.min.js"></script>
 <script src="/static/scripts/region_report.js"></script>
 <!--endbuild-->
 <!--@@close-->

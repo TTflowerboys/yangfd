@@ -236,6 +236,7 @@ main {
 
             @media @phone {
                 margin-top:30px;
+                margin-bottom:30px;
             }
             >.title {
                 line-height:1em;
@@ -251,15 +252,15 @@ main {
                 width:100%;
 
                 .rslides {
-                     max-width: 800px;
-                     margin: 0 auto;
-                     min-height:240px;
+                    max-width: 800px;
+                    margin: 0 auto;
+                    min-height:240px;
 
-                     @media @phone {
-                         max-width:100%;
-                     }
-                     li {
-                         .houseCard {
+                    @media @phone {
+                        max-width:100%;
+                    }
+                    li {
+                        .houseCard {
                             .properties {
                                 li {
                                     img {
@@ -305,6 +306,69 @@ main {
                 margin-left:auto;
                 margin-right:auto;
                 display:block;
+            }
+        }
+
+    }
+
+    .relatedCharts {
+        max-width:1200px;
+        margin:100px auto;
+        position:relative;
+
+        @media @phone {
+            margin: 25px auto;
+        }
+
+        .nonLoginCover {
+            background:white;
+            opacity: .90; /* Standards Compliant Browsers */
+            filter: alpha(opacity=90); /* IE 7 and Earlier */
+            /* Next 2 lines IE8 */
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+            min-width: 100%;
+            min-height: 100%;
+            position: absolute;
+            top:0;
+            z-index:@region_report_cover-z-index;
+
+
+            .content {
+                max-width:1200px;
+                margin:230px auto;
+                text-align:center;
+
+                .title {
+                    font-size:56px;
+                    color:#333;
+                    margin-bottom:80px;
+
+                    @media @phone {
+                        font-size:24px;
+                        margin-bottom:35px;
+                    }
+                }
+
+                .register {
+                    margin-bottom:38px;
+
+                    @media @phone {
+                        margin-bottom:20px;
+                    }
+                }
+
+                .login {
+                    display:block;
+                    font-size:20px;
+                    color:#333;
+
+
+                    a {
+                        text-decoration:none;
+                        color:@red;
+                    }
+                }
             }
         }
 
@@ -438,11 +502,22 @@ main {
             height:480px;
             margin-bottom:90px;
 
+            @media @phone {
+                height:auto;
+                margin-bottom:30px;
+            }
+
             >.map {
                 width:800px;
                 float:left;
                 display:inline;
                 height:100%;
+
+                @media @phone {
+                    width:100%;
+                    display:block;
+                    height:240px;
+                }
 
                 >.item {
                     display: none;
@@ -453,18 +528,131 @@ main {
 
             >.tabs {
                 width:400px;
+                height:480px;
                 float:left;
                 display:inline;
 
+                @media @phone {
+                    width:100%;
+                    display:block;
+                    height:40px;
+                }
+
                 ul.category {
+                    border-bottom:1px solid #ccc;
+                    background:#eee;
                     li {
                         border:none;
                         width:24%;
+                        height:60px;
                         display:inline-block;
                         text-align:center;
-                        &.selectedTab {
-                            border:2px solid @red;
 
+                        @media @phone {
+                            height:40px;
+                        }
+                        label {
+                            vertical-align:middle;
+                            line-height:60px;
+
+                            @media @phone {
+                                font-size:12px;
+                                line-height:40px;
+                            }
+                        }
+
+                        img {
+                            vertical-align:middle;
+
+                            @media @phone {
+                                height:12px;
+                            }
+
+                            &.normal {
+                                display:inline-block;
+                            }
+                            &.active {
+                                display:none;
+                            }
+                        }
+                        &.selectedTab {
+                            color:@red;
+
+                            img {
+                                &.normal {
+                                    display:none;
+                                }
+                                &.active {
+                                    display:inline-block;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .list {
+                    height:420px;
+                    background:#f6f6f6;
+
+                    @media @phone {
+                        height:150px;
+                        display:none;
+                    }
+                    >div {
+                        width:100%;
+                        height:100%;
+                        ul {
+                            height:150%;
+
+                            li {
+                                height:70px;
+                                overflow: hidden;
+                                padding-left:20px;
+
+                                @media @phone {
+                                    height:50px;
+                                }
+
+                                .content {
+                                    border-bottom: 1px solid #ccc;
+                                    width:100%;
+                                    height:100%;
+                                    .left {
+                                        float:left;
+                                        width: 260px;
+                                        .title {
+                                            font-size:20px;
+                                            font-weight:bold;
+                                            color:#666;
+                                        }
+
+                                        .subtitle {
+                                            font-size:12px;
+                                            color:#999;
+                                        }
+                                    }
+
+                                    .right {
+                                        float: right;
+                                        margin-top:19px;
+                                        margin-right:20px;
+                                        .icon {
+                                            height: 32px;
+                                            float:left;
+                                            margin-right: 10px;
+                                            vertical-align:middle;
+                                        }
+                                        .distance {
+                                            float:left;
+                                            vertical-align:middle;
+                                            font-size:16px;
+                                            line-height:32px;
+                                            font-weight:bold;
+                                            color:#999;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -473,7 +661,7 @@ main {
 
         .areaValueCharts {
             width: 100%;
-              @media @phone {
+            @media @phone {
                 margin-top:25px;
             }
             >.title {

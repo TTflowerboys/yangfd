@@ -6,6 +6,9 @@ import re
 import phonenumbers
 import json
 import csv
+import numpy as np
+import matplotlib.dates as mdates
+from scipy.interpolate import spline
 from bson.objectid import ObjectId
 from bson.code import Code
 from pymongo import ASCENDING, DESCENDING
@@ -27,6 +30,7 @@ import logging
 logger = logging.getLogger(__name__)
 f_app.dependency_register('pyquery', race="python")
 f_app.dependency_register('matplotlib', race="python")
+f_app.dependency_register('scipy', race="python")
 
 # Fix crash in environments that have no display.
 import matplotlib
@@ -1554,24 +1558,33 @@ class f_policeuk(f_app.module_base):
         lng: longitude
         date: YYYY-MM, from 2010-12
         """
-        import urllib
-        params = urllib.urlencode({"lat": params["lat"], "lng": params["lng"], "date": params["date"]})
-        self.logger.debug(params)
+        if params:
+            params = urllib.parse.urlencode(params)
         url = "http://data.police.uk/api/crimes-street/all-crime?%s" % params
+        self.logger.debug(url)
         result = f_app.request(url)
         if result.status_code == 200:
             return json.loads(result.content)
         else:
             abort(50000)
 
-    def get_crime_by_zipcode(self, zipcode, date):
-        return self._get_crime_by_zipcode("%s|%s" % (zipcode, date), zipcode, date)
+    def api_categories(self, params, method="GET"):
+        if params:
+            params = urllib.parse.urlencode(params)
+        url = "http://data.police.uk/api/crime-categories?%s" % params
+        result = f_app.request(url)
+        if result.status_code == 200:
+            return json.loads(result.content)
+        else:
+            abort(50000)
 
-    @f_cache("crimebyzipcode")
-    def _get_crime_by_zipcode(self, zipcode_date, zipcode, date):
+    def get_crime_by_zipcode(self, zipcode, date=None):
         zipcode_info = f_app.zipcode.get_by_zipcode(zipcode)
         if zipcode_info:
-            params = {"lat": zipcode_info["latitude"], "lng": zipcode_info["longitude"], "date": date}
+            if date:
+                params = {"lat": zipcode_info["latitude"], "lng": zipcode_info["longitude"], "date": date}
+            else:
+                params = {"lat": zipcode_info["latitude"], "lng": zipcode_info["longitude"]}
             crime_info = self.api(params)
             return crime_info
         else:
@@ -1672,13 +1685,23 @@ class f_landregistry(f_app.module_base):
         else:
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
+    @f_cache('homevalues')
     def get_month_average_by_zipcode_index(self, zipcode_index, size=[0, 0]):
+
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
 
+        x = [i['date'] for i in merged_result]
+        y = np.array([i['average_price'] for i in merged_result])
+        xnew = mdates.date2num(x)
+        xx = np.linspace(xnew.min(), xnew.max(), 50)
+        xxx = mdates.num2date(xx)
+        ysmooth = spline(xnew, y, xx)
+
         fig, ax = plt.subplots()
-        ax.plot([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
+        ax.plot(xxx, ysmooth, '#e70012', marker="o", markeredgecolor="#e70012", markersize=3)
+        # ax.plot(x, y, '-g')
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
@@ -1686,18 +1709,44 @@ class f_landregistry(f_app.module_base):
             fig.set_size_inches(fig_width, fig_height)
 
         ax.autoscale_view()
-        ax.grid(True)
-        ax.set_ylabel('BGP')
+
+        font = {
+            'family': 'sans-serif',
+            'color': '#999999',
+            'weight': 'normal',
+            'size': 6,
+        }
+        ax.set_xlabel('YEAR', fontdict=font)
+        ax.set_ylabel('BGP', fontdict=font, rotation=0)
+        ax.xaxis.set_label_coords(1.05, -0.025)
+        ax.yaxis.set_label_coords(-0.025, 1.05)
+
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=6)
+        plt.setp(plt.gca().get_yticklabels(), fontsize=6)
+        for child in ax.get_children():
+            if isinstance(child, matplotlib.spines.Spine):
+                child.set_color('#cccccc')
+
+        ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
+        ax.tick_params(colors='#cccccc')
+        ax.set_ylim(0)
+        ax.set_axis_bgcolor("#f6f6f6")
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.xaxis.set_ticks_position('none')
+        ax.yaxis.set_ticks_position('left')
+        [line.set_zorder(3) for line in ax.lines]
 
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
-        fig.autofmt_xdate()
-        ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
+        # fig.autofmt_xdate()
+        # ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
 
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
 
         return graph
 
+    @f_cache('averagevalues')
     def get_average_values_by_zipcode_index(self, zipcode_index, size=[0, 0]):
 
         with f_app.mongo() as m:
@@ -1708,7 +1757,7 @@ class f_landregistry(f_app.module_base):
         width = 0.5
 
         fig, ax = plt.subplots()
-        ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width)
+        ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width, color=['#e70012', '#ff9c00', '#6fdb2d', '#00b8e6'], edgecolor="none")
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
@@ -1716,20 +1765,48 @@ class f_landregistry(f_app.module_base):
             fig.set_size_inches(fig_width, fig_height)
 
         ax.autoscale_view()
-        ax.set_ylabel('Number')
+
+        font = {
+            'family': 'sans-serif',
+            'color': '#999999',
+            'weight': 'normal',
+            'size': 6,
+        }
+        ax.set_xlabel('YEAR', fontdict=font)
+        ax.set_ylabel('NUMBER', fontdict=font, rotation=0)
+        ax.xaxis.set_label_coords(1.05, -0.025)
+        ax.yaxis.set_label_coords(-0.025, 1.05)
         ax.set_xticks([i + width / 2 for i in ind])
         ax.set_xticklabels([x['_id'] for x in merged_result])
+
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=6)
+        plt.setp(plt.gca().get_yticklabels(), fontsize=6)
+        for child in ax.get_children():
+            if isinstance(child, matplotlib.spines.Spine):
+                child.set_color('#cccccc')
+
+        ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
+        ax.tick_params(colors='#cccccc')
+        ax.set_ylim(0)
+        ax.set_axis_bgcolor("#f6f6f6")
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.xaxis.set_ticks_position('none')
+        ax.yaxis.set_ticks_position('left')
+        [bar.set_zorder(3) for bar in ax.get_children()]
 
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
 
         return graph
 
+    # @f_cache('valuetrend')
     def get_month_average_by_zipcode_index_with_type(self, zipcode_index, size=[0, 0]):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
 
+        colors = ["#e70012", "#ff9c00", "#6fdb2d", "#00b8e6"]
         dresult = []
         sresult = []
         tresult = []
@@ -1745,30 +1822,60 @@ class f_landregistry(f_app.module_base):
                 fresult.append(i)
 
         fig, ax = plt.subplots()
-        plt.gca().set_color_cycle(['red', 'green', 'blue', 'yellow'])
 
-        plt.plot([i['date'] for i in dresult], [i['average_price'] for i in dresult])
-        plt.plot([i['date'] for i in sresult], [i['average_price'] for i in sresult])
-        plt.plot([i['date'] for i in tresult], [i['average_price'] for i in tresult])
-        plt.plot([i['date'] for i in fresult], [i['average_price'] for i in fresult])
-        plt.legend(["detached", "semi-detached", "terrance", "flat"], loc='upper left')
+        for result, color in zip([dresult, sresult, tresult, fresult], colors):
+            plt.plot([i['date'] for i in result], [i['average_price'] for i in result], color, marker="o", markeredgecolor=color, markersize=1)
+
+        legend = plt.legend(["detached", "semi-detached", "terrance", "flat"], loc='upper left', fontsize=6)
+        frame = legend.get_frame()
+        frame.set_color('#f6f6f6')
+        frame.set_edgecolor('#e6e6e6')
+
+        for color, text in zip(colors, legend.get_texts()):
+            text.set_color(color)
+
+        font = {
+            'family': 'sans-serif',
+            'color': '#999999',
+            'weight': 'normal',
+            'size': 6,
+        }
 
         ax.autoscale_view()
-        ax.set_ylabel('BGP')
+        ax.set_xlabel('YEAR', fontdict=font)
+        ax.set_ylabel('BGP', fontdict=font, rotation=0)
+        ax.xaxis.set_label_coords(1.05, -0.025)
+        ax.yaxis.set_label_coords(-0.025, 1.05)
 
+        for child in ax.get_children():
+            if isinstance(child, matplotlib.spines.Spine):
+                child.set_color('#f6f6f6')
+
+        ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
+        ax.tick_params(colors='#cccccc')
+        ax.set_ylim(0)
+        ax.set_axis_bgcolor("#f6f6f6")
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.xaxis.set_ticks_position('none')
+        ax.yaxis.set_ticks_position('left')
+        [line.set_zorder(3) for line in ax.lines]
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
-        fig.autofmt_xdate()
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
         if fig_width and fig_height:
             fig.set_size_inches(fig_width, fig_height)
 
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=6)
+        plt.setp(plt.gca().get_yticklabels(), fontsize=6)
+
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
 
         return graph
 
+    # @f_cache('valueranges')
     def get_price_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0]):
         with f_app.mongo() as m:
             result_lt_100k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$lt": 100000}}).count()
@@ -1792,25 +1899,47 @@ class f_landregistry(f_app.module_base):
         ax.bar(ind, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none")
 
         ax.autoscale_view()
-        ax.set_ylabel('Percentage %')
+        font = {
+            'family': 'sans-serif',
+            'color': '#999999',
+            'weight': 'normal',
+            'size': 6,
+        }
+        ax.set_xlabel('PRICE', fontdict=font)
+        ax.set_ylabel('%', fontdict=font, rotation=0)
+        ax.xaxis.set_label_coords(1.05, -0.025)
+        ax.yaxis.set_label_coords(-0.025, 1.05)
+
         ax.set_xticks([i + width for i in ind])
         ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "400k~500k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
+
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', fontsize=6, rotation=30)
+        plt.setp(plt.gca().get_yticklabels(), fontsize=6)
+        # plt.gcf().subplots_adjust(bottom=1)
+
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
 
+        for child in ax.get_children():
+            if isinstance(child, matplotlib.spines.Spine):
+                child.set_color('#cccccc')
+
+        ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
+        ax.tick_params(colors='#cccccc')
+        ax.set_ylim(0)
+        ax.set_axis_bgcolor("#f6f6f6")
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
-        ax.yaxis.set_ticks_position('left')
         ax.xaxis.set_ticks_position('none')
-
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', rotation=45, fontsize=10)
-        plt.gcf().subplots_adjust(bottom=0.15)
+        ax.yaxis.set_ticks_position('left')
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
         if fig_width and fig_height:
             fig.set_size_inches(fig_width, fig_height)
+
+        [bar.set_zorder(3) for bar in ax.get_children()]
 
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)

@@ -604,11 +604,16 @@ def images_proxy(params):
     ssl_bypass = False
 
     if "bbt-currant.s3.amazonaws.com" in params["link"] or "zoopla.co.uk" in params["link"] or "zoocdn.com" in params["link"]:
+        params["link"] = params["link"]
         allowed = True
         ssl_bypass = True
         url_parsed = urllib.parse.urlparse(params["link"])
         url_parsed = url_parsed._replace(scheme="https")
         params["link"] = urllib.parse.urlunparse(url_parsed)
+
+        # TODO: make this saner
+        if "yangfd.com" not in request.urlparts[1] and "youngfunding.co.uk" not in request.urlparts[1] and "currant-test" not in request.urlparts[1]:
+            params["link"] = params["link"].replace("bbt-currant.s3.amazonaws.com", "s3.yangfd.cn").replace("https://", "http://")
 
     elif "property_id" in params:
         property = f_app.property.get(params["property_id"])
@@ -642,14 +647,28 @@ def images_proxy(params):
 
 @f_get('/reverse_proxy', params=dict(
     link=(str, True),
+    content_type=str,
 ))
 def reverse_proxy(params):
     result = f_app.request(params["link"])
     if result.status_code == 200:
+        content = result.content
         ext = params["link"].split('.')[-1]
+        import urllib
+        decoded_link = urllib.unquote(params["link"]).decode('utf8')
         if ext == "js":
             response.set_header(b"Content-Type", b"application/javascript")
-        return result.content
+
+        if "http://maps.googleapis.com/maps/api/js?libraries=geometry,places" == decoded_link:
+            content = content.replace("http://maps.gstatic.com/cat_js/maps-api-v3/api/js/19/3/%7Bmain,geometry,places%7D.js", "/reverse_proxy?link=" + urllib.quote("http://maps.gstatic.com/cat_js/maps-api-v3/api/js/19/3/%7Bmain,geometry,places%7D.js"))
+
+        elif "{main,geometry,places}.js" in decoded_link:
+            content = content.replace('a.src=b;', 'a.src="/reverse_proxy?link=" + decodeURIComponent(b);')
+
+        return content
+
+    else:
+        logger.debug("error in proxy %s", result)
 
 
 @f_get("/logout", params=dict(
@@ -714,10 +733,10 @@ def sitemap():
 
 
 @f_get("/landregistry/<zipcode_index>/home_values", params=dict(
-    width=(int, 0),
-    height=(int, 0),
+    width=(int, 400),
+    height=(int, 212),
 ))
-def landregistry(zipcode_index, params):
+def landregistry_home_values(zipcode_index, params):
     size = [params["width"], params["height"]]
     result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
@@ -725,10 +744,10 @@ def landregistry(zipcode_index, params):
 
 
 @f_get("/landregistry/<zipcode_index>/value_trend", params=dict(
-    width=(int, 0),
-    height=(int, 0),
+    width=(int, 400),
+    height=(int, 212),
 ))
-def landregistry_with_type(zipcode_index, params):
+def landregistry_value_trend(zipcode_index, params):
     size = [params["width"], params["height"]]
     result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
@@ -736,10 +755,10 @@ def landregistry_with_type(zipcode_index, params):
 
 
 @f_get("/landregistry/<zipcode_index>/average_values", params=dict(
-    width=(int, 0),
-    height=(int, 0),
+    width=(int, 400),
+    height=(int, 212),
 ))
-def landregistry_type_dist(zipcode_index, params):
+def landregistry_average_values(zipcode_index, params):
     size = [params["width"], params["height"]]
     result = f_app.landregistry.get_average_values_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
@@ -747,10 +766,10 @@ def landregistry_type_dist(zipcode_index, params):
 
 
 @f_get("/landregistry/<zipcode_index>/value_ranges", params=dict(
-    width=(int, 0),
-    height=(int, 0),
+    width=(int, 400),
+    height=(int, 212),
 ))
-def landregistry_price_dist(zipcode_index, params):
+def landregistry_value_ranges(zipcode_index, params):
     size = [params["width"], params["height"]]
     result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index, size=size)
     response.set_header(b"Content-Type", b"image/png")
@@ -770,6 +789,14 @@ def wechat_endpoint_verifier(params):
         abort(400)
 
 
+@f_get("/s3_raw/<filename>")
+def s3_raw_reverse_proxy(filename):
+    if filename.endswith(".jpg"):
+        filename = filename[:-4]
+    result = f_app.request("http://bbt-currant.s3.amazonaws.com/" + filename)
+    return result.content
+
+
 @f_post("/wechat_endpoint")
 def wechat_endpoint():
     orig_xml = etree.fromstring(request.body.getvalue())
@@ -787,28 +814,59 @@ def wechat_endpoint():
     return_str = ""
 
     def build_property_list_by_country(country_id):
-        properties = f_app.property.output(f_app.property.search({
+        properties = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
             "country._id": ObjectId(country_id),
             "status": {"$in": ["selling", "sold out"]},
-        }, per_page=10, time_field="mtime"))
+        }, per_page=9, time_field="mtime")))
 
         root = etree.Element("xml")
         etree.SubElement(root, "ToUserName").text = message["FromUserName"]
         etree.SubElement(root, "FromUserName").text = message["ToUserName"]
         etree.SubElement(root, "CreateTime").text = str(calendar.timegm(datetime.utcnow().timetuple()))
         etree.SubElement(root, "MsgType").text = "news"
-        etree.SubElement(root, "ArticleCount").text = str(len(properties))
+        etree.SubElement(root, "ArticleCount").text = str(len(properties) + 1)
 
         articles = etree.SubElement(root, "Articles")
-        for property in properties:
+        for n, property in enumerate(properties):
             item = etree.SubElement(articles, "item")
+
+            title = ""
+            if "city" in property and "value" in property["city"]:
+                title += property["city"]["value"] + " "
             if "name" in property:
-                etree.SubElement(item, "Title").text = etree.CDATA(property["name"].get("zh_Hans_CN", ""))
-            if "description" in property and "zh_Hans_CN" in property["description"]:
-                etree.SubElement(item, "Description").text = etree.CDATA(property["description"]["zh_Hans_CN"])
-            if "reality_images" in property and "zh_Hans_CN" in property["reality_images"] and len(property["reality_images"]["zh_Hans_CN"]):
-                etree.SubElement(item, "PicUrl").text = property["reality_images"]["zh_Hans_CN"][0]
+                title += property["name"]
+            if "main_house_types" in property:
+                lowest_price = None
+                for house_type in property["main_house_types"]:
+                    if "total_price" not in house_type:
+                        continue
+                    if lowest_price is None or float(house_type["total_price"]["value"]) < lowest_price:
+                        lowest_price = float(house_type["total_price"]["value"])
+                if lowest_price is not None:
+                    title += "(起投%.2f万 预期年收益%s)" % (lowest_price / 10000, property.get("annual_return_estimated", ""))
+            elif "total_price" in property:
+                title += "(起投%.2f万 预期年收益%s)" % (float(property["total_price"]["value"]) / 10000, property.get("annual_return_estimated", ""))
+
+            etree.SubElement(item, "Title").text = etree.CDATA(title)
+
+            if "description" in property:
+                etree.SubElement(item, "Description").text = etree.CDATA(property["description"])
+
+            if "reality_images" in property and len(property["reality_images"]):
+                picurl = property["reality_images"][0]
+                if "bbt-currant.s3.amazonaws.com" in picurl:
+                    picurl += "_thumbnail.jpg"
+                # from urllib import quote
+                etree.SubElement(item, "PicUrl").text = picurl.replace("bbt-currant.s3.amazonaws.com/", "yangfd.cn/s3_raw/")
+                # etree.SubElement(item, "PicUrl").text = schema + request.urlparts[1] + "/reverse_proxy?link=" + quote(picurl)
+
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
+
+        if len(properties):
+            more = etree.SubElement(articles, "item")
+
+            etree.SubElement(more, "Title").text = etree.CDATA("更多%s房产..." % (property["country"]["value"], ))
+            etree.SubElement(more, "Url").text = schema + request.urlparts[1] + "/property_list?country=" + country_id
 
         return etree.tostring(root, encoding="UTF-8")
 
