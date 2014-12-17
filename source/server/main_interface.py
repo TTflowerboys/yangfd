@@ -597,11 +597,16 @@ def images_proxy(params):
     ssl_bypass = False
 
     if "bbt-currant.s3.amazonaws.com" in params["link"] or "zoopla.co.uk" in params["link"] or "zoocdn.com" in params["link"]:
+        params["link"] = params["link"]
         allowed = True
         ssl_bypass = True
         url_parsed = urllib.parse.urlparse(params["link"])
         url_parsed = url_parsed._replace(scheme="https")
         params["link"] = urllib.parse.urlunparse(url_parsed)
+
+        # TODO: make this saner
+        if "yangfd.com" not in request.urlparts[1] and "youngfunding.co.uk" not in request.urlparts[1] and "currant-test" not in request.urlparts[1]:
+            params["link"] = params["link"].replace("bbt-currant.s3.amazonaws.com", "s3.yangfd.cn").replace("https://", "http://")
 
     elif "property_id" in params:
         property = f_app.property.get(params["property_id"])
@@ -777,6 +782,14 @@ def wechat_endpoint_verifier(params):
         abort(400)
 
 
+@f_get("/s3_raw/<filename>")
+def s3_raw_reverse_proxy(filename):
+    if filename.endswith(".jpg"):
+        filename = filename[:-4]
+    result = f_app.request("http://bbt-currant.s3.amazonaws.com/" + filename)
+    return result.content
+
+
 @f_post("/wechat_endpoint")
 def wechat_endpoint():
     orig_xml = etree.fromstring(request.body.getvalue())
@@ -832,11 +845,13 @@ def wechat_endpoint():
             if "description" in property:
                 etree.SubElement(item, "Description").text = etree.CDATA(property["description"])
 
-            if n == 0 and "reality_images" in property and len(property["reality_images"]):
+            if "reality_images" in property and len(property["reality_images"]):
                 picurl = property["reality_images"][0]
                 if "bbt-currant.s3.amazonaws.com" in picurl:
-                    picurl += "_thumbnail"
-                etree.SubElement(item, "PicUrl").text = picurl
+                    picurl += "_thumbnail.jpg"
+                # from urllib import quote
+                etree.SubElement(item, "PicUrl").text = picurl.replace("bbt-currant.s3.amazonaws.com/", "yangfd.cn/s3_raw/")
+                # etree.SubElement(item, "PicUrl").text = schema + request.urlparts[1] + "/reverse_proxy?link=" + quote(picurl)
 
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
 
