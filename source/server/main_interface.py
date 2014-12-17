@@ -840,8 +840,9 @@ def wechat_endpoint():
             if "reality_images" in property and len(property["reality_images"]):
                 picurl = property["reality_images"][0]
                 if "bbt-currant.s3.amazonaws.com" in picurl:
-                    picurl = (picurl + "_thumbnail").replace("bbt-currant.s3.amazonaws.com", "s3.yangfd.cn").replace("https://", "http://")
-                etree.SubElement(item, "PicUrl").text = picurl
+                    picurl += "_thumbnail"
+                from urllib import quote
+                etree.SubElement(item, "PicUrl").text = schema + request.urlparts[1] + "/image/fetch?link=" + quote(picurl)
 
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
 
