@@ -163,10 +163,10 @@
 
         <div class="maps" data-tabs>
             <div class="map">
-                <div id="transitMapCanvas" class="transitMapCanvas item selectedTab" data-tab-name="transit"></div>
-                <div id="schoolMapCanvas" class="schoolMapCanvas item" data-tab-name="school"></div>
-                <div id="facilityMapCanvas" class="facilityMapCanvas item" data-tab-name="facility"></div>
-                <div id="securityMapCanvas" class="securityMapCanvas item" data-tab-name="security"></div>
+                <div id="transitMapCanvas" class="transitMapCanvas item selectedTab" data-tab-name="transit" style="position:relative;"></div>
+                <div id="schoolMapCanvas" class="schoolMapCanvas item" data-tab-name="school" style="position:relative;"></div>
+                <div id="facilityMapCanvas" class="facilityMapCanvas item" data-tab-name="facility" style="position:relative;"></div>
+                <div id="securityMapCanvas" class="securityMapCanvas item" data-tab-name="security" style="position:relative;"></div>
             </div>
             <div class="tabs">
                 <ul class="category">
@@ -326,12 +326,12 @@
             >
             <div class="content">
                 <div class="left">
-                    <h3 class="title">{=item.name=}</h3>
-                    <label class="subtitle"></label>
+                    <h3 class="title">{=item.DisplayName=}</h3>
+                    <label class="subtitle">{=item.AddressLine=}</label>
                 </div>
                 <div class="right">
-                    <img class="icon" src="{=item.icon=}"/>
-                    <label class="distance">{=item.distance=}</label>
+                    <img class="icon" src=""/>
+                    <label class="distance">{=item.__Distance.toFixed(2)=}km</label>
                 </div>
             </div>
         </li>
@@ -341,12 +341,8 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
-<!-- TODO fix google js compress unglify has not work -->
-<script src="/static/vendors/google/jsapi.js"></script>
-<script src="/reverse_proxy?link=http%3A%2F%2Fmaps.googleapis.com%2Fmaps%2Fapi%2Fjs%3Flibraries%3Dgeometry%2Cplaces"></script>
-<script src="/static/vendors/google-maps-utility/infobox.js"></script>
+<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 <!--build:js /static/scripts/region_report.html.js-->
-<script src="/static/vendors/geoxml3/geoxml3.js"></script>
 <script src="/static/vendors/jquery.slimscroll.min.js"></script>
 <script src="/static/scripts/region_report.js"></script>
 <!--endbuild-->
