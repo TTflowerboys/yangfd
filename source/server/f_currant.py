@@ -1800,7 +1800,7 @@ class f_landregistry(f_app.module_base):
 
         return graph
 
-    # @f_cache('valuetrend')
+    @f_cache('valuetrend')
     def get_month_average_by_zipcode_index_with_type(self, zipcode_index, size=[0, 0]):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
@@ -1875,7 +1875,7 @@ class f_landregistry(f_app.module_base):
 
         return graph
 
-    # @f_cache('valueranges')
+    @f_cache('valueranges')
     def get_price_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0]):
         with f_app.mongo() as m:
             result_lt_100k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$lt": 100000}}).count()
@@ -1915,7 +1915,7 @@ class f_landregistry(f_app.module_base):
 
         plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', fontsize=6, rotation=30)
         plt.setp(plt.gca().get_yticklabels(), fontsize=6)
-        # plt.gcf().subplots_adjust(bottom=1)
+        plt.gcf().subplots_adjust(bottom=0.2)
 
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
