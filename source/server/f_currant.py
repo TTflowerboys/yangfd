@@ -1951,12 +1951,12 @@ class f_landregistry(f_app.module_base):
             function() {
                 var key_with_type = {
                     "zipcode_index": this.zipcode_index,
-                    "date": new Date(this.date.getFullYear(), this.date.getMonth(), 1 ,0 ,0 ,0 ,0),
+                    "date": new Date(this.date.getFullYear(), 0, 1 ,0 ,0 ,0 ,0),
                     "type": this.type
                 };
                 var key = {
                     "zipcode_index": this.zipcode_index,
-                    "date": new Date(this.date.getFullYear(), this.date.getMonth(), 1 ,0 ,0 ,0 ,0),
+                    "date": new Date(this.date.getFullYear(), 0, 1 ,0 ,0 ,0 ,0),
                 };
                 var value = {
                     "price": this.price,
