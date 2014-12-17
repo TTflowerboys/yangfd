@@ -836,7 +836,8 @@ def wechat_endpoint():
                 picurl = property["reality_images"][0]
                 if "bbt-currant.s3.amazonaws.com" in picurl:
                     picurl += "_thumbnail"
-                etree.SubElement(item, "PicUrl").text = picurl
+                from urllib import quote
+                etree.SubElement(item, "PicUrl").text = schema + request.urlparts[1] + "/reverse_proxy?link=" + quote(picurl)
 
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
 
