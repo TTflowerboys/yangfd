@@ -597,12 +597,13 @@ def images_proxy(params):
     ssl_bypass = False
 
     if "bbt-currant.s3.amazonaws.com" in params["link"] or "zoopla.co.uk" in params["link"] or "zoocdn.com" in params["link"]:
-        params["link"] = params["link"].replace("bbt-currant.s3.amazonaws.com", "s3.yangfd.cn").replace("https://", "http://")
+        params["link"] = params["link"]
         allowed = True
         ssl_bypass = True
         url_parsed = urllib.parse.urlparse(params["link"])
         url_parsed = url_parsed._replace(scheme="https")
-        params["link"] = urllib.parse.urlunparse(url_parsed)
+        # TODO: make this saner
+        params["link"] = urllib.parse.urlunparse(url_parsed).replace("bbt-currant.s3.amazonaws.com", "s3.yangfd.cn").replace("https://", "http://")
 
     elif "property_id" in params:
         property = f_app.property.get(params["property_id"])
