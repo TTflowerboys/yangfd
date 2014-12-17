@@ -782,6 +782,12 @@ def wechat_endpoint_verifier(params):
         abort(400)
 
 
+@f_get("/s3_raw/<filename>")
+def s3_raw_reverse_proxy(filename):
+    result = f_app.request("http://bbt-currant.s3.amazonaws.com/" + filename)
+    return result.content
+
+
 @f_post("/wechat_endpoint")
 def wechat_endpoint():
     orig_xml = etree.fromstring(request.body.getvalue())
@@ -842,7 +848,7 @@ def wechat_endpoint():
                 if "bbt-currant.s3.amazonaws.com" in picurl:
                     picurl += "_thumbnail"
                 # from urllib import quote
-                etree.SubElement(item, "PicUrl").text = picurl.replace("bbt-currant.s3.amazonaws.com/", "s3.yangfd.cn/raw/")
+                etree.SubElement(item, "PicUrl").text = picurl.replace("bbt-currant.s3.amazonaws.com/", "yangfd.cn/s3_raw/")
                 # etree.SubElement(item, "PicUrl").text = schema + request.urlparts[1] + "/reverse_proxy?link=" + quote(picurl)
 
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
