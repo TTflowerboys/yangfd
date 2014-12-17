@@ -843,7 +843,7 @@ def wechat_endpoint():
                     picurl += "_thumbnail"
                 from urllib import quote
                 # etree.SubElement(item, "PicUrl").text = picurl.replace("bbt-currant.s3.amazonaws.com/", "yangfd.cn/s3/")
-                etree.SubElement(item, "PicUrl").text = schema + request.urlparts[1] + "yangfd.cn/reverse_proxy?link=" + quote(picurl.replace("bbt-currant.s3.amazonaws.com/", "yangfd.cn/s3/"))
+                etree.SubElement(item, "PicUrl").text = schema + request.urlparts[1] + "/reverse_proxy?link=" + quote(picurl.replace("bbt-currant.s3.amazonaws.com/", "yangfd.cn/s3/"))
 
             etree.SubElement(item, "Url").text = schema + request.urlparts[1] + "/property/" + property["id"]
 
