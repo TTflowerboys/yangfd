@@ -211,6 +211,8 @@
                 }
             }
         }
+
+        showRegion(map, zipCodeIndexFromURL)
         findNearByLocations(location)
     }
 
@@ -259,6 +261,9 @@
                 }
             }
         }
+
+
+        showRegion(map, zipCodeIndexFromURL)
         findNearByLocations(location)
     }
 
@@ -307,53 +312,55 @@
                 }
             }
         }
+        showRegion(map, zipCodeIndexFromURL)
         findNearByLocations(location)
     }
 
-    function showSecurityMap(latlng) {
+    function showSecurityMap(location) {
         var map = getMap('securityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=security] ul')
         map.setView({ zoom: 13, center: location});
         var pushpin = new Microsoft.Maps.Pushpin(location);
         map.entities.push(pushpin);
+        showRegion(map, zipCodeIndexFromURL)
 
 
-        $.betterGet('/api/1/report/policeuk', {lat:latlng.latitude, lng:latlng.longitude})
-                .done(function (data) {
-                   // var length = data.length
-                    //showLabel(map, window.report.location, window.i18n('犯罪数目') + length, '200px')
+        $.betterGet('/api/1/report/policeuk', {lat:location.latitude, lng:location.longitude})
+            .done(function (data) {
+                // var length = data.length
+                //showLabel(map, window.report.location, window.i18n('犯罪数目') + length, '200px')
 
-                    $.betterGet('/api/1/report/policeuk/categories')
-                        .done(function (categoryData) {
-                            var categoryDic = {}
-                            _.each(categoryData, function (item) {
-                                categoryDic[item.url] = item.name
-                            })
-                            var categories = {}
-                            _.each(data, function (item) {
-                                if (categories[item.category]) {
-                                    categories[item.category] = categories[item.category] + 1
-                                }
-                                else {
-                                    categories[item.category] = + 1
-                                }
-                            })
-
-                            var categoryItem = {}
-                            for (var key in categories) {
-                                categoryItem.Number = categories[key] + window.i18n('起')
-                                categoryItem.DisplayName = categoryDic[key]
-                                createListItem($list, categoryItem)
+                $.betterGet('/api/1/report/policeuk/categories')
+                    .done(function (categoryData) {
+                        var categoryDic = {}
+                        _.each(categoryData, function (item) {
+                            categoryDic[item.url] = item.name
+                        })
+                        var categories = {}
+                        _.each(data, function (item) {
+                            if (categories[item.category]) {
+                                categories[item.category] = categories[item.category] + 1
                             }
+                            else {
+                                categories[item.category] = + 1
+                            }
+                        })
 
-                        })
-                        .fail(function (ret) {
-                        })
-                    //var infowindow = new google.maps.InfoWindow();
-                })
-                .fail(function (ret) {
-                   // showLabel(map, window.report.location, zipCodeIndexFromURL)
-                })
+                        var categoryItem = {}
+                        for (var key in categories) {
+                            categoryItem.Number = categories[key] + window.i18n('起')
+                            categoryItem.DisplayName = categoryDic[key]
+                            createListItem($list, categoryItem)
+                        }
+
+                    })
+                    .fail(function (ret) {
+                    })
+                //var infowindow = new google.maps.InfoWindow();
+            })
+            .fail(function (ret) {
+                // showLabel(map, window.report.location, zipCodeIndexFromURL)
+            })
 
     }
 
@@ -362,12 +369,51 @@
         $list.append(result)
     }
 
+    function showRegion(map, zipCodeIndex) {
+        Microsoft.Maps.loadModule('Microsoft.Maps.AdvancedShapes', {  callback:  getBoundary});
+
+        function getBoundary () {
+            var originalURL = 'https://www.googleapis.com/fusiontables/v2/query?sql=SELECT \'Area data\', \'Postcode district\' FROM 1jgWYtlqGSPzlIa-is8wl1cZkVIWEm_89rWUwqFU WHERE \'Postcode district\' = \'' + zipCodeIndex +'\'&key=AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY';
+            var url = '/reverse_proxy?link=' + encodeURIComponent(originalURL)
+            $.get(url)
+                .done(function (data) {
+                    if (data) {
+                        var json = JSON.parse(data)
+                        if (json.rows && json.rows[0] && json.rows[0][0] &&json.rows[0][0].geometries && json.rows[0][0].geometries.length) {
+                            var polygonArray = json.rows[0][0].geometries
+                            var results = []
+                            _.each(polygonArray, function (item){
+                                var coordinates = item.coordinates[0]
+                                var coorResults = []
+
+                                _.each(coordinates, function (coor) {
+                                    var lat = coor[1]
+                                    var lng = coor[0]
+                                    coorResults.push(new Microsoft.Maps.Location(lat, lng))
+                                })
+                                results.push(coorResults)
+                            })
+
+                            var polygoncolor = new Microsoft.Maps.Color(100, 128, 128, 128);
+                            var strokecolor = new Microsoft.Maps.Color(255, 128, 128, 128);
+                            var polygon = new Microsoft.Maps.Polygon(results,
+                                                                     { fillColor: polygoncolor,  strokeColor: strokecolor });
+                           // map.entities.clear();
+                            map.entities.push(polygon)
+                        }
+                    }
+                })
+                .fail(function (ret) {
+                })
+
+        }
+    }
+
     if (!window.team.isPhone()) {
-         $('.maps .list div ul').slimScroll({
+        $('.maps .list div ul').slimScroll({
             height: '420px'
         });
     }
-
 
     $('.maps .list ul').click(function (event){
         var tabName = $(event.currentTarget).closest('div[data-tab-name]').attr('data-tab-name')
@@ -443,6 +489,7 @@
 
         function onLocationFind(location) {
             window.report.location = location
+
             showTransitMap(location)
             showSchoolMap(location)
             showFacilityMap(location)
