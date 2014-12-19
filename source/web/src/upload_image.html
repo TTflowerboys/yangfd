@@ -24,6 +24,12 @@
             <label> 缩略图高度
                 <input name="thumb_height" type="text" value="0"/>
             </label>
+            <p>
+                <select name="watermark">
+                    <option value="true">加水印</option>
+                    <option value="false">不加水印</option>
+                </select>
+            </p>
             <button type="submit">提交</button>
             <span id="loading" style="display: none;">上传中...</span>
         </form>
@@ -49,12 +55,12 @@
                 formData.append('data', form.image.files[0])
                 var widthLimit
                 var ratio
-                if (!form.width.value) {
+                if (!form.width.value || form.width.value === '0') {
                     widthLimit = '0'
                     ratio = 0
                 } else {
                     widthLimit = form.width.value
-                    if (!form.height.value) {
+                    if (!form.height.value || form.height.value === '0') {
                         ratio = 0
                     } else {
                         ratio = (form.width.value / form.height.value).toFixed(2)
@@ -65,6 +71,7 @@
                 formData.append('width_limit', widthLimit)
                 formData.append('ratio', ratio)
                 formData.append('thumbnail_size', thumbWidth + ',' + thumbHeight)
+                formData.append('watermark', form.watermark.value)
                 count += 1
                 $('#loading').show()
                 $.ajax({
