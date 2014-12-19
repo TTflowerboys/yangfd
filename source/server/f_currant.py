@@ -7,8 +7,6 @@ import phonenumbers
 import json
 import csv
 import numpy as np
-import matplotlib.dates as mdates
-from scipy.interpolate import spline
 from bson.objectid import ObjectId
 from bson.code import Code
 from pymongo import ASCENDING, DESCENDING
@@ -1694,13 +1692,9 @@ class f_landregistry(f_app.module_base):
 
         x = [i['date'] for i in merged_result]
         y = np.array([i['average_price'] for i in merged_result])
-        xnew = mdates.date2num(x)
-        xx = np.linspace(xnew.min(), xnew.max(), 50)
-        xxx = mdates.num2date(xx)
-        ysmooth = spline(xnew, y, xx)
 
         fig, ax = plt.subplots()
-        ax.plot(xxx, ysmooth, '#e70012', marker="o", markeredgecolor="#e70012", markersize=3)
+        ax.plot(x, y, '#e70012', marker="o", markeredgecolor="#e70012", markersize=3)
         # ax.plot(x, y, '-g')
 
         fig_width, fig_height = size
