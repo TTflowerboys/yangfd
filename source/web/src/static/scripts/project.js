@@ -37,6 +37,15 @@
             $('#modal').show()
             return false
         },
+        showSignInModalOrGoToSignIn: function () {
+            if (team.isPhone()) {
+                window.project.goToSignIn()
+            }
+            else {
+                window.project.showSignInModal()
+            }
+            return false
+        },
         goToUserSettings: function () {
             if (team.isPhone()) {
                 window.location.href = '/user';

@@ -1,5 +1,6 @@
 <!--@@master = masters/master.html-->
 <!--@@block = head-->
+<title>{{_('洋房东')}}</title>
 <!--build:css(dist) /static/styles/region_report.html.css-->
 <link href="/static/styles/regionReport.css" rel="stylesheet"/>
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
@@ -14,7 +15,7 @@
     <textarea id="dataReport" style="display:none;">{{json_dumps(report)}}</textarea>
 
     <div class="info">
-        <img alt="" src="" style="background:url('{{report.get('image')}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{report.get('image')}}', sizingMethod='scale');"/>
+        <img alt="" src="" style="background:url('/image/fetch?link={{quote_plus(report.get('image', ''))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(report.get('image', ''))}}', sizingMethod='scale');"/>
         <div class="img_shadow"></div>
         <div class="text_container">
             <div class="text">
@@ -110,16 +111,16 @@
 
                 <ul class="rslides" id="priceSlider">
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=800&height=424"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=800&height=424"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=800&height=424"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=400&height=212"/>
+                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=800&height=424"/>
                     </li>
                 </ul>
 
@@ -127,22 +128,22 @@
                 <ul class="rslidesPager" id="priceSliderPager">
                     <li>
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=400&height=212" width="200"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=200&height=106" width="200"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=400&height=212" width="200"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=200&height=106" width="200"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=400&height=212" width="200"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=200&height=106" width="200"/>
                         </a>
                     </li>
                     <li >
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=400&height=212" width="200"/>
+                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=200&height=106" width="200"/>
                         </a>
                     </li>
                 </ul>
@@ -306,7 +307,7 @@
                     </button>
                     <label class="login">
                         {{_('已经是会员？')}}
-                        <a href="javascript:project.showSignInModal()">
+                        <a href="javascript:project.showSignInModalOrGoToSignIn()">
                             {{_('请登录')}}
                         </a>
                     </label>

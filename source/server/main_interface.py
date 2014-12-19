@@ -510,12 +510,12 @@ def how_it_works():
 def calculator():
     return template("phone/calculator", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
 
+
 @f_get('/user')
 @check_landing
 @check_ip_and_redirect_domain
 def user():
     return template("phone/user", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
-
 
 
 @f_get('/admin')
@@ -735,10 +735,11 @@ def sitemap():
 @f_get("/landregistry/<zipcode_index>/home_values", params=dict(
     width=(int, 400),
     height=(int, 212),
+    force_reload=(bool, False),
 ))
 def landregistry_home_values(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index, size=size)
+    result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
 
@@ -746,10 +747,11 @@ def landregistry_home_values(zipcode_index, params):
 @f_get("/landregistry/<zipcode_index>/value_trend", params=dict(
     width=(int, 400),
     height=(int, 212),
+    force_reload=(bool, False),
 ))
 def landregistry_value_trend(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index, size=size)
+    result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
 
@@ -757,10 +759,11 @@ def landregistry_value_trend(zipcode_index, params):
 @f_get("/landregistry/<zipcode_index>/average_values", params=dict(
     width=(int, 400),
     height=(int, 212),
+    force_reload=(bool, False),
 ))
 def landregistry_average_values(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_average_values_by_zipcode_index(zipcode_index, size=size)
+    result = f_app.landregistry.get_average_values_by_zipcode_index(zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
 
@@ -768,10 +771,11 @@ def landregistry_average_values(zipcode_index, params):
 @f_get("/landregistry/<zipcode_index>/value_ranges", params=dict(
     width=(int, 400),
     height=(int, 212),
+    force_reload=(bool, False),
 ))
 def landregistry_value_ranges(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index, size=size)
+    result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
 

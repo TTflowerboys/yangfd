@@ -7,8 +7,6 @@ import phonenumbers
 import json
 import csv
 import numpy as np
-import matplotlib.dates as mdates
-from scipy.interpolate import spline
 from bson.objectid import ObjectId
 from bson.code import Code
 from pymongo import ASCENDING, DESCENDING
@@ -1686,43 +1684,44 @@ class f_landregistry(f_app.module_base):
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
     @f_cache('homevalues')
-    def get_month_average_by_zipcode_index(self, zipcode_index, size=[0, 0]):
-
+    def get_month_average_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
 
         x = [i['date'] for i in merged_result]
         y = np.array([i['average_price'] for i in merged_result])
-        xnew = mdates.date2num(x)
-        xx = np.linspace(xnew.min(), xnew.max(), 50)
-        xxx = mdates.num2date(xx)
-        ysmooth = spline(xnew, y, xx)
 
         fig, ax = plt.subplots()
-        ax.plot(xxx, ysmooth, '#e70012', marker="o", markeredgecolor="#e70012", markersize=3)
-        # ax.plot(x, y, '-g')
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
         if fig_width and fig_height:
             fig.set_size_inches(fig_width, fig_height)
 
+        if fig_width >= 4 or fig_width == 0:
+            fontsize = 10
+            markersize = 2
+        else:
+            fontsize = 4
+            markersize = 1
+
+        ax.plot(x, y, '#e70012', marker="o", markeredgecolor="#e70012", markersize=markersize)
         ax.autoscale_view()
 
         font = {
             'family': 'sans-serif',
             'color': '#999999',
             'weight': 'normal',
-            'size': 6,
+            'size': fontsize,
         }
         ax.set_xlabel('YEAR', fontdict=font)
         ax.set_ylabel('BGP', fontdict=font, rotation=0)
-        ax.xaxis.set_label_coords(1.05, -0.025)
+        ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=6)
-        plt.setp(plt.gca().get_yticklabels(), fontsize=6)
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
+        plt.setp(plt.gca().get_yticklabels(), fontsize=fontsize)
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
@@ -1747,7 +1746,7 @@ class f_landregistry(f_app.module_base):
         return graph
 
     @f_cache('averagevalues')
-    def get_average_values_by_zipcode_index(self, zipcode_index, size=[0, 0]):
+    def get_average_values_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
 
         with f_app.mongo() as m:
             result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": zipcode_index}}, {"$group": {"_id": "$_id.type", "sum_price": {"$sum": "$value.price"}, "sum_count": {"$sum": "$value.count"}}}])['result']
@@ -1763,6 +1762,10 @@ class f_landregistry(f_app.module_base):
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
         if fig_width and fig_height:
             fig.set_size_inches(fig_width, fig_height)
+        if fig_width >= 4 or fig_width == 0:
+            fontsize = 10
+        else:
+            fontsize = 4
 
         ax.autoscale_view()
 
@@ -1770,17 +1773,17 @@ class f_landregistry(f_app.module_base):
             'family': 'sans-serif',
             'color': '#999999',
             'weight': 'normal',
-            'size': 6,
+            'size': fontsize,
         }
         ax.set_xlabel('YEAR', fontdict=font)
         ax.set_ylabel('NUMBER', fontdict=font, rotation=0)
-        ax.xaxis.set_label_coords(1.05, -0.025)
+        ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
         ax.set_xticks([i + width / 2 for i in ind])
         ax.set_xticklabels([x['_id'] for x in merged_result])
 
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=6)
-        plt.setp(plt.gca().get_yticklabels(), fontsize=6)
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
+        plt.setp(plt.gca().get_yticklabels(), fontsize=fontsize)
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
@@ -1801,7 +1804,7 @@ class f_landregistry(f_app.module_base):
         return graph
 
     @f_cache('valuetrend')
-    def get_month_average_by_zipcode_index_with_type(self, zipcode_index, size=[0, 0]):
+    def get_month_average_by_zipcode_index_with_type(self, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
@@ -1823,10 +1826,21 @@ class f_landregistry(f_app.module_base):
 
         fig, ax = plt.subplots()
 
-        for result, color in zip([dresult, sresult, tresult, fresult], colors):
-            plt.plot([i['date'] for i in result], [i['average_price'] for i in result], color, marker="o", markeredgecolor=color, markersize=1)
+        fig_width, fig_height = size
+        fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
+        if fig_width and fig_height:
+            fig.set_size_inches(fig_width, fig_height)
+        if fig_width >= 4 or fig_width == 0:
+            fontsize = 10
+            markersize = 2
+        else:
+            fontsize = 4
+            markersize = 1
 
-        legend = plt.legend(["detached", "semi-detached", "terrance", "flat"], loc='upper left', fontsize=6)
+        for result, color in zip([dresult, sresult, tresult, fresult], colors):
+            plt.plot([i['date'] for i in result], [i['average_price'] for i in result], color, marker="o", markeredgecolor=color, markersize=markersize)
+
+        legend = plt.legend(["detached", "semi-detached", "terrance", "flat"], loc='upper left', fontsize=fontsize)
         frame = legend.get_frame()
         frame.set_color('#f6f6f6')
         frame.set_edgecolor('#e6e6e6')
@@ -1838,13 +1852,13 @@ class f_landregistry(f_app.module_base):
             'family': 'sans-serif',
             'color': '#999999',
             'weight': 'normal',
-            'size': 6,
+            'size': fontsize,
         }
 
         ax.autoscale_view()
         ax.set_xlabel('YEAR', fontdict=font)
         ax.set_ylabel('BGP', fontdict=font, rotation=0)
-        ax.xaxis.set_label_coords(1.05, -0.025)
+        ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
         for child in ax.get_children():
@@ -1862,13 +1876,8 @@ class f_landregistry(f_app.module_base):
         [line.set_zorder(3) for line in ax.lines]
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
 
-        fig_width, fig_height = size
-        fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
-        if fig_width and fig_height:
-            fig.set_size_inches(fig_width, fig_height)
-
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=6)
-        plt.setp(plt.gca().get_yticklabels(), fontsize=6)
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
+        plt.setp(plt.gca().get_yticklabels(), fontsize=fontsize)
 
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
@@ -1876,7 +1885,7 @@ class f_landregistry(f_app.module_base):
         return graph
 
     @f_cache('valueranges')
-    def get_price_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0]):
+    def get_price_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result_lt_100k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$lt": 100000}}).count()
             result_100k_200k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 100001, "$lt": 200000}}).count()
@@ -1896,6 +1905,17 @@ class f_landregistry(f_app.module_base):
         width = 0.5
 
         fig, ax = plt.subplots()
+
+        fig_width, fig_height = size
+        fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
+        if fig_width and fig_height:
+            fig.set_size_inches(fig_width, fig_height)
+
+        if fig_width >= 4 or fig_width == 0:
+            fontsize = 10
+        else:
+            fontsize = 4
+
         ax.bar(ind, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none")
 
         ax.autoscale_view()
@@ -1903,18 +1923,18 @@ class f_landregistry(f_app.module_base):
             'family': 'sans-serif',
             'color': '#999999',
             'weight': 'normal',
-            'size': 6,
+            'size': fontsize,
         }
         ax.set_xlabel('PRICE', fontdict=font)
         ax.set_ylabel('%', fontdict=font, rotation=0)
-        ax.xaxis.set_label_coords(1.05, -0.025)
+        ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
         ax.set_xticks([i + width for i in ind])
         ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "400k~500k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
 
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', fontsize=6, rotation=30)
-        plt.setp(plt.gca().get_yticklabels(), fontsize=6)
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', fontsize=fontsize, rotation=30)
+        plt.setp(plt.gca().get_yticklabels(), fontsize=fontsize)
         plt.gcf().subplots_adjust(bottom=0.2)
 
         for child in ax.get_children():
@@ -1933,11 +1953,6 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
-
-        fig_width, fig_height = size
-        fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
-        if fig_width and fig_height:
-            fig.set_size_inches(fig_width, fig_height)
 
         [bar.set_zorder(3) for bar in ax.get_children()]
 

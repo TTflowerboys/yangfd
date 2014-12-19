@@ -9,7 +9,10 @@
     $('#priceSlider').responsiveSlides({
         manualControls: '#priceSliderPager',
         auto: false,
-        maxwidth: 800
+        maxwidth: 800,
+        nav: true,
+        prevText: '<',
+        nextText: '>'
     });
 
     $('#areaValueSlider').responsiveSlides({
@@ -59,6 +62,7 @@
     })
 
     var bingMapKey = 'ApsJbXUENG-diuwrV1D4MkuamY_voaTpm8McrvYweG03awUvRGvL--mkkCKzW0DJ'
+    var googleApiKey = 'AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY'
 
     window.mapCache = {}
     window.mapPinCache = {}
@@ -153,208 +157,178 @@
         }
     }
 
+    function findNearByLocations(map, mapId, location, typeIds, callback) {
 
+        //http://msdn.microsoft.com/en-us/library/hh478191.aspx
+        var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',10)';
+        var select = '$select=EntityID,Latitude,Longitude,__Distance,DisplayName,AddressLine,Phone';
+        var top = '$top=100'
+        var queryOptions = '$filter='
+        var index = 0;
+        _.each(typeIds, function (typeId) {
+            if (index === 0) {
+                queryOptions = queryOptions + 'EntityTypeID%20Eq%20' + typeId
+            }
+            else {
+                queryOptions = queryOptions + '%20or%20EntityTypeID%20Eq%20' + typeId
+            }
+            index = index + 1
+        })
 
-    function showTransitMap(location) {
+        var format = '$format=json';
+
+        var sdsRequest = 'http://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0acf75d1e6947b4/NavteqEU/NavteqPOIs?' +
+                spatialFilter + '&' +
+                select + '&' +
+                top + '&' +
+                queryOptions + '&' +
+                format + '&jsonp=' + mapId + 'ServiceCallBack' + '&key=' + bingMapKey;
+
+        var mapscript = document.createElement('script');
+        mapscript.type = 'text/javascript';
+        mapscript.src = sdsRequest;
+        document.getElementById(mapId).appendChild(mapscript);
+
+        window[mapId + 'ServiceCallBack'] = function (result) {
+            map.setView({ zoom: 13, center: location});
+
+            result = result.d
+
+            map.entities.clear();
+            var searchResults = result && result.results;
+            callback(searchResults)
+        }
+    }
+
+    function showTransitMap(location, polygon) {
+        var mapId = 'transitMapCanvas'
         var map = getMap('transitMapCanvas')
         var $list = $('.maps .list div[data-tab-name=transit] ul')
 
         Microsoft.Maps.loadModule('Microsoft.Maps.Traffic', { callback: trafficModuleLoaded });
         function trafficModuleLoaded()
         {
+            map.entities.clear()
             map.setView({zoom: 13, center: location})
-            var pushpin = new Microsoft.Maps.Pushpin(location);
-            map.entities.push(pushpin);
             var trafficLayer = new Microsoft.Maps.Traffic.TrafficLayer(map);
-            // show the traffic Layer
             trafficLayer.show();
         }
 
-        function findNearByLocations(location) {
-            //http://msdn.microsoft.com/en-us/library/hh478191.aspx
-            var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',10)';
-            var select = '$select=EntityID,Latitude,Longitude,__Distance,DisplayName,AddressLine,Phone';
-            var top = '$top=100'
-            var queryOptions = '$filter=EntityTypeID%20Eq%204170%20or%20EntityTypeID%20Eq%204013%20or%20EntityTypeID%20Eq%204581'
-            var format = '$format=json';
-
-            var sdsRequest = 'http://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0acf75d1e6947b4/NavteqEU/NavteqPOIs?' +
-                    spatialFilter + '&' +
-                    select + '&' +
-                    top + '&' +
-                    queryOptions + '&' +
-                    format + '&jsonp=nearbyTransitServiceCallback' + '&key=' + bingMapKey;
-
-            var mapscript = document.createElement('script');
-            mapscript.type = 'text/javascript';
-            mapscript.src = sdsRequest;
-            document.getElementById('transitMapCanvas').appendChild(mapscript);
-        }
-
-        window.nearbyTransitServiceCallback = function (result) {
-            map.setView({ zoom: 13, center: location});
-
-            result = result.d
-
-            map.entities.clear();
-            var searchResults = result && result.results;
-            if (searchResults) {
+        findNearByLocations(map, mapId, location, ['4170', '4013', '4581'], function (searchResults) {
+             if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
                 }
                 else {
                     for (var i = 0; i < searchResults.length; i++) {
-                        createMapPin(map, 'transitMapCanvas', searchResults[i]);
+                        createMapPin(map, mapId, searchResults[i]);
                         searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
                         createListItem($list, searchResults[i])
                     }
                 }
+             }
+
+            if (polygon) {
+                map.entities.push(polygon)
             }
-        }
-        findNearByLocations(location)
+        })
     }
 
-    function showSchoolMap(location) {
+    function showSchoolMap(location, polygon) {
+        var mapId = 'schoolMapCanvas'
         var map = getMap('schoolMapCanvas')
         var $list = $('.maps .list div[data-tab-name=school] ul')
 
-        function findNearByLocations(location) {
-
-            var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',10)';
-            var select = '$select=EntityID,Latitude,Longitude,__Distance,DisplayName,AddressLine,Phone';
-            var top = '$top=100'
-            var queryOptions = '$filter=EntityTypeID%20Eq%208211'
-            var format = '$format=json';
-
-            var sdsRequest = 'http://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0acf75d1e6947b4/NavteqEU/NavteqPOIs?' +
-                    spatialFilter + '&' +
-                    select + '&' +
-                    top + '&' +
-                    queryOptions + '&' +
-                    format + '&jsonp=nearbySchoolServiceCallback' + '&key=' + bingMapKey;
-
-            var mapscript = document.createElement('script');
-            mapscript.type = 'text/javascript';
-            mapscript.src = sdsRequest;
-            document.getElementById('schoolMapCanvas').appendChild(mapscript);
-        }
-
-        window.nearbySchoolServiceCallback = function (result) {
-            map.setView({ zoom: 13, center: location});
-
-            result = result.d
-
-            map.entities.clear();
-            var searchResults = result && result.results;
-            if (searchResults) {
+        findNearByLocations(map, mapId, location, ['8211'], function (searchResults) {
+             if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
                 }
                 else {
                     for (var i = 0; i < searchResults.length; i++) {
-                        createMapPin(map, 'schoolMapCanvas', searchResults[i]);
+                        createMapPin(map, mapId, searchResults[i]);
                         searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
                         createListItem($list, searchResults[i])
                     }
                 }
+             }
+            map.setView({zoom: 13, center: location})
+            if (polygon) {
+                map.entities.push(polygon)
             }
-        }
-        findNearByLocations(location)
+        })
     }
 
-    function showFacilityMap(location) {
+    function showFacilityMap(location, polygon) {
+        var mapId = 'facilityMapCanvas'
         var map = getMap('facilityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=facility] ul')
 
-        function findNearByLocations(location) {
-
-            var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',10)';
-            var select = '$select=EntityID,Latitude,Longitude,__Distance,DisplayName,AddressLine,Phone';
-            var top = '$top=200'
-            var queryOptions = '$filter=EntityTypeID%20Eq%204013%20or%20EntityTypeID%20Eq%204017%20or%20EntityTypeID%20Eq%205400%20or%20EntityTypeID%20Eq%205800%20or%20EntityTypeID%20Eq%206000%20or%20EntityTypeID%20Eq%206512%20or%20EntityTypeID%20Eq%207011'
-            var format = '$format=json';
-
-            var sdsRequest = 'http://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0acf75d1e6947b4/NavteqEU/NavteqPOIs?' +
-                    spatialFilter + '&' +
-                    select + '&' +
-                    top + '&' +
-                    queryOptions + '&' +
-                    format + '&jsonp=nearbyFacilityServiceCallback' + '&key=' + bingMapKey;
-
-            var mapscript = document.createElement('script');
-            mapscript.type = 'text/javascript';
-            mapscript.src = sdsRequest;
-            document.getElementById('facilityMapCanvas').appendChild(mapscript);
-        }
-
-        window.nearbyFacilityServiceCallback = function (result) {
-            map.setView({ zoom: 13, center: location});
-
-            result = result.d
-
-            map.entities.clear();
-            var searchResults = result && result.results;
+        findNearByLocations(map, mapId, location, ['4013', '4017', '5400', '5800', '6000', '6512', '7011'], function (searchResults) {
             if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
                 }
                 else {
                     for (var i = 0; i < searchResults.length; i++) {
-                        createMapPin(map, 'facilityMapCanvas', searchResults[i]);
+                        createMapPin(map, mapId, searchResults[i]);
                         searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
                         createListItem($list, searchResults[i])
                     }
                 }
             }
-        }
-        findNearByLocations(location)
+            map.setView({zoom: 13, center: location})
+            if (polygon) {
+                map.entities.push(polygon)
+            }
+        })
     }
 
-    function showSecurityMap(latlng) {
+    function showSecurityMap(location, polygon) {
         var map = getMap('securityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=security] ul')
-        map.setView({ zoom: 13, center: location});
         var pushpin = new Microsoft.Maps.Pushpin(location);
         map.entities.push(pushpin);
 
+        map.setView({zoom: 13, center: location})
+        if (polygon) {
+            map.entities.push(polygon)
+        }
 
-        $.betterGet('/api/1/report/policeuk', {lat:latlng.latitude, lng:latlng.longitude})
+        var results = {}
+
+        var itemsPromise = $.betterGet('/api/1/report/policeuk', {lat:location.latitude, lng:location.longitude})
                 .done(function (data) {
-                   // var length = data.length
-                    //showLabel(map, window.report.location, window.i18n('犯罪数目') + length, '200px')
-
-                    $.betterGet('/api/1/report/policeuk/categories')
-                        .done(function (categoryData) {
-                            var categoryDic = {}
-                            _.each(categoryData, function (item) {
-                                categoryDic[item.url] = item.name
-                            })
-                            var categories = {}
-                            _.each(data, function (item) {
-                                if (categories[item.category]) {
-                                    categories[item.category] = categories[item.category] + 1
-                                }
-                                else {
-                                    categories[item.category] = + 1
-                                }
-                            })
-
-                            var categoryItem = {}
-                            for (var key in categories) {
-                                categoryItem.Number = categories[key] + window.i18n('起')
-                                categoryItem.DisplayName = categoryDic[key]
-                                createListItem($list, categoryItem)
-                            }
-
-                        })
-                        .fail(function (ret) {
-                        })
-                    //var infowindow = new google.maps.InfoWindow();
+                    results.items = data
                 })
-                .fail(function (ret) {
-                   // showLabel(map, window.report.location, zipCodeIndexFromURL)
+        var categoryPromise = $.betterGet('/api/1/report/policeuk/categories')
+                .done(function (data) {
+                    results.categories = data
+                })
+        $.when(itemsPromise, categoryPromise)
+            .done(function () {
+                var categoryDic = {}
+                _.each(results.categories, function (item) {
+                    categoryDic[item.url] = item.name
+                })
+                var categories = {}
+                _.each(results.items, function (item) {
+                    if (categories[item.category]) {
+                        categories[item.category] = categories[item.category] + 1
+                    }
+                    else {
+                        categories[item.category] = + 1
+                    }
                 })
 
+                var categoryItem = {}
+                for (var key in categories) {
+                    categoryItem.Number = categories[key] + window.i18n('起')
+                    categoryItem.DisplayName = categoryDic[key]
+                    createListItem($list, categoryItem)
+                }
+
+            })
     }
 
     function createListItem($list, item) {
@@ -362,12 +336,49 @@
         $list.append(result)
     }
 
-    if (!window.team.isPhone()) {
-         $('.maps .list div ul').slimScroll({
-            height: '420px'
+    function getRegion(zipCodeIndex, callback) {
+        Microsoft.Maps.loadModule('Microsoft.Maps.AdvancedShapes', {
+            callback:  function () {
+                var originalURL = 'https://www.googleapis.com/fusiontables/v2/query?sql=SELECT \'Area data\', \'Postcode district\' FROM 1jgWYtlqGSPzlIa-is8wl1cZkVIWEm_89rWUwqFU WHERE \'Postcode district\' = \'' + zipCodeIndex +'\'&key=' + googleApiKey;
+                var url = '/reverse_proxy?link=' + encodeURIComponent(originalURL)
+                $.get(url)
+                    .done(function (data) {
+                        if (data) {
+                            var json = JSON.parse(data)
+                            if (json.rows && json.rows[0] && json.rows[0][0] &&json.rows[0][0].geometries && json.rows[0][0].geometries.length) {
+                                var polygonArray = json.rows[0][0].geometries
+                                var results = []
+                                _.each(polygonArray, function (item){
+                                    var coordinates = item.coordinates[0]
+                                    var coorResults = []
+
+                                    _.each(coordinates, function (coor) {
+                                        var lat = coor[1]
+                                        var lng = coor[0]
+                                        coorResults.push(new Microsoft.Maps.Location(lat, lng))
+                                    })
+                                    results.push(coorResults)
+                                })
+
+                                var fillColor = new Microsoft.Maps.Color(100, 68, 68, 68)
+                                //var strokeColor = new Microsoft.Maps.Color(255, 68, 68, 68);
+                                var polygon = new Microsoft.Maps.Polygon(results,{ fillColor: fillColor});
+                                callback(polygon)
+                            }
+                        }
+                    })
+                    .fail(function (ret) {
+                        callback(null)
+                    })
+            }
         });
     }
 
+    if (!window.team.isPhone()) {
+        $('.maps .list div ul').slimScroll({
+            height: '420px'
+        });
+    }
 
     $('.maps .list ul').click(function (event){
         var tabName = $(event.currentTarget).closest('div[data-tab-name]').attr('data-tab-name')
@@ -385,16 +396,6 @@
             }
 
         })
-        // var location = new google.maps.LatLng($li.attr('data-lat'), $li.attr('data-lng'))
-
-        // _.each(getMarkers(tabName + 'MapCanvas'), function (marker) {
-        //     if (google.maps.geometry.spherical.computeDistanceBetween(marker.position, location) === 0.0) {
-        //         map.setCenter(marker.getPosition());
-        //         google.maps.event.trigger(marker,'click')
-        //         return
-        //     }
-        // })
-
     })
 
     $(function () {
@@ -443,10 +444,20 @@
 
         function onLocationFind(location) {
             window.report.location = location
-            showTransitMap(location)
-            showSchoolMap(location)
-            showFacilityMap(location)
-            showSecurityMap(location)
+
+            //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
+            getRegion(zipCodeIndexFromURL, function (polygon) {
+                showTransitMap(location, polygon)
+            })
+            getRegion(zipCodeIndexFromURL, function (polygon) {
+                showSchoolMap(location, polygon)
+            })
+            getRegion(zipCodeIndexFromURL, function (polygon) {
+                showFacilityMap(location, polygon)
+            })
+            getRegion(zipCodeIndexFromURL, function (polygon) {
+                showSecurityMap(location, polygon)
+            })
         }
     })
 })();
