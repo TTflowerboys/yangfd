@@ -1,5 +1,6 @@
 <!--@@master = masters/master.html-->
 <!--@@block = head-->
+<title>{{_('洋房东')}}</title>
 <!--build:css(dist) /static/styles/region_report.html.css-->
 <link href="/static/styles/regionReport.css" rel="stylesheet"/>
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
@@ -14,7 +15,7 @@
     <textarea id="dataReport" style="display:none;">{{json_dumps(report)}}</textarea>
 
     <div class="info">
-        <img alt="" src="" style="background:url('{{report.get('image')}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{report.get('image')}}', sizingMethod='scale');"/>
+        <img alt="" src="" style="background:url('/image/fetch?link={{quote_plus(report.get('image', ''))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(report.get('image', ''))}}', sizingMethod='scale');"/>
         <div class="img_shadow"></div>
         <div class="text_container">
             <div class="text">
@@ -306,7 +307,7 @@
                     </button>
                     <label class="login">
                         {{_('已经是会员？')}}
-                        <a href="javascript:project.showSignInModal()">
+                        <a href="javascript:project.showSignInModalOrGoToSignIn()">
                             {{_('请登录')}}
                         </a>
                     </label>
