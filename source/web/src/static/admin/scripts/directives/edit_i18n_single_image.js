@@ -12,7 +12,8 @@ angular.module('app')
                 widthLimit: '@widthLimit',
                 ratio: '@ratio',
                 thumbnailSize: '@thumbnailSize',
-                text: '@text'
+                text: '@text',
+                watermark: '@watermark'
             },
             link: function (scope, elm, attrs) {
                 scope.userLanguage = $rootScope.userLanguage
