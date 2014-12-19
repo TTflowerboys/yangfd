@@ -1298,7 +1298,7 @@
              $.betterGet('/api/1/report/search?per_page=1&zipcode_index=' + property.zipcode_index).done(function (data) {
                  if (data && data.length){
                      var result = _.template($('#regionReport_template').html())({report: data[0]})
-                     $('.propertyDetails .content').append(result)
+                     $('.propertyDetails .content').first().append(result)
                  }
              }).fail(function (ret) {
 
