@@ -1684,7 +1684,7 @@ class f_landregistry(f_app.module_base):
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
     @f_cache('homevalues')
-    def get_month_average_by_zipcode_index(self, zipcode_index, size=[0, 0]):
+    def get_month_average_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
 
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
@@ -1741,7 +1741,7 @@ class f_landregistry(f_app.module_base):
         return graph
 
     @f_cache('averagevalues')
-    def get_average_values_by_zipcode_index(self, zipcode_index, size=[0, 0]):
+    def get_average_values_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
 
         with f_app.mongo() as m:
             result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": zipcode_index}}, {"$group": {"_id": "$_id.type", "sum_price": {"$sum": "$value.price"}, "sum_count": {"$sum": "$value.count"}}}])['result']
@@ -1795,7 +1795,7 @@ class f_landregistry(f_app.module_base):
         return graph
 
     @f_cache('valuetrend')
-    def get_month_average_by_zipcode_index_with_type(self, zipcode_index, size=[0, 0]):
+    def get_month_average_by_zipcode_index_with_type(self, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
@@ -1870,7 +1870,7 @@ class f_landregistry(f_app.module_base):
         return graph
 
     @f_cache('valueranges')
-    def get_price_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0]):
+    def get_price_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result_lt_100k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$lt": 100000}}).count()
             result_100k_200k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 100001, "$lt": 200000}}).count()
