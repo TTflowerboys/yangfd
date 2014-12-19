@@ -144,7 +144,9 @@
     {{json_dumps(_i18n(property_list))}}
     </textarea>
     <div class="houseFeatured">
-
+        % for property in property_list:
+            <!-- @@include=/static/templates/featured_house_card.html -->
+        % end
     </div>
 %else:
     <div id="suggestionHouses" class="suggestionHouses">
@@ -201,8 +203,6 @@
 <!-- @@include=/static/templates/suggestion_house_card.tpl.html -->
 
 <!-- @@include=/static/templates/suggestion_empty_house_card.tpl.html -->
-
-<!-- @@include=/static/templates/featured_house_card.tpl.html -->
 
 <!--@@close-->
 
