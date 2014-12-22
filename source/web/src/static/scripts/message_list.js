@@ -39,29 +39,32 @@ $(function () {
     function reloadData(allData) {
         var newData = []
 
-        _.each(allData, function(item) {
-            if (item.status ==='new') {
+        _.each(allData, function (item) {
+            if (item.status === 'new') {
                 newData.push(item)
             }
         })
 
         var readData = []
-        _.each(allData, function(item) {
-            if (item.status ==='read') {
+        _.each(allData, function (item) {
+            if (item.status === 'read') {
                 readData.push(item)
             }
         })
 
-        window.startPaging(allData, 10, $('.allList_wrapper #pager #pre'), $('.allList_wrapper #pager #next'), loadAllData)
+        window.startPaging(allData, 10, $('.allList_wrapper #pager #pre'), $('.allList_wrapper #pager #next'),
+            loadAllData)
 
-        window.startPaging(newData, 10, $('.newList_wrapper #pager #pre'), $('.newList_wrapper #pager #next'), loadNewData)
+        window.startPaging(newData, 10, $('.newList_wrapper #pager #pre'), $('.newList_wrapper #pager #next'),
+            loadNewData)
 
-        window.startPaging(readData, 10, $('.readList_wrapper #pager #pre'), $('.readList_wrapper #pager #next'), loadReadData)
+        window.startPaging(readData, 10, $('.readList_wrapper #pager #pre'), $('.readList_wrapper #pager #next'),
+            loadReadData)
     }
 
     reloadData(window.allData)
 
-    function showMessageListWithState (state) {
+    function showMessageListWithState(state) {
 
         $('.buttons .button').removeClass('button').addClass('ghostButton')
         $('.buttons .' + state).removeClass('ghostButton').addClass('button')
@@ -73,8 +76,8 @@ $(function () {
         $('.' + state + 'List_wrapper').show()
     }
 
-    function markMessageRead (messageId) {
-        $.betterPost('/api/1/message/'+ messageId + '/mark/' + 'read')
+    function markMessageRead(messageId) {
+        $.betterPost('/api/1/message/' + messageId + '/mark/' + 'read')
             .done(function (data) {
                 markDataChanged(messageId)
             })
@@ -85,7 +88,7 @@ $(function () {
             })
     }
 
-    function markDataChanged (messageId) {
+    function markDataChanged(messageId) {
         _.each(window.allData, function (item) {
             if (item.id === messageId) {
                 item.status = 'read'
@@ -107,12 +110,12 @@ $(function () {
         showMessageListWithState('read')
     })
 
-    $('.list').on('click', '.cell', function (event){
+    $('.list').on('click', '.cell', function (event) {
         if ($(event.target).attr('id') === 'showHide' || $(event.target).attr('id') === 'title') {
             var $currentTarget = $(event.currentTarget)
             var $showHide = $currentTarget.find('#showHide')
             var status = $showHide.attr('data-status')
-            var state =  $showHide.attr('data-state')
+            var state = $showHide.attr('data-state')
 
             if (state === 'close') {
                 $currentTarget.find('.content').show()
@@ -130,4 +133,26 @@ $(function () {
             }
         }
     })
+
+    $('#showAllMsg').click(function () {
+        $('#showAllMsg').addClass('ui-tabs-selected')
+        $('#showNewMsg').removeClass('ui-tabs-selected')
+        $('#showReadMsg').removeClass('ui-tabs-selected')
+        showMessageListWithState('all')
+    })
+
+    $('#showNewMsg').click(function () {
+        $('#showNewMsg').addClass('ui-tabs-selected')
+        $('#showAllMsg').removeClass('ui-tabs-selected')
+        $('#showReadMsg').removeClass('ui-tabs-selected')
+        showMessageListWithState('new')
+    })
+
+    $('#showReadMsg').click(function () {
+        $('#showReadMsg').addClass('ui-tabs-selected')
+        $('#showNewMsg').removeClass('ui-tabs-selected')
+        $('#showAllMsg').removeClass('ui-tabs-selected')
+        showMessageListWithState('read')
+    })
+
 })
