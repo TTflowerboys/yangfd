@@ -15,7 +15,7 @@
     <textarea id="dataReport" style="display:none;">{{json_dumps(report)}}</textarea>
 
     <div class="info">
-        <img alt="" src="" style="background:url('/image/fetch?link={{quote_plus(report.get('image', ''))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(report.get('image', ''))}}', sizingMethod='scale');"/>
+        <img alt="{{report.get('name')}}" src="" style="background:url('/image/fetch?link={{quote_plus(report.get('image', ''))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(report.get('image', ''))}}', sizingMethod='scale');"/>
         <div class="img_shadow"></div>
         <div class="text_container">
             <div class="text">
@@ -111,16 +111,16 @@
 
                 <ul class="rslides" id="priceSlider">
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=800&height=424"/>
+                        <img alt="{{report.get('name')}}{{_('房屋平均价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=800&height=424"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=800&height=424"/>
+                        <img alt="{{report.get('name')}}{{_('房屋价格区间分布图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=800&height=424"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=800&height=424"/>
+                        <img alt="{{report.get('name')}}{{_('房屋分类型价格图')}}" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=800&height=424"/>
                     </li>
                     <li>
-                        <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=800&height=424"/>
+                        <img alt="{{report.get('name')}}{{_('房屋分类型价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=800&height=424"/>
                     </li>
                 </ul>
 
@@ -128,22 +128,22 @@
                 <ul class="rslidesPager" id="priceSliderPager">
                     <li data-selector="homeValues">
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=200&height=106" width="200"/>
+                            <img alt="{{report.get('name')}}{{_('房屋平均价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=200&height=106" width="200"/>
                         </a>
                     </li>
                     <li data-selector="valueRanges">
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=200&height=106" width="200"/>
+                            <img alt="{{report.get('name')}}{{_('房屋价格区间分布图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=200&height=106" width="200"/>
                         </a>
                     </li>
                     <li data-selector="averageValues">
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=200&height=106" width="200"/>
+                            <img alt="{{report.get('name')}}{{_('房屋分类型价格图')}}" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=200&height=106" width="200"/>
                         </a>
                     </li>
                     <li data-selector="valueTrend">
                         <a href="#">
-                            <img alt="" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=200&height=106" width="200"/>
+                            <img alt="{{report.get('name')}}{{_('房屋分类型价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=200&height=106" width="200"/>
                         </a>
                     </li>
                 </ul>
@@ -262,11 +262,11 @@
                     <li class="item0">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-education-' + report.get('zipcode_index')
-                            <img alt="" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                            <img alt="{{report.get('name')}}{{_('学校综合质量对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
-                                Hammersmith and Fulham 学校综合质量
+                                Hammersmith and Fulham 学校综合质量对比图
                             </h3>
                             <p class="description">
                                 李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
@@ -279,11 +279,11 @@
                     <li class="item1">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-CouncilTax-' + report.get('zipcode_index')
-                            <img alt="" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                            <img alt="{{report.get('name')}}{{_('议会税对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
-                                Hammersmith and Fulham 平均价格
+                                Hammersmith and Fulham 议会税对比图
                             </h3>
                             <p class="description">
                                 李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
@@ -296,11 +296,11 @@
                     <li class="item2">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-Crime-' + report.get('zipcode_index')
-                            <img alt="" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                            <img alt="{{report.get('name')}}{{_('各类型犯罪率对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
-                                Hammersmith and Fulham 价格波动范围
+                                Hammersmith and Fulham 各类型犯罪率对比图
                             </h3>
                             <p class="description">
                                 李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
@@ -313,11 +313,11 @@
                     <li class="item3">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-People-' + report.get('zipcode_index')
-                            <img alt="" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                            <img alt="{{report.get('name')}}{{_('居民各年龄段分布对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
-                                Hammersmith and Fulham 房产类型价格走势
+                                Hammersmith and Fulham 居民各年龄段分布对比图
                             </h3>
                             <p class="description">
                                 李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
