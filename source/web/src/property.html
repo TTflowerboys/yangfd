@@ -43,9 +43,9 @@
     % from bottle import request
 
 
-    <title>{{property.get('country',{}).get('value',_('')) +' '+ property.get('city',{}).get('value',_('')) +' '+ property.get('name',_('房产详情'))}}</title>
+    <title>{{property.get('country',{}).get('value','') +' '+ property.get('city',{}).get('value','') +' '+ property.get('name',_('房产详情'))}}</title>
     <meta name="Description" content="{{property.get('name',_('房产详情'))}}">
-    <meta name="Keywords" content="{{property.get('name',_('房产详情'))+','+property.get('country',{}).get('value',_(''))+','+property.get('city',{}).get('value',_(''))+','}}{{','.join(tags + [u'洋房东,海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property'])}}">
+    <meta name="Keywords" content="{{property.get('name',_('房产详情'))+','+property.get('country',{}).get('value','')+','+property.get('city',{}).get('value','')+','}}{{','.join(tags + [u'洋房东,海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property'])}}">
 
     <!-- cause video-js.css has related path font resource, so package in the same dir-->
     <!--build:css(dist) /static/vendors/video-js/video-js.css-->
@@ -69,6 +69,18 @@
     <!--@@close-->
     <!--@@block = main-->
     <div class="propertyDetails">
+        <div class="breadcrumb">
+            % if property.get('country').get('value'):
+            <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}" target="_blank">{{property.get('country',{}).get('value','')}}</a> /
+            % end
+            % if property.get('city').get('value'):
+            <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}&city={{property.get('city',{}).get('id')}}" target="_blank">{{property.get('city',{}).get('value','')}}</a> /
+            % end
+            % if property.get('property_type') and property.get('property_type').get('value'):
+            <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}&city={{property.get('city',{}).get('id')}}&property_type={{property.get('property_type').get('id')}}" target="_blank">{{property.get('property_type',{}).get('value','')}}</a> /
+            %end
+            <span class="current">{{property.get('name','')}}</span>
+        </div>
         <div class="content">
             <div class="pictures" data-tabs>
                 <div class="labels">
