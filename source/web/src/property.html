@@ -564,7 +564,6 @@
                         </div>
                         <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
                         <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-
                     </div>
                 </div>
                 <hr/>
@@ -1096,7 +1095,39 @@
             % end
             <h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
             <!--@@include=partials/mortgage_form.html  -->
+
+
+             <div class="relatedProperties">
+                 <h2 class="title">{{_('相关房产')}}</h2>
+                 <ul>
+                     % main_property = property
+                     % for property in _i18n(related_property_list):
+                         <li class="propertyItem">
+                             <a href="/property/{{property.get('id')}}">
+                                 %if (property.get('cover')):
+                                     <img src="/image/fetch?link={{quote_plus(property.get('cover').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);"/>
+                                 %elif (property.get('reality_images') and len(property.get('reality_images'))):
+                                     <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);"/>
+                                 %else :
+                                     <img class="withPlaceholder"/>
+                                 %end
+                                 <div class="img_shadow"></div>
+                                 <div class="text">
+                                     <h3 class="title">
+                                         {{property.get('name')}}
+                                     </h3>
+                                     <label class="price">
+                                         <!--@@include=partials/get_unit_price.html  -->
+                                     </label>
+                                 </div>
+                             </a>
+                         </li>
+                     % end
+                     % property = main_property
+                 </ul>
+             </div>
         </div>
+
     </div>
     % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
     <!--@@include=partials/main_house_type_popup.html -->

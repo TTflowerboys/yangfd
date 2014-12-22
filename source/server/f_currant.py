@@ -1040,7 +1040,7 @@ class f_property(f_app.module_base):
                         property.pop("real_address", None)
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
-                    if property["status"] not in ["selling", "sold out"]:
+                    if property["status"] not in ["selling", "sold out"] and check_permission:
                         assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
                 new_properties.append(property)
 
@@ -1057,7 +1057,7 @@ class f_property(f_app.module_base):
                         property.pop("real_address", None)
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
-                    if property["status"] not in ["selling", "sold out"]:
+                    if property["status"] not in ["selling", "sold out"] and check_permission:
                         assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
                 new_properties[id] = property
         return new_properties
@@ -1753,7 +1753,7 @@ class f_landregistry(f_app.module_base):
         merged_result = [i for i in result if i.get("_id")]
 
         ind = range(len(merged_result))
-        width = 0.5
+        width = 0.25
 
         fig, ax = plt.subplots()
         ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width, color=['#e70012', '#ff9c00', '#6fdb2d', '#00b8e6'], edgecolor="none")
@@ -1800,8 +1800,25 @@ class f_landregistry(f_app.module_base):
 
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
+        graph.seek(0)
 
         return graph
+        # im = f_app.storage.image_open(graph)
+
+        # from PIL import Image
+        # from convert_watermark import water_mark_base64
+        # import base64
+
+        # water_mark = f_app.storage.image_open(StringIO(base64.b64decode(water_mark_base64)))
+        # self.logger.debug(water_mark.size)
+        # water_mark = f_app.storage.image_open("/var/lib/app/currant/source/web/src/static/images/logo/logo-watermark.png")
+        # self.logger.debug(water_mark.size)
+        # layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
+        # position = (im.size[0] - water_mark[0], im.size[1] - water_mark[1])
+        # layer.paste(water_mark, position)
+        # im = Image.composite(layer, im, layer)
+        #
+        # return im
 
     @f_cache('valuetrend')
     def get_month_average_by_zipcode_index_with_type(self, zipcode_index, size=[0, 0], force_reload=False):
