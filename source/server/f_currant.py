@@ -1684,7 +1684,7 @@ class f_landregistry(f_app.module_base):
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
     @f_cache('homevalues')
-    def get_month_average_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
+    def get_month_average_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
@@ -1746,13 +1746,13 @@ class f_landregistry(f_app.module_base):
         return graph
 
     @f_cache('averagevalues')
-    def get_average_values_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
+    def get_average_values_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
 
         with f_app.mongo() as m:
             result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": zipcode_index}}, {"$group": {"_id": "$_id.type", "sum_price": {"$sum": "$value.price"}, "sum_count": {"$sum": "$value.count"}}}])['result']
         merged_result = [i for i in result if i.get("_id")]
 
-        ind = range(len(merged_result))
+        ind = np.arange(len(merged_result))
         width = 0.25
 
         fig, ax = plt.subplots()
@@ -1779,7 +1779,7 @@ class f_landregistry(f_app.module_base):
         ax.set_ylabel('NUMBER', fontdict=font, rotation=0)
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
-        ax.set_xticks([i + width / 2 for i in ind])
+        ax.set_xticks(width / 2 + ind)
         ax.set_xticklabels([x['_id'] for x in merged_result])
 
         plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
@@ -1821,7 +1821,7 @@ class f_landregistry(f_app.module_base):
         # return im
 
     @f_cache('valuetrend')
-    def get_month_average_by_zipcode_index_with_type(self, zipcode_index, size=[0, 0], force_reload=False):
+    def get_month_average_by_zipcode_index_with_type(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
@@ -1902,7 +1902,7 @@ class f_landregistry(f_app.module_base):
         return graph
 
     @f_cache('valueranges')
-    def get_price_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
+    def get_price_distribution_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result_lt_100k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$lt": 100000}}).count()
             result_100k_200k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 100001, "$lt": 200000}}).count()

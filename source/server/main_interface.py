@@ -239,7 +239,8 @@ def property_get(property_id):
     country_list = get_country_list()
     budget_list = get_budget_list()
     favorite_list = get_favorite_list()
-    related_property_list = f_app.property.output(f_app.property.output(f_app.property.search({"country._id": ObjectId(property.get('country').get('id')), "status": {"$in": ["selling", "sold out"]}}, per_page=3)))
+    logger.debug(property)
+    related_property_list = f_app.property.output(f_app.property.search({"country._id": ObjectId(property.get('country').get('id')), "status": {"$in": ["selling", "sold out"]}}, per_page=3))
     return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list)
 
 
@@ -740,7 +741,8 @@ def sitemap():
 ))
 def landregistry_home_values(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index, size=size, force_reload=params["force_reload"])
+    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
+    result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
 
@@ -752,7 +754,8 @@ def landregistry_home_values(zipcode_index, params):
 ))
 def landregistry_value_trend(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index, size=size, force_reload=params["force_reload"])
+    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
+    result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
 
@@ -764,9 +767,10 @@ def landregistry_value_trend(zipcode_index, params):
 ))
 def landregistry_average_values(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_average_values_by_zipcode_index(zipcode_index, size=size, force_reload=params["force_reload"])
+    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
+    result = f_app.landregistry.get_average_values_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
-    return result.getvalue()
+    return result
 
 
 @f_get("/landregistry/<zipcode_index>/value_ranges", params=dict(
@@ -776,7 +780,8 @@ def landregistry_average_values(zipcode_index, params):
 ))
 def landregistry_value_ranges(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index, size=size, force_reload=params["force_reload"])
+    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
+    result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
     return result.getvalue()
 
