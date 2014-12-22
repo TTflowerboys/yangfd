@@ -1756,7 +1756,7 @@ class f_landregistry(f_app.module_base):
         width = 0.25
 
         fig, ax = plt.subplots()
-        ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width, color=['#e70012', '#ff9c00', '#6fdb2d', '#00b8e6'], edgecolor="none")
+        ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width, color=['#e70012', '#ff9c00', '#6fdb2d', '#00b8e6'], edgecolor="none", align="center")
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
@@ -1779,7 +1779,7 @@ class f_landregistry(f_app.module_base):
         ax.set_ylabel('NUMBER', fontdict=font, rotation=0)
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
-        ax.set_xticks(width / 2 + ind)
+        ax.set_xticks(ind)
         ax.set_xticklabels([x['_id'] for x in merged_result])
 
         plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
@@ -1918,7 +1918,7 @@ class f_landregistry(f_app.module_base):
 
         result_sum = result_lt_100k + result_100k_200k + result_200k_300k + result_300k_400k + result_400k_500k + result_500k_600k + result_600k_700k + result_700k_800k + result_800k_900k + result_900k_1m + result_gte_1m
 
-        ind = range(11)
+        ind = np.arange(11)
         width = 0.5
 
         fig, ax = plt.subplots()
@@ -1933,7 +1933,7 @@ class f_landregistry(f_app.module_base):
         else:
             fontsize = 4
 
-        ax.bar(ind, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none")
+        ax.bar(ind, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none", align="center")
 
         ax.autoscale_view()
         font = {
@@ -1947,7 +1947,7 @@ class f_landregistry(f_app.module_base):
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
-        ax.set_xticks([i + width for i in ind])
+        ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "400k~500k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
 
         plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', fontsize=fontsize, rotation=30)
