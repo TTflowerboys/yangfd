@@ -241,7 +241,7 @@ def property_get(property_id):
     favorite_list = get_favorite_list()
     # TODO:random
     related_property_list = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
-        "country._id": ObjectId(country_id),
+        "country._id": ObjectId(property.get('country').get('id')),
         "status": {"$in": ["selling", "sold out"]},
     }, per_page=3, time_field="mtime")))
     #related_property_list = f_app.property.output(f_app.property.search({"country._id": ObjectId(property.get('country').get('id')), "status": {"$in": ["selling", "sold out"]}}, per_page=3))
