@@ -743,7 +743,7 @@ def landregistry_home_values(zipcode_index, params):
     zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
     result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
-    return result.getvalue()
+    return result
 
 
 @f_get("/landregistry/<zipcode_index>/value_trend", params=dict(
@@ -756,7 +756,7 @@ def landregistry_value_trend(zipcode_index, params):
     zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
     result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
-    return result.getvalue()
+    return result
 
 
 @f_get("/landregistry/<zipcode_index>/average_values", params=dict(
@@ -782,7 +782,7 @@ def landregistry_value_ranges(zipcode_index, params):
     zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
     result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
-    return result.getvalue()
+    return result
 
 
 @f_get("/robots.txt")

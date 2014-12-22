@@ -1743,7 +1743,7 @@ class f_landregistry(f_app.module_base):
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
 
-        return graph
+        return graph.getvalue()
 
     @f_cache('averagevalues')
     def get_average_values_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
@@ -1802,7 +1802,7 @@ class f_landregistry(f_app.module_base):
         plt.savefig(graph, format="png", dpi=100)
         graph.seek(0)
 
-        return graph
+        return graph.getvalue()
         # im = f_app.storage.image_open(graph)
 
         # from PIL import Image
@@ -1899,7 +1899,7 @@ class f_landregistry(f_app.module_base):
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
 
-        return graph
+        return graph.getvalue()
 
     @f_cache('valueranges')
     def get_price_distribution_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
@@ -1976,7 +1976,7 @@ class f_landregistry(f_app.module_base):
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
 
-        return graph
+        return graph.getvalue()
 
     def aggregation_monthly(self):
         func_map = Code("""
