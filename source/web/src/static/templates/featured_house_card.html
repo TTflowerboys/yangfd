@@ -52,11 +52,13 @@
                             {{property.get('name')}}
                         %end
                     </p>
-                    % property_type_slug = property.get('property_type').get('slug')
-                    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-                         <p class=size>
-                             <!--@@include=../../partials/get_size.html -->
-                         </p>
+                    %if (property.get('property_type')):
+                        % property_type_slug = property.get('property_type').get('slug')
+                        % if property_type_slug != 'new_property' and property_type_slug != 'student_housing':
+                            <p class=size>
+                                <!--@@include=../../partials/get_size.html -->
+                            </p>
+                        %end
                     %end
                 </div>
                 <div class="right">
@@ -197,10 +199,13 @@
                     <!--@@include=../../partials/get_unit_price.html -->
                 </span>
                 <div class=details>
-                    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-                        <p class=size>
-                             <!--@@include=../../partials/get_size.html -->
-                        </p>
+                    %if (property.get('property_type')):
+                        % property_type_slug = property.get('property_type').get('slug')
+                        % if property_type_slug != 'new_property' and property_type_slug != 'student_housing':
+                            <p class=size>
+                                <!--@@include=../../partials/get_size.html -->
+                            </p>
+                        %end
                     %end
 
                     <p class=estimate>

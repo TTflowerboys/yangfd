@@ -239,7 +239,12 @@ def property_get(property_id):
     country_list = get_country_list()
     budget_list = get_budget_list()
     favorite_list = get_favorite_list()
-    related_property_list = f_app.property.output(f_app.property.search({"country._id": ObjectId(property.get('country').get('id')), "status": {"$in": ["selling", "sold out"]}}, per_page=3))
+    # TODO:random
+    related_property_list = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
+        "country._id": ObjectId(property.get('country').get('id')),
+        "status": {"$in": ["selling", "sold out"]},
+    }, per_page=3, time_field="mtime")))
+    #related_property_list = f_app.property.output(f_app.property.search({"country._id": ObjectId(property.get('country').get('id')), "status": {"$in": ["selling", "sold out"]}}, per_page=3))
     return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list)
 
 
@@ -271,7 +276,24 @@ def news_list():
 @check_landing
 @check_ip_and_redirect_domain
 def news(news_id):
-    return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=f_app.blog.post.output([news_id])[0])
+    news = f_app.i18n.process_i18n(f_app.blog.post.output([news_id])[0])
+    if (news.get('category')[0].get('slug') in ['real_estate', 'primier_apartment_london', 'studenthouse_sheffield']):
+        related_news_list = f_app.blog.post_output(
+            f_app.blog.post_search(
+                {
+                    "category": {"$in": [
+                        {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                        {'_id': ObjectId(f_app.enum.get_by_slug('primier_apartment_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                        {'_id': ObjectId(f_app.enum.get_by_slug('studenthouse_sheffield')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    ]}
+                }, per_page=3
+            )
+        )
+
+        # TODO:random
+        return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news, related_news_list=related_news_list)
+    else:
+        return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news)
 
 
 @f_get('/notice_list')
