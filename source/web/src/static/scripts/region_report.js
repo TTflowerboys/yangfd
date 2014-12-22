@@ -61,8 +61,8 @@
         $('[data-tab-name=' + tabName + ']').show()
     })
 
-    var bingMapKey = 'ApsJbXUENG-diuwrV1D4MkuamY_voaTpm8McrvYweG03awUvRGvL--mkkCKzW0DJ'
-    var googleApiKey = 'AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY'
+    var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
+    var googleApiKey = 'AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
 
     window.mapCache = {}
     window.mapPinCache = {}
@@ -162,7 +162,7 @@
         //http://msdn.microsoft.com/en-us/library/hh478191.aspx
         var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',10)';
         var select = '$select=EntityID,Latitude,Longitude,__Distance,DisplayName,AddressLine,Phone';
-        var top = '$top=100'
+        var top = '$top=200'
         var queryOptions = '$filter='
         var index = 0;
         _.each(typeIds, function (typeId) {
@@ -214,7 +214,7 @@
             trafficLayer.show();
         }
 
-        findNearByLocations(map, mapId, location, ['4170', '4013', '4581'], function (searchResults) {
+        findNearByLocations(map, mapId, location, ['4013', '4170','4482', '4493', '4580', '4581', '9511', '9520', '9707', '9708', '9989'], function (searchResults) {
              if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
@@ -239,7 +239,7 @@
         var map = getMap('schoolMapCanvas')
         var $list = $('.maps .list div[data-tab-name=school] ul')
 
-        findNearByLocations(map, mapId, location, ['8211'], function (searchResults) {
+        findNearByLocations(map, mapId, location, ['8211', '8200'], function (searchResults) {
              if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
@@ -264,7 +264,7 @@
         var map = getMap('facilityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=facility] ul')
 
-        findNearByLocations(map, mapId, location, ['4013', '4017', '5400', '5800', '6000', '6512', '7011'], function (searchResults) {
+        findNearByLocations(map, mapId, location, ['4017', '5400', '5540', '5800', '6000', '6512', '7011', '7832', '7997', '8060', '8231', '9221', '9504', '9505', '9510', '9523', '9530', '9539'], function (searchResults) {
             if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
