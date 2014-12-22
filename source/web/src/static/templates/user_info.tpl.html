@@ -1,0 +1,102 @@
+<div id="cvView" class="cv">
+    <div class="header">
+        <h2>{{_('个人资料')}}</h2>
+        <button name=edit type="button" class="ghostButton red">{{_('编辑')}}</button>
+    </div>
+    <hr/>
+    <table>
+        <colgroup>
+            <col class="head">
+            <col class="value">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>{{_('姓名')}}</td>
+                <td>{{user.get('nickname')}}</td>
+            </tr>
+            <tr>
+                <td>{{_('性别')}}</td>
+                <td>
+                    %if (user.get('gender') == 'male'):
+                    {{_('男')}}
+                    %elif (user.get('gender') == 'female'):
+                    {{_('女')}}
+                    %end
+                </td>
+            </tr>
+            <tr>
+                <td>{{_('国家')}}</td>
+                <td>
+                    %if user.get('country'):
+                    {{_i18n(user).get('country').get('value')}}
+                    %end
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<form id="cvEdit" class="cv" style="display: none;">
+    <div class="header">
+        <h2>{{_('个人资料')}}</h2>
+        <button name="cancel" type="button" class="ghostButton red">{{_('取消')}}</button>
+        <button type="submit" class="ghostButton red">{{_('提交')}}</button>
+    </div>
+    <hr/>
+    <div class="error" style="display: none;">
+
+    </div>
+    <div class="success" style="display: none;">
+
+    </div>
+    <table>
+        <colgroup>
+            <col class="head">
+            <col class="value">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>{{_('姓名')}}</td>
+                <td>
+                    <input name="nickname" type="text" value={{user.get('nickname')}} data-validator="required,trim"
+                        data-msg-required="{{_('请填写姓名')}}"/></td>
+            </tr>
+            <tr>
+                <td>{{_('性别')}}</td>
+                <td><label><input name="gender" type="radio" value="male"
+                    %if user.get('gender') == 'male':
+                    checked
+                    %end
+                    /> {{_('男')}}</label>
+                    <label><input name="gender" type="radio" value="female"
+                        %if user.get('gender') == 'female':
+                        checked
+                        %end
+                        /> {{_('女')}}</label></td>
+            </tr>
+            <tr>
+                <td>{{_('国家')}}</td>
+                <td>
+                    %if country_list:
+                    <select name="country" class="country ghostSelect" style="color:#4d4d4d;">
+                        %if not user.get('country'):
+                        <option value="">
+                            {{_('请选择')}}
+                        </option>
+                        %end
+                        %for index, country in enumerate(country_list):
+                        <option value="{{country.get('id')}}"
+                            %if user.get('country') and user.get('country').get('id') == country.get('id'):
+                        selected
+                        %end
+                        >
+                        {{_i18n(country.get('value'))}}
+                        </option>
+                        %end
+                    </select>
+                    %end
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>

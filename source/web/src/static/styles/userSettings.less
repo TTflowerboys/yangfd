@@ -1,16 +1,97 @@
 @import "project/_imports";
-
 .main {
     table tr td {
         label[name=userLanguage] {
-
         }
         select[name=userLanguage] {
-            background:white;
-            border:1px solid #cccccc;
-            border-radius:4px;
-            color:#999;
-            width:140px;
+            background: white;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            color: #999;
+            width: 140px;
         }
     }
+}
+.main_phone {
+    display: none;
+    @media @phone {
+        display: block;
+    }
+    .table_wrapper {
+        background: #f6f6f6;
+        padding: 0 16px;
+    }
+    table {
+        background: #f6f6f6;
+        width: 100%;
+        color: #999;
+        tr {
+            &:first-child { border-top: none; }
+            td {
+                padding: 12px 0;
+                strong {
+                    font-size: 20px; color: #666; margin: 12px 0; display: block; font-weight: normal;
+                }
+                p { margin: 12px 0; }
+                &.action { text-align: right; }
+
+            }
+        }
+    }
+    .cv {
+        background: #f6f6f6;
+        padding: 16px;
+        hr {
+            color: #cccccc;
+        }
+        .header {
+            margin: 16px 0;
+            h2 {
+                font-size: 20px;
+                display: inline-block;
+            }
+            button {
+                float: right;
+                margin-left: 8px;
+            }
+        }
+        col.head {
+            width: 48px;
+        }
+        td:first-child {
+            color: #999;
+        }
+        td {
+            padding: 12px 0;
+            input[name=nickname] {
+                height: 40px;
+                padding-left: 4px;
+                font-size: 14px;
+                border: 1px solid #cccccc;
+                border-radius: 4px;
+                background: white;
+            }
+
+            select[name=country] {
+                background: white;
+                border: 1px solid #cccccc;
+                border-radius: 4px;
+                width: 100%;
+            }
+        }
+        .error {
+            color: @red;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .success { color: #82cc00;
+            padding: 8px;
+            border: 1px solid;
+            border-radius: 4px;
+        }
+    }
+}
+.caption{
+    padding: 16px;
 }
