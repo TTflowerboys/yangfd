@@ -460,6 +460,23 @@ main {
                         max-width:74px;
                     }
                 }
+
+                .rslides_nav {
+                    @height: 32px;
+                    position: absolute; z-index: 1; text-decoration: none; font-weight: bold; color: @red;
+                    display: inline-block; width: @height; height: @height;
+                    top: 40%; margin-top: -16px;
+                    border-radius: 50%;
+                    background: fade(white, 30%); line-height: @height; text-align: center;
+                    box-shadow: inset 0 0 2px 0 fade(black, 30%);
+
+                    @media @phone {
+                        top:30%;
+                        margin-top:0px;
+                    }
+                    &.prev { left: 8px; }
+                    &.next { right: 8px; }
+                }
             }
 
             .text {
@@ -475,25 +492,33 @@ main {
                     padding:0 12px;
                 }
 
-                .title {
-                    font-size:24px;
-                    color:black;
-
-                    @media @phone {
-                        font-size:16px;
+                div {
+                    display:none;
+                    &.selected {
+                        display:block;
                     }
-                }
+                    .title {
+                        font-size:24px;
+                        color:black;
 
-                .description {
-                    font-size:12px;
-                    line-height:2em;
-                    color:#666;
+                        @media @phone {
+                            font-size:16px;
+                        }
+                    }
 
-                    @media @phone {
-                        line-height:20px;
+                    .description {
+                        font-size:12px;
+                        line-height:2em;
+                        color:#666;
+
+                        @media @phone {
+                            line-height:20px;
+                        }
                     }
                 }
             }
+
+
         }
 
         .maps {

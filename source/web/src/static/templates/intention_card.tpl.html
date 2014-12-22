@@ -1,7 +1,7 @@
 <script id="intentionCard_template" type="text/template">
     <div class="intentionCard">
         {_if (ticket.budget){_}
-        <h2 class="budget"><i>{=window.i18n('预算') + '(' + window.getCurrencyPresentation(window.currency)  + '): ' =}</i>
+        <h2 class="budget"><i>{=window.i18n('预算') + '(' + window.getCurrencyPresentation(window.currency) + '): ' =}</i>
             {=ticket.budget.value=}
         </h2>
         {_}_}
@@ -10,5 +10,30 @@
             {=project.formatTime(ticket.time)=}
         </label>
         <label class="status">{=ticket.status_presentation.value=}</label>
+    </div>
+    <div class="intentionCard_phone">
+        {_if (ticket.budget){_}
+        <h2 class="budget"><i>{=window.i18n('预算') + '(' + window.getCurrencyPresentation(window.currency) + '): ' =}</i>
+            {=ticket.budget.value=}
+        </h2>
+        {_}_}
+        <p class="detail">{=ticket.description=}</p>
+        <table class="textPart_innerTable">
+            <tr>
+                <td class="properties">
+                    <ul>
+                        <li>
+                            <label> <i>{=window.i18n('提交日期：')=}</i>
+                                {=project.formatTime(ticket.time)=}
+                            </label>
+                        </li>
+                    </ul>
+
+                </td>
+                <td class="estimate">
+                    <label class="status">{=ticket.status_presentation.value=}</label>
+                </td>
+            </tr>
+        </table>
     </div>
 </script>

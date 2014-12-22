@@ -564,7 +564,6 @@
                         </div>
                         <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
                         <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-
                     </div>
                 </div>
                 <hr/>
@@ -1096,7 +1095,37 @@
             % end
             <h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
             <!--@@include=partials/mortgage_form.html  -->
+
+
+             <div class="relatedProperties">
+                 <h2>{{_('相关房产')}}</h2>
+                 <ul>
+                     {{related_property_list}}
+                     % main_property = property
+                     % for property in related_property_list:
+                         <li class="propertyItem">
+                             %if (property.get('cover')):
+                                 <img src="/image/fetch?link={{quote_plus(property.get('cover').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);"/>
+                             %elif (property.get('reality_images')):
+                                 <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);"/>
+                             %else :
+                                 <img class="withPlaceholder"/>
+                             %end
+                             <div class="text">
+                                 <h3 class="title">
+                                     {{property.get('name')}}
+                                 </h3>
+                                 <label class="price">
+                                        <!--@@include=partials/get_unit_price.html  -->
+                                 </label>
+                             </div>
+                         </li>
+                     % end
+                     % property = main_property
+                 </ul>
+             </div>
         </div>
+
     </div>
     % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
     <!--@@include=partials/main_house_type_popup.html -->
@@ -1298,7 +1327,7 @@
              $.betterGet('/api/1/report/search?per_page=1&zipcode_index=' + property.zipcode_index).done(function (data) {
                  if (data && data.length){
                      var result = _.template($('#regionReport_template').html())({report: data[0]})
-                     $('.propertyDetails .content').append(result)
+                     $('.propertyDetails .content').first().append(result)
                  }
              }).fail(function (ret) {
 

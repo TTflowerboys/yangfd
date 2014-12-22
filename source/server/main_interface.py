@@ -239,7 +239,8 @@ def property_get(property_id):
     country_list = get_country_list()
     budget_list = get_budget_list()
     favorite_list = get_favorite_list()
-    return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip)
+    related_property_list = f_app.property.output(f_app.property.output(f_app.property.search({"country._id": ObjectId(property.get('country').get('id')), "status": {"$in": ["selling", "sold out"]}}, per_page=3)))
+    return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>')

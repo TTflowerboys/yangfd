@@ -4,7 +4,7 @@
     {_ } else if(house.reality_images && house.reality_images.length) {_}
     <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
     {_ }else { _}
-    <img clas=s"withPlaceholder"/>
+    <img class="withPlaceholder"/>
     {_}_}
     <div class="labels">
         {_if (house.property_type && house.property_type.value){_}
@@ -58,7 +58,7 @@
     <a class="textPart_inner" href="/property/{=house.id=}">
         <table class="textPart_innerTable">
             <tr>
-                <td class=properties>
+                <td class="properties noBorder">
                     <ul >
                         {_if(house.intention && house.intention.length) {_}
                         <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>

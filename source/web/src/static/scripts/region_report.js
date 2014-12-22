@@ -9,7 +9,15 @@
     $('#priceSlider').responsiveSlides({
         manualControls: '#priceSliderPager',
         auto: false,
-        maxwidth: 800
+        maxwidth: 800,
+        nav: true,
+        prevText: '<',
+        nextText: '>',
+        after: function () {
+            var selectedType = $('#priceSliderPager').find('.rslides_here').attr('data-selector')
+            $('.priceCharts .text .selected').toggleClass('selected', false)
+            $('.priceCharts .text').find('[data-type=' + selectedType + ']').toggleClass('selected', 'true')
+        }
     });
 
     $('#areaValueSlider').responsiveSlides({
@@ -58,7 +66,8 @@
         $('[data-tab-name=' + tabName + ']').show()
     })
 
-    var bingMapKey = 'ApsJbXUENG-diuwrV1D4MkuamY_voaTpm8McrvYweG03awUvRGvL--mkkCKzW0DJ'
+    var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
+    var googleApiKey = 'AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
 
     window.mapCache = {}
     window.mapPinCache = {}
@@ -158,7 +167,7 @@
         //http://msdn.microsoft.com/en-us/library/hh478191.aspx
         var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',10)';
         var select = '$select=EntityID,Latitude,Longitude,__Distance,DisplayName,AddressLine,Phone';
-        var top = '$top=100'
+        var top = '$top=200'
         var queryOptions = '$filter='
         var index = 0;
         _.each(typeIds, function (typeId) {
@@ -196,7 +205,7 @@
         }
     }
 
-    function showTransitMap(location) {
+    function showTransitMap(location, polygon) {
         var mapId = 'transitMapCanvas'
         var map = getMap('transitMapCanvas')
         var $list = $('.maps .list div[data-tab-name=transit] ul')
@@ -204,15 +213,13 @@
         Microsoft.Maps.loadModule('Microsoft.Maps.Traffic', { callback: trafficModuleLoaded });
         function trafficModuleLoaded()
         {
+            map.entities.clear()
             map.setView({zoom: 13, center: location})
-            var pushpin = new Microsoft.Maps.Pushpin(location);
-            map.entities.push(pushpin);
             var trafficLayer = new Microsoft.Maps.Traffic.TrafficLayer(map);
-            // show the traffic Layer
             trafficLayer.show();
         }
 
-        findNearByLocations(map, mapId, location, ['4170', '4013', '4581'], function (searchResults) {
+        findNearByLocations(map, mapId, location, ['4013', '4170','4482', '4493', '4580', '4581', '9511', '9520', '9707', '9708', '9989'], function (searchResults) {
              if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
@@ -224,16 +231,20 @@
                         createListItem($list, searchResults[i])
                     }
                 }
+             }
+
+            if (polygon) {
+                map.entities.push(polygon)
             }
         })
     }
 
-    function showSchoolMap(location) {
+    function showSchoolMap(location, polygon) {
         var mapId = 'schoolMapCanvas'
         var map = getMap('schoolMapCanvas')
         var $list = $('.maps .list div[data-tab-name=school] ul')
 
-        findNearByLocations(map, mapId, location, ['8211'], function (searchResults) {
+        findNearByLocations(map, mapId, location, ['8211', '8200'], function (searchResults) {
              if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
@@ -245,16 +256,20 @@
                         createListItem($list, searchResults[i])
                     }
                 }
+             }
+            map.setView({zoom: 13, center: location})
+            if (polygon) {
+                map.entities.push(polygon)
             }
         })
     }
 
-    function showFacilityMap(location) {
+    function showFacilityMap(location, polygon) {
         var mapId = 'facilityMapCanvas'
         var map = getMap('facilityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=facility] ul')
 
-        findNearByLocations(map, mapId, location, ['4013', '4017', '5400', '5800', '6000', '6512', '7011'], function (searchResults) {
+        findNearByLocations(map, mapId, location, ['4017', '5400', '5540', '5800', '6000', '6512', '7011', '7832', '7997', '8060', '8231', '9221', '9504', '9505', '9510', '9523', '9530', '9539'], function (searchResults) {
             if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
@@ -267,15 +282,23 @@
                     }
                 }
             }
+            map.setView({zoom: 13, center: location})
+            if (polygon) {
+                map.entities.push(polygon)
+            }
         })
     }
 
-    function showSecurityMap(location) {
+    function showSecurityMap(location, polygon) {
         var map = getMap('securityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=security] ul')
-        map.setView({ zoom: 13, center: location});
         var pushpin = new Microsoft.Maps.Pushpin(location);
         map.entities.push(pushpin);
+
+        map.setView({zoom: 13, center: location})
+        if (polygon) {
+            map.entities.push(polygon)
+        }
 
         var results = {}
 
@@ -318,10 +341,10 @@
         $list.append(result)
     }
 
-    function showRegion(maps, zipCodeIndex) {
+    function getRegion(zipCodeIndex, callback) {
         Microsoft.Maps.loadModule('Microsoft.Maps.AdvancedShapes', {
             callback:  function () {
-                var originalURL = 'https://www.googleapis.com/fusiontables/v2/query?sql=SELECT \'Area data\', \'Postcode district\' FROM 1jgWYtlqGSPzlIa-is8wl1cZkVIWEm_89rWUwqFU WHERE \'Postcode district\' = \'' + zipCodeIndex +'\'&key=AIzaSyALqlLZq7r72teHwGB9nSVpISa9s7QVRjY';
+                var originalURL = 'https://www.googleapis.com/fusiontables/v2/query?sql=SELECT \'Area data\', \'Postcode district\' FROM 1jgWYtlqGSPzlIa-is8wl1cZkVIWEm_89rWUwqFU WHERE \'Postcode district\' = \'' + zipCodeIndex +'\'&key=' + googleApiKey;
                 var url = '/reverse_proxy?link=' + encodeURIComponent(originalURL)
                 $.get(url)
                     .done(function (data) {
@@ -342,17 +365,15 @@
                                     results.push(coorResults)
                                 })
 
-                                var polygoncolor = new Microsoft.Maps.Color(100, 128, 128, 128);
-                                var strokecolor = new Microsoft.Maps.Color(255, 128, 128, 128);
-                                var polygon = new Microsoft.Maps.Polygon(results,
-                                                                         { fillColor: polygoncolor,  strokeColor: strokecolor });
-                                _.each(maps, function (map) {
-                                    map.entities.push(polygon)
-                                })
+                                var fillColor = new Microsoft.Maps.Color(100, 68, 68, 68)
+                                //var strokeColor = new Microsoft.Maps.Color(255, 68, 68, 68);
+                                var polygon = new Microsoft.Maps.Polygon(results,{ fillColor: fillColor});
+                                callback(polygon)
                             }
                         }
                     })
                     .fail(function (ret) {
+                        callback(null)
                     })
             }
         });
@@ -428,12 +449,20 @@
 
         function onLocationFind(location) {
             window.report.location = location
-            showTransitMap(location)
-            showSchoolMap(location)
-            showFacilityMap(location)
-            showSecurityMap(location)
 
-            showRegion([getMap('transitMapCanvas'), getMap('schoolMapCanvas'), getMap('facilityMapCanvas'), getMap('securityMapCanvas')], zipCodeIndexFromURL)
+            //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
+            getRegion(zipCodeIndexFromURL, function (polygon) {
+                showTransitMap(location, polygon)
+            })
+            getRegion(zipCodeIndexFromURL, function (polygon) {
+                showSchoolMap(location, polygon)
+            })
+            getRegion(zipCodeIndexFromURL, function (polygon) {
+                showFacilityMap(location, polygon)
+            })
+            getRegion(zipCodeIndexFromURL, function (polygon) {
+                showSecurityMap(location, polygon)
+            })
         }
     })
 })();

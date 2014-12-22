@@ -13,7 +13,8 @@ angular.module('app')
                 ratio: '@ratio',
                 thumbnailSize: '@thumbnailSize',
                 text: '@text',
-                cover: '=cover'
+                cover: '=cover',
+                watermark: '@watermark'
             },
             link: function (scope, elm, attrs) {
                 scope.userLanguage = $rootScope.userLanguage
@@ -41,7 +42,8 @@ angular.module('app')
                                 width_limit: scope.widthLimit || 0,
                                 ratio: scope.ratio || 0,
                                 thumbnail_size: scope.thumbnailSize || '0,0',
-                                filename: file.name
+                                filename: file.name,
+                                watermark: scope.watermark
                             },
                             ignoreLoadingBar: true,
                             errorMessage: true
@@ -91,7 +93,8 @@ angular.module('app')
                         link: img,
                         width_limit: scope.widthLimit || 0,
                         ratio: scope.ratio || 0,
-                        thumbnail_size: scope.thumbnailSize || '0,0'
+                        thumbnail_size: scope.thumbnailSize || '0,0',
+                        watermark:scope.watermark
                     }, {errorMessage: true})
                         .success(function (data, status, headers, config) {
                             for (var key in scope.images[scope.userLanguage.value]) {
