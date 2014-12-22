@@ -7,6 +7,7 @@ import phonenumbers
 import json
 import csv
 import numpy as np
+import base64
 from bson.objectid import ObjectId
 from bson.code import Code
 from pymongo import ASCENDING, DESCENDING
@@ -1693,6 +1694,11 @@ class f_landregistry(f_app.module_base):
         y = np.array([i['average_price'] for i in merged_result])
 
         fig, ax = plt.subplots()
+
+        from convert_watermark import water_mark_base64
+
+        im = plt.imread(StringIO(base64.b64decode(water_mark_base64)))
+        fig.figimage(im, 10, 10, zorder=1)
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
