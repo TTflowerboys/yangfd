@@ -133,4 +133,59 @@ body{
         }
     }
 
+    .relatedNews {
+        border-top:1px solid #ccc;
+        margin-top:40px;
+        margin-bottom:40px;
+        height: auto;
+        overflow: hidden;
+
+        >.title {
+            font-size:16px;
+            color:#666;
+            margin-top:40px;
+            margin-bottom:30px;
+        }
+
+        li.newsItem {
+            float:left;
+            position:relative;
+            width:240px;
+            height:180px;
+            display:inline-block;
+            margin-right:40px;
+
+            &:last-child {
+                margin-right:0px
+            }
+
+
+            a {
+                text-decoration:none;
+                .img_shadow{
+                    background:#000000;
+                    opacity: .20; /* Standards Compliant Browsers */
+                    filter: alpha(opacity=20); /* IE 7 and Earlier */
+                    /* Next 2 lines IE8 */
+                    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+                    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+                    min-width: 100%;
+                    min-height: 100%;
+                    position: absolute;
+                    top:0;
+                }
+
+                >.title {
+                    position:absolute;
+                    bottom:20px;
+                    left:20px;
+                    margin-bottom:0px;
+                    width:200px;
+                    height:auto;
+                    font-size:18px;
+                    color:white;
+                }
+            }
+        }
+    }
 }
