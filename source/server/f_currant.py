@@ -1802,22 +1802,23 @@ class f_landregistry(f_app.module_base):
         plt.savefig(graph, format="png", dpi=100)
         graph.seek(0)
 
-        im = f_app.storage.image_open(graph)
+        return graph
+        # im = f_app.storage.image_open(graph)
 
-        from PIL import Image
-        from convert_watermark import water_mark_base64
-        import base64
+        # from PIL import Image
+        # from convert_watermark import water_mark_base64
+        # import base64
 
-        water_mark = f_app.storage.image_open(StringIO(base64.b64decode(water_mark_base64)))
-        self.logger.debug(water_mark.size)
-        water_mark = f_app.storage.image_open("/var/lib/app/currant/source/web/src/static/images/logo/logo-watermark.png")
-        self.logger.debug(water_mark.size)
-        layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
-        position = (im.size[0] - water_mark[0], im.size[1] - water_mark[1])
-        layer.paste(water_mark, position)
-        im = Image.composite(layer, im, layer)
-
-        return im
+        # water_mark = f_app.storage.image_open(StringIO(base64.b64decode(water_mark_base64)))
+        # self.logger.debug(water_mark.size)
+        # water_mark = f_app.storage.image_open("/var/lib/app/currant/source/web/src/static/images/logo/logo-watermark.png")
+        # self.logger.debug(water_mark.size)
+        # layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
+        # position = (im.size[0] - water_mark[0], im.size[1] - water_mark[1])
+        # layer.paste(water_mark, position)
+        # im = Image.composite(layer, im, layer)
+        #
+        # return im
 
     @f_cache('valuetrend')
     def get_month_average_by_zipcode_index_with_type(self, zipcode_index, size=[0, 0], force_reload=False):
