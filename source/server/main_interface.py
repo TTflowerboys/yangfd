@@ -239,7 +239,22 @@ def property_get(property_id):
     country_list = get_country_list()
     budget_list = get_budget_list()
     favorite_list = get_favorite_list()
-    related_property_list = f_app.property.output(f_app.property.search({"country._id": ObjectId(property.get('country').get('id')), "status": {"$in": ["selling", "sold out"]}}, per_page=3))
+
+    raw_related_property_list = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
+        "country._id": ObjectId(property.get('country').get('id')),
+        "status": {"$in": ["selling", "sold out"]},
+    }, per_page=20, time_field="mtime")))
+
+    related_property_list = []
+    import random
+    i = 6
+    while i > 0 and len(related_property_list) < 3:
+        item = random.choice(raw_related_property_list)
+        if item.get('id') != property.get('id'):
+            raw_related_property_list.remove(item)
+            related_property_list.insert(-1, item)
+        i = i - 1
+
     return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list)
 
 
@@ -271,7 +286,33 @@ def news_list():
 @check_landing
 @check_ip_and_redirect_domain
 def news(news_id):
-    return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=f_app.blog.post.output([news_id])[0])
+    news = f_app.i18n.process_i18n(f_app.blog.post.output([news_id])[0])
+    if (news.get('category')[0].get('slug') in ['real_estate', 'primier_apartment_london', 'studenthouse_sheffield']):
+        raw_related_news_list = f_app.blog.post_output(
+            f_app.blog.post_search(
+                {
+                    "category": {"$in": [
+                        {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                        {'_id': ObjectId(f_app.enum.get_by_slug('primier_apartment_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                        {'_id': ObjectId(f_app.enum.get_by_slug('studenthouse_sheffield')["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    ]}
+                }, per_page=20
+            )
+        )
+
+        related_news_list = []
+        import random
+        i = 6
+        while i > 0 and len(related_news_list) < 3:
+            item = random.choice(raw_related_news_list)
+            if item.get('id') != news.get('id'):
+                raw_related_news_list.remove(item)
+                related_news_list.insert(-1, item)
+                i = i - 1
+
+        return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news, related_news_list=related_news_list)
+    else:
+        return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news)
 
 
 @f_get('/notice_list')
@@ -740,9 +781,10 @@ def sitemap():
 ))
 def landregistry_home_values(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index, size=size, force_reload=params["force_reload"])
+    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
+    result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
-    return result.getvalue()
+    return result
 
 
 @f_get("/landregistry/<zipcode_index>/value_trend", params=dict(
@@ -752,9 +794,10 @@ def landregistry_home_values(zipcode_index, params):
 ))
 def landregistry_value_trend(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index, size=size, force_reload=params["force_reload"])
+    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
+    result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
-    return result.getvalue()
+    return result
 
 
 @f_get("/landregistry/<zipcode_index>/average_values", params=dict(
@@ -764,9 +807,10 @@ def landregistry_value_trend(zipcode_index, params):
 ))
 def landregistry_average_values(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_average_values_by_zipcode_index(zipcode_index, size=size, force_reload=params["force_reload"])
+    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
+    result = f_app.landregistry.get_average_values_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
-    return result.getvalue()
+    return result
 
 
 @f_get("/landregistry/<zipcode_index>/value_ranges", params=dict(
@@ -776,9 +820,10 @@ def landregistry_average_values(zipcode_index, params):
 ))
 def landregistry_value_ranges(zipcode_index, params):
     size = [params["width"], params["height"]]
-    result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index, size=size, force_reload=params["force_reload"])
+    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
+    result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
     response.set_header(b"Content-Type", b"image/png")
-    return result.getvalue()
+    return result
 
 
 @f_get("/robots.txt")

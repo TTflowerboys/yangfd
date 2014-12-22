@@ -1684,7 +1684,7 @@ class f_landregistry(f_app.module_base):
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
     @f_cache('homevalues')
-    def get_month_average_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
+    def get_month_average_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
@@ -1743,20 +1743,20 @@ class f_landregistry(f_app.module_base):
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
 
-        return graph
+        return graph.getvalue()
 
     @f_cache('averagevalues')
-    def get_average_values_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
+    def get_average_values_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
 
         with f_app.mongo() as m:
             result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": zipcode_index}}, {"$group": {"_id": "$_id.type", "sum_price": {"$sum": "$value.price"}, "sum_count": {"$sum": "$value.count"}}}])['result']
         merged_result = [i for i in result if i.get("_id")]
 
-        ind = range(len(merged_result))
+        ind = np.arange(len(merged_result))
         width = 0.25
 
         fig, ax = plt.subplots()
-        ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width, color=['#e70012', '#ff9c00', '#6fdb2d', '#00b8e6'], edgecolor="none")
+        ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width, color=['#e70012', '#ff9c00', '#6fdb2d', '#00b8e6'], edgecolor="none", align="center")
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
@@ -1779,7 +1779,7 @@ class f_landregistry(f_app.module_base):
         ax.set_ylabel('NUMBER', fontdict=font, rotation=0)
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
-        ax.set_xticks([i + width / 2 for i in ind])
+        ax.set_xticks(ind)
         ax.set_xticklabels([x['_id'] for x in merged_result])
 
         plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
@@ -1802,7 +1802,7 @@ class f_landregistry(f_app.module_base):
         plt.savefig(graph, format="png", dpi=100)
         graph.seek(0)
 
-        return graph
+        return graph.getvalue()
         # im = f_app.storage.image_open(graph)
 
         # from PIL import Image
@@ -1821,7 +1821,7 @@ class f_landregistry(f_app.module_base):
         # return im
 
     @f_cache('valuetrend')
-    def get_month_average_by_zipcode_index_with_type(self, zipcode_index, size=[0, 0], force_reload=False):
+    def get_month_average_by_zipcode_index_with_type(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
@@ -1899,10 +1899,10 @@ class f_landregistry(f_app.module_base):
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
 
-        return graph
+        return graph.getvalue()
 
     @f_cache('valueranges')
-    def get_price_distribution_by_zipcode_index(self, zipcode_index, size=[0, 0], force_reload=False):
+    def get_price_distribution_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result_lt_100k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$lt": 100000}}).count()
             result_100k_200k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$gte": 100001, "$lt": 200000}}).count()
@@ -1918,7 +1918,7 @@ class f_landregistry(f_app.module_base):
 
         result_sum = result_lt_100k + result_100k_200k + result_200k_300k + result_300k_400k + result_400k_500k + result_500k_600k + result_600k_700k + result_700k_800k + result_800k_900k + result_900k_1m + result_gte_1m
 
-        ind = range(11)
+        ind = np.arange(11)
         width = 0.5
 
         fig, ax = plt.subplots()
@@ -1933,7 +1933,7 @@ class f_landregistry(f_app.module_base):
         else:
             fontsize = 4
 
-        ax.bar(ind, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none")
+        ax.bar(ind, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none", align="center")
 
         ax.autoscale_view()
         font = {
@@ -1947,7 +1947,7 @@ class f_landregistry(f_app.module_base):
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
-        ax.set_xticks([i + width for i in ind])
+        ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "400k~500k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
 
         plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', fontsize=fontsize, rotation=30)
@@ -1976,7 +1976,7 @@ class f_landregistry(f_app.module_base):
         graph = StringIO()
         plt.savefig(graph, format="png", dpi=100)
 
-        return graph
+        return graph.getvalue()
 
     def aggregation_monthly(self):
         func_map = Code("""

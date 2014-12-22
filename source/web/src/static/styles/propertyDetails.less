@@ -60,9 +60,27 @@ body{
     strong { font-weight: normal; }
     color: @light-text-color;
     .wrapped(); .clearfix();
-    margin-top: 100px;
+    margin-top: 80px;
     @media @phone {
         margin-top: 0;
+    }
+
+    > .breadcrumb{
+        margin-bottom: 20px;
+        @media @phone {
+            display: none;
+        }
+        
+        font-size: 18px;
+
+        .parent{
+            text-decoration: none;
+            color: @red;
+        }
+        
+        .current{
+            font-weight: bold;
+        }
     }
 
     > .content {
