@@ -12,7 +12,12 @@
         maxwidth: 800,
         nav: true,
         prevText: '<',
-        nextText: '>'
+        nextText: '>',
+        after: function () {
+            var selectedType = $('#priceSliderPager').find('.rslides_here').attr('data-selector')
+            $('.priceCharts .text .selected').toggleClass('selected', false)
+            $('.priceCharts .text').find('[data-type=' + selectedType + ']').toggleClass('selected', 'true')
+        }
     });
 
     $('#areaValueSlider').responsiveSlides({

@@ -492,22 +492,28 @@ main {
                     padding:0 12px;
                 }
 
-                .title {
-                    font-size:24px;
-                    color:black;
-
-                    @media @phone {
-                        font-size:16px;
+                div {
+                    display:none;
+                    &.selected {
+                        display:block;
                     }
-                }
+                    .title {
+                        font-size:24px;
+                        color:black;
 
-                .description {
-                    font-size:12px;
-                    line-height:2em;
-                    color:#666;
+                        @media @phone {
+                            font-size:16px;
+                        }
+                    }
 
-                    @media @phone {
-                        line-height:20px;
+                    .description {
+                        font-size:12px;
+                        line-height:2em;
+                        color:#666;
+
+                        @media @phone {
+                            line-height:20px;
+                        }
                     }
                 }
             }
