@@ -1697,7 +1697,7 @@ class f_landregistry(f_app.module_base):
 
         from convert_watermark import water_mark_base64
 
-        im = fig.imread(StringIO(base64.b64decode(water_mark_base64)))
+        im = plt.imread(StringIO(base64.b64decode(water_mark_base64)))
         fig.figimage(im, 10, 10, zorder=1)
 
         fig_width, fig_height = size
@@ -1717,7 +1717,7 @@ class f_landregistry(f_app.module_base):
 
         font = {
             # 'fname': '/usr/share/fonts/wenquanyi/wqy-microhei/wqy-microhei.ttc',
-            'family': 'WenQuanYi Micro Hei',
+            'family': 'sans-serif',
             'color': '#999999',
             'weight': 'normal',
             'size': fontsize,
@@ -1727,8 +1727,8 @@ class f_landregistry(f_app.module_base):
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
-        fig.setp(fig.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
-        fig.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
+        plt.setp(ax.get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
+        plt.setp(ax.get_yticklabels(), fontsize=fontsize)
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
@@ -1789,8 +1789,8 @@ class f_landregistry(f_app.module_base):
         ax.set_xticks(ind)
         ax.set_xticklabels([x['_id'] for x in merged_result])
 
-        fig.setp(fig.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
-        fig.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
+        plt.setp(fig.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
+        plt.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
@@ -1900,8 +1900,8 @@ class f_landregistry(f_app.module_base):
         [line.set_zorder(3) for line in ax.lines]
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
 
-        fig.setp(fig.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
-        fig.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
+        plt.setp(fig.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
+        plt.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
 
         graph = StringIO()
         fig.savefig(graph, format="png", dpi=100)
@@ -1957,9 +1957,9 @@ class f_landregistry(f_app.module_base):
         ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "400k~500k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
 
-        fig.setp(fig.gca().get_xticklabels(), horizontalalignment='right', fontsize=fontsize, rotation=30)
-        fig.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
-        fig.gcf().subplots_adjust(bottom=0.2)
+        plt.setp(fig.gca().get_xticklabels(), horizontalalignment='right', fontsize=fontsize, rotation=30)
+        plt.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
+        plt.gcf().subplots_adjust(bottom=0.2)
 
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
