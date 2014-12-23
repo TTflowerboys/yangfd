@@ -34,7 +34,7 @@
         </ul>
         <ul class="rmm-center-menu" style="display:none;">
             %for index, intention in enumerate(_i18n(intention_list)):
-                <li><a data-slug={{intention.get('slug')}} href=javascript:window.updatePage("{{intention.get('slug')}}")>{{intention.get('value')}}</a></li>
+                <li><a data-slug={{intention.get('slug')}} href="#" onclick=javascript:window.updatePage("{{intention.get('slug')}}")>{{intention.get('value')}}</a></li>
             %end
         </ul>
     </div>
