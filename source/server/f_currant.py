@@ -7,7 +7,6 @@ import phonenumbers
 import json
 import csv
 import numpy as np
-import base64
 from bson.objectid import ObjectId
 from bson.code import Code
 from pymongo import ASCENDING, DESCENDING
@@ -33,6 +32,8 @@ f_app.dependency_register('scipy', race="python")
 
 # Fix crash in environments that have no display.
 import matplotlib
+import matplotlib.font_manager as fm
+fontprop = fm.FontProperties(fname="/var/lib/app/currant/source/server/data/wqy-microhei.ttc")
 matplotlib.use('Agg')
 
 
@@ -1684,7 +1685,7 @@ class f_landregistry(f_app.module_base):
         else:
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
-    @f_cache('homevalues')
+    # @f_cache('homevalues')
     def get_month_average_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
@@ -1695,9 +1696,7 @@ class f_landregistry(f_app.module_base):
 
         fig, ax = plt.subplots()
 
-        from convert_watermark import water_mark_base64
-
-        im = plt.imread(StringIO(base64.b64decode(water_mark_base64)))
+        im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
         fig.figimage(im, 10, 10, zorder=1)
 
         fig_width, fig_height = size
@@ -1712,19 +1711,19 @@ class f_landregistry(f_app.module_base):
             fontsize = 4
             markersize = 1
 
-        ax.plot(x, y, '#e70012', marker="o", markeredgecolor="#e70012", markersize=markersize)
+        fontprop.set_size(fontsize)
+        ax.plot(x, y, '#e70012', marker="o", markeredgecolor="#e70012", markersize=markersize, zorder=5, clip_on=False)
         ax.autoscale_view()
 
         font = {
-            # 'fname': '/usr/share/fonts/wenquanyi/wqy-microhei/wqy-microhei.ttc',
             'family': 'sans-serif',
             'color': '#999999',
             'weight': 'normal',
             'size': fontsize,
         }
-        ax.set_xlabel('年', fontdict=font)
-        ax.set_ylabel('GBP', fontdict=font, rotation=0)
-        ax.xaxis.set_label_coords(1.05, 0.025)
+        ax.set_xlabel(u'年', fontdict=font, fontproperties=fontprop)
+        ax.set_ylabel('GBP', fontdict=font, rotation=0, fontproperties=fontprop)
+        ax.xaxis.set_label_coords(1.05, 0.05)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
         plt.setp(ax.get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
@@ -1741,7 +1740,7 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
-        [line.set_zorder(3) for line in ax.lines]
+        [line.set_zorder(10) for line in ax.lines]
 
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
         # fig.autofmt_xdate()
@@ -1773,6 +1772,7 @@ class f_landregistry(f_app.module_base):
             fontsize = 10
         else:
             fontsize = 4
+        fontprop.set_size(fontsize)
 
         ax.autoscale_view()
 
@@ -1782,9 +1782,9 @@ class f_landregistry(f_app.module_base):
             'weight': 'normal',
             'size': fontsize,
         }
-        ax.set_xlabel('类别', fontdict=font)
-        ax.set_ylabel('GBP', fontdict=font, rotation=0)
-        ax.xaxis.set_label_coords(1.05, 0.025)
+        ax.set_xlabel(u'类别', fontdict=font, fontproperties=fontprop)
+        ax.set_ylabel('GBP', fontdict=font, rotation=0, fontproperties=fontprop)
+        ax.xaxis.set_label_coords(1.05, 0.05)
         ax.yaxis.set_label_coords(-0.025, 1.05)
         ax.set_xticks(ind)
         ax.set_xticklabels([x['_id'] for x in merged_result])
@@ -1859,12 +1859,13 @@ class f_landregistry(f_app.module_base):
         else:
             fontsize = 4
             markersize = 1
+        fontprop.set_size(fontsize)
 
         colors = ["#e70012", "#ff9c00", "#6fdb2d", "#00b8e6"]
         for result, color in zip([dresult, sresult, tresult, fresult], colors):
             fig.plot([i['date'] for i in result], [i['average_price'] for i in result], color, marker="o", markeredgecolor=color, markersize=markersize)
 
-        legend = fig.legend(["独立式", "半独立式", "联排", "公寓"], loc='upper left', fontsize=fontsize)
+        legend = fig.legend([u"独立式", u"半独立式", u"联排", u"公寓"], loc='upper left', fontsize=fontsize, fontproperties=fontprop)
         frame = legend.get_frame()
         frame.set_color('#f6f6f6')
         frame.set_edgecolor('#e6e6e6')
@@ -1880,9 +1881,9 @@ class f_landregistry(f_app.module_base):
         }
 
         ax.autoscale_view()
-        ax.set_xlabel('年', fontdict=font)
-        ax.set_ylabel('GBP', fontdict=font, rotation=0)
-        ax.xaxis.set_label_coords(1.05, 0.025)
+        ax.set_xlabel(u'年', fontdict=font, fontproperties=fontprop)
+        ax.set_ylabel('GBP', fontdict=font, rotation=0, fontproperties=fontprop)
+        ax.xaxis.set_label_coords(1.05, 0.05)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
         for child in ax.get_children():
@@ -1930,6 +1931,9 @@ class f_landregistry(f_app.module_base):
 
         fig, ax = plt.subplots()
 
+        im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
+        fig.figimage(im, 10, 10, zorder=1)
+
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
         if fig_width and fig_height:
@@ -1939,6 +1943,7 @@ class f_landregistry(f_app.module_base):
             fontsize = 10
         else:
             fontsize = 4
+        fontprop.set_size(fontsize)
 
         ax.bar(ind, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none", align="center")
 
@@ -1949,8 +1954,8 @@ class f_landregistry(f_app.module_base):
             'weight': 'normal',
             'size': fontsize,
         }
-        ax.set_xlabel('价格', fontdict=font)
-        ax.set_ylabel('%', fontdict=font, rotation=0)
+        ax.set_xlabel(u'价格', fontdict=font, fontproperties=fontprop)
+        ax.set_ylabel('%', fontdict=font, rotation=0, fontproperties=fontprop)
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
