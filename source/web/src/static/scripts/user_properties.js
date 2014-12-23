@@ -13,12 +13,29 @@ $(function () {
 })
 
 $('#list').on('click', '.houseCard #removeProperty', function (event) {
-    var ticketId = $(event.target).attr('data-id')
-    $.betterPost('/api/1/intention_ticket/' + ticketId + '/remove')
-        .done(function (data) {
-            location.reload()
-        })
-        .fail(function (ret) {
-        window.alert(window.i18n('移除失败'))
-    })
+    if (window.confirm(window.i18n('确定删除该房产吗？')) === true) {
+        var ticketId = $(event.target).attr('data-id')
+        $.betterPost('/api/1/intention_ticket/' + ticketId + '/remove')
+            .done(function (data) {
+                location.reload()
+            })
+            .fail(function (ret) {
+                window.alert(window.i18n('移除失败'))
+            })
+    }
+
 })
+$('#list').on('click', '.houseCard_phone #removeProperty', function (event) {
+    if (window.confirm(window.i18n('确定删除该房产吗？')) === true) {
+        var ticketId = $(event.target).attr('data-id')
+        $.betterPost('/api/1/intention_ticket/' + ticketId + '/remove')
+            .done(function (data) {
+                location.reload()
+            })
+            .fail(function (ret) {
+                window.alert(window.i18n('移除失败'))
+            })
+    }
+
+})
+
