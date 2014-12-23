@@ -111,7 +111,7 @@ $(function () {
     });
 
     $('.rmm-toggled-controls .rmm-button-back').on('click',function(){
-        history.go(-1)
+        location.href = '/'
     });
 });
 /* 	hide mobile menu on resize */
