@@ -204,10 +204,14 @@ def region_report(zipcode_index):
     return template("region_report", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), report=report)
 
 
-@f_get('/property_list')
+@f_get('/property_list', params=dict(
+    property_type="enum:property_type",
+    country='enum:country',
+    city='enum:city',
+))
 @check_landing
 @check_ip_and_redirect_domain
-def property_list():
+def property_list(params):
     city_list = f_app.enum.get_all('city')
     property_type_list = f_app.enum.get_all('property_type')
     intention_list = f_app.enum.get_all('intention')
@@ -219,7 +223,8 @@ def property_list():
                     property_type_list=property_type_list,
                     intention_list=intention_list,
                     budget_list=get_budget_list(),
-                    property_list=property_list
+                    property_list=property_list,
+                    params=params,
                     )
 
 
