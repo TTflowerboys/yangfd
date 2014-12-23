@@ -311,6 +311,13 @@ $(window).resize(window.updateTagsFixed);
         $('select[name=propertyType]').find('option[value=' + id + ']').prop('selected', true)
     }
 
+    function updateBrowserTitle(){
+        var updatedTitle = $('select[name=propertyCountry]').children('option:selected').text() + ' '
+            + $('select[name=propertyCity]').children('option:selected').text() + ' '
+            + $('select[name=propertyType]').children('option:selected').text() + ' ' + window.i18n('房产列表 洋房东')
+
+        $(document).prop('title', updatedTitle)
+    }
 
     // function updateUserTags() {
     //     var budgetId = getSelectedBudgetType()
@@ -342,6 +349,7 @@ $(window).resize(window.updateTagsFixed);
             resetData()
             loadPropertyList()
 
+            updateBrowserTitle()
             ga('send', 'event', 'property_list', 'change', 'select-country',$('select[name=propertyCountry]').children('option:selected').text())
         })
 
@@ -350,6 +358,7 @@ $(window).resize(window.updateTagsFixed);
             resetData()
             loadPropertyList()
 
+            updateBrowserTitle()
             ga('send', 'event', 'property_list', 'change', 'select-city',$('select[name=propertyCity]').children('option:selected').text())
         })
 
@@ -358,6 +367,7 @@ $(window).resize(window.updateTagsFixed);
             resetData()
             loadPropertyList()
 
+            updateBrowserTitle()
             ga('send', 'event', 'property_list', 'change', 'select-proprty-type',$('select[name=propertyType]').children('option:selected').text())
         })
     })
