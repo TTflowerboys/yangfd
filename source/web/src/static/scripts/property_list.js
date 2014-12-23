@@ -312,9 +312,9 @@ $(window).resize(window.updateTagsFixed);
     }
 
     function updateBrowserTitle(){
-        var updatedTitle = $('select[name=propertyCountry]').children('option:selected').text() + ' '
-            + $('select[name=propertyCity]').children('option:selected').text() + ' '
-            + $('select[name=propertyType]').children('option:selected').text() + ' ' + window.i18n('房产列表 洋房东')
+        var updatedTitle = $('select[name=propertyCountry]').children('option:selected').text() + ' ' +
+            $('select[name=propertyCity]').children('option:selected').text() + ' ' +
+            $('select[name=propertyType]').children('option:selected').text() + ' ' + window.i18n('房产列表 洋房东')
 
         $(document).prop('title', updatedTitle)
     }
