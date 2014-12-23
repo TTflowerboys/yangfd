@@ -41,6 +41,7 @@
             return
         }
 
+        $('#mortgageResultSeperator').show()
         var $result = $mortgageForm.find('[data-ui=result]')
         $result.slideDown()
         if (!isScrolledIntoView($result[0])) {
