@@ -12,7 +12,57 @@
         }
     }
 }
-.main_phone {
+.userPage .aside {
+    @media @phone {
+        width: 100%;
+        display: block;
+    }
+    .account {
+        @media @phone {
+            display: none;
+        }
+    }
+    .settings {
+        @media @phone {
+            display: none;
+        }
+    }
+}
+.setting {
+    display: block;
+    @media @phone {
+        display: none;
+    }
+    table {
+        width: 100%;
+        color: #999;
+        margin-bottom: 48px;
+        tr {
+            border-top: 1px solid #ccc;
+            &:first-child {
+                border-top: none;
+            }
+            td {
+                padding: 12px 0;
+                strong {
+                    font-size: 20px;
+                    color: #666;
+                    margin: 12px 0;
+                    display: block;
+                    font-weight: normal;
+                }
+                p {
+                    margin: 12px 0;
+                }
+                &.action {
+                    text-align: right;
+                }
+
+            }
+        }
+    }
+}
+.setting_phone {
     display: none;
     @media @phone {
         display: block;
@@ -92,6 +142,6 @@
         }
     }
 }
-.caption{
+.caption {
     padding: 16px;
 }

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
+import json
 from datetime import datetime
 from libfelix.f_common import f_app
 from libfelix.f_interface import f_api, abort
@@ -372,6 +373,26 @@ def property_get(property_id):
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
 
     return property
+
+
+@f_api('/wechat/menu/get')
+@f_app.user.login.check(role=['admin', 'operation'])
+def wechat_menu_get():
+    return f_app.wechat.api("menu/get", method="GET")
+
+
+@f_api('/wechat/menu/create', params=dict(
+    json=(str, True),
+))
+@f_app.user.login.check(role=['admin', 'operation'])
+def wechat_menu_create(params):
+    return f_app.wechat.api("menu/create", params=json.loads(params["json"]))
+
+
+@f_api('/wechat/menu/delete')
+@f_app.user.login.check(role=['admin', 'operation'])
+def wechat_menu_delete():
+    return f_app.wechat.api("menu/delete", method="GET")
 
 
 @f_api('/property/<property_id>/edit/sales_comment', params=dict(

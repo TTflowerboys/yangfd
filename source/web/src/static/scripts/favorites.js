@@ -4,11 +4,7 @@ $(function () {
 
     _.each(favoriteList, function (fav) {
         var houseResult = _.template($('#houseCard_template').html())({fav: fav})
-        if (team.isPhone()) {
-            $('#list_phone').append(houseResult)
-        } else {
-            $('#list').append(houseResult)
-        }
+        $('#list').append(houseResult)
     })
 
 })
@@ -26,10 +22,9 @@ $('.list').on('click', '.houseCard #cancelFavorite', function (event) {
             ga('send', 'event', 'user-fav', 'click', 'cancel-fav-success')
         })
         .fail(function (ret) {
-        window.alert(window.i18n('取消收藏失败'))
-
-        ga('send', 'event', 'user-fav', 'click', 'cancel-fav-failed')
-    })
+            window.alert(window.i18n('取消收藏失败'))
+            ga('send', 'event', 'user-fav', 'click', 'cancel-fav-failed')
+        })
 })
 
 
@@ -43,14 +38,15 @@ $('.list').on('click', '.houseCard #undoFavorite', function (event) {
                 .done(function (data) {
                     var fav = data
                     var houseResult = _.template($('#houseCard_template').html())({fav: fav})
+                    $('.houseCard_phone[data-property-id=' + propertyId + ']').remove()
                     $('.houseCard[data-property-id=' + propertyId + ']').replaceWith(houseResult)
                 })
             ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-success')
         })
         .fail(function (ret) {
-        window.alert(window.i18n('撤销失败'))
-        ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-failed')
-    })
+            window.alert(window.i18n('撤销失败'))
+            ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-failed')
+        })
 })
 
 $('.list').on('click', '.houseCard_phone #cancelFavorite', function (event) {
@@ -65,10 +61,9 @@ $('.list').on('click', '.houseCard_phone #cancelFavorite', function (event) {
             ga('send', 'event', 'user-fav', 'click', 'cancel-fav-success')
         })
         .fail(function (ret) {
-        window.alert(window.i18n('取消收藏失败'))
-
-        ga('send', 'event', 'user-fav', 'click', 'cancel-fav-failed')
-    })
+            window.alert(window.i18n('取消收藏失败'))
+            ga('send', 'event', 'user-fav', 'click', 'cancel-fav-failed')
+        })
 })
 
 
@@ -82,12 +77,13 @@ $('.list').on('click', '.houseCard_phone #undoFavorite', function (event) {
                 .done(function (data) {
                     var fav = data
                     var houseResult = _.template($('#houseCard_template').html())({fav: fav})
+                    $('.houseCard[data-property-id=' + propertyId + ']').remove()
                     $('.houseCard_phone[data-property-id=' + propertyId + ']').replaceWith(houseResult)
                 })
             ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-success')
         })
         .fail(function (ret) {
-        window.alert(window.i18n('撤销失败'))
-        ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-failed')
-    })
+            window.alert(window.i18n('撤销失败'))
+            ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-failed')
+        })
 })
