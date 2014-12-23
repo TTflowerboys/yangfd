@@ -7,11 +7,7 @@ $(function () {
     else {
         _.each(ticketArray, function (ticket) {
             var houseResult = _.template($('#houseCard_template').html())({ticket: ticket})
-            if(team.isPhone()){
-                $('#list_phone').append(houseResult)
-            }else {
-                $('#list').append(houseResult)
-            }
+            $('#list').append(houseResult)
         })
     }
 })
@@ -22,7 +18,7 @@ $('#list').on('click', '.houseCard #removeProperty', function (event) {
         .done(function (data) {
             location.reload()
         })
-        .fail (function (ret) {
-            window.alert(window.i18n('移除失败'))
-        })
+        .fail(function (ret) {
+        window.alert(window.i18n('移除失败'))
+    })
 })

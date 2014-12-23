@@ -65,7 +65,8 @@ $(function () {
     reloadData(window.allData)
 
     function showMessageListWithState(state) {
-
+        $('.ui-tabs-nav li').removeClass('ui-tabs-selected')
+        $('.ui-tabs-nav .'+state).addClass('ui-tabs-selected')
         $('.buttons .button').removeClass('button').addClass('ghostButton')
         $('.buttons .' + state).removeClass('ghostButton').addClass('button')
         $('.list_wrapper').hide()
@@ -135,23 +136,14 @@ $(function () {
     })
 
     $('#showAllMsg').click(function () {
-        $('#showAllMsg').addClass('ui-tabs-selected')
-        $('#showNewMsg').removeClass('ui-tabs-selected')
-        $('#showReadMsg').removeClass('ui-tabs-selected')
         showMessageListWithState('all')
     })
 
     $('#showNewMsg').click(function () {
-        $('#showNewMsg').addClass('ui-tabs-selected')
-        $('#showAllMsg').removeClass('ui-tabs-selected')
-        $('#showReadMsg').removeClass('ui-tabs-selected')
         showMessageListWithState('new')
     })
 
     $('#showReadMsg').click(function () {
-        $('#showReadMsg').addClass('ui-tabs-selected')
-        $('#showNewMsg').removeClass('ui-tabs-selected')
-        $('#showAllMsg').removeClass('ui-tabs-selected')
         showMessageListWithState('read')
     })
 

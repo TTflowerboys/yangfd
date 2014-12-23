@@ -1,11 +1,14 @@
 @import "/project/_imports";
 div.content {
-    display: block;
-    @media @phone {
-        display: none;
-    }
     min-height: 800px;
+    @media @phone {
+        min-height: 0;
+    }
     .contentHeader {
+        display: block;
+        @media @phone {
+            display: none;
+        }
         h1 {
             font-size: 24px;
             color: #333;
@@ -78,7 +81,7 @@ div.content {
 
     .emptyPlaceHolder {
         text-align: center;
-        margin: 150px auto 0 auto;
+        margin: 150px auto 150px auto;
         overflow: hidden;
         img {
             display: inline-block;
@@ -98,14 +101,11 @@ div.content {
             }
         }
     }
-}
-.content_phone {
-    display: none;
-    @media @phone {
-        display: block;
-    }
-    width: 100%;
-    &.ui-tabs {
+    .ui-tabs {
+        display: none;
+        @media @phone {
+            display: block;
+        }
         .ui-tabs-nav {
             min-width: 140px;
             padding: 20px 0 20px 0;
@@ -147,77 +147,6 @@ div.content {
         .ui-tabs-nav li.ui-tabs-selected {
             background: red;
             color: #ffffff;
-        }
-    }
-
-    .list {
-        margin-top: 20px;
-        margin-bottom: 40px;
-        border-top: 1px solid #ccc;
-
-        .cell {
-            padding: 30px 20px;
-            border-bottom: 1px solid #ccc;
-            .unread_type {
-                cursor: pointer;
-                font-size: 14px;
-                color: #e60012;
-            }
-            .read_type {
-                cursor: pointer;
-                font-size: 14px;
-                color: #666;
-            }
-
-            .rightParts {
-                float: right;
-
-                .showHide {
-                    margin-left: 24px;
-                    border: 0px;
-                    background: transparent;
-                    text-align: center;
-                    color: #e60012;
-                }
-
-                .date {
-                    font-size: 12px;
-                    color: #666;
-                }
-            }
-
-            .content {
-                background: #f6f6f6;
-                border: 1px solid #eee;
-                border-radius: 6px;
-                padding: 14px 8px;
-                font-size: 12px;
-                color: #666;
-            }
-
-        }
-
-    }
-    .emptyPlaceHolder {
-        text-align: center;
-        margin: 150px auto  150px auto ;
-        overflow: hidden;
-        img {
-            display: inline-block;
-            vertical-align: top;
-        }
-
-        .holderText {
-            display: inline-block;
-            vertical-align: top;
-            line-height: 52px;
-            margin-left: 20px;
-
-            h2 {
-                margin: 0;
-                font-size: 24px;
-                color: #999;
-            }
         }
     }
 }

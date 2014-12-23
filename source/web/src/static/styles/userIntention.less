@@ -1,9 +1,5 @@
 @import "/project/_imports";
 .content {
-    display: block;
-    @media @phone {
-        display: none;
-    }
     .list {
         @border-width: 2px;
         @border-color: #d2d2d2;
@@ -82,69 +78,69 @@
 
     }
 }
-.intentionCard {
+.intentionCard{
     display: block;
     @media @phone {
         display: none;
     }
-}
-.intentionCard_phone {
-    display: none;
-    @media @phone {
-        display: block;
-    }
-    width: 100%;
-    background-color: #fff4f5;
-    margin-bottom: 20px;
-    min-height: 100px;
-
-    .budget {
-        color: #e60012;
-        font-size: 24px;
-        padding: 20px;
-        line-height: 1;
-
-        i {
-            font-style: normal;
-            color: #333;
+    &_phone {
+        display: none;
+        @media @phone {
+            display: block;
         }
-    }
-
-    .detail {
-        color: #666;
-        font-size: 14px;
-        line-height: 1;
-        margin: 0;
-    }
-
-    .textPart_innerTable {
-        overflow: hidden;
-        table-layout: fixed;
         width: 100%;
-        .properties {
-            width: 60%;
-            ul {
-                margin: 12px;
-                li {
-                    vertical-align: middle;
-                    font-size: 10px;
-                    line-height: 15px;
-                    margin-bottom: 8px;
-                    color: #999;
-                    overflow: hidden;
+        background-color: #fff4f5;
+        margin-bottom: 20px;
+        min-height: 100px;
 
-                    label {
-                        float: left;
-                        display: inline-block;
-                        width: 80%;
-                        width: ~"calc(100% - 30px)"
-                    }
-                }
+        .budget {
+            color: #e60012;
+            font-size: 24px;
+            padding: 20px;
+            line-height: 1;
+
+            i {
+                font-style: normal;
+                color: #333;
             }
         }
 
-        .estimate {
-            width: 40%;
+        .detail {
+            color: #666;
+            font-size: 14px;
+            line-height: 1;
+            margin: auto 20px;
+        }
+
+        .textPart_innerTable {
+            overflow: hidden;
+            table-layout: fixed;
+            width: 100%;
+            .properties {
+                width: 60%;
+                ul {
+                    margin: 12px;
+                    li {
+                        vertical-align: middle;
+                        font-size: 10px;
+                        line-height: 15px;
+                        margin-bottom: 8px;
+                        color: #999;
+                        overflow: hidden;
+
+                        label {
+                            float: left;
+                            display: inline-block;
+                            width: 80%;
+                            width: ~"calc(100% - 30px)"
+                        }
+                    }
+                }
+            }
+
+            .estimate {
+                width: 40%;
+            }
         }
     }
 }

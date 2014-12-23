@@ -25,7 +25,19 @@
             <button id="showRead" class="read ghostButton red">{{_('已读')}}</button>
         </div>
     </div>
-
+    <div class="tabs ui-tabs ui-widget">
+        <ul class="ui-tabs-nav">
+            <li id="showAllMsg" class="ui-tabs-selected all">
+                <a>{{_('全部')}}</a>
+            </li>
+            <li id="showNewMsg" class="new">
+                <a>{{_('未读')}}</a>
+            </li>
+            <li id="showReadMsg" class="read">
+                <a>{{_('已读')}}</a>
+            </li>
+        </ul>
+    </div>
     <div class="allList_wrapper list_wrapper">
         <div class="allList list">
         </div>
@@ -51,47 +63,6 @@
     <!-- @@include=/static/templates/message_cell.tpl.html-->
 
 </div>
-<!--@@close-->
-
-<!--@@block=main_phone-->
-<div class="content_phone tabs ui-tabs ui-widget">
-    <ul class="ui-tabs-nav">
-        <li id="showAllMsg" class="ui-tabs-selected">
-            <a>{{_('全部')}}</a>
-        </li>
-        <li id="showNewMsg">
-            <a>{{_('未读')}}</a>
-        </li>
-        <li id="showReadMsg">
-            <a>{{_('已读')}}</a>
-        </li>
-    </ul>
-
-    <div class="allList_wrapper list_wrapper">
-        <div class="allList list">
-        </div>
-        <!--@@include=/partials/pager.html -->
-        <!--@@include=/partials/message_holder.html {"hint":"{{_('当前还没有消息')}}"}-->
-    </div>
-
-    <div class="newList_wrapper list_wrapper" style="display:none">
-        <div class="newList list">
-        </div>
-        <!--@@include=/partials/pager.html -->
-        <!--@@include=/partials/message_holder.html {"hint":"{{_('当前没有未读消息')}}"}-->
-    </div>
-
-    <div class="readList_wrapper list_wrapper" style="display:none">
-        <div class="readList list">
-        </div>
-        <!--@@include=/partials/pager.html -->
-        <!--@@include=/partials/message_holder.html {"hint":"{{_('当前没有已读消息')}}"}-->
-    </div>
-
-    <!-- @@include=/static/templates/message_cell.tpl.html-->
-</div>
-
-
 <!--@@close-->
 
 <!--@@block=scripts-->

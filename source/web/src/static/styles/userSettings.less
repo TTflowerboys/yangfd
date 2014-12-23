@@ -11,6 +11,34 @@
             width: 140px;
         }
     }
+    table {
+        width: 100%;
+        color: #999;
+        margin-bottom: 48px;
+        tr {
+            border-top: 1px solid #ccc;
+            &:first-child {
+                border-top: none;
+            }
+            td {
+                padding: 12px 0;
+                strong {
+                    font-size: 20px;
+                    color: #666;
+                    margin: 12px 0;
+                    display: block;
+                    font-weight: normal;
+                }
+                p {
+                    margin: 12px 0;
+                }
+                &.action {
+                    text-align: right;
+                }
+
+            }
+        }
+    }
 }
 .main_phone {
     display: none;
