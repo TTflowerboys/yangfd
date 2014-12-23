@@ -43,8 +43,12 @@
                                 <p class="summary">
                                     {{item.get('summary')}}
                                 </p>
-                                <a class="title" href="{{item.get('link')}}">
-                                    {{item.get('title')}}
+                                <a class="title"
+                                   %if (item.get('link')):
+                                   href="{{item.get('link')}}"
+                                   %end
+                                   >
+                                    {{_('——')}} {{item.get('title')}}
                                 </a>
                             </li>
                         % end
@@ -110,16 +114,16 @@
             <div class="rslides_wrapper">
                 <ul class="rslides" id="priceSlider">
                     <li>
-                        <img alt="{{report.get('name')}}{{_('房屋平均价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=800&height=424"/>
+                        <img alt="{{report.get('name')}}{{_('房屋平均价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=800&height=424&force_reload=true"/>
                     </li>
                     <li>
-                        <img alt="{{report.get('name')}}{{_('房屋价格区间分布图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=800&height=424"/>
+                        <img alt="{{report.get('name')}}{{_('房屋价格区间分布图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=800&height=424&force_reload=true"/>
                     </li>
                     <li>
-                        <img alt="{{report.get('name')}}{{_('房屋分类型价格图')}}" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=800&height=424"/>
+                        <img alt="{{report.get('name')}}{{_('房屋分类型价格图')}}" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=800&height=424&force_reload=true"/>
                     </li>
                     <li>
-                        <img alt="{{report.get('name')}}{{_('房屋分类型价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=800&height=424"/>
+                        <img alt="{{report.get('name')}}{{_('房屋分类型价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=800&height=424&force_reload=true"/>
                     </li>
                 </ul>
 
@@ -127,22 +131,22 @@
                 <ul class="rslidesPager" id="priceSliderPager">
                     <li data-selector="homeValues">
                         <a href="#">
-                            <img alt="{{report.get('name')}}{{_('房屋平均价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=200&height=106" width="200"/>
+                            <img alt="{{report.get('name')}}{{_('房屋平均价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/home_values?width=200&height=106&force_reload=true" width="200"/>
                         </a>
                     </li>
                     <li data-selector="valueRanges">
                         <a href="#">
-                            <img alt="{{report.get('name')}}{{_('房屋价格区间分布图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=200&height=106" width="200"/>
+                            <img alt="{{report.get('name')}}{{_('房屋价格区间分布图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_ranges?width=200&height=106&force_reload=true" width="200"/>
                         </a>
                     </li>
                     <li data-selector="averageValues">
                         <a href="#">
-                            <img alt="{{report.get('name')}}{{_('房屋分类型价格图')}}" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=200&height=106" width="200"/>
+                            <img alt="{{report.get('name')}}{{_('房屋分类型价格图')}}" src="/landregistry/{{report.get('zipcode_index')}}/average_values?width=200&height=106&force_reload=true" width="200"/>
                         </a>
                     </li>
                     <li data-selector="valueTrend">
                         <a href="#">
-                            <img alt="{{report.get('name')}}{{_('房屋分类型价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=200&height=106" width="200"/>
+                            <img alt="{{report.get('name')}}{{_('房屋分类型价格走势图')}}" src="/landregistry/{{report.get('zipcode_index')}}/value_trend?width=200&height=106&force_reload=true" width="200"/>
                         </a>
                     </li>
                 </ul>
@@ -341,7 +345,7 @@
                     </button>
                     <label class="login">
                         {{_('已经是会员？')}}
-                        <a href="javascript:project.showSignInModalOrGoToSignIn()">
+                        <a href="#" onclick="javascript:project.showSignInModalOrGoToSignIn()">
                             {{_('请登录')}}
                         </a>
                     </label>

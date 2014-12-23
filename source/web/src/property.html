@@ -501,7 +501,7 @@
                                 % for index,item in enumerate(property.get('main_house_types')) :
                                     % if item:
                                         <li class="item{{index}}">
-                                            <a href="javascript:window.openMainHouseType(null, '{{index}}',false)">
+                                            <a href="#" onclick="javascript:window.openMainHouseType(null, '{{index}}',false)">
                                             <div style="position:relative;">
                                                 <img class="floor_plan" src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                                          alt="" onerror="window.onImgError(this);"/>
@@ -1116,11 +1116,11 @@
                          <li class="propertyItem">
                              <a href="/property/{{property.get('id')}}">
                                  %if (property.get('cover')):
-                                     <img src="/image/fetch?link={{quote_plus(property.get('cover').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);"/>
+                                     <img src="/image/fetch?link={{quote_plus(property.get('cover').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);" width="320" height="213"/>
                                  %elif (property.get('reality_images') and len(property.get('reality_images'))):
-                                     <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);"/>
+                                     <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);" width="320" height="213"/>
                                  %else :
-                                     <img class="withPlaceholder"/>
+                                     <img class="withPlaceholder" width="320" height="213"/>
                                  %end
                                  <div class="img_shadow"></div>
                                  <div class="text">

@@ -70,14 +70,14 @@ body{
         @media @phone {
             display: none;
         }
-        
+
         font-size: 18px;
 
         .parent{
             text-decoration: none;
             color: @red;
         }
-        
+
         .current{
             font-weight: bold;
         }
@@ -1136,7 +1136,7 @@ body{
             //background: @footer-bg no-repeat center top;
             //background-size: cover;
             overflow: hidden;
-            min-height: 320px;
+            height: 320px;
             display: table;
             width: 100%;
             border:0px;
@@ -1370,7 +1370,8 @@ body{
     .propertyItem {
         position:relative;
         margin-bottom:20px;
-        height:180px;
+        height: 213px;
+        width: 320px;
 
         a {
             text-decoration:none;
@@ -1399,11 +1400,15 @@ body{
                 >.title {
                     font-size:30px;
                     color:white;
-                    margin-top:50px;
+                    margin-top:115px;
                 }
                 >.price {
                     font-size:24px;
                     color:white;
+
+                    br {
+                        display:none;
+                    }
                 }
             }
         }

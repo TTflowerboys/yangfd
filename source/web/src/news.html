@@ -35,9 +35,18 @@
         %end
 
         %if 'time' in news:
-            <label class="date" for=""> <i class="hint">{{_('发布日期：')}}</i>
-                {{news.get('time').strftime('%Y-%m-%d')}}
-            </label>
+            <label class="date" for=""> <i class="hint">{{news.get('time').strftime('%Y-%m-%d')}}</i></label>
+        %end
+
+        %for cate in news.get('category',{}):
+        %if cate.get('type') == 'news_category' and cate.get('slug') == 'real_estate':
+            <label class="category" for=""> | <a href="/news_list">{{cate.get('value','')}}</a></label></label>
+        %elif cate.get('type') == 'news_category' and cate.get('slug') == 'announcement':
+            <label class="category" for=""> | <a href="/notice_list">{{cate.get('value','')}}</a></label></label>
+        %elif cate.get('type') == 'news_category' and cate.get('slug') == 'legal_resource':
+            <label class="category" for=""> | <a href="/laws">{{cate.get('value','')}}</a></label></label>
+        %elif cate.get('type') == 'news_category' and cate.get('slug') == 'purchase_process':
+            <label class="category" for=""> | <a href="/guides">{{cate.get('value','')}}</a></label></label>
         %end
 
         %if 'link' in news :

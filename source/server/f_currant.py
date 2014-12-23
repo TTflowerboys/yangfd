@@ -7,6 +7,7 @@ import phonenumbers
 import json
 import csv
 import numpy as np
+import base64
 from bson.objectid import ObjectId
 from bson.code import Code
 from pymongo import ASCENDING, DESCENDING
@@ -1694,6 +1695,11 @@ class f_landregistry(f_app.module_base):
 
         fig, ax = plt.subplots()
 
+        from convert_watermark import water_mark_base64
+
+        im = fig.imread(StringIO(base64.b64decode(water_mark_base64)))
+        fig.figimage(im, 10, 10, zorder=1)
+
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
         if fig_width and fig_height:
@@ -1710,18 +1716,19 @@ class f_landregistry(f_app.module_base):
         ax.autoscale_view()
 
         font = {
-            'family': 'sans-serif',
+            # 'fname': '/usr/share/fonts/wenquanyi/wqy-microhei/wqy-microhei.ttc',
+            'family': 'WenQuanYi Micro Hei',
             'color': '#999999',
             'weight': 'normal',
             'size': fontsize,
         }
-        ax.set_xlabel('YEAR', fontdict=font)
-        ax.set_ylabel('BGP', fontdict=font, rotation=0)
+        ax.set_xlabel('年', fontdict=font)
+        ax.set_ylabel('GBP', fontdict=font, rotation=0)
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
-        plt.setp(plt.gca().get_yticklabels(), fontsize=fontsize)
+        fig.setp(fig.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
+        fig.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
@@ -1741,7 +1748,7 @@ class f_landregistry(f_app.module_base):
         # ax.set_xticks([i['date'] for i in merged_result], [i['average_price'] for i in merged_result])
 
         graph = StringIO()
-        plt.savefig(graph, format="png", dpi=100)
+        fig.savefig(graph, format="png", dpi=100)
 
         return graph.getvalue()
 
@@ -1775,15 +1782,15 @@ class f_landregistry(f_app.module_base):
             'weight': 'normal',
             'size': fontsize,
         }
-        ax.set_xlabel('YEAR', fontdict=font)
-        ax.set_ylabel('NUMBER', fontdict=font, rotation=0)
+        ax.set_xlabel('类别', fontdict=font)
+        ax.set_ylabel('GBP', fontdict=font, rotation=0)
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
         ax.set_xticks(ind)
         ax.set_xticklabels([x['_id'] for x in merged_result])
 
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
-        plt.setp(plt.gca().get_yticklabels(), fontsize=fontsize)
+        fig.setp(fig.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
+        fig.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
@@ -1799,7 +1806,7 @@ class f_landregistry(f_app.module_base):
         [bar.set_zorder(3) for bar in ax.get_children()]
 
         graph = StringIO()
-        plt.savefig(graph, format="png", dpi=100)
+        fig.savefig(graph, format="png", dpi=100)
         graph.seek(0)
 
         return graph.getvalue()
@@ -1826,7 +1833,6 @@ class f_landregistry(f_app.module_base):
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
         merged_result = map(lambda x: dict(chain(x["_id"].items(), x["value"].items())), result)
 
-        colors = ["#e70012", "#ff9c00", "#6fdb2d", "#00b8e6"]
         dresult = []
         sresult = []
         tresult = []
@@ -1854,10 +1860,11 @@ class f_landregistry(f_app.module_base):
             fontsize = 4
             markersize = 1
 
+        colors = ["#e70012", "#ff9c00", "#6fdb2d", "#00b8e6"]
         for result, color in zip([dresult, sresult, tresult, fresult], colors):
-            plt.plot([i['date'] for i in result], [i['average_price'] for i in result], color, marker="o", markeredgecolor=color, markersize=markersize)
+            fig.plot([i['date'] for i in result], [i['average_price'] for i in result], color, marker="o", markeredgecolor=color, markersize=markersize)
 
-        legend = plt.legend(["detached", "semi-detached", "terrance", "flat"], loc='upper left', fontsize=fontsize)
+        legend = fig.legend(["独立式", "半独立式", "联排", "公寓"], loc='upper left', fontsize=fontsize)
         frame = legend.get_frame()
         frame.set_color('#f6f6f6')
         frame.set_edgecolor('#e6e6e6')
@@ -1873,8 +1880,8 @@ class f_landregistry(f_app.module_base):
         }
 
         ax.autoscale_view()
-        ax.set_xlabel('YEAR', fontdict=font)
-        ax.set_ylabel('BGP', fontdict=font, rotation=0)
+        ax.set_xlabel('年', fontdict=font)
+        ax.set_ylabel('GBP', fontdict=font, rotation=0)
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
@@ -1893,11 +1900,11 @@ class f_landregistry(f_app.module_base):
         [line.set_zorder(3) for line in ax.lines]
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
 
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
-        plt.setp(plt.gca().get_yticklabels(), fontsize=fontsize)
+        fig.setp(fig.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
+        fig.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
 
         graph = StringIO()
-        plt.savefig(graph, format="png", dpi=100)
+        fig.savefig(graph, format="png", dpi=100)
 
         return graph.getvalue()
 
@@ -1942,7 +1949,7 @@ class f_landregistry(f_app.module_base):
             'weight': 'normal',
             'size': fontsize,
         }
-        ax.set_xlabel('PRICE', fontdict=font)
+        ax.set_xlabel('价格', fontdict=font)
         ax.set_ylabel('%', fontdict=font, rotation=0)
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
@@ -1950,9 +1957,9 @@ class f_landregistry(f_app.module_base):
         ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "400k~500k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
 
-        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='right', fontsize=fontsize, rotation=30)
-        plt.setp(plt.gca().get_yticklabels(), fontsize=fontsize)
-        plt.gcf().subplots_adjust(bottom=0.2)
+        fig.setp(fig.gca().get_xticklabels(), horizontalalignment='right', fontsize=fontsize, rotation=30)
+        fig.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
+        fig.gcf().subplots_adjust(bottom=0.2)
 
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
@@ -1974,7 +1981,7 @@ class f_landregistry(f_app.module_base):
         [bar.set_zorder(3) for bar in ax.get_children()]
 
         graph = StringIO()
-        plt.savefig(graph, format="png", dpi=100)
+        fig.savefig(graph, format="png", dpi=100)
 
         return graph.getvalue()
 
