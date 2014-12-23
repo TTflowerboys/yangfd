@@ -246,14 +246,20 @@ def property_get(property_id):
     }, per_page=20, time_field="mtime")))
 
     related_property_list = []
-    import random
-    i = 6
-    while i > 0 and len(related_property_list) < 3:
-        item = random.choice(raw_related_property_list)
-        if item.get('id') != property.get('id'):
-            raw_related_property_list.remove(item)
-            related_property_list.insert(-1, item)
-        i = i - 1
+    if (len(raw_related_property_list) > 3):
+        import random
+        i = 6
+        while i > 0 and len(related_property_list) < 3:
+            item = random.choice(raw_related_property_list)
+            if item.get('id') != property.get('id'):
+                raw_related_property_list.remove(item)
+                related_property_list.insert(-1, item)
+                i = i - 1
+
+    else:
+        for item in raw_related_property_list:
+            if item.get('id') != property.get('id'):
+                related_property_list.insert(-1, item)
 
     return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list)
 
@@ -287,6 +293,7 @@ def news_list():
 @check_ip_and_redirect_domain
 def news(news_id):
     news = f_app.i18n.process_i18n(f_app.blog.post.output([news_id])[0])
+    logger.warning(news)
     if (news.get('category')[0].get('slug') in ['real_estate', 'primier_apartment_london', 'studenthouse_sheffield']):
         raw_related_news_list = f_app.blog.post_output(
             f_app.blog.post_search(
@@ -299,8 +306,19 @@ def news(news_id):
                 }, per_page=20
             )
         )
+    else:
+        raw_related_news_list = f_app.blog.post_output(
+            f_app.blog.post_search(
+                {
+                    "category": {"$in": [
+                        {'_id': ObjectId(f_app.enum.get_by_slug(news.get('category')[0].get('slug'))["id"]), 'type': 'news_category', '_enum': 'news_category'},
+                    ]}
+                }, per_page=20
+            )
+        )
 
-        related_news_list = []
+    related_news_list = []
+    if (len(raw_related_news_list) > 3):
         import random
         i = 6
         while i > 0 and len(related_news_list) < 3:
@@ -309,10 +327,12 @@ def news(news_id):
                 raw_related_news_list.remove(item)
                 related_news_list.insert(-1, item)
                 i = i - 1
-
-        return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news, related_news_list=related_news_list)
     else:
-        return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news)
+        for item in raw_related_news_list:
+            if item.get('id') != news.get('id'):
+                related_news_list.insert(-1, item)
+
+    return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news, related_news_list=related_news_list)
 
 
 @f_get('/notice_list')

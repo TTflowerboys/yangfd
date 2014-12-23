@@ -165,6 +165,13 @@ body{
             margin-bottom:30px;
         }
 
+        ul {
+             width:100%;
+              @media @phone {
+                padding:0 12px 12px 12px
+            }
+        }
+
         li.newsItem {
             float:left;
             position:relative;
@@ -176,6 +183,12 @@ body{
             &:last-child {
                 margin-right:0px
             }
+
+            @media @phone {
+                width:100%;
+                margin-bottom:12px;
+            }
+
 
 
             a {
