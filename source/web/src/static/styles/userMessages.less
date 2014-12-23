@@ -81,8 +81,11 @@ div.content {
 
     .emptyPlaceHolder {
         text-align: center;
-        margin: 150px auto 150px auto;
+        margin: 150px auto 0 auto;
         overflow: hidden;
+        @media @phone {
+            margin: 150px auto;
+        }
         img {
             display: inline-block;
             vertical-align: top;

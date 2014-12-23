@@ -11,6 +11,28 @@
             width: 140px;
         }
     }
+}
+.userPage .aside {
+    @media @phone {
+        width: 100%;
+        display: block;
+    }
+    .account {
+        @media @phone {
+            display: none;
+        }
+    }
+    .settings {
+        @media @phone {
+            display: none;
+        }
+    }
+}
+.setting {
+    display: block;
+    @media @phone {
+        display: none;
+    }
     table {
         width: 100%;
         color: #999;
@@ -40,7 +62,7 @@
         }
     }
 }
-.main_phone {
+.setting_phone {
     display: none;
     @media @phone {
         display: block;
@@ -120,6 +142,6 @@
         }
     }
 }
-.caption{
+.caption {
     padding: 16px;
 }
