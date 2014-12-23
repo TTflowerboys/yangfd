@@ -53,8 +53,16 @@ body{
                 font-style:normal;
             }
             a {
-                color:#e60012;
+                color:#999;
                 text-decoration:none;
+            }
+
+            a:hover{
+                color:@red;
+            }
+
+            a:active{
+                color:@red;
             }
 
             @media @phone {
@@ -87,8 +95,16 @@ body{
                 font-style:normal;
             }
             a {
-                color:#e60012;
+                color:#999;
                 text-decoration:none;
+            }
+
+            a:hover{
+                color:@red;
+            }
+
+            a:active{
+                color:@red;
             }
 
             @media @phone {
@@ -158,11 +174,23 @@ body{
         height: auto;
         overflow: hidden;
 
+
+        @media @phone {
+            display:none;
+        }
+
         >.title {
             font-size:16px;
             color:#666;
             margin-top:40px;
             margin-bottom:30px;
+        }
+
+        ul {
+             width:100%;
+              @media @phone {
+                padding:0 12px 12px 12px
+            }
         }
 
         li.newsItem {
@@ -176,6 +204,12 @@ body{
             &:last-child {
                 margin-right:0px
             }
+
+            @media @phone {
+                width:100%;
+                margin-bottom:12px;
+            }
+
 
 
             a {

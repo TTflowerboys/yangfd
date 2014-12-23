@@ -435,6 +435,11 @@
                             </td>
                             <td class="value">
                                 {{property.get('street','')}}
+                                % if 'zipcode_index' in property:
+                                <a target="_blank" href="/region_report/{{property.get('zipcode_index')}}">
+                                    {{_(' (查看详细街区报告)')}}
+                                </a>
+                                % end
                             </td>
                         </tr>
                         % end

@@ -103,6 +103,7 @@
         var decription = [];
         decription.push(window.i18n('地址') + ':' + result.AddressLine + '<br/>');
         decription.push(window.i18n('电话') + ':' + result.Phone + '<br/>');
+        decription.push(window.i18n('类型') + ':' + result.Hint + '<br/>');
         window.mapInfoBoxCache[mapId] = new Microsoft.Maps.Infobox(location, { title: result.DisplayName, description: decription.join(' '), showPointer: true});
 
         window.mapInfoBoxCache[mapId].setOptions({ visible: true });
@@ -166,7 +167,7 @@
 
         //http://msdn.microsoft.com/en-us/library/hh478191.aspx
         var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',10)';
-        var select = '$select=EntityID,Latitude,Longitude,__Distance,DisplayName,AddressLine,Phone';
+        var select = '$select=EntityID,Latitude,Longitude,__Distance,DisplayName,AddressLine,Phone,EntityTypeID';
         var top = '$top=200'
         var queryOptions = '$filter='
         var index = 0;
@@ -227,7 +228,8 @@
                 else {
                     for (var i = 0; i < searchResults.length; i++) {
                         createMapPin(map, mapId, searchResults[i]);
-                        searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
+                        searchResults[i].Hint = window.getBingMapEntityType(searchResults[i].EntityTypeID)
+                        //searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
                         createListItem($list, searchResults[i])
                     }
                 }
@@ -252,7 +254,8 @@
                 else {
                     for (var i = 0; i < searchResults.length; i++) {
                         createMapPin(map, mapId, searchResults[i]);
-                        searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
+                        searchResults[i].Hint = window.getBingMapEntityType(searchResults[i].EntityTypeID)
+                        //searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
                         createListItem($list, searchResults[i])
                     }
                 }
@@ -277,7 +280,8 @@
                 else {
                     for (var i = 0; i < searchResults.length; i++) {
                         createMapPin(map, mapId, searchResults[i]);
-                        searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
+                        searchResults[i].Hint = window.getBingMapEntityType(searchResults[i].EntityTypeID)
+                        //searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
                         createListItem($list, searchResults[i])
                     }
                 }
@@ -328,7 +332,7 @@
 
                 var categoryItem = {}
                 for (var key in categories) {
-                    categoryItem.Number = categories[key] + window.i18n('起')
+                    categoryItem.Hint = categories[key] + window.i18n('起')
                     categoryItem.DisplayName = categoryDic[key]
                     createListItem($list, categoryItem)
                 }
