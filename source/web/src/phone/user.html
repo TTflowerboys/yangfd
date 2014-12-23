@@ -29,7 +29,13 @@
     <div class="aside userProfile">
         <div class="account">
             <h1>{{user.get('nickname')}}</h1>
-
+            <p>
+                %if user.get('is_vip'):
+                <span style="background:#ffae00;color: #091225;padding: 2px 5px;"><strong>VIP</strong></span>
+                %else:
+                <span style="background:#444444;color: #091225;padding: 2px 5px;"><strong>VIP</strong></span>
+                %end
+            </p>
             %if user.get('phone_verified'):
             <a class="verificationStatus" href="/user_change_phone_1">
                 <i><img src="/static/images/user/user-phone.png" style="margin-top:2px;"/></i>
