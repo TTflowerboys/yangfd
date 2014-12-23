@@ -331,7 +331,8 @@
                         <li>
                             {{_('房屋面积')}}
                             % if property.get('space'):
-                                <strong>{{ property.get('space',{}).get('value',0) }}
+                                <strong>
+                                    {{float("{0:.2f}".format(float(property.get('space',{}).get('value',0))))}}
                                     <span class="unit">
                                         % unit = property.get('space',{}).get('unit','')
                                         <!--@@include=partials/get_area_unit.html {"unit":"unit"}-->
