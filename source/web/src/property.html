@@ -1233,13 +1233,17 @@
              }
          }
 
-         $(".rslides").responsiveSlides({
-             pager: true,
-             auto: true,
-             nav: true,
-             prevText: '<',
-             nextText: '>'
-         })
+         function updateResponsiveSlides($slide, auto) {
+             $slide.responsiveSlides({
+                 pager: true,
+                 auto: auto,
+                 nav: true,
+                 prevText: '<',
+                 nextText: '>'
+             })
+         }
+
+         updateResponsiveSlides($('.pictures .rslides').first(), true)
 
          $('.rslides_wrapper .leftPressArea').click(function (event) {
              $(event.target).parent().find('a.prev').click()
@@ -1273,6 +1277,15 @@
                  $('.content .pictures .labels').hide()
              }else{
                  $('.content .pictures .labels').show()
+
+                 _.each($('.pictures .rslides'), function (item) {
+                     if ($(item).parent().parent().attr('data-tab-name') === tabName) {
+                         updateResponsiveSlides($(item), true)
+                     }
+                     else {
+                         updateResponsiveSlides($(item), false)
+                     }
+                 })
              }
 
              ga('send', 'event', 'property_detail', 'click', 'change-tab',tabName)
