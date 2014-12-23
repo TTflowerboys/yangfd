@@ -41,6 +41,7 @@
 
 main {
     max-width: @max-width;
+    margin: 0 auto;
 
     .description {
         margin: 30px 12px ;
@@ -49,7 +50,10 @@ main {
         line-height: 2em;
     }
     .view_property {
-        display: block;
+        display:none;
+        @media @phone {
+            display:block;
+        }
         width: 100%;
         position: fixed;
         bottom:0;
