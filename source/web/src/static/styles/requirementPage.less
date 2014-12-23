@@ -1,13 +1,28 @@
 @import "project/_imports";
 
+
+main {
+    max-width:@max-width;
+    margin: 40px auto;
+    overflow:hidden;
+
+    @media @phone {
+        margin: 0 auto;
+    }
+}
+
 .requirement_title {
-    float: left;
-    margin-left: 20px;
-    margin-top: 20px;
-    .title {
+
+     float: left;
+     margin-left: 20px;
+     margin-top: 20px;
+
+     .title {
+
         margin-top: 0px;
         font-size: 36px;
         color: #333333;
+
     }
     .subtitle {
         font-size: 12px;
