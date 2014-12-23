@@ -1685,7 +1685,7 @@ class f_landregistry(f_app.module_base):
         else:
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
-    # @f_cache('homevalues')
+    @f_cache('homevalues')
     def get_month_average_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
@@ -1694,10 +1694,8 @@ class f_landregistry(f_app.module_base):
         x = [i['date'] for i in merged_result]
         y = np.array([i['average_price'] for i in merged_result])
 
-        fig, ax = plt.subplots()
-
         im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
-        fig.figimage(im, 10, 10, zorder=1)
+        fig, ax = plt.subplots()
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
@@ -1707,12 +1705,13 @@ class f_landregistry(f_app.module_base):
         if fig_width >= 4 or fig_width == 0:
             fontsize = 10
             markersize = 2
+            fig.figimage(im, 200, 130, zorder=0.5)
         else:
             fontsize = 4
             markersize = 1
 
         fontprop.set_size(fontsize)
-        ax.plot(x, y, '#e70012', marker="o", markeredgecolor="#e70012", markersize=markersize, zorder=5, clip_on=False)
+        ax.plot(x, y, "#e70012", marker="o", markeredgecolor="#e70012", markersize=markersize)
         ax.autoscale_view()
 
         font = {
@@ -1725,6 +1724,7 @@ class f_landregistry(f_app.module_base):
         ax.set_ylabel('GBP', fontdict=font, rotation=0, fontproperties=fontprop)
         ax.xaxis.set_label_coords(1.05, 0.05)
         ax.yaxis.set_label_coords(-0.025, 1.05)
+        ax.set_zorder(-1)
 
         plt.setp(ax.get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
         plt.setp(ax.get_yticklabels(), fontsize=fontsize)
@@ -1736,11 +1736,14 @@ class f_landregistry(f_app.module_base):
         ax.tick_params(colors='#cccccc')
         ax.set_ylim(0)
         ax.set_axis_bgcolor("#f6f6f6")
+        ax.set_axisbelow(True)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
-        [line.set_zorder(10) for line in ax.lines]
+        for line in ax.lines:
+            logger.debug(line.get_zorder())
+        logger.debug(ax.get_zorder())
 
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
         # fig.autofmt_xdate()
@@ -1761,6 +1764,7 @@ class f_landregistry(f_app.module_base):
         ind = np.arange(len(merged_result))
         width = 0.25
 
+        im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
         fig, ax = plt.subplots()
         ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width, color=['#e70012', '#ff9c00', '#6fdb2d', '#00b8e6'], edgecolor="none", align="center")
 
@@ -1770,6 +1774,7 @@ class f_landregistry(f_app.module_base):
             fig.set_size_inches(fig_width, fig_height)
         if fig_width >= 4 or fig_width == 0:
             fontsize = 10
+            fig.figimage(im, 200, 130, zorder=0.5)
         else:
             fontsize = 4
         fontprop.set_size(fontsize)
@@ -1810,22 +1815,6 @@ class f_landregistry(f_app.module_base):
         graph.seek(0)
 
         return graph.getvalue()
-        # im = f_app.storage.image_open(graph)
-
-        # from PIL import Image
-        # from convert_watermark import water_mark_base64
-        # import base64
-
-        # water_mark = f_app.storage.image_open(StringIO(base64.b64decode(water_mark_base64)))
-        # self.logger.debug(water_mark.size)
-        # water_mark = f_app.storage.image_open("/var/lib/app/currant/source/web/src/static/images/logo/logo-watermark.png")
-        # self.logger.debug(water_mark.size)
-        # layer = Image.new('RGBA', im.size, (0, 0, 0, 0))
-        # position = (im.size[0] - water_mark[0], im.size[1] - water_mark[1])
-        # layer.paste(water_mark, position)
-        # im = Image.composite(layer, im, layer)
-        #
-        # return im
 
     @f_cache('valuetrend')
     def get_month_average_by_zipcode_index_with_type(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
@@ -1847,6 +1836,7 @@ class f_landregistry(f_app.module_base):
             else:
                 fresult.append(i)
 
+        im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
         fig, ax = plt.subplots()
 
         fig_width, fig_height = size
@@ -1856,6 +1846,7 @@ class f_landregistry(f_app.module_base):
         if fig_width >= 4 or fig_width == 0:
             fontsize = 10
             markersize = 2
+            fig.figimage(im, 200, 130, zorder=0.5)
         else:
             fontsize = 4
             markersize = 1
@@ -1909,7 +1900,7 @@ class f_landregistry(f_app.module_base):
 
         return graph.getvalue()
 
-    @f_cache('valueranges')
+    # @f_cache('valueranges')
     def get_price_distribution_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result_lt_100k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$lt": 100000}}).count()
@@ -1932,7 +1923,6 @@ class f_landregistry(f_app.module_base):
         fig, ax = plt.subplots()
 
         im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
-        fig.figimage(im, 10, 10, zorder=1)
 
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
@@ -1940,6 +1930,7 @@ class f_landregistry(f_app.module_base):
             fig.set_size_inches(fig_width, fig_height)
 
         if fig_width >= 4 or fig_width == 0:
+            fig.figimage(im, 200, 130, zorder=0.5)
             fontsize = 10
         else:
             fontsize = 4
