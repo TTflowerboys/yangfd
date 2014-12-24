@@ -1685,7 +1685,7 @@ class f_landregistry(f_app.module_base):
         else:
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
-    # @f_cache('homevalues')
+    @f_cache('homevalues')
     def get_month_average_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
@@ -1816,7 +1816,6 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
-        # [bar.set_zorder(10) for bar in ax.get_children()]
 
         graph = StringIO()
         fig.savefig(graph, format="png", dpi=100)
@@ -1885,7 +1884,7 @@ class f_landregistry(f_app.module_base):
 
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
-                child.set_color('#f6f6f6')
+                child.set_color('#cccccc')
 
         datafile = matplotlib.cbook.get_sample_data("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png")
         from scipy.misc import imread
@@ -1901,10 +1900,9 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
-        # [line.set_zorder(3) for line in ax.lines]
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
 
-        plt.setp(fig.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
+        plt.setp(fig.gca().get_xticklabels(), fontsize=fontsize)
         plt.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
 
         graph = StringIO()
@@ -1988,8 +1986,6 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
-
-        # [bar.set_zorder(3) for bar in ax.get_children()]
 
         graph = StringIO()
         fig.savefig(graph, format="png", dpi=100)
