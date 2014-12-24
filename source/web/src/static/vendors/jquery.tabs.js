@@ -15,7 +15,6 @@
             var $tabContainer = $(this)
             $tabContainer
                 .on(options.trigger + '.tabs', '[data-tab]', function (e) {
-
                     var $target = $(e.currentTarget)
                     $target.addClass(options.className).siblings().removeClass(options.className)
                     var tabName = $target.data('tab')
@@ -23,8 +22,8 @@
                     $tabContents.map(function (index, ele) {
                         $(ele).addClass(options.className).show()
                         $(ele).siblings().removeClass(options.className).hide()
+                        $tabContainer.trigger('openTab', [e.currentTarget, tabName])
                     })
-                    $tabContainer.trigger('openTab', [e.currentTarget, tabName])
                 })
             if (options.autoSelectFirst) {
                 var $firstTab = $tabContainer.find('[data-tab]').eq(0)
