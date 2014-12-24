@@ -9,6 +9,9 @@ import common
 # Import modules you need here
 import libfelix.f_ad
 import libfelix.f_blog
+import libfelix.f_captcha.f_opencaptcha
+import libfelix.f_captcha.f_recaptcha
+# import libfelix.f_captcha.f_touclick
 import libfelix.f_common
 import libfelix.f_email
 import libfelix.f_email.f_aws_ses
@@ -26,10 +29,7 @@ import libfelix.f_storage
 import libfelix.f_storage.f_aws_s3
 import libfelix.f_storage.f_qiniu
 import libfelix.f_user
-import libfelix.f_captcha.f_opencaptcha
-import libfelix.f_captcha.f_recaptcha
-#import libfelix.f_captcha.f_touclick
-
+import libfelix.f_wechat
 import f_currant
 
 
