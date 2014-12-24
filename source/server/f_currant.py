@@ -1685,7 +1685,7 @@ class f_landregistry(f_app.module_base):
         else:
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
-    # @f_cache('homevalues')
+    @f_cache('homevalues')
     def get_month_average_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
@@ -1694,7 +1694,7 @@ class f_landregistry(f_app.module_base):
         x = [i['date'] for i in merged_result]
         y = np.array([i['average_price'] for i in merged_result])
 
-        im = matplotlib.image.imread("/home/van/Documents/currant/img_mark_no_alpha.png")
+        im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
         fig, ax = plt.subplots()
 
         fig_width, fig_height = size
@@ -1705,8 +1705,8 @@ class f_landregistry(f_app.module_base):
         if fig_width >= 4 or fig_width == 0:
             fontsize = 10
             markersize = 2
-            # fig.figimage(im, 200, 130, zorder=0)
-            # datafile = matplotlib.cbook.get_sample_data("/home/van/Documents/currant/img_mark_no_alpha.png")
+            fig.figimage(im, 200, 130, zorder=0)
+            # datafile = matplotlib.cbook.get_sample_data("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
             # from scipy.misc import imread
             # img = imread(datafile)
             # plt.imshow(img)
@@ -1824,7 +1824,7 @@ class f_landregistry(f_app.module_base):
 
         return graph.getvalue()
 
-    # @f_cache('valuetrend')
+    @f_cache('valuetrend')
     def get_month_average_by_zipcode_index_with_type(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
@@ -1908,7 +1908,7 @@ class f_landregistry(f_app.module_base):
 
         return graph.getvalue()
 
-    # @f_cache('valueranges')
+    @f_cache('valueranges')
     def get_price_distribution_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result_lt_100k = m.landregistry.find({"zipcode_index": zipcode_index, "price": {"$lt": 100000}}).count()
