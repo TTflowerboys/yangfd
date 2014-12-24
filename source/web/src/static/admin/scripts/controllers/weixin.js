@@ -6,7 +6,18 @@
     function ctrlWeixinMenu($scope, $state, api, misc) {
 
         $scope.item = {}
-        api.getMenu().success(function (data) {
+        api.getAll().success(function (data) {
+            $scope.item = data.val
+            if($scope.item.button){
+                for(var i in $scope.item.button){
+                    var btn = $scope.item.button[i]
+                    if(btn.sub_button){
+                        for(var j in btn.sub_button){
+                            delete btn.sub_button[j].sub_button
+                        }
+                    }
+                }
+            }
         })
 
         $scope.submit = function ($event, form) {
@@ -14,7 +25,8 @@
             $scope.submitted = true
             $scope.loading = true
             $scope.item = misc.cleanTempData($scope.item)
-            api.updateMenu($scope.item, {
+            var data =  angular.toJson($scope.item)
+            api.create(data, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function () {
@@ -33,13 +45,6 @@
             $scope.item.button.push({})
         }
 
-        $scope.addButton = function (index) {
-            if (!$scope.item.button) {
-                $scope.item.button = []
-            }
-            $scope.item.button.push({})
-        }
-
         $scope.onRemoveButton = function (index) {
             $scope.item.button.splice(index, 1)
         }
@@ -48,7 +53,7 @@
             if (!btn.sub_button) {
                 btn.sub_button = []
             }
-            btn.sub_button.push({})
+            btn.sub_button.push({type:'view'})
         }
 
         $scope.onRemoveSubButton = function (btn, index) {

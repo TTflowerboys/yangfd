@@ -4,17 +4,15 @@
 (function () {
 
     function weixinApi($http, $stateParams) {
-        var config
         return {
-            getMenu: function () {
-                config = config || {}
-                config.params = config.params || {}
-                return $http.get('https://api.weixin.qq.com/cgi-bin/menu/get?access_token=HSkz5fc2DOBwF48Rk0d6fbbn29yfuoQTBxGvJekyPg_2TebOGShUnJmBcDGqGwuXj_HNDgAdAT8ytvHYUEtYzThdp_I-ocJDWzvu1QTFLzo',
-                    config)
+            getAll: function (config) {
+                return $http.get('/api/1/wechat/menu/get', config)
             },
-            updateMenu: function (data, config) {
-                return $http.post('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=HSkz5fc2DOBwF48Rk0d6fbbn29yfuoQTBxGvJekyPg_2TebOGShUnJmBcDGqGwuXj_HNDgAdAT8ytvHYUEtYzThdp_I-ocJDWzvu1QTFLzo',
-                    data, config)
+            remove: function (id, config) {
+                return $http.post('/api/1/wechat/menu/delete', null, config)
+            },
+            create: function (data, config) {
+                return $http.post('/api/1/wechat/menu/create', {json: data}, config)
             }
         }
     }
