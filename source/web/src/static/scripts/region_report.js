@@ -464,9 +464,10 @@
             getRegion(zipCodeIndexFromURL, function (polygon) {
                 showFacilityMap(location, polygon)
             })
-            getRegion(zipCodeIndexFromURL, function (polygon) {
-                showSecurityMap(location, polygon)
-            })
+
+            // getRegion(zipCodeIndexFromURL, function (polygon) {
+            //     showSecurityMap(location, polygon)
+            //})
         }
     })
 })();

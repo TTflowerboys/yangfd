@@ -1,5 +1,7 @@
 <!--@@master = ../masters/master.html-->
 <!--@@block = head-->
+<title>{{_('购房流程')}}</title>
+
 <!--build:css(dist) /static/styles/how_it_works.html.css-->
 <link href="/static/styles/howItWorks.css" rel="stylesheet"/>
 <link rel="stylesheet" href="/static/styles/project/processCard.css"/>
@@ -45,20 +47,33 @@
 
 <!--@@block = main-->
 <textarea  id="dataIntentionList" style="display:none">{{json_dumps(_i18n(intention_list))}}</textarea>
-<p class="description">
-</p>
-<a class="button red view_property">
-    <img alt="" src=""/>
-    <label for=""></label>
-</a>
-<button class="textButton view_guide">
-    <label for="">{{_('查看购房相关流程')}}</label>
-    <img alt="" src="/static/images/property_list/tags-indicator-phone.png"/>
-</button>
-<div class="guide">
-    <!-- @@include=../partials/intention_processCards.html -->
+<div class="category_wrapper">
+    <div class="category">
+        <span>{{_('投资意向：')}} </span>
+        <select class="ghostSelect" name="intentionSelect">
+            %for index, intention in enumerate(_i18n(intention_list)):
+                <option value="{{intention.get('slug')}}">{{intention.get('value')}}</option>
+            %end
+        </select>
+    </div>
 </div>
+<div class="mainContainer">
+    <p class="description">
+    </p>
 
+    <button class="textButton view_guide">
+        <label for="">{{_('查看购房相关流程')}}</label>
+        <img alt="" src="/static/images/property_list/tags-indicator-phone.png"/>
+    </button>
+    <div class="guide">
+        <!-- @@include=../partials/intention_processCards.html -->
+    </div>
+    <a class="button red view_property">
+        <img alt="" src=""/>
+        <label for=""></label>
+    </a>
+
+</div>
 <!--@@close-->
 
 <!--@@block = scripts -->
@@ -75,7 +90,7 @@
      return ret
  }
 
-  window.getId = function (slug) {
+ window.getId = function (slug) {
      var array = JSON.parse($('#dataIntentionList').text())
      var ret = ''
      _.each(array, function (item) {
@@ -84,7 +99,7 @@
          }
      })
      return ret
-  }
+ }
 
  window.loadIntentionDescription = function (callback) {
      $.betterGet('/api/1/enum?type=intention', {})
@@ -99,16 +114,16 @@
                      })
  }
 
-window.updateIntentionDescription = function(slug) {
-    var callback = function () {
-        var description = ''
-        _.each(window.intentionDescription, function (oneDes) {
-            if (oneDes.slug === slug) {
-                description = oneDes.description
-            }
-        })
-        if (!description) {description = ''}
-        $('p.description').text(description)
+ window.updateIntentionDescription = function(slug) {
+     var callback = function () {
+         var description = ''
+         _.each(window.intentionDescription, function (oneDes) {
+             if (oneDes.slug === slug) {
+                 description = oneDes.description
+             }
+         })
+         if (!description) {description = ''}
+         $('p.description').text(description)
      }
 
      if (window.intentionDescription) {
@@ -136,6 +151,11 @@ window.updateIntentionDescription = function(slug) {
      $('.guide').children().hide()
      $('div[data-tab-name=' + slug + ']').show()
  }
+
+ var $intentionSelect = $('select[name=intentionSelect]')
+ $intentionSelect.change(function (event) {
+     window.updatePage(this.value)
+ })
 
  %if intention_list:
  var slugFromURL = window.team.getQuery('slug', location.href)
