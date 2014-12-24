@@ -1816,7 +1816,7 @@ class f_landregistry(f_app.module_base):
 
         return graph.getvalue()
 
-    @f_cache('valuetrend')
+    # @f_cache('valuetrend')
     def get_month_average_by_zipcode_index_with_type(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": True}})
@@ -1854,9 +1854,9 @@ class f_landregistry(f_app.module_base):
 
         colors = ["#e70012", "#ff9c00", "#6fdb2d", "#00b8e6"]
         for result, color in zip([dresult, sresult, tresult, fresult], colors):
-            fig.plot([i['date'] for i in result], [i['average_price'] for i in result], color, marker="o", markeredgecolor=color, markersize=markersize)
+            ax.plot([i['date'] for i in result], [i['average_price'] for i in result], color, marker="o", markeredgecolor=color, markersize=markersize)
 
-        legend = fig.legend([u"独立式", u"半独立式", u"联排", u"公寓"], loc='upper left', fontsize=fontsize, fontproperties=fontprop)
+        legend = plt.legend([u"独立式", u"半独立式", u"联排", u"公寓"], loc='upper left', fontsize=fontsize, prop=fontprop)
         frame = legend.get_frame()
         frame.set_color('#f6f6f6')
         frame.set_edgecolor('#e6e6e6')
