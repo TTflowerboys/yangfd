@@ -1685,7 +1685,7 @@ class f_landregistry(f_app.module_base):
         else:
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
-    @f_cache('homevalues')
+    # @f_cache('homevalues')
     def get_month_average_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
@@ -1694,7 +1694,7 @@ class f_landregistry(f_app.module_base):
         x = [i['date'] for i in merged_result]
         y = np.array([i['average_price'] for i in merged_result])
 
-        im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
+        im = matplotlib.image.imread("/home/van/Documents/currant/img_mark_no_alpha.png")
         fig, ax = plt.subplots()
 
         fig_width, fig_height = size
@@ -1705,7 +1705,11 @@ class f_landregistry(f_app.module_base):
         if fig_width >= 4 or fig_width == 0:
             fontsize = 10
             markersize = 2
-            fig.figimage(im, 200, 130, zorder=0.5)
+            # fig.figimage(im, 200, 130, zorder=0)
+            # datafile = matplotlib.cbook.get_sample_data("/home/van/Documents/currant/img_mark_no_alpha.png")
+            # from scipy.misc import imread
+            # img = imread(datafile)
+            # plt.imshow(img)
         else:
             fontsize = 4
             markersize = 1
@@ -1724,7 +1728,6 @@ class f_landregistry(f_app.module_base):
         ax.set_ylabel('GBP', fontdict=font, rotation=0, fontproperties=fontprop)
         ax.xaxis.set_label_coords(1.05, 0.05)
         ax.yaxis.set_label_coords(-0.025, 1.05)
-        ax.set_zorder(-1)
 
         plt.setp(ax.get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
         plt.setp(ax.get_yticklabels(), fontsize=fontsize)
@@ -1756,6 +1759,12 @@ class f_landregistry(f_app.module_base):
 
     @f_cache('averagevalues')
     def get_average_values_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
+        name_map = {
+            "D": u"独立式别墅",
+            "S": u"半独立式别墅",
+            "T": u"联排别墅",
+            "F": u"公寓"
+        }
 
         with f_app.mongo() as m:
             result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": zipcode_index}}, {"$group": {"_id": "$_id.type", "sum_price": {"$sum": "$value.price"}, "sum_count": {"$sum": "$value.count"}}}])['result']
@@ -1792,9 +1801,8 @@ class f_landregistry(f_app.module_base):
         ax.xaxis.set_label_coords(1.05, 0.05)
         ax.yaxis.set_label_coords(-0.025, 1.05)
         ax.set_xticks(ind)
-        ax.set_xticklabels([x['_id'] for x in merged_result])
+        ax.set_xticklabels([name_map.get(x['_id']) for x in merged_result], fontsize=fontsize, fontproperties=fontprop)
 
-        plt.setp(fig.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
         plt.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
