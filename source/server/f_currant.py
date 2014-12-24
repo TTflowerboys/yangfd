@@ -1685,7 +1685,7 @@ class f_landregistry(f_app.module_base):
         else:
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 
-    @f_cache('homevalues')
+    # @f_cache('homevalues')
     def get_month_average_by_zipcode_index(self, zipcode_index_size, zipcode_index, size=[0, 0], force_reload=False):
         with f_app.mongo() as m:
             result = m.landregistry_statistics.find({"_id.zipcode_index": zipcode_index, "_id.type": {"$exists": False}})
@@ -1694,7 +1694,6 @@ class f_landregistry(f_app.module_base):
         x = [i['date'] for i in merged_result]
         y = np.array([i['average_price'] for i in merged_result])
 
-        im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
         fig, ax = plt.subplots()
 
         fig_width, fig_height = size
@@ -1705,18 +1704,18 @@ class f_landregistry(f_app.module_base):
         if fig_width >= 4 or fig_width == 0:
             fontsize = 10
             markersize = 2
-            fig.figimage(im, 200, 130, zorder=0)
-            # datafile = matplotlib.cbook.get_sample_data("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
-            # from scipy.misc import imread
-            # img = imread(datafile)
-            # plt.imshow(img)
         else:
             fontsize = 4
             markersize = 1
-
         fontprop.set_size(fontsize)
+
         ax.plot(x, y, "#e70012", marker="o", markeredgecolor="#e70012", markersize=markersize)
         ax.autoscale_view()
+
+        datafile = matplotlib.cbook.get_sample_data("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png")
+        from scipy.misc import imread
+        img = imread(datafile)
+        plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
 
         font = {
             'family': 'sans-serif',
@@ -1729,7 +1728,7 @@ class f_landregistry(f_app.module_base):
         ax.xaxis.set_label_coords(1.05, 0.05)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
-        plt.setp(ax.get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
+        plt.setp(ax.get_xticklabels(), fontsize=fontsize)
         plt.setp(ax.get_yticklabels(), fontsize=fontsize)
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
@@ -1744,9 +1743,6 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
-        for line in ax.lines:
-            logger.debug(line.get_zorder())
-        logger.debug(ax.get_zorder())
 
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
         # fig.autofmt_xdate()
@@ -1773,7 +1769,6 @@ class f_landregistry(f_app.module_base):
         ind = np.arange(len(merged_result))
         width = 0.25
 
-        im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
         fig, ax = plt.subplots()
         ax.bar(ind, [float(x['sum_price']) / x['sum_count'] for x in merged_result], width, color=['#e70012', '#ff9c00', '#6fdb2d', '#00b8e6'], edgecolor="none", align="center")
 
@@ -1783,7 +1778,6 @@ class f_landregistry(f_app.module_base):
             fig.set_size_inches(fig_width, fig_height)
         if fig_width >= 4 or fig_width == 0:
             fontsize = 10
-            fig.figimage(im, 200, 130, zorder=0.5)
         else:
             fontsize = 4
         fontprop.set_size(fontsize)
@@ -1808,15 +1802,21 @@ class f_landregistry(f_app.module_base):
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
 
+        datafile = matplotlib.cbook.get_sample_data("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png")
+        from scipy.misc import imread
+        img = imread(datafile)
+        plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
         ax.set_ylim(0)
         ax.set_axis_bgcolor("#f6f6f6")
+        ax.set_axisbelow(True)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
-        [bar.set_zorder(3) for bar in ax.get_children()]
+        # [bar.set_zorder(10) for bar in ax.get_children()]
 
         graph = StringIO()
         fig.savefig(graph, format="png", dpi=100)
@@ -1844,7 +1844,6 @@ class f_landregistry(f_app.module_base):
             else:
                 fresult.append(i)
 
-        im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
         fig, ax = plt.subplots()
 
         fig_width, fig_height = size
@@ -1854,7 +1853,6 @@ class f_landregistry(f_app.module_base):
         if fig_width >= 4 or fig_width == 0:
             fontsize = 10
             markersize = 2
-            fig.figimage(im, 200, 130, zorder=0.5)
         else:
             fontsize = 4
             markersize = 1
@@ -1889,15 +1887,21 @@ class f_landregistry(f_app.module_base):
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#f6f6f6')
 
+        datafile = matplotlib.cbook.get_sample_data("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png")
+        from scipy.misc import imread
+        img = imread(datafile)
+        plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
         ax.set_ylim(0)
         ax.set_axis_bgcolor("#f6f6f6")
+        ax.set_axisbelow(True)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
-        [line.set_zorder(3) for line in ax.lines]
+        # [line.set_zorder(3) for line in ax.lines]
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
 
         plt.setp(fig.gca().get_xticklabels(), horizontalalignment='left', fontsize=fontsize)
@@ -1930,15 +1934,12 @@ class f_landregistry(f_app.module_base):
 
         fig, ax = plt.subplots()
 
-        im = matplotlib.image.imread("/var/lib/app/currant/source/web/src/static/images/logo/img_mark.png")
-
         fig_width, fig_height = size
         fig_width, fig_height = float(fig_width) / 100, float(fig_height) / 100
         if fig_width and fig_height:
             fig.set_size_inches(fig_width, fig_height)
 
         if fig_width >= 4 or fig_width == 0:
-            fig.figimage(im, 200, 130, zorder=0.5)
             fontsize = 10
         else:
             fontsize = 4
@@ -1973,16 +1974,22 @@ class f_landregistry(f_app.module_base):
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
 
+        datafile = matplotlib.cbook.get_sample_data("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png")
+        from scipy.misc import imread
+        img = imread(datafile)
+        plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
         ax.set_ylim(0)
         ax.set_axis_bgcolor("#f6f6f6")
+        ax.set_axisbelow(True)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
 
-        [bar.set_zorder(3) for bar in ax.get_children()]
+        # [bar.set_zorder(3) for bar in ax.get_children()]
 
         graph = StringIO()
         fig.savefig(graph, format="png", dpi=100)
