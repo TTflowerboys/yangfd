@@ -293,7 +293,7 @@
         })
     }
 
-    function showSecurityMap(location, polygon) {
+    /*function showSecurityMap(location, polygon) {
         var map = getMap('securityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=security] ul')
         var pushpin = new Microsoft.Maps.Pushpin(location);
@@ -338,7 +338,7 @@
                 }
 
             })
-    }
+    }*/
 
     function createListItem($list, item) {
         var result = _.template($('#placeItem_template').html())({item: item})
@@ -464,9 +464,10 @@
             getRegion(zipCodeIndexFromURL, function (polygon) {
                 showFacilityMap(location, polygon)
             })
-            getRegion(zipCodeIndexFromURL, function (polygon) {
-                showSecurityMap(location, polygon)
-            })
+
+            // getRegion(zipCodeIndexFromURL, function (polygon) {
+            //     showSecurityMap(location, polygon)
+            //})
         }
     })
 })();

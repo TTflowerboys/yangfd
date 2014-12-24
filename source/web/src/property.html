@@ -436,11 +436,9 @@
                             </td>
                             <td class="value">
                                 {{property.get('street','')}}
-                                % if 'zipcode_index' in property:
-                                <!--<a target="_blank" href="/region_report/{{property.get('zipcode_index')}}">
+                                <a class="street-link" style="display: none" target="_blank" href="/region_report/{{property.get('zipcode_index')}}">
                                     {{_(' (查看详细街区报告)')}}
-                                </a>-->
-                                % end
+                                </a>
                             </td>
                         </tr>
                         % end
@@ -1354,6 +1352,11 @@
                  if (data && data.length){
                      var result = _.template($('#regionReport_template').html())({report: data[0]})
                      $('.propertyDetails .content').first().append(result)
+
+                     //Show street region link when have report
+                     $('.street-link').show()
+                 }else{
+                     $('.street-link').hide()
                  }
              }).fail(function (ret) {
 

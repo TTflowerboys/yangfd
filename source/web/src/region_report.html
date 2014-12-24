@@ -155,46 +155,43 @@
             <div class="text">
                 <div class="selected" data-type="homeValues">
                     <h3 class="title">
-                        Hammersmith and Fulham 学校综合质量1
+                        {{report.get('name','')}}内房价走势图
                     </h3>
                     <p class="description">
-                        李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                        有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                        家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                        和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                        横坐标表示年份，纵坐标表示平均房价。<br/>
+                        红色曲线表示该区域内平均房价随年份的变化，曲线上每一点都表示对应年份该区域的平均房价。<br/>
+                        红色曲线呈现上坡的形状，表示随着时间推移，该区域内的平均房价在上升。<br/>
                     </p>
                 </div>
                  <div data-type="valueRanges">
                     <h3 class="title">
-                        Hammersmith and Fulham 学校综合质量2
+                        {{report.get('name','')}}内房价范围分布图
                     </h3>
                     <p class="description">
-                        李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                        有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                        家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                        和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                        横坐标表示房价范围，纵坐标表示百分比。<br/>
+                        红色柱状图表示各房价范围内的房产比例。<br/>
+                        横坐标对应的柱状图高，表示在该区域内此房价范围内的房产多。<br/>
+                        横坐标对应的柱状图低，表示在该区域内此房价范围内的房产少。<br/>
+                        对应横坐标没有柱状图，则表示该区域内没有此房价范围内的房产。<br/>
                     </p>
                  </div>
                   <div data-type="averageValues">
                     <h3 class="title">
-                        Hammersmith and Fulham 学校综合质量3
+                        {{report.get('name','')}}内分类型房价图
                     </h3>
                     <p class="description">
-                        李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                        有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                        家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                        和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                        横坐标表示房产类型，纵坐标表示房价。<br/>
+                        红色柱状图表示独立式别墅的平均房价，黄色柱状图表示半独立式别墅的平均房价，绿色柱状图表示排房别墅的平均房价，蓝色柱状图表示公寓的平均房价。<br/>
                     </p>
                   </div>
                    <div data-type="valueTrend">
                     <h3 class="title">
-                        Hammersmith and Fulham 学校综合质量4
+                        {{report.get('name','')}}内分类型房价走势图
                     </h3>
                     <p class="description">
-                        李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                        有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                        家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                        和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                        横坐标表示年份，纵坐标表示房价。<br/>
+                        红色曲线表示独立式别墅的平均房价随年份的变化，黄色曲线表示半独立式别墅的平均房价随年份的变化，绿色曲线表示排房别墅的平均房价随年份的变化，蓝色曲线表示公寓的平均房价随年份的变化。<br/>
+                        曲线上每一点都表示该类型房产在对应年份房价，所有曲线若呈现上坡形状，表示随时间推移，各类型房产房价都在上涨。<br/>
                     </p>
                 </div>
             </div>
@@ -226,11 +223,13 @@
                         <img alt="" src=""/>
                         <label> {{_('便民设施')}} </label>
                     </li>
+                    <!--
                     <li data-tab="security">
                         <img class="active" src="/static/images/region_report/icon_security_active.png"/>
                         <img class="normal" src="/static/images/region_report/icon_security.png"/>
                         <label> {{_('周边治安')}} </label>
                     </li>
+                    -->
                 </ul>
                 <div class="list">
                     <div data-tab-name="transit" style="display:none;" >
@@ -248,11 +247,13 @@
 
                         </ul>
                     </div>
+                    <!--
                     <div data-tab-name="security" style="display:none;">
                         <ul >
 
                         </ul>
                     </div>
+                    -->
                 </div>
             </div>
         </div>
@@ -264,72 +265,72 @@
                 <ul class="rslides" id="areaValueSlider">
                     <li class="item0">
                         <div class="image">
+                            % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-People-' + report.get('zipcode_index')
+                            <img alt="{{report.get('name')}}{{_('居民各年龄段分布对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                        </div>
+                        <div class="text">
+                            <h3 class="title">
+                                {{report.get('name','')}}内居民各年龄段分布对比图
+                            </h3>
+                            <p class="description">
+                                横坐标表示年龄段，纵坐标表示百分比。<br/>
+                                红色柱状图表示本区对应年龄段人口占总人口的百分比，绿色柱状图表示英国平均对应年龄段人口占总人口的百分比。<br/>
+                                横坐标划分为七个年龄段，每个年龄段有两个柱状图，两个柱状图之差就是本区与英国平均该年龄段人口比例之差。<br/>
+                                各个年龄段同色柱状图之和为100%。<br/>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="item1">
+                        <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-education-' + report.get('zipcode_index')
                             <img alt="{{report.get('name')}}{{_('学校综合质量对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
-                                Hammersmith and Fulham 学校综合质量对比图
+                                {{report.get('name','')}}内学校综合质量对比图
                             </h3>
                             <p class="description">
-                                李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                                有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                                家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                                和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                                横坐标表示学校成绩项目，纵坐标表示对应成绩达标的学校的百分比，图表上方标签标示学校的各教育阶段，虚线是划分各教育阶段的间隔。<br/>
+                                Primary表示小学教育阶段，Secondary表示中学教育阶段，6th Form表示高中教育阶段。对应成绩达标的学校的百分比为在英国教育部要求下，不同阶段对应的课程达标的学校的比例<br/>
+                                红色柱状图表示本区达到对应学校成绩项目的百分比。绿色柱状图表示英国平均达到对应学校成绩项目的百分比。红色柱状图比绿色柱状图高，表示在对应的教育阶段和学校成绩内，本区达到对应成绩的学校百分比比英国平均高。<br/>
                             </p>
                         </div>
                     </li>
-                    <li class="item1">
+                    <li class="item2">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-CouncilTax-' + report.get('zipcode_index')
                             <img alt="{{report.get('name')}}{{_('议会税对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
-                                Hammersmith and Fulham 议会税对比图
+                                {{report.get('name','')}}内房屋税对比图
                             </h3>
                             <p class="description">
-                                李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                                有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                                家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                                和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                                横坐标表示房屋税级别，纵坐标表示房屋税征收金额。<br/>
+                                英国所有房屋根据其市场价值被划分为A-H 八个级次，其中以D 级为基准税级，其他档次的纳税额分别是D级的一定百分比或倍数。英国各地方政府确定D级房产的应纳税额，再乘以税收乘数，由此计算出A 级到H 级房屋的当年应纳税额。<br/>
+                                红色柱状图表示本区对应房屋税级别所征收金额，绿色柱状图表示英国平均对应房屋税级别所征收金额。<br/>
+                                绿色柱状图比红色柱状图高，标示在对应的房屋税级别，英国平均房屋税征收金额比本区高。<br/>
                             </p>
                         </div>
                     </li>
-                    <li class="item2">
+                    <li class="item3">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-Crime-' + report.get('zipcode_index')
                             <img alt="{{report.get('name')}}{{_('各类型犯罪率对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
-                                Hammersmith and Fulham 各类型犯罪率对比图
+                                {{report.get('name','')}}内各类型犯罪率对比图
                             </h3>
                             <p class="description">
-                                李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                                有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                                家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                                和平重建的长期承诺，展现对阿富汗未来的坚定信心。
+                                横坐标表示犯罪类型，纵坐标表示案件数。<br/>
+                                红色柱状图表示本区该犯罪类型的每千人犯罪案件数，绿色柱状图表示英国平均该犯罪类型的每千人犯罪案件数。<br/>
+                                红色柱状图比绿色柱状图高，标示在对应的犯罪类型，本区每千人犯罪案件数比英国平均多。<br/>
+                                横坐标分为五个犯罪类型，每个犯罪类型有两个柱状图，两个柱状图之差就是本区与英国平均该犯罪类型每千人犯罪案件数之差。<br/>
                             </p>
                         </div>
                     </li>
-                    <li class="item3">
-                        <div class="image">
-                            % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-People-' + report.get('zipcode_index')
-                            <img alt="{{report.get('name')}}{{_('居民各年龄段分布对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
-                        </div>
-                        <div class="text">
-                            <h3 class="title">
-                                Hammersmith and Fulham 居民各年龄段分布对比图
-                            </h3>
-                            <p class="description">
-                                李克强代表中国政府祝贺会议召开。他表示，推动伊斯坦布尔进程向前发展，
-                                有利于促进阿富汗问题早日解决，实现地区安全与繁荣。希望会议发出地区国
-                                家和国际社会坚定支持阿富汗平稳过渡和安全发展的明确信号，重申对阿富汗
-                                和平重建的长期承诺，展现对阿富汗未来的坚定信心。
-                            </p>
-                        </div>
-                    </li>
+
                 </ul>
             </div>
         </div>
