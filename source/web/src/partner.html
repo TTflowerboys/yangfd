@@ -1,0 +1,67 @@
+<!--@@master=masters/aboutus_master.html-->
+<!--@@block=head -->
+
+<title>{{_('合作伙伴')}}</title>
+<!--build:css(dist) /static/styles/partner.html.css-->
+<link rel="stylesheet" href="/static/styles/aboutus.css"/>
+<link rel="stylesheet" href="/static/styles/partner.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+
+<!--@@block=main -->
+
+<div class="container">
+    <h1 class="title">{{_('合作伙伴')}} </h1>
+    <div class="content">
+        <ul class="partners">
+            <li class="item">
+                <img alt="" src="/static/images/partner/cbbc.png"/>
+            </li>
+            <li class="item">
+                <img alt="" src="/static/images/partner/hsbc.png"/>
+            </li>
+            <li class="item">
+                <img alt="" src="/static/images/partner/uti.png"/>
+            </li>
+            <li class="item">
+                <img alt="" src="/static/images/partner/vb.png"/>
+            </li>
+            <li class="item">
+                <img alt="" src="/static/images/partner/lp.png"/>
+            </li>
+            <li class="item">
+                <img alt="" src="/static/images/partner/mcc.png"/>
+            </li>
+            <li class="item">
+                <img alt="" src="/static/images/partner/bcc.png"/>
+            </li>
+            <li class="item">
+                <img alt="" src="/static/images/partner/lcc.png"/>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!--@@close-->
+<!--@@block = scripts -->
+<script>
+ window.updateCategoryFixed = function () {
+     if (!window.team.isPhone()) {
+         var scrollOffset = $(window).scrollTop()
+         var $list = $('.content')
+         var listTop = $list.offset().top
+         var $category = $('.category')
+         var tagsLeft = $list.offset().left + $list.width() + 40
+         if (scrollOffset > listTop - 20) {
+             $category.css({'position':'fixed', 'top':'20px', left:tagsLeft})
+         }
+         else {
+             $category.css({'position':'static', 'top':'0', left:'0'})
+         }
+     }
+ }
+ $(window).scroll(window.updateCategoryFixed);
+ $(window).resize(window.updateCategoryFixed);
+</script>
+<!--@@close -->

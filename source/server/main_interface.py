@@ -417,6 +417,13 @@ def media():
     return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
 
 
+@f_get('/partner')
+@check_landing
+@check_ip_and_redirect_domain
+def partner():
+    return template("partner", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+
+
 @f_get('/coming_soon')
 @check_ip_and_redirect_domain
 def coming_soon():

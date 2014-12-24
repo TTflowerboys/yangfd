@@ -1,0 +1,33 @@
+@import "project/_imports";
+
+
+.page > main {
+    .container {
+        .content {
+            .partners {
+                width:100%;
+                height:auto;
+                margin: 0;
+                padding: 0;
+
+                .item {
+                    float:left;
+                    width:33%;
+                    height:160px;
+                    display:inline-block;
+                    text-align:center;
+                    list-style-type:none;
+
+                    @media @phone {
+                        width:100%;
+                    }
+
+                    img {
+                        margin-bottom:0;
+                    }
+                }
+            }
+        }
+    }
+
+}
