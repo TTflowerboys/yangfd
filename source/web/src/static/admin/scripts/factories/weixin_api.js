@@ -8,7 +8,7 @@
             getAll: function (config) {
                 return $http.get('/api/1/wechat/menu/get', config)
             },
-            remove: function (id, config) {
+            remove: function (config) {
                 return $http.post('/api/1/wechat/menu/delete', null, config)
             },
             create: function (data, config) {
