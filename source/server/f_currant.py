@@ -1721,7 +1721,7 @@ class f_landregistry(f_app.module_base):
             'size': fontsize,
         }
         ax.set_xlabel(u'年', fontdict=font, fontproperties=fontprop)
-        ax.set_ylabel('GBP', fontdict=font, rotation=0, fontproperties=fontprop)
+        ax.set_ylabel(u'英镑', fontdict=font, rotation=0, fontproperties=fontprop)
         ax.xaxis.set_label_coords(1.05, 0.05)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
@@ -1796,7 +1796,7 @@ class f_landregistry(f_app.module_base):
         }
 
         ax.set_xlabel(u'类别', fontdict=font, fontproperties=fontprop)
-        ax.set_ylabel('GBP', fontdict=font, rotation=0, fontproperties=fontprop)
+        ax.set_ylabel(u'英镑', fontdict=font, rotation=0, fontproperties=fontprop)
         ax.xaxis.set_label_coords(1.05, 0.05)
         ax.yaxis.set_label_coords(-0.025, 1.05)
         ax.set_xticks(ind)
@@ -1892,7 +1892,7 @@ class f_landregistry(f_app.module_base):
 
         ax.autoscale_view()
         ax.set_xlabel(u'年', fontdict=font, fontproperties=fontprop)
-        ax.set_ylabel('GBP', fontdict=font, rotation=0, fontproperties=fontprop)
+        ax.set_ylabel(u'英镑', fontdict=font, rotation=0, fontproperties=fontprop)
         ax.xaxis.set_label_coords(1.05, 0.05)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
@@ -1952,7 +1952,7 @@ class f_landregistry(f_app.module_base):
             fontsize = 4
         fontprop.set_size(fontsize)
 
-        ax.bar(ind, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none", align="center")
+        ax.bar(ind + width * 2, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none", align="center")
 
         ax.autoscale_view()
         font = {
@@ -1966,7 +1966,7 @@ class f_landregistry(f_app.module_base):
         ax.xaxis.set_label_coords(1.05, 0.025)
         ax.yaxis.set_label_coords(-0.025, 1.05)
 
-        ax.set_xticks(ind + width / 2)
+        ax.set_xticks(ind + width * 2)
         ax.set_xticklabels(["under 100k", "100k~200k", "200k~300k", "300k~400k", "400k~500k", "500k~600k", "600k~700k", "700k~800k", "800k~900k", "900k~1m", "over 1m"])
 
         plt.setp(fig.gca().get_xticklabels(), horizontalalignment='right', fontsize=fontsize, rotation=30)
