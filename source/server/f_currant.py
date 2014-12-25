@@ -15,6 +15,8 @@ from six.moves import cStringIO as StringIO
 from six.moves import urllib
 from pyquery import PyQuery as q
 from itertools import chain
+from PIL import ImageOps
+from scipy.misc import imread
 from libfelix.f_common import f_app
 from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
@@ -1712,11 +1714,6 @@ class f_landregistry(f_app.module_base):
         ax.plot(x, y, "#e70012", marker="o", markeredgecolor="#e70012", markersize=markersize)
         ax.autoscale_view()
 
-        datafile = matplotlib.cbook.get_sample_data("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png")
-        from scipy.misc import imread
-        img = imread(datafile)
-        plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
-
         font = {
             'family': 'sans-serif',
             'color': '#999999',
@@ -1733,6 +1730,13 @@ class f_landregistry(f_app.module_base):
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
+
+        if fig_width >= 4:
+            water_mark_buffer = StringIO()
+            ImageOps.expand(f_app.storage.image_open("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
+            water_mark_buffer.seek(0)
+            img = imread(water_mark_buffer)
+            plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
 
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
@@ -1790,6 +1794,7 @@ class f_landregistry(f_app.module_base):
             'weight': 'normal',
             'size': fontsize,
         }
+
         ax.set_xlabel(u'类别', fontdict=font, fontproperties=fontprop)
         ax.set_ylabel('GBP', fontdict=font, rotation=0, fontproperties=fontprop)
         ax.xaxis.set_label_coords(1.05, 0.05)
@@ -1802,10 +1807,12 @@ class f_landregistry(f_app.module_base):
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
 
-        datafile = matplotlib.cbook.get_sample_data("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png")
-        from scipy.misc import imread
-        img = imread(datafile)
-        plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+        if fig_width >= 4:
+            water_mark_buffer = StringIO()
+            ImageOps.expand(f_app.storage.image_open("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
+            water_mark_buffer.seek(0)
+            img = imread(water_mark_buffer)
+            plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
 
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
@@ -1866,6 +1873,13 @@ class f_landregistry(f_app.module_base):
         frame.set_color('#f6f6f6')
         frame.set_edgecolor('#e6e6e6')
 
+        if fig_width >= 4:
+            water_mark_buffer = StringIO()
+            ImageOps.expand(f_app.storage.image_open("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
+            water_mark_buffer.seek(0)
+            img = imread(water_mark_buffer)
+            plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+
         for color, text in zip(colors, legend.get_texts()):
             text.set_color(color)
 
@@ -1885,11 +1899,6 @@ class f_landregistry(f_app.module_base):
         for child in ax.get_children():
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
-
-        datafile = matplotlib.cbook.get_sample_data("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png")
-        from scipy.misc import imread
-        img = imread(datafile)
-        plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
 
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
@@ -1972,10 +1981,12 @@ class f_landregistry(f_app.module_base):
             if isinstance(child, matplotlib.spines.Spine):
                 child.set_color('#cccccc')
 
-        datafile = matplotlib.cbook.get_sample_data("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png")
-        from scipy.misc import imread
-        img = imread(datafile)
-        plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+        if fig_width >= 4:
+            water_mark_buffer = StringIO()
+            ImageOps.expand(f_app.storage.image_open("/var/lib/app/currant/source/web/src/static/images/logo/img_mark_no_alpha.png"), border=20, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
+            water_mark_buffer.seek(0)
+            img = imread(water_mark_buffer)
+            plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
 
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
