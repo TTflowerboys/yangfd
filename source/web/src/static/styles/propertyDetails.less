@@ -302,13 +302,13 @@ body{
                 margin: 9px;
                 .name {
                     margin: 0 0 6px 0;
-                    font-size: 16px;
-                    .limitedLines(1, 16px, #e60012);
+                    font-size: 20px;
+                    .limitedLines(1, 20px, #e60012);
                     color: white;
                 }
                 .tag {
                     margin: 0;
-                    font-size: 12px;
+                    font-size: 14px;
                     line-height: 1.4em;
                     color: white;
                     overflow:hidden;
@@ -336,7 +336,7 @@ body{
             table {
                 margin: 9px;
                 .price {
-                    font-size: 9px;
+                    font-size: 14px;
                     color: white;
                     strong {
                         color: #e60012;
@@ -368,10 +368,10 @@ body{
 
                      float:left;
                      margin:12px 0;
-                     td { width: 50%; border-left: 1px solid #ccc; padding-left: 12px;
-                          .text {font-size:12px;}
-                          .percentage { display: block; font-size: 12px; min-height: 24px; vertical-align: bottom;
-                                        strong { line-height: 24px; }
+                     td { width: 50%; border-left: 1px solid #ccc; padding-left: @base-font-size-moblie;
+                          .text {font-size:@base-font-size-moblie;}
+                          .percentage { display: block; font-size: @base-font-size-moblie; min-height: 28px; vertical-align: bottom;
+                                        strong { line-height: 28px; }
                                         &.emphasized { color: @red;
                                                        strong { font-size: 24px; word-break:break-all; display:block; }
                                                      }
@@ -405,7 +405,7 @@ body{
                 @media @phone {
                     width: 20%;
                     height: 44px;
-                    font-size: 12px;
+                    font-size: @base-font-size-moblie;
                     line-height: 44px;
                     border: 0px;
                     background: #eee;
@@ -434,7 +434,7 @@ body{
             > li {
                 float: left; width: 100% / 5; border-right: 1px solid @border-color; padding-left: 8px;
                 @media @phone {
-                    font-size:12px;
+                    font-size:@base-font-size-moblie;
                     height:100%;
                     min-height:70px;
                 }
@@ -487,7 +487,7 @@ body{
                 @media @phone {
                     max-width: 100px;
                     padding-right: 0px;
-                    font-size: 12px;
+                    font-size: @base-font-size-moblie;
                 }
 
             }
@@ -502,15 +502,15 @@ body{
                 margin-right: 4px;
 
                 @media @phone {
-                    width: 12px;
-                    height: 12px;
-                    line-height: 12px;
+                    width: @base-font-size-moblie;
+                    height: @base-font-size-moblie;
+                    line-height: @base-font-size-moblie;
                 }
             }
             .name {
                 display: inline-block; min-width: 6em;
                 @media @phone {
-                    font-size: 12px;
+                    font-size: @base-font-size-moblie;
                     padding-left:20px;
                 }
 
@@ -535,7 +535,7 @@ body{
         padding: 24px 16px;
 
         @media @phone {
-            font-size: 14px;
+            font-size: @base-font-size-moblie;
             padding: 20px 20px;
         }
 
@@ -553,7 +553,7 @@ body{
         }
 
         @media @phone {
-            font-size: 12px;
+            font-size: @base-font-size-moblie;
             margin-top: 0;
             padding: 20px;
         }
@@ -593,7 +593,7 @@ body{
                 margin-bottom: 0;
                 color: white;
                 margin-left: 20px;
-                font-size: 12px;
+                font-size: @base-title-font-size-mobile;
             }
         }
 
@@ -612,7 +612,9 @@ body{
                 border-left: 1px solid #444; padding: 0 8px;
                 &:first-child { border-left: none; }
                 .name {
-                    display: block; font-size: 12px; margin-bottom: 8px; }
+                    display: block;
+                    font-size: @base-font-size-moblie;
+                    margin-bottom: 8px; }
                 .value {
                     font-size: 18px;
                 }
@@ -632,7 +634,7 @@ body{
                 .name {
                     @media @phone {
                         color: white;
-                        font-size:9px;
+                        font-size:@base-font-size-moblie;
                     }
                 }
 
@@ -642,13 +644,13 @@ body{
                         padding-left: 8px;
                         height: 56px;
                         background: #e60012;
-                        font-size:9px;
+                        font-size:@base-font-size-moblie;
                     }
 
                     strong {
                         @media @phone {
                             color: white;
-                            font-size:14px;
+                            font-size:@base-title-font-size-mobile;
                         }
                     }
                 }
@@ -658,13 +660,13 @@ body{
                         padding-left: 8px;
                         height: 56px;
                         background: #e60012;
-                        font-size:9px;
+                        font-size:@base-font-size-moblie;
                     }
 
                     strong {
                         @media @phone {
                             color: white;
-                            font-size:14px;
+                            font-size:@base-title-font-size-mobile;
                         }
                     }
                 }
@@ -725,7 +727,7 @@ body{
                 margin-top: 0px;
                 margin-bottom: 0px;
                 margin-left: 0px;
-                font-size: 12px;
+                font-size: @base-font-size-moblie;
                 height: 52px;
                 line-height: 52px;
                 padding-left: 12px;
@@ -745,7 +747,7 @@ body{
                 &:first-child { border-top: none; }
                 td {
                     @media @phone {
-                        font-size: 12px;
+                        font-size: @base-font-size-moblie;
                     }
 
                     .hint {
@@ -784,7 +786,7 @@ body{
                 margin-top: 20px;
                 margin-left: 12px;
                 margin-bottom: 12px;
-                font-size: 12px;
+                font-size: @base-font-size-moblie;
             }
         }
         .historical_price_description {
@@ -795,7 +797,7 @@ body{
                 margin-right: 12px;
                 margin-bottom: 12px;
 
-                font-size: 12px;
+                font-size: @base-font-size-moblie;
             }
         }
 
@@ -823,7 +825,7 @@ body{
                 margin-top: 0px;
                 margin-left: 0px;
                 margin-bottom: 12px;
-                font-size: 12px;
+                font-size: @base-font-size-moblie;
                 color: white;
             }
         }
@@ -831,7 +833,7 @@ body{
         .stackedBar { .clearfix(); position: relative; margin-bottom: 88px; height: 50px; margin-top: 56px;
             > .bar { float: left; height: 100%; text-align: center; line-height: 50px; color: white; .clipped(auto);
                 @media @phone {
-                    font-size: 12px;
+                    font-size: @base-font-size-moblie;
                 }
 
                 &.bar1 { background: #00d3ff; }
@@ -842,7 +844,7 @@ body{
             }
             > .annotation { position: absolute; border: 2px solid; text-align: center; .clipped(100%);
                 @media @phone {
-                    font-size: 12px;
+                    font-size: @base-font-size-moblie;
                 }
 
                 &.annotation4 { color: #00d3ff; border-top: none; left: 0; top: 100%; margin-top: 8px; z-index: 2;
@@ -960,7 +962,7 @@ body{
                 margin-top: 20px;
                 margin-left: 12px;
                 margin-bottom: 12px;
-                font-size: 12px;
+                font-size: @base-font-size-moblie;
             }
         }
 
@@ -1206,7 +1208,7 @@ body{
                 line-height:24px;
 
                 @media @phone {
-                    font-size:12px;
+                    font-size:@base-font-size-moblie;
                     line-height:18px;
                 }
             }
