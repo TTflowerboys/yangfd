@@ -25,7 +25,9 @@
         </div>
         <div class="opening_inner">
             <img class="logo" src="/static/images/logo/logo-yfd.png" alt=""/>
-            <h1 class="hint">{{_('金秋十一月，即将开放！')}}</h1>
+            %if experiments.coming_soon.get("show_hint"):
+                <h1 class="hint">{{_('金秋十一月，即将开放！')}}</h1>
+            %end
             <form name="subscription" class="subscription">
                 <input class="email" name="email" type="text" placeholder="{{_('请填写邮箱订阅网站上线通知')}}" data-validator="required, trim email"/>
                 <button type="submit" class="button red">{{_('订阅')}}</button>
