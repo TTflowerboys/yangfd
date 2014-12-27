@@ -51,7 +51,7 @@ main {
                 display:inline-block;
                 width:33%;
                 margin-top:0;
-                font-size:12px;
+                font-size:@base-font-size-moblie;
                 font-weight:bold;
                 border:0px;
             }
@@ -160,7 +160,10 @@ main {
                     text-align:center;
                     padding:0px 10px;
                     margin: 10px auto;
+                    font-size:@base-font-size-moblie;
+                    line-height:2em;
                 }
+
             }
 
             .price, .intention {
@@ -191,7 +194,7 @@ main {
                     display:inline-block;
                     margin-top:16px;
                     margin-left:8px;
-                    font-size:12px;
+                    font-size:@base-font-size-moblie;
                     line-height:14px;
 
                     @media @phone {
