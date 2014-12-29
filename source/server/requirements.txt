@@ -21,6 +21,7 @@ pint
 PyYAML
 py-bcrypt
 matplotlib
+PlanOut
 M2Crypto
 pytz
 python-dateutil
