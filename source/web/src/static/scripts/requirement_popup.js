@@ -77,7 +77,8 @@
         }
 
 
-        container.find('form[name=requirement]').submit(function (e) {
+        //remove bind event first Bug #5515
+        container.find('form[name=requirement]').off('submit').submit(function (e) {
             e.preventDefault()
 
             var errorArea = $(this).find('.errorMessage')
