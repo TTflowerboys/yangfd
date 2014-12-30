@@ -25,6 +25,7 @@ from libfelix.f_message import f_message
 from libfelix.f_interface import abort, request
 from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
+from libfelix.f_shop import f_shop
 
 import logging
 logger = logging.getLogger(__name__)
@@ -2051,3 +2052,9 @@ class f_landregistry(f_app.module_base):
         return merged_result
 
 f_landregistry()
+
+
+class f_currant_shop(f_shop):
+    pass
+
+f_currant_shop()
