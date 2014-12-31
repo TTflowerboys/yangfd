@@ -56,6 +56,7 @@
     <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
     <link rel="stylesheet" href="/static/styles/propertyCard.css"/>
     <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
+    <link rel="stylesheet" href="/static/styles/bingMap.css"/>
     <link rel="stylesheet" href="/static/styles/mainHouseTypePopup.css"/>
     <link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
     <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
@@ -121,14 +122,7 @@
                             % end
                         </div>
                     % end
-                    % if property.get('longitude') and property.get('latitude'):
-                        % long = property.get('longitude')
-                        % lat = property.get('latitude')
-                        <a href="https://ditu.google.cn/maps/?q={{lat}},{{long}}&z=14" target="_blank"
-                           class="item" data-tab-name="map">
-                            <img onerror="window.onImgError(this);" id="propertyMap" data-longitude="{{long}}" data-latitude="{{lat}}" src="about:blank;"/>
-                        </a>
-                    % end
+
                     % # Make sure property have videos and every video have at least one source
                     % if property.get('videos') and all(map(lambda x: len(x["sources"]) > 0, property.get('videos'))):
                     <div class="item videocontent" data-tab-name="video">
@@ -206,14 +200,6 @@
                                 <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('planning_map')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                      alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('规划图')}}</span> </span>
-                                <span class="border"></span>
-                            </li>
-                        % end
-
-                        % if property.get('longitude') and property.get('latitude'):
-                            <li data-tab="map">
-                                <img onerror="window.onImgError(this);" src="/static/images/placeholder/map.jpg" alt=""/>
-                                <span class="text_wrapper"> <span class="text">{{_('地理位置')}}</span> </span>
                                 <span class="border"></span>
                             </li>
                         % end
@@ -412,6 +398,7 @@
                             </td>
                             <td class="value">
                                 {{property.get('address')}}
+                                <!--
                                 % if property.get('longitude') and property.get('latitude'):
                                 % long = property.get('longitude')
                                 % lat = property.get('latitude')
@@ -423,6 +410,7 @@
                                     {{_(' (查看地图)')}}
                                 </a>
                                 %end
+                                 -->
                             </td>
                         </tr>
                         % end
@@ -493,6 +481,13 @@
                 </div>
                 <div class="clearfix expendDescription_wrapper">
                     <button data-fn="expendDescription" class="ghostButton red" >{{_('展开')}}</button>
+                </div>
+                <hr/>
+            %end
+            %if (property.get('latitude') and property.get('longitude')):
+                <div class="maps_wrapper">
+                      <h3 class="propertyDetails_title">{{_('房产周边')}}</h3>
+                      <!--@@include partials/bing_map.html  -->
                 </div>
                 <hr/>
             %end
@@ -1201,6 +1196,8 @@
         </div>
     </script>
 
+    <!-- @@include=/static/templates/place_item.tpl.html-->
+
     <textarea id="pythonProperty" style="display: none;">
         {{json_dumps(property)}}
     </textarea>
@@ -1227,7 +1224,7 @@
                  $('.wechatPage_popup').find('.close-modal').hide()
              }
              else {
-                 location.href = "/wechat_share?property=" + propertyId
+                 geoLocation.href = "/wechat_share?property=" + propertyId
              }
          }
 
@@ -1258,20 +1255,7 @@
 
 
          $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-             if (tabName === 'map') {
-                 $('.content .pictures .labels').show()
-
-                 var $propertyMap = $('#propertyMap')
-                 var longitude = $propertyMap.attr('data-longitude')
-                 var latitude = $propertyMap.attr('data-latitude')
-                 var url = 'https://maps.googleapis.com/maps/api/staticmap'
-                 if ($propertyMap.get(0).src.indexOf(url) === 0) { return }
-                 var result = team.setQuery('center', latitude + ',' + longitude, url)
-                 result = team.setQuery('zoom', 15, result)
-                 result = team.setQuery('size', '800x533', result)
-                 result = team.setQuery('markers', latitude + ',' + longitude, result)
-                 $propertyMap.get(0).src = result
-             }else if (tabName === 'video') {
+             if (tabName === 'video') {
                  //Hide labels to show no-video-js text and for better video experience
                  $('.content .pictures .labels').hide()
              }else{
@@ -1336,14 +1320,9 @@
 
          $('[data-fn=shareToWeChat]').on('click', function () {
              $('#popupShareToWeChat')
-             .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
+             .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(geoLocation.href)).end()
              .modal()
              ga('send', 'event', 'property_detail', 'share', 'open-wechat-web')
-         })
-
-         //GA Event - Open Map
-         $('#propertyMap').click(function(){
-             ga('send', 'event', 'property_detail', 'click', 'image-tab-open-map')
          })
 
          var property = JSON.parse($('#pythonProperty').text())
@@ -1376,12 +1355,14 @@
     % end
 
 
-
+    <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
     <!--build:js /static/scripts/property.html.js-->
+    <script src="/static/vendors/jquery.slimscroll.min.js"></script>
     <script src="/static/scripts/show_historical_price.js"></script>
     <script src="/static/scripts/intention_form.js"></script>
     <script src="/static/scripts/mortgage_form.js"></script>
     <script src="/static/scripts/main_house_type_popup.js"></script>
+    <script src="/static/scripts/bing_map.js"></script>
     <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
     <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
     <script src="/static/vendors/video-js/video.js"></script>
@@ -1431,6 +1412,13 @@
          $(event.target).parent().find('.brochures-control-next').click()
          ga('send', 'event', 'property_detail', 'next', 'brochures-next')
      })
+
+     var property = JSON.parse($('#pythonProperty').text())
+     var geoLocation = new Microsoft.Maps.Location(property.latitude, property.longitude);
+     window.showTransitMap(geoLocation, null)
+     window.showSchoolMap(geoLocation, null)
+     window.showFacilityMap(geoLocation, null)
+
     </script>
     <!-- @endif -->
 
