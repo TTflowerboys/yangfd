@@ -1,0 +1,60 @@
+<div class="maps" data-tabs>
+    <div class="map">
+        <div id="transitMapCanvas" class="transitMapCanvas item selectedTab" data-tab-name="transit" style="position:relative;"></div>
+        <div id="schoolMapCanvas" class="schoolMapCanvas item" data-tab-name="school" style="position:relative;"></div>
+        <div id="facilityMapCanvas" class="facilityMapCanvas item" data-tab-name="facility" style="position:relative;"></div>
+        <div id="securityMapCanvas" class="securityMapCanvas item" data-tab-name="security" style="position:relative;"></div>
+    </div>
+    <div class="tabs">
+        <ul class="category">
+            <li data-tab="transit" class="selectedTab">
+                <img class="active" src="/static/images/region_report/icon_transit_active.png" />
+                <img class="normal" src="/static/images/region_report/icon_transit.png"/>
+                <label> {{_('交通设施')}} </label>
+            </li>
+            <li data-tab="school">
+                <img class="active" src="/static/images/region_report/icon_school_active.png"/>
+                <img class="normal" src="/static/images/region_report/icon_school.png"/>
+                <img alt="" src=""/>
+                <label> {{_('周边学校')}} </label>
+            </li>
+            <li data-tab="facility">
+                <img class="active" src="/static/images/region_report/icon_facility_active.png"/>
+                <img class="normal" src="/static/images/region_report/icon_facility.png"/>
+                <img alt="" src=""/>
+                <label> {{_('便民设施')}} </label>
+            </li>
+            <!--
+            <li data-tab="security">
+            <img class="active" src="/static/images/region_report/icon_security_active.png"/>
+            <img class="normal" src="/static/images/region_report/icon_security.png"/>
+            <label> {{_('周边治安')}} </label>
+            </li>
+            -->
+        </ul>
+        <div class="list">
+            <div data-tab-name="transit" style="display:none;" >
+                <ul>
+
+                </ul>
+            </div>
+            <div data-tab-name="school" style="display:none;" >
+                <ul >
+
+                </ul>
+            </div>
+            <div data-tab-name="facility" style="display:none;">
+                <ul >
+
+                </ul>
+            </div>
+            <!--
+            <div data-tab-name="security" style="display:none;">
+            <ul >
+
+            </ul>
+            </div>
+            -->
+        </div>
+    </div>
+</div>

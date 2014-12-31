@@ -1,0 +1,22 @@
+<script id="placeItem_template" type="text/template" >
+    <li
+        {_if(item.Latitude && item.Longitude) {_}
+        data-lat={=item.Latitude=}
+        data-lng={=item.Longitude=}
+        {_}_}
+        >
+        <div class="content">
+            <div class="left">
+                <h3 class="title">{=item.DisplayName=}</h3>
+                <label class="subtitle">
+                    {_if (item.AddressLine) {_}
+                    {=item.AddressLine=}
+                    {_}_}
+                </label>
+            </div>
+            <div class="right">
+                <label class="hint" for="">{=item.Hint=}</label>
+            </div>
+        </div>
+    </li>
+</script>
