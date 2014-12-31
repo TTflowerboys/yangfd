@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from app import f_app
-from libfelix.f_interface import f_api
+from libfelix.f_common import f_app
+from libfelix.f_interface import f_api, abort
+from bson.objectid import ObjectId
+import logging
+logger = logging.getLogger(__name__)
 
 
 item_params = dict(
@@ -11,9 +14,10 @@ item_params = dict(
     city=("enum:city", None),
     street=(str, None),
     zipcode=(str, None),
+    zipcode_index=(str, None),
     address=(str, None),
     highlight=(list, None, "i18n"),
-    description=("i18n", None),
+    description=("i18n", None, str),
     max_annual_return_estimated=(float, None),
     min_annual_return_estimated=(float, None),
     max_annual_cash_return_estimated=(float, None),
@@ -34,17 +38,19 @@ item_params = dict(
         sub=("i18n", None, str),
         poster=str,
     )),
-    operators=("i18n", None),
+    operators=("i18n", None, str),
     management_team=(list, None, dict(
         name=(str, None),
         description=(str, None),
         linkedin_home=(str, None),
     )),
-    finacials=("i18n", None),
-    capital_structure=("i18n", None),
+    finacials=("i18n", None, str),
+    capital_structure=("i18n", None, str),
     status=(str, None),
     comment=(str, None),
     attachment=(str, None),
+    unset_fields=(list, None, str),
+    price=(float, 0),
 )
 
 
@@ -80,4 +86,102 @@ def shop_remove(user, shop_id):
 @f_api("/shop/<shop_id>/item/<item_id>/edit", params=item_params)
 @f_app.user.login.check(force=True, role=['admin'])
 def shop_item_edit(user, shop_id, item_id, params):
-    return f_app.shop.item.add(params)
+    """
+    ``status`` can be ``draft``, ``rejected``, ``not reviewed``, ``selling``, ``sold out``, ``deleted``.
+    """
+    if "status" in params:
+        assert params["status"] in ("draft", "rejected", "not reviewed", "selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status")
+
+    if item_id == "none":
+        params["quantity"] = True
+        action = lambda params: f_app.shop.item.add(shop_id, params)
+
+        params.setdefault("status", "draft")
+
+        if params["status"] not in ("draft", "rejected", "not reviewed"):
+            assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to skip the review process")
+
+    else:
+        item = f_app.shop.item.get(item_id)
+
+        def _action(params):
+            unset_fields = params.get("unset_fields", [])
+            result = f_app.shop.item.update_set(shop_id, item_id, params)
+            if unset_fields:
+                f_app.shop.item.update(shop_id, item_id, {"$unset": {i: "" for i in unset_fields}})
+            return f_app.shop.item.get(item_id)
+
+        action = _action
+
+        # Status-only updates
+        if len(params) == 1 and "status" in params:
+            # Approved properties
+            if item["status"] not in ("draft", "rejected", "not reviewed"):
+
+                # Only allow updating to post-review statuses
+                assert params["status"] in ("selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status for a reviewed crowdfunding item")
+
+                if params["status"] == "deleted":
+                    assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
+
+            # Not approved properties
+            else:
+                # Submit for approval
+                if params["status"] not in ("draft", "rejected", "not reviewed", "deleted"):
+                    assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review crowdfunding item")
+                    if "target_item_id" in item:
+                        def action(params):
+                            with f_app.mongo() as m:
+                                item = f_app.shop.item.get_database(m).find_one({"_id": ObjectId(item_id)})
+                            item.pop("_id")
+                            item["status"] = params["status"]
+                            target_item_id = item.pop("target_item_id")
+                            unset_fields = item.pop("unset_fields", [])
+                            f_app.shop.item.update_set(shop_id, target_item_id, item)
+                            if unset_fields:
+                                unset_fields.append("unset_fields")
+                                f_app.shop.item.update(shop_id, target_item_id, {"$unset": {i: "" for i in unset_fields}})
+                            f_app.shop.item.update_set(shop_id, item_id, {"status": "deleted"})
+                            return f_app.shop.item.get(target_item_id)
+                    else:
+                        def action(params):
+                            with f_app.mongo() as m:
+                                item = f_app.shop.item.get_database(m).find_one({"_id": ObjectId(item_id)})
+                            f_app.shop.item.update_set(shop_id, item_id, params)
+                            unset_fields = item.pop("unset_fields", [])
+                            if unset_fields:
+                                unset_fields.append("unset_fields")
+                                f_app.shop.item.update(shop_id, item_id, {"$unset": {i: "" for i in unset_fields}})
+                            return f_app.shop.item.get(item_id)
+
+                if params["status"] == "not reviewed":
+                    # TODO: make sure all needed fields are present
+                    params["submitter_user_id"] = ObjectId(user["id"])
+
+        else:
+            if "status" in params:
+                assert params["status"] in ("draft", "rejected", "not reviewed"), abort(40000, "Editing and reviewing cannot happen at the same time")
+
+            if item["status"] in ("selling", "hidden", "sold out"):
+                existing_draft = f_app.shop.item.search({"target_item_id": item_id, "status": {"$ne": "deleted"}})
+                if existing_draft:
+                    abort(40300, "An existing draft already exists")
+
+                else:
+                    params.setdefault("status", "draft")
+                    params["target_item_id"] = item_id
+                    action = lambda params: f_app.shop.item.add(shop_id, params)
+
+            elif item["status"] == "rejected":
+                params.setdefault("status", "draft")
+
+            elif item["status"] == "not reviewed":
+                abort(40000, "Not reviewed crowdfunding item could not be changed. Reverting the status is required before any modification")
+
+    return action(params)
+
+
+@f_api("/shop/<shop_id>/item/<item_id>/remove")
+@f_app.user.login.check(force=True, role=['admin'])
+def shop_item_remove(user, shop_id, item_id):
+    f_app.shop.item_delete(shop_id, item_id)
