@@ -49,7 +49,7 @@
                 <label class="control-label">{%$root.i18n('封面图片')%}{%$root.i18n('(最大宽度是1280px)')%}</label>
 
                 <div class="controls">
-                    <edit-images ng-model="item.images" width-limit="1280" thumbnail-size="320,240" text="{%$root.i18n('添加图片')%}"></edit-images>
+                    <edit-images ng-model="item.images" width-limit="1280" thumbnail-size="320,240" text="{%$root.i18n('添加图片')%}" watermark="false"></edit-images>
                 </div>
             </div>
         </div>
