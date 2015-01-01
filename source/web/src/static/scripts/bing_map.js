@@ -28,6 +28,12 @@
         }
     }
 
+    function createMapCenterPin(map, location) {
+        //http://msdn.microsoft.com/en-us/library/ff701719.aspx
+        var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-big.png', width: 24, height: 32});
+        map.entities.push(pin);
+    }
+
     function showInfoBox(map, mapId, result) {
         if (window.mapInfoBoxCache[mapId]) {
             map.entities.remove(window.mapInfoBoxCache[mapId]);
@@ -139,7 +145,7 @@
         }
     }
 
-    window.showTransitMap = function (location, polygon) {
+    window.showTransitMap = function (location, polygon, showCenter) {
         var mapId = 'transitMapCanvas'
         var map = window.getMap('transitMapCanvas')
         var $list = $('.maps .list div[data-tab-name=transit] ul')
@@ -171,10 +177,14 @@
             if (polygon) {
                 map.entities.push(polygon)
             }
+
+            if (showCenter) {
+                createMapCenterPin(map, location)
+            }
         })
     }
 
-    window.showSchoolMap = function(location, polygon) {
+    window.showSchoolMap = function(location, polygon, showCenter) {
         var mapId = 'schoolMapCanvas'
         var map = window.getMap('schoolMapCanvas')
         var $list = $('.maps .list div[data-tab-name=school] ul')
@@ -197,10 +207,14 @@
             if (polygon) {
                 map.entities.push(polygon)
             }
+            if (showCenter) {
+                createMapCenterPin(map, location)
+            }
+
         })
     }
 
-    window.showFacilityMap = function(location, polygon) {
+    window.showFacilityMap = function(location, polygon, showCenter) {
         var mapId = 'facilityMapCanvas'
         var map = window.getMap('facilityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=facility] ul')
@@ -222,6 +236,9 @@
             map.setView({zoom: 13, center: location})
             if (polygon) {
                 map.entities.push(polygon)
+            }
+            if (showCenter) {
+                createMapCenterPin(map, location)
             }
         })
     }
