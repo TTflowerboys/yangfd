@@ -92,6 +92,16 @@ def get_favorite_list():
     return [i for i in result if i.get("property")]
 
 
+def common_template(path, **kwargs):
+    if not 'user' in kwargs:
+        kwargs['user'] = get_current_user()
+    if not 'country_list' in kwargs:
+        kwargs['country_list'] = get_country_list()
+    if not 'budget_list' in kwargs:
+        kwargs['budget_list'] = get_budget_list()
+    return template(path, **kwargs)
+
+
 @f_get('/')
 @check_landing
 @check_ip_and_redirect_domain
@@ -136,15 +146,12 @@ def default(user):
             }, per_page=5))
 
     intention_list = f_app.enum.get_all('intention')
-    return template(
+    return common_template(
         "index",
-        user=get_current_user(),
         property_list=property_list,
         homepage_ad_list=homepage_ad_list,
         announcement_list=announcement_list,
         news_list=news_list,
-        country_list=get_country_list(),
-        budget_list=get_budget_list(),
         intention_list=intention_list
     )
 
@@ -153,44 +160,36 @@ def default(user):
 @check_landing
 @check_ip_and_redirect_domain
 def signup():
-    return template("signup", user=get_current_user(), country_list=get_country_list())
+    return common_template("signup")
 
 
 @f_get('/vip_sign_up')
 @check_landing
 @check_ip_and_redirect_domain
 def vip_sign_up():
-    return template("sign_up_vip", user=get_current_user(), country_list=get_country_list())
+    return common_template("sign_up_vip")
 
 
 @f_get('/signin')
 @check_landing
 @check_ip_and_redirect_domain
 def signin():
-    return template("signin", user=get_current_user(), country_list=get_country_list())
+    return common_template("signin")
 
 
 @f_get('/intention')
 @check_landing
 @check_ip_and_redirect_domain
 def intention():
-    budget_list = f_app.enum.get_all('budget')
     intention_list = f_app.enum.get_all('intention')
-    return template("intention", user=get_current_user(), budget_list=budget_list, intention_list=intention_list)
+    return common_template("intention", intention_list=intention_list)
 
 
 @f_get('/reset_password')
 @check_landing
 @check_ip_and_redirect_domain
 def resetPassword():
-    return template("reset_password", user=get_current_user(), country_list=get_country_list())
-
-
-@f_get('/process')
-@check_landing
-@check_ip_and_redirect_domain
-def process():
-    return template("process", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("reset_password")
 
 
 @f_get('/region_report/<zipcode_index:re:[A-Z0-9]{2,3}>')
@@ -201,7 +200,7 @@ def region_report(zipcode_index):
     if (len(report)):
         report = report[0]
 
-    return template("region_report", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), report=report)
+    return common_template("region_report", report=report)
 
 
 @f_get('/property_list', params=dict(
@@ -216,16 +215,13 @@ def property_list(params):
     property_type_list = f_app.enum.get_all('property_type')
     intention_list = f_app.enum.get_all('intention')
     property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}, per_page=f_app.common.property_list_per_page))
-    return template("property_list",
-                    user=get_current_user(),
-                    country_list=get_country_list(),
-                    city_list=city_list,
-                    property_type_list=property_type_list,
-                    intention_list=intention_list,
-                    budget_list=get_budget_list(),
-                    property_list=property_list,
-                    params=params,
-                    )
+    return common_template("property_list",
+                           city_list=city_list,
+                           property_type_list=property_type_list,
+                           intention_list=intention_list,
+                           property_list=property_list,
+                           params=params,
+                           )
 
 
 @f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
@@ -241,8 +237,6 @@ def property_get(property_id):
         for i in unset_fields:
             target_property.pop(i, None)
         property = target_property
-    country_list = get_country_list()
-    budget_list = get_budget_list()
     favorite_list = get_favorite_list()
 
     raw_related_property_list = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
@@ -266,7 +260,7 @@ def property_get(property_id):
             if item.get('id') != property.get('id'):
                 related_property_list.insert(-1, item)
 
-    return template("property", user=get_current_user(), property=property, country_list=country_list, budget_list=budget_list, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list)
+    return common_template("property", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>')
@@ -283,14 +277,14 @@ def pdfviewer(user, property_id):
         for i in unset_fields:
             target_property.pop(i, None)
         property = target_property
-    return template("pdf_viewer", user=get_current_user(), property=property)
+    return common_template("pdf_viewer", property=property)
 
 
 @f_get('/news_list')
 @check_landing
 @check_ip_and_redirect_domain
 def news_list():
-    return template("news_list", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("news_list")
 
 
 @f_get('/news/<news_id:re:[0-9a-fA-F]{24}>')
@@ -298,7 +292,7 @@ def news_list():
 @check_ip_and_redirect_domain
 def news(news_id):
     news = f_app.i18n.process_i18n(f_app.blog.post.output([news_id])[0])
-    logger.warning(news)
+
     if (news.get('category')[0].get('slug') in ['real_estate', 'primier_apartment_london', 'studenthouse_sheffield']):
         raw_related_news_list = f_app.blog.post_output(
             f_app.blog.post_search(
@@ -337,28 +331,28 @@ def news(news_id):
             if item.get('id') != news.get('id'):
                 related_news_list.insert(-1, item)
 
-    return template("news", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news, related_news_list=related_news_list)
+    return common_template("news", news=news, related_news_list=related_news_list)
 
 
 @f_get('/notice_list')
 @check_landing
 @check_ip_and_redirect_domain
 def notice_list():
-    return template("notice_list", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("notice_list")
 
 
 @f_get('/guides')
 @check_landing
 @check_ip_and_redirect_domain
 def guides():
-    return template("guides", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("guides")
 
 
 @f_get('/laws')
 @check_landing
 @check_ip_and_redirect_domain
 def laws():
-    return template("laws", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("laws")
 
 
 @f_get('/about')
@@ -372,7 +366,7 @@ def about():
             }, per_page=1
         )
     )
-    return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
+    return common_template("aboutus_content", news=news_list[0])
 
 
 @f_get('/terms')
@@ -386,7 +380,7 @@ def terms():
             }, per_page=1
         )
     )
-    return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
+    return common_template("aboutus_content", news=news_list[0])
 
 
 @f_get('/about/marketing')
@@ -400,7 +394,7 @@ def marketing():
             }, per_page=1
         )
     )
-    return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
+    return common_template("aboutus_content", news=news_list[0])
 
 
 @f_get('/about/media')
@@ -414,20 +408,20 @@ def media():
             }, per_page=1
         )
     )
-    return template("aboutus_content", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), news=news_list[0])
+    return common_template("aboutus_content", news=news_list[0])
 
 
 @f_get('/partner')
 @check_landing
 @check_ip_and_redirect_domain
 def partner():
-    return template("partner", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("partner")
 
 
 @f_get('/coming_soon')
 @check_ip_and_redirect_domain
 def coming_soon():
-    return template("coming_soon", country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("coming_soon")
 
 
 @f_get('/user_settings')
@@ -435,7 +429,7 @@ def coming_soon():
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_settings(user):
-    return template("user_settings", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("user_settings", user=get_current_user(user))
 
 
 @f_get('/user_verify_email')
@@ -443,7 +437,7 @@ def user_settings(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_email(user):
-    return template("user_verify_email", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("user_verify_email", user=get_current_user(user))
 
 
 @f_get('/user_change_email')
@@ -451,7 +445,7 @@ def user_verify_email(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_email(user):
-    return template("user_change_email", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("user_change_email", user=get_current_user(user))
 
 
 @f_get('/user_change_password')
@@ -459,7 +453,7 @@ def user_change_email(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_password(user):
-    return template("user_change_password", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("user_change_password", user=get_current_user(user))
 
 
 @f_get('/user_change_phone_1')
@@ -467,7 +461,7 @@ def user_change_password(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_1(user):
-    return template("user_change_phone_1", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("user_change_phone_1", user=get_current_user(user))
 
 
 @f_get('/user_change_phone_2')
@@ -475,7 +469,7 @@ def user_change_phone_1(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_2(user):
-    return template("user_change_phone_2", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("user_change_phone_2", user=get_current_user(user))
 
 
 @f_get('/user_verify_phone_1')
@@ -483,7 +477,7 @@ def user_change_phone_2(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_1(user):
-    return template("user_verify_phone_1", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("user_verify_phone_1", user=get_current_user(user))
 
 
 @f_get('/user_verify_phone_2')
@@ -491,7 +485,7 @@ def user_verify_phone_1(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_2(user):
-    return template("user_change_phone_2", user=get_current_user(user), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("user_change_phone_2", user=get_current_user(user))
 
 
 @f_get('/user_favorites')
@@ -499,7 +493,7 @@ def user_verify_phone_2(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_favorites(user):
-    return template("user_favorites", user=get_current_user(user), country_list=get_country_list(), favorite_list=get_favorite_list(), budget_list=get_budget_list())
+    return common_template("user_favorites", user=get_current_user(user), favorite_list=get_favorite_list())
 
 
 @f_get('/user_intentions')
@@ -515,7 +509,7 @@ def user_intentions(user):
                 ticket['status_presentation'] = ticket_status
                 logger.warning(ticket)
 
-    return template("user_intentions", user=get_current_user(user), country_list=get_country_list(), intention_ticket_list=intention_ticket_list, budget_list=get_budget_list())
+    return common_template("user_intentions", user=get_current_user(user), intention_ticket_list=intention_ticket_list)
 
 
 @f_get('/user_properties')
@@ -523,9 +517,10 @@ def user_intentions(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_properties(user):
-    intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(get_current_user(user)["id"])}, {"user_id": ObjectId(get_current_user(user)["id"])}]}), ignore_nonexist=True)
+    user = get_current_user(user)
+    intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(user["id"])}, {"user_id": ObjectId(user["id"])}]}), ignore_nonexist=True)
     intention_ticket_list = [i for i in intention_ticket_list if i.get("property")]
-    return template("user_properties", user=get_current_user(user), country_list=get_country_list(), intention_ticket_list=intention_ticket_list, budget_list=get_budget_list())
+    return common_template("user_properties", user=user, intention_ticket_list=intention_ticket_list)
 
 
 @f_get('/user_messages')
@@ -533,8 +528,9 @@ def user_properties(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_messages(user):
+    user = get_current_user(user)
     message_list = f_app.message.get_by_user(
-        get_current_user(user)['id'],
+        user['id'],
         {"state": {"$in": ["read", "new"]}},
     )
     message_type_list = get_message_type_list()
@@ -544,14 +540,14 @@ def user_messages(user):
             if ('message_type:' + message['type'] == message_type['slug']):
                 message['type_presentation'] = message_type
 
-    return template("user_messages", user=get_current_user(user), country_list=get_country_list(), message_list=message_list, budget_list=get_budget_list())
+    return common_template("user_messages", user=user, message_list=message_list)
 
 
 @f_get('/verify_email_status')
 @check_landing
 @check_ip_and_redirect_domain
 def verify_email_status():
-    return template("verify_email_status", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("verify_email_status")
 
 
 # phone specific pages
@@ -561,35 +557,35 @@ def verify_email_status():
 @check_landing
 @check_ip_and_redirect_domain
 def requirement():
-    return template("phone/requirement", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
+    return template("phone/requirement", intention_list=f_app.enum.get_all('intention'))
 
 
 @f_get('/wechat_share')
 @check_landing
 @check_ip_and_redirect_domain
 def wechat_share():
-    return template("phone/wechat_share", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("phone/wechat_share")
 
 
 @f_get('/how_it_works')
 @check_landing
 @check_ip_and_redirect_domain
 def how_it_works():
-    return template("phone/how_it_works", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
+    return common_template("phone/how_it_works", intention_list=f_app.enum.get_all('intention'))
 
 
 @f_get('/calculator')
 @check_landing
 @check_ip_and_redirect_domain
 def calculator():
-    return template("phone/calculator", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list(), intention_list=f_app.enum.get_all('intention'))
+    return common_template("phone/calculator", intention_list=f_app.enum.get_all('intention'))
 
 
 @f_get('/user')
 @check_landing
 @check_ip_and_redirect_domain
 def user():
-    return template("phone/user", user=get_current_user(), country_list=get_country_list(), budget_list=get_budget_list())
+    return common_template("phone/user")
 
 
 @f_get('/admin')
