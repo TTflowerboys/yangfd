@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 import json
 from datetime import datetime
 from libfelix.f_common import f_app
-from libfelix.f_interface import f_api, abort
+from libfelix.f_interface import f_api, abort, request
 from bson.objectid import ObjectId
 
 import logging
@@ -393,6 +393,53 @@ def wechat_menu_create(user, params):
 @f_app.user.login.check(role=['admin', 'operation'])
 def wechat_menu_delete(user):
     return f_app.wechat.api("menu/delete", method="GET")
+
+
+@f_api('/wechat/news/send', params=dict(
+    news_ids=(list, True, ObjectId, True, "str"),
+))
+@f_app.user.login.check()#role=['admin', 'operation'])
+def wechat_news_send(user, params):
+    request._requested_i18n_locales_list = ["zh_Hans_CN"]
+    articles = []
+
+    news_list = f_app.i18n.process_i18n(f_app.blog.post.output(params["news_ids"]))
+    for n, news in enumerate(news_list):
+        if "images" not in news or not len(news["images"]):
+            # Image is required
+            continue
+
+        logger.debug("uploading image:", news["images"][0])
+        uploaded_image = f_app.wechat.media_upload(("fake.jpg", f_app.request(news["images"][0]).content))
+        assert "media_id" in uploaded_image, abort(50300, "media_id not present in news:", uploaded_image)
+        logger.debug("uploaded image:", uploaded_image["media_id"])
+
+        articles.append({
+            "thumb_media_id": uploaded_image["media_id"],
+            "author": "洋房东",
+            "title": news["title"],
+            "content_source_url": "http://yangfd.cn/news/" + news["id"],
+            "content": news["content"],
+            "digest": news["summary"],
+            "show_cover_pic": "1" if n == 0 else "0",
+        })
+
+    uploaded_news = f_app.wechat.api("media/uploadnews", params={"articles": articles})
+    assert "media_id" in uploaded_news, abort(50300, "media_id not present in news:", uploaded_news)
+    logger.debug("uploaded news:", uploaded_news["media_id"])
+
+    sendall_params = {
+        "filter": {
+            "is_to_all": False,
+            "group_id": "101",
+        },
+        "mpnews": {
+            "media_id": uploaded_news["media_id"],
+        },
+        "msgtype": "mpnews"
+    }
+
+    return f_app.wechat.api("message/mass/sendall", params=sendall_params)
 
 
 @f_api('/property/<property_id>/edit/sales_comment', params=dict(

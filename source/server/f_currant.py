@@ -25,6 +25,7 @@ from libfelix.f_message import f_message
 from libfelix.f_interface import abort, request
 from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
+from libfelix.f_shop import f_shop
 
 import logging
 logger = logging.getLogger(__name__)
@@ -1737,6 +1738,7 @@ class f_landregistry(f_app.module_base):
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+            fig.text(0.5, 0.01, "来源：Land Registry - GOV.UK", fontproperties=fontprop, fontsize=fontsize, color="#cccccc", ha="center")
 
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
@@ -1747,6 +1749,7 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
+        ax.yaxis.get_major_formatter().set_scientific(False)
 
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
         # fig.autofmt_xdate()
@@ -1813,6 +1816,7 @@ class f_landregistry(f_app.module_base):
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+            fig.text(0.5, 0.01, "来源：Land Registry - GOV.UK", fontproperties=fontprop, fontsize=fontsize, color="#cccccc", ha="center")
 
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
@@ -1823,6 +1827,7 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
+        ax.yaxis.get_major_formatter().set_scientific(False)
 
         graph = StringIO()
         fig.savefig(graph, format="png", dpi=100)
@@ -1879,6 +1884,7 @@ class f_landregistry(f_app.module_base):
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+            fig.text(0.5, 0.01, "来源：Land Registry - GOV.UK", fontproperties=fontprop, fontsize=fontsize, color="#cccccc", ha="center")
 
         for color, text in zip(colors, legend.get_texts()):
             text.set_color(color)
@@ -1910,6 +1916,7 @@ class f_landregistry(f_app.module_base):
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
+        ax.yaxis.get_major_formatter().set_scientific(False)
 
         plt.setp(fig.gca().get_xticklabels(), fontsize=fontsize)
         plt.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
@@ -1952,7 +1959,10 @@ class f_landregistry(f_app.module_base):
             fontsize = 4
         fontprop.set_size(fontsize)
 
-        ax.bar(ind + width * 2, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none", align="center")
+        if result_sum > 0:
+            ax.bar(ind + width * 2, [result_lt_100k / float(result_sum) * 100, result_100k_200k / float(result_sum) * 100, result_200k_300k / float(result_sum) * 100, result_300k_400k / float(result_sum) * 100, result_400k_500k / float(result_sum) * 100, result_500k_600k / float(result_sum) * 100, result_600k_700k / float(result_sum) * 100, result_700k_800k / float(result_sum) * 100, result_800k_900k / float(result_sum) * 100, result_900k_1m / float(result_sum) * 100, result_gte_1m / float(result_sum) * 100], width, color='#e70012', edgecolor="none", align="center")
+        else:
+            ax.bar(ind + width * 2, [0 for i in range(0, 11)], width, color="#e70012", edgecolor="none")
 
         ax.autoscale_view()
         font = {
@@ -1987,6 +1997,7 @@ class f_landregistry(f_app.module_base):
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+            fig.text(0.5, 0.01, "来源：Land Registry - GOV.UK", fontproperties=fontprop, fontsize=fontsize, color="#cccccc", ha="center")
 
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
@@ -1997,6 +2008,7 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
+        ax.yaxis.get_major_formatter().set_scientific(False)
 
         graph = StringIO()
         fig.savefig(graph, format="png", dpi=100)
@@ -2048,3 +2060,22 @@ class f_landregistry(f_app.module_base):
         return merged_result
 
 f_landregistry()
+
+
+class f_currant_shop(f_shop):
+    def item_search(self, params, sort=["time", "desc"], notime=False, per_page=10, time_field="time"):
+        params.setdefault("status", {"$ne": "deleted"})
+        if sort is not None:
+            try:
+                sort_field, sort_orientation = sort
+            except:
+                abort(40000, logger.warning("sort param not well in format:", sort))
+
+        else:
+            sort_field = sort_orientation = None
+
+        item_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime, time_field=time_field)["content"]
+
+        return item_id_list
+
+f_currant_shop()

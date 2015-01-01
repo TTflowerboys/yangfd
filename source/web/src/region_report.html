@@ -4,6 +4,7 @@
 <!--build:css(dist) /static/styles/region_report.html.css-->
 <link href="/static/styles/regionReport.css" rel="stylesheet"/>
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
+<link rel="stylesheet" href="/static/styles/bingMap.css"/>
 <!--endbuild-->
 <!--@@close-->
 
@@ -197,66 +198,7 @@
             </div>
         </div>
 
-        <div class="maps" data-tabs>
-            <div class="map">
-                <div id="transitMapCanvas" class="transitMapCanvas item selectedTab" data-tab-name="transit" style="position:relative;"></div>
-                <div id="schoolMapCanvas" class="schoolMapCanvas item" data-tab-name="school" style="position:relative;"></div>
-                <div id="facilityMapCanvas" class="facilityMapCanvas item" data-tab-name="facility" style="position:relative;"></div>
-                <div id="securityMapCanvas" class="securityMapCanvas item" data-tab-name="security" style="position:relative;"></div>
-            </div>
-            <div class="tabs">
-                <ul class="category">
-                    <li data-tab="transit" class="selectedTab">
-                        <img class="active" src="/static/images/region_report/icon_transit_active.png" />
-                        <img class="normal" src="/static/images/region_report/icon_transit.png"/>
-                        <label> {{_('交通设施')}} </label>
-                    </li>
-                    <li data-tab="school">
-                        <img class="active" src="/static/images/region_report/icon_school_active.png"/>
-                        <img class="normal" src="/static/images/region_report/icon_school.png"/>
-                        <img alt="" src=""/>
-                        <label> {{_('周边学校')}} </label>
-                    </li>
-                    <li data-tab="facility">
-                        <img class="active" src="/static/images/region_report/icon_facility_active.png"/>
-                        <img class="normal" src="/static/images/region_report/icon_facility.png"/>
-                        <img alt="" src=""/>
-                        <label> {{_('便民设施')}} </label>
-                    </li>
-                    <!--
-                    <li data-tab="security">
-                        <img class="active" src="/static/images/region_report/icon_security_active.png"/>
-                        <img class="normal" src="/static/images/region_report/icon_security.png"/>
-                        <label> {{_('周边治安')}} </label>
-                    </li>
-                    -->
-                </ul>
-                <div class="list">
-                    <div data-tab-name="transit" style="display:none;" >
-                        <ul>
-
-                        </ul>
-                    </div>
-                    <div data-tab-name="school" style="display:none;" >
-                        <ul >
-
-                        </ul>
-                    </div>
-                    <div data-tab-name="facility" style="display:none;">
-                        <ul >
-
-                        </ul>
-                    </div>
-                    <!--
-                    <div data-tab-name="security" style="display:none;">
-                        <ul >
-
-                        </ul>
-                    </div>
-                    -->
-                </div>
-            </div>
-        </div>
+        <!--@@include partials/bing_map.html  -->
         <div class="areaValueCharts">
             <h2 class="title">
                 {{_('地区投资价值')}}
@@ -356,30 +298,8 @@
     </div>
 
     <!-- @@include=/static/templates/house_card.tpl.html-->
+    <!-- @@include=/static/templates/place_item.tpl.html-->
 
-    <script id="placeItem_template" type="text/template" >
-        <li
-            {_if(item.Latitude && item.Longitude) {_}
-            data-lat={=item.Latitude=}
-            data-lng={=item.Longitude=}
-            {_}_}
-            >
-            <div class="content">
-                <div class="left">
-                    <h3 class="title">{=item.DisplayName=}</h3>
-                    <label class="subtitle">
-                        {_if (item.AddressLine) {_}
-                        {=item.AddressLine=}
-                        {_}_}
-                    </label>
-                </div>
-                <div class="right">
-                    <img class="icon" src=""/>
-                    <label class="hint" for="">{=item.Hint=}</label>
-                </div>
-            </div>
-        </li>
-    </script>
 %end
 
 <!--@@close-->
@@ -388,6 +308,7 @@
 <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 <!--build:js /static/scripts/region_report.html.js-->
 <script src="/static/vendors/jquery.slimscroll.min.js"></script>
+<script src="/static/scripts/bing_map.js"></script>
 <script src="/static/scripts/region_report.js"></script>
 <!--endbuild-->
 <!--@@close-->
