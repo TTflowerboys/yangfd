@@ -2063,7 +2063,7 @@ f_landregistry()
 
 
 class f_currant_shop(f_shop):
-    def item_search(self, params, sort=["time", "desc"], notime=False, per_page=10, time_field="time"):
+    def item_custom_search(self, params, sort=["time", "desc"], notime=False, per_page=10, time_field="time"):
         params.setdefault("status", {"$ne": "deleted"})
         if sort is not None:
             try:
@@ -2074,8 +2074,131 @@ class f_currant_shop(f_shop):
         else:
             sort_field = sort_orientation = None
 
-        item_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime, time_field=time_field)["content"]
+        item_id_list = f_app.mongo_index.search(self.item_get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime, time_field=time_field)["content"]
 
         return item_id_list
 
 f_currant_shop()
+
+
+class f_comment(f_app.module_base):
+    """
+    ==================================================================
+    Comment module
+    ==================================================================
+    """
+    comment_database = "comments"
+
+    def __init__(self):
+        f_app.module_install("comment", self)
+        f_app.dependency_register("pymongo", race="python")
+
+    def add(self, params):
+        params.setdefault("status", "new")
+        params.setdefault("time", datetime.utcnow())
+        with f_app.mongo() as m:
+            comment_id = self.get_database(m).insert(params)
+            self.get_database(m).ensure_index([("status", ASCENDING)])
+            self.get_database(m).ensure_index([("time", ASCENDING)])
+
+        return str(comment_id)
+
+    @f_cache("comment")
+    def get(self, comment_id_or_list, ignore_nonexist=False, force_reload=False, multi_return=list):
+        def _format_each(comment):
+            comment["id"] = str(comment.pop("_id"))
+            comment["item_id"] = str(comment.pop("item_id"))
+            comment["user_id"] = str(comment.pop("user_id"))
+
+            return comment
+
+        if isinstance(comment_id_or_list, (tuple, list, set)):
+            result = {}
+
+            with f_app.mongo() as m:
+                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(comment_id) for comment_id in comment_id_or_list]}, "status": {"$ne": "deleted"}}))
+
+            if not force_reload and len(result_list) < len(comment_id_or_list) and not ignore_nonexist:
+                found_list = map(lambda comment: str(comment["_id"]), result_list)
+                abort(40495, logger.warning("Non-exist comment:", filter(lambda comment_id: comment_id not in found_list, comment_id_or_list), exc_info=False))
+            elif ignore_nonexist:
+                logger.warning("Non-exist comment:", filter(lambda comment_id: comment_id not in found_list, comment_id_or_list), exc_info=False)
+
+            for comment in result_list:
+                result[comment["id"]] = _format_each(comment)
+
+            return result
+
+        else:
+            with f_app.mongo() as m:
+                result = self.get_database(m).find_one({"_id": ObjectId(comment_id_or_list), "status": {"$ne": "deleted"}})
+
+                if result is None:
+                    if not force_reload and not ignore_nonexist:
+                        abort(40495, logger.warning("Non-exist comment:", comment_id_or_list, exc_info=False))
+                    elif ignore_nonexist:
+                        logger.warning("Non-exist comment:", comment_id_or_list, exc_info=False)
+                    return None
+
+            return _format_each(result)
+
+    def get_database(self, m):
+        return getattr(m, self.comment_database)
+
+    def output(self, comment_id_list, ignore_nonexist=False, force_reload=False):
+        comment_list = self.get(comment_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
+
+        user_id_set = set()
+        item_id_set = set()
+        for comment in comment_list:
+            user_id_set.add(comment["user_id"])
+            item_id_set.add(comment["item_id"])
+
+        user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields, ignore_nonexist=ignore_nonexist)
+        user_dict = {}
+        item_dict = f_app.shop.item.output(list(item_id_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
+
+        for u in user_list:
+            user_dict[u["id"]] = u
+        for comment in comment_list:
+            comment["user"] = user_dict.get(comment.pop("user_id"))
+            comment["item"] = item_dict.get(comment.pop("item_id"))
+
+        return comment_list
+
+    def remove(self, comment_id):
+        children_comments = f_app.comment.search(params={"parent_comment_id": ObjectId(comment_id)}, per_page=0)
+        if len(children_comments) > 0:
+            for c in children_comments:
+                self.update_set(c, {"status": "deleted"})
+
+        self.update_set(comment_id, {"status": "deleted"})
+
+    def search(self, params, sort=["time", "desc"], notime=False, per_page=10, time_field="time"):
+        params.setdefault("status", {"$ne": "deleted"})
+        if sort is not None:
+            try:
+                sort_field, sort_orientation = sort
+            except:
+                abort(40000, logger.warning("sort param not well in format:", sort))
+
+        else:
+            sort_field = sort_orientation = None
+
+        comment_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime, time_field=time_field)["content"]
+
+        return comment_id_list
+
+    def update(self, comment_id, params):
+        with f_app.mongo() as m:
+            self.get_database(m).update(
+                {"_id": ObjectId(comment_id)},
+                params,
+            )
+        self.get(comment_id, force_reload=True)
+
+    def update_set(self, comment_id, params):
+        self.update(comment_id, {"$set": params})
+
+
+f_comment()

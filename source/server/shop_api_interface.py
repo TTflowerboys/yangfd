@@ -3,6 +3,7 @@ from __future__ import unicode_literals, absolute_import
 from libfelix.f_common import f_app
 from libfelix.f_interface import f_api, abort
 from bson.objectid import ObjectId
+from datetime import datetime
 import logging
 logger = logging.getLogger(__name__)
 
@@ -106,7 +107,7 @@ def shop_item_edit(user, shop_id, item_id, params):
 
         def _action(params):
             unset_fields = params.get("unset_fields", [])
-            result = f_app.shop.item.update_set(shop_id, item_id, params)
+            f_app.shop.item.update_set(shop_id, item_id, params)
             if unset_fields:
                 f_app.shop.item.update(shop_id, item_id, {"$unset": {i: "" for i in unset_fields}})
             return f_app.shop.item.get(item_id)
@@ -185,3 +186,72 @@ def shop_item_edit(user, shop_id, item_id, params):
 @f_app.user.login.check(force=True, role=['admin'])
 def shop_item_remove(user, shop_id, item_id):
     f_app.shop.item_delete(shop_id, item_id)
+
+
+@f_api("/shop/<shop_id>/item/search", params=dict(
+    per_page=int,
+    time=datetime,
+))
+def shop_item_search(shop_id, params):
+    params["shop_id"] = ObjectId(shop_id)
+    per_page = params.pop("per_page", 0)
+    return f_app.shop.item.output(f_app.shop.item_custom_search(params, per_page=per_page))
+
+
+@f_api("/shop/<shop_id>/item/<item_id>")
+def shop_item_get(shop_id, item_id):
+    return f_app.shop.item.output([item_id])[0]
+
+
+@f_api('/shop/<shop_id>/item/item_id/comment/add', params=dict(
+    parent_comment_id=ObjectId,
+    content=(str, True),
+))
+@f_app.user.login.check(force=True)
+def shop_comment_add(user, shop_id, item_id, params):
+    # test if item_id exists
+    f_app.shop.item.get(item_id)
+    # test if parent comment exists
+    if "parent_comment_id" in params:
+        f_app.comment.get(params["parent_comment_id"])
+
+    locales = f_app.i18n.get_requested_i18n_locales_list()
+    if locales:
+        params["locale"] = locales[0]
+    params["item_id"] = ObjectId(item_id)
+    params["user_id"] = ObjectId(user["id"])
+    return f_app.comment.add(params)
+
+
+@f_api('/shop/<shop_id>/item/<item_id>/comment/search', params=dict(
+    per_page=int,
+    time=datetime,
+))
+def shop_comment_list(shop_id, item_id, params):
+    # test if shop_id exists
+    f_app.shop.item.get(shop_id)
+
+    per_page = params.pop("per_page", 0)
+    return f_app.comment.output(f_app.comment.search({"item_id": ObjectId(shop_id)}, per_page=per_page))
+
+
+@f_api('/shop/<shop_id>/item/<item_id>/comment/<comment_id>')
+def shop_comment_get(shop_id, item_id, comment_id):
+    # test if item_id exists
+    f_app.shop.item.get(item_id)
+
+    comment = f_app.comment.output([comment_id])[0]
+    if comment.get("item_id") == item_id:
+        return comment
+    else:
+        abort(40495, logger.warning("Non-exist comment", exc_info=False))
+
+
+@f_api('/shop/<shop_id>/item/<item_id>/comment/<comment_id>/remove')
+@f_app.user.login.check(force=True, role=["shop_admin"])
+def shop_comment_remove(user, shop_id, item_id, comment_id):
+    comment = f_app.comment.get(comment_id)
+    if str(comment["item_id"]) == shop_id:
+        return f_app.comment.remove(comment_id)
+    else:
+        abort(40000, logger.warning("The comment doesn't belong to the crowdfunding item.", exc_info=False))
