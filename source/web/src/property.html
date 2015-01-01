@@ -500,7 +500,7 @@
                                 % for index,item in enumerate(property.get('main_house_types')) :
                                     % if item:
                                         <li class="item{{index}}">
-                                            <a href="#" onclick="javascript:window.openMainHouseType(null, '{{index}}',false)">
+                                            <a onclick="javascript:window.openMainHouseType(null, '{{index}}',false)">
                                             <div style="position:relative;">
                                                 <img class="floor_plan" src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
                                                          alt="" onerror="window.onImgError(this);"/>
