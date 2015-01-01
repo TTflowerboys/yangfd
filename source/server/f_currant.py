@@ -1738,6 +1738,7 @@ class f_landregistry(f_app.module_base):
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+            fig.text(0.5, 0.01, "来源：Land Registry - GOV.UK", fontproperties=fontprop, fontsize=fontsize, color="#cccccc", ha="center")
 
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
@@ -1748,6 +1749,7 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
+        ax.yaxis.get_major_formatter().set_scientific(False)
 
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
         # fig.autofmt_xdate()
@@ -1814,6 +1816,7 @@ class f_landregistry(f_app.module_base):
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+            fig.text(0.5, 0.01, "来源：Land Registry - GOV.UK", fontproperties=fontprop, fontsize=fontsize, color="#cccccc", ha="center")
 
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
@@ -1824,6 +1827,7 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
+        ax.yaxis.get_major_formatter().set_scientific(False)
 
         graph = StringIO()
         fig.savefig(graph, format="png", dpi=100)
@@ -1880,6 +1884,7 @@ class f_landregistry(f_app.module_base):
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+            fig.text(0.5, 0.01, "来源：Land Registry - GOV.UK", fontproperties=fontprop, fontsize=fontsize, color="#cccccc", ha="center")
 
         for color, text in zip(colors, legend.get_texts()):
             text.set_color(color)
@@ -1911,6 +1916,7 @@ class f_landregistry(f_app.module_base):
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
         ax.fmt_xdata = DateFormatter('%Y-%m-%d')
+        ax.yaxis.get_major_formatter().set_scientific(False)
 
         plt.setp(fig.gca().get_xticklabels(), fontsize=fontsize)
         plt.setp(fig.gca().get_yticklabels(), fontsize=fontsize)
@@ -1991,6 +1997,7 @@ class f_landregistry(f_app.module_base):
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
+            fig.text(0.5, 0.01, "来源：Land Registry - GOV.UK", fontproperties=fontprop, fontsize=fontsize, color="#cccccc", ha="center")
 
         ax.yaxis.grid(True, color="#e6e6e6", linewidth="1", linestyle="-")
         ax.tick_params(colors='#cccccc')
@@ -2001,6 +2008,7 @@ class f_landregistry(f_app.module_base):
         ax.spines['right'].set_visible(False)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('left')
+        ax.yaxis.get_major_formatter().set_scientific(False)
 
         graph = StringIO()
         fig.savefig(graph, format="png", dpi=100)
@@ -2055,6 +2063,19 @@ f_landregistry()
 
 
 class f_currant_shop(f_shop):
-    pass
+    def item_search(self, params, sort=["time", "desc"], notime=False, per_page=10, time_field="time"):
+        params.setdefault("status", {"$ne": "deleted"})
+        if sort is not None:
+            try:
+                sort_field, sort_orientation = sort
+            except:
+                abort(40000, logger.warning("sort param not well in format:", sort))
+
+        else:
+            sort_field = sort_orientation = None
+
+        item_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime, time_field=time_field)["content"]
+
+        return item_id_list
 
 f_currant_shop()
