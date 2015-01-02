@@ -47,6 +47,15 @@ $(function () {
             return
         }
 
+        // Check if user agree to terms
+        if (!$('.terms-check').is(':checked')){
+            errorArea.text(window.getErrorMessage('terms', 'check'))
+            errorArea.show()
+            return
+        }
+
+
+
         var params = $(this).serializeObject()
         params.password = Base64.encode(params.password)
         params.challenge = getRecaptchaChallenge()
