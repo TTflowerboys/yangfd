@@ -203,7 +203,7 @@ def shop_item_get(shop_id, item_id):
     return f_app.shop.item.output([item_id])[0]
 
 
-@f_api('/shop/<shop_id>/item/item_id/comment/add', params=dict(
+@f_api('/shop/<shop_id>/item/<item_id>/comment/add', params=dict(
     parent_comment_id=ObjectId,
     content=(str, True),
 ))
@@ -241,7 +241,7 @@ def shop_comment_get(shop_id, item_id, comment_id):
     f_app.shop.item.get(item_id)
 
     comment = f_app.comment.output([comment_id])[0]
-    if comment.get("item_id") == item_id:
+    if str(comment.get("item_id")) == item_id:
         return comment
     else:
         abort(40495, logger.warning("Non-exist comment", exc_info=False))
@@ -251,7 +251,7 @@ def shop_comment_get(shop_id, item_id, comment_id):
 @f_app.user.login.check(force=True, role=["shop_admin"])
 def shop_comment_remove(user, shop_id, item_id, comment_id):
     comment = f_app.comment.get(comment_id)
-    if str(comment["item_id"]) == shop_id:
+    if str(comment["item_id"]) == item_id:
         return f_app.comment.remove(comment_id)
     else:
         abort(40000, logger.warning("The comment doesn't belong to the crowdfunding item.", exc_info=False))
