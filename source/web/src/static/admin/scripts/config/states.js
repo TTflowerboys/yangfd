@@ -236,8 +236,7 @@ angular.module('app')
             .state('dashboard.operation.news', {
                 url: '/news',
                 templateUrl: '/static/admin/templates/dashboard.operation.news.tpl.html',
-                controller: 'ctrlList',
-                resolve: newsResolve
+                controller: 'ctrlOperationNews'
             })
             .state('dashboard.operation.news.edit', {
                 url: '/:id/edit',

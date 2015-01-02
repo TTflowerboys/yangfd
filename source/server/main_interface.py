@@ -557,7 +557,7 @@ def verify_email_status():
 @check_landing
 @check_ip_and_redirect_domain
 def requirement():
-    return template("phone/requirement", intention_list=f_app.enum.get_all('intention'))
+    return common_template("phone/requirement", intention_list=f_app.enum.get_all('intention'))
 
 
 @f_get('/wechat_share')
@@ -567,11 +567,18 @@ def wechat_share():
     return common_template("phone/wechat_share")
 
 
-@f_get('/how_it_works')
+@f_get('/how_it_works', params=dict(slug=str,))
 @check_landing
 @check_ip_and_redirect_domain
-def how_it_works():
-    return common_template("phone/how_it_works", intention_list=f_app.enum.get_all('intention'))
+def how_it_works(params):
+    if params and "slug" in params:
+        current_intention_title = params["slug"]
+        for intention in f_app.enum.get_all('intention'):
+            if intention.get('slug') == current_intention_title:
+                current_intention = intention
+    else:
+        current_intention = f_app.enum.get_all('intention')[0]
+    return common_template("phone/how_it_works", intention_list=f_app.enum.get_all('intention'),current_intention = current_intention)
 
 
 @f_get('/calculator')

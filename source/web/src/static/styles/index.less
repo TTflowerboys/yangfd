@@ -312,7 +312,7 @@ main {
 
             .add {
                 padding: 1px 10px;
-                margin-top: -2px;
+                margin-top: -4px;
                 img {
                     max-width:none;
                 }
@@ -558,7 +558,7 @@ main {
 
             @media @phone {
                 display:block;
-                margin-top:34px;
+                margin-top:50px;
                 margin-bottom:15px;
                 margin-left:12px;
                 font-size:16px;
@@ -569,7 +569,12 @@ main {
         .houseCard {
             .description_wrapper {
                 padding-right:320px;
+
+                .description .details .properties label {
+                    width:91%;
+                }
             }
+
             .relatedNews {
                 position:absolute;
                 top:0;
@@ -675,15 +680,12 @@ main {
         }
 
         .houseCard_header {
-
-            margin-top: 45px;
+            margin-top: 50px;
             margin-bottom: 20px;
             overflow:hidden;
 
             @media @phone {
-                padding-top:28px;
                 padding-left:12px;
-                height:51px;
                 width:100%;
                 paddingn-bottom:0px;
 
@@ -738,6 +740,14 @@ main {
                 width:100%;
                 margin-bottom:0px;
             }
+
+            .description .details .properties label {
+                width:91%;
+            }
+        }
+
+        .houseCard_phone {
+            margin-bottom:0px;
         }
 
         .tagDetail {

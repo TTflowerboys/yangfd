@@ -491,12 +491,12 @@
         $('[data-tabs]').tabs({trigger: 'hover'})
 
         //load featured data
-        var houseArray = JSON.parse($('#dataPropertyList').text())
-         _.each(houseArray, function (house) {
-            var houseResult = {}
-             houseResult = _.template($('#featured_houseCard_template').html())({house: house})
-             $('.houseFeatured').append(houseResult)
-         })
+        // var houseArray = JSON.parse($('#dataPropertyList').text())
+        //  _.each(houseArray, function (house) {
+        //     var houseResult = {}
+        //      houseResult = _.template($('#featured_houseCard_template').html())({house: house})
+        //      $('.houseFeatured').append(houseResult)
+        //  })
 
         updatePropertyCardMouseEnter()
     }

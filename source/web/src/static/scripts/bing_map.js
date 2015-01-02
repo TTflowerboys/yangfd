@@ -16,7 +16,7 @@
     function createMapPin(map, mapId, result) {
         if (result) {
             var location = new Microsoft.Maps.Location(result.Latitude, result.Longitude);
-            var pin = new Microsoft.Maps.Pushpin(location);
+            var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-item.png', width: 24, height: 32});
             Microsoft.Maps.Events.addHandler(pin, 'click', function () { showInfoBox(map, mapId, result) });
             map.entities.push(pin);
 
@@ -30,7 +30,7 @@
 
     function createMapCenterPin(map, location) {
         //http://msdn.microsoft.com/en-us/library/ff701719.aspx
-        var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-big.png', width: 24, height: 32});
+        var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-building.png', width: 24, height: 32});
         map.entities.push(pin);
     }
 
@@ -102,7 +102,7 @@
         }
     }
 
-    function findNearByLocations(map, mapId, location, typeIds, callback) {
+    function findNearByLocations(map, mapId, location, country, typeIds, callback) {
 
         //http://msdn.microsoft.com/en-us/library/hh478191.aspx
         var spatialFilter = 'spatialFilter=nearby(' + location.latitude + ',' + location.longitude + ',10)';
@@ -121,8 +121,8 @@
         })
 
         var format = '$format=json';
-
-        var sdsRequest = 'http://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0acf75d1e6947b4/NavteqEU/NavteqPOIs?' +
+        var apiPrefix = country === 'US'? 'http://spatial.virtualearth.net/REST/v1/data/f22876ec257b474b82fe2ffcb8393150/NavteqNA/NavteqPOIs': 'http://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0acf75d1e6947b4/NavteqEU/NavteqPOIs'
+        var sdsRequest =  apiPrefix + '?' +
                 spatialFilter + '&' +
                 select + '&' +
                 top + '&' +
@@ -135,8 +135,6 @@
         document.getElementById(mapId).appendChild(mapscript);
 
         window[mapId + 'ServiceCallBack'] = function (result) {
-            map.setView({ zoom: 13, center: location});
-
             result = result.d
 
             map.entities.clear();
@@ -145,7 +143,35 @@
         }
     }
 
-    window.showTransitMap = function (location, polygon, showCenter) {
+    function updateMapResults(map, mapId, $list, searchResults) {
+        var resultDic = {}
+        var typeIds = []
+        for (var i = 0; i < searchResults.length; i++) {
+            var typeId = searchResults[i].EntityTypeID
+            if (!resultDic[typeId]) {
+                resultDic[typeId] = []
+                typeIds.push(typeId)
+            }
+            resultDic[typeId].push(searchResults[i])
+        }
+
+        typeIds.sort()
+        _.each(typeIds, function (typeId) {
+            var index = 0;
+            _.each(resultDic[typeId], function (oneResult) {
+                createMapPin(map, mapId, oneResult);
+                if (index === 0) {
+                    var result = _.template($('#placeType_template').html())({type: window.getBingMapEntityType(typeId)})
+                    $list.append(result)
+                }
+                oneResult.Hint = oneResult.__Distance.toFixed(2) + 'km'
+                createListItem($list, oneResult)
+                index = index + 1
+            })
+        })
+    }
+
+    window.showTransitMap = function (location, polygon, showCenter, zoom, country) {
         var mapId = 'transitMapCanvas'
         var map = window.getMap('transitMapCanvas')
         var $list = $('.maps .list div[data-tab-name=transit] ul')
@@ -154,23 +180,18 @@
         function trafficModuleLoaded()
         {
             map.entities.clear()
-            map.setView({zoom: 13, center: location})
+            map.setView({zoom: zoom? zoom:13, center: location})
             var trafficLayer = new Microsoft.Maps.Traffic.TrafficLayer(map);
             trafficLayer.show();
         }
 
-        findNearByLocations(map, mapId, location, ['4013', '4170','4482', '4493', '4580', '4581', '9511', '9520', '9707', '9708', '9989'], function (searchResults) {
+        findNearByLocations(map, mapId, location, country, ['4013', '4170','4482', '4493', '4580', '4581', '9511', '9520', '9707', '9708', '9989'], function (searchResults) {
             if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
                 }
                 else {
-                    for (var i = 0; i < searchResults.length; i++) {
-                        createMapPin(map, mapId, searchResults[i]);
-                        searchResults[i].Hint = window.getBingMapEntityType(searchResults[i].EntityTypeID)
-                        //searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
-                        createListItem($list, searchResults[i])
-                    }
+                    updateMapResults(map, mapId, $list, searchResults)
                 }
             }
 
@@ -184,26 +205,21 @@
         })
     }
 
-    window.showSchoolMap = function(location, polygon, showCenter) {
+    window.showSchoolMap = function(location, polygon, showCenter, zoom, country) {
         var mapId = 'schoolMapCanvas'
         var map = window.getMap('schoolMapCanvas')
         var $list = $('.maps .list div[data-tab-name=school] ul')
 
-        findNearByLocations(map, mapId, location, ['8211', '8200'], function (searchResults) {
+        findNearByLocations(map, mapId, location, country, ['8211', '8200'], function (searchResults) {
             if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
                 }
                 else {
-                    for (var i = 0; i < searchResults.length; i++) {
-                        createMapPin(map, mapId, searchResults[i]);
-                        searchResults[i].Hint = window.getBingMapEntityType(searchResults[i].EntityTypeID)
-                        //searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
-                        createListItem($list, searchResults[i])
-                    }
+                    updateMapResults(map, mapId, $list, searchResults)
                 }
             }
-            map.setView({zoom: 13, center: location})
+            map.setView({zoom: zoom? zoom:13, center: location})
             if (polygon) {
                 map.entities.push(polygon)
             }
@@ -214,26 +230,21 @@
         })
     }
 
-    window.showFacilityMap = function(location, polygon, showCenter) {
+    window.showFacilityMap = function(location, polygon, showCenter, zoom, country) {
         var mapId = 'facilityMapCanvas'
         var map = window.getMap('facilityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=facility] ul')
 
-        findNearByLocations(map, mapId, location, ['4017', '5400', '5540', '5800', '6000', '6512', '7011', '7832', '7997', '8060', '8231', '9221', '9504', '9505', '9510', '9523', '9530', '9539'], function (searchResults) {
+        findNearByLocations(map, mapId, location, country, ['4017', '5400', '5540', '5800', '6000', '6512', '7011', '7832', '7997', '8060', '8231', '9221', '9504', '9505', '9510', '9523', '9530', '9539'], function (searchResults) {
             if (searchResults) {
                 if (searchResults.length === 0) {
                     window.alert('No results for the query');
                 }
                 else {
-                    for (var i = 0; i < searchResults.length; i++) {
-                        createMapPin(map, mapId, searchResults[i]);
-                        searchResults[i].Hint = window.getBingMapEntityType(searchResults[i].EntityTypeID)
-                        //searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
-                        createListItem($list, searchResults[i])
-                    }
+                    updateMapResults(map, mapId, $list, searchResults)
                 }
             }
-            map.setView({zoom: 13, center: location})
+            map.setView({zoom: zoom? zoom:13, center: location})
             if (polygon) {
                 map.entities.push(polygon)
             }
@@ -344,16 +355,18 @@
         //var map = getMap(tabName + 'MapCanvas')
 
         var $li = $(event.target).closest('li')
-        var lat = String($li.attr('data-lat'))
-        var lng = String($li.attr('data-lng'))
+        if ($li.attr('data-type') === 'placeItem') {
+            var lat = String($li.attr('data-lat'))
+            var lng = String($li.attr('data-lng'))
 
-        _.each(window.mapPinCache[tabName + 'MapCanvas'], function (pin) {
-            var location = pin._location
-            if (lat === String(location.latitude) && lng === String(location.longitude)) {
-                Microsoft.Maps.Events.invoke(pin, 'click');
-                return
-            }
+            _.each(window.mapPinCache[tabName + 'MapCanvas'], function (pin) {
+                var location = pin._location
+                if (lat === String(location.latitude) && lng === String(location.longitude)) {
+                    Microsoft.Maps.Events.invoke(pin, 'click');
+                    return
+                }
 
-        })
+            })
+        }
     })
 })()

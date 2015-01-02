@@ -150,58 +150,66 @@
         > .details {
             font-family: @font-song;
             overflow: hidden;
-            .size {
-                margin-bottom: 8px;
-            }
-            > .estimate {
-                overflow: hidden;
+            .left {
                 float: left;
                 width:50%; // for ie
 
-                @media @phone {
-                    float:left;
-                    width:100%;
+                .size {
+                    margin-bottom: 0px;
                 }
-                .label {
-                    float: left;
-                    line-height: 1.4;
-                    margin-right: 1em;
-                    max-width:60%;
+                > .estimate {
+                    overflow: hidden;
+                    @media @phone {
+                        float:left;
+                        width:100%;
+                    }
+                    .label {
+                        float: left;
+                        line-height: 1.4;
+                        margin-right: 1em;
+                        max-width:60%;
+                    }
+                    .value {
+                        float: left;
+                        color: @red;
+                        font-size: 26px;
+                        line-height: 1;
+                    }
                 }
-                .value {
-                    float: left;
-                    color: @red;
-                    font-size: 26px;
-                    line-height: 1;
-                }
+
             }
-            > .properties {
+
+            >.right {
                 float: right;
                 max-width: 50%;
                 min-width: 30%;
                 padding-left: 16px;
 
-                li {
-                    line-height:1.4em;
-                    overflow:hidden;
-                }
+                > .properties {
 
-                img {
-                    vertical-align:middle;
-                    display: inline-block;
-                    float: left;
-                    margin-top:3px;
-                }
+                    li {
+                        line-height:1.4em;
+                        overflow:hidden;
+                    }
 
-                label {
-                    display: inline-block;
-                    float: right;
-                    width: 91%;
-                }
+                    img {
+                        vertical-align:middle;
+                        display: inline-block;
+                        float: left;
+                        margin-top:3px;
+                    }
 
-                @media @phone {
-                    float:left;
-                    max-width:100%;
+                    label {
+                        display: inline-block;
+                        float: right;
+                        width: 88%;
+                    }
+
+                    @media @phone {
+                        float:left;
+                        max-width:100%;
+                    }
+
                 }
 
             }
@@ -232,6 +240,7 @@
                 }
                 &.openRequirement {
                     display:none;
+                    background:white;//may cover on text so, need a background color
                 }
                 border-radius:6px;
                 font-size:20px;
@@ -247,7 +256,7 @@
     background:#fff4f5;
     @media @phone {
         display:block;
-        margin-bottom:20px;
+        margin-bottom:50px;
     }
 
     a {
@@ -261,7 +270,7 @@
         img {
             width:100%;
             float:left;
-            min-height:@house_card_image-height;
+            min-height:160px;
         }
 
         .labels {
@@ -423,22 +432,20 @@
 
         .estimate {
             width:40%;
+            .label {
+                display:block;
+                font-size:14px;
+                color:#999;
+                padding:0 6px 0 12px;
+            }
 
-            .inner {
-                .label {
-                    display:block;
-                    font-size:14px;
-                    color:#999;
-                    padding-left:12px;
-                }
-
-                .value {
-                    display:block;
-                    font-size:24px;
-                    color:#e60012;
-                    padding-left:12px;
-                    word-wrap:break-word;
-                }
+            .value {
+                display:block;
+                font-size:24px;
+                color:#e60012;
+                padding: 0 6px 0 12px;
+                word-wrap:break-word;
+                width:100%;
             }
         }
     }
