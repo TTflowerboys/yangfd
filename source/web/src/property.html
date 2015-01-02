@@ -1188,7 +1188,11 @@
 
     <script id="regionReport_template" type="text/template">
         <div class="regionReport">
+            {_if (report.image) {_}
             <img alt="" src="" style="background:url('{=team.convertToHttps({'link':report.image})=}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{=team.convertToHttps({'link':report.image})=}', sizingMethod='scale');"/>
+            {_} else {_}
+            <img alt="" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
+            {_}_}
             <div class="img_shadow"></div>
             <div class="text_container">
                 <div class="text">
