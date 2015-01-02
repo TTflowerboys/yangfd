@@ -494,7 +494,7 @@
                 </div>
                 <hr/>
             %end
-            %if (property.get('latitude') and property.get('longitude')):
+            %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
                 <div class="maps_wrapper">
                       <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
                       <!--@@include partials/bing_map.html  -->
@@ -1423,11 +1423,14 @@
          ga('send', 'event', 'property_detail', 'next', 'brochures-next')
      })
 
-     var property = JSON.parse($('#pythonProperty').text())
-     var geoLocation = new Microsoft.Maps.Location(property.latitude, property.longitude);
-     window.showTransitMap(geoLocation, null, true, 14)
-     window.showSchoolMap(geoLocation, null, true, 14)
-     window.showFacilityMap(geoLocation, null, true, 14)
+     if ($('.maps_wrapper')) {
+         var property = JSON.parse($('#pythonProperty').text())
+         var geoLocation = new Microsoft.Maps.Location(property.latitude, property.longitude);
+         window.showTransitMap(geoLocation, null, true, 14, property.country.slug)
+         window.showSchoolMap(geoLocation, null, true, 14, property.country.slug)
+         window.showFacilityMap(geoLocation, null, true, 14, property.country.slug)
+     }
+
 
     </script>
     <!-- @endif -->
