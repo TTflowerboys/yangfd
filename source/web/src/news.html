@@ -26,9 +26,6 @@
     <textarea id="newsData" style="display:none;">{{json_dumps(_i18n(news))}}</textarea>
     <div class="container">
         % from urllib import quote_plus
-        %if ('images' in news) and news.get('images'):
-            <img class="phone" alt="{{news.get('title',_('洋房东'))}}" src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8')) + '_thumbnail'}}&news_id={{news.get('id','')}}"/>
-        %end
         
         %if 'title' in news:
             <h1 class="title">{{news.get('title')}}</h1>

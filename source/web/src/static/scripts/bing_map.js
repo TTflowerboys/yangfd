@@ -42,7 +42,7 @@
         var decription = [];
         decription.push(window.i18n('地址') + ':' + result.AddressLine + '<br/>');
         decription.push(window.i18n('电话') + ':' + result.Phone + '<br/>');
-        decription.push(window.i18n('类型') + ':' + result.Hint + '<br/>');
+        decription.push(window.i18n('类型') + ':' + result.Type + '<br/>');
         window.mapInfoBoxCache[mapId] = new Microsoft.Maps.Infobox(location, { title: result.DisplayName, description: decription.join(' '), showPointer: true});
 
         window.mapInfoBoxCache[mapId].setOptions({ visible: true });
@@ -164,6 +164,7 @@
                     var result = _.template($('#placeType_template').html())({type: window.getBingMapEntityType(typeId)})
                     $list.append(result)
                 }
+                oneResult.Type = window.getBingMapEntityType(typeId)
                 oneResult.Hint = oneResult.__Distance.toFixed(2) + 'km'
                 createListItem($list, oneResult)
                 index = index + 1
