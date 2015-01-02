@@ -135,8 +135,6 @@
         document.getElementById(mapId).appendChild(mapscript);
 
         window[mapId + 'ServiceCallBack'] = function (result) {
-            map.setView({ zoom: 13, center: location});
-
             result = result.d
 
             map.entities.clear();
@@ -145,7 +143,35 @@
         }
     }
 
-    window.showTransitMap = function (location, polygon, showCenter) {
+    function updateMapResults(map, mapId, $list, searchResults) {
+        var resultDic = {}
+        var typeIds = []
+        for (var i = 0; i < searchResults.length; i++) {
+            var typeId = searchResults[i].EntityTypeID
+            if (!resultDic[typeId]) {
+                resultDic[typeId] = []
+                typeIds.push(typeId)
+            }
+            resultDic[typeId].push(searchResults[i])
+        }
+
+        typeIds.sort()
+        _.each(typeIds, function (typeId) {
+            var index = 0;
+            _.each(resultDic[typeId], function (oneResult) {
+                createMapPin(map, mapId, oneResult);
+                if (index === 0) {
+                    var result = _.template($('#placeType_template').html())({type: window.getBingMapEntityType(typeId)})
+                    $list.append(result)
+                }
+                oneResult.Hint = oneResult.__Distance.toFixed(2) + 'km'
+                createListItem($list, oneResult)
+                index = index + 1
+            })
+        })
+    }
+
+    window.showTransitMap = function (location, polygon, showCenter, zoom) {
         var mapId = 'transitMapCanvas'
         var map = window.getMap('transitMapCanvas')
         var $list = $('.maps .list div[data-tab-name=transit] ul')
@@ -154,7 +180,7 @@
         function trafficModuleLoaded()
         {
             map.entities.clear()
-            map.setView({zoom: 13, center: location})
+            map.setView({zoom: zoom? zoom:13, center: location})
             var trafficLayer = new Microsoft.Maps.Traffic.TrafficLayer(map);
             trafficLayer.show();
         }
@@ -165,12 +191,7 @@
                     window.alert('No results for the query');
                 }
                 else {
-                    for (var i = 0; i < searchResults.length; i++) {
-                        createMapPin(map, mapId, searchResults[i]);
-                        searchResults[i].Hint = window.getBingMapEntityType(searchResults[i].EntityTypeID)
-                        //searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
-                        createListItem($list, searchResults[i])
-                    }
+                    updateMapResults(map, mapId, $list, searchResults)
                 }
             }
 
@@ -184,7 +205,7 @@
         })
     }
 
-    window.showSchoolMap = function(location, polygon, showCenter) {
+    window.showSchoolMap = function(location, polygon, showCenter, zoom) {
         var mapId = 'schoolMapCanvas'
         var map = window.getMap('schoolMapCanvas')
         var $list = $('.maps .list div[data-tab-name=school] ul')
@@ -195,15 +216,10 @@
                     window.alert('No results for the query');
                 }
                 else {
-                    for (var i = 0; i < searchResults.length; i++) {
-                        createMapPin(map, mapId, searchResults[i]);
-                        searchResults[i].Hint = window.getBingMapEntityType(searchResults[i].EntityTypeID)
-                        //searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
-                        createListItem($list, searchResults[i])
-                    }
+                    updateMapResults(map, mapId, $list, searchResults)
                 }
             }
-            map.setView({zoom: 13, center: location})
+            map.setView({zoom: zoom? zoom:13, center: location})
             if (polygon) {
                 map.entities.push(polygon)
             }
@@ -214,7 +230,7 @@
         })
     }
 
-    window.showFacilityMap = function(location, polygon, showCenter) {
+    window.showFacilityMap = function(location, polygon, showCenter, zoom) {
         var mapId = 'facilityMapCanvas'
         var map = window.getMap('facilityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=facility] ul')
@@ -225,15 +241,10 @@
                     window.alert('No results for the query');
                 }
                 else {
-                    for (var i = 0; i < searchResults.length; i++) {
-                        createMapPin(map, mapId, searchResults[i]);
-                        searchResults[i].Hint = window.getBingMapEntityType(searchResults[i].EntityTypeID)
-                        //searchResults[i].Number = searchResults[i].__Distance.toFixed(2) + 'km'
-                        createListItem($list, searchResults[i])
-                    }
+                    updateMapResults(map, mapId, $list, searchResults)
                 }
             }
-            map.setView({zoom: 13, center: location})
+            map.setView({zoom: zoom? zoom:13, center: location})
             if (polygon) {
                 map.entities.push(polygon)
             }
@@ -344,16 +355,18 @@
         //var map = getMap(tabName + 'MapCanvas')
 
         var $li = $(event.target).closest('li')
-        var lat = String($li.attr('data-lat'))
-        var lng = String($li.attr('data-lng'))
+        if ($li.attr('data-type') === 'placeItem') {
+            var lat = String($li.attr('data-lat'))
+            var lng = String($li.attr('data-lng'))
 
-        _.each(window.mapPinCache[tabName + 'MapCanvas'], function (pin) {
-            var location = pin._location
-            if (lat === String(location.latitude) && lng === String(location.longitude)) {
-                Microsoft.Maps.Events.invoke(pin, 'click');
-                return
-            }
+            _.each(window.mapPinCache[tabName + 'MapCanvas'], function (pin) {
+                var location = pin._location
+                if (lat === String(location.latitude) && lng === String(location.longitude)) {
+                    Microsoft.Maps.Events.invoke(pin, 'click');
+                    return
+                }
 
-        })
+            })
+        }
     })
 })()

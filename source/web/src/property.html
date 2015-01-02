@@ -1415,9 +1415,9 @@
 
      var property = JSON.parse($('#pythonProperty').text())
      var geoLocation = new Microsoft.Maps.Location(property.latitude, property.longitude);
-     window.showTransitMap(geoLocation, null, true)
-     window.showSchoolMap(geoLocation, null, true)
-     window.showFacilityMap(geoLocation, null, true)
+     window.showTransitMap(geoLocation, null, true, 14)
+     window.showSchoolMap(geoLocation, null, true, 14)
+     window.showFacilityMap(geoLocation, null, true, 14)
 
     </script>
     <!-- @endif -->
