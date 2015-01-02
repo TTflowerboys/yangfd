@@ -116,6 +116,6 @@
     })
 
     $(document).ready(function () {
-        ga.('_setCustomVar',1,'hint',$('.hint').length > 0,2)
+        ga('_setCustomVar',1,'hint',$('.hint').length > 0,2)
     })
 })()
