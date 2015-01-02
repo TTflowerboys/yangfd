@@ -110,19 +110,13 @@
                         </td>
                         <td class=estimate>
                             <div >
-                                <table class="inner">
-                                    <tr>
-                                        <td>
-                                            %if (property.get('annual_return_estimated')):
-                                                <span class=label>{{_i18n('预计总年化收益率')}}</span>
-                                                <span class=value><strong>{{property.get('annual_return_estimated')}}</strong></span>
-                                            %elif (property.get('annual_cash_return_estimated')):
-                                                <span class=label>{{_i18n('预估现金年化收益率')}}</span>
-                                                <span class=value><strong>{{property.get('annual_cash_return_estimated')}}</strong></span>
-                                            %end
-                                        </td>
-                                    </tr>
-                                </table>
+                                %if (property.get('annual_return_estimated')):
+                                    <span class=label>{{_i18n('预计总年化收益率')}}</span>
+                                    <span class=value><strong>{{property.get('annual_return_estimated')}}</strong></span>
+                                %elif (property.get('annual_cash_return_estimated')):
+                                    <span class=label>{{_i18n('预估现金年化收益率')}}</span>
+                                    <span class=value><strong>{{property.get('annual_cash_return_estimated')}}</strong></span>
+                                %end
                             </div>
                         </td>
                     </tr>
