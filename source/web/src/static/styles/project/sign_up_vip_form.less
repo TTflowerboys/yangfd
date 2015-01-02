@@ -17,11 +17,15 @@
         float: left;
     }
     .middleLine {
-        margin-left: 40px;
-        margin-right: 40px;
+        margin: auto 40px;
         width: 1px;
         height: 560px;
         background: #ccc;
+        @media @phone {
+            margin: 40px auto;
+            width: 100%;
+            height: 1px;
+        }
     }
     .vipTitle {
         color: #777;
@@ -29,9 +33,15 @@
     }
     .vipTable {
         margin-top: 60px;
+        @media @phone {
+            margin-top: 20px;
+        }
     }
     .vipRow {
         padding-top: 26px;
+        @media @phone {
+            padding-top: 10px;
+        }
         overflow: hidden;
         > div {
             float: left;
