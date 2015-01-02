@@ -2149,20 +2149,16 @@ class f_comment(f_app.module_base):
         comment_list = self.get(comment_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
 
         user_id_set = set()
-        item_id_set = set()
         for comment in comment_list:
             user_id_set.add(comment["user_id"])
-            item_id_set.add(comment["item_id"])
 
-        user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields, ignore_nonexist=ignore_nonexist)
+        user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields)
         user_dict = {}
-        item_dict = f_app.shop.item.output(list(item_id_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
 
         for u in user_list:
             user_dict[u["id"]] = u
         for comment in comment_list:
             comment["user"] = user_dict.get(comment.pop("user_id"))
-            comment["item"] = item_dict.get(comment.pop("item_id"))
 
         return comment_list
 

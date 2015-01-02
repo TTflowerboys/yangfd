@@ -116,10 +116,11 @@ body{
         .share {
             float:right;
             display:inline-block;
+            vertical-align: middle;
+
             .shareButton {
                 float:left;
                 margin-left:20px;
-                vertical-align: middle;
                 border: 0px solid;
                 display: inline-block;
                 background: transparent;
@@ -129,9 +130,24 @@ body{
             }
 
             @media @phone {
-                margin-right:12px;
+                float: left;
+                display:block;
+                margin-left: -13px;
+                margin-top: 5px;
+                width: 100%;
+                .shareButton {
+                    margin-left:25px;
+                }
             }
 
+        }
+
+        .button-group {
+            margin-bottom: 5px;
+
+            @media @phone {
+                display: inline-block;
+            }
         }
 
         .content {
