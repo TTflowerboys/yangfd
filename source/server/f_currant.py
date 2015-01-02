@@ -1734,7 +1734,7 @@ class f_landregistry(f_app.module_base):
 
         if fig_width >= 4:
             water_mark_buffer = StringIO()
-            ImageOps.expand(f_app.storage.image_open("views/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
+            ImageOps.expand(f_app.storage.image_open("../web/src/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
@@ -1812,7 +1812,7 @@ class f_landregistry(f_app.module_base):
 
         if fig_width >= 4:
             water_mark_buffer = StringIO()
-            ImageOps.expand(f_app.storage.image_open("views/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
+            ImageOps.expand(f_app.storage.image_open("../web/src/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
@@ -1880,7 +1880,7 @@ class f_landregistry(f_app.module_base):
 
         if fig_width >= 4:
             water_mark_buffer = StringIO()
-            ImageOps.expand(f_app.storage.image_open("views/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
+            ImageOps.expand(f_app.storage.image_open("../web/src/static/images/logo/img_mark_no_alpha.png"), border=30, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
@@ -1993,7 +1993,7 @@ class f_landregistry(f_app.module_base):
 
         if fig_width >= 4:
             water_mark_buffer = StringIO()
-            ImageOps.expand(f_app.storage.image_open("views/static/images/logo/img_mark_no_alpha.png"), border=20, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
+            ImageOps.expand(f_app.storage.image_open("../web/src/static/images/logo/img_mark_no_alpha.png"), border=20, fill="#f6f6f6").save(water_mark_buffer, format="PNG")
             water_mark_buffer.seek(0)
             img = imread(water_mark_buffer)
             plt.imshow(img, extent=[ax.get_xlim()[0], ax.get_xlim()[1], 0, ax.get_ylim()[1]], aspect='auto')
