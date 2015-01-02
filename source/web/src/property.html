@@ -369,7 +369,9 @@
                                 <i>
                                     <img src="/static/images/property_details/icon-house.png" alt=""/>
                                     </i>
+                                    <label>
                                     {{_('产权类型')}}
+                                    </label>
                             </td>
                             <td class="value">
                                 {{property.get('equity_type',{}).get('value','') }}
@@ -381,7 +383,9 @@
                                     <i>
                                         <img src="/static/images/property_details/icon-pallet.png" alt=""/>
                                         </i>
+                                        <label>
                                         {{_('装修风格')}}
+                                        </label>
                                 </td>
                                 <td class="value">
                                     {{property.get('decorative_style',{}).get('value')}}
@@ -394,7 +398,9 @@
                                 <i>
                                     <img src="/static/images/property_details/icon-location.png" alt=""/>
                                     </i>
+                                    <label>
                                     {{_('产权地址')}}
+                                    </label>
                             </td>
                             <td class="value">
                                 {{property.get('address')}}
@@ -420,7 +426,9 @@
                                 <i>
                                     <img src="/static/images/property_details/icon-map.png" alt=""/>
                                     </i>
+                                    <label>
                                     {{_('街区')}}
+                                    </label>
                             </td>
                             <td class="value">
                                 {{property.get('street','')}}
@@ -436,7 +444,9 @@
                                     <i>
                                         <img src="/static/images/property_details/icon-kaleidoscope.png" alt=""/>
                                         </i>
+                                        <label for="">
                                         {{_('主要户型')}}
+                                        </label>
                                 </td>
                                 <td colspan="3" class="value">
                                     % if property.get('main_house_types'):
