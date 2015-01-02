@@ -34,10 +34,10 @@
             </div>
 
             %if (property.get('status') == 'sold out'):
-            <div class="soldOut">
-                <img alt="" src="/static/images/background/sold-out.png"/>
-                <label for="">{{_i18n('售罄')}}</label>
-            </div>
+                <div class="soldOut">
+                    <img alt="" src="/static/images/background/sold-out.png"/>
+                    <label for="">{{_i18n('售罄')}}</label>
+                </div>
             %end
             <div class="imageText">
                 <div class="left">
@@ -82,15 +82,15 @@
                         <td class=properties>
                             <ul >
                                 %if (property.get('intention')):
-                                <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
-                                    <label>
-                                        % for item in property.get('intention'):
-                                             %if (item.get('value')):
-                                                 {{item.get('value')}}
-                                             %end
-                                        %end
-                                    </label>
-                                </li>
+                                    <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                                        <label>
+                                            % for item in property.get('intention'):
+                                                %if (item.get('value')):
+                                                    {{item.get('value')}}
+                                                %end
+                                            %end
+                                        </label>
+                                    </li>
                                 %end
                                 %if (property.get('property_type')):
                                     <li><img src="/static/images/common/house_card/house-card-house.png" alt=""/>
@@ -143,44 +143,44 @@
     </div>
 
 
-     <div class=houseCard>
-         <div class="imagePart">
-             <a href="/property/{{property.get('id')}}">
-                 %if (property.get('cover')):
-                     <img src="/image/fetch?link={{quote_plus(property.get('cover').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);" width="320" height="213"/>
-                 %elif (property.get('reality_images')):
-                     <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);" width="320" height="213"/>
-                 %else :
-                     <img class="withPlaceholder" width="320" height="213"/>
-                 %end
-             </a>
-             <div class="labels">
-                 %if (property.get('rental_guarantee_term')):
-                     <label class="rent" for="">
-                         {{property.get('rental_guarantee_term')}}
-                         {{' '}}
-                         {{_('年包租')}}
-                         %if property.get('rental_guarantee_rate'):
-                             {{' '}}
-                             {{str(float("{0:.2f}".format(property.get('rental_guarantee_rate')))) + '%'}}
-                         %end
-                     </label>
+    <div class=houseCard>
+        <div class="imagePart">
+            <a href="/property/{{property.get('id')}}">
+                %if (property.get('cover')):
+                    <img src="/image/fetch?link={{quote_plus(property.get('cover').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                %elif (property.get('reality_images')):
+                    <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                %else :
+                    <img class="withPlaceholder" width="320" height="213"/>
+                %end
+            </a>
+            <div class="labels">
+                %if (property.get('rental_guarantee_term')):
+                    <label class="rent" for="">
+                        {{property.get('rental_guarantee_term')}}
+                        {{' '}}
+                        {{_('年包租')}}
+                        %if property.get('rental_guarantee_rate'):
+                            {{' '}}
+                            {{str(float("{0:.2f}".format(property.get('rental_guarantee_rate')))) + '%'}}
+                        %end
+                    </label>
 
-                 %end
-                 %if (property.get('property_type')):
-                     <label class="type" for=""> {{property.get('property_type').get('value')}}</label>
-                 %end
-             </div>
-             %if (property.get('status') == 'sold out'):
-                 <div class="soldOut">
-                     <img alt="" src="/static/images/background/sold-out.png"/>
-                     <label for="">{{_i18n('售罄')}}</label>
-                 </div>
-             %end
+                %end
+                %if (property.get('property_type')):
+                    <label class="type" for=""> {{property.get('property_type').get('value')}}</label>
+                %end
+            </div>
+            %if (property.get('status') == 'sold out'):
+                <div class="soldOut">
+                    <img alt="" src="/static/images/background/sold-out.png"/>
+                    <label for="">{{_i18n('售罄')}}</label>
+                </div>
+            %end
 
-         </div>
+        </div>
 
-         <div class="description_wrapper">
+        <div class="description_wrapper">
             <div class=description>
                 <h1 class=name>
                     <a href="/property/{{property.get('id')}}">
@@ -199,45 +199,50 @@
                     <!--@@include=../../partials/get_unit_price.html -->
                 </span>
                 <div class=details>
-                    %if (property.get('property_type')):
-                        % property_type_slug = property.get('property_type').get('slug')
-                        % if property_type_slug != 'new_property' and property_type_slug != 'student_housing':
-                            <p class=size>
-                                <!--@@include=../../partials/get_size.html -->
-                            </p>
-                        %end
-                    %end
-
-                    <p class=estimate>
-                        %if (property.get('annual_return_estimated')):
-                            <span class=label>{{_i18n('预计总年化收益率')}}</span>
-                            <span class=value><strong>{{property.get('annual_return_estimated')}}</strong></span>
-                        %elif (property.get('annual_cash_return_estimated')):
-                            <span class=label>{{_i18n('预估现金年化收益率')}}</span>
-                            <span class=value><strong>{{property.get('annual_cash_return_estimated')}}</strong></span>
+                    <div class="left">
+                        %if (property.get('property_type')):
+                            % property_type_slug = property.get('property_type').get('slug')
+                            % if property_type_slug != 'new_property' and property_type_slug != 'student_housing':
+                                <p class=size>
+                                    <!--@@include=../../partials/get_size.html -->
+                                </p>
+                            %end
                         %end
 
-                    </p>
-                    <ul class=properties>
-                        %if (property.get('intention')):
-                            <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
-                                <label>
-                                    % for item in property.get('intention'):
-                                        %if (item.get('value')):
-                                            {{item.get('value')}}
-                                        %end
-                                    % end
-                                </label>
-                            </li>
-                        %end
-                        %if (property.get('street')):
-                            <li><img src="/static/images/common/house_card/house-card-location.png" alt=""/>
-                                <label>
-                                    {{property.get('street')}}
-                                </label>
-                            </li>
-                        %end
-                    </ul>
+                        <p class=estimate>
+                            %if (property.get('annual_return_estimated')):
+                                <span class=label>{{_i18n('预计总年化收益率')}}</span>
+                                <span class=value><strong>{{property.get('annual_return_estimated')}}</strong></span>
+                            %elif (property.get('annual_cash_return_estimated')):
+                                <span class=label>{{_i18n('预估现金年化收益率')}}</span>
+                                <span class=value><strong>{{property.get('annual_cash_return_estimated')}}</strong></span>
+                            %end
+
+                        </p>
+                    </div>
+                    <div class="right">
+                        <ul class=properties>
+                            %if (property.get('intention')):
+                                <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                                    <label>
+                                        % for item in property.get('intention'):
+                                            %if (item.get('value')):
+                                                {{item.get('value')}}
+                                            %end
+                                        % end
+                                    </label>
+                                </li>
+                            %end
+                            %if (property.get('street')):
+                                <li><img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                                    <label>
+                                        {{property.get('street')}}
+                                    </label>
+                                </li>
+                            %end
+                        </ul>
+                    </div>
+
                 </div>
                 <div class=action>
                     <a href="/property/{{property.get('id')}}" class="button red">{{_('查看详情')}}</a>
@@ -253,7 +258,7 @@
             <h3 class="title">{{_('相关动态')}}</h3>
 
             <div class="list">
-                  % for item in property.get('related_news'):
+                % for item in property.get('related_news'):
                     <a class="item" href=/news/{{item.get('id')}}>{{item.get('title')}}</a>
                 % end
             </div>

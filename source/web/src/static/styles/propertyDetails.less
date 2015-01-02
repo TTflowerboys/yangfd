@@ -501,17 +501,16 @@ body{
                 line-height: 16px;
                 margin-right: 4px;
 
-                @media @phone {
-                    width: @base-font-size-moblie;
-                    height: @base-font-size-moblie;
-                    line-height: @base-font-size-moblie;
-                }
             }
             .name {
                 display: inline-block; min-width: 6em;
                 @media @phone {
                     font-size: @base-font-size-moblie;
                     padding-left:20px;
+                }
+
+                label {
+                    vertical-align:middle;
                 }
 
             }
@@ -579,8 +578,7 @@ body{
         .propertyDetails_title {
             @media @phone {
                 margin-top: 0;
-                margin-bottom: 0;
-                color: white;
+                margin-bottom: 20px;
                 margin-left: 20px;
                 font-size: @base-title-font-size-mobile;
             }
@@ -589,7 +587,7 @@ body{
         .maps {
 
             >.map {
-                width:500px;
+                width:522px;
                 @media @phone {
                     width:100%;
                 }
@@ -597,23 +595,36 @@ body{
             }
 
             >.tabs {
-                width:300px;
+                width:278px;
 
                 @media @phone {
                     width:100%;
                 }
 
+                .category {
+                    padding:0 10px;
+                    li {
+                        font-size:14px;
+                    }
+                }
+
                 .list {
                     ul {
-                        li {
+                        li[data-type=placeItem] {
+                            height:60px;
+
                             .content {
                                 .left {
-                                    width:170px;
+                                    width:150px;
+
+                                    .title {
+                                        font-size:16px;
+                                    }
                                 }
 
                                 .right {
                                     .hint {
-                                        width:70px;
+                                        width:60px;
                                     }
                                 }
                             }
