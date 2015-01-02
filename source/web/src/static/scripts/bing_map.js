@@ -16,7 +16,7 @@
     function createMapPin(map, mapId, result) {
         if (result) {
             var location = new Microsoft.Maps.Location(result.Latitude, result.Longitude);
-            var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-item.png', width: 24, height: 32});
+            var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-item.png', width: 20, height: 30});
             Microsoft.Maps.Events.addHandler(pin, 'click', function () { showInfoBox(map, mapId, result) });
             map.entities.push(pin);
 
@@ -30,7 +30,7 @@
 
     function createMapCenterPin(map, location) {
         //http://msdn.microsoft.com/en-us/library/ff701719.aspx
-        var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-building.png', width: 24, height: 32});
+        var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-building.png', width: 30, height: 45});
         map.entities.push(pin);
     }
 
