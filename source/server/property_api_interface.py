@@ -398,7 +398,7 @@ def wechat_menu_delete(user):
 @f_api('/wechat/news/send', params=dict(
     news_ids=(list, True, ObjectId, True, "str"),
 ))
-@f_app.user.login.check()#role=['admin', 'operation'])
+@f_app.user.login.check(role=['admin', 'operation'])
 def wechat_news_send(user, params):
     request._requested_i18n_locales_list = ["zh_Hans_CN"]
     articles = []

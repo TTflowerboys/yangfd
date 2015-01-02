@@ -26,41 +26,40 @@
     <textarea id="newsData" style="display:none;">{{json_dumps(_i18n(news))}}</textarea>
     <div class="container">
         % from urllib import quote_plus
-        %if ('images' in news) and news.get('images'):
-            <img class="phone" alt="{{news.get('title',_('洋房东'))}}" src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8')) + '_thumbnail'}}&news_id={{news.get('id','')}}"/>
-        %end
         
         %if 'title' in news:
             <h1 class="title">{{news.get('title')}}</h1>
         %end
 
-        %if 'time' in news:
-            <label class="date" for=""> <i class="hint">{{news.get('time').strftime('%Y-%m-%d')}}</i></label>
-        %end
+        <div class="button-group">
+            %if 'time' in news:
+                <label class="date" for=""> <i class="hint">{{news.get('time').strftime('%Y-%m-%d')}}</i></label>
+            %end
 
-        %for cate in news.get('category',{}):
-        %if cate.get('slug') == 'announcement':
-            <label class="category" for=""> | <a href="/notice_list">{{cate.get('value','')}}</a></label></label>
-        %elif cate.get('slug') == 'legal_resource':
-            <label class="category" for=""> | <a href="/laws">{{cate.get('value','')}}</a></label></label>
-        %elif cate.get('slug') == 'purchase_process':
-            <label class="category" for=""> | <a href="/guides">{{cate.get('value','')}}</a></label></label>
-        %else :
-            <label class="category" for=""> | <a href="/news_list">{{_('房产资讯')}}</a></label></label>
-        %end
+            %for cate in news.get('category',{}):
+            %if cate.get('slug') == 'announcement':
+                <label class="category" for=""> | <a href="/notice_list">{{cate.get('value','')}}</a></label></label>
+            %elif cate.get('slug') == 'legal_resource':
+                <label class="category" for=""> | <a href="/laws">{{cate.get('value','')}}</a></label></label>
+            %elif cate.get('slug') == 'purchase_process':
+                <label class="category" for=""> | <a href="/guides">{{cate.get('value','')}}</a></label></label>
+            %else :
+                <label class="category" for=""> | <a href="/news_list">{{_('房产资讯')}}</a></label></label>
+            %end
 
-        %if 'link' in news :
-            <label class="source" for=""> <i class="hint">{{_('来源：')}}</i>
-                <a href={{news.get('link')}}>{{_('原文地址')}}</a></label>
-        %end
+            %if 'link' in news :
+                <label class="source" for=""> <i class="hint">{{_('来源：')}}</i>
+                    <a href={{news.get('link')}}>{{_('原文地址')}}</a></label>
+            %end
 
-        <div class="share">
-            <a data-fn="shareToWeChat" class="shareButton">
-                <img class="wechat" src="/static/images/news/share/wechat.png" height=23 alt=""/>
-            </a>
-            <a data-fn="shareToWeibo" class="shareButton">
-                <img src="/static/images/news/share/weibo.png" height=20 alt=""/>
-            </a>
+            <div class="share">
+                <a data-fn="shareToWeChat" class="shareButton">
+                    <img class="wechat" src="/static/images/news/share/wechat.png" height=20 alt=""/>
+                </a>
+                <a data-fn="shareToWeibo" class="shareButton">
+                    <img src="/static/images/news/share/weibo.png" height=20 alt=""/>
+                </a>
+            </div>
         </div>
         <div class="content">
             % from urllib import quote_plus
