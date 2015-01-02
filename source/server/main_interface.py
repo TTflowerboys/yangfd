@@ -557,7 +557,7 @@ def verify_email_status():
 @check_landing
 @check_ip_and_redirect_domain
 def requirement():
-    return template("phone/requirement", intention_list=f_app.enum.get_all('intention'))
+    return common_template("phone/requirement", intention_list=f_app.enum.get_all('intention'))
 
 
 @f_get('/wechat_share')
