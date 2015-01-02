@@ -5,10 +5,12 @@
         errorArea.hide()
         var successArea = $('.opening .successMessage')
 
-        var valid = $.validate(this, {onError: function (dom, validator, index) {
-            errorArea.text(window.getErrorMessage(dom.name, validator))
-            errorArea.show()
-        }})
+        var valid = $.validate(this, {
+            onError: function (dom, validator, index) {
+                errorArea.text(window.getErrorMessage(dom.name, validator))
+                errorArea.show()
+            }
+        })
         if (!valid) {return}
         var params = $(this).serializeObject()
 
@@ -84,12 +86,13 @@
             }
         )
 
-        var valid = $.validate(this, {onError: function (dom, validator, index) {
-
-            errorArea.text(window.getErrorMessage(dom.name, validator))
-            errorArea.show()
-            $(dom).css('border', '2px solid red')
-        }})
+        var valid = $.validate(this, {
+            onError: function (dom, validator, index) {
+                errorArea.text(window.getErrorMessage(dom.name, validator))
+                errorArea.show()
+                $(dom).css('border', '2px solid red')
+            }
+        })
         if (!valid) {return}
         var params = $(this).serializeObject()
 
@@ -110,5 +113,9 @@
             .always(function () {
                 button.css('cursor', 'default')
             })
+    })
+
+    $(document).ready(function () {
+        ga.('_setCustomVar',1,'hint',$('.hint').length > 0,2)
     })
 })()
