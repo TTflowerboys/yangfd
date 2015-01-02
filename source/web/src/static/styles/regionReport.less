@@ -236,13 +236,14 @@ main {
             margin-bottom:90px;
 
             @media @phone {
-                margin-top:30px;
                 margin-bottom:30px;
+                border-top:1px solid #ccc;
             }
             >.title {
                 line-height:1em;
                 margin-bottom:60px;
                 @media @phone {
+                    margin-top:20px;
                     margin-bottom:20px;
                     margin-left:20px;
                 }
@@ -327,6 +328,14 @@ main {
             margin: 25px auto;
         }
 
+        h2.title {
+            font-size:20px;
+            color:#333;
+
+            @media @phone {
+                font-size:16px;
+            }
+        }
         .nonLoginCover {
             background:white;
             opacity: .90; /* Standards Compliant Browsers */
