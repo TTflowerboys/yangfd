@@ -113,6 +113,10 @@ $(function () {
     $('.rmm-toggled-controls .rmm-button-back').on('click',function(){
         location.href = '/'
     });
+
+    $('.rmm-toggled-controls .rmm-button-user').on('click',function(){
+        location.href = '/user'
+    });
 });
 /* 	hide mobile menu on resize */
 $(window).resize(function () {
