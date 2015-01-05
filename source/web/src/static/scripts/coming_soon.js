@@ -13,8 +13,7 @@
         })
         if (!valid) {return}
         var params = $(this).serializeObject()
-        var plan = $('.hint').length > 0 ? 'A' : 'B'
-        ga('send', 'event', 'subscription', 'subscription', 'PLAN ' + plan);
+        ga('send','event','goal','click');
         params.locales = window.lang
         $.betterPost('/api/1/subscription/add', params)
             .done(function () {
