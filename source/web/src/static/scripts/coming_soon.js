@@ -14,7 +14,7 @@
         if (!valid) {return}
         var params = $(this).serializeObject()
         var from = $('.hint').length > 0
-        ga('send', 'pageview', {
+        ga('send', 'sessions', {
             'dimension2': 'subscription: ' + from
         });
         params.locales = window.lang
@@ -100,7 +100,7 @@
         var params = $(this).serializeObject()
 
         var from = $('.hint').length > 0
-        ga('send', 'pageview', {
+        ga('send', 'sessions', {
             'dimension3': 'intention: ' + from
         });
         params.locales = window.lang
@@ -122,7 +122,7 @@
     })
 
     $(document).ready(function () {
-        ga('send', 'pageview', {
+        ga('send', 'sessions', {
             'dimension1': $('.hint').length > 0 + ''
         });
     })
