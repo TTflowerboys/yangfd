@@ -13,7 +13,9 @@
         })
         if (!valid) {return}
         var params = $(this).serializeObject()
-
+        ga('send', 'pageview', {
+            'dimension1': $('.hint').length > 0 + ''
+        });
         params.locales = window.lang
         $.betterPost('/api/1/subscription/add', params)
             .done(function () {
@@ -115,7 +117,4 @@
             })
     })
 
-    $(document).ready(function () {
-        ga('_setCustomVar',1,'hint',$('.hint').length > 0,2)
-    })
 })()
