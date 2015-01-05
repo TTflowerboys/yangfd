@@ -5,7 +5,6 @@
 %end
 
 %if news:
-    <title>{{news.get('title',_('洋房东'))}}</title>
 
     %if 'summary' in news:
         <meta name="Description" content={{news.get('summary')}}>

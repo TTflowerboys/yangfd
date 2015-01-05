@@ -93,6 +93,9 @@ def get_favorite_list():
 
 
 def common_template(path, **kwargs):
+    if 'title' not in kwargs:
+        _ = f_app.i18n.get_gettext("web")
+        kwargs['title'] = _('洋房东')
     if 'user' not in kwargs:
         kwargs['user'] = get_current_user()
     if 'country_list' not in kwargs:
@@ -146,8 +149,11 @@ def default(user):
             }, per_page=5))
 
     intention_list = f_app.enum.get_all('intention')
+    _ = f_app.i18n.get_gettext("web")
+    title = _('洋房东')
     return common_template(
         "index",
+        title=title,
         property_list=property_list,
         homepage_ad_list=homepage_ad_list,
         announcement_list=announcement_list,
@@ -200,7 +206,9 @@ def region_report(zipcode_index):
     if (len(report)):
         report = report[0]
 
-    return common_template("region_report", report=report)
+    _ = f_app.i18n.get_gettext("web")
+    title = report.get('name') + _('街区分析报告')
+    return common_template("region_report", report=report, title=title)
 
 
 @f_get('/property_list', params=dict(
@@ -211,16 +219,38 @@ def region_report(zipcode_index):
 @check_landing
 @check_ip_and_redirect_domain
 def property_list(params):
-    city_list = f_app.enum.get_all('city')
-    property_type_list = f_app.enum.get_all('property_type')
-    intention_list = f_app.enum.get_all('intention')
-    property_list = f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}, per_page=f_app.common.property_list_per_page))
+    city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
+    property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+    property_list = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}, per_page=f_app.common.property_list_per_page)))
+    country_list = f_app.i18n.process_i18n(get_country_list())
+
+    _ = f_app.i18n.get_gettext("web")
+    title = ''
+
+    if "country" in params:
+        for country in country_list:
+            if country.get('id') == str(params['country']["_id"]):
+                title += country.get('value') + ' '
+
+    if "city" in params:
+        for city in city_list:
+            if city.get('id') == str(params['city']["_id"]):
+                title += city.get('value') + ' '
+
+    if "property_type" in params:
+        for property_type in property_type_list:
+            if property_type.get('id') == str(params['property_type']["_id"]):
+                title += property_type.get('value') + ' '
+
+    title += _('房产列表 洋房东')
+
     return common_template("property_list",
                            city_list=city_list,
                            property_type_list=property_type_list,
                            intention_list=intention_list,
                            property_list=property_list,
-                           params=params,
+                           title=title
                            )
 
 
@@ -229,6 +259,7 @@ def property_list(params):
 @check_ip_and_redirect_domain
 def property_get(property_id):
     property = f_app.property.output([property_id])[0]
+    property = f_app.i18n.process_i18n(property)
     if "target_property_id" in property:
         target_property_id = property.pop("target_property_id")
         target_property = f_app.property.output([target_property_id])[0]
@@ -260,7 +291,11 @@ def property_get(property_id):
             if item.get('id') != property.get('id'):
                 related_property_list.insert(-1, item)
 
-    return common_template("property", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list)
+    _ = f_app.i18n.get_gettext("web")
+    title = _(property.get('name', '房产详情'))
+    title += ' ' + _(property.get('city').get('value'))
+    title += ' ' + _(property.get('country').get('value'))
+    return common_template("property", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, title=title)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>')
@@ -277,14 +312,20 @@ def pdfviewer(user, property_id):
         for i in unset_fields:
             target_property.pop(i, None)
         property = target_property
-    return common_template("pdf_viewer", property=property)
+
+    _ = f_app.i18n.get_gettext("web")
+    title = _(property.get('name', '房产详情')) + _(' PDF')
+    return common_template("pdf_viewer", property=property, title=title)
 
 
 @f_get('/news_list')
 @check_landing
 @check_ip_and_redirect_domain
 def news_list():
-    return common_template("news_list")
+
+    _ = f_app.i18n.get_gettext("web")
+    title = _('房产资讯')
+    return common_template("news_list", title=title)
 
 
 @f_get('/news/<news_id:re:[0-9a-fA-F]{24}>')
@@ -331,28 +372,36 @@ def news(news_id):
             if item.get('id') != news.get('id'):
                 related_news_list.insert(-1, item)
 
-    return common_template("news", news=news, related_news_list=related_news_list)
+    title = news.get('title')
+
+    return common_template("news", news=news, related_news_list=related_news_list, title=title)
 
 
 @f_get('/notice_list')
 @check_landing
 @check_ip_and_redirect_domain
 def notice_list():
-    return common_template("notice_list")
+    _ = f_app.i18n.get_gettext("web")
+    title = _('网站公告')
+    return common_template("notice_list", title=title)
 
 
 @f_get('/guides')
 @check_landing
 @check_ip_and_redirect_domain
 def guides():
-    return common_template("guides")
+    _ = f_app.i18n.get_gettext("web")
+    title = _('购房指南')
+    return common_template("guides", title=title)
 
 
 @f_get('/laws')
 @check_landing
 @check_ip_and_redirect_domain
 def laws():
-    return common_template("laws")
+    _ = f_app.i18n.get_gettext("web")
+    title = _('法律法规')
+    return common_template("laws", title=title)
 
 
 @f_get('/about')
@@ -366,7 +415,10 @@ def about():
             }, per_page=1
         )
     )
-    return common_template("aboutus_content", news=news_list[0])
+
+    _ = f_app.i18n.get_gettext("web")
+    title = news_list[0].get('title')
+    return common_template("aboutus_content", news=news_list[0], title=title)
 
 
 @f_get('/terms')
@@ -380,7 +432,9 @@ def terms():
             }, per_page=1
         )
     )
-    return common_template("aboutus_content", news=news_list[0])
+
+    title = news_list[0].get('title')
+    return common_template("aboutus_content", news=news_list[0], title=title)
 
 
 @f_get('/about/marketing')
@@ -394,6 +448,8 @@ def marketing():
             }, per_page=1
         )
     )
+
+    title = news_list[0].get('title')
     return common_template("aboutus_content", news=news_list[0])
 
 
@@ -408,14 +464,18 @@ def media():
             }, per_page=1
         )
     )
-    return common_template("aboutus_content", news=news_list[0])
+
+    title = news_list[0].get('title')
+    return common_template("aboutus_content", news=news_list[0], title=title)
 
 
 @f_get('/partner')
 @check_landing
 @check_ip_and_redirect_domain
 def partner():
-    return common_template("partner")
+    _ = f_app.i18n.get_gettext("web")
+    title = _('合作伙伴')
+    return common_template("partner", title=title)
 
 
 @f_get('/coming_soon')
@@ -429,7 +489,9 @@ def coming_soon():
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_settings(user):
-    return common_template("user_settings", user=get_current_user(user))
+    _ = f_app.i18n.get_gettext("web")
+    title = _('账户信息')
+    return common_template("user_settings", user=get_current_user(user), title=title)
 
 
 @f_get('/user_verify_email')
@@ -437,7 +499,9 @@ def user_settings(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_email(user):
-    return common_template("user_verify_email", user=get_current_user(user))
+    _ = f_app.i18n.get_gettext("web")
+    title = _('验证邮箱')
+    return common_template("user_verify_email", user=get_current_user(user), title=title)
 
 
 @f_get('/user_change_email')
@@ -445,7 +509,10 @@ def user_verify_email(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_email(user):
-    return common_template("user_change_email", user=get_current_user(user))
+    _ = f_app.i18n.get_gettext("web")
+    title = _('更改邮箱')
+
+    return common_template("user_change_email", user=get_current_user(user), title=title)
 
 
 @f_get('/user_change_password')
@@ -453,7 +520,9 @@ def user_change_email(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_password(user):
-    return common_template("user_change_password", user=get_current_user(user))
+    _ = f_app.i18n.get_gettext("web")
+    title = _('更改密码')
+    return common_template("user_change_password", user=get_current_user(user), title=title)
 
 
 @f_get('/user_change_phone_1')
@@ -461,7 +530,9 @@ def user_change_password(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_1(user):
-    return common_template("user_change_phone_1", user=get_current_user(user))
+    _ = f_app.i18n.get_gettext("web")
+    title = _('更改手机号')
+    return common_template("user_change_phone_1", user=get_current_user(user), title=title)
 
 
 @f_get('/user_change_phone_2')
@@ -469,7 +540,9 @@ def user_change_phone_1(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_2(user):
-    return common_template("user_change_phone_2", user=get_current_user(user))
+    _ = f_app.i18n.get_gettext("web")
+    title = _('更改手机号')
+    return common_template("user_change_phone_2", user=get_current_user(user), title=title)
 
 
 @f_get('/user_verify_phone_1')
@@ -477,7 +550,9 @@ def user_change_phone_2(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_1(user):
-    return common_template("user_verify_phone_1", user=get_current_user(user))
+    _ = f_app.i18n.get_gettext("web")
+    title = _('验证手机号')
+    return common_template("user_verify_phone_1", user=get_current_user(user), title=title)
 
 
 @f_get('/user_verify_phone_2')
@@ -485,7 +560,9 @@ def user_verify_phone_1(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_2(user):
-    return common_template("user_change_phone_2", user=get_current_user(user))
+    _ = f_app.i18n.get_gettext("web")
+    title = _('验证手机号')
+    return common_template("user_change_phone_2", user=get_current_user(user), title=title)
 
 
 @f_get('/user_favorites')
@@ -493,7 +570,10 @@ def user_verify_phone_2(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_favorites(user):
-    return common_template("user_favorites", user=get_current_user(user), favorite_list=get_favorite_list())
+    _ = f_app.i18n.get_gettext("web")
+    title = _('我的收藏')
+
+    return common_template("user_favorites", user=get_current_user(user), favorite_list=get_favorite_list(), title=title)
 
 
 @f_get('/user_intentions')
@@ -508,8 +588,9 @@ def user_intentions(user):
             if ('intention_ticket_status:' + ticket['status'] == ticket_status['slug']):
                 ticket['status_presentation'] = ticket_status
                 logger.warning(ticket)
-
-    return common_template("user_intentions", user=get_current_user(user), intention_ticket_list=intention_ticket_list)
+    _ = f_app.i18n.get_gettext("web")
+    title = _('投资意向单')
+    return common_template("user_intentions", user=get_current_user(user), intention_ticket_list=intention_ticket_list, title=title)
 
 
 @f_get('/user_properties')
@@ -520,7 +601,9 @@ def user_properties(user):
     user = get_current_user(user)
     intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(user["id"])}, {"user_id": ObjectId(user["id"])}]}), ignore_nonexist=True)
     intention_ticket_list = [i for i in intention_ticket_list if i.get("property")]
-    return common_template("user_properties", user=user, intention_ticket_list=intention_ticket_list)
+    _ = f_app.i18n.get_gettext("web")
+    title = _('我的房产')
+    return common_template("user_properties", user=user, intention_ticket_list=intention_ticket_list, title=title)
 
 
 @f_get('/user_messages')
@@ -540,14 +623,18 @@ def user_messages(user):
             if ('message_type:' + message['type'] == message_type['slug']):
                 message['type_presentation'] = message_type
 
-    return common_template("user_messages", user=user, message_list=message_list)
+    _ = f_app.i18n.get_gettext("web")
+    title = _('消息')
+    return common_template("user_messages", user=user, message_list=message_list, title=title)
 
 
 @f_get('/verify_email_status')
 @check_landing
 @check_ip_and_redirect_domain
 def verify_email_status():
-    return common_template("verify_email_status")
+    _ = f_app.i18n.get_gettext("web")
+    title = _('验证邮箱')
+    return common_template("verify_email_status", title=title)
 
 
 # phone specific pages
@@ -557,14 +644,18 @@ def verify_email_status():
 @check_landing
 @check_ip_and_redirect_domain
 def requirement():
-    return common_template("phone/requirement", intention_list=f_app.enum.get_all('intention'))
+    _ = f_app.i18n.get_gettext("web")
+    title = _('提交置业需求')
+    return common_template("phone/requirement", intention_list=f_app.enum.get_all('intention'), title=title)
 
 
 @f_get('/wechat_share')
 @check_landing
 @check_ip_and_redirect_domain
 def wechat_share():
-    return common_template("phone/wechat_share")
+    _ = f_app.i18n.get_gettext("web")
+    title = _('微信分享')
+    return common_template("phone/wechat_share", title=title)
 
 
 @f_get('/how_it_works', params=dict(slug=str,))
@@ -578,21 +669,28 @@ def how_it_works(params):
                 current_intention = intention
     else:
         current_intention = f_app.enum.get_all('intention')[0]
-    return common_template("phone/how_it_works", intention_list=f_app.enum.get_all('intention'), current_intention=current_intention)
+    current_intention = f_app.i18n.process_i18n(current_intention)
+    title = current_intention.get('value')
+
+    return common_template("phone/how_it_works", intention_list=f_app.enum.get_all('intention'), current_intention=current_intention, title=title)
 
 
 @f_get('/calculator')
 @check_landing
 @check_ip_and_redirect_domain
 def calculator():
-    return common_template("phone/calculator", intention_list=f_app.enum.get_all('intention'))
+    _ = f_app.i18n.get_gettext("web")
+    title = _('房贷计算器')
+    return common_template("phone/calculator", intention_list=f_app.enum.get_all('intention'), title=title)
 
 
 @f_get('/user')
 @check_landing
 @check_ip_and_redirect_domain
 def user():
-    return common_template("phone/user")
+    _ = f_app.i18n.get_gettext("web")
+    title = _('账户信息')
+    return common_template("phone/user", title=title)
 
 
 @f_get('/admin')
@@ -605,19 +703,25 @@ def admin():
 @f_get('/401')
 @error(401)
 def error_401(error=None):
-    return template("401")
+    _ = f_app.i18n.get_gettext("web")
+    title = _('没有权限')
+    return common_template("401", title=title)
 
 
 @f_get('/404')
 @error(404)
 def error_404(error=None):
-    return template("404")
+    _ = f_app.i18n.get_gettext("web")
+    title = _('找不到页面')
+    return common_template("404", title=title)
 
 
 @f_get('/500')
 @error(500)
 def error_500(error=None):
-    return template("500")
+    _ = f_app.i18n.get_gettext("web")
+    title = _('服务器开小差了')
+    return common_template("500", title=title)
 
 
 @f_get("/static/<filepath:path>")
