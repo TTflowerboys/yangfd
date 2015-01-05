@@ -19,15 +19,16 @@ if(document.domain==='currant-dev.bbtechgroup.com'){
     ga('create', 'UA-58205464-1', 'auto');
 }else {
     ga('create', 'UA-55542465-1', 'auto', {'allowLinker': true});
-}
+
 // Load the plugin.
-ga('require', 'linker');
+    ga('require', 'linker');
 // Define which domains to autoLink. Exclude current domain when add link.
-var domains = ['yangfd.com', 'youngfunding.co.uk','yangfd.cn'];
-for(var i = domains.length - 1; i >= 0; i--) {
-    if(domains[i] === window.location.host) {
-        domains.splice(i, 1);
-        ga('linker:autoLink', domains);
+    var domains = ['yangfd.com', 'youngfunding.co.uk', 'yangfd.cn'];
+    for (var i = domains.length - 1; i >= 0; i--) {
+        if (domains[i] === window.location.host) {
+            domains.splice(i, 1);
+            ga('linker:autoLink', domains);
+        }
     }
 }
 
