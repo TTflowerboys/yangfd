@@ -4,7 +4,7 @@
 
     window.mapCache = {}
     window.mapPinCache = {}
-    window.mapInfoBoxCache = {}
+    window.mapInfoBoxLayerCache = {}
 
     window.getMap = function (mapId) {
         if (!window.mapCache[mapId]) {
@@ -13,16 +13,14 @@
         return window.mapCache[mapId]
     }
 
-    function createMapPin(map, mapId, result) {
+    function createMapPin(map, layer, mapId, result) {
         if (result) {
             var location = new Microsoft.Maps.Location(result.Latitude, result.Longitude);
             var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-item.png', width: 20, height: 30});
             Microsoft.Maps.Events.addHandler(pin, 'click', function () { showInfoBox(map, mapId, result) });
-            map.entities.push(pin);
-
+            layer.push(pin)
             if  (!window.mapPinCache[mapId]) {
                 window.mapPinCache[mapId] = []
-
             }
             window.mapPinCache[mapId].push(pin)
         }
@@ -30,25 +28,28 @@
 
     function createMapCenterPin(map, location) {
         //http://msdn.microsoft.com/en-us/library/ff701719.aspx
+        var layer = new Microsoft.Maps.EntityCollection()
         var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-building.png', width: 30, height: 45});
-        map.entities.push(pin);
+        layer.push(pin)
+        map.entities.push(layer)
     }
 
     function showInfoBox(map, mapId, result) {
-        if (window.mapInfoBoxCache[mapId]) {
-            map.entities.remove(window.mapInfoBoxCache[mapId]);
+        if (window.mapInfoBoxLayerCache[mapId]) {
+            map.entities.remove(window.mapInfoBoxLayerCache[mapId]);
         }
         var location = new Microsoft.Maps.Location(result.Latitude, result.Longitude);
         var decription = [];
+        var layer = new Microsoft.Maps.EntityCollection()
         decription.push(window.i18n('地址') + ':' + result.AddressLine + '<br/>');
         decription.push(window.i18n('电话') + ':' + result.Phone + '<br/>');
         decription.push(window.i18n('类型') + ':' + result.Type + '<br/>');
-        window.mapInfoBoxCache[mapId] = new Microsoft.Maps.Infobox(location, { title: result.DisplayName, description: decription.join(' '), showPointer: true});
-
-        window.mapInfoBoxCache[mapId].setOptions({ visible: true });
-        map.entities.push(window.mapInfoBoxCache[mapId]);
-
-        ajustMapPosition(map, window.mapInfoBoxCache[mapId], location)
+        var infobox = new Microsoft.Maps.Infobox(location, { title: result.DisplayName, description: decription.join(' '), showPointer: true});
+        layer.push(infobox)
+        layer.setOptions({ visible: true });
+        map.entities.push(layer);
+        ajustMapPosition(map, layer.get(0), location)
+        window.mapInfoBoxLayerCache[mapId] = layer
     }
 
     //http://stackoverflow.com/questions/11148042/bing-maps-invoke-click-event-on-pushpin
@@ -146,20 +147,26 @@
     function updateMapResults(map, mapId, $list, searchResults) {
         var resultDic = {}
         var typeIds = []
+        var typeId = ''
+        var layer = new Microsoft.Maps.EntityCollection()
         for (var i = 0; i < searchResults.length; i++) {
-            var typeId = searchResults[i].EntityTypeID
+            typeId = searchResults[i].EntityTypeID
             if (!resultDic[typeId]) {
                 resultDic[typeId] = []
                 typeIds.push(typeId)
             }
             resultDic[typeId].push(searchResults[i])
+            createMapPin(map, layer, mapId, searchResults[i]);
         }
+        map.entities.push(layer)
 
         typeIds.sort()
-        _.each(typeIds, function (typeId) {
+        for (var j = 0; j < typeIds.length; j++) {
+            typeId = typeIds[j]
             var index = 0;
-            _.each(resultDic[typeId], function (oneResult) {
-                createMapPin(map, mapId, oneResult);
+
+            for (var k = 0; k < resultDic[typeId].length; k++) {
+                var oneResult = resultDic[typeId][k]
                 if (index === 0) {
                     var result = _.template($('#placeType_template').html())({type: window.getBingMapEntityType(typeId)})
                     $list.append(result)
@@ -168,8 +175,8 @@
                 oneResult.Hint = oneResult.__Distance.toFixed(2) + 'km'
                 createListItem($list, oneResult)
                 index = index + 1
-            })
-        })
+            }
+        }
     }
 
     window.showTransitMap = function (location, polygon, showCenter, zoom, country) {
@@ -177,14 +184,10 @@
         var map = window.getMap('transitMapCanvas')
         var $list = $('.maps .list div[data-tab-name=transit] ul')
 
-        Microsoft.Maps.loadModule('Microsoft.Maps.Traffic', { callback: trafficModuleLoaded });
-        function trafficModuleLoaded()
-        {
-            map.entities.clear()
-            map.setView({zoom: zoom? zoom:13, center: location})
+        Microsoft.Maps.loadModule('Microsoft.Maps.Traffic', {callback: function () {
             var trafficLayer = new Microsoft.Maps.Traffic.TrafficLayer(map);
             trafficLayer.show();
-        }
+        }});
 
         findNearByLocations(map, mapId, location, country, ['4013', '4170','4482', '4493', '4580', '4581', '9511', '9520', '9707', '9708', '9989'], function (searchResults) {
             if (searchResults) {
@@ -195,6 +198,8 @@
                     updateMapResults(map, mapId, $list, searchResults)
                 }
             }
+
+            map.setView({zoom: zoom? zoom:13, center: location})
 
             if (polygon) {
                 map.entities.push(polygon)
