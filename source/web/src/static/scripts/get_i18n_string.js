@@ -12,7 +12,8 @@ window.getErrorMessage = function (domName, validator) {
         'old_phone_number': i18n('原手机号格式不正确'),
         'old_password_required': i18n('当前密码不能为空'),
         'confirm_password_required': i18n('确认密码不能为空'),
-        'confirm_password_sameAs': i18n('新密码和确认密码输入不一致')
+        'confirm_password_sameAs': i18n('新密码和确认密码输入不一致'),
+        'terms_check': i18n('注册请先同意会员服务须知')
     }
     return inputMessageDic[domName + '_' + validator] || ''
 }

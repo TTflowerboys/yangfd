@@ -21,14 +21,18 @@
     <textarea id="dataReport" style="display:none;">{{json_dumps(report)}}</textarea>
 
     <div class="info">
-        <img alt="{{report.get('name')}}" src="" style="background:url('/image/fetch?link={{quote_plus(report.get('image', ''))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(report.get('image', ''))}}', sizingMethod='scale');"/>
+        % if not report.get('image'):
+            <img alt="{{report.get('name')}}" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
+        % else:
+            <img alt="{{report.get('name')}}" src="" style="background:url('/image/fetch?link={{quote_plus(report.get('image', ''))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(report.get('image', ''))}}', sizingMethod='scale');"/>
+        % end
         <div class="img_shadow"></div>
         <div class="text_container">
             <div class="text">
                 <h1 class="name">
                     {{report.get('name')}}
                 </h1>
-                <h2 class="hint">{{_('地区投资分析报告')}}</h2>
+                <h2 class="hint">{{_('街区投资分析报告')}}</h2>
                 <p class="description">
                     {{report.get('description')}}
                 </p>
@@ -293,7 +297,7 @@
                     </button>
                     <label class="login">
                         {{_('已经是会员？')}}
-                        <a href="#" onclick="javascript:project.showSignInModalOrGoToSignIn()">
+                        <a onclick="javascript:project.showSignInModalOrGoToSignIn()">
                             {{_('请登录')}}
                         </a>
                     </label>
