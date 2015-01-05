@@ -93,11 +93,11 @@ def get_favorite_list():
 
 
 def common_template(path, **kwargs):
-    if not ('user' in kwargs):
+    if 'user' not in kwargs:
         kwargs['user'] = get_current_user()
-    if not ('country_list' in kwargs):
+    if 'country_list' not in kwargs:
         kwargs['country_list'] = get_country_list()
-    if not ('budget_list' in kwargs):
+    if 'budget_list' not in kwargs:
         kwargs['budget_list'] = get_budget_list()
     return template(path, **kwargs)
 
