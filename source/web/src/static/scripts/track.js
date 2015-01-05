@@ -16,7 +16,7 @@
 })(window, document, 'script', '/reverse_proxy?link=http://www.google-analytics.com/analytics.js', 'ga');
 if(document.domain==='currant-dev.bbtechgroup.com'){
     console.log('currant-dev')
-    ga('create', 'UA-58205464-1', 'auto', {'allowLinker': true});
+    ga('create', 'UA-58205464-1', 'auto');
 }else {
     ga('create', 'UA-55542465-1', 'auto', {'allowLinker': true});
 }

@@ -13,8 +13,9 @@
         })
         if (!valid) {return}
         var params = $(this).serializeObject()
+        var from = $('.hint').length > 0
         ga('send', 'pageview', {
-            'dimension1': $('.hint').length > 0 + ''
+            'dimension2': 'subscription: ' + from
         });
         params.locales = window.lang
         $.betterPost('/api/1/subscription/add', params)
@@ -98,7 +99,10 @@
         if (!valid) {return}
         var params = $(this).serializeObject()
 
-
+        var from = $('.hint').length > 0
+        ga('send', 'pageview', {
+            'dimension3': 'intention: ' + from
+        });
         params.locales = window.lang
         var button = $('form[name=requirement] button[type=submit]')
         button.css('cursor', 'wait')
@@ -117,4 +121,9 @@
             })
     })
 
+    $(document).ready(function () {
+        ga('send', 'pageview', {
+            'dimension1': $('.hint').length > 0 + ''
+        });
+    })
 })()
