@@ -93,11 +93,11 @@ def get_favorite_list():
 
 
 def common_template(path, **kwargs):
-    if not 'user' in kwargs:
+    if not ('user' in kwargs):
         kwargs['user'] = get_current_user()
-    if not 'country_list' in kwargs:
+    if not ('country_list' in kwargs):
         kwargs['country_list'] = get_country_list()
-    if not 'budget_list' in kwargs:
+    if not ('budget_list' in kwargs):
         kwargs['budget_list'] = get_budget_list()
     return template(path, **kwargs)
 
@@ -578,7 +578,7 @@ def how_it_works(params):
                 current_intention = intention
     else:
         current_intention = f_app.enum.get_all('intention')[0]
-    return common_template("phone/how_it_works", intention_list=f_app.enum.get_all('intention'),current_intention = current_intention)
+    return common_template("phone/how_it_works", intention_list=f_app.enum.get_all('intention'), current_intention=current_intention)
 
 
 @f_get('/calculator')
