@@ -1,19 +1,5 @@
 <!--@@master=masters/master.html-->
 <!--@@block=head -->
-<%
-title = ''
-if "country" in params:
-    title += _i18n([country for country in country_list if country.get('id') == str(params["country"]["_id"])][0]).get('value','') + ' '
-end
-if "city" in params:
-    title += _i18n([city for city in city_list if city.get('id') == str(params["city"]["_id"])][0]).get('value','') + ' '
-end
-if "property_type" in params:
-    title += _i18n([property_type for property_type in property_type_list if property_type.get('id') == str(params["property_type"]["_id"])][0]).get('value','') + ' '
-end
-%>
-<title>{{title + _('房产列表 洋房东')}}</title>
-<meta name="Description" content={{_("我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")}}>
 <meta name="Keywords" content="洋房东，海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property">
 
 <!--build:css(dist) /static/styles/property_list.html.css-->
