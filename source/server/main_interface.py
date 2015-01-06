@@ -96,6 +96,9 @@ def common_template(path, **kwargs):
     if 'title' not in kwargs:
         _ = f_app.i18n.get_gettext("web")
         kwargs['title'] = _('洋房东')
+    if 'description' not in kwargs:
+        _ = f_app.i18n.get_gettext("web")
+       kwargs['description'] =  _("我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")
     if 'user' not in kwargs:
         kwargs['user'] = get_current_user()
     if 'country_list' not in kwargs:
@@ -208,7 +211,8 @@ def region_report(zipcode_index):
 
     _ = f_app.i18n.get_gettext("web")
     title = report.get('name') + _('街区分析报告')
-    return common_template("region_report", report=report, title=title)
+    description = report.get('description',_('洋房东街区投资分析报告'))
+    return common_template("region_report", report=report, title=title, description=description)
 
 
 @f_get('/property_list', params=dict(
@@ -295,7 +299,8 @@ def property_get(property_id):
     title = _(property.get('name', '房产详情'))
     title += ' ' + _(property.get('city').get('value'))
     title += ' ' + _(property.get('country').get('value'))
-    return common_template("property", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, title=title)
+    description = property.get('name',_('房产详情'))
+    return common_template("property", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, title=title, description=description)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>')
@@ -374,7 +379,11 @@ def news(news_id):
 
     title = news.get('title')
 
-    return common_template("news", news=news, related_news_list=related_news_list, title=title)
+    if news.get('summary'):
+        description = news.get('summary')
+        return common_template("news", news=news, related_news_list=related_news_list, title=title, description=description)
+    else:
+        return common_template("news", news=news, related_news_list=related_news_list, title=title)
 
 
 @f_get('/notice_list')
@@ -671,8 +680,9 @@ def how_it_works(params):
         current_intention = f_app.enum.get_all('intention')[0]
     current_intention = f_app.i18n.process_i18n(current_intention)
     title = current_intention.get('value')
+    description = current_intention.get('description',current_intention.get('value'))
 
-    return common_template("phone/how_it_works", intention_list=f_app.enum.get_all('intention'), current_intention=current_intention, title=title)
+    return common_template("phone/how_it_works", intention_list=f_app.enum.get_all('intention'), current_intention=current_intention, title=title, description=description)
 
 
 @f_get('/calculator')
