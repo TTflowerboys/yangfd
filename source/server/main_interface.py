@@ -107,11 +107,11 @@ def common_template(path, **kwargs):
     if 'keywords' not in kwargs:
         kwargs['keywords'] = ",".join(BASE_KEYWORDS_ARRAY)
     if 'user' not in kwargs:
-        kwargs['user'] = get_current_user()
+        kwargs['user'] = f_app.i18n.process_i18n(get_current_user())
     if 'country_list' not in kwargs:
-        kwargs['country_list'] = get_country_list()
+        kwargs['country_list'] = f_app.i18n.process_i18n(get_country_list())
     if 'budget_list' not in kwargs:
-        kwargs['budget_list'] = get_budget_list()
+        kwargs['budget_list'] = f_app.i18n.process_i18n(get_budget_list())
     return template(path, **kwargs)
 
 
@@ -131,7 +131,9 @@ def default(user):
             }, per_page=1))
 
         property_list = f_app.property.output(property_id_list)
+        property_list = f_app.i18n.process_i18n(property_list)
     homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
+    homepage_ad_list = f_app.i18n.process_i18n(homepage_ad_list)
     announcement_list = f_app.blog.post_output(
         f_app.blog.post_search(
             {
@@ -139,6 +141,7 @@ def default(user):
             }, per_page=1
         )
     )
+    announcement_list = f_app.i18n.process_i18n(announcement_list)
     news_list = f_app.blog.post_output(
         f_app.blog.post_search(
             {
@@ -150,6 +153,7 @@ def default(user):
             }, per_page=6
         )
     )
+    news_list = f_app.i18n.process_i18n(news_list)
     for property in property_list:
         if "news_category" in property:
             property["related_news"] = f_app.blog.post_output(f_app.blog.post_search({
@@ -158,7 +162,7 @@ def default(user):
                 ]},
             }, per_page=5))
 
-    intention_list = f_app.enum.get_all('intention')
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     _ = f_app.i18n.get_gettext("web")
     title = _('洋房东')
     return common_template(
@@ -197,7 +201,7 @@ def signin():
 @check_landing
 @check_ip_and_redirect_domain
 def intention():
-    intention_list = f_app.enum.get_all('intention')
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     return common_template("intention", intention_list=intention_list)
 
 
@@ -215,7 +219,7 @@ def region_report(zipcode_index):
     report = f_app.report.output(f_app.report.search({"zipcode_index": {"$in": [zipcode_index]}}, per_page=1))
     if (len(report)):
         report = report[0]
-
+    report = f_app.i18n.process_i18n(report)
     _ = f_app.i18n.get_gettext("web")
     title = report.get('name') + _('街区分析报告')
     description = report.get('description', _('洋房东街区投资分析报告'))
@@ -281,6 +285,7 @@ def property_get(property_id):
             target_property.pop(i, None)
         property = target_property
     favorite_list = get_favorite_list()
+    favorite_list = f_app.i18n.process_i18n(favorite_list)
 
     raw_related_property_list = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
         "country._id": ObjectId(property.get('country').get('id')),
@@ -331,7 +336,7 @@ def pdfviewer(user, property_id):
         for i in unset_fields:
             target_property.pop(i, None)
         property = target_property
-
+    property = f_app.i18n.process_i18n(property)
     _ = f_app.i18n.get_gettext("web")
     title = _(property.get('name', '房产详情')) + _(' PDF')
     return common_template("pdf_viewer", property=property, title=title)
@@ -391,6 +396,7 @@ def news(news_id):
             if item.get('id') != news.get('id'):
                 related_news_list.insert(-1, item)
 
+    related_news_list = f_app.i18n.process_i18n(related_news_list)
     title = news.get('title')
 
     keywords = "new,UK news" + ",".join(BASE_KEYWORDS_ARRAY)
@@ -516,7 +522,8 @@ def coming_soon():
 def user_settings(user):
     _ = f_app.i18n.get_gettext("web")
     title = _('账户信息')
-    return common_template("user_settings", user=get_current_user(user), title=title)
+    user = f_app.i18n.process_i18n(get_current_user(user))
+    return common_template("user_settings", user=user, title=title)
 
 
 @f_get('/user_verify_email')
@@ -526,7 +533,8 @@ def user_settings(user):
 def user_verify_email(user):
     _ = f_app.i18n.get_gettext("web")
     title = _('验证邮箱')
-    return common_template("user_verify_email", user=get_current_user(user), title=title)
+    user = f_app.i18n.process_i18n(get_current_user(user))
+    return common_template("user_verify_email", user=user, title=title)
 
 
 @f_get('/user_change_email')
@@ -545,9 +553,10 @@ def user_change_email(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_password(user):
+    user = f_app.i18n.process_i18n(get_current_user(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('更改密码')
-    return common_template("user_change_password", user=get_current_user(user), title=title)
+    return common_template("user_change_password", user=user, title=title)
 
 
 @f_get('/user_change_phone_1')
@@ -555,9 +564,10 @@ def user_change_password(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_1(user):
+    user = f_app.i18n.process_i18n(get_current_user(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('更改手机号')
-    return common_template("user_change_phone_1", user=get_current_user(user), title=title)
+    return common_template("user_change_phone_1", user=user, title=title)
 
 
 @f_get('/user_change_phone_2')
@@ -565,9 +575,10 @@ def user_change_phone_1(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_2(user):
+    user = f_app.i18n.process_i18n(get_current_user(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('更改手机号')
-    return common_template("user_change_phone_2", user=get_current_user(user), title=title)
+    return common_template("user_change_phone_2", user=user, title=title)
 
 
 @f_get('/user_verify_phone_1')
@@ -575,9 +586,10 @@ def user_change_phone_2(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_1(user):
+    user = f_app.i18n.process_i18n(get_current_user(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('验证手机号')
-    return common_template("user_verify_phone_1", user=get_current_user(user), title=title)
+    return common_template("user_verify_phone_1", user=user, title=title)
 
 
 @f_get('/user_verify_phone_2')
@@ -585,9 +597,10 @@ def user_verify_phone_1(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_2(user):
+    user = f_app.i18n.process_i18n(get_current_user(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('验证手机号')
-    return common_template("user_change_phone_2", user=get_current_user(user), title=title)
+    return common_template("user_change_phone_2", user=user, title=title)
 
 
 @f_get('/user_favorites')
@@ -595,10 +608,12 @@ def user_verify_phone_2(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_favorites(user):
+    user = f_app.i18n.process_i18n(get_current_user(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('我的收藏')
 
-    return common_template("user_favorites", user=get_current_user(user), favorite_list=get_favorite_list(), title=title)
+    favorite_list = f_app.i18n.process_i18n(favorite_list)
+    return common_template("user_favorites", user=user, favorite_list=favorite_list, title=title)
 
 
 @f_get('/user_intentions')
@@ -606,16 +621,18 @@ def user_favorites(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_intentions(user):
+    user = f_app.i18n.process_i18n(get_current_user(user))
     intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [{"creator_user_id": ObjectId(get_current_user(user)["id"])}, {"user_id": ObjectId(get_current_user(user)["id"])}]}), ignore_nonexist=True)
     intention_ticket_status_list = get_intention_ticket_status_list()
     for ticket in intention_ticket_list:
         for ticket_status in intention_ticket_status_list:
             if ('intention_ticket_status:' + ticket['status'] == ticket_status['slug']):
                 ticket['status_presentation'] = ticket_status
-                logger.warning(ticket)
+
+    intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
     _ = f_app.i18n.get_gettext("web")
     title = _('投资意向单')
-    return common_template("user_intentions", user=get_current_user(user), intention_ticket_list=intention_ticket_list, title=title)
+    return common_template("user_intentions", user=user, intention_ticket_list=intention_ticket_list, title=title)
 
 
 @f_get('/user_properties')
@@ -623,9 +640,11 @@ def user_intentions(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_properties(user):
-    user = get_current_user(user)
+    user = f_app.i18n.process_i18n(get_current_user(user))
     intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(user["id"])}, {"user_id": ObjectId(user["id"])}]}), ignore_nonexist=True)
     intention_ticket_list = [i for i in intention_ticket_list if i.get("property")]
+    intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
+
     _ = f_app.i18n.get_gettext("web")
     title = _('我的房产')
     return common_template("user_properties", user=user, intention_ticket_list=intention_ticket_list, title=title)
@@ -636,7 +655,7 @@ def user_properties(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_messages(user):
-    user = get_current_user(user)
+    user = f_app.i18n.process_i18n(get_current_user(user))
     message_list = f_app.message.get_by_user(
         user['id'],
         {"state": {"$in": ["read", "new"]}},
@@ -647,7 +666,7 @@ def user_messages(user):
         for message_type in message_type_list:
             if ('message_type:' + message['type'] == message_type['slug']):
                 message['type_presentation'] = message_type
-
+    message_list = f_app.i18n.process_i18n(message_list)
     _ = f_app.i18n.get_gettext("web")
     title = _('消息')
     return common_template("user_messages", user=user, message_list=message_list, title=title)
@@ -669,9 +688,10 @@ def verify_email_status():
 @check_landing
 @check_ip_and_redirect_domain
 def requirement():
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     _ = f_app.i18n.get_gettext("web")
     title = _('提交置业需求')
-    return common_template("phone/requirement", intention_list=f_app.enum.get_all('intention'), title=title)
+    return common_template("phone/requirement", intention_list=intention_list, title=title)
 
 
 @f_get('/wechat_share')
@@ -695,19 +715,21 @@ def how_it_works(params):
     else:
         current_intention = f_app.enum.get_all('intention')[0]
     current_intention = f_app.i18n.process_i18n(current_intention)
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     title = current_intention.get('value')
     description = current_intention.get('description', current_intention.get('value'))
     keywords = current_intention.get('value') + ',' + ','.join(BASE_KEYWORDS_ARRAY)
-    return common_template("phone/how_it_works", intention_list=f_app.enum.get_all('intention'), current_intention=current_intention, title=title, description=description, keywords=keywords)
+    return common_template("phone/how_it_works", intention_list=intention_list, current_intention=current_intention, title=title, description=description, keywords=keywords)
 
 
 @f_get('/calculator')
 @check_landing
 @check_ip_and_redirect_domain
 def calculator():
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     _ = f_app.i18n.get_gettext("web")
     title = _('房贷计算器')
-    return common_template("phone/calculator", intention_list=f_app.enum.get_all('intention'), title=title)
+    return common_template("phone/calculator", intention_list=intention_list, title=title)
 
 
 @f_get('/user')

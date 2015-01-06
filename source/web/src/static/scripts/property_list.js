@@ -166,7 +166,7 @@ $(window).resize(window.updateTagsFixed);
         $citySelect.append('<option value=>' + window.i18n('任意城市') + '</option>')
         _.each(window.propertyCityData, function (city) {
             if (!selectedCountryId || city.country.id === selectedCountryId) {
-                var item = '<option value=' + city.id + '>' + city.value[window.lang] + '</option>'
+                var item = '<option value=' + city.id + '>' + city.value + '</option>'
                 $citySelect.append(item)
             }
         })

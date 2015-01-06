@@ -36,7 +36,7 @@
             %if (property.get('status') == 'sold out'):
                 <div class="soldOut">
                     <img alt="" src="/static/images/background/sold-out.png"/>
-                    <label for="">{{_i18n('售罄')}}</label>
+                    <label for="">{{_('售罄')}}</label>
                 </div>
             %end
             <div class="imageText">
@@ -111,10 +111,10 @@
                         <td class=estimate>
                             <div >
                                 %if (property.get('annual_return_estimated')):
-                                    <span class=label>{{_i18n('预计总年化收益率')}}</span>
+                                    <span class=label>{{_('预计总年化收益率')}}</span>
                                     <span class=value><strong>{{property.get('annual_return_estimated')}}</strong></span>
                                 %elif (property.get('annual_cash_return_estimated')):
-                                    <span class=label>{{_i18n('预估现金年化收益率')}}</span>
+                                    <span class=label>{{_('预估现金年化收益率')}}</span>
                                     <span class=value><strong>{{property.get('annual_cash_return_estimated')}}</strong></span>
                                 %end
                             </div>
@@ -168,7 +168,7 @@
             %if (property.get('status') == 'sold out'):
                 <div class="soldOut">
                     <img alt="" src="/static/images/background/sold-out.png"/>
-                    <label for="">{{_i18n('售罄')}}</label>
+                    <label for="">{{_('售罄')}}</label>
                 </div>
             %end
 
@@ -205,10 +205,10 @@
 
                         <p class=estimate>
                             %if (property.get('annual_return_estimated')):
-                                <span class=label>{{_i18n('预计总年化收益率')}}</span>
+                                <span class=label>{{_('预计总年化收益率')}}</span>
                                 <span class=value><strong>{{property.get('annual_return_estimated')}}</strong></span>
                             %elif (property.get('annual_cash_return_estimated')):
-                                <span class=label>{{_i18n('预估现金年化收益率')}}</span>
+                                <span class=label>{{_('预估现金年化收益率')}}</span>
                                 <span class=value><strong>{{property.get('annual_cash_return_estimated')}}</strong></span>
                             %end
 

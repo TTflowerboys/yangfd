@@ -30,7 +30,6 @@
 
 <!--@@block = head-->
 %if property:
-    % property = _i18n(property)
     % property_type_slug = property.get('property_type',{}).get('slug')
 
     % tags = []
@@ -1032,7 +1031,7 @@
                                     %elif (country.get('slug') == 'HK') :
                                         (+852)
                                     %end
-                                    {{_i18n(country.get('value'))}}
+                                    {{country.get('value')}}
                             </option>
                         %end
                     </select>
@@ -1051,7 +1050,7 @@
                             <!--@@include=partials/current_currency.html -->
                             ) --
                         </option>
-                        %for index, budget in enumerate(_i18n(budget_list)):
+                        %for index, budget in enumerate(budget_list):
                             %if budget.get('currency') == _.currency:
                                 <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
                             %end
@@ -1117,7 +1116,7 @@
                  <h2 class="title">{{_('相关房产')}}</h2>
                  <ul>
                      % main_property = property
-                     % for property in _i18n(related_property_list):
+                     % for property in related_property_list:
                          <li class="propertyItem">
                              <a href="/property/{{property.get('id')}}">
                                  %if (property.get('cover')):

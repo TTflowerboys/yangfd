@@ -1,9 +1,5 @@
 <!--@@master=masters/master.html -->
 <!--@@block=head -->
-%if news:
-    % news = _i18n(news)
-%end
-
 <!--build:css(dist) /static/styles/news.html.css-->
 <link rel="stylesheet" href="/static/styles/news.css"/>
 <!--endbuild-->
@@ -12,7 +8,7 @@
 
 <!--@@block=main -->
 %if news:
-    <textarea id="newsData" style="display:none;">{{json_dumps(_i18n(news))}}</textarea>
+    <textarea id="newsData" style="display:none;">{{json_dumps(news)}}</textarea>
     <div class="container">
         % from urllib import quote_plus
         
@@ -68,7 +64,7 @@
                     {{_('相关新闻')}}
                 </h2>
                 <ul>
-                     % for news_item in _i18n(related_news_list):
+                     % for news_item in related_news_list:
                          <li class="newsItem">
                              <a href="/news/{{news_item.get('id')}}">
                                  %if (news_item.get('images')):

@@ -7,10 +7,10 @@
 <!--@@close-->
 <!--@@block = main -->
 <div class="content">
-    <textarea id="dataTicketList" style="display:none;">{{json_dumps(_i18n(intention_ticket_list))}}</textarea>
+    <textarea id="dataTicketList" style="display:none;">{{json_dumps(intention_ticket_list)}}</textarea>
     <div class="contentHeader">
         <h1>{{_('我的房产')}}</h1>
-        %if (_i18n(intention_ticket_list)):
+        %if intention_ticket_list:
             <label class="count_wrapper">
                 {{_('(共')}} <i class="count">{{len(intention_ticket_list)}}</i> {{_('条房产)')}}
             </label>
