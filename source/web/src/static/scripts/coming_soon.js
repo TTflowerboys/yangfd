@@ -117,8 +117,6 @@
 
     $(document).ready(function () {
         var plan = $('.hint').length > 0 ? 'A' : 'B'
-        ga('send', 'pageview', {
-            'dimension1': plan
-        });
+        ga('set', 'dimension1', plan);
     })
 })()
