@@ -308,6 +308,11 @@ def property_get(property_id):
             if item.get('id') != property.get('id'):
                 related_property_list.insert(-1, item)
 
+    report = None
+
+    if property.get('zipcode_index') and property.get('country').get('slug') == 'GB':
+        report = f_app.i18n.process_i18n(f_app.report.output(f_app.report.search({"zipcode_index": {"$in": [property.get('zipcode_index')]}}, per_page=1))[0])
+
     _ = f_app.i18n.get_gettext("web")
     title = _(property.get('name', '房产详情'))
     title += ' ' + _(property.get('city').get('value'))
@@ -319,7 +324,7 @@ def property_get(property_id):
         tags = [item['value'] for item in property['intention'] if 'value' in item]
 
     keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
-    return common_template("property", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, title=title, description=description, keywords=keywords)
+    return common_template("property", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>')
