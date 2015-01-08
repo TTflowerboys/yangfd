@@ -1,21 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from app import f_app
-from bottle import response
 from bson.objectid import ObjectId
-from lxml import etree
-from datetime import datetime
-from hashlib import sha1
-from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, error, abort
-from six.moves import cStringIO as StringIO
-from six.moves import urllib
-import qrcode
-import bottle
-import logging
-import calendar
-import pygeoip
-logger = logging.getLogger(__name__)
-f_app.dependency_register("qrcode", race="python")
 
 
 # User
