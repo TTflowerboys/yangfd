@@ -7,6 +7,7 @@ from lxml import etree
 from datetime import datetime
 from hashlib import sha1
 from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, error, abort
+from data_manager import *
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
 import qrcode
@@ -62,38 +63,6 @@ def check_ip_and_redirect_domain(func):
     return __check_ip_and_redirect_domain_replace_func
 
 
-def get_current_user(user=None):
-    if user is None:
-        user = f_app.user.login.get()
-    if user:
-        user = f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
-    else:
-        user = None
-    return user
-
-
-def get_country_list():
-    return f_app.enum.get_all("country")
-
-
-def get_budget_list():
-    return f_app.enum.get_all('budget')
-
-
-def get_message_type_list():
-    return f_app.enum.get_all('message_type')
-
-
-def get_intention_ticket_status_list():
-    return f_app.enum.get_all('intention_ticket_status')
-
-
-def get_favorite_list():
-    user = get_current_user()
-    result = f_app.user.favorite_output(f_app.user.favorite_get_by_user(user["id"]), ignore_nonexist=True) if user is not None else []
-    return [i for i in result if i.get("property")]
-
-
 def common_template(path, **kwargs):
     _ = None
     if 'title' not in kwargs:
@@ -120,47 +89,20 @@ def common_template(path, **kwargs):
 @check_ip_and_redirect_domain
 @f_app.user.login.check()
 def default(user):
-    if user:
-        property_list = []
-    else:
-        property_id_list = []
-        for news_category in ("primier_apartment_london", "studenthouse_sheffield"):
-            property_id_list.extend(f_app.property.search({
-                "status": {"$in": ["selling", "sold out"]},
-                "news_category._id": ObjectId(f_app.enum.get_by_slug(news_category)["id"]),
-            }, per_page=1))
-
-        property_list = f_app.property.output(property_id_list)
+    property_list = []
+    if not user:
+        property_list = get_featured_property_list()
+        for property in property_list:
+            if "news_category" in property:
+                property["related_news"] = get_property_related_news_list(property)
         property_list = f_app.i18n.process_i18n(property_list)
-    homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
+
+    homepage_ad_list = get_ad_list()
     homepage_ad_list = f_app.i18n.process_i18n(homepage_ad_list)
-    announcement_list = f_app.blog.post_output(
-        f_app.blog.post_search(
-            {
-                "category": [{'_id': ObjectId(f_app.enum.get_by_slug('announcement')["id"]), 'type': 'news_category', '_enum': 'news_category'}]
-            }, per_page=1
-        )
-    )
+    announcement_list = get_announcement_list()
     announcement_list = f_app.i18n.process_i18n(announcement_list)
-    news_list = f_app.blog.post_output(
-        f_app.blog.post_search(
-            {
-                "category": {"$in": [
-                    {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('primier_apartment_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    {'_id': ObjectId(f_app.enum.get_by_slug('studenthouse_sheffield')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                ]}
-            }, per_page=6
-        )
-    )
+    news_list = get_featured_new_list()
     news_list = f_app.i18n.process_i18n(news_list)
-    for property in property_list:
-        if "news_category" in property:
-            property["related_news"] = f_app.blog.post_output(f_app.blog.post_search({
-                "category": {"$in": [
-                    {"_id": ObjectId(news["id"]), "type": "news_category", "_enum": "news_category"} for news in property["news_category"]
-                ]},
-            }, per_page=5))
 
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     _ = f_app.i18n.get_gettext("web")
@@ -201,7 +143,7 @@ def signin():
 @check_landing
 @check_ip_and_redirect_domain
 def intention():
-    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+    intention_list = f_app.i18n.process_i18n(get_intention_list())
     return common_template("intention", intention_list=intention_list)
 
 
@@ -216,9 +158,7 @@ def resetPassword():
 @check_landing
 @check_ip_and_redirect_domain
 def region_report(zipcode_index):
-    report = f_app.report.output(f_app.report.search({"zipcode_index": {"$in": [zipcode_index]}}, per_page=1))
-    if (len(report)):
-        report = report[0]
+    report = get_report(zipcode_index)
     report = f_app.i18n.process_i18n(report)
     _ = f_app.i18n.get_gettext("web")
     title = report.get('name') + _('街区分析报告')
@@ -235,10 +175,9 @@ def region_report(zipcode_index):
 @check_landing
 @check_ip_and_redirect_domain
 def property_list(params):
-    city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
-    property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
-    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    property_list = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({"status": {"$in": ["selling", "sold out"]}}, per_page=f_app.common.property_list_per_page)))
+    city_list = f_app.i18n.process_i18n(get_city_list())
+    property_type_list = f_app.i18n.process_i18n(get_property_type_list())
+    intention_list = f_app.i18n.process_i18n(get_intention_list())
     country_list = f_app.i18n.process_i18n(get_country_list())
 
     _ = f_app.i18n.get_gettext("web")
@@ -265,7 +204,6 @@ def property_list(params):
                            city_list=city_list,
                            property_type_list=property_type_list,
                            intention_list=intention_list,
-                           property_list=property_list,
                            title=title
                            )
 
@@ -274,44 +212,15 @@ def property_list(params):
 @check_landing
 @check_ip_and_redirect_domain
 def property_get(property_id):
-    property = f_app.property.output([property_id])[0]
-    property = f_app.i18n.process_i18n(property)
-    if "target_property_id" in property:
-        target_property_id = property.pop("target_property_id")
-        target_property = f_app.property.output([target_property_id])[0]
-        unset_fields = property.pop("unset_fields", [])
-        target_property.update(property)
-        for i in unset_fields:
-            target_property.pop(i, None)
-        property = target_property
+    property = f_app.i18n.process_i18n(get_property_or_target_property(property_id))
     favorite_list = get_favorite_list()
     favorite_list = f_app.i18n.process_i18n(favorite_list)
-
-    raw_related_property_list = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
-        "country._id": ObjectId(property.get('country').get('id')),
-        "status": {"$in": ["selling", "sold out"]},
-    }, per_page=20, time_field="mtime")))
-
-    related_property_list = []
-    if (len(raw_related_property_list) > 3):
-        import random
-        i = 6
-        while i > 0 and len(related_property_list) < 3:
-            item = random.choice(raw_related_property_list)
-            if item.get('id') != property.get('id'):
-                raw_related_property_list.remove(item)
-                related_property_list.insert(-1, item)
-                i = i - 1
-
-    else:
-        for item in raw_related_property_list:
-            if item.get('id') != property.get('id'):
-                related_property_list.insert(-1, item)
+    related_property_list = f_app.i18n.process_i18n(get_related_property_list(property))
 
     report = None
 
     if property.get('zipcode_index') and property.get('country').get('slug') == 'GB':
-        report = f_app.i18n.process_i18n(f_app.report.output(f_app.report.search({"zipcode_index": {"$in": [property.get('zipcode_index')]}}, per_page=1))[0])
+        report = f_app.i18n.process_i18n(get_report(property.get('zipcode_index')))
 
     _ = f_app.i18n.get_gettext("web")
     title = _(property.get('name', '房产详情'))
@@ -332,16 +241,7 @@ def property_get(property_id):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def pdfviewer(user, property_id):
-    property = f_app.property.output([property_id])[0]
-    if "target_property_id" in property:
-        target_property_id = property.pop("target_property_id")
-        target_property = f_app.property.output([target_property_id])[0]
-        unset_fields = property.pop("unset_fields", [])
-        target_property.update(property)
-        for i in unset_fields:
-            target_property.pop(i, None)
-        property = target_property
-    property = f_app.i18n.process_i18n(property)
+    property = f_app.i18n.process_i18n(get_property_or_target_property(property_id))
     _ = f_app.i18n.get_gettext("web")
     title = _(property.get('name', '房产详情')) + _(' PDF')
     return common_template("pdf_viewer", property=property, title=title)
@@ -351,7 +251,6 @@ def pdfviewer(user, property_id):
 @check_landing
 @check_ip_and_redirect_domain
 def news_list():
-
     _ = f_app.i18n.get_gettext("web")
     title = _('房产资讯')
     return common_template("news_list", title=title)
@@ -361,49 +260,9 @@ def news_list():
 @check_landing
 @check_ip_and_redirect_domain
 def news(news_id):
-    news = f_app.i18n.process_i18n(f_app.blog.post.output([news_id])[0])
-
-    if (news.get('category')[0].get('slug') in ['real_estate', 'primier_apartment_london', 'studenthouse_sheffield']):
-        raw_related_news_list = f_app.blog.post_output(
-            f_app.blog.post_search(
-                {
-                    "category": {"$in": [
-                        {'_id': ObjectId(f_app.enum.get_by_slug('real_estate')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                        {'_id': ObjectId(f_app.enum.get_by_slug('primier_apartment_london')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                        {'_id': ObjectId(f_app.enum.get_by_slug('studenthouse_sheffield')["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    ]}
-                }, per_page=20
-            )
-        )
-    else:
-        raw_related_news_list = f_app.blog.post_output(
-            f_app.blog.post_search(
-                {
-                    "category": {"$in": [
-                        {'_id': ObjectId(f_app.enum.get_by_slug(news.get('category')[0].get('slug'))["id"]), 'type': 'news_category', '_enum': 'news_category'},
-                    ]}
-                }, per_page=20
-            )
-        )
-
-    related_news_list = []
-    if (len(raw_related_news_list) > 3):
-        import random
-        i = 6
-        while i > 0 and len(related_news_list) < 3:
-            item = random.choice(raw_related_news_list)
-            if item.get('id') != news.get('id'):
-                raw_related_news_list.remove(item)
-                related_news_list.insert(-1, item)
-                i = i - 1
-    else:
-        for item in raw_related_news_list:
-            if item.get('id') != news.get('id'):
-                related_news_list.insert(-1, item)
-
-    related_news_list = f_app.i18n.process_i18n(related_news_list)
+    news = f_app.i18n.process_i18n(get_news(news_id))
+    related_news_list = f_app.i18n.process_i18n(get_related_news_list(news))
     title = news.get('title')
-
     keywords = "new,UK news" + ",".join(BASE_KEYWORDS_ARRAY)
 
     if news.get('summary'):
@@ -627,7 +486,7 @@ def user_favorites(user):
 @f_app.user.login.check(force=True)
 def user_intentions(user):
     user = f_app.i18n.process_i18n(get_current_user(user))
-    intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [{"creator_user_id": ObjectId(get_current_user(user)["id"])}, {"user_id": ObjectId(get_current_user(user)["id"])}]}), ignore_nonexist=True)
+    intention_ticket_list = get_intention_ticket_list(user)
     intention_ticket_status_list = get_intention_ticket_status_list()
     for ticket in intention_ticket_list:
         for ticket_status in intention_ticket_status_list:
@@ -646,7 +505,7 @@ def user_intentions(user):
 @f_app.user.login.check(force=True)
 def user_properties(user):
     user = f_app.i18n.process_i18n(get_current_user(user))
-    intention_ticket_list = f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(user["id"])}, {"user_id": ObjectId(user["id"])}]}), ignore_nonexist=True)
+    intention_ticket_list = get_bought_intention_ticket_list(user)
     intention_ticket_list = [i for i in intention_ticket_list if i.get("property")]
     intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
 
@@ -661,10 +520,7 @@ def user_properties(user):
 @f_app.user.login.check(force=True)
 def user_messages(user):
     user = f_app.i18n.process_i18n(get_current_user(user))
-    message_list = f_app.message.get_by_user(
-        user['id'],
-        {"state": {"$in": ["read", "new"]}},
-    )
+    message_list = get_message_list(user)
     message_type_list = get_message_type_list()
 
     for message in message_list:
@@ -693,7 +549,7 @@ def verify_email_status():
 @check_landing
 @check_ip_and_redirect_domain
 def requirement():
-    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+    intention_list = f_app.i18n.process_i18n(get_intention_list())
     _ = f_app.i18n.get_gettext("web")
     title = _('提交置业需求')
     return common_template("phone/requirement", intention_list=intention_list, title=title)
@@ -720,7 +576,7 @@ def how_it_works(params):
     else:
         current_intention = f_app.enum.get_all('intention')[0]
     current_intention = f_app.i18n.process_i18n(current_intention)
-    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+    intention_list = f_app.i18n.process_i18n(get_intention_list())
     title = current_intention.get('value')
     description = current_intention.get('description', current_intention.get('value'))
     keywords = current_intention.get('value') + ',' + ','.join(BASE_KEYWORDS_ARRAY)
@@ -731,7 +587,7 @@ def how_it_works(params):
 @check_landing
 @check_ip_and_redirect_domain
 def calculator():
-    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+    intention_list = f_app.i18n.process_i18n(get_intention_list())
     _ = f_app.i18n.get_gettext("web")
     title = _('房贷计算器')
     return common_template("phone/calculator", intention_list=intention_list, title=title)

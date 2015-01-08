@@ -4,6 +4,7 @@ from __future__ import unicode_literals, absolute_import
 from libfelix.f_common import f_app
 from libfelix.f_interface import f_api, abort
 from datetime import datetime
+from bson.objectid import ObjectId
 
 import logging
 logger = logging.getLogger(__name__)
@@ -93,3 +94,54 @@ def enum_edit(user, enum_id, params):
 def enum_search(params):
     per_page = params.pop("per_page", 0)
     return f_app.enum.get(f_app.enum.search(params, per_page=per_page))
+
+
+@f_api('/enum/<enum_id>/check')
+def enum_check(enum_id):
+    enum_id = ObjectId(enum_id)
+    blog_post_list = f_app.blog.post_search({"category._id": enum_id}, per_page=0)
+    property_list = f_app.property.search({"$or": [
+        {"property_type._id": enum_id},
+        {"country._id": enum_id},
+        {"city._id": enum_id},
+        {"investment_type._id": enum_id},
+        {"intention._id": enum_id},
+        {"equity_type._id": enum_id},
+    ]}, per_page=0)
+    item_list = f_app.shop.item_custom_search({"$or": [
+        {"country._id": enum_id},
+        {"city._id": enum_id},
+        {"investment_type._id": enum_id},
+    ]}, per_page=0)
+    user_list = f_app.user.custom_search({"$or": [
+        {"country._id": enum_id},
+        {"city._id": enum_id},
+        {"budget._id": enum_id},
+    ]}, per_page=0)
+    ticket_list = f_app.ticket.search({"$or": [
+        {"country._id": enum_id},
+        {"city._id": enum_id},
+        {"budget._id": enum_id},
+        {"equity_type._id": enum_id},
+    ]}, per_page=0)
+    return {
+        "news": blog_post_list,
+        "property": property_list,
+        "item": item_list,
+        "ticket": ticket_list,
+        "user": user_list
+    }
+
+
+@f_api('/enum/<enum_id>/remove', params=dict(
+    mode=(str, "safe")
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
+def enum_remove(user, enum_id, params):
+    """
+    ``mode`` can be ``safe``, ``clean`` or ``force``.
+    ``safe`` will check all quotes before deletion.
+    ``clean`` will remove enum and all relative quotes.
+    ``force`` will only remove the enum.
+    """
+    pass
