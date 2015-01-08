@@ -26,7 +26,7 @@
             <div class="controls">
                 %for index, budget in enumerate(budget_list):
                     %if budget.get('currency') == _.currency:
-                        <label class="toggleTag"><input name="budget" type="radio" value="{{budget.get('id')}}"/>{{_i18n(budget.get('value'))}}</label>
+                        <label class="toggleTag"><input name="budget" type="radio" value="{{budget.get('id')}}"/>{{budget.get('value')}}</label>
                     %end
                 %end
             </div>

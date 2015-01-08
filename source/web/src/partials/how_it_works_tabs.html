@@ -2,7 +2,7 @@
     <div class="row intention">
         <label class="title">{{_('为您定制')}}</label>
         <ul class="controls">
-            % for index, intention in enumerate(_i18n(intention_list)):
+            % for index, intention in enumerate(intention_list):
             % slug = intention.get('slug','')
             <li style="width: {{99.99/len(intention_list)}}%" data-tab="{{slug}}"
                 %if index == 0:

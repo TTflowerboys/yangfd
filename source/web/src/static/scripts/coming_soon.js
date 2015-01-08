@@ -13,10 +13,7 @@
         })
         if (!valid) {return}
         var params = $(this).serializeObject()
-        var from = $('.hint').length > 0
-        ga('send', 'pageview', {
-            'dimension2': 'subscription: ' + from
-        });
+        ga('send','event','goal','click');
         params.locales = window.lang
         $.betterPost('/api/1/subscription/add', params)
             .done(function () {
@@ -99,10 +96,6 @@
         if (!valid) {return}
         var params = $(this).serializeObject()
 
-        var from = $('.hint').length > 0
-        ga('send', 'pageview', {
-            'dimension3': 'intention: ' + from
-        });
         params.locales = window.lang
         var button = $('form[name=requirement] button[type=submit]')
         button.css('cursor', 'wait')
@@ -122,8 +115,8 @@
     })
 
     $(document).ready(function () {
-        ga('send', 'pageview', {
-            'dimension1': $('.hint').length > 0 + ''
-        });
+        var plan = $('.hint').length > 0 ? 'A' : 'B'
+        ga('set', 'dimension1', plan)
+        ga('send','pageview')
     })
 })()

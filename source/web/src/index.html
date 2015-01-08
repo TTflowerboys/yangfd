@@ -1,10 +1,6 @@
 <!--@@master=masters/master.html-->
 <!--@@block=head -->
 % from urllib import quote_plus
-<title>{{_('洋房东')}}</title>
-<meta name="Description" content={{_("我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")}}>
-<meta name="Keywords"
-      content="洋房东，海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property">
 <!--build:css(dist) /static/styles/index.html.css-->
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/processCard.css"/>
@@ -15,12 +11,11 @@
 %if (not user):
     <div class="gallery">
         %if homepage_ad_list:
-            % homepage_ad_list = _i18n(homepage_ad_list)
             <div class="rslides_wrapper">
                 <ul class="rslides">
                     % for ad in homepage_ad_list:
                         <li>
-                            <div class="img" style="background:url('/image/fetch?link={{quote_plus(_i18n(ad.get('image', '')))}}&content_id={{ad.get('id')}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(_i18n(ad.get('image', '')))}}&content_id={{ad.get('id')}}', sizingMethod='scale');">
+                            <div class="img" style="background:url('/image/fetch?link={{quote_plus(ad.get('image', ''))}}&content_id={{ad.get('id')}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(ad.get('image', ''))}}&content_id={{ad.get('id')}}', sizingMethod='scale');">
                                 <div class="img_shadow"></div>
                             </div>
                             <div class="imageText_table">
@@ -49,7 +44,7 @@
     <div class="howItWorks_phone">
         <label class="title">{{_('为您定制')}}</label>
         <ul class="controls">
-            % for index, intention in enumerate(_i18n(intention_list)):
+            % for index, intention in enumerate(intention_list):
                 % slug = intention.get('slug','')
                 <li style="width: {{99.99 / 3}}%" data-tab="{{slug}}"
                     data-id="{{intention.get('id')}}"
@@ -71,7 +66,7 @@
                 %for index, anno in enumerate(announcement_list):
                     <li class="item">
                         <img class="icon" alt="" src="/static/images/index/announcement_icon.png"/>
-                        <a class="title" href="/news/{{anno.get('id')}}">{{_i18n(anno.get('title', ''))}}</a>
+                        <a class="title" href="/news/{{anno.get('id')}}">{{anno.get('title', '')}}</a>
                         <a class="more" href="/notice_list">{{_('更多公告')}}</a>
                         <img class="close" style="display:none" alt="" src="/static/images/index/announcement_close.png"/>
                     </li>
@@ -86,7 +81,7 @@
                 % for anno in announcement_list:
                     <li class="item">
                         <img class="icon" alt="" src="/static/images/index/announcement_icon.png"/>
-                        <a class="title" href="/news/{{anno.get('id')}}">{{_i18n(anno.get('title', ''))}}</a>
+                        <a class="title" href="/news/{{anno.get('id')}}">{{anno.get('title', '')}}</a>
                         <a class="more" href="/notice_list">{{_('更多公告')}}</a>
                         <img class="close" style="display:none" alt="" src="/static/images/index/announcement_close.png"/>
                     </li>
@@ -97,9 +92,9 @@
 %end
 
 %if user:
-    <textarea id="dataBudgetList" style="display:none;">{{json_dumps(_i18n(budget_list))}}</textarea>
+    <textarea id="dataBudgetList" style="display:none;">{{json_dumps(budget_list)}}</textarea>
     <textarea id="dataIntentionList" style="display:none">
-    {{json_dumps(_i18n(intention_list))}}
+    {{json_dumps(intention_list)}}
     </textarea>
     <div class="tags_wrapper" name="intentionForm">
         <div id="tags" class="tags">
@@ -111,7 +106,7 @@
                     {{_('单选')}},
                     <!--@@include=partials/current_currency.html -->
                     ):&nbsp;</label>
-                %for index, budget in enumerate(_i18n(budget_list)):
+                %for index, budget in enumerate(budget_list):
                     %if budget.get('currency') == _.currency:
                         <div class="toggleTag" data-id="{{budget.get('id')}}">{{budget.get('value')}}</div>
                     %end
@@ -141,7 +136,7 @@
 
 %if not user:
     <textarea id="dataPropertyList" style="display:none">
-    {{json_dumps(_i18n(property_list))}}
+    {{json_dumps(property_list)}}
     </textarea>
     <div class="houseFeatured">
         % for property in property_list:
@@ -172,10 +167,10 @@
                 %end
                 <div class="content_wrapper">
                     <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><h3 class="title">
-                        {{_i18n(news_list[0].get('title', ''))}}</h3></a>
+                        {{news_list[0].get('title', '')}}</h3></a>
 
                     <p class="content">
-                        {{!_i18n(news_list[0].get('summary', ''))}}
+                        {{!news_list[0].get('summary', '')}}
                     </p>
                     <a class="ghostButton red detail" href="/news/{{news_list[0].get('id')}}">{{_('详细')}}</a>
                 </div>
@@ -188,7 +183,7 @@
                     <div class="list">
                         %for index, item in enumerate(news_list):
                             %if (index > 0 and index < 6):
-                                <a class="item" href="/news/{{item.get('id')}}">{{_i18n(item.get('title', ''))}}</a>
+                                <a class="item" href="/news/{{item.get('id')}}">{{item.get('title', '')}}</a>
                             %end
                         %end
                     </div>

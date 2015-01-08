@@ -30,7 +30,6 @@
 
 <!--@@block = head-->
 %if property:
-    % property = _i18n(property)
     % property_type_slug = property.get('property_type',{}).get('slug')
 
     % tags = []
@@ -42,10 +41,6 @@
     % from urllib import quote_plus
     % from bottle import request
 
-
-    <title>{{property.get('name',_('房产详情'))  +' '+  property.get('city',{}).get('value','') +' '+ property.get('country',{}).get('value','') }}</title>
-    <meta name="Description" content="{{property.get('name',_('房产详情'))}}">
-    <meta name="Keywords" content="{{property.get('name',_('房产详情'))+','+property.get('country',{}).get('value','')+','+property.get('city',{}).get('value','')+','}}{{','.join(tags + [u'洋房东,海外置业,楼盘,公寓,别墅,学区房,英国房产,洋房东,海外投资,海外房产,海外买房,海外房地产,海外房产投资,英国房价,Youngfunding,investment,overseas investment,property,apartment,house,UK property'])}}">
 
     <!-- cause video-js.css has related path font resource, so package in the same dir-->
     <!--build:css(dist) /static/vendors/video-js/video-js.css-->
@@ -309,6 +304,9 @@
                     % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
                         <li><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
                     % end
+                    % if report :
+                        <li><a href="#regionReport">{{_('区域报告')}}</a></li>
+                    % end
                 </ul>
             </div>
             <div id="propertyDetails_description" class="meta">
@@ -404,19 +402,6 @@
                             </td>
                             <td class="value">
                                 {{property.get('address')}}
-                                <!--
-                                % if property.get('longitude') and property.get('latitude'):
-                                % long = property.get('longitude')
-                                % lat = property.get('latitude')
-                                <a href="https://ditu.google.cn/maps/?q=loc:{{lat}},{{long}}&z=14" target="_blank">
-                                    {{_(' (查看地图)')}}
-                                </a>
-                                % else:
-                                <a target="_blank" href="https://ditu.google.cn/maps?q={{ quote_plus( property.get('address','').encode('utf-8')) }}">
-                                    {{_(' (查看地图)')}}
-                                </a>
-                                %end
-                                 -->
                             </td>
                         </tr>
                         % end
@@ -432,9 +417,11 @@
                             </td>
                             <td class="value">
                                 {{property.get('street','')}}
-                                <a class="street-link" style="display: none" target="_blank" href="/region_report/{{property.get('zipcode_index')}}">
-                                    {{_(' (查看详细街区报告)')}}
-                                </a>
+                                %if (report):
+                                    <a class="street-link" style="display: none" target="_blank" href="/region_report/{{property.get('zipcode_index')}}">
+                                        {{_(' (查看详细街区报告)')}}
+                                    </a>
+                                %end
                             </td>
                         </tr>
                         % end
@@ -847,63 +834,30 @@
             </div>
             <hr/>
             % end
-            <div class="nearby" style="display: none;">
-                <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
-                <ul>
-                    <li>
-                        <h4><i><img src="/static/images/property_details/icon-bus.png" alt=""/></i>{{_('交通设施')}}</h4>
-                        <strong>??</strong>
-                        <hr/>
-                        <ul>
-                            <li>?{{_('条地铁线') }}</li>
-                            <li>?{{_('个公交车站') }}</li>
-                            <li>?{{_('个汽车租赁点') }}</li>
-                        </ul>
-                        <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
-                    </li>
-                    <li>
-                        <h4><i><img src="/static/images/property_details/icon-cap.png" alt=""/></i>{{_('周边学校')}}</h4>
-                        <strong>??</strong>
-                        <hr/>
-                        <ul>
-                            <li>?{{_('所小学')}}</li>
-                            <li>?{{_('所高中')}}</li>
-                            <li>?{{_('所大学')}}</li>
-                        </ul>
-                        <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
-                    </li>
-                    <li>
-                        <h4>
-                            <i><img src="/static/images/property_details/icon-briefcase.png" alt=""/></i>
-                            {{_('便民设施')}}
-                        </h4>
-                        <strong>??</strong>
-                        <hr/>
-                        <ul>
-                            <li>?{{_('所公园')}}</li>
-                            <li>?{{_('所健身馆')}}</li>
-                            <li>?{{_('所游泳馆')}}</li>
-                        </ul>
-                        <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
-                    </li>
-                    <li>
-                        <h4>
-                            <i><img src="/static/images/property_details/icon-shield.png" alt=""/></i>
-                            {{_('便民设施')}}
-                        </h4>
-                        <strong>??</strong>
-                        <hr/>
-                        <ul>
-                            <li>?{{_('所公园')}}</li>
-                            <li>?{{_('所健身馆')}}</li>
-                            <li>?{{_('所游泳馆')}}</li>
-                        </ul>
-                        <button class="flatButton" style="width: 100%">{{_('查看详细交通')}}</button>
-                    </li>
-                </ul>
-            </div>
 
-
+            %if (report):
+                <div class="regionReport" id="regionReport">
+                    %if (report.get('image')):
+                    <img alt="" src="" style="background:url('/image/fetch?link={{quote_plus(report.get('image').encode('utf-8'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{=/image/fetch?link={{quote_plus(report.get('image').encode('utf-8'))}}', sizingMethod='scale');"/>
+                    %else:
+                    <img alt="" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
+                    %end
+                    <div class="img_shadow"></div>
+                    <div class="text_container">
+                        <div class="text">
+                            <h1 class="name">
+                                {{report.get('name')}}
+                            </h1>
+                            <p class="des">
+                                {{report.get('description')}}
+                            </p>
+                            <a class="ghostButton detail" href="/region_report/{{report.get('zipcode_index')}}" target="_blank">
+                                {{_('查看详细街区报告')}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            %end
         </div>
         <div class="aside">
             <div class="propertyCard">
@@ -1036,7 +990,7 @@
                                     %elif (country.get('slug') == 'HK') :
                                         (+852)
                                     %end
-                                    {{_i18n(country.get('value'))}}
+                                    {{country.get('value')}}
                             </option>
                         %end
                     </select>
@@ -1055,7 +1009,7 @@
                             <!--@@include=partials/current_currency.html -->
                             ) --
                         </option>
-                        %for index, budget in enumerate(_i18n(budget_list)):
+                        %for index, budget in enumerate(budget_list):
                             %if budget.get('currency') == _.currency:
                                 <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
                             %end
@@ -1115,13 +1069,11 @@
             % end
             <h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
             <!--@@include=partials/mortgage_form.html  -->
-
-
              <div class="relatedProperties">
                  <h2 class="title">{{_('相关房产')}}</h2>
                  <ul>
                      % main_property = property
-                     % for property in _i18n(related_property_list):
+                     % for property in related_property_list:
                          <li class="propertyItem">
                              <a href="/property/{{property.get('id')}}">
                                  %if (property.get('cover')):
@@ -1186,29 +1138,6 @@
         <li class="requirement"><a href="/requirement?property={{property.get('id')}}"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
     </ul>
 
-    <script id="regionReport_template" type="text/template">
-        <div class="regionReport">
-            {_if (report.image) {_}
-            <img alt="" src="" style="background:url('{=team.convertToHttps({'link':report.image})=}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{=team.convertToHttps({'link':report.image})=}', sizingMethod='scale');"/>
-            {_} else {_}
-            <img alt="" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
-            {_}_}
-            <div class="img_shadow"></div>
-            <div class="text_container">
-                <div class="text">
-                    <h1 class="name">
-                        {=report.name=}
-                    </h1>
-                    <p class="des">
-                        {=report.description=}
-                    </p>
-                    <a class="ghostButton detail" href="/region_report/{=report.zipcode_index=}" target="_blank">
-                        {=window.i18n('查看详细街区报告')=}
-                    </a>
-                </div>
-            </div>
-        </div>
-    </script>
 
     <!-- @@include=/static/templates/place_item.tpl.html-->
 
@@ -1338,23 +1267,6 @@
              .modal()
              ga('send', 'event', 'property_detail', 'share', 'open-wechat-web')
          })
-
-         var property = JSON.parse($('#pythonProperty').text())
-         if (property.zipcode_index && property.country.slug === 'GB') {
-             $.betterGet('/api/1/report/search?per_page=1&zipcode_index=' + property.zipcode_index).done(function (data) {
-                 if (data && data.length){
-                     var result = _.template($('#regionReport_template').html())({report: data[0]})
-                     $('.propertyDetails .content').first().append(result)
-
-                     //Show street region link when have report
-                     $('.street-link').show()
-                 }else{
-                     $('.street-link').hide()
-                 }
-             }).fail(function (ret) {
-
-             })
-         }
      })();
 
     </script>

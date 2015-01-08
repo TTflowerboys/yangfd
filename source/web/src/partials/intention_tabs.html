@@ -2,7 +2,7 @@
     <div class="row intention">
         <label class="title">{{_('投资意向：')}}</label>
         <ul class="controls">
-            % for index, intention in enumerate(_i18n(intention_list)):
+            % for index, intention in enumerate(intention_list):
             % slug = intention.get('slug','')
             <li data-tab="{{slug}}"
                 data-id="{{intention.get('id')}}"

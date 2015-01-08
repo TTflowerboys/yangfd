@@ -28,7 +28,7 @@
                 <td>{{_('国家')}}</td>
                 <td>
                     %if user.get('country'):
-                    {{_i18n(user).get('country').get('value')}}
+                    {{user.get('country').get('value')}}
                     %end
                 </td>
             </tr>
@@ -89,7 +89,7 @@
                         selected
                         %end
                         >
-                        {{_i18n(country.get('value'))}}
+                        {{country.get('value')}}
                         </option>
                         %end
                     </select>
