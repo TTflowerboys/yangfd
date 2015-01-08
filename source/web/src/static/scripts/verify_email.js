@@ -44,3 +44,4 @@ $('form[name=verifyEmail]').submit(function (e) {
     }
 })
 
+$('.rmm-button').removeClass('rmm-button-user').addClass('rmm-button-user-settings')

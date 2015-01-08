@@ -52,3 +52,4 @@ $('form[name=changePhone2]').submit(function (e) {
 
 })
 
+$('.rmm-button').removeClass('rmm-button-user').addClass('rmm-button-user-settings')
