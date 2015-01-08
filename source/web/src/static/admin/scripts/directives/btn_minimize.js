@@ -35,7 +35,7 @@ angular.module('app')
                     if (u > 767) {
                         o - 80 > t && $('#sidebar-left').css('min-height', o - i - s);
                         o - 80 > n && $('#content').css('min-height', o - i - s)
-                    } else $('#sidebar-left').css('min-height', '0px');
+                    } else $('#sidebar-left').css('min-height', '0');
                     u < 768 ? $('.chat-full') && $('.chat-full').each(function () {$(this).addClass('alt')}) : $('.chat-full') && $('.chat-full').each(function () {$(this).removeClass('alt')})
                 }
 

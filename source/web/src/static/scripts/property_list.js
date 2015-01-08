@@ -4,7 +4,7 @@ window.resizeCategory = function () {
 
     if (window.team.isPhone()) {
         $categoryWrapper.css({'height':'auto'});
-        $category.css('margin-top', '0px')
+        $category.css('margin-top', '0')
         $categoryWrapper.show()
     }
     else {
@@ -430,7 +430,7 @@ $(window).resize(window.updateTagsFixed);
         var $button = $('#showTags')
         var $tags = $('#tags .tags_inner')
         if ($button.attr('data-state') === 'open') {
-            $tags.animate({'max-height':'0px'}, 400, 'swing')
+            $tags.animate({'max-height':'0'}, 400, 'swing')
             $tags.slideUp(400)
             $button.find('label').text(window.i18n('更多选择'))
             $button.find('img').removeClass('rotated')
