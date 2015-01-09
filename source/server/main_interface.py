@@ -10,6 +10,7 @@ from libfelix.f_interface import f_get, f_post, static_file, template, request, 
 from data_manager import *
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
+import currant_util
 import qrcode
 import bottle
 import logging
@@ -81,6 +82,9 @@ def common_template(path, **kwargs):
         kwargs['country_list'] = f_app.i18n.process_i18n(get_country_list())
     if 'budget_list' not in kwargs:
         kwargs['budget_list'] = f_app.i18n.process_i18n(get_budget_list())
+
+    # setup page utils
+    kwargs.setdefault("format_unit", currant_util.format_unit)
     return template(path, **kwargs)
 
 
@@ -224,8 +228,11 @@ def property_get(property_id):
 
     _ = f_app.i18n.get_gettext("web")
     title = _(property.get('name', '房产详情'))
-    title += ' ' + _(property.get('city').get('value'))
-    title += ' ' + _(property.get('country').get('value'))
+    if property.get('city') and property.get('city').get('value'):
+        print property.get('city')
+        title += ' ' + _(property.get('city').get('value'))
+    if property.get('country') and property.get('country').get('value'):
+        title += ' ' + _(property.get('country').get('value'))
     description = property.get('name', _('房产详情'))
 
     tags = []
