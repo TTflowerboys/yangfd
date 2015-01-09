@@ -752,7 +752,7 @@ html[dir='rtl'] .splitToolbarButton > .toolbarButton {
 html[dir='ltr'] .splitToolbarButton > .toolbarButton:first-child,
 html[dir='rtl'] .splitToolbarButton > .toolbarButton:last-child {
   position: relative;
-  margin: 0 0 0 -1px;
+  margin: 0 -1px 0 0;
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
   border-right-color: transparent;
@@ -760,7 +760,7 @@ html[dir='rtl'] .splitToolbarButton > .toolbarButton:last-child {
 html[dir='ltr'] .splitToolbarButton > .toolbarButton:last-child,
 html[dir='rtl'] .splitToolbarButton > .toolbarButton:first-child {
   position: relative;
-  margin: 0 -1px 0 0;
+  margin: 0 0 0 -1px;
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
   border-left-color: transparent;

@@ -52,3 +52,8 @@ $('form[name=changePhone2]').submit(function (e) {
 
 })
 
+$('.rmm-button').removeClass('rmm-button-user').addClass('rmm-button-user-settings')
+
+if (team.isPhone()) {
+    $('input[name=code]').attr('placeholder',window.i18n('手机验证码'))
+}

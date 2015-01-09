@@ -117,6 +117,10 @@ $(function () {
     $('.rmm-toggled-controls .rmm-button-user').on('click',function(){
         location.href = '/user'
     });
+
+    $('.rmm-toggled-controls .rmm-button-user-settings').on('click',function(){
+        location.href = '/user_settings'
+    });
 });
 /* 	hide mobile menu on resize */
 $(window).resize(function () {

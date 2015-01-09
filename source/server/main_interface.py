@@ -10,6 +10,7 @@ from libfelix.f_interface import f_get, f_post, static_file, template, request, 
 from data_manager import *
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
+import currant_util
 import qrcode
 import bottle
 import logging
@@ -81,6 +82,9 @@ def common_template(path, **kwargs):
         kwargs['country_list'] = f_app.i18n.process_i18n(get_country_list())
     if 'budget_list' not in kwargs:
         kwargs['budget_list'] = f_app.i18n.process_i18n(get_budget_list())
+
+    # setup page utils
+    kwargs.setdefault("format_unit", currant_util.format_unit)
     return template(path, **kwargs)
 
 
@@ -105,6 +109,19 @@ def default(user):
     news_list = f_app.i18n.process_i18n(news_list)
 
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+
+    property_country_list = []
+    property_country_id_list = []
+    for index, country in enumerate(get_country_list()):
+        if country.get('slug') == 'US' or country.get('slug') == 'GB':
+            property_country_list.append(country)
+            property_country_id_list.append(country.get('id'))
+
+    property_city_list = []
+    for index, city in enumerate(get_city_list()):
+        if city.get('country').get('id') in property_country_id_list:
+            property_city_list.append(city)
+
     _ = f_app.i18n.get_gettext("web")
     title = _('洋房东')
     return common_template(
@@ -114,6 +131,8 @@ def default(user):
         homepage_ad_list=homepage_ad_list,
         announcement_list=announcement_list,
         news_list=news_list,
+        property_country_list=property_country_list,
+        property_city_list=property_city_list,
         intention_list=intention_list
     )
 
@@ -224,8 +243,11 @@ def property_get(property_id):
 
     _ = f_app.i18n.get_gettext("web")
     title = _(property.get('name', '房产详情'))
-    title += ' ' + _(property.get('city').get('value'))
-    title += ' ' + _(property.get('country').get('value'))
+    if property.get('city') and property.get('city').get('value'):
+        print property.get('city')
+        title += ' ' + _(property.get('city').get('value'))
+    if property.get('country') and property.get('country').get('value'):
+        title += ' ' + _(property.get('country').get('value'))
     description = property.get('name', _('房产详情'))
 
     tags = []
