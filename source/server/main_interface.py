@@ -112,13 +112,13 @@ def default(user):
 
     property_country_list = []
     property_country_id_list = []
-    for index, country in enumerate(country_list):
+    for index, country in enumerate(get_country_list()):
         if country.get('slug') == 'US' or country.get('slug') == 'GB':
             property_country_list.append(country)
             property_country_id_list.append(country.get('id'))
 
     property_city_list = []
-    for index, city in enumerate(city_list):
+    for index, city in enumerate(get_city_list()):
         if city.get('country').get('id') in property_country_id_list:
             property_city_list.append(city)
 
