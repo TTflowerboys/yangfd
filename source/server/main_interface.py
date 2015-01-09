@@ -109,6 +109,19 @@ def default(user):
     news_list = f_app.i18n.process_i18n(news_list)
 
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+
+    property_country_list = []
+    property_country_id_list = []
+    for index, country in enumerate(country_list):
+        if country.get('slug') == 'US' or country.get('slug') == 'GB':
+            property_country_list.append(country)
+            property_country_id_list.append(country.get('id'))
+
+    property_city_list = []
+    for index, city in enumerate(city_list):
+        if city.get('country').get('id') in property_country_id_list:
+            property_city_list.append(city)
+
     _ = f_app.i18n.get_gettext("web")
     title = _('洋房东')
     return common_template(
@@ -118,6 +131,8 @@ def default(user):
         homepage_ad_list=homepage_ad_list,
         announcement_list=announcement_list,
         news_list=news_list,
+        property_country_list=property_country_list,
+        property_city_list=property_city_list,
         intention_list=intention_list
     )
 

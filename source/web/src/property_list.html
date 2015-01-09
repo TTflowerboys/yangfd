@@ -10,21 +10,6 @@
 
 <!--@@block=main -->
 <div class="property_data_manager" style="display:none">
-    % property_country_list = []
-    % property_country_id_list = []
-    %for index, country in enumerate(country_list):
-        %if country.get('slug') == 'US' or country.get('slug') == 'GB':
-           % property_country_list.append(country)
-           % property_country_id_list.append(country.get('id'))
-        %end
-    %end
-
-    % property_city_list = []
-    %for index, city in enumerate(city_list):
-        %if city.get('country').get('id') in property_country_id_list:
-            % property_city_list.append(city)
-        %end
-    %end
 
     <textarea id="countryData">
         {{json_dumps(country_list)}}
@@ -95,7 +80,6 @@
                         %for index, budget in enumerate(budget_list):
                             %if budget.get('currency') == _.currency:
                                 <div class="toggleTag" data-id="{{budget.get('id')}}">{{budget.get('value')}}</div>
-
                             %end
                         %end
                     </div>
@@ -115,7 +99,7 @@
                     </div>
                 </div>
             %end
-            
+
         </div>
         <div class="contact">
             <a href="tel:4000926433" >{{_('拨打400-0926-433咨询')}}</a>
