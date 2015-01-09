@@ -318,8 +318,7 @@
                                 <strong>
                                     {{float("{0:.2f}".format(float(property.get('space',{}).get('value',0))))}}
                                     <span class="unit">
-                                        % unit = property.get('space',{}).get('unit','')
-                                        <!--@@include=partials/get_area_unit.html {"unit":"unit"}-->
+                                        {{!format_unit(property.get('space',{}).get('unit',''))}}
                                     </span>
                                 </strong>
                             % end
@@ -449,8 +448,7 @@
                                                     % if 'value' in type.get('building_area',{}) and 'unit' in type.get('building_area',{}):
                                                         (
                                                         {{float("{0:.2f}".format(float(type.get('building_area',{}).get('value'))))}}
-                                                        % unit = type.get('building_area',{}).get('unit')
-                                                        <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                                                        {{!format_unit(type.get('building_area',{}).get('unit',''))}}
                                                         )
                                                     % end
                                                 </span>
@@ -542,8 +540,7 @@
                                                             <span class="value">
                                                                 <strong >
                                                                     {{float("{0:.2f}".format(float(item.get('building_area',{}).get('value'))))}}
-                                                                    % unit = item.get('building_area',{}).get('unit')
-                                                                    <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                                                                    {{!format_unit(item.get('building_area',{}).get('unit',''))}}
                                                                 </strong>
                                                             </span>
                                                         </td>
@@ -615,8 +612,7 @@
                                         %if property.get('building_area'):
                                             <div class="value">
                                                 {{float("{0:.2f}".format(float(property.get('building_area').get('value'))))}}
-                                                % unit = property.get('building_area').get('unit')
-                                                <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                                                {{!format_unit(property.get('building_area',{}).get('unit',''))}}
                                             </div>
                                         %end
                                     </td>
@@ -635,8 +631,7 @@
                                         %if property.get('planning_area'):
                                             <div class="value">
                                                 {{float("{0:.2f}".format(float(property.get('planning_area').get('value'))))}}
-                                                % unit = property.get('planning_area').get('unit')
-                                                <!--@@include partials/get_area_unit.html {"unit":"unit"}-->
+                                                {{!format_unit(property.get('planning_area',{}).get('unit',''))}}
                                             </div>
                                         %end
                                     </td>
