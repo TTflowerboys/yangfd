@@ -49,6 +49,7 @@ def intention_ticket_add(params):
             # Non-register user can use his / her phone number again
             if shadow_user_id:
                 user_id = ObjectId(shadow_user_id)
+                f_app.user.update_set(user_id, {"nickname": params["nickname"], "intention": params.get("intention", []), "locales": params.get("locales", [])})
             else:
                 # Add shadow account for noregister user
                 user_params = {
@@ -60,6 +61,8 @@ def intention_ticket_add(params):
                 }
                 if "country" in params:
                     user_params["country"] = params["country"]
+                if noregister:
+                    user_params.pop("email")
 
                 user_id = f_app.user.add(user_params, noregister=noregister)
                 f_app.log.add("add", user_id=user_id)
@@ -109,6 +112,7 @@ def intention_ticket_add(params):
             if shadow_user_id:
                 # The target user exists
                 user_id = shadow_user_id
+                f_app.user.update_set(user_id, {"nickname": params["nickname"], "intention": params.get("intention", []), "locales": params.get("locales", [])})
             else:
                 # Add shadow account for noregister user
                 user_params = {
@@ -120,6 +124,8 @@ def intention_ticket_add(params):
                 }
                 if "country" in params:
                     user_params["country"] = params["country"]
+                if noregister:
+                    user_params.pop("email")
 
                 user_id = f_app.user.add(user_params, noregister=noregister)
                 f_app.log.add("add", user_id=user_id)
