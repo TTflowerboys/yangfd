@@ -11,11 +11,19 @@
   width:760px;
   overflow:hidden;
   margin: 80px auto;
+  @media @phone{
+    width:100%;
+    margin: 0 auto;
+    padding-bottom: 150px;
+  }
 
   .title {
     font-size:20px;
     line-height:1;
     color:#333333;
+    @media @phone {
+      text-align: center;
+    }
   }
 
   .verify {
@@ -23,6 +31,9 @@
     margin-top:14px;
     margin-left:0;
     margin-right:0;
+    @media @phone {
+      margin-top: 20px;
+    }
     .tip {
       width:100%;
       margin-top:20px;
@@ -43,6 +54,9 @@
         margin:0;
         width:640px;
         display:inline-block;
+        @media @phone{
+          width:100%;
+        }
       }
     }
 

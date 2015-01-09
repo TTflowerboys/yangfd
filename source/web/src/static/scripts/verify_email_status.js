@@ -21,4 +21,3 @@ if(!_.isEmpty(window.team.getQuery('code'))&&!_.isEmpty(window.team.getQuery('us
     $('.loadIndicator').hide()
     $('.verify-failed').show()
 }
-$('.rmm-button').removeClass('rmm-button-user').addClass('rmm-button-user-settings')
