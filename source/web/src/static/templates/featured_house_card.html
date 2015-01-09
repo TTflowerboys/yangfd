@@ -9,9 +9,9 @@
     <div class="houseCard_phone">
         <a class="imagePart" href="/property/{{property.get('id')}}">
             %if (property.get('cover')):
-                <img src="/image/fetch?link={{quote_plus(property.get('cover').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);"/>
+                <img src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);"/>
             %elif (property.get('reality_images')):
-                <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);"/>
+                <img src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);"/>
             %else :
                 <img class="withPlaceholder"/>
             %end
@@ -141,9 +141,9 @@
         <div class="imagePart">
             <a href="/property/{{property.get('id')}}">
                 %if (property.get('cover')):
-                    <img src="/image/fetch?link={{quote_plus(property.get('cover').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                    <img src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
                 %elif (property.get('reality_images')):
-                    <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                    <img src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
                 %else :
                     <img class="withPlaceholder" width="320" height="213"/>
                 %end

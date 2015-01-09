@@ -15,7 +15,7 @@
                 <ul class="rslides">
                     % for ad in homepage_ad_list:
                         <li>
-                            <div class="img" style="background:url('/image/fetch?link={{quote_plus(ad.get('image', ''))}}&content_id={{ad.get('id')}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(ad.get('image', ''))}}&content_id={{ad.get('id')}}', sizingMethod='scale');">
+                            <div class="img" style="background:url('{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}', sizingMethod='scale');">
                                 <div class="img_shadow"></div>
                             </div>
                             <div class="imageText_table">
@@ -163,7 +163,7 @@
                 % from urllib import quote_plus
                 % news = news_list[0]
                 %if ('images' in news) and news.get('images'):
-                    <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><img class="picture" src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8')) + '_thumbnail'}}&news_id={{news.get('id','')}}"/></a>
+                    <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><img class="picture" src="{{!fetch_image(news.get('images')[0], thumbnail=True, news_id=news.get('id'))}}"/></a>
                 %end
                 <div class="content_wrapper">
                     <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><h3 class="title">

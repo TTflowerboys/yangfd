@@ -105,7 +105,7 @@
                                     <ul class="rslides">
                                         % for image in property.get(name):
                                             <li>
-                                                <div class="img" style="background:url('/image/fetch?link={{quote_plus(image.encode('utf-8'))}}&property_id={{property.get('id','')}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(image.encode('utf-8'))}}&property_id={{property.get('id','')}}', sizingMethod='scale');"></div>
+                                                <div class="img" style="background:url('{{!fetch_image(image, property_id=property.get('id'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(image, property_id=property.get('id'))}}', sizingMethod='scale');"></div>
                                             </li>
                                         % end
                                     </ul>
@@ -147,7 +147,7 @@
                     <ul>
                         % if property.get('reality_images', []) and len(property.get('reality_images', [])):
                             <li data-tab="reality_images">
-                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}"
                                      alt="" />
                                 <span class="text_wrapper"> <span class="text">{{_('实景图')}}</span> </span>
                                 <span class="border"></span>
@@ -156,7 +156,7 @@
 
                         % if property.get('surroundings_images'):
                             <li data-tab="surroundings_images">
-                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('surroundings_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('surroundings_images')[0], thumbnail=True, property_id=property.get('id'))}}"
                                      alt="" />
                                 <span class="text_wrapper"> <span class="text">{{_('设施图')}}</span> </span>
                                 <span class="border"></span>
@@ -165,7 +165,7 @@
 
                         % if property.get('floor_plan'):
                             <li data-tab="floor_plan">
-                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('floor_plan')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('floor_plan')[0], thumbnail=True, property_id=property.get('id'))}}"
                                      alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('户型图')}}</span> </span>
                                 <span class="border"></span>
@@ -174,7 +174,7 @@
 
                         % if property.get('effect_pictures'):
                             <li data-tab="effect_pictures">
-                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('effect_pictures')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('effect_pictures')[0], thumbnail=True, property_id=property.get('id'))}}"
                                      alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('效果图')}}</span> </span>
                                 <span class="border"></span>
@@ -183,7 +183,7 @@
 
                         % if property.get('indoor_sample_room_picture'):
                             <li data-tab="indoor_sample_room_picture">
-                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('indoor_sample_room_picture')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('indoor_sample_room_picture')[0], thumbnail=True, property_id=property.get('id'))}}"
                                      alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('样板间图')}}</span> </span>
                                 <span class="border"></span>
@@ -192,7 +192,7 @@
 
                         % if property.get('planning_map'):
                             <li data-tab="planning_map">
-                                <img onerror="window.onImgError(this);" src="/image/fetch?link={{quote_plus(property.get('planning_map')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('planning_map')[0], thumbnail=True, property_id=property.get('id'))}}"
                                      alt=""/>
                                 <span class="text_wrapper"> <span class="text">{{_('规划图')}}</span> </span>
                                 <span class="border"></span>
@@ -497,7 +497,7 @@
                                         <li class="item{{index}}">
                                             <a onclick="javascript:window.openMainHouseType(null, '{{index}}',false)">
                                             <div style="position:relative;">
-                                                <img class="floor_plan" src="/image/fetch?link={{ quote_plus( item.get('floor_plan','').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}"
+                                                <img class="floor_plan" src="{{!fetch_image(item.get('floor_plan'), thumbnail=True, property_id=property.get('id'))}}"
                                                          alt="" onerror="window.onImgError(this);"/>
                                                 <span class="propertyDetails_houseType_name" style="display: none">{{item.get('name','')}}</span>
                                                 <span class="propertyDetails_houseType_description" style="display: none">{{item.get('description','')}}</span>
@@ -833,7 +833,7 @@
             %if (report):
                 <div class="regionReport" id="regionReport">
                     %if (report.get('image')):
-                    <img alt="" src="" style="background:url('/image/fetch?link={{quote_plus(report.get('image').encode('utf-8'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{=/image/fetch?link={{quote_plus(report.get('image').encode('utf-8'))}}', sizingMethod='scale');"/>
+                    <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
                     %else:
                     <img alt="" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
                     %end
@@ -1072,9 +1072,9 @@
                          <li class="propertyItem">
                              <a href="/property/{{property.get('id')}}">
                                  %if (property.get('cover')):
-                                     <img src="/image/fetch?link={{quote_plus(property.get('cover').encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                                     <img src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
                                  %elif (property.get('reality_images') and len(property.get('reality_images'))):
-                                     <img src="/image/fetch?link={{quote_plus(property.get('reality_images')[0].encode('utf-8')) + '_thumbnail'}}&property_id={{property.get('id','')}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                                     <img src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
                                  %else :
                                      <img class="withPlaceholder" width="320" height="213"/>
                                  %end

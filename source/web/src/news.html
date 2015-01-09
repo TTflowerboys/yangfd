@@ -49,7 +49,7 @@
         <div class="content">
             % from urllib import quote_plus
             %if ('images' in news) and news.get('images'):
-                <img alt="{{news.get('title',_('洋房东'))}}" src="/image/fetch?link={{ quote_plus(news.get('images')[0].encode('utf-8'))}}&news_id={{news.get('id','')}}"/>
+                <img alt="{{news.get('title',_('洋房东'))}}" src="{{!fetch_image(news.get('images')[0], news_id=news.get('id'))}}"/>
             %end
             %if 'content' in news:
                 <div class="fullText">
@@ -68,7 +68,7 @@
                          <li class="newsItem">
                              <a href="/news/{{news_item.get('id')}}">
                                  %if (news_item.get('images')):
-                                     <img src="/image/fetch?link={{quote_plus(news_item.get('images')[0].encode('utf-8')) + '_thumbnail'}}&news_id={{news_item.get('id','')}}" onerror="window.onImgError(this);"/>
+                                     <img src="{{!fetch_image(news_item.get('images')[0], thumbnail=True, news_id=news_item.get('id'))}}" onerror="window.onImgError(this);"/>
                                  %end
                                  <div class="img_shadow"></div>
                                  <h3 class="title">

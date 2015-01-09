@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from app import f_app
+from urllib import quote_plus
 
 
 def format_unit(unit):
@@ -14,3 +14,15 @@ def format_unit(unit):
         return 'km<sup>2</sup>'
     else:
         return unit
+
+
+def fetch_image(image, **kwargs):
+    link = quote_plus(image.encode('utf-8'))
+    paramStr = "?link=" + link
+    if 'thumbnail' in kwargs and kwargs['thumbnail'] is True:
+        paramStr += '_thumbnail'
+    for (k, v) in kwargs.items():
+        if k.endswith('_id'):
+            paramStr += "&" + k + "=" + v
+    print "/image/fetch" + paramStr
+    return "/image/fetch" + paramStr

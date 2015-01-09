@@ -1,5 +1,4 @@
 /source/po/
-/source/server/
 /source/web/.*
 /source/web/dist/
 /source/web/node_modules/

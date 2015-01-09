@@ -19,7 +19,7 @@
         % if not report.get('image'):
             <img alt="{{report.get('name')}}" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
         % else:
-            <img alt="{{report.get('name')}}" src="" style="background:url('/image/fetch?link={{quote_plus(report.get('image', ''))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/image/fetch?link={{quote_plus(report.get('image', ''))}}', sizingMethod='scale');"/>
+            <img alt="{{report.get('name')}}" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
         % end
         <div class="img_shadow"></div>
         <div class="text_container">
@@ -212,7 +212,7 @@
                     <li class="item0">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-People-' + report.get('zipcode_index')
-                            <img alt="{{report.get('name')}}{{_('居民各年龄段分布对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                            <img alt="{{report.get('name')}}{{_('居民各年龄段分布对比图')}}" src="{{!fetch_image(image_url)}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
@@ -229,7 +229,7 @@
                     <li class="item1">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-education-' + report.get('zipcode_index')
-                            <img alt="{{report.get('name')}}{{_('学校综合质量对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                            <img alt="{{report.get('name')}}{{_('学校综合质量对比图')}}" src="{{!fetch_image(image_url)}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
@@ -245,7 +245,7 @@
                     <li class="item2">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-CouncilTax-' + report.get('zipcode_index')
-                            <img alt="{{report.get('name')}}{{_('议会税对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                            <img alt="{{report.get('name')}}{{_('议会税对比图')}}" src="{{!fetch_image(image_url)}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
@@ -262,7 +262,7 @@
                     <li class="item3">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-Crime-' + report.get('zipcode_index')
-                            <img alt="{{report.get('name')}}{{_('各类型犯罪率对比图')}}" src="/image/fetch?link={{quote_plus(image_url.encode('utf-8'))}}"/>
+                            <img alt="{{report.get('name')}}{{_('各类型犯罪率对比图')}}" src="{{!fetch_image(image_url)}}"/>
                         </div>
                         <div class="text">
                             <h3 class="title">
