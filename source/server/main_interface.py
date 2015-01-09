@@ -110,18 +110,6 @@ def default(user):
 
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
 
-    property_country_list = []
-    property_country_id_list = []
-    for index, country in enumerate(get_country_list()):
-        if country.get('slug') == 'US' or country.get('slug') == 'GB':
-            property_country_list.append(country)
-            property_country_id_list.append(country.get('id'))
-
-    property_city_list = []
-    for index, city in enumerate(get_city_list()):
-        if city.get('country').get('id') in property_country_id_list:
-            property_city_list.append(city)
-
     _ = f_app.i18n.get_gettext("web")
     title = _('洋房东')
     return common_template(
@@ -131,8 +119,6 @@ def default(user):
         homepage_ad_list=homepage_ad_list,
         announcement_list=announcement_list,
         news_list=news_list,
-        property_country_list=property_country_list,
-        property_city_list=property_city_list,
         intention_list=intention_list
     )
 
@@ -198,6 +184,17 @@ def property_list(params):
     property_type_list = f_app.i18n.process_i18n(get_property_type_list())
     intention_list = f_app.i18n.process_i18n(get_intention_list())
     country_list = f_app.i18n.process_i18n(get_country_list())
+    property_country_list = []
+    property_country_id_list = []
+    for index, country in enumerate(country_list):
+        if country.get('slug') == 'US' or country.get('slug') == 'GB':
+            property_country_list.append(country)
+            property_country_id_list.append(country.get('id'))
+
+    property_city_list = []
+    for index, city in enumerate(city_list):
+        if city.get('country').get('id') in property_country_id_list:
+            property_city_list.append(city)
 
     _ = f_app.i18n.get_gettext("web")
     title = ''
@@ -221,6 +218,8 @@ def property_list(params):
 
     return common_template("property_list",
                            city_list=city_list,
+                           property_country_list=property_country_list,
+                           property_city_list=property_city_list,
                            property_type_list=property_type_list,
                            intention_list=intention_list,
                            title=title
@@ -497,7 +496,7 @@ def user_favorites(user):
     user = f_app.i18n.process_i18n(get_current_user(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('我的收藏')
-
+    favorite_list = get_favorite_list()
     favorite_list = f_app.i18n.process_i18n(favorite_list)
     return common_template("user_favorites", user=user, favorite_list=favorite_list, title=title)
 
