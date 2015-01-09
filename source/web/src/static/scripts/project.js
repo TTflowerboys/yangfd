@@ -88,6 +88,9 @@
         },
         formatTime: function (time) {
             return $.format.date(time * 1000, 'yyyy-MM-dd HH:mm:ss')
+        },
+        formatDate: function (time) {
+            return $.format.date(time * 1000, 'yyyy-MM-dd')
         }
     }
 })();
