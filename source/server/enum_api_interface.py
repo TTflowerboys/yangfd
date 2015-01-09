@@ -102,27 +102,32 @@ def enum_check(enum_id):
     blog_post_list = f_app.blog.post_search({"category._id": enum_id}, per_page=0)
     property_list = f_app.property.search({"$or": [
         {"property_type._id": enum_id},
+        {"property_price_type._id": enum_id},
         {"country._id": enum_id},
         {"city._id": enum_id},
         {"investment_type._id": enum_id},
         {"intention._id": enum_id},
         {"equity_type._id": enum_id},
+        {"news_category._id": enum_id},
+        {"decorative_style._id": enum_id},
+        {"facing_direction._id": enum_id},
     ]}, per_page=0)
     item_list = f_app.shop.item_custom_search({"$or": [
         {"country._id": enum_id},
         {"city._id": enum_id},
         {"investment_type._id": enum_id},
     ]}, per_page=0)
-    user_list = f_app.user.custom_search({"$or": [
-        {"country._id": enum_id},
-        {"city._id": enum_id},
-        {"budget._id": enum_id},
-    ]}, per_page=0)
     ticket_list = f_app.ticket.search({"$or": [
         {"country._id": enum_id},
         {"city._id": enum_id},
         {"budget._id": enum_id},
         {"equity_type._id": enum_id},
+        {"intention._id": enum_id},
+    ]}, per_page=0)
+    user_list = f_app.user.custom_search({"$or": [
+        {"country._id": enum_id},
+        {"city._id": enum_id},
+        {"budget._id": enum_id},
     ]}, per_page=0)
     return {
         "news": blog_post_list,
@@ -144,4 +149,113 @@ def enum_remove(user, enum_id, params):
     ``clean`` will remove enum and all relative quotes.
     ``force`` will only remove the enum.
     """
-    pass
+    if params["mode"] == "force":
+        f_app.enum.remove(enum_id)
+    elif params["mode"] == "clean" or params["mode"] == "safe":
+        blog_post_list = f_app.blog.post_search({"category._id": enum_id}, per_page=0)
+        property_list = f_app.property.search({"$or": [
+            {"property_type._id": enum_id},
+            {"property_price_type._id": enum_id},
+            {"country._id": enum_id},
+            {"city._id": enum_id},
+            {"investment_type._id": enum_id},
+            {"intention._id": enum_id},
+            {"equity_type._id": enum_id},
+            {"news_category._id": enum_id},
+            {"decorative_style._id": enum_id},
+            {"facing_direction._id": enum_id},
+        ]}, per_page=0)
+        item_list = f_app.shop.item_custom_search({"$or": [
+            {"country._id": enum_id},
+            {"city._id": enum_id},
+            {"investment_type._id": enum_id},
+        ]}, per_page=0)
+        user_list = f_app.user.custom_search({"$or": [
+            {"country._id": enum_id},
+            {"city._id": enum_id},
+            {"budget._id": enum_id},
+            {"intention._id": enum_id}
+        ]}, per_page=0)
+        ticket_list = f_app.ticket.search({"$or": [
+            {"country._id": enum_id},
+            {"city._id": enum_id},
+            {"budget._id": enum_id},
+            {"equity_type._id": enum_id},
+            {"intention._id": enum_id},
+        ]}, per_page=0)
+        if params["mode"] == "safe":
+            if any((blog_post_list, property_list, item_list, user_list, ticket_list)):
+                abort(40000, logger.warning("Invalid operation: the enum is currently being used."))
+            else:
+                return f_app.enum.remove(enum_id)
+
+        for post in f_app.blog.post_get(blog_post_list):
+            categories = post.get("category", [])
+            if isinstance(categories, list):
+                categories_modified = [x for x in categories if x["_id"] != enum_id]
+                if len(categories) != len(categories_modified):
+                    f_app.blog.post_update_set(post["id"], {"category": categories_modified})
+
+        for property in f_app.property.get(property_list):
+            update_fields = {}
+            unset_fields = []
+            categories = property.get("news_category", [])
+            intentions = property.get("intention", [])
+            investment_types = property.get("investment_type", [])
+            categories_modified = [x for x in categories if x["_id"] != enum_id]
+            intentions_modified = [x for x in intentions if x["_id"] != enum_id]
+            investment_types_modified = [x for x in investment_types if x["_id"] != enum_id]
+            if len(categories) != len(categories_modified):
+                update_fields["news_category"] = categories_modified
+            if len(intentions) != len(intentions_modified):
+                update_fields["intention"] = intentions_modified
+            if len(investment_types) != len(investment_types_modified):
+                update_fields["investment_type"] = investment_types_modified
+
+            for i in ["property_type, property_price_type", "country", "city", "equity_type", "decorative_style", "facing_direction"]:
+                if isinstance(property.get(i), dict) and property[i].get("_id") == enum_id:
+                    unset_fields.append(i)
+
+            f_app.property.update(property["id"], {"$set": update_fields, "$unset": {i: "" for i in unset_fields}})
+
+        for item in f_app.shop.item_get(item_list):
+            unset_fields = []
+            for i in ["country", "city", "investment_type"]:
+                if isinstance(item.get(i), dict) and item[i].get("_id") == enum_id:
+                    unset_fields.append(i)
+            f_app.shop.item_update(item["id"], {"$unset": {i: "" for i in unset_fields}})
+
+        for user in f_app.user.get(user_list):
+            update_fields = {}
+            unset_fields = []
+            intentions = user.get("intention", [])
+            if isinstance(intentions, list):
+                intentions_modified = [x for x in intentions if x["_id"] != enum_id]
+            if len(intentions) != len(intentions_modified):
+                update_fields["intention"] = intentions_modified
+
+            for i in ["country", "city", "budget"]:
+                if isinstance(user.get(i), dict) and user[i].get("_id") == enum_id:
+                    unset_fields.append(i)
+
+            f_app.user.update(user["id"], {"$set": update_fields, "$unset": {i: "" for i in unset_fields}})
+
+        for ticket in f_app.ticket.get(ticket_list):
+            update_fields = {}
+            unset_fields = []
+            intentions = ticket.get("intention", [])
+            if isinstance(intentions, list):
+                intentions_modified = [x for x in intentions if x["_id"] != enum_id]
+            if len(intentions) != len(intentions_modified):
+                update_fields["intention"] = intentions_modified
+
+            for i in ["country", "city", "budget", "equity_type"]:
+                if isinstance(ticket.get(i), dict) and ticket[i].get("_id") == enum_id:
+                    unset_fields.append(i)
+
+            f_app.ticket.update(ticket["id"], {"$set": update_fields, "$unset": {i: "" for i in unset_fields}})
+
+        f_app.enum.remove(enum_id)
+
+    else:
+        abort(40000, logger.warning("Invalid params: unrecognized mode"))
