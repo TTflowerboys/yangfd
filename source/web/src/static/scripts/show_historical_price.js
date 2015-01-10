@@ -69,7 +69,8 @@
             bezierCurve: false,
             scaleLabel: '<%= team.encodeCurrency(value) %>',
             tooltipTemplate: '<%= team.encodeCurrency(value) %>',
-            showTooltips: true
+            showTooltips: true,
+            pointHitDetectionRadius:1
         })
 
     }
