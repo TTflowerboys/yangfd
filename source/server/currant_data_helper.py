@@ -59,7 +59,7 @@ def get_related_property_list(property):
     }, per_page=20, time_field="mtime"))
 
     related_property_list = []
-    if (len(raw_related_property_list) > 3):
+    if len(raw_related_property_list) > 3:
         import random
         i = 6
         while i > 0 and len(related_property_list) < 3:
@@ -107,7 +107,7 @@ def get_news(news_id):
 
 
 def get_related_news_list(news):
-    if (news.get('category')[0].get('slug') in ['real_estate', 'primier_apartment_london', 'studenthouse_sheffield']):
+    if news.get('category')[0].get('slug') in ['real_estate', 'primier_apartment_london', 'studenthouse_sheffield']:
         raw_related_news_list = f_app.blog.post_output(
             f_app.blog.post_search(
                 {
@@ -131,7 +131,7 @@ def get_related_news_list(news):
         )
 
     related_news_list = []
-    if (len(raw_related_news_list) > 3):
+    if len(raw_related_news_list) > 3:
         import random
         i = 6
         while i > 0 and len(related_news_list) < 3:
@@ -159,7 +159,7 @@ def get_property_related_news_list(property):
 
 def get_report(zipcode_index):
     report = f_app.report.output(f_app.report.search({"zipcode_index": {"$in": [zipcode_index]}}, per_page=1))
-    if (len(report)):
+    if len(report):
         report = report[0]
     return report
 
