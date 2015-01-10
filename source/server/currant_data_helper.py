@@ -6,20 +6,20 @@ from bson.objectid import ObjectId
 
 # User
 
-def get_current_user(user=None):
-    if user is None:
-        user = f_app.user.login.get()
+def get_user_with_custom_fields(user):
     if user:
-        user = f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
+        return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
     else:
-        user = None
-    return user
+        return None
 
 
 def get_favorite_list():
-    user = get_current_user()
-    result = f_app.user.favorite_output(f_app.user.favorite_get_by_user(user["id"]), ignore_nonexist=True) if user is not None else []
-    return [i for i in result if i.get("property")]
+    user = f_app.user.login.get()
+    if user:
+        result = f_app.user.favorite_output(f_app.user.favorite_get_by_user(user["id"]), ignore_nonexist=True) if user is not None else []
+        return [i for i in result if i.get("property")]
+    else:
+        return []
 
 
 # Property

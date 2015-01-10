@@ -66,6 +66,7 @@ def check_ip_and_redirect_domain(func):
 
 def common_template(path, **kwargs):
     _ = None
+    current_user = f_app.user.login.get()
     if 'title' not in kwargs:
         if (not _):
             _ = f_app.i18n.get_gettext("web")
@@ -76,8 +77,8 @@ def common_template(path, **kwargs):
         kwargs['description'] = _("我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")
     if 'keywords' not in kwargs:
         kwargs['keywords'] = ",".join(BASE_KEYWORDS_ARRAY)
-    if 'user' not in kwargs:
-        kwargs['user'] = f_app.i18n.process_i18n(currant_data_helper.get_current_user())
+    if 'user' not in kwargs and current_user:
+        kwargs['user'] = f_app.i18n.process_i18n(current_user)
     if 'country_list' not in kwargs:
         kwargs['country_list'] = f_app.i18n.process_i18n(currant_data_helper.get_country_list())
     if 'budget_list' not in kwargs:
@@ -407,7 +408,7 @@ def coming_soon():
 def user_settings(user):
     _ = f_app.i18n.get_gettext("web")
     title = _('账户信息')
-    user = f_app.i18n.process_i18n(currant_data_helper.get_current_user(user))
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     return common_template("user_settings", user=user, title=title)
 
 
@@ -418,7 +419,7 @@ def user_settings(user):
 def user_verify_email(user):
     _ = f_app.i18n.get_gettext("web")
     title = _('验证邮箱')
-    user = f_app.i18n.process_i18n(currant_data_helper.get_current_user(user))
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     return common_template("user_verify_email", user=user, title=title)
 
 
@@ -430,7 +431,7 @@ def user_change_email(user):
     _ = f_app.i18n.get_gettext("web")
     title = _('更改邮箱')
 
-    return common_template("user_change_email", user=currant_data_helper.get_current_user(user), title=title)
+    return common_template("user_change_email", user=currant_data_helper.get_user_with_custom_fields(user), title=title)
 
 
 @f_get('/user_change_password')
@@ -438,7 +439,7 @@ def user_change_email(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_password(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_current_user(user))
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('更改密码')
     return common_template("user_change_password", user=user, title=title)
@@ -449,7 +450,7 @@ def user_change_password(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_1(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_current_user(user))
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('更改手机号')
     return common_template("user_change_phone_1", user=user, title=title)
@@ -460,7 +461,7 @@ def user_change_phone_1(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_2(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_current_user(user))
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('更改手机号')
     return common_template("user_change_phone_2", user=user, title=title)
@@ -471,7 +472,7 @@ def user_change_phone_2(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_1(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_current_user(user))
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('验证手机号')
     return common_template("user_verify_phone_1", user=user, title=title)
@@ -482,7 +483,7 @@ def user_verify_phone_1(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_2(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_current_user(user))
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('验证手机号')
     return common_template("user_change_phone_2", user=user, title=title)
@@ -493,7 +494,7 @@ def user_verify_phone_2(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_favorites(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_current_user(user))
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     _ = f_app.i18n.get_gettext("web")
     title = _('我的收藏')
     favorite_list = currant_data_helper.get_favorite_list()
@@ -506,7 +507,7 @@ def user_favorites(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_intentions(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_current_user(user))
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     intention_ticket_list = currant_data_helper.get_intention_ticket_list(user)
     intention_ticket_status_list = currant_data_helper.get_intention_ticket_status_list()
     for ticket in intention_ticket_list:
@@ -525,7 +526,7 @@ def user_intentions(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_properties(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_current_user(user))
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     intention_ticket_list = currant_data_helper.get_bought_intention_ticket_list(user)
     intention_ticket_list = [i for i in intention_ticket_list if i.get("property")]
     intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
@@ -540,7 +541,7 @@ def user_properties(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_messages(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_current_user(user))
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     message_list = currant_data_helper.get_message_list(user)
     message_type_list = currant_data_helper.get_message_type_list()
 
