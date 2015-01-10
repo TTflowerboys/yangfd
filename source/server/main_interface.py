@@ -235,7 +235,6 @@ def property_get(property_id):
 
     title = _(property.get('name', '房产详情'))
     if property.get('city') and property.get('city').get('value'):
-        print property.get('city')
         title += ' ' + _(property.get('city').get('value'))
     if property.get('country') and property.get('country').get('value'):
         title += ' ' + _(property.get('country').get('value'))
