@@ -1,6 +1,5 @@
 <!--@@master=masters/master.html-->
 <!--@@block=head -->
-% from urllib import quote_plus
 <!--build:css(dist) /static/styles/index.html.css-->
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/processCard.css"/>
@@ -160,7 +159,6 @@
             </h2>
 
             <div class="featuredNews">
-                % from urllib import quote_plus
                 % news = news_list[0]
                 %if ('images' in news) and news.get('images'):
                     <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><img class="picture" src="{{!fetch_image(news.get('images')[0], thumbnail=True, news_id=news.get('id'))}}"/></a>

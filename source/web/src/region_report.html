@@ -1,8 +1,5 @@
 <!--@@master = masters/master.html-->
 <!--@@block = head-->
-%if (report):
-    % from urllib import quote_plus
-
 <!--build:css(dist) /static/styles/region_report.html.css-->
 <link href="/static/styles/regionReport.css" rel="stylesheet"/>
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
@@ -11,10 +8,8 @@
 <!--@@close-->
 
 <!--@@block = main-->
-
-
+%if (report):
     <textarea id="dataReport" style="display:none;">{{json_dumps(report)}}</textarea>
-
     <div class="info">
         % if not report.get('image'):
             <img alt="{{report.get('name')}}" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
@@ -53,7 +48,7 @@
                                    href="{{item.get('link')}}"
                                    %end
                                    >
-                                    {{_('——')}} {{item.get('title')}}
+                                   {{_('——')}} {{item.get('title')}}
                                 </a>
                             </li>
                         % end
@@ -168,7 +163,7 @@
                         红色曲线呈现上坡的形状，表示随着时间推移，该区域内的平均房价在上升。<br/>
                     </p>
                 </div>
-                 <div data-type="valueRanges">
+                <div data-type="valueRanges">
                     <h3 class="title">
                         {{report.get('name','')}}内房价范围分布图
                     </h3>
@@ -179,8 +174,8 @@
                         横坐标对应的柱状图低，表示在该区域内此房价范围内的房产少。<br/>
                         对应横坐标没有柱状图，则表示该区域内没有此房价范围内的房产。<br/>
                     </p>
-                 </div>
-                  <div data-type="averageValues">
+                </div>
+                <div data-type="averageValues">
                     <h3 class="title">
                         {{report.get('name','')}}内分类型房价图
                     </h3>
@@ -188,8 +183,8 @@
                         横坐标表示房产类型，纵坐标表示房价。<br/>
                         红色柱状图表示独立式别墅的平均房价，黄色柱状图表示半独立式别墅的平均房价，绿色柱状图表示排房别墅的平均房价，蓝色柱状图表示公寓的平均房价。<br/>
                     </p>
-                  </div>
-                   <div data-type="valueTrend">
+                </div>
+                <div data-type="valueTrend">
                     <h3 class="title">
                         {{report.get('name','')}}内分类型房价走势图
                     </h3>

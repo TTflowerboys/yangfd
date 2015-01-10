@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from urllib import quote_plus
+from six.moves.urllib.parse import quote_plus
 
 
 def format_unit(unit):
