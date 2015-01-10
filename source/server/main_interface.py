@@ -6,7 +6,7 @@ from bson.objectid import ObjectId
 from lxml import etree
 from datetime import datetime
 from hashlib import sha1
-from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, error, abort
+from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, error, abort, template_gettext as _
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
 import qrcode
@@ -65,14 +65,9 @@ def check_ip_and_redirect_domain(func):
 
 
 def common_template(path, **kwargs):
-    _ = None
     if 'title' not in kwargs:
-        if (not _):
-            _ = f_app.i18n.get_gettext("web")
         kwargs['title'] = _('洋房东')
     if 'description' not in kwargs:
-        if (not _):
-            _ = f_app.i18n.get_gettext("web")
         kwargs['description'] = _("我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")
     if 'keywords' not in kwargs:
         kwargs['keywords'] = ",".join(BASE_KEYWORDS_ARRAY)
@@ -111,7 +106,6 @@ def default(user):
 
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
 
-    _ = f_app.i18n.get_gettext("web")
     title = _('洋房东')
     return common_template(
         "index",
@@ -166,7 +160,6 @@ def resetPassword():
 def region_report(zipcode_index):
     report = currant_data_helper.get_report(zipcode_index)
     report = f_app.i18n.process_i18n(report)
-    _ = f_app.i18n.get_gettext("web")
     title = report.get('name') + _('街区分析报告')
     description = report.get('description', _('洋房东街区投资分析报告'))
     keywords = report.get('name') + ',' + u'街区投资分析报告' + ',' + ','.join(BASE_KEYWORDS_ARRAY)
@@ -197,7 +190,6 @@ def property_list(params):
         if city.get('country').get('id') in property_country_id_list:
             property_city_list.append(city)
 
-    _ = f_app.i18n.get_gettext("web")
     title = ''
 
     if "country" in params:
@@ -241,7 +233,6 @@ def property_get(property_id):
     if property.get('zipcode_index') and property.get('country').get('slug') == 'GB':
         report = f_app.i18n.process_i18n(currant_data_helper.get_report(property.get('zipcode_index')))
 
-    _ = f_app.i18n.get_gettext("web")
     title = _(property.get('name', '房产详情'))
     if property.get('city') and property.get('city').get('value'):
         print property.get('city')
@@ -264,7 +255,6 @@ def property_get(property_id):
 @f_app.user.login.check(force=True)
 def pdfviewer(user, property_id):
     property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
-    _ = f_app.i18n.get_gettext("web")
     title = _(property.get('name', '房产详情')) + _(' PDF')
     return common_template("pdf_viewer", property=property, title=title)
 
@@ -273,7 +263,6 @@ def pdfviewer(user, property_id):
 @check_landing
 @check_ip_and_redirect_domain
 def news_list():
-    _ = f_app.i18n.get_gettext("web")
     title = _('房产资讯')
     return common_template("news_list", title=title)
 
@@ -299,7 +288,6 @@ def news(news_id):
 @check_landing
 @check_ip_and_redirect_domain
 def notice_list():
-    _ = f_app.i18n.get_gettext("web")
     title = _('网站公告')
     return common_template("notice_list", title=title)
 
@@ -308,7 +296,6 @@ def notice_list():
 @check_landing
 @check_ip_and_redirect_domain
 def guides():
-    _ = f_app.i18n.get_gettext("web")
     title = _('购房指南')
     return common_template("guides", title=title)
 
@@ -317,7 +304,6 @@ def guides():
 @check_landing
 @check_ip_and_redirect_domain
 def laws():
-    _ = f_app.i18n.get_gettext("web")
     title = _('法律法规')
     return common_template("laws", title=title)
 
@@ -390,7 +376,6 @@ def media():
 @check_landing
 @check_ip_and_redirect_domain
 def partner():
-    _ = f_app.i18n.get_gettext("web")
     title = _('合作伙伴')
     return common_template("partner", title=title)
 
@@ -406,7 +391,6 @@ def coming_soon():
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_settings(user):
-    _ = f_app.i18n.get_gettext("web")
     title = _('账户信息')
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     return common_template("user_settings", user=user, title=title)
@@ -417,7 +401,6 @@ def user_settings(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_email(user):
-    _ = f_app.i18n.get_gettext("web")
     title = _('验证邮箱')
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     return common_template("user_verify_email", user=user, title=title)
@@ -428,7 +411,6 @@ def user_verify_email(user):
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_email(user):
-    _ = f_app.i18n.get_gettext("web")
     title = _('更改邮箱')
 
     return common_template("user_change_email", user=currant_data_helper.get_user_with_custom_fields(user), title=title)
@@ -440,7 +422,6 @@ def user_change_email(user):
 @f_app.user.login.check(force=True)
 def user_change_password(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    _ = f_app.i18n.get_gettext("web")
     title = _('更改密码')
     return common_template("user_change_password", user=user, title=title)
 
@@ -451,7 +432,6 @@ def user_change_password(user):
 @f_app.user.login.check(force=True)
 def user_change_phone_1(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    _ = f_app.i18n.get_gettext("web")
     title = _('更改手机号')
     return common_template("user_change_phone_1", user=user, title=title)
 
@@ -462,7 +442,6 @@ def user_change_phone_1(user):
 @f_app.user.login.check(force=True)
 def user_change_phone_2(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    _ = f_app.i18n.get_gettext("web")
     title = _('更改手机号')
     return common_template("user_change_phone_2", user=user, title=title)
 
@@ -473,7 +452,6 @@ def user_change_phone_2(user):
 @f_app.user.login.check(force=True)
 def user_verify_phone_1(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    _ = f_app.i18n.get_gettext("web")
     title = _('验证手机号')
     return common_template("user_verify_phone_1", user=user, title=title)
 
@@ -484,7 +462,6 @@ def user_verify_phone_1(user):
 @f_app.user.login.check(force=True)
 def user_verify_phone_2(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    _ = f_app.i18n.get_gettext("web")
     title = _('验证手机号')
     return common_template("user_change_phone_2", user=user, title=title)
 
@@ -495,7 +472,6 @@ def user_verify_phone_2(user):
 @f_app.user.login.check(force=True)
 def user_favorites(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    _ = f_app.i18n.get_gettext("web")
     title = _('我的收藏')
     favorite_list = currant_data_helper.get_favorite_list()
     favorite_list = f_app.i18n.process_i18n(favorite_list)
@@ -516,7 +492,6 @@ def user_intentions(user):
                 ticket['status_presentation'] = ticket_status
 
     intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
-    _ = f_app.i18n.get_gettext("web")
     title = _('投资意向单')
     return common_template("user_intentions", user=user, intention_ticket_list=intention_ticket_list, title=title)
 
@@ -531,7 +506,6 @@ def user_properties(user):
     intention_ticket_list = [i for i in intention_ticket_list if i.get("property")]
     intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
 
-    _ = f_app.i18n.get_gettext("web")
     title = _('我的房产')
     return common_template("user_properties", user=user, intention_ticket_list=intention_ticket_list, title=title)
 
@@ -550,7 +524,6 @@ def user_messages(user):
             if ('message_type:' + message['type'] == message_type['slug']):
                 message['type_presentation'] = message_type
     message_list = f_app.i18n.process_i18n(message_list)
-    _ = f_app.i18n.get_gettext("web")
     title = _('消息')
     return common_template("user_messages", user=user, message_list=message_list, title=title)
 
@@ -559,7 +532,6 @@ def user_messages(user):
 @check_landing
 @check_ip_and_redirect_domain
 def verify_email_status():
-    _ = f_app.i18n.get_gettext("web")
     title = _('验证邮箱')
     return common_template("verify_email_status", title=title)
 
@@ -572,7 +544,6 @@ def verify_email_status():
 @check_ip_and_redirect_domain
 def requirement():
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    _ = f_app.i18n.get_gettext("web")
     title = _('提交置业需求')
     return common_template("phone/requirement", intention_list=intention_list, title=title)
 
@@ -581,7 +552,6 @@ def requirement():
 @check_landing
 @check_ip_and_redirect_domain
 def wechat_share():
-    _ = f_app.i18n.get_gettext("web")
     title = _('微信分享')
     return common_template("phone/wechat_share", title=title)
 
@@ -610,7 +580,6 @@ def how_it_works(params):
 @check_ip_and_redirect_domain
 def calculator():
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    _ = f_app.i18n.get_gettext("web")
     title = _('房贷计算器')
     return common_template("phone/calculator", intention_list=intention_list, title=title)
 
@@ -619,7 +588,6 @@ def calculator():
 @check_landing
 @check_ip_and_redirect_domain
 def user():
-    _ = f_app.i18n.get_gettext("web")
     title = _('账户信息')
     return common_template("phone/user", title=title)
 
@@ -634,7 +602,6 @@ def admin():
 @f_get('/401')
 @error(401)
 def error_401(error=None):
-    _ = f_app.i18n.get_gettext("web")
     title = _('没有权限')
     return common_template("401", title=title)
 
@@ -642,7 +609,6 @@ def error_401(error=None):
 @f_get('/404')
 @error(404)
 def error_404(error=None):
-    _ = f_app.i18n.get_gettext("web")
     title = _('找不到页面')
     return common_template("404", title=title)
 
@@ -650,7 +616,6 @@ def error_404(error=None):
 @f_get('/500')
 @error(500)
 def error_500(error=None):
-    _ = f_app.i18n.get_gettext("web")
     title = _('服务器开小差了')
     return common_template("500", title=title)
 
