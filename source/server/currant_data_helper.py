@@ -6,20 +6,20 @@ from bson.objectid import ObjectId
 
 # User
 
-def get_current_user(user=None):
-    if user is None:
-        user = f_app.user.login.get()
+def get_user_with_custom_fields(user):
     if user:
-        user = f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
+        return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
     else:
-        user = None
-    return user
+        return None
 
 
 def get_favorite_list():
-    user = get_current_user()
-    result = f_app.user.favorite_output(f_app.user.favorite_get_by_user(user["id"]), ignore_nonexist=True) if user is not None else []
-    return [i for i in result if i.get("property")]
+    user = f_app.user.login.get()
+    if user:
+        result = f_app.user.favorite_output(f_app.user.favorite_get_by_user(user["id"]), ignore_nonexist=True) if user is not None else []
+        return [i for i in result if i.get("property")]
+    else:
+        return []
 
 
 # Property
@@ -33,10 +33,6 @@ def get_featured_property_list():
         }, per_page=1))
 
     return f_app.property.output(property_id_list)
-
-
-def get_property_type_list():
-    return f_app.enum.get_all('property_type')
 
 
 def get_property_or_target_property(property_id):
@@ -59,7 +55,7 @@ def get_related_property_list(property):
     }, per_page=20, time_field="mtime"))
 
     related_property_list = []
-    if (len(raw_related_property_list) > 3):
+    if len(raw_related_property_list) > 3:
         import random
         i = 6
         while i > 0 and len(related_property_list) < 3:
@@ -102,12 +98,8 @@ def get_featured_new_list():
     )
 
 
-def get_news(news_id):
-    return f_app.blog.post.output([news_id])[0]
-
-
 def get_related_news_list(news):
-    if (news.get('category')[0].get('slug') in ['real_estate', 'primier_apartment_london', 'studenthouse_sheffield']):
+    if news.get('category')[0].get('slug') in ['real_estate', 'primier_apartment_london', 'studenthouse_sheffield']:
         raw_related_news_list = f_app.blog.post_output(
             f_app.blog.post_search(
                 {
@@ -131,7 +123,7 @@ def get_related_news_list(news):
         )
 
     related_news_list = []
-    if (len(raw_related_news_list) > 3):
+    if len(raw_related_news_list) > 3:
         import random
         i = 6
         while i > 0 and len(related_news_list) < 3:
@@ -159,23 +151,11 @@ def get_property_related_news_list(property):
 
 def get_report(zipcode_index):
     report = f_app.report.output(f_app.report.search({"zipcode_index": {"$in": [zipcode_index]}}, per_page=1))
-    if (len(report)):
+    if len(report):
         report = report[0]
     return report
 
 # Other
-
-
-def get_country_list():
-    return f_app.enum.get_all("country")
-
-
-def get_city_list():
-    return f_app.enum.get_all('city')
-
-
-def get_budget_list():
-    return f_app.enum.get_all('budget')
 
 
 def get_message_list(user):
@@ -185,25 +165,9 @@ def get_message_list(user):
     )
 
 
-def get_message_type_list():
-    return f_app.enum.get_all('message_type')
-
-
-def get_intention_list():
-    return f_app.enum.get_all('intention')
-
-
 def get_intention_ticket_list(user):
     return f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": {"$nin": ["deleted", "bought"]}, "$or": [{"creator_user_id": ObjectId(user["id"])}, {"user_id": ObjectId(user["id"])}]}), ignore_nonexist=True)
 
 
 def get_bought_intention_ticket_list(user):
     return f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(user["id"])}, {"user_id": ObjectId(user["id"])}]}), ignore_nonexist=True)
-
-
-def get_intention_ticket_status_list():
-    return f_app.enum.get_all('intention_ticket_status')
-
-
-def get_ad_list():
-    return f_app.ad.get_all_by_channel("homepage")

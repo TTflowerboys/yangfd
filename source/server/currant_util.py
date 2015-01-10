@@ -24,5 +24,4 @@ def fetch_image(image, **kwargs):
     for (k, v) in kwargs.items():
         if k.endswith('_id'):
             paramStr += "&" + k + "=" + v
-    print "/image/fetch" + paramStr
     return "/image/fetch" + paramStr
