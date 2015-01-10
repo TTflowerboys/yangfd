@@ -25,7 +25,7 @@ BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅'
 def check_landing(func):
     def __check_landing_replace_func(*args, **kwargs):
         if f_app.common.landing_only:
-            return template("coming_soon", country_list=currant_data_helper.get_country_list(), budget_list=f_app.enum.get_all('budget'))
+            return template("coming_soon", country_list=f_app.enum.get_all("country"), budget_list=f_app.enum.get_all('budget'))
         else:
             return func(*args, **kwargs)
 
@@ -80,9 +80,9 @@ def common_template(path, **kwargs):
     if 'user' not in kwargs and current_user:
         kwargs['user'] = f_app.i18n.process_i18n(current_user)
     if 'country_list' not in kwargs:
-        kwargs['country_list'] = f_app.i18n.process_i18n(currant_data_helper.get_country_list())
+        kwargs['country_list'] = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
     if 'budget_list' not in kwargs:
-        kwargs['budget_list'] = f_app.i18n.process_i18n(currant_data_helper.get_budget_list())
+        kwargs['budget_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('budget'))
 
     # setup page utils
     kwargs.setdefault("format_unit", currant_util.format_unit)
@@ -103,7 +103,7 @@ def default(user):
                 property["related_news"] = currant_data_helper.get_property_related_news_list(property)
         property_list = f_app.i18n.process_i18n(property_list)
 
-    homepage_ad_list = currant_data_helper.get_ad_list()
+    homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
     homepage_ad_list = f_app.i18n.process_i18n(homepage_ad_list)
     announcement_list = currant_data_helper.get_announcement_list()
     announcement_list = f_app.i18n.process_i18n(announcement_list)
@@ -150,7 +150,7 @@ def signin():
 @check_landing
 @check_ip_and_redirect_domain
 def intention():
-    intention_list = f_app.i18n.process_i18n(currant_data_helper.get_intention_list())
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     return common_template("intention", intention_list=intention_list)
 
 
@@ -182,10 +182,10 @@ def region_report(zipcode_index):
 @check_landing
 @check_ip_and_redirect_domain
 def property_list(params):
-    city_list = f_app.i18n.process_i18n(currant_data_helper.get_city_list())
-    property_type_list = f_app.i18n.process_i18n(currant_data_helper.get_property_type_list())
-    intention_list = f_app.i18n.process_i18n(currant_data_helper.get_intention_list())
-    country_list = f_app.i18n.process_i18n(currant_data_helper.get_country_list())
+    city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
+    property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+    country_list = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
     property_country_list = []
     property_country_id_list = []
     for index, country in enumerate(country_list):
@@ -283,7 +283,8 @@ def news_list():
 @check_landing
 @check_ip_and_redirect_domain
 def news(news_id):
-    news = f_app.i18n.process_i18n(currant_data_helper.get_news(news_id))
+    news = f_app.blog.post.output([news_id])[0]
+    news = f_app.i18n.process_i18n(news)
     related_news_list = f_app.i18n.process_i18n(currant_data_helper.get_related_news_list(news))
     title = news.get('title')
     keywords = "new,UK news" + ",".join(BASE_KEYWORDS_ARRAY)
@@ -509,7 +510,7 @@ def user_favorites(user):
 def user_intentions(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     intention_ticket_list = currant_data_helper.get_intention_ticket_list(user)
-    intention_ticket_status_list = currant_data_helper.get_intention_ticket_status_list()
+    intention_ticket_status_list = f_app.enum.get_all('intention_ticket_status')
     for ticket in intention_ticket_list:
         for ticket_status in intention_ticket_status_list:
             if ('intention_ticket_status:' + ticket['status'] == ticket_status['slug']):
@@ -543,7 +544,7 @@ def user_properties(user):
 def user_messages(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     message_list = currant_data_helper.get_message_list(user)
-    message_type_list = currant_data_helper.get_message_type_list()
+    message_type_list = f_app.enum.get_all('message_type')
 
     for message in message_list:
         for message_type in message_type_list:
@@ -571,7 +572,7 @@ def verify_email_status():
 @check_landing
 @check_ip_and_redirect_domain
 def requirement():
-    intention_list = f_app.i18n.process_i18n(currant_data_helper.get_intention_list())
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     _ = f_app.i18n.get_gettext("web")
     title = _('提交置业需求')
     return common_template("phone/requirement", intention_list=intention_list, title=title)
@@ -598,7 +599,7 @@ def how_it_works(params):
     else:
         current_intention = f_app.enum.get_all('intention')[0]
     current_intention = f_app.i18n.process_i18n(current_intention)
-    intention_list = f_app.i18n.process_i18n(currant_data_helper.get_intention_list())
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     title = current_intention.get('value')
     description = current_intention.get('description', current_intention.get('value'))
     keywords = current_intention.get('value') + ',' + ','.join(BASE_KEYWORDS_ARRAY)
@@ -609,7 +610,7 @@ def how_it_works(params):
 @check_landing
 @check_ip_and_redirect_domain
 def calculator():
-    intention_list = f_app.i18n.process_i18n(currant_data_helper.get_intention_list())
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     _ = f_app.i18n.get_gettext("web")
     title = _('房贷计算器')
     return common_template("phone/calculator", intention_list=intention_list, title=title)

@@ -35,10 +35,6 @@ def get_featured_property_list():
     return f_app.property.output(property_id_list)
 
 
-def get_property_type_list():
-    return f_app.enum.get_all('property_type')
-
-
 def get_property_or_target_property(property_id):
     property = f_app.property.output([property_id])[0]
     if "target_property_id" in property:
@@ -102,10 +98,6 @@ def get_featured_new_list():
     )
 
 
-def get_news(news_id):
-    return f_app.blog.post.output([news_id])[0]
-
-
 def get_related_news_list(news):
     if news.get('category')[0].get('slug') in ['real_estate', 'primier_apartment_london', 'studenthouse_sheffield']:
         raw_related_news_list = f_app.blog.post_output(
@@ -166,31 +158,11 @@ def get_report(zipcode_index):
 # Other
 
 
-def get_country_list():
-    return f_app.enum.get_all("country")
-
-
-def get_city_list():
-    return f_app.enum.get_all('city')
-
-
-def get_budget_list():
-    return f_app.enum.get_all('budget')
-
-
 def get_message_list(user):
     return f_app.message.get_by_user(
         user['id'],
         {"state": {"$in": ["read", "new"]}},
     )
-
-
-def get_message_type_list():
-    return f_app.enum.get_all('message_type')
-
-
-def get_intention_list():
-    return f_app.enum.get_all('intention')
 
 
 def get_intention_ticket_list(user):
@@ -199,11 +171,3 @@ def get_intention_ticket_list(user):
 
 def get_bought_intention_ticket_list(user):
     return f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(user["id"])}, {"user_id": ObjectId(user["id"])}]}), ignore_nonexist=True)
-
-
-def get_intention_ticket_status_list():
-    return f_app.enum.get_all('intention_ticket_status')
-
-
-def get_ad_list():
-    return f_app.ad.get_all_by_channel("homepage")
