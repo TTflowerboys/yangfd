@@ -6,7 +6,9 @@ from bson.objectid import ObjectId
 
 # User
 
-def get_user_with_custom_fields(user):
+def get_user_with_custom_fields(user=None):
+    if user is None:
+        user = f_app.user.login.get()  # only get id and login status {'login': True, 'id': '53fed0656b809935851cce35'}
     if user:
         return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
     else:
