@@ -45,7 +45,7 @@
                     <div class="user">
                         %if user:
                         <a class="nickname" href="/user_settings">
-                            <img alt="" src="/static/images/common/header/user.png"/> {{user["nickname"]}}
+                            <img alt="" src="/static/images/common/header/user.png"/> {{user.get('nickname')}}
                         </a>
                         <a class="message" id="message" href="/user_messages">
                             <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
