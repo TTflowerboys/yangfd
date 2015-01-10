@@ -66,7 +66,6 @@ def check_ip_and_redirect_domain(func):
 
 def common_template(path, **kwargs):
     _ = None
-    current_user = f_app.user.login.get()
     if 'title' not in kwargs:
         if (not _):
             _ = f_app.i18n.get_gettext("web")
@@ -77,8 +76,8 @@ def common_template(path, **kwargs):
         kwargs['description'] = _("我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")
     if 'keywords' not in kwargs:
         kwargs['keywords'] = ",".join(BASE_KEYWORDS_ARRAY)
-    if 'user' not in kwargs and current_user:
-        kwargs['user'] = f_app.i18n.process_i18n(current_user)
+    if 'user' not in kwargs:
+        kwargs['user'] = f_app.i18n.process_i18n(f_app.user.login.get())
     if 'country_list' not in kwargs:
         kwargs['country_list'] = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
     if 'budget_list' not in kwargs:
