@@ -241,9 +241,7 @@
                     if( res.user.length>0){
                         txt.push(i18n('用户') + res.user.length + i18n('条'))
                     }
-
                     var count = res.item.length + res.news.length + res.property.length + res.ticket.length + res.user.length
-
                     var alertText = ''
                     if (count > 0) {
                         alertText += i18n('此数据有') + count + i18n('条引用,其中')
@@ -259,7 +257,7 @@
                     alertText += '确认删除？'
                     fctModal.show(alertText, undefined, function () {
                         api.remove(item.id, {errorMessage: true}).success(function () {
-                            $scope.list.splice($scope.list.indexOf(item), 1)
+                            location.reload()
                         })
                     })
                 }
