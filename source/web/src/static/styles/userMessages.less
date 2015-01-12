@@ -38,9 +38,15 @@ div.content {
         .cell {
             padding: 30px 20px;
             border-bottom: 1px solid #ccc;
+            @media @phone {
+                overflow:hidden;
+                padding:15px;
+            }
             .unread_type {
                 @media @phone {
                     width: 50%;
+                    display:inline-block;
+
                 }
                 cursor: pointer;
                 font-size: 14px;
@@ -49,6 +55,7 @@ div.content {
             .read_type {
                 @media @phone {
                     width: 50%;
+                    display:inline-block;
                 }
                 cursor: pointer;
                 font-size: 14px;
@@ -58,7 +65,7 @@ div.content {
             .rightParts {
                 float: right;
                 @media @phone {
-                    width: 40%;
+                    width: auto;
                 }
                 .showHide {
                     margin-left: 24px;
@@ -66,11 +73,20 @@ div.content {
                     background: transparent;
                     text-align: center;
                     color: #e60012;
+
+                    @media @phone {
+                        float:left;
+                        margin-left:5px;
+                        padding-top:0px;
+                    }
                 }
 
                 .date {
                     font-size: 12px;
                     color: #666;
+                    @media @phone {
+                        float:left;
+                    }
                 }
             }
 
@@ -81,6 +97,13 @@ div.content {
                 padding: 14px 8px;
                 font-size: 12px;
                 color: #666;
+
+                @media @phone {
+                    margin-top: 10px;
+                    float: left;
+                    width: 100%;
+                    display: block;
+                }
             }
 
         }
