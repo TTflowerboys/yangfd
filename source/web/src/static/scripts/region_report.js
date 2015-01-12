@@ -28,6 +28,15 @@
         nextText: '>'
     })
 
+    $('.rslides_wrapper .leftPressArea').click(function (event) {
+        $(event.target).parent().find('a.prev').click()
+    })
+
+    $('.rslides_wrapper .rightPressArea').click(function (event) {
+        $(event.target).parent().find('a.next').click()
+    })
+
+
     $('#loadIndicator').show()
     var zipCodeIndexFromURL = _.last(location.pathname.split('/'))
     $.betterPost('/api/1/property/search', {zipcode_index:zipCodeIndexFromURL})

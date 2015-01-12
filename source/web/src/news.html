@@ -10,8 +10,6 @@
 %if news:
     <textarea id="newsData" style="display:none;">{{json_dumps(news)}}</textarea>
     <div class="container">
-        % from urllib import quote_plus
-        
         %if 'title' in news:
             <h1 class="title">{{news.get('title')}}</h1>
         %end
@@ -47,7 +45,6 @@
             </div>
         </div>
         <div class="content">
-            % from urllib import quote_plus
             %if ('images' in news) and news.get('images'):
                 <img alt="{{news.get('title',_('洋房东'))}}" src="{{!fetch_image(news.get('images')[0], news_id=news.get('id'))}}"/>
             %end

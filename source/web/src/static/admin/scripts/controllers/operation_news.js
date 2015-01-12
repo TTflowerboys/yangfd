@@ -9,6 +9,7 @@
         $scope.currentPageNumber = 1
         $scope.pages = []
         $scope.fetched = false
+        $scope.api = newsApi
 
         var params = {
             per_page: $scope.perPage
