@@ -227,7 +227,7 @@
                 if (res) {
                     var txt = []
                     if(res.item.length > 0){
-                        txt.push( i18n('重酬') + res.item.length + i18n('条'))
+                        txt.push( i18n('众筹') + res.item.length + i18n('条'))
                     }
                     if( res.news.length>0){
                         txt.push(i18n('房产资讯') + res.news.length + i18n('条'))
