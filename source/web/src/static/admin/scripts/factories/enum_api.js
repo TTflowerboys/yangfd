@@ -4,7 +4,7 @@
 
     function enumApi($http) {
         return {
-            addEnum: function (type, value,slug) {
+            addEnum: function (type, value, slug) {
                 var data = {
                     type: type,
                     slug: slug,
@@ -13,7 +13,7 @@
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
 
             },
-            editEnum: function (id, type, value,slug) {
+            editEnum: function (id, type, value, slug) {
                 var data = {
                     type: type,
                     slug: slug,
@@ -130,6 +130,12 @@
                     params: {_i18n: 'disabled', country: id},
                     errorMessage: true
                 }, config))
+            },
+            remove: function (id, config) {
+                return $http.post('/api/1/enum/' + id + '/remove', {mode: 'clean'}, config)
+            },
+            check: function (id, config) {
+                return $http.post('/api/1/enum/' + id + '/check', null, config)
             }
         }
 

@@ -15,13 +15,13 @@
         <colgroup>
             <col style="width: 200px;"/>
             <col/>
-            <col style="width: 80px"/>
+            <col style="width: 120px;"/>
         </colgroup>
         <tbody>
             <tr>
                 <th>{%$root.i18n('国家')%}</th>
                 <th>{%$root.i18n('国家标识')%}</th>
-                <th>{%$root.i18n('编辑')%}</th>
+                <th>{%$root.i18n('操作')%}</th>
             </tr>
             <tr ng-repeat="item in countries">
                 <td>{%item.value[userLanguage.value]%}</td>
@@ -30,6 +30,9 @@
                     <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
                         <i class="fa fa-edit "></i>
                     </a>
+                    <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
+                        <i class="fa fa-trash-o"></i>
+                    </span>
                 </td>
             </tr>
         </tbody>
