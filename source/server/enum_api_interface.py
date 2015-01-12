@@ -221,15 +221,18 @@ def enum_remove(user, enum_id, params):
             for i in ["property_type, property_price_type", "country", "city", "equity_type", "decorative_style", "facing_direction"]:
                 if isinstance(property.get(i), dict) and property[i].get("_id") == enum_id:
                     unset_fields.append(i)
-
-            f_app.property.update(property["id"], {"$set": update_fields, "$unset": {i: "" for i in unset_fields}})
+            if update_fields:
+                f_app.property.update_set(property["id"], update_fields)
+            if unset_fields:
+                f_app.property.update(property["id"], {"$unset": {i: "" for i in unset_fields}})
 
         for item in f_app.shop.item_get(item_list):
             unset_fields = []
             for i in ["country", "city", "investment_type"]:
                 if isinstance(item.get(i), dict) and item[i].get("_id") == enum_id:
                     unset_fields.append(i)
-            f_app.shop.item_update(item["id"], {"$unset": {i: "" for i in unset_fields}})
+            if unset_fields:
+                f_app.shop.item_update(item["id"], {"$unset": {i: "" for i in unset_fields}})
 
         for user in f_app.user.get(user_list):
             update_fields = {}
@@ -243,8 +246,10 @@ def enum_remove(user, enum_id, params):
             for i in ["country", "city", "budget"]:
                 if isinstance(user.get(i), dict) and user[i].get("_id") == enum_id:
                     unset_fields.append(i)
-
-            f_app.user.update(user["id"], {"$set": update_fields, "$unset": {i: "" for i in unset_fields}})
+            if update_fields:
+                f_app.user.update_set(user["id"], update_fields)
+            if unset_fields:
+                f_app.user.update(user["id"], {"$unset": {i: "" for i in unset_fields}})
 
         for ticket in f_app.ticket.get(ticket_list):
             update_fields = {}
@@ -259,7 +264,10 @@ def enum_remove(user, enum_id, params):
                 if isinstance(ticket.get(i), dict) and ticket[i].get("_id") == enum_id:
                     unset_fields.append(i)
 
-            f_app.ticket.update(ticket["id"], {"$set": update_fields, "$unset": {i: "" for i in unset_fields}})
+            if update_fields:
+                f_app.ticket.update_set(ticket["id"], update_fields)
+            if unset_fields:
+                f_app.ticket.update(ticket["id"], {"$unset": {i: "" for i in unset_fields}})
 
         f_app.enum.remove(enum_id)
 
