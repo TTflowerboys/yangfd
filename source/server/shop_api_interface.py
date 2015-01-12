@@ -91,7 +91,7 @@ def shop_item_edit(user, shop_id, item_id, params):
     ``status`` can be ``draft``, ``rejected``, ``not reviewed``, ``selling``, ``sold out``, ``deleted``.
     """
     if "status" in params:
-        assert params["status"] in ("draft", "rejected", "not reviewed", "selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status")
+        assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status")
 
     if item_id == "none":
         params["quantity"] = True
@@ -99,7 +99,7 @@ def shop_item_edit(user, shop_id, item_id, params):
 
         params.setdefault("status", "draft")
 
-        if params["status"] not in ("draft", "rejected", "not reviewed"):
+        if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
             assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to skip the review process")
 
     else:
@@ -117,7 +117,7 @@ def shop_item_edit(user, shop_id, item_id, params):
         # Status-only updates
         if len(params) == 1 and "status" in params:
             # Approved properties
-            if item["status"] not in ("draft", "rejected", "not reviewed"):
+            if item["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
 
                 # Only allow updating to post-review statuses
                 assert params["status"] in ("selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status for a reviewed crowdfunding item")
@@ -128,7 +128,7 @@ def shop_item_edit(user, shop_id, item_id, params):
             # Not approved properties
             else:
                 # Submit for approval
-                if params["status"] not in ("draft", "rejected", "not reviewed", "deleted"):
+                if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
                     assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review crowdfunding item")
                     if "target_item_id" in item:
                         def action(params):
@@ -161,7 +161,7 @@ def shop_item_edit(user, shop_id, item_id, params):
 
         else:
             if "status" in params:
-                assert params["status"] in ("draft", "rejected", "not reviewed"), abort(40000, "Editing and reviewing cannot happen at the same time")
+                assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "deleted"), abort(40000, "Editing and reviewing cannot happen at the same time")
 
             if item["status"] in ("selling", "hidden", "sold out"):
                 existing_draft = f_app.shop.item.search({"target_item_id": item_id, "status": {"$ne": "deleted"}})
