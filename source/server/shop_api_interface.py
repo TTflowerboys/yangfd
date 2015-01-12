@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 item_params = dict(
-    name=(str, True),
+    name=(str, None),
     investment_type=("enum:investment_type", None),
     country=("enum:country", None),
     city=("enum:city", None),
@@ -51,7 +51,7 @@ item_params = dict(
     comment=(str, None),
     attachment=(str, None),
     unset_fields=(list, None, str),
-    price=(float, 0),
+    price=(float, None),
 )
 
 
@@ -88,10 +88,10 @@ def shop_remove(user, shop_id):
 @f_app.user.login.check(force=True, role=['admin'])
 def shop_item_edit(user, shop_id, item_id, params):
     """
-    ``status`` can be ``draft``, ``rejected``, ``not reviewed``, ``selling``, ``sold out``, ``deleted``.
+    ``status`` can be ``draft``, ``rejected``, ``not reviewed``, ``new``, ``sold out``, ``deleted``, ``translating``, ``not translated``.
     """
     if "status" in params:
-        assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status")
+        assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "new", "hidden", "sold out", "deleted"), abort(40000, "Invalid status")
 
     if item_id == "none":
         params["quantity"] = True
@@ -120,7 +120,7 @@ def shop_item_edit(user, shop_id, item_id, params):
             if item["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
 
                 # Only allow updating to post-review statuses
-                assert params["status"] in ("selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status for a reviewed crowdfunding item")
+                assert params["status"] in ("new", "hidden", "sold out", "deleted"), abort(40000, "Invalid status for a reviewed crowdfunding item")
 
                 if params["status"] == "deleted":
                     assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
@@ -163,7 +163,7 @@ def shop_item_edit(user, shop_id, item_id, params):
             if "status" in params:
                 assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "deleted"), abort(40000, "Editing and reviewing cannot happen at the same time")
 
-            if item["status"] in ("selling", "hidden", "sold out"):
+            if item["status"] in ("new", "hidden", "sold out"):
                 existing_draft = f_app.shop.item.search({"target_item_id": item_id, "status": {"$ne": "deleted"}})
                 if existing_draft:
                     abort(40300, "An existing draft already exists")
@@ -182,6 +182,22 @@ def shop_item_edit(user, shop_id, item_id, params):
     return action(params)
 
 
+@f_api("/shop/<shop_id>/item/<item_id>")
+def shop_item_get(shop_id, item_id):
+    return f_app.shop.item.output([item_id])[0]
+
+
+@f_api("/shop/<shop_id>/item/<item_id>/buy", params=dict(
+    price=(float, True),
+    payment_method_id=(str, "virtual"),
+    async=(bool, 1),
+    type=(str, "normal"),
+))
+@f_app.user.login.check(force=True)
+def shop_item_buy(user, shop_id, item_id, params):
+    return f_app.order.output([f_app.shop.item_buy(item_id, params)])[0]
+
+
 @f_api("/shop/<shop_id>/item/<item_id>/remove")
 @f_app.user.login.check(force=True, role=['admin'])
 def shop_item_remove(user, shop_id, item_id):
@@ -191,16 +207,17 @@ def shop_item_remove(user, shop_id, item_id):
 @f_api("/shop/<shop_id>/item/search", params=dict(
     per_page=int,
     time=datetime,
+    mtime=datetime,
+    status=(list, ["new", "sold out"], str),
+    target_item_id=(ObjectId, None, "str"),
 ))
-def shop_item_search(shop_id, params):
+@f_app.user.login.check(check_role=True)
+def shop_item_search(user, shop_id, params):
+    if params["status"] != ["new", "sold out"] or "target_item_id" in params:
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_item_id")
     params["shop_id"] = ObjectId(shop_id)
     per_page = params.pop("per_page", 0)
     return f_app.shop.item.output(f_app.shop.item_custom_search(params, per_page=per_page))
-
-
-@f_api("/shop/<shop_id>/item/<item_id>")
-def shop_item_get(shop_id, item_id):
-    return f_app.shop.item.output([item_id])[0]
 
 
 @f_api('/shop/<shop_id>/item/<item_id>/comment/add', params=dict(
