@@ -208,7 +208,7 @@ $(window).resize(window.updateTagsFixed);
         if ($selectedChildren.length) {
             var textValue = ''
             _.each($selectedChildren, function (child) {
-                textValue += child.innerText
+                textValue += $(child).text().trim()
                 textValue += ','
             })
             return textValue
