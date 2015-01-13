@@ -4,7 +4,7 @@
 
 (function () {
 
-    function ctrlCrowdfundingList($scope, fctModal, api, $state) {
+    function ctrlCrowdfundingList($scope, fctModal, api, $state, $stateParams) {
 
         $scope.list = []
         $scope.perPage = 12
@@ -13,7 +13,7 @@
         $scope.api = api
 
         $scope.selected = {}
-        $scope.selected.status = 'not reviewed'
+        $scope.selected.status = 'new'
         var params = {
             status: $scope.selected.status,
             per_page: $scope.perPage,
@@ -21,27 +21,27 @@
         }
 
         function updateParams() {
-            $scope.shopId = $scope.selected.shopId
+            $stateParams.shop_id = $scope.selected.shopId
             params.status = $scope.selected.status
             params.mtime = undefined
         }
 
-        $scope.searchProperty = function () {
+        $scope.searchItem = function () {
             updateParams()
-            api.getAll($scope.shopId, {
+            api.getAll($stateParams.shop_id, {
                 params: params, errorMessage: true
             }).success(onGetList)
         }
 
         $scope.refreshList = function () {
-            api.getAll($scope.shopId, {
+            api.getAll($stateParams.shop_id, {
                 params: params, errorMessage: true
             }).success(onGetList)
         }
 
         $scope.onRemove = function (item) {
             fctModal.show('Do you want to remove it?', undefined, function () {
-                api.remove($scope.shopId, item.id, {errorMessage: true}).success(function () {
+                api.remove($stateParams.shop_id, item.id, {errorMessage: true}).success(function () {
                     $scope.list.splice($scope.list.indexOf(item), 1)
                 })
             })
@@ -59,7 +59,7 @@
                 params.insert_time = lastItem.insert_time
             }
 
-            api.getAll($scope.shopId, {params: params})
+            api.getAll($stateParams.shop_id, {params: params})
                 .success(function () {
                     $scope.currentPageNumber += 1
                 })
@@ -92,7 +92,7 @@
                 delete params.insert_time
             }
 
-            api.getAll($scope.shopId, {params: params, errorMessage: true})
+            api.getAll($stateParams.shop_id, {params: params, errorMessage: true})
                 .success(function () {
                     $scope.currentPageNumber -= 1
                 })
@@ -102,7 +102,7 @@
 
         function onGetList(data) {
             $scope.fetched = true
-            $scope.list = data.val.content
+            $scope.list = data.val
             $scope.pages[$scope.currentPageNumber] = $scope.list
 
             if (!$scope.list || $scope.list.length < $scope.perPage) {
@@ -119,7 +119,7 @@
 
         $scope.toEditProperty = function (id) {
             var result = id;
-            api.getAll($scope.shopId, {
+            api.getAll($stateParams.shop_id, {
                 params: {
                     target_property_id: id,
                     status: 'draft,not translated,translating,not reviewed,rejected'

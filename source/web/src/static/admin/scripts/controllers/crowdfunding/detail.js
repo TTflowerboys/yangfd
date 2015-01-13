@@ -12,7 +12,7 @@
         if (itemFromParent) {
             $scope.item = itemFromParent
         } else {
-            api.getOne($stateParams.id)
+            api.getOne($stateParams.shop_id, $stateParams.id)
                 .success(function (data) {
                     $scope.item = data.val
                 })

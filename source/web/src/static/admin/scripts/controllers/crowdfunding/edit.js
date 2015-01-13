@@ -14,7 +14,7 @@
         if (itemFromParent) {
             onGetItem(itemFromParent)
         } else {
-            api.getOne($stateParams.id)
+            api.getOne($stateParams.shop_id,$stateParams.id)
                 .success(function (data) {
                     onGetItem(data.val)
                 })
@@ -40,7 +40,7 @@
 
             $scope.loading = true
 
-            api.update(angular.extend(changed, {id: $stateParams.id}), {
+            api.update($stateParams.shop_id,angular.extend(changed, {id: $stateParams.id}), {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function () {

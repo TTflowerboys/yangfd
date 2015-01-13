@@ -556,31 +556,24 @@ angular.module('app')
          */
             .state('dashboard.crowdfunding', {
                 url: '/crowdfunding',
-                templateUrl: '/static/admin/templates/dashboard.crowdfunding.tpl.html'
-            })
-        /**
-         * 众筹SHOP
-         */
-            .state('dashboard.crowdfunding.shop', {
-                url: '/shop',
-                templateUrl: '/static/admin/templates/dashboard.crowdfunding.shop.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.tpl.html',
                 controller: 'ctrlList',
                 resolve: shopResolve
             })
-            .state('dashboard.crowdfunding.shop.create', {
+            .state('dashboard.crowdfunding.create', {
                 url: '/create',
-                templateUrl: '/static/admin/templates/dashboard.crowdfunding.shop.create.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.create.tpl.html',
                 controller: 'ctrlCreate',
                 resolve: shopResolve
             })
-            .state('dashboard.crowdfunding.shop.edit', {
-                url: '/:id/edit',
-                templateUrl: '/static/admin/templates/dashboard.crowdfunding.shop.edit.tpl.html',
+            .state('dashboard.crowdfunding.edit', {
+                url: '/:shop_id/edit',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.edit.tpl.html',
                 controller: 'ctrlEdit',
                 resolve: shopResolve
             })
             .state('dashboard.crowdfunding.item', {
-                url: '/item',
+                url: '/:shop_id',
                 templateUrl: '/static/admin/templates/dashboard.crowdfunding.item.tpl.html',
                 controller: 'ctrlCrowdfundingList',
                 resolve: crowdfundingResolve
@@ -593,7 +586,7 @@ angular.module('app')
             })
             .state('dashboard.crowdfunding.item.edit', {
                 url: '/:id/edit',
-                templateUrl: '/static/admin/templates/dashboard.crowdfunding.shop.edit.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.edit.tpl.html',
                 controller: 'ctrlCrowdfundingEdit',
                 resolve: crowdfundingResolve
             })

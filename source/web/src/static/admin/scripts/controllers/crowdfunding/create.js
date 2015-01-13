@@ -6,7 +6,7 @@
 
 (function () {
 
-    function ctrlCrowdfundingCreate($scope, $state, api) {
+    function ctrlCrowdfundingCreate($scope, $stateParams, $state, api) {
 
         $scope.api = api
 
@@ -19,21 +19,7 @@
                 return
             }
             $scope.loading = true
-            api.create($scope.item, {
-                successMessage: 'Update successfully',
-                errorMessage: 'Update failed'
-            }).success(function () {
-                if ($scope.$parent.currentPageNumber === 1) {
-                    $scope.$parent.refreshList()
-                }
-                $state.go('^')
-            })['finally'](function () {
-                $scope.loading = false
-            })
-        }
-
-        $scope.updateExisting = function () {
-            api.addRole($scope.item.id, $scope.item.role, {
+            api.create($stateParams.shop_id, $scope.item, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function () {
