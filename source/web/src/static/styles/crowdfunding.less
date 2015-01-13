@@ -1,0 +1,100 @@
+/*! Created by frank on 14-9-29.  */
+@import "project/_imports";
+
+@border-color: #ccc;
+@light-text-color: #999;
+@dark-text-color: #555;
+@brochure-guide-color:#FFF7E4;
+
+body{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+.propertyDetails {
+    .team {
+        ul.members {
+            margin-top:50px;
+            li {
+                display:inline-block;
+                width:33%;
+                overflow:hidden;
+                text-align:center;
+
+                .avatar_wrapper {
+                    position:relative;
+                    width:140px;
+                    margin:0 auto;
+
+                    .avatar {
+                        background-repeat: no-repeat;
+                        background-position: 50%;
+                        border-radius: 50%;
+                        width: 140px;
+                        height: 140px;
+                        border:5px solid #ccc;
+                    }
+
+                    .linkedin {
+                        position:absolute;
+                        bottom:0;
+                        right:0;
+                    }
+                }
+
+                label {
+                    display:block;
+                    &.name {
+                        font-size:24px;
+                        color:#666;
+                    }
+
+                    &.position {
+                        font-size:14px;
+                        color:#999;
+                    }
+                }
+            }
+
+        }
+    }
+
+    .materials {
+        ul {
+            margin-top:50px;
+
+            li.material {
+                display:inline-block;
+                width:33%;
+                overflow:hidden;
+                img {
+                    float:left;
+                }
+
+                .text {
+                    float:left;
+                    margin-left:15px;
+                    label {
+                        display:block;
+                        &.name {
+                            font-size:24px;
+                            line-height:28px;
+                            color:#666;
+                        }
+
+                        &.type {
+                            font-size:14px;
+                            color:#666;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}

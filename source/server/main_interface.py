@@ -258,6 +258,35 @@ def pdfviewer(user, property_id):
     return common_template("pdf_viewer", property=property, title=title)
 
 
+@f_get('/crowdfunding/<property_id:re:[0-9a-fA-F]{24}>')
+@check_landing
+@check_ip_and_redirect_domain
+def crowdfunding_get(property_id):
+    property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
+    favorite_list = currant_data_helper.get_favorite_list()
+    favorite_list = f_app.i18n.process_i18n(favorite_list)
+    related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
+
+    report = None
+
+    if property.get('zipcode_index') and property.get('country').get('slug') == 'GB':
+        report = f_app.i18n.process_i18n(currant_data_helper.get_report(property.get('zipcode_index')))
+
+    title = _(property.get('name', '房产详情'))
+    if property.get('city') and property.get('city').get('value'):
+        title += ' ' + _(property.get('city').get('value'))
+    if property.get('country') and property.get('country').get('value'):
+        title += ' ' + _(property.get('country').get('value'))
+    description = property.get('name', _('房产详情'))
+
+    tags = []
+    if 'intention' in property and property.get('intention'):
+        tags = [item['value'] for item in property['intention'] if 'value' in item]
+
+    keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
+    return common_template("crowdfunding", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
+
+
 @f_get('/news_list')
 @check_landing
 @check_ip_and_redirect_domain
