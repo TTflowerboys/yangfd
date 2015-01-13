@@ -214,17 +214,6 @@ def shop_item_get(shop_id, item_id):
     return f_app.shop.item.output([item_id])[0]
 
 
-@f_api("/shop/<shop_id>/item/<item_id>/buy", params=dict(
-    price=(float, True),
-    payment_method_id=(str, "virtual"),
-    async=(bool, 1),
-    type=(str, "normal"),
-))
-@f_app.user.login.check(force=True)
-def shop_item_buy(user, shop_id, item_id, params):
-    return f_app.order.output([f_app.shop.item_buy(item_id, params)])[0]
-
-
 @f_api("/shop/<shop_id>/item/<item_id>/remove")
 @f_app.user.login.check(force=True, role=['admin'])
 def shop_item_remove(user, shop_id, item_id):
