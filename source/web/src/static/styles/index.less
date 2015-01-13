@@ -16,6 +16,10 @@
     border-left: 1px solid #CCCCCC;
     padding: 0 0 0 20px;
 
+    @media @phone {
+        padding: 0 12px 0 12px;
+    }
+
     .title {
         font-size: @base-title-font-size-mobile;
         line-height: 1;
@@ -646,10 +650,11 @@ main {
             .newsList();
 
             .title {
-                margin-top: 10px;
+                margin-top: 16px;
             }
             .list {
-                margin-bottom:23px;
+                margin-top:10px;
+                margin-bottom:10px;
             }
         }
     }
@@ -1027,7 +1032,7 @@ main {
                 @media @phone {
                     bottom:auto;
                     right:12px;
-                    top:0;
+                    top:-6px;
                 }
             }
         }

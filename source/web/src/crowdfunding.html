@@ -542,7 +542,124 @@ mentioned above. They are a 24 hour-a-day firm with experience in managing this 
                         </div>
                     </div>
                 </div>
+                <hr/>
             %end
+
+            <div class="records">
+                <h3 class="propertyDetails_title">{{_('投资记录')}}</h3>
+                <table style="">
+                    <tr>
+                        <th class="name">{{_('用户')}}</th>
+                        <th class="amount">{{_('投资金额（人民币，元）')}}</th>
+                        <th class="date">{{_('投资时间')}}</th>
+                        <th class="status">{{_('状态')}}</th>
+                    </tr>
+                    <tr>
+                        <td class="name">王**</td>
+                        <td class="amount">6000.00</td>
+                        <td class="date">2015-01-02 14:32</td>
+                        <td class="status">成功</td>
+                    </tr>
+                    <tr>
+                        <td class="name">王**</td>
+                        <td class="amount">6000.00</td>
+                        <td class="date">2015-01-02 14:32</td>
+                        <td class="status">成功</td>
+                    </tr>
+
+                    <tr>
+                        <td class="name">王**</td>
+                        <td class="amount">6000.00</td>
+                        <td class="date">2015-01-02 14:32</td>
+                        <td class="status">成功</td>
+                    </tr>
+
+                    <tr>
+                        <td class="name">王**</td>
+                        <td class="amount">6000.00</td>
+                        <td class="date">2015-01-02 14:32</td>
+                        <td class="status">成功</td>
+                    </tr>
+
+                    <tr>
+                        <td class="name">王**</td>
+                        <td class="amount">6000.00</td>
+                        <td class="date">2015-01-02 14:32</td>
+                        <td class="status">成功</td>
+                    </tr>
+
+                    <tr>
+                        <td class="name">王**</td>
+                        <td class="amount">6000.00</td>
+                        <td class="date">2015-01-02 14:32</td>
+                        <td class="status">成功</td>
+                    </tr>
+                </table>
+                <div class="more">
+                    <button class="expand">
+                        <img alt="" src="/static/images/crowdfunding/expand.png"/>
+                        <label for="">
+                            {{_('更多')}}
+                        </label>
+                    </button>
+                </div>
+            </div>
+
+            <div class="comments">
+                <h3 class="propertyDetails_title">{{_('项目问答汇总')}}</h3>
+                <div class="addComment">
+                    <h4 class="user">
+                        Great People
+                    </h4>
+                     <textarea name="comment">
+                     </textarea>
+                    <button class="button red">
+                        {{_('提交')}}
+                    </button>
+                </div>
+                <ul class="comment_list">
+                    <li>
+                        <div class="userInfo">
+                            <h4 class="user">
+                                Great People
+                            </h4>
+                            <label class="date">
+                                2015-01-02 14:32
+                            </label>
+                        </div>
+                        <p class="content">
+                            Aging is the largest risk factor for disease iLorem ipsum dolor sit amet, sectetuer adipiscing elit, seddiam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                        </p>
+                    </li>
+                    <li class="staff">
+                        <div class="userInfo">
+                            <h4 class="user">
+                                Great Staff
+                            </h4>
+                            <label class="date">
+                                2015-01-02 14:32
+                            </label>
+                        </div>
+                        <p class="content">
+                            Aging is the largest risk factor for disease iLorem ipsum dolor sit amet, sectetuer adipiscing elit, seddiam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                        </p>
+                    </li>
+                    <li>
+                        <div class="userInfo">
+                            <h4 class="user">
+                                Great People
+                            </h4>
+                            <label class="date">
+                                2015-01-02 14:32
+                            </label>
+                        </div>
+                        <p class="content">
+                            Aging is the largest risk factor for disease iLorem ipsum dolor sit amet, sectetuer adipiscing elit, seddiam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                        </p>
+                    </li>
+                </ul>
+                <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
+            </div>
         </div>
         <div class="aside">
             <div class="propertyCard">
