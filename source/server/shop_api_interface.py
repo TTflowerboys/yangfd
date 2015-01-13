@@ -94,6 +94,22 @@ def shop_remove(user, shop_id):
     f_app.shop.update_set(shop_id, {"status": "deleted"})
 
 
+@f_api("/shop/<shop_id>/item/search", params=dict(
+    per_page=int,
+    time=datetime,
+    mtime=datetime,
+    status=(list, ["new", "sold out"], str),
+    target_item_id=(ObjectId, None, "str"),
+))
+@f_app.user.login.check(check_role=True)
+def shop_item_search(user, shop_id, params):
+    if params["status"] != ["new", "sold out"] or "target_item_id" in params:
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_item_id")
+    params["shop_id"] = ObjectId(shop_id)
+    per_page = params.pop("per_page", 0)
+    return f_app.shop.item.output(f_app.shop.item_custom_search(params, per_page=per_page))
+
+
 @f_api("/shop/<shop_id>/item/<item_id>/edit", params=item_params)
 @f_app.user.login.check(force=True, role=['admin'])
 def shop_item_edit(user, shop_id, item_id, params):
@@ -213,22 +229,6 @@ def shop_item_buy(user, shop_id, item_id, params):
 @f_app.user.login.check(force=True, role=['admin'])
 def shop_item_remove(user, shop_id, item_id):
     f_app.shop.item_delete(shop_id, item_id)
-
-
-@f_api("/shop/<shop_id>/item/search", params=dict(
-    per_page=int,
-    time=datetime,
-    mtime=datetime,
-    status=(list, ["new", "sold out"], str),
-    target_item_id=(ObjectId, None, "str"),
-))
-@f_app.user.login.check(check_role=True)
-def shop_item_search(user, shop_id, params):
-    if params["status"] != ["new", "sold out"] or "target_item_id" in params:
-        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_item_id")
-    params["shop_id"] = ObjectId(shop_id)
-    per_page = params.pop("per_page", 0)
-    return f_app.shop.item.output(f_app.shop.item_custom_search(params, per_page=per_page))
 
 
 @f_api('/shop/<shop_id>/item/<item_id>/comment/add', params=dict(
