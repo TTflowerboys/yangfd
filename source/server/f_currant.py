@@ -2078,6 +2078,24 @@ class f_currant_shop(f_shop):
 
         return item_id_list
 
+    def custom_search(self, params, sort=["time", "desc"], item_filter_params=["capacity", "price"], notime=False, per_page=10, last_time_field=None):
+        params.setdefault("status", "new")
+        item_filter_params = dict(zip(item_filter_params, map(lambda key: params.pop(key, None), item_filter_params)))
+        if sort is not None:
+            try:
+                sort_field, sort_orientation = sort
+            except:
+                abort(40000, logger.warning("sort param not well in format:", sort))
+
+        else:
+            sort_field = sort_orientation = None
+
+        shop_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime, last_time_field=last_time_field)["content"]
+
+        if item_filter_params:
+            shop_id_list = self.item_filter(item_filter_params, shop_id_list)
+        return shop_id_list
+
 f_currant_shop()
 
 

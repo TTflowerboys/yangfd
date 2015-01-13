@@ -63,8 +63,18 @@ def shop_add(user, params):
     return f_app.shop.add(params)
 
 
+@f_api("/shop/search", params=dict(
+    time=datetime,
+    per_page=int,
+))
+@f_app.user.login.check(force=True)
+def shop_search(user, params):
+    per_page = params.pop("per_page", 0)
+    return f_app.shop.output(f_app.shop.custom_search(params, per_page=per_page))
+
+
 @f_api("/shop/<shop_id>")
-@f_app.user.login.check(force=True, role=['admin'])
+@f_app.user.login.check(force=True)
 def shop_get(user, shop_id):
     return f_app.shop.output([shop_id])[0]
 

@@ -198,7 +198,7 @@ def enum_remove(user, enum_id, params):
         for post in f_app.blog.post_get(blog_post_list):
             categories = post.get("category", [])
             if isinstance(categories, list):
-                categories_modified = [generate_enum(x) for x in categories if x["_id"] != enum_id]
+                categories_modified = [generate_enum(x) for x in categories if x["id"] != enum_id]
                 if len(categories) != len(categories_modified):
                     f_app.blog.post_update_set(post["id"], {"category": categories_modified})
 
@@ -208,9 +208,9 @@ def enum_remove(user, enum_id, params):
             categories = property.get("news_category", [])
             intentions = property.get("intention", [])
             investment_types = property.get("investment_type", [])
-            categories_modified = [generate_enum(x) for x in categories if x["_id"] != enum_id]
-            intentions_modified = [generate_enum(x) for x in intentions if x["_id"] != enum_id]
-            investment_types_modified = [generate_enum(x) for x in investment_types if x["_id"] != enum_id]
+            categories_modified = [generate_enum(x) for x in categories if x["id"] != enum_id]
+            intentions_modified = [generate_enum(x) for x in intentions if x["id"] != enum_id]
+            investment_types_modified = [generate_enum(x) for x in investment_types if x["id"] != enum_id]
             if len(categories) != len(categories_modified):
                 update_fields["news_category"] = categories_modified
             if len(intentions) != len(intentions_modified):
@@ -219,7 +219,7 @@ def enum_remove(user, enum_id, params):
                 update_fields["investment_type"] = investment_types_modified
 
             for i in ["property_type, property_price_type", "country", "city", "equity_type", "decorative_style", "facing_direction"]:
-                if isinstance(property.get(i), dict) and property[i].get("_id") == enum_id:
+                if isinstance(property.get(i), dict) and property[i].get("id") == enum_id:
                     unset_fields.append(i)
             if update_fields:
                 f_app.property.update_set(property["id"], update_fields)
@@ -229,7 +229,7 @@ def enum_remove(user, enum_id, params):
         for item in f_app.shop.item_get(item_list):
             unset_fields = []
             for i in ["country", "city", "investment_type"]:
-                if isinstance(item.get(i), dict) and item[i].get("_id") == enum_id:
+                if isinstance(item.get(i), dict) and item[i].get("id") == enum_id:
                     unset_fields.append(i)
             if unset_fields:
                 f_app.shop.item_update(item["id"], {"$unset": {i: "" for i in unset_fields}})
@@ -239,12 +239,12 @@ def enum_remove(user, enum_id, params):
             unset_fields = []
             intentions = user.get("intention", [])
             if isinstance(intentions, list):
-                intentions_modified = [generate_enum(x) for x in intentions if x["_id"] != enum_id]
+                intentions_modified = [generate_enum(x) for x in intentions if x["id"] != enum_id]
             if len(intentions) != len(intentions_modified):
                 update_fields["intention"] = intentions_modified
 
             for i in ["country", "city", "budget"]:
-                if isinstance(user.get(i), dict) and user[i].get("_id") == enum_id:
+                if isinstance(user.get(i), dict) and user[i].get("id") == enum_id:
                     unset_fields.append(i)
             if update_fields:
                 f_app.user.update_set(user["id"], update_fields)
@@ -256,12 +256,12 @@ def enum_remove(user, enum_id, params):
             unset_fields = []
             intentions = ticket.get("intention", [])
             if isinstance(intentions, list):
-                intentions_modified = [generate_enum(x) for x in intentions if x["_id"] != enum_id]
+                intentions_modified = [generate_enum(x) for x in intentions if x["id"] != enum_id]
             if len(intentions) != len(intentions_modified):
                 update_fields["intention"] = intentions_modified
 
             for i in ["country", "city", "budget", "equity_type"]:
-                if isinstance(ticket.get(i), dict) and ticket[i].get("_id") == enum_id:
+                if isinstance(ticket.get(i), dict) and ticket[i].get("id") == enum_id:
                     unset_fields.append(i)
 
             if update_fields:
