@@ -89,6 +89,7 @@ def shop_remove(user, shop_id):
 def shop_item_edit(user, shop_id, item_id, params):
     """
     ``status`` can be ``draft``, ``rejected``, ``not reviewed``, ``new``, ``sold out``, ``deleted``, ``translating``, ``not translated``.
+    ``shop_id`` is constant ``54a3c92b6b809945b0d996bf``
     """
     if "status" in params:
         assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "new", "hidden", "sold out", "deleted"), abort(40000, "Invalid status")
