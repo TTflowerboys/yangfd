@@ -39,3 +39,4 @@ API Reference
    upload_api
    user_api
    report_api
+   shop_api
