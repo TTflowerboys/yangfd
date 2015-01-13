@@ -53,6 +53,18 @@ angular.module('app')
             }
         }
 
+        var crowdfundingResolve = {
+            api: function (crowdfundingApi) {
+                return crowdfundingApi
+            }
+        }
+
+        var shopResolve = {
+            api: function (shopApi) {
+                return shopApi
+            }
+        }
+
         $stateProvider
             .state('dashboard', {
                 url: '/dashboard',
@@ -191,7 +203,7 @@ angular.module('app')
                 resolve: enumResolve
             })
         /**
-         * property
+         * 房产
          */
             .state('dashboard.property', {
                 url: '/property',
@@ -306,7 +318,7 @@ angular.module('app')
             })
 
         /**
-         * dashboard.intention
+         * 投资意向单
          */
             .state('dashboard.intention', {
                 url: '/intention',
@@ -332,6 +344,9 @@ angular.module('app')
                 controller: 'ctrlIntentionEdit',
                 resolve: intentionResolve
             })
+        /***
+         * 客服单
+         */
             .state('dashboard.support', {
                 url: '/support',
                 templateUrl: '/static/admin/templates/dashboard.support.tpl.html',
@@ -420,6 +435,9 @@ angular.module('app')
                     }
                 }
             })
+        /**
+         * 系统消息
+         * */
             .state('dashboard.message', {
                 url: '/message',
                 templateUrl: '/static/admin/templates/dashboard.message.tpl.html',
@@ -440,10 +458,16 @@ angular.module('app')
                     }
                 }
             })
+        /***
+         * 销售管理
+         */
             .state('dashboard.sales', {
                 url: '/sales',
                 templateUrl: '/static/admin/templates/dashboard.sales.tpl.html'
             })
+        /**
+         * 物业管理
+         */
             .state('dashboard.sales.plot', {
                 url: '/plot',
                 templateUrl: '/static/admin/templates/dashboard.sales.plot.tpl.html',
@@ -462,6 +486,9 @@ angular.module('app')
                 controller: 'ctrlPlotEdit',
                 resolve: plotResolve
             })
+        /**
+         * 房源信息
+         */
             .state('dashboard.sales.housing', {
                 url: '/housing',
                 templateUrl: '/static/admin/templates/dashboard.sales.housing.tpl.html',
@@ -480,6 +507,9 @@ angular.module('app')
                 controller: 'ctrlHousingPlot',
                 resolve: plotResolve
             })
+        /***
+         * 街区报告
+         */
             .state('dashboard.report', {
                 url: '/report',
                 templateUrl: '/static/admin/templates/dashboard.report.tpl.html',
@@ -504,6 +534,9 @@ angular.module('app')
                 controller: 'ctrlReportEdit',
                 resolve: reportResolve
             })
+        /***
+         * 微信
+         */
             .state('dashboard.weixin', {
                 url: '/weixin',
                 templateUrl: '/static/admin/templates/dashboard.weixin.tpl.html'
@@ -517,6 +550,52 @@ angular.module('app')
                         return weixinApi
                     }
                 }
+            })
+        /***
+         * 众筹
+         */
+            .state('dashboard.crowdfunding', {
+                url: '/crowdfunding',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.tpl.html'
+            })
+        /**
+         * 众筹SHOP
+         */
+            .state('dashboard.crowdfunding.shop', {
+                url: '/shop',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.shop.tpl.html',
+                controller: 'ctrlList',
+                resolve: shopResolve
+            })
+            .state('dashboard.crowdfunding.shop.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.shop.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: shopResolve
+            })
+            .state('dashboard.crowdfunding.shop.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.shop.edit.tpl.html',
+                controller: 'ctrlEdit',
+                resolve: shopResolve
+            })
+            .state('dashboard.crowdfunding.item', {
+                url: '/item',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.item.tpl.html',
+                controller: 'ctrlCrowdfundingList',
+                resolve: crowdfundingResolve
+            })
+            .state('dashboard.crowdfunding.item.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.item.create.tpl.html',
+                controller: 'ctrlCrowdfundingCreate',
+                resolve: crowdfundingResolve
+            })
+            .state('dashboard.crowdfunding.item.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.shop.edit.tpl.html',
+                controller: 'ctrlCrowdfundingEdit',
+                resolve: crowdfundingResolve
             })
         /**
          * others

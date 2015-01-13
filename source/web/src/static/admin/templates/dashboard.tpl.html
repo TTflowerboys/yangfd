@@ -191,6 +191,28 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li has-permission="admin,jr_admin,operation,jr_operation"
+                                ng-class="{active:$state.includes('dashboard.crowdfunding')}">
+                                <a class="dropmenu" href ui-sref="dashboard.crowdfunding.item">
+                                    <i class="fa fa-coffee"></i><span class="hidden-sm text">{%$root.i18n('众筹管理')%}</span>
+                                    <span class="chevron"
+                                        ng-class="{closed:!$state.includes('dashboard.crowdfunding'),opened:$state.includes('dashboard.crowdfunding')}"></span>
+                                </a>
+                                <ul ng-style="{display:$state.includes('dashboard.crowdfunding')?'block':'none'}">
+                                    <li ng-class="{active:$state.includes('dashboard.crowdfunding.item')}">
+                                        <a class="submenu" href ui-sref="dashboard.crowdfunding.item">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('项目管理')%}</span>
+                                        </a>
+                                    </li>
+                                    <li ng-class="{active:$state.includes('dashboard.crowdfunding.shop')}" has-permission="admin,jr_admin">
+                                        <a class="submenu" href ui-sref="dashboard.crowdfunding.shop">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('SHOP')%}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
