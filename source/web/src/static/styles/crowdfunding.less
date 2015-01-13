@@ -97,4 +97,121 @@ body{
             }
         }
     }
+
+    .records {
+        margin-bottom:40px;
+
+        table {
+            width:100%;
+            text-align:center;
+            border:1px solid #ccc;
+
+            tr {
+                border-top:1px solid #ccc;
+            }
+            th {
+                background:#eee;
+                height:50px;
+                font-size:14px;
+                color:#999;
+
+            }
+
+            td {
+                height:70px;
+                font-size:14px;
+                color:#666;
+
+                &.name {
+                    font-weight:bold;
+                }
+
+                &.status {
+                    color:#55c800;
+                    font-weight:bold;
+                }
+            }
+        }
+
+        .more {
+            width:100%;
+            border-left:1px solid #ccc;
+            border-right:1px solid #ccc;
+            border-bottom:1px solid #ccc;
+            padding:40px 0;
+
+            .expand {
+                width:100px;
+                background:transparent;
+                border:0;
+                margin:0 auto;
+                display:block;
+                font-size:14px;
+                color:#999;
+                vertical-align:middle;
+            }
+        }
+    }
+
+    .comments {
+        .addComment {
+            width:100%;
+            overflow:hidden;
+            h4.user {
+                color:#372f2b;
+                font-size:16px;
+                float:left;
+            }
+
+            textarea[name=comment] {
+                float:left;
+                width:100%;
+                height:120px;
+                margin-top:20px;
+
+            }
+
+            button {
+                display:block;
+                float:right;
+                margin-top:30px;
+            }
+        }
+
+        .comment_list {
+            width:100%;
+            margin-top:20px;
+
+            li {
+                border-top:1px solid #ccc;
+                padding:40px 0;
+                overflow:hidden;
+
+                h4.user {
+                    color:#372f2b;
+                    font-size:16px;
+                    float:left;
+                    display:inline-block;
+                }
+
+                .date {
+                    float:right;
+                }
+
+                .content {
+                    float:left;
+                }
+                &:last-child {
+                    border-bottom:1px solid #ccc;
+                }
+
+            }
+
+        }
+
+        .loadMore {
+            display:block;
+            margin:40px auto;
+        }
+    }
 }
