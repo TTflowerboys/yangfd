@@ -53,6 +53,7 @@
     <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
     <link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
     <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
+    <link rel="stylesheet" href="/static/vendors/progress-bar/progress.css"/>
     <!--endbuild-->
 
     <!-- minor change from original repo https://github.com/Fykec/excanvas, detail can check change log -->
@@ -684,22 +685,26 @@ mentioned above. They are a 24 hour-a-day firm with experience in managing this 
                     </div>
                 % end
 
-                %if property.get('total_price') or property.get('unit_price') or (property.get('main_house_types') and len(property.get('main_house_types'))):
-                    <div class="price">
-                        <table>
-                            <tr>
-                                <td class="price_inner">
-                                    <!--@@include=partials/get_unit_price.html  -->
-                                </td>
-                                %if property.get('status') == 'sold out':
-                                    <td class="soldOut">
-                                        <span>{{_('售罄')}}</span>
-                                    </td>
-                                %end
-                            </tr>
-                        </table>
+
+                <div class="price">
+                    <label class="available" for="">
+                        {{_('可投资')}}
+                        <strong>386{{_('万元')}}</strong>
+                    </label>
+                    <div class="progress">
+                         <div class="progress-bar" style="width:50%; background-color:#e60014;"></div>
                     </div>
-                %end
+                    <div class="info">
+                        <label class="limit" for="">
+                            5万起投，3年锁定
+                        </label>
+                        <label class="target" for="">
+                            {{_('目标筹资')}}
+                            <strong>¥1000万元</strong>
+                        </label>
+                    </div>
+
+                </div>
 
                 <table class="numbers">
                     <tr>
