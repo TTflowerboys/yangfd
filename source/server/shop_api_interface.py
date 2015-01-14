@@ -125,7 +125,10 @@ def shop_item_edit(user, shop_id, item_id, params):
 
     if item_id == "none":
         params.setdefault("quantity", True)
-        action = lambda params: f_app.shop.item.add(shop_id, params)
+        if "price" in params:
+            action = lambda params: f_app.shop.item.add(shop_id, params)
+        else:
+            abort(40000, logger.warning("Invalid params: no price in params", exc_info=False))
 
         params.setdefault("status", "draft")
 
@@ -201,7 +204,10 @@ def shop_item_edit(user, shop_id, item_id, params):
                 else:
                     params.setdefault("status", "draft")
                     params["target_item_id"] = item_id
-                    action = lambda params: f_app.shop.item.add(shop_id, params)
+                    if "price" in params:
+                        action = lambda params: f_app.shop.item.add(shop_id, params)
+                    else:
+                        abort(40000, logger.warning("Invalid params: no price in params", exc_info=False))
 
             elif item["status"] == "rejected":
                 params.setdefault("status", "draft")
