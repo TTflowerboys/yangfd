@@ -6,9 +6,11 @@
         <a href="/news/{=news.id=}"><img alt="" class="withPlaceholder"/></a>
         {_}_}
         <div class="description">
-            <h3 class="title"> <a href="/news/{=news.id=}">{=news.title=}</a></h3>
-            <label class="date" for="">{=$.format.date(news.time * 1000, 'yyyy-MM-dd')=}</label>
-            <p class="details">{=news.summary=}</p>
+            <a href="/news/{=news.id=}">
+                <h3 class="title"> {=news.title=}</h3>
+                <label class="date" for="">{=$.format.date(news.time * 1000, 'yyyy-MM-dd')=}</label>
+                <p class="details">{=news.summary=}</p>
+            </a>
         </div>
     </div>
 </script>
