@@ -330,7 +330,7 @@ class f_currant_ticket(f_ticket):
             user_id_set.add(t.get("creator_user_id"))
             user_id_set |= set(t.get("assignee", []))
             if t.get("budget"):
-                enum_id_set.add(t["budget"]["_id"])
+                enum_id_set.add(t["budget"]["id"])
             if t.get("property_id"):
                 property_id_set.add(t["property_id"])
 
