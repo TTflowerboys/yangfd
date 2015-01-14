@@ -340,13 +340,13 @@ def laws():
 @check_landing
 @check_ip_and_redirect_domain
 def about():
-    news_list = f_app.blog.post_output(
+    news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
         f_app.blog.post_search(
             {
                 "title.en_GB": "About Us"
             }, per_page=1
         )
-    )
+    ))
 
     title = news_list[0].get('title')
     return common_template("aboutus_content", news=news_list[0], title=title)
@@ -356,13 +356,13 @@ def about():
 @check_landing
 @check_ip_and_redirect_domain
 def terms():
-    news_list = f_app.blog.post_output(
+    news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
         f_app.blog.post_search(
             {
                 "title.en_GB": "YoungFunding Terms Of Use"
             }, per_page=1
         )
-    )
+    ))
 
     title = news_list[0].get('title')
     return common_template("aboutus_content", news=news_list[0], title=title)
@@ -372,13 +372,13 @@ def terms():
 @check_landing
 @check_ip_and_redirect_domain
 def marketing():
-    news_list = f_app.blog.post_output(
+    news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
         f_app.blog.post_search(
             {
                 "title.en_GB": "Marketing Cooperation"
             }, per_page=1
         )
-    )
+    ))
 
     title = news_list[0].get('title')
     return common_template("aboutus_content", news=news_list[0], title=title)
@@ -388,13 +388,13 @@ def marketing():
 @check_landing
 @check_ip_and_redirect_domain
 def media():
-    news_list = f_app.blog.post_output(
+    news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
         f_app.blog.post_search(
             {
                 "title.en_GB": "Media Cooperation"
             }, per_page=1
         )
-    )
+    ))
 
     title = news_list[0].get('title')
     return common_template("aboutus_content", news=news_list[0], title=title)
