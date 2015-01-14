@@ -13,7 +13,7 @@
         $scope.api = api
 
         $scope.selected = {}
-        $scope.selected.status = 'new'
+        $scope.selected.status = 'draft'
         var params = {
             status: $scope.selected.status,
             per_page: $scope.perPage,
@@ -21,7 +21,6 @@
         }
 
         function updateParams() {
-            $stateParams.shop_id = $scope.selected.shopId
             params.status = $scope.selected.status
             params.mtime = undefined
         }
