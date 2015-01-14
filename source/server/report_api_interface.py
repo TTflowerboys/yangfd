@@ -84,12 +84,12 @@ def report_add(user, params):
         for n in params["planning_news"]:
             if isinstance(n, dict):
                 n["time"] = datetime.utcnow()
-    if "supplement_news" in params and isinstance(params["planning_news"], list):
-        for n in params["planning_news"]:
+    if "supplement_news" in params and isinstance(params["supplement_news"], list):
+        for n in params["supplement_news"]:
             if isinstance(n, dict):
                 n["time"] = datetime.utcnow()
-    if "job_news" in params and isinstance(params["planning_news"], list):
-        for n in params["planning_news"]:
+    if "job_news" in params and isinstance(params["supplement_news"], list):
+        for n in params["supplement_news"]:
             if isinstance(n, dict):
                 n["time"] = datetime.utcnow()
 
