@@ -51,7 +51,6 @@ item_params = dict(
     comment=(str, None),
     attachment=(str, None),
     unset_fields=(list, None, str),
-    price=(float, None),
     quantity=(bool, None),
 )
 
@@ -118,17 +117,14 @@ def shop_item_edit(user, shop_id, item_id, params):
     ``status`` can be ``draft``, ``rejected``, ``not reviewed``, ``new``, ``sold out``, ``deleted``, ``translating``, ``not translated``.
     ``shop_id`` is constant ``54a3c92b6b809945b0d996bf``
     ``quantity`` should be ``True``
-    ``price`` is a required field
     """
     if "status" in params:
         assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "new", "hidden", "sold out", "deleted"), abort(40000, "Invalid status")
 
     if item_id == "none":
         params.setdefault("quantity", True)
-        if "price" in params:
-            action = lambda params: f_app.shop.item.add(shop_id, params)
-        else:
-            abort(40000, logger.warning("Invalid params: no price in params", exc_info=False))
+        params.setdefault("price", 0)
+        action = lambda params: f_app.shop.item.add(shop_id, params)
 
         params.setdefault("status", "draft")
 
@@ -204,10 +200,8 @@ def shop_item_edit(user, shop_id, item_id, params):
                 else:
                     params.setdefault("status", "draft")
                     params["target_item_id"] = item_id
-                    if "price" in params:
-                        action = lambda params: f_app.shop.item.add(shop_id, params)
-                    else:
-                        abort(40000, logger.warning("Invalid params: no price in params", exc_info=False))
+                    params.setdefault("price", 0)
+                    action = lambda params: f_app.shop.item.add(shop_id, params)
 
             elif item["status"] == "rejected":
                 params.setdefault("status", "draft")
