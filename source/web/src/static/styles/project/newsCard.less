@@ -31,62 +31,62 @@
     > .description {
         margin-left: 320px + @padding-left;
         @media @phone {
-            position:static;
+            position:absolute;
             margin-left:0;
             float:left;
-            height:60px;
+            background-color: rgba(0, 0, 0, 0.3);
             width:100%;
             padding:16px 12px;
         }
 
-        > h3 {
-            margin: 0 0 15px 0;
-            a {
-                text-decoration:none;
+        a {
+            text-decoration:none;
+
+            > h3 {
                 line-height:1;
                 font-size: 20px;
                 font-weight: bold;
                 color: #333;
                 font-family: @font-normal;
+                margin: 0 0 15px 0;
 
                 @media @phone {
+                    float:left;
+                    margin:0;
+                    color: white;
                     font-size:16px;
                 }
 
             }
-
-            @media @phone {
-                float:left;
+            > .date {
+                font-size:14px;
+                color:#666;
                 margin:0;
+                line-height:1;
+                @media @phone {
+                    float:right;
+                    font-size:@base-font-size-mobile;
+                    line-height:16px;
+                    color: white;
+                }
+
             }
 
-        }
-        > .date {
-            font-size:14px;
-            color:#666;
-            margin:0;
-            line-height:1;
-            @media @phone {
-                float:right;
+            > .details {
+                font-family: @font-song;
+                overflow: hidden;
+                margin-top:15px;
+                margin-bottom:0;
                 font-size:@base-font-size-mobile;
-                line-height:16px;
-                margin-top:3px;
+                color:#999;
+                line-height:2;
+
+                @media @phone {
+                    display:none;
+                }
             }
 
         }
 
-        > .details {
-            font-family: @font-song;
-            overflow: hidden;
-            margin-top:15px;
-            margin-bottom:0;
-            font-size:@base-font-size-mobile;
-            color:#999;
-            line-height:2;
-
-            @media @phone {
-                display:none;
-            }
-        }
     }
 }
