@@ -65,24 +65,36 @@ logger = logging.getLogger(__name__)
         title=("i18n", None, str),
         summary=("i18n", None, str),
         link=(str, None),
-        time=(datetime, None),
     )),
     supplement_news=(list, None, dict(
         title=("i18n", None, str),
         summary=("i18n", None, str),
         link=(str, None),
-        time=(datetime, None),
     )),
     job_news=(list, None, dict(
         title=("i18n", None, str),
         summary=("i18n", None, str),
         link=(str, None),
-        time=(datetime, None),
     )),
     image=str,
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "operation", "jr_operation"])
 def report_add(user, params):
+    if "planning_news" in params and isinstance(params["planning_news"], list):
+        for n in params["planning_news"]:
+            if isinstance(n, dict):
+                n["time"] = datetime.utcnow()
+    if "supplement_news" in params and isinstance(params["planning_news"], list):
+        for n in params["planning_news"]:
+            if isinstance(n, dict):
+                n["time"] = datetime.utcnow()
+    if "job_news" in params and isinstance(params["planning_news"], list):
+        for n in params["planning_news"]:
+            if isinstance(n, dict):
+                n["time"] = datetime.utcnow()
+
+    if f_app.report.search({"zipcode_index": params["zipcode_index"]}):
+        abort(40000, logger.warning("Invalid params: zipcode_index is already in use!"))
     return f_app.report.add(params)
 
 
@@ -141,16 +153,19 @@ def report_get(report_id):
         title=("i18n", None, str),
         summary=("i18n", None, str),
         link=(str, None),
+        time=(datetime, None),
     )),
     supplement_news=(list, None, dict(
         title=("i18n", None, str),
         summary=("i18n", None, str),
         link=(str, None),
+        time=(datetime, None),
     )),
     job_news=(list, None, dict(
         title=("i18n", None, str),
         summary=("i18n", None, str),
         link=(str, None),
+        time=(datetime, None),
     )),
     image=(str, None),
 ))
