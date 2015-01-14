@@ -9,14 +9,14 @@ logger = logging.getLogger(__name__)
 
 
 item_params = dict(
-    name=(str, None),
+    name=("i18n", None, str),
     investment_type=("enum:investment_type", None),
     country=("enum:country", None),
     city=("enum:city", None),
-    street=(str, None),
+    street=("i18n", None, str),
     zipcode=(str, None),
     zipcode_index=(str, None),
-    address=(str, None),
+    address=("i18n", None, str),
     highlight=(list, None, "i18n"),
     description=("i18n", None, str),
     max_annual_return_estimated=(float, None),
