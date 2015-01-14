@@ -171,13 +171,13 @@ def get_report(zipcode_index):
     report = f_app.report.output(f_app.report.search({"zipcode_index": {"$in": [zipcode_index]}}, per_page=1))
     if len(report):
         report = report[0]
-    # sort the related news
-    if report.get('supplement_news'):
-        report['supplement_news'] = sorted(report.get('supplement_news'), cmp=reverse_sort_time)
-    if report.get('planning_news'):
-        report['planning_news'] = sorted(report.get('planning_news'), cmp=reverse_sort_time)
-    if report.get('job_news'):
-        report['job_news'] = sorted(report.get('job_news'), cmp=reverse_sort_time)
+        # sort the related news
+        if report.get('supplement_news'):
+            report['supplement_news'] = sorted(report.get('supplement_news'), cmp=reverse_sort_time)
+        if report.get('planning_news'):
+            report['planning_news'] = sorted(report.get('planning_news'), cmp=reverse_sort_time)
+        if report.get('job_news'):
+            report['job_news'] = sorted(report.get('job_news'), cmp=reverse_sort_time)
 
     return report
 
