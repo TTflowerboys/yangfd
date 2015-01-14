@@ -20,14 +20,15 @@
             %end
 
             %for cate in news.get('category',{}):
-            %if cate.get('slug') == 'announcement':
-                <label class="category" for=""> | <a href="/notice_list">{{cate.get('value','')}}</a></label></label>
-            %elif cate.get('slug') == 'legal_resource':
-                <label class="category" for=""> | <a href="/laws">{{cate.get('value','')}}</a></label></label>
-            %elif cate.get('slug') == 'purchase_process':
-                <label class="category" for=""> | <a href="/guides">{{cate.get('value','')}}</a></label></label>
-            %else :
-                <label class="category" for=""> | <a href="/news_list">{{_('房产资讯')}}</a></label></label>
+                %if cate.get('slug') == 'announcement':
+                    <label class="category" for=""> | <a href="/notice_list">{{cate.get('value','')}}</a></label></label>
+                %elif cate.get('slug') == 'legal_resource':
+                    <label class="category" for=""> | <a href="/laws">{{cate.get('value','')}}</a></label></label>
+                %elif cate.get('slug') == 'purchase_process':
+                    <label class="category" for=""> | <a href="/guides">{{cate.get('value','')}}</a></label></label>
+                %else :
+                    <label class="category" for=""> | <a href="/news_list">{{_('房产资讯')}}</a></label></label>
+                %end
             %end
 
             %if 'link' in news :
