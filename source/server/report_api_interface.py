@@ -65,16 +65,19 @@ logger = logging.getLogger(__name__)
         title=("i18n", None, str),
         summary=("i18n", None, str),
         link=(str, None),
+        time=(datetime, None),
     )),
     supplement_news=(list, None, dict(
         title=("i18n", None, str),
         summary=("i18n", None, str),
         link=(str, None),
+        time=(datetime, None),
     )),
     job_news=(list, None, dict(
         title=("i18n", None, str),
         summary=("i18n", None, str),
         link=(str, None),
+        time=(datetime, None),
     )),
     image=str,
 ))
