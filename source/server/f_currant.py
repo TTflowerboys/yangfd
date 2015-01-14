@@ -346,7 +346,7 @@ class f_currant_ticket(f_ticket):
             if isinstance(t.get("assignee"), list):
                 t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
             if t.get("budget"):
-                t["budget"] = enum_dict.get(str(t["budget"]["_id"]))
+                t["budget"] = enum_dict.get(str(t["budget"]["id"]))
             if t.get("property_id"):
                 t["property"] = property_dict.get(str(t.pop("property_id")))
 
