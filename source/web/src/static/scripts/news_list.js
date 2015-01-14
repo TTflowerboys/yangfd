@@ -48,7 +48,7 @@ $(function () {
                     lastItemTime = _.last(array).time
                     _.each(array, function (news) {
                         //Only for baidu approve
-                        if(news.title.indexOf("贷") >= 0){
+                        if(news.title.indexOf('贷') >= 0){
                             return
                         }
 
