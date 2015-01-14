@@ -3,6 +3,17 @@ from __future__ import unicode_literals, absolute_import
 from app import f_app
 from bson.objectid import ObjectId
 
+
+def reverse_sort_time(x, y):
+    x_time = 0
+    y_time = 0
+    if x.get('time'):
+        x_time = int(x.get('time').strftime("%s"))
+    if y.get('time'):
+        y_time = int(y.get('time').strftime("%s"))
+    return y_time - x_time
+
+
 # User
 
 
@@ -162,11 +173,11 @@ def get_report(zipcode_index):
         report = report[0]
     # sort the related news
     if report.get('supplement_news'):
-        report['supplement_news'] = sorted(report.get('supplement_news'),  key=lambda news: news.get('time'), reverse=True)
+        report['supplement_news'] = sorted(report.get('supplement_news'), cmp=reverse_sort_time)
     if report.get('planning_news'):
-        report['planning_news'] = sorted(report.get('planning_news'),  key=lambda news: news.get('time'), reverse=True)
+        report['planning_news'] = sorted(report.get('planning_news'), cmp=reverse_sort_time)
     if report.get('job_news'):
-        report['job_news'] = sorted(report.get('job_news'),  key=lambda news: news.get('time'), reverse=True)
+        report['job_news'] = sorted(report.get('job_news'), cmp=reverse_sort_time)
 
     return report
 
