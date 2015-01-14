@@ -1037,4 +1037,48 @@ main {
             }
         }
     }
+
+    .floatBar_phone {
+        display:none;
+        @media @phone {
+            display:block;
+            overflow:hidden;
+            position:fixed;
+            z-index:@float_bar_phone-z-index;
+            bottom:0;
+            width:100%;
+            background:#333;
+        }
+
+        li {
+            @media @phone {
+                float:left;
+                display:inline-block;
+                text-align:center;
+                height:40px;
+                font-size:16px;
+                line-height:40px;
+            }
+
+            &.phone {
+                width: 75%;
+            }
+
+            &.requirement {
+                width: 25%;
+            }
+
+            a {
+                text-decoration:none;
+                color:#999;
+            }
+
+            img {
+                @media @phone {
+                    height:20px;
+                    margin-top:10px;
+                }
+            }
+        }
+    }
 }
