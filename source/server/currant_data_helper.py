@@ -3,8 +3,8 @@ from __future__ import unicode_literals, absolute_import
 from app import f_app
 from bson.objectid import ObjectId
 
-
 # User
+
 
 def get_user_with_custom_fields(user=None):
     if user is None:
@@ -87,7 +87,7 @@ def get_announcement_list():
 
 
 def get_featured_new_list():
-    return f_app.blog.post_output(
+    news_list = f_app.blog.post_output(
         f_app.blog.post_search(
             {
                 "category": {"$in": [
@@ -98,6 +98,8 @@ def get_featured_new_list():
             }, per_page=6
         )
     )
+    news_list = sorted(news_list, key=lambda news: news.get('time'), reverse=True)
+    return news_list
 
 
 def get_related_news_list(news):
@@ -138,15 +140,18 @@ def get_related_news_list(news):
         for item in raw_related_news_list:
             if item.get('id') != news.get('id'):
                 related_news_list.insert(-1, item)
+    related_news_list = sorted(related_news_list, key=lambda news: news.get('time'), reverse=True)
     return related_news_list
 
 
 def get_property_related_news_list(property):
-    return f_app.blog.post_output(f_app.blog.post_search({
+    related_news_list = f_app.blog.post_output(f_app.blog.post_search({
         "category": {"$in": [
                     {"_id": ObjectId(news["id"]), "type": "news_category", "_enum": "news_category"} for news in property["news_category"]
         ]},
     }, per_page=5))
+    related_news_list = sorted(related_news_list, key=lambda news: news.get('time'), reverse=True)
+    return related_news_list
 
 # Report
 
@@ -155,6 +160,14 @@ def get_report(zipcode_index):
     report = f_app.report.output(f_app.report.search({"zipcode_index": {"$in": [zipcode_index]}}, per_page=1))
     if len(report):
         report = report[0]
+    # sort the related news
+    if report.get('supplement_news'):
+        report['supplement_news'] = sorted(report.get('supplement_news'),  key=lambda news: news.get('time'), reverse=True)
+    if report.get('planning_news'):
+        report['planning_news'] = sorted(report.get('planning_news'),  key=lambda news: news.get('time'), reverse=True)
+    if report.get('job_news'):
+        report['job_news'] = sorted(report.get('job_news'),  key=lambda news: news.get('time'), reverse=True)
+
     return report
 
 # Other

@@ -5,7 +5,7 @@
 
 (function () {
 
-    function ctrlCrowdfundingEdit($scope, $state, api, $stateParams, misc, growl) {
+    function ctrlCrowdfundingEdit($scope, $state, api, $stateParams, misc, growl, $window) {
         $scope.item = {}
 
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
