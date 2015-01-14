@@ -52,6 +52,7 @@ item_params = dict(
     attachment=(str, None),
     unset_fields=(list, None, str),
     price=(float, None),
+    quantity=(bool, None),
 )
 
 
@@ -116,12 +117,14 @@ def shop_item_edit(user, shop_id, item_id, params):
     """
     ``status`` can be ``draft``, ``rejected``, ``not reviewed``, ``new``, ``sold out``, ``deleted``, ``translating``, ``not translated``.
     ``shop_id`` is constant ``54a3c92b6b809945b0d996bf``
+    ``quantity`` should be ``True``
+    ``price`` is a required field
     """
     if "status" in params:
         assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "new", "hidden", "sold out", "deleted"), abort(40000, "Invalid status")
 
     if item_id == "none":
-        params["quantity"] = True
+        params.setdefault("quantity", True)
         action = lambda params: f_app.shop.item.add(shop_id, params)
 
         params.setdefault("status", "draft")
