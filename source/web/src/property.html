@@ -1061,8 +1061,11 @@
                 </div>
                 <hr/>
             % end
-            <h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
-            <!--@@include=partials/mortgage_form.html  -->
+            <!--Only for baidu approval-->
+            <!--<h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
+            &lt;!&ndash;@@include=partials/mortgage_form.html&ndash;&gt;
+            <hr/>-->
+
              <div class="relatedProperties">
                  <h2 class="title">{{_('相关房产')}}</h2>
                  <ul>
@@ -1083,7 +1086,7 @@
                                          {{property.get('name')}}
                                      </h3>
                                      <label class="price">
-                                         <!--@@include=partials/get_unit_price.html  -->
+                                         &lt;!&ndash;@@include=partials/get_unit_price.html  &ndash;&gt;
                                      </label>
                                  </div>
                              </a>
