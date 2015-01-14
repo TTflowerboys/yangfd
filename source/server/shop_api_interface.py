@@ -43,8 +43,10 @@ item_params = dict(
     )),
     operators=("i18n", None, str),
     management_team=(list, None, dict(
-        name=(str, None),
-        description=(str, None),
+        name=("i18n", None),
+        title=("i18n", None),
+        avatar=(str, None),
+        description=("i18n", None),
         linkedin_home=(str, None),
     )),
     finacials=("i18n", None, str),
