@@ -56,6 +56,10 @@ item_params = dict(
     attachment=(str, None),
     unset_fields=(list, None, str),
     quantity=(bool, None),
+    materials=(list, None, dict(
+        filename=(str, None),
+        link=(str, None),
+    ))
 )
 
 
