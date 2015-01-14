@@ -586,7 +586,7 @@ angular.module('app')
             })
             .state('dashboard.crowdfunding.item.edit', {
                 url: '/:id/edit',
-                templateUrl: '/static/admin/templates/dashboard.crowdfunding.edit.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.crowdfunding.item.edit.tpl.html',
                 controller: 'ctrlCrowdfundingEdit',
                 resolve: crowdfundingResolve
             })

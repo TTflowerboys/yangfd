@@ -156,7 +156,7 @@ angular.module('app')
 
             cleanI18nEmptyUnit: function (i18nData) {
                 for (var i in i18nData) {
-                    if (_.isNumber(i18nData[i])) {
+                    if (_.isNumber(i18nData[i]) || i18nData[i] === true) {
                         continue
                     }
                     if (_.isEmpty(i18nData[i])) {

@@ -70,6 +70,22 @@
                             font-size:14px;
                         }
                     }
+                    &.aboutus {
+                        display: none;
+
+                        > a {
+                            color: #dcdcdc;
+                            text-decoration: none;
+                        }
+                        @media @phone {
+                            display: block;
+                            margin-left: @content-margin-left;
+                            margin-top: 24px;
+                            margin-bottom: 0;
+                            max-width: 320px;
+                            font-size: 14px;
+                        }
+                    }
                 }
                 > h3 { margin-left: @content-margin-left; color: #aaaaaa; font-size: 16px; margin-bottom: 0;}
             }
