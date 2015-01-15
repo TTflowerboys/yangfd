@@ -108,7 +108,7 @@
                 title: {},
                 summary: {}
             }
-            $scope.item.planning_news.push(temp)
+            $scope.item.planning_news.splice(0, 0, temp);
         }
 
         $scope.onRemovePlanningNews = function (index) {
@@ -123,7 +123,7 @@
                 title: {},
                 summary: {}
             }
-            $scope.item.supplement_news.push(temp)
+            $scope.item.supplement_news.splice(0, 0, temp);
         }
 
         $scope.onRemoveSupplementNews = function (index) {
@@ -138,7 +138,7 @@
                 title: {},
                 summary: {}
             }
-            $scope.item.job_news.push(temp)
+            $scope.item.job_news.splice(0, 0, temp);
         }
 
         $scope.onRemoveJobNews = function (index) {

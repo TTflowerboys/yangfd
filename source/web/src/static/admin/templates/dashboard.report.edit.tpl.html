@@ -364,6 +364,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td colspan="4">
+                                    <input type="button" ng-click="addPlanningNews()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
+                                </td>
+                            </tr>
                             <tr ng-repeat="news in item.planning_news">
                                 <td>
                                     <input type="text" type-i18n="news.title" ng-model="news.title[userLanguage.value]" class="form-control"/>
@@ -378,11 +383,6 @@
                                     <span class="btn btn-danger" ng-click="onRemovePlanningNews($index)" title="{%$root.i18n('移除')%}">
                                         <i class="fa fa-trash-o"></i>
                                     </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <input type="button" ng-click="addPlanningNews()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
                                 </td>
                             </tr>
                         </tbody>
@@ -405,6 +405,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td colspan="4">
+                                    <input type="button" ng-click="addSupplementNews()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
+                                </td>
+                            </tr>
                             <tr ng-repeat="news in item.supplement_news">
                                 <td>
                                     <input type="text" type-i18n="news.title" ng-model="news.title[userLanguage.value]" class="form-control"/>
@@ -419,11 +424,6 @@
                                     <span class="btn btn-danger" ng-click="onRemoveSupplementNews($index)" title="{%$root.i18n('移除')%}">
                                         <i class="fa fa-trash-o"></i>
                                     </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <input type="button" ng-click="addSupplementNews()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
                                 </td>
                             </tr>
                         </tbody>
@@ -446,6 +446,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td colspan="4">
+                                    <input type="button" ng-click="addJobNews()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
+                                </td>
+                            </tr>
                             <tr ng-repeat="news in item.job_news">
                                 <td>
                                     <input type="text" type-i18n="news.title" ng-model="news.title[userLanguage.value]" class="form-control"/>
@@ -460,11 +465,6 @@
                                     <span class="btn btn-danger" ng-click="onRemoveJobNews($index)" title="{%$root.i18n('移除')%}">
                                         <i class="fa fa-trash-o"></i>
                                     </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <input type="button" ng-click="addJobNews()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
                                 </td>
                             </tr>
                         </tbody>
