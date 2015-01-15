@@ -26,6 +26,7 @@ from libfelix.f_interface import abort, request
 from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
 from libfelix.f_shop import f_shop
+from libfelix.f_order import f_order
 
 import logging
 logger = logging.getLogger(__name__)
@@ -2216,3 +2217,22 @@ class f_comment(f_app.module_base):
 
 
 f_comment()
+
+
+class f_currant_order(f_order):
+    def custom_search(self, params, sort=["time", "desc"], notime=False, per_page=10, time_field="time"):
+        params.setdefault("status", {"$ne": "deleted"})
+        if sort is not None:
+            try:
+                sort_field, sort_orientation = sort
+            except:
+                abort(40000, logger.warning("sort param not well in format:", sort))
+
+        else:
+            sort_field = sort_orientation = None
+
+        order_id_list = f_app.mongo_index.search(self.get_database, params, count=False, sort=sort_orientation, sort_field=sort_field, per_page=per_page, notime=notime, time_field=time_field)["content"]
+
+        return order_id_list
+
+f_currant_order()
