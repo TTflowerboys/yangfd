@@ -41,7 +41,7 @@ item_params = dict(
         sub=("i18n", None, str),
         poster=str,
     )),
-    operators=("i18n", None, str),
+    operator=("i18n", None, str),
     management_team=(list, None, dict(
         name=("i18n", None),
         title=("i18n", None),
@@ -49,7 +49,7 @@ item_params = dict(
         description=("i18n", None),
         linkedin_home=(str, None),
     )),
-    finacials=("i18n", None, str),
+    financials=("i18n", None, str),
     capital_structure=("i18n", None, str),
     status=(str, None),
     comment=(str, None),
