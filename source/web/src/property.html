@@ -28,8 +28,8 @@
 
 <!--@@close-->
 
-<!--@@block = head-->
 %if property:
+    <!--@@block = head-->
     % property_type_slug = property.get('property_type',{}).get('slug')
 
     % tags = []
@@ -66,13 +66,13 @@
     <div class="propertyDetails">
         <div class="breadcrumb">
             % if property.get('country').get('value'):
-            <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}" target="_blank">{{property.get('country',{}).get('value','')}}</a> /
+                <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}" target="_blank">{{property.get('country',{}).get('value','')}}</a> /
             % end
             % if property.get('city').get('value'):
-            <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}&city={{property.get('city',{}).get('id')}}" target="_blank">{{property.get('city',{}).get('value','')}}</a> /
+                <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}&city={{property.get('city',{}).get('id')}}" target="_blank">{{property.get('city',{}).get('value','')}}</a> /
             % end
             % if property.get('property_type') and property.get('property_type').get('value'):
-            <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}&city={{property.get('city',{}).get('id')}}&property_type={{property.get('property_type').get('id')}}" target="_blank">{{property.get('property_type',{}).get('value','')}}</a> /
+                <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}&city={{property.get('city',{}).get('id')}}&property_type={{property.get('property_type').get('id')}}" target="_blank">{{property.get('property_type',{}).get('value','')}}</a> /
             %end
             <span class="current">{{property.get('name','')}}</span>
         </div>
@@ -119,26 +119,26 @@
 
                     % # Make sure property have videos and every video have at least one source
                     % if property.get('videos') and all(map(lambda x: len(x["sources"]) > 0, property.get('videos'))):
-                    <div class="item videocontent" data-tab-name="video">
-                        <video id="property_video" class="video-js vjs-default-skin vjs-big-play-centered"
-                            controls preload="auto" width="auto" height="auto"
-                            poster="/static/images/placeholder/video_holder_800x_141114.jpg"
-                            data-setup='{}'>
-                            % rec_videos = get_videos_by_ip(property.get('videos'))
-                            % if(rec_videos and len(rec_videos) > 0):
-                                % if "iphone" in request.headers.get('User-Agent').lower() :
-                                    % for source in [x for x in rec_videos[0].get('sources') if "mobile-ios" in x["tags"]] :
-                                    <source src="{{source.get('url')}}" type="{{source.get('type')}}"/>
-                                    % end
-                                % else :
-                                    % for source in [x for x in rec_videos[0].get('sources') if "web-normal" in x["tags"]] :
-                                    <source src="{{source.get('url')}}" type="{{source.get('type')}}"/>
+                        <div class="item videocontent" data-tab-name="video">
+                            <video id="property_video" class="video-js vjs-default-skin vjs-big-play-centered"
+                                   controls preload="auto" width="auto" height="auto"
+                                   poster="/static/images/placeholder/video_holder_800x_141114.jpg"
+                                   data-setup='{}'>
+                                % rec_videos = get_videos_by_ip(property.get('videos'))
+                                % if(rec_videos and len(rec_videos) > 0):
+                                    % if "iphone" in request.headers.get('User-Agent').lower() :
+                                        % for source in [x for x in rec_videos[0].get('sources') if "mobile-ios" in x["tags"]] :
+                                            <source src="{{source.get('url')}}" type="{{source.get('type')}}"/>
+                                        % end
+                                    % else :
+                                        % for source in [x for x in rec_videos[0].get('sources') if "web-normal" in x["tags"]] :
+                                            <source src="{{source.get('url')}}" type="{{source.get('type')}}"/>
+                                        % end
                                     % end
                                 % end
-                            % end
-                            <p class="vjs-no-js">{{!_('对不起，您的浏览器不支持视频播放，请下载<a href="http://se.360.cn/" target="_blank">360安全浏览器</a>或者最新的<a href="http://get.adobe.com/flashplayer/" target="_blank">Adobe Flash</a>重新打开')}}</p>
-                        </video>
-                    </div>
+                                <p class="vjs-no-js">{{!_('对不起，您的浏览器不支持视频播放，请下载<a href="http://se.360.cn/" target="_blank">360安全浏览器</a>或者最新的<a href="http://get.adobe.com/flashplayer/" target="_blank">Adobe Flash</a>重新打开')}}</p>
+                            </video>
+                        </div>
                     % end
                 </div>
 
@@ -199,11 +199,11 @@
                         % end
 
                         % if property.get('videos') and all(map(lambda x: len(x["sources"]) > 0, property.get('videos'))):
-                        <li data-tab="video">
-                            <img onerror="window.onImgError(this);" src="/static/images/placeholder/video_holder_150x_141114.jpg" alt=""/>
-                            <span class="text_wrapper"> <span class="text">{{_('视频')}}</span></span>
-                            <span class="border"></span>
-                        </li>
+                            <li data-tab="video">
+                                <img onerror="window.onImgError(this);" src="/static/images/placeholder/video_holder_150x_141114.jpg" alt=""/>
+                                <span class="text_wrapper"> <span class="text">{{_('视频')}}</span></span>
+                                <span class="border"></span>
+                            </li>
                         % end
                     </ul>
                 </div>
@@ -366,7 +366,7 @@
                                     <img src="/static/images/property_details/icon-house.png" alt=""/>
                                     </i>
                                     <label>
-                                    {{_('产权类型')}}
+                                        {{_('产权类型')}}
                                     </label>
                             </td>
                             <td class="value">
@@ -380,7 +380,7 @@
                                         <img src="/static/images/property_details/icon-pallet.png" alt=""/>
                                         </i>
                                         <label>
-                                        {{_('装修风格')}}
+                                            {{_('装修风格')}}
                                         </label>
                                 </td>
                                 <td class="value">
@@ -389,39 +389,39 @@
                             </tr>
                         % end
                         % if 'address' in property:
-                        <tr>
-                            <td class="name">
-                                <i>
-                                    <img src="/static/images/property_details/icon-location.png" alt=""/>
-                                    </i>
-                                    <label>
-                                    {{_('产权地址')}}
-                                    </label>
-                            </td>
-                            <td class="value">
-                                {{property.get('address')}}
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="name">
+                                    <i>
+                                        <img src="/static/images/property_details/icon-location.png" alt=""/>
+                                        </i>
+                                        <label>
+                                            {{_('产权地址')}}
+                                        </label>
+                                </td>
+                                <td class="value">
+                                    {{property.get('address')}}
+                                </td>
+                            </tr>
                         % end
                         % if 'street' in property:
-                        <tr>
-                            <td class="name">
-                                <i>
-                                    <img src="/static/images/property_details/icon-map.png" alt=""/>
-                                    </i>
-                                    <label>
-                                    {{_('街区')}}
-                                    </label>
-                            </td>
-                            <td class="value">
-                                {{property.get('street','')}}
-                                %if (report):
-                                    <a class="street-link" style="display: none" target="_blank" href="/region_report/{{property.get('zipcode_index')}}">
-                                        {{_(' (查看详细街区报告)')}}
-                                    </a>
-                                %end
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="name">
+                                    <i>
+                                        <img src="/static/images/property_details/icon-map.png" alt=""/>
+                                        </i>
+                                        <label>
+                                            {{_('街区')}}
+                                        </label>
+                                </td>
+                                <td class="value">
+                                    {{property.get('street','')}}
+                                    %if (report):
+                                        <a class="street-link" style="display: none" target="_blank" href="/region_report/{{property.get('zipcode_index')}}">
+                                            {{_(' (查看详细街区报告)')}}
+                                        </a>
+                                    %end
+                                </td>
+                            </tr>
                         % end
                         % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
                             <tr>
@@ -430,7 +430,7 @@
                                         <img src="/static/images/property_details/icon-kaleidoscope.png" alt=""/>
                                         </i>
                                         <label for="">
-                                        {{_('主要户型')}}
+                                            {{_('主要户型')}}
                                         </label>
                                 </td>
                                 <td colspan="3" class="value">
@@ -439,10 +439,10 @@
                                             <a href="#propertyDetails_houseTypes">
                                                 <span class="toggleTag selected">
                                                     %if 'bedroom_count' in type and type.get('bedroom_count') != 0:
-                                                    {{type.get('bedroom_count',0)}}{{_('室')}}
+                                                        {{type.get('bedroom_count',0)}}{{_('室')}}
                                                     %end
                                                     %if 'living_room_count' in type and type.get('living_room_count') != 0:
-                                                    {{type.get('living_room_count',0)}}{{_('厅')}}
+                                                        {{type.get('living_room_count',0)}}{{_('厅')}}
                                                     %end
                                                     % if 'value' in type.get('building_area',{}) and 'unit' in type.get('building_area',{}):
                                                         (
@@ -480,8 +480,8 @@
             %end
             %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
                 <div class="maps_wrapper">
-                      <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
-                      <!--@@include partials/bing_map.html  -->
+                    <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
+                    <!--@@include partials/bing_map.html  -->
                 </div>
                 <hr/>
             %end
@@ -495,70 +495,70 @@
                                     % if item:
                                         <li class="item{{index}}">
                                             <a onclick="javascript:window.openMainHouseType(null, '{{index}}',false)">
-                                            <div style="position:relative;">
-                                                <img class="floor_plan" src="{{!fetch_image(item.get('floor_plan'), thumbnail=True, property_id=property.get('id'))}}"
+                                                <div style="position:relative;">
+                                                    <img class="floor_plan" src="{{!fetch_image(item.get('floor_plan'), thumbnail=True, property_id=property.get('id'))}}"
                                                          alt="" onerror="window.onImgError(this);"/>
-                                                <span class="propertyDetails_houseType_name" style="display: none">{{item.get('name','')}}</span>
-                                                <span class="propertyDetails_houseType_description" style="display: none">{{item.get('description','')}}</span>
-                                                <div class="table_wrapper">
-                                                    <table class="text">
+                                                    <span class="propertyDetails_houseType_name" style="display: none">{{item.get('name','')}}</span>
+                                                    <span class="propertyDetails_houseType_description" style="display: none">{{item.get('description','')}}</span>
+                                                    <div class="table_wrapper">
+                                                        <table class="text">
+                                                            <tr>
+                                                                %if 'bedroom_count' in item and item.get('bedroom_count') != 0:
+                                                                    <td>
+                                                                        <span class="name">{{_('卧室')}}</span>
+                                                                        <span class="value">{{item.get('bedroom_count',0)}}</span>
+                                                                    </td>
+                                                                %end
+                                                                %if 'living_room_count' in item and item.get('living_room_count') != 0:
+                                                                    <td>
+                                                                        <span class="name">{{_('客厅')}}</span>
+                                                                        <span class="value">{{item.get('living_room_count',0)}}</span>
+                                                                    </td>
+                                                                %end
+                                                                %if 'bathroom_count' in item and item.get('bathroom_count') != 0:
+                                                                    <td>
+                                                                        <span class="name">{{_('卫生间')}}</span>
+                                                                        <span class="value">{{item.get('bathroom_count',0)}}</span>
+                                                                    </td>
+                                                                %end
+                                                                %if 'kitchen_count' in item and item.get('kitchen_count') != 0:
+                                                                    <td>
+                                                                        <span class="name">{{_('厨房')}}</span>
+                                                                        <span class="value">{{item.get('kitchen_count',0)}}</span>
+                                                                    </td>
+                                                                %end
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="text2">
+                                                    <table>
                                                         <tr>
-                                                            %if 'bedroom_count' in item and item.get('bedroom_count') != 0:
-                                                            <td>
-                                                                <span class="name">{{_('卧室')}}</span>
-                                                                <span class="value">{{item.get('bedroom_count',0)}}</span>
+                                                            <td class="space">
+                                                                <span class="name">{{_('面积')}}</span>
+                                                                <span class="value">
+                                                                    <strong >
+                                                                        {{float("{0:.2f}".format(float(item.get('building_area',{}).get('value'))))}}
+                                                                        {{!format_unit(item.get('building_area',{}).get('unit',''))}}
+                                                                    </strong>
+                                                                </span>
                                                             </td>
-                                                            %end
-                                                            %if 'living_room_count' in item and item.get('living_room_count') != 0:
-                                                            <td>
-                                                                <span class="name">{{_('客厅')}}</span>
-                                                                <span class="value">{{item.get('living_room_count',0)}}</span>
+                                                            <td class="price">
+                                                                <span class="name">{{_('参考售价')}}</span>
+                                                                <span class="value">
+                                                                    %if 'total_price' in item and item.get('total_price'):
+                                                                        <strong>
+                                                                            {{item.get('total_price',{}).get('unit_symbol')}}
+                                                                        </strong>
+                                                                        <strong data-type="formatted_currency">
+                                                                            {{int(float(item.get('total_price',{}).get('value')))}}
+                                                                        </strong>
+                                                                    %end
+                                                                </span>
                                                             </td>
-                                                            %end
-                                                            %if 'bathroom_count' in item and item.get('bathroom_count') != 0:
-                                                            <td>
-                                                                <span class="name">{{_('卫生间')}}</span>
-                                                                <span class="value">{{item.get('bathroom_count',0)}}</span>
-                                                            </td>
-                                                            %end
-                                                            %if 'kitchen_count' in item and item.get('kitchen_count') != 0:
-                                                            <td>
-                                                                <span class="name">{{_('厨房')}}</span>
-                                                                <span class="value">{{item.get('kitchen_count',0)}}</span>
-                                                            </td>
-                                                            %end
                                                         </tr>
                                                     </table>
                                                 </div>
-                                            </div>
-                                            <div class="text2">
-                                                <table>
-                                                    <tr>
-                                                        <td class="space">
-                                                            <span class="name">{{_('面积')}}</span>
-                                                            <span class="value">
-                                                                <strong >
-                                                                    {{float("{0:.2f}".format(float(item.get('building_area',{}).get('value'))))}}
-                                                                    {{!format_unit(item.get('building_area',{}).get('unit',''))}}
-                                                                </strong>
-                                                            </span>
-                                                        </td>
-                                                        <td class="price">
-                                                            <span class="name">{{_('参考售价')}}</span>
-                                                            <span class="value">
-                                                                %if 'total_price' in item and item.get('total_price'):
-                                                                    <strong>
-                                                                        {{item.get('total_price',{}).get('unit_symbol')}}
-                                                                    </strong>
-                                                                    <strong data-type="formatted_currency">
-                                                                        {{int(float(item.get('total_price',{}).get('value')))}}
-                                                                    </strong>
-                                                                %end
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
                                             </a>
                                         </li>
                                     % end
@@ -669,7 +669,7 @@
                 <div id="propertyDetails_price" class="trend">
                     <h3 class="propertyDetails_title">{{_('价格趋势')}} ({{_.currency}})</h3>
                     % if property.get('equal_property_description'):
-                    <div class="historical_price_description">{{property.get('equal_property_description','')}}</div>
+                        <div class="historical_price_description">{{property.get('equal_property_description','')}}</div>
                     % end
                     <canvas id="lineChart"></canvas>
                 </div>
@@ -680,7 +680,7 @@
                 <div id="propertyDetails_incoming" class="incoming">
                     <h3 class="propertyDetails_title">{{_('月收支分析')}}</h3>
                     % if property.get('estimated_income_description'):
-                    <div class="historical_price_description">{{property.get('estimated_income_description','')}}</div>
+                        <div class="historical_price_description">{{property.get('estimated_income_description','')}}</div>
                     % end
                     <div class="stackedBar">
                         % total = float(property.get('estimated_monthly_rent',{}).get('value',0))
@@ -794,47 +794,47 @@
             % end
 
             % if property.get('brochure') and len(property.get('brochure')) > 0:
-            <div id="propertyDetails_brochure" class="brochure">
-                <h3 class="propertyDetails_title">{{_('相关资料')}}</h3>
-                % if user:
-                <div class="brochures_entry">
-                    <div class="brochures_entry_wrapper">
-                        <a href="/pdf_viewer/property/{{property.get('id')}}" target="_blank" class="ghostButton red" >{{_('点击查看完整资料')}}</a>
-                    </div>
-                    <img class="guide_img" src="/static/images/property_details/img_brochure_cover.png" alt="">
-                </div>
-                % else:
-                <div class="brochure_wrapper">
-                    <div class="brochures">
-                        <ul>
-                            % for image in property.get('brochure')[0].get('rendered'):
-                            <li><img src="{{image}}" alt=""></li>
-                            % end
-                            <li>
-                                <div class="guide">
-                                    <span class="guide_text">{{_('如需获取更多资料，请 ')}}<a href="#" onclick="project.checkLoginIfNot()">登录</a>{{_('，或者 ')}}<a href="#" onclick="project.goToSignUp()">注册</a></span>
-                                    <img class="guide_img" src="/static/images/property_details/img_brochure_cover.png" alt="">
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="leftPressArea"></div>
-                    <div class="rightPressArea"></div>
+                <div id="propertyDetails_brochure" class="brochure">
+                    <h3 class="propertyDetails_title">{{_('相关资料')}}</h3>
+                    % if user:
+                        <div class="brochures_entry">
+                            <div class="brochures_entry_wrapper">
+                                <a href="/pdf_viewer/property/{{property.get('id')}}" target="_blank" class="ghostButton red" >{{_('点击查看完整资料')}}</a>
+                            </div>
+                            <img class="guide_img" src="/static/images/property_details/img_brochure_cover.png" alt="">
+                        </div>
+                    % else:
+                        <div class="brochure_wrapper">
+                            <div class="brochures">
+                                <ul>
+                                    % for image in property.get('brochure')[0].get('rendered'):
+                                        <li><img src="{{image}}" alt=""></li>
+                                    % end
+                                    <li>
+                                        <div class="guide">
+                                            <span class="guide_text">{{_('如需获取更多资料，请 ')}}<a href="#" onclick="project.checkLoginIfNot()">登录</a>{{_('，或者 ')}}<a href="#" onclick="project.goToSignUp()">注册</a></span>
+                                            <img class="guide_img" src="/static/images/property_details/img_brochure_cover.png" alt="">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="leftPressArea"></div>
+                            <div class="rightPressArea"></div>
 
-                    <a href="#" class="brochures-control-prev">&lsaquo;</a>
-                    <a href="#" class="brochures-control-next">&rsaquo;</a>
+                            <a href="#" class="brochures-control-prev">&lsaquo;</a>
+                            <a href="#" class="brochures-control-next">&rsaquo;</a>
+                        </div>
+                    % end
                 </div>
-                % end
-            </div>
-            <hr/>
+                <hr/>
             % end
 
             %if (report):
                 <div class="regionReport" id="regionReport">
                     %if (report.get('image')):
-                    <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
+                        <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
                     %else:
-                    <img alt="" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
+                        <img alt="" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
                     %end
                     <div class="img_shadow"></div>
                     <div class="text_container">
@@ -1066,40 +1066,40 @@
             &lt;!&ndash;@@include=partials/mortgage_form.html&ndash;&gt;
             <hr/>-->
 
-             <div class="relatedProperties">
-                 <h2 class="title">{{_('相关房产')}}</h2>
-                 <ul>
-                     % main_property = property
-                     % for property in related_property_list:
-                         <li class="propertyItem">
-                             <a href="/property/{{property.get('id')}}">
-                                 %if (property.get('cover')):
-                                     <img src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
-                                 %elif (property.get('reality_images') and len(property.get('reality_images'))):
-                                     <img src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
-                                 %else :
-                                     <img class="withPlaceholder" width="320" height="213"/>
-                                 %end
-                                 <div class="img_shadow"></div>
-                                 <div class="text">
-                                     <h3 class="title">
-                                         {{property.get('name')}}
-                                     </h3>
-                                     <label class="price">
-                                         <!--@@include=partials/get_unit_price.html-->
-                                     </label>
-                                 </div>
-                             </a>
-                         </li>
-                     % end
-                     % property = main_property
-                 </ul>
-             </div>
+            <div class="relatedProperties">
+                <h2 class="title">{{_('相关房产')}}</h2>
+                <ul>
+                    % main_property = property
+                    % for property in related_property_list:
+                        <li class="propertyItem">
+                            <a href="/property/{{property.get('id')}}">
+                                %if (property.get('cover')):
+                                    <img src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                                %elif (property.get('reality_images') and len(property.get('reality_images'))):
+                                    <img src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                                %else :
+                                    <img class="withPlaceholder" width="320" height="213"/>
+                                %end
+                                <div class="img_shadow"></div>
+                                <div class="text">
+                                    <h3 class="title">
+                                        {{property.get('name')}}
+                                    </h3>
+                                    <label class="price">
+                                        <!--@@include=partials/get_unit_price.html-->
+                                    </label>
+                                </div>
+                            </a>
+                        </li>
+                    % end
+                    % property = main_property
+                </ul>
+            </div>
         </div>
 
     </div>
     % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-    <!--@@include=partials/main_house_type_popup.html -->
+        <!--@@include=partials/main_house_type_popup.html -->
     %end
     <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
         <img src="" alt="二维码" width="220" height="220"/>
@@ -1260,8 +1260,8 @@
 
          $('[data-fn=shareToWeChat]').on('click', function () {
              $('#popupShareToWeChat')
-             .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(geoLocation.href)).end()
-             .modal()
+                                      .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(geoLocation.href)).end()
+                                      .modal()
              ga('send', 'event', 'property_detail', 'share', 'open-wechat-web')
          })
      })();
@@ -1296,7 +1296,7 @@
          $(this).parent().hide()
             .parent().find('[data-ui=description]').height('auto')
          $(this).parent().hide()
-             .parent().find('[data-ui=description]').toggleClass( "no-after" )
+            .parent().find('[data-ui=description]').toggleClass( "no-after" )
          ga('send', 'event', 'property_detail', 'click', 'extend-description')
      });
 
@@ -1305,26 +1305,26 @@
      $('.brochure .brochures').jcarousel()
 
      $('.brochures-control-prev')
-         .on('jcarouselcontrol:active', function() {
-             $(this).removeClass('inactive');
-         })
-         .on('jcarouselcontrol:inactive', function() {
-             $(this).addClass('inactive');
-         })
-         .jcarouselControl({
-             target: '-=1'
-         });
+                          .on('jcarouselcontrol:active', function() {
+                              $(this).removeClass('inactive');
+                          })
+                          .on('jcarouselcontrol:inactive', function() {
+                              $(this).addClass('inactive');
+                          })
+                          .jcarouselControl({
+                              target: '-=1'
+                          });
 
      $('.brochures-control-next')
-         .on('jcarouselcontrol:active', function() {
-             $(this).removeClass('inactive');
-         })
-         .on('jcarouselcontrol:inactive', function() {
-             $(this).addClass('inactive');
-         })
-         .jcarouselControl({
-             target: '+=1'
-         });
+                          .on('jcarouselcontrol:active', function() {
+                              $(this).removeClass('inactive');
+                          })
+                          .on('jcarouselcontrol:inactive', function() {
+                              $(this).addClass('inactive');
+                          })
+                          .jcarouselControl({
+                              target: '+=1'
+                          });
 
      $('.brochure .leftPressArea').click(function (event) {
          $(event.target).parent().find('.brochures-control-prev').click()
@@ -1349,3 +1349,4 @@
     <!-- @endif -->
 
     <!--@@close-->
+%end
