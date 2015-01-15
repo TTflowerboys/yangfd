@@ -49,7 +49,7 @@
                 <label class="control-label">{%$root.i18n('封面图片')%}{%$root.i18n('(最大宽度是1280px)')%}</label>
 
                 <div class="controls">
-                    <edit-images ng-model="item.images" width-limit="1280" thumbnail-size="320,240" text="{%$root.i18n('添加图片')%}" watermark="false"></edit-images>
+                    <div edit-images ng-model="item.images" width-limit="1280" thumbnail-size="320,240" text="{%$root.i18n('添加图片')%}" watermark="false"></div>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
         <div class="row">
             <div class="form-group col-sm-12">
                 <label class="control-label">{%$root.i18n('内容')%} *</label>
-                <div ng-include=" '/static/admin/templates/edit_rich_content.html' "></div>
+                <div edit-rich-content ng-model="item.content"></div>
             </div>
         </div>
         <div class="row">
