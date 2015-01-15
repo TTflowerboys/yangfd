@@ -1,7 +1,7 @@
 <div>
     <div class="row">
         <div ng-repeat="file in files" class="col-lg-12">
-            <input class="pull-left" type="text" ng-model="file.description">
+            <input class="pull-left" type="text" ng-model="file.filename">
             <button class="pull-left btn btn-danger btn-sm" ng-click="removeFile($index)">{%$root.i18n('移除')%}</button>
         </div>
     </div>

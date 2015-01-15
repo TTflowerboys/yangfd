@@ -19,7 +19,7 @@ angular.module('app')
                         if (!scope.files) {
                             scope.files = []
                         }
-                        scope.files.push({link: '', name: file.name})
+                        scope.files.push({link: '', filename: file.name})
                         var url
                         if (window.location.hostname === 'localhost') {
                             url = '/api/1/upload_file'
@@ -35,7 +35,7 @@ angular.module('app')
                         })
                             .success(function (data, status, headers, config) {
                                 for (var key in scope.files) {
-                                    if (file.name === scope.files[key].name) {
+                                    if (file.name === scope.files[key].filename) {
                                         scope.files[key].link = data.val.url
                                         break
                                     }
