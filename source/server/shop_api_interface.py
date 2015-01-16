@@ -226,7 +226,22 @@ def shop_item_edit(user, shop_id, item_id, params):
 
 @f_api("/shop/<shop_id>/item/<item_id>")
 def shop_item_get(shop_id, item_id):
-    return f_app.shop.item.output([item_id])[0]
+    item = f_app.shop.item.output([item_id])[0]
+    if item["status"] not in ["new", "sold out"]:
+        user = f_app.user.login.get()
+        if user:
+            user = f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
+
+        if user["id"] == str(item.get("submitter_user_id")):
+            pass
+        elif item["status"] == "draft":
+            assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40000, "No access to specify status or target_item_id")
+        elif item["status"] == "not translated":
+            assert set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40000, "No access to specify status or target_item_id")
+        elif set(item["status"]) & set(["translating", "rejected", "hidden"]):
+            assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40000, "No access to specify status or target_item_id")
+
+    return item
 
 
 @f_api("/shop/<shop_id>/item/<item_id>/remove")
