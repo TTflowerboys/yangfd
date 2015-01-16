@@ -450,6 +450,73 @@
                 <hr/>
             %end
 
+            <div class="investment_analysis">
+                <h3 class="propertyDetails_title">{{_('投资受益分析')}}</h3>
+
+
+                <div class="calculator">
+
+                    <div class="input">
+                        <input class="ghostInput" placeholder="{{_('本金')}}"/>
+                        <button class="button red">
+                            {{_('计算')}}
+                        </button>
+                    </div>
+
+                    <ul class="numbers">
+                        <li>
+                            <span class="text">{{!_('预计总年化收益率')}}</span>
+                            <span class="percentage emphasized">
+                                <strong>
+                                    7%
+                                </strong>
+                            </span>
+
+                        </li>
+                        <li>
+                            <span class="text">{{!_('预估现金年化收益率')}}</span>
+                            <span class="percentage emphasized">
+                                <strong>
+                                    15%
+                                </strong>
+                            </span>
+
+                        </li>
+                        <li>
+                            <span class="text">{{!_('周期')}}</span>
+                            <span class="percentage emphasized">
+                                <strong>
+                                    3年
+                                </strong>
+                            </span>
+
+                        </li>
+                        <li>
+                            <span class="text">{{!_('现金收益')}}</span>
+                            <span class="percentage emphasized">
+                                <strong>
+                                    256677元
+                                </strong>
+                            </span>
+
+                        </li>
+                        <li class="total">
+                            <span class="text">{{!_('总受益')}}</span>
+                            <span class="percentage emphasized total">
+                                <strong>
+                                    256677元
+                                </strong>
+                            </span>
+
+                        </li>
+                    </ul>
+                </div>
+
+                <canvas class="barChart" id="barChart">
+                </canvas>
+                <hr/>
+            </div>
+
             <div class="team">
                 <h3 class="propertyDetails_title">{{_('管理团队')}}</h3>
                 <p class="des">
@@ -994,9 +1061,13 @@
 
     <!--@@block = scripts-->
     <script src="/static/vendors/Chart.min.js"></script>
+    <script src="/static/scripts/update_investment_chart.js"></script>
 
     <script>
      (function () {
+
+         window.updateInvestmentChart()
+
          $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
              window.openWeChatShare('{{property.get('id')}}')
              ga('send', 'event', 'property_detail', 'share', 'open-wechat-mobile')
