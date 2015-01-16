@@ -9,7 +9,7 @@
     <hr/>
 
     <form class="form-horizontal" method="post" autocomplete="on" ng-class="{submitted:submitted}"
-        ng-submit="submit($event,createProperty)" name="createProperty" novalidate>
+        ng-submit="submit($event,editCrowdfunding)" name="editCrowdfunding" novalidate>
         <div class="row">
             <div class="form-group col-sm-3">
                 <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"
@@ -295,7 +295,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="3">
+                                                <td colspan="6">
                                                     <input type="button" ng-click="addManageTeam()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
                                                 </td>
                                             </tr>

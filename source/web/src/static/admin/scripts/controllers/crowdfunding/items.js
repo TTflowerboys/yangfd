@@ -14,7 +14,7 @@
                 title: {},
                 description: {}
             }
-            $scope.item.management_team.splice(0, 0, temp);
+            $scope.item.management_team.push(temp);
         }
 
         $scope.onRemoveManageTeam = function (index) {
