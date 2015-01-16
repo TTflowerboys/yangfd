@@ -53,7 +53,10 @@ item_params = dict(
     capital_structure=("i18n", None, str),
     status=(str, None),
     comment=(str, None),
-    attachment=(str, None),
+    attachment=(list, None, dict(
+        url=str,
+        description=str,
+    )),
     unset_fields=(list, None, str),
     quantity=(bool, None),
     materials=(list, None, dict(
