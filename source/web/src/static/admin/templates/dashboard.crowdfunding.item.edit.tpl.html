@@ -246,7 +246,7 @@
                 </tab>
                 <tab heading="{%$root.i18n('管理团队')%}">
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('开发商介绍')%}</label>
 
                             <div class="controls">
@@ -255,7 +255,7 @@
                         </div>
                     </div>
                     <div class="row" ng-controller="ctrlCrowdfundingItems">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('管理团队')%}</label>
                             <div class="controls">
                                 <div class="controls">
@@ -274,16 +274,16 @@
                                         <tbody>
                                             <tr ng-repeat="manager in item.management_team">
                                                 <td>
-                                                    <input type="text" ng-model="manager.name" class="form-control"/>
+                                                    <input type="text" ng-model="manager.name[userLanguage.value]" class="form-control" type-i18n="manager.name"/>
                                                 </td>
                                                 <td>
                                                     <div edit-single-image ng-model="manager.avatar" width-limit="0" ratio="0" text="{%$root.i18n('添加头像')%}" watermark="false"></div>
                                                 </td>
                                                 <td>
-                                                    <input type="text" ng-model="manager.title" class="form-control"/>
+                                                    <input type="text" ng-model="manager.title[userLanguage.value]" class="form-control" type-i18n="manager.title"/>
                                                 </td>
                                                 <td>
-                                                    <input type="text" ng-model="manager.description" class="form-control"/>
+                                                    <input type="text" ng-model="manager.description[userLanguage.value]" class="form-control" type-i18n="manager.description"/>
                                                 </td>
                                                 <td>
                                                     <input type="text" ng-model="manager.linkedin_home" class="form-control"/>
@@ -308,7 +308,7 @@
                 </tab>
                 <tab heading="{%$root.i18n('项目资产')%}">
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('项目财务分析介绍')%}</label>
 
                             <div class="controls">
@@ -317,7 +317,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
+                        <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('项目资本结构')%}</label>
 
                             <div class="controls">
