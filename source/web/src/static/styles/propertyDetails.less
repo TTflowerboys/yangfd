@@ -887,43 +887,44 @@ body{
             }
         }
 
-        .stackedBar { .clearfix(); position: relative; margin-bottom: 88px; height: 50px; margin-top: 56px;
-                      > .bar { float: left; height: 100%; text-align: center; line-height: 50px; color: white; .clipped(auto);
-                               @media @phone {
-                                   font-size: @base-font-size-mobile;
-                               }
+        .stackedBar {
+            .clearfix(); position: relative; margin-bottom: 88px; height: 50px; margin-top: 56px;
+            > .bar { float: left; height: 100%; text-align: center; line-height: 50px; color: white; .clipped(auto);
+                     @media @phone {
+                         font-size: @base-font-size-mobile;
+                     }
 
-                               &.bar1 { background: #00d3ff; }
-                               &.bar2 { background: #00b7dd; }
-                               &.bar3 { background: #0087dd; }
-                               &.bar4 { background: #004fdd; }
-                               &.last { background: #e20013; float: right; }
-                             }
-                      > .annotation { position: absolute; border: 2px solid; text-align: center; .clipped(100%);
-                                      @media @phone {
-                                          font-size: @base-font-size-mobile;
-                                      }
+                     &.bar1 { background: #00d3ff; }
+                     &.bar2 { background: #00b7dd; }
+                     &.bar3 { background: #0087dd; }
+                     &.bar4 { background: #004fdd; }
+                     &.last { background: #e20013; float: right; }
+                   }
+            > .annotation { position: absolute; border: 2px solid; text-align: center; .clipped(100%);
+                            @media @phone {
+                                font-size: @base-font-size-mobile;
+                            }
 
-                                      &.annotation4 { color: #00d3ff; border-top: none; left: 0; top: 100%; margin-top: 8px; z-index: 2;
-                                                      @media @phone {
-                                                          margin-top: 4px;
-                                                      }
+                            &.annotation4 { color: #00d3ff; border-top: none; left: 0; top: 100%; margin-top: 8px; z-index: 2;
+                                            @media @phone {
+                                                margin-top: 4px;
+                                            }
 
-                                                    }
-                                      &.annotation5 { color: #c5c5c5; border-top: none; left: 0; top: 100%; margin-top: 8px; padding-top: 32px; z-index: 1;
-                                                      @media @phone {
-                                                          margin-top: 4px;
-                                                      }
+                                          }
+                            &.annotation5 { color: #c5c5c5; border-top: none; left: 0; top: 100%; margin-top: 8px; padding-top: 32px; z-index: 1;
+                                            @media @phone {
+                                                margin-top: 4px;
+                                            }
 
-                                                    }
-                                      &.annotation6 { color: #e20013; border-bottom: none; right: 0; bottom: 100%; margin-bottom: 8px;
-                                                      @media @phone {
-                                                          margin-bottom: 4px;
-                                                      }
+                                          }
+                            &.annotation6 { color: #e20013; border-bottom: none; right: 0; bottom: 100%; margin-bottom: 8px;
+                                            @media @phone {
+                                                margin-bottom: 4px;
+                                            }
 
-                                                    }
-                                    }
-                    }
+                                          }
+                          }
+        }
         .text {
             @media @phone {
                 display: none;
