@@ -1,15 +1,4 @@
 (function ($) {
-
-    if (window.historical_price) {
-        if ($.browser.msie && parseInt($.browser.version, 10) <= 8) {
-            $(window).on('load', function () {
-                showCharts()
-            })
-        } else {
-            $(function () { showCharts() })
-        }
-    }
-
     function parseData() {
         var red = '#e20013'
         var result = {
@@ -54,9 +43,9 @@
         }
 
         new Chart(ctx).Bar(data, {
-            barShowStroke: true,
-            barDatasetSpacing : 10,
-            barStrokeWidth : 20,
+            scaleShowGridLines: false,
+            barShowStroke: false,
+            barValueSpacing: 90,
         });
 
     }
