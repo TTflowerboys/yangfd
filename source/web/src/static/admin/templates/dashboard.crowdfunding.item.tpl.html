@@ -5,6 +5,8 @@
     <div class="buttons">
 
         <span class="btn-group">
+            <button ng-if="!shopId" class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+            </button>
             <button class="btn" ui-sref=".create">
                 <span class="fa fa-plus-circle"></span> {%$root.i18n('添加项目信息')%}
             </button>

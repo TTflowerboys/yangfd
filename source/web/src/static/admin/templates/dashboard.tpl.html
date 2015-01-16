@@ -39,7 +39,7 @@
                                 ng-options="p.value as p.name for p in i18nLanguages" ng-model="dashboardLanguage.value"
                                 ng-change="changeLanguage()">
                                 <option value="" disabled>-- 界面语言 --</option>
-                                </select>
+                            </select>
                         </li>
                     </ul>
                 </div>
@@ -193,7 +193,9 @@
                             </li>
                             <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.crowdfunding')}">
-                                <a href ui-sref="dashboard.crowdfunding" ui-sref-active="active">
+                                <a ng-if="shopId" href ui-sref="dashboard.crowdfunding.item({shop_id:shopId})" ui-sref-active="active">
+                                    <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('众筹管理')%}</span></a>
+                                <a ng-if="!shopId" href ui-sref="dashboard.crowdfunding" ui-sref-active="active">
                                     <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('众筹管理')%}</span></a>
                             </li>
                         </ul>

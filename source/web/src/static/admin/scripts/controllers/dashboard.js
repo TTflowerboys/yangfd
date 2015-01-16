@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlDashboard($scope, $state, $http, userApi) {
+    function ctrlDashboard($scope, $state, $http, userApi, shopApi) {
 
         $scope.user = {}
 
@@ -29,6 +29,13 @@
                 location.href = team.setQuery('_i18n', $scope.dashboardLanguage.value)
             }
         }
+
+        shopApi.getAll().success(function (data) {
+            var list = data.val
+            if (list.length === 1) {
+                $scope.shopId = list[0].id
+            }
+        })
     }
 
     angular.module('app').controller('ctrlDashboard', ctrlDashboard)
