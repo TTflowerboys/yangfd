@@ -50,7 +50,10 @@ item_params = dict(
         linkedin_home=(str, None),
     )),
     financials=("i18n", None, str),
-    capital_structure=("i18n", None, str),
+    capital_structure=(list, None, dict(
+        name=("i18n", None, str),
+        price=(float, None),
+    )),
     status=(str, None),
     comment=(str, None),
     attachment=(list, None, dict(

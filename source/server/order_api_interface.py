@@ -65,7 +65,7 @@ def order_search(user, params):
     else:
         params["user.id"] = user["id"]
         order_id_list = f_app.order.custom_search(params, per_page=per_page)
-    return f_app.order.output(order_id_list)[0]
+    return f_app.order.output(order_id_list)
 
 
 @f_api('/order/<order_id>')
@@ -80,16 +80,17 @@ def order_get(user, order_id):
 
 @f_api('/order/item_snapshot')
 @f_app.user.login.check(force=True)
-def order_item_snapshot(user, order_id):
+def order_item_snapshot(user):
     params = {"user.id": user["id"], "type": "investment"}
     order_list = f_app.order.output(f_app.order.custom_search(params, per_page=0), permission_check=False)
     item_list = []
     item_id_set = set()
+    logger.debug(order_list)
     for order in order_list:
-        if isinstance(order.get('item'), dict):
-            if order["item"]["id"] not in item_id_set:
-                item_list.append(order["item"])
-                item_id_set.add(order["item"]["id"])
+        if "items" in order and len(order["items"]) == 1:
+            if order["items"][0]["id"] not in item_id_set:
+                item_list.append(order["items"][0])
+                item_id_set.add(order["items"][0]["id"])
         else:
             logger.warning("Invalid order found, this should be a BUG!", exc_info=False)
 
