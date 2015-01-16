@@ -19,7 +19,7 @@
                 return
             }
             $scope.loading = true
-            api.create($stateParams.shop_id, $scope.item, {
+            api.create($scope.item, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function () {

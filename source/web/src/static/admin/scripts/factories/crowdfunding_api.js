@@ -3,23 +3,23 @@
  */
 (function () {
 
-    function crowdfundingApi($http) {
+    function crowdfundingApi($http, $stateParams) {
 
         return {
-            getAll: function (shopId, config) {
-                return $http.get('/api/1/shop/' + shopId + '/item/search?_i18n=disabled', config)
+            getAll: function (config) {
+                return $http.get('/api/1/shop/' + $stateParams.shop_id + '/item/search?_i18n=disabled', config)
             },
-            getOne: function (shopId, id, config) {
-                return $http.get('/api/1/shop/' + shopId + '/item/' + id + '?_i18n=disabled', config)
+            getOne: function (id, config) {
+                return $http.get('/api/1/shop/' + $stateParams.shop_id + '/item/' + id + '?_i18n=disabled', config)
             },
-            update: function (shopId, data, config) {
-                return $http.post('/api/1/shop/' + shopId + '/item/' + data.id + '/edit', data, config)
+            update: function (data, config) {
+                return $http.post('/api/1/shop/' + $stateParams.shop_id + '/item/' + data.id + '/edit', data, config)
             },
-            remove: function (shopId, id, config) {
-                return $http.post('/api/1/shop/' + shopId + '/item/' + id + '/remove', config)
+            remove: function (id, config) {
+                return $http.post('/api/1/shop/' + $stateParams.shop_id + '/item/' + id + '/remove', config)
             },
-            create: function (shopId, data, config) {
-                return $http.post('/api/1/shop/' + shopId + '/item/none/edit', data, config)
+            create: function (data, config) {
+                return $http.post('/api/1/shop/' + $stateParams.shop_id + '/item/none/edit', data, config)
             }
         }
 
