@@ -14,7 +14,7 @@
         if (itemFromParent) {
             onGetItem(itemFromParent)
         } else {
-            api.getOne($stateParams.shop_id, $stateParams.id, {errorMessage: true})
+            api.getOne($stateParams.id, {errorMessage: true})
                 .success(function (data) {
                     onGetItem(data.val)
                 })
@@ -81,7 +81,7 @@
                 changed.zipcode_index = changed.zipcode.substring(0, 3).toUpperCase()
             }
             $scope.loading = true
-            api.update($stateParams.shop_id, angular.extend(changed, {id: $stateParams.id}), {
+            api.update(angular.extend(changed, {id: $stateParams.id}), {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {

@@ -20,6 +20,9 @@
             sort: 'mtime,desc'
         }
 
+        $scope.$watch('selected.status',function(){
+            $scope.searchItem()
+        })
         function updateParams() {
             params.status = $scope.selected.status
             params.mtime = undefined
@@ -27,20 +30,16 @@
 
         $scope.searchItem = function () {
             updateParams()
-            api.getAll($stateParams.shop_id, {
-                params: params, errorMessage: true
-            }).success(onGetList)
+            api.getAll({params: params, errorMessage: true}).success(onGetList)
         }
 
         $scope.refreshList = function () {
-            api.getAll($stateParams.shop_id, {
-                params: params, errorMessage: true
-            }).success(onGetList)
+            api.getAll({params: params, errorMessage: true}).success(onGetList)
         }
 
         $scope.onRemove = function (item) {
             fctModal.show('Do you want to remove it?', undefined, function () {
-                api.remove($stateParams.shop_id, item.id, {errorMessage: true}).success(function () {
+                api.remove(item.id, {errorMessage: true}).success(function () {
                     $scope.list.splice($scope.list.indexOf(item), 1)
                 })
             })
@@ -58,7 +57,7 @@
                 params.insert_time = lastItem.insert_time
             }
 
-            api.getAll($stateParams.shop_id, {params: params})
+            api.getAll({params: params})
                 .success(function () {
                     $scope.currentPageNumber += 1
                 })
@@ -91,7 +90,7 @@
                 delete params.insert_time
             }
 
-            api.getAll($stateParams.shop_id, {params: params, errorMessage: true})
+            api.getAll({params: params, errorMessage: true})
                 .success(function () {
                     $scope.currentPageNumber -= 1
                 })
@@ -118,7 +117,7 @@
 
         $scope.toEditProperty = function (id) {
             var result = id;
-            api.getAll($stateParams.shop_id, {
+            api.getAll({
                 params: {
                     target_property_id: id,
                     status: 'draft,not translated,translating,not reviewed,rejected'
