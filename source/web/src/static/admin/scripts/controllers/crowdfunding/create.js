@@ -6,7 +6,7 @@
 
 (function () {
 
-    function ctrlCrowdfundingCreate($scope, $stateParams, $state, api) {
+    function ctrlCrowdfundingCreate($scope, $state, api) {
 
         $scope.api = api
 

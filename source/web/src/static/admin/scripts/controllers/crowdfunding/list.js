@@ -4,7 +4,7 @@
 
 (function () {
 
-    function ctrlCrowdfundingList($scope, fctModal, api, $state, $stateParams) {
+    function ctrlCrowdfundingList($scope, fctModal, api, $state) {
 
         $scope.list = []
         $scope.perPage = 12

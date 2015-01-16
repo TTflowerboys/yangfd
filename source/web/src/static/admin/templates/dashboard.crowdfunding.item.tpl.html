@@ -41,7 +41,7 @@
                     {%item.name[userLanguage.value]%}
                 </td>
                 <td>
-                    <edit-news-category name="news_category" ng-model="item" news-category-list="newsCategoryList" api="api"></edit-news-category>
+                    <div edit-news-category name="news_category" ng-model="item" news-category-list="newsCategoryList" api="api"></div>
                 </td>
                 <td style="text-align:center;">
                     <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
