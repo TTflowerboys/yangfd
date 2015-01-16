@@ -21,7 +21,7 @@
                 </select>
             </div>
         </div>
-        <div ng-controller="ctrlPropertyItems">
+        <div ng-controller="ctrlCrowdfundingItems">
             <tabset justified="true" style="margin: 16px 0;" ng-if="userLanguage.value && userCurrency.value">
                 <tab heading="{%$root.i18n('通用信息')%}">
                     <div class="row">
@@ -254,7 +254,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" ng-controller="ctrlCrowdfundingItems">
+                    <div class="row">
                         <div class="form-group  col-sm-12">
                             <label class="control-label">{%$root.i18n('管理团队')%}</label>
                             <div class="controls">
@@ -321,7 +321,36 @@
                             <label class="control-label">{%$root.i18n('项目资本结构')%}</label>
 
                             <div class="controls">
-                                <div edit-rich-content ng-model="item.capital_structure"></div>
+                                <table class="table table-bordered table-striped table-condensed"
+                                    style="margin-bottom:30px">
+                                    <thead>
+                                        <tr>
+                                            <th>{%$root.i18n('名称')%}</th>
+                                            <th>{%$root.i18n('费用')%}</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="capital in item.capital_structure">
+                                            <td>
+                                                <input type="text" ng-model="capital.name[userLanguage.value]" class="form-control" type-i18n="manager.name"/>
+                                            </td>
+                                            <td>
+                                                <input type="text" ng-model="capital.price" class="form-control"/>
+                                            </td>
+                                            <td>
+                                                <span class="btn btn-danger" ng-click="onRemoveCapital($index)" title="{%$root.i18n('移除')%}">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <input type="button" ng-click="addCapital()" class="btn btn-primary" value="{%$root.i18n('添加')%}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
