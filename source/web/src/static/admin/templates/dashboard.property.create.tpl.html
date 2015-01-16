@@ -277,7 +277,7 @@
                                     <tbody>
                                         <tr ng-repeat="price in item.historical_price">
                                             <td>
-                                                <edit-date style="width: 185px;" ng-model="price.time"></edit-date>
+                                                <div edit-date style="width: 185px;" ng-model="price.time"></div>
                                             </td>
                                             <td>
                                                 <div type-i18n-unit unit="price.price.unit||userCurrency.value" data="i18nCurrency" ng-model="price.price"
