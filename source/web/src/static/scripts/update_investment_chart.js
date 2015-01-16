@@ -54,9 +54,9 @@
         }
 
         new Chart(ctx).Bar(data, {
-            barShowStroke: true,
-            barDatasetSpacing : 10,
-            barStrokeWidth : 20,
+            scaleShowGridLines: false,
+            barShowStroke: false,
+            barValueSpacing: 90,
         });
 
     }
