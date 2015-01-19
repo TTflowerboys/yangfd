@@ -47,11 +47,6 @@ $(function () {
                 if (!_.isEmpty(array)) {
                     lastItemTime = _.last(array).time
                     _.each(array, function (news) {
-                        //Only for baidu approve
-                        if(news.title.indexOf('贷') >= 0){
-                            return
-                        }
-
                         var newsResult = _.template($('#newsCard_template').html())({news: news})
                         $('#list').append(newsResult)
                         if (lastItemTime > news.time) {
