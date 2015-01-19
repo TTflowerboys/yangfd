@@ -51,7 +51,9 @@ item_params = dict(
     )),
     financials=("i18n", None, str),
     capital_structure=(list, None, dict(
-        name=("i18n", None, str),
+        type=("i18n", None, str),
+        source=("i18n", None, str),
+        rate=(float, None),
         price=(float, None),
     )),
     status=(str, None),
@@ -106,6 +108,17 @@ def shop_edit(user, shop_id, params):
 @f_app.user.login.check(force=True, role=['admin'])
 def shop_remove(user, shop_id):
     f_app.shop.update_set(shop_id, {"status": "deleted"})
+
+
+@f_api("/shop/<shop_id>/item/add", params=dict(
+    type=(str, True),
+    name=(str, True),
+))
+@f_app.user.login.check(force=True, role=['admin'])
+def shop_item_add(user, shop_id, params):
+    params.setdefault("quantity", True)
+    params.setdefault("price", 0)
+    return f_app.shop.item_add(shop_id, params)
 
 
 @f_api("/shop/<shop_id>/item/search", params=dict(

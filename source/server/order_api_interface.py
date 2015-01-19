@@ -12,7 +12,6 @@ logger = logging.getLogger(__name__)
     price=(float, True),
     payment_method_id=(str, "virtual"),
     async=(bool, 1),
-    type=(str, True),
     item_id=(ObjectId, True),
 ))
 @f_app.user.login.check(force=True)
@@ -20,9 +19,8 @@ def order_invest(user, params):
     """
     """
     force_price = params.pop("price")
-    if params["type"] not in ["recharge", "withdrawal", "recovery", "earnings", "investment"]:
-        abort(40000, logger.warning("Invalid params: type", exc_info=False))
-    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, force_price=force_price)])[0]
+    order_params = {"type": "investment"}
+    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
 
 
 @f_api('/order/recharge', params=dict(
@@ -36,9 +34,8 @@ def order_recharge(user, params):
     """
     params["item_id"] = ObjectId("54bcb8146b8099406600b5f1")
     force_price = params.pop("price")
-    if params["type"] not in ["recharge", "withdrawal", "recovery", "earnings", "investment"]:
-        abort(40000, logger.warning("Invalid params: type", exc_info=False))
-    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, force_price=force_price)])[0]
+    order_params = {"type": "recharge"}
+    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
 
 
 @f_api('/order/withdraw', params=dict(
@@ -50,10 +47,10 @@ def order_recharge(user, params):
 def order_withdraw(user, params):
     """
     """
+    params["item_id"] = ObjectId("54bcba676b809941bf1c7846")
     force_price = params.pop("price")
-    if params["type"] not in ["recharge", "withdrawal", "recovery", "earnings", "investment"]:
-        abort(40000, logger.warning("Invalid params: type", exc_info=False))
-    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, force_price=force_price)])[0]
+    order_params = {"type": "withdrawal"}
+    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
 
 
 @f_api('/order/earn', params=dict(
@@ -65,10 +62,10 @@ def order_withdraw(user, params):
 def order_earn(user, params):
     """
     """
+    params["item_id"] = ObjectId("54bcba8d6b80994288a939b7")
     force_price = params.pop("price")
-    if params["type"] not in ["recharge", "withdrawal", "recovery", "earnings", "investment"]:
-        abort(40000, logger.warning("Invalid params: type", exc_info=False))
-    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, force_price=force_price)])[0]
+    order_params = {"type": "earnings"}
+    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
 
 
 @f_api('/order/recovery', params=dict(
@@ -80,10 +77,10 @@ def order_earn(user, params):
 def order_recovery(user, params):
     """
     """
+    params["item_id"] = ObjectId("54bcbaaa6b809942b7bd1de8")
     force_price = params.pop("price")
-    if params["type"] not in ["recharge", "withdrawal", "recovery", "earnings", "investment"]:
-        abort(40000, logger.warning("Invalid params: type", exc_info=False))
-    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, force_price=force_price)])[0]
+    order_params = {"type", "recovery"}
+    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
 
 
 @f_api('/order/search', params=dict(
