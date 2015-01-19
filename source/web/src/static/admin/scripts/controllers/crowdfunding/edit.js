@@ -114,7 +114,7 @@
         }
 
         $scope.submitForAccept = function ($event, form) {
-            $scope.item.status = 'selling'
+            $scope.item.status = 'new'
             $scope.submit($event, form)
         }
 

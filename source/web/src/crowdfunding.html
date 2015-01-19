@@ -88,8 +88,7 @@
                 </div>
 
                 <div class="big">
-                    % for name in ['reality_images','surroundings_images','floor_plan','effect_pictures',
-                        % 'indoor_sample_room_picture','planning_map']:
+                    % for name in ['reality_images']:
                         <div class="item" data-tab-name="{{name}}">
                             % if property.get(name):
                                 <div class="rslides_wrapper">
@@ -141,51 +140,6 @@
                                 <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}"
                                      alt="" />
                                 <span class="text_wrapper"> <span class="text">{{_('实景图')}}</span> </span>
-                                <span class="border"></span>
-                            </li>
-                        % end
-
-                        % if property.get('surroundings_images'):
-                            <li data-tab="surroundings_images">
-                                <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('surroundings_images')[0], thumbnail=True, property_id=property.get('id'))}}"
-                                     alt="" />
-                                <span class="text_wrapper"> <span class="text">{{_('设施图')}}</span> </span>
-                                <span class="border"></span>
-                            </li>
-                        % end
-
-                        % if property.get('floor_plan'):
-                            <li data-tab="floor_plan">
-                                <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('floor_plan')[0], thumbnail=True, property_id=property.get('id'))}}"
-                                     alt=""/>
-                                <span class="text_wrapper"> <span class="text">{{_('户型图')}}</span> </span>
-                                <span class="border"></span>
-                            </li>
-                        % end
-
-                        % if property.get('effect_pictures'):
-                            <li data-tab="effect_pictures">
-                                <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('effect_pictures')[0], thumbnail=True, property_id=property.get('id'))}}"
-                                     alt=""/>
-                                <span class="text_wrapper"> <span class="text">{{_('效果图')}}</span> </span>
-                                <span class="border"></span>
-                            </li>
-                        % end
-
-                        % if property.get('indoor_sample_room_picture'):
-                            <li data-tab="indoor_sample_room_picture">
-                                <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('indoor_sample_room_picture')[0], thumbnail=True, property_id=property.get('id'))}}"
-                                     alt=""/>
-                                <span class="text_wrapper"> <span class="text">{{_('样板间图')}}</span> </span>
-                                <span class="border"></span>
-                            </li>
-                        % end
-
-                        % if property.get('planning_map'):
-                            <li data-tab="planning_map">
-                                <img onerror="window.onImgError(this);" src="{{!fetch_image(property.get('planning_map')[0], thumbnail=True, property_id=property.get('id'))}}"
-                                     alt=""/>
-                                <span class="text_wrapper"> <span class="text">{{_('规划图')}}</span> </span>
                                 <span class="border"></span>
                             </li>
                         % end
@@ -339,34 +293,6 @@
                         <col>
                     </colgroup>
                     <tbody>
-                        <tr>
-                            <td class="name">
-                                <i>
-                                    <img src="/static/images/property_details/icon-house.png" alt=""/>
-                                    </i>
-                                    <label>
-                                        {{_('产权类型')}}
-                                    </label>
-                            </td>
-                            <td class="value">
-                                {{property.get('equity_type',{}).get('value','') }}
-                            </td>
-                        </tr>
-                        % if 'decorative_style' in property:
-                            <tr>
-                                <td class="name">
-                                    <i>
-                                        <img src="/static/images/property_details/icon-pallet.png" alt=""/>
-                                        </i>
-                                        <label>
-                                            {{_('装修风格')}}
-                                        </label>
-                                </td>
-                                <td class="value">
-                                    {{property.get('decorative_style',{}).get('value')}}
-                                </td>
-                            </tr>
-                        % end
                         % if 'address' in property:
                             <tr>
                                 <td class="name">

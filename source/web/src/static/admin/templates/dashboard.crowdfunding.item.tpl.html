@@ -12,7 +12,7 @@
             </button>
         </span>
         <div class="btn-group form-inline">
-            <select class="form-control" ng-options="p.value as p.name for p in propertyStatus" ng-model="selected.status"></select>
+            <select class="form-control" ng-options="p.value as p.name for p in crowdfundingStatus" ng-model="selected.status"></select>
         </div>
         <span class="btn-group pull-right" style="margin-left: 10px">
             <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>

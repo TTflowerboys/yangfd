@@ -376,7 +376,7 @@
             </tabset>
         </div>
         <span>{%$root.i18n('提交到:')%}</span>
-        <select ng-options="p.value as p.name for p in propertyStatus" ng-model="item.status"
+        <select ng-options="p.value as p.name for p in crowdfundingStatus" ng-model="item.status"
             class="input-sm">
         </select>
         <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
