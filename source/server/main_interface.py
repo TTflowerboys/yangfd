@@ -148,9 +148,9 @@ def region_report(zipcode_index):
 
 
 @f_get('/property_list', params=dict(
-    property_type="enum:property_type",
-    country='enum:country',
-    city='enum:city',
+    property_type=(str, False),
+    country=(str, False),
+    city=(str, False),
 ))
 @check_ip_and_redirect_domain
 def property_list(params):
@@ -172,19 +172,19 @@ def property_list(params):
 
     title = ''
 
-    if "country" in params:
+    if "country" in params and len(params['country']):
         for country in country_list:
-            if country.get('id') == str(params['country']["_id"]):
+            if country.get('id') == str(params['country']):
                 title += country.get('value') + ' '
 
-    if "city" in params:
+    if "city" in params and len(params['city']):
         for city in city_list:
-            if city.get('id') == str(params['city']["_id"]):
+            if city.get('id') == str(params['city']):
                 title += city.get('value') + ' '
 
-    if "property_type" in params:
+    if "property_type" in params and len(params['property_type']):
         for property_type in property_type_list:
-            if property_type.get('id') == str(params['property_type']["_id"]):
+            if property_type.get('id') == str(params['property_type']):
                 title += property_type.get('value') + ' '
 
     title += _('房产列表 洋房东')

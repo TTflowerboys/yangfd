@@ -345,30 +345,21 @@ $(window).resize(window.updateTagsFixed);
 
         var $countrySelect = $('select[name=propertyCountry]')
         $countrySelect.change(function () {
-            resetCityDataWhenCountryChange()
-            resetData()
-            loadPropertyList()
-
-            updateBrowserTitle()
             ga('send', 'event', 'property_list', 'change', 'select-country',$('select[name=propertyCountry]').children('option:selected').text())
+            location.href = window.team.setQuery('country', $('select[name=propertyCountry]').children('option:selected').val())
         })
 
         var $citySelect = $('select[name=propertyCity]')
         $citySelect.change(function () {
-            resetData()
-            loadPropertyList()
-
-            updateBrowserTitle()
             ga('send', 'event', 'property_list', 'change', 'select-city',$('select[name=propertyCity]').children('option:selected').text())
+            location.href = window.team.setQuery('city', $('select[name=propertyCity]').children('option:selected').val())
+
         })
 
         var $propertyTypeSelect = $('select[name=propertyType]')
         $propertyTypeSelect.change(function () {
-            resetData()
-            loadPropertyList()
-
-            updateBrowserTitle()
             ga('send', 'event', 'property_list', 'change', 'select-proprty-type',$('select[name=propertyType]').children('option:selected').text())
+            location.href = window.team.setQuery('property_type', $('select[name=propertyType]').children('option:selected').val())
         })
     })
 
