@@ -3,6 +3,8 @@ from __future__ import unicode_literals, absolute_import
 from app import f_app
 from bson.objectid import ObjectId
 
+CURRANT_SHOP_ID = "54a3c92b6b809945b0d996bf"
+
 
 def reverse_sort_time(x, y):
     x_time = 0
@@ -83,6 +85,13 @@ def get_related_property_list(property):
             if item.get('id') != property.get('id'):
                 related_property_list.insert(-1, item)
     return related_property_list
+
+# Crowdfunding
+
+
+def get_crowdfunding_list():
+    return f_app.shop.item.output(f_app.shop.item_custom_search({"shop_id": ObjectId(CURRANT_SHOP_ID)}, per_page=10))
+
 
 # News
 

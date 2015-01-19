@@ -8,7 +8,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-@f_api('/order/add', params=dict(
+@f_api('/order/invest', params=dict(
     price=(float, True),
     payment_method_id=(str, "virtual"),
     async=(bool, 1),
@@ -16,9 +16,69 @@ logger = logging.getLogger(__name__)
     item_id=(ObjectId, True),
 ))
 @f_app.user.login.check(force=True)
-def order_add(user, params):
+def order_invest(user, params):
     """
-    ``type`` can be ``recharge``, ``withdrawal``, ``recovery``, ``earnings``, ``investment``
+    """
+    force_price = params.pop("price")
+    if params["type"] not in ["recharge", "withdrawal", "recovery", "earnings", "investment"]:
+        abort(40000, logger.warning("Invalid params: type", exc_info=False))
+    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, force_price=force_price)])[0]
+
+
+@f_api('/order/recharge', params=dict(
+    price=(float, True),
+    payment_method_id=(str, "virtual"),
+    async=(bool, 1),
+))
+@f_app.user.login.check(force=True)
+def order_recharge(user, params):
+    """
+    """
+    params["item_id"] = ObjectId("54bcb8146b8099406600b5f1")
+    force_price = params.pop("price")
+    if params["type"] not in ["recharge", "withdrawal", "recovery", "earnings", "investment"]:
+        abort(40000, logger.warning("Invalid params: type", exc_info=False))
+    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, force_price=force_price)])[0]
+
+
+@f_api('/order/withdraw', params=dict(
+    price=(float, True),
+    payment_method_id=(str, "virtual"),
+    async=(bool, 1),
+))
+@f_app.user.login.check(force=True)
+def order_withdraw(user, params):
+    """
+    """
+    force_price = params.pop("price")
+    if params["type"] not in ["recharge", "withdrawal", "recovery", "earnings", "investment"]:
+        abort(40000, logger.warning("Invalid params: type", exc_info=False))
+    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, force_price=force_price)])[0]
+
+
+@f_api('/order/earn', params=dict(
+    price=(float, True),
+    payment_method_id=(str, "virtual"),
+    async=(bool, 1),
+))
+@f_app.user.login.check(force=True)
+def order_earn(user, params):
+    """
+    """
+    force_price = params.pop("price")
+    if params["type"] not in ["recharge", "withdrawal", "recovery", "earnings", "investment"]:
+        abort(40000, logger.warning("Invalid params: type", exc_info=False))
+    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, force_price=force_price)])[0]
+
+
+@f_api('/order/recovery', params=dict(
+    price=(float, True),
+    payment_method_id=(str, "virtual"),
+    async=(bool, 1),
+))
+@f_app.user.login.check(force=True)
+def order_recovery(user, params):
+    """
     """
     force_price = params.pop("price")
     if params["type"] not in ["recharge", "withdrawal", "recovery", "earnings", "investment"]:
