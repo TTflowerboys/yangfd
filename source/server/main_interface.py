@@ -22,16 +22,6 @@ import currant_data_helper
 BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅', '学区房', '英国房产', '洋房东', '海外投资', '海外房产', '海外买房', '海外房地产', '海外房产投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
 
 
-def check_landing(func):
-    def __check_landing_replace_func(*args, **kwargs):
-        if f_app.common.landing_only:
-            return template("coming_soon", country_list=f_app.enum.get_all("country"), budget_list=f_app.enum.get_all('budget'))
-        else:
-            return func(*args, **kwargs)
-
-    return __check_landing_replace_func
-
-
 def check_ip_and_redirect_domain(func):
     def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
         try:
@@ -43,8 +33,6 @@ def check_ip_and_redirect_domain(func):
             if "bbtechgroup.com" not in host:
                 # Special hack to remove "beta."
                 request_url = request.url
-                if "/coming_soon" in request_url:
-                    request_url = request_url.replace("beta.", "")
 
                 if country == "CN":
                     logger.debug("Visitor country detected:", country, "redirecting to yangfd.cn if not already. Host:", host)
@@ -85,7 +73,6 @@ def common_template(path, **kwargs):
 
 
 @f_get('/')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check()
 def default(user):
@@ -119,28 +106,24 @@ def default(user):
 
 
 @f_get('/signup')
-@check_landing
 @check_ip_and_redirect_domain
 def signup():
     return common_template("signup")
 
 
 @f_get('/vip_sign_up')
-@check_landing
 @check_ip_and_redirect_domain
 def vip_sign_up():
     return common_template("sign_up_vip")
 
 
 @f_get('/signin')
-@check_landing
 @check_ip_and_redirect_domain
 def signin():
     return common_template("signin")
 
 
 @f_get('/intention')
-@check_landing
 @check_ip_and_redirect_domain
 def intention():
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
@@ -148,14 +131,12 @@ def intention():
 
 
 @f_get('/reset_password')
-@check_landing
 @check_ip_and_redirect_domain
 def resetPassword():
     return common_template("reset_password")
 
 
 @f_get('/region_report/<zipcode_index:re:[A-Z0-9]{2,3}>')
-@check_landing
 @check_ip_and_redirect_domain
 def region_report(zipcode_index):
     report = currant_data_helper.get_report(zipcode_index)
@@ -171,7 +152,6 @@ def region_report(zipcode_index):
     country='enum:country',
     city='enum:city',
 ))
-@check_landing
 @check_ip_and_redirect_domain
 def property_list(params):
     city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
@@ -220,7 +200,6 @@ def property_list(params):
 
 
 @f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
-@check_landing
 @check_ip_and_redirect_domain
 def property_get(property_id):
     property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
@@ -249,7 +228,6 @@ def property_get(property_id):
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def pdfviewer(user, property_id):
@@ -259,7 +237,6 @@ def pdfviewer(user, property_id):
 
 
 @f_get('/crowdfunding/<property_id:re:[0-9a-fA-F]{24}>')
-@check_landing
 @check_ip_and_redirect_domain
 def crowdfunding_get(property_id):
     property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
@@ -288,7 +265,6 @@ def crowdfunding_get(property_id):
 
 
 @f_get('/news_list')
-@check_landing
 @check_ip_and_redirect_domain
 def news_list():
     title = _('房产资讯')
@@ -296,7 +272,6 @@ def news_list():
 
 
 @f_get('/news/<news_id:re:[0-9a-fA-F]{24}>')
-@check_landing
 @check_ip_and_redirect_domain
 def news(news_id):
     news = f_app.blog.post.output([news_id])[0]
@@ -313,7 +288,6 @@ def news(news_id):
 
 
 @f_get('/notice_list')
-@check_landing
 @check_ip_and_redirect_domain
 def notice_list():
     title = _('网站公告')
@@ -321,7 +295,6 @@ def notice_list():
 
 
 @f_get('/guides')
-@check_landing
 @check_ip_and_redirect_domain
 def guides():
     title = _('购房指南')
@@ -329,7 +302,6 @@ def guides():
 
 
 @f_get('/laws')
-@check_landing
 @check_ip_and_redirect_domain
 def laws():
     title = _('法律法规')
@@ -337,7 +309,6 @@ def laws():
 
 
 @f_get('/about')
-@check_landing
 @check_ip_and_redirect_domain
 def about():
     news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
@@ -353,7 +324,6 @@ def about():
 
 
 @f_get('/terms')
-@check_landing
 @check_ip_and_redirect_domain
 def terms():
     news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
@@ -369,7 +339,6 @@ def terms():
 
 
 @f_get('/about/marketing')
-@check_landing
 @check_ip_and_redirect_domain
 def marketing():
     news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
@@ -385,7 +354,6 @@ def marketing():
 
 
 @f_get('/about/media')
-@check_landing
 @check_ip_and_redirect_domain
 def media():
     news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
@@ -401,21 +369,13 @@ def media():
 
 
 @f_get('/partner')
-@check_landing
 @check_ip_and_redirect_domain
 def partner():
     title = _('合作伙伴')
     return common_template("partner", title=title)
 
 
-@f_get('/coming_soon')
-@check_ip_and_redirect_domain
-def coming_soon():
-    return common_template("coming_soon")
-
-
 @f_get('/user_settings')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_settings(user):
@@ -425,7 +385,6 @@ def user_settings(user):
 
 
 @f_get('/user_verify_email')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_email(user):
@@ -435,7 +394,6 @@ def user_verify_email(user):
 
 
 @f_get('/user_change_email')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_email(user):
@@ -445,7 +403,6 @@ def user_change_email(user):
 
 
 @f_get('/user_change_password')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_password(user):
@@ -455,7 +412,6 @@ def user_change_password(user):
 
 
 @f_get('/user_change_phone_1')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_1(user):
@@ -465,7 +421,6 @@ def user_change_phone_1(user):
 
 
 @f_get('/user_change_phone_2')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_2(user):
@@ -475,7 +430,6 @@ def user_change_phone_2(user):
 
 
 @f_get('/user_verify_phone_1')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_1(user):
@@ -485,7 +439,6 @@ def user_verify_phone_1(user):
 
 
 @f_get('/user_verify_phone_2')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_2(user):
@@ -495,7 +448,6 @@ def user_verify_phone_2(user):
 
 
 @f_get('/user_favorites')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_favorites(user):
@@ -507,7 +459,6 @@ def user_favorites(user):
 
 
 @f_get('/user_intentions')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_intentions(user):
@@ -525,7 +476,6 @@ def user_intentions(user):
 
 
 @f_get('/user_properties')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_properties(user):
@@ -539,7 +489,6 @@ def user_properties(user):
 
 
 @f_get('/user_messages')
-@check_landing
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_messages(user):
@@ -557,7 +506,6 @@ def user_messages(user):
 
 
 @f_get('/verify_email_status')
-@check_landing
 @check_ip_and_redirect_domain
 def verify_email_status():
     title = _('验证邮箱')
@@ -568,7 +516,6 @@ def verify_email_status():
 
 
 @f_get('/requirement')
-@check_landing
 @check_ip_and_redirect_domain
 def requirement():
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
@@ -577,7 +524,6 @@ def requirement():
 
 
 @f_get('/wechat_share')
-@check_landing
 @check_ip_and_redirect_domain
 def wechat_share():
     title = _('微信分享')
@@ -585,7 +531,6 @@ def wechat_share():
 
 
 @f_get('/how_it_works', params=dict(slug=str,))
-@check_landing
 @check_ip_and_redirect_domain
 def how_it_works(params):
     if params and "slug" in params:
@@ -604,7 +549,6 @@ def how_it_works(params):
 
 
 @f_get('/calculator')
-@check_landing
 @check_ip_and_redirect_domain
 def calculator():
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
@@ -613,7 +557,6 @@ def calculator():
 
 
 @f_get('/user')
-@check_landing
 @check_ip_and_redirect_domain
 def user():
     title = _('账户信息')
@@ -621,7 +564,6 @@ def user():
 
 
 @f_get('/admin')
-@check_landing
 @check_ip_and_redirect_domain
 def admin():
     return template("admin")
@@ -656,7 +598,6 @@ def static_route(filepath):
 @f_get("/qrcode/generate", params=dict(
     content=(str, True),
 ))
-@check_landing
 def qrcode_generate(params):
     img = qrcode.make(params["content"])
     output = StringIO()
