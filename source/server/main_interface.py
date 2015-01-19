@@ -9,6 +9,7 @@ from hashlib import sha1
 from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, error, abort, template_gettext as _
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
+from six.moves.urllib.parse import quote_plus
 import qrcode
 import bottle
 import logging
@@ -233,13 +234,18 @@ def property_get(property_id):
 def pdfviewer(user, property_id):
     property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
     title = _(property.get('name', '房产详情')) + _(' PDF')
-    return common_template("pdf_viewer", property=property, title=title)
+    pdf_file = ""
+    if property.get('brochure') and len(property.get('brochure')) > 0:
+        pdf_file = property.get('brochure')[0].get('url')
+        pdf_file = quote_plus(pdf_file)
+
+    return common_template("pdf_viewer", pdf_file=pdf_file, title=title)
 
 
 @f_get('/crowdfunding/<property_id:re:[0-9a-fA-F]{24}>')
 @check_ip_and_redirect_domain
 def crowdfunding_get(property_id):
-    property = f_app.i18n.process_i18n(currant_data_helper.get_crowdfunding_list()[0])
+    property = f_app.i18n.process_i18n(f_app.shop.item.output(["54b8d85de999fbbfa66c9dd4"])[0])
     favorite_list = f_app.i18n.process_i18n(currant_data_helper.get_favorite_list())
     related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
 
@@ -259,8 +265,26 @@ def crowdfunding_get(property_id):
     if 'intention' in property and property.get('intention'):
         tags = [item['value'] for item in property['intention'] if 'value' in item]
 
-    keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
+    #keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
+    keywords = ""
     return common_template("crowdfunding", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
+
+
+@f_get('/pdf_viewer/crowdfunding/<crowdfunding_id:re:[0-9a-fA-F]{24}>',  params=dict(
+    link=str,
+    filename=str
+))
+@check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def crowdfunding_pdfviewer(user, crowdfunding_id, params):
+    title = ""
+    if "filename"in params and params["filename"]:
+        title = params["filename"]
+    pdf_file = ""
+    if "pdf_file" in params and params["pdf_file"]:
+        pdf_file = params["pdf_file"]
+
+    return common_template("pdf_viewer", pdf_file=pdf_file, title=title)
 
 
 @f_get('/news_list')

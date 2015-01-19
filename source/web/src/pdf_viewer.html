@@ -40,9 +40,9 @@ Usage - How to open pdf
 
     <body>
         <div id="content">
-            % if property.get('brochure') and len(property.get('brochure')) > 0:
-            <iframe width="100%" height="100%" frameborder="0" src="http://bbt-currant.s3.amazonaws.com/pdf_viewer.html?file={{property.get('brochure')[0].get('url')}}"></iframe>
-            % end
+            %if pdf_file:
+                <iframe width="100%" height="100%" frameborder="0" src="http://bbt-currant.s3.amazonaws.com/pdf_viewer.html?file={{pdf_file}}"></iframe>
+            %end
         </div>
         <!-- @if ENV='production' -->
         <script src="/static/scripts/track.js"></script>

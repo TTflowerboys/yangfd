@@ -328,40 +328,6 @@
                                 </td>
                             </tr>
                         % end
-                        % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-                            <tr>
-                                <td colspan="1" class="name">
-                                    <i>
-                                        <img src="/static/images/property_details/icon-kaleidoscope.png" alt=""/>
-                                        </i>
-                                        <label for="">
-                                            {{_('主要户型')}}
-                                        </label>
-                                </td>
-                                <td colspan="3" class="value">
-                                    % if property.get('main_house_types'):
-                                        % for type in property.get('main_house_types'):
-                                            <a href="#propertyDetails_houseTypes">
-                                                <span class="toggleTag selected">
-                                                    %if 'bedroom_count' in type and type.get('bedroom_count') != 0:
-                                                        {{type.get('bedroom_count',0)}}{{_('室')}}
-                                                    %end
-                                                    %if 'living_room_count' in type and type.get('living_room_count') != 0:
-                                                        {{type.get('living_room_count',0)}}{{_('厅')}}
-                                                    %end
-                                                    % if 'value' in type.get('building_area',{}) and 'unit' in type.get('building_area',{}):
-                                                        (
-                                                        {{float("{0:.2f}".format(float(type.get('building_area',{}).get('value'))))}}
-                                                        {{!format_unit(type.get('building_area',{}).get('unit',''))}}
-                                                        )
-                                                    % end
-                                                </span>
-                                            </a>
-                                        % end
-                                    % end
-                                </td>
-                            </tr>
-                        % end
                     </tbody>
                 </table>
             </div>
@@ -391,19 +357,19 @@
 
                     <ul class="numbers">
                         <li>
-                            <span class="text">{{!_('预计总年化收益率')}}</span>
+                            <span class="text">{{!_('最大预估年化回报率')}}</span>
                             <span class="percentage emphasized">
                                 <strong>
-                                    7%
+                                    {{property.get('max_annual_return_estimated')}}
                                 </strong>
                             </span>
 
                         </li>
                         <li>
-                            <span class="text">{{!_('预估现金年化收益率')}}</span>
+                            <span class="text">{{!_('最大年化现金回报预估')}}</span>
                             <span class="percentage emphasized">
                                 <strong>
-                                    15%
+                                    {{property.get('max_annual_cash_return_estimated')}}
                                 </strong>
                             </span>
 
@@ -412,7 +378,7 @@
                             <span class="text">{{!_('周期')}}</span>
                             <span class="percentage emphasized">
                                 <strong>
-                                    3年
+                                    {{property.get('term')}}
                                 </strong>
                             </span>
 
@@ -446,15 +412,7 @@
             <div class="team">
                 <h3 class="propertyDetails_title">{{_('管理团队')}}</h3>
                 <p class="des">
-                    The Sponsor is an experienced real estate principal investor and investment management firm headquartered in Los
-                    Angeles, California with an investment focus on distressed real estate investments in the middle market sector throughout
-                    the United States. The Oro team collectively brings more than 80 years of experience in principal real estate investing, with
-                    Oro's principals having invested in over $3 billion in assets over the past 20 years. Oro currently owns a 180,694 square
-                    foot multi-suite flex center similar to the Property located less than 20 miles west in Upland, CA. Oro will hire 1st
-                    Commercial Realty Group for on-site management of the Property. In addition to managing hundreds of properties across
-                    the west and southwest encompassing more than 20 million square feet, 1st Commercial is headquartered in Upland, CA,
-                    which is 20 miles west of the Property, and currently manages the Sponsor's multi-suite flex center located in Upland
-                    mentioned above. They are a 24 hour-a-day firm with experience in managing this property type.
+                    {{!property.get('operator')}}
                 </p>
                 <ul class="members">
                     <li class="member">
@@ -548,16 +506,8 @@
                     </tr>
                 </table>
 
-                 <p class="des">
-                    The Sponsor is an experienced real estate principal investor and investment management firm headquartered in Los
-                    Angeles, California with an investment focus on distressed real estate investments in the middle market sector throughout
-                    the United States. The Oro team collectively brings more than 80 years of experience in principal real estate investing, with
-                    Oro's principals having invested in over $3 billion in assets over the past 20 years. Oro currently owns a 180,694 square
-                    foot multi-suite flex center similar to the Property located less than 20 miles west in Upland, CA. Oro will hire 1st
-                    Commercial Realty Group for on-site management of the Property. In addition to managing hundreds of properties across
-                    the west and southwest encompassing more than 20 million square feet, 1st Commercial is headquartered in Upland, CA,
-                    which is 20 miles west of the Property, and currently manages the Sponsor's multi-suite flex center located in Upland
-                    mentioned above. They are a 24 hour-a-day firm with experience in managing this property type.
+                <p class="des">
+                    {{!property.get('financials')}}
                 </p>
                 <hr/>
             </div>
@@ -565,27 +515,17 @@
             <div class="materials">
                 <h3 class="propertyDetails_title">{{_('相关资料')}}</h3>
                 <ul>
-                    <li class="material">
-                        <img alt="" src="/static/images/crowdfunding/material.png"/>
-                        <div class="text">
-                            <label class="type" for="">PDF</label>
-                            <label class="name" for="">项目描述</label>
-                        </div>
-                    </li>
-                    <li class="material">
-                        <img alt="" src="/static/images/crowdfunding/material.png"/>
-                        <div class="text">
-                            <label class="type" for="">PDF</label>
-                            <label class="name" for="">投资合同</label>
-                        </div>
-                    </li>
-                    <li class="material">
-                        <img alt="" src="/static/images/crowdfunding/material.png"/>
-                        <div class="text">
-                            <label class="type" for="">PDF</label>
-                            <label class="name" for="">股份转让合同</label>
-                        </div>
-                    </li>
+                    % from six.moves.urllib.parse import quote_plus
+                    % for material in property.get('materials'):
+                        <li class="material">
+                            <a href="/pdf_viewer/crowdfunding/{{property.get('id')}}?filename={{quote_plus(material.get('filename').encode('utf-8'))}}&link={{quote_plus(material.get('link').encode('utf-8'))}}">
+                                <img alt="" src="/static/images/crowdfunding/material.png"/>
+                                <div class="text">
+                                    <label class="name" for="">{{material.get('filename')}}</label>
+                                </div>
+                            </a>
+                        </li>
+                    % end
                 </ul>
                 <hr/>
             </div>

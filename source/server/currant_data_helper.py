@@ -64,33 +64,40 @@ def get_property_or_target_property(property_id):
 
 
 def get_related_property_list(property):
-    raw_related_property_list = f_app.property.output(f_app.property.search({
-        "country._id": ObjectId(property.get('country').get('id')),
-        "status": {"$in": ["selling", "sold out"]},
-    }, per_page=20, time_field="mtime"))
+    if property.get('country'):
+        raw_related_property_list = f_app.property.output(f_app.property.search({
+            "country._id": ObjectId(property.get('country').get('id')),
+            "status": {"$in": ["selling", "sold out"]},
+        }, per_page=20, time_field="mtime"))
 
-    related_property_list = []
-    if len(raw_related_property_list) > 3:
-        import random
-        i = 6
-        while i > 0 and len(related_property_list) < 3:
-            item = random.choice(raw_related_property_list)
-            if item.get('id') != property.get('id'):
-                raw_related_property_list.remove(item)
-                related_property_list.insert(-1, item)
-                i = i - 1
+        related_property_list = []
+        if len(raw_related_property_list) > 3:
+            import random
+            i = 6
+            while i > 0 and len(related_property_list) < 3:
+                item = random.choice(raw_related_property_list)
+                if item.get('id') != property.get('id'):
+                    raw_related_property_list.remove(item)
+                    related_property_list.insert(-1, item)
+                    i = i - 1
 
+        else:
+            for item in raw_related_property_list:
+                if item.get('id') != property.get('id'):
+                    related_property_list.insert(-1, item)
+        return related_property_list
     else:
-        for item in raw_related_property_list:
-            if item.get('id') != property.get('id'):
-                related_property_list.insert(-1, item)
-    return related_property_list
+        return []
 
 # Crowdfunding
 
 
 def get_crowdfunding_list():
     return f_app.shop.item.output(f_app.shop.item_custom_search({"shop_id": ObjectId(CURRANT_SHOP_ID)}, per_page=10))
+
+
+def get_crowdfunding(crowdfunding_id):
+    return f_app.shop.item.output([crowdfunding_id])[0]
 
 
 # News
