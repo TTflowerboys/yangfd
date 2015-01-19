@@ -1,6 +1,7 @@
 /**
  * Created by zhou on 15-1-13.
  */
+/* jshint -W083:true */
 
 (function () {
 
@@ -20,9 +21,10 @@
             sort: 'mtime,desc'
         }
 
-        $scope.$watch('selected.status',function(){
+        $scope.$watch('selected.status', function () {
             $scope.searchItem()
         })
+
         function updateParams() {
             params.status = $scope.selected.status
             params.mtime = undefined
@@ -102,7 +104,17 @@
             $scope.fetched = true
             $scope.list = data.val
             $scope.pages[$scope.currentPageNumber] = $scope.list
-
+            for (var index in $scope.list) {
+                var listItem = $scope.list[index]
+                if (listItem.target_item_id) {
+                    (function (index) {
+                        api.getOne(listItem.target_item_id, {errorMessage: true})
+                            .success(function (data) {
+                                $scope.list[index] = angular.extend(data.val, $scope.list[index])
+                            })
+                    })(index)
+                }
+            }
             if (!$scope.list || $scope.list.length < $scope.perPage) {
                 $scope.noNext = true
             } else {

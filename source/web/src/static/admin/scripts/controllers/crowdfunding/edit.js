@@ -16,7 +16,17 @@
         } else {
             api.getOne($stateParams.id, {errorMessage: true})
                 .success(function (data) {
-                    onGetItem(data.val)
+                    var res = data.val
+                    if (res.target_item_id) {
+                        api.getOne(res.target_item_id, {errorMessage: true})
+                            .success(function (data) {
+                                onGetTargetItem(data.val)
+                                res = angular.extend(data.val, res)
+                                onGetItem(res)
+                            })
+                    } else {
+                        onGetItem(res)
+                    }
                 })
         }
 
@@ -43,19 +53,6 @@
                 })
                 editItem.investment_type = temp1
             }
-            if (!_.isEmpty(editItem.equity_type)) {
-                editItem.equity_type = editItem.equity_type.id
-            }
-            if (!_.isEmpty(editItem.decorative_style)) {
-                editItem.decorative_style = editItem.decorative_style.id
-            }
-            if (!_.isEmpty(editItem.property_price_type)) {
-                $scope.propertyPriceType = editItem.property_price_type.slug
-                editItem.property_price_type = editItem.property_price_type.id
-            }
-            if (!_.isEmpty(editItem.facing_direction)) {
-                editItem.facing_direction = editItem.facing_direction.id
-            }
             if (!_.isEmpty(editItem.country)) {
                 editItem.country = editItem.country.id
             }
@@ -64,6 +61,34 @@
             }
             $scope.itemOrigin = editItem
             $scope.item = angular.copy($scope.itemOrigin)
+        }
+
+        function onGetTargetItem(item) {
+            var editTargetItem = angular.copy(item)
+            if (!_.isEmpty(editTargetItem.property_type)) {
+                editTargetItem.property_type = editTargetItem.property_type.id
+            }
+            if (!_.isEmpty(editTargetItem.intention)) {
+                var temp = []
+                angular.forEach(editTargetItem.intention, function (value, key) {
+                    temp.push(value.id)
+                })
+                editTargetItem.intention = temp
+            }
+            if (!_.isEmpty(editTargetItem.investment_type)) {
+                var temp1 = []
+                angular.forEach(editTargetItem.investment_type, function (value, key) {
+                    temp1.push(value.id)
+                })
+                editTargetItem.investment_type = temp1
+            }
+            if (!_.isEmpty(editTargetItem.country)) {
+                editTargetItem.country = editTargetItem.country.id
+            }
+            if (!_.isEmpty(editTargetItem.city)) {
+                editTargetItem.city = editTargetItem.city.id
+            }
+            $scope.targetItem = editTargetItem
         }
 
         $scope.submit = function ($event, form) {
