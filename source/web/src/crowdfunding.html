@@ -704,11 +704,13 @@
                     </div>
                     <div class="info">
                         <label class="limit" for="">
-                            5万起投，3年锁定
+                            5万起投，{{property.get('term')}} {{_('年锁定')}}
                         </label>
                         <label class="target" for="">
                             {{_('目标筹资')}}
-                            <strong>¥1000万元</strong>
+                            <strong>
+                                {{property.get('funding_goal')}}
+                            </strong>
                         </label>
                     </div>
 
