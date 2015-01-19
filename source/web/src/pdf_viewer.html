@@ -22,10 +22,10 @@ Usage - How to open pdf
 -->
 <html>
     <head>
-        %if property:
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="google" content="notranslate">
+        <title>{{title}}</title>
 
         <style type="text/css">
             body, html {
@@ -40,8 +40,9 @@ Usage - How to open pdf
 
     <body>
         <div id="content">
-            %if pdf_file:
-                <iframe width="100%" height="100%" frameborder="0" src="http://bbt-currant.s3.amazonaws.com/pdf_viewer.html?file={{pdf_file}}"></iframe>
+            %if link:
+                % from six.moves.urllib.parse import quote_plus
+                <iframe width="100%" height="100%" frameborder="0" src="http://bbt-currant.s3.amazonaws.com/pdf_viewer.html?file={{quote_plus(link.encode('utf-8'))}}"></iframe>
             %end
         </div>
         <!-- @if ENV='production' -->
