@@ -255,32 +255,32 @@ body{
     .materials {
         ul {
             margin-top:50px;
+            overflow:hidden;
 
             li.material {
                 display:inline-block;
                 width:33%;
+                float:left;
                 overflow:hidden;
-                img {
-                    float:left;
-                }
+                a {
+                    display:block;
+                    width:100%;
+                    height:50px;
 
-                .text {
-                    float:left;
-                    margin-left:15px;
+                    img {
+                        float:left;
+                    }
                     label {
-                        display:block;
+                        float:left;
+                        margin-left:15px;
+                        width:150px;
+                        cursor:pointer;
                         &.name {
                             font-size:24px;
                             line-height:28px;
                             color:#666;
                         }
-
-                        &.type {
-                            font-size:14px;
-                            color:#666;
-                        }
                     }
-
                 }
             }
         }

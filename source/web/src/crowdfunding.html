@@ -520,9 +520,7 @@
                         <li class="material">
                             <a href="/pdf_viewer/crowdfunding/{{property.get('id')}}?filename={{quote_plus(material.get('filename').encode('utf-8'))}}&link={{quote_plus(material.get('link').encode('utf-8'))}}">
                                 <img alt="" src="/static/images/crowdfunding/material.png"/>
-                                <div class="text">
-                                    <label class="name" for="">{{material.get('filename')}}</label>
-                                </div>
+                                <label class="name" for="">{{material.get('filename')}}</label>
                             </a>
                         </li>
                     % end
