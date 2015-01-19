@@ -159,18 +159,18 @@ $(window).resize(window.updateTagsFixed);
         lastItemTime = undefined
     }
 
-    function resetCityDataWhenCountryChange() {
-        var selectedCountryId = $('select[name=propertyCountry]').children('option:selected').val()
-        var $citySelect = $('select[name=propertyCity]')
-        $citySelect.empty()
-        $citySelect.append('<option value=>' + window.i18n('任意城市') + '</option>')
-        _.each(window.propertyCityData, function (city) {
-            if (!selectedCountryId || city.country.id === selectedCountryId) {
-                var item = '<option value=' + city.id + '>' + city.value + '</option>'
-                $citySelect.append(item)
-            }
-        })
-    }
+    // function resetCityDataWhenCountryChange() {
+    //     var selectedCountryId = $('select[name=propertyCountry]').children('option:selected').val()
+    //     var $citySelect = $('select[name=propertyCity]')
+    //     $citySelect.empty()
+    //     $citySelect.append('<option value=>' + window.i18n('任意城市') + '</option>')
+    //     _.each(window.propertyCityData, function (city) {
+    //         if (!selectedCountryId || city.country.id === selectedCountryId) {
+    //             var item = '<option value=' + city.id + '>' + city.value + '</option>'
+    //             $citySelect.append(item)
+    //         }
+    //     })
+    // }
 
     function getSelectedBudgetType() {
         var $selectedChild = $('#tags #budgetTag').children('.selected')
@@ -311,13 +311,13 @@ $(window).resize(window.updateTagsFixed);
         $('select[name=propertyType]').find('option[value=' + id + ']').prop('selected', true)
     }
 
-    function updateBrowserTitle(){
-        var updatedTitle = $('select[name=propertyCountry]').children('option:selected').text() + ' ' +
-            $('select[name=propertyCity]').children('option:selected').text() + ' ' +
-            $('select[name=propertyType]').children('option:selected').text() + ' ' + window.i18n('房产列表 洋房东')
+    // function updateBrowserTitle(){
+    //     var updatedTitle = $('select[name=propertyCountry]').children('option:selected').text() + ' ' +
+    //         $('select[name=propertyCity]').children('option:selected').text() + ' ' +
+    //         $('select[name=propertyType]').children('option:selected').text() + ' ' + window.i18n('房产列表 洋房东')
 
-        $(document).prop('title', updatedTitle)
-    }
+    //     $(document).prop('title', updatedTitle)
+    // }
 
     // function updateUserTags() {
     //     var budgetId = getSelectedBudgetType()
@@ -345,30 +345,21 @@ $(window).resize(window.updateTagsFixed);
 
         var $countrySelect = $('select[name=propertyCountry]')
         $countrySelect.change(function () {
-            resetCityDataWhenCountryChange()
-            resetData()
-            loadPropertyList()
-
-            updateBrowserTitle()
             ga('send', 'event', 'property_list', 'change', 'select-country',$('select[name=propertyCountry]').children('option:selected').text())
+            location.href = window.team.setQuery('country', $('select[name=propertyCountry]').children('option:selected').val())
         })
 
         var $citySelect = $('select[name=propertyCity]')
         $citySelect.change(function () {
-            resetData()
-            loadPropertyList()
-
-            updateBrowserTitle()
             ga('send', 'event', 'property_list', 'change', 'select-city',$('select[name=propertyCity]').children('option:selected').text())
+            location.href = window.team.setQuery('city', $('select[name=propertyCity]').children('option:selected').val())
+
         })
 
         var $propertyTypeSelect = $('select[name=propertyType]')
         $propertyTypeSelect.change(function () {
-            resetData()
-            loadPropertyList()
-
-            updateBrowserTitle()
             ga('send', 'event', 'property_list', 'change', 'select-proprty-type',$('select[name=propertyType]').children('option:selected').text())
+            location.href = window.team.setQuery('property_type', $('select[name=propertyType]').children('option:selected').val())
         })
     })
 
