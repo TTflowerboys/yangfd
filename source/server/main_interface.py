@@ -148,9 +148,9 @@ def region_report(zipcode_index):
 
 
 @f_get('/property_list', params=dict(
-    property_type=(str, False),
-    country=(str, False),
-    city=(str, False),
+    property_type=str,
+    country=str,
+    city=str,
 ))
 @check_ip_and_redirect_domain
 def property_list(params):
@@ -239,9 +239,8 @@ def pdfviewer(user, property_id):
 @f_get('/crowdfunding/<property_id:re:[0-9a-fA-F]{24}>')
 @check_ip_and_redirect_domain
 def crowdfunding_get(property_id):
-    property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
-    favorite_list = currant_data_helper.get_favorite_list()
-    favorite_list = f_app.i18n.process_i18n(favorite_list)
+    property = f_app.i18n.process_i18n(currant_data_helper.get_crowdfunding_list()[0])
+    favorite_list = f_app.i18n.process_i18n(currant_data_helper.get_favorite_list())
     related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
 
     report = None
@@ -530,7 +529,7 @@ def wechat_share():
     return common_template("phone/wechat_share", title=title)
 
 
-@f_get('/how_it_works', params=dict(slug=str,))
+@f_get('/how_it_works', params=dict(slug=str),)
 @check_ip_and_redirect_domain
 def how_it_works(params):
     if params and "slug" in params:
