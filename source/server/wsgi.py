@@ -35,6 +35,7 @@ import message_api_interface
 import plot_api_interface
 import shop_api_interface
 import order_api_interface
+import log_api_interface
 
 
 application = f_app(__name__)

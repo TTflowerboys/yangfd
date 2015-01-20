@@ -40,3 +40,4 @@ API Reference
    user_api
    report_api
    shop_api
+   log_api
