@@ -62,4 +62,13 @@ var _mfq = _mfq || [];
     document.getElementsByTagName("head")[0].appendChild(mf);
 })();
 
+// Set up baidu analytics
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?8a8bf5b52e37035787e409658a4ded33";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+
 /* jshint ignore:end */

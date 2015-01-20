@@ -97,11 +97,11 @@
         })
 
         $scope.onJob = function ($event, data) {
-            console.log(data)
+            //console.log(data)
 
             for (var index in $scope.newsList) {
                 var field = $scope.newsList[index]
-                console.log(field)
+                //console.log(field)
                 if (field.id === data) {
                     if (!$scope.item.job_news) {
                         $scope.item.job_news = []
