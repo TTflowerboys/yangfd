@@ -73,7 +73,7 @@ def order_earn(user, params):
     return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
 
 
-@f_api('/order/recovery', params=dict(
+@f_api('/order/recover', params=dict(
     price=(float, True),
     payment_method_id=(str, "virtual"),
     async=(bool, 1),
