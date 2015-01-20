@@ -31,10 +31,12 @@
                 <input class="form-control" type="text" ng-model="item.zipcode_index"/>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label">{%$root.i18n('街区介绍')%}</label>
-            <div class="controls form-inline">
-                <input class="form-control" type="text" type-i18n="item.description" ng-model="item.description[userLanguage.value]"/>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('街区介绍')%}</label>
+                <div class="controls">
+                    <textarea ng-model="item.description[userLanguage.value]" class="form-control" type-i18n="item.description" rows="4"></textarea>
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -349,7 +351,7 @@
                 <input class="form-control" type="text" ng-model="item.crime_statistics"/>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ui-on-Drop="onPlanning($event,$data)" drop-channel="planning">
             <div class="form-group col-sm-12">
                 <label class="control-label">{%$root.i18n('街区规划资讯')%}</label>
                 <div class="controls">
@@ -390,7 +392,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ui-on-Drop="onSupplement($event,$data)" drop-channel="supplement">
             <div class="form-group col-sm-12">
                 <label class="control-label">{%$root.i18n('街区房屋供给资讯')%}</label>
                 <div class="controls">
@@ -431,7 +433,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ui-on-Drop="onJob($event,$data)" drop-channel="job">
             <div class="form-group col-sm-12">
                 <label class="control-label">{%$root.i18n('街区就业机会资讯')%}</label>
                 <div class="controls">
@@ -477,5 +479,36 @@
             <input type="button" ng-click="$state.go('^')" class="btn" value="{%$root.i18n('取消')%}">
         </div>
         <div class="help-block">* {%$root.i18n('必填')%}</div>
+        <div style="width:20%;position:fixed;top:0;right:0;z-index: 100">
+            <div style="display:block;margin:20px;padding:20px;">
+                <table class="table table-bordered table-striped table-condensed">
+                    <colgroup>
+                        <col class="title">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>
+                                <select class="form-control" ng-options="p as p.value[userLanguage.value] for p in newsCategoryList"
+                                    ng-model="selected.category">
+                                    <option value="">-- {%$root.i18n('请选择新闻类别')%} --</option>
+                                </select></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in newsList">
+                            <td ui-draggable="true" drag="{%$index+1%}" drag-channel="job,supplement,planning">
+                                <span style="display: block" href>{%item.title[userLanguage.value]%}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td>
+                            <button style="float: left;" ng-hide="noPrev" class="btn" type="button" ng-click="prevPage()">←</button>
+                            <button style="float: right;" ng-hide="noNext" class="btn" type="button" ng-click="nextPage()"> →</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </form>
 </div>
