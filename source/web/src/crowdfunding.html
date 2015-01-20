@@ -616,18 +616,20 @@
 
             <div class="comments">
                 <h3 class="propertyDetails_title">{{_('项目问答汇总')}}</h3>
-                <div class="addComment">
-                    <h4 class="user">
-                        Great People
-                    </h4>
-                    <div class="comment_wrapper">
-                        <textarea name="comment">
-                        </textarea>
-                    </div>
-                    <button class="button red">
-                        {{_('提交')}}
-                    </button>
-                </div>
+                %if (user):
+                    <form class="addComment" name="addComment">
+                        <h4 class="user">
+                            {{user.get('nickname')}}
+                        </h4>
+                        <div class="comment_wrapper">
+                            <textarea name="comment">
+                            </textarea>
+                        </div>
+                        <button class="button red">
+                            {{_('提交')}}
+                        </button>
+                    </form>
+                %end
                 <ul class="comment_list">
                     <li>
                         <div class="userInfo">
@@ -933,6 +935,7 @@
     <!--@@block = scripts-->
     <script src="/static/vendors/Chart.min.js"></script>
     <script src="/static/scripts/update_investment_chart.js"></script>
+    <script src="/static/scripts/crowdfunding.js"></script>
 
     <script>
      (function () {

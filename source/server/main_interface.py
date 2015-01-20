@@ -247,7 +247,7 @@ def pdfviewer(user, property_id, params):
 @f_get('/crowdfunding/<property_id:re:[0-9a-fA-F]{24}>')
 @check_ip_and_redirect_domain
 def crowdfunding_get(property_id):
-    property = f_app.i18n.process_i18n(f_app.shop.item.output(["54b8d85de999fbbfa66c9dd4"])[0])
+    property = f_app.i18n.process_i18n(f_app.shop.item.output([property_id])[0])
     favorite_list = f_app.i18n.process_i18n(currant_data_helper.get_favorite_list())
     related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
 
