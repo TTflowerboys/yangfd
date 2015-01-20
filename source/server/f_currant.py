@@ -946,6 +946,12 @@ class f_currant_plugins(f_app.plugin_base):
             start=datetime.utcnow() + timedelta(days=30),
         ))
 
+    def order_update_after(self, order_id, params, order, ignore_error=True):
+        if "status" in params.get("$set", {}):
+            if order.get("status") == "paid":
+                if order.get("type") == "investment":
+                    f_app.shop.update_funding_available(order["items"][0]["id"])
+
 
 f_currant_plugins()
 
@@ -2096,6 +2102,16 @@ class f_currant_shop(f_shop):
         if item_filter_params:
             shop_id_list = self.item_filter(item_filter_params, shop_id_list)
         return shop_id_list
+
+    def update_funding_available(self, item_id):
+        funding_available = 0
+        item = f_app.shop.item_get(item_id)
+        if "funding_goal" in item:
+            order_list = f_app.order.search({"items.id": item_id, "status": "paid"})
+            order_amount = sum([order.get("price", 0) for order in f_app.order.get(order_list)])
+            funding_available = item.get("funding_goal", 0) - order_amount
+
+        f_app.shop.item_update_set(item.get('shop_id'), item_id, {"funding_available": funding_available})
 
 f_currant_shop()
 
