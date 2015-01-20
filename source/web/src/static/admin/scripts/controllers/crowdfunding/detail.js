@@ -17,7 +17,27 @@
                     $scope.item = data.val
                 })
         }
+        $scope.submitForAccept = function () {
+            api.update({status: 'new', id: $stateParams.id}, {
+                successMessage: 'Update successfully',
+                errorMessage: 'Update failed'
+            }).success(function (data) {
+                $state.go('^')
+            })['finally'](function () {
+                $scope.loading = false
+            })
+        }
 
+        $scope.submitForReject = function () {
+            api.update({status: 'rejected', id: $stateParams.id}, {
+                successMessage: 'Update successfully',
+                errorMessage: 'Update failed'
+            }).success(function (data) {
+                $state.go('^')
+            })['finally'](function () {
+                $scope.loading = false
+            })
+        }
     }
 
     angular.module('app').controller('ctrlCrowdfundingDetail', ctrlCrowdfundingDetail)

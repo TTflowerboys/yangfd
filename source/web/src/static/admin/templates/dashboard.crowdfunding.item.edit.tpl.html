@@ -388,6 +388,8 @@
                 </tab>
             </tabset>
         </div>
+        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交草稿')%}">
+        <input type="button" class="btn btn-primary" value="{%$root.i18n('提交审核')%}" ng-click="submitForReview($event,editCrowdfunding)">
         <span>{%$root.i18n('提交到:')%}</span>
         <select ng-options="p.value as p.name for p in crowdfundingStatus" ng-model="item.status"
             class="input-sm">

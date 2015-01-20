@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <table class="table table-bordered table-striped table-condensed">
+    <table class="table table-bordered table-striped table-condensed"  ng-controller="ctrlHasEditPropertyPermission">
         <colgroup>
             <col class="name">
             <col class="status">
@@ -49,7 +49,7 @@
                     <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
                         <i class="fa fa-search-plus "></i>
                     </a>
-                    <a class="btn btn-info" href ng-click="toEditProperty(item.id)" title="Edit">
+                    <a ng-if="hasEditPermission(item.status)" class="btn btn-info" href ng-click="toEditProperty(item.id)" title="Edit">
                         <i class="fa fa-edit "></i>
                     </a>
                     <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
