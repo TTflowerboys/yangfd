@@ -32,6 +32,8 @@
             params.time = window.lastCommentTime
         }
 
+        $('.comments .loadIndicator').show()
+         $('.comments .loadMore').hide()
         $.betterGet('/api/1/shop/54a3c92b6b809945b0d996bf/item/' + property.id + '/comment/search', params)
             .done(function (val) {
                 var array = val
@@ -44,10 +46,16 @@
                         if (window.lastCommentTime > comment.time) {
                             window.lastCommentTime = comment.time
                         }
-                    })
+                      })
+                    $('.comments .loadMore').show()
                 }
+                else {
+                    $('.comments .loadMore').hide()
+                }
+                $('.comments .loadIndicator').hide()
             })
             .fail(function (errorCode) {
+                $('.comments .loadIndicator').hide()
             })
     }
 
