@@ -1,7 +1,37 @@
 <!--@@master=masters/master.html -->
+
+<!--@@block = custom_header-->
+<div class="newsHeader_phone  rmm" >
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+            <div class="rmm-button">
+                <img src="/static/images/common/header/phone/menu.png"/>
+            </div>
+            <div id="rmm-center-wrapper" class="rmm-center">
+                <label id="newsHeader_title" class="title" for="">
+                    %if 'title' in news:
+                    {{news.get('title')}}
+                    %end
+                </label>
+            </div>
+            <div class="rmm-toggled-share">
+                <img src="/static/images/property_details/phone/wechat_share.png" />
+            </div>
+        </div>
+        <ul class="rmm-menu" style="display:none;">
+            <li><a href="/">{{_('首页')}}</a></li>
+            <li><a href="/property_list">{{_('海外房产')}}</a></li>
+            <li><a href="/news_list">{{_('投资资讯')}}</a></li>
+        </ul>
+    </div>
+</div>
+
+<!--@@close-->
+
 <!--@@block=head -->
 <!--build:css(dist) /static/styles/news.html.css-->
 <link rel="stylesheet" href="/static/styles/news.css"/>
+<link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
 <!--endbuild-->
 
 <!--@@close-->
@@ -81,6 +111,16 @@
     </div>
 %end
 
+<div class="wechatPage_popup" style="display:none;">
+    <h1 class="tip"> {{!_('点击右上角')}}</h1>
+    <img class="buttonHolder"  alt="" src="/static/images/property_details/wechat_share/phone/wechat_button.png"/>
+    <h1 class="tip"> {{!_('分享链接给微信好友')}}</h1>
+    <div class="guide">
+        <img  alt="" src="/static/images/property_details/wechat_share/phone/wechat_guide.png"/>
+    </div>
+    <a class="gotIt" href ="#close-modal" rel="modal:close">{{_('我知道了')}}</a>
+</div>
+
 <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
     <img src="" alt="二维码" width="220" height="220"/>
     <p>{{_('打开微信，使用 “扫一扫” 即可将网页分享到朋友圈')}}</p>
@@ -91,22 +131,40 @@
 <!--@@block=scripts -->
 
 <script>
- $('[data-fn=shareToWeChat]').on('click', function () {
-     $('#popupShareToWeChat')
+    $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
+        window.openNewsWeChatShare('{{news.get('id')}}')
+        ga('send', 'event', 'news', 'share', 'open-wechat-mobile')
+    });
+
+    window.openNewsWeChatShare = function (newsId) {
+        if (window.team.isWeChat()) {
+            if (window.team.isWeChatiOS()) {
+                $('.wechatPage_popup .buttonHolder').attr('src', '/static/images/property_details/wechat_share/phone/wechat_button_ios.png')
+            }
+            $('.wechatPage_popup').modal()
+            $('.wechatPage_popup').find('.close-modal').hide()
+        }
+        else {
+            location.href = "/wechat_share?news=" + newsId
+        }
+    }
+
+    $('[data-fn=shareToWeChat]').on('click', function () {
+        $('#popupShareToWeChat')
             .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
             .modal()
-     ga('send', 'event', 'news', 'share', 'open-wechat')
- })
+        ga('send', 'event', 'news', 'share', 'open-wechat')
+    })
 
- $('[data-fn=shareToWeibo]').on('click', function () {
-     var news = JSON.parse($('#newsData').text())
-     var params = {'title': news.title, 'url': location.href}
-     if (news.images && news.images.length > 0) {
-         params.pic = news.images[0]
-     }
-     team.shareToWeibo(params)
-     ga('send', 'event', 'news', 'share', 'open-weibo')
- })
+    $('[data-fn=shareToWeibo]').on('click', function () {
+        var news = JSON.parse($('#newsData').text())
+        var params = {'title': news.title, 'url': location.href}
+        if (news.images && news.images.length > 0) {
+            params.pic = news.images[0]
+        }
+        team.shareToWeibo(params)
+        ga('send', 'event', 'news', 'share', 'open-weibo')
+    })
 </script>
 
 <!--@@close-->
