@@ -17,6 +17,8 @@ logger = logging.getLogger(__name__)
 @f_app.user.login.check(force=True)
 def order_invest(user, params):
     """
+    Invest a crowdfunding project
+    ``item_id`` represents the crowdfunding project id
     """
     force_price = params.pop("price")
     order_params = {"type": "investment"}
@@ -31,6 +33,9 @@ def order_invest(user, params):
 @f_app.user.login.check(force=True)
 def order_recharge(user, params):
     """
+    Account recharge.
+    Recharge item id is ``54bcb8146b8099406600b5f1``.
+    Every time user recharges, user buys this item and get the credits.
     """
     params["item_id"] = ObjectId("54bcb8146b8099406600b5f1")
     force_price = params.pop("price")
