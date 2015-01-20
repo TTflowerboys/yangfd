@@ -295,9 +295,9 @@ def shop_comment_add(user, shop_id, item_id, params):
 def shop_comment_list(shop_id, item_id, params):
     # test if shop_id exists
     f_app.shop.item_get(item_id)
-
+    params["item_id"] = ObjectId(item_id)
     per_page = params.pop("per_page", 0)
-    return f_app.comment.output(f_app.comment.search({"item_id": ObjectId(item_id)}, per_page=per_page))
+    return f_app.comment.output(f_app.comment.search(params, per_page=per_page))
 
 
 @f_api('/shop/<shop_id>/item/<item_id>/comment/<comment_id>')
