@@ -11,9 +11,6 @@
 
     </div>
 
-    <a ng-if="draftId" class="btn btn-danger" ui-sref='^.edit({id:draftId})' title="Edit">
-        {%$root.i18n('此房产已存在草稿，点击跳转至草稿编辑')%}
-    </a>
     <input type="button" ng-click="makeStatusToDraft()" class="btn btn-danger" ng-if="item.status === 'not reviewed'"
         value="{%$root.i18n('此房产处于待审核状态，请先将状态改为草稿再编辑此房产。')%}">
 
@@ -678,16 +675,16 @@
             </tabset>
         </div>
         <div>
-            <input ng-if="!draftId" type="submit" class="btn btn-primary" value="{%$root.i18n('提交草稿')%}">
-            <input ng-if="!draftId" type="button" class="btn btn-primary" value="{%$root.i18n('提交审核')%}" ng-click="submitForReview($event,editProperty)">
-            <input ng-if="!draftId" type="button" class="btn btn-primary" ng-click="submitForPreview()" value="{%$root.i18n('保存并预览')%}">
+            <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交草稿')%}">
+            <input type="button" class="btn btn-primary" value="{%$root.i18n('提交审核')%}" ng-click="submitForReview($event,editProperty)">
+            <input type="button" class="btn btn-primary" ng-click="submitForPreview()" value="{%$root.i18n('保存并预览')%}">
         </div>
         <br>
         <span>{%$root.i18n('提交到:')%}</span>
         <select ng-options="p.value as p.name for p in propertyStatus" ng-model="item.status"
             class="input-sm">
         </select>
-        <input ng-if="!draftId" type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
+        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
         <div ng-style="{'visibility':item.unset_fields?'visibility':'hidden'}">
             <div id="unset_fields_blank"></div>
             <div id="unset_fields" class="row" style="position:fixed;bottom:0;width:100%;z-index: 100">

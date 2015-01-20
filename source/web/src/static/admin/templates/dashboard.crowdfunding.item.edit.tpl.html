@@ -7,6 +7,8 @@
         </span>
     </div>
     <hr/>
+    <input type="button" ng-click="makeStatusToDraft()" class="btn btn-danger" ng-if="item.status === 'not reviewed'"
+        value="{%$root.i18n('此项目处于待审核状态，请先将状态改为草稿再编辑此项目。')%}">
 
     <form class="form-horizontal" method="post" autocomplete="on" ng-class="{submitted:submitted}"
         ng-submit="submit($event,editCrowdfunding)" name="editCrowdfunding" novalidate>
