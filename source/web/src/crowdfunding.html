@@ -630,48 +630,10 @@
                         </button>
                     </form>
                 %end
-                <ul class="comment_list">
-                    <li>
-                        <div class="userInfo">
-                            <h4 class="user">
-                                Great People
-                            </h4>
-                            <label class="date">
-                                2015-01-02 14:32
-                            </label>
-                        </div>
-                        <p class="content">
-                            Aging is the largest risk factor for disease iLorem ipsum dolor sit amet, sectetuer adipiscing elit, seddiam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                        </p>
-                    </li>
-                    <li class="staff">
-                        <div class="userInfo">
-                            <h4 class="user">
-                                Great Staff
-                            </h4>
-                            <label class="date">
-                                2015-01-02 14:32
-                            </label>
-                        </div>
-                        <p class="content">
-                            Aging is the largest risk factor for disease iLorem ipsum dolor sit amet, sectetuer adipiscing elit, seddiam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                        </p>
-                    </li>
-                    <li>
-                        <div class="userInfo">
-                            <h4 class="user">
-                                Great People
-                            </h4>
-                            <label class="date">
-                                2015-01-02 14:32
-                            </label>
-                        </div>
-                        <p class="content">
-                            Aging is the largest risk factor for disease iLorem ipsum dolor sit amet, sectetuer adipiscing elit, seddiam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                        </p>
-                    </li>
+                <ul id="comment_list" class="comment_list">
+
                 </ul>
-                <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
+                <button id="loadMore" class="loadMore ghostButton red" onclick="javascript:window.loadComment()">{{_('加载更多')}}</button>
             </div>
         </div>
         <div class="aside">
@@ -925,157 +887,44 @@
     </ul>
 
 
+    <script id="commentCell_template" type="text/template">
+        <li>
+            <div class="userInfo">
+                <h4 class="user">
+                    {=comment.user.nickname=}
+                </h4>
+                <label class="date">
+                    {=project.formatTime(comment.time)=}
+                </label>
+            </div>
+            <p class="content">
+                {=comment.content=}
+            </p>
+        </li>
+    </script>
+
+
     <textarea id="pythonProperty" style="display: none;">
         {{json_dumps(property)}}
     </textarea>
+
+
 
 
     <!--@@close-->
 
     <!--@@block = scripts-->
     <script src="/static/vendors/Chart.min.js"></script>
+    <!--build:js /static/scripts/crowdfunding.html.js-->
+    <script src="/static/vendors/video-js/video.js"></script>
+    <script src="/static/scripts/property_gallery.js"></script>
+    <script src="/static/scripts/property_wechat.js"></script>
+    <script src="/static/scripts/property_favorite.js"></script>
     <script src="/static/scripts/update_investment_chart.js"></script>
     <script src="/static/scripts/crowdfunding.js"></script>
-
-    <script>
-     (function () {
-
-         window.updateInvestmentChart()
-
-         $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
-             window.openWeChatShare('{{property.get('id')}}')
-             ga('send', 'event', 'property_detail', 'share', 'open-wechat-mobile')
-         });
-
-         window.openWeChatShare = function (propertyId) {
-             if (window.team.isWeChat()) {
-                 if (window.team.isWeChatiOS()) {
-                     $('.wechatPage_popup .buttonHolder').attr('src', '/static/images/property_details/wechat_share/phone/wechat_button_ios.png')
-                 }
-                 $('.wechatPage_popup').modal()
-                 $('.wechatPage_popup').find('.close-modal').hide()
-             }
-             else {
-                 location.href = "/wechat_share?property=" + propertyId
-             }
-         }
-
-         function updateResponsiveSlides($slide, auto) {
-             $slide.responsiveSlides({
-                 pager: true,
-                 auto: auto,
-                 nav: true,
-                 pause: true,
-                 prevText: '<',
-                 nextText: '>'
-             })
-         }
-
-         updateResponsiveSlides($('.pictures .rslides'), true)
-
-         $('.rslides_wrapper .leftPressArea').click(function (event) {
-             $(event.target).parent().find('a.prev').click()
-
-             ga('send', 'event', 'property_detail', 'click', 'prev-image',$(event.target).parent().parent().attr('data-tab-name'))
-         })
-
-         $('.rslides_wrapper .rightPressArea').click(function (event) {
-             $(event.target).parent().find('a.next').click()
-
-             ga('send', 'event', 'property_detail', 'click', 'next-image',$(event.target).parent().parent().attr('data-tab-name'))
-         })
-
-
-         $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-             if (tabName === 'video') {
-                 //Hide labels to show no-video-js text and for better video experience
-                 $('.content .pictures .labels').hide()
-             }else{
-                 $('.content .pictures .labels').show()
-             }
-
-             ga('send', 'event', 'property_detail', 'click', 'change-tab',tabName)
-         })
-
-
-
-         $('[data-fn=addFav]').on('click', function () {
-             ga('send', 'event', 'property_detail', 'click', 'add-fav')
-             if (window.project.checkLoginIfNot()) {
-                 return
-             }
-             var $button = $(this)
-             var property_id = $button.attr('data-property-id')
-
-             $.betterPost('/api/1/user/favorite/add', {
-                 property_id: property_id
-             })
-                                      .done(function (val) {
-                                          $button.hide().parent().find('[data-fn=removeFav]').show().attr('data-favorite-id', val)
-
-                                          ga('send', 'event', 'property_detail', 'click', 'add-fav-success')
-                                      })
-                                      .fail(function (errorCode) {
-                                          if (errorCode === 40100) {
-
-                                          } else {
-                                              alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
-                                          }
-
-                                          ga('send', 'event', 'property_detail', 'click', 'add-fav-failed',errorCode)
-                                      })
-
-
-         })
-
-         $('[data-fn=removeFav]').on('click', function () {
-             ga('send', 'event', 'property_detail', 'click', 'remove-fav')
-             if (window.project.checkLoginIfNot()) {
-                 return
-             }
-             var $button = $(this)
-             var favorite_id = $button.attr('data-favorite-id')
-             $.betterPost('/api/1/user/favorite/' + favorite_id + '/remove')
-                                      .done(function () {
-                                          $button.hide().parent().find('[data-fn=addFav]').show()
-                                          ga('send', 'event', 'property_detail', 'click', 'remove-fav-success')
-                                      })
-                                      .fail(function (errorCode) {
-                                          if (errorCode === 40100) {
-
-                                          } else {
-                                              alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
-                                          }
-                                          ga('send', 'event', 'property_detail', 'click', 'remove-fav-failed',errorCode)
-                                      })
-         })
-
-         $('[data-fn=shareToWeChat]').on('click', function () {
-             $('#popupShareToWeChat')
-                                      .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(geoLocation.href)).end()
-                                      .modal()
-             ga('send', 'event', 'property_detail', 'share', 'open-wechat-web')
-         })
-     })();
-
-    </script>
-    <!--build:js /static/scripts/crowdfunding.html.js-->
-    <script src="/static/vendors/jquery.slimscroll.min.js"></script>
-    <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
-    <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
-    <script src="/static/vendors/video-js/video.js"></script>
     <!--endbuild-->
 
     <script>
-     $('[data-fn=expendDescription]').on('click', function () {
-         $(this).parent().hide()
-            .parent().find('[data-ui=description]').height('auto')
-         $(this).parent().hide()
-            .parent().find('[data-ui=description]').toggleClass( "no-after" )
-         ga('send', 'event', 'property_detail', 'click', 'extend-description')
-     });
-
-     videojs.options.flash.swf = "/static/vendors/video-js/video-js.swf";
 
     </script>
     <!-- @endif -->
