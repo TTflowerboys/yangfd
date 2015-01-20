@@ -55,7 +55,6 @@ item_params = dict(
     capital_structure=(list, None, dict(
         type=("i18n", None, str),
         source=("i18n", None, str),
-        rate=(float, None),
         price=(float, None),
     )),
     status=(str, None),
