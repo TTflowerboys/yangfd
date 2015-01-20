@@ -131,12 +131,12 @@
             var result = id;
             api.getAll({
                 params: {
-                    target_property_id: id,
+                    target_item_id: id,
                     status: 'draft,not translated,translating,not reviewed,rejected'
                 }, errorMessage: true
             })
                 .success(function (data) {
-                    var res = data.val.content
+                    var res = data.val
                     if (!_.isEmpty(res)) {
                         result = res[0].id
                     }
