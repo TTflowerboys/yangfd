@@ -5,7 +5,7 @@
 
 (function () {
 
-    function ctrlCrowdfundingDetail($scope, api, $stateParams, misc) {
+    function ctrlCrowdfundingDetail($scope, api, $stateParams, misc, $state) {
         $scope.api = api
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
 
