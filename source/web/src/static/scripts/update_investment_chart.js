@@ -50,5 +50,6 @@
 
     }
 
+    window.updateInvestmentChart()
 
 })(jQuery)
