@@ -130,6 +130,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" ng-if="item.funding_min">
+                        <div class="form-group  col-sm-6">
+                            <label class="control-label">{%$root.i18n('项目起投金额')%}</label>
+
+                            <div class="controls">
+                                <span class="input-xlarge uneditable-input">{%item.funding_min%}</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row" ng-if="item.highlight">
                         <div class="form-group  col-sm-6">
                             <div type-i18n="item.highlight"></div>
