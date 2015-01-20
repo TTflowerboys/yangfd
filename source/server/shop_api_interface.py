@@ -193,6 +193,7 @@ def shop_item_edit(user, shop_id, item_id, params):
                             with f_app.mongo() as m:
                                 item = f_app.shop.item.get_database(m).find_one({"_id": ObjectId(item_id)})
                             item.pop("_id")
+                            item.pop("shop_id")
                             item["status"] = params["status"]
                             target_item_id = item.pop("target_item_id")
                             unset_fields = item.pop("unset_fields", [])
