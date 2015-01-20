@@ -1143,56 +1143,6 @@
     <textarea id="pythonProperty" style="display: none;">
         {{json_dumps(property)}}
     </textarea>
-
-
-    <!--@@close-->
-
-    <!--@@block = scripts-->
-    <script src="/static/vendors/Chart.min.js"></script>
-
-    <script>
-     (function () {
-         function updateResponsiveSlides($slide, auto) {
-             $slide.responsiveSlides({
-                 pager: true,
-                 auto: auto,
-                 nav: true,
-                 pause: true,
-                 prevText: '<',
-                 nextText: '>'
-             })
-         }
-
-         updateResponsiveSlides($('.pictures .rslides'), true)
-
-         $('.rslides_wrapper .leftPressArea').click(function (event) {
-             $(event.target).parent().find('a.prev').click()
-
-             ga('send', 'event', 'property_detail', 'click', 'prev-image',$(event.target).parent().parent().attr('data-tab-name'))
-         })
-
-         $('.rslides_wrapper .rightPressArea').click(function (event) {
-             $(event.target).parent().find('a.next').click()
-
-             ga('send', 'event', 'property_detail', 'click', 'next-image',$(event.target).parent().parent().attr('data-tab-name'))
-         })
-
-
-         $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-             if (tabName === 'video') {
-                 //Hide labels to show no-video-js text and for better video experience
-                 $('.content .pictures .labels').hide()
-             }else{
-                 $('.content .pictures .labels').show()
-             }
-
-             ga('send', 'event', 'property_detail', 'click', 'change-tab',tabName)
-         })
-
-     })();
-
-    </script>
-
     % if property.get('historical_price') :
         <textarea id="python_historical_price" style="display: none;">
     {{json_dumps(sorted(property.get('historical_price'), key=lambda price:price['time']))}}
@@ -1203,9 +1153,14 @@
     % end
 
 
+    <!--@@close-->
+
+    <!--@@block = scripts-->
+    <script src="/static/vendors/Chart.min.js"></script>
     <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
     <!--build:js /static/scripts/property.html.js-->
     <script src="/static/vendors/jquery.slimscroll.min.js"></script>
+    <script src="/static/scripts/property_gallery.js"></script>
     <script src="/static/scripts/show_historical_price.js"></script>
     <script src="/static/scripts/intention_form.js"></script>
     <script src="/static/scripts/mortgage_form.js"></script>
@@ -1215,9 +1170,9 @@
     <script src="/static/scripts/property_favorite.js"></script>
     <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
     <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
+    <script src="/static/scripts/property_brochure.js"></script>
     <script src="/static/vendors/video-js/video.js"></script>
     <!--endbuild-->
-
     <script>
      $('[data-fn=expendDescription]').on('click', function () {
          $(this).parent().hide()
@@ -1229,40 +1184,6 @@
 
      videojs.options.flash.swf = "/static/vendors/video-js/video-js.swf";
 
-     $('.brochure .brochures').jcarousel()
-
-     $('.brochures-control-prev')
-                          .on('jcarouselcontrol:active', function() {
-                              $(this).removeClass('inactive');
-                          })
-                          .on('jcarouselcontrol:inactive', function() {
-                              $(this).addClass('inactive');
-                          })
-                          .jcarouselControl({
-                              target: '-=1'
-                          });
-
-     $('.brochures-control-next')
-                          .on('jcarouselcontrol:active', function() {
-                              $(this).removeClass('inactive');
-                          })
-                          .on('jcarouselcontrol:inactive', function() {
-                              $(this).addClass('inactive');
-                          })
-                          .jcarouselControl({
-                              target: '+=1'
-                          });
-
-     $('.brochure .leftPressArea').click(function (event) {
-         $(event.target).parent().find('.brochures-control-prev').click()
-         ga('send', 'event', 'property_detail', 'prev', 'brochures-prev')
-     })
-
-     $('.brochure .rightPressArea').click(function (event) {
-         $(event.target).parent().find('.brochures-control-next').click()
-         ga('send', 'event', 'property_detail', 'next', 'brochures-next')
-     })
-
      if ($('.maps_wrapper')) {
          var property = JSON.parse($('#pythonProperty').text())
          var geoLocation = new Microsoft.Maps.Location(property.latitude, property.longitude);
@@ -1270,8 +1191,6 @@
          window.showSchoolMap(geoLocation, null, true, 14, property.country.slug)
          window.showFacilityMap(geoLocation, null, true, 14, property.country.slug)
      }
-
-
     </script>
     <!-- @endif -->
 
