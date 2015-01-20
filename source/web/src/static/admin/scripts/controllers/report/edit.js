@@ -3,7 +3,7 @@
  */
 (function () {
 
-    function ctrlReportEdit($scope, $state, api, misc, $stateParams, growl) {
+    function ctrlReportEdit($scope, $state, api, misc, $stateParams, growl, newsApi) {
 
         $scope.item = {}
 
@@ -86,6 +86,34 @@
             })['finally'](function () {
                 $scope.loading = false
             })
+        }
+
+        newsApi.getAll({
+            params: {
+                per_page: $scope.perPage
+            }
+        }).success(function (data) {
+            $scope.newsList = data.val
+        })
+
+        $scope.onJob = function ($event, data) {
+            console.log(data)
+
+            for (var index in $scope.newsList) {
+                var field = $scope.newsList[index]
+                console.log(field)
+                if (field.id === data) {
+                    if (!$scope.item.job_news) {
+                        $scope.item.job_news = []
+                    }
+                    var temp = {
+                        title: field.title,
+                        summary: field.summary,
+                        url: location.domain
+                    }
+                    $scope.item.job_news.splice(0, 0, temp);
+                }
+            }
         }
     }
 
