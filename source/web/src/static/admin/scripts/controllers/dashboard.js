@@ -30,12 +30,13 @@
             }
         }
 
-        shopApi.getAll().success(function (data) {
-            var list = data.val
-            if (list.length === 1) {
-                $scope.shopId = list[0].id
-            }
-        })
+        $scope.shopId = '54a3c92b6b809945b0d996bf'
+        //shopApi.getAll().success(function (data) {
+        //    var list = data.val
+        //    if (list.length === 1) {
+        //        $scope.shopId = list[0].id
+        //    }
+        //})
     }
 
     angular.module('app').controller('ctrlDashboard', ctrlDashboard)

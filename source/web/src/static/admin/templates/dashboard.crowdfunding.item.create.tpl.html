@@ -141,6 +141,13 @@
                                 <input type="text" class="form-control" ng-model="item.funding_goal"/>
                             </div>
                         </div>
+                        <div class="col-sm-3">
+                            <label class="control-label">{%$root.i18n('项目起投金额')%}</label>
+
+                            <div class="controls">
+                                <input type="text" class="form-control" ng-model="item.funding_min"/>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="form-group  col-sm-6">
@@ -325,7 +332,8 @@
                                     style="margin-bottom:30px">
                                     <thead>
                                         <tr>
-                                            <th>{%$root.i18n('名称')%}</th>
+                                            <th>{%$root.i18n('类型')%}</th>
+                                            <th>{%$root.i18n('来源')%}</th>
                                             <th>{%$root.i18n('费用')%}</th>
                                             <th></th>
                                         </tr>
@@ -333,7 +341,10 @@
                                     <tbody>
                                         <tr ng-repeat="capital in item.capital_structure">
                                             <td>
-                                                <input type="text" ng-model="capital.name[userLanguage.value]" class="form-control" type-i18n="manager.name"/>
+                                                <input type="text" ng-model="capital.type[userLanguage.value]" class="form-control" type-i18n="capital.type"/>
+                                            </td>
+                                            <td>
+                                                <input type="text" ng-model="capital.source[userLanguage.value]" class="form-control" type-i18n="capital.source"/>
                                             </td>
                                             <td>
                                                 <input type="text" ng-model="capital.price" class="form-control"/>

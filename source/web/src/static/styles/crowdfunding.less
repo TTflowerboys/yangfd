@@ -351,12 +351,46 @@ body{
                 float:left;
             }
 
-            textarea[name=comment] {
+            .comment_wrapper {
                 float:left;
                 width:100%;
-                height:120px;
                 margin-top:20px;
+                position:relative;
+                position: relative;
+                background: #fff;
+                border: 1px solid #ccc;
+                padding:5px 5px;
 
+                &:after, &:before {
+                             bottom: 100%;
+                             left: 5%;
+                             border: solid transparent;
+                             content: " ";
+                             height: 0;
+                             width: 0;
+                             position: absolute;
+                             pointer-events: none;
+                         }
+
+                &:after {
+                    border-color: rgba(255, 255, 255, 0);
+                    border-bottom-color: #fff;
+                    border-width: 10px;
+                    margin-left: -10px;
+                }
+                &:before {
+                    border-color: rgba(204, 204, 204, 0);
+                    border-bottom-color: #ccc;
+                    border-width: 11px;
+                    margin-left: -11px;
+                }
+            }
+            textarea[name=comment] {
+                border-color:#ccc;
+                border:0;
+                width:100%;
+                height:120px;
+                padding:0px;
             }
 
             button {

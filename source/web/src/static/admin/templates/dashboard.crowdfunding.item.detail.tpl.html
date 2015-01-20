@@ -130,6 +130,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" ng-if="item.funding_min">
+                        <div class="form-group  col-sm-6">
+                            <label class="control-label">{%$root.i18n('项目起投金额')%}</label>
+
+                            <div class="controls">
+                                <span class="input-xlarge uneditable-input">{%item.funding_min%}</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row" ng-if="item.highlight">
                         <div class="form-group  col-sm-6">
                             <div type-i18n="item.highlight"></div>
@@ -297,14 +306,18 @@
                                     style="margin-bottom:30px">
                                     <thead>
                                         <tr>
-                                            <th>{%$root.i18n('名称')%}</th>
+                                            <th>{%$root.i18n('类型')%}</th>
+                                            <th>{%$root.i18n('来源')%}</th>
                                             <th>{%$root.i18n('费用')%}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="capital in item.capital_structure">
                                             <td>
-                                                <span class="input-xlarge uneditable-input">{%capital.name[userLanguage.value]%}</span>
+                                                <span class="input-xlarge uneditable-input">{%capital.type[userLanguage.value]%}</span>
+                                            </td>
+                                            <td>
+                                                <span class="input-xlarge uneditable-input">{%capital.source[userLanguage.value]%}</span>
                                             </td>
                                             <td>
                                                 <span class="input-xlarge uneditable-input">{%capital.price%}</span>

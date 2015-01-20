@@ -7,8 +7,13 @@
         $('.guidePage').show()
 
         var propertyId = team.getQuery('property', location.href)
+        var newsId = team.getQuery('news',location.href)
         if (propertyId) {
             var link = location.origin + '/property/' + propertyId
+            $('#linkInput').val(link)
+            $('.mainPage').find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(link))
+        }else if(newsId){
+            var link = location.origin + '/news/' + newsId
             $('#linkInput').val(link)
             $('.mainPage').find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(link))
         }

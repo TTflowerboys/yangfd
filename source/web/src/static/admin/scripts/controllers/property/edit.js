@@ -31,18 +31,18 @@
                 })
         }
 
-        api.getAll({
-            params: {
-                target_property_id: $stateParams.id,
-                status: 'draft,not translated,translating,not reviewed,rejected'
-            }, errorMessage: true
-        })
-            .success(function (data) {
-                var res = data.val.content
-                if (!_.isEmpty(res)) {
-                    $scope.draftId = res[0].id
-                }
-            })
+        //api.getAll({
+        //    params: {
+        //        target_property_id: $stateParams.id,
+        //        status: 'draft,not translated,translating,not reviewed,rejected'
+        //    }, errorMessage: true
+        //})
+        //    .success(function (data) {
+        //        var res = data.val.content
+        //        if (!_.isEmpty(res)) {
+        //            $scope.draftId = res[0].id
+        //        }
+        //    })
 
         var currentItem
 
