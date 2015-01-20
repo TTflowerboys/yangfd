@@ -799,7 +799,10 @@
                     % if user:
                         <div class="brochures_entry">
                             <div class="brochures_entry_wrapper">
-                                <a href="/pdf_viewer/property/{{property.get('id')}}" target="_blank" class="ghostButton red" >{{_('点击查看完整资料')}}</a>
+                                % from six.moves.urllib.parse import quote_plus
+                                % link = property.get('brochure')[0].get('url')
+                                % link = quote_plus(link.encode('utf-8'))
+                                <a href="/pdf_viewer/property/{{property.get('id')}}?link={{link}}" target="_blank" class="ghostButton red" >{{_('点击查看完整资料')}}</a>
                             </div>
                             <img class="guide_img" src="/static/images/property_details/img_brochure_cover.png" alt="">
                         </div>
@@ -1061,10 +1064,9 @@
                 </div>
                 <hr/>
             % end
-            <!--Only for baidu approval-->
-            <!--<h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
-            &lt;!&ndash;@@include=partials/mortgage_form.html&ndash;&gt;
-            <hr/>-->
+            <h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
+            <!--@@include=partials/mortgage_form.html  -->
+            <hr/>
 
             <div class="relatedProperties">
                 <h2 class="title">{{_('相关房产')}}</h2>

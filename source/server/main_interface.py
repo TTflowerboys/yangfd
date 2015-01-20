@@ -228,18 +228,20 @@ def property_get(property_id):
     return common_template("property", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
 
 
-@f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>')
+@f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>',  params=dict(
+    link=(str, True),
+))
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
-def pdfviewer(user, property_id):
+def pdfviewer(user, property_id, params):
     property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
-    title = _(property.get('name', '房产详情')) + _(' PDF')
-    pdf_file = ""
-    if property.get('brochure') and len(property.get('brochure')) > 0:
-        pdf_file = property.get('brochure')[0].get('url')
-        pdf_file = quote_plus(pdf_file)
+    for brochure in property.get('brochure'):
+        if brochure.get('url') == params["link"]:
+            title = property.get('name', _('房产详情')) + ' PDF'
+            link = params["link"].encode('utf-8')
+            return common_template("pdf_viewer", link=link, title=title)
 
-    return common_template("pdf_viewer", pdf_file=pdf_file, title=title)
+    return redirect('/404')
 
 
 @f_get('/crowdfunding/<property_id:re:[0-9a-fA-F]{24}>')
@@ -271,20 +273,20 @@ def crowdfunding_get(property_id):
 
 
 @f_get('/pdf_viewer/crowdfunding/<crowdfunding_id:re:[0-9a-fA-F]{24}>',  params=dict(
-    link=str,
-    filename=str
+    link=(str, True),
+    filename=(str, True)
 ))
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def crowdfunding_pdfviewer(user, crowdfunding_id, params):
-    title = ""
-    if "filename"in params and params["filename"]:
-        title = params["filename"]
-    pdf_file = ""
-    if "pdf_file" in params and params["pdf_file"]:
-        pdf_file = params["pdf_file"]
+    crowdfunding = f_app.i18n.process_i18n(f_app.shop.item.output([crowdfunding_id])[0])
+    for material in crowdfunding.get('materials'):
+        if material.get('link') == params["link"] and material.get('filename') == params['filename']:
+            title = params["filename"].encode('utf-8')
+            link = params["link"].encode('utf-8')
+            return common_template("pdf_viewer", link=link, title=title)
 
-    return common_template("pdf_viewer", pdf_file=pdf_file, title=title)
+    return redirect('/404')
 
 
 @f_get('/news_list')

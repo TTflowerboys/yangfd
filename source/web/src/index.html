@@ -161,7 +161,7 @@
             <div class="featuredNews">
                 % news = news_list[0]
                 %if ('images' in news) and news.get('images'):
-                    <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><img class="picture" src="{{!fetch_image(news.get('images')[0], thumbnail=True, news_id=news.get('id'))}}"/></a>
+                    <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><img alt="{{news_list[0].get('title', '')}}" class="picture" src="{{!fetch_image(news.get('images')[0], thumbnail=True, news_id=news.get('id'))}}"/></a>
                 %end
                 <div class="content_wrapper">
                     <a href="/news/{{news_list[0].get('id')}}" style="text-decoration:none;"><h3 class="title">
