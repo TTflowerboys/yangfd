@@ -418,18 +418,18 @@
                     <ul class="members">
                         % for member in property.get('management_team'):
                             <li class="member">
-                                <div class="avatar_wrapper">
-                                    <div class="avatar"
-                                         %if (member.get('avatar')):
-                                         style="background-image: url({{member.get('avatar')}})"
-                                         %end
-                                         ></div>
-                                    %if member.get('linkedin_home'):
-                                        <a href="{{member.get('linkedin_home')}}">
-                                            <img class="linkedin" alt="" src="/static/images/crowdfunding/linkedin.png"/>
-                                        </a>
-                                    %end
-                                </div>
+                                <a class="avatar_wrapper"
+                                   %if (member.get('linkedin_home')):
+                                   href="{{member.get('linkedin_home')}}"
+                                   %end
+                                   >
+                                   <div class="avatar"
+                                        %if (member.get('avatar')):
+                                        style="background-image:url('{{member.get('avatar')}}'); background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{member.get('avatar')}}', sizingMethod='scale')"
+                                        %end
+                                        ></div>
+                                        <img class="linkedin" alt="" src="/static/images/crowdfunding/linkedin.png"/>
+                                </a>
                                 %if member.get('name'):
                                     <label class="name" for="">{{member.get('name')}}</label>
                                 %end
