@@ -360,7 +360,7 @@
                             <span class="text">{{!_('最大预估年化回报率')}}</span>
                             <span class="percentage emphasized">
                                 <strong>
-                                    {{property.get('max_annual_return_estimated')}}
+                                     {{str(float("{0:.2f}".format(property.get('max_annual_return_estimated') * 100))) + '%'}}
                                 </strong>
                             </span>
 
@@ -378,7 +378,7 @@
                             <span class="text">{{!_('周期')}}</span>
                             <span class="percentage emphasized">
                                 <strong>
-                                    {{property.get('term')}}
+                                    {{str(property.get('term')) + _('年')}}
                                 </strong>
                             </span>
 
@@ -681,7 +681,7 @@
                         </label>
                         <label class="target" for="">
                             {{_('目标筹资')}}
-                            <strong>
+                            <strong data-type="formatted_currency">
                                 {{property.get('funding_goal')}}
                             </strong>
                         </label>
