@@ -5,7 +5,7 @@
 
 (function () {
 
-    function ctrlCrowdfundingEdit($scope, $state, api, $stateParams, misc, growl, $window) {
+    function ctrlCrowdfundingEdit($scope, $state, api, $stateParams, misc, growl, $window, $rootScope, $filter) {
         $scope.item = {}
 
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
@@ -169,6 +169,79 @@
             })
         }
 
+        $scope.onReset = function ($event, data) {
+            var dontHaveKey = true
+            Object.keys($scope.targetItem).forEach(function (key) {
+                if (key === data) {
+                    dontHaveKey = false
+                    if (angular.equals($scope.item[key], $scope.targetItem[key])) {
+                        growl.addErrorMessage($rootScope.renderHtml($filter('crowdfundingKeyName')(key) + i18n('未修改')),
+                            {enableHtml: true})
+                    } else {
+                        growl.addSuccessMessage($rootScope.renderHtml($filter('crowdfundingKeyName')(key) + i18n('已恢复')),
+                            {enableHtml: true})
+                        $scope.item[key] = $scope.targetItem[key];
+                    }
+                }
+            });
+            if (dontHaveKey) {
+                growl.addErrorMessage($rootScope.renderHtml(i18n('原始数据中不存在：') + $filter('crowdfundingKeyName')(data)),
+                    {enableHtml: true})
+            }
+        }
+
+        $scope.onRemoveDelete = function (index) {
+            $scope.item.unset_fields.splice(index, 1)
+            if ($scope.item.unset_fields.length === 0) {
+                $scope.item.unset_fields = undefined
+            }
+            updateUnsetFieldsHeight()
+        }
+
+        $scope.onDelete = function ($event, data) {
+            if (!$scope.item.unset_fields) {
+                $scope.item.unset_fields = []
+            }
+            for (var index in $scope.item.unset_fields) {
+                var field = $scope.item.unset_fields[index]
+                if (field === data) {
+                    growl.addErrorMessage($rootScope.renderHtml('already exists'), {enableHtml: true})
+                    return
+                }
+            }
+            $scope.item.unset_fields.push(data)
+            updateUnsetFieldsHeight()
+        }
+
+        $rootScope.$on('ANGULAR_DRAG_START', function ($event, channel) {
+            setTimeout(function () {
+                $scope.$evalAsync(function () {
+                    if (!$scope.item.unset_fields) {
+                        $scope.item.unset_fields = []
+
+                    }
+                });
+            }, 0);
+        })
+
+        $rootScope.$on('ANGULAR_DRAG_END', function ($event, channel) {
+            setTimeout(function () {
+                $scope.$evalAsync(function () {
+                    if ($scope.item.unset_fields.length === 0) {
+                        $scope.item.unset_fields = undefined
+                    }
+                });
+            }, 0);
+        })
+
+        var updateUnsetFieldsHeight = function () {
+            setTimeout(function () {
+                $('#unset_fields_blank').height(function (n, c) {
+                    return $('#unset_fields').height() + 20
+                });
+            }, 100);
+        }
+        updateUnsetFieldsHeight()
     }
 
     angular.module('app').controller('ctrlCrowdfundingEdit', ctrlCrowdfundingEdit)

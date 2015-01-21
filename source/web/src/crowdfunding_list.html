@@ -1,0 +1,103 @@
+<!--@@master=masters/master.html-->
+<!--@@block=head -->
+
+<!--build:css(dist) /static/styles/property_list.html.css-->
+<link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
+<link rel="stylesheet" href="/static/styles/propertyList.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+
+<!--@@block=main -->
+<div class="property_data_manager" style="display:none">
+    <textarea id="intentionData">
+        {{json_dumps(intention_list)}}
+    </textarea>
+    <textarea id="budgetData">
+        {{json_dumps(budget_list)}}
+    </textarea>
+</div>
+
+<div id="result" class="result">
+    <div id="tags" class="tags">
+        <div class="tags_inner">
+            %if (budget_list):
+                <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
+                <div class="price">
+                    <img class="price_icon" alt="" src="/static/images/property_list/price-tag.png"/>
+                    <h4 class="price_title">{{_('价格')}}
+                        (
+                        {{_('单选')}}
+                        ,
+                        <!--@@include=partials/current_currency.html -->
+                        )
+                    </h4>
+                    <div id="budgetTag" class="inner">
+                        %for index, budget in enumerate(budget_list):
+                            %if budget.get('currency') == _.currency:
+                                <div class="toggleTag" data-id="{{budget.get('id')}}">{{budget.get('value')}}</div>
+                            %end
+                        %end
+                    </div>
+                </div>
+            %end
+
+            %if (intention_list):
+                <div class="intention">
+                    <img class="intention_icon" alt="" src="/static/images/property_list/intention-tag.png"/>
+                    <h4 class="intention_title">{{_('投资意向(多选)')}}</h4>
+
+                    <div id="intentionTag" class="inner">
+                        %for index, intention in enumerate(intention_list):
+                            <div class="toggleTag" data-id="{{intention.get('id')}}">{{intention.get('value')}}
+                            </div>
+                        %end
+                    </div>
+                </div>
+            %end
+
+        </div>
+        <div class="contact">
+            <a href="tel:4000926433" >{{_('拨打400-0926-433咨询')}}</a>
+        </div>
+        <button id="showTags"  class="showTags textButton" data-state="closed">
+            <label>{{_('更多选择')}}</label>
+            <img alt="" src="/static/images/property_list/tags-indicator-phone.png"/>
+        </button>
+    </div>
+
+    <div id="result_list_container" class="result_list_container">
+        <div id="result_list" class="result_list">
+
+        </div>
+        <hr class="border">
+        <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+        <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
+    </div>
+
+    <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="display:none">
+        <img alt="" src="/static/images/property_list/empty-hint.png"/>
+        <div class="info">
+            <h2 class="hint">{{_('暂无房产信息，洋房东业务团队正在筹备...')}}</h2>
+            <p class="addition">{{_('您可以更改筛选条件，或者')}}<strong>{{_('提交您的置业需求')}}</strong>，将有置业顾问与您联系</p>
+        </div>
+        <!-- @@include=partials/requirement_form.html -->
+        <h2 class="successMessage" style="display:none">{{_('置业需求已提交，稍后我们的工作人员会联系你')}}</h2>
+    </div>
+
+    <ul class="floatBar_phone">
+        <li class="phone"><a href="tel:4000926433" >{{_('拨打400-0926-433咨询')}}</a></li>
+        <li class="requirement"><a href="/requirement"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
+    </ul>
+
+</div>
+<!-- @@include=/static/templates/house_card.tpl.html-->
+<!--@@close-->
+
+
+<!--@@block=scripts -->
+<!--build:js /static/scripts/crowdfunding_list.html.js-->
+<script src="/static/scripts/crowdfunding_list.js"></script>
+<!--endbuild-->
+<!--@@close-->
+

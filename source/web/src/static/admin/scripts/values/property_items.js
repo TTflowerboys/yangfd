@@ -59,5 +59,7 @@ angular.module('app')
         {name: i18n('主要户型'), value: 'main_house_types'},
         {name: i18n('效果图'), value: 'effect_pictures'},
         {name: i18n('室内样板间图'), value: 'indoor_sample_room_picture'},
-        {name: i18n('规划图'), value: 'planning_map'}
+        {name: i18n('规划图'), value: 'planning_map'},
+        {name: i18n('地图位置'), value: 'latitude_longitude'},
+        {name: i18n('开发商包租'), value: 'rental_guarantee'}
     ])

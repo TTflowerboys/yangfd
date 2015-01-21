@@ -301,6 +301,22 @@ def crowdfunding_pdfviewer(user, crowdfunding_id, params):
     return redirect('/404')
 
 
+@f_get('/crowdfunding_list', params=dict(
+    property_type=str,
+    country=str,
+    city=str,
+))
+@check_ip_and_redirect_domain
+def crowdfunding_list(params):
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+
+    title = _('众筹列表 洋房东')
+    return common_template("crowdfunding_list",
+                           intention_list=intention_list,
+                           title=title
+                           )
+
+
 @f_get('/news_list')
 @check_ip_and_redirect_domain
 def news_list():
