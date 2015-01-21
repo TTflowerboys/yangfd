@@ -360,7 +360,7 @@
                             <span class="text">{{!_('最大预估年化回报率')}}</span>
                             <span class="percentage emphasized">
                                 <strong>
-                                    {{property.get('max_annual_return_estimated')}}
+                                     {{str(float("{0:.2f}".format(property.get('max_annual_return_estimated') * 100))) + '%'}}
                                 </strong>
                             </span>
 
@@ -378,7 +378,7 @@
                             <span class="text">{{!_('周期')}}</span>
                             <span class="percentage emphasized">
                                 <strong>
-                                    {{property.get('term')}}
+                                    {{str(property.get('term')) + _('年')}}
                                 </strong>
                             </span>
 
@@ -622,8 +622,7 @@
                             {{user.get('nickname')}}
                         </h4>
                         <div class="comment_wrapper">
-                            <textarea name="comment">
-                            </textarea>
+                            <textarea name="comment"></textarea>
                         </div>
                         <button class="button red">
                             {{_('提交')}}
@@ -671,11 +670,17 @@
                     </div>
                     <div class="info">
                         <label class="limit" for="">
-                            5万起投，{{property.get('term')}} {{_('年锁定')}}
+                            %if (property.get('funding_min')):
+                            {{ str(property.get('funding_min')) + _('起投，') + str(property.get('term')) +  _('年锁定')}}
+                            %else :
+                                %if (property.get('term')):
+                                    {{str(property.get('term')) +  _('年锁定')}}
+                                %end
+                            %end
                         </label>
                         <label class="target" for="">
                             {{_('目标筹资')}}
-                            <strong>
+                            <strong data-type="formatted_currency">
                                 {{property.get('funding_goal')}}
                             </strong>
                         </label>
@@ -908,7 +913,6 @@
     <textarea id="pythonProperty" style="display: none;">
         {{json_dumps(property)}}
     </textarea>
-
 
 
 

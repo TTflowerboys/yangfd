@@ -64,13 +64,13 @@
                 <a style="cursor: pointer;" ui-sref=".favs">{%$root.i18n('收藏房产')%}</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.intentions')}">
-                <a style="cursor: pointer;" ui-sref=".intentions"><span>{%$root.i18n('投资意向单')%}</span>{%item.counter.intention === 0? '':'('+item.counter.intention+')'%}</a>
+                <a style="cursor: pointer;" ui-sref=".intentions"><span>{%$root.i18n('投资意向单')%}</span>{%item.counter.intention+1 === 1? '':'('+item.counter.intention+')'%}</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.boughts')}">
                 <a style="cursor: pointer;" ui-sref=".boughts">{%$root.i18n('已购房产')%}</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.supports')}">
-                <a style="cursor: pointer;" ui-sref=".supports"><span>{%$root.i18n('客服单')%}</span>{%item.counter.support === 0? '':'('+item.counter.support+')'%}</a>
+                <a style="cursor: pointer;" ui-sref=".supports"><span>{%$root.i18n('客服单')%}</span>{%item.counter.support+1 === 1? '':'('+item.counter.support+')'%}</a>
             </li>
         </ul>
 
