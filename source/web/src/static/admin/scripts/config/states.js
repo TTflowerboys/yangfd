@@ -435,6 +435,16 @@ angular.module('app')
                     }
                 }
             })
+            .state('dashboard.users.detail.logs', {
+                url: '/logs',
+                templateUrl: '/static/admin/templates/dashboard.users.detail.favs.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api:function (userLogApi) {
+                        return userLogApi
+                    }
+                }
+            })
         /**
          * 系统消息
          * */

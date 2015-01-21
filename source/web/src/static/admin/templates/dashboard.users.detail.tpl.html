@@ -72,6 +72,9 @@
             <li ng-class="{active:$state.includes('dashboard.users.detail.supports')}">
                 <a style="cursor: pointer;" ui-sref=".supports"><span>{%$root.i18n('客服单')%}</span>{%item.counter.support+1 === 1? '':'('+item.counter.support+')'%}</a>
             </li>
+            <li ng-class="{active:$state.includes('dashboard.users.detail.logs')}">
+                <a style="cursor: pointer;" ui-sref=".logs">{%$root.i18n('浏览记录')%}</a>
+            </li>
         </ul>
 
         <div style="min-height: 600px;" ui-view></div>
