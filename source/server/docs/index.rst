@@ -41,3 +41,4 @@ API Reference
    report_api
    shop_api
    log_api
+   order_api

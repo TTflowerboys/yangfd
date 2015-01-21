@@ -88,6 +88,44 @@ def order_recovery(user, params):
     return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
 
 
+@f_api('/order/search_anonymous', params=dict(
+    item_id=(ObjectId, True),
+    per_page=int,
+    time=datetime,
+    starttime=datetime,
+    endtime=datetime,
+    status=(list, None, str),
+))
+@f_app.user.login.check(force=True)
+def order_search_anonymous(user, params):
+    per_page = params.pop("per_page", 0)
+    if "item_id" in params:
+        params["items.id"] = str(params.pop("item_id"))
+    params["status"] = "paid"
+
+    time_start = params.pop("starttime", None)
+    time_end = params.pop("endtime", None)
+    if time_start or time_end:
+        if time_start and time_end:
+            if time_end < time_start:
+                abort(40000, logger.warning("Invalid params: end time is earlier than start time.", exc_info=False))
+        if time_start is not None:
+            params["last_time"] = time_start
+        if time_end is not None:
+            params["time"] = time_end
+
+    order_list = f_app.order.output(f_app.order.custom_search(params, per_page=per_page), permission_check=False)
+
+    for order in order_list:
+        if order["user"].get("nickname"):
+            order["user_nickname"] = order["user"]["nickname"][0] + (len(order["user"]["nickname"]) - 1) * "*"
+            order.pop("user")
+        order.pop("order_secret")
+        order.pop("payment_method", None)
+
+    return order_list
+
+
 @f_api('/order/search', params=dict(
     item_id=ObjectId,
     per_page=int,
@@ -105,6 +143,8 @@ def order_search(user, params):
         params["user.id"] = str(params.pop("user_id"))
     if "shop_id" in params:
         params["shop.id"] = str(params.pop("shop_id"))
+    if "item_id" in params:
+        params["items.id"] = str(params.pop("item_id"))
 
     time_start = params.pop("starttime", None)
     time_end = params.pop("endtime", None)
@@ -123,11 +163,12 @@ def order_search(user, params):
 
     user_role = f_app.user.get_role(user["id"])
     if set(user_role) & set(["admin", "jr_admin"]):
-        order_id_list = f_app.order.custom_search(params, per_page=per_page)
+        pass
     else:
         params["user.id"] = user["id"]
-        order_id_list = f_app.order.custom_search(params, per_page=per_page)
-    return f_app.order.output(order_id_list)
+    order_list = f_app.order.output(f_app.order.custom_search(params, per_page=per_page))
+
+    return order_list
 
 
 @f_api('/order/<order_id>')
