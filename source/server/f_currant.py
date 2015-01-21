@@ -22,7 +22,7 @@ from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
 from libfelix.f_log import f_log
 from libfelix.f_message import f_message
-from libfelix.f_interface import abort, request
+from libfelix.f_interface import abort, request, template
 from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
 from libfelix.f_shop import f_shop
@@ -951,6 +951,25 @@ class f_currant_plugins(f_app.plugin_base):
             if order.get("status") == "paid":
                 if order.get("type") == "investment":
                     f_app.shop.update_funding_available(order["items"][0]["id"])
+
+                    message = {
+                        "type": "system",
+                        "title": "Investment notification",
+                        "text": "You've invested"
+                    }
+                    f_app.message.add(message, [order["user"]["id"]])
+                    if order["user"].get("email"):
+                        f_app.email.schedule(
+                            target=order["user"]["email"],
+                            subject="You've invested a crowdfunding project!",
+                            text=template(
+                                "static/emails/crowdfunding_notification",
+                                order_price=order["price"],
+                                order_item_name=order["items"][0]["name"],
+                                order_link=request.urlparts[1] + "/" + order["items"][0]["id"]
+                            ),
+                            display="html",
+                        )
 
 
 f_currant_plugins()
