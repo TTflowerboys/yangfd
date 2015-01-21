@@ -445,66 +445,63 @@
 
             <div class="finance">
                 <h3 class="propertyDetails_title">{{_('财务分析')}}</h3>
-                <div class="stackedBar">
-                        <div class="bar bar0" style="width: 25%">
-                            25%
-                        </div>
-                        <div class="bar bar1" style="width: 25%">
-                            25%
-                        </div>
-                        <div class="bar bar3" style="width: 50%">
-                            50%
-                        </div>
-                </div>
+                %if (property.get('capital_structure')):
 
-                <table>
-                    <tr>
-                        <th class="item">{{_('项目')}}</th>
-                        <th class="source">{{_('资金来源')}}</th>
-                        <th class="rate">{{_('比例')}}</th>
-                        <th class="amount">{{_('金额')}}</th>
-                    </tr>
-                    <tr>
-                        <td class="item item0">
-                            <div class="itemName itemName0">
-                                Equity
+                    % capital_total = 0.0
+                    % for capital_item in  property.get('capital_structure'):
+                        %  capital_total += capital_item.get('price')
+                    % end
+                    <div class="stackedBar">
+
+                        %for index, capital_item in  enumerate(property.get('capital_structure')):
+                            <div class="bar bar{{index}}" style="width: {{str(float('{0:.2f}'.format(capital_item.get('price') / capital_total * 100))) + '%'}}">
+                                {{str(float('{0:.2f}'.format(capital_item.get('price') / capital_total * 100))) + '%'}}
                             </div>
-                        </td>
-                        <td>Sponsor & Limited Partner Equity</td>
-                        <td>25%</td>
-                        <td>$2,000</td>
-                    </tr>
-                    <tr>
-                        <td class="item item1">
-                            <div class="itemName itemName1">
-                                Preferred Equity
-                            </div>
-                        </td>
-                        <td>Yangfd investment</td>
-                        <td>25%</td>
-                        <td>$2,000</td>
-                    </tr>
-                    <tr>
-                        <td class="item item2">
-                            <div class="itemName itemName2">
-                                Debt
-                            </div>
-                        </td>
-                        <td>HomeStreet Bank</td>
-                        <td>50%</td>
-                        <td>$4,000</td>
-                    </tr>
-                    <tr>
-                        <td class="item ">
-                            <div class="itemName itemNameTotal">
-                                Total
-                            </div>
-                        </td>
-                        <td></td>
-                        <td>100%</td>
-                        <td>$8,000</td>
-                    </tr>
-                </table>
+
+                        % end
+                    </div>
+
+                    <table>
+                        <tr>
+                            <th class="item">{{_('项目')}}</th>
+                            <th class="source">{{_('资金来源')}}</th>
+                            <th class="rate">{{_('比例')}}</th>
+                            <th class="amount">{{_('金额')}}</th>
+                        </tr>
+
+                        % for index, capital_item in enumerate(property.get('capital_structure')):
+                            <tr>
+                                <td class="item item{{index}}">
+                                    <div class="itemName itemName{{index}}">
+                                        {{capital_item.get('type')}}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    {{capital_item.get('source')}}
+                                </td>
+                                <td>
+                                    {{str(float('{0:.2f}'.format(capital_item.get('price') / capital_total * 100))) + '%'}}
+                                </td>
+                                <td data-type="formatted_currency">
+                                    {{capital_item.get('price')}}
+                                </td>
+                            </tr>
+                        % end
+                        <tr>
+                            <td class="item ">
+                                <div class="itemName itemNameTotal">
+                                    Total
+                                </div>
+                            </td>
+                            <td></td>
+                            <td>100%</td>
+                            <td data-type="formatted_currency">
+                                {{capital_total}}
+                            </td>
+                        </tr>
+                    </table>
+                %end
 
                 <p class="des">
                     {{!property.get('financials')}}
