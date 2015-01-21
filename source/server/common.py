@@ -16,6 +16,7 @@ class common(f_common):
     newrelic_config = "conf/currant_newrelic.ini"
 
     landing_only = False
+    crowdfunding_ready = True
 
     static_file_debug_enabled = True
     static_file_debug = lambda self, filepath, root: (filepath, "views/static/")
