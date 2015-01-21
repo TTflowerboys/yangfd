@@ -233,6 +233,25 @@ angular.module('app')
                     }
                 }
                 return object[props[i]];
+            },
+            formatUnsetField: function (data) {
+                if (data.unset_fields) {
+                    if (data.unset_fields) {
+                        var index1 = data.unset_fields.indexOf('latitude_longitude')
+                        if (index1 >= 0) {
+                            data.unset_fields.splice(index1, 1)
+                            data.unset_fields.push('latitude')
+                            data.unset_fields.push('longitude')
+                        }
+                        var index2 = data.unset_fields.indexOf('rental_guarantee')
+                        if (index2 >= 0) {
+                            data.unset_fields.splice(index2, 1)
+                            data.unset_fields.push('rental_guarantee_rate')
+                            data.unset_fields.push('rental_guarantee_term')
+                        }
+                    }
+                }
+                return data
             }
         }
 
