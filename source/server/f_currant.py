@@ -955,7 +955,7 @@ class f_currant_plugins(f_app.plugin_base):
                     message = {
                         "type": "system",
                         "title": "Investment notification",
-                        "text": "You've invested"
+                        "text": "You've invested successfully."
                     }
                     f_app.message.add(message, [order["user"]["id"]])
                     if order["user"].get("email"):
@@ -970,6 +970,24 @@ class f_currant_plugins(f_app.plugin_base):
                             ),
                             display="html",
                         )
+                if order.get("type") == "recharge":
+                    message = {
+                        "type": "system",
+                        "title": "Recharge notification",
+                        "text": "You've recharged successfully."
+                    }
+                if order.get("type") == "withdrawal":
+                    message = {
+                        "type": "system",
+                        "title": "Withdraw notification",
+                        "text": "You've withdrawed successfully."
+                    }
+                if order.get("type") == "earnings":
+                    message = {
+                        "type": "system",
+                        "title": "Earn notification",
+                        "text": "You've earned successfully."
+                    }
 
 
 f_currant_plugins()
