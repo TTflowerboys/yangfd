@@ -2,12 +2,9 @@
 <!--@@block=content-->
 % order_item_name = _i18n(order_item_name)
 <h1>{{_('你好，')}} {{nickname}}</h1>
-<p>{{_('您已经成功投资项目')}}{{order_item_name}}，金额为{{order_price}}</p>
+<p>{{_('您投资的项目')}}{{order_item_name}}，{{_('的订单已被取消，原因为')}} {{order_canceled_reason}}</p>
 
-<p>{{_('请点击下面链接查看订单 ')}}
-<h2><a href="{{order_link}}" style="color:#e60012; text-decoration: none;">{{order_link}}</a></h2>
-
-<p>{{_('如果上面的链接无法点击，请复制该链接到浏览器地址栏中打开！')}}</p>
+<p>{{_('对此造成的不便，我们深表遗憾。')}}</p>
 
 <p>{{_('如果您有任何使用过程中的问题或者有海外置业的需求，请联系我们:')}}
     <a href="mailto:service@yangfd.com">service@yangfd.com</a></p>

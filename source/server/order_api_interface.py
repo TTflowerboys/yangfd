@@ -176,7 +176,7 @@ def order_search(user, params):
         pass
     else:
         params["user.id"] = user["id"]
-    order_list = f_app.order.output(f_app.order.custom_search(params, per_page=per_page))
+    order_list = f_app.order.output(f_app.order.custom_search(params, per_page=per_page), permission_check=False)
 
     return order_list
 

@@ -968,16 +968,17 @@ class f_currant_plugins(f_app.plugin_base):
                         "title": "Investment notification",
                         "text": "You've invested successfully."
                     }
-                    f_app.message.add(message, [order["user"]["id"]])
+                    f_app.message.add(message, order["user"]["id"])
                     if order["user"].get("email"):
                         f_app.email.schedule(
                             target=order["user"]["email"],
-                            subject="You've invested a crowdfunding project!",
+                            subject=template("views/static/emails/crowdfunding_notification_title.html"),
                             text=template(
-                                "static/emails/crowdfunding_notification",
+                                "views/static/emails/crowdfunding_notification",
+                                nickname=order["user"]["nickname"],
                                 order_price=order["price"],
                                 order_item_name=order["items"][0]["name"],
-                                order_link=request.urlparts[1] + "/" + order["items"][0]["id"]
+                                order_link="http://%s/crowdfunding/%s" % (request.urlparts[1], order["items"][0]["id"]),
                             ),
                             display="html",
                         )
@@ -999,6 +1000,27 @@ class f_currant_plugins(f_app.plugin_base):
                         "title": "Earn notification",
                         "text": "You've earned successfully."
                     }
+
+            elif order.get("status") == "canceled":
+                if order.get("type") == "investment":
+                    message = {
+                        "type": "system",
+                        "title": "Investment order has been canceled.",
+                        "text": "You're investment order has been canceled."
+                    }
+                    f_app.message.add(message, order["user"]["id"])
+                    if order["user"].get("email"):
+                        f_app.email.schedule(
+                            target=order["user"]["email"],
+                            subject=template("views/static/emails/crowdfunding_notification_title_canceled"),
+                            text=template(
+                                "views/static/emails/crowdfunding_notification_canceled",
+                                nickname=order["user"]["nickname"],
+                                order_item_name=order["items"][0]["name"],
+                                order_canceled_reason=order.get("canceled_reason"),
+                            ),
+                            display="html",
+                        )
 
     def route_log_kwargs(self, kwargs):
         if kwargs.get("route"):
