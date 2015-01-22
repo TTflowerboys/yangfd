@@ -3,7 +3,7 @@
 
     function userBoughtApi($http, $stateParams) {
         return {
-            getAll: function (id, config) {
+            getAll: function (config) {
                 config = config || {}
                 config.params = angular.extend({}, config.params, {
                     user_id: $stateParams.id,
