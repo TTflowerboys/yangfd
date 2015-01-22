@@ -75,6 +75,9 @@
             <li ng-class="{active:$state.includes('dashboard.users.detail.logs')}">
                 <a style="cursor: pointer;" ui-sref=".logs">{%$root.i18n('浏览记录')%}</a>
             </li>
+            <li ng-class="{active:$state.includes('dashboard.users.detail.orders')}">
+                <a style="cursor: pointer;" ui-sref=".orders">{%$root.i18n('众筹订单')%}</a>
+            </li>
         </ul>
 
         <div style="min-height: 600px;" ui-view></div>
