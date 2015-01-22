@@ -11,8 +11,8 @@ client = MongoClient(f_app.common.mongo_server, 27017)
 db = client.currant
 collection = db["log"]
 
-cursors = collection.find({"route": {"$exists": True}})
+cursors = collection.find({"route": {"$exists": True}}, {"route": True})
 for cursor in cursors:
     property_id = re.findall(r"^/property/([0-9a-fA-F]{24})", cursor["route"])
     if property_id:
-        collection.update({"_id": cursor["_id"]}, {"property_id": property_id[0]})
+        collection.update({"_id": cursor["_id"]}, {"$set": {"property_id": property_id[0]}})
