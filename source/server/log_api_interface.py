@@ -12,12 +12,16 @@ logger = logging.getLogger(__name__)
     user_id=ObjectId,
     per_page=int,
     time=datetime,
+    has_property=bool,
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def log_search(user, params):
-    per_page = params.pop('per_page', 0)
+    per_page = params.pop('per_page', 100)
     if "user_id" in params:
         params["id"] = ObjectId(params.pop("user_id"))
+    if "has_property" in params:
+        has_property = params.pop("has_property")
+        params["property_id"] = {"$exists": has_property}
     log_list = f_app.log.output(f_app.log.search(params, per_page=per_page))
     return log_list
 
