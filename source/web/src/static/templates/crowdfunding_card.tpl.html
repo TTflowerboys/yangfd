@@ -1,0 +1,110 @@
+<script id="houseCard_template" type="text/template" data-cell-height=240>
+    <div class="crowdfundingCard houseCard">
+        <div class="imagePart">
+            {_if (house.cover){_}
+            <a href="/property/{=house.id=}">
+                <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" width=320 height=213 onerror="window.onImgError(this);"/>
+            </a>
+            {_ } else if(house.reality_images && house.reality_images.length) {_}
+            <a href="/property/{=house.id=}">
+                <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" width=320 height=213 onerror="window.onImgError(this);"/>
+            </a>
+            {_ }else { _}
+            <a href="/property/{=house.id=}">
+                <img class="withPlaceholder" width="320" height="213"/>
+            </a>
+            {_}_}
+            <div class="labels">
+                {_if (house.rental_guarantee_term){_}
+                <label class="rent" for="">{=house.rental_guarantee_term + ' ' + window.i18n('年包租')=}
+                    {_if (house.rental_guarantee_rate){_}
+                    {=' ' +  parseFloat(house.rental_guarantee_rate).toFixed(2) + '%'=}
+                    {_}_}
+                </label>
+                {_}_}
+                {_if (house.property_type && house.property_type.value){_}
+                <label class="type" for="">{=house.property_type.value=}</label>
+                {_}_}
+            </div>
+            {_if (house.status === 'sold out'){_}
+            <div class="soldOut">
+                <img alt="" src="/static/images/background/sold-out.png"/>
+                <label for="">{=window.i18n('已完成')=}</label>
+            </div>
+            {_}_}
+        </div>
+
+        <div class="description_wrapper">
+            <div class=description>
+
+                <div class="summary">
+                    <div class="left">
+                        <h1 class=name>
+                            <a href="/property/{=house.id=}">
+                                {_if (house.country){_}
+                                {=house.country.value=}
+                                {_}_}
+                                {_if (house.city){_}
+                                {=house.city.value=}
+                                {_}_}
+                                {=house.name=}
+                            </a>
+                        </h1>
+                        <ul class=properties>
+                            {_if(house.intention && house.intention.length) {_}
+                            <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                                <label>
+                                    {_ _.each(house.intention, function(oneIntention) { _}
+                                    {=oneIntention.value=}
+                                    {_})_}
+                                </label>
+                            </li>
+                            {_}_}
+                            {_if(house.street) {_}
+                            <li>
+                                <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                                <label>{=house.street=}</label>
+                            </li>
+                            {_}_}
+                        </ul>
+                    </div>
+                    <div class="right">
+
+                        <span class=price>
+                            <!--@@include=../../partials/get_unit_price.tpl.html -->
+                        </span>
+                    </div>
+                </div>
+
+                <div class="progress">
+                    <label class="available">
+                        {=window.i18n('可募集')=}
+                        <strong>
+                            ￥714万元/￥1,000
+                        </strong>
+                        万元
+                    </label>
+                    <div class="progressBar">
+                        <div class="value"></div>
+                    </div>
+                </div>
+                <div class="incoming">
+                    <ul>
+                        {_ if (house.annual_return_estimated) { _}
+                        <li>
+                            <span class=label>{=window.i18n('预计总年化收益率')=}</span>
+                            <span class=value><strong>{=house.annual_return_estimated=}</strong></span>
+                        </li>
+                        {_}_}
+                        {_ if (house.annual_cash_return_estimated) { _}
+                        <li>
+                            <span class=label>{=window.i18n('预估现金年化收益率')=}</span>
+                            <span class=value><strong>{=house.annual_cash_return_estimated=}</strong></span>
+                        </li>
+                        {_}_}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
