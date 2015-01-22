@@ -138,6 +138,11 @@ def order_search_anonymous(user, params):
 ))
 @f_app.user.login.check(force=True)
 def order_search(user, params):
+    """
+    ``type`` can be "investment", "withdrawal", "recharge", "earnings", "recovery"
+    ``shop_id`` is a preserved field, it may be used in future.
+
+    """
     per_page = params.pop("per_page", 0)
     if "user_id" in params:
         params["user.id"] = str(params.pop("user_id"))
@@ -146,6 +151,7 @@ def order_search(user, params):
     if "item_id" in params:
         params["items.id"] = str(params.pop("item_id"))
 
+    temp_time = params.pop("time", None)
     time_start = params.pop("starttime", None)
     time_end = params.pop("endtime", None)
 
@@ -160,6 +166,10 @@ def order_search(user, params):
             params["last_time"] = time_start
         if time_end is not None:
             params["time"] = time_end
+
+    if temp_time and time_end:
+        if temp_time < time_end:
+            params["time"] = temp_time
 
     user_role = f_app.user.get_role(user["id"])
     if set(user_role) & set(["admin", "jr_admin"]):
