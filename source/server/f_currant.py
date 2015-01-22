@@ -109,6 +109,17 @@ class f_currant_log(f_log):
 
     def output(self, log_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
         logs = self.get(log_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        property_id_set = set()
+        for log in logs:
+            if log.get("property_id"):
+                property_id_set.add(log["property_id"])
+
+        property_dict = f_app.property.output(list(property_id_set), multi_return=dict, ignore_nonexist=True)
+
+        for log in logs:
+            if log.get("property_id"):
+                log["property"] = property_dict.get(log.pop("property_id"))
+
         return logs
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
@@ -991,7 +1002,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     def route_log_kwargs(self, kwargs):
         if kwargs.get("route"):
-            property_id = re.findall((r"^/property/([0-9a-fA-F]{24})", kwargs["route"]))
+            property_id = re.findall(r"^/property/([0-9a-fA-F]{24})", kwargs["route"])
             if property_id:
                 kwargs["property_id"] = property_id[0]
 
