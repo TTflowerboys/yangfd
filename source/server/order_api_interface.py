@@ -134,14 +134,15 @@ def order_search_anonymous(user, params):
     endtime=datetime,
     user_id=ObjectId,
     shop_id=ObjectId,
-    type=str,
+    type=(list, None, str),
+    status=(list, None, str),
 ))
 @f_app.user.login.check(force=True)
 def order_search(user, params):
     """
-    ``type`` can be "investment", "withdrawal", "recharge", "earnings", "recovery"
+    ``type`` can be list of "investment", "withdrawal", "recharge", "earnings", "recovery"
+    ``status`` can be list of "paid", "pending", "canceled", "unpaid"
     ``shop_id`` is a preserved field, it may be used in future.
-
     """
     per_page = params.pop("per_page", 0)
     if "user_id" in params:
@@ -150,6 +151,10 @@ def order_search(user, params):
         params["shop.id"] = str(params.pop("shop_id"))
     if "item_id" in params:
         params["items.id"] = str(params.pop("item_id"))
+    if "type" in params:
+        params["type"] = {"$in": params.pop("type")}
+    if "status" in params:
+        params["status"] = {"$in": params.pop("status")}
 
     temp_time = params.pop("time", None)
     time_start = params.pop("starttime", None)
