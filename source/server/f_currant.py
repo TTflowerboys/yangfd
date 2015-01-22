@@ -989,6 +989,14 @@ class f_currant_plugins(f_app.plugin_base):
                         "text": "You've earned successfully."
                     }
 
+    def route_log_kwargs(self, kwargs):
+        if kwargs.get("route"):
+            property_id = re.findall((r"^/property/([0-9a-fA-F]{24})", kwargs["route"]))
+            if property_id:
+                kwargs["property_id"] = property_id[0]
+
+        return kwargs
+
 
 f_currant_plugins()
 
