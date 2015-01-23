@@ -75,20 +75,17 @@ $(window).resize(window.updateTagsFixed);
 
     function loadPropertyList() {
         var params = {'per_page': onePageItemCount}
-        var budgetType = getSelectedBudgetType()
-        if (budgetType) {
-            params.budget = budgetType
-        }
+        // var budgetType = getSelectedBudgetType()
+        // if (budgetType) {
+        //     params.budget = budgetType
+        // }
 
-        var intention = getSelectedIntention()
-        if (intention) {
-            params.intention = intention
-        }
+        // var intention = getSelectedIntention()
+        // if (intention) {
+        //     params.intention = intention
+        // }
         if (lastItemTime) {
             params.mtime = lastItemTime
-
-            //Load more triggered
-            ga('send', 'event', 'property_list', 'trigger', 'load-more')
         }
 
         $('#result_list_container').show()
@@ -101,10 +98,10 @@ $(window).resize(window.updateTagsFixed);
         $('#loadMore').hide()
 
         var totalResultCount = getCurrentTotalCount()
-        $.betterPost('/api/1/property/search', params)
+        $.betterPost('/api/1/shop/54a3c92b6b809945b0d996bf/item/search', params)
             .done(function (val) {
-                var array = val.content
-                totalResultCount = val.count
+                var array = val
+                totalResultCount += array.length
                 if (!_.isEmpty(array)) {
                     lastItemTime = _.last(array).mtime
                     _.each(array, function (house) {
@@ -117,12 +114,7 @@ $(window).resize(window.updateTagsFixed);
                     })
                     updatePropertyCardMouseEnter()
 
-                    if (totalResultCount > getCurrentTotalCount()) {
-                        $('#loadMore').show()
-                    }
-                    else {
-                        $('#loadMore').hide()
-                    }
+                    $('#loadMore').show()
                 }
                 else {
                     $('#loadMore').hide()
@@ -164,18 +156,18 @@ $(window).resize(window.updateTagsFixed);
     }
 
 
-    function getSelectedIntention() {
-        var $selectedChildren = $('#tags #intentionTag').children('.selected')
-        if ($selectedChildren.length) {
-            var ids = ''
-            _.each($selectedChildren, function (child) {
-                ids += child.getAttribute('data-id')
-                ids += ','
-            })
-            return ids
-        }
-        return ''
-    }
+    // function getSelectedIntention() {
+    //     var $selectedChildren = $('#tags #intentionTag').children('.selected')
+    //     if ($selectedChildren.length) {
+    //         var ids = ''
+    //         _.each($selectedChildren, function (child) {
+    //             ids += child.getAttribute('data-id')
+    //             ids += ','
+    //         })
+    //         return ids
+    //     }
+    //     return ''
+    // }
 
 
     function getSelectedIntentionValue() {

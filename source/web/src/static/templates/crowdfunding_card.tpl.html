@@ -1,29 +1,18 @@
 <script id="houseCard_template" type="text/template" data-cell-height=240>
     <div class="crowdfundingCard houseCard">
         <div class="imagePart">
-            {_if (house.cover){_}
-            <a href="/property/{=house.id=}">
-                <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" width=320 height=213 onerror="window.onImgError(this);"/>
-            </a>
-            {_ } else if(house.reality_images && house.reality_images.length) {_}
-            <a href="/property/{=house.id=}">
-                <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" width=320 height=213 onerror="window.onImgError(this);"/>
+            {_ if(house.reality_images && house.reality_images.length) {_}
+            <a href="/crowdfunding/{=house.id=}">
+                <img src="{=team.convertToHttps({'link':house.reality_images[0], 'crowdfunding_id':house.id, 'thumbnail':true})=}" width=320 height=213 onerror="window.onImgError(this);"/>
             </a>
             {_ }else { _}
-            <a href="/property/{=house.id=}">
+            <a href="/crowdfunding/{=house.id=}">
                 <img class="withPlaceholder" width="320" height="213"/>
             </a>
             {_}_}
             <div class="labels">
-                {_if (house.rental_guarantee_term){_}
-                <label class="rent" for="">{=house.rental_guarantee_term + ' ' + window.i18n('年包租')=}
-                    {_if (house.rental_guarantee_rate){_}
-                    {=' ' +  parseFloat(house.rental_guarantee_rate).toFixed(2) + '%'=}
-                    {_}_}
-                </label>
-                {_}_}
-                {_if (house.property_type && house.property_type.value){_}
-                <label class="type" for="">{=house.property_type.value=}</label>
+                {_if (house.investment_type && house.investment_type.value){_}
+                <label class="type" for="">{=house.investment_type.value=}</label>
                 {_}_}
             </div>
             {_if (house.status === 'sold out'){_}
@@ -40,7 +29,7 @@
                 <div class="summary">
                     <div class="left">
                         <h1 class=name>
-                            <a href="/property/{=house.id=}">
+                            <a href="/crowdfunding/{=house.id=}">
                                 {_if (house.country){_}
                                 {=house.country.value=}
                                 {_}_}
@@ -60,18 +49,23 @@
                                 </label>
                             </li>
                             {_}_}
-                            {_if(house.street) {_}
+                            {_if(house.address) {_}
                             <li>
                                 <img src="/static/images/common/crowdfunding_card/icon-location.png" alt=""/>
-                                <label>{=house.street=}</label>
+                                <label>{=house.address=}</label>
                             </li>
                             {_}_}
                         </ul>
                     </div>
                     <div class="right">
-
                         <span class=price>
-                            <!--@@include=../../partials/get_unit_price.tpl.html -->
+                            {_if (house.funding_min) {_}
+                            <strong>{=team.formatCurrency(parseInt(house.funding_min)) + window.i18n('元起')=}</strong>
+                            {_}_}
+                            {_if (house.term) {_}
+                            <br/>
+                            {=house.term + window.i18n('年锁定')=}
+                            {_}_}
                         </span>
                     </div>
                 </div>
@@ -80,26 +74,25 @@
                     <label class="available">
                         {=window.i18n('可募集')=}
                         <strong>
-                            ￥714万元/￥1,000
+                             {=team.formatCurrency(parseInt(house.funding_available)) + '/' + team.formatCurrency(parseInt(house.funding_goal))=}
                         </strong>
-                        万元
                     </label>
                     <div class="progressBar">
-                        <div class="value"></div>
+                        <div class="value" style="width:{=parseFloat((house.funding_goal-house.funding_available) / house.funding_goal * 100) + '%' =};"></div>
                     </div>
                 </div>
                 <div class="incoming">
                     <ul>
-                        {_ if (house.annual_return_estimated) { _}
+                        {_ if (house.min_annual_return_estimated && house.max_annual_return_estimated) { _}
                         <li>
                             <span class=label>{=window.i18n('预计总年化收益率')=}</span>
-                            <span class=value><strong>{=house.annual_return_estimated=}</strong></span>
+                            <span class=value><strong>{=house.min_annual_return_estimated + "~" + house.max_annual_return_estimated=}</strong></span>
                         </li>
                         {_}_}
-                        {_ if (house.annual_cash_return_estimated) { _}
+                        {_ if (house.min_annual_cash_return_estimated && house.max_annual_cash_return_estimated) { _}
                         <li>
                             <span class=label>{=window.i18n('预估现金年化收益率')=}</span>
-                            <span class=value><strong>{=house.annual_cash_return_estimated=}</strong></span>
+                            <span class=value><strong>{=team.formatCurrency(parseInt(house.min_annual_cash_return_estimated)) + '~' + team.formatCurrency(parseInt(house.max_annual_cash_return_estimated))=}</strong></span>
                         </li>
                         {_}_}
                     </ul>
