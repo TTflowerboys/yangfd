@@ -52,7 +52,7 @@
                         </h1>
                         <ul class=properties>
                             {_if(house.intention && house.intention.length) {_}
-                            <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                            <li><img src="/static/images/common/crowdfunding_card/icon-house.png" alt=""/>
                                 <label>
                                     {_ _.each(house.intention, function(oneIntention) { _}
                                     {=oneIntention.value=}
@@ -62,7 +62,7 @@
                             {_}_}
                             {_if(house.street) {_}
                             <li>
-                                <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                                <img src="/static/images/common/crowdfunding_card/icon-location.png" alt=""/>
                                 <label>{=house.street=}</label>
                             </li>
                             {_}_}
