@@ -431,6 +431,14 @@ def partner():
     return common_template("partner", title=title)
 
 
+@f_get('/qa')
+@check_ip_and_redirect_domain
+@check_crowdfunding_ready
+def qa():
+    title = _('众筹投资问答')
+    return common_template("qa", title=title)
+
+
 @f_get('/user_settings')
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)

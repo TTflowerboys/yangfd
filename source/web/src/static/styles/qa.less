@@ -1,0 +1,77 @@
+@import "project/_imports";
+
+
+.page > main {
+    .container {
+        .content {
+            .intro {
+                font-size:14px;
+                color:#666;
+                line-height:30px;
+            }
+
+            .contact {
+                margin-top:40px;
+
+                li {
+                    font-size:14px;
+                    line-height:30px;
+                    color:#666;
+                    a {
+                        color:@red;
+                        text-decoration:none;
+                        font-weight:bold;
+                    }
+                }
+            }
+
+            .qas {
+                margin-top:40px;
+                overflow:hidden;
+
+                .qaCategory {
+                    float:left;
+                    overflow:hidden;
+                    margin-top:60px;
+                    >h3 {
+                        font-size:24px;
+                        color:#666;
+                    }
+
+                    >ul {
+                        margin-top:30px;
+                        float:left;
+                        li {
+                            h4.title {
+                                color:@red;
+                                font-weight:bold;
+                                font-size:20px;
+                                margin-bottom:0px;
+
+                                .indicator {
+                                    display:inline-block;
+                                    width:16px;
+                                    height:16px;
+                                    border-radius:8px;
+                                    font-size:16px;
+                                    line-height:16px;
+                                    text-align:center;
+                                    background:@red;
+                                    margin-right:5px;
+                                    margin-top:-4px;
+                                }
+                            }
+
+                            p {
+                                color:#888;
+                                font-size:16px;
+                                line-height:1.5em;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
