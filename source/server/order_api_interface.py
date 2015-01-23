@@ -152,6 +152,8 @@ def order_search(user, params):
     if "item_id" in params:
         params["items.id"] = str(params.pop("item_id"))
     if "type" in params:
+        if not set(params["type"]) <= set(["recharge", "withdrawal", "recovery", "earnings", "investment"]):
+            abort(40000, logger.warning("Invalid params: type", exc_info=False))
         params["type"] = {"$in": params.pop("type")}
     if "status" in params:
         params["status"] = {"$in": params.pop("status")}
@@ -159,9 +161,6 @@ def order_search(user, params):
     temp_time = params.pop("time", None)
     time_start = params.pop("starttime", None)
     time_end = params.pop("endtime", None)
-
-    if "type" in params and not set(params["type"]) <= set(["recharge", "withdrawal", "recovery", "earnings", "investment"]):
-        abort(40000, logger.warning("Invalid params: type", exc_info=False))
 
     if time_start or time_end:
         if time_start and time_end:
