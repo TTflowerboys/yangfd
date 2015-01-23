@@ -160,7 +160,7 @@ def order_search(user, params):
     time_start = params.pop("starttime", None)
     time_end = params.pop("endtime", None)
 
-    if "type" in params and not set(params["type"]) <= (["recharge", "withdrawal", "recovery", "earnings", "investment"]):
+    if "type" in params and not set(params["type"]) <= set(["recharge", "withdrawal", "recovery", "earnings", "investment"]):
         abort(40000, logger.warning("Invalid params: type", exc_info=False))
 
     if time_start or time_end:
