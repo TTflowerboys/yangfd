@@ -447,7 +447,7 @@ angular.module('app')
             })
             .state('dashboard.users.detail.orders', {
                 url: '/orders',
-                templateUrl: '/static/admin/templates/dashboard.users.detail.favs.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.users.detail.orders.tpl.html',
                 controller: 'ctrlList',
                 resolve: {
                     api:function (userOrderApi) {
