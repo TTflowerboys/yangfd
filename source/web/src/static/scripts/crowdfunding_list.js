@@ -271,7 +271,7 @@ $(window).resize(window.updateTagsFixed);
     })
 
 
-    $('#tags #budgetTag').on('click', '.toggleTag', function (event) {
+    $('#tags #investmentTypeTag').on('click', '.toggleTag', function (event) {
 
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
@@ -286,7 +286,6 @@ $(window).resize(window.updateTagsFixed);
         loadPropertyList()
         //updateUserTags()
 
-        ga('send', 'event', 'property_list', 'change', 'change-budget',$item.text())
     })
 
     $('#tags #intentionTag').on('click', '.toggleTag', function (event) {
@@ -303,7 +302,6 @@ $(window).resize(window.updateTagsFixed);
         loadPropertyList()
         //updateUserTags()
 
-        ga('send', 'event', 'property_list', 'change', 'change-intention',$item.text())
     })
 
     function showTags() {

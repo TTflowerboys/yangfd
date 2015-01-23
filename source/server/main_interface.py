@@ -310,10 +310,12 @@ def crowdfunding_pdfviewer(user, crowdfunding_id, params):
 @check_crowdfunding_ready
 def crowdfunding_list(params):
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+    investment_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('investment_type'))
 
     title = _('众筹列表 洋房东')
     return common_template("crowdfunding_list",
                            intention_list=intention_list,
+                           investment_type_list=investment_type_list,
                            title=title
                            )
 

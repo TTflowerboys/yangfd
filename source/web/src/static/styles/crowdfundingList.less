@@ -1,0 +1,107 @@
+@import "project/_imports";
+
+main {
+    .result {
+        .tags {
+
+            .tags_inner {
+                .investment_type {
+                    margin: 0;
+                    border-top: 1px solid #ccc;
+                    display:block;
+                    min-height: 180px;
+                    overflow:hidden;
+
+                    @media @phone {
+                        min-height:0;
+                        border-top: 0;
+                    }
+
+
+                    &_icon {
+                        float:left;
+                        display:inline-block;
+                        margin-top:16px;
+
+                        @media @phone {
+                            margin-top:20px;
+                        }
+
+                    }
+                    &_title {
+                        float:left;
+                        display:inline-block;
+                        margin-top:16px;
+                        margin-left:8px;
+                        font-size:@base-font-size-mobile;
+                        line-height:14px;
+
+                        @media @phone {
+                            margin-top:20px;
+                        }
+                    }
+
+                    .inner {
+                        margin-top:72px;
+                        margin-bottom:0;
+                        .toggleTag {
+                            float: left;
+                            margin-right:12px;
+                            margin-bottom:12px;
+                        }
+
+                        @media @phone {
+                            margin-top:46px;
+                        }
+                    }
+                }
+            }
+
+            .faqs {
+                margin: 0;
+                border-top: 1px solid #ccc;
+                display:block;
+                overflow:hidden;
+                padding:12px 0;
+
+                >h2 {
+                    font-size:16px;
+                    margin-bottom:10px;
+                }
+                ul.questions {
+                    float:left;
+                    li {
+                        h4.title {
+                            color:@red;
+                            font-weight:bold;
+                            font-size:14px;
+
+                            .indicator {
+                                display:inline-block;
+                                width:8px;
+                                height:8px;
+                                border-radius:4px;
+                                font-size:8px;
+                                line-height:8px;
+                                text-align:center;
+                                background:@red;
+                                margin-right:5px;
+                                margin-top:-2px;
+                            }
+                        }
+
+                        p {
+                            color:#888;
+                            font-size:14px;
+                        }
+                    }
+                }
+
+                .more {
+                    display:block;
+                    float:right;
+                }
+            }
+        }
+    }
+}

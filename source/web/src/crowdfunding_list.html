@@ -5,39 +5,34 @@
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/crowdfundingCard.css"/>
 <link rel="stylesheet" href="/static/styles/propertyList.css"/>
+<link rel="stylesheet" href="/static/styles/crowdfundingList.css"/>
 <!--endbuild-->
 
 <!--@@close-->
 
 <!--@@block=main -->
 <div class="property_data_manager" style="display:none">
+    <textarea id="investmentTypeData">
+        {{json_dumps(investment_type_list)}}
+    </textarea>
     <textarea id="intentionData">
         {{json_dumps(intention_list)}}
-    </textarea>
-    <textarea id="budgetData">
-        {{json_dumps(budget_list)}}
     </textarea>
 </div>
 
 <div id="result" class="result">
     <div id="tags" class="tags">
         <div class="tags_inner">
-            %if (budget_list):
-                <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
-                <div class="price">
-                    <img class="price_icon" alt="" src="/static/images/property_list/price-tag.png"/>
-                    <h4 class="price_title">{{_('价格')}}
-                        (
-                        {{_('单选')}}
-                        ,
-                        <!--@@include=partials/current_currency.html -->
-                        )
-                    </h4>
-                    <div id="budgetTag" class="inner">
-                        %for index, budget in enumerate(budget_list):
-                            %if budget.get('currency') == _.currency:
-                                <div class="toggleTag" data-id="{{budget.get('id')}}">{{budget.get('value')}}</div>
-                            %end
+            <h3 class="title">{{_('你还可以选择更多')}}</h3>
+            %if (investment_type_list):
+                <div class="investment_type">
+                    <img class="investment_type_icon" alt="" src="/static/images/property_list/price-tag.png"/>
+                    <h4 class="investment_type_title">{{_('收益类型')}}</h4>
+
+                    <div id="investmentTypeTag" class="inner">
+                        %for index, investment_type in enumerate(investment_type_list):
+                            <div class="toggleTag" data-id="{{investment_type.get('id')}}">{{investment_type.get('value')}}
+                            </div>
                         %end
                     </div>
                 </div>
@@ -58,6 +53,43 @@
             %end
 
         </div>
+        <div class="faqs">
+            <h2 class="propertyDetails_title">{{_('众筹热门问答')}}</h2>
+
+            <ul class="questions">
+                <li>
+                    <h4 class="title">
+                        <div class="indicator"></div>
+                        How do I pledge?
+                    </h4>
+                    <p class="content">
+                        Enter your pledge amount and select a reward. On the next page we'll ask you to log in or sign up with Kickstarter, and then we'll send you to Amazon Payments to complete the checkout process.
+                    </p>
+                </li>
+                <li>
+                    <h4 class="title">
+                        <div class="indicator"></div>
+                        How do I pledge?
+                    </h4>
+                    <p class="content">
+
+                    </p>
+                </li>
+                <li>
+                    <h4 class="title">
+                        <div class="indicator"></div>
+                        How do I pledge?
+                    </h4>
+                    <p class="content">
+
+                    </p>
+                </li>
+            </ul>
+            <button class="more ghostButton red">
+                {{_('更多')}}
+            </button>
+        </div>
+
         <div class="contact">
             <a href="tel:4000926433" >{{_('拨打400-0926-433咨询')}}</a>
         </div>
