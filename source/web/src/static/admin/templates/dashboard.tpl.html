@@ -57,7 +57,7 @@
                         <ul class="nav main-menu">
                             <li has-permission="admin" ng-class="{active:$state.includes('dashboard.admins')}">
                                 <a href ui-sref="dashboard.admins">
-                                    <i class="fa fa-laptop"></i><span class="hidden-sm text">{%$root.i18n('人员管理')%}</span></a>
+                                    <i class="fa fa-user"></i><span class="hidden-sm text">{%$root.i18n('人员管理')%}</span></a>
                             </li>
                             <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums')}">
                                 <a href ui-sref="dashboard.enums.normal" ui-sref-active="active">
@@ -102,22 +102,22 @@
                             <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.property')}">
                                 <a href ui-sref="dashboard.property" ui-sref-active="active"><i
-                                    class="fa fa-building-o"></i><span class="hidden-sm text">{%$root.i18n('房产数据管理')%}</span></a>
+                                    class="fa fa-home"></i><span class="hidden-sm text">{%$root.i18n('房产数据管理')%}</span></a>
                             </li>
                             <li has-permission="admin,jr_admin,sales,jr_sales"
                                 ng-class="{active:$state.includes('dashboard.intention')}">
                                 <a href ui-sref="dashboard.intention" ui-sref-active="active"><i
-                                    class="fa fa-tasks"></i><span class="hidden-sm text">{%$root.i18n('投资意向单管理')%}</span></a>
+                                    class="fa fa-files-o"></i><span class="hidden-sm text">{%$root.i18n('投资意向单管理')%}</span></a>
                             </li>
                             <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.report')}">
                                 <a href ui-sref="dashboard.report" ui-sref-active="active"><i
-                                    class="fa fa-tasks"></i><span class="hidden-sm text">{%$root.i18n('街区报告')%}</span></a>
+                                    class="fa fa-table"></i><span class="hidden-sm text">{%$root.i18n('街区报告')%}</span></a>
                             </li>
                             <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.operation')}">
                                 <a class="dropmenu" href ui-sref="dashboard.operation.news">
-                                    <i class="fa fa-coffee"></i><span class="hidden-sm text">{%$root.i18n('品牌运营管理')%}</span>
+                                    <i class="fa fa-h-square"></i><span class="hidden-sm text">{%$root.i18n('品牌运营管理')%}</span>
                                     <span class="chevron"
                                         ng-class="{closed:!$state.includes('dashboard.operation'),opened:$state.includes('dashboard.operation')}"></span>
                                 </a>
@@ -140,7 +140,7 @@
                             <li has-permission="admin,jr_admin,sales,jr_sales"
                                 ng-class="{active:$state.includes('dashboard.sales')}">
                                 <a class="dropmenu" href ui-sref="dashboard.sales.plot">
-                                    <i class="fa fa-coffee"></i><span class="hidden-sm text">{%$root.i18n('房产销售管理')%}</span>
+                                    <i class="fa fa-building-o"></i><span class="hidden-sm text">{%$root.i18n('房产销售管理')%}</span>
                                     <span class="chevron"
                                         ng-class="{closed:!$state.includes('dashboard.sales'),opened:$state.includes('dashboard.sales')}"></span>
                                 </a>
@@ -163,7 +163,7 @@
                             <li has-permission="admin,jr_admin,support,jr_support"
                                 ng-class="{active:$state.includes('dashboard.support')}">
                                 <a href ui-sref="dashboard.support" ui-sref-active="active">
-                                    <i class="fa fa-phone"></i><span class="hidden-sm text">{%$root.i18n('客服单管理')%}</span></a>
+                                    <i class="fa fa-file-text-o"></i><span class="hidden-sm text">{%$root.i18n('客服单管理')%}</span></a>
                             </li>
                             <li has-permission="admin,jr_admin,sales,jr_sales,support,jr_support"
                                 ng-class="{active:$state.includes('dashboard.users')}">
@@ -178,7 +178,7 @@
                             <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.weixin')}">
                                 <a class="dropmenu" href ui-sref="dashboard.weixin.menu">
-                                    <i class="fa fa-coffee"></i><span class="hidden-sm text">{%$root.i18n('微信公共号管理')%}</span>
+                                    <i class="fa fa-puzzle-piece"></i><span class="hidden-sm text">{%$root.i18n('微信公共号管理')%}</span>
                                     <span class="chevron"
                                         ng-class="{closed:!$state.includes('dashboard.weixin'),opened:$state.includes('dashboard.weixin')}"></span>
                                 </a>
@@ -194,9 +194,14 @@
                             <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.crowdfunding')}">
                                 <a ng-if="shopId" href ui-sref="dashboard.crowdfunding.item({shop_id:shopId})" ui-sref-active="active">
-                                    <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('众筹管理')%}</span></a>
+                                    <i class="fa fa-suitcase"></i><span class="hidden-sm text">{%$root.i18n('众筹管理')%}</span></a>
                                 <a ng-if="!shopId" href ui-sref="dashboard.crowdfunding" ui-sref-active="active">
-                                    <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('众筹管理')%}</span></a>
+                                    <i class="fa fa-suitcase"></i><span class="hidden-sm text">{%$root.i18n('众筹管理')%}</span></a>
+                            </li>
+                            <li has-permission="admin,jr_admin,operation,jr_operation"
+                                ng-class="{active:$state.includes('dashboard.orders')}">
+                                <a href ui-sref="dashboard.orders" ui-sref-active="active">
+                                    <i class="fa fa-tablet"></i><span class="hidden-sm text">{%$root.i18n('订单管理')%}</span></a>
                             </li>
                         </ul>
                     </div>

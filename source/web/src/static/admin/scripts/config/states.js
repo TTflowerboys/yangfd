@@ -617,6 +617,19 @@ angular.module('app')
                 resolve: crowdfundingResolve
             })
         /**
+         * 订单
+         */
+            .state('dashboard.orders', {
+                url: '/orders',
+                templateUrl: '/static/admin/templates/dashboard.orders.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (orderApi) {
+                        return orderApi
+                    }
+                }
+            })
+        /**
          * others
          */
             .state('noPermission', {
