@@ -6,6 +6,35 @@
 @black: #333333;
 @grey: #a3a3a3;
 .crowdfundingCard {
+
+    .imagePart {
+         .labels {
+            position: absolute;
+            right: 0;
+            top:0;
+            height:40px;
+            width:100%;
+            z-index:@house_card-image-text-z-index;
+            label {
+                position:static;
+                float:right;
+                margin-top:10px;
+                color:white;
+                font-size:14px;
+                line-height:34px;
+                padding:0 12px;
+
+                &.type {
+                    background:#333;
+                }
+                &.leftTime {
+                    background:#e60012;
+                }
+
+            }
+        }
+    }
+
     .description {
         position:static;
         overflow:hidden;
@@ -73,7 +102,6 @@
 
                 .value {
                     background:@red;
-                    width:40%;
                     height:100%;
                 }
             }
@@ -90,10 +118,15 @@
                 display:inline-block;
                 .label {
                     display:block;
+                    font-size:12px;
+                    color:#999;
                 }
 
                 .value {
                     display:block;
+                    color:@red;
+                    font-size:24px;
+                    font-weight:bold;
                 }
 
                 border-left:1px solid #ccc;

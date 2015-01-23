@@ -25,7 +25,6 @@
 
         <div class="description_wrapper">
             <div class=description>
-
                 <div class="summary">
                     <div class="left">
                         <h1 class=name>
@@ -70,17 +69,23 @@
                     </div>
                 </div>
 
+                {_if (house.funding_goal) {_}
                 <div class="progress">
                     <label class="available">
                         {=window.i18n('可募集')=}
                         <strong>
-                             {=team.formatCurrency(parseInt(house.funding_available)) + '/' + team.formatCurrency(parseInt(house.funding_goal))=}
+                            {_if (house.funding_available) {_}
+                            {=team.formatCurrency(parseInt(house.funding_available)) + '/'=}
+                            {_}_}
+                            {=team.formatCurrency(parseInt(house.funding_goal))=}
                         </strong>
                     </label>
                     <div class="progressBar">
-                        <div class="value" style="width:{=parseFloat((house.funding_goal-house.funding_available) / house.funding_goal * 100) + '%' =};"></div>
+                        <div class="value" style="width:{=parseFloat((house.funding_goal- (house.funding_available ? house.funding_available: house.funding_goal)) / house.funding_goal * 100) + '%' =};"></div>
                     </div>
                 </div>
+                {_}_}
+
                 <div class="incoming">
                     <ul>
                         {_ if (house.min_annual_return_estimated && house.max_annual_return_estimated) { _}
