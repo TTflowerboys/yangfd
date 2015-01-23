@@ -11,8 +11,8 @@
             </a>
             {_}_}
             <div class="labels">
-                {_if (house.investment_type && house.investment_type.value){_}
-                <label class="type" for="">{=house.investment_type.value=}</label>
+                {_if (house.investment_type && house.investment_type.length){_}
+                <label class="type" for="">{=house.investment_type[0].value=}</label>
                 {_}_}
             </div>
             {_if (house.status === 'sold out'){_}
