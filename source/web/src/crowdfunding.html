@@ -344,13 +344,10 @@
 
             <div class="investment_analysis">
                 <h3 class="propertyDetails_title">{{_('投资受益分析')}}</h3>
-
-
                 <div class="calculator">
-
                     <div class="input">
-                        <input class="ghostInput" placeholder="{{_('本金')}}"/>
-                        <button class="button red">
+                        <input class="ghostInput" placeholder="{{_('本金')}}" data-investment="capital" type="number" value="{{property.get('funding_min')}}"/>
+                        <button class="button red" name="calculate">
                             {{_('计算')}}
                         </button>
                     </div>
@@ -359,7 +356,7 @@
                         <li>
                             <span class="text">{{!_('最大预估年化回报率')}}</span>
                             <span class="percentage emphasized">
-                                <strong>
+                                <strong data-investment="max_annual_return_estimated" data-investment-value="{{property.get('max_annual_return_estimated')}}">
                                      {{str(float("{0:.2f}".format(property.get('max_annual_return_estimated') * 100))) + '%'}}
                                 </strong>
                             </span>
@@ -368,8 +365,8 @@
                         <li>
                             <span class="text">{{!_('最大年化现金回报预估')}}</span>
                             <span class="percentage emphasized">
-                                <strong>
-                                    {{property.get('max_annual_cash_return_estimated')}}
+                                <strong data-investment="max_annual_cash_return_estimated" data-investment-value="{{property.get('max_annual_cash_return_estimated')}}">
+                                    {{str(float("{0:.2f}".format(property.get('max_annual_cash_return_estimated') * 100))) + '%'}}
                                 </strong>
                             </span>
 
@@ -377,29 +374,31 @@
                         <li>
                             <span class="text">{{!_('周期')}}</span>
                             <span class="percentage emphasized">
-                                <strong>
-                                    {{str(property.get('term')) + _('年')}}
-                                </strong>
+                                <span data-investment="term" data-investment-value="{{property.get('term')}}">
+                                    <strong>
+                                        {{str(property.get('term'))}}
+                                    </strong>
+                                    {{_('年')}}
+                                </span>
                             </span>
 
                         </li>
                         <li>
                             <span class="text">{{!_('现金收益')}}</span>
                             <span class="percentage emphasized">
-                                <strong>
-                                    256677元
-                                </strong>
+                                <span data-investment="cash_return">
+
+                                </span>
                             </span>
 
                         </li>
                         <li class="total">
                             <span class="text">{{!_('总受益')}}</span>
                             <span class="percentage emphasized total">
-                                <strong>
-                                    256677元
-                                </strong>
-                            </span>
+                                <span data-investment="total_return">
 
+                                </span>
+                            </span>
                         </li>
                     </ul>
                 </div>

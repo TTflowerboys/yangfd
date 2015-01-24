@@ -9,6 +9,10 @@
     });
 
     window.videojs.options.flash.swf = '/static/vendors/video-js/video-js.swf';
+
+
+   
+
     
     $('form[name=addComment]').off('submit').submit(function (e) {
         e.preventDefault()
