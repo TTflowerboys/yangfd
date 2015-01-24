@@ -215,6 +215,7 @@ property_params = dict(
         url=str,
     )),
     estimated_income_description=("i18n", None, str),
+    minimum_down_payment_rate=float,
 )
 
 
