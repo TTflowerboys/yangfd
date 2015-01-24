@@ -10,10 +10,6 @@
 
     window.videojs.options.flash.swf = '/static/vendors/video-js/video-js.swf';
 
-
-   
-
-    
     $('form[name=addComment]').off('submit').submit(function (e) {
         e.preventDefault()
         var content = $(this).find('textarea[name=comment]').val().trim()
@@ -23,11 +19,51 @@
             content: content})
             .done(function (val) {
                 //load comment
-                window.loadComment()
+                window.loadNewComment(function () {
+                    $('form[name=addComment]').find('textarea[name=comment]').val('') // clear when success
+                })
             })
             .fail(function (errorCode) {
             })
     })
+
+    window.loadNewComment = function (successCallback) {
+        var property = JSON.parse($('#pythonProperty').text())
+        var params = {}
+        if (window.lastNewCommentTime) {
+            params.last_time = window.lastNewCommentTime
+        }
+
+        $('.comments .loadIndicator').show()
+        $('.comments .loadMore').hide()
+        $.betterGet('/api/1/shop/54a3c92b6b809945b0d996bf/item/' + property.id + '/comment/search', params)
+            .done(function (val) {
+                var array = val
+                if (!_.isEmpty(array)) {
+                    window.lastCommentTime = _.first(array).time
+                    var bulkResult = ''
+                    _.each(array, function (comment) {
+                        var commentResult = _.template($('#commentCell_template').html())({comment: comment})
+                        bulkResult += commentResult
+
+                        if (window.lastNewCommentTime < comment.time) {
+                            window.lastNewCommentTime = comment.time
+                        }
+                    })
+
+                    $('#comment_list').prepend(bulkResult)
+                    $('.comments .loadMore').show()
+                }
+                else {
+                    $('.comments .loadMore').hide()
+                }
+                successCallback()
+                $('.comments .loadIndicator').hide()
+            })
+            .fail(function (errorCode) {
+                $('.comments .loadIndicator').hide()
+            })
+    }
 
     window.loadComment = function () {
         var property = JSON.parse($('#pythonProperty').text())
@@ -37,20 +73,22 @@
         }
 
         $('.comments .loadIndicator').show()
-         $('.comments .loadMore').hide()
+        $('.comments .loadMore').hide()
         $.betterGet('/api/1/shop/54a3c92b6b809945b0d996bf/item/' + property.id + '/comment/search', params)
             .done(function (val) {
                 var array = val
                 if (!_.isEmpty(array)) {
                     window.lastCommentTime = _.last(array).time
-                      _.each(array, function (comment) {
+                    var bulkResult = ''
+                    _.each(array, function (comment) {
                         var commentResult = _.template($('#commentCell_template').html())({comment: comment})
-                        $('#comment_list').append(commentResult)
+                        bulkResult += commentResult
 
                         if (window.lastCommentTime > comment.time) {
                             window.lastCommentTime = comment.time
                         }
-                      })
+                    })
+                    $('#comment_list').append(bulkResult)
                     $('.comments .loadMore').show()
                 }
                 else {
