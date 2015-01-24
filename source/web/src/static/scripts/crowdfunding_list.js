@@ -97,6 +97,7 @@ $(window).resize(window.updateTagsFixed);
         $('#result #loadIndicator').show()
         $('#loadMore').hide()
 
+        //TODO: check mtime
         var totalResultCount = getCurrentTotalCount()
         $.betterPost('/api/1/shop/54a3c92b6b809945b0d996bf/item/search', params)
             .done(function (val) {
@@ -262,7 +263,6 @@ $(window).resize(window.updateTagsFixed);
 
     $(function () {
         window.intentionData = getData('intentionData')
-        window.budgetData = getData('budgetData')
     })
 
 
