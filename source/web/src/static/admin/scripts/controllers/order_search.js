@@ -23,6 +23,9 @@
             if ($scope.selected.endtime === undefined || $scope.selected.endtime === '' || $scope.selected.endtime === 0) {
                 delete params.endtime
             } else {
+                if ($scope.selected.endtime % 100 === 0) {
+                    $scope.selected.endtime += 86399
+                }
                 params.endtime = $scope.selected.endtime;
             }
             if ($scope.selected.status === undefined || $scope.selected.status === '') {
