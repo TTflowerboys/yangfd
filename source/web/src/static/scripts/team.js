@@ -115,21 +115,20 @@
 
             if (currencyType === 'CNY') {
                 if (parseInt(number) > 10000) {
-                    return team.encodeCurrency(parseInt(number) / 10000)  + '万'
+                    return '<strong>' + team.encodeCurrency(parseInt(number) / 10000) + '</strong>'  + '万'
                 }
                 else {
-                    return team.encodeCurrency(number)
+                    return '<strong>' + team.encodeCurrency(number) + '</strong>'
                 }
             }
             else {
                 if (parseInt(number) > 1000) {
-                    return team.encodeCurrency(parseInt(number) / 1000) + 'k'
+                    return '<strong>' + team.encodeCurrency(parseInt(number) / 1000) + 'k' + '</strong>'
                 }
                 else {
-                    return team.encodeCurrency(number)
+                    return  '<strong>'  + team.encodeCurrency(number) + '</strong>'
                 }
             }
-
         },
 
         /**
