@@ -1,11 +1,9 @@
 % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing'):
     %if 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
-        <span class="mute">{{_('最低投资')}}</span>
-        <br/>
         <span>
             {{property.get('main_house_types',{})[0].get('total_price',{}).get('unit_symbol')}}
         </span>
-        <strong data-type="formatted_currency">
+        <span data-type="formatted_currency">
             % minPrice = int(float(property.get('main_house_types')[0].get('total_price').get('value')))
             %for index, type  in enumerate(property.get('main_house_types')):
                 %if minPrice > int(float(type.get('total_price').get('value'))):
@@ -13,16 +11,16 @@
                 %end
             %end
             {{minPrice}}
-        </strong>
+        </span><span class="mute">{{_('起投')}}</span>
     %elif 'unit_price' in property and property.get('unit_price'):
         <span class="mute">{{_('参考价格')}}</span>
         <br/>
         <span>
             {{property.get('unit_price',{}).get('price',{}).get('unit_symbol')}}
         </span>
-        <strong data-type="formatted_currency">
+        <span data-type="formatted_currency">
             {{int(float(str(property.get('unit_price',{}).get('price',{}).get('value',''))) / float(str(property.get('unit_price').get('unit').get('value'))))}}
-        </strong>
+        </span>
         <span>
             /
             {{!format_unit(property.get('unit_price',{}).get('unit', {}).get('unit',''))}}
@@ -33,8 +31,8 @@
         <span class="mute">{{_('参考价格')}}</span>
         <br/>
         <span>{{property.get('total_price',{}).get('unit_symbol','')}}</span>
-        <strong data-type="formatted_currency">
+        <span data-type="formatted_currency">
             {{int(float(property.get('total_price',{}).get('value','')))}}
-        </strong>
+        </span>
     %end
 % end
