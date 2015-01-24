@@ -59,7 +59,7 @@
                     <div class="right">
                         <span class=price>
                             {_if (house.funding_min) {_}
-                            <strong>{=team.formatCurrency(parseInt(house.funding_min)) + window.i18n('元起')=}</strong>
+                            {!team.formatCurrency(parseInt(house.funding_min)) + window.i18n('元起')!}
                             {_}_}
                             {_if (house.term) {_}
                             <br/>
@@ -75,9 +75,9 @@
                         {=window.i18n('可募集')=}
                         <strong>
                             {_if (house.funding_available) {_}
-                            {=team.formatCurrency(parseInt(house.funding_available)) + '/'=}
+                            {!team.formatCurrency(parseInt(house.funding_available)) + '/'!}
                             {_}_}
-                            {=team.formatCurrency(parseInt(house.funding_goal))=}
+                            {!team.formatCurrency(parseInt(house.funding_goal))!}
                         </strong>
                     </label>
                     <div class="progressBar">
@@ -97,7 +97,7 @@
                         {_ if (house.min_annual_cash_return_estimated && house.max_annual_cash_return_estimated) { _}
                         <li>
                             <span class=label>{=window.i18n('预估现金年化收益率')=}</span>
-                            <span class=value><strong>{=team.formatCurrency(parseInt(house.min_annual_cash_return_estimated)) + '~' + team.formatCurrency(parseInt(house.max_annual_cash_return_estimated))=}</strong></span>
+                            <span class=value>{!team.formatCurrency(parseInt(house.min_annual_cash_return_estimated)) + '~' + team.formatCurrency(parseInt(house.max_annual_cash_return_estimated))!}</span>
                         </li>
                         {_}_}
                     </ul>

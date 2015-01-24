@@ -962,13 +962,6 @@ class f_currant_plugins(f_app.plugin_base):
             if order.get("status") == "paid":
                 if order.get("type") == "investment":
                     f_app.shop.update_funding_available(order["items"][0]["id"])
-
-                    message = {
-                        "type": "system",
-                        "title": "Investment notification",
-                        "text": "You've invested successfully."
-                    }
-                    f_app.message.add(message, order["user"]["id"])
                     if order["user"].get("email"):
                         f_app.email.schedule(
                             target=order["user"]["email"],
@@ -982,33 +975,8 @@ class f_currant_plugins(f_app.plugin_base):
                             ),
                             display="html",
                         )
-                if order.get("type") == "recharge":
-                    message = {
-                        "type": "system",
-                        "title": "Recharge notification",
-                        "text": "You've recharged successfully."
-                    }
-                if order.get("type") == "withdrawal":
-                    message = {
-                        "type": "system",
-                        "title": "Withdraw notification",
-                        "text": "You've withdrawed successfully."
-                    }
-                if order.get("type") == "earnings":
-                    message = {
-                        "type": "system",
-                        "title": "Earn notification",
-                        "text": "You've earned successfully."
-                    }
-
             elif order.get("status") == "canceled":
                 if order.get("type") == "investment":
-                    message = {
-                        "type": "system",
-                        "title": "Investment order has been canceled.",
-                        "text": "You're investment order has been canceled."
-                    }
-                    f_app.message.add(message, order["user"]["id"])
                     if order["user"].get("email"):
                         f_app.email.schedule(
                             target=order["user"]["email"],
@@ -1030,6 +998,14 @@ class f_currant_plugins(f_app.plugin_base):
 
         return kwargs
 
+    def shop_item_add_pre(self, params):
+        params["mtime"] = datetime.utcnow()
+        return params
+
+    def shop_item_update_pre(self, params, shop_id, item_id):
+        if "$set" in params:
+            params["$set"]["mtime"] = datetime.utcnow()
+        return params
 
 f_currant_plugins()
 

@@ -1,8 +1,6 @@
 {_if(house.property_type && (house.property_type.slug === 'new_property' || house.property_type.slug === 'student_housing')){_}
 
 {_if (house.main_house_types && house.main_house_types.length){_}
-{=window.i18n('最低投资')=}
-<br/>
 {=house.main_house_types[0].total_price.unit_symbol=}
         {_var minPrice = parseInt(house.main_house_types[0].total_price.value)_}
         {_ _.each(house.main_house_types, function (type) {_}
@@ -10,11 +8,11 @@
                 {_minPrice = parseInt(type.total_price.value)_}
             {_}_}
         {_})_}
-<strong>{=team.formatCurrency(parseInt(minPrice))=}</strong>
+{!team.formatCurrency(parseInt(minPrice))!}{=window.i18n('起投')=}
 
 {_} else if(house.unit_price){_}
 {=house.unit_price.price.unit_symbol=}
-<strong>{=team.formatCurrency(parseInt(house.unit_price.price.value/house.unit_price.unit.value))=}</strong>
+{!team.formatCurrency(parseInt(house.unit_price.price.value/house.unit_price.unit.value))!}
 /
 {_if (house.unit_price.unit.unit === 'foot ** 2'){_}
 foot <sup>2</sup>
@@ -32,6 +30,6 @@ km <sup>2</sup>
 {_} else {_}
 {_if(house.total_price) {_}
 {=house.total_price.unit_symbol=}
-<strong>{=team.formatCurrency(parseInt(house.total_price.value))=}</strong>
+{!team.formatCurrency(parseInt(house.total_price.value))!}
 {_}_}
 {_}_}

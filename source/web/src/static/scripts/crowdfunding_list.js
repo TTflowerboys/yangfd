@@ -75,15 +75,15 @@ $(window).resize(window.updateTagsFixed);
 
     function loadPropertyList() {
         var params = {'per_page': onePageItemCount}
-        // var budgetType = getSelectedBudgetType()
-        // if (budgetType) {
-        //     params.budget = budgetType
-        // }
+        var investmentType = getSelectedInvestmentType()
+        if (investmentType) {
+            params.investment_type = investmentType
+        }
 
-        // var intention = getSelectedIntention()
-        // if (intention) {
-        //     params.intention = intention
-        // }
+        var intention = getSelectedIntention()
+        if (intention) {
+            params.intention = intention
+        }
         if (lastItemTime) {
             params.mtime = lastItemTime
         }
@@ -156,19 +156,32 @@ $(window).resize(window.updateTagsFixed);
         return ''
     }
 
+    function getSelectedInvestmentType() {
+        var $selectedChildren = $('#tags #investmentTypeTag').children('.selected')
+        if ($selectedChildren.length) {
+            var ids = ''
+            _.each($selectedChildren, function (child) {
+                ids += child.getAttribute('data-id')
+                ids += ','
+            })
+            return ids
+        }
+        return ''
+    }
 
-    // function getSelectedIntention() {
-    //     var $selectedChildren = $('#tags #intentionTag').children('.selected')
-    //     if ($selectedChildren.length) {
-    //         var ids = ''
-    //         _.each($selectedChildren, function (child) {
-    //             ids += child.getAttribute('data-id')
-    //             ids += ','
-    //         })
-    //         return ids
-    //     }
-    //     return ''
-    // }
+
+    function getSelectedIntention() {
+        var $selectedChildren = $('#tags #intentionTag').children('.selected')
+        if ($selectedChildren.length) {
+            var ids = ''
+            _.each($selectedChildren, function (child) {
+                ids += child.getAttribute('data-id')
+                ids += ','
+            })
+            return ids
+        }
+        return ''
+    }
 
 
     function getSelectedIntentionValue() {
@@ -274,11 +287,10 @@ $(window).resize(window.updateTagsFixed);
     $('#tags #investmentTypeTag').on('click', '.toggleTag', function (event) {
 
         var $item = $(event.target)
-        var alreadySelected = $item.hasClass('selected')
-        var $parent = $(event.target.parentNode)
-        $parent.find('.toggleTag').removeClass('selected')
-
-        if (!alreadySelected) {
+        if ($item.hasClass('selected')) {
+            $item.removeClass('selected')
+        }
+        else {
             $item.addClass('selected')
         }
 

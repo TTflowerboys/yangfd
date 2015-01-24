@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 from libfelix.f_common import f_app
 from libfelix.f_interface import f_api, abort
 from bson.objectid import ObjectId
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
 logger = logging.getLogger(__name__)
 
@@ -25,6 +25,9 @@ def order_invest(user, params):
     item = f_app.shop.item.get(params["item_id"])
     if force_price < item.get("funding_min"):
         abort(40000, logger.warning("Invalid params: price cannot be less than funding_start of the crowdfunding item"))
+    if "funding_start_date" in item and "funding_duration" in item:
+        if datetime.utcnow() > item["funding_start_date"] + timedelta(seconds=item["funding_duration"]):
+            abort(40000, logger.warning("Invalid item: this funding item is outdated."))
     return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
 
 
@@ -146,6 +149,7 @@ def order_search(user, params):
     ``type`` can be list of "investment", "withdrawal", "recharge", "earnings", "recovery"
     ``status`` can be list of "paid", "pending", "canceled", "unpaid"
     ``shop_id`` is a preserved field, it may be used in future.
+    sort by ``mtime`` by default.
     """
     per_page = params.pop("per_page", 0)
     if "user_id" in params:
