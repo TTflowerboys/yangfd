@@ -22,6 +22,9 @@ def order_invest(user, params):
     """
     force_price = params.pop("price")
     order_params = {"type": "investment"}
+    item = f_app.shop.item.get(params["item_id"])
+    if force_price < item.get("funding_min"):
+        abort(40000, logger.warning("Invalid params: price cannot be less than funding_start of the crowdfunding item"))
     return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
 
 
