@@ -998,6 +998,14 @@ class f_currant_plugins(f_app.plugin_base):
 
         return kwargs
 
+    def shop_item_add_pre(self, params):
+        params["mtime"] = datetime.utcnow()
+        return params
+
+    def shop_item_update_pre(self, params, shop_id, item_id):
+        if "$set" in params:
+            params["$set"]["mtime"] = datetime.utcnow()
+        return params
 
 f_currant_plugins()
 

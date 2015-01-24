@@ -128,7 +128,7 @@ def shop_item_add(user, shop_id, params):
 @f_api("/shop/<shop_id>/item/search", params=dict(
     per_page=int,
     time=datetime,
-    mtime=datetime,
+    time_field=(str, "mtime"),
     status=(list, ["new", "sold out"], str),
     target_item_id=(ObjectId, None, "str"),
     investment_type=(list, None, 'enum:investment_type'),
@@ -136,6 +136,11 @@ def shop_item_add(user, shop_id, params):
 ))
 @f_app.user.login.check(check_role=True)
 def shop_item_search(user, shop_id, params):
+    """
+    use ``time_field`` to change sort field.
+    default is ``mtime``
+    """
+    time_field = params.pop("time_field")
     if params["status"] != ["new", "sold out"] or "target_item_id" in params:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_item_id")
     if "intention" in params:
@@ -146,7 +151,7 @@ def shop_item_search(user, shop_id, params):
     params["shop_id"] = ObjectId(shop_id)
     params["status"] = {"$in": params.pop("status", [])}
     per_page = params.pop("per_page", 0)
-    return f_app.shop.item.output(f_app.shop.item_custom_search(params, per_page=per_page))
+    return f_app.shop.item.output(f_app.shop.item_custom_search(params, per_page=per_page, time_field=time_field))
 
 
 @f_api("/shop/<shop_id>/item/<item_id>/edit", params=item_params)

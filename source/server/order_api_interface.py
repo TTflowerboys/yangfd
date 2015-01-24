@@ -149,6 +149,7 @@ def order_search(user, params):
     ``type`` can be list of "investment", "withdrawal", "recharge", "earnings", "recovery"
     ``status`` can be list of "paid", "pending", "canceled", "unpaid"
     ``shop_id`` is a preserved field, it may be used in future.
+    sort by ``mtime`` by default.
     """
     per_page = params.pop("per_page", 0)
     if "user_id" in params:
