@@ -177,6 +177,8 @@ def order_search(user, params):
     if temp_time and time_end:
         if temp_time < time_end:
             params["time"] = temp_time
+    elif temp_time and not time_end:
+        params["time"] = temp_time
 
     user_role = f_app.user.get_role(user["id"])
     if set(user_role) & set(["admin", "jr_admin"]):
