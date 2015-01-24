@@ -308,6 +308,7 @@ def shop_comment_add(user, shop_id, item_id, params):
 @f_api('/shop/<shop_id>/item/<item_id>/comment/search', params=dict(
     per_page=int,
     time=datetime,
+    last_time=datetime,
 ))
 def shop_comment_list(shop_id, item_id, params):
     # test if shop_id exists
