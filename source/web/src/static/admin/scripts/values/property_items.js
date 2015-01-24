@@ -61,5 +61,6 @@ angular.module('app')
         {name: i18n('室内样板间图'), value: 'indoor_sample_room_picture'},
         {name: i18n('规划图'), value: 'planning_map'},
         {name: i18n('地图位置'), value: 'latitude_longitude'},
+        {name: i18n('最低首付比例'), value: 'minimum_down_payment_rate'},
         {name: i18n('开发商包租'), value: 'rental_guarantee'}
     ])
