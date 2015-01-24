@@ -128,6 +128,7 @@ def shop_item_add(user, shop_id, params):
 @f_api("/shop/<shop_id>/item/search", params=dict(
     per_page=int,
     time=datetime,
+    mtime=datetime,
     time_field=(str, "mtime"),
     status=(list, ["new", "sold out"], str),
     target_item_id=(ObjectId, None, "str"),
@@ -141,8 +142,6 @@ def shop_item_search(user, shop_id, params):
     default is ``mtime``
     """
     time_field = params.pop("time_field")
-    if time_field == "mtime" and "time" in params:
-        params["mtime"] = params.pop("time")
     if params["status"] != ["new", "sold out"] or "target_item_id" in params:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_item_id")
     if "intention" in params:
