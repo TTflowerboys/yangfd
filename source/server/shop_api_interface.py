@@ -128,6 +128,7 @@ def shop_item_add(user, shop_id, params):
 @f_api("/shop/<shop_id>/item/search", params=dict(
     per_page=int,
     time=datetime,
+    mtime=datetime,
     time_field=(str, "mtime"),
     status=(list, ["new", "sold out"], str),
     target_item_id=(ObjectId, None, "str"),
@@ -151,6 +152,7 @@ def shop_item_search(user, shop_id, params):
     params["shop_id"] = ObjectId(shop_id)
     params["status"] = {"$in": params.pop("status", [])}
     per_page = params.pop("per_page", 0)
+
     return f_app.shop.item.output(f_app.shop.item_custom_search(params, per_page=per_page, time_field=time_field))
 
 
