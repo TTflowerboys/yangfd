@@ -83,6 +83,7 @@ def shop_add(user, params):
 @f_api("/shop/search", params=dict(
     time=datetime,
     per_page=int,
+
 ))
 @f_app.user.login.check(force=True)
 def shop_search(user, params):
@@ -128,11 +129,18 @@ def shop_item_add(user, shop_id, params):
     mtime=datetime,
     status=(list, ["new", "sold out"], str),
     target_item_id=(ObjectId, None, "str"),
+    investment_type=(list, None, 'enum:investment_type'),
+    intention=(list, None, 'enum:intention'),
 ))
 @f_app.user.login.check(check_role=True)
 def shop_item_search(user, shop_id, params):
     if params["status"] != ["new", "sold out"] or "target_item_id" in params:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_item_id")
+    if "intention" in params:
+        params["intention"] = {"$in": params.pop("intention", [])}
+    if "investment_type" in params:
+        params["investment_type"] = {"$in": params.pop("investment_type", [])}
+
     params["shop_id"] = ObjectId(shop_id)
     params["status"] = {"$in": params.pop("status", [])}
     per_page = params.pop("per_page", 0)
