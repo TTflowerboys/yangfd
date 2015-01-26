@@ -30,6 +30,9 @@ logger = logging.getLogger(__name__)
     random=bool,
     name=str,
     slug=str,
+    living_room_count=int,
+    building_area=str,
+    is_rental_guarantee=bool,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
@@ -42,6 +45,7 @@ def property_search(user, params):
     * mtime,desc
 
     ``time`` should be a unix timestamp in utc.
+    ``building_area`` format: ``,40``, ``40,100``, ``100,``
     """
     random = params.pop("random", False)
     sort = params.pop("sort", ["mtime", "desc"])
@@ -89,8 +93,48 @@ def property_search(user, params):
         if "$or" not in params:
             params["$or"] = name_filter
         else:
-            budget_filter = params.pop("$or")
-            params["$and"] = [{"$or": budget_filter}, {"$or": name_filter}]
+            or_filter = params.pop("$or")
+            params["$and"] = [{"$or": or_filter}, {"$or": name_filter}]
+
+    if "living_room_count" in params:
+        if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
+            params["living_room_count"] = params.pop("living_room_count")
+        else:
+            params["main_house_types.living_room_count"] = params.pop("living_room_count")
+
+    if "building_area" in params:
+        if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
+            building_area_field = "space"
+        else:
+            building_area_field = "main_house_types.building_area"
+
+        building_area = [x.strip() for x in params.pop("building_area").split(",")]
+        building_area_imperial = [float(f_app.i18n.convert_i18n_unit({"value": x, "unit": "meter ** 2"}, "foot ** 2")) if x else "" for x in building_area]
+        building_area_filter = []
+        if building_area[0] and building_area[1]:
+            building_area_filter.append({"%s.unit" % building_area_field: "meter ** 2", "%s.value_float" % building_area_field: {"$gte": building_area[0], "$lt": building_area[1]}})
+            building_area_filter.append({"%s.unit" % building_area_field: "foot ** 2", "%s.value_float" % building_area_field: {"$gte": building_area_imperial[0], "$lt": building_area_imperial[1]}})
+        elif building_area[0] and not building_area[1]:
+            building_area_filter.append({"%s.unit" % building_area_field: "meter ** 2", "%s.value_float" % building_area_field: {"$gte": building_area[0]}})
+            building_area_filter.append({"%s.unit" % building_area_field: "foot ** 2", "%s.value_float" % building_area_field: {"$gte": building_area_imperial[0]}})
+        elif not building_area[0] and building_area[1]:
+            building_area_filter.append({"%s.unit" % building_area_field: "meter ** 2", "%s.value_float" % building_area_field: {"$lt": building_area[1]}})
+            building_area_filter.append({"%s.unit" % building_area_field: "foot ** 2", "%s.value_float" % building_area_field: {"$lt": building_area_imperial[1]}})
+        else:
+            abort(40000, logger.warning("Invalid params: building_area cannot be empty"))
+
+        if "$or" not in params and "$and" not in params:
+            params["$or"] = building_area_filter
+        elif "$or" in params and "$and" not in params:
+            or_filter = params.pop("$or")
+            params["$and"] = [{"$or": building_area_filter}, {"$or": or_filter}]
+        elif "$or" not in params and "$and" in params:
+            params["$and"].append({"$or": building_area_filter})
+        else:
+            abort(50000, logger.warning("Oops! Something wrong with params parser!", exc_info=False))
+
+    if "is_rental_guarantee" in params:
+        params["rental_guarantee_term"] = {"$exists": params.pop("is_rental_guarantee")}
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
@@ -99,7 +143,6 @@ def property_search(user, params):
     property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort, time_field="mtime")
 
     if random and property_list["content"]:
-        logger.debug(property_list["content"])
         import random
         random.shuffle(property_list["content"])
     property_list['content'] = f_app.property.output(property_list['content'])
