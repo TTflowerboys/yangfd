@@ -123,6 +123,48 @@ main {
         }
     }
 
+    .userChoice {
+        &_wrapper {
+            background:#333;
+            width:100%;
+            overflow:hidden;
+        }
+
+        width:1200px;
+        margin:80px auto;
+        height:80px;
+        overflow:hidden;
+
+        li {
+            display:inline-block;
+            width:33%;
+            overflow:hidden;
+
+            img {
+                float:left;
+            }
+
+            .text {
+                display:inline-block;
+                float:left;
+                height:80px;
+                vertical-align:80px;
+                margin-left:20px;
+                color:#ccc;
+                .question {
+                    font-size:22px;
+                    margin-top:10px;
+                }
+
+                .choice {
+                    font-size:16px;
+                    color:#ccc;
+                    text-decoration:none;
+                }
+            }
+        }
+    }
+
     .howItWorks_phone {
         display:none;
         @media @phone {
