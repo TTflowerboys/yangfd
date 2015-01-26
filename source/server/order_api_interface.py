@@ -109,8 +109,17 @@ def order_search_anonymous(user, params):
     params["status"] = "paid"
 
     time_start = params.pop("starttime", None)
-    if time_start is not None:
-        params["last_time"] = time_start
+    time_end = params.pop("time", None)
+
+    if time_start or time_end:
+        params["time_additional"] = {}
+        if time_start and time_end:
+            if time_end < time_start:
+                abort(40000, logger.warning("Invalid params: End time is earlier than start time.", exc_info=False))
+        if time_start:
+            params["time_additional"]["$gte"] = time_start
+        if time_end:
+            params["time_additional"]["$lt"] = time_end
 
     order_list = f_app.order.output(f_app.order.custom_search(params, per_page=per_page), permission_check=False)
 
@@ -157,9 +166,17 @@ def order_search(user, params):
         params["status"] = {"$in": params.pop("status")}
 
     time_start = params.pop("starttime", None)
+    time_end = params.pop("time", None)
 
-    if time_start is not None:
-        params["last_time"] = time_start
+    if time_start or time_end:
+        params["time_additional"] = {}
+        if time_start and time_end:
+            if time_end < time_start:
+                abort(40000, logger.warning("Invalid params: End time is earlier than start time.", exc_info=False))
+        if time_start:
+            params["time_additional"]["$gte"] = time_start
+        if time_end:
+            params["time_additional"]["$lt"] = time_end
 
     user_role = f_app.user.get_role(user["id"])
     if set(user_role) & set(["admin", "jr_admin"]):
