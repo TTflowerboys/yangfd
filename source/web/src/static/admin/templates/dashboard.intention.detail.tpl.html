@@ -1,7 +1,7 @@
 <div ui-view>
     <div class="buttons">
         <span class="btn-group">
-            <button class="btn btnGoBack"><span class="fa fa-chevron-left"></span>{%$root.i18n('返回')%}</button>
+            <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span>{%$root.i18n('返回')%}</button>
         </span>
         <span class="btn-group">
             <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"

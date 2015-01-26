@@ -1,7 +1,7 @@
 <div>
     <div class="buttons">
         <span class="btn-group">
-            <button class="btn btnGoBack"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+            <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
             </button>
         </span>
     </div>
@@ -476,7 +476,7 @@
         </div>
         <div class="form-actions" style="margin-bottom: 80px;">
             <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
-            <input type="button btnGoBack" class="btn" value="{%$root.i18n('取消')%}">
+            <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
         </div>
         <div class="help-block">* {%$root.i18n('必填')%}</div>
         <div style="width:20%;position:fixed;bottom:0;right:0;z-index: 100">

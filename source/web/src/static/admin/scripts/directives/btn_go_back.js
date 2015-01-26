@@ -6,10 +6,9 @@ angular.module('app')
         return {
             restrict: 'C',
             link: function (scope, element) {
-
-                $(element).click(function (e) {
+                scope.onBackClick = function(){
                     $state.go($stateParams.from || '^')
-                });
+                }
             }
         }
     })
