@@ -38,6 +38,10 @@
                 $scope.loading = false
             })
         }
+
+        $scope.goBack = function () {
+            $state.go($stateParams.from || '^')
+        }
     }
 
     angular.module('app').controller('ctrlCrowdfundingDetail', ctrlCrowdfundingDetail)

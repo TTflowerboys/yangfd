@@ -2,7 +2,7 @@
     <div class="buttons">
 
         <span class="btn-group">
-            <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+            <button class="btn btnGoBack"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
             </button>
             <button ng-if="item.status !== 'not reviewed'" class="btn" ng-click="$state.go('^.edit',{id:$stateParams.id})">
                 <span class="fa fa-edit"></span> {%$root.i18n('编辑')%}
@@ -109,6 +109,22 @@
                             <div class="form-inline">
                                 <span class="input-xlarge uneditable-input">{%item.latitude%}</span>
                                 <span class="input-xlarge uneditable-input">{%item.longitude%}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3" ng-if="item.funding_start_date">
+                            <label class="control-label">{%$root.i18n('起投时间')%}</label>
+
+                            <div class="controls">
+                                <span class="input-xlarge uneditable-input">{%item.funding_start_date%}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" ng-if="item.funding_duration">
+                            <label class="control-label">{%$root.i18n('持续时间')%}</label>
+
+                            <div class="controls">
+                                <span class="input-xlarge uneditable-input">{%item.funding_duration%}</span>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 <div ng-controller="ctrlContentCreate">
     <div class="buttons">
         <span class="btn-group">
-            <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
+            <button class="btn btnGoBack"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
         </span>
         <span class="btn-group">
             <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
@@ -95,7 +95,7 @@
 
         <div class="form-actions" style="margin-bottom: 80px;">
             <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
-            <input type="button" ng-click="$state.go('^')" class="btn" value="{%$root.i18n('取消')%}">
+            <input type="button btnGoBack" class="btn" value="{%$root.i18n('取消')%}">
         </div>
 
         <div class="help-block">* {%$root.i18n('必填')%}</div>

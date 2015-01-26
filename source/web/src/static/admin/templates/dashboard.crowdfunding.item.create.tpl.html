@@ -2,7 +2,7 @@
     <div class="buttons">
 
         <span class="btn-group">
-            <button class="btn" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span>{%$root.i18n('返回')%}
+            <button class="btn btnGoBack"><span class="fa fa-chevron-left"></span>{%$root.i18n('返回')%}
             </button>
         </span>
     </div>
@@ -123,6 +123,22 @@
                                     placeholder="Latitude"/>
                                 <input type="text" class="form-control  col-sm-3" ng-model="item.longitude"
                                     placeholder="Longitude"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label class="control-label">{%$root.i18n('起投时间')%}</label>
+
+                            <div class="controls">
+                                <input type="text" class="form-control" ng-model="item.funding_start_date"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="control-label">{%$root.i18n('持续时间')%}</label>
+
+                            <div class="controls">
+                                <input type="text" class="form-control" ng-model="item.funding_duration"/>
                             </div>
                         </div>
                     </div>

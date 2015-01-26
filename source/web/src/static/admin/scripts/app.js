@@ -15,8 +15,12 @@ angular.module('app',
             function (event, toState, toParams, fromState, fromParams) {
                 if (toState.name === 'signIn') {
                     toParams.from = fromState.name
+                    return
                 }
-
+                if (toState.name.indexOf('detail') >= 0 || toState.name.indexOf('edit') >= 0) {
+                    toParams.from = fromState.name
+                    return
+                }
             })
         //userLanguage
         var userLanguageAtLocal = localStorage.getItem('adminUserLanguage')
