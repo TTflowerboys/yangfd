@@ -1101,7 +1101,7 @@ class f_property(f_app.module_base):
                         if "brochure" in property:
                             for item in property["brochure"]:
                                 item.pop("url", None)
-                                item["rendered"] = item.get("rendered", [])[:2]
+                                item["rendered"] = item.get("rendered", [])[:5]
                     if not user or not len(user_roles):
                         property.pop("real_address", None)
                     if ignore_sales_comment:
@@ -1118,7 +1118,7 @@ class f_property(f_app.module_base):
                         if "brochure" in property:
                             for item in property["brochure"]:
                                 item.pop("url", None)
-                                item["rendered"] = item.get("rendered", [])[:2]
+                                item["rendered"] = item.get("rendered", [])[:5]
                     if not user or not len(user_roles):
                         property.pop("real_address", None)
                     if ignore_sales_comment:
