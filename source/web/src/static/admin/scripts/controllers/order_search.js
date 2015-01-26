@@ -65,16 +65,15 @@
                 if (lastItem.time) {
                     params.time = lastItem.time
                 }
-                if (lastItem.register_time) {
-                    params.register_time = lastItem.register_time
-                }
-                if (lastItem.insert_time) {
-                    params.insert_time = lastItem.insert_time
-                }
             } else {
-                delete params.time
-                delete params.register_time
-                delete params.insert_time
+                if ($scope.selected.endtime === undefined || $scope.selected.endtime === '' || $scope.selected.endtime === 0) {
+                    delete params.time
+                } else {
+                    if ($scope.selected.endtime % 100 === 0) {
+                        $scope.selected.endtime += 86399
+                    }
+                    params.time = $scope.selected.endtime;
+                }
             }
 
             api.getAll({params: params})
@@ -126,6 +125,7 @@
             } else {
                 params.status = $scope.selected.status;
             }
+            $scope.currentPageNumber = 1
         }
 
         $scope.searchOrder = function () {
