@@ -99,7 +99,6 @@ def order_recovery(user, params):
     per_page=int,
     time=datetime,
     starttime=datetime,
-    endtime=datetime,
     status=(list, None, str),
 ))
 @f_app.user.login.check(force=True)
@@ -110,15 +109,8 @@ def order_search_anonymous(user, params):
     params["status"] = "paid"
 
     time_start = params.pop("starttime", None)
-    time_end = params.pop("endtime", None)
-    if time_start or time_end:
-        if time_start and time_end:
-            if time_end < time_start:
-                abort(40000, logger.warning("Invalid params: end time is earlier than start time.", exc_info=False))
-        if time_start is not None:
-            params["last_time"] = time_start
-        if time_end is not None:
-            params["time"] = time_end
+    if time_start is not None:
+        params["last_time"] = time_start
 
     order_list = f_app.order.output(f_app.order.custom_search(params, per_page=per_page), permission_check=False)
 
@@ -137,7 +129,6 @@ def order_search_anonymous(user, params):
     per_page=int,
     time=datetime,
     starttime=datetime,
-    endtime=datetime,
     user_id=ObjectId,
     shop_id=ObjectId,
     type=(list, None, str),
@@ -165,24 +156,10 @@ def order_search(user, params):
     if "status" in params:
         params["status"] = {"$in": params.pop("status")}
 
-    temp_time = params.pop("time", None)
     time_start = params.pop("starttime", None)
-    time_end = params.pop("endtime", None)
 
-    if time_start or time_end:
-        if time_start and time_end:
-            if time_end < time_start:
-                abort(40000, logger.warning("Invalid params: end time is earlier than start time.", exc_info=False))
-        if time_start is not None:
-            params["last_time"] = time_start
-        if time_end is not None:
-            params["time"] = time_end
-
-    if temp_time and time_end:
-        if temp_time < time_end:
-            params["time"] = temp_time
-    elif temp_time and not time_end:
-        params["time"] = temp_time
+    if time_start is not None:
+        params["last_time"] = time_start
 
     user_role = f_app.user.get_role(user["id"])
     if set(user_role) & set(["admin", "jr_admin"]):
