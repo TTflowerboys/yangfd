@@ -109,7 +109,7 @@ def order_search_anonymous(user, params):
     params["status"] = "paid"
 
     time_start = params.pop("starttime", None)
-    time_end = params.pop("time", None)
+    time_end = params.get("time", None)
 
     if time_start or time_end:
         params["time_additional"] = {}
@@ -166,7 +166,7 @@ def order_search(user, params):
         params["status"] = {"$in": params.pop("status")}
 
     time_start = params.pop("starttime", None)
-    time_end = params.pop("time", None)
+    time_end = params.get("time")
 
     if time_start or time_end:
         params["time_additional"] = {}
@@ -184,6 +184,7 @@ def order_search(user, params):
     else:
         params["user.id"] = user["id"]
     order_list = f_app.order.output(f_app.order.custom_search(params, per_page=per_page), permission_check=False)
+    logger.debug(params)
 
     return order_list
 
