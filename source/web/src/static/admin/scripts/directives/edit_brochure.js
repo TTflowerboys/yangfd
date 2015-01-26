@@ -21,7 +21,7 @@ angular.module('app')
                     if (isInit && scope.brochure && scope.brochure.length > 0) {
                         if (scope.brochure[0].rendering) {
                             scope.brochureStatus = 'rendering'
-                        } else if (scope.brochure[0].rendered.length > 0) {
+                        } else if (scope.brochure[0].rendered && scope.brochure[0].rendered.length > 0) {
                             scope.brochureStatus = 'done'
 
                             scope.url = '/pdf_viewer/property/' + scope.property_id
