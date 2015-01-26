@@ -133,14 +133,14 @@
                             <label class="control-label">{%$root.i18n('起投时间')%}</label>
 
                             <div class="controls">
-                                <input type="text" class="form-control" ng-model="item.funding_start_date"/>
+                                <div edit-date style="width: 185px;" ng-model="item.funding_start_date"></div>
                             </div>
                         </div>
-                        <div class="col-sm-3" ui-draggable="true" drag="'funding_duration'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('持续时间')%}</label>
+                        <div class="col-sm-3" ui-draggable="true" drag="'funding_end_date'" drag-channel="delete,reset">
+                            <label class="control-label">{%$root.i18n('截止时间')%}</label>
 
                             <div class="controls">
-                                <input type="text" class="form-control" ng-model="item.funding_duration"/>
+                                <div edit-date style="width: 185px;" ng-model="item.funding_end_date"></div>
                             </div>
                         </div>
                     </div>
