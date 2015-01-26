@@ -97,21 +97,29 @@ def property_search(user, params):
             params["$and"] = [{"$or": or_filter}, {"$or": name_filter}]
 
     if "living_room_count" in params:
-        params["main_house_types.living_room_count"] = params.pop("living_room_count")
+        if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
+            params["living_room_count"] = params.pop("living_room_count")
+        else:
+            params["main_house_types.living_room_count"] = params.pop("living_room_count")
 
     if "building_area" in params:
+        if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
+            building_area_field = "space"
+        else:
+            building_area_field = "main_house_types.building_area"
+
         building_area = [x.strip() for x in params.pop("building_area").split(",")]
         building_area_imperial = [float(f_app.i18n.convert_i18n_unit({"value": x, "unit": "meter ** 2"}, "foot ** 2")) if x else "" for x in building_area]
         building_area_filter = []
         if building_area[0] and building_area[1]:
-            building_area_filter.append({"main_house_types.building_area.unit": "meter ** 2", "main_house_types.building_area.value_float": {"$gte": building_area[0], "$lt": building_area[1]}})
-            building_area_filter.append({"main_house_types.building_area.unit": "foot ** 2", "main_house_types.building_area.value_float": {"$gte": building_area_imperial[0], "$lt": building_area_imperial[1]}})
+            building_area_filter.append({"%s.unit" % building_area_field: "meter ** 2", "%s.value_float" % building_area_field: {"$gte": building_area[0], "$lt": building_area[1]}})
+            building_area_filter.append({"%s.unit" % building_area_field: "foot ** 2", "%s.value_float" % building_area_field: {"$gte": building_area_imperial[0], "$lt": building_area_imperial[1]}})
         elif building_area[0] and not building_area[1]:
-            building_area_filter.append({"main_house_types.building_area.unit": "meter ** 2", "main_house_types.building_area.value_float": {"$gte": building_area[0]}})
-            building_area_filter.append({"main_house_types.building_area.unit": "foot ** 2", "main_house_types.building_area.value_float": {"$gte": building_area_imperial[0]}})
+            building_area_filter.append({"%s.unit" % building_area_field: "meter ** 2", "%s.value_float" % building_area_field: {"$gte": building_area[0]}})
+            building_area_filter.append({"%s.unit" % building_area_field: "foot ** 2", "%s.value_float" % building_area_field: {"$gte": building_area_imperial[0]}})
         elif not building_area[0] and building_area[1]:
-            building_area_filter.append({"main_house_types.building_area.unit": "meter ** 2", "main_house_types.building_area.value_float": {"$lt": building_area[1]}})
-            building_area_filter.append({"main_house_types.building_area.unit": "foot ** 2", "main_house_types.building_area.value_float": {"$lt": building_area_imperial[1]}})
+            building_area_filter.append({"%s.unit" % building_area_field: "meter ** 2", "%s.value_float" % building_area_field: {"$lt": building_area[1]}})
+            building_area_filter.append({"%s.unit" % building_area_field: "foot ** 2", "%s.value_float" % building_area_field: {"$lt": building_area_imperial[1]}})
         else:
             abort(40000, logger.warning("Invalid params: building_area cannot be empty"))
 
@@ -135,7 +143,6 @@ def property_search(user, params):
     property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort, time_field="mtime")
 
     if random and property_list["content"]:
-        logger.debug(property_list["content"])
         import random
         random.shuffle(property_list["content"])
     property_list['content'] = f_app.property.output(property_list['content'])
