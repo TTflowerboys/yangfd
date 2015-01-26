@@ -96,11 +96,11 @@
     left: 50%;
     margin-left: -40px;
 
-  -webkit-animation: loading-bar-spinner 600ms linear infinite;
-  -moz-animation:    loading-bar-spinner 600ms linear infinite;
-  -ms-animation:     loading-bar-spinner 600ms linear infinite;
-  -o-animation:      loading-bar-spinner 600ms linear infinite;
-  animation:         loading-bar-spinner 600ms linear infinite;
+    -webkit-animation: loading-bar-spinner 400ms linear infinite;
+    -moz-animation:    loading-bar-spinner 400ms linear infinite;
+    -ms-animation:     loading-bar-spinner 400ms linear infinite;
+    -o-animation:      loading-bar-spinner 400ms linear infinite;
+    animation:         loading-bar-spinner 400ms linear infinite;
 }
 
 @-webkit-keyframes loading-bar-spinner {

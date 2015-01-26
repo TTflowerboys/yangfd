@@ -21,8 +21,8 @@
                 <input type="button" class="btn btn-info" ng-click="sync2Weixin()" value="{%$root.i18n('同步至微信')%}">
             </div>
             <span class="btn-group pull-right">
-                <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
-                <button ng-hide="noNext" class="btn" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
             </span>
             <div class="btn-group form-inline pull-right" style="margin-right: 10px">
                 <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
@@ -83,8 +83,8 @@
 
 
             <span class="btn-group pull-right">
-                <button ng-hide="noPrev" class="btn" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
-                <button ng-hide="noNext" class="btn" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
             </span>
 
         </div>
