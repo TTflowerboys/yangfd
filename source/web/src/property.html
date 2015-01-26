@@ -810,8 +810,15 @@
                         <div class="brochure_wrapper">
                             <div class="brochures">
                                 <ul>
-                                    % for image in property.get('brochure')[0].get('rendered'):
-                                        <li><img src="{{image}}" alt=""></li>
+                                    % if len(property.get('brochure')[0].get('rendered')) > 2:
+                                        % # Because all of our brochures have same first two pages
+                                        % for image in property.get('brochure')[0].get('rendered')[2::]:
+                                            <li><img src="{{image}}" alt=""></li>
+                                        % end
+                                    % else:
+                                        % for image in property.get('brochure')[0].get('rendered'):
+                                            <li><img src="{{image}}" alt=""></li>
+                                        % end
                                     % end
                                     <li>
                                         <div class="guide">
