@@ -8,7 +8,7 @@
         $scope.selected = {}
 
         $scope.list = []
-        $scope.perPage = 6
+        $scope.perPage = 12
         $scope.currentPageNumber = 1
         $scope.pages = []
         $scope.api = api
