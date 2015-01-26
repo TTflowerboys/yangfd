@@ -622,7 +622,7 @@ angular.module('app')
             .state('dashboard.orders', {
                 url: '/orders',
                 templateUrl: '/static/admin/templates/dashboard.orders.tpl.html',
-                controller: 'ctrlList',
+                controller: 'ctrlOrderSearch',
                 resolve: {
                     api: function (orderApi) {
                         return orderApi
