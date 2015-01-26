@@ -35,6 +35,50 @@
     </div>
 %end
 
+<div class="userChoice_wrapper">
+    <ul class="userChoice">
+        <li>
+            <a href="/guides">
+                <img alt="" src="/static/images/index/choice-house-icon.png"/>
+                <div class="text">
+                    <h3 class="question">
+                        {{_('首次海外置业？')}}
+                    </h3>
+                    <label class="choice">
+                        {{_('先读读海外置业指南')}}
+                    </label>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/property_list">
+                <img alt="" src="/static/images/index/choice-search-icon.png"/>
+                <div class="text">
+                    <h3 class="question">
+                        {{_('已经有置业目标？')}}
+                    </h3>
+                    <label class="choice" >
+                        {{_('开始选房吧')}}
+                    </label>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a style="cursor:pointer;" onclick="javascript:window.project.openRequirement(null, null, null)">
+                <img alt="" src="/static/images/index/choice-requirement-icon.png"/>
+                <div class="text">
+                    <h3 class="question">
+                        {{_('立即提交置业需求？')}}
+                    </h3>
+                    <label class="choice"  style="cursor:pointer;" onclick="javascript:window.project.openRequirement(null, null, null)">
+                        {{_('让置业顾问帮我选房')}}
+                    </label>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+
 %if (not user):
     <div class="howItWorks">
         <!-- @@include=partials/how_it_works_tabs.html-->
