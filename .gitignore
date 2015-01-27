@@ -117,3 +117,5 @@ project.properties
 #projectile
 
 #.projectile
+# vim temp file
+*.swp
