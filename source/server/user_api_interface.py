@@ -47,6 +47,7 @@ def current_user_favorites_add(user, params):
     """
     Get current user favorites
     please specify ``type`` when calling this API
+    ``type`` can be ``property`` or ``item``
     """
     assert params["type"] in ("property", "item"), abort(40000, logger.warning("Invalid params: invalid favorite type", exc_info=False))
     if params["type"] == "property" and "property_id" in params:
