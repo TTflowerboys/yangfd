@@ -182,9 +182,9 @@ def shop_item_edit(user, shop_id, item_id, params):
 
         def _action(params):
             unset_fields = params.get("unset_fields", [])
-            f_app.shop.item.update_set(shop_id, item_id, params)
+            f_app.shop.item.update_set(shop_id, item_id, params, ignore_order=True)
             if unset_fields:
-                f_app.shop.item.update(shop_id, item_id, {"$unset": {i: "" for i in unset_fields}})
+                f_app.shop.item.update(shop_id, item_id, {"$unset": {i: "" for i in unset_fields}}, ignore_order=True)
             return f_app.shop.item.get(item_id)
 
         action = _action
@@ -214,21 +214,21 @@ def shop_item_edit(user, shop_id, item_id, params):
                             item["status"] = params["status"]
                             target_item_id = item.pop("target_item_id")
                             unset_fields = item.pop("unset_fields", [])
-                            f_app.shop.item.update_set(shop_id, target_item_id, item)
+                            f_app.shop.item.update_set(shop_id, target_item_id, item, ignore_order=True)
                             if unset_fields:
                                 unset_fields.append("unset_fields")
-                                f_app.shop.item.update(shop_id, target_item_id, {"$unset": {i: "" for i in unset_fields}})
-                            f_app.shop.item.update_set(shop_id, item_id, {"status": "deleted"})
+                                f_app.shop.item.update(shop_id, target_item_id, {"$unset": {i: "" for i in unset_fields}}, ignore_order=True)
+                            f_app.shop.item.update_set(shop_id, item_id, {"status": "deleted"}, ignore_order=True)
                             return f_app.shop.item.get(target_item_id)
                     else:
                         def action(params):
                             with f_app.mongo() as m:
                                 item = f_app.shop.item.get_database(m).find_one({"_id": ObjectId(item_id)})
-                            f_app.shop.item.update_set(shop_id, item_id, params)
+                            f_app.shop.item.update_set(shop_id, item_id, params, ignore_order=True)
                             unset_fields = item.pop("unset_fields", [])
                             if unset_fields:
                                 unset_fields.append("unset_fields")
-                                f_app.shop.item.update(shop_id, item_id, {"$unset": {i: "" for i in unset_fields}})
+                                f_app.shop.item.update(shop_id, item_id, {"$unset": {i: "" for i in unset_fields}}, ignore_order=True)
                             return f_app.shop.item.get(item_id)
 
                 if params["status"] == "not reviewed":
