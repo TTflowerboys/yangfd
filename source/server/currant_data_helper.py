@@ -28,11 +28,11 @@ def get_user_with_custom_fields(user=None):
         return None
 
 
-def get_favorite_list(type):
+def get_favorite_list(fav_type):
     user = f_app.user.login.get()
     if user:
-        result = f_app.user.favorite_output(f_app.user.favorite_get_by_user(user["id"], type), ignore_nonexist=True) if user is not None else []
-        return [i for i in result if i.get(type)]
+        result = f_app.user.favorite_output(f_app.user.favorite_get_by_user(user["id"], fav_type), ignore_nonexist=True)
+        return result
     else:
         return []
 

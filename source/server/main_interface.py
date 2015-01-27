@@ -9,7 +9,6 @@ from hashlib import sha1
 from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, error, abort, template_gettext as _
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
-from six.moves.urllib.parse import quote_plus
 import qrcode
 import bottle
 import logging
@@ -112,7 +111,7 @@ def default(user):
         title=title,
         property_list=property_list,
         homepage_ad_list=homepage_ad_list,
-        homepage_signedin_ad_list = homepage_signedin_ad_list,
+        homepage_signedin_ad_list=homepage_signedin_ad_list,
         announcement_list=announcement_list,
         news_list=news_list,
         intention_list=intention_list
@@ -241,7 +240,7 @@ def property_get(property_id):
     return common_template("property", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
 
 
-@f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>',  params=dict(
+@f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>', params=dict(
     link=(str, True),
 ))
 @check_ip_and_redirect_domain
@@ -281,12 +280,12 @@ def crowdfunding_get(property_id):
     if 'intention' in property and property.get('intention'):
         tags = [item['value'] for item in property['intention'] if 'value' in item]
 
-    #keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
+    # keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
     keywords = ""
     return common_template("crowdfunding", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
 
 
-@f_get('/pdf_viewer/crowdfunding/<crowdfunding_id:re:[0-9a-fA-F]{24}>',  params=dict(
+@f_get('/pdf_viewer/crowdfunding/<crowdfunding_id:re:[0-9a-fA-F]{24}>', params=dict(
     link=(str, True),
     filename=(str, True)
 ))
