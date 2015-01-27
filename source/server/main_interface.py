@@ -79,6 +79,7 @@ def common_template(path, **kwargs):
     # setup page utils
     kwargs.setdefault("format_unit", currant_util.format_unit)
     kwargs.setdefault("fetch_image", currant_util.fetch_image)
+    kwargs.setdefault("totimestamp", currant_util.totimestamp)
     return template(path, **kwargs)
 
 

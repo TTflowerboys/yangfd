@@ -79,12 +79,18 @@
         <div class="content">
             <div class="pictures" data-tabs>
                 <div class="labels">
-                    <label class="type" for="">
-                        租金产权
-                    </label>
-                    <label class="rent" for="">
-                        剩余10天
-                    </label>
+                    %if property.get('investment_type'):
+                        <label class="type" for="">
+                            {{property.get('investment_type')[0].get('value')}}
+                        </label>
+                    %end
+                    % from datetime import datetime
+                    % now = datetime.utcnow()
+                    %if (property.get('funding_end_date') and property.get('funding_end_date') > now):
+                        <label class="rent" for="">
+                            {{_('剩余')}}{{(property.get('funding_end_date') - now).days}}{{_('天')}}
+                        </label>
+                    %end
                 </div>
 
                 <div class="big">
