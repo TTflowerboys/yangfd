@@ -33,6 +33,32 @@
             </div>
         %end
     </div>
+%else:
+<div class="gallery">
+    %if homepage_signedin_ad_list:
+    <div class="rslides_wrapper">
+        <ul class="rslides">
+            % for ad in homepage_signedin_ad_list:
+            <li>
+                <div class="img" style="background:url('{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}', sizingMethod='scale');">
+                    <div class="img_shadow"></div>
+                </div>
+                <div class="imageText_table">
+                    <div class="imageText_wrapper">
+                        <div class="imageText">
+                            %for index, text in enumerate(ad.get('text')):
+                            <h1 class="slogan">{{text}}</h1>
+                            %end
+                            <a class="button red" href="{{ad.get('link')}}">{{ad.get('image_alt','')}}</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            % end
+        </ul>
+    </div>
+    %end
+</div>
 %end
 
 <div class="userChoice_wrapper">

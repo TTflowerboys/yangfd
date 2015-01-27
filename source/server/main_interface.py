@@ -97,6 +97,8 @@ def default(user):
 
     homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
     homepage_ad_list = f_app.i18n.process_i18n(homepage_ad_list)
+    homepage_signedin_ad_list = f_app.ad.get_all_by_channel("homepage_signedin")
+    homepage_signedin_ad_list = f_app.i18n.process_i18n(homepage_signedin_ad_list)
     announcement_list = currant_data_helper.get_announcement_list()
     announcement_list = f_app.i18n.process_i18n(announcement_list)
     news_list = currant_data_helper.get_featured_new_list()
@@ -110,6 +112,7 @@ def default(user):
         title=title,
         property_list=property_list,
         homepage_ad_list=homepage_ad_list,
+        homepage_signedin_ad_list = homepage_signedin_ad_list,
         announcement_list=announcement_list,
         news_list=news_list,
         intention_list=intention_list
