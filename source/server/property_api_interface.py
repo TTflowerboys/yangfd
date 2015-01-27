@@ -32,6 +32,7 @@ logger = logging.getLogger(__name__)
     slug=str,
     living_room_count=int,
     building_area=str,
+    investment_type="enum:investment_type",
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
