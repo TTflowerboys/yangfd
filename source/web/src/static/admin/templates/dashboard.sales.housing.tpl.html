@@ -11,6 +11,23 @@
             <div select-enum name="property_type" ng-model="selected.property_type" text="{%i18n('房产类型')%}"></div>
         </div>
         <div class="btn-group form-inline">
+            <div select-enum name="intention" ng-model="selected.intention" text="{%i18n('投资标签')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+            <div select-enum name="investment_type" ng-model="selected.investment_type" text="{%i18n('投资类型')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+            <select class="form-control" ng-options="p.value as p.name for p in plotFilterBuildingArea" ng-model="selected.building_area">
+                <option value="">-- {%$root.i18n('面积')%} --</option>
+            </select>
+        </div>
+        <div class="btn-group form-inline">
+            <input type="number" class="form-control" ng-model="item.living_room_count" placeholder="{%$root.i18n('居室数')%}"/>
+        </div>
+        <div class="btn-group form-inline">
+            <input type="number" class="form-control" ng-model="item.floor" placeholder="{%$root.i18n('楼层')%}"/>
+        </div>
+        <div class="btn-group form-inline">
             <button class="btn btn-primary" ng-click="searchHousing()">{%$root.i18n('搜索')%}</button>
         </div>
         <span class="btn-group pull-right" style="margin-left: 10px">

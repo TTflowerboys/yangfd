@@ -23,6 +23,9 @@
             params.country = $scope.selected.country
             params.city = $scope.selected.city
             params.property_type = $scope.selected.property_type
+            params.living_room_count = $scope.selected.living_room_count
+            params.building_area = $scope.selected.building_area
+            params.floor = $scope.selected.floor
         }
 
         $scope.searchHousing = function () {
@@ -49,12 +52,6 @@
             if (lastItem.time) {
                 params.time = lastItem.time
             }
-            if (lastItem.register_time) {
-                params.register_time = lastItem.register_time
-            }
-            if (lastItem.insert_time) {
-                params.insert_time = lastItem.insert_time
-            }
 
             api.getAll({params: params})
                 .success(function () {
@@ -77,16 +74,8 @@
                 if (lastItem.time) {
                     params.time = lastItem.time
                 }
-                if (lastItem.register_time) {
-                    params.register_time = lastItem.register_time
-                }
-                if (lastItem.insert_time) {
-                    params.insert_time = lastItem.insert_time
-                }
             } else {
                 delete params.time
-                delete params.register_time
-                delete params.insert_time
             }
 
             api.getAll({params: params})
