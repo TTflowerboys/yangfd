@@ -130,7 +130,12 @@
                 }
             }
         },
-
+        dayCountBefore: function(date) {
+            var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+            var today = new Date();
+            var diffDays = Math.round((date.getTime() - today.getTime())/(oneDay));
+            return diffDays;
+        },
         /**
          * Share something to Weibo
          * @param {object} {title:'',url:'',pic:''}
