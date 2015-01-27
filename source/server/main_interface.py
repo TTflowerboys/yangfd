@@ -80,6 +80,7 @@ def common_template(path, **kwargs):
     # setup page utils
     kwargs.setdefault("format_unit", currant_util.format_unit)
     kwargs.setdefault("fetch_image", currant_util.fetch_image)
+    kwargs.setdefault("totimestamp", currant_util.totimestamp)
     return template(path, **kwargs)
 
 
@@ -112,7 +113,7 @@ def default(user):
         title=title,
         property_list=property_list,
         homepage_ad_list=homepage_ad_list,
-        homepage_signedin_ad_list = homepage_signedin_ad_list,
+        homepage_signedin_ad_list=homepage_signedin_ad_list,
         announcement_list=announcement_list,
         news_list=news_list,
         intention_list=intention_list
