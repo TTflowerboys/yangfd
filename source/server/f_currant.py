@@ -278,19 +278,27 @@ class f_currant_user(f_user):
     def favorite_output(self, favorite_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, ignore_user=True):
         favorites = self.favorite_get(favorite_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
         property_set = set()
+        item_set = set()
         for fav in favorites:
             if ignore_user:
                 del fav["user_id"]
-            property_set.add(fav["property_id"])
+            if "property_id" in fav:
+                property_set.add(fav["property_id"])
+            if "item_id" in fav:
+                item_set.add(fav["item_id"])
 
         property_dict = f_app.property.output(list(property_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
+        item_dict = f_app.shop.item_output(list(item_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
         for fav in favorites:
-            fav["property"] = property_dict.get(str(fav.pop("property_id")))
+            if "property_id" in fav:
+                fav["property"] = property_dict.get(str(fav.pop("property_id")))
+            if "item_id" in fav:
+                fav["item"] = item_dict.get(str(fav.pop("item_id")))
 
         return favorites
 
-    def favorite_get_by_user(self, user_id):
-        return self.favorite_search({"user_id": ObjectId(user_id)}, per_page=0)
+    def favorite_get_by_user(self, user_id, fav_type="property"):
+        return self.favorite_search({"user_id": ObjectId(user_id), "type": fav_type}, per_page=0)
 
     def favorite_search(self, params, sort=["time", "desc"], notime=False, per_page=10):
         params.setdefault("status", "new")

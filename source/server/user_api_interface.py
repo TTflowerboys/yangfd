@@ -22,34 +22,49 @@ def current_user(user):
 @f_api('/user/favorite', params=dict(
     per_page=int,
     time=datetime,
+    type=(str, True),
 ))
 @f_app.user.login.check(force=True)
 def current_user_favorites(user, params):
     """
     Get current user favorites
     """
+    assert params["type"] in ("property", "item"), abort(40000, logger.warning("Invalid params: invalid favorite type", exc_info=False))
     per_page = params.pop("per_page", 0)
     params["user_id"] = ObjectId(user["id"])
-    result = f_app.user.favorite.output(f_app.user.favorite.search(params, per_page=per_page), ignore_nonexist=True)
+    result = f_app.user.favorite.output(f_app.user.favorite_search(params, per_page=per_page), ignore_nonexist=True)
     return result
 
 
 @f_api('/user/favorite/add', params=dict(
-    property_id=(ObjectId, True)
+    property_id=ObjectId,
+    item_id=ObjectId,
+    type=(str, True),
 ))
 @f_app.user.login.check(force=True)
 def current_user_favorites_add(user, params):
     """
     Get current user favorites
     """
-    property = f_app.property.get(params["property_id"])
-    assert property["status"] in ["selling", "sold out"], abort(40398, logger.warning("Permission denied: not a valid property_id", exc_info=False))
-    params["user_id"] = ObjectId(user["id"])
-    result = f_app.user.favorite_search(params)
-    if result:
-        abort(40090, logger.warning("Invalid operation: This property has already been added to your favorites.", exc_info=False))
+    assert params["type"] in ("property", "item"), abort(40000, logger.warning("Invalid params: invalid favorite type", exc_info=False))
+    if params["type"] == "property" and "property_id" in params:
+        property = f_app.property.get(params["property_id"])
+        assert property["status"] in ["selling", "sold out"], abort(40398, logger.warning("Permission denied: not a valid property_id", exc_info=False))
+        params["user_id"] = ObjectId(user["id"])
+        result = f_app.user.favorite_search(params)
+        if result:
+            abort(40090, logger.warning("Invalid operation: This property has already been added to your favorites.", exc_info=False))
+    elif params["type"] == "item" and "item_id" in params:
+        item = f_app.shop.item_get(params["item_id"])
+        assert item["status"] in ["new", "sold out"], abort(40398, logger.warning("Permission denied: not a valid item_id", exc_info=False))
+        params["user_id"] = ObjectId(user["id"])
+        result = f_app.user.favorite_search(params)
+        if result:
+            abort(40090, logger.warning("Invalid operation: This item has already been added to your favorites.", exc_info=False))
     else:
-        return f_app.user.favorite_add(params)
+        abort(40000, logger.warning("Invalid operation: params not correct", exc_info=False))
+
+    return f_app.user.favorite_add(params)
 
 
 @f_api('/user/favorite/<favorite_id>/remove')
