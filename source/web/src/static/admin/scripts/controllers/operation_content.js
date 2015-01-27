@@ -42,6 +42,15 @@
         }, true)
 
         $scope.refreshList = function () {
+            channelApi.getAll()
+                .success(function (data) {
+                    $scope.availableChannels = data.val
+
+                    //If got more than one channel, default select first one to show
+                    if ($scope.availableChannels.length > 0) {
+                        $scope.selected.channel = $scope.availableChannels[0]
+                    }
+                })
             $scope.adApiFactory.getAll({ params: params, errorMessage: true}).success(onGetList)
         }
 
