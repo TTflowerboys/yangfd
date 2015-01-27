@@ -28,6 +28,7 @@ def current_user(user):
 def current_user_favorites(user, params):
     """
     Get current user favorites
+    use ``type`` to get item for property favorite
     """
     assert params["type"] in ("property", "item"), abort(40000, logger.warning("Invalid params: invalid favorite type", exc_info=False))
     per_page = params.pop("per_page", 0)
@@ -45,6 +46,7 @@ def current_user_favorites(user, params):
 def current_user_favorites_add(user, params):
     """
     Get current user favorites
+    please specify ``type`` when calling this API
     """
     assert params["type"] in ("property", "item"), abort(40000, logger.warning("Invalid params: invalid favorite type", exc_info=False))
     if params["type"] == "property" and "property_id" in params:
