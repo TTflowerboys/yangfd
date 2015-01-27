@@ -160,10 +160,10 @@
             var valueArray = []
             var descriptionArray = []
             for (var i = 0; i < $scope.item.tempValues.length; i += 1) {
-                valueArray[i][0] = $scope.item.tempValues[i][0]
-                valueArray[i][1] = $scope.item.tempValues[i][1]
-                descriptionArray[i][0] = $scope.item.tempValues[i][0]
-                descriptionArray[i][1] = $scope.item.tempValues[i][2]
+                var tempValueArray = [$scope.item.tempValues[i][0], $scope.item.tempValues[i][1]]
+                valueArray.push(tempValueArray)
+                var tempDescriptionArray = [$scope.item.tempValues[i][0], $scope.item.tempValues[i][2]]
+                descriptionArray.push(tempDescriptionArray)
             }
             $scope.item.value = _.object(valueArray)
             $scope.item.description = _.object(descriptionArray)
