@@ -1,17 +1,15 @@
 (function () {
-
-
     $('[data-fn=addFav]').on('click', function () {
         ga('send', 'event', 'property_detail', 'click', 'add-fav')
         if (window.project.checkLoginIfNot()) {
             return
         }
         var $button = $(this)
-        var property_id = $button.attr('data-property-id')
+        var property_id = $button.attr('data-item-id')
 
         $.betterPost('/api/1/user/favorite/add', {
-            property_id: property_id,
-            type: 'property'
+            item_id: property_id,
+            type: 'item'
         })
             .done(function (val) {
                 $button.hide().parent().find('[data-fn=removeFav]').show().attr('data-favorite-id', val)

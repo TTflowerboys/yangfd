@@ -217,7 +217,7 @@ def property_list(params):
 @check_ip_and_redirect_domain
 def property_get(property_id):
     property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
-    favorite_list = currant_data_helper.get_favorite_list()
+    favorite_list = currant_data_helper.get_favorite_list('property')
     favorite_list = f_app.i18n.process_i18n(favorite_list)
     related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
 
@@ -262,7 +262,7 @@ def pdfviewer(user, property_id, params):
 @check_crowdfunding_ready
 def crowdfunding_get(property_id):
     property = f_app.i18n.process_i18n(f_app.shop.item.output([property_id])[0])
-    favorite_list = f_app.i18n.process_i18n(currant_data_helper.get_favorite_list())
+    favorite_list = f_app.i18n.process_i18n(currant_data_helper.get_favorite_list('item'))
     related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
 
     report = None
@@ -520,7 +520,7 @@ def user_verify_phone_2(user):
 def user_favorites(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     title = _('我的收藏')
-    favorite_list = currant_data_helper.get_favorite_list()
+    favorite_list = currant_data_helper.get_favorite_list('property')
     favorite_list = f_app.i18n.process_i18n(favorite_list)
     return common_template("user_favorites", user=user, favorite_list=favorite_list, title=title)
 

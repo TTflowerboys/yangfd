@@ -713,8 +713,8 @@
                 <table class="actions">
                     <tr>
                         <td style="text-align:left;">
-                            % isFavorite = property.get('id') in [i.get('property',{}).get('id') for i in favorite_list]
-                            <button data-fn="addFav" data-property-id="{{property.get('id','')}}"
+                            % isFavorite = property.get('id') in [i.get('item',{}).get('id') for i in favorite_list]
+                            <button data-fn="addFav" data-item-id="{{property.get('id','')}}"
                                     class="flatButton"
                                     style="{{ 'display:none' if isFavorite else ''}}"
                                     data-message-40090="{{_('已经收藏过了')}}"
@@ -726,7 +726,7 @@
                                     class="flatButton"
                                     style="{{ 'display:none' if not isFavorite else ''}}"
                                     % if isFavorite:
-                                    % foundId = [x for x in favorite_list if x.get('property',{}).get('id') == property.get('id')][0].get('id')
+                                    % foundId = [x for x in favorite_list if x.get('item',{}).get('id') == property.get('id')][0].get('id')
                                     data-favorite-id="{{foundId}}"
                                     % end
                                     >
@@ -871,7 +871,7 @@
     <ul class="floatBar_phone">
         <li class="favorite"
             data-fn="addFav"
-            data-property-id="{{property.get('id','')}}"
+            data-item-id="{{property.get('id','')}}"
             style="{{ 'display:none' if isFavorite else ''}}"
             data-message-40090="{{_('已经收藏过了')}}"
             ><img src="/static/images/property_details/phone/favorite.png"></img></li>
@@ -879,7 +879,7 @@
             data-fn="removeFav"
             style="{{ 'display:none' if not isFavorite else ''}}"
             % if isFavorite:
-            % foundId = [x for x in favorite_list if x.get('property',{}).get('id') == property.get('id')][0].get('id')
+            % foundId = [x for x in favorite_list if x.get('item',{}).get('id') == property.get('id')][0].get('id')
             data-favorite-id="{{foundId}}"
             % end
             ><img src="/static/images/property_details/icon-star.png"></img></li>
@@ -919,7 +919,7 @@
     <script src="/static/vendors/video-js/video.js"></script>
     <script src="/static/scripts/property_gallery.js"></script>
     <script src="/static/scripts/property_wechat.js"></script>
-    <script src="/static/scripts/property_favorite.js"></script>
+    <script src="/static/scripts/crowdfunding_favorite.js"></script>
     <script src="/static/scripts/update_investment_chart.js"></script>
     <script src="/static/scripts/crowdfunding.js"></script>
     <!--endbuild-->
