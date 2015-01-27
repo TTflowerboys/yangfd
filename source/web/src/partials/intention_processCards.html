@@ -1,8 +1,20 @@
+% def get_intention_description(intention_id):
+%if (intention_list):
+    %for intention in intention_list:
+        %if (intention.get('id') == intention_id):
+        %    return intention.get('description')
+        %end
+    %end
+%end
+% return ''
+%end
+
+
 <div data-tab-name="stable_cashflow" style="display:none;">
     <div class="processInfo">
         <img alt="" src="/static/images/intention/icon/stable_cashflow-red.png"/>
         <p>
-            {{_('该类投资的房产是以房养学的高档公寓，周边高校众多，居民呈现年轻化态势，氛围良好。附近地铁站人口流量巨大，交通便捷。街区租房空置率低于3%而且犯罪率奇低，给您安全保障，是您的子女留学住宿的不二之选。')}}
+            {{get_intention_description('540aecb86b809957816154dc')}}
         </p>
         <a class="ghostButton red" href="/property_list?intention=540aecb86b809957816154dc">
             {{_('查看稳定现金流的房产')}}
@@ -63,7 +75,7 @@
      <div class="processInfo">
         <img alt="" src="/static/images/intention/icon/study_aboard-red.png"/>
         <p >
-            {{_('该类投资的房产是以房养学的高档公寓，周边高校众多，居民呈现年轻化态势，氛围良好。附近地铁站人口流量巨大，交通便捷。街区租房空置率低于3%而且犯罪率奇低，给您安全保障，是您的子女留学住宿的不二之选。')}}
+            {{get_intention_description('540aecda6b809957816154de')}}
         </p>
         <a class="ghostButton red" href="/property_list?intention=540aecda6b809957816154de">
             {{_('查看子女留学的房产')}}
@@ -176,7 +188,7 @@
     <div class="processInfo">
         <img alt="" src="/static/images/intention/icon/excess_earnings-red.png"/>
         <p>
-            {{_('该类投资的房产是以房养学的高档公寓，周边高校众多，居民呈现年轻化态势，氛围良好。附近地铁站人口流量巨大，交通便捷。街区租房空置率低于3%而且犯罪率奇低，给您安全保障，是您的子女留学住宿的不二之选。')}}
+            {{get_intention_description('540aecfc6b809957816154e0')}}
         </p>
         <a class="ghostButton red" href="/property_list?intention=540aecfc6b809957816154e0">
             {{_('查看超额收益的房产')}}
@@ -228,7 +240,7 @@
      <div class="processInfo">
         <img alt="" src="/static/images/intention/icon/asset_preservation-red.png"/>
         <p>
-            {{_('该类投资的房产是以房养学的高档公寓，周边高校众多，居民呈现年轻化态势，氛围良好。附近地铁站人口流量巨大，交通便捷。街区租房空置率低于3%而且犯罪率奇低，给您安全保障，是您的子女留学住宿的不二之选。')}}
+            {{get_intention_description('540aed0e6b809957816154e2')}}
         </p>
         <a class="ghostButton red" href="/property_list?intention=540aed0e6b809957816154e2">
             {{_('查看资产保值的房产')}}
@@ -280,7 +292,7 @@
     <div class="processInfo">
         <img alt="" src="/static/images/intention/icon/live_after_immigration-red.png"/>
         <p >
-            {{_('该类投资的房产是以房养学的高档公寓，周边高校众多，居民呈现年轻化态势，氛围良好。附近地铁站人口流量巨大，交通便捷。街区租房空置率低于3%而且犯罪率奇低，给您安全保障，是您的子女留学住宿的不二之选。')}}
+             {{get_intention_description('540aed1c6b809957816154e3')}}
         </p>
         <a class="ghostButton red" href="/property_list?intention=540aed1c6b809957816154e3">
             {{_('查看移民自住的房产')}}
@@ -341,9 +353,9 @@
      <div class="processInfo">
         <img alt="" src="/static/images/intention/icon/leisure_property-red.png"/>
         <p>
-            {{_('该类投资的房产是以房养学的高档公寓，周边高校众多，居民呈现年轻化态势，氛围良好。附近地铁站人口流量巨大，交通便捷。街区租房空置率低于3%而且犯罪率奇低，给您安全保障，是您的子女留学住宿的不二之选。')}}
+            {{get_intention_description('540aed266b809957816154e4')}}
         </p>
-        <a class="ghostButton red" href="/property_list?intention=540aecfc6b809957816154e0">
+        <a class="ghostButton red" href="/property_list?intention=540aed266b809957816154e4">
             {{_('查看度假旅行的房产')}}
         </a>
     </div>
