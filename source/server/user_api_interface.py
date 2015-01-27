@@ -15,7 +15,10 @@ def current_user(user):
     """
     Get current user information
     """
-    result = f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
+    from copy import copy
+    custom_fields = copy(f_app.common.user_custom_fields)
+    custom_fields.append("idcard")
+    result = f_app.user.output([user["id"]], custom_fields=custom_fields)[0]
     return result
 
 
@@ -161,8 +164,10 @@ def register(params):
     nickname=(str, None),
     phone=(str, None),
     city=("enum:city", None),
-    state=(str, None),
+    state=("enum:state", None),
     country=("enum:country", None),
+    address1=(str, None),
+    address2=(str, None),
     zipcode=(str, None),
     email=(str, None),
     password=(str, None, "notrim", "base64"),
@@ -177,6 +182,7 @@ def register(params):
     system_message_type=(list, None, str),
     email_message_type=(list, None, str),
     unset_fields=(list, None, str),
+    idcard=(list, None, str),
 ))
 @f_app.user.login.check(force=True)
 def current_user_edit(user, params):
