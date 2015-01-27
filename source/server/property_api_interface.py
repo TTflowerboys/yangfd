@@ -32,7 +32,6 @@ logger = logging.getLogger(__name__)
     slug=str,
     living_room_count=int,
     building_area=str,
-    is_rental_guarantee=bool,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
@@ -132,9 +131,6 @@ def property_search(user, params):
             params["$and"].append({"$or": building_area_filter})
         else:
             abort(50000, logger.warning("Oops! Something wrong with params parser!", exc_info=False))
-
-    if "is_rental_guarantee" in params:
-        params["rental_guarantee_term"] = {"$exists": params.pop("is_rental_guarantee")}
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
