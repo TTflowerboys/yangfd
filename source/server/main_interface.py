@@ -323,6 +323,14 @@ def crowdfunding_list(params):
                            )
 
 
+@f_get('/user_finish_info')
+@check_ip_and_redirect_domain
+@check_crowdfunding_ready
+def user_finish_info():
+    title = _('补充个人信息')
+    return common_template("user_finish_info", title=title)
+
+
 @f_get('/news_list')
 @check_ip_and_redirect_domain
 def news_list():

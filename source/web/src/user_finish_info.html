@@ -1,0 +1,120 @@
+<!--@@master=masters/master.html-->
+<!--@@block=head -->
+<!--build:css(dist) /static/styles/user_finish_info.html.css-->
+<link href="/static/styles/userFinishInfo.css" rel="stylesheet"/>
+<!--endbuild-->
+<!--@@close-->
+<!--@@block=main -->
+
+<div class="stepIndicator">
+    <ul class="steps">
+        <li class="step1">
+            <div class="number">1</div>
+            <label class="hint" for="">
+                {{_('补充个人信息')}}
+            </label>
+        </li>
+        <li class="step2">
+            <div class="number">2</div>
+            <label class="hint" for="">
+                {{_('确认真实身份')}}
+            </label>
+        </li>
+        <li class="step3">
+            <div class="number">3</div>
+            <label class="hint" for="">
+                {{_('确认投资信息')}}
+            </label>
+        </li>
+    </ul>
+     <div class="tip">
+            <img alt="" src="/static/images/user/tip.png"/>
+            <p>{{_('为了您的投资安全和满足相关监管机构要求，在您确认投资前，我们需要验证您的身份，请务必填写准确。')}}</p>
+     </div>
+
+     <div class="currentStep">
+         <div class="userInfo" action="">
+             <div class="info">
+                 <h3 class="title">
+                     {{_('个人资料')}}
+                 </h3>
+                 <div class="row">
+                     <label class="name" for="name">
+                         {{_('姓名')}}
+                     </label>
+                     <input name="name" type="text" value=""/>
+                 </div>
+                 <div class="row">
+                     <label class="name" for="gender">
+                         {{_('性别')}}
+                     </label>
+                     <select id="" name="gender"></select>
+                 </div>
+
+                 <div class="row">
+                     <label class="name" for="birthday">
+                         {{_('生日')}}
+                     </label>
+                     <div class="birthday">
+                         <select id="" name="year"></select>
+                         <select id="" name="month"></select>
+                         <select id="" name="day"></select>
+                     </div>
+                 </div>
+
+                 <div class="row">
+                     <label class="name" for="address">
+                         {{_('地址')}}
+                     </label>
+                     <div class="address">
+                         <select id="" name="country"></select>
+                         <select id="" name="state"></select>
+                         <select id="" name="city"></select>
+                         <input name="address" type="text" value=""/>
+                     </div>
+                 </div>
+                  <div class="row">
+                     <label class="name" for="postalCode">
+                         {{_('邮政编码')}}
+                     </label>
+                     <select id="" name="postalCode"></select>
+                 </div>
+
+             </div>
+             <div class="phone">
+                 <h3 class="title">
+                     {{_('验证手机')}}
+                 </h3>
+                   <div class="row">
+                     <label class="name" for="phone">
+                         {{_('手机号')}}
+                     </label>
+                     <select id="" name="phone"></select>
+                 </div>
+
+                 <div class="row">
+                     <label class="name" for="verificationCode">
+                         {{_('验证码')}}
+                     </label>
+                     <div class="verificationCode">
+                         <input name="verificationCode" type="text" value=""/>
+                         <button class="fetchCode button red">
+                             {{_('获取验证码')}}
+                         </button>
+                     </div>
+                 </div>
+             </div>
+             <button class="confirm button red">
+                 {{_('确认无误，下一步')}}
+             </button>
+         </div>
+     </div>
+</div>
+
+<!--@@close-->
+
+<!--@@block=scripts -->
+<!--build:js /static/scripts/user_finish_info.html.js-->
+
+<!--endbuild-->
+<!--@@close-->
