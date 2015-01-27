@@ -8,7 +8,7 @@
                 {_minPrice = parseInt(type.total_price.value)_}
             {_}_}
         {_})_}
-{!team.formatCurrency(parseInt(minPrice))!}{=window.i18n('起投')=}
+{!team.formatCurrency(parseInt(minPrice))!}{=window.i18n('起')=}
 {_} else if(house.unit_price){_}
 {=house.unit_price.price.unit_symbol=}
 {!team.formatCurrency(parseInt(house.unit_price.price.value/house.unit_price.unit.value))!}
@@ -34,6 +34,6 @@ km <sup>2</sup>
 {_}_}
 {_if (house.minimum_down_payment_rate) {_}
 <span style="display:block;">
-    {=window.i18n('最低首付')=}{=parseFloat(house.minimum_down_payment_rate * 100).toFixed(2) + '%'=}
+    {=window.i18n('首付')=}{=parseFloat(house.minimum_down_payment_rate * 100).toFixed(0) + '%'=}
 </span>
 {_}_}
