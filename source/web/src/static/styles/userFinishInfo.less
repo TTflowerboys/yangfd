@@ -70,19 +70,54 @@ body{
         background:#f6f6f6;
         width:100%;
         margin-top:40px;
+        padding:40px;
 
         .userInfo {
             width:100%;
             overflow:hidden;
 
+            .row {
+                margin-left:0;
+                margin-bottom:20px;
+
+                label {
+                    width:170px;
+                    font-size:14px;
+                    text-align:right;
+                    color:#999999;
+                    font-style:normal;
+                    display:inline-block;
+                }
+
+                input {
+                    margin-left:38px;
+                    width:360px;
+                    height:48px;
+                    padding-left:4px;
+                    padding-right: 4px;
+                    font-size:14px;
+                    border:1px solid #cccccc;
+                    border-radius:4px;
+                    background:white;
+                }
+            }
+
             >.info {
                 float:left;
                 width:50%;
+                >.title {
+                    font-size:20px;
+                    color:#333;
+                }
             }
 
             >.phone {
                 float:left;
                 width:50%;
+                >.title {
+                    font-size:20px;
+                    color:#333;
+                }
             }
 
             >.confirm {

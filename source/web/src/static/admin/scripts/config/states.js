@@ -130,6 +130,24 @@ angular.module('app')
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
+            .state('dashboard.enums.state', {
+                url: '/state',
+                templateUrl: '/static/admin/templates/dashboard.enums.state.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.state.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.state.create.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.state.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.enums.state.edit.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
             .state('dashboard.enums.city', {
                 url: '/city',
                 templateUrl: '/static/admin/templates/dashboard.enums.city.tpl.html',

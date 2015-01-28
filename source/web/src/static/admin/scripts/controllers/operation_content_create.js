@@ -34,7 +34,7 @@
                 successMessage: 'Create successfully',
                 errorMessage: 'Create failed'
             }).success(function () {
-                if ($scope.$parent.currentPageNumber === 1) {
+                if ($scope.$parent) {
                     $scope.$parent.refreshList()
                 }
                 $scope.$state.go('^')
