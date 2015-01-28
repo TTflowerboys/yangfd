@@ -146,11 +146,12 @@ def property_search(user, params):
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
 
+    if plot_params:
+        plot_property_set = set([str(plot.get("property_id")) for plot in f_app.plot.get(f_app.plot.search(plot_params, per_page=0))])
+        params["_id"] = {"$in": [ObjectId(i) for i in plot_property_set]}
+
     # Default to mtime,desc
     property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort, time_field="mtime")
-    if plot_params:
-        plot_property_list = set([str(plot.get("property_id")) for plot in f_app.plot.get(f_app.plot.search(plot_params, per_page=0))])
-        property_list["content"] = plot_property_list & set(property_list["content"])
 
     if random and property_list["content"]:
         import random
