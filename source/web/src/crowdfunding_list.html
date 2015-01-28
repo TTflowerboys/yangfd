@@ -24,7 +24,7 @@
     <div id="tags" class="tags">
         <div class="tags_inner">
             <h3 class="title">{{_('众筹热门问答')}}</h3>
-            %if (investment_type_list):
+            %if investment_type_list:
                 <div class="investment_type" style="display:none;">
                     <img class="investment_type_icon" alt="" src="/static/images/property_list/price-tag.png"/>
                     <h4 class="investment_type_title">{{_('收益类型')}}</h4>
@@ -38,7 +38,7 @@
                 </div>
             %end
 
-            %if (intention_list):
+            %if intention_list:
                 <div class="intention"  style="display:none;">
                     <img class="intention_icon" alt="" src="/static/images/property_list/intention-tag.png"/>
                     <h4 class="intention_title">{{_('投资意向(多选)')}}</h4>

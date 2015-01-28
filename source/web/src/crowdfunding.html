@@ -86,7 +86,7 @@
                     %end
                     % from datetime import datetime
                     % now = datetime.utcnow()
-                    %if (property.get('funding_end_date') and property.get('funding_end_date') > now):
+                    %if property.get('funding_end_date') and property.get('funding_end_date') > now:
                         <label class="rent" for="">
                             {{_('剩余')}}{{(property.get('funding_end_date') - now).days}}{{_('天')}}
                         </label>

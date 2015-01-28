@@ -542,7 +542,7 @@ def user_intentions(user):
     intention_ticket_status_list = f_app.enum.get_all('intention_ticket_status')
     for ticket in intention_ticket_list:
         for ticket_status in intention_ticket_status_list:
-            if ('intention_ticket_status:' + ticket['status'] == ticket_status['slug']):
+            if 'intention_ticket_status:' + ticket['status'] == ticket_status['slug']:
                 ticket['status_presentation'] = ticket_status
 
     intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
@@ -573,7 +573,7 @@ def user_messages(user):
 
     for message in message_list:
         for message_type in message_type_list:
-            if ('message_type:' + message['type'] == message_type['slug']):
+            if 'message_type:' + message['type'] == message_type['slug']:
                 message['type_presentation'] = message_type
     message_list = f_app.i18n.process_i18n(message_list)
     title = _('消息')

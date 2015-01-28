@@ -839,7 +839,7 @@
                 <hr/>
             % end
 
-            %if (report):
+            %if report:
                 <div class="regionReport" id="regionReport">
                     %if (report.get('image')):
                         <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
