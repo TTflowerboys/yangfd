@@ -3,7 +3,7 @@
  */
 (function () {
 
-    function ctrlHousingList($scope, fctModal, api) {
+    function ctrlHousingList($scope, fctModal, api, $rootScope) {
         $scope.list = []
         $scope.perPage = 12
         $scope.currentPageNumber = 1
@@ -16,7 +16,8 @@
             country: $scope.selected.country,
             city: $scope.selected.city,
             property_type: $scope.selected.property_type,
-            per_page: $scope.perPage
+            per_page: $scope.perPage,
+            sort: 'mtime,desc'
         }
 
         function updateParams() {
@@ -31,6 +32,7 @@
                 params.living_room_count = $scope.selected.living_room_count
             }
             params.building_area = $scope.selected.building_area
+            $rootScope.plotParams = params;
         }
 
         $scope.searchHousing = function () {
@@ -54,10 +56,9 @@
 
         $scope.nextPage = function () {
             var lastItem = $scope.list[$scope.list.length - 1]
-            if (lastItem.time) {
-                params.time = lastItem.time
+            if (lastItem.mtime) {
+                params.mtime = lastItem.mtime
             }
-
             api.getAll({params: params})
                 .success(function () {
                     $scope.currentPageNumber += 1
@@ -76,11 +77,11 @@
             }
 
             if (lastItem) {
-                if (lastItem.time) {
-                    params.time = lastItem.time
+                if (lastItem.mtime) {
+                    params.mtime = lastItem.mtime
                 }
             } else {
-                delete params.time
+                delete params.mtime
             }
 
             api.getAll({params: params})

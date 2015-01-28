@@ -3,7 +3,7 @@
  */
 (function () {
 
-    function ctrlPlotList($scope, api) {
+    function ctrlPlotList($scope, api, $stateParams) {
         $scope.item = {}
         $scope.api = api
         $scope.fetched = false
