@@ -911,7 +911,6 @@ class f_currant_plugins(f_app.plugin_base):
                             params = {
                                 "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
                             }
-                            self.logger.debug("Start crawling abacusinvestor page id %s, page url %s" % crawling_page)
                             params["property_crawler_id"] = crawling_page[1]
                             property_page = f_app.request.get(crawling_page[1], retry=3)
                             if property_page.status_code == 200:
@@ -925,7 +924,11 @@ class f_currant_plugins(f_app.plugin_base):
 
                                 if property_text:
                                     property_text_dom_root = q(property_text[0])
-                                    property_name = property_text_dom_root("strong")[0].text
+                                    property_name_dom = property_text_dom_root("strong")
+                                    if property_name_dom:
+                                        property_name = q(property_name_dom[0]).text()
+                                    else:
+                                        property_name = ""
                                     if not property_name:
                                         property_name = property_text_dom_root("strong")[0].getchildren()[0].text
                                     property_description = property_text_dom_root.children().text()
