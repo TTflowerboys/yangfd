@@ -43,12 +43,35 @@ def plot_get(plot_id):
     status=(list, None, str),
     per_page=int,
     time=datetime,
+    investment_type="enum:investment_type",
+    living_room_count=int,
+    floor=str,
+    space=float,
 ))
 @f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'jr_sales'])
 def plot_search(user, params):
     per_page = params.pop("per_page", 0)
     if "status" in params:
         params["status"] = {"$in": params["status"]}
+
+    if "space" in params:
+        space_field = "space"
+        space = [x.strip() for x in params.pop("space").split(",")]
+        space_imperial = [float(f_app.i18n.convert_i18n_unit({"value": x, "unit": "meter ** 2"}, "foot ** 2")) if x else "" for x in space]
+        space_filter = []
+        if space[0] and space[1]:
+            space_filter.append({"%s.unit" % space_field: "meter ** 2", "%s.value_float" % space_field: {"$gte": space[0], "$lt": space[1]}})
+            space_filter.append({"%s.unit" % space_field: "foot ** 2", "%s.value_float" % space_field: {"$gte": space_imperial[0], "$lt": space_imperial[1]}})
+        elif space[0] and not space[1]:
+            space_filter.append({"%s.unit" % space_field: "meter ** 2", "%s.value_float" % space_field: {"$gte": space[0]}})
+            space_filter.append({"%s.unit" % space_field: "foot ** 2", "%s.value_float" % space_field: {"$gte": space_imperial[0]}})
+        elif not space[0] and space[1]:
+            space_filter.append({"%s.unit" % space_field: "meter ** 2", "%s.value_float" % space_field: {"$lt": space[1]}})
+            space_filter.append({"%s.unit" % space_field: "foot ** 2", "%s.value_float" % space_field: {"$lt": space_imperial[1]}})
+        else:
+            abort(40000, logger.warning("Invalid params: space cannot be empty"))
+        params["$or"] = space_filter
+
     logger.debug(params)
     return f_app.plot.output(f_app.plot.search(params, per_page=per_page))
 
