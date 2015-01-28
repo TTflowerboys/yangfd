@@ -22,10 +22,7 @@
             </select>
         </div>
         <div class="btn-group form-inline">
-            <input type="number" class="form-control" ng-model="item.living_room_count" placeholder="{%$root.i18n('居室数')%}"/>
-        </div>
-        <div class="btn-group form-inline">
-            <input type="number" class="form-control" ng-model="item.floor" placeholder="{%$root.i18n('楼层')%}"/>
+            <input type="number" class="form-control" ng-model="selected.living_room_count" placeholder="{%$root.i18n('居室数')%}"/>
         </div>
         <div class="btn-group form-inline">
             <button class="btn btn-primary" ng-click="searchHousing()">{%$root.i18n('搜索')%}</button>
