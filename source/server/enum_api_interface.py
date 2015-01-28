@@ -27,6 +27,7 @@ def enum_list(params):
     value=("i18n", True, str),
     # Field for message_api_interface
     country="enum:country",
+    state="enum:state",
     currency=str,
     slug=str,
     # Field for intention
@@ -58,6 +59,7 @@ def enum_add(user, params):
                 "en_GB": "Wuhan"
             },
             "country": ObjectId(<enum:country>)
+            "state": ObjectId(<enum:state>)
         }
     """
     if "message_type" in params:
@@ -71,6 +73,7 @@ def enum_add(user, params):
     type=str,
     value=("i18n", None, str),
     country=("enum:country", None),
+    state=("enum:state", None),
     currency=(str, None),
     slug=(str, None),
     description=('i18n', None, str),
@@ -87,6 +90,7 @@ def enum_edit(user, enum_id, params):
 
 @f_api('/enum/search', params=dict(
     country="enum:country",
+    state="enum:country",
     per_page=int,
     time=datetime,
     currency=str,
