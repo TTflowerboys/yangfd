@@ -82,7 +82,7 @@
                 </td>
                 <td style="text-align:center;">
                     <a ng-if="item.property_type.slug==='new_property'||item.property_type.slug==='student_housing'"
-                        class="btn btn-info" href ui-sref=".plot({id:item.id})" title="View">
+                        class="btn btn-info" href ui-sref=".plot({id:item.id,selected:selected})" title="View">
                         <i class="fa fa-list-alt "></i>
                     </a>
                     <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">

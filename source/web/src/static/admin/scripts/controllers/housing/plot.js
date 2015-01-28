@@ -3,12 +3,14 @@
  */
 (function () {
 
-    function ctrlHousingPlot($scope, $stateParams, api) {
+    function ctrlHousingPlot($scope, $stateParams, api, $rootScope) {
         $scope.item = {}
         $scope.api = api
         $scope.fetched = false
 
-        api.search({params: {property_id: $stateParams.id, _i18n: 'disabled'}}).success(onGetList)
+        api.search({
+            params: angular.extend({property_id: $stateParams.id, _i18n: 'disabled'}, $rootScope.plotParams)
+        }).success(onGetList)
 
         $scope.onGetList = onGetList
 

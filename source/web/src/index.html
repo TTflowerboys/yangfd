@@ -7,7 +7,7 @@
 <!--endbuild-->
 <!--@@close-->
 <!--@@block=main -->
-%if (not user):
+%if not user:
     <div class="gallery">
         %if homepage_ad_list:
             <div class="rslides_wrapper">
@@ -108,7 +108,7 @@
     </ul>
 </div>
 
-%if (not user):
+%if not user:
     <div class="howItWorks">
         <!-- @@include=partials/how_it_works_tabs.html-->
     </div>
@@ -225,7 +225,7 @@
     </div>
 %end
 
-%if (news_list) :
+%if news_list :
     <div class="news_wrapper">
         <div class="news">
             <h2 class="title">
@@ -248,7 +248,7 @@
                 </div>
             </div>
 
-            %if (len(news_list) > 1) :
+            %if len(news_list) > 1 :
                 <div class="moreNews">
                     <h3 class="title">{{_('更多资讯')}}</h3>
 
