@@ -44,9 +44,9 @@ def order_recharge(user, params):
     Every time user recharges, user buys this item and get the credits.
     """
     params["item_id"] = ObjectId("54bcb8146b8099406600b5f1")
-    force_price = params.pop("price")
     order_params = {"type": "recharge"}
-    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
+    params["quantity"] = params.pop("force_price")
+    return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params)])[0]
 
 
 @f_api('/order/withdraw', params=dict(

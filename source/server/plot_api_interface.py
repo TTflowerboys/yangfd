@@ -46,7 +46,7 @@ def plot_get(plot_id):
     investment_type="enum:investment_type",
     living_room_count=int,
     floor=str,
-    space=float,
+    space=str,
 ))
 @f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'jr_sales'])
 def plot_search(user, params):
@@ -56,7 +56,7 @@ def plot_search(user, params):
 
     if "space" in params:
         space_field = "space"
-        space = [x.strip() for x in params.pop("space").split(",")]
+        space = [float(x.strip()) if x else "" for x in params.pop("space").split(",")]
         space_imperial = [float(f_app.i18n.convert_i18n_unit({"value": x, "unit": "meter ** 2"}, "foot ** 2")) if x else "" for x in space]
         space_filter = []
         if space[0] and space[1]:

@@ -96,9 +96,10 @@ def property_search(user, params):
             or_filter = params.pop("$or")
             params["$and"] = [{"$or": or_filter}, {"$or": name_filter}]
 
+    plot_params = {}
     if "living_room_count" in params:
         if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
-            params["living_room_count"] = params.pop("living_room_count")
+            plot_params["living_room_count"] = params.pop("living_room_count")
         else:
             params["main_house_types.living_room_count"] = params.pop("living_room_count")
 
@@ -108,7 +109,7 @@ def property_search(user, params):
         else:
             building_area_field = "main_house_types.building_area"
 
-        building_area = [x.strip() for x in params.pop("building_area").split(",")]
+        building_area = [float(x.strip()) if x else "" for x in params.pop("building_area").split(",")]
         building_area_imperial = [float(f_app.i18n.convert_i18n_unit({"value": x, "unit": "meter ** 2"}, "foot ** 2")) if x else "" for x in building_area]
         building_area_filter = []
         if building_area[0] and building_area[1]:
@@ -123,21 +124,33 @@ def property_search(user, params):
         else:
             abort(40000, logger.warning("Invalid params: building_area cannot be empty"))
 
-        if "$or" not in params and "$and" not in params:
-            params["$or"] = building_area_filter
-        elif "$or" in params and "$and" not in params:
-            or_filter = params.pop("$or")
-            params["$and"] = [{"$or": building_area_filter}, {"$or": or_filter}]
-        elif "$or" not in params and "$and" in params:
-            params["$and"].append({"$or": building_area_filter})
+        if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
+            plot_params["$or"] = building_area_filter
         else:
-            abort(50000, logger.warning("Oops! Something wrong with params parser!", exc_info=False))
+            if "$or" not in params and "$and" not in params:
+                params["$or"] = building_area_filter
+            elif "$or" in params and "$and" not in params:
+                or_filter = params.pop("$or")
+                params["$and"] = [{"$or": building_area_filter}, {"$or": or_filter}]
+            elif "$or" not in params and "$and" in params:
+                params["$and"].append({"$or": building_area_filter})
+            else:
+                abort(50000, logger.warning("Oops! Something wrong with params parser!", exc_info=False))
+
+    if "floor" in params:
+        plot_params["floor"] = params.pop("floor")
+
+    if "investment_type" in params and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
+        plot_params["investment_type"] = params.pop("investment_type")
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
 
     # Default to mtime,desc
     property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort, time_field="mtime")
+    if plot_params:
+        plot_property_list = set([str(plot.get("property_id")) for plot in f_app.plot.get(f_app.plot.search(plot_params, per_page=0))])
+        property_list["content"] = plot_property_list & set(property_list["content"])
 
     if random and property_list["content"]:
         import random
