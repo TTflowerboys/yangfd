@@ -11,7 +11,6 @@
                     value: value
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
-
             },
             editEnum: function (id, type, value, slug) {
                 var data = {
@@ -20,7 +19,6 @@
                     value: value
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
-
             },
             addCity: function (countryId, value) {
                 var data = {
@@ -29,7 +27,6 @@
                     value: value
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
-
             },
             editCity: function (id, countryId, value) {
                 var data = {
@@ -38,7 +35,22 @@
                     value: value
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
-
+            },
+            addState: function (countryId, value) {
+                var data = {
+                    type: 'state',
+                    country: countryId,
+                    value: value
+                }
+                return $http.post('/api/1/enum/add', data, {errorMessage: true})
+            },
+            editState: function (id, countryId, value) {
+                var data = {
+                    type: 'state',
+                    country: countryId,
+                    value: value
+                }
+                return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
             addCountry: function (slug, value) {
                 var data = {

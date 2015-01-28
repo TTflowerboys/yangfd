@@ -93,6 +93,23 @@
                     $state.go('^')
                 })
         }
+        $scope.addState = function ($event, form) {
+
+            $scope.item.value = _.object($scope.item.tempValues)
+            api.addState($scope.item.country, $scope.item.value)
+                .success(function () {
+                    $scope.item.value = undefined
+                    $scope.item.tempValues = undefined
+                })
+        }
+        $scope.editState = function ($event, form) {
+
+            $scope.item.value = _.object($scope.item.tempValues)
+            api.editState($stateParams.id, $scope.item.country, $scope.item.value)
+                .success(function () {
+                    $state.go('^')
+                })
+        }
         $scope.addCity = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)

@@ -78,6 +78,12 @@
                                             <span class="hidden-sm text">{%$root.i18n('国家')%}</span>
                                         </a>
                                     </li>
+                                    <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.state')}">
+                                        <a class="submenu" href ui-sref="dashboard.enums.state">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('省')%}</span>
+                                        </a>
+                                    </li>
                                     <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.city')}">
                                         <a class="submenu" href ui-sref="dashboard.enums.city">
                                             <i class="fa fa-angle-right"></i>
