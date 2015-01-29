@@ -36,7 +36,7 @@ def check_ip_and_redirect_domain(func):
 
                 if country == "CN":
                     logger.debug("Visitor country detected:", country, "redirecting to yangfd.cn if not already. Host:", host)
-                    assert host.endswith("yangfd.cn"), redirect(request_url.replace("yangfd.com", "yangfd.cn").replace("youngfunding.co.uk", "yangfd.cn"))
+                    assert host.endswith(("yangfd.com", "yangfd.cn")), redirect(request_url.replace("youngfunding.co.uk", "yangfd.cn"))
 
                 elif country:
                     logger.debug("Visitor country detected:", country, "redirecting to youngfunding.co.uk if it's currently on yangfd.cn. Host:", host)
