@@ -339,6 +339,14 @@ def user_finish_auth():
     return common_template("user_finish_auth", title=title)
 
 
+@f_get('/user_finish_investment')
+@check_ip_and_redirect_domain
+@check_crowdfunding_ready
+def user_finish_investment():
+    title = _('确认投资信息')
+    return common_template("user_finish_investment", title=title)
+
+
 @f_get('/news_list')
 @check_ip_and_redirect_domain
 def news_list():

@@ -1,0 +1,116 @@
+<!--@@master=user_finish_step.html-->
+<!--@@block=head -->
+<!--build:css(dist) /static/styles/user_finish_investment.html.css-->
+<link href="/static/styles/userFinishInvestment.css" rel="stylesheet"/>
+<!--endbuild-->
+% step = 3
+<!--@@close-->
+<!--@@block=main -->
+
+<div class="purchase">
+    <div class="crowdfundingInfo">
+        <h2 class="title">
+            Jackson INdustrial Park
+        </h2>
+        <ul>
+        </ul>
+    </div>
+
+    <div class="accountInfo">
+        <ul class="userInfo">
+        </ul>
+        <div class="moneyInfo">
+        </div>
+    </div>
+
+    <div class="confirm">
+        <div class="password">
+            <label for="password">
+                {{_('支付密码')}}
+            </label>
+            <input name="password" type="text" value=""/>
+            <input name="" type="checkbox" value=""/>
+            <label class="term" for="">
+                {{_('了解投资风险，并同意')}}
+                <a href="">
+                    {{_('投资合同')}}
+                </a>
+            </label>
+        </div>
+        <button class="button red">
+            {{_('确认支付')}}
+        </button>
+    </div>
+</div>
+<div class="investmentAnalysis">
+    <h3 class="title">{{_('投资受益分析')}}</h3>
+    <div class="calculator">
+        <div class="input">
+            <input class="ghostInput" placeholder="{{_('本金')}}" data-investment="capital" type="number" value=""/>
+            <button class="button red" name="calculate">
+                {{_('计算')}}
+            </button>
+        </div>
+
+        <ul class="numbers">
+            <li>
+                <span class="text">{{!_('最大预估年化回报率')}}</span>
+                <span class="percentage emphasized">
+                    <strong data-investment="max_annual_return_estimated" data-investment-value="">
+
+                    </strong>
+                </span>
+
+            </li>
+            <li>
+                <span class="text">{{!_('最大年化现金回报预估')}}</span>
+                <span class="percentage emphasized">
+                    <strong data-investment="max_annual_cash_return_estimated" data-investment-value="">
+
+                    </strong>
+                </span>
+
+            </li>
+            <li>
+                <span class="text">{{!_('周期')}}</span>
+                <span class="percentage emphasized">
+                    <span data-investment="term" data-investment-value="">
+                        <strong>
+
+                        </strong>
+                        {{_('年')}}
+                    </span>
+                </span>
+
+            </li>
+            <li>
+                <span class="text">{{!_('预计现金收益')}}</span>
+                <span class="percentage emphasized">
+                    <span data-investment="cash_return">
+
+                    </span>
+                </span>
+            </li>
+            <li class="total">
+                <span class="text">{{!_('预计总收益')}}</span>
+                <span class="percentage emphasized total">
+                    <span data-investment="total_return">
+
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <canvas class="barChart" id="barChart">
+    </canvas>
+
+</div>
+
+<!--@@close-->
+
+<!--@@block=scripts -->
+<!--build:js /static/scripts/user_finish_investment.html.js-->
+
+<!--endbuild-->
+<!--@@close-->
