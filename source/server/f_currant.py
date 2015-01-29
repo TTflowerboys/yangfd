@@ -822,25 +822,29 @@ class f_currant_plugins(f_app.plugin_base):
                 "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
             }
             property_crawler_id = "%s%s" % (search_url, key)
-            property_params["property_crawler_id"] = property_crawler_id
-            value = value.split(',')
-
-            if len(value) == 2:
-                name, city = value
-                property_params["name"] = {"en_GB": name.strip(), "zh_Hans_CN": name.strip()}
-                property_params["slug"] = name.strip().lower().replace(' ', '-')
-                property_params["city"] = ObjectId(f_app.enum.get_by_slug("%s" % city.strip().lower())['id'])
-            elif len(value) == 1:
-                property_params["name"] = {"en_GB": value[0].strip(), "zh_Hans_CN": value[0].strip()}
-                property_params["slug"] = value[0].strip().lower().replace(' ', '-')
-                if "Liverpool" in property_params["name"]:
-                    property_params["city"] = ObjectId(f_app.enum.get_by_slug("liverpool")['id'])
+            property_id_list = f_app.property.search({"property_crawler_id": property_crawler_id})
+            if property_id_list:
+                property_id = property_id_list[0]
             else:
-                logger.warning("Invalid knightknox agents plot name, this may be a bug!")
+                property_params["property_crawler_id"] = property_crawler_id
+                value = value.split(',')
 
-            logger.debug(property_params)
-            f_app.property.crawler_insert_update(property_params)
-            property_id = f_app.property.search({"property_crawler_id": property_crawler_id})[0]
+                if len(value) == 2:
+                    name, city = value
+                    property_params["name"] = {"en_GB": name.strip(), "zh_Hans_CN": name.strip()}
+                    property_params["slug"] = name.strip().lower().replace(' ', '-')
+                    property_params["city"] = ObjectId(f_app.enum.get_by_slug("%s" % city.strip().lower())['id'])
+                elif len(value) == 1:
+                    property_params["name"] = {"en_GB": value[0].strip(), "zh_Hans_CN": value[0].strip()}
+                    property_params["slug"] = value[0].strip().lower().replace(' ', '-')
+                    if "Liverpool" in property_params["name"]:
+                        property_params["city"] = ObjectId(f_app.enum.get_by_slug("liverpool")['id'])
+                else:
+                    logger.warning("Invalid knightknox agents plot name, this may be a bug!")
+
+                property_params["status"] = "draft"
+                logger.debug(property_params)
+                property_id = f_app.property.add(property_params)
 
             property_plot_page = f_app.request.get(property_crawler_id, headers=headers, cookies=cookies)
             if property_plot_page.status_code == 200:
@@ -911,6 +915,7 @@ class f_currant_plugins(f_app.plugin_base):
                             params = {
                                 "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
                             }
+                            self.logger.debug("Start crawling abacusinvestor page id %s, page url %s" % crawling_page)
                             params["property_crawler_id"] = crawling_page[1]
                             property_page = f_app.request.get(crawling_page[1], retry=3)
                             if property_page.status_code == 200:

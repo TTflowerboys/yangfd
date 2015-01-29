@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
     random=bool,
     name=str,
     slug=str,
-    living_room_count=int,
+    bedroom_count=int,
     building_area=str,
     investment_type="enum:investment_type",
 ))
@@ -97,11 +97,11 @@ def property_search(user, params):
             params["$and"] = [{"$or": or_filter}, {"$or": name_filter}]
 
     plot_params = {}
-    if "living_room_count" in params:
+    if "bedroom_count" in params:
         if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
-            plot_params["living_room_count"] = params.pop("living_room_count")
+            plot_params["bedroom_count"] = params.pop("bedroom_count")
         else:
-            params["main_house_types.living_room_count"] = params.pop("living_room_count")
+            params["main_house_types.bedroom_count"] = params.pop("bedroom_count")
 
     if "building_area" in params:
         if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
