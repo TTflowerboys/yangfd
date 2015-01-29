@@ -1,87 +1,58 @@
 @import "project/_imports";
 
-* {
-    box-sizing: border-box;
-}
-
-body{
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-
 .container {
-    width:1200px;
-    margin: 0 auto;
-    padding:100px 0;
-
-    >.stepIndicator {
-        ul.steps {
-            width:100%;
-
-            li {
-                width:33%;
-                display:inline-block;
-            }
-        }
-    }
-
-    >.tip {
-        width:100%;
-        margin-top:80px;
-        background:#fff5ce;
-        border:1px solid #ff8a00;
-        padding:16px 0 16px 16px;
-        @media @phone {
-            text-align: center;
-            padding:16px;
-        }
-        img {
-            vertical-align: top;
-            display:inline-block;
-            margin-right:13px;
-            margin-top:3px;
-        }
-
-        p {
-            font-size:12px;
-            height:28px;
-            line-height:28px;
-            margin:0;
-            width:640px;
-            color:#ff8a00;
-            display:inline-block;
-            @media @phone {
-                margin-top: 10px;
-                width:100%;
-                text-align:center;
-                line-height:20px;
-                height:auto;
-            }
-        }
-
-    }
-
     >.currentStep {
-        background:#f6f6f6;
-        width:100%;
-        margin-top:40px;
-        padding:40px;
+        >.tip {
+            width:100%;
+            margin-top:80px;
+            background:#fff5ce;
+            border:1px solid #ff8a00;
+            padding:16px 0 16px 16px;
+            @media @phone {
+                text-align: center;
+                padding:16px;
+            }
+            img {
+                vertical-align: top;
+                display:inline-block;
+                margin-right:13px;
+                margin-top:3px;
+            }
+
+            p {
+                font-size:12px;
+                height:28px;
+                line-height:28px;
+                margin:0;
+                width:640px;
+                color:#ff8a00;
+                display:inline-block;
+                @media @phone {
+                    margin-top: 10px;
+                    width:100%;
+                    text-align:center;
+                    line-height:20px;
+                    height:auto;
+                }
+            }
+
+        }
 
         .userInfo {
-            width:100%;
             overflow:hidden;
+            background:#f6f6f6;
+            width:100%;
+            margin-top:40px;
+            padding:40px;
 
             .row {
+                width:100%;
+                float:left;
                 margin-left:0;
                 margin-bottom:20px;
 
                 label {
-                    width:170px;
+                    width:80px;
                     font-size:14px;
                     text-align:right;
                     color:#999999;
@@ -90,8 +61,6 @@ body{
                 }
 
                 input {
-                    margin-left:38px;
-                    width:360px;
                     height:48px;
                     padding-left:4px;
                     padding-right: 4px;
@@ -99,31 +68,134 @@ body{
                     border:1px solid #cccccc;
                     border-radius:4px;
                     background:white;
+
+                }
+
+                select {
+                    border:1px solid #cccccc;
+                    border-radius:4px;
+                    background:white;
+                    height:48px;
                 }
             }
 
             >.info {
                 float:left;
                 width:50%;
+                padding-right:45px;
                 >.title {
                     font-size:20px;
                     color:#333;
+                    margin-bottom:60px;
                 }
+
+                input[name=name] {
+                    width:380px;
+                    margin-left:50px;
+                }
+
+                select[name=gender] {
+                    width:160px;
+                    margin-left:50px;
+                }
+
+                .birthday {
+                    margin-left:50px;
+                    display:inline-block;
+                    select[name=year] {
+                        width:160px;
+                        margin-right:20px;
+                    }
+
+                    select[name=month] {
+                        margin-right:20px;
+                        width:87px;
+                    }
+                    select[name=day] {
+                        width:87px;
+                    }
+                }
+
+                .address {
+                    margin-left:50px;
+                    display:inline-block;
+                    select[name=country] {
+                        display:block;
+                        width:380px;
+                        margin-bottom:20px;
+                    }
+
+                    select[name=state] {
+                        width:178px;
+                        margin-bottom:20px;
+                        margin-right:20px;
+                    }
+
+                    select[name=city] {
+                        width:178px;
+                        margin-bottom:20px;
+                    }
+
+                    input[name=address] {
+                        display:block;
+                        width:380px;
+
+                    }
+                }
+
+                input[name=postalCode] {
+                    margin-left:50px;
+                    width:380px;
+                }
+
             }
 
             >.phone {
                 float:left;
                 width:50%;
+                padding-left:45px;
                 >.title {
                     font-size:20px;
                     color:#333;
+                    margin-bottom:60px;
+                }
+
+                select[name=country] {
+                    margin-left:50px;
+                    width:160px;
+                    margin-right:20px;
+                }
+
+                input[name=phone] {
+                    width:180px;
+                }
+
+                .verification {
+                    margin-left:50px;
+                    display:inline-block;
+
+                    input[name=verificationCode] {
+                        width:160px;
+                        margin-right:20px;
+                    }
+
+                    button.fetchCode {
+                        line-height:28px;
+                        font-size:14px;
+                        width:180px;
+                    }
+
                 }
             }
 
-            >.confirm {
+            .confirm {
+                &_wrapper {
+                    float:left;
+                    width:100%;
+                    margin:60px 0 0px;
+                }
                 display:block;
-                float:left;
-                margin:80px auto 40px;
+                margin:0 auto;
             }
         }
     }
