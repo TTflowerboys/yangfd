@@ -32,6 +32,7 @@ logger = logging.getLogger(__name__)
     slug=str,
     bedroom_count=int,
     building_area=str,
+    price=str,
     investment_type="enum:investment_type",
 ))
 @f_app.user.login.check(check_role=True)
@@ -45,7 +46,7 @@ def property_search(user, params):
     * mtime,desc
 
     ``time`` should be a unix timestamp in utc.
-    ``building_area`` format: ``,40``, ``40,100``, ``100,``
+    ``building_area`` format: ``,40,m ** 2``, ``40,100,foot ** 2``, ``100,,m ** 2``
     """
     random = params.pop("random", False)
     sort = params.pop("sort", ["mtime", "desc"])
@@ -57,8 +58,12 @@ def property_search(user, params):
     if "intention" in params:
         params["intention"] = {"$in": params.pop("intention", [])}
 
-    if "budget" in params:
-        budget = f_app.util.parse_budget(params.pop("budget"))
+    if "budget" in params or "price" in params:
+        if "budget" in params:
+            budget = f_app.util.parse_budget(params.pop("budget"))
+        elif "price" in params:
+            budget = [x.strip() for x in params.pop("price").split(",")]
+            assert len(budget) == 3 and budget[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
         params["$or"] = []
         for currency in f_app.common.currency:
             condition = {"total_price.unit": currency}
@@ -104,25 +109,37 @@ def property_search(user, params):
             params["main_house_types.bedroom_count"] = params.pop("bedroom_count")
 
     if "building_area" in params:
+        building_area_filter = []
+        building_area_params = [x.strip() for x in params.pop("building_area").split(",")]
         if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
             building_area_field = "space"
         else:
             building_area_field = "main_house_types.building_area"
-
-        building_area = [float(x.strip()) if x else "" for x in params.pop("building_area").split(",")]
-        building_area_imperial = [float(f_app.i18n.convert_i18n_unit({"value": x, "unit": "meter ** 2"}, "foot ** 2")) if x else "" for x in building_area]
-        building_area_filter = []
-        if building_area[0] and building_area[1]:
-            building_area_filter.append({"%s.unit" % building_area_field: "meter ** 2", "%s.value_float" % building_area_field: {"$gte": building_area[0], "$lt": building_area[1]}})
-            building_area_filter.append({"%s.unit" % building_area_field: "foot ** 2", "%s.value_float" % building_area_field: {"$gte": building_area_imperial[0], "$lt": building_area_imperial[1]}})
-        elif building_area[0] and not building_area[1]:
-            building_area_filter.append({"%s.unit" % building_area_field: "meter ** 2", "%s.value_float" % building_area_field: {"$gte": building_area[0]}})
-            building_area_filter.append({"%s.unit" % building_area_field: "foot ** 2", "%s.value_float" % building_area_field: {"$gte": building_area_imperial[0]}})
-        elif not building_area[0] and building_area[1]:
-            building_area_filter.append({"%s.unit" % building_area_field: "meter ** 2", "%s.value_float" % building_area_field: {"$lt": building_area[1]}})
-            building_area_filter.append({"%s.unit" % building_area_field: "foot ** 2", "%s.value_float" % building_area_field: {"$lt": building_area_imperial[1]}})
+        if len(building_area_params) == 3:
+            assert building_area_params[2] in ("meter ** 2", "foot ** 2"), abort(40000, logger.warning("Invalid params: building_area unit not correct", exc_info=False))
+        elif len(building_area_params) == 2:
+            building_area_params.append("meter ** 2")
         else:
-            abort(40000, logger.warning("Invalid params: building_area cannot be empty"))
+            abort(40000)
+
+        building_area_params[0] = float(building_area_params[0]) if building_area_params[0] else None
+        building_area_params[1] = float(building_area_params[1]) if building_area_params[1] else None
+
+        for building_area_unit in ("meter ** 2", "foot ** 2"):
+            condition = {"%s.unit" % building_area_field: building_area_unit}
+            if building_area_unit == building_area_params[2]:
+                condition["%s.value_float" % building_area_field] = {}
+                if building_area_params[0]:
+                    condition["%s.value_float" % building_area_field]["$gte"] = building_area_params[0]
+                if building_area_params[1]:
+                    condition["%s.value_float" % building_area_field]["$lte"] = building_area_params[1]
+            else:
+                condition["%s.value_float" % building_area_field] = {}
+                if building_area_params[0]:
+                    condition["%s.value_float" % building_area_field]["$gte"] = float(f_app.i18n.convert_i18n_unit({"value": building_area_params[0], "unit": building_area_params[2]}, building_area_unit))
+                if building_area_params[1]:
+                    condition["%s.value_float" % building_area_field]["$lte"] = float(f_app.i18n.convert_i18n_unit({"value": building_area_params[1], "unit": building_area_params[2]}, building_area_unit))
+            building_area_filter.append(condition)
 
         if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
             plot_params["$or"] = building_area_filter
@@ -157,6 +174,7 @@ def property_search(user, params):
         import random
         random.shuffle(property_list["content"])
     property_list['content'] = f_app.property.output(property_list['content'])
+    logger.debug(params)
     return property_list
 
 
