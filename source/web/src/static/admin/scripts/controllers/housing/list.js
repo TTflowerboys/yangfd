@@ -26,10 +26,10 @@
             params.property_type = $scope.selected.property_type
             params.intention = $scope.selected.intention
             params.investment_type = $scope.selected.investment_type
-            if ($scope.selected.living_room_count === undefined || $scope.selected.living_room_count === '' || $scope.selected.living_room_count === null) {
-                delete params.living_room_count
+            if ($scope.selected.bedroom_count === undefined || $scope.selected.bedroom_count === '' || $scope.selected.bedroom_count === null) {
+                delete params.bedroom_count
             } else {
-                params.living_room_count = $scope.selected.living_room_count
+                params.bedroom_count = $scope.selected.bedroom_count
             }
             params.building_area = $scope.selected.building_area
             $rootScope.plotParams = params;
