@@ -36,7 +36,7 @@ def check_ip_and_redirect_domain(func):
 
                 if country == "CN":
                     logger.debug("Visitor country detected:", country, "redirecting to yangfd.cn if not already. Host:", host)
-                    assert host.endswith("yangfd.cn"), redirect(request_url.replace("yangfd.com", "yangfd.cn").replace("youngfunding.co.uk", "yangfd.cn"))
+                    assert host.endswith(("yangfd.com", "yangfd.cn")), redirect(request_url.replace("youngfunding.co.uk", "yangfd.cn"))
 
                 elif country:
                     logger.debug("Visitor country detected:", country, "redirecting to youngfunding.co.uk if it's currently on yangfd.cn. Host:", host)
@@ -329,6 +329,22 @@ def crowdfunding_list(params):
 def user_finish_info():
     title = _('补充个人信息')
     return common_template("user_finish_info", title=title)
+
+
+@f_get('/user_finish_auth')
+@check_ip_and_redirect_domain
+@check_crowdfunding_ready
+def user_finish_auth():
+    title = _('确认真实身份')
+    return common_template("user_finish_auth", title=title)
+
+
+@f_get('/user_finish_investment')
+@check_ip_and_redirect_domain
+@check_crowdfunding_ready
+def user_finish_investment():
+    title = _('确认投资信息')
+    return common_template("user_finish_investment", title=title)
 
 
 @f_get('/news_list')
