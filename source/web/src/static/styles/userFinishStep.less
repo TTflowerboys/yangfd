@@ -1,0 +1,105 @@
+@import "project/_imports";
+
+* {
+    box-sizing: border-box;
+}
+
+body{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+.container {
+    width:1200px;
+    margin: 0 auto;
+    padding:100px 0;
+
+    >.stepIndicator {
+        position:relative;
+        height:80px;
+
+        .line {
+            position:absolute;
+            height:10px;
+            width:33%;
+            background:#ddd;
+
+            &.s1tos2 {
+                top:15px;
+                left:17%;
+
+            }
+
+            &.s2tos3 {
+                top:15px;
+                left:50%;
+            }
+
+            &.finished {
+                background:@red;
+            }
+
+        }
+
+        ul.steps {
+            width:100%;
+            height:80px;
+            position:absolute;
+
+
+            li {
+                width:33%;
+                display:inline-block;
+                text-align:center;
+
+                div.number {
+                    width:40px;
+                    height:40px;
+                    border-radius:20px;
+                    font-size:20px;
+                    font-weight:bold;
+                    color:#999;
+                    line-height:40px;
+                    background:#ddd;
+                    margin:0 auto;
+
+                }
+
+                .hint {
+                    font-size:16px;
+                    color:#999;
+                    margin-top:20px;
+                    display:block;
+                }
+            }
+
+            li.finished {
+                 div.number {
+                    width:40px;
+                    height:40px;
+                    border-radius:20px;
+                    font-size:20px;
+                    font-weight:bold;
+                    color:white;
+                    line-height:40px;
+                    background:@red;
+                    margin:0 auto;
+
+                }
+
+                .hint {
+                    font-size:16px;
+                    color:@red;
+                    margin-top:20px;
+                    display:block;
+                }
+            }
+        }
+    }
+
+}

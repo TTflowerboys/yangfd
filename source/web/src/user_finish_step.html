@@ -1,0 +1,49 @@
+<!--@@master=masters/master.html-->
+<!--@@block=head -->
+<!--build:css(dist) /static/styles/user_finish_step.html.css-->
+<link href="/static/styles/userFinishStep.css" rel="stylesheet"/>
+<!--endbuild-->
+<!--@@placeholder=head -->
+<!--@@close-->
+
+<!--@@block=main -->
+
+<div class="container">
+    <div class="stepIndicator">
+        <div class="line s1tos2 {{(step>1 and 'finished') or ''}}"></div>
+        <div class="line s2tos3 {{(step>2 and 'finished') or ''}}"></div>
+        <ul class="steps">
+            <li class="step1 {{(step>0 and 'finished') or ''}}">
+                <div class="number">1</div>
+                <label class="hint" for="">
+                    {{_('补充个人信息')}}
+                </label>
+            </li>
+            <li class="step2 {{(step>1 and 'finished') or ''}}">
+                <div class="number">2</div>
+                <label class="hint" for="">
+                    {{_('确认真实身份')}}
+                </label>
+            </li>
+            <li class="step3 {{(step>2 and 'finished') or ''}}">
+                <div class="number">3</div>
+                <label class="hint" for="">
+                    {{_('确认投资信息')}}
+                </label>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="currentStep">
+          <!--@@placeholder=main -->
+    </div>
+</div>
+
+<!--@@close-->
+
+<!--@@block=scripts -->
+
+<!-- @@placeholder = scripts-->
+
+<!--@@close-->
