@@ -77,11 +77,13 @@ body{
             overflow:hidden;
 
             .row {
+                width:100%;
+                float:left;
                 margin-left:0;
                 margin-bottom:20px;
 
                 label {
-                    width:170px;
+                    width:80px;
                     font-size:14px;
                     text-align:right;
                     color:#999999;
@@ -90,8 +92,6 @@ body{
                 }
 
                 input {
-                    margin-left:38px;
-                    width:360px;
                     height:48px;
                     padding-left:4px;
                     padding-right: 4px;
@@ -99,31 +99,99 @@ body{
                     border:1px solid #cccccc;
                     border-radius:4px;
                     background:white;
+
+                }
+
+                select {
+
                 }
             }
 
             >.info {
                 float:left;
                 width:50%;
+                padding-right:45px;
                 >.title {
                     font-size:20px;
                     color:#333;
+                    margin-bottom:60px;
                 }
+
+                input[name=name] {
+                    width:380px;
+                    margin-left:50px;
+                }
+
+                select[name=gender] {
+                    width:50px;
+                    margin-left:50px;
+                }
+
+                .birthday {
+                    margin-left:50px;
+                    display:inline-block;
+                    select[name=year] {
+                        width:50px;
+                    }
+                }
+
+                .address {
+                    margin-left:50px;
+                    display:inline-block;
+                    select[name=country] {
+                        display:block;
+                    }
+
+                    select[name=state] {
+
+                    }
+
+                    select[name=city] {
+
+                    }
+
+                    input[name=address] {
+                        display:block;
+                    }
+                }
+
+                input[name=postalCode] {
+                    margin-left:50px;
+                    width:380px;
+                }
+
             }
 
             >.phone {
                 float:left;
                 width:50%;
+                padding-left:45px;
                 >.title {
                     font-size:20px;
                     color:#333;
+                    margin-bottom:60px;
+                }
+
+                select[name=country] {
+                    margin-left:50px;
+
+                }
+
+                .verification {
+                    margin-left:50px;
+                    display:inline-block;
+
                 }
             }
 
-            >.confirm {
+            .confirm {
+                &_wrapper {
+                    float:left;
+                    width:100%;
+                    margin:60px 0 0px;
+                }
                 display:block;
-                float:left;
-                margin:80px auto 40px;
+                margin:0 auto;
             }
         }
     }
