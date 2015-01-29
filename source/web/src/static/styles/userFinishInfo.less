@@ -103,7 +103,10 @@ body{
                 }
 
                 select {
-
+                    border:1px solid #cccccc;
+                    border-radius:4px;
+                    background:white;
+                    height:48px;
                 }
             }
 
@@ -123,7 +126,7 @@ body{
                 }
 
                 select[name=gender] {
-                    width:50px;
+                    width:160px;
                     margin-left:50px;
                 }
 
@@ -131,7 +134,16 @@ body{
                     margin-left:50px;
                     display:inline-block;
                     select[name=year] {
-                        width:50px;
+                        width:160px;
+                        margin-right:20px;
+                    }
+
+                    select[name=month] {
+                        margin-right:20px;
+                        width:87px;
+                    }
+                    select[name=day] {
+                        width:87px;
                     }
                 }
 
@@ -140,18 +152,25 @@ body{
                     display:inline-block;
                     select[name=country] {
                         display:block;
+                        width:380px;
+                        margin-bottom:20px;
                     }
 
                     select[name=state] {
-
+                        width:178px;
+                        margin-bottom:20px;
+                        margin-right:20px;
                     }
 
                     select[name=city] {
-
+                        width:178px;
+                        margin-bottom:20px;
                     }
 
                     input[name=address] {
                         display:block;
+                        width:380px;
+
                     }
                 }
 
@@ -174,12 +193,28 @@ body{
 
                 select[name=country] {
                     margin-left:50px;
+                    width:160px;
+                    margin-right:20px;
+                }
 
+                input[name=phone] {
+                    width:180px;
                 }
 
                 .verification {
                     margin-left:50px;
                     display:inline-block;
+
+                    input[name=verificationCode] {
+                        width:160px;
+                        margin-right:20px;
+                    }
+
+                    button.fetchCode {
+                        line-height:28px;
+                        font-size:14px;
+                        width:180px;
+                    }
 
                 }
             }
