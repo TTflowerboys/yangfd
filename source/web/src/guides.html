@@ -3,12 +3,39 @@
 <!--build:css(dist) /static/styles/guides.html.css-->
 <link rel="stylesheet" href="/static/styles/newsList.css"/>
 <link rel="stylesheet" href="/static/styles/project/newsCard.css"/>
+<link rel="stylesheet" href="/static/styles/guideList.css"/>
 <!--endbuild-->
 <!--@@close-->
 
 <!--@@block=main -->
 <textarea id="contentType" style="display:none;">purchase_process</textarea>
 <h1 class="contentTitle">{{_('购房指南')}}</h1>
+
+<div class="navigatorWrapper">
+    <ul class="navigatorList">
+        <li>
+            <a href="/news/54c891acfe1798012d2c27ac">
+                <img class="navigatorIco" src="static/images/news/ico_guide_faq.png">
+                <img class="navigatorIcoPhone" src="static/images/news/ico_guide_faq_phone.png">
+                <h1>{{_('常见问题')}}</h1>
+            </a>
+        </li>
+        <li>
+            <a href="/news/5453420b6a570701e0ad5e9a">
+                <img class="navigatorIco" src="static/images/news/ico_guide_step.png">
+                <img class="navigatorIcoPhone" src="static/images/news/ico_guide_step_phone.png">
+                <h1 >{{_('购房流程')}}</h1>
+            </a>
+        </li>
+        <li>
+            <a href="/property_list">
+                <img class="navigatorIco" src="static/images/news/ico_guide_property.png">
+                <img class="navigatorIcoPhone" src="static/images/news/ico_guide_property_phone.png">
+                <h1 >{{_('去选房')}}</h1>
+            </a>
+        </li>
+    </ul>
+</div>
 
 <div id="list" class="contentList">
 
