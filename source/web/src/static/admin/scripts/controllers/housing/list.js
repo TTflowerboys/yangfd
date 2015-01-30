@@ -31,7 +31,25 @@
             } else {
                 params.bedroom_count = $scope.selected.bedroom_count
             }
-            params.building_area = $scope.selected.building_area
+            params.floor = $scope.selected.floor
+            if($scope.selected.min_square||$scope.selected.max_square){
+                if($rootScope.userArea.value){
+                    params.building_area = ($scope.selected.min_square?$scope.selected.min_square:'')+','+($scope.selected.max_square?$scope.selected.max_square:'')+','+$rootScope.userArea.value
+                }else{
+                    delete params.building_area
+                }
+            }else{
+                delete params.building_area
+            }
+            if($scope.selected.min_money||$scope.selected.max_money){
+                if($rootScope.userCurrency.value){
+                    params.price = ($scope.selected.min_money?$scope.selected.min_money:'')+','+($scope.selected.max_money?$scope.selected.max_money:'')+','+$rootScope.userCurrency.value
+                }else{
+                    delete params.price
+                }
+            }else{
+                delete params.price
+            }
             $rootScope.plotParams = params;
         }
 
