@@ -184,12 +184,13 @@
             }
             $scope.item.value = _.object(valueArray)
             $scope.item.description = _.object(descriptionArray)
-            api.addIntention($scope.item.value, $scope.item.description)
+            api.addIntention($scope.item.value, $scope.item.description, $scope.item.slug)
                 .success(function () {
                     $scope.item.image = undefined
                     $scope.item.value = undefined
                     $scope.item.description = undefined
                     $scope.item.tempValues = undefined
+                    $scope.item.slug = undefined
                 })
         }
         $scope.getEditIntention = function () {
@@ -223,7 +224,7 @@
             }
             $scope.item.value = _.object(valueArray)
             $scope.item.description = _.object(descriptionArray)
-            api.editIntention($stateParams.id, $scope.item.value, $scope.item.description)
+            api.editIntention($stateParams.id, $scope.item.value, $scope.item.description, $scope.item.slug)
                 .success(function () {
                     $state.go('^')
                 })
@@ -243,31 +244,31 @@
                 var res = data.val
                 if (res) {
                     var txt = []
-                    if(res.item.length > 0){
-                        txt.push( i18n('众筹') + res.item.length + i18n('条'))
+                    if (res.item.length > 0) {
+                        txt.push(i18n('众筹') + res.item.length + i18n('条'))
                     }
-                    if( res.news.length>0){
+                    if (res.news.length > 0) {
                         txt.push(i18n('房产资讯') + res.news.length + i18n('条'))
                     }
-                    if( res.property.length>0){
+                    if (res.property.length > 0) {
                         txt.push(i18n('房产') + res.property.length + i18n('条'))
                     }
-                    if( res.ticket.length>0){
+                    if (res.ticket.length > 0) {
                         txt.push(i18n('投资意向单') + res.ticket.length + i18n('条'))
                     }
-                    if( res.user.length>0){
+                    if (res.user.length > 0) {
                         txt.push(i18n('用户') + res.user.length + i18n('条'))
                     }
                     var count = res.item.length + res.news.length + res.property.length + res.ticket.length + res.user.length
                     var alertText = ''
                     if (count > 0) {
                         alertText += i18n('此数据有') + count + i18n('条引用,其中')
-                        for(var index in txt){
-                            alertText+=txt[index]
-                            if(index<txt.length-1){
-                                alertText+=i18n('，')
-                            }else{
-                                alertText+=i18n('。')
+                        for (var index in txt) {
+                            alertText += txt[index]
+                            if (index < txt.length - 1) {
+                                alertText += i18n('，')
+                            } else {
+                                alertText += i18n('。')
                             }
                         }
                     }
