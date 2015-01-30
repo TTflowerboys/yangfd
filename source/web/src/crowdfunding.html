@@ -352,7 +352,7 @@
                 <h3 class="propertyDetails_title">{{_('投资受益分析')}}</h3>
                 <div class="calculator">
                     <div class="input">
-                        <input class="ghostInput" placeholder="{{_('本金')}}" data-investment="capital" type="number" value="{{property.get('funding_min')}}"/>
+                        <input class="ghostInput" placeholder="{{_('本金')}}" data-investment="capital" type="number" value="{{property.get('funding_min')}}" data-investment-value="{{property.get('funding_min')}}"/>
                         <button class="button red" name="calculate">
                             {{_('计算')}}
                         </button>

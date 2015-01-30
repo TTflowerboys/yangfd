@@ -239,6 +239,14 @@
                         vertical-align: bottom;
                         color:#555;
                         font-size:20px;
+                        &.emphasized {
+                            color:@red;
+
+
+                            strong {
+                                color:@red;
+                            }
+                        }
 
                         span {
                             font-size:20px;
@@ -250,12 +258,7 @@
                             word-break:break-all;
                         }
 
-                        &.emphasized {
 
-                            strong {
-                                color:@red;
-                            }
-                        }
                     }
                 }
 

@@ -115,7 +115,7 @@
     <ul class="numbers">
         <li>
             <span class="text">{{!_('本金')}}</span>
-            <span class="percentage emphasized" data-investment="balance" data-investment-value="5000">
+            <span class="percentage emphasized" data-investment="capital" data-investment-value="5000">
                 <strong >
                     ￥5000
                 </strong>
@@ -180,7 +180,10 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
+<script src="/static/vendors/Chart.min.js"></script>
 <!--build:js /static/scripts/user_finish_investment.html.js-->
+<script src="/static/scripts/update_investment_chart.js"></script>
+<script src="/static/scripts/user_finish_investment.js"></script>
 
 <!--endbuild-->
 <!--@@close-->
