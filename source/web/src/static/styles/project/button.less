@@ -3,6 +3,7 @@
 @border-radius: 6px;
 @default-bg: #3a3a3a;
 @orange: #dd4117;
+@yellow: #ff8a00;
 @red: #e60012;
 @green:#82cc00;
 
@@ -30,6 +31,12 @@
         background: @orange;
         &:hover, &.pseudo-class-hover {
             background: lighten(@orange, 5%);
+        }
+    }
+    &.yellow {
+        background: @yellow;
+        &:hover, &.pseudo-class-hover {
+            background: lighten(@yellow, 5%);
         }
     }
     &.red {
