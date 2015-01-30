@@ -719,7 +719,16 @@
                 <table class="actions">
                     <tr>
                         <td style="text-align:left;">
-                            % isFavorite = property.get('id') in [i.get('item',{}).get('id') for i in favorite_list]
+                            % isFavorite = False
+                            % foundId = None
+                            % for item in favorite_list:
+                                %if item.get('item'):
+                                    %if item.get('item').get('id') == property.get('id'):
+                                        % isFavorite = True
+                                        % foundId = item.get('id')
+                                    %end
+                                %end
+                            % end
                             <button data-fn="addFav" data-item-id="{{property.get('id','')}}"
                                     class="flatButton"
                                     style="{{ 'display:none' if isFavorite else ''}}"
@@ -732,7 +741,6 @@
                                     class="flatButton"
                                     style="{{ 'display:none' if not isFavorite else ''}}"
                                     % if isFavorite:
-                                    % foundId = [x for x in favorite_list if x.get('item',{}).get('id') == property.get('id')][0].get('id')
                                     data-favorite-id="{{foundId}}"
                                     % end
                                     >
@@ -885,7 +893,6 @@
             data-fn="removeFav"
             style="{{ 'display:none' if not isFavorite else ''}}"
             % if isFavorite:
-            % foundId = [x for x in favorite_list if x.get('item',{}).get('id') == property.get('id')][0].get('id')
             data-favorite-id="{{foundId}}"
             % end
             ><img src="/static/images/property_details/icon-star.png"></img></li>
