@@ -16,13 +16,13 @@
             <li class="yearReturn">
                 <span class="hint">{{!_('预估年化回报率')}}</span>
                 <span class="value">
-                  12.00~25%
+                    12.00~25%
                 </span>
             </li>
             <li class="yearCashReturn">
                 <span class="hint">{{!_('预估年化现金回报率')}}</span>
                 <span class="value">
-                  12.00~25%
+                    12.00~25%
                 </span>
             </li>
             <li class="term">
@@ -46,7 +46,7 @@
 
     <div class="accountInfo">
         <ul class="userInfo">
-             <li class="nickname">
+            <li class="nickname">
                 <span class="hint">{{!_('用户名')}}</span>
                 <span class="value">
                     Akon Lee
@@ -112,63 +112,65 @@
 </div>
 <div class="investmentAnalysis">
     <h3 class="title">{{_('投资受益分析')}}</h3>
-    <div class="calculator">
-        <div class="input">
-            <input class="ghostInput" placeholder="{{_('本金')}}" data-investment="capital" type="number" value=""/>
-            <button class="button red" name="calculate">
-                {{_('计算')}}
-            </button>
-        </div>
+    <ul class="numbers">
+        <li>
+            <span class="text">{{!_('本金')}}</span>
+            <span class="percentage emphasized" data-investment="balance" data-investment-value="5000">
+                <strong >
+                    ￥5000
+                </strong>
+            </span>
+        </li>
+        <li>
+            <span class="text">{{!_('最大预估年化回报率')}}</span>
+            <span class="percentage">
+                <strong data-investment="max_annual_return_estimated" data-investment-value="0.1">
+                    10
+                </strong>
+                %
+            </span>
+        </li>
+        <li>
+            <span class="text">{{!_('最大年化现金回报预估')}}</span>
+            <span class="percentage" >
+                <strong data-investment="max_annual_cash_return_estimated" data-investment-value="0.15">
+                    15
+                </strong>
+                %
+            </span>
 
-        <ul class="numbers">
-            <li>
-                <span class="text">{{!_('最大预估年化回报率')}}</span>
-                <span class="percentage emphasized">
-                    <strong data-investment="max_annual_return_estimated" data-investment-value="">
-
+        </li>
+        <li>
+            <span class="text">{{!_('周期')}}</span>
+            <span class="percentage">
+                <span data-investment="term" data-investment-value="3">
+                    <strong>
+                        3
                     </strong>
+                    {{_('年')}}
                 </span>
+            </span>
+        </li>
+        <li>
+            <span class="text">{{!_('预计现金收益')}}</span>
+            <span class="percentage">
+                <strong data-investment="cash_return">
 
-            </li>
-            <li>
-                <span class="text">{{!_('最大年化现金回报预估')}}</span>
-                <span class="percentage emphasized">
-                    <strong data-investment="max_annual_cash_return_estimated" data-investment-value="">
+                </strong>
+                {{_('元')}}
+            </span>
+        </li>
+        <li>
+            <span class="text">{{!_('预计总收益')}}</span>
+            <span class="percentage emphasized">
+                <strong data-investment="total_return">
 
-                    </strong>
-                </span>
+                </strong>
+                {{_('元')}}
+            </span>
+        </li>
+    </ul>
 
-            </li>
-            <li>
-                <span class="text">{{!_('周期')}}</span>
-                <span class="percentage emphasized">
-                    <span data-investment="term" data-investment-value="">
-                        <strong>
-
-                        </strong>
-                        {{_('年')}}
-                    </span>
-                </span>
-
-            </li>
-            <li>
-                <span class="text">{{!_('预计现金收益')}}</span>
-                <span class="percentage emphasized">
-                    <span data-investment="cash_return">
-
-                    </span>
-                </span>
-            </li>
-            <li class="total">
-                <span class="text">{{!_('预计总收益')}}</span>
-                <span class="percentage emphasized total">
-                    <span data-investment="total_return">
-
-                    </span>
-                </span>
-            </li>
-        </ul>
-    </div>
 
     <canvas class="barChart" id="barChart">
     </canvas>
