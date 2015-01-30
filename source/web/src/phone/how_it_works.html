@@ -145,7 +145,7 @@
 
      $(document).prop('title', window.getTitle(slug))
 
-     $('.view_property label').text(window.i18n('查看') + window.getTitle(slug) + window.i18n('的房产'))
+     $('.view_property label').text(window.i18n('查看平台上的') + window.getTitle(slug))
      $('.view_property img').attr('src', '/static/images/intention/icon/' + slug + '-grey.png')
      //$('.view_property img').attr('height', '14')
      $('.view_property').attr('href', '/property_list?intention=' + window.getId(slug))
