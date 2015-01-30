@@ -27,8 +27,8 @@
             <tabset justified="true" style="margin: 16px 0;">
                 <tab heading="{%$root.i18n('通用信息')%}">
                     <div class="row">
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'name'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('名称')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'name'" drag-channel="delete,reset">{%$root.i18n('名称')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" type-i18n="item.name" ng-model="item.name[userLanguage.value]"/>
@@ -36,8 +36,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'property_type'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('房产类型')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'property_type'" drag-channel="delete,reset">{%$root.i18n('房产类型')%}</label>
 
                             <div class="controls">
                                 <div select-enum name="property_type" ng-model="item.property_type" slug="propertyType"></div>
@@ -46,8 +46,8 @@
                     </div>
                     <div class="row">
 
-                        <div class="form-group col-sm-12" ui-draggable="true" drag="'investment_type'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('投资类型')%}</label>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label" ui-draggable="true" drag="'investment_type'" drag-channel="delete,reset">{%$root.i18n('投资类型')%}</label>
                             <div class="controls">
                                 <div select-multiple-enums name="investment_type" ng-model="item.investment_type"></div>
                             </div>
@@ -55,24 +55,24 @@
                     </div>
                     <div class="row">
 
-                        <div class="form-group col-sm-12" ui-draggable="true" drag="'intention'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('投资标签')%}</label>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label" ui-draggable="true" drag="'intention'" drag-channel="delete,reset">{%$root.i18n('投资标签')%}</label>
                             <div class="controls">
                                 <div select-multiple-enums name="intention" ng-model="item.intention"></div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'country'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('国家')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'country'" drag-channel="delete,reset">{%$root.i18n('国家')%}</label>
 
                             <div class="controls">
                                 <div select-enum name="country" ng-model="item.country"></div>
 
                             </div>
                         </div>
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'city'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('城市')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'city'" drag-channel="delete,reset">{%$root.i18n('城市')%}</label>
 
                             <div class="controls">
                                 <div select-city-by-country country="item.country" ng-model="item.city"></div>
@@ -81,15 +81,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'street'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('街区')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'street'" drag-channel="delete,reset">{%$root.i18n('街区')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" type-i18n="item.street" ng-model="item.street[userLanguage.value]"/>
                             </div>
                         </div>
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'zipcode'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('邮编')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'zipcode'" drag-channel="delete,reset">{%$root.i18n('邮编')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.zipcode"/>
@@ -97,8 +97,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-6" ui-draggable="true" drag="'address'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('地址详情')%}</label>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label" ui-draggable="true" drag="'address'" drag-channel="delete,reset">{%$root.i18n('地址详情')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" type-i18n="item.address"
@@ -117,8 +117,8 @@
                     <!--</div>-->
                     <!--</div>-->
                     <div class="row">
-                        <div class="form-group  col-sm-6" ui-draggable="true" drag="'latitude_longitude'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('地图位置')%}</label>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label" ui-draggable="true" drag="'latitude_longitude'" drag-channel="delete,reset">{%$root.i18n('地图位置')%}</label>
 
                             <div class="form-inline">
                                 <input type="text" class="form-control  col-sm-3" ng-model="item.latitude"
@@ -129,15 +129,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4" ui-draggable="true" drag="'funding_start_date'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('起投时间')%}</label>
+                        <div class="col-sm-4">
+                            <label class="control-label" ui-draggable="true" drag="'funding_start_date'" drag-channel="delete,reset">{%$root.i18n('起投时间')%}</label>
 
                             <div class="controls">
                                 <div edit-datetime ng-model="item.funding_start_date" style="width: 380px;"></div>
                             </div>
                         </div>
-                        <div class="col-sm-4" ui-draggable="true" drag="'funding_end_date'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('截止时间')%}</label>
+                        <div class="col-sm-4">
+                            <label class="control-label" ui-draggable="true" drag="'funding_end_date'" drag-channel="delete,reset">{%$root.i18n('截止时间')%}</label>
 
                             <div class="controls">
                                 <div edit-datetime ng-model="item.funding_end_date" style="width: 380px;"></div>
@@ -145,22 +145,22 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3" ui-draggable="true" drag="'term'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('项目周期')%}</label>
+                        <div class="col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'term'" drag-channel="delete,reset">{%$root.i18n('项目周期')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.term"/>
                             </div>
                         </div>
-                        <div class="col-sm-3" ui-draggable="true" drag="'funding_goal'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('项目总金额')%}</label>
+                        <div class="col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'funding_goal'" drag-channel="delete,reset">{%$root.i18n('项目总金额')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.funding_goal"/>
                             </div>
                         </div>
-                        <div class="col-sm-3" ui-draggable="true" drag="'funding_min'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('项目起投金额')%}</label>
+                        <div class="col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'funding_min'" drag-channel="delete,reset">{%$root.i18n('项目起投金额')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.funding_min"/>
@@ -206,15 +206,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'min_annual_return_estimated'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('最小预估年化回报率')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'min_annual_return_estimated'" drag-channel="delete,reset">{%$root.i18n('最小预估年化回报率')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.min_annual_return_estimated" placeholder="e.g. 10%"/>
                             </div>
                         </div>
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'max_annual_return_estimated'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('最大预估年化回报率')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'max_annual_return_estimated'" drag-channel="delete,reset">{%$root.i18n('最大预估年化回报率')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.max_annual_return_estimated" placeholder="e.g. 15%"/>
@@ -222,16 +222,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'min_annual_cash_return_estimated'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('最小年化现金回报预估')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'min_annual_cash_return_estimated'" drag-channel="delete,reset">{%$root.i18n('最小年化现金回报预估')%}</label>
                             <div class="controls">
                                 <!--<div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.min_annual_cash_return_estimated.price"></div>-->
                                 <input type="text" class="form-control" ng-model="item.min_annual_cash_return_estimated" placeholder="e.g. 100.00"/>
 
                             </div>
                         </div>
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'max_annual_cash_return_estimated'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('最大年化现金回报预估')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'max_annual_cash_return_estimated'" drag-channel="delete,reset">{%$root.i18n('最大年化现金回报预估')%}</label>
                             <div class="controls">
                                 <!--<div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.max_annual_cash_return_estimated.price"></div>-->
                                 <input type="text" class="form-control" ng-model="item.max_annual_cash_return_estimated" placeholder="e.g. 1000.00"/>
@@ -240,8 +240,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-12" ui-draggable="true" drag="'description'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('详情')%}</label>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label" ui-draggable="true" drag="'description'" drag-channel="delete,reset">{%$root.i18n('详情')%}</label>
 
                             <div class="controls">
                                 <textarea ng-model="item.description[userLanguage.value]" class="form-control" type-i18n="item.description" rows="4"></textarea>
@@ -260,8 +260,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3" ui-draggable="true" drag="'materials'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('相关资料')%}</label>
+                        <div class="col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'materials'" drag-channel="delete,reset">{%$root.i18n('相关资料')%}</label>
 
                             <div class="controls">
                                 <div edit-materials ng-model="item.materials" text="{%$root.i18n('上传资料')%}"></div>
@@ -271,8 +271,8 @@
                 </tab>
                 <tab heading="{%$root.i18n('管理团队')%}">
                     <div class="row">
-                        <div class="form-group col-sm-12" ui-draggable="true" drag="'operator'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('开发商介绍')%}</label>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label" ui-draggable="true" drag="'operator'" drag-channel="delete,reset">{%$root.i18n('开发商介绍')%}</label>
 
                             <div class="controls">
                                 <div edit-rich-content ng-model="item.operator"></div>
@@ -280,8 +280,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-12" ui-draggable="true" drag="'management_team'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('管理团队')%}</label>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label" ui-draggable="true" drag="'management_team'" drag-channel="delete,reset">{%$root.i18n('管理团队')%}</label>
                             <div class="controls">
                                 <table class="table table-bordered table-striped table-condensed"
                                     style="margin-bottom:30px">
@@ -331,8 +331,8 @@
                 </tab>
                 <tab heading="{%$root.i18n('项目资产')%}">
                     <div class="row">
-                        <div class="form-group col-sm-12" ui-draggable="true" drag="'financials'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('项目财务分析介绍')%}</label>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label" ui-draggable="true" drag="'financials'" drag-channel="delete,reset">{%$root.i18n('项目财务分析介绍')%}</label>
 
                             <div class="controls">
                                 <div edit-rich-content ng-model="item.financials"></div>
@@ -340,8 +340,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-12" ui-draggable="true" drag="'capital_structure'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('项目资本结构')%}</label>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label" ui-draggable="true" drag="'capital_structure'" drag-channel="delete,reset">{%$root.i18n('项目资本结构')%}</label>
 
                             <div class="controls">
                                 <table class="table table-bordered table-striped table-condensed"
@@ -384,8 +384,8 @@
                 </tab>
                 <tab heading="{%$root.i18n('审核单')%}">
                     <div class="row">
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'comment'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('审核备注')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'comment'" drag-channel="delete,reset">{%$root.i18n('审核备注')%}</label>
 
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.comment"/>
@@ -393,8 +393,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-3" ui-draggable="true" drag="'attachment'" drag-channel="delete,reset">
-                            <label class="control-label">{%$root.i18n('审核附件')%}</label>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'attachment'" drag-channel="delete,reset">{%$root.i18n('审核附件')%}</label>
 
                             <div class="controls">
                                 <div edit-files ng-model="item.attachment" text="{%$root.i18n('上传附件')%}"></div>

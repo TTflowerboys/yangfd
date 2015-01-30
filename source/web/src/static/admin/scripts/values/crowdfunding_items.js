@@ -32,5 +32,7 @@ angular.module('app')
         {name: i18n('项目资本结构'), value: 'capital_structure'},
         {name: i18n('审核备注'), value: 'comment'},
         {name: i18n('审核附件'), value: 'attachment'},
+        {name: i18n('起投时间'), value: 'funding_start_date'},
+        {name: i18n('截止时间'), value: 'funding_end_date'},
         {name: i18n('地图位置'), value: 'latitude_longitude'}
     ])
