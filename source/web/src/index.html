@@ -65,8 +65,14 @@
     <ul class="userChoice">
         <li>
             <a href="/guides">
-                <img alt="" class="pc" src="/static/images/index/choice-house-icon.png"/>
-                <img alt="" class="phone" src="/static/images/index/choice-house-icon-phone.png"/>
+                <div class="img_wrapper pc">
+                    <img alt="" class="normal" src="/static/images/index/choice-house-icon.png"/>
+                    <img alt="" class="active" src="/static/images/index/choice-house-icon-active.png"/>
+                </div>
+                <div class="img_wrapper phone">
+                    <img alt="" class="normal" src="/static/images/index/choice-house-icon-phone.png"/>
+                    <img alt="" class="active" src="/static/images/index/choice-house-icon-active-phone.png"/>
+                </div>
                 <div class="text">
                     <h3 class="question">
                         {{_('首次海外置业？')}}
@@ -79,8 +85,14 @@
         </li>
         <li>
             <a href="/property_list">
-                <img alt="" class="pc" src="/static/images/index/choice-search-icon.png"/>
-                <img alt="" class="phone" src="/static/images/index/choice-search-icon-phone.png"/>
+                <div class="img_wrapper pc">
+                    <img alt="" class="normal" src="/static/images/index/choice-search-icon.png"/>
+                    <img alt="" class="active" src="/static/images/index/choice-search-icon-active.png"/>
+                </div>
+                <div class="img_wrapper phone">
+                    <img alt="" class="normal" src="/static/images/index/choice-search-icon-phone.png"/>
+                    <img alt="" class="active" src="/static/images/index/choice-search-icon-active-phone.png"/>
+                </div>
                 <div class="text">
                     <h3 class="question">
                         {{_('已经有置业目标？')}}
@@ -93,8 +105,14 @@
         </li>
         <li>
             <a style="cursor:pointer;" onclick="javascript:window.project.openRequirement(null, null, null)">
-                <img alt=""  class="pc" src="/static/images/index/choice-requirement-icon.png"/>
-                <img alt="" class="phone" src="/static/images/index/choice-requirement-icon-phone.png"/>
+                <div class="img_wrapper pc">
+                    <img alt="" class="normal" src="/static/images/index/choice-requirement-icon.png"/>
+                    <img alt="" class="active" src="/static/images/index/choice-requirement-icon-active.png"/>
+                </div>
+                <div class="img_wrapper phone">
+                    <img alt="" class="normal" src="/static/images/index/choice-requirement-icon-phone.png"/>
+                    <img alt="" class="active" src="/static/images/index/choice-requirement-icon-active-phone.png"/>
+                </div>
                 <div class="text last">
                     <h3 class="question">
                         {{_('立即提交置业需求？')}}
@@ -113,7 +131,7 @@
         <!-- @@include=partials/how_it_works_tabs.html-->
     </div>
     <div class="howItWorks_phone">
-        <label class="title">{{_('为您定制')}}</label>
+        <label class="title">{{_('为您推荐')}}</label>
         <ul class="controls">
             % for index, intention in enumerate(intention_list):
                 % slug = intention.get('slug','')

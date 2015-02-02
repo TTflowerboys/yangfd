@@ -84,6 +84,16 @@
                     {{!news.get('content')}}
                 </div>
             %end
+
+            %for cate in news.get('category',{}):
+                %if cate.get('slug') == 'purchase_process':
+                <div class="propertyListEntry">
+                    <a class="ghostButton red" href="/property_list">
+                        {{_('了解了?开始选房!')}}
+                    </a>
+                </div>
+                %end
+            %end
         </div>
 
         %if ('related_news_list' in vars() and related_news_list):

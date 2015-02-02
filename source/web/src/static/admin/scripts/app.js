@@ -2,7 +2,7 @@
 
 
 angular.module('app',
-    ['ui.router', 'angular-loading-bar', 'angularFileUpload', 'ui.bootstrap', 'angular-growl', 'multi-select', 'ang-drag-drop', 'textAngular'])
+    ['ui.router', 'angular-loading-bar', 'angularFileUpload', 'ui.bootstrap', 'angular-growl', 'multi-select', 'ang-drag-drop', 'textAngular','ui.bootstrap.datetimepicker'])
     .run(function ($rootScope, $state, $stateParams, $sce) {
         $rootScope.i18n = i18n;
         $rootScope.$state = $state;

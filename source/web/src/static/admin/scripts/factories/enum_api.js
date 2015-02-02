@@ -98,18 +98,20 @@
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
-            addIntention: function (value, description) {
+            addIntention: function (value, description, slug) {
                 var data = {
                     type: 'intention',
                     value: value,
+                    slug: slug,
                     description: description
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
             },
-            editIntention: function (id, value, description) {
+            editIntention: function (id, value, description, slug) {
                 var data = {
                     type: 'intention',
                     value: value,
+                    slug: slug,
                     description: description
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})

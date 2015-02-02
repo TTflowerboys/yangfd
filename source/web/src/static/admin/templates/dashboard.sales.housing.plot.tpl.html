@@ -5,8 +5,46 @@
                 <span class="fa fa-chevron-left"></span>{%$root.i18n('返回')%}
             </button>
         </span>
-        <div class="btn-group form-inline pull-right">
-            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+        <div>
+            <div class="btn-group form-inline">
+                <input type="number" class="form-control" ng-model="selected.bedroom_count" placeholder="{%$root.i18n('居室数')%}"/>
+            </div>
+            <div class="btn-group form-inline">
+                <input type="text" class="form-control" ng-model="selected.floor" placeholder="{%$root.i18n('楼层')%}"/>
+            </div>
+        </div>
+        <div>
+            <div class="btn-group form-inline">
+                <input type="number" class="form-control" ng-model="selected.min_square" placeholder="{%$root.i18n('最小面积')%}"/>
+            </div>
+            <div class="btn-group form-inline">
+                <input type="number" class="form-control" ng-model="selected.max_square" placeholder="{%$root.i18n('最大面积')%}"/>
+            </div>
+            <div class="btn-group form-inline">
+                <input type="number" class="form-control" ng-model="selected.min_money" placeholder="{%$root.i18n('最小金额')%}"/>
+            </div>
+            <div class="btn-group form-inline">
+                <input type="number" class="form-control" ng-model="selected.max_money" placeholder="{%$root.i18n('最大金额')%}"/>
+            </div>
+
+            <div class="btn-group form-inline">
+                <button class="btn btn-primary" ng-click="searchPlot()">{%$root.i18n('搜索')%}</button>
+            </div>
+        </div>
+        <div>
+            <div class="btn-group form-inline pull-right">
+                <select class="form-control" ng-options="item for item in i18nArea" ng-model="userArea.value">
+                    <option value="">-- {%$root.i18n('面积单位')%} --</option>
+                </select>
+            </div>
+            <div class="btn-group form-inline pull-right">
+                <select class="form-control" ng-options="item for item in i18nCurrency" ng-model="userCurrency.value">
+                    <option value="">-- {%$root.i18n('货币单位')%} --</option>
+                </select>
+            </div>
+            <div class="btn-group form-inline pull-right">
+                <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+            </div>
         </div>
     </div>
     <div ng-controller="ctrlSortPlot">

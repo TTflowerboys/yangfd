@@ -71,7 +71,7 @@
     </div>
     <a class="button red view_property" href="{{'/property_list?intention=' + current_intention.get('slug')}}">
         <img alt="" src="{{'/static/images/intention/icon/' + current_intention.get('slug') + '-grey.png'}}" height="14"/>
-        <label for="">{{_('查看')}}{{current_intention.get('value')}}{{_('的房产')}}</label>
+        <label for="">{{_('查看平台上的')}}{{current_intention.get('value')}}</label>
     </a>
 
 </div>
@@ -145,7 +145,7 @@
 
      $(document).prop('title', window.getTitle(slug))
 
-     $('.view_property label').text(window.i18n('查看') + window.getTitle(slug) + window.i18n('的房产'))
+     $('.view_property label').text(window.i18n('查看平台上的') + window.getTitle(slug))
      $('.view_property img').attr('src', '/static/images/intention/icon/' + slug + '-grey.png')
      //$('.view_property img').attr('height', '14')
      $('.view_property').attr('href', '/property_list?intention=' + window.getId(slug))

@@ -1,6 +1,6 @@
 (function ($) {
-    function calculateInvestment() {
-        var capital = parseFloat($('[data-investment=capital]').val())
+    window.calculateInvestment = function () {
+        var capital = parseFloat($('[data-investment=capital]').attr('data-investment-value'))
         var maxReturnRate = parseFloat($('[data-investment=max_annual_return_estimated]').attr('data-investment-value'))
         var maxCashReturnRate = parseFloat($('[data-investment=max_annual_cash_return_estimated]').attr('data-investment-value'))
         var term = parseFloat($('[data-investment=term]').attr('data-investment-value'))
@@ -50,7 +50,7 @@
             chart.setAttribute('height', $(window).width() / 2)
         }
         else {
-            chart.setAttribute('width', '800')
+            chart.setAttribute('width', $(chart).parent().width())
             chart.setAttribute('height', '400')
         }
 
@@ -61,18 +61,6 @@
             barValueSpacing: barSpace,
         });
      }
-
-    $('.calculator button[name=calculate]').click(function (e) {
-        if (isNaN($('[data-investment=capital]').val())) {
-            return;
-        }
-        calculateInvestment()
-    })
-
-    if (!isNaN($('[data-investment=capital]').val())) {
-        //calculate for default value
-        calculateInvestment()
-    }
 
 
 

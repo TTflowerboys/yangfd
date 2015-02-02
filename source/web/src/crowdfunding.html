@@ -352,7 +352,7 @@
                 <h3 class="propertyDetails_title">{{_('投资受益分析')}}</h3>
                 <div class="calculator">
                     <div class="input">
-                        <input class="ghostInput" placeholder="{{_('本金')}}" data-investment="capital" type="number" value="{{property.get('funding_min')}}"/>
+                        <input class="ghostInput" placeholder="{{_('本金')}}" data-investment="capital" type="number" value="{{property.get('funding_min')}}" data-investment-value="{{property.get('funding_min')}}"/>
                         <button class="button red" name="calculate">
                             {{_('计算')}}
                         </button>
@@ -719,7 +719,16 @@
                 <table class="actions">
                     <tr>
                         <td style="text-align:left;">
-                            % isFavorite = property.get('id') in [i.get('item',{}).get('id') for i in favorite_list]
+                            % isFavorite = False
+                            % foundId = None
+                            % for item in favorite_list:
+                                %if item.get('item'):
+                                    %if item.get('item').get('id') == property.get('id'):
+                                        % isFavorite = True
+                                        % foundId = item.get('id')
+                                    %end
+                                %end
+                            % end
                             <button data-fn="addFav" data-item-id="{{property.get('id','')}}"
                                     class="flatButton"
                                     style="{{ 'display:none' if isFavorite else ''}}"
@@ -732,7 +741,6 @@
                                     class="flatButton"
                                     style="{{ 'display:none' if not isFavorite else ''}}"
                                     % if isFavorite:
-                                    % foundId = [x for x in favorite_list if x.get('item',{}).get('id') == property.get('id')][0].get('id')
                                     data-favorite-id="{{foundId}}"
                                     % end
                                     >
@@ -885,7 +893,6 @@
             data-fn="removeFav"
             style="{{ 'display:none' if not isFavorite else ''}}"
             % if isFavorite:
-            % foundId = [x for x in favorite_list if x.get('item',{}).get('id') == property.get('id')][0].get('id')
             data-favorite-id="{{foundId}}"
             % end
             ><img src="/static/images/property_details/icon-star.png"></img></li>

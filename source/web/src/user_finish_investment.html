@@ -10,16 +10,84 @@
 <div class="purchase">
     <div class="crowdfundingInfo">
         <h2 class="title">
-            Jackson INdustrial Park
+            Jackson Industrial Park
         </h2>
-        <ul>
+        <ul class="numbers">
+            <li class="yearReturn">
+                <span class="hint">{{!_('预估年化回报率')}}</span>
+                <span class="value">
+                    12.00~25%
+                </span>
+            </li>
+            <li class="yearCashReturn">
+                <span class="hint">{{!_('预估年化现金回报率')}}</span>
+                <span class="value">
+                    12.00~25%
+                </span>
+            </li>
+            <li class="term">
+                <span class="value single">
+                    3年锁定
+                </span>
+            </li>
+            <li class="fundingMin">
+                <span class="value single">
+                    5万起投
+                </span>
+            </li>
+            <li class="fundingAvaliable">
+                <span class="hint">{{!_('可投资')}}</span>
+                <span class="value">
+                    400万
+                </span>
+            </li>
         </ul>
     </div>
 
     <div class="accountInfo">
         <ul class="userInfo">
+            <li class="nickname">
+                <span class="hint">{{!_('用户名')}}</span>
+                <span class="value">
+                    Akon Lee
+                </span>
+            </li>
+            <li class="realname">
+                <span class="hint">{{!_('真实姓名')}}</span>
+                <span class="value">
+                    李大师
+                </span>
+            </li>
+            <li class="phone">
+                <span class="hint">{{!_('电话号码')}}</span>
+                <span class="value">
+                    1891891189
+                </span>
+            </li>
+            <li class="coupon">
+                <span class="hint">{{!_('优惠券')}}</span>
+                <span class="value">
+                    80%优惠
+                </span>
+                <span class="code">
+                    (ACLM884F9)
+                </span>
+                <button class="button yellow">
+                    {{_('修改')}}
+                </button>
+            </li>
         </ul>
         <div class="moneyInfo">
+            <h3 class="title">
+                {{_('投资金额')}}
+            </h3>
+            <input class="ghostInput" name="" type="text" value=""/>
+            <label class="remaining" for="">
+                {{_('您的账户当余额仅剩')}}<strong>￥1200</strong>
+            </label>
+            <button class="button yellow">
+                {{_('充值')}}
+            </button>
         </div>
     </div>
 
@@ -28,12 +96,12 @@
             <label for="password">
                 {{_('支付密码')}}
             </label>
-            <input name="password" type="text" value=""/>
-            <input name="" type="checkbox" value=""/>
+            <input name="password" class="ghostInput" type="text" value=""/>
+            <input name="term" type="checkbox" value="" checked/>
             <label class="term" for="">
                 {{_('了解投资风险，并同意')}}
                 <a href="">
-                    {{_('投资合同')}}
+                    {{_('《投资合同》')}}
                 </a>
             </label>
         </div>
@@ -44,63 +112,65 @@
 </div>
 <div class="investmentAnalysis">
     <h3 class="title">{{_('投资受益分析')}}</h3>
-    <div class="calculator">
-        <div class="input">
-            <input class="ghostInput" placeholder="{{_('本金')}}" data-investment="capital" type="number" value=""/>
-            <button class="button red" name="calculate">
-                {{_('计算')}}
-            </button>
-        </div>
+    <ul class="numbers">
+        <li>
+            <span class="text">{{!_('本金')}}</span>
+            <span class="percentage emphasized" data-investment="capital" data-investment-value="5000">
+                <strong >
+                    ￥5000
+                </strong>
+            </span>
+        </li>
+        <li>
+            <span class="text">{{!_('最大预估年化回报率')}}</span>
+            <span class="percentage">
+                <strong data-investment="max_annual_return_estimated" data-investment-value="0.1">
+                    10
+                </strong>
+                %
+            </span>
+        </li>
+        <li>
+            <span class="text">{{!_('最大年化现金回报预估')}}</span>
+            <span class="percentage" >
+                <strong data-investment="max_annual_cash_return_estimated" data-investment-value="0.15">
+                    15
+                </strong>
+                %
+            </span>
 
-        <ul class="numbers">
-            <li>
-                <span class="text">{{!_('最大预估年化回报率')}}</span>
-                <span class="percentage emphasized">
-                    <strong data-investment="max_annual_return_estimated" data-investment-value="">
-
+        </li>
+        <li>
+            <span class="text">{{!_('周期')}}</span>
+            <span class="percentage">
+                <span data-investment="term" data-investment-value="3">
+                    <strong>
+                        3
                     </strong>
+                    {{_('年')}}
                 </span>
+            </span>
+        </li>
+        <li>
+            <span class="text">{{!_('预计现金收益')}}</span>
+            <span class="percentage">
+                <strong data-investment="cash_return">
 
-            </li>
-            <li>
-                <span class="text">{{!_('最大年化现金回报预估')}}</span>
-                <span class="percentage emphasized">
-                    <strong data-investment="max_annual_cash_return_estimated" data-investment-value="">
+                </strong>
+                {{_('元')}}
+            </span>
+        </li>
+        <li>
+            <span class="text">{{!_('预计总收益')}}</span>
+            <span class="percentage emphasized">
+                <strong data-investment="total_return">
 
-                    </strong>
-                </span>
+                </strong>
+                {{_('元')}}
+            </span>
+        </li>
+    </ul>
 
-            </li>
-            <li>
-                <span class="text">{{!_('周期')}}</span>
-                <span class="percentage emphasized">
-                    <span data-investment="term" data-investment-value="">
-                        <strong>
-
-                        </strong>
-                        {{_('年')}}
-                    </span>
-                </span>
-
-            </li>
-            <li>
-                <span class="text">{{!_('预计现金收益')}}</span>
-                <span class="percentage emphasized">
-                    <span data-investment="cash_return">
-
-                    </span>
-                </span>
-            </li>
-            <li class="total">
-                <span class="text">{{!_('预计总收益')}}</span>
-                <span class="percentage emphasized total">
-                    <span data-investment="total_return">
-
-                    </span>
-                </span>
-            </li>
-        </ul>
-    </div>
 
     <canvas class="barChart" id="barChart">
     </canvas>
@@ -110,7 +180,10 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
+<script src="/static/vendors/Chart.min.js"></script>
 <!--build:js /static/scripts/user_finish_investment.html.js-->
+<script src="/static/scripts/update_investment_chart.js"></script>
+<script src="/static/scripts/user_finish_investment.js"></script>
 
 <!--endbuild-->
 <!--@@close-->

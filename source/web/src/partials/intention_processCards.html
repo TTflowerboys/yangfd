@@ -9,18 +9,29 @@
 % return ''
 %end
 
+% def get_intention_title(intention_id):
+%if (intention_list):
+%for intention in intention_list:
+%if (intention.get('id') == intention_id):
+%    return intention.get('value')
+%end
+%end
+%end
+% return ''
+%end
 
-<div data-tab-name="stable_cashflow" style="display:none;">
+
+<div data-tab-name="rental_guarantee" style="display:none;">
     <div class="processInfo">
-        <img alt="" src="/static/images/intention/icon/stable_cashflow-red.png"/>
+        <img alt="" src="/static/images/intention/icon/rental_guarantee-red.png"/>
         <p>
             {{get_intention_description('540aecb86b809957816154dc')}}
         </p>
         <a class="ghostButton red" href="/property_list?intention=540aecb86b809957816154dc">
-            {{_('查看稳定现金流的房产')}}
+            {{_('查看平台上的')}}{{get_intention_title('540aecb86b809957816154dc')}}
         </a>
     </div>
-    <div class="processCard count-5">
+    <div class="processCard count-4">
         <div class="line"></div>
         <ol>
             <li>
@@ -28,7 +39,7 @@
                 <table>
                     <tr>
                         <td>1</td>
-                        <td>{{_('填写投资预算、国家和地区')}}</td>
+                        <td>{{_('查看平台上的‘包租房’')}}</td>
                     </tr>
                 </table>
             </li>
@@ -37,7 +48,7 @@
                 <table class="up">
                     <tr>
                         <td>2</td>
-                        <td>{{_('按“现金流保障”标签筛选出合适出租的房产')}}</td>
+                        <td>{{_('在洋房东置房顾问的协助下，完成购买')}}</td>
                     </tr>
                 </table>
             </li>
@@ -46,39 +57,30 @@
                 <table>
                     <tr>
                         <td>3</td>
-                        <td>{{_('提交投资意向，获取详细街区投资分析信息，包括附近就业，流动人口等')}}</td>
-                    </tr>
-                </table>
-            </li>
-            <li>
-                <i><img src="/static/images/intention/icon/icon-house.png" alt=""/></i>
-                <table class="up">
-                    <tr>
-                        <td>4</td>
-                        <td>{{_('在置业顾问的协助下完成房产购买')}}</td>
+                        <td>{{_('周期性坐享稳定租金收益')}}</td>
                     </tr>
                 </table>
             </li>
             <li class="green">
-                <i><img src="/static/images/intention/icon/icon-pig.png" alt=""/></i>
-                <table>
+                <i><img src="/static/images/intention/icon/icon-house.png" alt=""/></i>
+                <table class="up">
                     <tr>
-                        <td>5</td>
-                        <td>{{_('由平台英国合作方提供售后出租管理服务，按季度给您打入租金')}}</td>
+                        <td>4</td>
+                        <td>{{_('在线查看和管理已购买房产状况及租金收益')}}</td>
                     </tr>
                 </table>
             </li>
         </ol>
     </div>
 </div>
-<div data-tab-name="study_aboard" style="display:none;">
+<div data-tab-name="school_nearby_house" style="display:none;">
      <div class="processInfo">
-        <img alt="" src="/static/images/intention/icon/study_aboard-red.png"/>
+        <img alt="" src="/static/images/intention/icon/school_nearby_house-red.png"/>
         <p >
             {{get_intention_description('540aecda6b809957816154de')}}
         </p>
         <a class="ghostButton red" href="/property_list?intention=540aecda6b809957816154de">
-            {{_('查看子女留学的房产')}}
+            {{_('查看平台上的')}}{{get_intention_title('540aecda6b809957816154de')}}
         </a>
     </div>
     <div class="processCard count-5">
@@ -89,7 +91,7 @@
                 <table>
                     <tr>
                         <td>1</td>
-                        <td>{{_('填写子女留学学校/国家/城市/以及家庭预算')}}</td>
+                        <td>{{_('查看平台上的‘学区房’')}}</td>
                     </tr>
                 </table>
             </li>
@@ -98,7 +100,7 @@
                 <table class="up">
                     <tr>
                         <td>2</td>
-                        <td>{{_('按“子女留学”标签筛选出平台提供学校附近的现房')}}</td>
+                        <td>{{_('系统会帮您筛选出热门学校周边所有的房源')}}</td>
                     </tr>
                 </table>
             </li>
@@ -107,7 +109,7 @@
                 <table>
                     <tr>
                         <td>3</td>
-                        <td>{{_('对心仪房产提交投资意向，获取街区投资分析信息，包括周围学校及排名')}}</td>
+                        <td>{{_('挑选心仪房产并在洋房东协助下完成购买')}}</td>
                     </tr>
                 </table>
             </li>
@@ -116,7 +118,7 @@
                 <table class="up">
                     <tr>
                         <td>4</td>
-                        <td>{{_('由我们置业顾问联系并解答留学租房相关的问题')}}</td>
+                        <td>{{_('投资者可自住或选择洋房东提供的租房服务')}}</td>
                     </tr>
                 </table>
             </li>
@@ -125,177 +127,21 @@
                 <table>
                     <tr>
                         <td>5</td>
-                        <td>{{_('置业顾问协助办理购房手续，安排子女参观入住，如果有需要协助子女出租')}}</td>
+                        <td>{{_('在线查看和管理已购买房产状况及租金收益')}}</td>
                     </tr>
                 </table>
             </li>
         </ol>
     </div>
 </div>
-<div data-tab-name="immigration_investment" style="display:none;">
-      <div class="processCard count-5">
-        <div class="line"></div>
-        <ol>
-            <li>
-                <i><img src="/static/images/intention/icon/icon-profile.png" alt=""/></i>
-                <table>
-                    <tr>
-                        <td>1</td>
-                        <td>{{_('选定要移民的国家和城市')}}</td>
-                    </tr>
-                </table>
-            </li>
-            <li>
-                <i><img src="/static/images/intention/icon/icon-tag.png" alt=""/></i>
-                <table class="up">
-                    <tr>
-                        <td>2</td>
-                        <td>{{_('按“移民投资”标签筛选出平台提供的符合移民投资标准的房产')}}</td>
-                    </tr>
-                </table>
-            </li>
-            <li>
-                <i><img src="/static/images/intention/icon/icon-report.png" alt=""/></i>
-                <table>
-                    <tr>
-                        <td>3</td>
-                        <td>{{_('提交投资意向，获取街区投资分析信息')}}</td>
-                    </tr>
-                </table>
-            </li>
-            <li>
-                <i><img src="/static/images/intention/icon/icon-house.png" alt=""/></i>
-                <table class="up">
-                    <tr>
-                        <td>4</td>
-                        <td>{{_('联系置业顾问，安排预定房源，办理和看房手续，安排移民律师事宜')}}</td>
-                    </tr>
-                </table>
-            </li>
-            <li class="green">
-                <i><img src="/static/images/intention/icon/icon-pig.png" alt=""/></i>
-                <table>
-                    <tr>
-                        <td>5</td>
-                        <td>{{_('置业顾问协助办理购房手续')}}</td>
-                    </tr>
-                </table>
-            </li>
-        </ol>
-    </div>
-</div>
-<div data-tab-name="excess_earnings" style="display:none;">
+<div data-tab-name="off_plan_property" style="display:none;">
     <div class="processInfo">
-        <img alt="" src="/static/images/intention/icon/excess_earnings-red.png"/>
+        <img alt="" src="/static/images/intention/icon/off_plan_property-red.png"/>
         <p>
             {{get_intention_description('540aecfc6b809957816154e0')}}
         </p>
         <a class="ghostButton red" href="/property_list?intention=540aecfc6b809957816154e0">
-            {{_('查看超额收益的房产')}}
-        </a>
-    </div>
-    <div class="processCard count-4">
-        <div class="line"></div>
-        <ol>
-            <li>
-                <i><img src="/static/images/intention/icon/icon-profile.png" alt=""/></i>
-                <table>
-                    <tr>
-                        <td>1</td>
-                        <td>{{_('提交置业投资预算')}}</td>
-                    </tr>
-                </table>
-            </li>
-            <li>
-                <i><img src="/static/images/intention/icon/icon-tag.png" alt=""/></i>
-                <table class="up">
-                    <tr>
-                        <td>2</td>
-                        <td>{{_('按“超额收益”标签筛选出平台提供的期房，可以用金融杠杆的现房以及旧房改造后升值的房子')}}</td>
-                    </tr>
-                </table>
-            </li>
-            <li>
-                <i><img src="/static/images/intention/icon/icon-report.png" alt=""/></i>
-                <table>
-                    <tr>
-                        <td>3</td>
-                        <td>{{_('提交置业需求查看详细报告，包括区域规划信息等')}}</td>
-                    </tr>
-                </table>
-            </li>
-            <li class="green">
-                <i><img src="/static/images/intention/icon/icon-pig.png" alt=""/></i>
-                <table class="up">
-                    <tr>
-                        <td>4</td>
-                        <td>{{_('联系置业顾问 并安排办理购房手续')}}</td>
-                    </tr>
-                </table>
-            </li>
-        </ol>
-    </div>
-</div>
-<div data-tab-name="asset_preservation" style="display:none;">
-     <div class="processInfo">
-        <img alt="" src="/static/images/intention/icon/asset_preservation-red.png"/>
-        <p>
-            {{get_intention_description('540aed0e6b809957816154e2')}}
-        </p>
-        <a class="ghostButton red" href="/property_list?intention=540aed0e6b809957816154e2">
-            {{_('查看资产保值的房产')}}
-        </a>
-    </div>
-    <div class="processCard count-4">
-        <div class="line"></div>
-        <ol>
-            <li>
-                <i><img src="/static/images/intention/icon/icon-profile.png" alt=""/></i>
-                <table>
-                    <tr>
-                        <td>1</td>
-                        <td>{{_('提交置业投资预算')}}</td>
-                    </tr>
-                </table>
-            </li>
-            <li>
-                <i><img src="/static/images/intention/icon/icon-tag.png" alt=""/></i>
-                <table class="up">
-                    <tr>
-                        <td>2</td>
-                        <td>{{_('按“资产保值”标签筛选出平台提供期房 永久性产权，在核心区域内的房子')}}</td>
-                    </tr>
-                </table>
-            </li>
-            <li>
-                <i><img src="/static/images/intention/icon/icon-report.png" alt=""/></i>
-                <table>
-                    <tr>
-                        <td>3</td>
-                        <td>{{_('注册提交置业需求查看详细报告')}}</td>
-                    </tr>
-                </table>
-            </li>
-            <li class="green">
-                <i><img src="/static/images/intention/icon/icon-pig.png" alt=""/></i>
-                <table class="up">
-                    <tr>
-                        <td>4</td>
-                        <td>{{_('联系置业顾问 并安排办理购房手续')}}</td>
-                    </tr>
-                </table>
-            </li>
-        </ol>
-    </div>
-</div>
-<div data-tab-name="live_after_immigration" style="display:none;">
-    <div class="processInfo">
-        <img alt="" src="/static/images/intention/icon/live_after_immigration-red.png"/>
-        <p >
-             {{get_intention_description('540aed1c6b809957816154e3')}}
-        </p>
-        <a class="ghostButton red" href="/property_list?intention=540aed1c6b809957816154e3">
-            {{_('查看移民自住的房产')}}
+            {{_('查看平台上的')}}{{get_intention_title('540aecfc6b809957816154e0')}}
         </a>
     </div>
     <div class="processCard count-5">
@@ -306,7 +152,7 @@
                 <table>
                     <tr>
                         <td>1</td>
-                        <td>{{_('选定要移民的国家和城市')}}</td>
+                        <td>{{_('查看平台上的‘期房’')}}</td>
                     </tr>
                 </table>
             </li>
@@ -315,7 +161,7 @@
                 <table class="up">
                     <tr>
                         <td>2</td>
-                        <td>{{_('按“移民投资”标签筛选出平台提供的生活服务设施齐全，常驻人口较多的房子')}}</td>
+                        <td>{{_('系统会帮您筛选出所有蕴藏潜力的期房投资机会和街区分析报告')}}</td>
                     </tr>
                 </table>
             </li>
@@ -324,7 +170,7 @@
                 <table>
                     <tr>
                         <td>3</td>
-                        <td>{{_('提交投资意向，获取街区投资分析信息')}}</td>
+                        <td>{{_('在洋房东置房顾问的协助下，支付首付')}}</td>
                     </tr>
                 </table>
             </li>
@@ -333,7 +179,7 @@
                 <table class="up">
                     <tr>
                         <td>4</td>
-                        <td>{{_('联系置业顾问，安排预定房源 办理和看房手续')}}</td>
+                        <td>{{_('按照开发商合同支付尾款')}}</td>
                     </tr>
                 </table>
             </li>
@@ -342,24 +188,24 @@
                 <table>
                     <tr>
                         <td>5</td>
-                        <td>{{_('置业顾问协助办理购房手续')}}</td>
+                        <td>{{_('在线查看和关注已购买房产的市场增值收益数据')}}</td>
                     </tr>
                 </table>
             </li>
         </ol>
     </div>
 </div>
-<div data-tab-name="leisure_property" style="display:none;">
-     <div class="processInfo">
-        <img alt="" src="/static/images/intention/icon/leisure_property-red.png"/>
-        <p>
-            {{get_intention_description('540aed266b809957816154e4')}}
+<div data-tab-name="existing_property" style="display:none;">
+    <div class="processInfo">
+        <img alt="" src="/static/images/intention/icon/existing_property-red.png"/>
+        <p >
+             {{get_intention_description('540aed1c6b809957816154e3')}}
         </p>
-        <a class="ghostButton red" href="/property_list?intention=540aed266b809957816154e4">
-            {{_('查看度假旅行的房产')}}
+        <a class="ghostButton red" href="/property_list?intention=540aed1c6b809957816154e3">
+            {{_('查看平台上的')}}{{get_intention_title('540aed1c6b809957816154e3')}}
         </a>
     </div>
-    <div class="processCard count-4">
+    <div class="processCard count-5">
         <div class="line"></div>
         <ol>
             <li>
@@ -367,7 +213,7 @@
                 <table>
                     <tr>
                         <td>1</td>
-                        <td>{{_('提交置业投资预算')}}</td>
+                        <td>{{_('查看平台上的‘居住现房’')}}</td>
                     </tr>
                 </table>
             </li>
@@ -376,7 +222,7 @@
                 <table class="up">
                     <tr>
                         <td>2</td>
-                        <td>{{_('按“度假旅行”标签筛选出平台提供有酒店房包租的房子')}}</td>
+                        <td>{{_('查看周边设施，选择心仪房产')}}</td>
                     </tr>
                 </table>
             </li>
@@ -385,16 +231,25 @@
                 <table>
                     <tr>
                         <td>3</td>
-                        <td>{{_('注册提交置业需求查看详细报告 流动人口数，旅游资讯')}}</td>
+                        <td>{{_('在洋房东置房顾问的协助下，完成购买')}}</td>
+                    </tr>
+                </table>
+            </li>
+            <li>
+                <i><img src="/static/images/intention/icon/icon-house.png" alt=""/></i>
+                <table class="up">
+                    <tr>
+                        <td>4</td>
+                        <td>{{_('投资者可自住或选择洋房东提供的租房服务')}}</td>
                     </tr>
                 </table>
             </li>
             <li class="green">
                 <i><img src="/static/images/intention/icon/icon-pig.png" alt=""/></i>
-                <table class="up">
+                <table>
                     <tr>
-                        <td>4</td>
-                        <td>{{_('联系置业顾问 并安排办理购房手续')}}</td>
+                        <td>5</td>
+                        <td>{{_('在线管理已购买房产状况以及租金收益')}}</td>
                     </tr>
                 </table>
             </li>

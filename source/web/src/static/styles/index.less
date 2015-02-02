@@ -146,8 +146,20 @@ main {
             width:33%;
             overflow:hidden;
 
-            a {
-                display: inline-block;
+            >a {
+                display: block;
+                overflow:hidden;
+                height:100%;
+
+                &:hover, &.pseudo-class-hover {
+                    img.normal {
+                        display:none;
+                    }
+                    img.active {
+                        display:block;
+                    }
+                }
+
             }
 
             @media @phone {
@@ -157,8 +169,21 @@ main {
                 padding-top:16px;
             }
 
-            img {
+            .img_wrapper {
                 float:left;
+                display:inline-block;
+                width:80px;
+                @media @phone {
+                    margin:0 0px 16px 16px;
+                    width:40px;
+                }
+
+                >.normal {
+                    display:block;
+                }
+                >.active {
+                    display:none;
+                }
                 &.pc {
                     display:inline-block;
                     @media @phone {
@@ -171,11 +196,8 @@ main {
                         display:inline-block;
                     }
                 }
-                @media @phone {
-                    margin:0 0px 16px 16px;
-                }
             }
-
+   
             .text {
                 display:inline-block;
                 float:left;

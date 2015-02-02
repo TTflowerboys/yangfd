@@ -10,6 +10,20 @@
 
     window.videojs.options.flash.swf = '/static/vendors/video-js/video-js.swf';
 
+
+    $('.calculator button[name=calculate]').click(function (e) {
+        if (isNaN($('[data-investment=capital]').val())) {
+            return;
+        }
+        $('[data-investment=capital]').attr('data-investment-value', $('[data-investment=capital]').val())
+        window.calculateInvestment()
+    })
+
+    if (!isNaN($('[data-investment=capital]').val())) {
+        //calculate for default value
+        window.calculateInvestment()
+    }
+
     $('form[name=addComment]').off('submit').submit(function (e) {
         e.preventDefault()
         var content = $(this).find('textarea[name=comment]').val().trim()
