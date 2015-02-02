@@ -4,6 +4,7 @@ from datetime import datetime
 from app import f_app
 from bson.objectid import ObjectId
 from libfelix.f_interface import f_api, abort, rate_limit, template, request
+from copy import copy
 import random
 import logging
 logger = logging.getLogger(__name__)
@@ -15,7 +16,6 @@ def current_user(user):
     """
     Get current user information
     """
-    from copy import copy
     custom_fields = copy(f_app.common.user_custom_fields)
     custom_fields.append("idcard")
     result = f_app.user.output([user["id"]], custom_fields=custom_fields)[0]
@@ -236,7 +236,10 @@ def current_user_edit(user, params):
     if unset_fields:
         f_app.user.update(user["id"], {"$unset": {i: "" for i in unset_fields}})
 
-    return f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
+    custom_fields = copy(f_app.common.user_custom_fields)
+    custom_fields.append("idcard")
+
+    return f_app.user.output([user["id"]], custom_fields=custom_fields)[0]
 
 
 @f_api("/user/admin/search", params=dict(
