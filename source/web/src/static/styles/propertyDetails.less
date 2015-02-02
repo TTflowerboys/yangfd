@@ -298,40 +298,37 @@ body{
         .left {
             background: #e60012;
             width: 50%;
-            table {
-                margin: 9px;
-                .name {
-                    margin: 0 0 6px 0;
-                    font-size: 20px;
-                    .limitedLines(1, 20px, #e60012);
-                    color: white;
+            padding: 9px;
+            .name {
+                margin: 0 0 6px 0;
+                font-size: 20px;
+                .limitedLines(1, 20px, #e60012);
+                color: white;
+            }
+            .tag {
+                margin: 0;
+                font-size: 14px;
+                line-height: 1.4em;
+                color: white;
+                overflow:hidden;
+
+                img {
+                    float:left;
+                    display:inline-block;
+                    margin-right:5px;
                 }
-                .tag {
-                    margin: 0;
-                    font-size: 14px;
-                    line-height: 1.4em;
-                    color: white;
-                    overflow:hidden;
 
-                    img {
-                        float:left;
-                        display:inline-block;
-                        margin-right:5px;
-                    }
-
-                    label {
-                        float:left;
-                        display:inline-block;
-                        width: 80%;
-                        width:~"calc(100% - 30px)"
-                    }
+                label {
+                    float:left;
+                    display:inline-block;
+                    width: 80%;
+                    width:~"calc(100% - 30px)"
                 }
             }
         }
 
         .middle {
             background: #333333;
-            //          height: 100%;
             width: 34%;
             table {
                 margin: 9px;
