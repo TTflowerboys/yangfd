@@ -44,7 +44,7 @@ def plot_get(plot_id):
     per_page=int,
     time=datetime,
     investment_type="enum:investment_type",
-    living_room_count=int,
+    bedroom_count=int,
     floor=str,
     space=str,
 ))
@@ -55,24 +55,38 @@ def plot_search(user, params):
         params["status"] = {"$in": params["status"]}
 
     if "space" in params:
-        space_field = "space"
-        space = [float(x.strip()) if x else "" for x in params.pop("space").split(",")]
-        space_imperial = [float(f_app.i18n.convert_i18n_unit({"value": x, "unit": "meter ** 2"}, "foot ** 2")) if x else "" for x in space]
         space_filter = []
-        if space[0] and space[1]:
-            space_filter.append({"%s.unit" % space_field: "meter ** 2", "%s.value_float" % space_field: {"$gte": space[0], "$lt": space[1]}})
-            space_filter.append({"%s.unit" % space_field: "foot ** 2", "%s.value_float" % space_field: {"$gte": space_imperial[0], "$lt": space_imperial[1]}})
-        elif space[0] and not space[1]:
-            space_filter.append({"%s.unit" % space_field: "meter ** 2", "%s.value_float" % space_field: {"$gte": space[0]}})
-            space_filter.append({"%s.unit" % space_field: "foot ** 2", "%s.value_float" % space_field: {"$gte": space_imperial[0]}})
-        elif not space[0] and space[1]:
-            space_filter.append({"%s.unit" % space_field: "meter ** 2", "%s.value_float" % space_field: {"$lt": space[1]}})
-            space_filter.append({"%s.unit" % space_field: "foot ** 2", "%s.value_float" % space_field: {"$lt": space_imperial[1]}})
+        space_params = [x.strip() for x in params.pop("space").split(",")]
+
+        if len(space_params) == 3:
+            assert space_params[2] in ("meter ** 2", "foot ** 2"), abort(40000, logger.warning("Invalid params: space unit not correct", exc_info=False))
+        elif len(space_params) == 2:
+            space_params.append("meter ** 2")
         else:
-            abort(40000, logger.warning("Invalid params: space cannot be empty"))
+            abort(40000)
+
+        space_params[0] = float(space_params[0]) if space_params[0] else None
+        space_params[1] = float(space_params[1]) if space_params[1] else None
+
+        space_field = "space"
+        for space_unit in ("meter ** 2", "foot ** 2"):
+            condition = {"%s.unit" % space_field: space_unit}
+            if space_unit == space_params[2]:
+                condition["%s.value_float" % space_field] = {}
+                if space_params[0]:
+                    condition["%s.value_float" % space_field]["$gte"] = space_params[0]
+                if space_params[1]:
+                    condition["%s.value_float" % space_field]["$lte"] = space_params[1]
+            else:
+                condition["%s.value_float" % space_field] = {}
+                if space_params[0]:
+                    condition["%s.value_float" % space_field]["$gte"] = float(f_app.i18n.convert_i18n_unit({"value": space_params[0], "unit": space_params[2]}, space_unit))
+                if space_params[1]:
+                    condition["%s.value_float" % space_field]["$lte"] = float(f_app.i18n.convert_i18n_unit({"value": space_params[1], "unit": space_params[2]}, space_unit))
+            space_filter.append(condition)
+
         params["$or"] = space_filter
 
-    logger.debug(params)
     return f_app.plot.output(f_app.plot.search(params, per_page=per_page))
 
 
