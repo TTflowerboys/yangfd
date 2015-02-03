@@ -27,7 +27,7 @@ def totimestamp(dt, epoch=datetime(1970, 1, 1)):
 def fetch_image(image, **kwargs):
     if 'thumbnail' in kwargs and kwargs['thumbnail'] is True:
         image += '_thumbnail'
-    if request.ssl:
-        image.replace("http://", "https://")
+    # if request.ssl:
+    #     image.replace("http://", "https://")
 
     return image
