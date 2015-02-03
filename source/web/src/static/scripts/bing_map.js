@@ -312,6 +312,8 @@
         $list.append(result)
     }
 
+
+    //Data source https://www.google.com/fusiontables/DataSource?docid=1jgWYtlqGSPzlIa-is8wl1cZkVIWEm_89rWUwqFU#card:id=2
     window.getRegion = function(zipCodeIndex, callback) {
         Microsoft.Maps.loadModule('Microsoft.Maps.AdvancedShapes', {
             callback:  function () {
@@ -321,10 +323,10 @@
                     .done(function (data) {
                         if (data) {
                             var json = JSON.parse(data)
+                            var results = []
+                            var polygon = null
                             if (json.rows && json.rows[0] && json.rows[0][0] &&json.rows[0][0].geometries && json.rows[0][0].geometries.length) {
-                                var polygonArray = json.rows[0][0].geometries
-                                var results = []
-                                _.each(polygonArray, function (item){
+                                _.each(json.rows[0][0].geometries, function (item){
                                     var coordinates = item.coordinates[0]
                                     var coorResults = []
 
@@ -336,11 +338,34 @@
                                     results.push(coorResults)
                                 })
 
-                                var fillColor = new Microsoft.Maps.Color(100, 68, 68, 68)
+
                                 //var strokeColor = new Microsoft.Maps.Color(255, 68, 68, 68);
-                                var polygon = new Microsoft.Maps.Polygon(results,{ fillColor: fillColor});
+                                polygon = new Microsoft.Maps.Polygon(results,{ fillColor: new Microsoft.Maps.Color(100, 68, 68, 68)});
                                 callback(polygon)
                             }
+                            else if (json.rows && json.rows[0] && json.rows[0][0] &&json.rows[0][0].geometry && json.rows[0][0].geometry  && json.rows[0][0].geometry.coordinates && json.rows[0][0].geometry.coordinates.length) {
+                                 _.each(json.rows[0][0].geometry.coordinates, function (item){
+                                    var coordinates = item
+                                    var coorResults = []
+
+                                    _.each(coordinates, function (coor) {
+                                        var lat = coor[1]
+                                        var lng = coor[0]
+                                        coorResults.push(new Microsoft.Maps.Location(lat, lng))
+                                    })
+                                    results.push(coorResults)
+                                 })
+
+                                //var strokeColor = new Microsoft.Maps.Color(255, 68, 68, 68);
+                                polygon = new Microsoft.Maps.Polygon(results,{ fillColor: new Microsoft.Maps.Color(100, 68, 68, 68)});
+                                callback(polygon)
+                            }
+                            else {
+                                callback(null)
+                            }
+                        }
+                        else {
+                            callback(null)
                         }
                     })
                     .fail(function (ret) {

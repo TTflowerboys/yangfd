@@ -38,12 +38,12 @@
             }
             if ($scope.selected.min_square || $scope.selected.max_square) {
                 if ($rootScope.userArea.value) {
-                    params.building_area = ($scope.selected.min_square ? $scope.selected.min_square : '') + ',' + ($scope.selected.max_square ? $scope.selected.max_square : '') + ',' + $rootScope.userArea.value
+                    params.space = ($scope.selected.min_square ? $scope.selected.min_square : '') + ',' + ($scope.selected.max_square ? $scope.selected.max_square : '') + ',' + $rootScope.userArea.value
                 } else {
-                    delete params.building_area
+                    delete params.space
                 }
             } else {
-                delete params.building_area
+                delete params.space
             }
             if ($scope.selected.min_money || $scope.selected.max_money) {
                 if ($rootScope.userCurrency.value) {
@@ -54,18 +54,18 @@
             } else {
                 delete params.price
             }
-            $rootScope.plotParams = _.pick(params, 'bedroom_count', 'floor', 'building_area', 'price');
+            $rootScope.plotParams = _.pick(params, 'bedroom_count', 'floor', 'space', 'price');
         }
 
         $scope.searchHousing = function () {
             updateParams()
-            api.getAll({
+            api.searchWithPlot({
                 params: params, errorMessage: true
             }).success(onGetList)
         }
 
         $scope.refreshList = function () {
-            api.getAll({params: params}).success(onGetList)
+            api.searchWithPlot({params: params}).success(onGetList)
         }
 
         $scope.onRemove = function (item) {
@@ -81,7 +81,7 @@
             if (lastItem.mtime) {
                 params.mtime = lastItem.mtime
             }
-            api.getAll({params: params})
+            api.searchWithPlot({params: params})
                 .success(function () {
                     $scope.currentPageNumber += 1
                 })
@@ -106,7 +106,7 @@
                 delete params.mtime
             }
 
-            api.getAll({params: params})
+            api.searchWithPlot({params: params})
                 .success(function () {
                     $scope.currentPageNumber -= 1
                 })

@@ -12,11 +12,11 @@
         var params = $rootScope.plotParams || {}
         $scope.selected.bedroom_count = params.bedroom_count
         $scope.selected.floor = params.floor
-        if (params.building_area) {
-            var index1 = params.building_area.indexOf(',')
-            var index2 = params.building_area.lastIndexOf(',')
-            $scope.selected.min_square = parseInt(params.building_area.substring(0, index1), 10)
-            $scope.selected.max_square = parseInt(params.building_area.substring(index1 + 1, index2), 10)
+        if (params.space) {
+            var index1 = params.space.indexOf(',')
+            var index2 = params.space.lastIndexOf(',')
+            $scope.selected.min_square = parseInt(params.space.substring(0, index1), 10)
+            $scope.selected.max_square = parseInt(params.space.substring(index1 + 1, index2), 10)
         }
         if (params.price) {
             var index3 = params.price.indexOf(',')
