@@ -73,11 +73,11 @@ def property_search(user, params):
                 condition["total_price.value_float"] = {}
                 house_condition["main_house_types.total_price.value_float"] = {}
                 if budget[0]:
-                    condition["total_price.value_float"]["$gte"] = budget[0]
-                    house_condition["main_house_types.total_price.value_float"]["$gte"] = budget[0]
+                    condition["total_price.value_float"]["$gte"] = float(budget[0])
+                    house_condition["main_house_types.total_price.value_float"]["$gte"] = float(budget[0])
                 if budget[1]:
-                    condition["total_price.value_float"]["$lte"] = budget[1]
-                    house_condition["main_house_types.total_price.value_float"]["$lte"] = budget[1]
+                    condition["total_price.value_float"]["$lte"] = float(budget[1])
+                    house_condition["main_house_types.total_price.value_float"]["$lte"] = float(budget[1])
             else:
                 condition["total_price.value_float"] = {}
                 house_condition["main_house_types.total_price.value_float"] = {}

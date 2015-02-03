@@ -97,9 +97,9 @@ def plot_search(user, params):
             if currency == price[2]:
                 condition["total_price.value_float"] = {}
                 if price[0]:
-                    condition["total_price.value_float"]["$gte"] = price[0]
+                    condition["total_price.value_float"]["$gte"] = float(price[0])
                 if price[1]:
-                    condition["total_price.value_float"]["$lte"] = price[1]
+                    condition["total_price.value_float"]["$lte"] = float(price[1])
             else:
                 condition["total_price.value_float"] = {}
                 if price[0]:
@@ -113,8 +113,6 @@ def plot_search(user, params):
             else:
                 or_filter = params.pop("$or")
                 params["$and"] = [{"$or": or_filter}, {"$or": price_filter}]
-
-    logger.debug(params)
 
     return f_app.plot.output(f_app.plot.search(params, per_page=per_page))
 
