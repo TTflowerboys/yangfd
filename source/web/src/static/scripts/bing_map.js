@@ -313,6 +313,7 @@
     }
 
 
+    //Data source https://www.google.com/fusiontables/DataSource?docid=1jgWYtlqGSPzlIa-is8wl1cZkVIWEm_89rWUwqFU#card:id=2
     window.getRegion = function(zipCodeIndex, callback) {
         Microsoft.Maps.loadModule('Microsoft.Maps.AdvancedShapes', {
             callback:  function () {
