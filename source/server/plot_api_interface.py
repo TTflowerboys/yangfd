@@ -46,6 +46,7 @@ def plot_get(plot_id):
     investment_type="enum:investment_type",
     bedroom_count=int,
     floor=str,
+    price=str,
     space=str,
 ))
 @f_app.user.login.check(role=['admin', 'jr_admin', 'sales', 'jr_sales'])
@@ -86,6 +87,34 @@ def plot_search(user, params):
             space_filter.append(condition)
 
         params["$or"] = space_filter
+
+    if "price" in params:
+        price = [x.strip() for x in params.pop("price").split(",")]
+        price_filter = []
+        assert len(price) == 3 and price[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
+        for currency in f_app.common.currency:
+            condition = {"total_price.unit": currency}
+            if currency == price[2]:
+                condition["total_price.value_float"] = {}
+                if price[0]:
+                    condition["total_price.value_float"]["$gte"] = price[0]
+                if price[1]:
+                    condition["total_price.value_float"]["$lte"] = price[1]
+            else:
+                condition["total_price.value_float"] = {}
+                if price[0]:
+                    condition["total_price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": price[2], "value": price[0]}, currency))
+                if price[1]:
+                    condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": price[2], "value": price[1]}, currency))
+            price_filter.append(condition)
+
+            if "$or" not in params:
+                params["$or"] = price_filter
+            else:
+                or_filter = params.pop("$or")
+                params["$and"] = [{"$or": or_filter}, {"$or": price_filter}]
+
+    logger.debug(params)
 
     return f_app.plot.output(f_app.plot.search(params, per_page=per_page))
 
