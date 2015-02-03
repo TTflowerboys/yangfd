@@ -94,6 +94,7 @@ def enum_edit(user, enum_id, params):
     per_page=int,
     time=datetime,
     currency=str,
+    type=str,
 ))
 def enum_search(params):
     per_page = params.pop("per_page", 0)

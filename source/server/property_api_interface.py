@@ -86,8 +86,6 @@ def property_search(user, params):
                     house_condition["main_house_types.total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
             params["$or"].append(condition)
             params["$or"].append(house_condition)
-            logger.debug(condition)
-            logger.debug(house_condition)
 
     if "name" in params:
         name = params.pop("name")
@@ -230,7 +228,6 @@ def property_search_with_plot(user, params):
                 if price[1]:
                     condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": price[2], "value": price[1]}, currency))
             price_filter.append(condition)
-            logger.debug(condition)
 
         plot_params["$or"] = price_filter
 
