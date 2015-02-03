@@ -108,11 +108,11 @@ def plot_search(user, params):
                     condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": price[2], "value": price[1]}, currency))
             price_filter.append(condition)
 
-            if "$or" not in params:
-                params["$or"] = price_filter
-            else:
-                or_filter = params.pop("$or")
-                params["$and"] = [{"$or": or_filter}, {"$or": price_filter}]
+        if "$or" not in params:
+            params["$or"] = price_filter
+        else:
+            or_filter = params.pop("$or")
+            params["$and"] = [{"$or": or_filter}, {"$or": price_filter}]
 
     return f_app.plot.output(f_app.plot.search(params, per_page=per_page))
 
