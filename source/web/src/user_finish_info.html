@@ -3,7 +3,23 @@
 <!--build:css(dist) /static/styles/user_finish_info.html.css-->
 <link href="/static/styles/userFinishInfo.css" rel="stylesheet"/>
 <!--endbuild-->
-b姓名')}}
+% step = 2
+<!--@@close-->
+<!--@@block=main -->
+
+<div class="tip">
+    <img alt="" src="/static/images/user/tip.png"/>
+    <p>{{_('为了您的投资安全和满足相关监管机构要求，在您确认投资前，我们需要验证您的身份，请务必填写准确。')}}</p>
+</div>
+
+<div class="userInfo" action="">
+    <div class="info">
+        <h3 class="title">
+            {{_('个人资料')}}
+        </h3>
+        <div class="row">
+            <label class="name" for="name">
+                {{_('姓名')}}
             </label>
             <input name="name" type="text" value=""/>
         </div>
