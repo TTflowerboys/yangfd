@@ -173,7 +173,7 @@ def property_search(user, params):
     investment_type="enum:investment_type",
     floor=str,
 ))
-@f_app.user.login.check(check_role=True)
+@f_app.user.login.check(check_role=True, role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer'])
 def property_search_with_plot(user, params):
     """
     Only ``admin``, ``jr_admin``, ``operation``, ``jr_operation``, ``developer`` and ``agency`` could use the ``target_property_id`` and ``status`` param.
