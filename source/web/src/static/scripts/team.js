@@ -186,17 +186,22 @@
          * @returns {string}
          */
         convertToHttps: function (options) {
-            var idString = ''
-            var thumbnail = ''
-            if (options.property_id) {
-                idString = 'property_id=' + options.property_id
-            } else if (options.news_id) {
-                idString = 'news_id=' + options.news_id
-            }
+            // var idString = ''
+            // var thumbnail = ''
+            // if (options.property_id) {
+            //     idString = 'property_id=' + options.property_id
+            // } else if (options.news_id) {
+            //     idString = 'news_id=' + options.news_id
+            // }
+            // if (options.thumbnail) {
+            //     thumbnail = '_thumbnail'
+            // }
+            // return ['/image/fetch?link=', encodeURIComponent(options.link), thumbnail, '&', idString].join('')
+            var link = options.link
             if (options.thumbnail) {
-                thumbnail = '_thumbnail'
+                link += '_thumbnail'
             }
-            return ['/image/fetch?link=', encodeURIComponent(options.link), thumbnail, '&', idString].join('')
+            return link
         },
         getCaretPostion: function (elem) {
             var caretPos = 0;

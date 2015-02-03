@@ -3,7 +3,23 @@
 <!--build:css(dist) /static/styles/user_finish_info.html.css-->
 <link href="/static/styles/userFinishInfo.css" rel="stylesheet"/>
 <!--endbuild-->
-b姓名')}}
+% step = 2
+<!--@@close-->
+<!--@@block=main -->
+
+<div class="tip">
+    <img alt="" src="/static/images/user/tip.png"/>
+    <p>{{_('为了您的投资安全和满足相关监管机构要求，在您确认投资前，我们需要验证您的身份，请务必填写准确。')}}</p>
+</div>
+
+<div class="userInfo" action="">
+    <div class="info">
+        <h3 class="title">
+            {{_('个人资料')}}
+        </h3>
+        <div class="row">
+            <label class="name" for="name">
+                {{_('姓名')}}
             </label>
             <input name="name" type="text" value=""/>
         </div>
@@ -30,9 +46,37 @@ b姓名')}}
                 {{_('地址')}}
             </label>
             <div class="address">
-                <select id="" name="country" class="ghostSelect"></select>
-                <select id="" name="state" class="ghostSelect"></select>
-                <select id="" name="city" class="ghostSelect" ></select>
+                %if country_list:
+                    <select name="country" class="country ghostSelect" style="color:#4d4d4d;">
+                        %for index, country  in enumerate(country_list):
+                            <option value="{{country.get('id')}}">
+                                {{country.get('value')}}
+                            </option>
+                        %end
+                    </select>
+                %end
+                %if state_list:
+                    <select name="state" class="state ghostSelect" style="color:#4d4d4d;">
+                        %for index, state  in enumerate(state_list):
+                            %if state.get('value'):
+                                <option value="{{state.get('id')}}">
+                                    {{state.get('value')}}
+                                </option>
+                            %end
+                        %end
+                    </select>
+                %end
+                %if city_list:
+                    <select name="city" class="city ghostSelect" style="color:#4d4d4d;">
+                        %for index, city  in enumerate(city_list):
+                            %if city.get('value'):
+                                <option value="{{city.get('id')}}">
+                                    {{city.get('value')}}
+                                </option>
+                            %end
+                        %end
+                    </select>
+                %end
                 <input name="address" type="text" value=""/>
             </div>
         </div>

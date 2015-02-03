@@ -22,6 +22,19 @@ def current_user(user):
     return result
 
 
+@f_api('/user/authenticate')
+@f_app.user.login.check(force=True)
+def user_authenticate(user):
+    """
+    Authenticate current user's nickname and idcard
+    """
+    f_app.user.update_set(user["id"], {"is_authenticated": True})
+    custom_fields = copy(f_app.common.user_custom_fields)
+    custom_fields.append("idcard")
+    result = f_app.user.output([user["id"]], custom_fields=custom_fields)[0]
+    return result
+
+
 @f_api('/user/favorite', params=dict(
     per_page=int,
     time=datetime,

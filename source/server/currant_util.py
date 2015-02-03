@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from six.moves.urllib.parse import quote_plus
-from datetime import datetime, timedelta
+from datetime import datetime
+from libfelix.f_interface import request
 
 
 def format_unit(unit):
@@ -25,11 +25,9 @@ def totimestamp(dt, epoch=datetime(1970, 1, 1)):
 
 
 def fetch_image(image, **kwargs):
-    link = quote_plus(image.encode('utf-8'))
-    paramStr = "?link=" + link
     if 'thumbnail' in kwargs and kwargs['thumbnail'] is True:
-        paramStr += '_thumbnail'
-    for (k, v) in kwargs.items():
-        if k.endswith('_id'):
-            paramStr += "&" + k + "=" + v
-    return "/image/fetch" + paramStr
+        image += '_thumbnail'
+    # if request.ssl:
+    #     image.replace("http://", "https://")
+
+    return image
