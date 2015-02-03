@@ -17,6 +17,7 @@
             var index2 = params.building_area.lastIndexOf(',')
             $scope.selected.min_square = parseInt(params.building_area.substring(0, index1), 10)
             $scope.selected.max_square = parseInt(params.building_area.substring(index1 + 1, index2), 10)
+            params.space = params.building_area
         }
         if (params.price) {
             var index3 = params.price.indexOf(',')
