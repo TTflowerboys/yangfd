@@ -1,40 +1,58 @@
 <div ui-view>
 
     <div class="buttons">
-        <div>
-            <div class="btn-group form-inline">
-                <div select-enum name="country" ng-model="selected.country" text="{%i18n('国家')%}"></div>
-            </div>
-            <div class="btn-group form-inline">
-                <div select-city-by-country country="selected.country" ng-model="selected.city" text="{%i18n('城市')%}"></div>
-            </div>
-            <div class="btn-group form-inline">
-                <div select-enum name="property_type" ng-model="selected.property_type" text="{%i18n('房产类型')%}"></div>
-            </div>
-            <div class="btn-group form-inline">
-                <div select-enum name="intention" ng-model="selected.intention" text="{%i18n('投资标签')%}"></div>
-            </div>
-            <div class="btn-group form-inline">
-                <div select-enum name="investment_type" ng-model="selected.investment_type" text="{%i18n('投资类型')%}"></div>
-            </div>
-            <div class="btn-group form-inline">
-                <input type="number" class="form-control" ng-model="selected.bedroom_count" placeholder="{%$root.i18n('居室数')%}"/>
-            </div>
-            <div class="btn-group form-inline">
-                <input type="text" class="form-control" ng-model="selected.floor" placeholder="{%$root.i18n('楼层')%}"/>
-            </div>
-        </div>
         <div class="btn-group form-inline">
-            <input type="number" class="form-control" ng-model="selected.min_square" placeholder="{%$root.i18n('最小面积')%}"/>
-        </div>
-        <div class="btn-group form-inline">
-            <input type="number" class="form-control" ng-model="selected.max_square" placeholder="{%$root.i18n('最大面积')%}"/>
-        </div>
-        <div class="btn-group form-inline">
-            <input type="number" class="form-control" ng-model="selected.min_money" placeholder="{%$root.i18n('最小金额')%}"/>
-        </div>
-        <div class="btn-group form-inline">
-            <input type="number" class="form-control" ng-model="selected.max_money" placeholder="{%$root.i18n('最大金额')%}"/>
+            <div>
+                <div class="btn-group form-inline">
+                    <div select-enum name="country" ng-model="selected.country" text="{%i18n('国家')%}"></div>
+                </div>
+                <div class="btn-group form-inline">
+                    <div select-city-by-country country="selected.country" ng-model="selected.city" text="{%i18n('城市')%}"></div>
+                </div>
+                <div class="btn-group form-inline">
+                    <div select-enum name="property_type" ng-model="selected.property_type" text="{%i18n('房产类型')%}"></div>
+                </div>
+                <div class="btn-group form-inline">
+                    <div select-enum name="intention" ng-model="selected.intention" text="{%i18n('投资标签')%}"></div>
+                </div>
+                <div class="btn-group form-inline">
+                    <div select-enum name="investment_type" ng-model="selected.investment_type" text="{%i18n('投资类型')%}"></div>
+                </div>
+            </div>
+            <div>
+                <div class="btn-group form-inline">
+                    <input type="number" class="form-control" ng-model="selected.bedroom_count" placeholder="{%$root.i18n('居室数')%}"/>
+                </div>
+                <div class="btn-group form-inline">
+                    <input type="text" class="form-control" ng-model="selected.floor" placeholder="{%$root.i18n('楼层')%}"/>
+                </div>
+            </div>
+            <div>
+                <div class="btn-group form-inline">
+                    <input type="number" class="form-control" ng-model="selected.min_square" placeholder="{%$root.i18n('最小面积')%}"/>
+                </div>
+                <div class="btn-group form-inline">
+                    <input type="number" class="form-control" ng-model="selected.max_square" placeholder="{%$root.i18n('最大面积')%}"/>
+                </div>
+                <div class="btn-group form-inline">
+                    <select class="form-control" ng-options="item for item in i18nArea" ng-model="userArea.value">
+                        <option value="">-- {%$root.i18n('面积单位')%} --</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div class="btn-group form-inline">
+                    <input type="number" class="form-control" ng-model="selected.min_money" placeholder="{%$root.i18n('最小金额')%}"/>
+                </div>
+                <div class="btn-group form-inline">
+                    <input type="number" class="form-control" ng-model="selected.max_money" placeholder="{%$root.i18n('最大金额')%}"/>
+                </div>
+                <div class="btn-group form-inline">
+                    <select class="form-control" ng-options="item for item in i18nCurrency" ng-model="userCurrency.value">
+                        <option value="">-- {%$root.i18n('货币单位')%} --</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="btn-group form-inline">
             <button class="btn btn-primary" ng-click="searchHousing()">{%$root.i18n('搜索')%}</button>
@@ -44,16 +62,6 @@
             <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
         </span>
         <div>
-            <div class="btn-group form-inline pull-right">
-                <select class="form-control" ng-options="item for item in i18nArea" ng-model="userArea.value">
-                    <option value="">-- {%$root.i18n('面积单位')%} --</option>
-                </select>
-            </div>
-            <div class="btn-group form-inline pull-right">
-                <select class="form-control" ng-options="item for item in i18nCurrency" ng-model="userCurrency.value">
-                    <option value="">-- {%$root.i18n('货币单位')%} --</option>
-                </select>
-            </div>
             <div class="btn-group form-inline pull-right">
                 <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
             </div>

@@ -5,6 +5,7 @@
 
     function ctrlHousingPlot($scope, $stateParams, api, $rootScope) {
         $scope.item = {}
+        $scope.list = []
         $scope.api = api
         $scope.fetched = false
         $scope.selected = {}
