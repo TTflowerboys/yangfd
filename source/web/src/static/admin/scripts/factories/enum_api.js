@@ -141,7 +141,7 @@
             },
             searchCityByCountryId: function (id, config) {
                 return $http.get('/api/1/enum/search', angular.extend({
-                    params: {_i18n: 'disabled', country: id},
+                    params: {_i18n: 'disabled', country: id, type: 'city'},
                     errorMessage: true
                 }, config))
             },
