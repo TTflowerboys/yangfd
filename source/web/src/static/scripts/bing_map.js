@@ -319,12 +319,12 @@
             callback:  function () {
                 var originalURL = 'https://www.googleapis.com/fusiontables/v2/query?sql=SELECT \'Area data\', \'Postcode district\' FROM 1jgWYtlqGSPzlIa-is8wl1cZkVIWEm_89rWUwqFU WHERE \'Postcode district\' = \'' + zipCodeIndex +'\'&key=' + googleApiKey;
                 var url = '/reverse_proxy?link=' + encodeURIComponent(originalURL)
+                var polygon = null
                 $.get(url)
                     .done(function (data) {
                         if (data) {
                             var json = JSON.parse(data)
                             var results = []
-                            var polygon = null
                             if (json.rows && json.rows[0] && json.rows[0][0] &&json.rows[0][0].geometries && json.rows[0][0].geometries.length) {
                                 _.each(json.rows[0][0].geometries, function (item){
                                     var coordinates = item.coordinates[0]
@@ -358,18 +358,13 @@
 
                                 //var strokeColor = new Microsoft.Maps.Color(255, 68, 68, 68);
                                 polygon = new Microsoft.Maps.Polygon(results,{ fillColor: new Microsoft.Maps.Color(100, 68, 68, 68)});
-                                callback(polygon)
                             }
-                            else {
-                                callback(null)
-                            }
-                        }
-                        else {
-                            callback(null)
                         }
                     })
                     .fail(function (ret) {
-                        callback(null)
+                    })
+                    .always(function (data) {
+                        callback(polygon)
                     })
             }
         });
