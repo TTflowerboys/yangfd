@@ -32,9 +32,6 @@ logger = logging.getLogger(__name__)
     slug=str,
     bedroom_count=int,
     building_area=str,
-    price=str,
-    investment_type="enum:investment_type",
-    floor=str,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
@@ -89,6 +86,8 @@ def property_search(user, params):
                     house_condition["main_house_types.total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
             params["$or"].append(condition)
             params["$or"].append(house_condition)
+            logger.debug(condition)
+            logger.debug(house_condition)
 
     if "name" in params:
         name = params.pop("name")
@@ -102,20 +101,13 @@ def property_search(user, params):
             or_filter = params.pop("$or")
             params["$and"] = [{"$or": or_filter}, {"$or": name_filter}]
 
-    plot_params = {}
     if "bedroom_count" in params:
-        if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
-            plot_params["bedroom_count"] = params.pop("bedroom_count")
-        else:
-            params["main_house_types.bedroom_count"] = params.pop("bedroom_count")
+        params["main_house_types.bedroom_count"] = params.pop("bedroom_count")
 
     if "building_area" in params:
         building_area_filter = []
         building_area_params = [x.strip() for x in params.pop("building_area").split(",")]
-        if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
-            building_area_field = "space"
-        else:
-            building_area_field = "main_house_types.building_area"
+        building_area_field = "main_house_types.building_area"
         if len(building_area_params) == 3:
             assert building_area_params[2] in ("meter ** 2", "foot ** 2"), abort(40000, logger.warning("Invalid params: building_area unit not correct", exc_info=False))
         elif len(building_area_params) == 2:
@@ -142,23 +134,149 @@ def property_search(user, params):
                     condition["%s.value_float" % building_area_field]["$lte"] = float(f_app.i18n.convert_i18n_unit({"value": building_area_params[1], "unit": building_area_params[2]}, building_area_unit))
             building_area_filter.append(condition)
 
-        if user and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
-            plot_params["$or"] = building_area_filter
+        if "$or" not in params and "$and" not in params:
+            params["$or"] = building_area_filter
+        elif "$or" in params and "$and" not in params:
+            or_filter = params.pop("$or")
+            params["$and"] = [{"$or": building_area_filter}, {"$or": or_filter}]
+        elif "$or" not in params and "$and" in params:
+            params["$and"].append({"$or": building_area_filter})
         else:
-            if "$or" not in params and "$and" not in params:
-                params["$or"] = building_area_filter
-            elif "$or" in params and "$and" not in params:
-                or_filter = params.pop("$or")
-                params["$and"] = [{"$or": building_area_filter}, {"$or": or_filter}]
-            elif "$or" not in params and "$and" in params:
-                params["$and"].append({"$or": building_area_filter})
+            abort(50000, logger.warning("Oops! Something wrong with params parser!", exc_info=False))
+
+    params["status"] = {"$in": params["status"]}
+    per_page = params.pop("per_page", 0)
+
+    # Default to mtime,desc
+    property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort, time_field="mtime")
+
+    if random and property_list["content"]:
+        import random
+        random.shuffle(property_list["content"])
+    property_list['content'] = f_app.property.output(property_list['content'])
+    return property_list
+
+
+@f_api('/property/search_with_plot', params=dict(
+    per_page=int,
+    mtime=datetime,
+    sort=(list, None, str),
+
+    status=(list, ["selling", "sold out"], str),
+    property_type=(list, None, "enum:property_type"),
+    intention=(list, None, "enum:intention"),
+    country='enum:country',
+    city='enum:city',
+    street=('i18n', None, str),
+    zipcode_index=str,
+    bedroom_count=int,
+    space=str,
+    price=str,
+    investment_type="enum:investment_type",
+    floor=str,
+))
+@f_app.user.login.check(check_role=True)
+def property_search_with_plot(user, params):
+    """
+    Only ``admin``, ``jr_admin``, ``operation``, ``jr_operation``, ``developer`` and ``agency`` could use the ``target_property_id`` and ``status`` param.
+
+    Syntax examples for ``sort``:
+
+    * name.en_GB,asc
+    * mtime,desc
+
+    ``time`` should be a unix timestamp in utc.
+    ``building_area`` format: ``,40,m ** 2``, ``40,100,foot ** 2``, ``100,,m ** 2``
+    """
+    random = params.pop("random", False)
+    sort = params.pop("sort", ["mtime", "desc"])
+    if params["status"] != ["selling", "sold out"] or "target_property_id" in params:
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_property_id")
+    if "property_type" in params:
+        params["property_type"] = {"$in": params["property_type"]}
+
+    if "intention" in params:
+        params["intention"] = {"$in": params.pop("intention", [])}
+
+    if "name" in params:
+        name = params.pop("name")
+        name_filter = []
+        for locale in f_app.common.i18n_locales:
+            name_filter.append({"name.%s" % locale: name})
+
+        if "$or" not in params:
+            params["$or"] = name_filter
+        else:
+            or_filter = params.pop("$or")
+            params["$and"] = [{"$or": or_filter}, {"$or": name_filter}]
+
+    plot_params = {}
+    if "price" in params:
+        price = [x.strip() for x in params.pop("price").split(",")]
+        assert len(price) == 3 and price[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
+        price_filter = []
+        for currency in f_app.common.currency:
+            condition = {"total_price.unit": currency}
+            if currency == price[2]:
+                condition["total_price.value_float"] = {}
+                if price[0]:
+                    condition["total_price.value_float"]["$gte"] = float(price[0])
+                if price[1]:
+                    condition["total_price.value_float"]["$lte"] = float(price[1])
             else:
-                abort(50000, logger.warning("Oops! Something wrong with params parser!", exc_info=False))
+                condition["total_price.value_float"] = {}
+                if price[0]:
+                    condition["total_price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": price[2], "value": price[0]}, currency))
+                if price[1]:
+                    condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": price[2], "value": price[1]}, currency))
+            price_filter.append(condition)
+            logger.debug(condition)
+
+        plot_params["$or"] = price_filter
+
+    if "space" in params:
+        space_filter = []
+        space_params = [x.strip() for x in params.pop("space").split(",")]
+        space_field = "space"
+        if len(space_params) == 3:
+            assert space_params[2] in ("meter ** 2", "foot ** 2"), abort(40000, logger.warning("Invalid params: space unit not correct", exc_info=False))
+        elif len(space_params) == 2:
+            space_params.append("meter ** 2")
+        else:
+            abort(40000)
+
+        space_params[0] = float(space_params[0]) if space_params[0] else None
+        space_params[1] = float(space_params[1]) if space_params[1] else None
+
+        for space_unit in ("meter ** 2", "foot ** 2"):
+            condition = {"%s.unit" % space_field: space_unit}
+            if space_unit == space_params[2]:
+                condition["%s.value_float" % space_field] = {}
+                if space_params[0]:
+                    condition["%s.value_float" % space_field]["$gte"] = space_params[0]
+                if space_params[1]:
+                    condition["%s.value_float" % space_field]["$lte"] = space_params[1]
+            else:
+                condition["%s.value_float" % space_field] = {}
+                if space_params[0]:
+                    condition["%s.value_float" % space_field]["$gte"] = float(f_app.i18n.convert_i18n_unit({"value": space_params[0], "unit": space_params[2]}, space_unit))
+                if space_params[1]:
+                    condition["%s.value_float" % space_field]["$lte"] = float(f_app.i18n.convert_i18n_unit({"value": space_params[1], "unit": space_params[2]}, space_unit))
+            space_filter.append(condition)
+
+        if "$or" in plot_params:
+            or_filter = plot_params.pop("$or")
+            plot_params["$and"] = [{"$or": space_filter}, {"$or": or_filter}]
+        else:
+            plot_params["$or"] = space_filter
+
+    if "bedroom_count" in params:
+        plot_params["bedroom_count"] = params.pop("bedroom_count")
 
     if "floor" in params:
         plot_params["floor"] = params.pop("floor")
 
-    if "investment_type" in params and set(user["role"]) & set(("admin", "jr_admin", "operation", "jr_operation", "developer", "agency")):
+    if "investment_type" in params:
         plot_params["investment_type"] = params.pop("investment_type")
 
     params["status"] = {"$in": params["status"]}
