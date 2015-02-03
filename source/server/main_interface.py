@@ -334,7 +334,9 @@ def crowdfunding_list(params):
 @check_crowdfunding_ready
 def user_finish_info():
     title = _('补充个人信息')
-    return common_template("user_finish_info", title=title)
+    state_list = f_app.i18n.process_i18n(f_app.enum.get_all('state'))
+    city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
+    return common_template("user_finish_info", title=title, state_list=state_list, city_list=city_list)
 
 
 @f_get('/user_finish_auth')

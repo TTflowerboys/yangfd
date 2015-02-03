@@ -46,9 +46,37 @@
                 {{_('地址')}}
             </label>
             <div class="address">
-                <select id="" name="country" class="ghostSelect"></select>
-                <select id="" name="state" class="ghostSelect"></select>
-                <select id="" name="city" class="ghostSelect" ></select>
+                %if country_list:
+                    <select name="country" class="country ghostSelect" style="color:#4d4d4d;">
+                        %for index, country  in enumerate(country_list):
+                            <option value="{{country.get('id')}}">
+                                {{country.get('value')}}
+                            </option>
+                        %end
+                    </select>
+                %end
+                %if state_list:
+                    <select name="state" class="state ghostSelect" style="color:#4d4d4d;">
+                        %for index, state  in enumerate(state_list):
+                            %if state.get('value'):
+                                <option value="{{state.get('id')}}">
+                                    {{state.get('value')}}
+                                </option>
+                            %end
+                        %end
+                    </select>
+                %end
+                %if city_list:
+                    <select name="city" class="city ghostSelect" style="color:#4d4d4d;">
+                        %for index, city  in enumerate(city_list):
+                            %if city.get('value'):
+                                <option value="{{city.get('id')}}">
+                                    {{city.get('value')}}
+                                </option>
+                            %end
+                        %end
+                    </select>
+                %end
                 <input name="address" type="text" value=""/>
             </div>
         </div>
