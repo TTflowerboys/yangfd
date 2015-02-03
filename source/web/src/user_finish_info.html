@@ -35,9 +35,7 @@
                 {{_('生日')}}
             </label>
             <div class="birthday">
-                <select id="" name="year" class="ghostSelect"></select>
-                <select id="" name="month" class="ghostSelect"></select>
-                <select id="" name="day" class="ghostSelect"></select>
+                <input type="text" id="date" data-format="YYYY-MM-DD" data-template="YYYY M D" name="date" value="2015-01-01" style="display:none;">
             </div>
         </div>
 
@@ -123,6 +121,8 @@
 
 <!--@@block=scripts -->
 <!--build:js /static/scripts/user_finish_info.html.js-->
-
+<script src="/static/vendors/moment.js"></script>
+<script src="/static/vendors/combodate.js"></script>
+<script src="/static/scripts/user_finish_info.js"></script>
 <!--endbuild-->
 <!--@@close-->
