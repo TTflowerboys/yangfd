@@ -23,6 +23,9 @@
             },
             editSalesComment: function (id, data, config) {
                 return $http.post('/api/1/property/' + id + '/edit/sales_comment', data, config)
+            },
+            searchWithPlot: function (config) {
+                return $http.get('/api/1/property/search_with_plot?_i18n=disabled', config)
             }
         }
 

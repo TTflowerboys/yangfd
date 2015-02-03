@@ -59,13 +59,13 @@
 
         $scope.searchHousing = function () {
             updateParams()
-            api.getAll({
+            api.searchWithPlot({
                 params: params, errorMessage: true
             }).success(onGetList)
         }
 
         $scope.refreshList = function () {
-            api.getAll({params: params}).success(onGetList)
+            api.searchWithPlot({params: params}).success(onGetList)
         }
 
         $scope.onRemove = function (item) {
@@ -81,7 +81,7 @@
             if (lastItem.mtime) {
                 params.mtime = lastItem.mtime
             }
-            api.getAll({params: params})
+            api.searchWithPlot({params: params})
                 .success(function () {
                     $scope.currentPageNumber += 1
                 })
@@ -106,7 +106,7 @@
                 delete params.mtime
             }
 
-            api.getAll({params: params})
+            api.searchWithPlot({params: params})
                 .success(function () {
                     $scope.currentPageNumber -= 1
                 })
