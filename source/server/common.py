@@ -75,6 +75,7 @@ class common(f_common):
         "s3.yangfd.cn": "bbt-currant.s3.amazonaws.com",
         "7vih1w.com2.z0.glb.qiniucdn.com": "bbt-currant.s3.amazonaws.com",
     }
+    params_replaces_default = True
 
     email_default_method = "aws_ses"
     email_default_sender = "noreply@youngfunding.co.uk"
