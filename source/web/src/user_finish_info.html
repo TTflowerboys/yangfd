@@ -21,13 +21,33 @@
             <label class="name" for="name">
                 {{_('姓名')}}
             </label>
-            <input name="name" type="text" value=""/>
+            <input name="name" type="text"
+                   %if user.get('nickname'):
+                   value="{{user.get('nickname')}}"
+                   %end
+                   />
         </div>
         <div class="row">
             <label class="name" for="gender">
                 {{_('性别')}}
             </label>
-            <select id="" name="gender" class="ghostSelect"></select>
+            <select id="" name="gender" class="ghostSelect">
+                <option value="male"
+                        %if user.get('gender') == 'male':
+                        selected="selected"
+                        %end
+                        >
+                       {{_('男')}}
+                 </option>
+                 <option value="female"
+                         %if user.get('gender') == 'female':
+                         selected="selected"
+                         %end
+                         >
+                       {{_('女')}}
+                 </option>
+
+            </select>
         </div>
 
         <div class="row">
