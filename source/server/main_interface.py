@@ -184,7 +184,11 @@ def property_list(params):
     property_city_list = []
     for index, city in enumerate(city_list):
         if city.get('country').get('id') in property_country_id_list:
-            property_city_list.append(city)
+            if "country" in params and len(params['country']):
+                if str(params['country']) == city.get('country').get('id'):
+                    property_city_list.append(city)
+            else:
+                property_city_list.append(city)
 
     title = ''
 
