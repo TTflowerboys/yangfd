@@ -24,7 +24,13 @@ Please note that we only accept files in the following forms - .jpg, .tif and .p
     </p>
 
     <div class="uploadArea">
-        {{_('将图片拖拽至此，或点击此区域')}}
+        <label>
+            {{_('将图片拖拽至此，或点击此区域')}}
+        </label>
+        <input name="image" type="file"/>
+    </div>
+    <div id="loading" style="display: none;">
+        {{_('上传中...')}}
     </div>
 
     <button class="button red submit">
@@ -37,6 +43,6 @@ Please note that we only accept files in the following forms - .jpg, .tif and .p
 
 <!--@@block=scripts -->
 <!--build:js /static/scripts/user_finish_auth.html.js-->
-
+<script src="/static/scripts/user_finish_auth.js"></script>
 <!--endbuild-->
 <!--@@close-->
