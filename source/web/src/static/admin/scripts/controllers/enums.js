@@ -59,6 +59,10 @@
             $scope.item.tempValue = undefined
         }
         $scope.addI18nEnum = function ($event, form) {
+            if ($scope.item.value === undefined &&
+                $scope.item.tempValues === undefined) {
+                return
+            }
 
             $scope.item.value = _.object($scope.item.tempValues)
             api.addEnum($scope.item.type, $scope.item.value, $scope.item.slug)
@@ -76,7 +80,11 @@
                 })
         }
         $scope.addCountry = function ($event, form) {
-
+            if ($scope.item.slug === undefined &&
+                $scope.item.value === undefined &&
+                $scope.item.tempValues === undefined) {
+                return
+            }
             $scope.item.value = _.object($scope.item.tempValues)
             api.addCountry($scope.item.slug, $scope.item.value)
                 .success(function () {
@@ -94,7 +102,10 @@
                 })
         }
         $scope.addState = function ($event, form) {
-
+            if ($scope.item.value === undefined &&
+                $scope.item.tempValues === undefined) {
+                return
+            }
             $scope.item.value = _.object($scope.item.tempValues)
             api.addState($scope.item.country, $scope.item.value)
                 .success(function () {
@@ -111,7 +122,10 @@
                 })
         }
         $scope.addCity = function ($event, form) {
-
+            if ($scope.item.value === undefined &&
+                $scope.item.tempValues === undefined) {
+                return
+            }
             $scope.item.value = _.object($scope.item.tempValues)
             api.addCity($scope.item.country, $scope.item.value)
                 .success(function () {
@@ -149,7 +163,12 @@
                 })
         }
         $scope.addBudget = function ($event, form) {
-
+            if ($scope.item.limit === undefined &&
+                $scope.item.ceiling === undefined &&
+                $scope.item.value === undefined &&
+                $scope.item.tempValues === undefined) {
+                return
+            }
             $scope.item.value = _.object($scope.item.tempValues)
             api.addBudget($scope.item.limit, $scope.item.ceiling, $scope.item.currency, $scope.item.value)
                 .success(function () {
@@ -174,6 +193,13 @@
             })
         }
         $scope.addIntention = function ($event, form) {
+            if ($scope.item.image === undefined &&
+                $scope.item.value === undefined &&
+                $scope.item.description === undefined &&
+                $scope.item.tempValues === undefined &&
+                $scope.item.slug === undefined) {
+                return
+            }
             var valueArray = []
             var descriptionArray = []
             for (var i = 0; i < $scope.item.tempValues.length; i += 1) {
