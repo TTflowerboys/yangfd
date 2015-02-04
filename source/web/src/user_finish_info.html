@@ -21,13 +21,33 @@
             <label class="name" for="name">
                 {{_('姓名')}}
             </label>
-            <input name="name" type="text" value=""/>
+            <input name="name" type="text"
+                   %if user.get('nickname'):
+                   value="{{user.get('nickname')}}"
+                   %end
+                   />
         </div>
         <div class="row">
             <label class="name" for="gender">
                 {{_('性别')}}
             </label>
-            <select id="" name="gender" class="ghostSelect"></select>
+            <select id="" name="gender" class="ghostSelect">
+                <option value="male"
+                        %if user.get('gender') == 'male':
+                        selected="selected"
+                        %end
+                        >
+                       {{_('男')}}
+                 </option>
+                 <option value="female"
+                         %if user.get('gender') == 'female':
+                         selected="selected"
+                         %end
+                         >
+                       {{_('女')}}
+                 </option>
+
+            </select>
         </div>
 
         <div class="row">
@@ -35,9 +55,7 @@
                 {{_('生日')}}
             </label>
             <div class="birthday">
-                <select id="" name="year" class="ghostSelect"></select>
-                <select id="" name="month" class="ghostSelect"></select>
-                <select id="" name="day" class="ghostSelect"></select>
+                <input type="text" id="date" data-format="YYYY-MM-DD" data-template="YYYY M D" name="date" value="2015-01-01" style="display:none;">
             </div>
         </div>
 
@@ -123,6 +141,8 @@
 
 <!--@@block=scripts -->
 <!--build:js /static/scripts/user_finish_info.html.js-->
-
+<script src="/static/vendors/moment.js"></script>
+<script src="/static/vendors/combodate.js"></script>
+<script src="/static/scripts/user_finish_info.js"></script>
 <!--endbuild-->
 <!--@@close-->
