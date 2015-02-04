@@ -224,3 +224,9 @@ def report_police_uk(params):
 ))
 def report_police_uk_categories(params):
     return f_app.policeuk.api_categories(params)
+
+
+@f_api('/lupdate')
+@f_app.user.login.check(role=["admin", "jr_admin"])
+def lupdate(user):
+    f_app.landregistry.check_update()
