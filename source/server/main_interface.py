@@ -562,7 +562,7 @@ def user_favorites(user):
 @f_app.user.login.check(force=True)
 def user_favorites(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    title = _('我的收藏')
+    title = _('海外众筹')
     favorite_list = currant_data_helper.get_favorite_list('item')
     favorite_list = f_app.i18n.process_i18n(favorite_list)
     return common_template("user_crowdfunding", user=user, favorite_list=favorite_list, title=title)
