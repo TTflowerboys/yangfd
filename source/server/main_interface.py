@@ -560,7 +560,7 @@ def user_favorites(user):
 @f_get('/user_crowdfunding')
 @check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
-def user_favorites(user):
+def user_crowdfunding(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     title = _('海外众筹')
     favorite_list = currant_data_helper.get_favorite_list('item')
