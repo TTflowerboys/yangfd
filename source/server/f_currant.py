@@ -1730,8 +1730,8 @@ class f_landregistry(f_app.module_base):
                         self.logger.debug("landregistry data is already up-to-date.")
                     else:
                         # Has new version
-                        m.misc.update({"_id": result["_id"]}, {"$set": {"landregistry_last_modified": date}})
-                        csv_request = f_app.requests.get(csv_url, retry=5)
+                        logger.debug("start downloading csv...")
+                        csv_request = f_app.request.get(csv_url, retry=5)
                         if csv_request.status_code == 200:
                             csv_file = StringIO(csv_request.content)
                             rows = csv.reader(csv_file.readlines())
@@ -1762,9 +1762,11 @@ class f_landregistry(f_app.module_base):
                                         self.get_database(m).remove({"tid": r[0]})
                                     else:
                                         params.pop("status")
+                                        logger.debug(params)
                                         self.get_database(m).update({"tid": r[0]}, params)
                                 else:
                                     self.get_database(m).insert(params)
+                            m.misc.update({"_id": result["_id"]}, {"$set": {"landregistry_last_modified": date}})
                         else:
                             abort(40000, self.logger.warning("Failed to get latest csv file on landregistry", exc_info=False))
                 else:
