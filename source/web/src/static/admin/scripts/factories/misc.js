@@ -156,6 +156,20 @@ angular.module('app')
 
             cleanI18nEmptyUnit: function (i18nData) {
                 for (var i in i18nData) {
+                    if (_.isArray(i18nData[i])) {
+                        var arr = i18nData[i]
+                        for (var j = arr.length - 1; j >= 0; j--) {
+                            if (_.isNumber(arr[j]) || arr[j] === true) {
+                                continue
+                            }
+                            if (_.isEmpty(arr[j])) {
+                                arr.splice(j, 1)
+                            }
+                        }
+                        if (_.isEmpty(arr)) {
+                            delete  i18nData[i]
+                        }
+                    }
                     if (_.isNumber(i18nData[i]) || i18nData[i] === true) {
                         continue
                     }
