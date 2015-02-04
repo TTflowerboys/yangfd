@@ -2,6 +2,39 @@
     $('#date').combodate();
 
 
+    $('button[name=code]').click(function (e) {
+        var errorArea = $('form[name=info]').find('.error')
+        errorArea.text(window.i18n('发送中...'))
+        errorArea.show()
+        var phone = $('form[name=info]').find('.phone input[name=phone]').val()
+        var country = $('form[name=info]').find('.phone select[name=country]').val()
+
+        if (!country) {
+            errorArea.text(window.i18n('国家不能为空'))
+            errorArea.show()
+            return
+        }
+
+        if (!phone) {
+            errorArea.text(window.i18n('电话不能为空'))
+            errorArea.show()
+            return
+        }
+
+        var theParams = {'country':country, 'phone': phone}
+        $.betterPost('/api/1/user/sms_verification/send', theParams)
+            .done(function (val) {
+                errorArea.text(window.i18n('发送成功'))
+            })
+            .fail(function (ret) {
+                errorArea.text(window.i18n('发送失败，请重试'))
+            })
+            .always(function () {
+            })
+
+    })
+
+
     $('form[name=info]').submit(function (e) {
 
         e.preventDefault()
@@ -17,7 +50,6 @@
 
         if (!valid) {return}
         var params = $(this).serializeObject()
-        delete params.verificationCode
 
         if (!params.nickname) {
             errorArea.text(window.i18n('姓名不能为空'))
@@ -61,18 +93,35 @@
             return
         }
 
-
-        $.betterPost('/api/1/user/edit', params)
+        if (!params.code) {
+            errorArea.text(window.i18n('验证码不能为空'))
+            errorArea.show()
+            return
+        }
+        $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', {'code':params.code})
             .done(function (data) {
-                window.user = data
-                successArea.text(window.i18n('更新成功'))
-                successArea.show()
+                errorArea.text(window.i18n('验证成功'))
+                errorArea.show()
+                delete params.code
+                $.betterPost('/api/1/user/edit', params)
+                    .done(function (data) {
+                        window.user = data
+                        successArea.text(window.i18n('更新成功'))
+                        successArea.show()
+                    })
+                    .fail(function (data) {
+                        errorArea.text(window.i18n('更新失败'))
+                        errorArea.show()
+                    })
+
             })
-            .fail(function (data) {
-                errorArea.text(window.i18n('更新失败'))
+            .fail(function (ret) {
+                errorArea.text(window.i18n('验证失败'))
                 errorArea.show()
             })
+            .always(function () {
 
+            })
     })
 
 })()
