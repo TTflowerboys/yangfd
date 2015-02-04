@@ -118,7 +118,7 @@
                     % end
 
                     % # Make sure property have videos and every video have at least one source
-                    % if property.get('videos') and all(map(lambda x: len(x["sources"]) > 0, property.get('videos'))):
+                    % if property.get('videos') and all(map(lambda x: "sources" in x and len(x["sources"]) > 0, property.get('videos'))):
                         <div class="item videocontent" data-tab-name="video">
                             <video id="property_video" class="video-js vjs-default-skin vjs-big-play-centered"
                                    controls preload="auto" width="auto" height="auto"
