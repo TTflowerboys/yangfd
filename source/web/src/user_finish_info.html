@@ -3,7 +3,7 @@
 <!--build:css(dist) /static/styles/user_finish_info.html.css-->
 <link href="/static/styles/userFinishInfo.css" rel="stylesheet"/>
 <!--endbuild-->
-% step = 2
+% step = 1
 <!--@@close-->
 <!--@@block=main -->
 
@@ -12,7 +12,7 @@
     <p>{{_('为了您的投资安全和满足相关监管机构要求，在您确认投资前，我们需要验证您的身份，请务必填写准确。')}}</p>
 </div>
 
-<div class="userInfo" action="">
+<form name="info" class="userInfo" action="">
     <div class="info">
         <h3 class="title">
             {{_('个人资料')}}
@@ -21,7 +21,7 @@
             <label class="name" for="name">
                 {{_('姓名')}}
             </label>
-            <input name="name" type="text"
+            <input name="nickname" type="text"
                    %if user.get('nickname'):
                    value="{{user.get('nickname')}}"
                    %end
@@ -31,7 +31,7 @@
             <label class="name" for="gender">
                 {{_('性别')}}
             </label>
-            <select id="" name="gender" class="ghostSelect">
+            <select id="" name="gender" class="ghostSelect" style="color:#4d4d4d;">
                 <option value="male"
                         %if user.get('gender') == 'male':
                         selected="selected"
@@ -55,7 +55,7 @@
                 {{_('生日')}}
             </label>
             <div class="birthday">
-                <input type="text" id="date" data-format="YYYY-MM-DD" data-template="YYYY M D" name="date" value="2015-01-01" style="display:none;">
+                <input type="text" id="date" data-format="YYYY-MM-DD" data-template="YYYY M D" name="date_of_birth" value="2015-01-01" style="display:none;">
             </div>
         </div>
 
@@ -95,14 +95,14 @@
                         %end
                     </select>
                 %end
-                <input name="address" type="text" value=""/>
+                <input name="address1" type="text" value=""/>
             </div>
         </div>
         <div class="row">
-            <label class="name" for="postalCode">
+            <label class="name" for="zipcode">
                 {{_('邮政编码')}}
             </label>
-            <input id="" name="postalCode"></input>
+            <input id="" name="zipcode"></input>
         </div>
 
     </div>
@@ -124,18 +124,23 @@
             </label>
             <div class="verification">
                 <input name="verificationCode" type="text" value=""/>
-                <button class="fetchCode button red">
+                <button class="fetchCode button red"  type="button">
                     {{_('获取验证码')}}
                 </button>
             </div>
         </div>
     </div>
+    <div class="error" style="display: none;">
+    </div>
+    <div class="success" style="display: none;">
+    </div>
+
     <div class="confirm_wrapper">
-        <button class="confirm button red">
+        <button class="confirm button red" type="submit">
             {{_('确认无误，下一步')}}
         </button>
     </div>
-</div>
+</form>
 
 <!--@@close-->
 
