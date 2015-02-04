@@ -31,7 +31,7 @@
             <label class="name" for="gender">
                 {{_('性别')}}
             </label>
-            <select id="" name="gender" class="ghostSelect">
+            <select id="" name="gender" class="ghostSelect" style="color:#4d4d4d;">
                 <option value="male"
                         %if user.get('gender') == 'male':
                         selected="selected"
@@ -129,11 +129,12 @@
                 </button>
             </div>
         </div>
-        <div class="error" style="display: none;">
-        </div>
-        <div class="success" style="display: none;">
-        </div>
     </div>
+    <div class="error" style="display: none;">
+    </div>
+    <div class="success" style="display: none;">
+    </div>
+
     <div class="confirm_wrapper">
         <button class="confirm button red" type="submit">
             {{_('确认无误，下一步')}}
