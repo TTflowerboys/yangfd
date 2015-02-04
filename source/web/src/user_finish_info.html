@@ -19,13 +19,9 @@
         </h3>
         <div class="row">
             <label class="name" for="name">
-                {{_('姓名')}}
+                {{_('真实姓名')}}
             </label>
-            <input name="nickname" type="text"
-                   %if user.get('nickname'):
-                   value="{{user.get('nickname')}}"
-                   %end
-                   />
+            <input name="nickname" type="text"/>
         </div>
         <div class="row">
             <label class="name" for="gender">
@@ -123,8 +119,8 @@
                 {{_('验证码')}}
             </label>
             <div class="verification">
-                <input name="verificationCode" type="text" value=""/>
-                <button class="fetchCode button red"  type="button">
+                <input name="code" type="text" value=""/>
+                <button name="code" class="fetchCode button red"  type="button">
                     {{_('获取验证码')}}
                 </button>
             </div>
