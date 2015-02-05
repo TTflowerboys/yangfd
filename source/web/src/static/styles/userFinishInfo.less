@@ -68,7 +68,7 @@
                     border:1px solid #cccccc;
                     border-radius:4px;
                     background:white;
-
+                    color:#4d4d4d;
                 }
 
                 select {
@@ -76,6 +76,7 @@
                     border-radius:4px;
                     background:white;
                     height:48px;
+                    color:#4d4d4d;
                 }
             }
 
@@ -89,7 +90,7 @@
                     margin-bottom:60px;
                 }
 
-                input[name=name] {
+                input[name=nickname] {
                     width:380px;
                     margin-left:50px;
                 }
@@ -136,14 +137,14 @@
                         margin-bottom:20px;
                     }
 
-                    input[name=address] {
+                    input[name=address1] {
                         display:block;
                         width:380px;
 
                     }
                 }
 
-                input[name=postalCode] {
+                input[name=zipcode] {
                     margin-left:50px;
                     width:380px;
                 }
@@ -174,7 +175,7 @@
                     margin-left:50px;
                     display:inline-block;
 
-                    input[name=verificationCode] {
+                    input[name=code] {
                         width:160px;
                         margin-right:20px;
                     }
@@ -186,6 +187,21 @@
                     }
 
                 }
+            }
+
+            .error {
+                width: 100%;
+                display: block;
+                float: left;
+                text-align: center;
+
+            }
+
+            .success {
+                width: 100%;
+                display: block;
+                float: left;
+                text-align: center;
             }
 
             .confirm {
