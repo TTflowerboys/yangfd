@@ -817,34 +817,48 @@ class f_currant_plugins(f_app.plugin_base):
                 if option.attrib["value"].strip():
                     project_dict[option.attrib["value"]] = option.text.strip()
 
-        for key, value in project_dict.iteritems():
-            property_params = {
-                "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
-            }
+        project_properties = [
+            (1, "Burgess House, Newcastle", "5451545c6a57070039e5eb4e"),
+            (21, "Chronicle House, Chester", "5450da5e6a57070039e5eb49"),
+            (26, "East Point, Leeds", "54519c8b6a5707003de5eb49"),
+            (24, "Sovereign House, Sheffield", "5452336e6a57070040e5eb47"),
+            (16, "The Queen's Brewery, Manchester", "5453c21ae7f2ca00310e291e"),
+            (28, "X1 Eastbank, Manchester", "5452d68a6a570700e60fa456"),
+            (25, "X1 Liverpool One Phase 1", "5452eb706a570700e60fa5de"),
+            (18, "X1 The Edge, Liverpool", "54539b0d6a57070260ddbe33"),
+            (13, "X1 The Exchange, Manchester", "545275a86a570700e00fa873"),
+            (14, "X1 The Gallery, Liverpool", "545249246a570700df0fa4fe")
+        ]
+
+        for item in project_properties:
+            key, value, property_id = item
+            # property_params = {
+            #     "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
+            # }
             property_crawler_id = "%s%s" % (search_url, key)
-            property_id_list = f_app.property.search({"property_crawler_id": property_crawler_id})
-            if property_id_list:
-                property_id = property_id_list[0]
-            else:
-                property_params["property_crawler_id"] = property_crawler_id
-                value = value.split(',')
+            # property_id_list = f_app.property.search({"property_crawler_id": property_crawler_id})
+            # if property_id_list:
+            #     property_id = property_id_list[0]
+            # else:
+            #     property_params["property_crawler_id"] = property_crawler_id
+            #     value = value.split(',')
 
-                if len(value) == 2:
-                    name, city = value
-                    property_params["name"] = {"en_GB": name.strip(), "zh_Hans_CN": name.strip()}
-                    property_params["slug"] = name.strip().lower().replace(' ', '-')
-                    property_params["city"] = ObjectId(f_app.enum.get_by_slug("%s" % city.strip().lower())['id'])
-                elif len(value) == 1:
-                    property_params["name"] = {"en_GB": value[0].strip(), "zh_Hans_CN": value[0].strip()}
-                    property_params["slug"] = value[0].strip().lower().replace(' ', '-')
-                    if "Liverpool" in property_params["name"]:
-                        property_params["city"] = ObjectId(f_app.enum.get_by_slug("liverpool")['id'])
-                else:
-                    logger.warning("Invalid knightknox agents plot name, this may be a bug!")
+            #     if len(value) == 2:
+            #         name, city = value
+            #         property_params["name"] = {"en_GB": name.strip(), "zh_Hans_CN": name.strip()}
+            #         property_params["slug"] = name.strip().lower().replace(' ', '-')
+            #         property_params["city"] = ObjectId(f_app.enum.get_by_slug("%s" % city.strip().lower())['id'])
+            #     elif len(value) == 1:
+            #         property_params["name"] = {"en_GB": value[0].strip(), "zh_Hans_CN": value[0].strip()}
+            #         property_params["slug"] = value[0].strip().lower().replace(' ', '-')
+            #         if "Liverpool" in property_params["name"]:
+            #             property_params["city"] = ObjectId(f_app.enum.get_by_slug("liverpool")['id'])
+            #     else:
+            #         logger.warning("Invalid knightknox agents plot name, this may be a bug!")
 
-                property_params["status"] = "draft"
-                logger.debug(property_params)
-                property_id = f_app.property.add(property_params)
+            #     property_params["status"] = "draft"
+            #     logger.debug(property_params)
+            #     property_id = f_app.property.add(property_params)
 
             property_plot_page = f_app.request.get(property_crawler_id, headers=headers, cookies=cookies)
             if property_plot_page.status_code == 200:
