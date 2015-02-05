@@ -167,6 +167,15 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'minimum_down_payment_rate'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('最低首付比例')%}</label>
+
+                            <div class="controls">
+                                <input type="text" class="form-control" ng-model="item.minimum_down_payment_rate" placeholder="{%$root.i18n('eg: 0.1 为10%')%}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="form-group col-sm-12">
                             <label class="control-label" ui-draggable="true" drag="'intention'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('投资标签')%}</label>
                             <div class="controls">
@@ -376,15 +385,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-3">
-                            <label class="control-label" ui-draggable="true" drag="'minimum_down_payment_rate'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('最低首付比例')%}</label>
-
-                            <div class="controls">
-                                <input type="text" class="form-control" ng-model="item.minimum_down_payment_rate"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="form-group col-sm-2">
                             <label class="control-label" ui-draggable="true" drag="'bedroom_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('居室数')%}</label>
 
@@ -465,15 +465,6 @@
                             <div class="controls form-inline">
                                 <div type-i18n-unit data="i18nArea" ng-model="item.unit_price.unit" placeholder="{%$root.i18n('单位面积，一般为1')%}"></div>
                                 <div type-i18n-unit data="i18nCurrency" ng-model="item.unit_price.price" placeholder="{%$root.i18n('单位面积对应的售价')%}"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-3">
-                            <label class="control-label" ui-draggable="true" drag="'minimum_down_payment_rate'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('最低首付比例')%}</label>
-
-                            <div class="controls">
-                                <input type="text" class="form-control" ng-model="item.minimum_down_payment_rate"/>
                             </div>
                         </div>
                     </div>
