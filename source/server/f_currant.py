@@ -1019,17 +1019,22 @@ class f_currant_plugins(f_app.plugin_base):
                     plot_params["country"] = ObjectId(f_app.enum.get_by_slug('GB')['id']),
                     plot_params["plot_crawler_id"] = q(row[0]).text()
 
-                    property_crawler_id = "%s/%s" % (search_url, property_name)
-                    property_id_list = f_app.property.search({"property_crawler_id": property_crawler_id})
-                    if property_id_list:
-                        plot_params["property_id"] = ObjectId(property_id_list[0])
-                    else:
-                        property_params = {}
-                        property_params["property_crawler_id"] = property_crawler_id
-                        property_params["country"] = ObjectId(f_app.enum.get_by_slug('GB')['id']),
-                        property_params["name"] = {"en_GB": property_name}
-                        property_params["status"] = "draft"
-                        plot_params["property_id"] = ObjectId(f_app.property.add(property_params))
+                    if property_name == "Westgate":
+                        plot_params["property_id"] = ObjectId("5446e58cc078a20042679379")
+                    elif property_name == "Telephone House":
+                        plot_params["property_id"] = ObjectId("544fc68d6a57070031e5eb47")
+
+                    # property_crawler_id = "%s/%s" % (search_url, property_name)
+                    # property_id_list = f_app.property.search({"property_crawler_id": property_crawler_id})
+                    # if property_id_list:
+                    #     plot_params["property_id"] = ObjectId(property_id_list[0])
+                    # else:
+                    #     property_params = {}
+                    #     property_params["property_crawler_id"] = property_crawler_id
+                    #     property_params["country"] = ObjectId(f_app.enum.get_by_slug('GB')['id']),
+                    #     property_params["name"] = {"en_GB": property_name}
+                    #     property_params["status"] = "draft"
+                    #     plot_params["property_id"] = ObjectId(f_app.property.add(property_params))
 
                     row_price = q(row[2]).text().replace(',', '').split(' ')
                     if len(row_price) == 2:

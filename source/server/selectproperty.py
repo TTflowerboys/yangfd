@@ -43,21 +43,26 @@ def task_on_crawler_selectproperty():
             for row in table:
                 plot_params = {}
                 property_name, plot_name = [x.strip() for x in q(row[0]).text().rsplit(' ', 1)]
-                plot_params["name"] = {"en_GB": q(row[0]).text().strip()}
+                plot_params["name"] = {"en_GB": row[0].text.strip()}
                 plot_params["country"] = ObjectId(f_app.enum.get_by_slug('GB')['id']),
                 plot_params["plot_crawler_id"] = q(row[0]).text()
 
-                property_crawler_id = "%s/%s" % (search_url, property_name)
-                property_id_list = f_app.property.search({"property_crawler_id": property_crawler_id})
-                if property_id_list:
-                    plot_params["property_id"] = ObjectId(property_id_list[0])
-                else:
-                    property_params = {}
-                    property_params["property_crawler_id"] = property_crawler_id
-                    property_params["country"] = ObjectId(f_app.enum.get_by_slug('GB')['id']),
-                    property_params["name"] = {"en_GB": property_name}
-                    property_params["status"] = "draft"
-                    plot_params["property_id"] = ObjectId(f_app.property.add(property_params))
+                if property_name == "Westgate":
+                    plot_params["property_id"] = ObjectId("5446e58cc078a20042679379")
+                elif property_name == "Telephone House":
+                    plot_params["property_id"] = ObjectId("544fc68d6a57070031e5eb47")
+                logger.debug(plot_params.get("property_id"))
+                # property_crawler_id = "%s/%s" % (search_url, property_name)
+                # property_id_list = f_app.property.search({"property_crawler_id": property_crawler_id})
+                # if property_id_list:
+                #     plot_params["property_id"] = ObjectId(property_id_list[0])
+                # else:
+                #     property_params = {}
+                #     property_params["property_crawler_id"] = property_crawler_id
+                #     property_params["country"] = ObjectId(f_app.enum.get_by_slug('GB')['id']),
+                #     property_params["name"] = {"en_GB": property_name}
+                #     property_params["status"] = "draft"
+                #     plot_params["property_id"] = ObjectId(f_app.property.add(property_params))
 
                 row_price = q(row[2]).text().replace(',', '').split(' ')
                 if len(row_price) == 2:
@@ -73,8 +78,8 @@ def task_on_crawler_selectproperty():
                 plot_params["space"] = {"type": "area", "unit": "foot ** 2", "value": q(row[6]).text().split('Sqft')[0].split()[0]}
                 plot_params["status"] = "selling"
 
-                plot_id = f_app.plot.crawler_insert_update(plot_params)
-                logger.debug(plot_id)
+                # plot_id = f_app.plot.crawler_insert_update(plot_params)
+                # logger.debug(plot_id)
 
             next_page_params = {
                 "ctl00$Main$btnNext": "NEXT PAGE >>",
