@@ -321,7 +321,7 @@ property_params = dict(
     decorative_style='enum:decorative_style',
     latitude=float,
     longitude=float,
-    reality_images=("i18n", None, list, None, str),
+    reality_images=("i18n", None, list, None, str, None, "replaces"),
     cover=("i18n", None, str),
     videos=(list, None, dict(
         sources=(list, True, dict(
@@ -333,7 +333,7 @@ property_params = dict(
         sub=("i18n", None, str),
         poster=str,
     )),
-    surroundings_images=("i18n", None, list, None, str),
+    surroundings_images=("i18n", None, list, None, str, None, "replaces"),
     property_price_type="enum:property_price_type",
     equal_property_description=("i18n", None, str),
     historical_price=(list, None, dict(
@@ -385,9 +385,9 @@ property_params = dict(
     planning_household_count=int,
     developer=("i18n", None, str),
     property_management_company=("i18n", None, str),
-    effect_pictures=("i18n", None, list, None, str),
-    indoor_sample_room_picture=("i18n", None, list, None, str),
-    planning_map=("i18n", None, list, None, str),
+    effect_pictures=("i18n", None, list, None, str, None, "replaces"),
+    indoor_sample_room_picture=("i18n", None, list, None, str, None, "replaces"),
+    planning_map=("i18n", None, list, None, str, None, "replaces"),
 
     # Params for audit
     comment=str,

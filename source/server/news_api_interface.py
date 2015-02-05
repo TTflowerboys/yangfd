@@ -48,7 +48,7 @@ def news_list(params):
     city="enum:city",
     street=('i18n', None, str),
     summary=('i18n', None, str),
-    images=(list, None, str),
+    images=(list, None, str, None, "replaces"),
     link=str,
     slug=str,
 ))
@@ -74,7 +74,7 @@ def news_get(news_id):
     country=("enum:country", None),
     city=("enum:city", None),
     street=('i18n', None, str),
-    images=(list, None, str),
+    images=(list, None, str, None, "replaces"),
     link=(str, None),
     zipcode_index=(str, None),
     slug=(str, None),

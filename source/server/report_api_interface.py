@@ -76,7 +76,7 @@ logger = logging.getLogger(__name__)
         summary=("i18n", None, str),
         link=(str, None),
     )),
-    image=str,
+    image=(str, None, "replaces"),
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "operation", "jr_operation"])
 def report_add(user, params):

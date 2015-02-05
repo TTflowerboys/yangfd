@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
     description=('i18n', None, str),
     text=('i18n', None, list, None, str),
     link=str,
-    image=str,
+    image=(str, None, "replaces"),
     image_alt=('i18n', None, str),
 ))
 @f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation'])
@@ -32,7 +32,7 @@ def ad_add(params, user):
     description=('i18n', None, str),
     text=('i18n', None, list, None, str),
     link=(str, None),
-    image=(str, None),
+    image=(str, None, "replaces"),
     image_alt=('i18n', None, str),
 ))
 @f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation'])
