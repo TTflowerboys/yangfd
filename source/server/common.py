@@ -8,6 +8,7 @@ class common(f_common):
 
     name = "currant"
     debug = True
+    profiling = True
 
     blog_name = "currant"
     blog_slug = "currant"
