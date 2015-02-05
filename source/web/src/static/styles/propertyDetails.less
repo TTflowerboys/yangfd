@@ -1247,6 +1247,7 @@ body{
 
             max-width:800px;
             margin:40px auto 20px;
+            height:260px;
             color:white;
 
 
@@ -1269,6 +1270,11 @@ body{
             .des {
                 font-size:16px;
                 line-height:24px;
+                word-wrap:break-word;
+                height: 125px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
 
                 @media @phone {
                     font-size:@base-font-size-mobile;
