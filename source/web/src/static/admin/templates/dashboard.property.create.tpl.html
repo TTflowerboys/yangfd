@@ -179,6 +179,15 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="form-group  col-sm-3">
+                            <label class="control-label">{%$root.i18n('最低首付比例')%}</label>
+
+                            <div class="controls">
+                                <input type="text" class="form-control" ng-model="item.minimum_down_payment_rate" placeholder="{%$root.i18n('eg: 0.1 为10%')%}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
 
                         <div class="form-group   col-sm-12">
                             <label class="control-label">{%$root.i18n('投资标签')%}</label>
@@ -388,15 +397,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group  col-sm-3">
-                            <label class="control-label">{%$root.i18n('最低首付比例')%}</label>
-
-                            <div class="controls">
-                                <input type="text" class="form-control" ng-model="item.minimum_down_payment_rate"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="form-group  col-sm-2">
                             <label class="control-label">{%$root.i18n('居室数')%}</label>
 
@@ -477,15 +477,6 @@
                             <div class="controls form-inline">
                                 <div type-i18n-unit unit="userCurrency.value" data="i18nCurrency" ng-model="item.unit_price.price"></div>
                                 <div type-i18n-unit unit="userArea.value" data="i18nArea" ng-model="item.unit_price.unit"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group  col-sm-3">
-                            <label class="control-label">{%$root.i18n('最低首付比例')%}</label>
-
-                            <div class="controls">
-                                <input type="text" class="form-control" ng-model="item.minimum_down_payment_rate"/>
                             </div>
                         </div>
                     </div>
