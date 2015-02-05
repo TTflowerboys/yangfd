@@ -24,7 +24,9 @@
         <ul class="rmm-center-menu" style="display:none;">
             <li><a href="/user_settings">{{_('账户管理')}}</a></li>
             <li><a href="/user_favorites">{{_('我的收藏')}}</a></li>
+            <!-- @if ENV!='production' -->
             <li><a href="/user_crowdfunding">{{_('海外众筹')}}</a></li>
+            <!-- @endif -->
             <li><a href="/user_intentions">{{_('投资意向单')}}</a></li>
             <li><a href="/user_properties">{{_('我的房产')}}</a></li>
             <li><a href="/user_messages">{{_('消息')}}</a></li>
@@ -79,25 +81,27 @@
             <ul>
                 <li>
                     <a href="/user_settings">
-                        <img id="icon-user_settings" src="/static/images/user/gear.png" />
-                        <img id="icon-user_settings-active" style="display:none" src="/static/images/user/gear-active.png" />
+                        <img id="icon-user_settings" src="/static/images/user/gear.png"/>
+                        <img id="icon-user_settings-active" style="display:none" src="/static/images/user/gear-active.png"/>
                     </a>
                     {{_('账户管理')}}
                 </li>
                 <li>
                     <a href="/user_favorites">
-                        <img id="icon-user_favorites" src="/static/images/user/star.png" />
-                        <img id="icon-user_favorites-active" style="display:none" src="/static/images/user/star-active.png" />
+                        <img id="icon-user_favorites" src="/static/images/user/star.png"/>
+                        <img id="icon-user_favorites-active" style="display:none" src="/static/images/user/star-active.png"/>
                     </a>
                     {{_('我的收藏')}}
                 </li>
+                <!-- @if ENV!='production' -->
                 <li>
                     <a href="/user_crowdfunding">
-                        <img id="icon-user_crowdfunding" src="/static/images/user/crowdfunding.png" />
-                        <img id="icon-user_crowdfunding-active" style="display:none" src="/static/images/user/crowdfunding-active.png" />
+                        <img id="icon-user_crowdfunding" src="/static/images/user/crowdfunding.png"/>
+                        <img id="icon-user_crowdfunding-active" style="display:none" src="/static/images/user/crowdfunding-active.png"/>
                     </a>
                     {{_('海外众筹')}}
                 </li>
+                <!-- @endif -->
                 <li>
                     <a href="/user_intentions">
                         <img id="icon-user_intentions" src="/static/images/user/sheet.png"/>
@@ -107,15 +111,15 @@
                 </li>
                 <li>
                     <a href="/user_properties">
-                        <img id="icon-user_properties" src="/static/images/user/house.png" />
-                        <img id="icon-user_properties-active" style="display:none" src="/static/images/user/house-active.png" />
+                        <img id="icon-user_properties" src="/static/images/user/house.png"/>
+                        <img id="icon-user_properties-active" style="display:none" src="/static/images/user/house-active.png"/>
                     </a>
                     {{_('我的房产')}}
                 </li>
                 <li>
                     <a href="/user_messages">
-                        <img id="icon-user_messages" src="/static/images/user/email.png" />
-                        <img id="icon-user_messages-active" style="display:none" src="/static/images/user/email-active.png" />
+                        <img id="icon-user_messages" src="/static/images/user/email.png"/>
+                        <img id="icon-user_messages-active" style="display:none" src="/static/images/user/email-active.png"/>
                     </a>
                     {{_('消息')}}
                 </li>
@@ -139,6 +143,9 @@
         }
         else if (urlPath === 'user_favorites') {
             userPageHeaderTitle.innerHTML = "{{_('我的收藏')}}"
+        }
+        else if (urlPath === 'user_crowdfunding') {
+            userPageHeaderTitle.innerHTML = "{{_('海外众筹')}}"
         }
         else if (urlPath === 'user_intentions') {
             userPageHeaderTitle.innerHTML = "{{_('投资意向单')}}"
