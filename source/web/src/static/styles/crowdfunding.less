@@ -30,6 +30,7 @@ body{
 .propertyDetails {
     .investment_analysis {
         overflow:hidden;
+        border-top:1px solid #ccc;
         .calculator {
             width:100%;
             height:90px;
@@ -77,6 +78,7 @@ body{
                 @media @phone {
                     display:block;
                     width:100%;
+                    height:100px;
                 }
 
                 li {
@@ -135,6 +137,8 @@ body{
     }
 
     .team {
+        border-top:1px solid #ccc;
+        padding:12px;
         ul.members {
             margin-top:50px;
             li {
@@ -142,6 +146,10 @@ body{
                 width:33%;
                 overflow:hidden;
                 text-align:center;
+
+                @media @phone {
+                    width:49%;
+                }
 
                 .avatar_wrapper {
                     position:relative;
@@ -183,6 +191,7 @@ body{
     }
 
     .finance {
+        border-top:1px solid #ccc;
         .stackedBar {
             .clearfix(); position: relative;
             margin-bottom: 40px;
@@ -270,6 +279,7 @@ body{
     }
 
     .materials {
+        border-top:1px solid #ccc;
         ul {
             margin-top:50px;
             overflow:hidden;
@@ -279,6 +289,10 @@ body{
                 width:33%;
                 float:left;
                 overflow:hidden;
+
+                @media @phone {
+                    width:49%;
+                }
                 a {
                     display:block;
                     width:100%;
