@@ -197,7 +197,8 @@ $(window).resize(window.updateTagsFixed);
                 ids += child.getAttribute('data-id')
                 ids += ','
             })
-            return ids
+
+            return ids.slice(0, -1)
         }
         return ''
     }
@@ -211,7 +212,7 @@ $(window).resize(window.updateTagsFixed);
                 textValue += $(child).text().trim()
                 textValue += ','
             })
-            return textValue
+            return textValue.slice(0, -1)
         }
         return ''
     }
@@ -295,8 +296,11 @@ $(window).resize(window.updateTagsFixed);
         $('#tags #intentionTag').find('.toggleTag').toggleClass('selected', false)
     }
 
-    function selectIntention(id) {
-        $('#tags #intentionTag').find('[data-id=' + id + ']').toggleClass('selected', true)
+    function selectIntention(idList) {
+        var ids = idList.split(',')
+        _.each(ids, function (id) {
+            $('#tags #intentionTag').find('[data-id=' + id + ']').toggleClass('selected', true)
+        })
     }
 
     function selectCountry(id) {
@@ -380,11 +384,8 @@ $(window).resize(window.updateTagsFixed);
             $item.addClass('selected')
         }
 
-        resetData()
-        loadPropertyList()
-        //updateUserTags()
-
         ga('send', 'event', 'property_list', 'change', 'change-budget',$item.text())
+        location.href = window.team.setQuery('budget', getSelectedBudgetType())
     })
 
     $('#tags #intentionTag').on('click', '.toggleTag', function (event) {
@@ -397,11 +398,8 @@ $(window).resize(window.updateTagsFixed);
             $item.addClass('selected')
         }
 
-        resetData()
-        loadPropertyList()
-        //updateUserTags()
-
         ga('send', 'event', 'property_list', 'change', 'change-intention',$item.text())
+        location.href = window.team.setQuery('intention', getSelectedIntention())
     })
 
     function showTags() {
