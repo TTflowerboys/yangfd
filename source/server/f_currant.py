@@ -864,7 +864,7 @@ class f_currant_plugins(f_app.plugin_base):
             if property_plot_page.status_code == 200:
                 logger.debug("Start crawling page %s" % property_crawler_id)
                 property_plot_page_dom_root = q(property_plot_page.content)
-                data_rows = property_plot_page_dom_root('#myTable tbody tr')
+                data_rows = property_plot_page_dom_root('#myTable>tbody>tr')
                 for row in data_rows:
                     plot_params = dict()
                     plot_params["property_id"] = ObjectId(property_id)
@@ -890,8 +890,9 @@ class f_currant_plugins(f_app.plugin_base):
                     total_price = re.findall(r'[0-9,]+', row[6].text)
                     if total_price:
                         plot_params["total_price"] = {"value": total_price[0].replace(',', ''), "type": "currency", "unit": "GBP"}
-                    plot_params["floor"] = row[7].text
-                    plot_params["description"] = row[8].text
+                    unitinfo = q(row[7])
+                    floor = unitinfo('table.unitinfo>tr')[1][1]
+                    plot_params["floor"] = floor.text
 
                     f_app.plot.crawler_insert_update(plot_params)
 
