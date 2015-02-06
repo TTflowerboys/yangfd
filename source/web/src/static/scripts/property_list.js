@@ -154,10 +154,10 @@ $(window).resize(window.updateTagsFixed);
         return JSON.parse(document.getElementById(key).innerHTML)
     }
 
-    function resetData() {
-        $('#result_list').empty()
-        lastItemTime = undefined
-    }
+    // function resetData() {
+    //     $('#result_list').empty()
+    //     lastItemTime = undefined
+    // }
 
     // function resetCityDataWhenCountryChange() {
     //     var selectedCountryId = $('select[name=propertyCountry]').children('option:selected').val()
