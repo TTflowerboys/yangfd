@@ -35,12 +35,23 @@ body{
             height:90px;
             overflow:hidden;
 
+            @media @phone {
+                height:auto;
+                padding:12px;
+            }
+
 
             .input {
                 display:inline-block;
                 width:150px;
                 float:left;
                 padding-right:8px;
+
+                @media @phone {
+                    display:block;
+                    width:100%;
+                }
+
 
                 input {
                     display:inline-block;
@@ -62,6 +73,11 @@ body{
                 float:right;
                 overflow:hidden;
                 height:100%;
+
+                @media @phone {
+                    display:block;
+                    width:100%;
+                }
 
                 li {
                     width: 120px;
