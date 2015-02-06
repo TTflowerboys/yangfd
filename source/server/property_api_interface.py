@@ -355,7 +355,7 @@ property_params = dict(
     kitchen_count=int,
     facing_direction="enum:facing_direction",
     space=("i18n:area", None, "meter ** 2, foot ** 2"),
-    floor_plan=("i18n", None, list, None, str),
+    floor_plan=("i18n", None, list, None, str, None, "replaces"),
 
     # Project params
     unit_price=dict(
@@ -369,7 +369,7 @@ property_params = dict(
         bathroom_count=int,
         kitchen_count=int,
         total_price="i18n:currency",
-        floor_plan=("i18n", None, str),
+        floor_plan=("i18n", None, list, None, str, None, "replaces"),
         building_area=("i18n:area", None, "meter ** 2, foot ** 2"),
         description=("i18n", None, str),
     )),
