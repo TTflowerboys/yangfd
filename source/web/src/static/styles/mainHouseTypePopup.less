@@ -45,6 +45,36 @@
             margin-top: 10px;
         }
 
+        &_next_area{
+            position: absolute;
+            height: 100%;
+            top: 70px;
+            right: 0;
+            width: 90px;
+            cursor: pointer;
+            background-color: transparent;
+
+            @media @phone {
+                display: none;
+                top: 45px;
+            }
+        }
+
+        &_prev_area{
+            position: absolute;
+            height: 100%;
+            top: 70px;
+            left: 0;
+            width: 90px;
+            cursor: pointer;
+            background-color: transparent;
+
+            @media @phone {
+                display: none;
+                top: 45px;
+            }
+        }
+
         &_slide {
             @height: 32px;
             position: absolute; z-index: 1; text-decoration: none; font-weight: bold; color: @red;

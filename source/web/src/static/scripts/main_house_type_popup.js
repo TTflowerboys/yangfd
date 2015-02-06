@@ -60,7 +60,7 @@
             }
         }
 
-        window.preMainHouseType = function () {
+        $('.main_house_type_next_area').click(function(){
             if (cIndex > 0) {
                 window.openMainHouseType(null,cIndex - 1,true)
             } else if (cIndex === 0) {
@@ -69,9 +69,9 @@
             }
 
             ga('send', 'event', 'property_detail', 'prev', 'main-house-type-popup-prev')
-        }
+        })
 
-        window.nextMainHouseType = function () {
+        $('.main_house_type_prev_area').click(function(){
             if (cIndex < totalLength - 1) {
                 window.openMainHouseType(null,cIndex + 1,true)
             } else if (cIndex === totalLength - 1) {
@@ -80,7 +80,7 @@
             }
 
             ga('send', 'event', 'property_detail', 'next', 'main-house-type-popup-next')
-        }
+        })
 
         $('#main_house_type_popup_shadow').click(function(){
             window.closeMainHouseType()
