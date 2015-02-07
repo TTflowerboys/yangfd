@@ -490,10 +490,12 @@
                                         <li class="item{{index}}">
                                             <a onclick="javascript:window.openMainHouseType(null, '{{index}}',false)">
                                                 <div style="position:relative;">
-                                                    <img class="floor_plan" src="{{!fetch_image(item.get('floor_plan'), thumbnail=True, property_id=property.get('id'))}}"
-                                                         alt="" onerror="window.onImgError(this);"/>
-                                                    <span class="propertyDetails_houseType_name" style="display: none">{{item.get('name','')}}</span>
-                                                    <span class="propertyDetails_houseType_description" style="display: none">{{item.get('description','')}}</span>
+                                                    %if item.get('floor_plan') and len(item.get('floor_plan'))>0:
+                                                    <img class="floor_plan" src="{{!fetch_image(item.get('floor_plan')[0], thumbnail=True, property_id=property.get('id'))}}"
+                                                         alt="{{item.get('name','')}}" onerror="window.onImgError(this);"/>
+                                                    %else :
+                                                    <img alt="{{item.get('name','')}}" class="withPlaceholder"/>
+                                                    %end
                                                     <div class="table_wrapper">
                                                         <table class="text">
                                                             <tr>
@@ -534,19 +536,20 @@
                                                                     <strong >
                                                                         {{float("{0:.2f}".format(float(item.get('building_area',{}).get('value'))))}}
                                                                         {{!format_unit(item.get('building_area',{}).get('unit',''))}}
-                                                                    </strong>
+                                                                    </strong><span>{{_('起')}}</span>
                                                                 </span>
                                                             </td>
                                                             <td class="price">
                                                                 <span class="name">{{_('参考售价')}}</span>
                                                                 <span class="value">
-                                                                    %if 'total_price' in item and item.get('total_price'):
+                                                                    %if item.get('total_price_min'):
                                                                         <strong>
-                                                                            {{item.get('total_price',{}).get('unit_symbol')}}
+                                                                            {{item.get('total_price_min',{}).get('unit_symbol')}}
                                                                         </strong>
                                                                         <span data-type="formatted_currency">
-                                                                            {{int(float(item.get('total_price',{}).get('value')))}}
-                                                                        </span>
+                                                                            {{int(float(item.get('total_price_min',{}).get('value')))}}
+                                                                        </span><span>{{_('起')}}</span>
+
                                                                     %end
                                                                 </span>
                                                             </td>
@@ -563,6 +566,8 @@
                         <a href="#" class="jcarousel-control-next">&rsaquo;</a>
                     </div>
                 </div>
+
+                <span id="propertyDetails_houseTypes_data" style="display: none">{{json_dumps(property.get('main_house_types'))}}</span>
                 <hr/>
             %end
             % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
@@ -1108,10 +1113,14 @@
             </div>
         </div>
 
+        <div id="main_house_type_popup" class="main_house_type_popup" style="display: none">
+            <div id="main_house_type_popup_shadow" class="main_house_type_popup_shadow"></div>
+        </div>
+
     </div>
-    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-        <!--@@include=partials/main_house_type_popup.html -->
-    %end
+
+
+
     <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
         <img src="" alt="二维码" width="220" height="220"/>
         <p>{{_('打开微信，使用 “扫一扫” 即可将网页分享到朋友圈')}}</p>
@@ -1145,6 +1154,9 @@
         <li class="requirement"><a href="/requirement?property={{property.get('id')}}"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
     </ul>
 
+    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
+    <!--@@include=/static/templates/main_house_type_popup.tpl.html-->
+    %end
 
     <!-- @@include=/static/templates/place_item.tpl.html-->
 

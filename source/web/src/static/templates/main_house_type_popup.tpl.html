@@ -1,0 +1,117 @@
+<script id="main_house_type_popup_template" type="text/template">
+    <div class="main_house_type_wrapper item{=index=}" style="display: none">
+        <div class="main_house_type_header" style="cursor: default;">
+            <h1 class="main_house_type_name">{=houseType.name=}</h1>
+            <a onclick="javascript:window.closeMainHouseType()" class="main_house_type_close">
+                <img id="main_house_type_close" src="/static/images/property_details/close.png"/>
+            </a>
+        </div>
+        <div id="main_house_type" class="main_house_type">
+
+            <img class="main_house_type_slide prev" src="/static/images/common/btn_left_arrow_white.png"/>
+            <div class="main_house_type_pic">
+                <div class="main_house_type_floorplan" >
+                    <div class="rslides_wrapper">
+                        {_ if (houseType.floor_plan && houseType.floor_plan.length > 0){ _}
+                        <ul class="rslides" id="floorplanSlider{=index=}">
+                            {_ _.each(houseType.floor_plan, function(floorplan) { _}
+                            <li>
+                                <img class="main_house_type_floorplan" src="{=floorplan=}" alt="" onerror="window.onImgError(this);"/>
+                            </li>
+                            {_ }); _}
+                        </ul>
+                        {_ } else { _}
+                            <img class="main_house_type_floorplan withPlaceholder"/>
+                        {_ } _}
+                        <div class="leftPressArea"></div>
+                        <div class="rightPressArea"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="main_house_type_info">
+                <div>
+                    <div class="table_wrapper">
+                        <table class="text">
+                            <tr>
+                                {_ if (houseType.bedroom_count && houseType.bedroom_count > 0){ _}
+                                <td>
+                                    <span class="name">{=window.i18n('卧室')=}</span>
+                                    <span class="value">{=houseType.bedroom_count=}</span>
+                                </td>
+                                {_ } _}
+                                {_ if (houseType.living_room_count && houseType.living_room_count > 0){ _}
+                                <td>
+                                    <span class="name">{=window.i18n('客厅')=}</span>
+                                    <span class="value">{=houseType.living_room_count=}</span>
+                                </td>
+                                {_ } _}
+                                {_ if (houseType.bathroom_count && houseType.bathroom_count > 0){ _}
+                                <td>
+                                    <span class="name">{=window.i18n('卫生间')=}</span>
+                                    <span class="value">{=houseType.bathroom_count=}</span>
+                                </td>
+                                {_ } _}
+                                {_ if (houseType.kitchen_count && houseType.kitchen_count > 0){ _}
+                                <td>
+                                    <span class="name">{=window.i18n('厨房')=}</span>
+                                    <span class="value">{=houseType.kitchen_count=}</span>
+                                </td>
+                                {_ } _}
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="space">
+                    <span class="name">{=window.i18n('面积')=}</span>
+                    <span class="value">
+                        {_if(houseType.building_area_min) {_}
+                        {= parseFloat(houseType.building_area_min.value).toFixed(2)=}
+                        {_if (houseType.building_area_min.unit === 'foot ** 2'){_}
+                        foot <sup>2</sup>
+                        {_} else if(houseType.building_area_min.unit === 'acre'){_}
+                        acre
+                        {_} else if (houseType.building_area_min.unit === 'meter ** 2') {_}
+                        m <sup>2</sup>
+                        {_} else if (houseType.building_area_min.unit === 'kilometer ** 2') {_}
+                        km <sup>2</sup>
+                        {_} else {_}
+                        {=houseType.building_area_min.unit=}
+                        {_}_}
+                        {_}_}
+                        <span>~</span>
+                        {_if(houseType.building_area_max) {_}
+                        {= parseFloat(houseType.building_area_max.value).toFixed(2)=}
+                        {_if (houseType.building_area_max.unit === 'foot ** 2'){_}
+                        foot <sup>2</sup>
+                        {_} else if(houseType.building_area_max.unit === 'acre'){_}
+                        acre
+                        {_} else if (houseType.building_area_max.unit === 'meter ** 2') {_}
+                        m <sup>2</sup>
+                        {_} else if (houseType.building_area_max.unit === 'kilometer ** 2') {_}
+                        km <sup>2</sup>
+                        {_} else {_}
+                        {=houseType.building_area_max.unit=}
+                        {_}_}
+                        {_}_}
+                    </span>
+                </div>
+                <div class="price">
+                    <span class="name">{=window.i18n('参考售价')=}</span>
+                    <span class="value">
+                        {=houseType.total_price_min.unit_symbol=}
+                        {!team.formatCurrency(parseInt(houseType.total_price_min.value))!}
+                        <span>~</span>
+                        {=houseType.total_price_max.unit_symbol=}
+                        {!team.formatCurrency(parseInt(houseType.total_price_max.value))!}</span>
+                </div>
+                <div class="housetype_description">
+                    <span class="name">{=window.i18n('户型解析')=}</span>
+                    <span class="value">{=houseType.description=}</span>
+                </div>
+            </div>
+            <img class="main_house_type_slide next" src="/static/images/common/btn_right_arrow_white.png"/>
+        </div>
+        <div class="main_house_type_next_area"></div>
+        <div class="main_house_type_prev_area"></div>
+    </div>
+</script>
