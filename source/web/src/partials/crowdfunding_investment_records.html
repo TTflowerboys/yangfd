@@ -1,0 +1,62 @@
+<div>
+    <div class="cfdPageTitle">资产总览</div>
+    <div class="orangeTable">
+        <div class="orangeTitle phone">累计投资</div>
+        <table class="topClass">
+            <tr>
+                <td>
+                    <div>￥10000</div>
+                </td>
+                <td>
+                    <div>待收本金</div>
+                    <div>￥3000</div>
+                </td>
+                <td>
+                    <div>总资产</div>
+                    <div>￥3000</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <div>投资产品</div>
+        <div>
+            <div>投资地区</div>
+            <div>list?</div>
+        </div>
+        <div class="tabs ui-tabs ui-widget">
+            <ul class="ui-tabs-nav">
+                <li id="equity_earning" class="ui-tabs-selected all">
+                    <a>{{_('股权收益')}}</a>
+                </li>
+                <li id="property_rent" class="new">
+                    <a>{{_('产权租金')}}</a>
+                </li>
+                <li id="bond_investment" class="read">
+                    <a>{{_('债券投资')}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="equityEarning_wrapper list_wrapper">
+            <div class="equityEarningList list">
+            </div>
+
+            <!--@@include=/message_holder.html {"hint":"{{_('当前还没有消息')}}"}-->
+        </div>
+
+        <div class="propertyRent_wrapper list_wrapper" style="display:none">
+            <div class="propertyRentList list">
+            </div>
+
+            <!--@@include=/message_holder.html {"hint":"{{_('当前没有未读消息')}}"}-->
+        </div>
+
+        <div class="bondInvestment_wrapper list_wrapper" style="display:none">
+            <div class="bondInvestmentList list">
+            </div>
+
+            <!--@@include=/message_holder.html {"hint":"{{_('当前没有已读消息')}}"}-->
+        </div>
+    </div>
+</div>

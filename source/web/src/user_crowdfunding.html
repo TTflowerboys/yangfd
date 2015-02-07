@@ -1,0 +1,52 @@
+<!--@@master = masters/user_master.html-->
+<!--@@block =head -->
+
+<!--build:css(dist) /static/styles/user_crowdfunding.html.css-->
+<link rel="stylesheet" href="/static/styles/user_crowdfunding.css"/>
+<!--endbuild-->
+<!--@@close-->
+<!--@@block = main -->
+<div class="content">
+    <table class="titleFrame">
+        <tr>
+            <td class="titleCell selected">
+                <a>{{_('总览')}}</a>
+            </td>
+            <td class="titleCell">
+                <a>{{_('投资记录')}}</a>
+            </td>
+            <td class="titleCell">
+                <a>{{_('收益记录')}}</a>
+            </td>
+            <td class="titleCell">
+                <a>{{_('交易记录')}}</a>
+            </td>
+            <td class="titleCell">
+                <a>{{_('充值提现')}}</a>
+            </td>
+        </tr>
+    </table>
+    <div class="mainFrame">
+        <div class="contentFrame">
+            <!--@@include=/partials/crowdfunding_overview.html -->
+        </div>
+        <div class="contentFrame" style="display:none">
+            <!--@@include=/partials/crowdfunding_investment_records.html -->
+        </div>
+        <div class="contentFrame" style="display:none">
+            <!--@@include=/partials/crowdfunding_earning_records.html -->
+        </div>
+        <div class="contentFrame" style="display:none">
+            <!--@@include=/partials/crowdfunding_transaction_records.html -->
+        </div>
+        <div class="contentFrame" style="display:none">
+            <!--@@include=/partials/crowdfunding_account.html -->
+        </div>
+    </div>
+</div>
+<!--@@close-->
+<!--@@block=scripts-->
+<!--build:js /static/scripts/user_crowdfunding.js-->
+<script src="/static/scripts/user_crowdfunding.js"></script>
+<!--endbuild-->
+<!--@@close-->
