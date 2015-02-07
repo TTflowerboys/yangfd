@@ -686,7 +686,7 @@ class f_currant_plugins(f_app.plugin_base):
                         property_images = [x.attrib['src'] for x in images]
                         params["reality_images"] = {"en_GB": property_images, "zh_Hans_CN": property_images, "zh_Hant_HK": property_images}
                     if videos:
-                        params["videos"] = {"en_GB": [x.attrib['href'] for x in videos]}
+                        params["videos"] = [{"sources": {"url": x.attrib['href']}} for x in videos]
                     params["name"] = {"en_GB": property_page_dom_root('span.single-property__heading--highlight').text()}
                     params["description"] = {"en_GB": property_page_dom_root('div#panel1').text()}
 
@@ -750,7 +750,7 @@ class f_currant_plugins(f_app.plugin_base):
                             params["total_price"] = {"value": total_price[0].replace(',', ''), "type": "currency", "unit": "GBP"}
 
                         if property_videos:
-                            params["videos"] = {"en_GB": [video.attrib['src'] for video in property_videos]}
+                            params["videos"] = [{"sources": {"url": video.attrib['src']}} for video in property_videos]
 
                         if property_images:
                             reality_images = [image.attrib['src'] for image in property_images]
@@ -923,7 +923,7 @@ class f_currant_plugins(f_app.plugin_base):
                             if data_item.get("type", None) == "Page" and data_item.get("pageUriSEO", None) and data_item.get("pageUriSEO", None) != "student-property-report" and data_item.get("hidePage", False) and data_item.get("indexable", False):
                                 page_ids.append(key)
                     else:
-                        self.logger.error("Failed crawling abacusinvestor  masterPage in script publicModel%s, status_code is %d" % (masterPage[2], masterPage.status_code))
+                        self.logger.error("Failed crawling abacusinvestor  masterPage in script publicModel%s, status_code is %d" % (masterPage[2], masterPage_json.status_code))
                     if page_ids:
                         crawling_pages = [(page["pageId"], page["urls"][2]) for page in pages if page["pageId"] in page_ids]
                         for crawling_page in crawling_pages:
