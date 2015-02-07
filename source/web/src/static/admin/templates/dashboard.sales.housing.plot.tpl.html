@@ -9,7 +9,7 @@
             <div class="btn-group form-inline">
                 <div>
                     <div class="btn-group form-inline">
-                        <input type="number" class="form-control" ng-model="selected.bedroom_count" placeholder="{%$root.i18n('居室数')%}"/>
+                        <input type="number" min="0" class="form-control" ng-model="selected.bedroom_count" placeholder="{%$root.i18n('居室数')%}"/>
                     </div>
                     <div class="btn-group form-inline">
                         <input type="text" class="form-control" ng-model="selected.floor" placeholder="{%$root.i18n('楼层')%}"/>
@@ -17,10 +17,10 @@
                 </div>
                 <div>
                     <div class="btn-group form-inline">
-                        <input type="number" class="form-control" ng-model="selected.min_square" placeholder="{%$root.i18n('最小面积')%}"/>
+                        <input type="number" min="0" class="form-control" ng-model="selected.min_square" placeholder="{%$root.i18n('最小面积')%}"/>
                     </div>
                     <div class="btn-group form-inline">
-                        <input type="number" class="form-control" ng-model="selected.max_square" placeholder="{%$root.i18n('最大面积')%}"/>
+                        <input type="number" min="0" class="form-control" ng-model="selected.max_square" placeholder="{%$root.i18n('最大面积')%}"/>
                     </div>
                     <div class="btn-group form-inline">
                         <select class="form-control" ng-options="item for item in i18nArea" ng-model="userArea.value">
@@ -30,10 +30,10 @@
                 </div>
                 <div>
                     <div class="btn-group form-inline">
-                        <input type="number" class="form-control" ng-model="selected.min_money" placeholder="{%$root.i18n('最小金额')%}"/>
+                        <input type="number" min="0" class="form-control" ng-model="selected.min_money" placeholder="{%$root.i18n('最小金额')%}"/>
                     </div>
                     <div class="btn-group form-inline">
-                        <input type="number" class="form-control" ng-model="selected.max_money" placeholder="{%$root.i18n('最大金额')%}"/>
+                        <input type="number" min="0" class="form-control" ng-model="selected.max_money" placeholder="{%$root.i18n('最大金额')%}"/>
                     </div>
                     <div class="btn-group form-inline">
                         <select class="form-control" ng-options="item for item in i18nCurrency" ng-model="userCurrency.value">

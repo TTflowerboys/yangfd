@@ -5,9 +5,9 @@
                 <a target="_blank" ng-href="{% image %}" ng-style="{'visibility':image===''?'hidden':'visibility'}">
                     <img class="img-thumbnail" ng-src="{% image | thumbnail %}">
                 </a>
-                <span ng-style="{'visibility':image===''?'visibility':'hidden'}">
+                <div ng-style="{'visibility':image===''?'visibility':'hidden'}">
                     <i class="fa fa-spinner fa-spin"></i>
-                </span>
+                </div>
                 <button ng-if="isOurImage(image)" class="btn btn-sm" style="position: absolute; bottom:0; left: 0;" ng-click="uploadImage(image)"
                     type="button">{%$root.i18n('上传本站')%}
                 </button>
