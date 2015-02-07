@@ -384,9 +384,16 @@ body{
 
     .materials {
         border-top:1px solid #ccc;
+        @media @phone {
+            padding:12px;
+        }
         ul {
             margin-top:50px;
             overflow:hidden;
+
+            @media @phone {
+                margin-top:0px;
+            }
 
             li.material {
                 display:inline-block;
@@ -396,14 +403,23 @@ body{
 
                 @media @phone {
                     width:49%;
+                    margin:20px 0;
+
                 }
                 a {
                     display:block;
                     width:100%;
                     height:50px;
+                    @media @phone {
+                        height:25px;
+                    }
 
                     img {
                         float:left;
+
+                        @media @phone {
+                            height:25px;
+                        }
                     }
                     label {
                         float:left;
@@ -414,6 +430,13 @@ body{
                             font-size:24px;
                             line-height:28px;
                             color:#666;
+
+                            @media @phone {
+                                width:90px;
+                                margin-left:6px;
+                                line-height:18px;
+                                font-size:@base-font-size-mobile;
+                            }
                         }
                     }
                 }
