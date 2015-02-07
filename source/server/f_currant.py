@@ -949,8 +949,6 @@ class f_currant_plugins(f_app.plugin_base):
                                         property_name = q(property_name_dom[0]).text()
                                     else:
                                         property_name = ""
-                                    if not property_name:
-                                        property_name = property_text_dom_root("strong")[0].getchildren()[0].text
                                     property_description = property_text_dom_root.children().text()
                                     params["description"] = {"en_GB": property_description.strip()}
                                     if property_name:
