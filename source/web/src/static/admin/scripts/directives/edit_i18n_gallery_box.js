@@ -80,7 +80,7 @@ angular.module('app')
                     if (_.isEmpty(img)) {
                         return false
                     }
-                    return img.indexOf('bbt-currant.s3.amazonaws.com') < 0 || img.indexOf('7vih1w.com2.z0.glb.qiniucdn.com') < 0
+                    return img.indexOf('bbt-currant.s3.amazonaws.com') < 0 && img.indexOf('7vih1w.com2.z0.glb.qiniucdn.com') < 0
                 }
 
                 scope.removeImage = function (imageIndex) {
