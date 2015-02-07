@@ -389,28 +389,28 @@
                             <label class="control-label" ui-draggable="true" drag="'bedroom_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('居室数')%}</label>
 
                             <div class="controls">
-                                <input type="number" class="form-control" ng-model="item.bedroom_count"/>
+                                <input type="number" min="0" class="form-control" ng-model="item.bedroom_count"/>
                             </div>
                         </div>
                         <div class="form-group col-sm-2">
                             <label class="control-label" ui-draggable="true" drag="'living_room_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('客厅数')%}</label>
 
                             <div class="controls">
-                                <input type="number" class="form-control" ng-model="item.living_room_count"/>
+                                <input type="number" min="0" class="form-control" ng-model="item.living_room_count"/>
                             </div>
                         </div>
                         <div class="form-group col-sm-2">
                             <label class="control-label">{%$root.i18n('卫生间数')%}</label>
 
                             <div class="controls" ui-draggable="true" drag="'bathroom_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">
-                                <input type="number" class="form-control" ng-model="item.bathroom_count"/>
+                                <input type="number" min="0" class="form-control" ng-model="item.bathroom_count"/>
                             </div>
                         </div>
                         <div class="form-group col-sm-2">
                             <label class="control-label" ui-draggable="true" drag="'kitchen_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('厨房数')%}</label>
 
                             <div class="controls">
-                                <input type="number" class="form-control" ng-model="item.kitchen_count"/>
+                                <input type="number" min="0" class="form-control" ng-model="item.kitchen_count"/>
                             </div>
                         </div>
                     </div>
@@ -523,14 +523,14 @@
                             <label class="control-label" ui-draggable="true" drag="'planning_household_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('规划户数')%}</label>
 
                             <div class="controls">
-                                <input type="number" class="form-control" ng-model="item.planning_household_count"/>
+                                <input type="number" min="0" class="form-control" ng-model="item.planning_household_count"/>
                             </div>
                         </div>
                         <div class="form-group col-sm-3">
                             <label class="control-label" ui-draggable="true" drag="'parking_space_count'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('车位数')%}</label>
 
                             <div class="controls">
-                                <input type="number" class="form-control" ng-model="item.parking_space_count"/>
+                                <input type="number" min="0" class="form-control" ng-model="item.parking_space_count"/>
                             </div>
                         </div>
                     </div>
@@ -581,25 +581,25 @@
                                                     <tr>
                                                         <td>{%$root.i18n('居室数')%}</td>
                                                         <td>
-                                                            <input type="number" ng-model="main_type.bedroom_count" placeholder="{%$root.i18n('居室数')%}" style="width:40px"/>
+                                                            <input type="number" min="0" ng-model="main_type.bedroom_count" placeholder="{%$root.i18n('居室数')%}" style="width:40px"/>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>{%$root.i18n('客厅数')%}</td>
                                                         <td>
-                                                            <input type="number" ng-model="main_type.living_room_count" placeholder="{%$root.i18n('客厅数')%}" style="width:40px"/>
+                                                            <input type="number" min="0" ng-model="main_type.living_room_count" placeholder="{%$root.i18n('客厅数')%}" style="width:40px"/>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>{%$root.i18n('卫生间数')%}</td>
                                                         <td>
-                                                            <input type="number" ng-model="main_type.bathroom_count" placeholder="{%$root.i18n('卫生间数')%}" style="width:40px"/>
+                                                            <input type="number" min="0" ng-model="main_type.bathroom_count" placeholder="{%$root.i18n('卫生间数')%}" style="width:40px"/>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>{%$root.i18n('厨房数')%}</td>
                                                         <td>
-                                                            <input type="number" ng-model="main_type.kitchen_count" placeholder="{%$root.i18n('厨房数')%}" style="width:40px"/>
+                                                            <input type="number" min="0" ng-model="main_type.kitchen_count" placeholder="{%$root.i18n('厨房数')%}" style="width:40px"/>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -607,15 +607,27 @@
                                             <td>
                                                 <table>
                                                     <tr>
-                                                        <td>{%$root.i18n('面积')%}</td>
+                                                        <td>{%$root.i18n('最小面积')%}</td>
                                                         <td>
-                                                            <div type-i18n-unit unit="main_type.building_area.unit||userArea.value" data="i18nArea" ng-model="main_type.building_area" placeholder="{%$root.i18n('面积')%}"></div>
+                                                            <div type-i18n-unit unit="main_type.building_area_min.unit||userArea.value" data="i18nArea" ng-model="main_type.building_area_min"></div>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>{%$root.i18n('户型总价')%}</td>
+                                                        <td>{%$root.i18n('最大面积')%}</td>
                                                         <td>
-                                                            <div type-i18n-unit unit="main_type.total_price.unit||userCurrency.value" data="i18nCurrency" ng-model="main_type.total_price" placeholder="{%$root.i18n('户型总价')%}"></div>
+                                                            <div type-i18n-unit unit="main_type.building_area_max.unit||userArea.value" data="i18nArea" ng-model="main_type.building_area_max"></div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{%$root.i18n('最低总价')%}</td>
+                                                        <td>
+                                                            <div type-i18n-unit unit="main_type.total_price_min.unit||userCurrency.value" data="i18nCurrency" ng-model="main_type.total_price_min"></div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{%$root.i18n('最高总价')%}</td>
+                                                        <td>
+                                                            <div type-i18n-unit unit="main_type.total_price_max.unit||userCurrency.value" data="i18nCurrency" ng-model="main_type.total_price_max"></div>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -625,7 +637,7 @@
                                             </td>
                                             <td>
                                                 <div type-i18n="main_type.floor_plan"></div>
-                                                <div edit-i18n-single-image="main_type.floor_plan" width-limit="1280" thumbnail-size="320,213" watermark="true"
+                                                <div edit-i18n-images="main_type.floor_plan" width-limit="1280" thumbnail-size="320,213" watermark="true"
                                                     text="{%$root.i18n('户型图')%}" style="width: 200px;"></div>
                                             </td>
                                             <td>

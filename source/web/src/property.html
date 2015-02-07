@@ -240,6 +240,14 @@
                                     <label class=price>
                                         <!--@@include=partials/get_unit_price.html  -->
                                     </label>
+                                    %if property.get('minimum_down_payment_rate'):
+                                        <label class="minimumDownPaymentRate" for="">
+                                            {{_('首付')}}
+                                            <strong>
+                                                {{str("{0:.0f}".format(float(property.get('minimum_down_payment_rate')) * 100))  + '%'}}
+                                            </strong>
+                                        </label>
+                                    %end
                                 </td>
                             </tr>
                         </table>
@@ -892,6 +900,17 @@
                                 <td class="price_inner">
                                     <!--@@include=partials/get_unit_price.html  -->
                                 </td>
+                                %if property.get('minimum_down_payment_rate'):
+                                    <td class="minimumDownPaymentRate">
+                                        <span>
+                                            {{_('首付')}}
+                                            <br/>
+                                            <strong>
+                                                {{str("{0:.0f}".format(float(property.get('minimum_down_payment_rate')) * 100))  + '%'}}
+                                            </strong>
+                                        </span>
+                                    </td>
+                                %end
                                 %if property.get('status') == 'sold out':
                                     <td class="soldOut">
                                         <span>{{_('售罄')}}</span>

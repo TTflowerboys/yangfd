@@ -576,18 +576,27 @@
                                             <td>
                                                 <table>
                                                     <tr>
-                                                        <td>{%$root.i18n('面积')%}</td>
-                                                        <td>{%main_type.building_area.value | number : 2%} {%main_type.building_area.unit%}</td>
+                                                        <td>{%$root.i18n('最小面积')%}</td>
+                                                        <td>{%main_type.building_area_min.value | number : 2%} {%main_type.building_area_min.unit%}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>{%$root.i18n('户型总价')%}</td>
-                                                        <td>{%main_type.total_price.value | number : 2%} {%main_type.total_price.unit%}</td>
+                                                        <td>{%$root.i18n('最大面积')%}</td>
+                                                        <td>{%main_type.building_area_max.value | number : 2%} {%main_type.building_area_max.unit%}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{%$root.i18n('最低总价')%}</td>
+                                                        <td>{%main_type.total_price_min.value | number : 2%} {%main_type.total_price_min.unit%}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{%$root.i18n('最高总价')%}</td>
+                                                        <td>{%main_type.total_price_max.value | number : 2%} {%main_type.total_price_max.unit%}</td>
                                                     </tr>
                                                 </table>
                                             </td>
                                             <td>{%main_type.description[userLanguage.value]%}</td>
                                             <td>
-                                                <img class="img-thumbnail" ng-src="{%main_type.floor_plan[userLanguage.value]%} ">
+                                                <img class="img-thumbnail" ng-repeat="img in item.floor_plan[userLanguage.value]"
+                                                    ng-src="{%img%} ">
                                             </td>
                                         </tr>
                                     </tbody>
