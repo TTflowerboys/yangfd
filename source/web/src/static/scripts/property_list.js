@@ -487,14 +487,19 @@ $(window).resize(window.updateTagsFixed);
 
 
     $(window).scroll(function () {
-        var scrollPos = $(window).scrollTop();
-        var windowHeight = $(window).height();
-        var listHeight = $('#result_list').height();
+        var scrollPos = $(window).scrollTop()
+        var windowHeight = $(window).height()
+        var listHeight = $('#result_list').height()
+        var itemCount = getCurrentTotalCount()
+        var requireToScrollHeight = listHeight
+        if (itemCount > 1) {
+            requireToScrollHeight = parseInt(listHeight * (itemCount - 1) / itemCount)
+        }
 
         setTimeout(function () {
-            if (windowHeight  + scrollPos > listHeight &&  $('#loadMore').is(':visible')) {
+            if (windowHeight  + scrollPos > requireToScrollHeight &&  $('#loadMore').is(':visible')) {
                 loadPropertyList()
             }
-        }, 500)
+        }, 200)
     })
 })()
