@@ -1,13 +1,13 @@
 <div>
     <div class="row">
         <div ng-repeat="image in images track by $index" style="" class="col-sm-3 ">
-            <div style="margin-bottom:8px; position: relative;">
+            <div style="margin-bottom:8px; position: relative;min-height: 60px">
                 <a target="_blank" ng-href="{% image %}" ng-style="{'visibility':image===''?'hidden':'visibility'}">
                     <img class="img-thumbnail" ng-src="{% image | thumbnail %}">
                 </a>
-                <div ng-style="{'visibility':image===''?'visibility':'hidden'}">
+                <span ng-style="{'visibility':image===''?'visibility':'hidden'}">
                     <i class="fa fa-spinner fa-spin"></i>
-                </div>
+                </span>
                 <button ng-if="isOurImage(image)" class="btn btn-sm" style="position: absolute; bottom:0; left: 0;" ng-click="uploadImage(image)"
                     type="button">{%$root.i18n('上传本站')%}
                 </button>
