@@ -98,7 +98,12 @@ angular.module('app')
                         } else {
                             if (_.isNumber(oldJson[key])) {
                                 addToResult(key, 0)
+                            } else if (oldJson[key] === true) {
+                                addToResult(key, false)
                             } else {
+                                if (_.isEmpty(oldJson[key])) {
+                                    continue
+                                }
                                 addToResult(key, '')
                             }
                         }
@@ -155,20 +160,15 @@ angular.module('app')
             },
 
             cleanI18nEmptyUnit: function (i18nData) {
+                if (_.isNumber(i18nData) || i18nData === true) {
+                    return i18nData
+                } else if (_.isEmpty(i18nData)) {
+                    delete i18nData
+                    return undefined
+                }
                 for (var i in i18nData) {
                     if (_.isArray(i18nData[i])) {
-                        var arr = i18nData[i]
-                        for (var j = arr.length - 1; j >= 0; j--) {
-                            if (_.isNumber(arr[j]) || arr[j] === true) {
-                                continue
-                            }
-                            if (_.isEmpty(arr[j])) {
-                                arr.splice(j, 1)
-                            }
-                        }
-                        if (_.isEmpty(arr)) {
-                            delete  i18nData[i]
-                        }
+                        i18nData[i] = self.cleanI18nEmptyUnit(i18nData[i])
                     }
                     if (_.isNumber(i18nData[i]) || i18nData[i] === true) {
                         continue
@@ -177,45 +177,45 @@ angular.module('app')
                         delete i18nData[i]
                         continue
                     }
-                    if (i18nData[i].unit === undefined) {
-                        if (_.isEmpty(i18nData[i].value)) {
-                            delete i18nData[i].value
-                        }
-                        if (_.isEmpty(i18nData[i])) {
+                    if (_.isObject(i18nData[i])) {
+                        if (i18nData[i].unit === undefined) {
+                            if (_.isEmpty(i18nData[i].value)) {
+                                delete i18nData[i].value
+                            }
+                            if (_.isEmpty(i18nData[i])) {
+                                delete i18nData[i]
+                                continue
+                            }
+                        } else if (i18nData[i].unit === '') {
                             delete i18nData[i]
                             continue
                         }
-                    } else if (i18nData[i].unit === '') {
-                        delete i18nData[i]
-                        continue
-                    } else {
-                        if (_.isObject(i18nData[i])) {
-                            if (_.isString(i18nData[i].unit)) {
-                                if (_.isNumber(i18nData[i].value)) {
-                                    continue
-                                }
-                                if (_.isEmpty(i18nData[i].value)) {
-                                    delete i18nData[i]
-                                    continue
-                                }
-                            } else {
-                                if (_.isObject(i18nData[i].unit) || _.isObject(i18nData[i].price)) {
+                        if (_.isString(i18nData[i].unit)) {
+                            if (_.isNumber(i18nData[i].value)) {
+                                continue
+                            }
+                            if (_.isEmpty(i18nData[i].value)) {
+                                delete i18nData[i]
+                                continue
+                            }
+                        } else {
+                            if (_.isObject(i18nData[i].unit) || _.isObject(i18nData[i].price)) {
 
-                                    if (_.isNumber(i18nData[i].unit.value) && _.isNumber(i18nData[i].price.value)) {
-                                        if (_.isString(i18nData[i].unit.unit) && _.isString(i18nData[i].price.unit)) {
-                                            continue
-                                        } else {
-                                            delete i18nData[i]
-                                            continue
-                                        }
-                                    }
-                                    if (_.isEmpty(i18nData[i].unit.value) || _.isEmpty(i18nData[i].price.value)) {
+                                if (_.isNumber(i18nData[i].unit.value) && _.isNumber(i18nData[i].price.value)) {
+                                    if (_.isString(i18nData[i].unit.unit) && _.isString(i18nData[i].price.unit)) {
+                                        continue
+                                    } else {
                                         delete i18nData[i]
                                         continue
                                     }
                                 }
+                                if (_.isEmpty(i18nData[i].unit.value) || _.isEmpty(i18nData[i].price.value)) {
+                                    delete i18nData[i]
+                                    continue
+                                }
                             }
                         }
+                        i18nData[i] = self.cleanI18nEmptyUnit(i18nData[i])
                     }
                 }
                 return i18nData

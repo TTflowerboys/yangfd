@@ -36,13 +36,15 @@
                 $scope.item.main_house_types = []
             }
             var temp = {
-                name: '',
+                name: {},
                 bedroom_count: 0,
                 living_room_count: 0,
                 bathroom_count: 0,
                 kitchen_count: 0,
-                space: {},
-                total_price: {},
+                building_area_min: {},
+                building_area_max: {},
+                total_price_min: {},
+                total_price_max: {},
                 floor_plan: {}
             }
             $scope.item.main_house_types.push(temp)
