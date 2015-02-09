@@ -250,7 +250,7 @@ def property_get(property_id):
         tags = [item['value'] for item in property['intention'] if 'value' in item]
 
     keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
-    return common_template("property", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
+    return common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>', params=dict(
