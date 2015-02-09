@@ -29,9 +29,6 @@ $('.titleFrame tr .titleCell a').click(function () {
 })
 function changeMainPage(page) {
     $.each($('.contentFrame'), function (i, val) {
-        console.log('page:'+page)
-        console.log('i:'+i)
-        console.log('val:'+$(this))
 
         if (i === page) {
             $(this).show()

@@ -163,7 +163,6 @@ angular.module('app')
                 if (_.isNumber(i18nData) || i18nData === true) {
                     return i18nData
                 } else if (_.isEmpty(i18nData)) {
-                    delete i18nData
                     return undefined
                 }
                 for (var i in i18nData) {
