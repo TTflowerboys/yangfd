@@ -18,55 +18,6 @@
         }
     }
 }
-.ui-tabs {
-    display: none;
-    @media @phone {
-        display: block;
-    }
-
-    .ui-tabs-nav {
-        min-width: 140px;
-        padding: 20px 0 20px 0;
-        background: transparent;
-        border-width: 0;
-        margin: 0 auto;
-        text-align: center;
-        width: 98%;
-    }
-    .ui-tabs-nav li {
-        display: inline;
-        text-align: center;
-        color: red;
-        min-width: 40px;
-        position: static;
-        margin: 0;
-        border: 2px solid red !important;
-        -moz-border-radius: 0;
-        -webkit-border-radius: 0;
-        border-radius: 0;
-        a {
-            padding: 6px;
-            width: 100%;
-            text-align: center;
-        }
-    }
-    .ui-tabs-nav li:first-child {
-        -moz-border-radius: 6px 0 0 6px;
-        -webkit-border-radius: 6px 0 0 6px;
-        border-radius: 6px 0 0 6px;
-        border-right: 0 !important;
-    }
-    .ui-tabs-nav li:last-child {
-        -moz-border-radius: 0 6px 6px 0;
-        -webkit-border-radius: 0 6px 6px 0;
-        border-radius: 0 6px 6px 0;
-        border-left: 0 !important;
-    }
-    .ui-tabs-nav li.ui-tabs-selected {
-        background: red;
-        color: #ffffff;
-    }
-}
 .cfdPageTitle {
     font-size: 24px;
     color: #333333;
@@ -144,5 +95,72 @@
     font-size: 15px;
     &.orange {
         color: #ff8a00;
+    }
+}
+.cfdContentFrame{
+    padding-top: 56px;
+    padding-bottom: 36px;
+}
+.cfdContentTitle {
+    font-size: 24px;
+    color: #333333;
+}
+.cfdFilterMenu{
+    font-size: 14px;
+    color: #999999;
+}
+.cfdFilterButton{
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #e60012;
+
+}
+.ui-tabs {
+    display: none;
+    @media @phone {
+        display: block;
+    }
+
+    .ui-tabs-nav {
+        min-width: 140px;
+        padding: 20px 0 20px 0;
+        background: transparent;
+        border-width: 0;
+        margin: 0 auto;
+        text-align: center;
+        width: 98%;
+    }
+    .ui-tabs-nav li {
+        display: inline;
+        text-align: center;
+        color: red;
+        min-width: 40px;
+        position: static;
+        margin: 0;
+        border: 2px solid red !important;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        border-radius: 0;
+        a {
+            padding: 6px;
+            width: 100%;
+            text-align: center;
+        }
+    }
+    .ui-tabs-nav li:first-child {
+        -moz-border-radius: 6px 0 0 6px;
+        -webkit-border-radius: 6px 0 0 6px;
+        border-radius: 6px 0 0 6px;
+        border-right: 0 !important;
+    }
+    .ui-tabs-nav li:last-child {
+        -moz-border-radius: 0 6px 6px 0;
+        -webkit-border-radius: 0 6px 6px 0;
+        border-radius: 0 6px 6px 0;
+        border-left: 0 !important;
+    }
+    .ui-tabs-nav li.ui-tabs-selected {
+        background: red;
+        color: #ffffff;
     }
 }

@@ -9,32 +9,34 @@
     </div>
 
     <div ng-init="getEnums()"></div>
-    <tabset style="margin-top: 16px;">
-        <tab ng-repeat="type in enumTypes">
-            <tab-heading>{%type.name%}</tab-heading>
-            <table class="table table-bordered table-striped table-condensed"
-                style="margin-bottom:30px">
-                <colgroup>
-                    <col>
-                    <col style="width: 120px;"/>
-                </colgroup>
-                <tbody>
-                    <tr ng-repeat="item in enums[$index]">
-                        <td>{%item.value[userLanguage.value]%}</td>
-                        <td style="text-align:center;">
-                            <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
-                                <i class="fa fa-edit "></i>
-                            </a>
-                            <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
-                                <i class="fa fa-trash-o"></i>
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div ng-show="enums[$index].length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+    <div scrolling-tabs-wrapper>
 
-        </tab>
+        <tabset>
+            <tab ng-repeat="type in enumTypes" heading="{%type.name%}" active="type.active" disabled="type.disabled">
+                <table class="table table-bordered table-striped table-condensed"
+                    style="margin-bottom:30px">
+                    <colgroup>
+                        <col>
+                        <col style="width: 120px;"/>
+                    </colgroup>
+                    <tbody>
+                        <tr ng-repeat="item in enums[$index]">
+                            <td>{%item.value[userLanguage.value]%}</td>
+                            <td style="text-align:center;">
+                                <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
+                                    <i class="fa fa-edit "></i>
+                                </a>
+                                <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
+                                    <i class="fa fa-trash-o"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-show="enums[$index].length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
 
-    </tabset>
+            </tab>
+
+        </tabset>
+    </div>
 </div>

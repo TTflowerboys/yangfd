@@ -1,25 +1,42 @@
 <div>
-    <div>交易记录</div>
-    <div>
-        <div>交易日期：</div>
-        <div>最近7天</div>
-        <div>2个月</div>
-        <div>3个月</div>
+    <div class="cfdContentFrame">
+        <div class="cfdContentTitle">交易记录</div>
     </div>
-    <div>
-        <div>交易日期：</div>
-        <input type="text">
-        <div>至</div>
-        <input type="text">
-    </div>
-    <div>
-        <div>交易类型：</div>
-        <div>全部</div>
-        <div>充值</div>
-        <div>提现</div>
-        <div>投资</div>
-        <div>收益</div>
-        <div>回收本金</div>
-    </div>
+    <table>
+        <tr>
+            <td>
+                <span class="cfdFilterMenu">交易日期：</span>
+            </td>
+            <td>
+                <button>全部</button>
+                <span>最近7天</span>
+                <span>2个月</span>
+                <span>3个月</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="cfdFilterMenu">交易日期：</span>
+            </td>
+            <td>
+                <input type="text">
+                <div>至</div>
+                <input type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="cfdFilterMenu">交易类型：</span>
+            </td>
+            <td>
+                <span>全部</span>
+                <span>充值</span>
+                <span>提现</span>
+                <span>投资</span>
+                <span>收益</span>
+                <span>回收本金</span>
+            </td>
+        </tr>
+    </table>
     <div class="transaction_list"></div>
 </div>
