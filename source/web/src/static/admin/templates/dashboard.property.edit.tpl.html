@@ -374,7 +374,7 @@
                         </div>
                     </div>
                 </tab>
-                <tab heading="{%$root.i18n('非楼盘特有信息')%}" ng-if="propertyType !== 'new_property'&&propertyType!=='student_housing'">
+                <tab heading="{%$root.i18n('非楼盘特有信息')%}" ng-if="propertyType !== 'new_property'&&propertyType!=='student_housing'&&propertyType!=='house'">
                     <div class="row">
                         <div class="form-group col-sm-2">
                             <label class="control-label" ui-draggable="true" drag="'total_price'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('总价格')%}</label>
@@ -439,7 +439,7 @@
                         </div>
                     </div>
                 </tab>
-                <tab heading="{%propertyType==='new_property'?$root.i18n('楼盘信息'):$root.i18n('学生公寓信息')%}" ng-if="propertyType === 'new_property'||propertyType==='student_housing'">
+                <tab heading="{%getTabTitle(propertyType)%}" ng-if="propertyType === 'new_property'||propertyType==='student_housing'||propertyType==='house'">
                     <div class="row">
                         <div class="form-group col-sm-3">
                             <label class="control-label" ui-draggable="true" drag="'developer'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('开发商')%}</label>

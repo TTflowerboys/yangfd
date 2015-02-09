@@ -66,6 +66,16 @@
             $scope.item.main_house_types.splice(index, 1)
         }
 
+        $scope.getTabTitle = function (type) {
+            switch (type) {
+                case 'student_housing':
+                    return i18n('学生公寓信息')
+                case 'house':
+                    return i18n('别墅信息')
+                default :
+                    return i18n('楼盘信息')
+            }
+        }
     }
 
     angular.module('app').controller('ctrlPropertyItems', ctrlPropertyItems)

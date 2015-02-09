@@ -2,7 +2,8 @@
     <div class="buttons">
 
         <span class="btn-group">
-            <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+            <button class="btn btnGoBack" ng-click="onBackClick()">
+                <span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
             </button>
             <button ng-if="item.status !== 'not reviewed'" class="btn" ng-click="$state.go('^.edit',{id:$stateParams.id})">
                 <span class="fa fa-edit"></span> {%$root.i18n('编辑')%}
@@ -328,7 +329,7 @@
                         </div>
                     </div>
                 </tab>
-                <tab heading="{%$root.i18n('非楼盘特有信息')%}" ng-if="item.property_type.slug !== 'new_property'&&item.property_type.slug!=='student_housing'">
+                <tab heading="{%$root.i18n('非楼盘特有信息')%}" ng-if="item.property_type.slug !== 'new_property'&&item.property_type.slug!=='student_housing'&&item.property_type.slug!=='house'">
                     <div class="row">
                         <div class="form-group  col-sm-2" ng-if="item.total_price">
                             <label class="control-label">{%$root.i18n('总价格')%}</label>
@@ -406,8 +407,8 @@
                         </div>
                     </div>
                 </tab>
-                <tab heading="{%item.property_type.slug ==='new_property'?$root.i18n('楼盘信息'):$root.i18n('学生公寓信息')%}"
-                    ng-if="item.property_type.slug==='new_property'||item.property_type.slug==='student_housing'">
+                <tab heading="{%getTabTitle(item.property_type.slug)%}" ng-controller="ctrlPropertyItems"
+                    ng-if="item.property_type.slug==='new_property'||item.property_type.slug==='student_housing'||item.property_type.slug==='house'">
                     <div class="row">
                         <div class="form-group  col-sm-3" ng-if="item.developer">
                             <label class="control-label">{%$root.i18n('开发商')%}</label>
