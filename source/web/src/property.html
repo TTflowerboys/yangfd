@@ -859,9 +859,7 @@
                             <h1 class="name">
                                 {{report.get('name')}}
                             </h1>
-                            <p class="des">
-                                {{report.get('description')}}
-                            </p>
+                            <p class="des">{{report.get('description')}}</p>
                             <a class="ghostButton detail" href="/region_report/{{report.get('zipcode_index')}}" target="_blank">
                                 {{_('查看详细街区报告')}}
                             </a>
@@ -1209,6 +1207,7 @@
     <script src="/static/scripts/property_favorite.js"></script>
     <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
     <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
+    <script src="/static/vendors/jquery.dotdotdot.js"></script>
     <script src="/static/scripts/property_brochure.js"></script>
     <script src="/static/vendors/video-js/video.js"></script>
     <!--endbuild-->
@@ -1230,6 +1229,12 @@
          window.showSchoolMap(geoLocation, null, true, 14, property.country.slug)
          window.showFacilityMap(geoLocation, null, true, 14, property.country.slug)
      }
+
+     $(function () {
+         $(".regionReport .des").dotdotdot({
+             // configuration goes here
+         });
+     })
 
     </script>
     <!-- @endif -->
