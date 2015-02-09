@@ -712,6 +712,10 @@ body{
 
                 .value {
                     color:@red;
+
+                    @media @phone {
+                        color: white;
+                    }
                 }
 
                 &.space {
@@ -1285,15 +1289,12 @@ body{
             .des {
                 font-size:16px;
                 line-height:24px;
-                word-wrap:break-word;
-                height: 125px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-
+                height: 100px;
 
                 @media @phone {
                     font-size:@base-font-size-mobile;
                     line-height:18px;
+                    height:120px;
                 }
             }
 

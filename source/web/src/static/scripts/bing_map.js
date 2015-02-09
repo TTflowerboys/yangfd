@@ -184,10 +184,12 @@
         var map = window.getMap('transitMapCanvas')
         var $list = $('.maps .list div[data-tab-name=transit] ul')
 
-        Microsoft.Maps.loadModule('Microsoft.Maps.Traffic', {callback: function () {
-            var trafficLayer = new Microsoft.Maps.Traffic.TrafficLayer(map);
-            trafficLayer.show();
-        }});
+        // Microsoft.Maps.loadModule('Microsoft.Maps.Traffic', {callback: function () {
+        //var trafficLayer = new Microsoft.Maps.Traffic.TrafficLayer(map);
+        //trafficLayer.show();
+        //var trafficManager = new Microsoft.Maps.Traffic.TrafficManager(map);
+        //trafficManager.show()
+        // }});
 
         findNearByLocations(map, mapId, location, country, ['4013', '4170','4482', '4493', '4580', '4581', '9511', '9520', '9707', '9708', '9989'], function (searchResults) {
             if (searchResults) {
