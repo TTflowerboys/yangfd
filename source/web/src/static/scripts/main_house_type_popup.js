@@ -39,8 +39,15 @@
             cIndex = parseInt(index)
             if(houseTypes && houseTypes.length>0 && cIndex>=0 && cIndex < houseTypes.length){
 
-                $('.main_house_type_wrapper.item'+cIndex).fadeIn( 'slow', function() {
-                    $('.main_house_type_wrapper.item'+cIndex).show()
+                for(var i = 0;i<houseTypes.length;i++){
+                    if(i !== cIndex){
+                        $('.main_house_type_wrapper.item'+i).hide()
+                        $('.main_house_type_wrapper.item'+cIndex+' .main_house_type').hide()
+                    }
+                }
+                $('.main_house_type_wrapper.item'+cIndex).show()
+                $('.main_house_type_wrapper.item'+cIndex+' .main_house_type').fadeIn( 'slow', function() {
+                    $('.main_house_type_wrapper.item'+cIndex+' .main_house_type').show()
                 })
             }
 
@@ -63,7 +70,6 @@
         }
 
         $('.main_house_type_prev_area').click(function(){
-            $('.main_house_type_wrapper.item'+cIndex).hide()
             if (cIndex > 0) {
                 window.openMainHouseType(null,cIndex - 1,true)
             } else if (cIndex === 0) {
@@ -75,7 +81,6 @@
         })
 
         $('.main_house_type_next_area').click(function(){
-            $('.main_house_type_wrapper.item'+cIndex).hide()
             if (cIndex < totalLength - 1) {
                 window.openMainHouseType(null,cIndex + 1,true)
             } else if (cIndex === totalLength - 1) {
