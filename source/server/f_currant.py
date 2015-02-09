@@ -411,7 +411,7 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["assign_property_short_id", "render_pdf", "crawler_example", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor", "crawler_knightknox_agents", "update_landregistry"]
+    task = ["assign_property_short_id", "render_pdf", "crawler_example", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor", "crawler_knightknox_agents", "update_landregistry", "crawler_selectproperty"]
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -1063,7 +1063,7 @@ class f_currant_plugins(f_app.plugin_base):
                         list_page_dom_root = q(list_page_next.content).xhtml_to_html()
 
         f_app.task.put(dict(
-            type="crawler_abacusinvestor",
+            type="crawler_selectproperty",
             start=datetime.utcnow() + timedelta(days=1),
         ))
 
