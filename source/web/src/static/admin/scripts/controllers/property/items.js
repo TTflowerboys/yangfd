@@ -4,6 +4,14 @@
 (function () {
 
     function ctrlPropertyItems($scope, $rootScope) {
+        $scope.$watch('item.zipcode', function (newValue) {
+
+            if (newValue.length > 3) {
+                $scope.item.zipcode_index = newValue.substring(0, 3)
+            } else {
+                $scope.item.zipcode_index = newValue
+            }
+        })
 
         $scope.addHighlight = function () {
             if (_.isEmpty($scope.item.highlight)) {
