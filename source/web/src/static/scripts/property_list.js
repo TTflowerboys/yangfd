@@ -100,6 +100,10 @@ $(window).resize(window.updateTagsFixed);
         if (bedroomCount) {
             params.bedroom_count = bedroomCount
         }
+        var buildingArea = getSelectedBuildingArea()
+        if (buildingArea) {
+            params.building_area = buildingArea
+        }
         if (lastItemTime) {
             params.mtime = lastItemTime
 
@@ -229,6 +233,15 @@ $(window).resize(window.updateTagsFixed);
         return ''
     }
 
+    function getSelectedBuildingArea() {
+        var $selectedChild = $('#tags #buildingAreaTag').children('.selected')
+        if ($selectedChild.length) {
+            return $selectedChild.first().attr('data-id')
+        }
+        return ''
+    }
+
+
     function updateResultCount(count) {
         var $numberContainer = $('#result #number_container')
         //var $number = $numberContainer.find('#number')
@@ -316,6 +329,13 @@ $(window).resize(window.updateTagsFixed);
 
     function selectBedroom(count) {
         var $item = $('#tags #bedroomCountTag').find('[data-value=' + count + ']')
+        var $parent = $item.parent()
+        $parent.find('.toggleTag').removeClass('selected')
+        $item.addClass('selected')
+    }
+
+    function selectBuildingArea(id) {
+        var $item = $('#tags #buildingAreaTag').find('[data-id=' + id + ']')
         var $parent = $item.parent()
         $parent.find('.toggleTag').removeClass('selected')
         $item.addClass('selected')
@@ -421,17 +441,31 @@ $(window).resize(window.updateTagsFixed);
     })
 
     $('#tags #bedroomCountTag').on('click', '.toggleTag', function (event) {
-
         var $item = $(event.target)
-        if ($item.hasClass('selected')) {
-            $item.removeClass('selected')
-        }
-        else {
+        var alreadySelected = $item.hasClass('selected')
+        var $parent = $(event.target.parentNode)
+        $parent.find('.toggleTag').removeClass('selected')
+
+        if (!alreadySelected) {
             $item.addClass('selected')
         }
 
         ga('send', 'event', 'property_list', 'change', 'change-bedroomCount',$item.text())
         location.href = window.team.setQuery('bedroom_count', getSelectedBedroomCount())
+    })
+
+    $('#tags #buildingAreaTag').on('click', '.toggleTag', function (event) {
+        var $item = $(event.target)
+        var alreadySelected = $item.hasClass('selected')
+        var $parent = $(event.target.parentNode)
+        $parent.find('.toggleTag').removeClass('selected')
+
+        if (!alreadySelected) {
+            $item.addClass('selected')
+        }
+
+        ga('send', 'event', 'property_list', 'change', 'change-buildingArea',$item.text())
+        location.href = window.team.setQuery('building_area', getSelectedBuildingArea())
     })
 
     function showTags() {
@@ -518,6 +552,15 @@ $(window).resize(window.updateTagsFixed);
     var bedroomFromURL = window.team.getQuery('bedroom_count', location.href)
     if (bedroomFromURL) {
         selectBedroom(bedroomFromURL)
+
+        if (window.team.isPhone()){
+            showTags()
+        }
+    }
+
+    var buildingAreaFromURL = window.team.getQuery('building_area', location.href)
+    if (buildingAreaFromURL) {
+        selectBuildingArea(buildingAreaFromURL)
 
         if (window.team.isPhone()){
             showTags()
