@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
     name=str,
     slug=str,
     bedroom_count=int,
-    building_area=str,
+    building_area="enum:building_area",
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
