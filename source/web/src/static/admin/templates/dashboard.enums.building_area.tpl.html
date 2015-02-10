@@ -28,9 +28,9 @@
             </tr>
             <tr ng-repeat="item in building_area">
                 <td>{%item.value[userLanguage.value]%}</td>
-                <td>{%item.slug.substring(14, item.slug.indexOf(','))%}</td>
+                <td>{%item.slug.substring((item.slug.indexOf(':')+1), item.slug.indexOf(','))%}</td>
                 <td>{%item.slug.substring((item.slug.indexOf(',')+1),item.slug.lastIndexOf(','))%}</td>
-                <td>{%item.currency%}</td>
+                <td>{%item.slug.substring(item.slug.lastIndexOf(',')+1).replace('_**_',' ** ')%}</td>
                 <td style="text-align:center;">
                     <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
                         <i class="fa fa-edit "></i>

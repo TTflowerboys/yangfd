@@ -28,7 +28,7 @@
             </tr>
             <tr ng-repeat="item in budget">
                 <td>{%item.value[userLanguage.value]%}</td>
-                <td>{%item.slug.substring(7, item.slug.indexOf(','))%}</td>
+                <td>{%item.slug.substring((item.slug.indexOf(':')+1), item.slug.indexOf(','))%}</td>
                 <td>{%item.slug.substring((item.slug.indexOf(',')+1),item.slug.lastIndexOf(','))%}</td>
                 <td>{%item.currency%}</td>
                 <td style="text-align:center;">

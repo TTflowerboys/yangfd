@@ -156,9 +156,10 @@
                             $scope.onAddLanguage($scope.item.tempValues[i][0])
                         }
                     }
+                    var index0 = $scope.item.slug.indexOf(':') + 1
                     var index1 = $scope.item.slug.indexOf(',')
                     var index2 = $scope.item.slug.lastIndexOf(',')
-                    $scope.item.limit = parseInt($scope.item.slug.substring(7, index1), 10)
+                    $scope.item.limit = parseInt($scope.item.slug.substring(index0, index1), 10)
                     $scope.item.ceiling = parseInt($scope.item.slug.substring(index1 + 1, index2), 10)
                 })
         }
@@ -199,10 +200,12 @@
                             $scope.onAddLanguage($scope.item.tempValues[i][0])
                         }
                     }
+                    var index0 = $scope.item.slug.indexOf(':') + 1
                     var index1 = $scope.item.slug.indexOf(',')
                     var index2 = $scope.item.slug.lastIndexOf(',')
-                    $scope.item.limit = parseInt($scope.item.slug.substring(14, index1), 10)
+                    $scope.item.limit = parseInt($scope.item.slug.substring(index0, index1), 10)
                     $scope.item.ceiling = parseInt($scope.item.slug.substring(index1 + 1, index2), 10)
+                    $scope.item.area = $scope.item.slug.substring(index2 + 1).replace('_**_',' ** ')
                 })
         }
         $scope.addBuildingArea = function ($event, form) {
@@ -213,7 +216,7 @@
                 return
             }
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addBuildingArea($scope.item.limit, $scope.item.ceiling, $scope.item.area, $scope.item.value)
+            api.addBuildingArea($scope.item.limit, $scope.item.ceiling, $scope.item.area.replace(' ** ','_**_'), $scope.item.value)
                 .success(function () {
                     $scope.item.limit = undefined
                     $scope.item.ceiling = undefined
@@ -224,7 +227,7 @@
         $scope.editBuildingArea = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.editBuildingArea($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.area,
+            api.editBuildingArea($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.area.replace(' ** ','_**_'),
                 $scope.item.value)
                 .success(function () {
                     $state.go('^')
