@@ -168,7 +168,8 @@ def region_report(zipcode_index):
     country=str,
     city=str,
     budget=str,
-    intention=str
+    intention=str,
+    bedroom_count=str
 ))
 @check_ip_and_redirect_domain
 def property_list(params):

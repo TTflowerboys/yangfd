@@ -96,6 +96,10 @@ $(window).resize(window.updateTagsFixed);
         if (intention) {
             params.intention = intention
         }
+        var bedroomCount = getSelectedBedroomCount()
+        if (bedroomCount) {
+            params.bedroom_count = bedroomCount
+        }
         if (lastItemTime) {
             params.mtime = lastItemTime
 
@@ -217,6 +221,13 @@ $(window).resize(window.updateTagsFixed);
         return ''
     }
 
+    function getSelectedBedroomCount() {
+        var $selectedChild = $('#tags #bedroomCountTag').children('.selected')
+        if ($selectedChild.length) {
+            return $selectedChild.first().attr('data-value')
+        }
+        return ''
+    }
 
     function updateResultCount(count) {
         var $numberContainer = $('#result #number_container')
@@ -301,6 +312,13 @@ $(window).resize(window.updateTagsFixed);
         _.each(ids, function (id) {
             $('#tags #intentionTag').find('[data-id=' + id + ']').toggleClass('selected', true)
         })
+    }
+
+    function selectBedroom(count) {
+        var $item = $('#tags #bedroomCountTag').find('[data-value=' + count + ']')
+        var $parent = $item.parent()
+        $parent.find('.toggleTag').removeClass('selected')
+        $item.addClass('selected')
     }
 
     function selectCountry(id) {
@@ -402,6 +420,20 @@ $(window).resize(window.updateTagsFixed);
         location.href = window.team.setQuery('intention', getSelectedIntention())
     })
 
+    $('#tags #bedroomCountTag').on('click', '.toggleTag', function (event) {
+
+        var $item = $(event.target)
+        if ($item.hasClass('selected')) {
+            $item.removeClass('selected')
+        }
+        else {
+            $item.addClass('selected')
+        }
+
+        ga('send', 'event', 'property_list', 'change', 'change-bedroomCount',$item.text())
+        location.href = window.team.setQuery('bedroom_count', getSelectedBedroomCount())
+    })
+
     function showTags() {
         var $button = $('#showTags')
         var $tags = $('#tags .tags_inner')
@@ -477,6 +509,15 @@ $(window).resize(window.updateTagsFixed);
     var budgetFromURL = window.team.getQuery('budget', location.href)
     if (budgetFromURL) {
         selectBudget(budgetFromURL)
+
+        if (window.team.isPhone()){
+            showTags()
+        }
+    }
+
+    var bedroomFromURL = window.team.getQuery('bedroom_count', location.href)
+    if (bedroomFromURL) {
+        selectBedroom(bedroomFromURL)
 
         if (window.team.isPhone()){
             showTags()
