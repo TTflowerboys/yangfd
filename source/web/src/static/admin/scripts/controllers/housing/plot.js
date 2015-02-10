@@ -12,6 +12,10 @@
 
         var params = $rootScope.plotParams || {}
         $scope.selected.bedroom_count = params.bedroom_count
+        $scope.selected.living_room_count = params.living_room_count
+        $scope.selected.kitchen_count = params.kitchen_count
+        $scope.selected.bathroom_count = params.bathroom_count
+        $scope.selected.zipcode_index = params.zipcode_index
         $scope.selected.floor = params.floor
         if (params.space) {
             var index1 = params.space.indexOf(',')
@@ -31,6 +35,26 @@
                 delete params.bedroom_count
             } else {
                 params.bedroom_count = $scope.selected.bedroom_count
+            }
+            if ($scope.selected.living_room_count === undefined || $scope.selected.living_room_count === '' || $scope.selected.living_room_count === null) {
+                delete params.living_room_count
+            } else {
+                params.living_room_count = $scope.selected.living_room_count
+            }
+            if ($scope.selected.kitchen_count === undefined || $scope.selected.kitchen_count === '' || $scope.selected.kitchen_count === null) {
+                delete params.kitchen_count
+            } else {
+                params.kitchen_count = $scope.selected.kitchen_count
+            }
+            if ($scope.selected.bathroom_count === undefined || $scope.selected.bathroom_count === '' || $scope.selected.bathroom_count === null) {
+                delete params.bathroom_count
+            } else {
+                params.bathroom_count = $scope.selected.bathroom_count
+            }
+            if ($scope.selected.zipcode_index) {
+                params.zipcode_index = $scope.selected.zipcode_index
+            } else {
+                delete params.zipcode_index
             }
             if ($scope.selected.floor) {
                 params.floor = $scope.selected.floor
