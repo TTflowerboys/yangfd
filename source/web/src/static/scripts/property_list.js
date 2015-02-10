@@ -74,7 +74,7 @@ $(window).resize(window.updateTagsFixed);
     }
 
     function loadPropertyList() {
-        var params = {'per_page':'5'}
+        var params = {'per_page':'5', bedroom_count:'3'}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
         if (country) {
             params.country = country
