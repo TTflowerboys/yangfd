@@ -21,25 +21,25 @@ $(window.resizeCategory);
 
 $(window).on('resize', window.resizeCategory);
 
-window.updateTagsFixed = function () {
-    if (!window.team.isPhone()) {
-        var scrollOffset = $(window).scrollTop()
-        var $list = $('#result_list').width() > 0 ? $('#result_list'): $('#emptyPlaceHolder')
-        var listTop = $list.offset().top
-        var $tags = $('#tags')
-        var listWidth = $list.width()
-        var tagsLeft = $list.offset().left + listWidth + 60
-        if (scrollOffset > listTop - 20) {
-            $tags.css({'position':'fixed', 'top':'20px', left:tagsLeft, 'margin-top':'0'})
-        }
-        else {
-            $tags.css({'position':'static', 'top':'0', left:'0', 'margin-top': '140px'})
-        }
-    }
-}
+// window.updateTagsFixed = function () {
+//     if (!window.team.isPhone()) {
+//         var scrollOffset = $(window).scrollTop()
+//         var $list = $('#result_list').width() > 0 ? $('#result_list'): $('#emptyPlaceHolder')
+//         var listTop = $list.offset().top
+//         var $tags = $('#tags')
+//         var listWidth = $list.width()
+//         var tagsLeft = $list.offset().left + listWidth + 60
+//         if (scrollOffset > listTop - 20) {
+//             $tags.css({'position':'fixed', 'top':'20px', left:tagsLeft, 'margin-top':'0'})
+//         }
+//         else {
+//             $tags.css({'position':'static', 'top':'0', left:'0', 'margin-top': '140px'})
+//         }
+//     }
+// }
 
-$(window).scroll(window.updateTagsFixed);
-$(window).resize(window.updateTagsFixed);
+// $(window).scroll(window.updateTagsFixed);
+// $(window).resize(window.updateTagsFixed);
 
 (function () {
 
