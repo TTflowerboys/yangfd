@@ -202,6 +202,24 @@ angular.module('app')
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
+            .state('dashboard.enums.building_area', {
+                url: '/building_area',
+                templateUrl: '/static/admin/templates/dashboard.enums.building_area.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.building_area.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.building_area.create.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.building_area.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.enums.building_area.edit.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
             .state('dashboard.enums.intention', {
                 url: '/intention',
                 templateUrl: '/static/admin/templates/dashboard.enums.intention.tpl.html',
