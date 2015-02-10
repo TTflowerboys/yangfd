@@ -96,6 +96,12 @@
                                             <span class="hidden-sm text">{%$root.i18n('预算')%}</span>
                                         </a>
                                     </li>
+                                    <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.building_area')}">
+                                        <a class="submenu" href ui-sref="dashboard.enums.building_area">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('面积')%}</span>
+                                        </a>
+                                    </li>
                                     <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.intention')}">
                                         <a class="submenu" href ui-sref="dashboard.enums.intention">
                                             <i class="fa fa-angle-right"></i>

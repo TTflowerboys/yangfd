@@ -98,6 +98,34 @@
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
+            addBuildingArea: function (limit, ceiling, area, value) {
+                var slug = 'building_area:'
+                slug += limit ? limit : ''
+                slug += ','
+                slug += ceiling ? ceiling : ''
+                slug += ','
+                slug += area
+                var data = {
+                    type: 'building_area',
+                    slug: slug,
+                    value: value
+                }
+                return $http.post('/api/1/enum/add', data, {errorMessage: true})
+            },
+            editBuildingArea: function (id, limit, ceiling, area, value) {
+                var slug = 'building_area:'
+                slug += limit ? limit : ''
+                slug += ','
+                slug += ceiling ? ceiling : ''
+                slug += ','
+                slug += area
+                var data = {
+                    type: 'building_area',
+                    slug: slug,
+                    value: value
+                }
+                return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
+            },
             addIntention: function (value, description, slug) {
                 var data = {
                     type: 'intention',
