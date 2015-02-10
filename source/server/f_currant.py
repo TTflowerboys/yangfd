@@ -1732,17 +1732,17 @@ class f_currant_util(f_util):
 
         assert building_area["type"] == "building_area", abort(40000, self.logger.warning("wrong type, cannot parse building_area", exc_info=False))
         assert building_area.get("slug") is not None and building_area["slug"].startswith("building_area:"), abort(self.logger.warning("wrong type, cannot parse building_area", exc_info=False))
-        assert building_area.get("currency") is not None and building_area["currency"] in ("meter ** 2", "foot ** 2"), abort(self.logger.warning("wrong type, cannot parse building_area", exc_info=False))
 
-        buidling_area_group = [x.strip() for x in building_area["slug"].split("building_area:")[-1].split(",")]
+        building_area_group = [x.strip() for x in building_area["slug"].split("building_area:")[-1].split(",")]
 
-        assert len(buidling_area_group) == 3, abort(40000, self.logger.warning("Invalid building_area slug", exc_info=False))
-        assert buidling_area_group[2] in f_app.common.currency, abort(self.logger.warning("wrong type, cannot parse building_area", exc_info=False))
+        assert len(building_area_group) == 3, abort(40000, self.logger.warning("Invalid building_area slug", exc_info=False))
+        assert building_area_group[2] in ("meter_**_2", "foot_**_2"), abort(self.logger.warning("wrong type, cannot parse building_area", exc_info=False))
 
-        buidling_area_group[0] = float(buidling_area_group[0])if buidling_area_group[0] else None
-        buidling_area_group[1] = float(buidling_area_group[1])if buidling_area_group[1] else None
+        building_area_group[0] = float(building_area_group[0])if building_area_group[0] else None
+        building_area_group[1] = float(building_area_group[1])if building_area_group[1] else None
+        building_area_group[2] = building_area_group[2].replace('_', ' ')
 
-        return buidling_area_group
+        return building_area_group
 
     def get_format_email_subject(self, subject):
         host = request.urlparts[1]
