@@ -103,7 +103,7 @@ def property_search(user, params):
     if "building_area" in params:
         building_area_filter = []
         space_filter = []
-        building_area = f_app.util.parse_building_area(params["building_area"])
+        building_area = f_app.util.parse_building_area(params.pop("building_area"))
 
         for building_area_unit in ("meter ** 2", "foot ** 2"):
             condition = {"space.unit": building_area_unit}
@@ -122,7 +122,7 @@ def property_search(user, params):
                     condition["space.value_float"]["$gte"] = float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[0]}, building_area_unit))
                     house_condition["building_area_max.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[0]}, building_area_unit))}
                 if building_area[1]:
-                    condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[1]}, building_area_unit))
+                    condition["space.value_float"]["$lte"] = float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[1]}, building_area_unit))
                     house_condition["building_area_min.value_float"] = {"$lte": float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[1]}, building_area_unit))}
             space_filter.append(condition)
             building_area_filter.append({"main_house_types": {"$elemMatch": house_condition}})
