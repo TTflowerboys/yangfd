@@ -1722,6 +1722,26 @@ class f_currant_util(f_util):
 
         return price_group
 
+    def parse_bedroom_count(self, bedroom_count):
+        if isinstance(bedroom_count, six.string_types) or isinstance(bedroom_count, ObjectId):
+            bedroom_count = f_app.enum.get(bedroom_count)
+        elif isinstance(bedroom_count, dict):
+            bedroom_count = f_app.enum.get(bedroom_count["_id"])
+        else:
+            abort(40000, self.logger.warning("wrong type, cannot parse bedroom_count", exc_info=False))
+
+        assert bedroom_count["type"] == "bedroom_count", abort(40000, self.logger.warning("wrong type, cannot parse bedroom_count", exc_info=False))
+        assert bedroom_count.get("slug") is not None and bedroom_count["slug"].startswith("bedroom_count:"), abort(self.logger.warning("wrong type, cannot parse bedroom_count", exc_info=False))
+
+        bedroom_count_group = [x.strip() for x in bedroom_count["slug"].split("bedroom_count:")[-1].split(",")]
+
+        assert len(bedroom_count_group) == 2, abort(40000, self.logger.warning("Invalid bedroom_count slug", exc_info=False))
+
+        bedroom_count_group[0] = int(bedroom_count_group[0])if bedroom_count_group[0] else None
+        bedroom_count_group[1] = int(bedroom_count_group[1])if bedroom_count_group[1] else None
+
+        return bedroom_count_group
+
     def parse_building_area(self, building_area):
         if isinstance(building_area, six.string_types) or isinstance(building_area, ObjectId):
             building_area = f_app.enum.get(building_area)
