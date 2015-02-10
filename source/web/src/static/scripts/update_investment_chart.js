@@ -54,14 +54,16 @@
             chart.setAttribute('height', '400')
         }
 
-        var barSpace = (chart.getAttribute('width') - yearCount * 70) / (yearCount * 2)
+        var barWidth = 70
+        if (chart.getAttribute('width') < yearCount * barWidth) {
+            barWidth = chart.getAttribute('width') / (yearCount * 2)
+        }
+        var barSpace = (chart.getAttribute('width') - yearCount * barWidth) / (yearCount * 2)
         new Chart(ctx).Bar(data, {
             scaleShowGridLines: false,
             barShowStroke: false,
             barValueSpacing: barSpace,
         });
      }
-
-
 
 })(jQuery)
