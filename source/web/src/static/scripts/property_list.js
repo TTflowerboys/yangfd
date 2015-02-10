@@ -233,10 +233,26 @@ $(window).resize(window.updateTagsFixed);
         return ''
     }
 
+    function getSelectedBedroomCountValue() {
+        var $selectedChild = $('#tags #bedroomCountTag').children('.selected')
+        if ($selectedChild.length) {
+            return $selectedChild.first().text()
+        }
+        return ''
+    }
+
     function getSelectedBuildingArea() {
         var $selectedChild = $('#tags #buildingAreaTag').children('.selected')
         if ($selectedChild.length) {
             return $selectedChild.first().attr('data-id')
+        }
+        return ''
+    }
+
+    function getSelectedBuildingAreaValue() {
+        var $selectedChild = $('#tags #buildingAreaTag').children('.selected')
+        if ($selectedChild.length) {
+            return $selectedChild.first().text()
         }
         return ''
     }
@@ -273,6 +289,8 @@ $(window).resize(window.updateTagsFixed);
             var selectedType = $('select[name=propertyType]').children('option:selected').text()
             var selectedBudget = getSelectedBudgetTypeValue()
             var selectedIntention = getSelectedIntentionValue()
+            var selectedBedroomCount = getSelectedBedroomCountValue()
+            var selectedBuildingArea = getSelectedBuildingAreaValue()
 
             if (_.last(selectedIntention) === ',') {
                 selectedIntention = selectedIntention.substring(0, selectedIntention.length - 1)
@@ -294,6 +312,16 @@ $(window).resize(window.updateTagsFixed);
             if (selectedIntention) {
                 description = description + window.i18n('的房产，投资意向为') + ' ' +
                     selectedIntention
+            }
+
+            if (selectedBedroomCount) {
+                description = description + window.i18n('，居室数为') + ' ' +
+                    selectedBedroomCount
+            }
+
+            if (selectedBuildingArea) {
+                description = description + window.i18n('，面积为') + ' ' +
+                    selectedBuildingArea
             }
 
             description = description + window.i18n('。')
