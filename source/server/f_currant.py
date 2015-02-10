@@ -1722,6 +1722,28 @@ class f_currant_util(f_util):
 
         return price_group
 
+    def parse_building_area(self, building_area):
+        if isinstance(building_area, six.string_types) or isinstance(building_area, ObjectId):
+            building_area = f_app.enum.get(building_area)
+        elif isinstance(building_area, dict):
+            building_area = f_app.enum.get(building_area["_id"])
+        else:
+            abort(40000, self.logger.warning("wrong type, cannot parse building_area", exc_info=False))
+
+        assert building_area["type"] == "building_area", abort(40000, self.logger.warning("wrong type, cannot parse building_area", exc_info=False))
+        assert building_area.get("slug") is not None and building_area["slug"].startswith("building_area:"), abort(self.logger.warning("wrong type, cannot parse building_area", exc_info=False))
+        assert building_area.get("currency") is not None and building_area["currency"] in ("meter ** 2", "foot ** 2"), abort(self.logger.warning("wrong type, cannot parse building_area", exc_info=False))
+
+        buidling_area_group = [x.strip() for x in building_area["slug"].split("building_area:")[-1].split(",")]
+
+        assert len(buidling_area_group) == 3, abort(40000, self.logger.warning("Invalid building_area slug", exc_info=False))
+        assert buidling_area_group[2] in f_app.common.currency, abort(self.logger.warning("wrong type, cannot parse building_area", exc_info=False))
+
+        buidling_area_group[0] = float(buidling_area_group[0])if buidling_area_group[0] else None
+        buidling_area_group[1] = float(buidling_area_group[1])if buidling_area_group[1] else None
+
+        return buidling_area_group
+
     def get_format_email_subject(self, subject):
         host = request.urlparts[1]
         if "currant-dev" in host:

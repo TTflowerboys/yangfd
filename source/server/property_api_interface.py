@@ -44,7 +44,7 @@ def property_search(user, params):
     * mtime,desc
 
     ``time`` should be a unix timestamp in utc.
-    ``building_area`` format: ``,40,m ** 2``, ``40,100,foot ** 2``, ``100,,m ** 2``
+    ``building_area`` format: ``,40,meter ** 2``, ``40,100,foot ** 2``, ``100,,meter ** 2``
     """
     random = params.pop("random", False)
     sort = params.pop("sort", ["mtime", "desc"])
@@ -103,13 +103,7 @@ def property_search(user, params):
     if "building_area" in params:
         building_area_filter = []
         space_filter = []
-        building_area = [x.strip() for x in params.pop("building_area").split(",")]
-        if len(building_area) == 3:
-            assert building_area[2] in ("meter ** 2", "foot ** 2"), abort(40000, logger.warning("Invalid params: building_area unit not correct", exc_info=False))
-        elif len(building_area) == 2:
-            building_area.append("meter ** 2")
-        else:
-            abort(40000)
+        building_area = f_app.util.parse_building_area(params["building_area"])
 
         for building_area_unit in ("meter ** 2", "foot ** 2"):
             condition = {"space.unit": building_area_unit}
