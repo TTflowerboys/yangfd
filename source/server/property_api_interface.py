@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
     random=bool,
     name=str,
     slug=str,
-    bedroom_count=int,
+    bedroom_count="enum:bedroom_count",
     building_area="enum:building_area",
 ))
 @f_app.user.login.check(check_role=True)
@@ -98,7 +98,18 @@ def property_search(user, params):
             params["$and"] = [{"$or": or_filter}, {"$or": name_filter}]
 
     if "bedroom_count" in params:
-        params["main_house_types.bedroom_count"] = params.pop("bedroom_count")
+        bedroom_count = f_app.util.parse_bedroom_count(params.pop("bedroom_count"))
+        if bedroom_count[0] and bedroom_count[1]:
+            if bedroom_count[0] == bedroom_count[1]:
+                params["main_house_types.bedroom_count"] = bedroom_count[0]
+            elif bedroom_count[0] > bedroom_count[1]:
+                abort(40000, logger.warning("Invalid bedroom_count: start value cannot be greater than end value"))
+            else:
+                params["main_house_types.bedroom_count"] = {"$gte": bedroom_count[0], "$lte": bedroom_count[1]}
+        elif bedroom_count[0]:
+            params["main_house_types.bedroom_count"] = {"$gte": bedroom_count[0]}
+        elif bedroom_count[1]:
+            params["main_house_types.bedroom_count"] = {"$lte": bedroom_count[1]}
 
     if "building_area" in params:
         building_area_filter = []
