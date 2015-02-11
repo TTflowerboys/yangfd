@@ -248,15 +248,17 @@ main {
         }
 
         div[data-tabs] {
-            >div.item {
-                display: none;
-                &.selectedTab { display: block; }
-            }
-
-            >ul {
-                li {
+            .tabContent {
+                >div.item {
                     display: none;
                     &.selectedTab { display: block; }
+                }
+
+            }
+
+            .tabSelector {
+                li {
+
                 }
             }
         }

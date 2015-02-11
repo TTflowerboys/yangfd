@@ -43,6 +43,10 @@ $(window).on('resize', window.resizeCategory);
 
 (function () {
 
+    $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+
+    })
+
     var lastItemTime
 
     var onePageItemCount = 5
@@ -74,7 +78,7 @@ $(window).on('resize', window.resizeCategory);
     }
 
     function loadPropertyList() {
-        var params = {'per_page':'5', bedroom_count:'3'}
+        var params = {'per_page':'5'}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
         if (country) {
             params.country = country
