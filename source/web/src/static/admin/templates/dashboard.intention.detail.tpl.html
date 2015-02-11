@@ -1,7 +1,8 @@
 <div ui-view>
     <div class="buttons">
         <span class="btn-group">
-            <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span>{%$root.i18n('返回')%}</button>
+            <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span>{%$root.i18n('返回')%}
+            </button>
         </span>
         <span class="btn-group">
             <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages"
@@ -39,7 +40,7 @@
                 <label class="control-label">{%$root.i18n('预算')%}</label>
 
                 <div class="controls">
-                    {%item.budget.value[userLanguage.value]%}
+                    <div show-i18n="item.budget.value"></div>
                 </div>
             </div>
         </div>
@@ -58,15 +59,14 @@
                 <label class="control-label">{%$root.i18n('国家')%}</label>
 
                 <div class="controls">
-                    {%item.country.value[userLanguage.value]%}
+                    <div show-i18n="item.country.value"></div>
                 </div>
             </div>
             <div class="form-group  col-sm-3" ng-if="item.city">
                 <label class="control-label">{%$root.i18n('城市')%}</label>
 
                 <div class="controls">
-                    {%item.city.value[userLanguage.value]%}
-
+                    <div show-i18n="item.city.value"></div>
                 </div>
             </div>
         </div>
@@ -75,16 +75,14 @@
                 <label class="control-label">{%$root.i18n('产权类型')%}</label>
 
                 <div class="controls">
-                    {%item.equity_type.value[userLanguage.value]%}
+                    <div show-i18n="item.equity_type.value"></div>
                 </div>
             </div>
             <div class="form-group  col-sm-3" ng-if="item.intention">
                 <label class="control-label">{%$root.i18n('投资意向标签')%}</label>
 
                 <div class="controls" ng-repeat="i in item.intention">
-
-                    {%i.value[userLanguage.value]%}
-
+                    <div show-i18n="i.value"></div>
                 </div>
             </div>
         </div>

@@ -21,7 +21,9 @@
                     </colgroup>
                     <tbody>
                         <tr ng-repeat="item in enums[$index]">
-                            <td>{%item.value[userLanguage.value]%}</td>
+                            <td>
+                                <div show-i18n="item.value"></div>
+                            </td>
                             <td style="text-align:center;">
                                 <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
                                     <i class="fa fa-edit "></i>

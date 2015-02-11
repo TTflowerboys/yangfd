@@ -35,7 +35,7 @@
                     {%item.channel%}
                 </td>
                 <td>
-                    {%item.description[userLanguage.value]%}
+                    <div show-i18n="item.description"></div>
                 </td>
                 <td>
                     <a class="btn btn-success" href ui-sref=".detail({id:item.id,channel:item.channel})" title="View">

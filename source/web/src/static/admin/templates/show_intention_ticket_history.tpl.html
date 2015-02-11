@@ -39,7 +39,9 @@
                             </tr>
                             <tr ng-if="h._set.budget">
                                 <td>{%$root.i18n('预算')%}</td>
-                                <td>{%h._set.budget.value[userLanguage.value]%}</td>
+                                <td>
+                                    <div show-i18n="h._set>budget.value"></div>
+                                </td>
                             </tr>
                             <tr ng-if="h._set.status">
                                 <td>{%$root.i18n('状态')%}</td>
@@ -51,15 +53,21 @@
                             </tr>
                             <tr ng-if="h._set.country">
                                 <td>{%$root.i18n('国家')%}</td>
-                                <td>{%h._set.country.value[userLanguage.value]%}</td>
+                                <td>
+                                    <div show-i18n="h._set.country.value"></div>
+                                </td>
                             </tr>
                             <tr ng-if="h._set.city">
                                 <td>{%$root.i18n('城市')%}</td>
-                                <td>{%h._set.city.value[userLanguage.value]%}</td>
+                                <td>
+                                    <div show-i18n="h._set.city.value"></div>
+                                </td>
                             </tr>
                             <tr ng-if="h._set.equity_type">
                                 <td>{%$root.i18n('产权类型')%}</td>
-                                <td>{%h._set.equity_type.value[userLanguage.value]%}</td>
+                                <td>
+                                    <div show-i18n="h._set.equity_type.value"></div>
+                                </td>
                             </tr>
                             <tr ng-if="h._set.intention">
                                 <td>{%$root.i18n('投资意向标签')%}</td>
@@ -70,7 +78,9 @@
                                         </colgroup>
                                         <tbody>
                                             <tr ng-repeat="field in h._set.intention">
-                                                <td>{%field.value[userLanguage.value] %}</td>
+                                                <td>
+                                                    <div show-i18n="field.value"></div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

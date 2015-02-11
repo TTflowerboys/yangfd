@@ -1,7 +1,8 @@
 <div>
     <div class="buttons">
         <span class="btn-group">
-            <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+            <button class="btn btnGoBack" ng-click="onBackClick()">
+                <span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
             </button>
         </span>
         <div class="btn-group form-inline pull-right" style="margin-right: 10px">
@@ -14,7 +15,7 @@
         <div class="form-group">
             <label class="control-label">{%$root.i18n('街区名称')%}</label>
             <div class="controls form-inline">
-                {%item.name[userLanguage.value]%}
+                <div show-i18n="item.name"></div>
             </div>
         </div>
         <div class="form-group">
@@ -26,7 +27,7 @@
         <div class="form-group">
             <label class="control-label">{%$root.i18n('街区介绍')%}</label>
             <div class="controls form-inline">
-                {%item.description[userLanguage.value]%}
+                <div show-i18n="item.description"></div>
             </div>
         </div>
         <div class="form-group">
@@ -40,14 +41,14 @@
                 <label class="control-label">{%$root.i18n('国家')%}</label>
 
                 <div class="controls">
-                    <span class="input-xlarge uneditable-input">{%item.country.value[userLanguage.value]%}</span>
+                    <div show-i18n="item.country.value"></div>
                 </div>
             </div>
             <div class="form-group  col-sm-3" ng-if="item.city">
                 <label class="control-label">{%$root.i18n('城市')%}</label>
 
                 <div class="controls">
-                    <span class="input-xlarge uneditable-input">{%item.city.value[userLanguage.value]%}</span>
+                    <div show-i18n="item.city.value"></div>
                 </div>
             </div>
         </div>
@@ -66,8 +67,12 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="news in item.planning_news">
-                                <td>{%news.title[userLanguage.value]%}</td>
-                                <td>{%news.summary[userLanguage.value]%}</td>
+                                <td>
+                                    <div show-i18n="news.title"></div>
+                                </td>
+                                <td>
+                                    <div show-i18n="news.summary"></div>
+                                </td>
                                 <td>{%news.link%}</td>
                             </tr>
                         </tbody>
@@ -90,8 +95,12 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="news in item.supplement_news">
-                                <td>{%news.title[userLanguage.value]%}</td>
-                                <td>{%news.summary[userLanguage.value]%}</td>
+                                <td>
+                                    <div show-i18n="news.title"></div>
+                                </td>
+                                <td>
+                                    <div show-i18n="news.summary"></div>
+                                </td>
                                 <td>{%news.link%}</td>
                             </tr>
                         </tbody>
@@ -114,8 +123,12 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="news in item.job_news">
-                                <td>{%news.title[userLanguage.value]%}</td>
-                                <td>{%news.summary[userLanguage.value]%}</td>
+                                <td>
+                                    <div show-i18n="news.title"></div>
+                                </td>
+                                <td>
+                                    <div show-i18n="news.summary"></div>
+                                </td>
                                 <td>{%news.link%}</td>
                             </tr>
                         </tbody>

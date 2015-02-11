@@ -47,7 +47,9 @@
                             </tr>
                             <tr ng-if="h._set.country">
                                 <td>{%$root.i18n('国家')%}</td>
-                                <td>{%h._set.country.value[userLanguage.value]%}</td>
+                                <td>
+                                    <div show-i18n="h._set.country.value"></div>
+                                </td>
                             </tr>
                             <tr ng-if="h._set.custom_fields">
                                 <td>{%$root.i18n('自定义描述')%}</td>

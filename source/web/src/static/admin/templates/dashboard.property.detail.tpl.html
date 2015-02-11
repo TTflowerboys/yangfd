@@ -23,7 +23,7 @@
                             <label class="control-label">{%$root.i18n('名称')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.name[userLanguage.value]%}</span>
+                                <div show-i18n="item.name"></div>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                             <label class="control-label">{%$root.i18n('房产类型')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.property_type.value[userLanguage.value]%}</span>
+                                <div show-i18n="item.property_type.value"></div>
                             </div>
                         </div>
                     </div>
@@ -41,14 +41,14 @@
                             <label class="control-label">{%$root.i18n('国家')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.country.value[userLanguage.value]%}</span>
+                                <div show-i18n="item.country.value"></div>
                             </div>
                         </div>
                         <div class="form-group  col-sm-3" ng-if="item.city">
                             <label class="control-label">{%$root.i18n('城市')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.city.value[userLanguage.value]%}</span>
+                                <div show-i18n="item.city.value"></div>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                             <label class="control-label">{%$root.i18n('街区')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.street[userLanguage.value]%}</span>
+                                <div show-i18n="item.street"></div>
                             </div>
                         </div>
                         <div class="form-group  col-sm-3" ng-if="item.zipcode">
@@ -80,7 +80,7 @@
                             <label class="control-label">{%$root.i18n('地址详情')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.address[userLanguage.value]%}</span>
+                                <div show-i18n="item.address"></div>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                             <label class="control-label">{%$root.i18n('真实地址')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.real_address[userLanguage.value]%}</span>
+                                <div show-i18n="item.real_address"></div>
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                             <label class="control-label">{%$root.i18n('详情')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.description[userLanguage.value]%}</span>
+                                <div show-i18n="item.description"></div>
                             </div>
                         </div>
                     </div>
@@ -159,9 +159,7 @@
 
                             <div class="controls">
                                 <div class="controls" ng-repeat="i in item.intention">
-
-                                    {%i.value[userLanguage.value]%}
-
+                                    <div show-i18n="i.value"></div>
                                 </div>
                             </div>
                         </div>
@@ -172,9 +170,7 @@
 
                             <div class="controls">
                                 <div class="controls" ng-repeat="i in item.investment_type">
-
-                                    {%i.value[userLanguage.value]%}
-
+                                    <div show-i18n="i.value"></div>
                                 </div>
                             </div>
                         </div>
@@ -184,14 +180,14 @@
                             <label class="control-label">{%$root.i18n('产权类型')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.equity_type.value[userLanguage.value]%}</span>
+                                <div show-i18n="item.equity_type.value"></div>
                             </div>
                         </div>
                         <div class="form-group  col-sm-3" ng-if="item.decorative_style">
                             <label class="control-label">{%$root.i18n('装修风格')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.decorative_style.value[userLanguage.value]%}</span>
+                                <div show-i18n="item.decorative_style.value"></div>
                             </div>
                         </div>
                     </div>
@@ -231,7 +227,7 @@
                             <label class="control-label">{%$root.i18n('房产价格类型')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.property_price_type.value[userLanguage.value]%}</span>
+                                <div show-i18n="item.property_price_type.value"></div>
                             </div>
                         </div>
                     </div>
@@ -240,7 +236,7 @@
                             <label class="control-label">{%$root.i18n('同等房产描述')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.equal_property_description[userLanguage.value]%}</span>
+                                <div show-i18n="item.equal_property_description"></div>
                             </div>
                         </div>
                     </div>
@@ -277,7 +273,7 @@
                             <label class="control-label">{%$root.i18n('月收支分析简要描述')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.estimated_income_description[userLanguage.value]%}</span>
+                                <div show-i18n="item.estimated_income_description"></div>
                             </div>
                         </div>
                     </div>
@@ -309,7 +305,8 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="cost in item.estimated_monthly_cost">
-                                            <td>{%cost.item[userLanguage.value]%}</td>
+                                            <td>
+                                                <div show-i18n="cost.item"></div>
                                             <td>{%cost.price.value | number : 2 %} {%cost.price.unit %}</td>
                                         </tr>
                                     </tbody>
@@ -390,7 +387,7 @@
                             <label class="control-label">{%$root.i18n('朝向')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.facing_direction.value[userLanguage.value]%}</span>
+                                <div show-i18n="item.facing_direction.value"></div>
                             </div>
                         </div>
                     </div>
@@ -421,14 +418,14 @@
                             <label class="control-label">{%$root.i18n('开发商')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.developer[userLanguage.value]%}</span>
+                                <div show-i18n="item.developer"></div>
                             </div>
                         </div>
                         <div class="form-group  col-sm-3" ng-if="item.building_type">
                             <label class="control-label">{%$root.i18n('建筑类型')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.building_type[userLanguage.value]%}</span>
+                                <div show-i18n="item.building_type"></div>
                             </div>
                         </div>
                     </div>
@@ -456,7 +453,7 @@
                             <label class="control-label">{%$root.i18n('开盘时间')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.opening_time[userLanguage.value]%}</span>
+                                <div show-i18n="item.opening_time"></div>
                             </div>
                         </div>
                     </div>
@@ -465,7 +462,7 @@
                             <label class="control-label">{%$root.i18n('完工时间')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.completion_time[userLanguage.value]%}</span>
+                                <div show-i18n="item.completion_time"></div>
                             </div>
                         </div>
                     </div>
@@ -521,14 +518,14 @@
                             <label class="control-label">{%$root.i18n('物业类型')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.property_management_type[userLanguage.value]%}</span>
+                                <div show-i18n="item.property_management_type"></div>
                             </div>
                         </div>
                         <div class="form-group  col-sm-3" ng-if="item.property_management_company">
                             <label class="control-label">{%$root.i18n('物业公司')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.property_management_company[userLanguage.value]%}</span>
+                                <div show-i18n="item.property_management_company"></div>
                             </div>
                         </div>
                     </div>
@@ -560,7 +557,9 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="main_type in item.main_house_types">
-                                            <td>{%main_type.name[userLanguage.value]%}</td>
+                                            <td>
+                                                <div show-i18n="main_type.name"></div>
+                                            </td>
                                             <td>
                                                 <table>
                                                     <tr>
@@ -601,7 +600,9 @@
                                                     </tr>
                                                 </table>
                                             </td>
-                                            <td>{%main_type.description[userLanguage.value]%}</td>
+                                            <td>
+                                                <div show-i18n="main_type.description"></div>
+                                            </td>
                                             <td>
                                                 <img class="img-thumbnail" ng-repeat="img in item.floor_plan[userLanguage.value]"
                                                     ng-src="{%img%} ">

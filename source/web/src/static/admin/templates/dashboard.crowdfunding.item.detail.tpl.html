@@ -23,7 +23,7 @@
                             <label class="control-label">{%$root.i18n('名称')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.name[userLanguage.value]%}</span>
+                                <div show-i18n="item.name"></div>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                             <label class="control-label">{%$root.i18n('房产类型')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.property_type.value[userLanguage.value]%}</span>
+                                <div show-i18n="item.property_type.value"></div>
                             </div>
                         </div>
                     </div>
@@ -42,9 +42,7 @@
 
                             <div class="controls">
                                 <div class="controls" ng-repeat="i in item.investment_type">
-
-                                    {%i.value[userLanguage.value]%}
-
+                                    <div show-i18n="i.value"></div>
                                 </div>
                             </div>
                         </div>
@@ -55,9 +53,7 @@
 
                             <div class="controls">
                                 <div class="controls" ng-repeat="i in item.intention">
-
-                                    {%i.value[userLanguage.value]%}
-
+                                    <div show-i18n="i.value"></div>
                                 </div>
                             </div>
                         </div>
@@ -67,14 +63,14 @@
                             <label class="control-label">{%$root.i18n('国家')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.country.value[userLanguage.value]%}</span>
+                                <div show-i18n="item.country.value"></div>
                             </div>
                         </div>
                         <div class="form-group  col-sm-3" ng-if="item.city">
                             <label class="control-label">{%$root.i18n('城市')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.city.value[userLanguage.value]%}</span>
+                                <div show-i18n="item.city.value"></div>
                             </div>
                         </div>
                     </div>
@@ -83,7 +79,7 @@
                             <label class="control-label">{%$root.i18n('街区')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.street[userLanguage.value]%}</span>
+                                <div show-i18n="item.street"></div>
                             </div>
                         </div>
                         <div class="form-group  col-sm-3" ng-if="item.zipcode">
@@ -99,7 +95,7 @@
                             <label class="control-label">{%$root.i18n('地址详情')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.address[userLanguage.value]%}</span>
+                                <div show-i18n="item.address"></div>
                             </div>
                         </div>
                     </div>
@@ -220,7 +216,7 @@
                             <label class="control-label">{%$root.i18n('详情')%}</label>
 
                             <div class="controls">
-                                <span class="input-xlarge uneditable-input">{%item.description[userLanguage.value]%}</span>
+                                <div show-i18n="item.description"></div>
                             </div>
                         </div>
                     </div>
@@ -282,16 +278,16 @@
                                     <tbody>
                                         <tr ng-repeat="manager in item.management_team">
                                             <td>
-                                                <span class="input-xlarge uneditable-input">{%manager.name[userLanguage.value]%}</span>
+                                                <div show-i18n="manager.name"></div>
                                             </td>
                                             <td>
                                                 <img class="img-thumbnail" ng-src="{%manager.avatar%} ">
                                             </td>
                                             <td>
-                                                <span class="input-xlarge uneditable-input">{%manager.title[userLanguage.value]%}</span>
+                                                <div show-i18n="manager.title"></div>
                                             </td>
                                             <td>
-                                                <span class="input-xlarge uneditable-input">{%manager.description[userLanguage.value]%}</span>
+                                                <div show-i18n="manager.description"></div>
                                             </td>
                                             <td>
                                                 <span class="input-xlarge uneditable-input">{%manager.linkedin_home%}</span>
@@ -331,10 +327,10 @@
                                     <tbody>
                                         <tr ng-repeat="capital in item.capital_structure">
                                             <td>
-                                                <span class="input-xlarge uneditable-input">{%capital.type[userLanguage.value]%}</span>
+                                                <div show-i18n="capital.type"></div>
                                             </td>
                                             <td>
-                                                <span class="input-xlarge uneditable-input">{%capital.source[userLanguage.value]%}</span>
+                                                <div show-i18n="capital.source"></div>
                                             </td>
                                             <td>
                                                 <span class="input-xlarge uneditable-input">{%capital.price%}</span>

@@ -1,6 +1,8 @@
 <div ng-hide="open">
     <div style="float: left; margin-right: 8px;">
-        <div ng-repeat="i in item[name]">{%i.value[userLanguage.value]%}</div>
+        <div ng-repeat="i in item[name]">
+            <div show-i18n="i.value"></div>
+        </div>
     </div>
     <button type="button" class="btn btn-info btn-sm" ng-click="open =! open" style="float: left;">
         <span class="fa fa-edit"></span>

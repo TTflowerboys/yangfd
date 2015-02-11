@@ -41,7 +41,7 @@
         <tbody>
             <tr ng-repeat="item in list">
                 <td>
-                    {%item.name[userLanguage.value]%}
+                    <div show-i18n="item.name"></div>
                 </td>
                 <td>
                     <div edit-crowdfunding-status ng-model="item"></div>

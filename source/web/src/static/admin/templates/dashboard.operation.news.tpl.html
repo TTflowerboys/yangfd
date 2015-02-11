@@ -53,7 +53,9 @@
                         <input type="checkbox" ng-model="item.selected" ng-if="item.images">
                     </td>
                     <td>
-                        <a style="display: block" href ui-sref=".detail({id:item.id})">{%item.title[userLanguage.value]%}</a>
+                        <a style="display: block" href ui-sref=".detail({id:item.id})">
+                            <div show-i18n="item.title"></div>
+                        </a>
                     </td>
                     <td>
                         {%item.user.nickname%}

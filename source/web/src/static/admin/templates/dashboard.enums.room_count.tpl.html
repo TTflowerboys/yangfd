@@ -31,7 +31,9 @@
                 <th>{%$root.i18n('操作')%}</th>
             </tr>
             <tr ng-repeat="item in roomCount">
-                <td>{%item.value[userLanguage.value]%}</td>
+                <td>
+                    <div show-i18n="item.value"></div>
+                </td>
                 <td>{%item.slug.substring((item.slug.indexOf(':')+1), item.slug.indexOf(','))%}</td>
                 <td>{%item.slug.substring((item.slug.indexOf(',')+1))%}</td>
                 <td style="text-align:center;">

@@ -102,13 +102,13 @@
         <tbody>
             <tr ng-repeat="item in list">
                 <td>
-                    {%item.name[userLanguage.value]%}
+                    <div show-i18n="item.name"></div>
                 </td>
                 <td>
-                    {%item.address[userLanguage.value]%}
+                    <div show-i18n="item.address"></div>
                 </td>
                 <td>
-                    {%item.property_type.value[userLanguage.value]%}
+                    <div show-i18n="item.property_type.value"></div>
                 </td>
                 <td>
                     <div ng-if="item.property_type.slug!=='new_property'&&item.property_type.slug!=='student_housing'">
@@ -120,7 +120,7 @@
                 </td>
                 <td>
                     <div ng-repeat="i in item.intention">
-                        {%i.value[userLanguage.value]%}
+                        <div show-i18n="i.value"></div>
                     </div>
                 </td>
                 <td>

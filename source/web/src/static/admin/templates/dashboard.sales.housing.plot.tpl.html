@@ -84,10 +84,14 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in list">
-                    <td>{%item.name[userLanguage.value]%}</td>
+                    <td>
+                        <div show-i18n="item.name"></div>
+                    </td>
                     <td>{%item.status|plotStatusName%}</td>
                     <td>
-                        <div ng-repeat="t in item.investment_type">{%t.value[userLanguage.value]%}</div>
+                        <div ng-repeat="t in item.investment_type">
+                            <div show-i18n="t.value"></div>
+                        </div>
                     </td>
                     <td>
                         <table>

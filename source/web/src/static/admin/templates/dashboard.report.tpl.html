@@ -29,7 +29,7 @@
         <tbody>
             <tr ng-repeat="item in list">
                 <td>
-                    {%item.name[userLanguage.value]%}
+                    <div show-i18n="item.name"></div>
                 </td>
                 <td style="text-align:center;">
                     <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">

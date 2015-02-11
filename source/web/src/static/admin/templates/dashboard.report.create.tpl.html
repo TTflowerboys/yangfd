@@ -1,7 +1,8 @@
 <div>
     <div class="buttons">
         <span class="btn-group">
-            <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+            <button class="btn btnGoBack" ng-click="onBackClick()">
+                <span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
             </button>
         </span>
     </div>
@@ -168,7 +169,7 @@
                     <tbody>
                         <tr ng-repeat="item in newsList">
                             <td ui-draggable="true" drag="{%$index+1%}" drag-channel="job,supplement,planning">
-                                <span style="display: block" href>{%item.title[userLanguage.value]%}</span>
+                                <div show-i18n="item.title"></div>
                             </td>
                         </tr>
                     </tbody>

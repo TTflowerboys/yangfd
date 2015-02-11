@@ -34,8 +34,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="item in list">
-                <td>{%item.title[userLanguage.value]%}</td>
-                <td>{%item.text[userLanguage.value]%}</td>
+                <td>
+                    <div show-i18n="item.title"></div>
+                </td>
+                <td>
+                    <div show-i18n="item.text"></div>
+                </td>
                 <td>{%item.counter_new%}</td>
                 <td>{%item.counter_sent%}</td>
                 <td>{%item.counter_read%}</td>

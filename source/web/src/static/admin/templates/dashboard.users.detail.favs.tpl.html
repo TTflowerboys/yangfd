@@ -20,10 +20,10 @@
         <tbody>
             <tr ng-repeat="item in list">
                 <td>
-                    {%item.property.name[userLanguage.value]%}
+                    <div show-i18n="item.property.name"></div>
                 </td>
                 <td>
-                    {%item.property.property_type.value[userLanguage.value]%}
+                    <div show-i18n="item.property.property_type.value"></div>
                 </td>
                 <td>
                     {%item.property.total_price.unit_symbol+item.property.total_price.value%}

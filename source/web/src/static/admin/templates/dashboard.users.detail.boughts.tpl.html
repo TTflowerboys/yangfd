@@ -20,7 +20,7 @@
         <tbody>
             <tr ng-repeat="item in list">
                 <td>
-                    {%item.property.name[userLanguage.value]%}
+                    <div show-i18n="item.property.name"></div>
                 </td>
                 <td>
                     {%item.status | intentionTicketStatusName %}

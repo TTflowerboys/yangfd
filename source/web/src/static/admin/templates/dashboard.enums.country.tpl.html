@@ -24,7 +24,7 @@
                 <th>{%$root.i18n('操作')%}</th>
             </tr>
             <tr ng-repeat="item in countries">
-                <td>{%item.value[userLanguage.value]%}</td>
+                <td><div show-i18n="item.value"></div></td>
                 <td>{%item.slug%}</td>
                 <td style="text-align:center;">
                     <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
