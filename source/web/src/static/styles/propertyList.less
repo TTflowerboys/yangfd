@@ -233,20 +233,36 @@ main {
                 color:#e82633;
             }
         }
-        .result_list {
-            &_container {
-                margin-top:80px;
-                width: 800px;
-                display:inline-block;
-                float:left;
-                overflow:hidden;
+        .result_list_container {
+            margin-top:80px;
+            width: 800px;
+            display:inline-block;
+            float:left;
+            overflow:hidden;
 
-                @media @phone {
-                    width:100%;
-                    margin-top:50px;
-                }
-
+            @media @phone {
+                width:100%;
+                margin-top:50px;
             }
+
+        }
+
+        div[data-tabs] {
+            >div.item {
+                display: none;
+                &.selectedTab { display: block; }
+            }
+
+            >ul {
+                li {
+                    display: none;
+                    &.selectedTab { display: block; }
+                }
+            }
+        }
+
+        .result_list {
+
             margin-top:44px;
             overflow:hidden;
 

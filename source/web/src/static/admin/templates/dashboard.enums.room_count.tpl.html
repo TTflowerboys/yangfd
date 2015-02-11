@@ -1,0 +1,49 @@
+<div ui-view ng-controller="ctrlGetRoomCountByType">
+    <span class="btn-group">
+        <button class="btn" ui-sref=".create">
+            <span class="fa fa-plus-circle"></span>{%$root.i18n('添加房间数')%}
+        </button>
+
+    </span>
+    <div class="btn-group form-inline">
+        <select class="form-control" ng-options="p.value as p.name for p in roomCountType" ng-model="item.type">
+            <option value="">-- {%$root.i18n('房间类型')%} --</option>
+        </select>
+    </div>
+    <div class="btn-group form-inline pull-right">
+        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+    </div>
+
+    <table class="table table-bordered table-striped table-condensed"
+        style="margin-bottom:30px">
+        <colgroup>
+            <col/>
+            <col style="width: 120px;"/>
+            <col style="width: 120px;"/>
+            <col style="width: 80px;"/>
+            <col style="width: 120px;"/>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th>{%$root.i18n('描述')%}</th>
+                <th>{%$root.i18n('最低房间数')%}</th>
+                <th>{%$root.i18n('最高房间数')%}</th>
+                <th>{%$root.i18n('操作')%}</th>
+            </tr>
+            <tr ng-repeat="item in roomCount">
+                <td>{%item.value[userLanguage.value]%}</td>
+                <td>{%item.slug.substring((item.slug.indexOf(':')+1), item.slug.indexOf(','))%}</td>
+                <td>{%item.slug.substring((item.slug.indexOf(',')+1))%}</td>
+                <td style="text-align:center;">
+                    <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
+                        <i class="fa fa-edit "></i>
+                    </a>
+                    <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
+                        <i class="fa fa-trash-o"></i>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="cities.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+</div>

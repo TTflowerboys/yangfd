@@ -108,6 +108,12 @@
                                             <span class="hidden-sm text">{%$root.i18n('投资意向')%}</span>
                                         </a>
                                     </li>
+                                    <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.room_count')}">
+                                        <a class="submenu" href ui-sref="dashboard.enums.room_count">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('房间数')%}</span>
+                                        </a>
+                                    </li>
                                 </ul>
 
                             </li>
