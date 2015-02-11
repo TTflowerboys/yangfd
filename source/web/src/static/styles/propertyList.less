@@ -80,7 +80,7 @@ main {
 
     .result {
         overflow:hidden;
-        width:@max-width;
+        width:1260px;
         margin: 0 auto;
 
         @media @phone {
@@ -222,7 +222,8 @@ main {
         .result_number {
             font-size:16px;
             line-height:1em;
-            margin:0;
+            margin:0 0 44px 60px;
+
 
             @media @phone {
                 font-size:14px;
@@ -235,7 +236,8 @@ main {
         }
         .result_list_container {
             margin-top:80px;
-            width: 800px;
+            margin-bottom:80px;
+            width: 860px;
             display:inline-block;
             float:left;
             overflow:hidden;
@@ -248,7 +250,14 @@ main {
         }
 
         div[data-tabs] {
+            overflow:hidden;
             .tabContent {
+                float:right;
+                width:800px;
+
+                @media @phone {
+                    width:100%;
+                }
                 >div.item {
                     display: none;
                     &.selectedTab { display: block; }
@@ -257,6 +266,8 @@ main {
             }
 
             .tabSelector {
+                float:left;
+                width:60px;
                 li {
 
                 }
@@ -266,11 +277,14 @@ main {
         .map {
             width:100%;
             height:800px;
+
+            @media @phone {
+                height:300px;
+            }
         }
 
         .result_list {
 
-            margin-top:44px;
             overflow:hidden;
 
             @media @phone {
