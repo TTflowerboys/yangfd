@@ -43,6 +43,7 @@ $(window).on('resize', window.resizeCategory);
 
 (function () {
 
+
     var lastItemTime
 
     var onePageItemCount = 5
@@ -74,7 +75,7 @@ $(window).on('resize', window.resizeCategory);
     }
 
     function loadPropertyList() {
-        var params = {'per_page':'5', bedroom_count:'3'}
+        var params = {'per_page':'5'}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
         if (country) {
             params.country = country
@@ -113,11 +114,10 @@ $(window).on('resize', window.resizeCategory);
 
         $('#result_list_container').show()
         showEmptyPlaceHolder(false)
-        $('#result #number_container').text(window.i18n('加载中'))
-        $('#result #number_container').show()
+        $('#number_container').text(window.i18n('加载中'))
+        $('#number_container').show()
 
-
-        $('#result #loadIndicator').show()
+        $('#loadIndicator').show()
         $('#loadMore').hide()
 
         var totalResultCount = getCurrentTotalCount()
@@ -127,6 +127,12 @@ $(window).on('resize', window.resizeCategory);
                 totalResultCount = val.count
                 if (!_.isEmpty(array)) {
                     lastItemTime = _.last(array).mtime
+
+                    if (!window.propertyList) {
+                        window.propertyList = []
+                    }
+                    window.propertyList = window.propertyList.concat(array)
+
                     _.each(array, function (house) {
                         var houseResult = _.template($('#houseCard_template').html())({house: house})
                         $('#result_list').append(houseResult)
@@ -150,11 +156,11 @@ $(window).on('resize', window.resizeCategory);
 
             })
             .fail (function () {
-                  $('#loadMore').show()
+                $('#loadMore').show()
             })
             .always(function () {
                 updateResultCount(totalResultCount)
-                $('#result #loadIndicator').hide()
+                $('#loadIndicator').hide()
             })
     }
 
@@ -228,7 +234,7 @@ $(window).on('resize', window.resizeCategory);
     function getSelectedBedroomCount() {
         var $selectedChild = $('#tags #bedroomCountTag').children('.selected')
         if ($selectedChild.length) {
-            return $selectedChild.first().attr('data-value')
+            return $selectedChild.first().attr('data-id')
         }
         return ''
     }
@@ -258,8 +264,55 @@ $(window).on('resize', window.resizeCategory);
     }
 
 
+
+
+    function selectBudget(id) {
+        var $item = $('#tags #budgetTag').find('[data-id=' + id + ']')
+        var $parent = $item.parent()
+        $parent.find('.toggleTag').removeClass('selected')
+        $item.addClass('selected')
+    }
+
+    function removeAllSelectedIntentions() {
+        $('#tags #intentionTag').find('.toggleTag').toggleClass('selected', false)
+    }
+
+    function selectIntention(idList) {
+        var ids = idList.split(',')
+        _.each(ids, function (id) {
+            $('#tags #intentionTag').find('[data-id=' + id + ']').toggleClass('selected', true)
+        })
+    }
+
+    function selectBedroom(count) {
+        var $item = $('#tags #bedroomCountTag').find('[data-id=' + count + ']')
+        var $parent = $item.parent()
+        $parent.find('.toggleTag').removeClass('selected')
+        $item.addClass('selected')
+    }
+
+    function selectBuildingArea(id) {
+        var $item = $('#tags #buildingAreaTag').find('[data-id=' + id + ']')
+        var $parent = $item.parent()
+        $parent.find('.toggleTag').removeClass('selected')
+        $item.addClass('selected')
+    }
+
+    function selectCountry(id) {
+        $('select[name=propertyCountry]').find('option[value=' + id + ']').prop('selected', true)
+    }
+
+    function selectCity(id) {
+        $('select[name=propertyCity]').find('option[value=' + id + ']').prop('selected', true)
+    }
+
+    function selectPropertyType(id) {
+        $('select[name=propertyType]').find('option[value=' + id + ']').prop('selected', true)
+    }
+
+
     function updateResultCount(count) {
-        var $numberContainer = $('#result #number_container')
+        var $numberContainer = $('#number_container')
         //var $number = $numberContainer.find('#number')
 
         if (count) {
@@ -335,50 +388,6 @@ $(window).on('resize', window.resizeCategory);
         else {
             emptyPlaceHolder.hide()
         }
-    }
-
-    function selectBudget(id) {
-        var $item = $('#tags #budgetTag').find('[data-id=' + id + ']')
-        var $parent = $item.parent()
-        $parent.find('.toggleTag').removeClass('selected')
-        $item.addClass('selected')
-    }
-
-    function removeAllSelectedIntentions() {
-        $('#tags #intentionTag').find('.toggleTag').toggleClass('selected', false)
-    }
-
-    function selectIntention(idList) {
-        var ids = idList.split(',')
-        _.each(ids, function (id) {
-            $('#tags #intentionTag').find('[data-id=' + id + ']').toggleClass('selected', true)
-        })
-    }
-
-    function selectBedroom(count) {
-        var $item = $('#tags #bedroomCountTag').find('[data-value=' + count + ']')
-        var $parent = $item.parent()
-        $parent.find('.toggleTag').removeClass('selected')
-        $item.addClass('selected')
-    }
-
-    function selectBuildingArea(id) {
-        var $item = $('#tags #buildingAreaTag').find('[data-id=' + id + ']')
-        var $parent = $item.parent()
-        $parent.find('.toggleTag').removeClass('selected')
-        $item.addClass('selected')
-    }
-
-    function selectCountry(id) {
-        $('select[name=propertyCountry]').find('option[value=' + id + ']').prop('selected', true)
-    }
-
-    function selectCity(id) {
-        $('select[name=propertyCity]').find('option[value=' + id + ']').prop('selected', true)
-    }
-
-    function selectPropertyType(id) {
-        $('select[name=propertyType]').find('option[value=' + id + ']').prop('selected', true)
     }
 
     // function updateBrowserTitle(){
@@ -599,19 +608,22 @@ $(window).on('resize', window.resizeCategory);
 
 
     $(window).scroll(function () {
-        var scrollPos = $(window).scrollTop()
-        var windowHeight = $(window).height()
-        var listHeight = $('#result_list').height()
-        var itemCount = getCurrentTotalCount()
-        var requireToScrollHeight = listHeight
-        if (itemCount > 1) {
-            requireToScrollHeight = parseInt(listHeight * (itemCount - 1) / itemCount)
-        }
 
-        setTimeout(function () {
-            if (windowHeight  + scrollPos > requireToScrollHeight &&  $('#loadMore').is(':visible')) {
-                loadPropertyList()
+        if ($('[data-tab-name=list]').is(':visible')) {
+            var scrollPos = $(window).scrollTop()
+            var windowHeight = $(window).height()
+            var listHeight = $('#result_list').height()
+            var itemCount = getCurrentTotalCount()
+            var requireToScrollHeight = listHeight
+            if (itemCount > 1) {
+                requireToScrollHeight = parseInt(listHeight * (itemCount - 1) / itemCount)
             }
-        }, 200)
+
+            setTimeout(function () {
+                if (windowHeight  + scrollPos > requireToScrollHeight &&  $('#loadMore').is(':visible')) {
+                    loadPropertyList()
+                }
+            }, 200)
+        }
     })
 })()

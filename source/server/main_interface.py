@@ -178,6 +178,7 @@ def property_list(params):
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     country_list = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
+    bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
     building_area_list = f_app.i18n.process_i18n(f_app.enum.get_all("building_area"))
     property_country_list = []
     property_country_id_list = []
@@ -218,6 +219,7 @@ def property_list(params):
                            property_city_list=property_city_list,
                            property_type_list=property_type_list,
                            intention_list=intention_list,
+                           bedroom_count_list=bedroom_count_list,
                            building_area_list=building_area_list,
                            title=title
                            )
@@ -248,7 +250,7 @@ def property_get(property_id):
         tags = [item['value'] for item in property['intention'] if 'value' in item]
 
     keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
-    return common_template("property", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
+    return common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>', params=dict(
@@ -293,7 +295,7 @@ def crowdfunding_get(property_id):
 
     # keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
     keywords = ""
-    return common_template("crowdfunding", property=property, favorite_list=favorite_list, get_videos_by_ip=f_app.storage.get_videos_by_ip, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
+    return common_template("crowdfunding", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
 
 
 @f_get('/pdf_viewer/crowdfunding/<crowdfunding_id:re:[0-9a-fA-F]{24}>', params=dict(
