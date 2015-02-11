@@ -21,6 +21,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 from app import f_app
 
 import main_interface
+import misc_api_interface
 import news_api_interface
 import enum_api_interface
 import property_api_interface

@@ -31,6 +31,7 @@ API Reference
    analytics_api
    enum_api
    message_api
+   misc_api
    news_api
    plot_api
    property_api
