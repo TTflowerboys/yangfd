@@ -3,13 +3,26 @@
  */
 (function () {
 
-    function ctrlPropertyItems($scope, $rootScope) {
+    function ctrlPropertyItems($scope, $rootScope, apiFactory) {
         $scope.$watch('item.zipcode', function (newValue) {
-
-            if (newValue.length > 3) {
-                $scope.item.zipcode_index = newValue.substring(0, 3)
+            var temp = newValue ? newValue.toUpperCase() : ''
+            if (temp.length > 3) {
+                $scope.item.zipcode_index = temp.substring(0, 3)
             } else {
-                $scope.item.zipcode_index = newValue
+                $scope.item.zipcode_index = temp
+            }
+        })
+
+        $scope.$watch('item.zipcode_index', function (newValue) {
+            if (newValue && newValue.length > 1) {
+                apiFactory('report').search({params: {zipcode_index: newValue}}).success(function (data) {
+                    var res = data.val
+                    if (res && res.length > 0) {
+                        $scope.zipcode_name = res[0].name
+                    } else {
+                        $scope.zipcode_name = i18n('街区报告中不存在此街区')
+                    }
+                })
             }
         })
 
