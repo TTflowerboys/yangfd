@@ -178,6 +178,7 @@ def property_list(params):
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     country_list = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
+    bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
     building_area_list = f_app.i18n.process_i18n(f_app.enum.get_all("building_area"))
     property_country_list = []
     property_country_id_list = []
@@ -218,6 +219,7 @@ def property_list(params):
                            property_city_list=property_city_list,
                            property_type_list=property_type_list,
                            intention_list=intention_list,
+                           bedroom_count_list=bedroom_count_list,
                            building_area_list=building_area_list,
                            title=title
                            )

@@ -104,12 +104,9 @@
                 <img class="bedroomCount_icon" alt="" src="/static/images/property_list/bedroom-tag.png"/>
                 <h4 class="bedroomCount_title">{{_('居室数')}}</h4>
                 <div id="bedroomCountTag" class="inner">
-                    <div class="toggleTag" data-value="1">{{_('1居室')}}</div>
-                    <div class="toggleTag" data-value="2">{{_('2居室')}}</div>
-                    <div class="toggleTag" data-value="3">{{_('3居室')}}</div>
-                    <div class="toggleTag" data-value="4">{{_('4居室')}}</div>
-                    <div class="toggleTag" data-value="5">{{_('5居室')}}</div>
-                    <div class="toggleTag" data-value="˃5">{{_('5居室以上')}}</div>
+                    % for bedroom_count in bedroom_count_list:
+                        <div class="toggleTag" data-id="{{bedroom_count.get('id')}}">{{bedroom_count.get('value')}}</div>
+                    % end
                 </div>
             </div>
 

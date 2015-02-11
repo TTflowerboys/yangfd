@@ -150,7 +150,7 @@ $(window).on('resize', window.resizeCategory);
 
             })
             .fail (function () {
-                  $('#loadMore').show()
+                $('#loadMore').show()
             })
             .always(function () {
                 updateResultCount(totalResultCount)
@@ -228,7 +228,7 @@ $(window).on('resize', window.resizeCategory);
     function getSelectedBedroomCount() {
         var $selectedChild = $('#tags #bedroomCountTag').children('.selected')
         if ($selectedChild.length) {
-            return $selectedChild.first().attr('data-value')
+            return $selectedChild.first().attr('data-id')
         }
         return ''
     }
@@ -255,6 +255,53 @@ $(window).on('resize', window.resizeCategory);
             return $selectedChild.first().text()
         }
         return ''
+    }
+
+
+
+
+    function selectBudget(id) {
+        var $item = $('#tags #budgetTag').find('[data-id=' + id + ']')
+        var $parent = $item.parent()
+        $parent.find('.toggleTag').removeClass('selected')
+        $item.addClass('selected')
+    }
+
+    function removeAllSelectedIntentions() {
+        $('#tags #intentionTag').find('.toggleTag').toggleClass('selected', false)
+    }
+
+    function selectIntention(idList) {
+        var ids = idList.split(',')
+        _.each(ids, function (id) {
+            $('#tags #intentionTag').find('[data-id=' + id + ']').toggleClass('selected', true)
+        })
+    }
+
+    function selectBedroom(count) {
+        var $item = $('#tags #bedroomCountTag').find('[data-id=' + count + ']')
+        var $parent = $item.parent()
+        $parent.find('.toggleTag').removeClass('selected')
+        $item.addClass('selected')
+    }
+
+    function selectBuildingArea(id) {
+        var $item = $('#tags #buildingAreaTag').find('[data-id=' + id + ']')
+        var $parent = $item.parent()
+        $parent.find('.toggleTag').removeClass('selected')
+        $item.addClass('selected')
+    }
+
+    function selectCountry(id) {
+        $('select[name=propertyCountry]').find('option[value=' + id + ']').prop('selected', true)
+    }
+
+    function selectCity(id) {
+        $('select[name=propertyCity]').find('option[value=' + id + ']').prop('selected', true)
+    }
+
+    function selectPropertyType(id) {
+        $('select[name=propertyType]').find('option[value=' + id + ']').prop('selected', true)
     }
 
 
@@ -335,50 +382,6 @@ $(window).on('resize', window.resizeCategory);
         else {
             emptyPlaceHolder.hide()
         }
-    }
-
-    function selectBudget(id) {
-        var $item = $('#tags #budgetTag').find('[data-id=' + id + ']')
-        var $parent = $item.parent()
-        $parent.find('.toggleTag').removeClass('selected')
-        $item.addClass('selected')
-    }
-
-    function removeAllSelectedIntentions() {
-        $('#tags #intentionTag').find('.toggleTag').toggleClass('selected', false)
-    }
-
-    function selectIntention(idList) {
-        var ids = idList.split(',')
-        _.each(ids, function (id) {
-            $('#tags #intentionTag').find('[data-id=' + id + ']').toggleClass('selected', true)
-        })
-    }
-
-    function selectBedroom(count) {
-        var $item = $('#tags #bedroomCountTag').find('[data-value=' + count + ']')
-        var $parent = $item.parent()
-        $parent.find('.toggleTag').removeClass('selected')
-        $item.addClass('selected')
-    }
-
-    function selectBuildingArea(id) {
-        var $item = $('#tags #buildingAreaTag').find('[data-id=' + id + ']')
-        var $parent = $item.parent()
-        $parent.find('.toggleTag').removeClass('selected')
-        $item.addClass('selected')
-    }
-
-    function selectCountry(id) {
-        $('select[name=propertyCountry]').find('option[value=' + id + ']').prop('selected', true)
-    }
-
-    function selectCity(id) {
-        $('select[name=propertyCity]').find('option[value=' + id + ']').prop('selected', true)
-    }
-
-    function selectPropertyType(id) {
-        $('select[name=propertyType]').find('option[value=' + id + ']').prop('selected', true)
     }
 
     // function updateBrowserTitle(){
