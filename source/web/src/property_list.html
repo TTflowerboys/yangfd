@@ -135,19 +135,21 @@
             {{_('共找到下列房产')}}
         </h2>
         <div data-tabs>
-            <ul>
+            <ul id="tabSelector" class="tabSelector">
                 <li data-tab=list>列表</li>
                 <li data-tab=map>地图</li>
             </ul>
-            <div class="item" data-tab-name="list">
-                <div id="result_list" class="result_list">
+            <div class="tabContent">
+                <div class="item" data-tab-name="list">
+                    <div id="result_list" class="result_list">
 
+                    </div>
+                    <hr class="border">
+                    <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+                    <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
                 </div>
-                <hr class="border">
-                <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
-                <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
-            </div>
-            <div  class="item" data-tab-name="map">
+                <div  class="item" data-tab-name="map">
+                </div>
             </div>
         </div>
     </div>
