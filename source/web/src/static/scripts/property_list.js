@@ -113,11 +113,11 @@ $(window).on('resize', window.resizeCategory);
 
         $('#result_list_container').show()
         showEmptyPlaceHolder(false)
-        $('#result #number_container').text(window.i18n('加载中'))
-        $('#result #number_container').show()
+        $('#number_container').text(window.i18n('加载中'))
+        $('#number_container').show()
 
 
-        $('#result #loadIndicator').show()
+        $('#loadIndicator').show()
         $('#loadMore').hide()
 
         var totalResultCount = getCurrentTotalCount()
@@ -154,7 +154,7 @@ $(window).on('resize', window.resizeCategory);
             })
             .always(function () {
                 updateResultCount(totalResultCount)
-                $('#result #loadIndicator').hide()
+                $('#loadIndicator').hide()
             })
     }
 
@@ -259,7 +259,7 @@ $(window).on('resize', window.resizeCategory);
 
 
     function updateResultCount(count) {
-        var $numberContainer = $('#result #number_container')
+        var $numberContainer = $('#number_container')
         //var $number = $numberContainer.find('#number')
 
         if (count) {
@@ -599,19 +599,22 @@ $(window).on('resize', window.resizeCategory);
 
 
     $(window).scroll(function () {
-        var scrollPos = $(window).scrollTop()
-        var windowHeight = $(window).height()
-        var listHeight = $('#result_list').height()
-        var itemCount = getCurrentTotalCount()
-        var requireToScrollHeight = listHeight
-        if (itemCount > 1) {
-            requireToScrollHeight = parseInt(listHeight * (itemCount - 1) / itemCount)
-        }
 
-        setTimeout(function () {
-            if (windowHeight  + scrollPos > requireToScrollHeight &&  $('#loadMore').is(':visible')) {
-                loadPropertyList()
+        if ($('[data-tab-name=list]').is(':visible')) {
+            var scrollPos = $(window).scrollTop()
+            var windowHeight = $(window).height()
+            var listHeight = $('#result_list').height()
+            var itemCount = getCurrentTotalCount()
+            var requireToScrollHeight = listHeight
+            if (itemCount > 1) {
+                requireToScrollHeight = parseInt(listHeight * (itemCount - 1) / itemCount)
             }
-        }, 200)
+
+            setTimeout(function () {
+                if (windowHeight  + scrollPos > requireToScrollHeight &&  $('#loadMore').is(':visible')) {
+                    loadPropertyList()
+                }
+            }, 200)
+        }
     })
 })()

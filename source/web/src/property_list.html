@@ -137,12 +137,22 @@
             <!--{{_('共找到')}}<span id="number" class="number"></span> {{_('套房产')}}-->
             {{_('共找到下列房产')}}
         </h2>
-        <div id="result_list" class="result_list">
+        <div data-tabs>
+            <ul>
+                <li data-tab=list>列表</li>
+                <li data-tab=map>地图</li>
+            </ul>
+            <div class="item" data-tab-name="list">
+                <div id="result_list" class="result_list">
 
+                </div>
+                <hr class="border">
+                <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+                <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
+            </div>
+            <div  class="item" data-tab-name="map">
+            </div>
         </div>
-        <hr class="border">
-        <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
-        <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
     </div>
 
     <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="display:none">
