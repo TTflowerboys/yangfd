@@ -126,6 +126,30 @@
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
+            addRoomCount: function (limit, ceiling, type, value) {
+                var slug = type+':'
+                slug += limit ? limit : ''
+                slug += ','
+                slug += ceiling ? ceiling : ''
+                var data = {
+                    type: type,
+                    slug: slug,
+                    value: value
+                }
+                return $http.post('/api/1/enum/add', data, {errorMessage: true})
+            },
+            editRoomCount: function (id, limit, ceiling, type, value) {
+                var slug = type+':'
+                slug += limit ? limit : ''
+                slug += ','
+                slug += ceiling ? ceiling : ''
+                var data = {
+                    type: type,
+                    slug: slug,
+                    value: value
+                }
+                return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
+            },
             addIntention: function (value, description, slug) {
                 var data = {
                     type: 'intention',

@@ -205,7 +205,7 @@
                     var index2 = $scope.item.slug.lastIndexOf(',')
                     $scope.item.limit = parseInt($scope.item.slug.substring(index0, index1), 10)
                     $scope.item.ceiling = parseInt($scope.item.slug.substring(index1 + 1, index2), 10)
-                    $scope.item.area = $scope.item.slug.substring(index2 + 1).replace('_**_',' ** ')
+                    $scope.item.area = $scope.item.slug.substring(index2 + 1).replace('_**_', ' ** ')
                 })
         }
         $scope.addBuildingArea = function ($event, form) {
@@ -216,7 +216,8 @@
                 return
             }
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addBuildingArea($scope.item.limit, $scope.item.ceiling, $scope.item.area.replace(' ** ','_**_'), $scope.item.value)
+            api.addBuildingArea($scope.item.limit, $scope.item.ceiling, $scope.item.area.replace(' ** ', '_**_'),
+                $scope.item.value)
                 .success(function () {
                     $scope.item.limit = undefined
                     $scope.item.ceiling = undefined
@@ -227,7 +228,8 @@
         $scope.editBuildingArea = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.editBuildingArea($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.area.replace(' ** ','_**_'),
+            api.editBuildingArea($stateParams.id, $scope.item.limit, $scope.item.ceiling,
+                $scope.item.area.replace(' ** ', '_**_'),
                 $scope.item.value)
                 .success(function () {
                     $state.go('^')
@@ -352,6 +354,49 @@
                     })
                 }
             })
+        }
+        $scope.getEditRoomCount = function () {
+            api.getI18nEnumsById($stateParams.id)
+                .success(function (data) {
+                    $scope.item = data.val || {}
+                    $scope.item.tempValues = _.pairs($scope.item.value)
+                    for (var i = $scope.item.tempValues.length - 1; i >= 0; i -= 1) {
+                        if ($scope.item.tempValues[i][0] === '_i18n') {
+                            $scope.item.tempValues.splice(i, 1)
+                        } else {
+                            $scope.onAddLanguage($scope.item.tempValues[i][0])
+                        }
+                    }
+                    var index0 = $scope.item.slug.indexOf(':') + 1
+                    var index1 = $scope.item.slug.indexOf(',')
+                    $scope.item.limit = parseInt($scope.item.slug.substring(index0, index1), 10)
+                    $scope.item.ceiling = parseInt($scope.item.slug.substring(index1 + 1), 10)
+                })
+        }
+        $scope.addRoomCount = function ($event, form) {
+            if ($scope.item.limit === undefined &&
+                $scope.item.ceiling === undefined &&
+                $scope.item.value === undefined &&
+                $scope.item.tempValues === undefined) {
+                return
+            }
+            $scope.item.value = _.object($scope.item.tempValues)
+            api.addRoomCount($scope.item.limit, $scope.item.ceiling, $scope.item.type, $scope.item.value)
+                .success(function () {
+                    $scope.item.limit = undefined
+                    $scope.item.ceiling = undefined
+                    $scope.item.value = undefined
+                    $scope.item.tempValues = undefined
+                })
+        }
+        $scope.editRoomCount = function ($event, form) {
+
+            $scope.item.value = _.object($scope.item.tempValues)
+            api.editRoomCount($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.type,
+                $scope.item.value)
+                .success(function () {
+                    $state.go('^')
+                })
         }
     }
 

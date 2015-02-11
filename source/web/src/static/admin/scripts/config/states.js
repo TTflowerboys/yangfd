@@ -238,6 +238,24 @@ angular.module('app')
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
+            .state('dashboard.enums.room_count', {
+                url: '/room_count',
+                templateUrl: '/static/admin/templates/dashboard.enums.room_count.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.room_count.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.room_count.create.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.room_count.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.enums.room_count.edit.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
         /**
          * 房产
          */
