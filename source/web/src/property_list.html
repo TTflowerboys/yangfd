@@ -149,6 +149,7 @@
                     <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
                 </div>
                 <div  class="item" data-tab-name="map">
+                    <div id="map" class="map" style="position:relative;"></div>
                 </div>
             </div>
         </div>
@@ -168,15 +169,16 @@
         <li class="phone"><a href="tel:4000926433" >{{_('拨打400-0926-433咨询')}}</a></li>
         <li class="requirement"><a href="/requirement"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
     </ul>
-
 </div>
 <!-- @@include=/static/templates/house_card.tpl.html-->
 <!--@@close-->
 
 
 <!--@@block=scripts -->
+<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 <!--build:js /static/scripts/property_list.html.js-->
 <script src="/static/scripts/property_list.js"></script>
+<script src="/static/scripts/property_list_map.js"></script>
 <!--endbuild-->
 <!--@@close-->
 

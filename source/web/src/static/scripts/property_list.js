@@ -43,9 +43,6 @@ $(window).on('resize', window.resizeCategory);
 
 (function () {
 
-    $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-
-    })
 
     var lastItemTime
 
@@ -120,7 +117,6 @@ $(window).on('resize', window.resizeCategory);
         $('#number_container').text(window.i18n('加载中'))
         $('#number_container').show()
 
-
         $('#loadIndicator').show()
         $('#loadMore').hide()
 
@@ -131,6 +127,12 @@ $(window).on('resize', window.resizeCategory);
                 totalResultCount = val.count
                 if (!_.isEmpty(array)) {
                     lastItemTime = _.last(array).mtime
+
+                    if (!window.propertyList) {
+                        window.propertyList = []
+                    }
+                    window.propertyList = window.propertyList.concat(array)
+
                     _.each(array, function (house) {
                         var houseResult = _.template($('#houseCard_template').html())({house: house})
                         $('#result_list').append(houseResult)
