@@ -74,7 +74,8 @@
             } else {
                 delete params.price
             }
-            $rootScope.plotParams = _.pick(params, 'bedroom_count', 'floor', 'space', 'price');
+            $rootScope.plotParams = _.pick(params, 'bedroom_count', 'living_room_count', 'kitchen_count',
+                'bathroom_count', 'zipcode_index', 'floor', 'space', 'price');
         }
 
         $scope.searchHousing = function () {
