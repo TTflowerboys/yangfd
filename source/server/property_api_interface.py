@@ -174,6 +174,9 @@ def property_search(user, params):
     street=('i18n', None, str),
     zipcode_index=str,
     bedroom_count=int,
+    bathroom_count=int,
+    living_room_count=int,
+    kitchen_count=int,
     space=str,
     price=str,
     investment_type="enum:investment_type",
@@ -273,14 +276,9 @@ def property_search_with_plot(user, params):
         else:
             plot_params["$or"] = space_filter
 
-    if "bedroom_count" in params:
-        plot_params["bedroom_count"] = params.pop("bedroom_count")
-
-    if "floor" in params:
-        plot_params["floor"] = params.pop("floor")
-
-    if "investment_type" in params:
-        plot_params["investment_type"] = params.pop("investment_type")
+    for field in ("bedroom_count", "bathroom_count", "kitchen_count", "living_room_count", "floor", "investment_type", "zipcode_index", "country", "city"):
+        if field in params:
+            plot_params[field] = params.pop(field)
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
@@ -288,6 +286,7 @@ def property_search_with_plot(user, params):
     if plot_params:
         plot_property_set = set([str(plot.get("property_id")) for plot in f_app.plot.get(f_app.plot.search(plot_params, per_page=0))])
         params["_id"] = {"$in": [ObjectId(i) for i in plot_property_set]}
+        logger.debug(params["_id"])
 
     # Default to mtime,desc
     property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort, time_field="mtime")
