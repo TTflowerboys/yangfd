@@ -31,6 +31,6 @@ def get_video_source(params):
                 sources = [x for x in rec_videos[0].get('sources') if "web-normal" in x.get("tags", [])]
 
             for source in sources:
-                result.append({"source": source.get("url"), "type": source.get("type")})
+                result.append({"url": source.get("url"), "type": source.get("type")})
 
     return result
