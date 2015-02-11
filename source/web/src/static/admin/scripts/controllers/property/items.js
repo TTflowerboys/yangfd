@@ -20,7 +20,7 @@
                     if (res && res.length > 0) {
                         $scope.zipcode_name = res[0].name
                     } else {
-                        $scope.zipcode_name = i18n('街区报告中不存在此街区')
+                        $scope.zipcode_name = i18n('暂无此街区')
                     }
                 })
             }
