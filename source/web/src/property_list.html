@@ -136,8 +136,14 @@
         </h2>
         <div data-tabs>
             <ul id="tabSelector" class="tabSelector">
-                <li data-tab=list>列表</li>
-                <li data-tab=map>地图</li>
+                <li data-tab=list>
+                    <img class="active" alt="{{_('列表')}}" src="/static/images/property_list/tab-list-active.png"/>
+                    <img class="normal" alt="{{_('列表')}}" src="/static/images/property_list/tab-list-normal.png"/>
+                </li>
+                <li data-tab=map>
+                    <img class="normal" alt="{{_('地图')}}" src="/static/images/property_list/tab-map-normal.png"/>
+                    <img class="active" alt="{{_('地图')}}" src="/static/images/property_list/tab-map-active.png"/>
+                </li>
             </ul>
             <div class="tabContent">
                 <div class="item" data-tab-name="list">
