@@ -34,7 +34,7 @@ def check_ip_and_redirect_domain(func):
                 # Special hack to remove "beta."
                 request_url = request.url
 
-                if country == "CN":
+                if country == "CN" or "MicroMessenger" in request.get_header('User-Agent'):
                     target_url = request_url.replace("youngfunding.co.uk", "yangfd.com")
                     logger.debug("Visitor country detected:", country, "redirecting to yangfd.com if not already. Host:", host, "target_url:", target_url)
                     assert host.endswith(("yangfd.com", "yangfd.cn")), redirect(target_url)
