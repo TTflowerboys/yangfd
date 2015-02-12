@@ -263,9 +263,6 @@ $(window).on('resize', window.resizeCategory);
         return ''
     }
 
-
-
-
     function selectBudget(id) {
         var $item = $('#tags #budgetTag').find('[data-id=' + id + ']')
         var $parent = $item.parent()

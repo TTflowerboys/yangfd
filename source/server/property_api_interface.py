@@ -10,6 +10,22 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+@f_api('/property/search_nearby', params=dict(
+    status=(list, ["selling", "sold out"], str),
+    latitude=(float, True),
+    longitude=(float, True),
+    search_range=(float, True),
+))
+@f_app.user.login.check(check_role=True)
+def property_search_nearby(user, params):
+    """
+    ``search_range`` is the radius you want to search within. The unit is meter.
+    """
+    if "status" in params:
+        params["status"] = {"$in": params.pop("status")}
+    return f_app.property.get_nearby(params)
+
+
 @f_api('/property/search', params=dict(
     per_page=int,
     mtime=datetime,

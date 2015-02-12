@@ -175,6 +175,8 @@ def register(params):
 @f_api('/user/edit', force_ssl=True, params=dict(
     nolog=("password", "old_password"),
     nickname=(str, None),
+    first_name=(str, None),
+    last_name=(str, None),
     phone=(str, None),
     city=("enum:city", None),
     state=("enum:state", None),

@@ -269,6 +269,27 @@ main {
                 float:left;
                 width:60px;
                 li {
+                    height:40px;
+                    width:40px;
+                    overflow:hidden;
+
+                    img.normal {
+                        display:block;
+                    }
+
+                    img.active {
+                        display:none;
+                    }
+
+                    &.selectedTab {
+                        img.normal {
+                            display:none;
+                        }
+
+                        img.active {
+                            display:block;
+                        }
+                    }
 
                 }
             }
