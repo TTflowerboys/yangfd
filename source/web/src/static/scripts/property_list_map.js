@@ -103,6 +103,62 @@
         map.entities.push(layer)
     }
 
+    function getBestMapOptions(locations, mapWidth, mapHeight) {
+        var center = new Microsoft.Maps.Location();
+        var zoomLevel = 0;
+
+        var maxLat = -85;
+        var minLat = 85;
+        var maxLon = -180;
+        var minLon = 180;
+
+        //calculate bounding rectangle
+        for (var i = 0; i < locations.length; i++)
+        {
+            if (locations[i].latitude > maxLat)
+            {
+                maxLat = locations[i].latitude;
+            }
+
+            if (locations[i].latitude < minLat)
+            {
+                minLat = locations[i].latitude;
+            }
+
+            if (locations[i].longitude > maxLon)
+            {
+                maxLon = locations[i].longitude;
+            }
+
+            if (locations[i].longitude < minLon)
+            {
+                minLon = locations[i].longitude;
+            }
+        }
+
+        center.latitude = (maxLat + minLat) / 2;
+        center.longitude = (maxLon + minLon) / 2;
+
+        var zoom1=0, zoom2=0;
+
+        //Determine the best zoom level based on the map scale and bounding coordinate information
+        if (maxLon !== minLon && maxLat !== minLat)
+        {
+            //best zoom level based on map width
+            zoom1 = Math.log(360.0 / 256.0 * mapWidth / (maxLon - minLon)) / Math.log(2);
+            //best zoom level based on map height
+            zoom2 = Math.log(180.0 / 256.0 * mapHeight / (maxLat - minLat)) / Math.log(2);
+        }
+
+        //use the most zoomed out of the two zoom levels
+        zoomLevel = Math.round((zoom1 < zoom2) ? zoom1 : zoom2);
+        if (zoomLevel > 0) {
+            zoomLevel = zoomLevel - 1; //left more around margin
+        }
+        return {zoom:zoomLevel , center:center}
+
+    }
+
 
     var mapId = 'map'
     var map = window.getMap(mapId)
@@ -112,7 +168,13 @@
             if (window.propertyList) {
                 map.entities.clear();
                 updateMapResults(map, mapId, window.propertyList)
-                map.setView({zoom:13})
+
+                var locations = []
+                _.each(window.propertyList, function (property) {
+                    var location = new Microsoft.Maps.Location(property.latitude, property.longitude)
+                    locations.push(location)
+                })
+                map.setView(getBestMapOptions(locations, $(map).width(), $(map).height()))
             }
         }
     })
