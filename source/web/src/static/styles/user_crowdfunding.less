@@ -24,7 +24,7 @@
     padding-top: 48px;
     padding-bottom: 32px;
 }
-.cfdDividerTitle{
+.cfdDividerTitle {
     padding-top: 48px;
     padding-bottom: 32px;
 }
@@ -33,7 +33,6 @@
     border: 1px solid #ffb34f;
     height: 180px;
 }
-
 .topClass {
     margin: 0 auto;
     width: 98%;
@@ -45,19 +44,19 @@
         @media @phone {
             width: 33%;
         }
-        >div{
+        > div {
             border-left: 1px solid #cccccc;
             padding: 0 8px;
-            &.noLine{
+            &.noLine {
                 border-left: 0;
             }
-            &.phone{
+            &.phone {
                 @media @phone {
                     border-left: 0;
                 }
             }
         }
-        div{
+        div {
             color: #666666;
         }
     }
@@ -68,7 +67,7 @@
         }
     }
 }
-.orangeTitle{
+.orangeTitle {
     color: #ff8a00;
     font-size: 24px;
     &.web {
@@ -97,7 +96,7 @@
         color: #ff8a00;
     }
 }
-.cfdContentFrame{
+.cfdContentFrame {
     padding-top: 56px;
     padding-bottom: 36px;
 }
@@ -105,15 +104,34 @@
     font-size: 24px;
     color: #333333;
 }
-.cfdFilterMenu{
+.cfdFilterMenu {
     font-size: 14px;
     color: #999999;
 }
-.cfdFilterButton{
+.cfdFilterButton {
+    display: inline-block;
     font-size: 14px;
-    color: #ffffff;
-    background-color: #e60012;
-
+    color: #999999;
+    background-color: transparent;
+    border: 2px solid #cccccc !important;
+    margin: 10px;
+    width: 70px;
+    height: 30px;
+    line-height: 28px;
+    text-align: center;
+    &.selected {
+        color: #ffffff;
+        background-color: #e60012;
+        border: 2px solid #e60012 !important;
+    }
+}
+.cfdFilterInput{
+    font-size: 14px;
+    border: 1px solid #cccccc !important;
+    margin: 10px;
+    width: 160px;
+    height: 30px;
+    color: #999999;
 }
 .ui-tabs {
     display: none;
