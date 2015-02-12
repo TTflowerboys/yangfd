@@ -7,6 +7,12 @@
     width:450px;
     height:110px;
 
+    @media @phone {
+        width:160px;
+        height:65px;
+        margin-left:-80px;
+    }
+
     .arrow_box {
         position: relative;
         background: #fff;
@@ -40,11 +46,20 @@
 
 .houseInfobox {
     width:450px;
-    height:102px;
+    height:107px;
+
+    @media @phone {
+        width:160px;
+        height:57px;
+    }
 
     .imagePart {
         float:left;
         height:100px;
+
+        @media @phone {
+            display:none;
+        }
     }
 
     .description {
@@ -52,11 +67,20 @@
         width:248px;
         padding:8px;
 
+        @media @phone {
+            width:158px;
+        }
+
         .name {
             font-size:16px;
             font-weight:bold;
             line-height:16px;
             margin-bottom:15px;
+
+            @media @phone {
+                margin-bottom:8px;
+                .limitedLines(@lines:1; @line-height: 16px;@bg: white);
+            }
             a {
                 text-decoration:none;
                 color:#666;
