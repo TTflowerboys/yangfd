@@ -3,6 +3,7 @@
 
 <!--build:css(dist) /static/styles/property_list.html.css-->
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
+<link rel="stylesheet" href="/static/styles/project/houseInfobox.css"/>
 <link rel="stylesheet" href="/static/styles/propertyList.css"/>
 <!--endbuild-->
 
@@ -177,6 +178,49 @@
     </ul>
 </div>
 <!-- @@include=/static/templates/house_card.tpl.html-->
+
+<script id="houseInfobox_template" type="text/template">
+    <div class="houseInfobox_wrapper">
+        <div class="houseInfobox arrow_box">
+            <div class="imagePart">
+                {_if (house.cover){_}
+                <a href="/property/{=house.id=}">
+                    <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" height=100 onerror="window.onImgError(this);"/>
+                </a>
+                {_ } else if(house.reality_images && house.reality_images.length) {_}
+                <a href="/property/{=house.id=}">
+                    <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" height=100 onerror="window.onImgError(this);"/>
+                </a>
+                {_ }else { _}
+                <a href="/property/{=house.id=}">
+                    <img class="withPlaceholder" height="100"/>
+                </a>
+                {_}_}
+            </div>
+            <div class=description>
+                <h1 class=name>
+                    <a href="/property/{=house.id=}">
+                        {_if (house.country){_}
+                        {=house.country.value=}
+                        {_}_}
+                        {_if (house.city){_}
+                        {=house.city.value=}
+                        {_}_}
+                        {=house.name=}
+                    </a>
+                </h1>
+                {_if (house.property_type && house.property_type.value){_}
+                <label class="type" for="">{=house.property_type.value=}</label>
+                {_}_}
+                <label class=price>
+                    <!--@@include=partials/get_unit_price.tpl.html  -->
+                </label>
+            </div>
+        </div>
+    </div>
+    
+</script>
+
 <!--@@close-->
 
 

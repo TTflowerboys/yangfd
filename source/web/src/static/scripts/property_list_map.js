@@ -32,12 +32,11 @@
             map.entities.remove(window.mapInfoBoxLayerCache[mapId]);
         }
         var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
-        var decription = [];
         var layer = new Microsoft.Maps.EntityCollection()
-        decription.push(window.i18n('地址') + ':' + result.address + '<br/>');
-        decription.push(window.i18n('类型') + ':' + result.property_type.value + '<br/>');
-        var infobox = new Microsoft.Maps.Infobox(location, { title: result.name, description: decription.join(' '), showPointer: true});
+        var infobox = new Microsoft.Maps.Infobox(location, {showPointer: true});
         layer.push(infobox)
+        var houseResult = _.template($('#houseInfobox_template').html())({house: result})
+        infobox.setHtmlContent(houseResult)
         layer.setOptions({ visible: true });
         map.entities.push(layer);
         ajustMapPosition(map, layer.get(0), location)
