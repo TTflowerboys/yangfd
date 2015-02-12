@@ -33,10 +33,11 @@
         }
         var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
         var layer = new Microsoft.Maps.EntityCollection()
-        var infobox = new Microsoft.Maps.Infobox(location, {showPointer: true});
-        layer.push(infobox)
+        var infobox = new Microsoft.Maps.Infobox(location, {});
         var houseResult = _.template($('#houseInfobox_template').html())({house: result})
         infobox.setHtmlContent(houseResult)
+
+        layer.push(infobox)
         layer.setOptions({ visible: true });
         map.entities.push(layer);
         ajustMapPosition(map, layer.get(0), location)
@@ -111,6 +112,7 @@
             if (window.propertyList) {
                 map.entities.clear();
                 updateMapResults(map, mapId, window.propertyList)
+                map.setView({zoom:13})
             }
         }
     })
