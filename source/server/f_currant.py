@@ -17,6 +17,7 @@ from pyquery import PyQuery as q
 from itertools import chain
 from PIL import ImageOps
 from scipy.misc import imread
+from bson import SON
 from libfelix.f_common import f_app
 from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
@@ -1329,6 +1330,39 @@ class f_property(f_app.module_base):
         for child_property_id in self.search({'target_property_id': str(property_id)}, per_page=0):
             self.remove(child_property_id)
         self.update_set(property_id, {"status": "deleted"})
+
+    def get_nearby(self, params):
+        latitude = params.pop("latitude")
+        longitude = params.pop("longitude")
+        search_range = params.pop("search_range")
+        self.logger.debug(latitude, longitude, search_range, params)
+
+        search_command = SON([
+            ('geoNear', self.property_database),
+            ('near', [longitude, latitude]),
+            ('maxDistance', search_range * 1.0 / f_app.common.earth_radius),
+            ('spherical', True),
+            ('query', params),
+            ('num', 20),
+        ])
+
+        with f_app.mongo() as m:
+            tmp_result = m.command(search_command)["results"]
+
+        self.logger.debug(tmp_result)
+        result = []
+        property_id_list = map(lambda item: str(item["obj"]["_id"]), tmp_result)
+        property_dict = self.output(property_id_list, multi_return=dict)
+
+        for tmp_property in tmp_result:
+
+            distance = tmp_property["dis"] * f_app.common.earth_radius
+            property = property_dict.get(str(tmp_property["obj"].pop("_id")))
+            property["distance"] = distance
+
+            result.append(property)
+
+        return result
 
     def update(self, property_id, params, _ignore_render_pdf=False):
         if "$set" in params:
