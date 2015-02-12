@@ -160,7 +160,7 @@
     }
 
 
-    var mapId = 'map'
+    var mapId = 'mapCanvas'
     var map = window.getMap(mapId)
 
     $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
@@ -174,7 +174,7 @@
                     var location = new Microsoft.Maps.Location(property.latitude, property.longitude)
                     locations.push(location)
                 })
-                map.setView(getBestMapOptions(locations, $(map).width(), $(map).height()))
+                map.setView(getBestMapOptions(locations, $('#' + mapId).width(), $('#' + mapId).height()))
             }
         }
     })
