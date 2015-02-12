@@ -172,6 +172,11 @@
         <h2 class="successMessage" style="display:none">{{_('置业需求已提交，稍后我们的工作人员会联系你')}}</h2>
     </div>
 
+    <div class="tabSelector_phone" data-tab="list">
+        <img class="list" alt="" src="/static/images/property_list/tab-list-phone.png"/>
+        <img class="map" alt="" src="/static/images/property_list/tab-map-phone.png"/>
+    </div>
+
     <ul class="floatBar_phone">
         <li class="phone"><a href="tel:4000926433" >{{_('拨打400-0926-433咨询')}}</a></li>
         <li class="requirement"><a href="/requirement"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
@@ -200,12 +205,6 @@
             <div class=description>
                 <h1 class=name>
                     <a href="/property/{=house.id=}">
-                        {_if (house.country){_}
-                        {=house.country.value=}
-                        {_}_}
-                        {_if (house.city){_}
-                        {=house.city.value=}
-                        {_}_}
                         {=house.name=}
                     </a>
                 </h1>

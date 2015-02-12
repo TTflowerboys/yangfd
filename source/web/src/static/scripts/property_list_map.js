@@ -178,4 +178,30 @@
             }
         }
     })
+
+    $('.tabSelector_phone').click(function (e) {
+        var currentTab = $(this).attr('data-tab')
+        var $tabContainer = $('[data-tabs]')
+        var tabName = ''
+        var $tabContents = null
+
+        if (currentTab === 'list'){
+            //to show map
+            tabName = 'map'
+            $tabContents = $tabContainer.find('[data-tab-name=' + tabName + ']')
+            $tabContents.addClass('selectedTab').show()
+            $tabContents.siblings().removeClass('selectedTab').hide()
+            $tabContainer.trigger('openTab', [$('.tabSelector [tab-name=' + tabName + ']'), tabName])
+            $(this).attr('data-tab', 'map')
+        }
+        else {
+            //to show list
+            tabName = 'list'
+            $tabContents = $tabContainer.find('[data-tab-name=' + tabName + ']')
+            $tabContents.addClass('selectedTab').show()
+            $tabContents.siblings().removeClass('selectedTab').hide()
+            $tabContainer.trigger('openTab', [$('.tabSelector [tab-name=' + tabName + ']'), tabName])
+            $(this).attr('data-tab', 'list')
+        }
+    })
 })()
