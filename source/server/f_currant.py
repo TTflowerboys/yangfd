@@ -1163,6 +1163,8 @@ class f_property(f_app.module_base):
 
             for property in result_list:
                 result[property["id"]] = _format_each(property)
+                if "loc" in property:
+                    property["longitude"], property["latitude"] = property.pop("loc")
 
             return result
 
@@ -1183,6 +1185,14 @@ class f_property(f_app.module_base):
         params.setdefault("status", "draft")
         params.setdefault("time", datetime.utcnow())
         params.setdefault("mtime", datetime.utcnow())
+
+        if "latitude" in params and "longitude" in params:
+            params["loc"] = [
+                params.pop("longitude"),
+                params.pop("latitude"),
+            ]
+        elif "latitude" in params or "longitude" in params:
+            abort(40000, self.logger.warning("latitude and longitude must be present together"))
 
         if not _ignore_render_pdf and "brochure" in params:
             for item in params["brochure"]:
@@ -1323,6 +1333,13 @@ class f_property(f_app.module_base):
     def update(self, property_id, params, _ignore_render_pdf=False):
         if "$set" in params:
             params["$set"].setdefault("mtime", datetime.utcnow())
+            if "latitude" in params["$set"] and "longitude" in params["$set"]:
+                params["$set"]["loc"] = [
+                    params["$set"].pop("longitude"),
+                    params["$set"].pop("latitude"),
+                ]
+            elif "latitude" in params["$set"] or "longitude" in params["$set"]:
+                abort(40000, self.logger.warning("latitude and longitude must be present together", exc_info=False))
 
             if not _ignore_render_pdf and "brochure" in params["$set"] and params["$set"]["brochure"]:
                 old_property = f_app.property.get(property_id)

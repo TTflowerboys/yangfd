@@ -10,6 +10,20 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+@f_api('/property/search_nearby', params=dict(
+    per_page=int,
+    mtime=datetime,
+    sort=(list, None, str),
+
+    status=(list, ["selling", "sold out"], str),
+    latitude=float,
+    longitude=float,
+))
+@f_app.user.login.check(check_role=True)
+def property_search_nearby(user, params):
+    pass
+
+
 @f_api('/property/search', params=dict(
     per_page=int,
     mtime=datetime,
