@@ -10,12 +10,21 @@
     text-align: center;
     color: #9a9a9a;
     font-size: 24px;
+    @media @phone {
+        font-size: 12px;
+    }
     &.selected {
         border-bottom: 2px solid #ff2e5b;
         color: #ff2e5b;
         @media @phone{
             color: #595959;
+            border-bottom: 4px solid #ff2e5b;
         }
+    }
+}
+.mainFrame {
+    @media @phone {
+        padding: 0 12px;
     }
 }
 .cfdPageTitle {
@@ -23,6 +32,9 @@
     color: #333333;
     padding-top: 48px;
     padding-bottom: 32px;
+    @media @phone {
+        font-size: 12px;
+    }
 }
 .cfdDividerTitle {
     padding-top: 48px;
@@ -70,6 +82,9 @@
 .orangeTitle {
     color: #ff8a00;
     font-size: 24px;
+    @media @phone {
+        font-size: 12px;
+    }
     &.web {
         color: #ff8a00;
         margin: 14px;
@@ -88,6 +103,9 @@
     &.number {
         color: #ff8a00;
         font-size: 80px;
+        @media @phone{
+            font-size: 40px;
+        }
     }
 }
 .cfdLittleTitle {
@@ -103,9 +121,15 @@
 .cfdContentTitle {
     font-size: 24px;
     color: #333333;
+    @media @phone {
+        font-size: 12px;
+    }
 }
 .cfdFilterMenu {
     font-size: 14px;
+    @media @phone {
+        font-size: 10px;
+    }
     color: #999999;
 }
 .cfdFilterButton {
@@ -119,14 +143,24 @@
     height: 30px;
     line-height: 28px;
     text-align: center;
+    @media @phone {
+        width: 56px;
+        height: 24px;
+        line-height: 22px;
+        font-size: 12px;
+        margin: 6px;
+    }
     &.selected {
         color: #ffffff;
         background-color: #e60012;
         border: 2px solid #e60012 !important;
     }
 }
-.cfdFilterInput{
+.cfdFilterInput {
     font-size: 14px;
+    @media @phone {
+        font-size: 12px;
+    }
     border: 1px solid #cccccc !important;
     margin: 10px;
     width: 160px;
