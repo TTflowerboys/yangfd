@@ -292,7 +292,7 @@ def property_search_with_plot(user, params):
         else:
             plot_params["$or"] = space_filter
 
-    for field in ("bedroom_count", "bathroom_count", "kitchen_count", "living_room_count", "floor", "investment_type", "zipcode_index", "country", "city"):
+    for field in ("bedroom_count", "bathroom_count", "kitchen_count", "living_room_count", "floor", "investment_type", "country", "city"):
         if field in params:
             plot_params[field] = params.pop(field)
 
