@@ -74,6 +74,20 @@ $(window).on('resize', window.resizeCategory);
         });
     }
 
+    function updateTabSelectorVisibility(visible) {
+        var tabSelectorKey =  '.tabSelector'
+        if (window.team.isPhone()) {
+            tabSelectorKey += '_phone'
+        }
+
+        if (visible) {
+            $(tabSelectorKey).show()
+        }
+        else {
+            $(tabSelectorKey).hide()
+        }
+    }
+
     function loadPropertyList() {
         var params = {'per_page':'5'}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
@@ -119,6 +133,7 @@ $(window).on('resize', window.resizeCategory);
 
         $('#loadIndicator').show()
         $('#loadMore').hide()
+        updateTabSelectorVisibility(false)
 
         var totalResultCount = getCurrentTotalCount()
         $.betterPost('/api/1/property/search', params)
@@ -161,6 +176,7 @@ $(window).on('resize', window.resizeCategory);
             .always(function () {
                 updateResultCount(totalResultCount)
                 $('#loadIndicator').hide()
+                updateTabSelectorVisibility(true)
             })
     }
 
