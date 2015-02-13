@@ -606,7 +606,6 @@ def user_messages(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     message_list = currant_data_helper.get_message_list(user)
     message_type_list = f_app.enum.get_all('message_type')
-
     for message in message_list:
         for message_type in message_type_list:
             if 'message_type:' + message['type'] == message_type['slug']:

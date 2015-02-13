@@ -2,21 +2,25 @@
     <div class="cell">
         {_if (message.status === 'new'||message.status === 'sent'){_}
         <label id="title" class="unread_type" >
-        {_}else{_}
-        <label id="title" class="read_type" >
-        {_}_}
-            {=message.type_presentation.value=}
-            {_if(message.title) {_}
-            - {=message.title=}
-            {_}_}
-        </label>
+            {_}else{_}
+            <label id="title" class="read_type" >
+                {_}_}
+                {_if (message.type_presentation && message.type_presentation.value) {_}
+                {=message.type_presentation.value=}
+                {_}_}
+                {_if(message.title) {_}
+                - {=message.title=}
+                {_}_}
+            </label>
 
-        <div class="rightParts">
-            <label class="date" >{=project.formatDate(message.time)=}</label>
-            <button id="showHide" class="showHide" data-state="close" data-status="{=message.status=}" data-id="{=message.id=}">{{_('展开')}}</button>
-        </div>
-        <p class="content" style="display:none">
-            {=message.text=}
-        </p>
+            <div class="rightParts">
+                {_if (message.time) {_}
+                <label class="date" >{=project.formatDate(message.time)=}</label>
+                {_}_}
+                <button id="showHide" class="showHide" data-state="close" data-status="{=message.status=}" data-id="{=message.id=}">{{_('展开')}}</button>
+            </div>
+            <p class="content" style="display:none">
+                {=message.text=}
+            </p>
     </div>
 </script>
