@@ -54,7 +54,7 @@
     //http://stackoverflow.com/questions/11148042/bing-maps-invoke-click-event-on-pushpin
     function ajustMapPosition(map, infobox, location) {
 
-        var buffer = 50;
+        var buffer = 70;
         var infoboxOffset = infobox.getOffset();
         var infoboxAnchor = infobox.getAnchor();
         var infoboxLocation = map.tryLocationToPixel(location, Microsoft.Maps.PixelReference.control);
@@ -69,7 +69,7 @@
         } else {
             //#### If dy is greater than zero than it does not overlap.
 
-            dy = map.getHeight() - infoboxLocation.y + infoboxAnchor.y - infobox.getHeight();
+            dy = map.getHeight() - infoboxLocation.y + infoboxAnchor.y;
             if (dy > buffer) {
                 dy = 0;
             } else {
@@ -83,7 +83,7 @@
             //#### add a buffer from the left edge of the map.
             dx += buffer;
         } else { //Check to see if overlapping with right side of map.
-            dx = map.getWidth() - infoboxLocation.x + infoboxAnchor.x - infobox.getWidth();
+            dx = map.getWidth() - infoboxLocation.x + infoboxAnchor.x - infobox.getWidth() / 2;
             //#### If dx is greater than zero then it does not overlap.
             if (dx > buffer) {
                 dx = 0;
