@@ -56,7 +56,7 @@ def message_search(user, params):
         pass
     else:
         params["user_id"] = ObjectId(user["id"])
-    messages = [f_app.message.output(i) for i in f_app.message.search(params, per_page=per_page)]
+    messages = [f_app.message.output(i) for i in f_app.message.search(params, per_page=per_page, sort=["time", "desc"])]
     return messages
 
 
