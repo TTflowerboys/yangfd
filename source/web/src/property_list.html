@@ -188,23 +188,29 @@
     <div class="houseInfobox_wrapper">
         <div class="houseInfobox arrow_box">
             <div class="imagePart">
-                {_if (house.cover){_}
                 <a href="/property/{=house.id=}">
-                    <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" height=100 onerror="window.onImgError(this);"/>
+                    {_if (house.cover){_}
+                    <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" width=160 height=80 onerror="window.onImgError(this);"/>
+                    {_ } else if(house.reality_images && house.reality_images.length) {_}
+                    <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}"  width=160 height=80 onerror="window.onImgError(this);"/>
+                    {_ }else { _}
+                    <img class="withPlaceholder"  width=160 height=80 />
+                    {_}_}
                 </a>
-                {_ } else if(house.reality_images && house.reality_images.length) {_}
-                <a href="/property/{=house.id=}">
-                    <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" height=100 onerror="window.onImgError(this);"/>
-                </a>
-                {_ }else { _}
-                <a href="/property/{=house.id=}">
-                    <img class="withPlaceholder" height="100"/>
-                </a>
-                {_}_}
             </div>
             <div class=description>
                 <h1 class=name>
                     <a href="/property/{=house.id=}">
+                        {_if (house.country){_}
+                        <span class="country">
+                            {=house.country.value=}
+                        </span>
+                        {_}_}
+                        {_if (house.city){_}
+                        <span class="city">
+                            {=house.city.value=}
+                        </span>
+                        {_}_}
                         {=house.name=}
                     </a>
                 </h1>

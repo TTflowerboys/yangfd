@@ -2,10 +2,10 @@
 
 .houseInfobox_wrapper {
     margin-top:-50px;
-    margin-left:-225px;
+    margin-left:-180px;
     overflow:hidden;
-    width:450px;
-    height:110px;
+    width:360px;
+    height:90px;
 
     @media @phone {
         width:160px;
@@ -45,8 +45,8 @@
 }
 
 .houseInfobox {
-    width:450px;
-    height:107px;
+    width:360px;
+    height:82px;
 
     @media @phone {
         width:160px;
@@ -55,7 +55,7 @@
 
     .imagePart {
         float:left;
-        height:100px;
+        height:80px;
 
         @media @phone {
             display:none;
@@ -64,7 +64,7 @@
 
     .description {
         float:left;
-        width:248px;
+        width:198px;
         padding:8px;
 
         @media @phone {
@@ -84,6 +84,11 @@
             a {
                 text-decoration:none;
                 color:#666;
+                .country {
+                    @media @phone {
+                        display:none;
+                    }
+                }
             }
         }
 
