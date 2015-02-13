@@ -193,10 +193,12 @@ def get_report(zipcode_index):
 
 
 def get_message_list(user):
-    return f_app.message.get_by_user(
+    message_list = f_app.message.get_by_user(
         user['id'],
         {"state": {"$in": ["read", "new"]}},
     )
+    message_list = sorted(message_list, key=lambda message: message.get('time'), reverse=True)
+    return message_list
 
 
 def get_intention_ticket_list(user):
