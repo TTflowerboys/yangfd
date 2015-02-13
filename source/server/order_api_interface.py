@@ -48,7 +48,7 @@ def order_recharge(user, params):
     """
     params["item_id"] = ObjectId("54bcb8146b8099406600b5f1")
     order_params = {"type": "recharge"}
-    params["quantity"] = params.pop("force_price")
+    params["quantity"] = params.pop("price")
     return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params)])[0]
 
 
