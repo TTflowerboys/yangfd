@@ -187,8 +187,8 @@
 <script id="houseInfobox_template" type="text/template">
     <div class="houseInfobox_wrapper infobox">
         <div class="houseInfobox arrow_box">
-            <div class="imagePart">
-                <a href="/property/{=house.id=}">
+            <a href="/property/{=house.id=}">
+                <div class="imagePart">
                     {_if (house.cover){_}
                     <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" width=160 height=80 onerror="window.onImgError(this);"/>
                     {_ } else if(house.reality_images && house.reality_images.length) {_}
@@ -196,11 +196,9 @@
                     {_ }else { _}
                     <img class="withPlaceholder"  width=160 height=80 />
                     {_}_}
-                </a>
-            </div>
-            <div class=description>
-                <h1 class=name>
-                    <a href="/property/{=house.id=}">
+                </div>
+                <div class=description>
+                    <h1 class=name>
                         {_if (house.country){_}
                         <span class="country">
                             {=house.country.value=}
@@ -212,18 +210,17 @@
                         </span>
                         {_}_}
                         {=house.name=}
-                    </a>
-                </h1>
-                {_if (house.property_type && house.property_type.value){_}
-                <label class="type" for="">{=house.property_type.value=}</label>
-                {_}_}
-                <label class=price>
-                    <!--@@include=partials/get_unit_price.tpl.html  -->
-                </label>
-            </div>
+                    </h1>
+                    {_if (house.property_type && house.property_type.value){_}
+                    <label class="type" for="">{=house.property_type.value=}</label>
+                    {_}_}
+                    <label class=price>
+                        <!--@@include=partials/get_unit_price.tpl.html  -->
+                    </label>
+                </div>
+            </a>
         </div>
     </div>
-    
 </script>
 
 <!--@@close-->

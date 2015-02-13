@@ -73,32 +73,36 @@
             font-weight:bold;
             line-height:16px;
             margin-bottom:15px;
+            cursor:pointer;
+            text-decoration:none;
+            color:#666;
+            .country {
+                @media @phone {
+                    display:none;
+                }
+            }
 
             @media @phone {
                 margin-bottom:8px;
                 .limitedLines(@lines:1; @line-height: 16px;@bg: white);
-            }
-            a {
-                text-decoration:none;
-                color:#666;
-                .country {
-                    @media @phone {
-                        display:none;
-                    }
-                }
             }
         }
 
         .type {
             font-size:14px;
             color:#999;
+            cursor:pointer;
+            text-decoration:none;
             float:left;
         }
+
 
         .price {
             font-size:14px;
             color:@red;
             float:right;
+            cursor:pointer;
+            text-decoration:none;
         }
     }
 }
