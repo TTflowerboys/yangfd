@@ -182,6 +182,7 @@
                     locations.push(location)
                 })
                 map.setView(getBestMapOptions(locations, $('#' + mapId).width(), $('#' + mapId).height()))
+                $('html, body').animate({scrollTop: $('#' + mapId).offset().top - 60 }, 'fast')
             }
         }
     })
