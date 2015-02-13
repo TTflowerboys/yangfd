@@ -3,8 +3,10 @@ $(function () {
     var favoriteList = JSON.parse($('#favoriteData').text())
 
     _.each(favoriteList, function (fav) {
-        var houseResult = _.template($('#houseCard_template').html())({fav: fav})
-        $('#list').append(houseResult)
+        if (fav.property) {
+            var houseResult = _.template($('#houseCard_template').html())({fav: fav})
+            $('#list').append(houseResult)
+        }
     })
 
 })
@@ -31,7 +33,7 @@ $('.list').on('click', '.houseCard #cancelFavorite', function (event) {
 $('.list').on('click', '.houseCard #undoFavorite', function (event) {
     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav')
     var propertyId = $(event.currentTarget).attr('data-property-id')
-    $.betterPost('/api/1/user/favorite/add', {'property_id': propertyId})
+    $.betterPost('/api/1/user/favorite/add', {'property_id': propertyId, 'type':'property'})
         .done(function (data) {
             var favId = data
             $.betterPost('/api/1/user/favorite/' + favId)
@@ -70,7 +72,7 @@ $('.list').on('click', '.houseCard_phone #cancelFavorite', function (event) {
 $('.list').on('click', '.houseCard_phone #undoFavorite', function (event) {
     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav')
     var propertyId = $(event.currentTarget).attr('data-property-id')
-    $.betterPost('/api/1/user/favorite/add', {'property_id': propertyId})
+    $.betterPost('/api/1/user/favorite/add', {'property_id': propertyId, 'type':'property'})
         .done(function (data) {
             var favId = data
             $.betterPost('/api/1/user/favorite/' + favId)
