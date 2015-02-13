@@ -553,7 +553,12 @@ def user_verify_phone_2(user):
 def user_favorites(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     title = _('我的收藏')
-    favorite_list = currant_data_helper.get_favorite_list('property')
+    raw_list = currant_data_helper.get_favorite_list('property')
+    favorite_list = []
+    for item in raw_list:
+        if item.get('property'):
+            favorite_list.append(item)
+
     favorite_list = f_app.i18n.process_i18n(favorite_list)
     return common_template("user_favorites", user=user, favorite_list=favorite_list, title=title)
 

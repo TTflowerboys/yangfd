@@ -21,6 +21,25 @@ $(window.resizeCategory);
 
 $(window).on('resize', window.resizeCategory);
 
+window.updateTabSelectorFixed = function () {
+    if (!window.team.isPhone()) {
+        var scrollOffset = $(window).scrollTop()
+        var $list = $('.tabContent').width() > 0 ? $('.tabContent'): $('#emptyPlaceHolder')
+        var listTop = $list.offset().top
+        var $tabSelector = $('.tabSelector')
+        var tabLeft = $list.offset().left - 60
+        if (scrollOffset > listTop - 20) {
+            $tabSelector.css({'position':'fixed', 'top':'20px', left:tabLeft, 'margin-top':'0'})
+        }
+        else {
+            $tabSelector.css({'position':'static', 'top':'0', left:'0', 'margin-top': '0x'})
+        }
+    }
+}
+
+$(window).scroll(window.updateTabSelectorFixed);
+$(window).resize(window.updateTabSelectorFixed);
+
 // window.updateTagsFixed = function () {
 //     if (!window.team.isPhone()) {
 //         var scrollOffset = $(window).scrollTop()
@@ -72,6 +91,20 @@ $(window).on('resize', window.resizeCategory);
         $('.houseCard').mouseleave(function(event){
             $(event.delegateTarget).find('button.openRequirement').hide()
         });
+    }
+
+    function updateTabSelectorVisibility(visible) {
+        var tabSelectorKey =  '.tabSelector'
+        if (window.team.isPhone()) {
+            tabSelectorKey += '_phone'
+        }
+
+        if (visible) {
+            $(tabSelectorKey).show()
+        }
+        else {
+            $(tabSelectorKey).hide()
+        }
     }
 
     function loadPropertyList() {
@@ -161,6 +194,7 @@ $(window).on('resize', window.resizeCategory);
             .always(function () {
                 updateResultCount(totalResultCount)
                 $('#loadIndicator').hide()
+                updateTabSelectorVisibility(true)
             })
     }
 
@@ -600,6 +634,9 @@ $(window).on('resize', window.resizeCategory);
             showTags()
         }
     }
+
+    //hide tabSelector first time
+    updateTabSelectorVisibility(false)
 
     loadPropertyList()
 
