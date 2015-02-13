@@ -21,6 +21,25 @@ $(window.resizeCategory);
 
 $(window).on('resize', window.resizeCategory);
 
+window.updateTabSelectorFixed = function () {
+    if (!window.team.isPhone()) {
+        var scrollOffset = $(window).scrollTop()
+        var $list = $('.tabContent').width() > 0 ? $('.tabContent'): $('#emptyPlaceHolder')
+        var listTop = $list.offset().top
+        var $tabSelector = $('.tabSelector')
+        var tabLeft = $list.offset().left - 60
+        if (scrollOffset > listTop - 20) {
+            $tabSelector.css({'position':'fixed', 'top':'20px', left:tabLeft, 'margin-top':'0'})
+        }
+        else {
+            $tabSelector.css({'position':'static', 'top':'0', left:'0', 'margin-top': '0x'})
+        }
+    }
+}
+
+$(window).scroll(window.updateTabSelectorFixed);
+$(window).resize(window.updateTabSelectorFixed);
+
 // window.updateTagsFixed = function () {
 //     if (!window.team.isPhone()) {
 //         var scrollOffset = $(window).scrollTop()
@@ -133,7 +152,6 @@ $(window).on('resize', window.resizeCategory);
 
         $('#loadIndicator').show()
         $('#loadMore').hide()
-        updateTabSelectorVisibility(false)
 
         var totalResultCount = getCurrentTotalCount()
         $.betterPost('/api/1/property/search', params)
@@ -616,6 +634,9 @@ $(window).on('resize', window.resizeCategory);
             showTags()
         }
     }
+
+    //hide tabSelector first time
+    updateTabSelectorVisibility(false)
 
     loadPropertyList()
 
