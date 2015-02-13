@@ -33,7 +33,14 @@
         }
         var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
         var layer = new Microsoft.Maps.EntityCollection()
-        var infobox = new Microsoft.Maps.Infobox(location, {});
+        var infoboxOptions = null
+        if (window.team.isPhone()) {
+            infoboxOptions = {offset:new Microsoft.Maps.Point(-80,50) };
+        }
+        else {
+            infoboxOptions = {offset:new Microsoft.Maps.Point(-180,50) };
+        }
+        var infobox = new Microsoft.Maps.Infobox(location, infoboxOptions);
         var houseResult = _.template($('#houseInfobox_template').html())({house: result})
         infobox.setHtmlContent(houseResult)
 
