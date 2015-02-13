@@ -28,6 +28,9 @@ def order_invest(user, params):
     if "funding_start_date" in item and "funding_end_date" in item:
         if datetime.utcnow() > item["funding_end_date"]:
             abort(40000, logger.warning("Invalid item: this funding item is outdated."))
+        if datetime.utcnow() < item["funding_start_date"]:
+            abort(40000, logger.warning("Invalid item: this funding item does not start yet."))
+
     return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
 
 
