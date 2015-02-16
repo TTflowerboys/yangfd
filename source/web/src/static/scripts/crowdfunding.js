@@ -8,9 +8,6 @@
         ga('send', 'event', 'property_detail', 'click', 'extend-description')
     });
 
-    window.videojs.options.flash.swf = '/static/vendors/video-js/video-js.swf';
-
-
     $('.calculator button[name=calculate]').click(function (e) {
         if (isNaN($('[data-investment=capital]').val())) {
             return;

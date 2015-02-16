@@ -1,16 +1,13 @@
 @import "_imports";
 
 .houseInfobox_wrapper {
-    margin-top:-50px;
-    margin-left:-225px;
     overflow:hidden;
-    width:450px;
-    height:110px;
+    width:360px;
+    height:90px;
 
     @media @phone {
         width:160px;
         height:65px;
-        margin-left:-80px;
     }
 
     .arrow_box {
@@ -45,8 +42,8 @@
 }
 
 .houseInfobox {
-    width:450px;
-    height:107px;
+    width:360px;
+    height:82px;
 
     @media @phone {
         width:160px;
@@ -55,7 +52,7 @@
 
     .imagePart {
         float:left;
-        height:100px;
+        height:80px;
 
         @media @phone {
             display:none;
@@ -64,8 +61,9 @@
 
     .description {
         float:left;
-        width:248px;
+        width:198px;
         padding:8px;
+        cursor:pointer;
 
         @media @phone {
             width:158px;
@@ -76,27 +74,36 @@
             font-weight:bold;
             line-height:16px;
             margin-bottom:15px;
+            cursor:pointer;
+            text-decoration:none;
+            color:#666;
+            .country {
+                @media @phone {
+                    display:none;
+                }
+            }
 
             @media @phone {
                 margin-bottom:8px;
                 .limitedLines(@lines:1; @line-height: 16px;@bg: white);
-            }
-            a {
-                text-decoration:none;
-                color:#666;
             }
         }
 
         .type {
             font-size:14px;
             color:#999;
+            cursor:pointer;
+            text-decoration:none;
             float:left;
         }
+
 
         .price {
             font-size:14px;
             color:@red;
             float:right;
+            cursor:pointer;
+            text-decoration:none;
         }
     }
 }

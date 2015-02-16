@@ -245,12 +245,13 @@ main {
             @media @phone {
                 width:100%;
                 margin-top:50px;
+                margin-bottom:0px;
             }
 
         }
 
         .tabSelector_phone {
-            display:none;
+            display:none;//default hide
             @media @phone {
                 display:block;
                 overflow:hidden;
@@ -304,6 +305,7 @@ main {
             .tabSelector {
                 float:left;
                 width:60px;
+                display:none;//default hide
 
                 @media @phone {
                     display:none;
@@ -312,6 +314,7 @@ main {
                     height:40px;
                     width:40px;
                     overflow:hidden;
+                    cursor:pointer;
 
                     img.normal {
                         display:block;
@@ -335,7 +338,7 @@ main {
             }
         }
 
-        .map {
+        .mapCanvas {
             width:100%;
             height:800px;
 
@@ -398,7 +401,7 @@ main {
         }
 
         .emptyPlaceHolder {
-            margin:140px auto 100px auto;
+            margin:140px auto 100px 60px;
             width:800px;
             display:inline-block;
             overflow:hidden;

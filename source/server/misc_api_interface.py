@@ -29,6 +29,8 @@ def get_video_source(params):
                 sources = [x for x in rec_videos[0].get('sources') if "mobile-ios" in x.get("tags", [])]
             else:
                 sources = [x for x in rec_videos[0].get('sources') if "web-normal" in x.get("tags", [])]
+                if not sources:
+                    sources = [x for x in rec_videos[0].get('sources')]
 
             for source in sources:
                 result.append({"url": source.get("url"), "type": source.get("type")})

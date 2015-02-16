@@ -45,14 +45,18 @@ def message_receive(user, params):
     time=datetime,
     per_page=int,
 ))
-@f_app.user.login.check(force=True)
+@f_app.user.login.check(check_role=True)
 def message_search(user, params):
     per_page = params.pop("per_page", 0)
     if "status" in params:
         params["state"] = {"$in": params.pop("status", [])}
     if "type" in params:
         params["type"] = {"$in": params["type"]}
-    messages = [f_app.message.output(i) for i in f_app.message.search(params, per_page=per_page)]
+    if set(user["role"]) & set(["admin", "jr_admin"]):
+        pass
+    else:
+        params["user_id"] = ObjectId(user["id"])
+    messages = [f_app.message.output(i) for i in f_app.message.search(params, per_page=per_page, sort=["time", "desc"])]
     return messages
 
 

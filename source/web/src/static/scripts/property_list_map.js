@@ -33,7 +33,14 @@
         }
         var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
         var layer = new Microsoft.Maps.EntityCollection()
-        var infobox = new Microsoft.Maps.Infobox(location, {});
+        var infoboxOptions = null
+        if (window.team.isPhone()) {
+            infoboxOptions = {offset:new Microsoft.Maps.Point(-80,50) };
+        }
+        else {
+            infoboxOptions = {offset:new Microsoft.Maps.Point(-180,50) };
+        }
+        var infobox = new Microsoft.Maps.Infobox(location, infoboxOptions);
         var houseResult = _.template($('#houseInfobox_template').html())({house: result})
         infobox.setHtmlContent(houseResult)
 
@@ -47,7 +54,7 @@
     //http://stackoverflow.com/questions/11148042/bing-maps-invoke-click-event-on-pushpin
     function ajustMapPosition(map, infobox, location) {
 
-        var buffer = 50;
+        var buffer = 70;
         var infoboxOffset = infobox.getOffset();
         var infoboxAnchor = infobox.getAnchor();
         var infoboxLocation = map.tryLocationToPixel(location, Microsoft.Maps.PixelReference.control);
@@ -62,7 +69,7 @@
         } else {
             //#### If dy is greater than zero than it does not overlap.
 
-            dy = map.getHeight() - infoboxLocation.y + infoboxAnchor.y - infobox.getHeight();
+            dy = map.getHeight() - infoboxLocation.y + infoboxAnchor.y;
             if (dy > buffer) {
                 dy = 0;
             } else {
@@ -76,7 +83,7 @@
             //#### add a buffer from the left edge of the map.
             dx += buffer;
         } else { //Check to see if overlapping with right side of map.
-            dx = map.getWidth() - infoboxLocation.x + infoboxAnchor.x - infobox.getWidth();
+            dx = map.getWidth() - infoboxLocation.x + infoboxAnchor.x - infobox.getWidth() / 2;
             //#### If dx is greater than zero then it does not overlap.
             if (dx > buffer) {
                 dx = 0;
@@ -160,7 +167,7 @@
     }
 
 
-    var mapId = 'map'
+    var mapId = 'mapCanvas'
     var map = window.getMap(mapId)
 
     $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
@@ -174,7 +181,8 @@
                     var location = new Microsoft.Maps.Location(property.latitude, property.longitude)
                     locations.push(location)
                 })
-                map.setView(getBestMapOptions(locations, $(map).width(), $(map).height()))
+                map.setView(getBestMapOptions(locations, $('#' + mapId).width(), $('#' + mapId).height()))
+                $('html, body').animate({scrollTop: $('#' + mapId).offset().top - 60 }, 'fast')
             }
         }
     })
