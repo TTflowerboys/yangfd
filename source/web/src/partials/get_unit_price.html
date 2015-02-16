@@ -4,10 +4,10 @@
             {{property.get('main_house_types',{})[0].get('total_price',{}).get('unit_symbol')}}
         </span>
         <span data-type="formatted_currency">
-            % minPrice = int(float(property.get('main_house_types')[0].get('total_price').get('value')))
+            % minPrice = int(float(property.get('main_house_types')[0].get('total_price_min').get('value')))
             %for index, type  in enumerate(property.get('main_house_types')):
-                %if minPrice > int(float(type.get('total_price').get('value'))):
-                    %   minPrice = int(float(type.get('total_price').get('value')))
+                %if minPrice > int(float(type.get('total_price_min').get('value'))):
+                    %   minPrice = int(float(type.get('total_price_min').get('value')))
                 %end
             %end
             {{minPrice}}

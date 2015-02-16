@@ -2,10 +2,10 @@
 
 {_if (house.main_house_types && house.main_house_types.length){_}
 {=house.main_house_types[0].total_price.unit_symbol=}
-        {_var minPrice = parseInt(house.main_house_types[0].total_price.value)_}
+        {_var minPrice = parseInt(house.main_house_types[0].total_price_min.value)_}
         {_ _.each(house.main_house_types, function (type) {_}
-            {_if (minPrice > parseInt(type.total_price.value)){_}
-                {_minPrice = parseInt(type.total_price.value)_}
+            {_if (minPrice > parseInt(type.total_price_min.value)){_}
+                {_minPrice = parseInt(type.total_price_min.value)_}
             {_}_}
         {_})_}
 {!team.formatCurrency(parseInt(minPrice))!}{=window.i18n('起')=}
