@@ -1,7 +1,7 @@
 {_if(house.property_type && (house.property_type.slug === 'new_property' || house.property_type.slug === 'student_housing')){_}
 
 {_if (house.main_house_types && house.main_house_types.length){_}
-{=house.main_house_types[0].total_price.unit_symbol=}
+{=house.main_house_types[0].total_price_min.unit_symbol=}
         {_var minPrice = parseInt(house.main_house_types[0].total_price_min.value)_}
         {_ _.each(house.main_house_types, function (type) {_}
             {_if (minPrice > parseInt(type.total_price_min.value)){_}
