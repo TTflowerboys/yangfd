@@ -525,7 +525,7 @@
                                                                 <span class="name">{{_('面积')}}</span>
                                                                 <span class="value">
                                                                     <strong >
-                                                                        {{float("{0:.2f}".format(float(item.get('building_area_min',{}).get('value'))))}}
+                                                                        {{float("{0:.2f}".format(float(str(item.get('building_area_min',{}).get('value')))))}}
                                                                         {{!format_unit(item.get('building_area_min',{}).get('unit',''))}}
                                                                     </strong><span>{{_('起')}}</span>
                                                                 </span>
@@ -594,13 +594,13 @@
                                     <td><div class="value">{{property.get('property_management_type','')}}</div></td>
                                 </tr>
                             % end
-                            % if property.get('building_area_min') and float(property.get('building_area_min').get('value'))!=0:
+                            % if property.get('building_area_min') and float(str(property.get('building_area_min').get('value')))!=0:
                                 <tr>
                                     <td><div class="hint">{{_('建筑面积')}}</div></td>
                                     <td>
                                         %if property.get('building_area_min'):
                                             <div class="value">
-                                                {{float("{0:.2f}".format(float(property.get('building_area_min').get('value'))))}}
+                                                {{float("{0:.2f}".format(float(str(property.get('building_area_min').get('value')))))}}
                                                 {{!format_unit(property.get('building_area_min',{}).get('unit',''))}}
                                             </div>
                                         %end
