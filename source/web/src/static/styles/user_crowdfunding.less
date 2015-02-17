@@ -22,7 +22,7 @@
         }
     }
 }
-.mainFrame {
+.contentBody {
     @media @phone {
         padding: 0 12px;
     }
@@ -32,7 +32,11 @@
     color: #333333;
     padding-top: 48px;
     padding-bottom: 32px;
+    display: block;
     @media @phone {
+        @media @phone {
+            display: none;
+        }
         font-size: 12px;
     }
 }
@@ -44,15 +48,21 @@
     background-color: #fff5ce;
     border: 1px solid #ffb34f;
     height: 180px;
+    @media @phone{
+        border: 0;
+        padding: 12px;
+        height: auto;
+    }
 }
 .topClass {
     margin: 0 auto;
-    width: 98%;
+    width: 100%;
     @media @phone{
         table-layout: fixed;
     }
     td {
         width: 21%;
+        padding: 0;
         @media @phone {
             width: 33%;
         }
@@ -60,10 +70,12 @@
             border-left: 1px solid #cccccc;
             padding: 0 8px;
             &.noLine {
+                padding: 0;
                 border-left: 0;
             }
             &.phone {
                 @media @phone {
+                    padding: 0;
                     border-left: 0;
                 }
             }
@@ -104,14 +116,25 @@
         color: #ff8a00;
         font-size: 80px;
         @media @phone{
-            font-size: 40px;
+            font-size: 32px;
         }
     }
 }
 .cfdLittleTitle {
-    font-size: 15px;
+    font-size: 14px;
+    @media @phone {
+        font-size: 12px;
+    }
     &.orange {
         color: #ff8a00;
+    }
+}
+.cfdLittleText {
+    color: #666666;
+    margin-top: 5px;
+    font-size: 24px;
+    @media @phone {
+        font-size: 18px;
     }
 }
 .cfdContentFrame {

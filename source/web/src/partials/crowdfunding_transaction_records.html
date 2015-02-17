@@ -38,5 +38,11 @@
             </td>
         </tr>
     </table>
-    <div class="transaction_list"></div>
+    <textarea id="dataOrderList" style="display:none;">{{json_dumps(order_list)}}</textarea>
+
+    <div class="transaction_list" id="transaction_list"></div>
+    <!--@@include=/message_holder.html {"hint":"{{_('没有交易记录')}}"}-->
+
+    <!-- @@include=../static/templates/transaction_list_item.tpl.html-->
+
 </div>
