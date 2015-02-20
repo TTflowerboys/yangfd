@@ -1,6 +1,15 @@
 (function () {
     var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
 
+    if (typeof Microsoft === 'undefined') {
+        // map load failed, return
+        //trigger auto select first
+        $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+        })
+
+        return
+    }
+
     window.mapCache = {}
     window.mapPinCache = {}
     window.mapInfoBoxLayerCache = {}

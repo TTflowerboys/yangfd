@@ -122,7 +122,13 @@
         }
 
 
-        findLocation()
+        if (typeof Microsoft !== 'undefined') {
+            // map load failed, return
+            return
+        }
+        else {
+            findLocation()
+        }
 
         function onLocationFind(location) {
             window.report.location = location
