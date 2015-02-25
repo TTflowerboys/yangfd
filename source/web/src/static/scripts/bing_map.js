@@ -2,6 +2,13 @@
     var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
     var googleApiKey = 'AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
 
+    if (typeof Microsoft === 'undefined') {
+        // map load failed, return
+
+        return
+    }
+
+
     window.mapCache = {}
     window.mapPinCache = {}
     window.mapInfoBoxLayerCache = {}

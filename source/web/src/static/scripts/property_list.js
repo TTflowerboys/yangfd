@@ -93,10 +93,15 @@ $(window).resize(window.updateTabSelectorFixed);
         });
     }
 
-    function updateTabSelectorVisibility(visible) {
+    window.updateTabSelectorVisibility = function (visible) {
         var tabSelectorKey =  '.tabSelector'
         if (window.team.isPhone()) {
             tabSelectorKey += '_phone'
+        }
+
+        //map load failed always hide
+        if (typeof Microsoft === 'undefined') {
+            visible = false
         }
 
         if (visible) {
@@ -194,7 +199,7 @@ $(window).resize(window.updateTabSelectorFixed);
             .always(function () {
                 updateResultCount(totalResultCount)
                 $('#loadIndicator').hide()
-                updateTabSelectorVisibility(true)
+                window.updateTabSelectorVisibility(true)
             })
     }
 
@@ -636,7 +641,7 @@ $(window).resize(window.updateTabSelectorFixed);
     }
 
     //hide tabSelector first time
-    updateTabSelectorVisibility(false)
+    window.updateTabSelectorVisibility(false)
 
     loadPropertyList()
 
