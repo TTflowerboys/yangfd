@@ -105,7 +105,7 @@
                      % for news_item in related_news_list:
                          <li class="newsItem">
                              <a href="/news/{{news_item.get('id')}}">
-                                 %if (news_item.get('images')):
+                                 %if news_item.get('images'):
                                      <img src="{{!fetch_image(news_item.get('images')[0], thumbnail=True, news_id=news_item.get('id'))}}" onerror="window.onImgError(this);"/>
                                  %end
                                  <div class="img_shadow"></div>

@@ -272,7 +272,7 @@
 
                     <div class="list">
                         %for index, item in enumerate(news_list):
-                            %if (index > 0 and index < 6):
+                            %if index > 0 and index < 6:
                                 <a class="item" href="/news/{{item.get('id')}}">{{item.get('title', '')}}</a>
                             %end
                         %end

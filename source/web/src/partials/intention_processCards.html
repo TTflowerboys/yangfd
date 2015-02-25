@@ -1,5 +1,5 @@
 % def get_intention_description(intention_id):
-%if (intention_list):
+%if intention_list:
     %for intention in intention_list:
         %if (intention.get('id') == intention_id):
         %    return intention.get('description')
@@ -10,7 +10,7 @@
 %end
 
 % def get_intention_title(intention_id):
-%if (intention_list):
+%if intention_list:
 %for intention in intention_list:
 %if (intention.get('id') == intention_id):
 %    return intention.get('value')

@@ -400,7 +400,7 @@
                                 </td>
                                 <td class="value">
                                     {{property.get('street','')}}
-                                    %if (report):
+                                    %if report:
                                         <a class="street-link" style="display: none" target="_blank" href="/region_report/{{property.get('zipcode_index')}}">
                                             {{_(' (查看详细街区报告)')}}
                                         </a>
@@ -831,7 +831,7 @@
 
             %if report:
                 <div class="regionReport" id="regionReport">
-                    %if (report.get('image')):
+                    %if report.get('image'):
                         <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
                     %else:
                         <img alt="" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
@@ -1089,7 +1089,7 @@
                     % for property in related_property_list:
                         <li class="propertyItem">
                             <a href="/property/{{property.get('id')}}">
-                                %if (property.get('cover')):
+                                %if property.get('cover'):
                                     <img src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
                                 %elif (property.get('reality_images') and len(property.get('reality_images'))):
                                     <img src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>

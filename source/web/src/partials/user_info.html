@@ -17,9 +17,9 @@
             <tr>
                 <td>{{_('性别')}}</td>
                 <td>
-                    %if (user.get('gender') == 'male'):
+                    %if user.get('gender') == 'male':
                     {{_('男')}}
-                    %elif (user.get('gender') == 'female'):
+                    %elif user.get('gender') == 'female':
                     {{_('女')}}
                     %end
                 </td>

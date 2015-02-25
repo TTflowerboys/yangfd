@@ -95,9 +95,9 @@
                 <td style="font-size:20px;">
                     %if user.get('locales') and len(user.get('locales')):
                     <label name="userLanguage">
-                        %if (user.get('locales')[0] == 'en_GB'):
+                        %if user.get('locales')[0] == 'en_GB':
                         {{_('English (United Kingdom)')}}
-                        %elif (user.get('locales')[0] == 'zh_Hans_CN'):
+                        %elif user.get('locales')[0] == 'zh_Hans_CN':
                         {{_('简体中文(中国)')}}
                         %else:
                         {{user.get('locales')[0]}}
