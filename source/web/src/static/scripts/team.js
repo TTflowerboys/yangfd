@@ -114,7 +114,10 @@
             }
 
             if (currencyType === 'CNY') {
-                if (parseInt(number) > 10000) {
+                if (parseInt(number) > 100000000) {
+                    return '<strong>' + team.encodeCurrency(parseInt(number) / 100000000) + '</strong>'  + '亿'
+                }
+                else if (parseInt(number) > 10000) {
                     return '<strong>' + team.encodeCurrency(parseInt(number) / 10000) + '</strong>'  + '万'
                 }
                 else {
