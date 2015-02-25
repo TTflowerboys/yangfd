@@ -198,7 +198,7 @@ angular.module('app')
                                 continue
                             }
                         } else {
-                            if (_.isObject(i18nData[i].unit) || _.isObject(i18nData[i].price)) {
+                            if (_.isObject(i18nData[i].unit) && _.isObject(i18nData[i].price)) {
 
                                 if (_.isNumber(i18nData[i].unit.value) && _.isNumber(i18nData[i].price.value)) {
                                     if (_.isString(i18nData[i].unit.unit) && _.isString(i18nData[i].price.unit)) {
