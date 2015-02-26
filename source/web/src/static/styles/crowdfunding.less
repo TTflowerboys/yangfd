@@ -49,7 +49,49 @@ body{
         }
     }
 
+    .numbers_phone {
+        margin:0px;
+    }
 
+    .price_phone {
+        display:none;
+        @media @phone {
+            display:block;
+            overflow:hidden;
+            padding:12px;
+            .left {
+                width:60%;
+                float:left;
+
+                .available {
+                    font-size:14px;
+                    color:#666;
+                    strong {
+                        color:@red;
+                    }
+                }
+
+                .progress-bar {
+                    height:4px;
+                }
+
+                .target {
+                    font-size:14px;
+                    color:#666;
+                    strong {
+                        font-weight:bold;
+                    }
+                }
+            }
+
+            .invest {
+                width:35%;
+                float:right;
+                padding:13px 15px;
+                margin-top:3px;
+            }
+        }
+    }
 
     .investment_analysis {
         overflow:hidden;
