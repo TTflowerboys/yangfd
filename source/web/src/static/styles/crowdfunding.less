@@ -37,6 +37,20 @@ body{
         }
     }
 
+    .propertyCard_phone {
+        .left {
+            background: #e60012;
+            width: 75%;
+        }
+
+        .middle {
+
+            width: 25%;
+        }
+    }
+
+
+
     .investment_analysis {
         overflow:hidden;
 
@@ -595,6 +609,10 @@ body{
                     font-size:16px;
                     float:left;
                     display:inline-block;
+
+                    @media @phone {
+                        font-size:14px;
+                    }
                 }
 
                 .date {
