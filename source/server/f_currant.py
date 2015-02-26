@@ -54,6 +54,12 @@ class currant_mongo_upgrade(f_mongo_upgrade):
     def v2(self, m):
         self.logger.debug("Test for DB upgrade 2, nothing changed.")
 
+    def v3(self, m):
+        self.logger.debug("Test for DB upgrade 3, nothing changed.")
+
+    def v4(self, m):
+        self.logger.debug("Test for DB upgrade 4, nothing changed.")
+
 currant_mongo_upgrade()
 
 
