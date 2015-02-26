@@ -1,11 +1,28 @@
 <script id="transaction_list_item_template" type="text/template">
-    <table>
-        <tr>
-            <th>时间</th>
-            <th>交易类型</th>
-            <th>交易详情</th>
-            <th>金额</th>
-        </tr>
-
-    </table>
+    <tr class="row">
+        <td class="col_time">
+            <div class="date">
+                {=project.formatDate(order.time)=}
+            </div>
+            <div class="time">
+                {=project.formatTime(order.time,'HH:mm:ss')=}
+            </div>
+        </td>
+        <td class="col_type">
+            <div>
+                {=order.type=}
+            </div>
+        </td>
+        <td class="col_content">
+            <div>
+                <a href="#">{=order.items[0].name=}</a>
+            </div>
+        </td>
+        <td class="col_price">
+            <div>
+                {=order.price=}
+            </div>
+        </td>
+    </tr>
+    <hr/>
 </script>

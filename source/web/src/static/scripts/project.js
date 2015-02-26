@@ -86,8 +86,9 @@
                 window.openRequirementForm(event, budgetId, intentionId, propertyId)
             }
         },
-        formatTime: function (time) {
-            return $.format.date(time * 1000, 'yyyy-MM-dd HH:mm:ss')
+        formatTime: function (time, format) {
+            format = format || 'yyyy-MM-dd HH:mm:ss'
+            return $.format.date(time * 1000, format)
         },
         formatDate: function (time) {
             return $.format.date(time * 1000, 'yyyy-MM-dd')
