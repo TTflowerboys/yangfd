@@ -112,6 +112,21 @@ $(window).resize(window.updateTabSelectorFixed);
         }
     }
 
+    function filterPropertyHouseTypes(array, budgetType) {
+        if (budgetType)  {
+            var budgetEnum = getBudgetTypeEnumById(budgetType)
+            var budgetRange = getBudgetRange(budgetEnum)
+            _.each(array, function (house) {
+                if (house.main_house_types && budgetRange[0]) {
+                    house.main_house_types = _.filter(house.main_house_types, function (house_type) {
+                        return house_type.total_price_min && house_type.total_price_min.value && parseFloat(house_type.total_price_min.value) > parseFloat(budgetRange[0])
+                    })
+                }
+            })
+        }
+        return array
+    }
+
     function loadPropertyList() {
         var params = {'per_page':'5'}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
@@ -163,6 +178,7 @@ $(window).resize(window.updateTabSelectorFixed);
             .done(function (val) {
                 var array = val.content
                 totalResultCount = val.count
+                array = filterPropertyHouseTypes(array, budgetType)
                 if (!_.isEmpty(array)) {
                     lastItemTime = _.last(array).mtime
 
@@ -239,6 +255,29 @@ $(window).resize(window.updateTabSelectorFixed);
             return $selectedChild.first().text()
         }
         return ''
+    }
+
+    function getBudgetTypeEnumById(id) {
+        var selectedItem = null
+        _.each(window.budgetData, function (item) {
+            if (item.id === id) {
+                selectedItem = item
+            }
+        })
+        return selectedItem
+    }
+
+    function getBudgetRange(budgetEnum) {
+        var slug = budgetEnum.slug
+        var enumAndValue = slug.split(':')
+        if (enumAndValue && enumAndValue.length === 2) {
+            var enumValueArray = enumAndValue[1].split(',')
+            if (enumValueArray && enumValueArray.length === 3) {
+                return [enumValueArray[0], enumValueArray[1]]
+            }
+        }
+
+        return []
     }
 
 
