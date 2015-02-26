@@ -28,6 +28,7 @@ from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
 from libfelix.f_shop import f_shop
 from libfelix.f_order import f_order
+from libfelix.f_mongo import f_mongo_upgrade
 
 import logging
 logger = logging.getLogger(__name__)
@@ -44,6 +45,11 @@ matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 from matplotlib.dates import DateFormatter
+
+
+class currant_mongo_upgrade(f_mongo_upgrade):
+    def v2(self, m):
+        self.logger.debug("Test for DB upgrade, nothing changed.")
 
 
 class f_currant_message(f_message):
