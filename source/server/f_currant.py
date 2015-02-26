@@ -6,6 +6,7 @@ import re
 import phonenumbers
 import json
 import csv
+import time
 import numpy as np
 from bson.objectid import ObjectId
 from bson.code import Code
@@ -59,6 +60,11 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
     def v4(self, m):
         self.logger.debug("Test for DB upgrade 4, nothing changed.")
+
+    def v5(self, m):
+        self.logger.debug("Now this is a SLOW upgrade")
+        time.sleep(10)
+        self.logger.debug("Test for DB upgrade 5, nothing changed.")
 
 currant_mongo_upgrade()
 
