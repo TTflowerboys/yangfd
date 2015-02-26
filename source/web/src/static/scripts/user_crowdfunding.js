@@ -41,8 +41,6 @@ $(function () {
     //reload data or setup empty place holder
     var orderArray = JSON.parse($('#dataOrderList').text())
     _.each(orderArray,function(order){
-        console.log(order)
-
         var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
         $('#transaction_list').append(orderResult)
     })
