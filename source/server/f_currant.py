@@ -48,8 +48,11 @@ from matplotlib.dates import DateFormatter
 
 
 class currant_mongo_upgrade(f_mongo_upgrade):
+    def v1(self, m):
+        self.logger.debug("Test for DB upgrade 1, nothing changed.")
+
     def v2(self, m):
-        self.logger.debug("Test for DB upgrade, nothing changed.")
+        self.logger.debug("Test for DB upgrade 2, nothing changed.")
 
 
 class f_currant_message(f_message):
