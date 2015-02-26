@@ -54,6 +54,8 @@ class currant_mongo_upgrade(f_mongo_upgrade):
     def v2(self, m):
         self.logger.debug("Test for DB upgrade 2, nothing changed.")
 
+currant_mongo_upgrade()
+
 
 class f_currant_message(f_message):
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
