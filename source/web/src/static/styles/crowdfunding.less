@@ -37,6 +37,63 @@ body{
         }
     }
 
+    .propertyCard_phone {
+        .left {
+            background: #e60012;
+            width: 75%;
+        }
+
+        .middle {
+            width: 25%;
+            color:white;
+            padding:12px 0;
+        }
+    }
+
+    .numbers_phone {
+        margin:0px;
+    }
+
+    .price_phone {
+        display:none;
+        @media @phone {
+            display:block;
+            overflow:hidden;
+            padding:12px;
+            .left {
+                width:60%;
+                float:left;
+
+                .available {
+                    font-size:14px;
+                    color:#666;
+                    strong {
+                        color:@red;
+                    }
+                }
+
+                .progress-bar {
+                    height:4px;
+                }
+
+                .target {
+                    font-size:14px;
+                    color:#666;
+                    strong {
+                        font-weight:bold;
+                    }
+                }
+            }
+
+            .invest {
+                width:35%;
+                float:right;
+                padding:13px 15px;
+                margin-top:3px;
+            }
+        }
+    }
+
     .investment_analysis {
         overflow:hidden;
 
@@ -70,8 +127,8 @@ body{
                     display:block;
                     width:100%;
                     padding:0;
-                    border: 2px solid #ccc;
-                    border-radius: 4px;
+                    //border: 2px solid #ccc;
+                    //border-radius: 4px;
                     margin-bottom:20px;
                 }
 
@@ -83,7 +140,10 @@ body{
                     @media @phone {
                         width:~"calc(100% - 74px)";
                         margin-right:0px;
-                        border: 0px;
+                        border-top: 1px solid #ccc;
+                        border-left: 1px solid #ccc;
+                        border-bottom: 1px solid #ccc;
+                        border-right:0px;
                         border-radius: 0px;
                     }
                 }
@@ -95,12 +155,12 @@ body{
                     line-height:14px;
 
                     @media @phone {
-                        width:70px;
-                        height:42px;
+                        width:74px;
+                        height:40px;
                         border-left:0px;
-                        margin-left:0px;
+                        margin-left:-4px;
                         border: 0px;
-                        margin-top: -2px;
+                        margin-top: -1px;
                         border-radius: 0px;
                     }
                 }
@@ -117,6 +177,7 @@ body{
                     display:block;
                     width:100%;
                     height:200px;
+                    border-top:1px solid #ccc;
                 }
 
                 li {
@@ -129,7 +190,15 @@ body{
 
                     @media @phone {
                         width:33%;
-                        height:80px;
+                        height:70px;
+                        margin:12px 0;
+                        padding-right:10px;
+                    }
+
+                    &:first-child {
+                        @media @phone {
+                            border-left:0px;
+                        }
                     }
 
                     &.cash {
@@ -137,6 +206,11 @@ body{
                             width:100%;
                             height:50px;
                             position:static;
+                            border-left:0px;
+                            border-top:1px solid #ccc;
+                            margin-top:0px;
+                            padding:12px 0;
+
 
                         }
 
@@ -144,6 +218,8 @@ body{
                             @media @phone {
                                 position:static;
                                 float:left;
+                                width:auto;
+                                line-height:18px;
                             }
                         }
 
@@ -151,6 +227,14 @@ body{
                             @media @phone {
                                 position:static;
                                 float:right;
+                                width:auto;
+                                line-height:18px;
+                            }
+
+                            strong {
+                                @media @phone {
+                                    line-height:18px;
+                                }
                             }
                         }
                     }
@@ -162,18 +246,32 @@ body{
                             width:100%;
                             height:50px;
                             position:static;
-
+                            border-left:0px;
+                            border-top:1px solid #ccc;
+                            margin-top:0px;
+                            padding:12px 0;
                         }
                         .text {
                             @media @phone {
                                 position:static;
                                 float:left;
+                                width:auto;
+                                line-height:18px;
                             }
                         }
                         .percentage {
                             @media @phone {
                                 position:static;
                                 float:right;
+                                width:auto;
+                                line-height:18px;
+                                color:@red;
+                            }
+
+                            strong {
+                                @media @phone {
+                                    color:@red;
+                                }
                             }
                         }
                     }
@@ -183,6 +281,11 @@ body{
                         top:0;
                         left:10px;
                         width:110px;
+
+                        @media @phone {
+                            font-size:12px;
+                            width:~"calc(100% - 20px)";
+                        }
                     }
 
                     .percentage {
@@ -199,14 +302,13 @@ body{
 
                         strong {
                             line-height: 32px;
-                        }
+                            font-size: 24px;
+                            word-break:break-all;
+                            display:inline-block;
+                            color:#555;
 
-                        &.emphasized {
-
-                            strong {
-                                font-size: 24px;
-                                word-break:break-all; display:block;
-                                color:#555;
+                            @media @phone {
+                                font-size:18px;
                             }
                         }
                     }
@@ -216,6 +318,11 @@ body{
 
         .barChart {
             margin:40px 0;
+            background:#f6f6f6;
+
+            @media @phone {
+                margin-top:0px;
+            }
         }
 
     }
@@ -479,6 +586,10 @@ body{
                 font-size:14px;
                 color:#666;
 
+                @media @phone {
+                    height:40px;
+                }
+
                 &.name {
                     font-weight:bold;
                 }
@@ -514,6 +625,10 @@ body{
         .addComment {
             width:100%;
             overflow:hidden;
+
+            @media @phone {
+                padding:12px;
+            }
             h4.user {
                 color:#372f2b;
                 font-size:16px;
@@ -578,11 +693,19 @@ body{
                 padding:40px 20px;
                 overflow:hidden;
 
+                @media @phone {
+                    padding:12px 12px;
+                }
+
                 h4.user {
                     color:#372f2b;
                     font-size:16px;
                     float:left;
                     display:inline-block;
+
+                    @media @phone {
+                        font-size:14px;
+                    }
                 }
 
                 .date {

@@ -6,6 +6,7 @@ import re
 import phonenumbers
 import json
 import csv
+import time
 import numpy as np
 from bson.objectid import ObjectId
 from bson.code import Code
@@ -28,6 +29,7 @@ from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
 from libfelix.f_shop import f_shop
 from libfelix.f_order import f_order
+from libfelix.f_mongo import f_mongo_upgrade
 
 import logging
 logger = logging.getLogger(__name__)
@@ -44,6 +46,27 @@ matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 from matplotlib.dates import DateFormatter
+
+
+class currant_mongo_upgrade(f_mongo_upgrade):
+    def v1(self, m):
+        self.logger.debug("Test for DB upgrade 1, nothing changed.")
+
+    def v2(self, m):
+        self.logger.debug("Test for DB upgrade 2, nothing changed.")
+
+    def v3(self, m):
+        self.logger.debug("Test for DB upgrade 3, nothing changed.")
+
+    def v4(self, m):
+        self.logger.debug("Test for DB upgrade 4, nothing changed.")
+
+    def v5(self, m):
+        self.logger.debug("Now this is a SLOW upgrade")
+        time.sleep(10)
+        self.logger.debug("Test for DB upgrade 5, nothing changed.")
+
+currant_mongo_upgrade()
 
 
 class f_currant_message(f_message):
