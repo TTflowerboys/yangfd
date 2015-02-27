@@ -39,23 +39,42 @@
         </table>
     </div>
     <div class="contentBody">
-
+        <div class="cfdContentFrame">
+            <div class="cfdContentTitle">投资收益</div>
+        </div>
+        <table>
+            <tr>
+                <td style="min-width: 70px;">
+                    <span class="cfdFilterMenu">投资项目：</span>
+                </td>
+                <td>
+                    <div class="cfdFilterButton selected">项目一</div>
+                    <div class="cfdFilterButton">项目二</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="cfdFilterMenu">收益时间：</span>
+                </td>
+                <td>
+                    <div class="cfdFilterButton selected">6个月前</div>
+                    <div class="cfdFilterButton">6个月</div>
+                    <div class="cfdFilterButton">全部</div>
+                </td>
+            </tr>
+        </table>
         <div>
-            <div>投资收益</div>
-            <div>
-                <div>投资项目：</div>
-                <div>项目一</div>
-                <div>项目二</div>
-                <div>3个月</div>
-            </div>
-            <div>
-                <div>收益时间：</div>
-                <div>6个月前</div>
-                <div>6个月</div>
-                <div>全部</div>
-            </div>
             <div>image?</div>
         </div>
-        <div class="earningList" id="earningList"></div>
+        <table class="earningList" id="earningList">
+            <tr>
+                <th class="col_name">项目名称</th>
+                <th class="col_type">类型</th>
+                <th class="col_price">金额</th>
+                <th class="col_date">预计收益时间</th>
+                <th class="col_date">实际收益时间</th>
+                <th class="col_status">支付状态</th>
+            </tr>
+        </table>
     </div>
 </div>

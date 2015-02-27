@@ -14,14 +14,14 @@ $('.titleFrame tr .titleCell a').click(function () {
     var text = $(this).text()
     $.each($('.titleFrame tr .titleCell a'), function (i, val) {
         if ($(this).text() === text) {
-            if($(this).parent().hasClass('selected')){
+            if ($(this).parent().hasClass('selected')) {
                 return
-            }else{
+            } else {
                 $(this).parent().addClass('selected')
                 changeMainPage(i)
             }
-        }else{
-            if($(this).parent().hasClass('selected')){
+        } else {
+            if ($(this).parent().hasClass('selected')) {
                 $(this).parent().removeClass('selected')
             }
         }
@@ -32,7 +32,7 @@ function changeMainPage(page) {
 
         if (i === page) {
             $(this).show()
-        }else{
+        } else {
             $(this).hide()
         }
     })
@@ -40,8 +40,11 @@ function changeMainPage(page) {
 $(function () {
     //reload data or setup empty place holder
     var orderArray = JSON.parse($('#dataOrderList').text())
-    _.each(orderArray,function(order){
-        var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
-        $('#transaction_list').append(orderResult)
-    })
+    if (orderArray.length > 0) {
+        _.each(orderArray, function (order) {
+            var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
+            $('#transaction_list').append(orderResult)
+        })
+    }
+
 })

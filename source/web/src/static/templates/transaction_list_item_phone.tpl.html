@@ -1,0 +1,26 @@
+<script id="transaction_list_item_template" type="text/template">
+    <tr class="row">
+        <td class="col_time">
+            <div>
+                <a href="#">{=order.items[0].name=}</a>
+            </div>
+            <div>
+                {=order.type=}
+            </div>
+            <div>
+                时间
+            </div>
+            <div class="date">
+                {=project.formatDate(order.time)=}
+            </div>
+            <div class="time">
+                {=project.formatTime(order.time,'HH:mm:ss')=}
+            </div>
+        </td>
+        <td class="col_price">
+            <div>
+                {=order.price=}
+            </div>
+        </td>
+    </tr>
+</script>
