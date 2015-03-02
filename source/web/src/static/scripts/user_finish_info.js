@@ -34,7 +34,7 @@
             $(button).removeClass('ghostButton')
         }
 
-        if ($('.addressOverOneYear button.selected').attr('name') === 'yes') {
+        if ($(button).parents('.addressOverOneYear').find('button.selected').attr('name') === 'yes') {
             $(button).parents('.countryOptions').find('.address2').hide()
         }
         else {
