@@ -90,14 +90,11 @@
                     margin-bottom:60px;
                 }
 
-                input[name=nickname] {
-                    width:380px;
-                    margin-left:50px;
-                }
-
-                select[name=gender] {
-                    width:160px;
-                    margin-left:50px;
+                >.countrySelector {
+                    select[name=country] {
+                        width:380px;
+                        margin-left:50px;
+                    }
                 }
 
                 .birthday {
@@ -117,39 +114,72 @@
                     }
                 }
 
-                .address {
-                    margin-left:50px;
-                    display:inline-block;
-                    select[name=country] {
-                        display:block;
+                >.countryOptions {
+                    input {
                         width:380px;
-                        margin-bottom:20px;
+                        margin-left:50px;
                     }
 
-                    select[name=state] {
-                        width:178px;
-                        margin-bottom:20px;
-                        margin-right:20px;
+                    input[name=zipcode] {
+                        width:140px;
                     }
 
-                    select[name=city] {
-                        width:178px;
-                        margin-bottom:20px;
+                    select[name=gender] {
+                        width:160px;
+                        margin-left:50px;
                     }
 
-                    input[name=address1] {
-                        display:block;
-                        width:380px;
+                    button.fetchAddress {
+                        line-height:28px;
+                        font-size:14px;
+                        width:100px;
+                        padding:10px 20px;
+                        margin-left:20px;
+                    }
 
+                    button.manuallyInputAddress {
+                        line-height:28px;
+                        font-size:14px;
+                        width:auto;
+                        padding:10px 0px;
+                        margin-left:30px;
+                    }
+
+                    .sectionTitle {
+                        font-weight:bold;
+                        margin-top:20px;
+                    }
+
+                    .addressOverOneYear {
+                        overflow:hidden;
+                        height: auto;
+                        width: 100%;
+                        .hint {
+                            display:inline-block;
+                            float:left;
+                            width:300px;
+                            font-size:16px;
+                            color:#999;
+                            line-height:1em;
+                            margin: 0px;
+                        }
+
+                        button {
+                            float:right;
+                            font-size:16px;
+                            line-height:1em;
+                            padding:10px 20px;
+                            margin-left: 20px;
+                            font-weight:normal;
+
+                            &.ghostButton {
+                                padding:8px 20px;
+                            }
+                        }
                     }
                 }
-
-                input[name=zipcode] {
-                    margin-left:50px;
-                    width:380px;
-                }
-
             }
+
 
             >.phone {
                 float:left;

@@ -17,89 +17,375 @@
         <h3 class="title">
             {{_('个人资料')}}
         </h3>
-        <div class="row">
-            <label class="name" for="name">
-                {{_('真实姓名')}}
-            </label>
-            <input name="nickname" type="text"/>
-        </div>
-        <div class="row">
-            <label class="name" for="gender">
-                {{_('性别')}}
-            </label>
-            <select id="" name="gender" class="ghostSelect" style="color:#4d4d4d;">
-                <option value="male"
-                        %if user.get('gender') == 'male':
-                        selected="selected"
-                        %end
-                        >
-                       {{_('男')}}
-                 </option>
-                 <option value="female"
-                         %if user.get('gender') == 'female':
-                         selected="selected"
-                         %end
-                         >
-                       {{_('女')}}
-                 </option>
-
-            </select>
-        </div>
-
-        <div class="row">
-            <label class="name" for="birthday">
-                {{_('生日')}}
-            </label>
-            <div class="birthday">
-                <input type="text" id="date" data-format="YYYY-MM-DD" data-template="YYYY M D" name="date_of_birth" value="2015-01-01" style="display:none;">
-            </div>
-        </div>
-
-        <div class="row">
-            <label class="name" for="address">
-                {{_('地址')}}
-            </label>
-            <div class="address">
-                %if country_list:
-                    <select name="country" class="country ghostSelect" style="color:#4d4d4d;">
-                        %for index, country  in enumerate(country_list):
-                            <option value="{{country.get('id')}}">
+        %if country_list:
+            <div class="countrySelector row">
+                <label class="name" for="name">
+                    {{_('国家')}}
+                </label>
+                <select name="country" class="country ghostSelect" style="color:#4d4d4d;">
+                    %for index, country  in enumerate(country_list):
+                        %if country.get('slug') in ['CN', 'GB', 'US']:
+                            <option value="{{country.get('id')}}" data-slug="{{country.get('slug')}}">
                                 {{country.get('value')}}
                             </option>
                         %end
-                    </select>
-                %end
-                %if state_list:
-                    <select name="state" class="state ghostSelect" style="color:#4d4d4d;">
-                        %for index, state  in enumerate(state_list):
-                            %if state.get('value'):
-                                <option value="{{state.get('id')}}">
-                                    {{state.get('value')}}
-                                </option>
-                            %end
-                        %end
-                    </select>
-                %end
-                %if city_list:
-                    <select name="city" class="city ghostSelect" style="color:#4d4d4d;">
-                        %for index, city  in enumerate(city_list):
-                            %if city.get('value'):
-                                <option value="{{city.get('id')}}">
-                                    {{city.get('value')}}
-                                </option>
-                            %end
-                        %end
-                    </select>
-                %end
-                <input name="address1" type="text" value=""/>
+                    %end
+                </select>
+            </div>
+        %end
+
+        <div class="countryOptions CN">
+             <div class="row">
+                <label class="name sectionTitle" for="name">
+                    {{_('实名认证')}}
+                </label>
+            </div>
+            <div class="row">
+                <label class="name" for="name">
+                    {{_('姓名')}}
+                </label>
+                <input name="nickname" type="text"/>
+            </div>
+            <div class="row">
+                <label class="idcard" for="idcard">
+                    {{_('身份证')}}
+                </label>
+                <input name="idcard" type="text"/>
+            </div>
+            <div class="row">
+                <label class="name" for="birthday">
+                    {{_('生日')}}
+                </label>
+                <div class="birthday">
+                    <input type="text" data-format="YYYY-MM-DD" data-template="YYYY M D" name="date_of_birth" value="2015-01-01" style="display:none;">
+                </div>
             </div>
         </div>
-        <div class="row">
-            <label class="name" for="zipcode">
-                {{_('邮政编码')}}
-            </label>
-            <input id="" name="zipcode"></input>
+
+        <div class="countryOptions GB" style="display:none;">
+            <div class="row">
+                <label class="name sectionTitle" for="name">
+                    {{_('个人信息')}}
+                </label>
+            </div>
+
+            <div class="row">
+                <label class="name" for="first_name">
+                    {{_('名')}}
+                </label>
+                <input name="first_name" type="text"/>
+            </div>
+            <div class="row">
+                <label class="name" for="last_name">
+                    {{_('姓')}}
+                </label>
+                <input name="last_name" type="text"/>
+            </div>
+            <div class="row">
+                <label class="name" for="gender">
+                    {{_('性别')}}
+                </label>
+                <select id="" name="gender" class="ghostSelect" style="color:#4d4d4d;">
+                    <option value="male"
+                            %if user.get('gender') == 'male':
+                            selected="selected"
+                            %end
+                            >
+                            {{_('男')}}
+                    </option>
+                    <option value="female"
+                            %if user.get('gender') == 'female':
+                            selected="selected"
+                            %end
+                            >
+                            {{_('女')}}
+                    </option>
+
+                </select>
+            </div>
+            <div class="row">
+                <label class="name" for="birthday">
+                    {{_('生日')}}
+                </label>
+                <div class="birthday">
+                    <input type="text" data-format="YYYY-MM-DD" data-template="YYYY M D" name="date_of_birth" value="2015-01-01" style="display:none;">
+                </div>
+            </div>
+            <div class="address1">
+                <div class="row">
+                    <label class="name sectionTitle">
+                        {{_('目前地址')}}
+                    </label>
+                </div>
+                <div class="row">
+                    <label class="name" for="zipcode">
+                        {{_('Postcode')}}
+                    </label>
+                    <input id="" name="zipcode"></input>
+                    <button name="address" class="fetchAddress button red"  type="button">
+                        {{_('获取地址')}}
+                    </button>
+                    <button name="address" class="manuallyInputAddress textButton red"  type="button">
+                        {{_('我要手动填写')}}
+                    </button>
+                </div>
+
+                <div class="detail" style="display:none;">
+                    <div class="row">
+                        <label class="name" for="unit_number">
+                            {{_('单元号')}}
+                        </label>
+                        <input name="unit_number" type="text"/>
+                    </div>
+                    <div class="row">
+                        <label class="name" for="unit_name">
+                            {{_('单元名')}}
+                        </label>
+                        <input name="unit_name" type="text"/>
+                    </div>
+                    <div class="row">
+                        <label class="name" for="street1">
+                            {{_('街道1')}}
+                        </label>
+                        <input name="street1" type="text"/>
+                    </div>
+                    <div class="row">
+                        <label class="name" for="street2">
+                            {{_('街道2')}}
+                        </label>
+                        <input name="street2" type="text"/>
+                    </div>
+                    <div class="row">
+                        <label class="name" for="city">
+                            {{_('城市')}}
+                        </label>
+                        <input name="city" type="text"/>
+                    </div>
+                </div>
+            </div>
+            <div class="addressOverOneYear" style="display:none;">
+                <p class="hint">
+                    {{_('HAVE YOU LIVED IN YOUR CURRENT ADDRESS FOR MORE THAN ONE YEAR?')}}
+                </p>
+                <button class="ghostButton red" type="button" name="no">NO</button>
+                <button class="selected button red" type="button" name="yes">YES</button>
+            </div>
+
+            <div class="address2" style="display:none">
+                <div class="row">
+                    <label class="name sectionTitle">
+                        {{_('旧地址')}}
+                    </label>
+                </div>
+                <div class="row">
+                    <label class="name" for="zipcode">
+                        {{_('Postcode')}}
+                    </label>
+                    <input id="" name="zipcode"></input>
+                    <button name="address" class="fetchAddress button red"  type="button">
+                        {{_('获取地址')}}
+                    </button>
+                </div>
+
+                <div class="row">
+                    <label class="name" for="unit_number">
+                        {{_('单元号')}}
+                    </label>
+                    <input name="unit_number" type="text"/>
+                </div>
+                <div class="row">
+                    <label class="name" for="unit_name">
+                        {{_('单元名')}}
+                    </label>
+                    <input name="unit_name" type="text"/>
+                </div>
+                <div class="row">
+                    <label class="name" for="street1">
+                        {{_('街道1')}}
+                    </label>
+                    <input name="street1" type="text"/>
+                </div>
+                <div class="row">
+                    <label class="name" for="street2">
+                        {{_('街道2')}}
+                    </label>
+                    <input name="street2" type="text"/>
+                </div>
+                <div class="row">
+                    <label class="name" for="city">
+                        {{_('城市')}}
+                    </label>
+                    <input name="city" type="text"/>
+                </div>
+            </div>
         </div>
+
+        <div class="countryOptions US" style="display:none;">
+            <div class="row">
+                <label class="name sectionTitle" for="name">
+                    {{_('个人信息')}}
+                </label>
+            </div>
+
+            <div class="row">
+                <label class="name" for="first_name">
+                    {{_('名')}}
+                </label>
+                <input name="first_name" type="text"/>
+            </div>
+            <div class="row">
+                <label class="name" for="last_name">
+                    {{_('姓')}}
+                </label>
+                <input name="last_name" type="text"/>
+            </div>
+            <div class="row">
+                <label class="idcard" for="idcard">
+                    {{_('社保号')}}
+                </label>
+                <input name="idcard" type="text"/>
+            </div>
+            <div class="row">
+                <label class="name" for="gender">
+                    {{_('性别')}}
+                </label>
+                <select id="" name="gender" class="ghostSelect" style="color:#4d4d4d;">
+                    <option value="male"
+                            %if user.get('gender') == 'male':
+                            selected="selected"
+                            %end
+                            >
+                            {{_('男')}}
+                    </option>
+                    <option value="female"
+                            %if user.get('gender') == 'female':
+                            selected="selected"
+                            %end
+                            >
+                            {{_('女')}}
+                    </option>
+
+                </select>
+            </div>
+            <div class="row">
+                <label class="name" for="birthday">
+                    {{_('生日')}}
+                </label>
+                <div class="birthday">
+                    <input type="text" data-format="YYYY-MM-DD" data-template="YYYY M D" name="date_of_birth" value="2015-01-01" style="display:none;">
+                </div>
+            </div>
+
+             <div class="address1">
+                <div class="row">
+                    <label class="name sectionTitle">
+                        {{_('目前地址')}}
+                    </label>
+                </div>
+                <div class="row">
+                    <label class="name" for="zipcode">
+                        {{_('Postcode')}}
+                    </label>
+                    <input id="" name="zipcode"></input>
+                    <button name="address" class="fetchAddress button red"  type="button">
+                        {{_('获取地址')}}
+                    </button>
+                    <button name="address" class="manuallyInputAddress textButton red"  type="button">
+                        {{_('我要手动填写')}}
+                    </button>
+                </div>
+
+                <div class="detail" style="display:none;">
+                    <div class="row">
+                        <label class="name" for="unit_number">
+                            {{_('单元号')}}
+                        </label>
+                        <input name="unit_number" type="text"/>
+                    </div>
+                    <div class="row">
+                        <label class="name" for="unit_name">
+                            {{_('单元名')}}
+                        </label>
+                        <input name="unit_name" type="text"/>
+                    </div>
+                    <div class="row">
+                        <label class="name" for="street1">
+                            {{_('街道1')}}
+                        </label>
+                        <input name="street1" type="text"/>
+                    </div>
+                    <div class="row">
+                        <label class="name" for="street2">
+                            {{_('街道2')}}
+                        </label>
+                        <input name="street2" type="text"/>
+                    </div>
+                    <div class="row">
+                        <label class="name" for="city">
+                            {{_('城市')}}
+                        </label>
+                        <input name="city" type="text"/>
+                    </div>
+                </div>
+            </div>
+            <div class="addressOverOneYear" style="display:none;">
+                <p class="hint">
+                    {{_('HAVE YOU LIVED IN YOUR CURRENT ADDRESS FOR MORE THAN ONE YEAR?')}}
+                </p>
+                <button class="ghostButton red" type="button" name="no">NO</button>
+                <button class="selected button red" type="button" name="yes">YES</button>
+            </div>
+
+            <div class="address2" style="display:none">
+                <div class="row">
+                    <label class="name sectionTitle">
+                        {{_('旧地址')}}
+                    </label>
+                </div>
+                <div class="row">
+                    <label class="name" for="zipcode">
+                        {{_('Postcode')}}
+                    </label>
+                    <input id="" name="zipcode"></input>
+                    <button name="address" class="fetchAddress button red"  type="button">
+                        {{_('获取地址')}}
+                    </button>
+                </div>
+
+                <div class="row">
+                    <label class="name" for="unit_number">
+                        {{_('单元号')}}
+                    </label>
+                    <input name="unit_number" type="text"/>
+                </div>
+                <div class="row">
+                    <label class="name" for="unit_name">
+                        {{_('单元名')}}
+                    </label>
+                    <input name="unit_name" type="text"/>
+                </div>
+                <div class="row">
+                    <label class="name" for="street1">
+                        {{_('街道1')}}
+                    </label>
+                    <input name="street1" type="text"/>
+                </div>
+                <div class="row">
+                    <label class="name" for="street2">
+                        {{_('街道2')}}
+                    </label>
+                    <input name="street2" type="text"/>
+                </div>
+                <div class="row">
+                    <label class="name" for="city">
+                        {{_('城市')}}
+                    </label>
+                    <input name="city" type="text"/>
+                </div>
+            </div>
+
+        </div>
+
 
     </div>
     <div class="phone">

@@ -1,6 +1,47 @@
 (function () {
-    $('#date').combodate();
+    $('.birthday input').combodate();
 
+    $('.countrySelector').change(function () {
+        var optionSelected = $('.countrySelector option:selected')
+        var slug = $(optionSelected).attr('data-slug')
+        $('.countryOptions').hide()
+        $('.countryOptions.' + slug).show()
+    })
+
+    $('.manuallyInputAddress').click(function (e) {
+        var button = e.target
+        $(button).parents('.address1').find('.detail').show()
+        $(button).parents('.address1').parent().find('.addressOverOneYear').show()
+        $(button).hide()
+    })
+
+    $('.addressOverOneYear button').click(function (e) {
+        var button = e.target
+        if ($(button).hasClass('selected')) {
+            $(button).siblings('button').addClass('selected')
+            $(button).siblings('button').addClass('button')
+            $(button).siblings('button').removeClass('ghostButton')
+            $(button).removeClass('selected')
+            $(button).addClass('ghostButton')
+            $(button).removeClass('button')
+        }
+        else {
+            $(button).siblings('button').removeClass('selected')
+            $(button).siblings('button').addClass('ghostButton')
+            $(button).siblings('button').removeClass('button')
+            $(button).addClass('selected')
+            $(button).addClass('button')
+            $(button).removeClass('ghostButton')
+        }
+
+        if ($(button).parents('.addressOverOneYear').find('button.selected').attr('name') === 'yes') {
+            $(button).parents('.countryOptions').find('.address2').hide()
+        }
+        else {
+            $(button).parents('.countryOptions').find('.address2').show()
+        }
+
+    })
 
     $('button[name=code]').click(function (e) {
         var errorArea = $('form[name=info]').find('.error')
