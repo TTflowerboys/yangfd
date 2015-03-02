@@ -1,11 +1,8 @@
 <script id="transaction_list_item_template" type="text/template">
     <tr class="row">
-        <td class="col_time">
-            <div class="date">
-                {=project.formatDate(order.time)=}
-            </div>
-            <div class="time">
-                {=project.formatTime(order.time,'HH:mm:ss')=}
+        <td class="col_name">
+            <div>
+                <a href="#">{=order.items[0].name=}</a>
             </div>
         </td>
         <td class="col_type">
@@ -13,16 +10,31 @@
                 {=order.type=}
             </div>
         </td>
-        <td class="col_content">
-            <div>
-                <a href="#">{=order.items[0].name=}</a>
-            </div>
-        </td>
         <td class="col_price">
             <div>
                 {=order.price=}
             </div>
         </td>
+        <td class="col_date">
+            <div class="date">
+                {=project.formatDate(order.time)=}
+            </div>
+            <div class="time">
+                {=project.formatTime(order.time,'HH:mm:ss')=}
+            </div>
+        </td>
+        <td class="col_date">
+            <div class="date">
+                {=project.formatDate(order.time)=}
+            </div>
+            <div class="time">
+                {=project.formatTime(order.time,'HH:mm:ss')=}
+            </div>
+        </td>
+        <td class="col_status">
+            <div>
+                {=order.status=}
+            </div>
+        </td>
     </tr>
-    <hr/>
 </script>
