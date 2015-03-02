@@ -5,28 +5,15 @@ angular.module('app')
     .directive('showI18n', function (i18nLanguages, $rootScope) {
         return {
             restrict: 'AE',
-            template: '<div><span ng-if="preferred">{%model[userLanguage.value]%}</span>' +
+            template: '<div><span ng-if="preferred">{%model[userLanguage]%}</span>' +
             '<span ng-if="!preferred" style="color:#0099FF">{%model[otherValue]%}</span></div>',
             replace: true,
             scope: {
                 model: '=showI18n'
             },
             link: function (scope) {
-                if (!scope.model) {
-                    scope.model = {}
-                }
-                scope.userLanguage = $rootScope.userLanguage
-                for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
-                    scope.model[i18nLanguages[i].value] = scope.model[i18nLanguages[i].value] || ''
-                    if (i18nLanguages[i].value !== $rootScope.userLanguage.value) {
-                        scope.otherValue = i18nLanguages[i].value
-                    }
-                }
-                scope.preferred = scope.model[$rootScope.userLanguage.value] ? true : false
-                $rootScope.$watch('userLanguage.value', function () {
-                    if (!scope.model) {
-                        scope.model = {}
-                    }
+                if (scope.model) {
+                    scope.userLanguage = $rootScope.userLanguage.value
                     for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
                         scope.model[i18nLanguages[i].value] = scope.model[i18nLanguages[i].value] || ''
                         if (i18nLanguages[i].value !== $rootScope.userLanguage.value) {
@@ -34,6 +21,19 @@ angular.module('app')
                         }
                     }
                     scope.preferred = scope.model[$rootScope.userLanguage.value] ? true : false
+                }
+
+                $rootScope.$watch('userLanguage.value', function () {
+                    if (scope.model) {
+                        for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
+                            scope.model[i18nLanguages[i].value] = scope.model[i18nLanguages[i].value] || ''
+                            if (i18nLanguages[i].value !== $rootScope.userLanguage.value) {
+                                scope.otherValue = i18nLanguages[i].value
+                            }
+                        }
+                        scope.preferred = scope.model[$rootScope.userLanguage.value] ? true : false
+                    }
+
                 })
             }
         }
