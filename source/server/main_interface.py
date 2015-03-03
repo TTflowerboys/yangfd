@@ -330,6 +330,14 @@ def crowdfunding_list(params):
                            )
 
 
+@f_get('/user_finish_declare')
+@check_ip_and_redirect_domain
+@check_crowdfunding_ready
+def user_finish_declare():
+    title = _('用户声明')
+    return common_template("user_finish_declare", title=title)
+
+
 @f_get('/user_finish_info')
 @check_ip_and_redirect_domain
 @check_crowdfunding_ready
@@ -569,7 +577,7 @@ def user_favorites(user):
 def user_crowdfunding(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     title = _('海外众筹')
-    order_list = f_app.order.output(f_app.order.custom_search({'user.id':user['id']}, per_page=0), permission_check=False)
+    order_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id']}, per_page=0), permission_check=False)
     logger.debug(order_list)
     favorite_list = currant_data_helper.get_favorite_list('item')
     order_list = f_app.i18n.process_i18n(order_list)
