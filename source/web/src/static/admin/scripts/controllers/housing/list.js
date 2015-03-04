@@ -26,6 +26,7 @@
             params.property_type = $scope.selected.property_type
             params.intention = $scope.selected.intention
             params.investment_type = $scope.selected.investment_type
+            params.developer = $scope.selected.developer
             if ($scope.selected.bedroom_count === undefined || $scope.selected.bedroom_count === '' || $scope.selected.bedroom_count === null) {
                 delete params.bedroom_count
             } else {
