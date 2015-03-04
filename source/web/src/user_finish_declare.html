@@ -7,12 +7,146 @@
 <!--@@close-->
 <!--@@block=main -->
 
+<label class="hint" for="">
+    {{!_('在您参与洋房东海外房产众筹之前，您需要通过申明您符合<strong>英国Financial Conduct Authority发布的众筹投资者要求</strong>，或者回答几个简单的问题。请阅读下面<br/>FCA定义的众筹投资者类型的描述，选择您的类型并确认完成声明。')}}
+</label>
 
+<div data-tabs>
+    <ul class="tabs">
+        <li data-tab="experienced_investors" class="selectedTab">
+            <img class="active" src="/static/images/user_finish_step/icon_experienced_investors_active.png" />
+            <img class="normal" src="/static/images/user_finish_step/icon_experienced_investors.png"/>
+            <label> {{_('富有经验的投资者')}} </label>
+        </li>
+        <li data-tab="high_net_worth_investors">
+            <img class="active" src="/static/images/user_finish_step/icon_high_net_worth_investors_active.png"/>
+            <img class="normal" src="/static/images/user_finish_step/icon_high_net_worth_investors.png"/>
+            <img alt="" src=""/>
+            <label> {{_('高净值人士')}} </label>
+        </li>
+        <li data-tab="other_investors">
+            <img class="active" src="/static/images/user_finish_step/icon_other_investors_active.png"/>
+            <img class="normal" src="/static/images/user_finish_step/icon_other_investors.png"/>
+            <img alt="" src=""/>
+            <label> {{_('以上两者都不是但仍想投资')}} </label>
+        </li>
+    </ul>
+    <div class="tabContents">
+        <div data-tab-name="experienced_investors">
+            <h2>
+                Self-Certified Sophisticated Investor Statement
+            </h2>
+            <p>
+               I declare that I am a self-certified sophisticated investor for the purposes of the restriction on promotion of non-mainstream pooled investments. I understand that this means:
+
+(i) I can receive promotional communications made by a person who is authorised by the Financial Conduct Authority which relate to investment activity in non-mainstream pooled investments;
+
+(ii) the investments to which the promotions will relate may expose me to a significant risk of losing all of the property invested.
+
+I am a self-certified sophisticated investor because at least one of the following applies:
+
+(a) I am a member of a network or syndicate of business angels and have been so for at least the last six months prior to the date below;
+
+(b) I have made more than one investment in an unlisted company in the two years prior to the date below;
+
+(c) I am working, or have worked in the two years prior to the date below, in a professional capacity in the private equity sector, or in the provision of finance for small and medium enterprises; and
+
+(d) I am currently, or have been in the two years prior to the date below, a director of a company with an annual turnover of at least £1 million.
+
+I accept that the investments to which the promotions will relate may expose me to a significant risk of losing all of the money or other property invested. I am aware that it is open to me seek advice from someone who specialises in advising on non-mainstream pooled investments.
+
+Date: 04 February 2015
+            </p>
+            <div class="check">
+                <input type="checkbox" checked/>
+                <label for="">
+                    I hereby sign the above statement to declare that, as of today's date I am a sophisticated investor as described above.
+                </label>
+            </div>
+        </div>
+        <div data-tab-name="high_net_worth_investors">
+            <h2>
+                High Net Worth Investor Statement
+            </h2>
+            <p>
+                I make this statement so that I can receive promotional communications which are exempt from the restriction on promotion of 
+non-mainstream pooled investments. The exemption relates to certified high net worth investors and I declare that I qualify as 
+such because at least one of the following applies to me:
+ 
+I had, throughout the financial year immediately preceding today's date, an annual income to the value of £100,000 or more;
+ 
+I held, throughout the financial year immediately preceding today's date, net assets to the value of £250,000 or more. Net assets for 
+these purposes do not include:
+ 
+(a) the property which is my primary residence or any money raised through a loan secured on that property;
+ 
+(b) any rights of mine under a qualifying contract of insurance; or
+ 
+(c) any benefits (in the form of pensions or otherwise) which are payable on the termination of my service or on my death or 
+retirement and to which I am (or my dependants are), or may be, entitled.
+ 
+I accept that the investments to which the promotions will relate may expose me to a significant risk of losing all of the money or 
+other property invested. I am aware that it is open to me to seek advice from an authorised person who specialises in advising on 
+non-mainstream pooled investments.
+ 
+Date: 04 February 2015
+            </p>
+            <div class="check">
+                <input type="checkbox" checked/>
+                <label for="">
+                    I hereby sign the above statement to declare that, as of today's date I am a high net worth individual as described above.
+                </label>
+            </div>
+        </div>
+        <div data-tab-name="other_investors">
+            <h2>
+                Classification Quiz
+            </h2>
+            <p>
+               This quiz is to protect you by ensuring sufficient understanding of the proposition before investing. For your benefit, there is a limit of three attempts. If unsuccessful by the third, you will need to speak with us before you proceed. You can learn more about our proposition within FAQs.
+1. Property prices always go up:
+
+Yes, property prices only go up
+No, property prices can go down as well as up
+
+2. I am guaranteed to receive income each month:
+
+Yes, that will always be the case
+No, if costs exceed income I may not receive anything that month
+
+3. If I decide I want to sell my investment:
+
+I can do so on the marketplace whenever I like, and there will always be a buyer at the price I choose
+I can do so on the marketplace whenever I like, but there is no guarantee that anyone will be willing to buy my investment. In this instance, I may have to wait until the fifth anniversary of the property’s listing on Property Partner for an opportunity to exit
+
+4. I will never be required to exit my property investment unless I choose to do so:
+
+Yes, I will never be required to exit my investment
+No, I may be required to exit my investment in certain instances
+
+5. My total return from an investment on Property Partner is based on:
+
+Movement in the property value only
+Both Net Income generated from rental of the property plus movements in the property’s value
+
+6. If I make an investment on Property Partner, I will have total control over the management of the property:
+
+Yes, I will have as much or as little control over the property management as I like
+No, I will have no control over the property management
+
+7. Best practice when making investments on Property Partner involves:
+
+Investing all of my funds in one property
+Spreading my funds across multiple properties
+            </p>
+        </div>
+    </div>
+</div>
 
 <!--@@close-->
 
 <!--@@block=scripts -->
 <!--build:js /static/scripts/user_finish_declare.html.js-->
-
+<script src="/static/scripts/user_finish_declare.js"></script>
 <!--endbuild-->
 <!--@@close-->
