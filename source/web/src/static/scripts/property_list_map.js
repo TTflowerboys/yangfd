@@ -188,8 +188,13 @@
             if (typeof Microsoft === 'undefined'){
                 var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
                 window.onBingMapScriptLoad = function () {
-                    if (window.propertyList) {
-                        updateMap()
+                    if (typeof Microsoft === 'undefined') {
+                        window.alert(window.i18n('地图加载失败'))
+                    }
+                    else {
+                        if (window.propertyList) {
+                            updateMap()
+                        }
                     }
                 }
                 $('body').append(scriptString)
