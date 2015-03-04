@@ -99,11 +99,6 @@ $(window).resize(window.updateTabSelectorFixed);
             tabSelectorKey += '_phone'
         }
 
-        //map load failed always hide
-        if (typeof Microsoft === 'undefined') {
-            visible = false
-        }
-
         if (visible) {
             $(tabSelectorKey).show()
         }
@@ -678,9 +673,6 @@ $(window).resize(window.updateTabSelectorFixed);
             showTags()
         }
     }
-
-    //hide tabSelector first time
-    window.updateTabSelectorVisibility(false)
 
     loadPropertyList()
 

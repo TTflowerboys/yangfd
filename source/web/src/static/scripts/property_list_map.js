@@ -1,14 +1,7 @@
 (function () {
     var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
 
-    if (typeof Microsoft === 'undefined') {
-        // map load failed, return
-        //trigger auto select first
-        $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-        })
 
-        return
-    }
 
     window.mapCache = {}
     window.mapPinCache = {}
@@ -175,23 +168,37 @@
 
     }
 
+    function updateMap() {
+        var mapId = 'mapCanvas'
+        var map = window.getMap(mapId)
+        map.entities.clear();
+        updateMapResults(map, mapId, window.propertyList)
 
-    var mapId = 'mapCanvas'
-    var map = window.getMap(mapId)
+        var locations = []
+        _.each(window.propertyList, function (property) {
+            var location = new Microsoft.Maps.Location(property.latitude, property.longitude)
+            locations.push(location)
+        })
+        map.setView(getBestMapOptions(locations, $('#' + mapId).width(), $('#' + mapId).height()))
+        $('html, body').animate({scrollTop: $('#' + mapId).offset().top - 60 }, 'fast')
+    }
 
     $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
         if (tabName === 'map') {
-            if (window.propertyList) {
-                map.entities.clear();
-                updateMapResults(map, mapId, window.propertyList)
-
-                var locations = []
-                _.each(window.propertyList, function (property) {
-                    var location = new Microsoft.Maps.Location(property.latitude, property.longitude)
-                    locations.push(location)
-                })
-                map.setView(getBestMapOptions(locations, $('#' + mapId).width(), $('#' + mapId).height()))
-                $('html, body').animate({scrollTop: $('#' + mapId).offset().top - 60 }, 'fast')
+            if (typeof Microsoft === 'undefined'){
+                var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
+                window.onBingMapScriptLoad = function () {
+                    if (window.propertyList) {
+                        updateMap()
+                    }
+                }
+                $('body').append(scriptString)
+            }
+            else {
+                updateMap()
+                if (window.propertyList) {
+                    updateMap()
+                }
             }
         }
     })
