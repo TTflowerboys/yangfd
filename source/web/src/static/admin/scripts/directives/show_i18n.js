@@ -23,15 +23,16 @@ angular.module('app')
                     scope.preferred = scope.model[$rootScope.userLanguage.value] ? true : false
                 }
 
-                $rootScope.$watch('userLanguage.value', function () {
+                $rootScope.$watch('userLanguage.value', function (newValue) {
                     if (scope.model) {
+                        scope.userLanguage = newValue
                         for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
                             scope.model[i18nLanguages[i].value] = scope.model[i18nLanguages[i].value] || ''
-                            if (i18nLanguages[i].value !== $rootScope.userLanguage.value) {
+                            if (i18nLanguages[i].value !== newValue) {
                                 scope.otherValue = i18nLanguages[i].value
                             }
                         }
-                        scope.preferred = scope.model[$rootScope.userLanguage.value] ? true : false
+                        scope.preferred = scope.model[newValue] ? true : false
                     }
 
                 })

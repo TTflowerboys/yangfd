@@ -142,9 +142,6 @@
                 growl.addWarnMessage('Nothing to update')
                 return
             }
-            if (changed.zipcode) {
-                changed.zipcode_index = changed.zipcode.substring(0, 3).toUpperCase()
-            }
             $scope.loading = true
             api.update(angular.extend(changed, {id: $stateParams.id}), {
                 successMessage: 'Update successfully',
