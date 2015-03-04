@@ -47,6 +47,7 @@
     <!--endbuild-->
 
     <!--build:css(dist) /static/styles/property.html.css-->
+    <link rel="stylesheet" href="/static/vendors/jquery.stickynavbar/animate.min.css"/>
     <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
     <link rel="stylesheet" href="/static/styles/propertyCard.css"/>
     <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
@@ -61,8 +62,38 @@
     <script type="text/javascript" src="/static/vendors/excanvas.min.js"></script>
     <![endif]-->
 
+
+    <div id="stickyNavbar" class="stickyNavbar">
+        <nav id="nav">
+            <ul class="nav navbar-nav">
+                <li class="menuItem">
+                    <a href="#propertyDetails_description">{{_('详情')}}</a>
+                </li >
+                % if property.get('main_house_types'):
+                    <li class="menuItem"><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
+                % end
+                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
+                    <li class="menuItem"><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
+                %end
+                % if property.get('historical_price') :
+                    <li class="menuItem"><a href="#propertyDetails_price">{{_('价格趋势')}}</a></li>
+                % end
+                % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
+                    <li class="menuItem"><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
+                % end
+                % if report :
+                    <li class="menuItem"><a href="#regionReport">{{_('区域报告')}}</a></li>
+                % end
+            </ul>
+            <a class="contact" href="tel:4000926433">
+                 {{!_('如有意向请拨打<br/><strong>400-0926-433</strong>')}}
+            </a>
+        </nav>
+    </div>
     <!--@@close-->
     <!--@@block = main-->
+
+
     <div class="propertyDetails">
         <div class="breadcrumb">
             % if property.get('country').get('value'):
@@ -277,7 +308,7 @@
                         <a href="#propertyDetails_description">{{_('详情')}}</a>
                     </li>
                     % if property.get('main_house_types'):
-                        <li><a href="#propertyDetails_houseTypes">{{_('户型')}}</a></li>
+                        <li><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
                     % end
                     % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
                         <li><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
@@ -293,7 +324,7 @@
                     % end
                 </ul>
             </div>
-            <div id="propertyDetails_description" class="meta">
+            <div id="propertyDetails_description" class="meta scrollto">
                 % if property_type_slug != 'new_property' and property_type_slug != 'student_housing':
                     <ul class="numbers">
                         <li>
@@ -471,7 +502,7 @@
                 <hr/>
             %end
             % if property.get('main_house_types'):
-                <div id="propertyDetails_houseTypes" class="houseTypes">
+                <div id="propertyDetails_houseTypes" class="houseTypes scrollto">
                     <h3 class="propertyDetails_title">{{_('楼盘户型')}}</h3>
                     <div class="jcarousel-wrapper">
                         <div class="jcarousel">
@@ -562,7 +593,7 @@
                 <hr/>
             %end
             % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-                <div id="propertyDetails_project" class="brief">
+                <div id="propertyDetails_project" class="brief scrollto">
                     <h3 class="propertyDetails_title">{{_('楼盘介绍')}}</h3>
                     <div class="table_wrapper">
                         <table class="table">
@@ -656,7 +687,7 @@
                 <hr/>
             %end
             % if property.get('historical_price') :
-                <div id="propertyDetails_price" class="trend">
+                <div id="propertyDetails_price" class="trend scrollto">
                     <h3 class="propertyDetails_title">{{_('价格趋势')}} ({{_.currency}})</h3>
                     % if property.get('equal_property_description'):
                         <div class="historical_price_description">{{property.get('equal_property_description','')}}</div>
@@ -667,7 +698,7 @@
             % end
 
             % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
-                <div id="propertyDetails_incoming" class="incoming">
+                <div id="propertyDetails_incoming" class="incoming scrollto">
                     <h3 class="propertyDetails_title">{{_('月收支分析')}}</h3>
                     % if property.get('estimated_income_description'):
                         <div class="historical_price_description">{{property.get('estimated_income_description','')}}</div>
@@ -830,7 +861,7 @@
             % end
 
             %if report:
-                <div class="regionReport" id="regionReport">
+                <div id="regionReport" class="regionReport scrollto" >
                     %if report.get('image'):
                         <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
                     %else:
@@ -1181,6 +1212,8 @@
     <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
     <!--build:js /static/scripts/property.html.js-->
     <script src="/static/vendors/jquery.slimscroll.min.js"></script>
+    <script src="/static/vendors/jquery.easing.min.js"></script>
+    <script src="/static/vendors/jquery.stickynavbar/jquery.stickynavbar.min.js"></script>
     <script src="/static/scripts/property_gallery.js"></script>
     <script src="/static/scripts/show_historical_price.js"></script>
     <script src="/static/scripts/intention_form.js"></script>
@@ -1195,6 +1228,31 @@
     <script src="/static/scripts/property_brochure.js"></script>
     <!--endbuild-->
     <script>
+     $(function (){
+         $('.stickyNavbar').stickyNavbar({
+             activeClass: "active",
+             sectionSelector: "scrollto",
+             selector: "li"
+         });
+     })
+
+     window.updatePropertyDetailNavbar = function () {
+         if (!window.team.isPhone()) {
+             var scrollOffset = $(window).scrollTop()
+             var $contentNav = $('.propertyDetails .nav')
+             var contentNavTop = $contentNav.offset().top
+             if (scrollOffset > contentNavTop) {
+                 $('.stickyNavbar').show()
+             }
+             else {
+                 $('.stickyNavbar').hide()
+             }
+         }
+     }
+
+     $(window).scroll(window.updatePropertyDetailNavbar);
+     $(window).resize(window.updatePropertyDetailNavbar);
+
      $('[data-fn=expendDescription]').on('click', function () {
          $(this).parent().hide()
             .parent().find('[data-ui=description]').height('auto')
