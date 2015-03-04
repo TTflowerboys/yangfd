@@ -120,7 +120,7 @@
                     % # Make sure property have videos and every video have at least one source
                     % if property.get('videos') and all(map(lambda x: "sources" in x and len(x["sources"]) > 0, property.get('videos'))):
                         <div class="item videocontent" data-tab-name="video">
-
+                            <img src="/static/images/common/ajax-loader.gif" id="videoLoadIndicator" class="videoLoadIndicator"/>
                         </div>
                     % end
                 </div>
@@ -1182,7 +1182,6 @@
     <!--build:js /static/scripts/property.html.js-->
     <script src="/static/vendors/jquery.slimscroll.min.js"></script>
     <script src="/static/scripts/property_gallery.js"></script>
-    <script src="/static/scripts/property_video.js"></script>
     <script src="/static/scripts/show_historical_price.js"></script>
     <script src="/static/scripts/intention_form.js"></script>
     <script src="/static/scripts/mortgage_form.js"></script>

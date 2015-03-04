@@ -45,6 +45,7 @@ def property_search_nearby(user, params):
     budget="enum:budget",
     random=bool,
     name=str,
+    developer=str,
     slug=str,
     bedroom_count="enum:bedroom_count",
     building_area="enum:building_area",
@@ -112,6 +113,18 @@ def property_search(user, params):
         else:
             or_filter = params.pop("$or")
             params["$and"] = [{"$or": or_filter}, {"$or": name_filter}]
+
+    if "developer" in params:
+        developer = params.pop("developer")
+        developer_filter = []
+        for locale in f_app.common.i18n_locales:
+            developer_filter.append({"developer.%s" % locale: developer})
+
+        if "$or" not in params:
+            params["$or"] = developer_filter
+        else:
+            or_filter = params.pop("$or")
+            params["$and"] = [{"$or": or_filter}, {"$or": developer_filter}]
 
     if "bedroom_count" in params:
         bedroom_count = f_app.util.parse_bedroom_count(params.pop("bedroom_count"))
@@ -197,6 +210,8 @@ def property_search(user, params):
     price=str,
     investment_type="enum:investment_type",
     floor=str,
+    name=str,
+    developer=str,
 ))
 @f_app.user.login.check(check_role=True, role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer'])
 def property_search_with_plot(user, params):
@@ -232,6 +247,18 @@ def property_search_with_plot(user, params):
         else:
             or_filter = params.pop("$or")
             params["$and"] = [{"$or": or_filter}, {"$or": name_filter}]
+
+    if "developer" in params:
+        developer = params.pop("developer")
+        developer_filter = []
+        for locale in f_app.common.i18n_locales:
+            developer_filter.append({"developer.%s" % locale: developer})
+
+        if "$or" not in params:
+            params["$or"] = developer_filter
+        else:
+            or_filter = params.pop("$or")
+            params["$and"] = [{"$or": or_filter}, {"$or": developer_filter}]
 
     plot_params = {}
     if "price" in params:
