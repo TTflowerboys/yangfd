@@ -48,6 +48,28 @@ $(function () {
     }
 
 })
+$(function () {
+    //reload data or setup empty place holder
+    var orderArray = JSON.parse($('#dataOrderList').text())
+    if (orderArray.length > 0) {
+        _.each(orderArray, function (order) {
+            var orderResult = _.template($('#earning_list_item_template').html())({order: order})
+            $('#earningList').append(orderResult)
+        })
+    }
+
+})
+$(function () {
+    //reload data or setup empty place holder
+    var orderArray = JSON.parse($('#dataOrderList').text())
+    if (orderArray.length > 0) {
+        _.each(orderArray, function (order) {
+            var orderResult = _.template($('#investment_list_item_template').html())({order: order})
+            $('#investmentList').append(orderResult)
+        })
+    }
+
+})
 $('.transactionDate div').click(function () {
 
     var text = $(this).text()
