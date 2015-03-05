@@ -74,6 +74,7 @@ class common(f_common):
     sitemap_domain = "www.yangfd.com"
 
     params_replaces_list = {
+        "upload.yangfd.com": "bbt-currant.s3.amazonaws.com",
         "s3.yangfd.cn": "bbt-currant.s3.amazonaws.com",
         "7vih1w.com2.z0.glb.qiniucdn.com": "bbt-currant.s3.amazonaws.com",
     }
