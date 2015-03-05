@@ -67,8 +67,11 @@
         <nav id="nav">
             <ul class="nav navbar-nav">
                 <li class="menuItem">
-                    <a href="#propertyDetails_description">{{_('详情')}}</a>
+                    <a href="#propertyDetails_description">{{_('房产详情')}}</a>
                 </li >
+                %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
+                    <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
+                %end
                 % if property.get('main_house_types'):
                     <li class="menuItem"><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
                 % end
@@ -83,6 +86,9 @@
                 % end
                 % if report :
                     <li class="menuItem"><a href="#regionReport">{{_('区域报告')}}</a></li>
+                % end
+                % if property.get('brochure') and len(property.get('brochure')) > 0:
+                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
                 % end
             </ul>
             <a class="contact" href="tel:4000926433">
@@ -302,11 +308,14 @@
                 </tr>
             </table>
 
-            <div class="nav tabbar">
+            <div class="nav tabbar" style="display:none;">
                 <ul>
                     <li>
                         <a href="#propertyDetails_description">{{_('详情')}}</a>
                     </li>
+                    %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
+                        <li><a href="#aroundMap">{{_('周边配套')}}</a></li>
+                    %end
                     % if property.get('main_house_types'):
                         <li><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
                     % end
@@ -322,9 +331,15 @@
                     % if report :
                         <li><a href="#regionReport">{{_('区域报告')}}</a></li>
                     % end
+                     % if property.get('brochure') and len(property.get('brochure')) > 0:
+                         <li><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
+                     % end
                 </ul>
             </div>
+
             <div id="propertyDetails_description" class="meta scrollto">
+                <hr/>
+                <h3 class="propertyDetails_title">{{_('房产详情')}}</h3>
                 % if property_type_slug != 'new_property' and property_type_slug != 'student_housing':
                     <ul class="numbers">
                         <li>
@@ -475,34 +490,36 @@
                         % end
                     </tbody>
                 </table>
+
+                %if property.get('highlight'):
+                    <div class="advantages">
+                        <ul>
+                            % for item in property.get('highlight'):
+                                <li>{{item}}</li>
+                            %end
+                        </ul>
+                    </div>
+                %end
+                %if property.get('description'):
+                    <div class="description" data-ui="description">
+                        {{!property.get('description')}}
+                    </div>
+                    <div class="clearfix expendDescription_wrapper">
+                        <button data-fn="expendDescription" class="ghostButton red" >{{_('展开')}}</button>
+                    </div>
+                %end
             </div>
-            %if property.get('highlight'):
-                <div class="advantages">
-                    <ul>
-                        % for item in property.get('highlight'):
-                            <li>{{item}}</li>
-                        %end
-                    </ul>
-                </div>
-            %end
-            %if property.get('description'):
-                <div class="description" data-ui="description">
-                    {{!property.get('description')}}
-                </div>
-                <div class="clearfix expendDescription_wrapper">
-                    <button data-fn="expendDescription" class="ghostButton red" >{{_('展开')}}</button>
-                </div>
-                <hr/>
-            %end
+
             %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
-                <div class="maps_wrapper">
+                <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
+                    <hr/>
                     <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
                     <!--@@include partials/bing_map.html  -->
                 </div>
-                <hr/>
             %end
             % if property.get('main_house_types'):
                 <div id="propertyDetails_houseTypes" class="houseTypes scrollto">
+                    <hr/>
                     <h3 class="propertyDetails_title">{{_('楼盘户型')}}</h3>
                     <div class="jcarousel-wrapper">
                         <div class="jcarousel">
@@ -513,10 +530,10 @@
                                             <a onclick="javascript:window.openMainHouseType(null, '{{index}}',false)">
                                                 <div style="position:relative;">
                                                     %if item.get('floor_plan') and len(item.get('floor_plan'))>0:
-                                                    <img class="floor_plan" src="{{!fetch_image(item.get('floor_plan')[0], thumbnail=True, property_id=property.get('id'))}}"
-                                                         alt="{{item.get('name','')}}" onerror="window.onImgError(this);"/>
+                                                        <img class="floor_plan" src="{{!fetch_image(item.get('floor_plan')[0], thumbnail=True, property_id=property.get('id'))}}"
+                                                             alt="{{item.get('name','')}}" onerror="window.onImgError(this);"/>
                                                     %else :
-                                                    <img alt="{{item.get('name','')}}" class="withPlaceholder"/>
+                                                        <img alt="{{item.get('name','')}}" class="withPlaceholder"/>
                                                     %end
                                                     <div class="table_wrapper">
                                                         <table class="text">
@@ -587,13 +604,13 @@
                         <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
                         <a href="#" class="jcarousel-control-next">&rsaquo;</a>
                     </div>
+                    <span id="propertyDetails_houseTypes_data" style="display: none">{{json_dumps(property.get('main_house_types'))}}</span>
                 </div>
 
-                <span id="propertyDetails_houseTypes_data" style="display: none">{{json_dumps(property.get('main_house_types'))}}</span>
-                <hr/>
             %end
             % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
                 <div id="propertyDetails_project" class="brief scrollto">
+                    <hr/>
                     <h3 class="propertyDetails_title">{{_('楼盘介绍')}}</h3>
                     <div class="table_wrapper">
                         <table class="table">
@@ -684,21 +701,21 @@
                         </table>
                     </div>
                 </div>
-                <hr/>
             %end
             % if property.get('historical_price') :
                 <div id="propertyDetails_price" class="trend scrollto">
+                    <hr/>
                     <h3 class="propertyDetails_title">{{_('价格趋势')}} ({{_.currency}})</h3>
                     % if property.get('equal_property_description'):
                         <div class="historical_price_description">{{property.get('equal_property_description','')}}</div>
                     % end
                     <canvas id="lineChart"></canvas>
                 </div>
-                <hr/>
             % end
 
             % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
                 <div id="propertyDetails_incoming" class="incoming scrollto">
+                    <hr/>
                     <h3 class="propertyDetails_title">{{_('月收支分析')}}</h3>
                     % if property.get('estimated_income_description'):
                         <div class="historical_price_description">{{property.get('estimated_income_description','')}}</div>
@@ -811,11 +828,11 @@
                         %end
                     </table>
                 </div>
-                <hr/>
             % end
 
             % if property.get('brochure') and len(property.get('brochure')) > 0:
-                <div id="propertyDetails_brochure" class="brochure">
+                <div id="propertyDetails_brochure" class="brochure scrollto">
+                    <hr/>
                     <h3 class="propertyDetails_title">{{_('相关资料')}}</h3>
                     % if user:
                         <div class="brochures_entry">
@@ -857,11 +874,11 @@
                         </div>
                     % end
                 </div>
-                <hr/>
             % end
 
             %if report:
                 <div id="regionReport" class="regionReport scrollto" >
+                    <hr/>
                     %if report.get('image'):
                         <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
                     %else:
@@ -1213,7 +1230,7 @@
     <!--build:js /static/scripts/property.html.js-->
     <script src="/static/vendors/jquery.slimscroll.min.js"></script>
     <script src="/static/vendors/jquery.easing.min.js"></script>
-    <script src="/static/vendors/jquery.stickynavbar/jquery.stickynavbar.min.js"></script>
+    <script src="/static/vendors/jquery.stickynavbar/jquery.stickynavbar.js"></script>
     <script src="/static/scripts/property_gallery.js"></script>
     <script src="/static/scripts/show_historical_price.js"></script>
     <script src="/static/scripts/intention_form.js"></script>
@@ -1232,20 +1249,23 @@
          $('.stickyNavbar').stickyNavbar({
              activeClass: "active",
              sectionSelector: "scrollto",
-             selector: "li"
+             selector: "li",
+             animateCSS: false
          });
      })
 
      window.updatePropertyDetailNavbar = function () {
          if (!window.team.isPhone()) {
              var scrollOffset = $(window).scrollTop()
-             var $contentNav = $('.propertyDetails .nav')
+             var $contentNav = $('.propertyDetails .meta')
              var contentNavTop = $contentNav.offset().top
              if (scrollOffset > contentNavTop) {
                  $('.stickyNavbar').show()
+                 //$('.stickyNavbar').css('position', 'fixed')
              }
              else {
                  $('.stickyNavbar').hide()
+                 //$('.stickyNavbar').css('position', 'static')
              }
          }
      }
