@@ -99,7 +99,7 @@ body{
 
         .contact {
             float:right;
-            text-align:right;
+            text-align:left;
             background:@red;
             padding:15px 30px;
             color:white;
@@ -170,8 +170,8 @@ body{
 
     }
     &_title { margin-bottom: 24px; color: #666; margin-top: 24px; font-size: 16px; }
-    hr {
-        color: @border-color;
+    .seperator {
+        border-top: 1px solid @border-color;
         margin-top: 60px;
         margin-bottom: 40px;
         @media @phone {
@@ -504,6 +504,7 @@ body{
         }
     }
     .meta {
+        overflow:hidden;
 
         @media @phone {
 
@@ -662,6 +663,7 @@ body{
     }
 
     .maps_wrapper {
+        overflow:hidden;
         .propertyDetails_title {
             @media @phone {
                 margin-top: 0;
@@ -938,6 +940,7 @@ body{
     }
 
     .trend {
+        overflow:hidden;
         .propertyDetails_title {
             @media @phone {
                 margin-top: 20px;
@@ -968,7 +971,7 @@ body{
     }
 
     .incoming {
-
+        overflow:hidden;
         @media @phone {
             background: #333;
             padding: 20px 12px;
@@ -1111,7 +1114,7 @@ body{
         }
     }
     .brochure {
-
+        overflow:hidden;
         .propertyDetails_title {
             @media @phone {
                 margin-top: 20px;

@@ -92,7 +92,7 @@
                 % end
             </ul>
             <a class="contact" href="tel:4000926433">
-                 {{!_('如有意向请拨打<br/><strong>400-0926-433</strong>')}}
+                 {{!_('拨打<br/><strong>400-0926-433</strong>')}}
             </a>
         </nav>
     </div>
@@ -308,37 +308,8 @@
                 </tr>
             </table>
 
-            <div class="nav tabbar" style="display:none;">
-                <ul>
-                    <li>
-                        <a href="#propertyDetails_description">{{_('详情')}}</a>
-                    </li>
-                    %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
-                        <li><a href="#aroundMap">{{_('周边配套')}}</a></li>
-                    %end
-                    % if property.get('main_house_types'):
-                        <li><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
-                    % end
-                    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-                        <li><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
-                    %end
-                    % if property.get('historical_price') :
-                        <li><a href="#propertyDetails_price">{{_('价格趋势')}}</a></li>
-                    % end
-                    % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
-                        <li><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
-                    % end
-                    % if report :
-                        <li><a href="#regionReport">{{_('区域报告')}}</a></li>
-                    % end
-                     % if property.get('brochure') and len(property.get('brochure')) > 0:
-                         <li><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
-                     % end
-                </ul>
-            </div>
-
             <div id="propertyDetails_description" class="meta scrollto">
-                <hr/>
+                <div class="seperator"></div>
                 <h3 class="propertyDetails_title">{{_('房产详情')}}</h3>
                 % if property_type_slug != 'new_property' and property_type_slug != 'student_housing':
                     <ul class="numbers">
@@ -381,7 +352,7 @@
                             </li>
                         % end
                     </ul>
-                    <hr/>
+                    <div class="seperator"></div>
                 %end
                 <table class="other">
                     <colgroup>
@@ -512,14 +483,14 @@
 
             %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
                 <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
-                    <hr/>
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
                     <!--@@include partials/bing_map.html  -->
                 </div>
             %end
             % if property.get('main_house_types'):
                 <div id="propertyDetails_houseTypes" class="houseTypes scrollto">
-                    <hr/>
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('楼盘户型')}}</h3>
                     <div class="jcarousel-wrapper">
                         <div class="jcarousel">
@@ -610,7 +581,7 @@
             %end
             % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
                 <div id="propertyDetails_project" class="brief scrollto">
-                    <hr/>
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('楼盘介绍')}}</h3>
                     <div class="table_wrapper">
                         <table class="table">
@@ -704,7 +675,7 @@
             %end
             % if property.get('historical_price') :
                 <div id="propertyDetails_price" class="trend scrollto">
-                    <hr/>
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('价格趋势')}} ({{_.currency}})</h3>
                     % if property.get('equal_property_description'):
                         <div class="historical_price_description">{{property.get('equal_property_description','')}}</div>
@@ -715,7 +686,7 @@
 
             % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
                 <div id="propertyDetails_incoming" class="incoming scrollto">
-                    <hr/>
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('月收支分析')}}</h3>
                     % if property.get('estimated_income_description'):
                         <div class="historical_price_description">{{property.get('estimated_income_description','')}}</div>
@@ -832,7 +803,7 @@
 
             % if property.get('brochure') and len(property.get('brochure')) > 0:
                 <div id="propertyDetails_brochure" class="brochure scrollto">
-                    <hr/>
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('相关资料')}}</h3>
                     % if user:
                         <div class="brochures_entry">
@@ -878,7 +849,7 @@
 
             %if report:
                 <div id="regionReport" class="regionReport scrollto" >
-                    <hr/>
+                    <div class="seperator"></div>
                     %if report.get('image'):
                         <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
                     %else:
@@ -972,7 +943,7 @@
                     </tr>
                 </table>
 
-                <hr/>
+                <div class="seperator"></div>
                 <table class="actions">
                     <tr>
                         <td style="text-align:left;">
@@ -1088,12 +1059,12 @@
                     <button class="flatButton" type="submit" disabled>{{_('留言咨询')}}</button>
                 </div>
                 <div class="row" data-role="serverFeedback" style="display: none; text-align:center;"></div>
-                <hr/>
+                <div class="seperator"></div>
                 <div class="contact">
                     {{_('或拨打')}}<a href="tel:4000926433">400-0926-433</a>{{_('咨询 ')}}
                 </div>
             </form>
-            <hr/>
+            <div class="seperator"></div>
 
             % if 'intention' in property and property.get('intention'):
                 % item_width = '25%'
@@ -1124,11 +1095,11 @@
                         % end
                     </ul>
                 </div>
-                <hr/>
+                <div class="seperator"></div>
             % end
             <h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
             <!--@@include=partials/mortgage_form.html  -->
-            <hr/>
+            <div class="seperator"></div>
 
             <div class="relatedProperties">
                 <h2 class="title">{{_('相关房产')}}</h2>
