@@ -1171,6 +1171,8 @@ class f_property(f_app.module_base):
     @f_cache("property")
     def get(self, property_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(property):
+            if "loc" in property:
+                property["longitude"], property["latitude"] = property.pop("loc")
             return f_app.util.process_objectid(property)
 
         if isinstance(property_id_or_list, (tuple, list, set)):
@@ -1187,8 +1189,6 @@ class f_property(f_app.module_base):
 
             for property in result_list:
                 result[property["id"]] = _format_each(property)
-                if "loc" in property:
-                    property["longitude"], property["latitude"] = property.pop("loc")
 
             return result
 
