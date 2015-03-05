@@ -112,3 +112,65 @@ function changeTransactionType(page) {
             break;
     }
 }
+$('.earningProject div').click(function () {
+
+    var text = $(this).text()
+    $.each($('.earningProject div'), function (i, val) {
+        if ($(this).text() === text) {
+            if ($(this).hasClass('selected')) {
+                return
+            } else {
+                $(this).addClass('selected')
+                changeEarningProject(i)
+            }
+        } else {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected')
+            }
+        }
+    })
+})
+function changeEarningProject(page) {
+    switch (page) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        default:
+            break;
+    }
+}
+$('.earningDate div').click(function () {
+
+    var text = $(this).text()
+    $.each($('.earningDate div'), function (i, val) {
+        if ($(this).text() === text) {
+            if ($(this).hasClass('selected')) {
+                return
+            } else {
+                $(this).addClass('selected')
+                changeEarningDate(i)
+            }
+        } else {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected')
+            }
+        }
+    })
+})
+function changeEarningDate(page) {
+    switch (page) {
+        case 1:
+            break;
+        case 2:
+            break;
+        default:
+            break;
+    }
+}
