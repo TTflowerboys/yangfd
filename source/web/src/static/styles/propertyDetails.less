@@ -507,7 +507,7 @@ body{
         overflow:hidden;
 
         @media @phone {
-
+            overflow:visible;
         }
 
         .numbers {
@@ -1476,6 +1476,70 @@ body{
         .col-value { }
         .name { text-align: right; color: #aaa; }
         .value { text-align: right; color: @red; font-size: 24px; }
+    }
+}
+
+.menu_phone {
+    display:none;//default hide
+    @media @phone {
+        display:block;
+        overflow:hidden;
+        position:fixed;
+        z-index:@float_bar_phone-z-index;
+        bottom:50px;
+        right:10px;
+        cursor:pointer;
+        text-align:right;
+    }
+
+    .menu_content {
+        background: #333;
+        opacity: 0.9;
+        border-radius: 6px;
+        margin-bottom:10px;
+        text-align:left;
+
+        li {
+            width:170px;
+            border-bottom:1px solid black;
+            height:35px;
+            a {
+                color:#aaa;
+                text-decoration:none;
+                font-size:14px;
+                line-height:35px;
+                cursor:pointer;
+                padding-left:30px;
+                width:100%;
+                display:block;
+                position:relative;
+
+            }
+
+            a:hover{
+                color:white;
+
+                &:before {
+                    content: ' ';
+                    position: absolute;
+                    background:white;
+                    width:8px;
+                    height:8px;
+                    left:12px;
+                    top:14px;
+                    border-radius:4px;
+                }
+            }
+
+            &:last-child {
+                border-bottom:0px;
+            }
+        }
+    }
+
+    .menu_button {
+        height:40px;
+        width:40px;
     }
 }
 

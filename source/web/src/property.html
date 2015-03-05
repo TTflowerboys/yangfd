@@ -1155,6 +1155,36 @@
         <a class="gotIt" href ="#close-modal" rel="modal:close">{{_('我知道了')}}</a>
     </div>
 
+    <div id="menu_phone" class="menu_phone">
+        <ul id="menu_content_phone" class="menu_content" style="display:none;">
+                <li class="menuItem">
+                    <a href="#propertyDetails_description">{{_('房产详情')}}</a>
+                </li >
+                %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
+                    <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
+                %end
+                % if property.get('main_house_types'):
+                    <li class="menuItem"><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
+                % end
+                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
+                    <li class="menuItem"><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
+                %end
+                % if property.get('historical_price') :
+                    <li class="menuItem"><a href="#propertyDetails_price">{{_('价格趋势')}}</a></li>
+                % end
+                % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
+                    <li class="menuItem"><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
+                % end
+                % if report :
+                    <li class="menuItem"><a href="#regionReport">{{_('区域报告')}}</a></li>
+                % end
+                % if property.get('brochure') and len(property.get('brochure')) > 0:
+                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
+                % end
+            </ul>
+        <img id="menu_button_phone" class="menu_button" src="/static/images/property_details/phone/menu.png"/>
+     </div>
+
     <ul class="floatBar_phone">
         <li class="favorite"
             data-fn="addFav"
@@ -1243,6 +1273,19 @@
 
      $(window).scroll(window.updatePropertyDetailNavbar);
      $(window).resize(window.updatePropertyDetailNavbar);
+
+     $('#menu_button_phone').click(function (e) {
+         if($('#menu_content_phone').is(':visible')) {
+             $('#menu_content_phone').hide()
+         }
+         else {
+             $('#menu_content_phone').show()
+         }
+     })
+
+     $('#menu_content_phone a').click(function (e) {
+         $('#menu_content_phone').hide()
+     })
 
      $('[data-fn=expendDescription]').on('click', function () {
          $(this).parent().hide()
