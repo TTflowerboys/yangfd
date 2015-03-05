@@ -43,7 +43,7 @@ angular.module('app')
                                     }, 200)
                                 })
                             },
-                            delay: 300
+                            delay: 1000
                         })
                     } else {
                         delayer.update()
