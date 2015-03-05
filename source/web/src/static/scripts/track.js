@@ -59,7 +59,7 @@ var _mfq = _mfq || [];
         mf.src = "//cdn.mouseflow.com/projects/10e0e312-30d7-487c-813a-1d95a574d0aa.js";
     }
 
-    document.getElementsByTagName("head")[0].appendChild(mf);
+    document.getElementsByTagName("body")[0].appendChild(mf);
 })();
 
 // Set up baidu analytics
@@ -67,8 +67,7 @@ var _hmt = _hmt || [];
 (function() {
     var hm = document.createElement("script");
     hm.src = "//hm.baidu.com/hm.js?8a8bf5b52e37035787e409658a4ded33";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
+    document.getElementsByTagName("body")[0].appendChild(hm);
 })();
 
 /* jshint ignore:end */
