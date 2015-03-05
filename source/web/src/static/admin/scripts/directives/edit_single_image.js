@@ -1,6 +1,6 @@
 /* Created by frank on 14-8-21. */
 angular.module('app')
-    .directive('editSingleImage', function ($upload, $http, $rootScope, growl) {
+    .directive('editSingleImage', function ($upload, $http, $rootScope, growl, imageUploadSites) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_single_image.tpl.html',
@@ -30,7 +30,7 @@ angular.module('app')
                                 ratio: scope.ratio || 0,
                                 thumbnail_size: scope.thumbnailSize || '0,0',
                                 filename: file.name,
-                                watermark:scope.watermark
+                                watermark: scope.watermark
                             },
                             ignoreLoadingBar: true,
                             errorMessage: true
@@ -51,7 +51,9 @@ angular.module('app')
                     if (_.isEmpty(img)) {
                         return false
                     }
-                    return img.indexOf('bbt-currant.s3.amazonaws.com') < 0 && img.indexOf('7vih1w.com2.z0.glb.qiniucdn.com') < 0
+                    return img.indexOf(imageUploadSites[0]) < 0 &&
+                        img.indexOf(imageUploadSites[1]) < 0 &&
+                        img.indexOf(imageUploadSites[2]) < 0
                 }
 
                 scope.uploadImage = function (img) {
@@ -60,7 +62,7 @@ angular.module('app')
                         width_limit: scope.widthLimit || 0,
                         ratio: scope.ratio || 0,
                         thumbnail_size: scope.thumbnailSize || '0,0',
-                        watermark:scope.watermark
+                        watermark: scope.watermark
                     }, {errorMessage: true})
                         .success(function (data, status, headers, config) {
                             scope.image = data.val.url
