@@ -47,6 +47,7 @@
     <!--endbuild-->
 
     <!--build:css(dist) /static/styles/property.html.css-->
+    <link rel="stylesheet" href="/static/vendors/jquery.stickynavbar/animate.min.css"/>
     <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
     <link rel="stylesheet" href="/static/styles/propertyCard.css"/>
     <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
@@ -61,8 +62,44 @@
     <script type="text/javascript" src="/static/vendors/excanvas.min.js"></script>
     <![endif]-->
 
+
+    <div id="stickyNavbar" class="stickyNavbar">
+        <nav id="nav">
+            <ul class="nav navbar-nav">
+                <li class="menuItem">
+                    <a href="#propertyDetails_description">{{_('房产详情')}}</a>
+                </li >
+                %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
+                    <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
+                %end
+                % if property.get('main_house_types'):
+                    <li class="menuItem"><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
+                % end
+                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
+                    <li class="menuItem"><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
+                %end
+                % if property.get('historical_price') :
+                    <li class="menuItem"><a href="#propertyDetails_price">{{_('价格趋势')}}</a></li>
+                % end
+                % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
+                    <li class="menuItem"><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
+                % end
+                % if report :
+                    <li class="menuItem"><a href="#regionReport">{{_('区域报告')}}</a></li>
+                % end
+                % if property.get('brochure') and len(property.get('brochure')) > 0:
+                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
+                % end
+            </ul>
+            <a class="contact" href="tel:4000926433">
+                 {{!_('拨打<br/><strong>400-0926-433</strong>')}}
+            </a>
+        </nav>
+    </div>
     <!--@@close-->
     <!--@@block = main-->
+
+
     <div class="propertyDetails">
         <div class="breadcrumb">
             % if property.get('country').get('value'):
@@ -271,29 +308,9 @@
                 </tr>
             </table>
 
-            <div class="nav tabbar">
-                <ul>
-                    <li>
-                        <a href="#propertyDetails_description">{{_('详情')}}</a>
-                    </li>
-                    % if property.get('main_house_types'):
-                        <li><a href="#propertyDetails_houseTypes">{{_('户型')}}</a></li>
-                    % end
-                    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-                        <li><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
-                    %end
-                    % if property.get('historical_price') :
-                        <li><a href="#propertyDetails_price">{{_('价格趋势')}}</a></li>
-                    % end
-                    % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
-                        <li><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
-                    % end
-                    % if report :
-                        <li><a href="#regionReport">{{_('区域报告')}}</a></li>
-                    % end
-                </ul>
-            </div>
-            <div id="propertyDetails_description" class="meta">
+            <div id="propertyDetails_description" class="meta scrollto">
+                <div class="seperator"></div>
+                <h3 class="propertyDetails_title">{{_('房产详情')}}</h3>
                 % if property_type_slug != 'new_property' and property_type_slug != 'student_housing':
                     <ul class="numbers">
                         <li>
@@ -335,7 +352,7 @@
                             </li>
                         % end
                     </ul>
-                    <hr/>
+                    <div class="seperator"></div>
                 %end
                 <table class="other">
                     <colgroup>
@@ -444,34 +461,36 @@
                         % end
                     </tbody>
                 </table>
+
+                %if property.get('highlight'):
+                    <div class="advantages">
+                        <ul>
+                            % for item in property.get('highlight'):
+                                <li>{{item}}</li>
+                            %end
+                        </ul>
+                    </div>
+                %end
+                %if property.get('description'):
+                    <div class="description" data-ui="description">
+                        {{!property.get('description')}}
+                    </div>
+                    <div class="clearfix expendDescription_wrapper">
+                        <button data-fn="expendDescription" class="ghostButton red" >{{_('展开')}}</button>
+                    </div>
+                %end
             </div>
-            %if property.get('highlight'):
-                <div class="advantages">
-                    <ul>
-                        % for item in property.get('highlight'):
-                            <li>{{item}}</li>
-                        %end
-                    </ul>
-                </div>
-            %end
-            %if property.get('description'):
-                <div class="description" data-ui="description">
-                    {{!property.get('description')}}
-                </div>
-                <div class="clearfix expendDescription_wrapper">
-                    <button data-fn="expendDescription" class="ghostButton red" >{{_('展开')}}</button>
-                </div>
-                <hr/>
-            %end
+
             %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
-                <div class="maps_wrapper">
+                <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
                     <!--@@include partials/bing_map.html  -->
                 </div>
-                <hr/>
             %end
             % if property.get('main_house_types'):
-                <div id="propertyDetails_houseTypes" class="houseTypes">
+                <div id="propertyDetails_houseTypes" class="houseTypes scrollto">
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('楼盘户型')}}</h3>
                     <div class="jcarousel-wrapper">
                         <div class="jcarousel">
@@ -482,10 +501,10 @@
                                             <a onclick="javascript:window.openMainHouseType(null, '{{index}}',false)">
                                                 <div style="position:relative;">
                                                     %if item.get('floor_plan') and len(item.get('floor_plan'))>0:
-                                                    <img class="floor_plan" src="{{!fetch_image(item.get('floor_plan')[0], thumbnail=True, property_id=property.get('id'))}}"
-                                                         alt="{{item.get('name','')}}" onerror="window.onImgError(this);"/>
+                                                        <img class="floor_plan" src="{{!fetch_image(item.get('floor_plan')[0], thumbnail=True, property_id=property.get('id'))}}"
+                                                             alt="{{item.get('name','')}}" onerror="window.onImgError(this);"/>
                                                     %else :
-                                                    <img alt="{{item.get('name','')}}" class="withPlaceholder"/>
+                                                        <img alt="{{item.get('name','')}}" class="withPlaceholder"/>
                                                     %end
                                                     <div class="table_wrapper">
                                                         <table class="text">
@@ -556,13 +575,13 @@
                         <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
                         <a href="#" class="jcarousel-control-next">&rsaquo;</a>
                     </div>
+                    <span id="propertyDetails_houseTypes_data" style="display: none">{{json_dumps(property.get('main_house_types'))}}</span>
                 </div>
 
-                <span id="propertyDetails_houseTypes_data" style="display: none">{{json_dumps(property.get('main_house_types'))}}</span>
-                <hr/>
             %end
             % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-                <div id="propertyDetails_project" class="brief">
+                <div id="propertyDetails_project" class="brief scrollto">
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('楼盘介绍')}}</h3>
                     <div class="table_wrapper">
                         <table class="table">
@@ -653,21 +672,21 @@
                         </table>
                     </div>
                 </div>
-                <hr/>
             %end
             % if property.get('historical_price') :
-                <div id="propertyDetails_price" class="trend">
+                <div id="propertyDetails_price" class="trend scrollto">
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('价格趋势')}} ({{_.currency}})</h3>
                     % if property.get('equal_property_description'):
                         <div class="historical_price_description">{{property.get('equal_property_description','')}}</div>
                     % end
                     <canvas id="lineChart"></canvas>
                 </div>
-                <hr/>
             % end
 
             % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
-                <div id="propertyDetails_incoming" class="incoming">
+                <div id="propertyDetails_incoming" class="incoming scrollto">
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('月收支分析')}}</h3>
                     % if property.get('estimated_income_description'):
                         <div class="historical_price_description">{{property.get('estimated_income_description','')}}</div>
@@ -780,11 +799,11 @@
                         %end
                     </table>
                 </div>
-                <hr/>
             % end
 
             % if property.get('brochure') and len(property.get('brochure')) > 0:
-                <div id="propertyDetails_brochure" class="brochure">
+                <div id="propertyDetails_brochure" class="brochure scrollto">
+                    <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('相关资料')}}</h3>
                     % if user:
                         <div class="brochures_entry">
@@ -826,11 +845,11 @@
                         </div>
                     % end
                 </div>
-                <hr/>
             % end
 
             %if report:
-                <div class="regionReport" id="regionReport">
+                <div id="regionReport" class="regionReport scrollto" >
+                    <div class="seperator"></div>
                     %if report.get('image'):
                         <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
                     %else:
@@ -924,7 +943,7 @@
                     </tr>
                 </table>
 
-                <hr/>
+                <div class="seperator"></div>
                 <table class="actions">
                     <tr>
                         <td style="text-align:left;">
@@ -1040,12 +1059,12 @@
                     <button class="flatButton" type="submit" disabled>{{_('留言咨询')}}</button>
                 </div>
                 <div class="row" data-role="serverFeedback" style="display: none; text-align:center;"></div>
-                <hr/>
+                <div class="seperator"></div>
                 <div class="contact">
                     {{_('或拨打')}}<a href="tel:4000926433">400-0926-433</a>{{_('咨询 ')}}
                 </div>
             </form>
-            <hr/>
+            <div class="seperator"></div>
 
             % if 'intention' in property and property.get('intention'):
                 % item_width = '25%'
@@ -1076,11 +1095,11 @@
                         % end
                     </ul>
                 </div>
-                <hr/>
+                <div class="seperator"></div>
             % end
             <h2 class="propertyDetails_title">{{_('房贷计算')}}</h2>
             <!--@@include=partials/mortgage_form.html  -->
-            <hr/>
+            <div class="seperator"></div>
 
             <div class="relatedProperties">
                 <h2 class="title">{{_('相关房产')}}</h2>
@@ -1181,6 +1200,8 @@
     <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
     <!--build:js /static/scripts/property.html.js-->
     <script src="/static/vendors/jquery.slimscroll.min.js"></script>
+    <script src="/static/vendors/jquery.easing.min.js"></script>
+    <script src="/static/vendors/jquery.stickynavbar/jquery.stickyNavbar.js"></script>
     <script src="/static/scripts/property_gallery.js"></script>
     <script src="/static/scripts/show_historical_price.js"></script>
     <script src="/static/scripts/intention_form.js"></script>
@@ -1195,6 +1216,34 @@
     <script src="/static/scripts/property_brochure.js"></script>
     <!--endbuild-->
     <script>
+     $(function (){
+         $('.stickyNavbar').stickyNavbar({
+             activeClass: "active",
+             sectionSelector: "scrollto",
+             selector: "li",
+             animateCSS: false
+         });
+     })
+
+     window.updatePropertyDetailNavbar = function () {
+         if (!window.team.isPhone()) {
+             var scrollOffset = $(window).scrollTop()
+             var $contentNav = $('.propertyDetails .meta')
+             var contentNavTop = $contentNav.offset().top
+             if (scrollOffset > contentNavTop) {
+                 $('.stickyNavbar').show()
+                 //$('.stickyNavbar').css('position', 'fixed')
+             }
+             else {
+                 $('.stickyNavbar').hide()
+                 //$('.stickyNavbar').css('position', 'static')
+             }
+         }
+     }
+
+     $(window).scroll(window.updatePropertyDetailNavbar);
+     $(window).resize(window.updatePropertyDetailNavbar);
+
      $('[data-fn=expendDescription]').on('click', function () {
          $(this).parent().hide()
             .parent().find('[data-ui=description]').height('auto')
