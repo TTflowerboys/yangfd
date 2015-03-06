@@ -3,6 +3,7 @@
 
 <!--build:css(dist) /static/styles/property_list.html.css-->
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
+<link rel="stylesheet" href="/static/styles/project/addtionalHouseCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseInfobox.css"/>
 <link rel="stylesheet" href="/static/styles/propertyList.css"/>
 <!--endbuild-->
@@ -150,6 +151,111 @@
                 <div class="item" data-tab-name="list">
                     <div id="result_list" class="result_list">
 
+                    </div>
+                    <div class="addtionalResultList_wrapper">
+                        <div class="noSuitableHint">
+                            <div class="line"></div>
+                            <label class="hint">
+                                {{_('没有找到合适的？来这里看看吧')}}
+                            </label>
+                        </div>
+                        <div id="addtionalResultList" class="addtionalResultList">
+                            <div class="addtionalHouseCard">
+                                <div class="imagePart">
+                                    <a href="/property/{=house.id=}">
+                                        <img class="withPlaceholder" width="240" height="160"/>
+                                    </a>
+                                    <div class="labels">
+                                        <label class="rent" for="">
+                                            5年包租
+                                        </label>
+                                        <label class="type" for="">
+                                            楼盘
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class=description>
+                                    <h1 class=name>
+                                        <a href="/property/{=house.id=}">
+                                           Ebury Bridge Road, Pimlic
+                                        </a>
+                                    </h1>
+                                    <div class="address">
+                                        <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                                        <label>
+                                            139 Ebury Bridge Road, Pimlic
+                                        </label>
+                                    </div>
+                                    <label class="price">
+                                        ¥<strong>1.28</strong>亿起
+                                    </label>
+                                </div>
+                            </div>
+
+                             <div class="addtionalHouseCard" style="margin-left:40px;">
+                                <div class="imagePart">
+                                    <a href="/property/{=house.id=}">
+                                        <img class="withPlaceholder" width="240" height="160"/>
+                                    </a>
+                                    <div class="labels">
+                                        <label class="rent" for="">
+                                            5年包租
+                                        </label>
+                                        <label class="type" for="">
+                                            楼盘
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class=description>
+                                    <h1 class=name>
+                                        <a href="/property/{=house.id=}">
+                                           Ebury Bridge Road, Pimlic
+                                        </a>
+                                    </h1>
+                                    <div class="address">
+                                        <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                                        <label>
+                                            139 Ebury Bridge Road, Pimlic
+                                        </label>
+                                    </div>
+                                    <label class="price">
+                                        ¥<strong>1.28</strong>亿起
+                                    </label>
+                                </div>
+                             </div>
+
+                              <div class="addtionalHouseCard" style="margin-left:40px;">
+                                <div class="imagePart">
+                                    <a href="/property/{=house.id=}">
+                                        <img class="withPlaceholder" width="240" height="160"/>
+                                    </a>
+                                    <div class="labels">
+                                        <label class="rent" for="">
+                                            5年包租
+                                        </label>
+                                        <label class="type" for="">
+                                            楼盘
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class=description>
+                                    <h1 class=name>
+                                        <a href="/property/{=house.id=}">
+                                           Ebury Bridge Road, Pimlic
+                                        </a>
+                                    </h1>
+                                    <div class="address">
+                                        <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                                        <label>
+                                            139 Ebury Bridge Road, Pimlic
+                                        </label>
+                                    </div>
+                                    <label class="price">
+                                        ¥<strong>1.28</strong>亿起
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <hr class="border">
                     <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
