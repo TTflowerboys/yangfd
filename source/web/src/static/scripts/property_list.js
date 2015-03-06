@@ -282,7 +282,7 @@ $(window).resize(window.updateTabSelectorFixed);
     }
 
     function loadAddtionalPropertyList(budgetType) {
-        var params = {'per_page':'5'}
+        var params = {'per_page':'5', 'budget':budgetType}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
         if (country) {
             params.country = country
