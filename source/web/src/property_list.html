@@ -190,12 +190,17 @@
             <a href="/property/{=house.id=}">
                 <div class="imagePart">
                     {_if (house.cover){_}
-                    <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" width=160 height=80 onerror="window.onImgError(this);"/>
+                    <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);" width=120 height=80/>
                     {_ } else if(house.reality_images && house.reality_images.length) {_}
-                    <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}"  width=160 height=80 onerror="window.onImgError(this);"/>
+                    <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);" width=120 height=80/>
                     {_ }else { _}
-                    <img class="withPlaceholder"  width=160 height=80 />
+                    <img class="withPlaceholder"  width=120 height=80 />
                     {_}_}
+                    <div class="labels">
+                        {_if (house.property_type && house.property_type.value){_}
+                        <label class="type" for="">{=house.property_type.value=}</label>
+                        {_}_}
+                    </div>
                 </div>
                 <div class=description>
                     <h1 class=name>
@@ -213,6 +218,16 @@
                     </h1>
                     {_if (house.property_type && house.property_type.value){_}
                     <label class="type" for="">{=house.property_type.value=}</label>
+                    {_}_}
+                     {_if(house.intention && house.intention.length) {_}
+                    <div class="intentions">
+                        <img src="/static/images/property_details/tag-icon.png"/>
+                        <label>
+                            {_ _.each(house.intention, function(oneIntention) { _}
+                            {=oneIntention.value=}
+                            {_})_}
+                        </label>
+                    </div>
                     {_}_}
                     <label class=price>
                         <!--@@include=partials/get_unit_price.tpl.html  -->

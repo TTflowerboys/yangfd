@@ -2,7 +2,7 @@
 
 .houseInfobox_wrapper {
     overflow:hidden;
-    width:360px;
+    width:320px;
     height:90px;
 
     @media @phone {
@@ -42,7 +42,7 @@
 }
 
 .houseInfobox {
-    width:360px;
+    width:320px;
     height:82px;
 
     @media @phone {
@@ -53,9 +53,35 @@
     .imagePart {
         float:left;
         height:80px;
+        position:relative;
 
         @media @phone {
             display:none;
+        }
+
+        .labels {
+            position: absolute;
+            right: 0;
+            top:10px;
+            height:30px;
+            width:100%;
+            z-index:@house_card-image-text-z-index;
+            label {
+                position:static;
+                float:right;
+                color:white;
+                font-size:14px;
+                line-height:30px;
+                padding:0 8px;
+
+                &.type {
+                    background:#333;
+                }
+                &.rent {
+                    background:#e60012;
+                }
+
+            }
         }
     }
 
@@ -73,10 +99,11 @@
             font-size:16px;
             font-weight:bold;
             line-height:16px;
-            margin-bottom:15px;
+            margin-bottom:8px;
             cursor:pointer;
             text-decoration:none;
             color:#666;
+            .limitedLines(@lines:1; @line-height: 16px;@bg: white);
             .country {
                 @media @phone {
                     display:none;
@@ -85,25 +112,67 @@
 
             @media @phone {
                 margin-bottom:8px;
-                .limitedLines(@lines:1; @line-height: 16px;@bg: white);
+            }
+        }
+
+        .intentions {
+            float:left;
+            font-size:14px;
+            display:block;
+            width: 100%;
+            @media @phone {
+                display:none;
+            }
+            img {
+                vertical-align:middle;
+                display: inline-block;
+                float: left;
+                margin-top:3px;
+                cursor:pointer;
+            }
+
+            label {
+                display: inline-block;
+                float: right;
+                width: 88%;
+                color:#999;
+                cursor:pointer;
             }
         }
 
         .type {
-            font-size:14px;
-            color:#999;
-            cursor:pointer;
-            text-decoration:none;
-            float:left;
+            display:none;
+
+            @media @phone {
+                display:block;
+                font-size:14px;
+                color:#999;
+                cursor:pointer;
+                text-decoration:none;
+                float:left;
+            }
         }
 
 
         .price {
+            display:block;
             font-size:14px;
             color:@red;
-            float:right;
+            float:left;
             cursor:pointer;
             text-decoration:none;
+
+            strong {
+                font-size:18px;
+                @media @phone {
+                    font-size:14px;
+                }
+            }
+
+            @media @phone {
+                display:inline-block;
+                float:right;
+            }
         }
     }
 }

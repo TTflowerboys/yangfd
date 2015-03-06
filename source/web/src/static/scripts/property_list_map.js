@@ -40,7 +40,7 @@
             infoboxOptions = {offset:new Microsoft.Maps.Point(-80,50) };
         }
         else {
-            infoboxOptions = {offset:new Microsoft.Maps.Point(-180,50) };
+            infoboxOptions = {offset:new Microsoft.Maps.Point(-160,50) };
         }
         var infobox = new Microsoft.Maps.Infobox(location, infoboxOptions);
         var houseResult = _.template($('#houseInfobox_template').html())({house: result})
