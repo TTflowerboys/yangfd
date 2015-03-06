@@ -81,7 +81,7 @@
                     <div id="budgetTag" class="inner">
                         %for index, budget in enumerate(budget_list):
                             %if budget.get('currency') == _.currency:
-                                <div class="toggleTag" data-id="{{budget.get('id')}}">{{budget.get('value')}}</div>
+                                <div class="toggleTag" data-id="{{budget.get('id')}}" data-index="{{index}}">{{budget.get('value')}}</div>
                             %end
                         %end
                     </div>
@@ -152,7 +152,7 @@
                     <div id="result_list" class="result_list">
 
                     </div>
-                    <div class="addtionalResultList_wrapper">
+                    <div id="addtionalResultList_wrapper" class="addtionalResultList_wrapper" style="display:none;">
                         <div class="noSuitableHint">
                             <div class="line"></div>
                             <label class="hint">
@@ -160,101 +160,7 @@
                             </label>
                         </div>
                         <div id="addtionalResultList" class="addtionalResultList">
-                            <div class="addtionalHouseCard">
-                                <div class="imagePart">
-                                    <a href="/property/{=house.id=}">
-                                        <img class="withPlaceholder" width="240" height="160"/>
-                                    </a>
-                                    <div class="labels">
-                                        <label class="rent" for="">
-                                            5年包租
-                                        </label>
-                                        <label class="type" for="">
-                                            楼盘
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class=description>
-                                    <h1 class=name>
-                                        <a href="/property/{=house.id=}">
-                                           Ebury Bridge Road, Pimlic
-                                        </a>
-                                    </h1>
-                                    <div class="address">
-                                        <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
-                                        <label>
-                                            139 Ebury Bridge Road, Pimlic
-                                        </label>
-                                    </div>
-                                    <label class="price">
-                                        ¥<strong>1.28</strong>亿起
-                                    </label>
-                                </div>
-                            </div>
-
-                             <div class="addtionalHouseCard" style="margin-left:40px;">
-                                <div class="imagePart">
-                                    <a href="/property/{=house.id=}">
-                                        <img class="withPlaceholder" width="240" height="160"/>
-                                    </a>
-                                    <div class="labels">
-                                        <label class="rent" for="">
-                                            5年包租
-                                        </label>
-                                        <label class="type" for="">
-                                            楼盘
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class=description>
-                                    <h1 class=name>
-                                        <a href="/property/{=house.id=}">
-                                           Ebury Bridge Road, Pimlic
-                                        </a>
-                                    </h1>
-                                    <div class="address">
-                                        <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
-                                        <label>
-                                            139 Ebury Bridge Road, Pimlic
-                                        </label>
-                                    </div>
-                                    <label class="price">
-                                        ¥<strong>1.28</strong>亿起
-                                    </label>
-                                </div>
-                             </div>
-
-                              <div class="addtionalHouseCard" style="margin-left:40px;">
-                                <div class="imagePart">
-                                    <a href="/property/{=house.id=}">
-                                        <img class="withPlaceholder" width="240" height="160"/>
-                                    </a>
-                                    <div class="labels">
-                                        <label class="rent" for="">
-                                            5年包租
-                                        </label>
-                                        <label class="type" for="">
-                                            楼盘
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class=description>
-                                    <h1 class=name>
-                                        <a href="/property/{=house.id=}">
-                                           Ebury Bridge Road, Pimlic
-                                        </a>
-                                    </h1>
-                                    <div class="address">
-                                        <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
-                                        <label>
-                                            139 Ebury Bridge Road, Pimlic
-                                        </label>
-                                    </div>
-                                    <label class="price">
-                                        ¥<strong>1.28</strong>亿起
-                                    </label>
-                                </div>
-                            </div>
+                 
                         </div>
                     </div>
                     <hr class="border">
@@ -289,6 +195,7 @@
     </ul>
 </div>
 <!-- @@include=/static/templates/house_card.tpl.html-->
+<!-- @@include=/static/templates/addtional_house_card.tpl.html-->
 
 <script id="houseInfobox_template" type="text/template">
     <div class="houseInfobox_wrapper infobox">

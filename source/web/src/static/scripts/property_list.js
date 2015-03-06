@@ -61,9 +61,64 @@ $(window).resize(window.updateTabSelectorFixed);
 // $(window).resize(window.updateTagsFixed);
 
 (function () {
+    var lastItemTimeDic = {}
+    var budgetTotalResultCountDic = {}
+    var budgetCurrentResultCountDic = {}
+    var isLoading = false
 
+    function getLastItemTimeByBudget(id) {
+        if (id) {
+            return lastItemTimeDic[id]
+        }
+        else {
+            return lastItemTimeDic.all
+        }
+    }
 
-    var lastItemTime
+    function getTotalResultCountByBudget(id) {
+        if (id) {
+            return budgetTotalResultCountDic[id]
+        }
+        else {
+            return budgetTotalResultCountDic.all
+        }
+    }
+
+    function getCurrentResultCountByBudget(id) {
+        if (id) {
+            return budgetCurrentResultCountDic[id]
+        }
+        else {
+            return budgetCurrentResultCountDic.all
+        }
+    }
+
+    function setLastItemTimeBudget(id, time) {
+        if (id) {
+            lastItemTimeDic[id] = time
+        }
+        else {
+            lastItemTimeDic.all = time
+        }
+    }
+
+    function setTotalResultCountByBudget(id, count) {
+        if (id) {
+            budgetTotalResultCountDic[id] = count
+        }
+        else {
+            budgetTotalResultCountDic.all = count
+        }
+    }
+
+    function setCurrentResultCountByBudget(id, count) {
+        if (id) {
+            budgetCurrentResultCountDic[id] = count
+        }
+        else {
+            budgetCurrentResultCountDic.all = count
+        }
+    }
 
     var onePageItemCount = 5
     //better check is phone cell
@@ -80,6 +135,10 @@ $(window).resize(window.updateTabSelectorFixed);
         else {
             return $('#result_list').children('.houseCard').length
         }
+    }
+
+    function getBudgetCurrentTotalCount(budgetId) {
+       return $('#addtionalResultList').children('[data-budget-id=' + budgetId +']').length
     }
 
 
@@ -153,6 +212,7 @@ $(window).resize(window.updateTabSelectorFixed);
         if (buildingArea) {
             params.building_area = buildingArea
         }
+        var lastItemTime = getLastItemTimeByBudget(budgetType)
         if (lastItemTime) {
             params.mtime = lastItemTime
 
@@ -167,6 +227,7 @@ $(window).resize(window.updateTabSelectorFixed);
 
         $('#loadIndicator').show()
         $('#loadMore').hide()
+        isLoading = true
 
         var totalResultCount = getCurrentTotalCount()
         $.betterPost('/api/1/property/search', params)
@@ -190,6 +251,11 @@ $(window).resize(window.updateTabSelectorFixed);
                             lastItemTime = house.mtime
                         }
                     })
+
+                    setLastItemTimeBudget(budgetType, lastItemTime)
+                    setTotalResultCountByBudget(budgetType, totalResultCount)
+                    setCurrentResultCountByBudget(budgetType, getCurrentTotalCount())
+
                     updatePropertyCardMouseEnter()
 
                     if (totalResultCount > getCurrentTotalCount()) {
@@ -210,8 +276,133 @@ $(window).resize(window.updateTabSelectorFixed);
             .always(function () {
                 updateResultCount(totalResultCount)
                 $('#loadIndicator').hide()
+                isLoading = false
                 window.updateTabSelectorVisibility(true)
             })
+    }
+
+    function loadAddtionalPropertyList(budgetType) {
+        var params = {'per_page':'5'}
+        var country = $('select[name=propertyCountry]').children('option:selected').val()
+        if (country) {
+            params.country = country
+        }
+        var city = $('select[name=propertyCity]').children('option:selected').val()
+        if (city) {
+            params.city = city
+        }
+        var propertyType = $('select[name=propertyType]').children('option:selected').val()
+        if (propertyType) {
+            params.property_type = propertyType
+        }
+
+        var intention = getSelectedIntention()
+        if (intention) {
+            params.intention = intention
+        }
+        var bedroomCount = getSelectedBedroomCount()
+        if (bedroomCount) {
+            params.bedroom_count = bedroomCount
+        }
+        var buildingArea = getSelectedBuildingArea()
+        if (buildingArea) {
+            params.building_area = buildingArea
+        }
+
+        var lastItemTime = getLastItemTimeByBudget(budgetType)
+        if (lastItemTime) {
+            params.mtime = lastItemTime
+        }
+
+        $('#loadIndicator').show()
+        $('#loadMore').hide()
+        isLoading = true
+
+        $.betterPost('/api/1/property/search', params)
+            .done(function (val) {
+                var array = val.content
+                var totalResultCount = val.count
+                if (!_.isEmpty(array)) {
+
+                    lastItemTime = _.last(array).mtime
+
+                    var index = $('#addtionalResultList').children('.addtionalHouseCard').length - 1
+                    _.each(array, function (house) {
+                        index = index + 1
+                        var houseResult = _.template($('#addtional_houseCard_template').html())({house: house, budgetId:budgetType, index:index})
+                        $('#addtionalResultList').append(houseResult)
+
+                        if (lastItemTime > house.mtime) {
+                            lastItemTime = house.mtime
+                        }
+                    })
+
+                    setLastItemTimeBudget(budgetType, lastItemTime)
+                    setTotalResultCountByBudget(budgetType, totalResultCount)
+                    setCurrentResultCountByBudget(budgetType, getBudgetCurrentTotalCount(budgetType))
+                    console.log(budgetType)
+                    console.log(array)
+                    $('#addtionalResultList_wrapper').show()
+                    $('#loadMore').hide()
+                }
+                else {
+                    $('#loadMore').hide()
+                }
+
+            })
+            .fail (function () {
+                $('#loadMore').show()
+            })
+            .always(function () {
+                $('#loadIndicator').hide()
+                isLoading = false
+            })
+    }
+
+
+    function isBudgetLoadFinished(id) {
+        var totalCount = getTotalResultCountByBudget(id)
+        var currentCount = getCurrentTotalCount(id)
+        if (totalCount && currentCount) {
+            return getTotalResultCountByBudget(id) === getCurrentResultCountByBudget(id)
+        }
+        else {
+            //here these two count is undefined.
+            return false
+        }
+    }
+
+    function isCurrentBudgetLoadFinished() {
+        return isBudgetLoadFinished(getSelectedBudgetType())
+    }
+
+    function getCurrentBelowNotFinishedBudget() {
+        /*
+         1. must have one selected budget
+         2. the budget must not the lowest one
+         3. current budget load all data, no more
+         4. below budget not load all data, not finished
+         */
+
+        var $selectedChild = $('#tags #budgetTag').children('.selected')
+        if ($selectedChild.length) {
+            $selectedChild = $selectedChild.first()
+            if (parseInt($selectedChild.attr('data-index')) > 0) {
+                if (isCurrentBudgetLoadFinished()) {
+                    var budgetIndex = $selectedChild.attr('data-index')
+                    budgetIndex = budgetIndex - 1
+                    var $child = null
+                    while (budgetIndex >= 0) {
+                        $child = $('#tags #budgetTag').children('[data-index='+ budgetIndex + ']')
+                        if (!isBudgetLoadFinished($child.attr('data-id'))) {
+                            return $child.attr('data-id')
+                        }
+                        budgetIndex = budgetIndex - 1
+                    }
+                }
+            }
+        }
+        return null
     }
 
     function getData(key) {
@@ -384,7 +575,8 @@ $(window).resize(window.updateTabSelectorFixed);
     function updateResultCount(count) {
         var $numberContainer = $('#number_container')
         //var $number = $numberContainer.find('#number')
-
+        setTotalResultCountByBudget(getSelectedBudgetType(), count)
+        setCurrentResultCountByBudget(getSelectedBudgetType(), getCurrentTotalCount())
         if (count) {
             //$number.text(count)
             $numberContainer.text(window.i18n('共找到下列房产'))
@@ -690,8 +882,18 @@ $(window).resize(window.updateTabSelectorFixed);
             }
 
             setTimeout(function () {
-                if (windowHeight  + scrollPos > requireToScrollHeight &&  $('#loadMore').is(':visible')) {
-                    loadPropertyList()
+                if (windowHeight  + scrollPos > requireToScrollHeight) {
+                    if (!isLoading) {
+                        if (isCurrentBudgetLoadFinished()) {
+                            var budget = getCurrentBelowNotFinishedBudget()
+                            if (budget) {
+                                loadAddtionalPropertyList(budget)
+                            }
+                        }
+                        else {
+                            loadPropertyList()
+                        }
+                    }
                 }
             }, 200)
         }
