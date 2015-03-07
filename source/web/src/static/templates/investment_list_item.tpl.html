@@ -2,7 +2,7 @@
     <tr class="row">
         <td class="col_name">
             <div>
-                <a href="#">{=order.items[0].name=}</a>
+                <a href="{=getCrowdfundingHref(order.type,order.items[0].id)=}">{=getCrowdfundingItem(order.items[0].name)=}</a>
             </div>
         </td>
         <td class="col_price">
@@ -28,7 +28,7 @@
         </td>
         <td class="col_status">
             <div>
-                {=order.status=}
+                下载合同
             </div>
         </td>
     </tr>
