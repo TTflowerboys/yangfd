@@ -1109,11 +1109,11 @@
                         <li class="propertyItem">
                             <a href="/property/{{property.get('id')}}">
                                 %if property.get('cover'):
-                                    <img src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                                    <img src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="360" height="240"/>
                                 %elif (property.get('reality_images') and len(property.get('reality_images'))):
-                                    <img src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                                    <img src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="360" height="240"/>
                                 %else :
-                                    <img class="withPlaceholder" width="320" height="213"/>
+                                    <img class="withPlaceholder" width="360" height="240"/>
                                 %end
                                 <div class="img_shadow"></div>
                                 <div class="text">
