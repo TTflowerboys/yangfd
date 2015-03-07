@@ -31,7 +31,8 @@ angular.module('app')
                                 scope.fileNames.push('')
                             }
                         }
-                        scope.fileNames.push(file.name)
+                        var currentFileName = file.name + parseInt((new Date() - 0) / 1000, 10)
+                        scope.fileNames.push(currentFileName)
                         scope.images.push('')
                         $upload.upload({
                             url: '/api/1/upload_image',
@@ -41,7 +42,7 @@ angular.module('app')
                                 width_limit: scope.widthLimit || 0,
                                 ratio: scope.ratio || 0,
                                 thumbnail_size: scope.thumbnailSize || '0,0',
-                                filename: file.name,
+                                filename: currentFileName,
                                 watermark: scope.watermark
                             },
                             ignoreLoadingBar: true,
@@ -49,7 +50,7 @@ angular.module('app')
                         })
                             .success(function (data, status, headers, config) {
                                 for (var key in scope.images) {
-                                    if (file.name === scope.fileNames[key]) {
+                                    if (currentFileName === scope.fileNames[key]) {
                                         scope.images[key] = data.val.url
                                         break
                                     }
@@ -57,6 +58,13 @@ angular.module('app')
                             }).error(function (data) {
                                 if (!data) {
                                     growl.addErrorMessage($rootScope.renderHtml('No Response'), {enableHtml: true})
+                                }
+                                for (var key in scope.images) {
+                                    if (currentFileName === scope.fileNames[key]) {
+                                        scope.images.splice(key, 1)
+                                        scope.fileNames.splice(key, 1)
+                                        break
+                                    }
                                 }
                             })
                     }

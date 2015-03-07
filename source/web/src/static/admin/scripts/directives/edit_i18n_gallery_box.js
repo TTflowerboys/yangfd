@@ -32,7 +32,8 @@ angular.module('app')
                                 scope.fileNames[currentLanguage].push('')
                             }
                         }
-                        scope.fileNames[currentLanguage].push(file.name)
+                        var currentFileName = file.name + parseInt((new Date() - 0) / 1000, 10)
+                        scope.fileNames[currentLanguage].push(currentFileName)
                         scope.images[currentLanguage].push('')
                         $upload.upload({
                             url: '/api/1/upload_image',
@@ -42,7 +43,7 @@ angular.module('app')
                                 width_limit: scope.widthLimit || 0,
                                 ratio: scope.ratio || 0,
                                 thumbnail_size: scope.thumbnailSize || '0,0',
-                                filename: file.name,
+                                filename: currentFileName,
                                 watermark: scope.watermark
                             },
                             ignoreLoadingBar: true,
@@ -50,7 +51,7 @@ angular.module('app')
                         })
                             .success(function (data, status, headers, config) {
                                 for (var key in scope.images[currentLanguage]) {
-                                    if (file.name === scope.fileNames[currentLanguage][key]) {
+                                    if (currentFileName === scope.fileNames[currentLanguage][key]) {
                                         scope.images[currentLanguage][key] = data.val.url
                                         break
                                     }
@@ -58,6 +59,13 @@ angular.module('app')
                             }).error(function (data) {
                                 if (!data) {
                                     growl.addErrorMessage($rootScope.renderHtml('No Response'), {enableHtml: true})
+                                }
+                                for (var key in scope.images[currentLanguage]) {
+                                    if (currentFileName === scope.fileNames[currentLanguage][key]) {
+                                        scope.images[currentLanguage].splice(key, 1)
+                                        scope.fileNames[currentLanguage].splice(key, 1)
+                                        break
+                                    }
                                 }
                             })
                     }
