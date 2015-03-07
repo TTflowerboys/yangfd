@@ -84,11 +84,11 @@
                 % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
                     <li class="menuItem"><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
                 % end
+                 % if property.get('brochure') and len(property.get('brochure')) > 0:
+                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
+                % end
                 % if report :
                     <li class="menuItem"><a href="#regionReport">{{_('区域报告')}}</a></li>
-                % end
-                % if property.get('brochure') and len(property.get('brochure')) > 0:
-                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
                 % end
             </ul>
             <a class="contact" href="tel:4000926433">
@@ -849,7 +849,6 @@
 
             %if report:
                 <div id="regionReport" class="regionReport scrollto" >
-                    <div class="seperator"></div>
                     %if report.get('image'):
                         <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
                     %else:
@@ -1175,11 +1174,11 @@
                 % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
                     <li class="menuItem"><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
                 % end
+                 % if property.get('brochure') and len(property.get('brochure')) > 0:
+                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
+                % end
                 % if report :
                     <li class="menuItem"><a href="#regionReport">{{_('区域报告')}}</a></li>
-                % end
-                % if property.get('brochure') and len(property.get('brochure')) > 0:
-                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
                 % end
         </ul>
         <div id="menu_button_phone" class="menu_button">
