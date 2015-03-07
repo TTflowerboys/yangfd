@@ -22,7 +22,7 @@
         <label class="control-label">{%$root.i18n('姓名')%} *</label>
 
         <div class="controls">
-            <input ng-disabled="existingItem.nickname" class="form-control" ng-model="item.nickname" type="text"
+            <input ng-disabled="existingItem.id" class="form-control" ng-model="item.nickname" type="text"
                 style="width: 20em"/>
         </div>
     </div>
@@ -31,7 +31,7 @@
         <label class="control-label">{%$root.i18n('邮箱')%} *</label>
 
         <div class="controls">
-            <input ng-disabled="existingItem.email" class="form-control" ng-model="item.email" type="email"
+            <input ng-disabled="existingItem.id" class="form-control" ng-model="item.email" type="email"
                 style="width: 30em"/>
         </div>
     </div>
