@@ -60,7 +60,14 @@ body{
     background:#333;
     width:100%;
     min-width:@min-page-width;
-    display:none;//default hide
+
+    &.unsticky {
+        display:none;//default hide
+    }
+
+    &.sticky {
+        display:block;
+    }
 
     @media @phone {
         display:none;
@@ -889,7 +896,7 @@ body{
     }
 
     .brief {
-
+        overflow:hidden;
         .propertyDetails_title {
 
             @media @phone {
