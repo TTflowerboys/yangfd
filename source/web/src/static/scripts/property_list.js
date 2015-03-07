@@ -24,11 +24,15 @@ $(window).on('resize', window.resizeCategory);
 window.updateTabSelectorFixed = function () {
     if (!window.team.isPhone()) {
         var scrollOffset = $(window).scrollTop()
-        var $list = $('.tabContent').width() > 0 ? $('.tabContent'): $('#emptyPlaceHolder')
+        var $list = $('.tabContent').width() > 0 ? $('#result_list'): $('#emptyPlaceHolder')
         var listTop = $list.offset().top
+        var listHeight = $list.height()
         var $tabSelector = $('.tabSelector')
         var tabLeft = $list.offset().left - 60
-        if (scrollOffset > listTop - 20) {
+        if (scrollOffset > listTop + listHeight - 20) {
+            $tabSelector.css({'position':'static', 'top':'0', left:'0', 'margin-top': '0x'})
+        }
+        else if (scrollOffset > listTop - 20) {
             $tabSelector.css({'position':'fixed', 'top':'20px', left:tabLeft, 'margin-top':'0'})
         }
         else {
@@ -883,9 +887,11 @@ $(window).resize(window.updateTabSelectorFixed);
                 if (windowHeight  + scrollPos > requireToScrollHeight) {
                     if (!isLoading) {
                         if (isCurrentBudgetLoadFinished()) {
-                            var budget = getCurrentBelowNotFinishedBudget()
-                            if (budget) {
-                                loadAddtionalPropertyList(budget)
+                            if (!window.team.isPhone()) {
+                                var budget = getCurrentBelowNotFinishedBudget()
+                                if (budget) {
+                                    loadAddtionalPropertyList(budget)
+                                }
                             }
                         }
                         else {
