@@ -60,7 +60,14 @@ body{
     background:#333;
     width:100%;
     min-width:@min-page-width;
-    display:none;//default hide
+
+    &.unsticky {
+        display:none;//default hide
+    }
+
+    &.sticky {
+        display:block;
+    }
 
     @media @phone {
         display:none;
@@ -101,7 +108,7 @@ body{
             float:right;
             text-align:left;
             background:@red;
-            padding:15px 30px;
+            padding:30px 30px 0px;
             color:white;
             text-decoration:none;
             font-size:16px;
@@ -451,10 +458,13 @@ body{
                      table-layout:fixed;
                      @media @phone {
                          display:table;
+                         border-bottom: 1px solid #ccc;
+                         border-collapse: separate;
                      }
 
                      float:left;
-                     margin:12px 0;
+                     padding: 12px 0;
+                     margin-bottom: 12px;
                      td { width: 50%; border-left: 1px solid #ccc; padding-left: @base-font-size-mobile;
                           .text {font-size:@base-font-size-mobile;}
                           .percentage { display: block; font-size: @base-font-size-mobile; min-height: 28px; vertical-align: bottom;
@@ -889,7 +899,7 @@ body{
     }
 
     .brief {
-
+        overflow:hidden;
         .propertyDetails_title {
 
             @media @phone {
@@ -1497,8 +1507,8 @@ body{
         overflow:hidden;
         position:fixed;
         z-index:@float_bar_phone-z-index;
-        bottom:50px;
-        right:10px;
+        bottom:40px;
+        right:0px;
         cursor:pointer;
         text-align:right;
     }
@@ -1507,7 +1517,7 @@ body{
         background: #333;
         opacity: 0.9;
         border-radius: 6px;
-        margin-bottom:10px;
+        margin-right:10px;
         text-align:left;
 
         li {
@@ -1549,8 +1559,14 @@ body{
     }
 
     .menu_button {
-        height:40px;
-        width:40px;
+        height: 60px;
+        padding: 10px;
+
+        img {
+            width:40px;
+            height:40px;
+
+        }
     }
 }
 
@@ -1615,8 +1631,8 @@ body{
     .propertyItem {
         position:relative;
         margin-bottom:20px;
-        height: 213px;
-        width: 320px;
+        height: 240px;
+        width: 360px;
 
         a {
             text-decoration:none;
@@ -1645,7 +1661,7 @@ body{
                 >.title {
                     font-size:30px;
                     color:white;
-                    margin-top:115px;
+                    margin-top:142px;
                 }
                 >.price {
                     font-size:24px;

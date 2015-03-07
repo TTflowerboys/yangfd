@@ -6,7 +6,7 @@
     height:90px;
 
     @media @phone {
-        width:160px;
+        width:180px;
         height:65px;
     }
 
@@ -46,8 +46,9 @@
     height:82px;
 
     @media @phone {
-        width:160px;
+        width:180px;
         height:57px;
+        padding:10px;
     }
 
     .imagePart {
@@ -92,18 +93,22 @@
         cursor:pointer;
 
         @media @phone {
-            width:158px;
+            width:130px;
+            padding:0px;
         }
 
         .name {
             font-size:16px;
             font-weight:bold;
-            line-height:16px;
             margin-bottom:8px;
             cursor:pointer;
             text-decoration:none;
             color:#666;
             .limitedLines(@lines:1; @line-height: 16px;@bg: white);
+            @media @phone {
+                font-size:13px;
+                .limitedLines(@lines:1; @line-height: 13px;@bg: white);
+            }
             .country {
                 @media @phone {
                     display:none;
@@ -145,7 +150,7 @@
 
             @media @phone {
                 display:block;
-                font-size:14px;
+                font-size:11px;
                 color:#999;
                 cursor:pointer;
                 text-decoration:none;
@@ -161,18 +166,28 @@
             float:left;
             cursor:pointer;
             text-decoration:none;
+            @media @phone {
+                display:inline-block;
+                float:right;
+                font-size:11px;
+            }
 
             strong {
                 font-size:18px;
                 @media @phone {
-                    font-size:14px;
+                    font-size:11px;
                 }
             }
+        }
+    }
 
-            @media @phone {
-                display:inline-block;
-                float:right;
-            }
+    .enter_phone {
+        display:none;
+
+        @media @phone {
+            display:block;
+            float:right;
+            margin-top:7px;
         }
     }
 }

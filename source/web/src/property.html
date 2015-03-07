@@ -63,7 +63,7 @@
     <![endif]-->
 
 
-    <div id="stickyNavbar" class="stickyNavbar">
+    <div id="stickyNavbar" class="stickyNavbar unsticky">
         <nav id="nav">
             <ul class="nav navbar-nav">
                 <li class="menuItem">
@@ -84,15 +84,15 @@
                 % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
                     <li class="menuItem"><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
                 % end
+                 % if property.get('brochure') and len(property.get('brochure')) > 0:
+                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
+                % end
                 % if report :
                     <li class="menuItem"><a href="#regionReport">{{_('区域报告')}}</a></li>
                 % end
-                % if property.get('brochure') and len(property.get('brochure')) > 0:
-                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
-                % end
             </ul>
             <a class="contact" href="tel:4000926433">
-                 {{!_('拨打<br/><strong>400-0926-433</strong>')}}
+                 {{!_('拨打 <strong>400-0926-433</strong>')}}
             </a>
         </nav>
     </div>
@@ -849,7 +849,6 @@
 
             %if report:
                 <div id="regionReport" class="regionReport scrollto" >
-                    <div class="seperator"></div>
                     %if report.get('image'):
                         <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
                     %else:
@@ -1109,11 +1108,11 @@
                         <li class="propertyItem">
                             <a href="/property/{{property.get('id')}}">
                                 %if property.get('cover'):
-                                    <img src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                                    <img src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="360" height="240"/>
                                 %elif (property.get('reality_images') and len(property.get('reality_images'))):
-                                    <img src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="320" height="213"/>
+                                    <img src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);" width="360" height="240"/>
                                 %else :
-                                    <img class="withPlaceholder" width="320" height="213"/>
+                                    <img class="withPlaceholder" width="360" height="240"/>
                                 %end
                                 <div class="img_shadow"></div>
                                 <div class="text">
@@ -1175,14 +1174,16 @@
                 % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
                     <li class="menuItem"><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
                 % end
+                 % if property.get('brochure') and len(property.get('brochure')) > 0:
+                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
+                % end
                 % if report :
                     <li class="menuItem"><a href="#regionReport">{{_('区域报告')}}</a></li>
                 % end
-                % if property.get('brochure') and len(property.get('brochure')) > 0:
-                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
-                % end
-            </ul>
-        <img id="menu_button_phone" class="menu_button" src="/static/images/property_details/phone/property-menu.png"/>
+        </ul>
+        <div id="menu_button_phone" class="menu_button">
+            <img src="/static/images/property_details/phone/property-menu.png"/>
+        </div>
      </div>
 
     <ul class="floatBar_phone">
@@ -1231,7 +1232,7 @@
     <!--build:js /static/scripts/property.html.js-->
     <script src="/static/vendors/jquery.slimscroll.min.js"></script>
     <script src="/static/vendors/jquery.easing.min.js"></script>
-    <script src="/static/vendors/jquery.stickynavbar/jquery.stickyNavbar.js"></script>
+    <script src="/static/vendors/jquery.stickynavbar/jquery.stickyNavbar.modified.js"></script>
     <script src="/static/scripts/property_gallery.js"></script>
     <script src="/static/scripts/show_historical_price.js"></script>
     <script src="/static/scripts/intention_form.js"></script>
@@ -1252,28 +1253,19 @@
              sectionSelector: "scrollto",
              selector: "li",
              animateCSS: false,
-             zindex:60
+             jqueryEffects: false,
+             zindex:60,
+             stickyModeFunction: function () {
+                 if (!window.team.isPhone()) {
+                     var scrollOffset = $(window).scrollTop()
+                     var $contentNav = $('.propertyDetails .meta')
+                     var contentNavTop = $contentNav.offset().top
+                     return scrollOffset > contentNavTop - 200
+                 }
+                 return false
+             }
          });
      })
-
-     window.updatePropertyDetailNavbar = function () {
-         if (!window.team.isPhone()) {
-             var scrollOffset = $(window).scrollTop()
-             var $contentNav = $('.propertyDetails .meta')
-             var contentNavTop = $contentNav.offset().top
-             if (scrollOffset > contentNavTop) {
-                 $('.stickyNavbar').show()
-                 //$('.stickyNavbar').css('position', 'fixed')
-             }
-             else {
-                 $('.stickyNavbar').hide()
-                 //$('.stickyNavbar').css('position', 'static')
-             }
-         }
-     }
-
-     $(window).scroll(window.updatePropertyDetailNavbar);
-     $(window).resize(window.updatePropertyDetailNavbar);
 
      $('#menu_button_phone').click(function (e) {
          if($('#menu_content_phone').is(':visible')) {
