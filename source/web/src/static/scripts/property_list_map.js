@@ -37,7 +37,7 @@
         var layer = new Microsoft.Maps.EntityCollection()
         var infoboxOptions = null
         if (window.team.isPhone()) {
-            infoboxOptions = {offset:new Microsoft.Maps.Point(-80,50) };
+            infoboxOptions = {offset:new Microsoft.Maps.Point(-90,50) };
         }
         else {
             infoboxOptions = {offset:new Microsoft.Maps.Point(-160,50) };
