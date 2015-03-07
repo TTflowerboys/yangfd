@@ -340,8 +340,6 @@ $(window).resize(window.updateTabSelectorFixed);
                     setLastItemTimeBudget(budgetType, lastItemTime)
                     setTotalResultCountByBudget(budgetType, totalResultCount)
                     setCurrentResultCountByBudget(budgetType, getBudgetCurrentTotalCount(budgetType))
-                    console.log(budgetType)
-                    console.log(array)
                     $('#addtionalResultList_wrapper').show()
                     $('#loadMore').hide()
                 }
