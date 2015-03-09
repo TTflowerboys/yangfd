@@ -74,6 +74,8 @@ def property_search(user, params):
         params["intention"] = {"$in": params.pop("intention", [])}
 
     params["$and"] = []
+    non_project_params = {"$and": []}
+    main_house_types_elem_params = {"$and": []}
 
     if "budget" in params or "price" in params:
         if "budget" in params:
@@ -81,7 +83,8 @@ def property_search(user, params):
         elif "price" in params:
             budget = [x.strip() for x in params.pop("price").split(",")]
             assert len(budget) == 3 and budget[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
-        price_filter = []
+        non_project_price_filter = []
+        main_house_types_elem_price_filter = []
         for currency in f_app.common.currency:
             condition = {"total_price.unit": currency}
             house_condition = {"total_price.unit": currency}
@@ -101,9 +104,10 @@ def property_search(user, params):
                 if budget[1]:
                     condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
                     house_condition["total_price_min.value_float"] = {"$lte": float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))}
-            price_filter.append(condition)
-            price_filter.append({"main_house_types": {"$elemMatch": house_condition}})
-        params["$and"].append({"$or": price_filter})
+            non_project_price_filter.append(condition)
+            main_house_types_elem_price_filter.append(house_condition)
+        non_project_params["$and"].append({"$or": non_project_price_filter})
+        main_house_types_elem_params["$and"].append({"$or": main_house_types_elem_price_filter})
 
     if "name" in params:
         name = params.pop("name")
@@ -125,15 +129,18 @@ def property_search(user, params):
         bedroom_count = f_app.util.parse_bedroom_count(params.pop("bedroom_count"))
         if bedroom_count[0] and bedroom_count[1]:
             if bedroom_count[0] == bedroom_count[1]:
-                params["main_house_types.bedroom_count"] = bedroom_count[0]
+                bedroom_filter = bedroom_count[0]
             elif bedroom_count[0] > bedroom_count[1]:
                 abort(40000, logger.warning("Invalid bedroom_count: start value cannot be greater than end value"))
             else:
-                params["main_house_types.bedroom_count"] = {"$gte": bedroom_count[0], "$lte": bedroom_count[1]}
+                bedroom_filter = {"$gte": bedroom_count[0], "$lte": bedroom_count[1]}
         elif bedroom_count[0]:
-            params["main_house_types.bedroom_count"] = {"$gte": bedroom_count[0]}
+            bedroom_filter = {"$gte": bedroom_count[0]}
         elif bedroom_count[1]:
-            params["main_house_types.bedroom_count"] = {"$lte": bedroom_count[1]}
+            bedroom_filter = {"$lte": bedroom_count[1]}
+
+        non_project_params["bedroom_count"] = bedroom_filter
+        main_house_types_elem_params["bedroom_count"] = bedroom_filter
 
     if "building_area" in params:
         building_area_filter = []
@@ -160,9 +167,12 @@ def property_search(user, params):
                     condition["space.value_float"]["$lte"] = float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[1]}, building_area_unit))
                     house_condition["building_area_min.value_float"] = {"$lte": float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[1]}, building_area_unit))}
             space_filter.append(condition)
-            building_area_filter.append({"main_house_types": {"$elemMatch": house_condition}})
+            building_area_filter.append(house_condition)
+        non_project_params["$and"].append({"$or": space_filter})
+        main_house_types_elem_params["$and"].append({"$or": building_area_filter})
 
-        params["$and"].append({"$or": building_area_filter})
+    if len(main_house_types_elem_params["$and"]):
+        params["$and"].append({"$or": [non_project_params, {"main_house_types": {"$elemMatch": main_house_types_elem_params}}]})
 
     if len(params["$and"]) < 1:
         params.pop("$and")
