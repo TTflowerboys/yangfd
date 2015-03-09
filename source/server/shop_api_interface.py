@@ -25,6 +25,8 @@ item_params = dict(
     min_annual_return_estimated=(float, None),
     max_annual_cash_return_estimated=(float, None),
     min_annual_cash_return_estimated=(float, None),
+    rental_return_start_date=(datetime, None),
+    rental_return_cycle=str,
     term=(float, None),
     funding_goal=(float, None),
     funding_min=(float, None),
@@ -70,7 +72,7 @@ item_params = dict(
     materials=(list, None, dict(
         filename=(str, None),
         link=(str, None),
-    ))
+    )),
 )
 
 
