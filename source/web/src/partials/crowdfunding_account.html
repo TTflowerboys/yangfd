@@ -1,19 +1,82 @@
 <div>
-    <div>可用余额</div>
-    <div>
-        <div>￥20000</div>
-        <div>充值</div>
-        <div>提现</div>
+    <div class="cfdPageTitle">资产总览</div>
+    <div class="orangeTable">
+        <div class="orangeTitle phone">今日收益</div>
+        <table class="topClass">
+            <tr>
+                <td colspan="4">
+                    <div class="noLine">
+                        <div class="orangeTitle web">可用余额</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="noLine">
+                        <div class="orangeTitle number">￥20000</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="noLine" style="text-align:right">
+                        <button class="recharge">充值</button>
+                        <button class="recharge withdrawal">提现</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
-    <div>
-        <div>
-            银行卡
+    <div class="contentBody">
+        <div class="cfdContentFrame">
+            <div class="cfdContentTitle">交易记录</div>
         </div>
-        <div>
-            <div class="cardList">
+        <table>
+            <tr>
+                <td style="min-width: 70px;">
+                    <span class="cfdFilterMenu">交易日期：</span>
+                </td>
+                <td class="transactionDate">
+                    <div class="cfdFilterButton selected">全部</div>
+                    <div class="cfdFilterButton">最近7天</div>
+                    <div class="cfdFilterButton">2个月</div>
+                    <div class="cfdFilterButton">3个月</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="cfdFilterMenu">交易日期：</span>
+                </td>
+                <td>
+                    <input type="text" class="cfdFilterInput">
+                    <span class="cfdFilterMenu">至</span>
+                    <input type="text" class="cfdFilterInput">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="cfdFilterMenu">交易类型：</span>
+                </td>
+                <td class="transactionType">
+                    <div class="cfdFilterButton selected">全部</div>
+                    <div class="cfdFilterButton">充值</div>
+                    <div class="cfdFilterButton">提现</div>
+                </td>
+            </tr>
+        </table>
+        <!--<textarea id="dataOrderList" style="display:none;">{{json_dumps(order_list)}}</textarea>-->
 
-            </div>
-            <div>+银行卡</div>
-        </div>
+        <table class="transaction_list" id="transaction_list">
+            <tr>
+                <th class="col_time">时间</th>
+                <th class="col_type">交易类型</th>
+                <th class="col_content">交易详情</th>
+                <th class="col_price">金额</th>
+            </tr>
+
+        </table>
+        <div class="transaction_list phone" id="transaction_list_phone"></div>
+
+        <!--@@include=/message_holder.html {"hint":"{{_('没有交易记录')}}"}-->
+
+        <!-- @@include=../static/templates/transaction_list_item.tpl.html-->
     </div>
 </div>
