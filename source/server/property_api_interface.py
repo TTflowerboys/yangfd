@@ -73,13 +73,18 @@ def property_search(user, params):
     if "intention" in params:
         params["intention"] = {"$in": params.pop("intention", [])}
 
+    params["$and"] = []
+    non_project_params = {"$and": []}
+    main_house_types_elem_params = {"$and": []}
+
     if "budget" in params or "price" in params:
         if "budget" in params:
             budget = f_app.util.parse_budget(params.pop("budget"))
         elif "price" in params:
             budget = [x.strip() for x in params.pop("price").split(",")]
             assert len(budget) == 3 and budget[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
-        params["$or"] = []
+        non_project_price_filter = []
+        main_house_types_elem_price_filter = []
         for currency in f_app.common.currency:
             condition = {"total_price.unit": currency}
             house_condition = {"total_price.unit": currency}
@@ -99,8 +104,10 @@ def property_search(user, params):
                 if budget[1]:
                     condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
                     house_condition["total_price_min.value_float"] = {"$lte": float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))}
-            params["$or"].append(condition)
-            params["$or"].append({"main_house_types": {"$elemMatch": house_condition}})
+            non_project_price_filter.append(condition)
+            main_house_types_elem_price_filter.append(house_condition)
+        non_project_params["$and"].append({"$or": non_project_price_filter})
+        main_house_types_elem_params["$and"].append({"$or": main_house_types_elem_price_filter})
 
     if "name" in params:
         name = params.pop("name")
@@ -108,11 +115,7 @@ def property_search(user, params):
         for locale in f_app.common.i18n_locales:
             name_filter.append({"name.%s" % locale: name})
 
-        if "$or" not in params:
-            params["$or"] = name_filter
-        else:
-            or_filter = params.pop("$or")
-            params["$and"] = [{"$or": or_filter}, {"$or": name_filter}]
+        params["$and"].append({"$or": name_filter})
 
     if "developer" in params:
         developer = params.pop("developer")
@@ -120,25 +123,24 @@ def property_search(user, params):
         for locale in f_app.common.i18n_locales:
             developer_filter.append({"developer.%s" % locale: developer})
 
-        if "$or" not in params:
-            params["$or"] = developer_filter
-        else:
-            or_filter = params.pop("$or")
-            params["$and"] = [{"$or": or_filter}, {"$or": developer_filter}]
+        params["$and"].append({"$or": developer_filter})
 
     if "bedroom_count" in params:
         bedroom_count = f_app.util.parse_bedroom_count(params.pop("bedroom_count"))
         if bedroom_count[0] and bedroom_count[1]:
             if bedroom_count[0] == bedroom_count[1]:
-                params["main_house_types.bedroom_count"] = bedroom_count[0]
+                bedroom_filter = bedroom_count[0]
             elif bedroom_count[0] > bedroom_count[1]:
                 abort(40000, logger.warning("Invalid bedroom_count: start value cannot be greater than end value"))
             else:
-                params["main_house_types.bedroom_count"] = {"$gte": bedroom_count[0], "$lte": bedroom_count[1]}
+                bedroom_filter = {"$gte": bedroom_count[0], "$lte": bedroom_count[1]}
         elif bedroom_count[0]:
-            params["main_house_types.bedroom_count"] = {"$gte": bedroom_count[0]}
+            bedroom_filter = {"$gte": bedroom_count[0]}
         elif bedroom_count[1]:
-            params["main_house_types.bedroom_count"] = {"$lte": bedroom_count[1]}
+            bedroom_filter = {"$lte": bedroom_count[1]}
+
+        non_project_params["bedroom_count"] = bedroom_filter
+        main_house_types_elem_params["bedroom_count"] = bedroom_filter
 
     if "building_area" in params:
         building_area_filter = []
@@ -165,17 +167,15 @@ def property_search(user, params):
                     condition["space.value_float"]["$lte"] = float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[1]}, building_area_unit))
                     house_condition["building_area_min.value_float"] = {"$lte": float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[1]}, building_area_unit))}
             space_filter.append(condition)
-            building_area_filter.append({"main_house_types": {"$elemMatch": house_condition}})
+            building_area_filter.append(house_condition)
+        non_project_params["$and"].append({"$or": space_filter})
+        main_house_types_elem_params["$and"].append({"$or": building_area_filter})
 
-        if "$or" not in params and "$and" not in params:
-            params["$or"] = building_area_filter
-        elif "$or" in params and "$and" not in params:
-            or_filter = params.pop("$or")
-            params["$and"] = [{"$or": building_area_filter}, {"$or": or_filter}]
-        elif "$or" not in params and "$and" in params:
-            params["$and"].append({"$or": building_area_filter})
-        else:
-            abort(50000, logger.warning("Oops! Something wrong with params parser!", exc_info=False))
+    if len(main_house_types_elem_params["$and"]):
+        params["$and"].append({"$or": [non_project_params, {"main_house_types": {"$elemMatch": main_house_types_elem_params}}]})
+
+    if len(params["$and"]) < 1:
+        params.pop("$and")
 
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
@@ -236,17 +236,15 @@ def property_search_with_plot(user, params):
     if "intention" in params:
         params["intention"] = {"$in": params.pop("intention", [])}
 
+    params["$and"] = []
+
     if "name" in params:
         name = params.pop("name")
         name_filter = []
         for locale in f_app.common.i18n_locales:
             name_filter.append({"name.%s" % locale: name})
 
-        if "$or" not in params:
-            params["$or"] = name_filter
-        else:
-            or_filter = params.pop("$or")
-            params["$and"] = [{"$or": or_filter}, {"$or": name_filter}]
+        params["$and"].append({"$or": name_filter})
 
     if "developer" in params:
         developer = params.pop("developer")
@@ -254,13 +252,9 @@ def property_search_with_plot(user, params):
         for locale in f_app.common.i18n_locales:
             developer_filter.append({"developer.%s" % locale: developer})
 
-        if "$or" not in params:
-            params["$or"] = developer_filter
-        else:
-            or_filter = params.pop("$or")
-            params["$and"] = [{"$or": or_filter}, {"$or": developer_filter}]
+        params["$and"].append({"$or": developer_filter})
 
-    plot_params = {}
+    plot_params = {"$and": []}
     if "price" in params:
         price = [x.strip() for x in params.pop("price").split(",")]
         assert len(price) == 3 and price[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
@@ -281,7 +275,7 @@ def property_search_with_plot(user, params):
                     condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": price[2], "value": price[1]}, currency))
             price_filter.append(condition)
 
-        plot_params["$or"] = price_filter
+        plot_params["$and"].append({"$or": price_filter})
 
     if "space" in params:
         space_filter = []
@@ -313,11 +307,7 @@ def property_search_with_plot(user, params):
                     condition["%s.value_float" % space_field]["$lte"] = float(f_app.i18n.convert_i18n_unit({"value": space_params[1], "unit": space_params[2]}, space_unit))
             space_filter.append(condition)
 
-        if "$or" in plot_params:
-            or_filter = plot_params.pop("$or")
-            plot_params["$and"] = [{"$or": space_filter}, {"$or": or_filter}]
-        else:
-            plot_params["$or"] = space_filter
+        plot_params["$and"].append({"$or": space_filter})
 
     for field in ("bedroom_count", "bathroom_count", "kitchen_count", "living_room_count", "floor", "investment_type", "country", "city"):
         if field in params:
@@ -326,10 +316,16 @@ def property_search_with_plot(user, params):
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
 
+    if len(plot_params["$and"]) < 1:
+        plot_params.pop("$and")
+
     if plot_params:
         plot_property_set = set([str(plot.get("property_id")) for plot in f_app.plot.get(f_app.plot.search(plot_params, per_page=0))])
         params["_id"] = {"$in": [ObjectId(i) for i in plot_property_set]}
         logger.debug(params["_id"])
+
+    if len(params["$and"]) < 1:
+        params.pop("$and")
 
     # Default to mtime,desc
     property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort, time_field="mtime")
