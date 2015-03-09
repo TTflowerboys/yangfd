@@ -1,7 +1,7 @@
 <!--@@master=user_finish_step.html-->
 <!--@@block=head -->
 <!--build:css(dist) /static/styles/user_finish_declare.html.css-->
-
+<link rel="stylesheet" href="/static/styles/userFinishDeclare.css"/>
 <!--endbuild-->
 % step = 1
 <!--@@close-->
@@ -33,7 +33,7 @@
     </ul>
     <div class="tabContents">
         <div data-tab-name="experienced_investors">
-            <h2>
+            <h2 class="title">
                 Self-Certified Sophisticated Investor Statement
             </h2>
             <p>
@@ -64,8 +64,8 @@ Date: 04 February 2015
                 </label>
             </div>
         </div>
-        <div data-tab-name="high_net_worth_investors">
-            <h2>
+        <div data-tab-name="high_net_worth_investors" style="display:none;">
+            <h2 class="title">
                 High Net Worth Investor Statement
             </h2>
             <p>
@@ -98,8 +98,8 @@ Date: 04 February 2015
                 </label>
             </div>
         </div>
-        <div data-tab-name="other_investors">
-            <h2>
+        <div data-tab-name="other_investors" style="display:none;">
+            <h2 class="title">
                 Classification Quiz
             </h2>
             <p>
@@ -141,6 +141,10 @@ Spreading my funds across multiple properties
             </p>
         </div>
     </div>
+
+    <button class="confirm button red">
+        {{_('确认无误，下一步')}}
+    </button>
 </div>
 
 <!--@@close-->
