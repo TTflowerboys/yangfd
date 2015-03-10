@@ -286,27 +286,33 @@
                 </tr>
             </table>
 
-            <table class="numbers_phone">
-                <tr>
-                    %if property.get('annual_return_estimated'):
-                        <td>
-                            <span class="text">{{!_('预计总年化收益率')}}</span>
-                            <span class="percentage emphasized"><strong>
-                                {{property.get('annual_return_estimated')}}
-                            </strong></span>
-                        </td>
-                    % end
-
-                    %if property.get('annual_cash_return_estimated'):
-                        <td>
-                            <span class="text">{{!_('预估现金年化收益率')}}</span>
-                            <span class="percentage emphasized"><strong>
-                                {{property.get('annual_cash_return_estimated')}}
-                            </strong></span>
-                        </td>
-                    %end
-                </tr>
-            </table>
+            <div class="numbers_phone">
+                %if property.get('annual_return_estimated'):
+                    <div id="annualReturnEstimatedColumn" class="column">
+                        <span class="text">{{!_('预计总年化收益率')}}</span>
+                        <span class="percentage emphasized"><strong>
+                            {{property.get('annual_return_estimated')}}
+                        </strong></span>
+                    </div>
+                % end
+                %if property.get('annual_cash_return_estimated'):
+                    <div id="annualCashReturnEstimatedColumn" class="column">
+                        <span class="text">{{!_('预估现金年化收益率')}}</span>
+                        <span class="percentage emphasized"><strong>
+                            {{property.get('annual_cash_return_estimated')}}
+                        </strong></span>
+                    </div>
+                %end
+                <script>
+                 var annualCashReturnHeight = document.getElementById('annualCashReturnEstimatedColumn').clientHeight;
+                 var annualReturnHeight = document.getElementById('annualReturnEstimatedColumn').clientHeight;
+                 if (annualReturnHeight > annualCashReturnHeight) {
+                     document.getElementById('annualCashReturnEstimatedColumn').style.height=annualReturnHeight+'px';
+                 } else {
+                     document.getElementById('annualReturnEstimatedColumn').style.height=annualCashReturnHeight+'px';
+                 }
+                </script>
+            </div>
 
             <div id="propertyDetails_description" class="meta scrollto">
                 <div class="seperator"></div>

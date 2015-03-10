@@ -454,29 +454,37 @@ body{
     }
 
 
-    .numbers_phone { .clearfix(); width:100%;
-                     display:none;
-                     table-layout:fixed;
-                     @media @phone {
-                         display:table;
-                         border-bottom: 1px solid #ccc;
-                         border-collapse: separate;
-                     }
+    .numbers_phone {
+        .clearfix(); width:100%;
+        display:none;
+        @media @phone {
+            display:block;
+            border-bottom: 1px solid #ccc;
 
-                     float:left;
-                     padding: 12px 0;
-                     margin-bottom: 12px;
-                     td { width: 50%; border-left: 1px solid #ccc; padding-left: @base-font-size-mobile;
-                          .text {font-size:@base-font-size-mobile;}
-                          .percentage { display: block; font-size: @base-font-size-mobile; min-height: 28px; vertical-align: bottom;
-                                        strong { line-height: 28px; }
-                                        &.emphasized { color: @red;
-                                                       strong { font-size: 24px; word-break:break-all; display:block; }
-                                                     }
-                                      }
-                        }
-                   }
+        }
+        overflow:hidden;
+        float:left;
+        padding: 12px 0;
+        margin-bottom: 12px;
+        .column {
+            width: 50%;
+            float:left;
+            border-left: 1px solid #ccc;
+            padding-left: @base-font-size-mobile;
 
+            .text {
+                font-size:@base-font-size-mobile;}
+            .percentage {
+                display: block; font-size: @base-font-size-mobile; min-height: 28px; vertical-align: bottom;
+                strong {
+                    line-height: 28px; }
+                &.emphasized {
+                    color: @red;
+                    strong { font-size: 24px; word-break:break-all; display:block; }
+                }
+            }
+        }
+    }
 
     .nav {
         margin-bottom: 64px;

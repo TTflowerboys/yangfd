@@ -13,7 +13,6 @@ import qrcode
 import bottle
 import logging
 import calendar
-import pygeoip
 logger = logging.getLogger(__name__)
 f_app.dependency_register("qrcode", race="python")
 import currant_util
@@ -25,8 +24,7 @@ BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅'
 def check_ip_and_redirect_domain(func):
     def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
         try:
-            gi = pygeoip.GeoIP(f_app.common.geoip_data_file)
-            country = gi.country_code_by_name(request.remote_route[0])
+            country = f_app.geoip.get_country(request.remote_route[0])
             host = request.urlparts[1]
 
             # Don't redirect dev & test

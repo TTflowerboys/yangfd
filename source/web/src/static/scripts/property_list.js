@@ -170,18 +170,39 @@ $(window).resize(window.updateTabSelectorFixed);
         }
     }
 
-    function filterPropertyHouseTypes(array, budgetType) {
-        if (budgetType)  {
-            var budgetEnum = getBudgetTypeEnumById(budgetType)
-            var budgetRange = getBudgetRange(budgetEnum)
-            _.each(array, function (house) {
-                if (house.main_house_types && budgetRange[0]) {
-                    house.main_house_types = _.filter(house.main_house_types, function (house_type) {
-                        return house_type.total_price_min && house_type.total_price_min.value && parseFloat(house_type.total_price_min.value) > parseFloat(budgetRange[0])
-                    })
-                }
-            })
+    function filterPropertyHouseTypes(array, budgetType, bedroomCount, buildingArea) {
+        var budgetRange = null
+        if (budgetType) {
+            budgetRange = getEnumRange(getEnumDataById(window.budgetData, budgetType))
         }
+        var bedroomRange = null
+        if (bedroomCount) {
+            bedroomRange = getEnumRange(getEnumDataById(window.bedroomCountData, bedroomCount))
+        }
+        var buildingAreaRange = null
+        if (buildingArea) {
+            buildingAreaRange = getEnumRange(getEnumDataById(window.buildingAreaData, buildingArea))
+        }
+        _.each(array, function (house) {
+            if (house.main_house_types) {
+                house.main_house_types = _.filter(house.main_house_types, function (house_type) {
+                    var priceCheck = true
+                    var bedroomCountCheck = true
+                    var buildingAreaCheck = true
+                    if (budgetRange) {
+                        priceCheck = house_type.total_price_min && house_type.total_price_min.value && parseFloat(house_type.total_price_min.value) > parseFloat(budgetRange[0])
+                    }
+                    if (bedroomRange) {
+                        bedroomCountCheck = parseInt(house_type.bedroom_count) >= parseInt(bedroomRange[0]) && parseInt(house_type.bedroom_count) <= parseInt(bedroomRange[1])
+                    }
+                    if (buildingAreaRange) {
+                        buildingAreaCheck = house_type.building_area_min && house_type.building_area_min.value && parseFloat(house_type.building_area_min.value) > parseFloat(buildingAreaRange[0])
+                    }
+
+                    return priceCheck && bedroomCountCheck && buildingAreaCheck
+                })
+            }
+        })
         return array
     }
 
@@ -238,7 +259,7 @@ $(window).resize(window.updateTabSelectorFixed);
             .done(function (val) {
                 var array = val.content
                 totalResultCount = val.count
-                array = filterPropertyHouseTypes(array, budgetType)
+                array = filterPropertyHouseTypes(array, budgetType, bedroomCount, buildingArea)
                 if (!_.isEmpty(array)) {
                     lastItemTime = _.last(array).mtime
 
@@ -445,9 +466,9 @@ $(window).resize(window.updateTabSelectorFixed);
         return ''
     }
 
-    function getBudgetTypeEnumById(id) {
+    function getEnumDataById(data, id) {
         var selectedItem = null
-        _.each(window.budgetData, function (item) {
+        _.each(data, function (item) {
             if (item.id === id) {
                 selectedItem = item
             }
@@ -455,12 +476,12 @@ $(window).resize(window.updateTabSelectorFixed);
         return selectedItem
     }
 
-    function getBudgetRange(budgetEnum) {
+    function getEnumRange(budgetEnum) {
         var slug = budgetEnum.slug
         var enumAndValue = slug.split(':')
         if (enumAndValue && enumAndValue.length === 2) {
             var enumValueArray = enumAndValue[1].split(',')
-            if (enumValueArray && enumValueArray.length === 3) {
+            if (enumValueArray && enumValueArray.length >= 2) {
                 return [enumValueArray[0], enumValueArray[1]]
             }
         }
@@ -685,6 +706,8 @@ $(window).resize(window.updateTabSelectorFixed);
         window.propertyTypeData = getData('propertyTypeData')
         window.intentionData = getData('intentionData')
         window.budgetData = getData('budgetData')
+        window.bedroomCountData = getData('bedroomCountData')
+        window.buildingAreaData = getData('buildingAreaData')
 
         var $countrySelect = $('select[name=propertyCountry]')
         $countrySelect.change(function () {
