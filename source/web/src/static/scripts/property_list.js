@@ -184,7 +184,7 @@ $(window).resize(window.updateTabSelectorFixed);
             buildingAreaRange = getEnumRange(getEnumDataById(window.buildingAreaData, buildingArea))
         }
         _.each(array, function (house) {
-            if (house.main_house_types && budgetRange[0]) {
+            if (house.main_house_types) {
                 house.main_house_types = _.filter(house.main_house_types, function (house_type) {
                     var priceCheck = true
                     var bedroomCountCheck = true
