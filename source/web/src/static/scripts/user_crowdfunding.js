@@ -148,6 +148,15 @@ $('.transactionType div').click(function () {
         }
     })
 })
+$('.recharge').click(function () {
+    $('.rechargeFrame').show()
+    $('.mainFrame').hide()
+})
+$('.withdrawal').click(function () {
+    $('.withdrawalFrame').show()
+    $('.mainFrame').hide()
+})
+
 function changeTransactionType(page) {
     switch (page) {
         case 1:

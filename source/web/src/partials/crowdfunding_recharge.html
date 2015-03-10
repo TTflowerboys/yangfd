@@ -1,6 +1,6 @@
 <div>
     <div class="cfdPageTitle">充值</div>
-    <table>
+    <table class="rechargeTable">
         <tr>
             <td class="recharge_payment_type selected">
                 <div class="title">
@@ -10,16 +10,16 @@
                     <table>
                         <tr>
                             <td>
-
+                                <img src="../static/images/card/card_mastercard.png"/>
                             </td>
                             <td>
-
+                                <img src="../static/images/card/card_maestro.png"/>
                             </td>
                             <td>
-
+                                <img src="../static/images/card/card_vista_debit.png"/>
                             </td>
                             <td>
-
+                                <img src="../static/images/card/card_visa_electron.png"/>
                             </td>
                         </tr>
                         <tr class="card">
@@ -49,70 +49,94 @@
             </td>
         </tr>
     </table>
+    <table class="rechargeWithCard">
+        <tr>
+            <td width="30%">
+                <span>Card Number:</span>
+            </td>
+            <td>
+                <input type="text" class="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Expiration Date:</span>
+            </td>
+            <td>
 
-    <div class="orangeTable">
-        <div class="orangeTitle phone">今日收益</div>
-        <table class="topClass">
-            <tr>
-                <td id="earning" class="earning">
-                    <div class="noLine">
-                        <div class="orangeTitle web">今日收益</div>
-                        <div class="orangeTitle number">￥2.3</div>
-                    </div>
-                </td>
-                <td>
-                    <div>
-                        <div class="cfdLittleTitle orange">总投资</div>
-                        <div class="cfdLittleText">￥3000</div>
-                    </div>
-                </td>
-                <td id="overage">
-                    <div>
-                        <div class="cfdLittleTitle orange">可用余额</div>
-                        <div class="cfdLittleText">
-                            <span>￥3000</span>
-                            <button class="recharge small">充值</button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="phone">
-                        <div class="cfdLittleTitle">累计净收益</div>
-                        <div class="cfdLittleText">￥3000</div>
-                    </div>
-                </td>
-                <td>
-                    <div>
-                        <div class="cfdLittleTitle">已收收益</div>
-                        <div class="cfdLittleText">￥3000</div>
-                    </div>
-                </td>
-                <td>
-                    <div>
-                        <div class="cfdLittleTitle">待收收益</div>
-                        <div class="cfdLittleText">￥3000</div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="contentBody">
-        <div>
-            <div class="cfdContentFrame">
-                <span class="cfdContentTitle">投资收益</span>
-                <div>更多</div>
-            </div>
-            <div>image?</div>
-        </div>
-        <div>
-            <div class="cfdContentFrame">
-                <div class="cfdContentTitle">投资收益</div>
-                <div>更多</div>
-            </div>
-            <div class="touzi_list"></div>
-        </div>
-    </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>CVV Code:</span>
+            </td>
+            <td>
+                <input type="text" class="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Card Holder's Name:</span>
+            </td>
+            <td>
+                <input type="text" class="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Country:</span>
+            </td>
+            <td>
+                <input type="text" class="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>
+                    Postcode/Zip Code:
+                </span>
+            </td>
+            <td>
+                <input type="text" class="">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <hr/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>
+                    充值金额(500英镑起):
+                </span>
+            </td>
+            <td>
+                <input type="text" class="">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div>
+                    This payment will be billed to the card you specified. The name on the statement will be Youngfunding.
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <button>确认信息无误，充值</button>
+                <button>返回</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div>
+                    如果您对支付方式有任何问题，请发邮件至support@youngfunding.co.uk, 或者拨打400-0926-433咨询
+                </div>
+            </td>
+        </tr>
+    </table>
 
 </div>
