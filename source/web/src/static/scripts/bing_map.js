@@ -172,15 +172,21 @@
             typeId = typeIds[j]
             var index = 0;
 
+            var sectionHtml = ''
             for (var k = 0; k < resultDic[typeId].length; k++) {
                 var oneResult = resultDic[typeId][k]
                 if (index === 0) {
-                    var result = _.template($('#placeType_template').html())({type: window.getBingMapEntityType(typeId)})
-                    $list.append(result)
+                    sectionHtml += '<div class="ioslist-group-container"><div class="ioslist-group-header">'+ window.getBingMapEntityType(typeId)  + '</div><ul>'
                 }
                 oneResult.Type = window.getBingMapEntityType(typeId)
                 oneResult.Hint = oneResult.__Distance.toFixed(2) + 'km'
-                createListItem($list, oneResult)
+                sectionHtml += _.template($('#placeItem_template').html())({item: oneResult})
+
+                if (index === resultDic[typeId].length - 1) {
+                    sectionHtml += '</ul></div>'
+                    $list.append(sectionHtml)
+                }
+
                 index = index + 1
             }
         }
@@ -189,7 +195,7 @@
     window.showTransitMap = function (location, polygon, showCenter, zoom, country) {
         var mapId = 'transitMapCanvas'
         var map = window.getMap('transitMapCanvas')
-        var $list = $('.maps .list div[data-tab-name=transit] ul')
+        var $list = $('.maps .list div[data-tab-name=transit]')
 
         // Microsoft.Maps.loadModule('Microsoft.Maps.Traffic', {callback: function () {
         //var trafficLayer = new Microsoft.Maps.Traffic.TrafficLayer(map);
@@ -205,6 +211,7 @@
                 }
                 else {
                     updateMapResults(map, mapId, $list, searchResults)
+                    $list.ioslist()
                 }
             }
 
@@ -223,7 +230,7 @@
     window.showSchoolMap = function(location, polygon, showCenter, zoom, country) {
         var mapId = 'schoolMapCanvas'
         var map = window.getMap('schoolMapCanvas')
-        var $list = $('.maps .list div[data-tab-name=school] ul')
+        var $list = $('.maps .list div[data-tab-name=school]')
 
         findNearByLocations(map, mapId, location, country, ['8211', '8200'], function (searchResults) {
             if (searchResults) {
@@ -232,6 +239,7 @@
                 }
                 else {
                     updateMapResults(map, mapId, $list, searchResults)
+                    $list.ioslist()
                 }
             }
             map.setView({zoom: zoom? zoom:13, center: location})
@@ -248,7 +256,7 @@
     window.showFacilityMap = function(location, polygon, showCenter, zoom, country) {
         var mapId = 'facilityMapCanvas'
         var map = window.getMap('facilityMapCanvas')
-        var $list = $('.maps .list div[data-tab-name=facility] ul')
+        var $list = $('.maps .list div[data-tab-name=facility]')
 
         findNearByLocations(map, mapId, location, country, ['4017', '5400', '5540', '5800', '6000', '6512', '7011', '7832', '7997', '8060', '8231', '9221', '9504', '9505', '9510', '9523', '9530', '9539'], function (searchResults) {
             if (searchResults) {
@@ -257,6 +265,7 @@
                 }
                 else {
                     updateMapResults(map, mapId, $list, searchResults)
+                    $list.ioslist()
                 }
             }
             map.setView({zoom: zoom? zoom:13, center: location})
@@ -316,12 +325,6 @@
      })
      }*/
 
-    function createListItem($list, item) {
-        var result = _.template($('#placeItem_template').html())({item: item})
-        $list.append(result)
-    }
-
-
     //Data source https://www.google.com/fusiontables/DataSource?docid=1jgWYtlqGSPzlIa-is8wl1cZkVIWEm_89rWUwqFU#card:id=2
     window.getRegion = function(zipCodeIndex, callback) {
         Microsoft.Maps.loadModule('Microsoft.Maps.AdvancedShapes', {
@@ -379,13 +382,7 @@
         });
     }
 
-    if (!window.team.isPhone()) {
-        $('.maps .list div ul').slimScroll({
-            height: '420px'
-        });
-    }
-
-    $('.maps .list ul').click(function (event){
+    $('.maps .list').click(function (event){
         var tabName = $(event.currentTarget).closest('div[data-tab-name]').attr('data-tab-name')
         //var map = getMap(tabName + 'MapCanvas')
 

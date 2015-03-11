@@ -44,7 +44,7 @@
     }
 
 
-    $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+    $('.pictures').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
         if (tabName === 'video') {
             //Hide labels to show no-video-js text and for better video experience
             $('.content .pictures .labels').hide()
