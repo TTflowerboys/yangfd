@@ -53,6 +53,14 @@
         padding: 12px;
         height: auto;
     }
+    &.small {
+        border: 2px solid #ffb34f;
+        height: 90px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 20px 50px;
+        color: #ff8a00;
+    }
 }
 .topClass {
     margin: 0 auto;
@@ -385,11 +393,11 @@
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
-.rechargeTable{
+.rechargeTable {
     width: 100%;
-    table{
+    table {
         width: 100%;
-        td{
+        td {
             text-align: center;
         }
     }
@@ -419,16 +427,44 @@
         color: #333333;
     }
 }
-.rechargeWithCard{
+.rechargeWithCard {
     width: 100%;
     font-size: 16px;
     color: #999999;
-    td{
+    td {
+        padding: 30px;
+        input {
+            width: 100%;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            padding: 10px;
+        }
+    }
+    .caption {
+        width: 30%;
         padding: 30px;
         text-align: right;
-        input{
-            width: 100%;
-        }
+    }
+    .submit {
+        border-radius: 4px;
+        border: 2px solid #e60012;
+        padding: 10px 20px;
+        background-color: #e60012;
+        color: white;
+    }
+    .cancel {
+        border-radius: 4px;
+        border: 2px solid #e60012;
+        padding: 10px 20px;
+        background-color: transparent;
+        color: #e60012;
+        margin-left: 20px;
+    }
+    .description {
+        color: #666666;
+    }
+    .recharge_caption {
+        color: #ff8a00;
     }
 }
 .ui-tabs {
