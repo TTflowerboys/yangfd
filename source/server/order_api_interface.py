@@ -93,7 +93,7 @@ def order_recovery(user, params):
     """
     params["item_id"] = ObjectId("54bcbaaa6b809942b7bd1de8")
     force_price = params.pop("price")
-    order_params = {"type", "recovery"}
+    order_params = {"type": "recovery"}
     return f_app.order.output([f_app.shop.item_buy(params["item_id"], params, order_params=order_params, force_price=force_price)])[0]
 
 
