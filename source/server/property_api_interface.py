@@ -87,7 +87,7 @@ def property_search(user, params):
         main_house_types_elem_price_filter = []
         for currency in f_app.common.currency:
             condition = {"total_price.unit": currency}
-            house_condition = {"total_price.unit": currency}
+            house_condition = {"total_price_max.unit": currency}
             if currency == budget[2]:
                 condition["total_price.value_float"] = {}
                 if budget[0]:
