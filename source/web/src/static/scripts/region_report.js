@@ -122,7 +122,7 @@
         }
 
 
-        if (typeof Microsoft !== 'undefined') {
+        if (typeof Microsoft === 'undefined') {
             // map load failed, return
             return
         }
