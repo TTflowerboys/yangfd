@@ -644,14 +644,14 @@ def verify_email_status():
 def requirement():
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     title = _('提交置业需求')
-    return common_template("phone/requirement", intention_list=intention_list, title=title)
+    return common_template("requirement-phone", intention_list=intention_list, title=title)
 
 
 @f_get('/wechat_share')
 @check_ip_and_redirect_domain
 def wechat_share():
     title = _('微信分享')
-    return common_template("phone/wechat_share", title=title)
+    return common_template("wechat_share-phone", title=title)
 
 
 @f_get('/how_it_works', params=dict(slug=str),)
@@ -669,7 +669,7 @@ def how_it_works(params):
     title = current_intention.get('value')
     description = current_intention.get('description', current_intention.get('value'))
     keywords = current_intention.get('value') + ',' + ','.join(BASE_KEYWORDS_ARRAY)
-    return common_template("phone/how_it_works", intention_list=intention_list, current_intention=current_intention, title=title, description=description, keywords=keywords)
+    return common_template("how_it_works-phone", intention_list=intention_list, current_intention=current_intention, title=title, description=description, keywords=keywords)
 
 
 @f_get('/calculator')
@@ -677,14 +677,14 @@ def how_it_works(params):
 def calculator():
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     title = _('房贷计算器')
-    return common_template("phone/calculator", intention_list=intention_list, title=title)
+    return common_template("calculator-phone", intention_list=intention_list, title=title)
 
 
 @f_get('/user')
 @check_ip_and_redirect_domain
 def user():
     title = _('账户信息')
-    return common_template("phone/user", title=title)
+    return common_template("user-phone", title=title)
 
 
 @f_get('/admin')
