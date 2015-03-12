@@ -77,6 +77,7 @@
             api.editEnum($stateParams.id, $scope.item.type, $scope.item.value, $scope.item.slug)
                 .success(function () {
                     $state.go('^')
+                    location.reload()
                 })
         }
         $scope.addCountry = function ($event, form) {
@@ -99,6 +100,7 @@
             api.editCountry($stateParams.id, $scope.item.slug, $scope.item.value)
                 .success(function () {
                     $state.go('^')
+                    location.reload()
                 })
         }
         $scope.addState = function ($event, form) {
@@ -119,6 +121,7 @@
             api.editState($stateParams.id, $scope.item.country, $scope.item.value)
                 .success(function () {
                     $state.go('^')
+                    location.reload()
                 })
         }
         $scope.addCity = function ($event, form) {
@@ -139,6 +142,7 @@
             api.editCity($stateParams.id, $scope.item.country, $scope.item.value)
                 .success(function () {
                     $state.go('^')
+                    location.reload()
                 })
         }
         $scope.removeI18nValue = function (index) {
@@ -186,6 +190,7 @@
                 $scope.item.value)
                 .success(function () {
                     $state.go('^')
+                    location.reload()
                 })
         }
         $scope.getEditBuildingArea = function () {
@@ -233,6 +238,7 @@
                 $scope.item.value)
                 .success(function () {
                     $state.go('^')
+                    location.reload()
                 })
         }
         $scope.getIntentionList = function () {
@@ -301,6 +307,7 @@
             api.editIntention($stateParams.id, $scope.item.value, $scope.item.description, $scope.item.slug)
                 .success(function () {
                     $state.go('^')
+                    location.reload()
                 })
         }
         $scope.addIntentionValue = function () {
@@ -396,6 +403,7 @@
                 $scope.item.value)
                 .success(function () {
                     $state.go('^')
+                    location.reload()
                 })
         }
     }
