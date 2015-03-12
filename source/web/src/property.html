@@ -139,10 +139,11 @@
                         <div class="item" data-tab-name="{{name}}">
                             % if property.get(name):
                                 <div class="rslides_wrapper">
-                                    <ul class="rslides">
+                                    <ul class="rslides" data-init="false">
                                         % for image in property.get(name):
                                             <li>
-                                                <div class="img" style="background:url('{{!fetch_image(image, property_id=property.get('id'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(image, property_id=property.get('id'))}}', sizingMethod='scale');"></div>
+                                                <div class="img" data-style="background:url('<url>') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');" data-url="{{!fetch_image(image, property_id=property.get('id'))}}">
+                                                </div>
                                             </li>
                                         % end
                                     </ul>
@@ -1238,6 +1239,27 @@
     <!--@@close-->
 
     <!--@@block = scripts-->
+
+    <script>
+
+     //just load after jquery
+     window.initSlidesImages = function ($slides) {
+         if ($slides.attr('data-init') === 'false') {
+             $slides.find('li .img').each(function( index ) {
+                 var url = $(this).attr('data-url')
+                 if (team.isPhone()) {
+                     url += '_thumbnail'
+                 }
+                 var style = $(this).attr('data-style').replace('<url>', url)
+                 $(this).attr('style', style)
+             });
+             $slides.attr('data-init', 'true')
+         }
+     }
+     // init the first slides
+    initSlidesImages($('.pictures [data-tab-name]').first().find('.rslides'))
+    </script>
+
     <script src="/static/vendors/Chart.min.js"></script>
     <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
     <!--build:js /static/scripts/property.html.js-->
