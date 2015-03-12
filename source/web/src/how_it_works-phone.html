@@ -1,4 +1,4 @@
-<!--@@master = ../masters/master.html-->
+<!--@@master = ./masters/master.html-->
 <!--@@block = head-->
 <!--build:css(dist) /static/styles/how_it_works.html.css-->
 <link href="/static/styles/howItWorks.css" rel="stylesheet"/>
@@ -67,7 +67,7 @@
         <img alt="" src="/static/images/property_list/tags-indicator-phone.png"/>
     </button>
     <div class="guide">
-        <!-- @@include=../partials/intention_processCards.html -->
+        <!-- @@include=./partials/intention_processCards.html -->
     </div>
     <a class="button red view_property" href="{{'/property_list?intention=' + current_intention.get('slug')}}">
         <img alt="" src="{{'/static/images/intention/icon/' + current_intention.get('slug') + '-grey.png'}}" height="14"/>
