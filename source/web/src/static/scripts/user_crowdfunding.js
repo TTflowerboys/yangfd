@@ -235,3 +235,32 @@ function changeEarningDate(page) {
             break;
     }
 }
+$('.recharge_payment_type').click(function () {
+    var text = $(this).children('div.title')[0].innerText
+    $.each($('.recharge_payment_type'), function (i, val) {
+        if ($(this).children('div.title')[0].innerText === text) {
+            if ($(this).hasClass('selected')) {
+                return
+            } else {
+                $(this).addClass('selected')
+                changeRechargePayment(i)
+            }
+        } else {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected')
+            }
+        }
+    })
+})
+function changeRechargePayment(page) {
+    switch (page) {
+        case 1:
+            $('.rechargeNoCard').show();
+            $('.rechargeWithCard').hide();
+            break;
+        default:
+            $('.rechargeWithCard').show();
+            $('.rechargeNoCard').hide();
+            break;
+    }
+}
