@@ -362,7 +362,6 @@
 
                                 //var strokeColor = new Microsoft.Maps.Color(255, 68, 68, 68);
                                 polygon = new Microsoft.Maps.Polygon(results,{ fillColor: new Microsoft.Maps.Color(100, 68, 68, 68)});
-                                callback(polygon)
                             }
                             else if (json.rows && json.rows[0] && json.rows[0][0] &&json.rows[0][0].geometry && json.rows[0][0].geometry  && json.rows[0][0].geometry.coordinates && json.rows[0][0].geometry.coordinates.length) {
                                  _.each(json.rows[0][0].geometry.coordinates, function (item){
