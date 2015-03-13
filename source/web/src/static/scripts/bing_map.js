@@ -382,7 +382,7 @@
         });
     }
 
-    $('.maps .list').click(function (event){
+    $('.maps .list >div').click(function (event){
         var tabName = $(event.currentTarget).closest('div[data-tab-name]').attr('data-tab-name')
         //var map = getMap(tabName + 'MapCanvas')
 
