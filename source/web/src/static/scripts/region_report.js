@@ -34,11 +34,11 @@
     })
 
     $('.rslides_wrapper .leftPressArea').click(function (event) {
-        $(event.target).parent().find('a.prev').click()
+        $(event.delegateTarget).parent().find('a.prev').click()
     })
 
     $('.rslides_wrapper .rightPressArea').click(function (event) {
-        $(event.target).parent().find('a.next').click()
+        $(event.delegateTarget).parent().find('a.next').click()
     })
 
 
