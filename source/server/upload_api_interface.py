@@ -81,7 +81,7 @@ def upload_image(params):
             logger.warning("Cannot get water_mark file.")
 
     f = StringIO()
-    im.save(f, "JPEG", quality=95)
+    im.save(f, "JPEG", quality=95, optimize=True, progressive=True)
     f.seek(0)
 
     if params["thumbnail_size"][0] > 0:
@@ -126,7 +126,7 @@ def upload_image(params):
         im = im.crop(box)
         im = im.resize(params["thumbnail_size"], Image.ANTIALIAS)
         f_thumbnail = StringIO()
-        im.save(f_thumbnail, "JPEG", quality=95)
+        im.save(f_thumbnail, "JPEG", quality=95, optimize=True, progressive=True)
         f_thumbnail.seek(0)
 
     f.seek(0)
@@ -273,7 +273,7 @@ def upload_from_url(params):
             logger.warning("Cannot get water_mark file.")
 
     f = StringIO()
-    im.save(f, "JPEG", quality=95)
+    im.save(f, "JPEG", quality=95, optimize=True, progressive=True)
     f.seek(0)
 
     if params["thumbnail_size"][0] > 0:
@@ -317,7 +317,7 @@ def upload_from_url(params):
         im = im.crop(box)
         im = im.resize(params["thumbnail_size"], Image.ANTIALIAS)
         f_thumbnail = StringIO()
-        im.save(f_thumbnail, "JPEG", quality=95)
+        im.save(f_thumbnail, "JPEG", quality=95, optimize=True, progressive=True)
         f_thumbnail.seek(0)
 
     f.seek(0)

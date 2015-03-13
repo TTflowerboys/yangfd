@@ -50,7 +50,7 @@ def process_water_mark(img, viewport_size=[800, 533], thumbnail_size=[600, 300],
             im = Image.composite(layer, im, layer)
 
             f_original = StringIO()
-            im.save(f_original, "JPEG", quality=100)
+            im.save(f_original, "JPEG", quality=100, optimize=True, progressive=True)
             f_original.seek(0)
 
             if viewport_size[0] > 0:
@@ -100,7 +100,7 @@ def process_water_mark(img, viewport_size=[800, 533], thumbnail_size=[600, 300],
                 im = Image.composite(layer, im, layer)
 
                 f_viewport = StringIO()
-                im.save(f_viewport, "JPEG", quality=95)
+                im.save(f_viewport, "JPEG", quality=95, optimize=True, progressive=True)
                 f_viewport.seek(0)
 
             if thumbnail_size[0] > 0:
@@ -144,7 +144,7 @@ def process_water_mark(img, viewport_size=[800, 533], thumbnail_size=[600, 300],
                 im = im.crop(box)
                 im = im.resize(thumbnail_size, Image.ANTIALIAS)
                 f_thumbnail = StringIO()
-                im.save(f_thumbnail, "JPEG", quality=95)
+                im.save(f_thumbnail, "JPEG", quality=95, optimize=True, progressive=True)
                 f_thumbnail.seek(0)
 
             f_original.seek(0)
