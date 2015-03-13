@@ -20,10 +20,19 @@
         return window.mapCache[mapId]
     }
 
+    function getMapPinIconHtml(typeID) {
+        var $icon = $('#icon-location-' + typeID)
+        if ($icon.length === 0) {
+            $icon = $('#icon-location-item')
+        }
+        return $icon.prop('outerHTML')
+    }
+
     function createMapPin(map, layer, mapId, result) {
         if (result) {
             var location = new Microsoft.Maps.Location(result.Latitude, result.Longitude);
-            var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-item.png', width: 20, height: 30});
+            var typeID = result.EntityTypeID;
+            var pin = new Microsoft.Maps.Pushpin(location, {htmlContent:getMapPinIconHtml(typeID)});
             Microsoft.Maps.Events.addHandler(pin, 'click', function () { showInfoBox(map, mapId, result) });
             layer.push(pin)
             if  (!window.mapPinCache[mapId]) {
