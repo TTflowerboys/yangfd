@@ -42,7 +42,6 @@
                     $tmp_header = $tmp_list.find(scope.options.selectors.groupHeader).eq(0),
                     $tmp_listHeight = $tmp_list.height(),
                     $tmp_listOffset = $tmp_list.position().top;
-                console.log($tmp_list.height())
                 scope.elems.push({
                     'list': $tmp_list,
                     'header': $tmp_header,
@@ -92,7 +91,6 @@
 
             if (topElement) {
                 this.$fakeHeader.text(topElement.headerText);
-                console.log(topElement)
             }
         }
     };
