@@ -1075,7 +1075,7 @@ class f_currant_plugins(f_app.plugin_base):
                 plot_params["status"] = "selling"
 
                 plot_id = f_app.plot.crawler_insert_update(plot_params)
-                logger.debug(plot_id)
+                logger.debug("plot inserted:", plot_id)
 
             next_page_params = {
                 "ctl00$Main$btnNext": "NEXT PAGE >>",
