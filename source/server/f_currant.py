@@ -1045,6 +1045,9 @@ class f_currant_plugins(f_app.plugin_base):
                     plot_params["property_id"] = ObjectId("5446e58cc078a20042679379")
                 elif property_name == "Vita Student Telephone House":
                     plot_params["property_id"] = ObjectId("544fc68d6a57070031e5eb47")
+                else:
+                    logger.debug("Unknown property_name:", property_name, " (skipping)")
+                    continue
 
                 # property_crawler_id = "%s/%s" % (search_url, property_name)
                 # property_id_list = f_app.property.search({"property_crawler_id": property_crawler_id})
