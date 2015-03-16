@@ -1035,15 +1035,16 @@ class f_currant_plugins(f_app.plugin_base):
             logger.debug("start crawling page %d" % page_count)
             table = list_page_dom_root('div#contenttabbox table tr:not([style])')
             for row in table:
+                logger.debug("entering table, row:", row)
                 plot_params = {}
                 property_name, plot_name = [x.strip() for x in q(row[0]).text().rsplit(' ', 1)]
                 plot_params["name"] = {"en_GB": q(row[0]).text().strip()}
                 plot_params["country"] = ObjectId(f_app.enum.get_by_slug('GB')['id']),
                 plot_params["plot_crawler_id"] = q(row[0]).text()
 
-                if property_name == "Westgate":
+                if property_name == "Vita Student Westgate":
                     plot_params["property_id"] = ObjectId("5446e58cc078a20042679379")
-                elif property_name == "Telephone House":
+                elif property_name == "Vita Student Telephone House":
                     plot_params["property_id"] = ObjectId("544fc68d6a57070031e5eb47")
 
                 # property_crawler_id = "%s/%s" % (search_url, property_name)
