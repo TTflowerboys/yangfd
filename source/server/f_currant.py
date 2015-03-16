@@ -1025,7 +1025,7 @@ class f_currant_plugins(f_app.plugin_base):
         if login_result.status_code == 200:
             is_end = False
             page_count = 0
-            search_url = "http://agent-portal.selectproperty.com/listing.aspx"
+            search_url = "http://ar-portal.selectproperty.com/listing.aspx"
             list_page_dom_root = q(login_result.content).xhtml_to_html()
             while not is_end:
                 page_count += 1
