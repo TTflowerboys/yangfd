@@ -1019,7 +1019,7 @@ class f_currant_plugins(f_app.plugin_base):
             "__VIEWSTATE": "/wEPDwUJLTM1MDg0MzQxZGQHN4hPRnKD2d7hV805ujtXOOUG/UtSbXtMok8NtcC9fA==",
             "__EVENTVALIDATION": "/wEWBAKfsYDKAQK7h/n7BgKn47+hDgLkzv7OCHePjJX8HKP+nT6u2CzPpu2qwTvcw3g50v2G9ixkYidt"
         }
-        login_result = s.post(login_url, login_credentials, headers=headers, allow_redirects=False)
+        login_result = s.post(login_url, login_credentials, headers=headers)
         cookies = login_result.cookies
 
         is_end = False
@@ -1035,7 +1035,6 @@ class f_currant_plugins(f_app.plugin_base):
             logger.debug("start crawling page %d" % page_count)
             table = list_page_dom_root('div#contenttabbox table tr:not([style])')
             for row in table:
-                logger.debug("entering table, row:", row)
                 plot_params = {}
                 property_name, plot_name = [x.strip() for x in q(row[0]).text().rsplit(' ', 1)]
                 plot_params["name"] = {"en_GB": q(row[0]).text().strip()}
