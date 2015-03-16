@@ -927,7 +927,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_crawler_abacusinvestor(self, task):
         search_url = "http://www.abacusinvestor.com"
-        list_page = f_app.request.get(search_url, retry=3)
+        list_page = f_app.request.get(search_url, retry=3) 
         if list_page.status_code == 200:
             self.logger.debug("Start crawling abacusinvestor")
             list_page_dom_root = q(list_page.content)
@@ -1007,11 +1007,11 @@ class f_currant_plugins(f_app.plugin_base):
         import requests
         s = requests.Session()
         headers = {
-            "Host": "agent-portal.selectproperty.com",
-            "Origin": "http://agent-portal.selectproperty.com",
-            "Referer": "http://agent-portal.selectproperty.com/login.aspx"
+            "Host": "ar-portal.selectproperty.com",
+            "Origin": "http://ar-portal.selectproperty.com",
+            "Referer": "http://ar-portal.selectproperty.com/login.aspx"
         }
-        login_url = "http://agent-portal.selectproperty.com/Login.aspx?ReturnUrl=%2flisting.aspx"
+        login_url = "http://ar-portal.selectproperty.com/Login.aspx?ReturnUrl=%2flisting.aspx"
         login_credentials = {
             "ctl00$Main$txtEmail": "mzhang@youngfunding.co.uk",
             "ctl00$Main$txtPassword": "Ma30Ch34",
@@ -1019,7 +1019,7 @@ class f_currant_plugins(f_app.plugin_base):
             "__VIEWSTATE": "/wEPDwUJLTM1MDg0MzQxZGQHN4hPRnKD2d7hV805ujtXOOUG/UtSbXtMok8NtcC9fA==",
             "__EVENTVALIDATION": "/wEWBAKfsYDKAQK7h/n7BgKn47+hDgLkzv7OCHePjJX8HKP+nT6u2CzPpu2qwTvcw3g50v2G9ixkYidt"
         }
-        login_result = s.post(login_url, login_credentials, headers=headers)
+        login_result = s.post(login_url, login_credentials, headers=headers, allow_redirects=False)
         cookies = login_result.cookies
 
         if login_result.status_code == 200:
