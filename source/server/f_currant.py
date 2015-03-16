@@ -1065,7 +1065,9 @@ class f_currant_plugins(f_app.plugin_base):
                 if q(row[3]).text().strip() == "Studio":
                     plot_params["investment_type"] = ObjectId(f_app.enum.get_by_slug("investment_type:studio")["id"])
                 else:
-                    plot_params["bedroom_count"] = int(q(row[3]).text())
+                    bedroom_text = q(row[3]).text()
+                    if bedroom_text:
+                        plot_params["bedroom_count"] = int(bedroom_text)
 
                 plot_params["floor"] = q(row[4]).text()
 
