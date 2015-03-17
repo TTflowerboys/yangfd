@@ -89,14 +89,76 @@ $(function () {
     }
 
 })
+var colors = ['#F7464A', '#46BFBD', '#FDB45C']
+var colorIndex = 0
 $(function () {
     //reload data or setup empty place holder
     var orderArray = JSON.parse($('#dataOrderList').text())
     if (orderArray.length > 0) {
+
+        var data = []
+        var cities = {}
+        var values = {}
+        var indexes = {}
         _.each(orderArray, function (order) {
             var orderResult = _.template($('#investment_list_item_template').html())({order: order})
             $('#investmentList').append(orderResult)
+
+            var city = order.items[0].city ? order.items[0].city.value : ''
+            if (cities[city]) {
+                values[city] += order.price
+                data[indexes[city]].value = values[city]
+            } else {
+                cities[city] = colors[colorIndex]
+                indexes[city] = colorIndex
+                colorIndex += 1
+                values[city] = order.price
+                data.push({
+                    value: values[city],
+                    color: cities[city],
+                    highlight: cities[city],
+                    label: city
+                })
+            }
         })
+        var chart = document.getElementById('investmentArea')
+        var ctx;
+        ctx = chart.getContext('2d');
+        if (window.team.isPhone()) {
+            chart.setAttribute('width', $(window).width())
+            chart.setAttribute('height', $(window).width() / 2)
+        }
+        else {
+            chart.setAttribute('width', '800')
+            chart.setAttribute('height', '400')
+        }
+        var helpers = Chart.helpers;
+
+        var moduleDoughnut = new Chart(ctx).Doughnut(data, {
+            //Number - The percentage of the chart that we cut out of the middle
+            percentageInnerCutout: 0, // This is 0 for Pie charts
+            //Number - Amount of animation steps
+            animation:false,
+            //String - A legend template
+            legendTemplate: '<ul class=\'<%=name.toLowerCase()%>-legend\'><% for (var i=0; i<segments.length; i++){%><li><span style=\'background-color:<%=segments[i].fillColor%>\'></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+
+        })
+        var legendHolder = document.createElement('div');
+        legendHolder.innerHTML = moduleDoughnut.generateLegend();
+        // Include a html legend template after the module doughnut itself
+        helpers.each(legendHolder.firstChild.childNodes, function (legendNode, index) {
+            helpers.addEvent(legendNode, 'mouseover', function () {
+                var activeSegment = moduleDoughnut.segments[index];
+                activeSegment.save();
+                activeSegment.fillColor = activeSegment.highlightColor;
+                moduleDoughnut.showTooltip([activeSegment]);
+                activeSegment.restore();
+            });
+        });
+        helpers.addEvent(legendHolder.firstChild, 'mouseout', function () {
+            moduleDoughnut.draw();
+        });
+        chart.parentNode.parentNode.appendChild(legendHolder.firstChild);
     }
 
 })
