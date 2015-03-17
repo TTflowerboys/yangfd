@@ -41,6 +41,9 @@ $('#earning').attr('rowspan', mode)
 $('#overage').attr('colspan', mode)
 
 $('.titleFrame tr .titleCell a').click(function () {
+    $('.rechargeFrame').hide()
+    $('.withdrawalFrame').hide()
+    $('.mainFrame').show()
     var text = $(this).text()
     $.each($('.titleFrame tr .titleCell a'), function (i, val) {
         if ($(this).text() === text) {
@@ -138,7 +141,7 @@ $(function () {
             //Number - The percentage of the chart that we cut out of the middle
             percentageInnerCutout: 0, // This is 0 for Pie charts
             //Number - Amount of animation steps
-            animation:false,
+            animation: false,
             //String - A legend template
             legendTemplate: '<ul class=\'<%=name.toLowerCase()%>-legend\'><% for (var i=0; i<segments.length; i++){%><li><span style=\'background-color:<%=segments[i].fillColor%>\'></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
 
