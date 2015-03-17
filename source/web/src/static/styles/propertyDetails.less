@@ -247,9 +247,12 @@ body{
             div[data-tab-name=video] {
                 overflow:hidden;
                 .videoLoadIndicator {
-                    margin: 250px auto;
                     width:16px;
                     height:16px;
+                    position:absolute; // base on .pictures
+                    left: 0;
+                    right: 0;
+                    margin: 250px auto;
 
                     @media @phone {
                         margin: 100px auto;
