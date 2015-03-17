@@ -494,6 +494,7 @@
                     <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
                     <!--@@include partials/bing_map.html  -->
+                    <!--@@include partials/bing_map_icons.html -->
                 </div>
             %end
             % if property.get('main_house_types'):
@@ -1250,7 +1251,8 @@
                  if (team.isPhone()) {
                      url += '_thumbnail'
                  }
-                 var style = $(this).attr('data-style').replace('<url>', url)
+                 var r = new RegExp('<url>', 'g');
+                 var style = $(this).attr('data-style').replace(r, url)
                  $(this).attr('style', style)
              });
              $slides.attr('data-init', 'true')

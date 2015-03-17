@@ -45,6 +45,25 @@
 
 
 
+    function resumeVideo() {
+        if (typeof videojs !== 'undefined') {
+            var propertyPlayer = window.videojs('property_video')
+            if (propertyPlayer) {
+                if (propertyPlayer.paused()) {
+                    propertyPlayer.play()
+                }
+            }
+        }
+    }
+
+    function pauseVideo() {
+        if (typeof videojs !== 'undefined') {
+            var propertyPlayer = window.videojs('property_video')
+            if (propertyPlayer) {
+                propertyPlayer.pause()
+            }
+        }
+    }
 
     $('.pictures').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
         if (tabName === 'video') {
@@ -54,7 +73,9 @@
             if (!window.loadVideoStarted) {
                 startLoadVideo()
             }
+            resumeVideo()
         }else{
+            pauseVideo()
             var $tabContent = $('.pictures [data-tab-name=' + tabName + ']')
             var $slides = $tabContent.find('.rslides')
             window.initSlidesImages($slides)

@@ -205,6 +205,8 @@
         </div>
 
         <!--@@include partials/bing_map.html  -->
+        <!--@@include partials/bing_map_icons.html -->
+
         <div class="areaValueCharts">
             <h2 class="title">
                 {{_('地区投资价值')}}
@@ -228,7 +230,7 @@
                             </p>
                         </div>
                     </li>
-                    <li class="item1">
+                    <li class="item1" style="display:none;">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-education-' + report.get('zipcode_index')
                             <img alt="{{report.get('name')}}{{_('学校综合质量对比图')}}" src="{{!fetch_image(image_url)}}"/>
@@ -244,7 +246,7 @@
                             </p>
                         </div>
                     </li>
-                    <li class="item2">
+                    <li class="item2" style="display:none;">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-CouncilTax-' + report.get('zipcode_index')
                             <img alt="{{report.get('name')}}{{_('议会税对比图')}}" src="{{!fetch_image(image_url)}}"/>
@@ -261,7 +263,7 @@
                             </p>
                         </div>
                     </li>
-                    <li class="item3">
+                    <li class="item3" style="display:none;">
                         <div class="image">
                             % image_url = 'http://www.zoopla.co.uk/dynimgs/graph/local_info_chart/600-285-Crime-' + report.get('zipcode_index')
                             <img alt="{{report.get('name')}}{{_('各类型犯罪率对比图')}}" src="{{!fetch_image(image_url)}}"/>
@@ -279,9 +281,12 @@
                         </div>
                     </li>
                 </ul>
-                <div class="leftPressArea"></div>
-                <div class="rightPressArea"></div>
-
+                <div class="leftPressArea">
+                    <img alt="" src="/static/images/region_report/slide_left_arrow.png"/>
+                </div>
+                <div class="rightPressArea">
+                    <img alt="" src="/static/images/region_report/slide_right_arrow.png"/>
+                </div>
             </div>
         </div>
 

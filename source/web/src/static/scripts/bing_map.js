@@ -20,10 +20,19 @@
         return window.mapCache[mapId]
     }
 
+    function getMapPinIconHtml(typeID) {
+        var $icon = $('#icon-location-' + typeID)
+        if ($icon.length === 0) {
+            $icon = $('#icon-location-item')
+        }
+        return $icon.prop('outerHTML')
+    }
+
     function createMapPin(map, layer, mapId, result) {
         if (result) {
             var location = new Microsoft.Maps.Location(result.Latitude, result.Longitude);
-            var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-item.png', width: 20, height: 30});
+            var typeID = result.EntityTypeID;
+            var pin = new Microsoft.Maps.Pushpin(location, {htmlContent:getMapPinIconHtml(typeID)});
             Microsoft.Maps.Events.addHandler(pin, 'click', function () { showInfoBox(map, mapId, result) });
             layer.push(pin)
             if  (!window.mapPinCache[mapId]) {
@@ -353,7 +362,6 @@
 
                                 //var strokeColor = new Microsoft.Maps.Color(255, 68, 68, 68);
                                 polygon = new Microsoft.Maps.Polygon(results,{ fillColor: new Microsoft.Maps.Color(100, 68, 68, 68)});
-                                callback(polygon)
                             }
                             else if (json.rows && json.rows[0] && json.rows[0][0] &&json.rows[0][0].geometry && json.rows[0][0].geometry  && json.rows[0][0].geometry.coordinates && json.rows[0][0].geometry.coordinates.length) {
                                  _.each(json.rows[0][0].geometry.coordinates, function (item){
@@ -382,7 +390,7 @@
         });
     }
 
-    $('.maps .list').click(function (event){
+    $('.maps .list >div').click(function (event){
         var tabName = $(event.currentTarget).closest('div[data-tab-name]').attr('data-tab-name')
         //var map = getMap(tabName + 'MapCanvas')
 
