@@ -1263,7 +1263,6 @@
     </script>
 
     <script src="/static/vendors/Chart.min.js"></script>
-    <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
     <!--build:js /static/scripts/property.html.js-->
     <script src="/static/vendors/jquery.easing.min.js"></script>
     <script src="/static/vendors/jquery.stickynavbar/jquery.stickyNavbar.modified.js"></script>
@@ -1274,6 +1273,7 @@
     <script src="/static/scripts/mortgage_form.js"></script>
     <script src="/static/scripts/main_house_type_popup.js"></script>
     <script src="/static/scripts/bing_map.js"></script>
+    <script src="/static/scripts/property_map.js"></script>
     <script src="/static/scripts/property_wechat.js"></script>
     <script src="/static/scripts/property_favorite.js"></script>
     <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
@@ -1323,19 +1323,6 @@
          ga('send', 'event', 'property_detail', 'click', 'extend-description')
      });
 
-     $('.maps').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-         if (target) {
-             //$('[data-tab-name=' + tabName +']').ioslist()
-         }
-     })
-
-     if ($('.maps_wrapper')) {
-         var property = JSON.parse($('#pythonProperty').text())
-         var geoLocation = new Microsoft.Maps.Location(property.latitude, property.longitude);
-         window.showTransitMap(geoLocation, null, true, 14, property.country.slug)
-         window.showSchoolMap(geoLocation, null, true, 14, property.country.slug)
-         window.showFacilityMap(geoLocation, null, true, 14, property.country.slug)
-     }
 
      $(function () {
          $(".regionReport .des").dotdotdot({

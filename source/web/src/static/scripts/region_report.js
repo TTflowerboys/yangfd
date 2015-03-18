@@ -75,64 +75,44 @@
             $('#loadIndicator').hide()
         })
 
+    //onload
+    function findLocation(callback)
+    {
+        var region = 'GB'
+        if (window.report.country) {
+            region = window.report.country.slug
+        }
 
-    $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-        $('[data-tab-name=' + tabName + ']').show()
-    })
+        var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
+        var schoolMapId = 'schoolMapCanvas'
+        var query = zipCodeIndexFromURL + ',' +region
+        var searchRequest = 'http://dev.virtualearth.net/REST/v1/Locations/' + query + '?output=json&jsonp=searchServiceCallback&key=' + bingMapKey
+        var mapscript = document.createElement('script');
+        mapscript.type = 'text/javascript';
+        mapscript.src = searchRequest;
+        document.getElementById(schoolMapId).appendChild(mapscript)
 
-    $(function () {
-        //onload
-        function findLocation()
+        window.searchServiceCallback = function (result)
         {
-            var region = 'GB'
-            if (window.report.country) {
-                region = window.report.country.slug
-            }
-
-            var schoolMapId = 'schoolMapCanvas'
-            var query = zipCodeIndexFromURL + ',' +region
-            var map = window.getMap(schoolMapId)
-
-            map.getCredentials(callSearchService);
-            function callSearchService(credentials)
+            if (result &&
+                result.resourceSets &&
+                result.resourceSets.length > 0 &&
+                result.resourceSets[0].resources &&
+                result.resourceSets[0].resources.length > 0)
             {
-                var searchRequest = 'http://dev.virtualearth.net/REST/v1/Locations/' + query + '?output=json&jsonp=searchServiceCallback&key=' + credentials;
-                var mapscript = document.createElement('script');
-                mapscript.type = 'text/javascript';
-                mapscript.src = searchRequest;
-                document.getElementById(schoolMapId).appendChild(mapscript)
-            }
-
-            window.searchServiceCallback = function (result)
-            {
-                if (result &&
-                    result.resourceSets &&
-                    result.resourceSets.length > 0 &&
-                    result.resourceSets[0].resources &&
-                    result.resourceSets[0].resources.length > 0)
-                {
-                    var bbox = result.resourceSets[0].resources[0].bbox;
-                    var viewBoundaries = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(bbox[0], bbox[1]), new Microsoft.Maps.Location(bbox[2], bbox[3]));
-                    map.setView({ bounds: viewBoundaries});
-                    var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
-                    onLocationFind(location)
-
-                }
+                var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
+                callback(location)
             }
         }
+    }
 
+    findLocation(function (location) {
+        window.report.location = location
 
-        if (typeof Microsoft === 'undefined') {
-            // map load failed, return
-            return
-        }
-        else {
-            findLocation()
-        }
-
-        function onLocationFind(location) {
-            window.report.location = location
-
+        window.setupMap(location.latitude, location.longitude, function () {
+            $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+                $('[data-tab-name=' + tabName + ']').show()
+            })
             //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
             window.getRegion(zipCodeIndexFromURL, function (polygon) {
                 window.showTransitMap(location, polygon)
@@ -143,10 +123,7 @@
             window.getRegion(zipCodeIndexFromURL, function (polygon) {
                 window.showFacilityMap(location, polygon)
             })
-
-            // getRegion(zipCodeIndexFromURL, function (polygon) {
-            //     showSecurityMap(location, polygon)
-            //})
-        }
+        })
     })
+
 })();
