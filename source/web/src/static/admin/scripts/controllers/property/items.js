@@ -4,16 +4,13 @@
 (function () {
 
     function ctrlPropertyItems($scope, $rootScope, apiFactory) {
-        var isInit = false
+        var isInit = true
         $scope.$watch('item.zipcode', function (newValue) {
             if (isInit) {
-                if ($scope.item.zipcode_index) {
+                if (newValue) {
                     isInit = false
                     return
                 }
-            }
-            if (newValue === undefined) {
-                isInit = true
             }
             var temp = newValue ? newValue.toUpperCase() : ''
             if (temp.length > 3) {
