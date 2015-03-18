@@ -438,3 +438,68 @@ function changeRechargePayment(page) {
             break;
     }
 }
+
+$('#transactionDateRange').dateRangePicker(
+    {
+        separator: ' to ',
+        setValue: function (s, s1, s2) {
+            $('#transactionDateStart').val(s1);
+            $('#transactionDateEnd').val(s2);
+            var data = {
+                starttime: parseInt((new Date(s1) - 0) / 1000, 10),
+                time: parseInt((new Date(s2) - 0) / 1000, 10)
+            };
+            $.betterPost('/api/1/order/search', data)
+                .done(function (val) {
+                    $.each($('#transaction_list tr td'), function (i, val) {
+                        $(this).parent().remove()
+                    })
+                    if (val.length > 0) {
+                        _.each(val, function (order) {
+                            var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
+                            $('#transaction_list').append(orderResult)
+                        })
+                    }
+                })
+                .fail(function (errorCode) {
+
+                })
+                .always(function () {
+
+                })
+
+        }
+    });
+
+
+$('#accountTransactionDateRange').dateRangePicker(
+    {
+        separator: ' to ',
+        setValue: function (s, s1, s2) {
+            $('#accountTransactionDateStart').val(s1);
+            $('#accountTransactionDateEnd').val(s2);
+            var data = {
+                starttime: parseInt((new Date(s1) - 0) / 1000, 10),
+                time: parseInt((new Date(s2) - 0) / 1000, 10)
+            };
+            $.betterPost('/api/1/order/search', data)
+                .done(function (val) {
+                    $.each($('#account_transaction_list tr td'), function (i, val) {
+                        $(this).parent().remove()
+                    })
+                    if (val.length > 0) {
+                        _.each(val, function (order) {
+                            var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
+                            $('#account_transaction_list').append(orderResult)
+                        })
+                    }
+                })
+                .fail(function (errorCode) {
+
+                })
+                .always(function () {
+
+                })
+        }
+    });
+
