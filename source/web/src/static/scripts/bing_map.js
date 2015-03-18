@@ -3,7 +3,10 @@
     var googleApiKey = 'AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
 
     window.setupMap = function (lat, lng, onMapScriptLoadCallback) {
-        var staticImgUrl = 'http://dev.virtualearth.net/REST/V1/Imagery/Map/Road/'+ lat + '%2C' + lng +'/13?mapSize=800,480&format=png&pushpin='+ lat +','+ lng +';64;&key=' + bingMapKey
+        var width = window.team.isPhone()? $('.staticMap').width(): 800
+        var height = window.team.isPhone()? 240: 480
+
+        var staticImgUrl = 'http://dev.virtualearth.net/REST/V1/Imagery/Map/Road/'+ lat + '%2C' + lng +'/13?mapSize=' + width + ',' + height + '&format=png&pushpin='+ lat +','+ lng +';64;&key=' + bingMapKey
         $('#mapImg').attr('src', staticImgUrl)
         $('#showMap').click(function (e) {
 
@@ -153,11 +156,11 @@
         var format = '$format=json';
         var apiPrefix = country === 'US'? 'http://spatial.virtualearth.net/REST/v1/data/f22876ec257b474b82fe2ffcb8393150/NavteqNA/NavteqPOIs': 'http://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0acf75d1e6947b4/NavteqEU/NavteqPOIs'
         var sdsRequest =  apiPrefix + '?' +
-                spatialFilter + '&' +
-                select + '&' +
-                top + '&' +
-                queryOptions + '&' +
-                format + '&jsonp=' + mapId + 'ServiceCallBack' + '&key=' + bingMapKey;
+                          spatialFilter + '&' +
+                          select + '&' +
+                          top + '&' +
+                          queryOptions + '&' +
+                          format + '&jsonp=' + mapId + 'ServiceCallBack' + '&key=' + bingMapKey;
 
         var mapscript = document.createElement('script');
         mapscript.type = 'text/javascript';
@@ -301,51 +304,51 @@
     }
 
     /*function showSecurityMap(location, polygon) {
-     var map = getMap('securityMapCanvas')
-     var $list = $('.maps .list div[data-tab-name=security] ul')
-     var pushpin = new Microsoft.Maps.Pushpin(location);
-     map.entities.push(pushpin);
+       var map = getMap('securityMapCanvas')
+       var $list = $('.maps .list div[data-tab-name=security] ul')
+       var pushpin = new Microsoft.Maps.Pushpin(location);
+       map.entities.push(pushpin);
 
-     map.setView({zoom: 13, center: location})
-     if (polygon) {
-     map.entities.push(polygon)
-     }
+       map.setView({zoom: 13, center: location})
+       if (polygon) {
+       map.entities.push(polygon)
+       }
 
-     var results = {}
+       var results = {}
 
-     var itemsPromise = $.betterGet('/api/1/report/policeuk', {lat:location.latitude, lng:location.longitude})
-     .done(function (data) {
-     results.items = data
-     })
-     var categoryPromise = $.betterGet('/api/1/report/policeuk/categories')
-     .done(function (data) {
-     results.categories = data
-     })
-     $.when(itemsPromise, categoryPromise)
-     .done(function () {
-     var categoryDic = {}
-     _.each(results.categories, function (item) {
-     categoryDic[item.url] = item.name
-     })
-     var categories = {}
-     _.each(results.items, function (item) {
-     if (categories[item.category]) {
-     categories[item.category] = categories[item.category] + 1
-     }
-     else {
-     categories[item.category] = + 1
-     }
-     })
+       var itemsPromise = $.betterGet('/api/1/report/policeuk', {lat:location.latitude, lng:location.longitude})
+       .done(function (data) {
+       results.items = data
+       })
+       var categoryPromise = $.betterGet('/api/1/report/policeuk/categories')
+       .done(function (data) {
+       results.categories = data
+       })
+       $.when(itemsPromise, categoryPromise)
+       .done(function () {
+       var categoryDic = {}
+       _.each(results.categories, function (item) {
+       categoryDic[item.url] = item.name
+       })
+       var categories = {}
+       _.each(results.items, function (item) {
+       if (categories[item.category]) {
+       categories[item.category] = categories[item.category] + 1
+       }
+       else {
+       categories[item.category] = + 1
+       }
+       })
 
-     var categoryItem = {}
-     for (var key in categories) {
-     categoryItem.Hint = categories[key] + window.i18n('起')
-     categoryItem.DisplayName = categoryDic[key]
-     createListItem($list, categoryItem)
-     }
+       var categoryItem = {}
+       for (var key in categories) {
+       categoryItem.Hint = categories[key] + window.i18n('起')
+       categoryItem.DisplayName = categoryDic[key]
+       createListItem($list, categoryItem)
+       }
 
-     })
-     }*/
+       })
+       }*/
 
     //Data source https://www.google.com/fusiontables/DataSource?docid=1jgWYtlqGSPzlIa-is8wl1cZkVIWEm_89rWUwqFU#card:id=2
     window.getRegion = function(zipCodeIndex, callback) {
@@ -355,50 +358,50 @@
                 var url = '/reverse_proxy?link=' + encodeURIComponent(originalURL)
                 var polygon = null
                 $.get(url)
-                    .done(function (data) {
-                        if (data) {
-                            var json = JSON.parse(data)
-                            var results = []
-                            if (json.rows && json.rows[0] && json.rows[0][0] &&json.rows[0][0].geometries && json.rows[0][0].geometries.length) {
-                                _.each(json.rows[0][0].geometries, function (item){
-                                    var coordinates = item.coordinates[0]
-                                    var coorResults = []
+                            .done(function (data) {
+                                if (data) {
+                                    var json = JSON.parse(data)
+                                    var results = []
+                                    if (json.rows && json.rows[0] && json.rows[0][0] &&json.rows[0][0].geometries && json.rows[0][0].geometries.length) {
+                                        _.each(json.rows[0][0].geometries, function (item){
+                                            var coordinates = item.coordinates[0]
+                                            var coorResults = []
 
-                                    _.each(coordinates, function (coor) {
-                                        var lat = coor[1]
-                                        var lng = coor[0]
-                                        coorResults.push(new Microsoft.Maps.Location(lat, lng))
-                                    })
-                                    results.push(coorResults)
-                                })
+                                            _.each(coordinates, function (coor) {
+                                                var lat = coor[1]
+                                                var lng = coor[0]
+                                                coorResults.push(new Microsoft.Maps.Location(lat, lng))
+                                            })
+                                            results.push(coorResults)
+                                        })
 
 
-                                //var strokeColor = new Microsoft.Maps.Color(255, 68, 68, 68);
-                                polygon = new Microsoft.Maps.Polygon(results,{ fillColor: new Microsoft.Maps.Color(100, 68, 68, 68)});
-                            }
-                            else if (json.rows && json.rows[0] && json.rows[0][0] &&json.rows[0][0].geometry && json.rows[0][0].geometry  && json.rows[0][0].geometry.coordinates && json.rows[0][0].geometry.coordinates.length) {
-                                 _.each(json.rows[0][0].geometry.coordinates, function (item){
-                                    var coordinates = item
-                                    var coorResults = []
+                                        //var strokeColor = new Microsoft.Maps.Color(255, 68, 68, 68);
+                                        polygon = new Microsoft.Maps.Polygon(results,{ fillColor: new Microsoft.Maps.Color(100, 68, 68, 68)});
+                                    }
+                                    else if (json.rows && json.rows[0] && json.rows[0][0] &&json.rows[0][0].geometry && json.rows[0][0].geometry  && json.rows[0][0].geometry.coordinates && json.rows[0][0].geometry.coordinates.length) {
+                                        _.each(json.rows[0][0].geometry.coordinates, function (item){
+                                            var coordinates = item
+                                            var coorResults = []
 
-                                    _.each(coordinates, function (coor) {
-                                        var lat = coor[1]
-                                        var lng = coor[0]
-                                        coorResults.push(new Microsoft.Maps.Location(lat, lng))
-                                    })
-                                    results.push(coorResults)
-                                 })
+                                            _.each(coordinates, function (coor) {
+                                                var lat = coor[1]
+                                                var lng = coor[0]
+                                                coorResults.push(new Microsoft.Maps.Location(lat, lng))
+                                            })
+                                            results.push(coorResults)
+                                        })
 
-                                //var strokeColor = new Microsoft.Maps.Color(255, 68, 68, 68);
-                                polygon = new Microsoft.Maps.Polygon(results,{ fillColor: new Microsoft.Maps.Color(100, 68, 68, 68)});
-                            }
-                        }
-                    })
-                    .fail(function (ret) {
-                    })
-                    .always(function (data) {
-                        callback(polygon)
-                    })
+                                        //var strokeColor = new Microsoft.Maps.Color(255, 68, 68, 68);
+                                        polygon = new Microsoft.Maps.Polygon(results,{ fillColor: new Microsoft.Maps.Color(100, 68, 68, 68)});
+                                    }
+                                }
+                            })
+                            .fail(function (ret) {
+                            })
+                            .always(function (data) {
+                                callback(polygon)
+                            })
             }
         });
     }
