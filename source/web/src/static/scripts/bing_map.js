@@ -2,12 +2,25 @@
     var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
     var googleApiKey = 'AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
 
-    if (typeof Microsoft === 'undefined') {
-        // map load failed, return
+    window.setupMap = function (lat, lng, onMapScriptLoadCallback) {
+        var staticImgUrl = 'http://dev.virtualearth.net/REST/V1/Imagery/Map/Road/'+ lat + '%2C' + lng +'/13?mapSize=800,480&format=png&pushpin='+ lat +','+ lng +';64;&key=' + bingMapKey
+        $('#mapImg').attr('src', staticImgUrl)
+        $('#showMap').click(function (e) {
 
-        return
+            if (!$('#mapLoadIndicator').is(':visible')) {
+                $('#mapLoadIndicator').show()
+                var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
+                window.onBingMapScriptLoad = function () {
+                    $('#mapLoadIndicator').hide()
+                    //showMap
+                    $('.staticMap').hide()
+                    $('.maps').show()
+                    onMapScriptLoadCallback()
+                }
+                $('body').append(scriptString)
+            }
+        })
     }
-
 
     window.mapCache = {}
     window.mapPinCache = {}

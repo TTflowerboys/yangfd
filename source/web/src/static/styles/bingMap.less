@@ -4,6 +4,51 @@
     box-sizing: border-box;
 }
 
+
+.staticMap {
+    position:relative;
+    width:100%;
+    height:480px;
+
+    .mapImg {
+        position:absolute;
+        width:100%;
+        height:100%;
+    }
+
+    .mapLoadIndicator {
+        width:16px;
+        height:16px;
+        position:absolute; // base on .pictures
+        left: 0;
+        right: 0;
+        margin: 250px auto;
+
+        @media @phone {
+            margin: 100px auto;
+        }
+    }
+
+
+    .button {
+        position:absolute;
+        left:0;
+        right:0;
+        width:273px;
+        height:86px;
+        margin:360px auto 30px;
+        padding:10px 16px;
+
+        label {
+            border-bottom: 1px solid #be0001;
+            width: 100%;
+            padding-bottom: 10px;
+            display:block;
+            margin-bottom:2px;
+        }
+    }
+}
+
 .maps {
     overflow:hidden;
     width:100%;
