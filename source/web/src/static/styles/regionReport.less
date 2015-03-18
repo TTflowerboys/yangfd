@@ -613,11 +613,61 @@ main {
 
         .staticMap {
             margin-bottom:90px;
+            background:#f6f6f6;
             .mapImg {
                 width: 800px;
-                margin: 0 auto;
                 left: 0;
-                right: 0;
+                background:white;
+            }
+
+            .mapLoadIndicator {
+                margin:250px 392px;
+
+                @media @phone {
+                    margin: 100px auto;
+                }
+            }
+
+            .button {
+                margin:175px 100px 100px 900px;
+                height:60px;
+                padding:20px;
+                cursor:pointer;
+
+
+                @media @phone {
+                    width:160px;
+                    height:54px;
+                    margin: 160px auto;
+                    padding: 5px 10px;
+                }
+
+                label {
+                    border-bottom:0px;
+                    cursor:pointer;
+
+                    @media @phone {
+                        border-bottom: 1px solid #be0001;
+                    }
+                }
+
+                .icons {
+                    display:none;
+
+                    @media @phone {
+                        display:block;
+                    }
+                }
+            }
+
+            .icons_big {
+                position:absolute;
+                right:50px;
+                top:275px;
+
+                @media @phone {
+                    display:none;
+                }
             }
         }
 
