@@ -100,16 +100,15 @@
                 result.resourceSets[0].resources &&
                 result.resourceSets[0].resources.length > 0)
             {
-                var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
-                callback(location)
+                var latitude = result.resourceSets[0].resources[0].point.coordinates[0]
+                var longitude = result.resourceSets[0].resources[0].point.coordinates[1]
+                callback(latitude, longitude)
             }
         }
     }
 
-    findLocation(function (location) {
-        window.report.location = location
-
-        window.setupMap(location.latitude, location.longitude, function () {
+    findLocation(function (latitude, longitude) {
+        window.setupMap(latitude, longitude, function () {
             $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
                 $('[data-tab-name=' + tabName + ']').show()
             })
