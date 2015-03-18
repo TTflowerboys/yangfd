@@ -223,21 +223,99 @@ $('.withdrawal').click(function () {
 })
 
 function changeTransactionType(page) {
+    var data = {}
     switch (page) {
         case 1:
+            data.type = 'recharge'
             break;
         case 2:
+            data.type = 'withdrawal'
             break;
         case 3:
+            data.type = 'investment'
             break;
         case 4:
+            data.type = 'earnings'
             break;
         case 5:
+            data.type = 'recovery'
             break;
         default:
+            data.type = 'recharge,withdrawal,investment,earnings,recovery'
             break;
     }
+    $.betterPost('/api/1/order/search', data)
+        .done(function (val) {
+            $.each($('#transaction_list tr td'), function (i, val) {
+                $(this).parent().remove()
+            })
+            if (val.length > 0) {
+                _.each(val, function (order) {
+                    var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
+                    $('#transaction_list').append(orderResult)
+                })
+            }
+        })
+        .fail(function (errorCode) {
+
+        })
+        .always(function () {
+
+        })
 }
+
+$('.accountTransactionType div').click(function () {
+
+    var text = $(this).text()
+    $.each($('.accountTransactionType div'), function (i, val) {
+        if ($(this).text() === text) {
+            if ($(this).hasClass('selected')) {
+                return
+            } else {
+                $(this).addClass('selected')
+                changeAccountTransactionType(i)
+            }
+        } else {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected')
+            }
+        }
+    })
+})
+
+function changeAccountTransactionType(page) {
+    var data = {}
+    switch (page) {
+        case 1:
+            data.type = 'recharge'
+            break;
+        case 2:
+            data.type = 'withdrawal'
+            break;
+        default:
+            data.type = 'recharge,withdrawal'
+            break;
+    }
+    $.betterPost('/api/1/order/search', data)
+        .done(function (val) {
+            $.each($('#account_transaction_list tr td'), function (i, val) {
+                $(this).parent().remove()
+            })
+            if (val.length > 0) {
+                _.each(val, function (order) {
+                    var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
+                    $('#account_transaction_list').append(orderResult)
+                })
+            }
+        })
+        .fail(function (errorCode) {
+
+        })
+        .always(function () {
+
+        })
+}
+
 $('.earningProject div').click(function () {
 
     var text = $(this).text()
