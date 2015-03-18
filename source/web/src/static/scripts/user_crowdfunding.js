@@ -447,7 +447,7 @@ $('#transactionDateRange').dateRangePicker(
             $('#transactionDateEnd').val(s2);
             var data = {
                 starttime: parseInt((new Date(s1) - 0) / 1000, 10),
-                time: parseInt((new Date(s2) - 0) / 1000, 10)
+                time: parseInt((new Date(s2) - 0) / 1000, 10) + 86399
             };
             $.betterPost('/api/1/order/search', data)
                 .done(function (val) {
@@ -480,7 +480,7 @@ $('#accountTransactionDateRange').dateRangePicker(
             $('#accountTransactionDateEnd').val(s2);
             var data = {
                 starttime: parseInt((new Date(s1) - 0) / 1000, 10),
-                time: parseInt((new Date(s2) - 0) / 1000, 10)
+                time: parseInt((new Date(s2) - 0) / 1000, 10) + 86399
             };
             $.betterPost('/api/1/order/search', data)
                 .done(function (val) {
