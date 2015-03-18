@@ -14,7 +14,7 @@ window.getCrowdfundingType = function (type) {
         'earnings': i18n('收益'),
         'withdrawal': i18n('提现'),
         'investment': i18n('投资'),
-        'recover': i18n('回收本金')
+        'recovery': i18n('回收本金')
     }
     return inputCrowdfundingType[type] || ''
 }
@@ -24,7 +24,7 @@ window.getCrowdfundingItem = function (item) {
         'item_recharge': i18n('充值'),
         'item_earnings': i18n('收益'),
         'item_withdrawal': i18n('提现'),
-        'item_recover': i18n('回收本金')
+        'item_recovery': i18n('回收本金')
     }
     return inputCrowdfundingItem[item] || item
 }
@@ -314,6 +314,37 @@ function changeAccountTransactionType(page) {
         .always(function () {
 
         })
+}
+
+$('.accountTransactionDate div').click(function () {
+
+    var text = $(this).text()
+    $.each($('.accountTransactionDate div'), function (i, val) {
+        if ($(this).text() === text) {
+            if ($(this).hasClass('selected')) {
+                return
+            } else {
+                $(this).addClass('selected')
+                changeAccountTransactionDate(i)
+            }
+        } else {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected')
+            }
+        }
+    })
+})
+function changeAccountTransactionDate(page) {
+    switch (page) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        default:
+            break;
+    }
 }
 
 $('.earningProject div').click(function () {
