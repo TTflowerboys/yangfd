@@ -503,7 +503,7 @@ def property_edit(property_id, user, params):
     """
 
     if "status" in params:
-        assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status")
+        assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "selling", "hidden", "sold out", "deleted", "restricted"), abort(40000, "Invalid status")
 
     if property_id == "none":
         action = lambda params: f_app.property.add(params)
