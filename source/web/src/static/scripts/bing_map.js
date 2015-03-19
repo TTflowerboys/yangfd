@@ -2,7 +2,9 @@
     var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
     var googleApiKey = 'AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
 
-    window.setupMap = function (lat, lng, onMapScriptLoadCallback) {
+    window.setupMap = function (location, onMapScriptLoadCallback) {
+        var lat = location.latitude
+        var lng = location.longitude
         var width = window.team.isPhone()? $('.staticMap').width(): 800
         var height = window.team.isPhone()? 240: 480
 

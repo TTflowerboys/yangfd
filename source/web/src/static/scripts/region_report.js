@@ -102,13 +102,14 @@
             {
                 var latitude = result.resourceSets[0].resources[0].point.coordinates[0]
                 var longitude = result.resourceSets[0].resources[0].point.coordinates[1]
-                callback(latitude, longitude)
+                var location = {latitude:latitude, longitude:longitude}
+                callback(location)
             }
         }
     }
 
-    findLocation(function (latitude, longitude) {
-        window.setupMap(latitude, longitude, function () {
+    findLocation(function (location) {
+        window.setupMap(location, function () {
             $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
                 $('[data-tab-name=' + tabName + ']').show()
             })
