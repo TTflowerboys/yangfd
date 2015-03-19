@@ -475,7 +475,7 @@ def property_edit(property_id, user, params):
 
     3. Otherwise this API will actually create a partial property with only the changes. After approval:
 
-     a. If ``target_property_id`` present, the changes and the ``status`` will be applied together to that property if the ``status`` was submitted within (``selling``, ``hidden``, ``sold out``, ``deleted``) and the partial property will be removed.
+     a. If ``target_property_id`` present, the changes and the ``status`` will be applied together to that property if the ``status`` was submitted within (``selling``, ``hidden``, ``sold out``, ``deleted``, ``restricted``) and the partial property will be removed.
 
      b. Otherwise, the status of *this* partial property will be updated to whatever the reviewer submitted, so it reforms a "real" new property.
 
@@ -485,7 +485,7 @@ def property_edit(property_id, user, params):
 
      a. Anyone could submit ``status``-only edits and they will be saved immediately. But only ``admin``, ``jr_admin`` and ``operation`` could advance the status beyond "not reviewed".
 
-    5. Otherwise, only ``admin``, ``jr_admin`` and ``operation`` could send ``status``-only edits, and the ``status`` is limited to (``selling``, ``hidden``, ``sold out``, ``deleted``). If you need to edit it in any way, go with the previous process.
+    5. Otherwise, only ``admin``, ``jr_admin`` and ``operation`` could send ``status``-only edits, and the ``status`` is limited to (``selling``, ``hidden``, ``sold out``, ``deleted``, ``restricted``). If you need to edit it in any way, go with the previous process.
 
     When submitting a (partial or full) property for reviewing:
 
@@ -499,7 +499,7 @@ def property_edit(property_id, user, params):
 
     9. Submit another edit while an existing one still in its life cycle will cause an error.
 
-    All statuses, for reference: ``draft``, ``not translated``, ``translating``, ``rejected``, ``not reviewed``, ``selling``, ``hidden``, ``sold out``, ``deleted``.
+    All statuses, for reference: ``draft``, ``not translated``, ``translating``, ``rejected``, ``not reviewed``, ``selling``, ``hidden``, ``sold out``, ``deleted``, ``restricted``.
     """
 
     if "status" in params:
@@ -531,7 +531,7 @@ def property_edit(property_id, user, params):
             if property["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
 
                 # Only allow updating to post-review statuses
-                assert params["status"] in ("selling", "hidden", "sold out", "deleted"), abort(40000, "Invalid status for a reviewed property")
+                assert params["status"] in ("selling", "hidden", "sold out", "deleted", "restricted"), abort(40000, "Invalid status for a reviewed property")
 
                 if params["status"] == "deleted":
                     assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
@@ -580,7 +580,7 @@ def property_edit(property_id, user, params):
                 if params["status"] == "not reviewed" and "brochure" in params and len(params["brochure"]):
                     abort(40087, "pdf may need rendering")
 
-            if property["status"] in ("selling", "hidden", "sold out"):
+            if property["status"] in ("selling", "hidden", "sold out", "restricted"):
                 existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
                 if existing_draft:
                     # action = lambda params: f_app.property.update_set(existing_draft[0], params)
@@ -603,7 +603,7 @@ def property_edit(property_id, user, params):
 @f_api('/property/<property_id>')
 def property_get(property_id):
     property = f_app.property.output([property_id])[0]
-    if property["status"] not in ["selling", "sold out"]:
+    if property["status"] not in ["selling", "sold out", "restricted"]:
         user = f_app.user.login.get()
         if user:
             user = f_app.user.output([user["id"]], custom_fields=f_app.common.user_custom_fields)[0]
