@@ -63,7 +63,6 @@
                 $scope.cancelDelayer()
                 $state.go('^')
             } else {
-                console.log(data)
                 $scope.item.id = data.val
             }
         }
