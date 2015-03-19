@@ -19,11 +19,12 @@ angular.module('app')
                 scope.$watch('item.status', function (newValue) {
                     if (need_init && newValue) {
                         need_init = false
-                        if (_.contains(roles, 'admin') || _.contains(roles, 'jr_admin') || _.contains(roles,
-                                'operation')) {
+                        if (_.contains(roles, 'admin') || _.contains(roles, 'jr_admin') ||
+                            _.contains(roles, 'operation')) {
                             if (newValue === 'not reviewed') {
                                 scope.propertyStatus = propertyReviewStatus
-                            } else if (newValue === 'selling' || newValue === 'hidden' || newValue === 'sold out') {
+                            } else if (newValue === 'selling' || newValue === 'hidden' ||
+                                newValue === 'sold out' || newValue === 'restricted') {
                                 scope.propertyStatus = propertySellingStatus
                             } else {
                                 scope.propertyStatus = propertyStatus.filter(function (one, index, array) {
