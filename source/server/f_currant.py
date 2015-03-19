@@ -1901,6 +1901,71 @@ class f_policeuk(f_app.module_base):
 f_policeuk()
 
 
+class f_doogal(f_app.module_base):
+    doogal_database = "doogal"
+
+    def __init__(self):
+        f_app.module_install("doogal", self)
+
+    def get_database(self, m):
+        return getattr(m, self.doogal_database)
+
+    def import_new(self, path):
+        with f_app.mongo() as m:
+            self.get_database(m).ensure_index([("currant_country", ASCENDING)])
+            self.get_database(m).ensure_index([("zipcode", ASCENDING)])
+            self.get_database(m).ensure_index([("currant_region", ASCENDING)])
+            with open(path, 'rw+') as f:
+                rows = csv.reader(f)
+
+                first = True
+                count = 0
+                for r in rows:
+                    # Ignore first line
+                    if first:
+                        first = False
+                        continue
+
+                    params = {
+                        "currant_country": "UK",  # Hardcoded
+                        "zipcode": r[0],
+                        "latitude": float(r[1]),
+                        "longitude": float(r[2]),
+                        "easting": r[3],
+                        "northing": r[4],
+                        "gridref": r[5],
+                        "county": r[6],
+                        "district": r[7],
+                        "ward": r[8],
+                        "currant_region": r[8],  # We take ward as region
+                        "district_code": r[9],
+                        "ward_code": r[10],
+                        "country": r[11],
+                        "country_code": r[12],
+                        "constituency": r[13],
+                        "introduced": r[14],
+                        "terminated": r[15],
+                        "parish": r[16],
+                        "national_park": r[17],
+                        "population": int(r[18]) if r[18] else r[18],
+                        "household": int(r[19]) if r[19] else r[19],
+                        "built_up_area": r[20],
+                        "built_up_sub_division": r[21],
+                        "lower_layer_super_output_area": r[22],
+                        "rural_urban": r[23],
+                        "region": r[24],
+                    }
+                    self.get_database(m).update({
+                        "currant_country": params["currant_country"],
+                        "zipcode": params["zipcode"],
+                    }, {"$set": params}, upsert=True)
+                    count += 1
+                    if count % 100 == 1:
+                        logger.debug("doogal postcode imported", count, "records...")
+
+f_doogal()
+
+
 class f_landregistry(f_app.module_base):
 
     landregistry_database = "landregistry"
