@@ -45,16 +45,16 @@
 
 
 
-    function resumeVideo() {
-        if (typeof videojs !== 'undefined') {
-            var propertyPlayer = window.videojs('property_video')
-            if (propertyPlayer) {
-                if (propertyPlayer.paused()) {
-                    propertyPlayer.play()
-                }
-            }
-        }
-    }
+//     function resumeVideo() {
+//         if (typeof videojs !== 'undefined') {
+//             var propertyPlayer = window.videojs('property_video')
+//             if (propertyPlayer) {
+//                 if (propertyPlayer.paused()) {
+//                     propertyPlayer.play()
+//                 }
+//             }
+//         }
+//     }
 
     function pauseVideo() {
         if (typeof videojs !== 'undefined') {
@@ -73,7 +73,7 @@
             if (!window.loadVideoStarted) {
                 startLoadVideo()
             }
-            resumeVideo()
+//             resumeVideo()
         }else{
             pauseVideo()
             var $tabContent = $('.pictures [data-tab-name=' + tabName + ']')
