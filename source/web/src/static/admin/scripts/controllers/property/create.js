@@ -16,7 +16,7 @@
                 $scope.cancelDelayer()
                 return
             }
-            $scope.submitItem = angular.copy($scope.item)
+            $scope.submitItem = JSON.parse(angular.toJson($scope.item))
             $scope.submitItem = misc.cleanTempData($scope.submitItem)
             $scope.submitItem = misc.cleanI18nEmptyUnit($scope.submitItem)
             if ($scope.item.id) {
@@ -28,7 +28,7 @@
         }
 
         function create(param) {
-            if (!param) {
+            if (_.isEmpty(param)) {
                 return
             }
             api.create(param, {
@@ -42,7 +42,7 @@
         }
 
         function update(id, param) {
-            if (!param) {
+            if (_.isEmpty(param)) {
                 return
             }
             api.update(id, param, {

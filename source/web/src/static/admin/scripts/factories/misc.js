@@ -104,7 +104,11 @@ angular.module('app')
                                 if (_.isEmpty(oldJson[key])) {
                                     continue
                                 }
-                                addToResult(key, '')
+                                if (_.isObject(oldJson[key])) {
+                                    addToResult(key, {})
+                                } else {
+                                    addToResult(key, '')
+                                }
                             }
                         }
                     } else if (oldJson[key] === null) {

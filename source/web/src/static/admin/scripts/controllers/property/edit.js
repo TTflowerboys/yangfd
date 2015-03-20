@@ -7,6 +7,57 @@
     function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window, propertyStatus, userApi,
                               propertySellingStatus, propertyReviewStatus, $rootScope, $filter) {
 
+        var delayer = new misc.Delayer({
+            task: function () {
+                autoUpdate()
+            },
+            delay: 2 * 60 * 1000
+        })
+
+        function autoUpdate() {
+            if ($state.current.controller !== 'ctrlPropertyEdit') {
+                $scope.cancelDelayer()
+                return
+            }
+            $scope.submitItem = JSON.parse(angular.toJson($scope.item))
+            $scope.submitItem = misc.cleanTempData($scope.submitItem)
+            $scope.submitItem = misc.cleanI18nEmptyUnit($scope.submitItem)
+            update(misc.getChangedI18nAttributes($scope.submitItem, $scope.lastItem))
+            delayer.update()
+        }
+
+        function update(param) {
+            if (_.isEmpty(param)) {
+                return
+            }
+            api.update($stateParams.id, param, {
+                successMessage: 'Update successfully',
+                errorMessage: 'Update failed'
+            }).success(function (data) {
+                angular.extend(currentItem, data.val)
+                if ($scope.submitted) {
+                    $scope.cancelDelayer()
+                    $state.go('^')
+                } else {
+                    $scope.lastItem = $scope.submitItem
+                }
+            })['finally'](function () {
+                $scope.loading = false
+            })
+        }
+
+        $scope.cancelDelayer = function () {
+            delayer.cancel()
+        }
+
+        $scope.resetData = function () {
+            $scope.submitItem = $scope.itemOrigin
+            $scope.submitItem = misc.cleanTempData($scope.submitItem)
+            $scope.submitItem = misc.cleanI18nEmptyUnit($scope.submitItem)
+            update(misc.getChangedI18nAttributes($scope.submitItem, $scope.lastItem))
+            $scope.cancelDelayer()
+        }
+
         $scope.item = {}
 
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
@@ -88,6 +139,7 @@
             }
             $scope.itemOrigin = editItem
             $scope.item = angular.copy($scope.itemOrigin)
+            $scope.lastItem = angular.copy($scope.itemOrigin)
         }
 
         function onGetTargetItem(item) {
@@ -137,9 +189,9 @@
             var changed = JSON.parse(angular.toJson($scope.item))
             changed = misc.cleanTempData(changed)
             changed = misc.cleanI18nEmptyUnit(changed)
-            changed = misc.getChangedI18nAttributes(changed, $scope.itemOrigin)
+            changed = misc.getChangedI18nAttributes(changed, $scope.lastItem)
             if (_.isEmpty(changed)) {
-                growl.addWarnMessage('Nothing to update')
+                growl.addWarnMessage('没有修改或已自动保存')
                 return
             }
             $scope.loading = true
@@ -175,24 +227,14 @@
             })
         }
 
-        $scope.submitForAccept = function ($event, form) {
-            $scope.item.status = 'selling'
-            $scope.submit($event, form)
-        }
-
-        $scope.submitForReject = function ($event, form) {
-            $scope.item.status = 'rejected'
-            $scope.submit($event, form)
-        }
-
         $scope.submitForPreview = function ($event, form) {
             $scope.submitted = true
             var changed = JSON.parse(angular.toJson($scope.item))
             changed = misc.cleanTempData(changed)
             changed = misc.cleanI18nEmptyUnit(changed)
-            changed = misc.getChangedI18nAttributes(changed, $scope.itemOrigin)
+            changed = misc.getChangedI18nAttributes(changed, $scope.lastItem)
             if (_.isEmpty(changed)) {
-                growl.addWarnMessage('Nothing to update')
+                $window.open('property/' + $stateParams.id, '_blank')
                 return
             }
             $scope.loading = true
