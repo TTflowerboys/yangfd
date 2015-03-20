@@ -1,5 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
 platform :ios, '7.0'
 inhibit_all_warnings!
+
+xcodeproj 'currant'
+
+pod 'BBTUtility', :git => "git@git.bbtechgroup.com:bbt/ios-bbtutility.git", :tag => "0.0.1"
+pod 'BBTRestClient', :git => "git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git", :tag => "0.0.1"
 
 pod "DeepLinkSDK"
 pod 'WebViewJavascriptBridge', '~> 4.1.3'
