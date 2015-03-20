@@ -17,6 +17,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UITabBarController *rootViewController = [[UITabBarController alloc] init];
+    UINavigationController *homeController = [[UINavigationController alloc] init];
+    homeController.title = @"主页";
+    homeController.view.backgroundColor = [UIColor redColor];
+    UINavigationController *propertyListController = [[UINavigationController alloc] init];
+    propertyListController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"房产列表" image:nil selectedImage:nil];
+    [rootViewController setViewControllers:@[homeController, propertyListController]];
+    [self.window setRootViewController:rootViewController];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
