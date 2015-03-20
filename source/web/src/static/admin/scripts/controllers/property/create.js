@@ -8,21 +8,30 @@
             task: function () {
                 createOrUpdate()
             },
-            delay: 6000
+            delay: 2 * 60 * 1000
         })
 
-
         function createOrUpdate() {
+            if ($state.current.controller !== 'ctrlPropertyCreate') {
+                $scope.cancelDelayer()
+                return
+            }
+            $scope.submitItem = angular.copy($scope.item)
+            $scope.submitItem = misc.cleanTempData($scope.submitItem)
+            $scope.submitItem = misc.cleanI18nEmptyUnit($scope.submitItem)
             if ($scope.item.id) {
-                update($scope.item)
+                update($scope.item.id, misc.getChangedI18nAttributes($scope.submitItem, $scope.lastItem))
             } else {
-                create($scope.item)
+                create($scope.submitItem)
             }
             delayer.update()
         }
 
-        function create(data) {
-            api.create(data, {
+        function create(param) {
+            if (!param) {
+                return
+            }
+            api.create(param, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {
@@ -32,12 +41,15 @@
             })
         }
 
-        function update(data) {
-            api.update(data, {
+        function update(id, param) {
+            if (!param) {
+                return
+            }
+            api.update(id, param, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
-            }).success(function (data) {
-                updateSuccess(data)
+            }).success(function () {
+                updateSuccess()
             })['finally'](function () {
                 $scope.loading = false
             })
@@ -52,10 +64,11 @@
                 $state.go('^')
             } else {
                 $scope.item.id = data.val
+                $scope.lastItem = $scope.submitItem
             }
         }
 
-        function updateSuccess(data) {
+        function updateSuccess() {
             if ($scope.submitted) {
                 if ($scope.$parent.currentPageNumber === 1) {
                     $scope.$parent.refreshList()
@@ -63,15 +76,17 @@
                 $scope.cancelDelayer()
                 $state.go('^')
             } else {
-                $scope.item.id = data.val
+                $scope.lastItem = $scope.submitItem
             }
         }
 
-        $scope.cancelDelayer = function(){
+        $scope.cancelDelayer = function () {
             delayer.cancel()
         }
 
         $scope.item = {}
+        $scope.lastItem = {}
+        $scope.submitItem = {}
 
         $scope.submit = function ($event, form) {
             $event.preventDefault()
