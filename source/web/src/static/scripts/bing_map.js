@@ -10,22 +10,24 @@
 
         var staticImgUrl = 'http://dev.virtualearth.net/REST/V1/Imagery/Map/Road/'+ lat + '%2C' + lng +'/13?mapSize=' + width + ',' + height + '&format=png&pushpin='+ lat +','+ lng +';64;&key=' + bingMapKey
         $('#mapImg').attr('src', staticImgUrl)
-        $('#showMap').click(function (e) {
-
-            if (!$('#mapLoadIndicator').is(':visible')) {
-                $('#mapLoadIndicator').show()
-                var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
-                window.onBingMapScriptLoad = function () {
-                    $('#mapLoadIndicator').hide()
-                    //showMap
-                    $('.staticMap').hide()
-                    $('.maps').show()
-                    onMapScriptLoadCallback()
-                }
-                $('body').append(scriptString)
-            }
-        })
+        onMapScriptLoadCallback()
     }
+
+    var indicatorCounter = 0
+    window.showMapIndicator = function () {
+        indicatorCounter++
+        if (indicatorCounter) {
+            $('#mapLoadIndicator').show()
+        }
+    }
+
+    window.hideMapIndicator = function() {
+        indicatorCounter--
+        if (indicatorCounter <= 0) {
+            $('#mapLoadIndicator').hide()
+        }
+    }
+
 
     window.mapCache = {}
     window.mapPinCache = {}
@@ -219,7 +221,7 @@
         }
     }
 
-    window.showTransitMap = function (location, polygon, showCenter, zoom, country) {
+    window.showTransitMap = function (location, polygon, showCenter, zoom, country, callback) {
         var mapId = 'transitMapCanvas'
         var map = window.getMap('transitMapCanvas')
         var $list = $('.maps .list div[data-tab-name=transit]')
@@ -251,10 +253,11 @@
             if (showCenter) {
                 createMapCenterPin(map, location)
             }
+            callback()
         })
     }
 
-    window.showSchoolMap = function(location, polygon, showCenter, zoom, country) {
+    window.showSchoolMap = function(location, polygon, showCenter, zoom, country, callback) {
         var mapId = 'schoolMapCanvas'
         var map = window.getMap('schoolMapCanvas')
         var $list = $('.maps .list div[data-tab-name=school]')
@@ -276,11 +279,11 @@
             if (showCenter) {
                 createMapCenterPin(map, location)
             }
-
+            callback()
         })
     }
 
-    window.showFacilityMap = function(location, polygon, showCenter, zoom, country) {
+    window.showFacilityMap = function(location, polygon, showCenter, zoom, country, callback) {
         var mapId = 'facilityMapCanvas'
         var map = window.getMap('facilityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=facility]')
@@ -302,6 +305,7 @@
             if (showCenter) {
                 createMapCenterPin(map, location)
             }
+            callback()
         })
     }
 

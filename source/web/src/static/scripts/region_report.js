@@ -110,19 +110,44 @@
 
     findLocation(function (location) {
         window.setupMap(location, function () {
-            $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-                $('[data-tab-name=' + tabName + ']').show()
+
+            $('#showMap').click(function (e) {
+                if (!$('#mapLoadIndicator').is(':visible')) {
+                    window.showMapIndicator()
+                    var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
+                    window.onBingMapScriptLoad = function () {
+                        //showMap
+                        $('.staticMap').hide()
+                        $('.maps').show()
+
+                        $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+                            $('[data-tab-name=' + tabName + ']').show()
+                        })
+                        //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
+                        window.showMapIndicator()
+                        window.getRegion(zipCodeIndexFromURL, function (polygon) {
+                            window.showTransitMap(location, polygon,  false, null, null, function () {
+                                window.hideMapIndicator()
+                            })
+                        })
+                        window.showMapIndicator()
+                        window.getRegion(zipCodeIndexFromURL, function (polygon) {
+                            window.showSchoolMap(location, polygon, false, null, null, function () {
+                                window.hideMapIndicator()
+                            })
+                        })
+                        window.showMapIndicator()
+                        window.getRegion(zipCodeIndexFromURL, function (polygon) {
+                            window.showFacilityMap(location, polygon, false, null, null, function () {
+                                window.hideMapIndicator()
+                            })
+                        })
+                        window.hideMapIndicator()
+                    }
+                    $('body').append(scriptString)
+                }
             })
-            //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
-            window.getRegion(zipCodeIndexFromURL, function (polygon) {
-                window.showTransitMap(location, polygon)
-            })
-            window.getRegion(zipCodeIndexFromURL, function (polygon) {
-                window.showSchoolMap(location, polygon)
-            })
-            window.getRegion(zipCodeIndexFromURL, function (polygon) {
-                window.showFacilityMap(location, polygon)
-            })
+
         })
     })
 
