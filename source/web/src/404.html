@@ -32,14 +32,21 @@
                 <td class=content>
                     <h1>404</h1>
                     <h2>对不起，没有您找的页面</h2>
-                    <h3 id="show">5秒后 <a href="/">返回首页</a></h3>
+                    <h3 id="show"><span id="sec">5</span>秒后 <a href="/">返回首页</a></h3>
                 </td>
             </tr>
         </table>
     </body>
     <script>
-        setTimeout(function () {
-            location.href = '/'
-        }, 5000)
+        window.onload = function(){
+            var sec = 5
+            setInterval(function(){
+                if(sec == 0){
+                    location.href = '/'
+                }
+                document.getElementById('sec').innerHTML = sec
+                sec--
+            },1000)
+        }
     </script>
 </html>
