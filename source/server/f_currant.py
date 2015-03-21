@@ -1268,7 +1268,7 @@ class f_property(f_app.module_base):
                         property.pop("real_address", None)
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
-                    if property["status"] not in ["selling", "sold out"] and check_permission:
+                    if property["status"] not in ["selling", "sold out", "restricted"] and check_permission:
                         assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
                 new_properties.append(property)
 
@@ -1285,7 +1285,7 @@ class f_property(f_app.module_base):
                         property.pop("real_address", None)
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
-                    if property["status"] not in ["selling", "sold out"] and check_permission:
+                    if property["status"] not in ["selling", "sold out", "restricted"] and check_permission:
                         assert user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
                 new_properties[id] = property
         return new_properties
