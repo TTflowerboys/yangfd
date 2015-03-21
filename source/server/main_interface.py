@@ -220,8 +220,11 @@ def property_list(params):
 
 @f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
 @check_ip_and_redirect_domain
-def property_get(property_id):
+@f_app.user.login.check(check_role=True)
+def property_get(property_id, user):
     property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
+    if property["status"] not in ["selling", "sold out", "restricted"]:
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
     favorite_list = currant_data_helper.get_favorite_list('property')
     favorite_list = f_app.i18n.process_i18n(favorite_list)
     related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
@@ -253,6 +256,8 @@ def property_get(property_id):
 @f_app.user.login.check(force=True)
 def pdfviewer(user, property_id, params):
     property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
+    if property["status"] not in ["selling", "sold out", "restricted"]:
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
     for brochure in property.get('brochure'):
         if brochure.get('url') == params["link"]:
             title = property.get('name', _('房产详情')) + ' PDF'
