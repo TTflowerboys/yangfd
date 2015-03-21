@@ -15,4 +15,8 @@
 #import <BBTCommonMarco.h>
 #import <BBTUIMarco.h>
 
+//http://stackoverflow.com/questions/510269/shortcuts-in-objective-c-to-concatenate-nsstrings
+
+#define CONCAT(...) [@[__VA_ARGS__] componentsJoinedByString:@""]
+
 #endif
