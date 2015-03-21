@@ -32,7 +32,9 @@
         [self.view addSubview:webView];
     }
     
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlPath relativeToURL:hostURL]]];
+    
+    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlPath relativeToURL:hostURL]];
+    [webView loadRequest:urlRequest];
 }
 
 - (void)viewDidLoad {
