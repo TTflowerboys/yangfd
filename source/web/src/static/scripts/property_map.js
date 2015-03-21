@@ -4,7 +4,7 @@
         var location = {latitude:property.latitude, longitude:property.longitude}
         window.setupMap(location, function () {
 
-            $('#showMap').click(function (e) {
+            $('#mapImg, #showMap').click(function (e) {
                 if (!$('#mapLoadIndicator').is(':visible')) {
                     window.showMapIndicator()
                     var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'

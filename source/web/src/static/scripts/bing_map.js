@@ -225,6 +225,10 @@
         var mapId = 'transitMapCanvas'
         var map = window.getMap('transitMapCanvas')
         var $list = $('.maps .list div[data-tab-name=transit]')
+        Microsoft.Maps.Events.addHandler(map, 'mousewheel', function(e) {
+            e.handled = true;
+            return true;
+        });
 
         // Microsoft.Maps.loadModule('Microsoft.Maps.Traffic', {callback: function () {
         //var trafficLayer = new Microsoft.Maps.Traffic.TrafficLayer(map);
@@ -261,6 +265,10 @@
         var mapId = 'schoolMapCanvas'
         var map = window.getMap('schoolMapCanvas')
         var $list = $('.maps .list div[data-tab-name=school]')
+        Microsoft.Maps.Events.addHandler(map, 'mousewheel', function(e) {
+            e.handled = true;
+            return true;
+        });
 
         findNearByLocations(map, mapId, location, country, ['8211', '8200'], function (searchResults) {
             if (searchResults) {
@@ -287,6 +295,10 @@
         var mapId = 'facilityMapCanvas'
         var map = window.getMap('facilityMapCanvas')
         var $list = $('.maps .list div[data-tab-name=facility]')
+        Microsoft.Maps.Events.addHandler(map, 'mousewheel', function(e) {
+            e.handled = true;
+            return true;
+        });
 
         findNearByLocations(map, mapId, location, country, ['4017', '5400', '5540', '5800', '6000', '6512', '7011', '7832', '7997', '8060', '8231', '9221', '9504', '9505', '9510', '9523', '9530', '9539'], function (searchResults) {
             if (searchResults) {
