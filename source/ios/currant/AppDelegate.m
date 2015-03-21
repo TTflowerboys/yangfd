@@ -7,27 +7,40 @@
 //
 
 #import "AppDelegate.h"
+#import "CUTEWebViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <UITabBarControllerDelegate>
 
 @end
 
 @implementation AppDelegate
 
 
+- (UIViewController *)makeViewControllerWithTitle:(NSString *)title icon:(UIImage *)icon urlPath:(NSString *)urlPath {
+    CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
+    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:icon selectedImage:icon];
+    controller.tabBarItem = tabItem;
+    controller.urlPath = urlPath;
+    return controller;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
-    UINavigationController *homeController = [[UINavigationController alloc] init];
-    homeController.title = @"主页";
-    homeController.view.backgroundColor = [UIColor redColor];
-    UINavigationController *propertyListController = [[UINavigationController alloc] init];
-    propertyListController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"房产列表" image:nil selectedImage:nil];
-    [rootViewController setViewControllers:@[homeController, propertyListController]];
+    [rootViewController setViewControllers:@[
+                                             [self makeViewControllerWithTitle:STR(@"Home") icon:nil urlPath:@"/"],
+                                             [self makeViewControllerWithTitle:STR(@"Property List") icon:nil urlPath:@"/property_list"],
+                                             [self makeViewControllerWithTitle:STR(@"Edit") icon:nil urlPath:nil],
+                                             [self makeViewControllerWithTitle:STR(@"Rent") icon: nil urlPath:@"/rent_list"],
+                                             [self makeViewControllerWithTitle:STR(@"Me") icon:nil urlPath:@"/user"],
+                                             ] animated:YES];
     [self.window setRootViewController:rootViewController];
+    rootViewController.delegate = self;
     [self.window makeKeyAndVisible];
+    CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)[rootViewController.viewControllers firstObject];
+    [firstWebviewController loadURLPath:firstWebviewController.urlPath];
     return YES;
 }
 
@@ -51,6 +64,14 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma UITabbarViewControllerDelegate
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+    if ([viewController isKindOfClass:[CUTEWebViewController class]]) {
+        [(CUTEWebViewController *)viewController loadURLPath:[(CUTEWebViewController *)viewController urlPath]];
+    }
 }
 
 @end

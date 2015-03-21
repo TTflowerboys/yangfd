@@ -1,0 +1,14 @@
+/*
+  Localizable.string.strings
+  currant
+
+  Created by Foster Yin on 3/21/15.
+  Copyright (c) 2015 Foster Yin. All rights reserved.
+*/
+
+
+"Home" = "主页";
+"Property List" = "海外房产";
+"Edit" = "编辑";
+"Rent" = "租房";
+"Me" = "我";
