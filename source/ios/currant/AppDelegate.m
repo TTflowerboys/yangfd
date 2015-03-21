@@ -35,10 +35,12 @@
                                              [self makeViewControllerWithTitle:STR(@"Edit") icon:nil urlPath:nil],
                                              [self makeViewControllerWithTitle:STR(@"Rent") icon: nil urlPath:@"/rent_list"],
                                              [self makeViewControllerWithTitle:STR(@"Me") icon:nil urlPath:@"/user"],
-                                             ]];
+                                             ] animated:YES];
     [self.window setRootViewController:rootViewController];
     rootViewController.delegate = self;
     [self.window makeKeyAndVisible];
+    CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)[rootViewController.viewControllers firstObject];
+    [firstWebviewController loadURLPath:firstWebviewController.urlPath];
     return YES;
 }
 
