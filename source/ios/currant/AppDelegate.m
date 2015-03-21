@@ -15,6 +15,30 @@
 
 @implementation AppDelegate
 
+//http://stackoverflow.com/questions/7608632/how-do-i-get-the-current-version-of-my-ios-project-in-code
++ (NSString *) appVersion
+{
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+}
+
++ (NSString *) build
+{
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
+}
+
++ (NSString *) versionBuild
+{
+    NSString * version = [self appVersion];
+    NSString * build = [self build];
+    
+    NSString * versionBuild = [NSString stringWithFormat: @"v%@", version];
+    
+    if (![version isEqualToString: build]) {
+        versionBuild = [NSString stringWithFormat: @"%@(%@)", versionBuild, build];
+    }
+    
+    return versionBuild;
+}
 
 - (UIViewController *)makeViewControllerWithTitle:(NSString *)title icon:(UIImage *)icon urlPath:(NSString *)urlPath {
     CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
@@ -26,6 +50,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    NSArray *userAgentComponents =  @[[[NSBundle mainBundle] bundleIdentifier], [AppDelegate versionBuild]];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[userAgentComponents componentsJoinedByString:@"/"], @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
