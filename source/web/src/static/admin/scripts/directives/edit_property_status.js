@@ -50,7 +50,7 @@ angular.module('app')
                     }
                 })
                 scope.onUpdateStatus = function (item, newStatus) {
-                    propertyApi.update({id: item.id, status: newStatus},
+                    propertyApi.update(item.id, {status: newStatus},
                         {successMessage: '操作成功', errorMessage: true})
                         .success(function () {
                             item.status = newStatus
