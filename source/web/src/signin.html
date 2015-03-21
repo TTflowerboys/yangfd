@@ -13,11 +13,21 @@
 <!--@@block=scripts -->
 <script>
 
+    //Show error message based on url
+    document.ready = function(){
+        var topErrorArea = $($('form[name=signin]').find('.errorMessage')[0])
+        if (team.getQuery('error_code')) {
+            topErrorArea.empty()
+            topErrorArea.append(window.getErrorMessageFromErrorCode(team.getQuery('error_code')))
+            topErrorArea.show()
+        }
+    }
+
 
     $('form[name=signin]').submit(function (e) {
         e.preventDefault()
         ga('send', 'event', 'signin', 'click', 'signin-submit')
-        var errorArea = $('form[name=register]').find('.errorMessage')
+        var errorArea = $($('form[name=signin]').find('.errorMessage')[1])
         var valid = $.validate(this, {
             onError: function (dom, validator, index) {
                 errorArea.text(window.getErrorMessage(dom.name, validator))

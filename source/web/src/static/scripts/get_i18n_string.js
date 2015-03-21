@@ -21,7 +21,8 @@ window.getErrorMessage = function (domName, validator) {
 
 window.getErrorMessageFromErrorCode = function (errorCode, api) {
     var stringMap = {
-        40000: i18n('参数错误'),
+        40000: i18n('输入错误，请检查后重试'),
+        40100: i18n('没有访问权限，请登陆后重试'),
         40103: i18n('账户或密码错误'),
         40324: i18n('账户不存在'),
         40325: i18n('邮箱已被使用'),

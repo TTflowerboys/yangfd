@@ -6,7 +6,7 @@ from bson.objectid import ObjectId
 from lxml import etree
 from datetime import datetime
 from hashlib import sha1
-from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, error, abort, template_gettext as _
+from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, html_redirect, error, abort, template_gettext as _
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
 import qrcode
@@ -696,9 +696,13 @@ def admin():
 @f_get('/401')
 @error(401)
 def error_401(error=None):
-    title = _('没有权限')
-    return common_template("401", title=title)
+    return html_redirect('/signin?error_code=40100')
 
+@f_get('/403')
+@error(403)
+def error_403(error=None):
+    title = _('无法访问该页面')
+    return common_template("403", title=title)
 
 @f_get('/404')
 @error(404)
