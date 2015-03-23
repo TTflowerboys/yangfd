@@ -1,13 +1,6 @@
 /**
  * Created by zhou on 15-2-6.
  */
-var mode
-if (team.isPhone()) {
-    mode = 1
-} else {
-    mode = 2
-}
-
 window.getCrowdfundingType = function (type) {
     var inputCrowdfundingType = {
         'recharge': i18n('充值'),
@@ -36,9 +29,6 @@ window.getCrowdfundingHref = function (type, id) {
         return '#'
     }
 }
-
-$('#earning').attr('rowspan', mode)
-$('#overage').attr('colspan', mode)
 
 $('.titleFrame tr .titleCell a').click(function () {
     $('.rechargeFrame').hide()

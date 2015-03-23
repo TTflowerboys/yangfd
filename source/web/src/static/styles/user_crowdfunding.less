@@ -65,21 +65,33 @@
         color: #ff8a00;
     }
 }
-.topClass {
-    margin: 0 auto;
+.orangeUl {
+    background-color: #fff5ce;
+    border: 1px solid #ffb34f;
+    height: 180px;
+    overflow: hidden;
     width: 100%;
-    @media @phone{
-        table-layout: fixed;
-    }
-    td {
-        width: 21%;
-        padding: 0;
+    padding: 10px 0;
+    .earning {
+        width: 36%;
+        height: 180px;
         @media @phone {
-            width: 33%;
+            width: 32%;
+            height: 80px;
         }
+    }
+    .money {
+        width: 42%;
+    }
+    li {
+        float: left;
+        display: inline-block;
+        vertical-align: inherit;
+        width: 21%;
+        height: 90px;
         > div {
             border-left: 1px solid #cccccc;
-            padding: 0 8px;
+            padding-left: 8px;
             &.noLine {
                 padding: 0;
                 border-left: 0;
@@ -89,6 +101,65 @@
                     padding: 0;
                     border-left: 0;
                 }
+            }
+            @media @phone{
+                padding-left: 6px;
+            }
+        }
+        div {
+            color: #666666;
+        }
+        @media @phone{
+            width: 26%;
+            height: auto;
+        }
+        &.first {
+            @media @phone{
+                width: 32%;
+            }
+        }
+    }
+    @media @phone{
+        border: 0;
+        padding: 12px;
+        height: auto;
+    }
+    &.small {
+        border: 2px solid #ffb34f;
+        height: 90px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 20px 50px;
+        color: #ff8a00;
+    }
+}
+.topClass {
+    margin: 0 auto;
+    width: 100%;
+    td {
+        width: 21%;
+        padding: 0;
+        @media @phone {
+            width: 33%;
+        }
+        > div {
+            border-left: 1px solid #cccccc;
+            padding-left: 8px;
+            &.noLine {
+                padding: 0;
+                border-left: 0;
+                @media @phone{
+                    padding-right: 6px;
+                }
+            }
+            &.phone {
+                @media @phone {
+                    padding: 0;
+                    border-left: 0;
+                }
+            }
+            @media @phone{
+                padding-left: 6px;
             }
         }
         div {
@@ -123,6 +194,13 @@
             display: block;
         }
     }
+    &.string {
+        color: #ff8a00;
+        margin: 0 0 14px 14px;
+        @media @phone{
+            margin: 0 0 28px 0;
+        }
+    }
     &.number {
         color: #ff8a00;
         font-size: 80px;
@@ -132,6 +210,12 @@
         &.overview {
             margin: -10px auto;
         }
+    }
+}
+.overviewTopRow {
+    margin-top: 0;
+    @media @phone{
+        margin-top: 28px;
     }
 }
 .cfdLittleTitle {
@@ -149,6 +233,7 @@
     font-size: 24px;
     @media @phone {
         font-size: 18px;
+        padding-right: 0;
     }
 }
 .cfdContentFrame {
