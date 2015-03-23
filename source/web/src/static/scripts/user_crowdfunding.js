@@ -62,7 +62,18 @@ function changeMainPage(page) {
 }
 $(function () {
     //reload data or setup empty place holder
-    var orderArray = JSON.parse($('#dataOrderList').text())
+    var orderArray = JSON.parse($('#accountOrderList').text())
+    if (orderArray.length > 0) {
+        _.each(orderArray, function (order) {
+            var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
+            $('#account_transaction_list').append(orderResult)
+        })
+    }
+
+})
+$(function () {
+    //reload data or setup empty place holder
+    var orderArray = JSON.parse($('#transactionOrderList').text())
     if (orderArray.length > 0) {
         _.each(orderArray, function (order) {
             var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
@@ -73,7 +84,7 @@ $(function () {
 })
 $(function () {
     //reload data or setup empty place holder
-    var orderArray = JSON.parse($('#dataOrderList').text())
+    var orderArray = JSON.parse($('#earningOrderList').text())
     if (orderArray.length > 0) {
         _.each(orderArray, function (order) {
             var orderResult = _.template($('#earning_list_item_template').html())({order: order})
@@ -86,7 +97,7 @@ var colors = ['#F7464A', '#46BFBD', '#FDB45C']
 var colorIndex = 0
 $(function () {
     //reload data or setup empty place holder
-    var orderArray = JSON.parse($('#dataOrderList').text())
+    var orderArray = JSON.parse($('#investmentOrderList').text())
     if (orderArray.length > 0) {
 
         var data = []
