@@ -8,7 +8,7 @@
 
 #import "CUTEWebViewController.h"
 
-@interface CUTEWebViewController ()
+@interface CUTEWebViewController () <UIWebViewDelegate>
 {
     NSURL *hostURL;
     UIWebView *webView;
@@ -30,6 +30,7 @@
     if (!webView) {
         webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 20)];
         [self.view addSubview:webView];
+        webView.delegate = self;
     }
     
     
@@ -50,6 +51,24 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    NSError *error = nil;
+    NSString *css = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"base" ofType:@"css"] encoding: NSUTF8StringEncoding error: &error];
+    css = @"\".hiddenInClient {display:none;}\"";
+    NSString* js = [NSString stringWithFormat:
+                    @"var styleNode = document.createElement('style');\n"
+                    "styleNode.type = \"text/css\";\n"
+                    "var styleText = document.createTextNode(%@);\n"
+                    "styleNode.appendChild(styleText);\n"
+                    "document.getElementsByTagName('head')[0].appendChild(styleNode);\n",css];
+    [webView stringByEvaluatingJavaScriptFromString:js];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)theWebView
+{
+    
 }
 
 /*

@@ -34,134 +34,139 @@
         <!-- @@include =../partials/user_data.html -->
         <div class="page">
 
-            <div id="header" class="siteHeader_wrapper">
-                <header class="siteHeader">
-                    <a href="/"><img class="logo" src="/static/images/logo/logo-header.png" alt=""/></a>
-                    <ul class="navbar">
-                        <li><a href="/">{{_('首页')}}</a></li>
-                        <li><a href="/property_list">{{_('海外房产')}}</a></li>
-                        <!-- @if ENV!='production' -->
-                        <li><a href="/crowdfunding_list">{{_('海外众筹')}}</a></li>
-                        <!-- @endif -->
-                        <li><a href="/news_list">{{_('投资资讯')}}</a></li>
-                    </ul>
-                    <div class="user">
-                        %if user:
-                        <a class="nickname" href="/user_settings">
-                            <img alt="" src="/static/images/common/header/user.png"/> {{user.get('nickname')}}
-                        </a>
-                        <a class="message" id="message" href="/user_messages">
-                            <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
-                            <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" />
-                        </a>
-                        <a id="logout" class="logout" href="/logout">
-                            <img alt="" src="/static/images/common/header/logout.png"/>
-                        </a>
-                        %else:
-                        <button id="login" class="login ghostButton red">{{_('登录')}}</button>
-                        <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('注册')}}</button>
-                        %end
-                    </div>
-                </header>
-                <div class="siteHeader_phone rmm" >
-                    <div class="rmm-toggled rmm-closed rmm-center-closed">
-                        <div class="rmm-toggled-controls">
-                            <div class="rmm-button">
-                                <img src="/static/images/common/header/phone/menu.png"/>
-                            </div>
-                            <div class="rmm-center">
-                                {{_('洋房东')}}
-                            </div>
-                            <div class="rmm-toggled-title">
-                                <img src="/static/images/common/header/phone/user_phone.png" />
-                            </div>
-                        </div>
-                        <ul class="rmm-menu" style="display:none;">
+            % from bottle import request
+            %if "currant" not in request.headers.get('User-Agent').lower():
+                <div id="header" class="siteHeader_wrapper hiddenInClient">
+                    <header class="siteHeader">
+                        <a href="/"><img class="logo" src="/static/images/logo/logo-header.png" alt=""/></a>
+                        <ul class="navbar">
                             <li><a href="/">{{_('首页')}}</a></li>
                             <li><a href="/property_list">{{_('海外房产')}}</a></li>
+                            <!-- @if ENV!='production' -->
+                            <li><a href="/crowdfunding_list">{{_('海外众筹')}}</a></li>
+                            <!-- @endif -->
                             <li><a href="/news_list">{{_('投资资讯')}}</a></li>
                         </ul>
+                        <div class="user">
+                            %if user:
+                                <a class="nickname" href="/user_settings">
+                                    <img alt="" src="/static/images/common/header/user.png"/> {{user.get('nickname')}}
+                                </a>
+                                <a class="message" id="message" href="/user_messages">
+                                    <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
+                                    <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" />
+                                </a>
+                                <a id="logout" class="logout" href="/logout">
+                                    <img alt="" src="/static/images/common/header/logout.png"/>
+                                </a>
+                            %else:
+                                <button id="login" class="login ghostButton red">{{_('登录')}}</button>
+                                <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('注册')}}</button>
+                            %end
+                        </div>
+                    </header>
+                    <div class="siteHeader_phone rmm" >
+                        <div class="rmm-toggled rmm-closed rmm-center-closed">
+                            <div class="rmm-toggled-controls">
+                                <div class="rmm-button">
+                                    <img src="/static/images/common/header/phone/menu.png"/>
+                                </div>
+                                <div class="rmm-center">
+                                    {{_('洋房东')}}
+                                </div>
+                                <div class="rmm-toggled-title">
+                                    <img src="/static/images/common/header/phone/user_phone.png" />
+                                </div>
+                            </div>
+                            <ul class="rmm-menu" style="display:none;">
+                                <li><a href="/">{{_('首页')}}</a></li>
+                                <li><a href="/property_list">{{_('海外房产')}}</a></li>
+                                <li><a href="/news_list">{{_('投资资讯')}}</a></li>
+                            </ul>
+                        </div>
                     </div>
+                    <!-- @@placeholder = custom_header -->
                 </div>
-                <!-- @@placeholder = custom_header -->
-            </div>
+            %end
+
             <main id="main">
                 <!-- @@placeholder = main -->
             </main>
 
-            <div id="footer" class="siteFooter_wrapper">
-                <footer class="siteFooter">
-                    <div class="contact">
-                        <h3>{{_('联系我们')}}</h3>
-                        <p class="phone">
-                            {{_('电话：')}} <a href="tel:4000926433"><i></i>400-0926-433</a>
-                        </p>
-                        <p class="email">
-                            {{_('邮箱：')}} <a href="mailto:services@youngfunding.co.uk?subject=Feedback">services@youngfunding.co.uk</a>
-                        </p>
-                        <p class="address">{{_('英国总部')}}: Digital Enterprise Centre, 6 Mitre Passage, O2 Arena, Greenwich, London</p>
-                        <!--<p class="address">{{_('中国总部')}}：湖北省武汉市洪山区国际企业中心</p>-->
-                        <!--Only for baidu approval-->
-                        <p class="aboutus" ><a href="/about">关于我们</a></p>
-                    </div>
-                    <div class="social">
-                        <h3>{{_('关注我们')}}</h3>
-                        <img class="weixin" src="/static/images/media/wechat_medium.png" alt="{{_('微信订阅号')}}"/>
-                        <a href="http://weibo.com/u/5407577461" target="_blank">
-                            <img class="other" src="/static/images/media/weibo.png" alt="{{_('新浪微博')}}">
-                        </a>
-                        <a href="https://www.linkedin.com/company/%E6%B4%8B%E6%88%BF%E4%B8%9C-young-funding" target="_blank">
-                            <img class="other" src="/static/images/media/linkedin.png" alt="{{_('Linkedin')}}">
-                        </a>
-                    </div>
-                    <div class="support">
-                        <h3>{{_('服务支持')}}</h3>
-                        <a href="/about">{{_('关于我们')}}</a>
-                        <a href="/terms">{{_('服务声明')}}</a>
-                        <a href="/about/marketing">{{_('市场合作')}}</a>
-                        <a href="/about/media">{{_('媒体合作')}}</a>
-                        <a href="/partner">{{_('合作伙伴')}}</a>
-                    </div>
-                    <div class="localizationChanger">
-                        <!-- @if ENV!='production' -->
-                        <h3>{{_('语言和货币')}}</h3>
-                        <div class="language">
-                            <select name="language" class="ghostSelect" style="min-width: 140px;">
-                                <option value="zh_Hans_CN" selected>{{_('简体中文(中国)')}}</option>
-                                <option value="en_GB">{{_('English (United Kingdom)')}}</option>
-                            </select>
+            %if "currant" not in request.headers.get('User-Agent').lower():
+                <div id="footer" class="siteFooter_wrapper">
+                    <footer class="siteFooter">
+                        <div class="contact">
+                            <h3>{{_('联系我们')}}</h3>
+                            <p class="phone">
+                                {{_('电话：')}} <a href="tel:4000926433"><i></i>400-0926-433</a>
+                            </p>
+                            <p class="email">
+                                {{_('邮箱：')}} <a href="mailto:services@youngfunding.co.uk?subject=Feedback">services@youngfunding.co.uk</a>
+                            </p>
+                            <p class="address">{{_('英国总部')}}: Digital Enterprise Centre, 6 Mitre Passage, O2 Arena, Greenwich, London</p>
+                            <!--<p class="address">{{_('中国总部')}}：湖北省武汉市洪山区国际企业中心</p>-->
+                            <!--Only for baidu approval-->
+                            <p class="aboutus" ><a href="/about">关于我们</a></p>
                         </div>
-                        <div class="currency">
-                            <select name="currency" class="ghostSelect" style="min-width: 140px;">
-                                <option value="CNY" selected>{{_('人民币')}}</option>
-                                <option value="GBP">{{_('英镑')}}</option>
-                                <option value="USD">{{_('美元')}}</option>
-                                <option value="EUR">{{_('欧元')}}</option>
-                                <option value="HKD">{{_('港币')}}</option>
-                            </select>
+                        <div class="social">
+                            <h3>{{_('关注我们')}}</h3>
+                            <img class="weixin" src="/static/images/media/wechat_medium.png" alt="{{_('微信订阅号')}}"/>
+                            <a href="http://weibo.com/u/5407577461" target="_blank">
+                                <img class="other" src="/static/images/media/weibo.png" alt="{{_('新浪微博')}}">
+                            </a>
+                            <a href="https://www.linkedin.com/company/%E6%B4%8B%E6%88%BF%E4%B8%9C-young-funding" target="_blank">
+                                <img class="other" src="/static/images/media/linkedin.png" alt="{{_('Linkedin')}}">
+                            </a>
                         </div>
-                        <!-- @endif -->
-                        <!-- @if ENV='production' -->
-                        <h3>{{_('货币')}}</h3>
-                        <div class="currency">
-                            <select name="currency" class="ghostSelect" style="min-width: 140px;">
-                                <option value="CNY" selected>{{_('人民币')}}</option>
-                                <option value="GBP">{{_('英镑')}}</option>
-                                <option value="USD">{{_('美元')}}</option>
-                                <option value="EUR">{{_('欧元')}}</option>
-                                <option value="HKD">{{_('港币')}}</option>
-                            </select>
+                        <div class="support">
+                            <h3>{{_('服务支持')}}</h3>
+                            <a href="/about">{{_('关于我们')}}</a>
+                            <a href="/terms">{{_('服务声明')}}</a>
+                            <a href="/about/marketing">{{_('市场合作')}}</a>
+                            <a href="/about/media">{{_('媒体合作')}}</a>
+                            <a href="/partner">{{_('合作伙伴')}}</a>
                         </div>
-                        <!-- @endif -->
-                    </div>
-
-                </footer>
-            </div>
-            <div id="copyright" class="copyright">
-                <p>&copy;<script>document.write(new Date().getFullYear())</script>
-                     {{_('鄂ICP备14015315号-1')}}
-                </p>
-            </div>
+                        <div class="localizationChanger">
+                            <!-- @if ENV!='production' -->
+                            <h3>{{_('语言和货币')}}</h3>
+                            <div class="language">
+                                <select name="language" class="ghostSelect" style="min-width: 140px;">
+                                    <option value="zh_Hans_CN" selected>{{_('简体中文(中国)')}}</option>
+                                    <option value="en_GB">{{_('English (United Kingdom)')}}</option>
+                                </select>
+                            </div>
+                            <div class="currency">
+                                <select name="currency" class="ghostSelect" style="min-width: 140px;">
+                                    <option value="CNY" selected>{{_('人民币')}}</option>
+                                    <option value="GBP">{{_('英镑')}}</option>
+                                    <option value="USD">{{_('美元')}}</option>
+                                    <option value="EUR">{{_('欧元')}}</option>
+                                    <option value="HKD">{{_('港币')}}</option>
+                                </select>
+                            </div>
+                            <!-- @endif -->
+                            <!-- @if ENV='production' -->
+                            <h3>{{_('货币')}}</h3>
+                            <div class="currency">
+                                <select name="currency" class="ghostSelect" style="min-width: 140px;">
+                                    <option value="CNY" selected>{{_('人民币')}}</option>
+                                    <option value="GBP">{{_('英镑')}}</option>
+                                    <option value="USD">{{_('美元')}}</option>
+                                    <option value="EUR">{{_('欧元')}}</option>
+                                    <option value="HKD">{{_('港币')}}</option>
+                                </select>
+                            </div>
+                            <!-- @endif -->
+                        </div>
+                    </footer>
+                </div>
+                <div id="copyright" class="copyright">
+                    <p>&copy;<script>document.write(new Date().getFullYear())</script>
+                        {{_('鄂ICP备14015315号-1')}}
+                    </p>
+                </div>
+            %end
         </div>
         <div id="modal_shadow" class="modal_shadow" style="display: none"></div>
         <div id="modal" class="modal" style="display: none">

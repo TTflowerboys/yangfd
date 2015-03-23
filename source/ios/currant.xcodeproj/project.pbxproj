@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C41B76E1AC0169400DF5608 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C41B76D1AC0169400DF5608 /* base.css */; };
 		2CB43DAF1ABC1372004DF663 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DAE1ABC1372004DF663 /* main.m */; };
 		2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CB43DC01ABC1373004DF663 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C41B76D1AC0169400DF5608 /* base.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = base.css; sourceTree = "<group>"; };
 		2CB43DA91ABC1372004DF663 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB43DAD1ABC1372004DF663 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CB43DAE1ABC1372004DF663 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -67,6 +69,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C41B76C1AC0166100DF5608 /* CSS */ = {
+			isa = PBXGroup;
+			children = (
+				2C41B76D1AC0169400DF5608 /* base.css */,
+			);
+			path = CSS;
+			sourceTree = "<group>";
+		};
 		2CB43DA01ABC1372004DF663 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +142,7 @@
 		2CB43DD51ABC2662004DF663 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				2C41B76C1AC0166100DF5608 /* CSS */,
 				2CB43DD81ABC26B2004DF663 /* Images.xcassets */,
 			);
 			path = Resource;
@@ -262,6 +273,7 @@
 			files = (
 				2CB43DC01ABC1373004DF663 /* LaunchScreen.xib in Resources */,
 				2CB43DE81ABD5CE3004DF663 /* Localizable.strings in Resources */,
+				2C41B76E1AC0169400DF5608 /* base.css in Resources */,
 				2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

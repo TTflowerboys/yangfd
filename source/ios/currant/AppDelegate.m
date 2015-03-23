@@ -40,9 +40,9 @@
     return versionBuild;
 }
 
-- (UIViewController *)makeViewControllerWithTitle:(NSString *)title icon:(UIImage *)icon urlPath:(NSString *)urlPath {
+- (UIViewController *)makeViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
     CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
-    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:icon selectedImage:icon];
+    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal ] selectedImage:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal ]];
     controller.tabBarItem = tabItem;
     controller.urlPath = urlPath;
     return controller;
@@ -56,15 +56,31 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
+    UIViewController *editViewController = [self makeViewControllerWithTitle:nil icon:@"tab-edit" urlPath:nil];
+    editViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
     [rootViewController setViewControllers:@[
-                                             [self makeViewControllerWithTitle:STR(@"Home") icon:nil urlPath:@"/"],
-                                             [self makeViewControllerWithTitle:STR(@"Property List") icon:nil urlPath:@"/property_list"],
-                                             [self makeViewControllerWithTitle:STR(@"Edit") icon:nil urlPath:nil],
-                                             [self makeViewControllerWithTitle:STR(@"Rent") icon: nil urlPath:@"/rent_list"],
-                                             [self makeViewControllerWithTitle:STR(@"Me") icon:nil urlPath:@"/user"],
+                                             [self makeViewControllerWithTitle:STR(@"Home") icon:@"tab-home" urlPath:@"/"],
+                                             [self makeViewControllerWithTitle:STR(@"Property List") icon:@"tab-property" urlPath:@"/property_list"],
+                                             editViewController,
+                                             [self makeViewControllerWithTitle:STR(@"Rent") icon:@"tab-rent" urlPath:@"/rent_list"],
+                                             [self makeViewControllerWithTitle:STR(@"Me") icon:@"tab-user" urlPath:@"/user"],
                                              ] animated:YES];
     [self.window setRootViewController:rootViewController];
     rootViewController.delegate = self;
+    // this will generate a black tab bar
+    //http://stackoverflow.com/questions/18734794/how-can-i-change-the-text-and-icon-colors-for-tabbaritems-in-ios-7
+    rootViewController.tabBar.barTintColor = HEXCOLOR(0x333333, 1);
+    // this will give selected icons and text your apps tint color
+    //rootViewController.tabBar.tintColor = HEXCOLOR(0x7a7a7a, 1);  // appTintColor is a UIColor *
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0f],
+                                                        NSForegroundColorAttributeName : HEXCOLOR(0x7a7a7a, 1)
+                                                        } forState:UIControlStateSelected];
+    
+    
+    // doing this results in an easier to read unselected state then the default iOS 7 one
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0f],
+                                                        NSForegroundColorAttributeName : [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1]
+                                                        } forState:UIControlStateNormal];
     [self.window makeKeyAndVisible];
     CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)[rootViewController.viewControllers firstObject];
     [firstWebviewController loadURLPath:firstWebviewController.urlPath];
