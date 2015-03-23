@@ -1007,6 +1007,8 @@ def wechat_endpoint():
             func(*args, root=root, **kwargs)
             return etree.tostring(root, encoding="UTF-8")
 
+        return __common_root_replace_func
+
     @common_root
     def transfer_customer_service(root):
         etree.SubElement(root, "MsgType").text = etree.CDATA("transfer_customer_service")
