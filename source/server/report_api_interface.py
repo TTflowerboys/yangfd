@@ -13,6 +13,8 @@ logger = logging.getLogger(__name__)
     name=("i18n", None, str),
     country='enum:country',
     zipcode_index=(str, True),
+    ward=str,
+    district=str,
     description=("i18n", None, str),
     villa_price=(list, None, dict(
         price=("i18n:currency", None),
@@ -93,6 +95,8 @@ def report_get(report_id):
 @f_api('/report/<report_id>/edit', params=dict(
     name=("i18n", None, str),
     zipcode_index=(str, None),
+    ward=str,
+    district=str,
     country=('enum:country', None),
     description=("i18n", None, str),
     villa_price=("i18n:currency", None),

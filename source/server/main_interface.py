@@ -1006,16 +1006,29 @@ def wechat_endpoint():
 
     return_str = ""
 
-    def build_property_list_by_country(country_id):
+    def common_root(func):
+        def __common_root_replace_func(*args, **kwargs):
+            root = etree.Element("xml")
+            etree.SubElement(root, "ToUserName").text = message["FromUserName"]
+            etree.SubElement(root, "FromUserName").text = message["ToUserName"]
+            etree.SubElement(root, "CreateTime").text = str(calendar.timegm(datetime.utcnow().timetuple()))
+            func(*args, root=root, **kwargs)
+            return etree.tostring(root, encoding="UTF-8")
+
+        return __common_root_replace_func
+
+    @common_root
+    def transfer_customer_service(root):
+        etree.SubElement(root, "MsgType").text = etree.CDATA("transfer_customer_service")
+
+    @common_root
+    def build_property_list_by_country(country_id, root):
         properties = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
             "country._id": ObjectId(country_id),
             "status": {"$in": ["selling", "sold out"]},
         }, per_page=9, time_field="mtime")))
 
-        root = etree.Element("xml")
-        etree.SubElement(root, "ToUserName").text = message["FromUserName"]
-        etree.SubElement(root, "FromUserName").text = message["ToUserName"]
-        etree.SubElement(root, "CreateTime").text = str(calendar.timegm(datetime.utcnow().timetuple()))
+        root = common_root()
         etree.SubElement(root, "MsgType").text = "news"
         etree.SubElement(root, "ArticleCount").text = str(len(properties) + 1)
 
@@ -1061,8 +1074,6 @@ def wechat_endpoint():
             etree.SubElement(more, "Title").text = etree.CDATA("更多%s房产..." % (property["country"]["value"], ))
             etree.SubElement(more, "Url").text = schema + request.urlparts[1] + "/property_list?country=" + country_id
 
-        return etree.tostring(root, encoding="UTF-8")
-
     if "MsgType" in message:
         if message["MsgType"] == "event":
             if message["Event"] == "CLICK":
@@ -1070,7 +1081,10 @@ def wechat_endpoint():
                     return_str = build_property_list_by_country(message["EventKey"][len("property_by_country/"):])
 
         elif message["MsgType"] == "text":
-            if message["Content"] == "英国":
+            return_str = transfer_customer_service()
+
+            # Disabled
+            if False and message["Content"] == "英国":
                 # TODO: don't hardcode
                 return_str = build_property_list_by_country("541c09286b8099496db84f56")
 
