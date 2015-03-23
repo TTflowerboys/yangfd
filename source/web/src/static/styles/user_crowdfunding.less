@@ -239,12 +239,22 @@
 .cfdContentFrame {
     padding-top: 56px;
     padding-bottom: 36px;
+    @media @phone{
+        padding-top: 20px;
+        padding-bottom: 16px;
+    }
 }
 .cfdContentTitle {
     font-size: 24px;
     color: #333333;
     @media @phone {
         font-size: 12px;
+    }
+}
+.cfdFilterType {
+    min-width: 70px;
+    @media @phone {
+        min-width: 60px;
     }
 }
 .cfdFilterMenu {
@@ -267,11 +277,12 @@
     line-height: 28px;
     text-align: center;
     @media @phone {
-        width: 56px;
+        width: auto;
+        padding: 0 5px;
         height: 24px;
         line-height: 22px;
         font-size: 12px;
-        margin: 6px;
+        margin: 4px;
     }
     &.selected {
         color: #ffffff;
@@ -283,6 +294,11 @@
     font-size: 14px;
     @media @phone {
         font-size: 12px;
+        width: 96px;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        margin: 4px;
     }
     border: 1px solid #cccccc !important;
     margin: 10px;
@@ -471,6 +487,9 @@
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    @media @phone{
+        padding: 6px 16px;
+    }
 }
 .withdrawal {
     margin: auto 20px;
@@ -482,6 +501,10 @@
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    @media @phone{
+        padding: 6px 16px;
+        margin: auto;
+    }
 }
 .rechargeTable {
     width: 100%;
