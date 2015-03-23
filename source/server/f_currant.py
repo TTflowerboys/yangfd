@@ -7,6 +7,7 @@ import phonenumbers
 import json
 import csv
 import time
+from collections import defaultdict
 import numpy as np
 from bson.objectid import ObjectId
 from bson.code import Code
@@ -1909,6 +1910,15 @@ class f_doogal(f_app.module_base):
 
     def get_database(self, m):
         return getattr(m, self.doogal_database)
+
+    @f_cache("doogal_districts_wards", noid=True)
+    def get_districts_wards(self):
+        districts = defaultdict(set)
+        with f_app.mongo() as m:
+            for item in self.get_database(m).find({}, {"district": 1, "ward": 1}):
+                districts[item["district"]].add(item["ward"])
+
+        return districts
 
     def import_new(self, path):
         with f_app.mongo() as m:

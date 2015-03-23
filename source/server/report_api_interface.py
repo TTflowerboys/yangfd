@@ -232,6 +232,12 @@ def lupdate(user):
     f_app.landregistry.check_update()
 
 
+@f_api('/doogal/districts_and_wards')
+@f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer', 'agency'])
+def doogal_districts_and_wards(user):
+    return f_app.doogal.get_districts_wards()
+
+
 @f_api('/ping')
 def ping():
     return "pong"
