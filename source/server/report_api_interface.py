@@ -230,3 +230,8 @@ def report_police_uk_categories(params):
 @f_app.user.login.check(role=["admin", "jr_admin"])
 def lupdate(user):
     f_app.landregistry.check_update()
+
+
+@f_api('/ping')
+def ping():
+    return "pong"
