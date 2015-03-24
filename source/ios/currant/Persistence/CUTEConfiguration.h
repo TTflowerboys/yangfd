@@ -14,4 +14,6 @@
 
 + (NSURL *)hostURL;
 
++ (NSString *)servicePhone;
+
 @end

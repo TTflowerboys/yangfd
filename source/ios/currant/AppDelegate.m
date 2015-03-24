@@ -49,7 +49,7 @@
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.urlPath = urlPath;
     nav.tabBarItem = tabItem;
-    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:self action:nil];
+    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:controller action:@selector(onPhoneButtonPressed:)];
     controller.navigationItem.title = STR(@"YoungFunding");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     [nav setViewControllers:@[controller]];

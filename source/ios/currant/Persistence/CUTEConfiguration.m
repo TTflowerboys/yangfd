@@ -18,4 +18,8 @@
     return [NSURL URLWithString:CONCAT(@"http://", [self host], @":8181")];
 }
 
++ (NSString *)servicePhone {
+    return @"4000926433";
+}
+
 @end
