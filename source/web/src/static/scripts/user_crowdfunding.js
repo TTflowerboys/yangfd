@@ -235,10 +235,15 @@ function updateInvestmentListItems(data) {
         $(this).parent().remove()
     })
     if (data.length > 0) {
+        $('#investmentList').show()
+        $('emptyInvestmentList').hide()
         _.each(data, function (order) {
             var orderResult = _.template($('#investment_list_item_template').html())({order: order})
             $('#investmentList').append(orderResult)
         })
+    } else {
+        $('#investmentList').hide()
+        $('emptyInvestmentList').show()
     }
 }
 
@@ -260,10 +265,15 @@ function updateEarningListItems(data) {
         $(this).parent().remove()
     })
     if (data.length > 0) {
+        $('#earningList').show()
+        $('#emptyEarningList').hide()
         _.each(data, function (order) {
             var orderResult = _.template($('#earning_list_item_template').html())({order: order})
             $('#earningList').append(orderResult)
         })
+    } else {
+        $('#earningList').hide()
+        $('#emptyEarningList').show()
     }
 }
 
@@ -285,10 +295,15 @@ function updateTransactionListItems(data) {
         $(this).parent().remove()
     })
     if (data.length > 0) {
+        $('#transaction_list').show()
+        $('#emptyTransactionList').hide()
         _.each(data, function (order) {
             var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
             $('#transaction_list').append(orderResult)
         })
+    }else{
+        $('#transaction_list').hide()
+        $('#emptyTransactionList').show()
     }
 }
 
@@ -310,11 +325,15 @@ function updateAccountOrderListItems(data) {
         $(this).parent().remove()
     })
     if (data.length > 0) {
+        $('#account_transaction_list').show()
+        $('#emptyAccountOrderList').hide()
         _.each(data, function (order) {
             var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
             $('#account_transaction_list').append(orderResult)
         })
-
+    }else{
+        $('#account_transaction_list').hide()
+        $('#emptyAccountOrderList').show()
     }
 }
 

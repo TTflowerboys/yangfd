@@ -49,8 +49,14 @@
 
         </table>
 
-        <!--@@include=/message_holder.html {"hint":"{{_('没有交易记录')}}"}-->
-
+        <div id="emptyInvestmentList" class="emptyPlaceHolder" style="display:none;">
+            <img src="/static/images/icon/notice-message.png" alt="" />
+            <div class="holderText">
+                <h2>
+                    没有投资记录
+                </h2>
+            </div>
+        </div>
         <!-- @@include=../static/templates/investment_list_item.tpl.html-->
         <div class="tabs ui-tabs ui-widget">
             <ul class="ui-tabs-nav">

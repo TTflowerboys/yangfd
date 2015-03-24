@@ -684,3 +684,75 @@
         color: #ffffff;
     }
 }
+
+.emptyPlaceHolder {
+    width: 525px;
+    margin: 50px auto 0 auto;
+    overflow: hidden;
+
+    @media @phone {
+        width: 100%;
+        margin: 20px auto;
+    }
+
+    img {
+        display: inline-block;
+        float: left;
+        width: 80px;
+
+        @media @phone {
+            display: block;
+            margin: 10px auto;
+            float: none;
+        }
+
+    }
+
+    .holderText {
+        display: inline-block;
+        float: left;
+        width: 420px;
+        margin-left: 20px;
+
+        @media @phone {
+            width: auto;
+            margin-left: 12px;
+            margin-right: 12px;
+
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 24px;
+            line-height: 1.5;
+            color: #999;
+
+            @media @phone {
+                font-size: @base-title-font-size-mobile;
+            }
+
+        }
+
+        p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 36px;
+            color: #ccc;
+
+            @media @phone {
+                font-size: @base-font-size-mobile;
+                line-height: 20px;
+            }
+
+            a {
+                text-decoration: none;
+                color: #e60012;
+                font-weight: bold;
+
+                @media @phone {
+                    font-size: @base-font-size-mobile;
+                }
+            }
+        }
+    }
+}

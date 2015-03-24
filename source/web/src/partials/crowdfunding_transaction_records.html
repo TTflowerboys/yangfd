@@ -51,8 +51,14 @@
     </table>
     <div class="transaction_list phone" id="transaction_list_phone"></div>
 
-    <!--@@include=/message_holder.html {"hint":"{{_('没有交易记录')}}"}-->
-
+    <div id="emptyTransactionList" class="emptyPlaceHolder" style="display:none;">
+        <img src="/static/images/icon/notice-message.png" alt="" />
+        <div class="holderText">
+            <h2>
+                没有交易记录
+            </h2>
+        </div>
+    </div>
     <!-- @@include=../static/templates/transaction_list_item.tpl.html-->
 
 </div>
