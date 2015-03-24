@@ -40,12 +40,18 @@
     return versionBuild;
 }
 
-- (UIViewController *)makeViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
+- (UINavigationController *)makeViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
+  
     CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
-    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal ] selectedImage:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal ]];
-    controller.tabBarItem = tabItem;
+    UINavigationController *nav = [[UINavigationController alloc] init];
+    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.urlPath = urlPath;
-    return controller;
+    nav.tabBarItem = tabItem;
+    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:self action:nil];
+    controller.navigationItem.title = STR(@"YoungFunding");
+    [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
+    [nav setViewControllers:@[controller]];
+    return nav;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -56,10 +62,11 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
-    UIViewController *editViewController = [self makeViewControllerWithTitle:nil icon:@"tab-edit" urlPath:nil];
+    UINavigationController *homeViewController = [self makeViewControllerWithTitle:STR(@"Home") icon:@"tab-home" urlPath:@"/"];
+    UINavigationController *editViewController = [self makeViewControllerWithTitle:nil icon:@"tab-edit" urlPath:nil];
     editViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
     [rootViewController setViewControllers:@[
-                                             [self makeViewControllerWithTitle:STR(@"Home") icon:@"tab-home" urlPath:@"/"],
+                                             homeViewController,
                                              [self makeViewControllerWithTitle:STR(@"Property List") icon:@"tab-property" urlPath:@"/property_list"],
                                              editViewController,
                                              [self makeViewControllerWithTitle:STR(@"Rent") icon:@"tab-rent" urlPath:@"/rent_list"],
@@ -72,6 +79,11 @@
     rootViewController.tabBar.barTintColor = HEXCOLOR(0x333333, 1);
     // this will give selected icons and text your apps tint color
     //rootViewController.tabBar.tintColor = HEXCOLOR(0x7a7a7a, 1);  // appTintColor is a UIColor *
+    [[UINavigationBar appearance] setBarTintColor:HEXCOLOR(0x333333, 1.0)];
+    [[UINavigationBar appearance] setTintColor:HEXCOLOR(0xe63e3c, 1.0)];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
+                                                           }];
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0f],
                                                         NSForegroundColorAttributeName : HEXCOLOR(0x7a7a7a, 1)
                                                         } forState:UIControlStateSelected];
@@ -82,7 +94,7 @@
                                                         NSForegroundColorAttributeName : [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1]
                                                         } forState:UIControlStateNormal];
     [self.window makeKeyAndVisible];
-    CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)[rootViewController.viewControllers firstObject];
+    CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)([(UINavigationController *)[rootViewController.viewControllers firstObject] topViewController]);
     [firstWebviewController loadURLPath:firstWebviewController.urlPath];
     return YES;
 }
@@ -111,9 +123,10 @@
 
 #pragma UITabbarViewControllerDelegate
 
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    if ([viewController isKindOfClass:[CUTEWebViewController class]]) {
-        [(CUTEWebViewController *)viewController loadURLPath:[(CUTEWebViewController *)viewController urlPath]];
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UINavigationController *)viewController {
+    if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
+        [webViewController loadURLPath:[webViewController urlPath]];
     }
 }
 
