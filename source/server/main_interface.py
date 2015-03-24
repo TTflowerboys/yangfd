@@ -83,19 +83,23 @@ def common_template(path, **kwargs):
 @f_app.user.login.check()
 def default(user):
     property_list = []
-    if not user:
+    homepage_ad_list = []
+
+    if user:
+        homepage_ad_list = f_app.ad.get_all_by_channel("homepage_signedin")
+        homepage_ad_list = f_app.i18n.process_i18n(homepage_ad_list)
+    else:
+        homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
+        homepage_ad_list = f_app.i18n.process_i18n(homepage_ad_list)
         property_list = currant_data_helper.get_featured_property_list()
         for property in property_list:
             if "news_category" in property:
                 property["related_news"] = currant_data_helper.get_property_related_news_list(property)
         property_list = f_app.i18n.process_i18n(property_list)
 
-    homepage_ad_list = f_app.ad.get_all_by_channel("homepage")
-    homepage_ad_list = f_app.i18n.process_i18n(homepage_ad_list)
-    homepage_signedin_ad_list = f_app.ad.get_all_by_channel("homepage_signedin")
-    homepage_signedin_ad_list = f_app.i18n.process_i18n(homepage_signedin_ad_list)
     announcement_list = currant_data_helper.get_announcement_list()
     announcement_list = f_app.i18n.process_i18n(announcement_list)
+
     news_list = currant_data_helper.get_featured_new_list()
     news_list = f_app.i18n.process_i18n(news_list)
 
@@ -107,7 +111,6 @@ def default(user):
         title=title,
         property_list=property_list,
         homepage_ad_list=homepage_ad_list,
-        homepage_signedin_ad_list=homepage_signedin_ad_list,
         announcement_list=announcement_list,
         news_list=news_list,
         intention_list=intention_list
@@ -711,11 +714,13 @@ def admin():
 def error_401(error=None):
     return html_redirect('/signin?error_code=40100')
 
+
 @f_get('/403')
 @error(403)
 def error_403(error=None):
     title = _('无法访问该页面')
     return common_template("403", title=title)
+
 
 @f_get('/404')
 @error(404)
