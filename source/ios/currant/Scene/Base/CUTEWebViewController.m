@@ -7,11 +7,12 @@
 //
 
 #import "CUTEWebViewController.h"
+#import "CUTEConfiguration.h"
 
 @interface CUTEWebViewController () <UIWebViewDelegate>
 {
-    NSURL *hostURL;
-    UIWebView *webView;
+    UIWebView *_webView;
+    BOOL _loaded;
 }
 
 @end
@@ -21,26 +22,25 @@
 - (id) init {
     self = [super init];
     if (self) {
-      hostURL = [NSURL URLWithString:@"http://localhost:8181"];
     }
     return self;
 }
 
 - (void)loadURLPath:(NSString *)urlPath {
-    if (!webView) {
-        webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 20)];
-        [self.view addSubview:webView];
-        webView.delegate = self;
+  if (!_loaded) {
+    if (!_webView) {
+      _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+      [self.view addSubview:_webView];
+      _webView.delegate = self;
     }
-    
-    
-    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlPath relativeToURL:hostURL]];
-    [webView loadRequest:urlRequest];
+    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlPath relativeToURL:[CUTEConfiguration hostURL]]];
+    [_webView loadRequest:urlRequest];
+      _loaded = YES;
+  }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Do any additional setup after loading the view.
 }
 
@@ -49,21 +49,21 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
+//- (UIStatusBarStyle)preferredStatusBarStyle {
+//    return UIStatusBarStyleLightContent;
+//}
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    NSError *error = nil;
-    NSString *css = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"base" ofType:@"css"] encoding: NSUTF8StringEncoding error: &error];
-    css = @"\".hiddenInClient {display:none;}\"";
-    NSString* js = [NSString stringWithFormat:
-                    @"var styleNode = document.createElement('style');\n"
-                    "styleNode.type = \"text/css\";\n"
-                    "var styleText = document.createTextNode(%@);\n"
-                    "styleNode.appendChild(styleText);\n"
-                    "document.getElementsByTagName('head')[0].appendChild(styleNode);\n",css];
-    [webView stringByEvaluatingJavaScriptFromString:js];
+//    NSError *error = nil;
+//    NSString *css = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"base" ofType:@"css"] encoding: NSUTF8StringEncoding error: &error];
+//    css = @"\".hiddenInClient {display:none;}\"";
+//    NSString* js = [NSString stringWithFormat:
+//                    @"var styleNode = document.createElement('style');\n"
+//                    "styleNode.type = \"text/css\";\n"
+//                    "var styleText = document.createTextNode(%@);\n"
+//                    "styleNode.appendChild(styleText);\n"
+//                    "document.getElementsByTagName('head')[0].appendChild(styleNode);\n",css];
+//    [webView stringByEvaluatingJavaScriptFromString:js];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)theWebView
