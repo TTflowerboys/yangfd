@@ -14,4 +14,6 @@
 
 - (void)loadURLPath:(NSString *)urlPath;
 
+- (void)onPhoneButtonPressed:(id)sender;
+
 @end
