@@ -46,7 +46,7 @@
   
     CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] init];
-    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.urlPath = urlPath;
     nav.tabBarItem = tabItem;
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:controller action:@selector(onPhoneButtonPressed:)];
