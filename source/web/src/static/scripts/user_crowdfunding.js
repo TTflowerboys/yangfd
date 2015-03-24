@@ -2,7 +2,7 @@
  * Created by zhou on 15-2-6.
  */
 var per_page = 12
-var earningParams = {type: 'earning', per_page: per_page}
+var earningParams = {type: 'earnings', per_page: per_page}
 var investmentParams = {type: 'investment', per_page: per_page}
 var transactionParams = {per_page: per_page}
 var accountOrderParams = {per_page: per_page}
