@@ -7,10 +7,10 @@
 //
 
 #import "CUTEWebViewController.h"
+#import "CUTEConfiguration.h"
 
 @interface CUTEWebViewController () <UIWebViewDelegate>
 {
-    NSURL *_hostURL;
     UIWebView *_webView;
     BOOL _loaded;
 }
@@ -22,7 +22,6 @@
 - (id) init {
     self = [super init];
     if (self) {
-      _hostURL = [NSURL URLWithString:@"http://localhost:8181"];
     }
     return self;
 }
@@ -34,7 +33,7 @@
       [self.view addSubview:_webView];
       _webView.delegate = self;
     }
-    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlPath relativeToURL:_hostURL]];
+    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlPath relativeToURL:[CUTEConfiguration hostURL]]];
     [_webView loadRequest:urlRequest];
       _loaded = YES;
   }
