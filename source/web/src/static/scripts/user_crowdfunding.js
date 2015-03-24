@@ -1,6 +1,12 @@
 /**
  * Created by zhou on 15-2-6.
  */
+var per_page = 12
+var earningParams = {type: 'earning', per_page: per_page}
+var investmentParams = {type: 'investment', per_page: per_page}
+var transactionParams = {per_page: per_page}
+var accountOrderParams = {per_page: per_page}
+
 window.getCrowdfundingType = function (type) {
     var inputCrowdfundingType = {
         'recharge': i18n('充值'),
@@ -170,18 +176,29 @@ $('.transactionDate div').click(function () {
     })
 })
 function changeTransactionDate(page) {
-    var data = {}
+    var time = new Date()
     switch (page) {
         case 1:
+            transactionParams.time = parseInt((time - 0) / 1000)
+            time.setDate(time.getDate() - 7)
+            transactionParams.starttime = parseInt((time - 0) / 1000)
             break;
         case 2:
+            transactionParams.time = parseInt((time - 0) / 1000)
+            time.setMonth(time.getMonth() - 1)
+            transactionParams.starttime = parseInt((time - 0) / 1000)
             break;
         case 3:
+            transactionParams.time = parseInt((time - 0) / 1000)
+            time.setMonth(time.getMonth() - 3)
+            transactionParams.starttime = parseInt((time - 0) / 1000)
             break;
         default:
+            delete transactionParams.time
+            delete transactionParams.starttime
             break;
     }
-    updateTransactionList(data)
+    updateTransactionList(transactionParams)
 }
 
 $('.transactionType div').click(function () {
@@ -315,44 +332,42 @@ function updateAccountOrderList(params) {
 }
 
 function changeTransactionType(page) {
-    var data = {}
     switch (page) {
         case 1:
-            data.type = 'recharge'
+            transactionParams.type = 'recharge'
             break;
         case 2:
-            data.type = 'withdrawal'
+            transactionParams.type = 'withdrawal'
             break;
         case 3:
-            data.type = 'investment'
+            transactionParams.type = 'investment'
             break;
         case 4:
-            data.type = 'earnings'
+            transactionParams.type = 'earnings'
             break;
         case 5:
-            data.type = 'recovery'
+            transactionParams.type = 'recovery'
             break;
         default:
-            data.type = 'recharge,withdrawal,investment,earnings,recovery'
+            transactionParams.type = 'recharge,withdrawal,investment,earnings,recovery'
             break;
     }
-    updateTransactionList(data)
+    updateTransactionList(transactionParams)
 }
 
 function changeAccountTransactionType(page) {
-    var data = {}
     switch (page) {
         case 1:
-            data.type = 'recharge'
+            accountOrderParams.type = 'recharge'
             break;
         case 2:
-            data.type = 'withdrawal'
+            accountOrderParams.type = 'withdrawal'
             break;
         default:
-            data.type = 'recharge,withdrawal'
+            accountOrderParams.type = 'recharge,withdrawal'
             break;
     }
-    updateAccountOrderList(data)
+    updateAccountOrderList(accountOrderParams)
 }
 
 $('.accountTransactionType div').click(function () {
@@ -394,18 +409,29 @@ $('.accountTransactionDate div').click(function () {
 })
 
 function changeAccountTransactionDate(page) {
-    var data = {}
+    var time = new Date()
     switch (page) {
         case 1:
+            accountOrderParams.time = parseInt((time - 0) / 1000)
+            time.setDate(time.getDate() - 7)
+            accountOrderParams.starttime = parseInt((time - 0) / 1000)
             break;
         case 2:
+            accountOrderParams.time = parseInt((time - 0) / 1000)
+            time.setMonth(time.getMonth() - 1)
+            accountOrderParams.starttime = parseInt((time - 0) / 1000)
             break;
         case 3:
+            accountOrderParams.time = parseInt((time - 0) / 1000)
+            time.setMonth(time.getMonth() - 3)
+            accountOrderParams.starttime = parseInt((time - 0) / 1000)
             break;
         default:
+            delete accountOrderParams.time
+            delete accountOrderParams.starttime
             break;
     }
-    updateAccountOrderList(data)
+    updateAccountOrderList(accountOrderParams)
 }
 
 $('.earningProject div').click(function () {
@@ -428,7 +454,6 @@ $('.earningProject div').click(function () {
 })
 
 function changeEarningProject(page) {
-    var data = {}
     switch (page) {
         case 1:
             break;
@@ -443,7 +468,7 @@ function changeEarningProject(page) {
         default:
             break;
     }
-    updateEarningList(data)
+    updateEarningList(earningParams)
 }
 
 $('.earningDate div').click(function () {
@@ -465,16 +490,24 @@ $('.earningDate div').click(function () {
     })
 })
 function changeEarningDate(page) {
-    var data = {}
+    var time = new Date()
     switch (page) {
         case 1:
+            earningParams.time = parseInt((time - 0) / 1000)
+            time.setMonth(time.getMonth() - 6)
+            earningParams.starttime = parseInt((time - 0) / 1000)
             break;
         case 2:
+            time.setMonth(time.getMonth() - 6)
+            earningParams.time = parseInt((time - 0) / 1000)
+            delete earningParams.starttime
             break;
         default:
+            delete earningParams.time
+            delete earningParams.starttime
             break;
     }
-    updateEarningList(data)
+    updateEarningList(earningParams)
 }
 
 $('.recharge_payment_type').click(function () {
@@ -515,18 +548,17 @@ $('#transactionDateRange').dateRangePicker(
             $('#transactionDateEnd').val(s2);
         }
     }).bind('datepicker-apply', function (event, obj) {
-        var data = {}
         if (obj.date1) {
-            data.starttime = parseInt((new Date($.format.date(obj.date1, 'yyyy-MM-dd')) - 0) / 1000, 10)
+            transactionParams.starttime = parseInt((new Date($.format.date(obj.date1, 'yyyy-MM-dd')) - 0) / 1000, 10)
         } else {
-            delete data.starttime
+            delete transactionParams.starttime
         }
         if (obj.date2) {
-            data.time = parseInt((new Date($.format.date(obj.date2, 'yyyy-MM-dd')) - 0) / 1000, 10) + 86399
+            transactionParams.time = parseInt((new Date($.format.date(obj.date2, 'yyyy-MM-dd')) - 0) / 1000, 10) + 86399
         } else {
-            delete data.time
+            delete transactionParams.time
         }
-        updateTransactionList(data)
+        updateTransactionList(transactionParams)
     });
 
 $('#accountTransactionDateRange').dateRangePicker(
@@ -537,16 +569,21 @@ $('#accountTransactionDateRange').dateRangePicker(
             $('#accountTransactionDateEnd').val(s2);
         }
     }).bind('datepicker-apply', function (event, obj) {
-        var data = {}
         if (obj.date1) {
-            data.starttime = parseInt((new Date($.format.date(obj.date1, 'yyyy-MM-dd')) - 0) / 1000, 10)
+            accountOrderParams.starttime = parseInt((new Date($.format.date(obj.date1, 'yyyy-MM-dd')) - 0) / 1000, 10)
         } else {
-            delete data.starttime
+            delete accountOrderParams.starttime
         }
         if (obj.date2) {
-            data.time = parseInt((new Date($.format.date(obj.date2, 'yyyy-MM-dd')) - 0) / 1000, 10) + 86399
+            accountOrderParams.time = parseInt((new Date($.format.date(obj.date2, 'yyyy-MM-dd')) - 0) / 1000,
+                10) + 86399
         } else {
-            delete data.time
+            delete accountOrderParams.time
         }
-        updateAccountOrderList(data)
+        updateAccountOrderList(accountOrderParams)
     });
+
+updateInvestmentList(investmentParams)
+updateEarningList(earningParams)
+changeTransactionType(0)
+changeAccountTransactionType(0)
