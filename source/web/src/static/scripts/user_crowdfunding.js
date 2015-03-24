@@ -170,6 +170,7 @@ $('.transactionDate div').click(function () {
     })
 })
 function changeTransactionDate(page) {
+    var data = {}
     switch (page) {
         case 1:
             break;
@@ -180,6 +181,7 @@ function changeTransactionDate(page) {
         default:
             break;
     }
+    updateTransactionList(data)
 }
 
 $('.transactionType div').click(function () {
@@ -392,6 +394,7 @@ $('.accountTransactionDate div').click(function () {
 })
 
 function changeAccountTransactionDate(page) {
+    var data = {}
     switch (page) {
         case 1:
             break;
@@ -402,6 +405,7 @@ function changeAccountTransactionDate(page) {
         default:
             break;
     }
+    updateAccountOrderList(data)
 }
 
 $('.earningProject div').click(function () {
@@ -424,6 +428,7 @@ $('.earningProject div').click(function () {
 })
 
 function changeEarningProject(page) {
+    var data = {}
     switch (page) {
         case 1:
             break;
@@ -438,6 +443,7 @@ function changeEarningProject(page) {
         default:
             break;
     }
+    updateEarningList(data)
 }
 
 $('.earningDate div').click(function () {
@@ -459,6 +465,7 @@ $('.earningDate div').click(function () {
     })
 })
 function changeEarningDate(page) {
+    var data = {}
     switch (page) {
         case 1:
             break;
@@ -467,6 +474,7 @@ function changeEarningDate(page) {
         default:
             break;
     }
+    updateEarningList(data)
 }
 
 $('.recharge_payment_type').click(function () {
