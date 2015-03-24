@@ -50,6 +50,7 @@ $('.titleFrame tr .titleCell a').click(function () {
         }
     })
 })
+
 function changeMainPage(page) {
     $.each($('.contentFrame'), function (i, val) {
 
@@ -60,39 +61,23 @@ function changeMainPage(page) {
         }
     })
 }
+
 $(function () {
     //reload data or setup empty place holder
     var orderArray = JSON.parse($('#accountOrderList').text())
-    if (orderArray.length > 0) {
-        _.each(orderArray, function (order) {
-            var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
-            $('#account_transaction_list').append(orderResult)
-        })
-    }
-
+    updateAccountOrderListItems(orderArray)
 })
 $(function () {
     //reload data or setup empty place holder
     var orderArray = JSON.parse($('#transactionOrderList').text())
-    if (orderArray.length > 0) {
-        _.each(orderArray, function (order) {
-            var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
-            $('#transaction_list').append(orderResult)
-        })
-    }
-
+    updateTransactionListItems(orderArray)
 })
 $(function () {
     //reload data or setup empty place holder
     var orderArray = JSON.parse($('#earningOrderList').text())
-    if (orderArray.length > 0) {
-        _.each(orderArray, function (order) {
-            var orderResult = _.template($('#earning_list_item_template').html())({order: order})
-            $('#earningList').append(orderResult)
-        })
-    }
-
+    updateEarningListItems(orderArray)
 })
+
 var colors = ['#F7464A', '#46BFBD', '#FDB45C']
 var colorIndex = 0
 $(function () {
@@ -164,8 +149,8 @@ $(function () {
         });
         chart.parentNode.parentNode.appendChild(legendHolder.firstChild);
     }
-
 })
+
 $('.transactionDate div').click(function () {
 
     var text = $(this).text()
@@ -196,6 +181,7 @@ function changeTransactionDate(page) {
             break;
     }
 }
+
 $('.transactionType div').click(function () {
 
     var text = $(this).text()
@@ -214,14 +200,117 @@ $('.transactionType div').click(function () {
         }
     })
 })
+
 $('.recharge').click(function () {
     $('.rechargeFrame').show()
     $('.mainFrame').hide()
 })
+
 $('.withdrawal').click(function () {
     $('.withdrawalFrame').show()
     $('.mainFrame').hide()
 })
+
+function updateInvestmentListItems(data) {
+    $.each($('#investmentList tr td'), function (i, val) {
+        $(this).parent().remove()
+    })
+    if (data.length > 0) {
+        _.each(data, function (order) {
+            var orderResult = _.template($('#investment_list_item_template').html())({order: order})
+            $('#investmentList').append(orderResult)
+        })
+    }
+}
+
+function updateInvestmentList(params) {
+    $.betterPost('/api/1/order/search', params)
+        .done(function (val) {
+            updateInvestmentListItems(val)
+        })
+        .fail(function (errorCode) {
+
+        })
+        .always(function () {
+
+        })
+}
+
+function updateEarningListItems(data) {
+    $.each($('#earningList tr td'), function (i, val) {
+        $(this).parent().remove()
+    })
+    if (data.length > 0) {
+        _.each(data, function (order) {
+            var orderResult = _.template($('#earning_list_item_template').html())({order: order})
+            $('#earningList').append(orderResult)
+        })
+    }
+}
+
+function updateEarningList(params) {
+    $.betterPost('/api/1/order/search', params)
+        .done(function (val) {
+            updateEarningListItems(val)
+        })
+        .fail(function (errorCode) {
+
+        })
+        .always(function () {
+
+        })
+}
+
+function updateTransactionListItems(data) {
+    $.each($('#transaction_list tr td'), function (i, val) {
+        $(this).parent().remove()
+    })
+    if (data.length > 0) {
+        _.each(data, function (order) {
+            var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
+            $('#transaction_list').append(orderResult)
+        })
+    }
+}
+
+function updateTransactionList(params) {
+    $.betterPost('/api/1/order/search', params)
+        .done(function (val) {
+            updateTransactionListItems(val)
+        })
+        .fail(function (errorCode) {
+
+        })
+        .always(function () {
+
+        })
+}
+
+function updateAccountOrderListItems(data) {
+    $.each($('#account_transaction_list tr td'), function (i, val) {
+        $(this).parent().remove()
+    })
+    if (data.length > 0) {
+        _.each(data, function (order) {
+            var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
+            $('#account_transaction_list').append(orderResult)
+        })
+
+    }
+}
+
+function updateAccountOrderList(params) {
+    $.betterPost('/api/1/order/search', params)
+        .done(function (val) {
+            updateAccountOrderListItems(val)
+        })
+        .fail(function (errorCode) {
+
+        })
+        .always(function () {
+
+        })
+}
 
 function changeTransactionType(page) {
     var data = {}
@@ -245,24 +334,23 @@ function changeTransactionType(page) {
             data.type = 'recharge,withdrawal,investment,earnings,recovery'
             break;
     }
-    $.betterPost('/api/1/order/search', data)
-        .done(function (val) {
-            $.each($('#transaction_list tr td'), function (i, val) {
-                $(this).parent().remove()
-            })
-            if (val.length > 0) {
-                _.each(val, function (order) {
-                    var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
-                    $('#transaction_list').append(orderResult)
-                })
-            }
-        })
-        .fail(function (errorCode) {
+    updateTransactionList(data)
+}
 
-        })
-        .always(function () {
-
-        })
+function changeAccountTransactionType(page) {
+    var data = {}
+    switch (page) {
+        case 1:
+            data.type = 'recharge'
+            break;
+        case 2:
+            data.type = 'withdrawal'
+            break;
+        default:
+            data.type = 'recharge,withdrawal'
+            break;
+    }
+    updateAccountOrderList(data)
 }
 
 $('.accountTransactionType div').click(function () {
@@ -284,39 +372,6 @@ $('.accountTransactionType div').click(function () {
     })
 })
 
-function changeAccountTransactionType(page) {
-    var data = {}
-    switch (page) {
-        case 1:
-            data.type = 'recharge'
-            break;
-        case 2:
-            data.type = 'withdrawal'
-            break;
-        default:
-            data.type = 'recharge,withdrawal'
-            break;
-    }
-    $.betterPost('/api/1/order/search', data)
-        .done(function (val) {
-            $.each($('#account_transaction_list tr td'), function (i, val) {
-                $(this).parent().remove()
-            })
-            if (val.length > 0) {
-                _.each(val, function (order) {
-                    var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
-                    $('#account_transaction_list').append(orderResult)
-                })
-            }
-        })
-        .fail(function (errorCode) {
-
-        })
-        .always(function () {
-
-        })
-}
-
 $('.accountTransactionDate div').click(function () {
 
     var text = $(this).text()
@@ -335,6 +390,7 @@ $('.accountTransactionDate div').click(function () {
         }
     })
 })
+
 function changeAccountTransactionDate(page) {
     switch (page) {
         case 1:
@@ -366,6 +422,7 @@ $('.earningProject div').click(function () {
         }
     })
 })
+
 function changeEarningProject(page) {
     switch (page) {
         case 1:
@@ -382,6 +439,7 @@ function changeEarningProject(page) {
             break;
     }
 }
+
 $('.earningDate div').click(function () {
 
     var text = $(this).text()
@@ -410,6 +468,7 @@ function changeEarningDate(page) {
             break;
     }
 }
+
 $('.recharge_payment_type').click(function () {
     var text = $(this).children('div.title')[0].innerText
     $.each($('.recharge_payment_type'), function (i, val) {
@@ -459,26 +518,8 @@ $('#transactionDateRange').dateRangePicker(
         } else {
             delete data.time
         }
-        $.betterPost('/api/1/order/search', data)
-            .done(function (val) {
-                $.each($('#transaction_list tr td'), function (i, val) {
-                    $(this).parent().remove()
-                })
-                if (val.length > 0) {
-                    _.each(val, function (order) {
-                        var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
-                        $('#transaction_list').append(orderResult)
-                    })
-                }
-            })
-            .fail(function (errorCode) {
-
-            })
-            .always(function () {
-
-            })
+        updateTransactionList(data)
     });
-
 
 $('#accountTransactionDateRange').dateRangePicker(
     {
@@ -499,23 +540,5 @@ $('#accountTransactionDateRange').dateRangePicker(
         } else {
             delete data.time
         }
-        $.betterPost('/api/1/order/search', data)
-            .done(function (val) {
-                $.each($('#account_transaction_list tr td'), function (i, val) {
-                    $(this).parent().remove()
-                })
-                if (val.length > 0) {
-                    _.each(val, function (order) {
-                        var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
-                        $('#account_transaction_list').append(orderResult)
-                    })
-                }
-            })
-            .fail(function (errorCode) {
-
-            })
-            .always(function () {
-
-            })
+        updateAccountOrderList(data)
     });
-

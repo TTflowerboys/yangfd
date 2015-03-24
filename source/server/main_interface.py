@@ -581,10 +581,10 @@ def user_favorites(user):
 def user_crowdfunding(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     title = _('海外众筹')
-    transaction_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'],'type':'investment,withdrawal,recharge,earnings,recovery'}, per_page=0), permission_check=False)
+    transaction_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'],'type':{'$in':['investment','withdrawal','recharge','earnings','recovery']}}, per_page=0), permission_check=False)
     investment_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'],'type':'investment'}, per_page=0), permission_check=False)
     earning_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'],'type':'earnings'}, per_page=0), permission_check=False)
-    account_order_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'],'type':'withdrawal,recharge'}, per_page=0), permission_check=False)
+    account_order_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'],'type':{'$in':['withdrawal','recharge']}}, per_page=0), permission_check=False)
     logger.debug(transaction_list)
     logger.debug(investment_list)
     logger.debug(earning_list)
