@@ -7,59 +7,31 @@
 <!--endbuild-->
 <!--@@close-->
 <!--@@block=main -->
-%if not user:
-    <div class="gallery">
-        %if homepage_ad_list:
-            <div class="rslides_wrapper">
-                <ul class="rslides" data-init="false">
-                    % for ad in homepage_ad_list:
-                        <li>
-                            <div class="img" data-style="background:url('<url>') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');" data-url="{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}">
-                                <div class="img_shadow"></div>
-                            </div>
-                            <div class="imageText_table">
-                                <div class="imageText_wrapper">
-                                    <div class="imageText">
-                                        %for index, text in enumerate(ad.get('text')):
-                                            <h1 class="slogan">{{text}}</h1>
-                                        %end
-                                        <a class="button red" href="{{ad.get('link')}}">{{ad.get('image_alt','')}}</a>
-                                    </div>
+<div class="gallery">
+    %if homepage_ad_list:
+        <div class="rslides_wrapper">
+            <ul class="rslides" data-init="false">
+                % for ad in homepage_ad_list:
+                    <li>
+                        <div class="img" data-style="background:url('<url>') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');" data-url="{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}">
+                            <div class="img_shadow"></div>
+                        </div>
+                        <div class="imageText_table">
+                            <div class="imageText_wrapper">
+                                <div class="imageText">
+                                    %for index, text in enumerate(ad.get('text')):
+                                        <h1 class="slogan">{{text}}</h1>
+                                    %end
+                                    <a class="button red" href="{{ad.get('link')}}">{{ad.get('image_alt','')}}</a>
                                 </div>
                             </div>
-                        </li>
-                    % end
-                </ul>
-            </div>
-        %end
-    </div>
-%else:
-<div class="gallery">
-    %if homepage_signedin_ad_list:
-    <div class="rslides_wrapper">
-        <ul class="rslides" data-init="false">
-            % for ad in homepage_signedin_ad_list:
-            <li>
-                <div class="img" data-style="background:url('<url>') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');" data-url="{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}">
-                    <div class="img_shadow"></div>
-                </div>
-                <div class="imageText_table">
-                    <div class="imageText_wrapper">
-                        <div class="imageText">
-                            %for index, text in enumerate(ad.get('text')):
-                            <h1 class="slogan">{{text}}</h1>
-                            %end
-                            <a class="button red" href="{{ad.get('link')}}">{{ad.get('image_alt','')}}</a>
                         </div>
-                    </div>
-                </div>
-            </li>
-            % end
-        </ul>
-    </div>
+                    </li>
+                % end
+            </ul>
+        </div>
     %end
 </div>
-%end
 
 <div class="userChoice_wrapper">
     <ul class="userChoice">

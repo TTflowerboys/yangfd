@@ -12,8 +12,10 @@
             {_}_}
             <div class="labels">
                 {_ var todayDate = new Date();_}
-                {_if (house.funding_end_date && house.funding_end_date > todayDate.getUTCSeconds()) {_}
+                {_if (house.funding_end_date && house.funding_end_date > todayDate.getTime() / 1000) {_}
                 <label class="leftTime" for="">{= window.i18n('剩余') + team.dayCountBefore(new Date(house.funding_end_date * 1000)) + window.i18n('天')=}</label>
+                {_} else if (house.funding_end_date && house.funding_end_date <= todayDate.getTime() / 1000) {_}
+                <label class="leftTime" for="">{= window.i18n('结束')=}</label>
                 {_}_}
                 {_if (house.investment_type && house.investment_type.length){_}
                 <label class="type" for="">{=house.investment_type[0].value=}</label>
