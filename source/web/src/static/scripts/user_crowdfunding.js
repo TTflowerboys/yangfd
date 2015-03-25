@@ -68,22 +68,6 @@ function changeMainPage(page) {
     })
 }
 
-$(function () {
-    //reload data or setup empty place holder
-    var orderArray = JSON.parse($('#accountOrderList').text())
-    updateAccountOrderListItems(orderArray)
-})
-$(function () {
-    //reload data or setup empty place holder
-    var orderArray = JSON.parse($('#transactionOrderList').text())
-    updateTransactionListItems(orderArray)
-})
-$(function () {
-    //reload data or setup empty place holder
-    var orderArray = JSON.parse($('#earningOrderList').text())
-    updateEarningListItems(orderArray)
-})
-
 var colors = ['#F7464A', '#46BFBD', '#FDB45C']
 var colorIndex = 0
 $(function () {
@@ -96,9 +80,6 @@ $(function () {
         var values = {}
         var indexes = {}
         _.each(orderArray, function (order) {
-            var orderResult = _.template($('#investment_list_item_template').html())({order: order})
-            $('#investmentList').append(orderResult)
-
             var city = order.items[0].city ? order.items[0].city.value : ''
             if (cities[city]) {
                 values[city] += order.price
@@ -198,7 +179,9 @@ function changeTransactionDate(page) {
             delete transactionParams.starttime
             break;
     }
-    updateTransactionList(transactionParams)
+    transaction = []
+    transactionPage = 0
+    updateTransaction()
 }
 
 $('.transactionType div').click(function () {
@@ -230,149 +213,6 @@ $('.withdrawal').click(function () {
     $('.mainFrame').hide()
 })
 
-function updateInvestmentListItems(data) {
-    $.each($('#investmentList tr td'), function (i, val) {
-        $(this).parent().remove()
-    })
-    if (data.length > 0) {
-        $('#investmentList').show()
-        $('emptyInvestmentList').hide()
-        _.each(data, function (order) {
-            var orderResult = _.template($('#investment_list_item_template').html())({order: order})
-            $('#investmentList').append(orderResult)
-        })
-    } else {
-        $('#investmentList').hide()
-        $('emptyInvestmentList').show()
-    }
-}
-
-function updateInvestmentList(params) {
-    $.betterPost('/api/1/order/search', params)
-        .done(function (val) {
-            updateInvestmentListItems(val)
-        })
-        .fail(function (errorCode) {
-
-        })
-        .always(function () {
-
-        })
-}
-
-function updateEarningListItems(data) {
-    $.each($('#earningList tr td'), function (i, val) {
-        $(this).parent().remove()
-    })
-    if (data.length > 0) {
-        $('#earningList').show()
-        $('#emptyEarningList').hide()
-        _.each(data, function (order) {
-            var orderResult = _.template($('#earning_list_item_template').html())({order: order})
-            $('#earningList').append(orderResult)
-        })
-    } else {
-        $('#earningList').hide()
-        $('#emptyEarningList').show()
-    }
-}
-
-function updateEarningList(params) {
-    $.betterPost('/api/1/order/search', params)
-        .done(function (val) {
-            updateEarningListItems(val)
-        })
-        .fail(function (errorCode) {
-
-        })
-        .always(function () {
-
-        })
-}
-
-function updateTransactionListItems(data) {
-    $.each($('#transaction_list tr td'), function (i, val) {
-        $(this).parent().remove()
-    })
-    if (data.length > 0) {
-        $('#transaction_list').show()
-        $('#emptyTransactionList').hide()
-        _.each(data, function (order) {
-            var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
-            $('#transaction_list').append(orderResult)
-        })
-    } else {
-        $('#transaction_list').hide()
-        $('#emptyTransactionList').show()
-    }
-}
-
-function updateTransactionList(params) {
-    $.betterPost('/api/1/order/search', params)
-        .done(function (val) {
-            updateTransactionListItems(val)
-        })
-        .fail(function (errorCode) {
-
-        })
-        .always(function () {
-
-        })
-}
-
-function updateAccountOrderListItems(data) {
-    $.each($('#account_transaction_list tr td'), function (i, val) {
-        $(this).parent().remove()
-    })
-    if (data.length > 0) {
-        $('#account_transaction_list').show()
-        $('#emptyAccountOrderList').hide()
-        _.each(data, function (order) {
-            var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
-            $('#account_transaction_list').append(orderResult)
-        })
-    } else {
-        $('#account_transaction_list').hide()
-        $('#emptyAccountOrderList').show()
-    }
-}
-
-function updateAccountOrderList(params) {
-    $.betterPost('/api/1/order/search', params)
-        .done(function (val) {
-            updateAccountOrderListItems(val)
-        })
-        .fail(function (errorCode) {
-
-        })
-        .always(function () {
-
-        })
-}
-
-var investment = []
-var investmentPage = 0
-function updateInvestment(data) {
-    if (investment.length <= investmentPage) {
-        updateInvestmentListItems(investment[investmentPage])
-    } else {
-        investmentParams.time = time
-        updateInvestmentList(investmentParams);
-    }
-}
-
-var investment = []
-var investmentPage = 0
-function updateTransaction(data) {
-    if (investment.length <= investmentPage) {
-        updateTransactionListItems(investment[investmentPage])
-    } else {
-        investmentParams.time = time
-        updateTransactionList(investmentParams);
-    }
-}
-
-
 function changeTransactionType(page) {
     switch (page) {
         case 1:
@@ -394,7 +234,9 @@ function changeTransactionType(page) {
             transactionParams.type = 'recharge,withdrawal,investment,earnings,recovery'
             break;
     }
-    updateTransactionList(transactionParams)
+    transaction = []
+    transactionPage = 0
+    updateTransaction(transactionParams)
 }
 
 function changeAccountTransactionType(page) {
@@ -409,7 +251,9 @@ function changeAccountTransactionType(page) {
             accountOrderParams.type = 'recharge,withdrawal'
             break;
     }
-    updateAccountOrderList(accountOrderParams)
+    accountOrder = []
+    accountOrderPage = 0
+    updateAccountOrder()
 }
 
 $('.accountTransactionType div').click(function () {
@@ -473,7 +317,9 @@ function changeAccountTransactionDate(page) {
             delete accountOrderParams.starttime
             break;
     }
-    updateAccountOrderList(accountOrderParams)
+    accountOrder = []
+    accountOrderPage = 0
+    updateAccountOrder()
 }
 
 $('.earningProject div').click(function () {
@@ -510,7 +356,9 @@ function changeEarningProject(page) {
         default:
             break;
     }
-    updateEarningList(earningParams)
+    earning = []
+    earningPage = 0
+    updateEarning()
 }
 
 $('.earningDate div').click(function () {
@@ -549,7 +397,9 @@ function changeEarningDate(page) {
             delete earningParams.starttime
             break;
     }
-    updateEarningList(earningParams)
+    earning = []
+    earningPage = 0
+    updateEarning()
 }
 
 $('.recharge_payment_type').click(function () {
@@ -600,7 +450,9 @@ $('#transactionDateRange').dateRangePicker(
         } else {
             delete transactionParams.time
         }
-        updateTransactionList(transactionParams)
+        transaction = []
+        transactionPage = 0
+        updateTransaction()
     });
 
 $('#accountTransactionDateRange').dateRangePicker(
@@ -622,57 +474,151 @@ $('#accountTransactionDateRange').dateRangePicker(
         } else {
             delete accountOrderParams.time
         }
-        updateAccountOrderList(accountOrderParams)
+        accountOrder = []
+        accountOrderPage = 0
+        updateAccountOrder()
     });
 
-updateInvestmentList(investmentParams)
-updateEarningList(earningParams)
-changeTransactionType(0)
-changeAccountTransactionType(0)
+function showPreButton(preButtonId, currentPage) {
+    if (currentPage === 0) {
+        $(preButtonId).hide()
+    } else {
+        $(preButtonId).show()
+    }
+}
 
-function initInvestment(data, param, time, $preButton, $nextButton, loadData, loadDataItem, currentPage) {
+function showNextButton(nextButtonId, data) {
+    if (data.length < per_page) {
+        $(nextButtonId).hide()
+    } else {
+        $(nextButtonId).show()
+    }
+}
 
-    var dataCount = data[currentPage].length
+function showPager(currentPage, data, preButtonId, nextButtonId) {
+    showPreButton(preButtonId, currentPage)
+    showNextButton(nextButtonId, data)
+}
 
-    if (dataCount < per_page) {
-        if (currentPage === 0) {
-            $preButton.hide()
-            $nextButton.hide()
-        } else {
-            $preButton.show()
-            $nextButton.hide()
-        }
+function loadData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId) {
+    $.betterPost('/api/1/order/search', params)
+        .done(function (val) {
+            loadDataItems(val, tdId, listId, emptyId, templateId)
+            data.push(val)
+            showPager(currentPage, val, preButtonId, nextButtonId)
+        })
+        .fail(function (errorCode) {
+
+        })
+        .always(function () {
+
+        })
+}
+
+function loadDataItems(data, tdId, listId, emptyId, templateId) {
+    $.each($(tdId), function (i, val) {
+        $(this).parent().remove()
+    })
+    if (data.length > 0) {
+        $(listId).show()
+        $(emptyId).hide()
+        _.each(data, function (order) {
+            var orderResult = _.template($(templateId).html())({order: order})
+            $(listId).append(orderResult)
+        })
+    } else {
+        $(listId).hide()
+        $(emptyId).show()
+    }
+}
+
+function updateData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId) {
+
+    if (currentPage < data.length) {
+        loadDataItems(data[currentPage], tdId, listId, emptyId, templateId)
+        showPager(currentPage, data[currentPage], preButtonId, nextButtonId)
     } else {
         if (currentPage === 0) {
-            $preButton.hide()
-            $nextButton.show()
+            delete params.time
         } else {
-            $preButton.show()
-            $nextButton.show()
+            var lastData = data[data.length - 1]
+            params.time = lastData[lastData.length - 1].time
         }
+        loadData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId)
     }
-    $preButton.click(function () {
-        currentPage = currentPage - 1
-        loadDataItem(data, currentPage)
-    })
+}
 
-    $nextButton.click(function () {
-        currentPage = currentPage + 1
-        param.time = time
-        loadData(param, data, currentPage)
+function initData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId) {
+    $(preButtonId).click(function () {
+        currentPage -= 1
+        updateData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId)
+    })
+    $(nextButtonId).click(function () {
+        currentPage += 1
+        updateData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId)
     })
 }
 
-startPaging([], investmentParams, undefined, $1, $2, updateInvestmentList, updateInvestmentListItems, 0)
-startPaging([], earningParams, undefined, $1, $2, updateEarningList, updateEarningListItems, 0)
-startPaging([], transactionParams, undefined, $1, $2, updateTransactionList, updateTransactionListItems, 0)
-startPaging([], accountOrderParams, undefined, $1, $2, updateAccountOrderList, updateAccountOrderListItems, 0)
+var investment = []
+var investmentPage = 0
+var earning = []
+var earningPage = 0
+var transaction = []
+var transactionPage = 0
+var accountOrder = []
+var accountOrderPage = 0
 
-function changeAccountTransactionPage(data, currentPage, times) {
-    if (currentPage === undefined) {
-        currentPage = 0
-    }
-    if (times === undefined) {
-        times = []
-    }
+function initInvestment() {
+    initData(investmentParams, investment, investmentPage, '#investmentList tr td', '#investmentList',
+        'emptyInvestmentList', '#investment_list_item_template', '#investmentPager #pager #pre',
+        '#investmentPager #pager #next')
 }
+
+function updateInvestment() {
+    updateData(investmentParams, investment, investmentPage, '#investmentList tr td', '#investmentList',
+        'emptyInvestmentList', '#investment_list_item_template', '#investmentPager #pager #pre',
+        '#investmentPager #pager #next')
+}
+
+function initEarning() {
+    initData(earningParams, earning, earningPage, '#earningList tr td', '#earningList', '#emptyEarningList',
+        '#earning_list_item_template', '#earningPager #pager #pre', '#earningPager #pager #next')
+}
+
+function updateEarning() {
+    updateData(earningParams, earning, earningPage, '#earningList tr td', '#earningList', '#emptyEarningList',
+        '#earning_list_item_template', '#earningPager #pager #pre', '#earningPager #pager #next')
+}
+
+function initTransaction() {
+    initData(transactionParams, transaction, transactionPage, '#transaction_list tr td', '#transaction_list',
+        '#emptyTransactionList', '#transaction_list_item_template', '#transactionPager #pager #pre',
+        '#transactionPager #pager #next')
+}
+
+function updateTransaction() {
+    updateData(transactionParams, transaction, transactionPage, '#transaction_list tr td', '#transaction_list',
+        '#emptyTransactionList', '#transaction_list_item_template', '#transactionPager #pager #pre',
+        '#transactionPager #pager #next')
+}
+
+
+function initAccountOrder() {
+    initData(accountOrderParams, accountOrder, accountOrderPage, '#account_transaction_list tr td',
+        '#account_transaction_list', '#emptyAccountOrderList', '#transaction_list_item_template',
+        '#accountOrderPager #pager #pre', '#accountOrderPager #pager #next')
+}
+
+function updateAccountOrder() {
+    updateData(accountOrderParams, accountOrder, accountOrderPage, '#account_transaction_list tr td',
+        '#account_transaction_list', '#emptyAccountOrderList', '#transaction_list_item_template',
+        '#accountOrderPager #pager #pre', '#accountOrderPager #pager #next')
+}
+initInvestment()
+updateInvestment()
+initEarning()
+updateEarning()
+initTransaction()
+updateTransaction()
+initAccountOrder()
+updateAccountOrder()
