@@ -223,6 +223,7 @@ def intention_ticket_get(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "intention", abort(40000, "Invalid intention ticket")
     enable_custom_fields = True
     if set(user_roles) & set(["admin", "jr_admin", "sales"]):
         pass
@@ -245,6 +246,7 @@ def intention_ticket_remove(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "intention", abort(40000, "Invalid intention ticket")
     if len(set(user_roles) & set(['admin', 'jr_admin', 'sales'])) > 0 or user["id"] == ticket.get("creator_user_id"):
         f_app.ticket.update_set_status(ticket_id, "deleted")
     else:
@@ -259,6 +261,7 @@ def intention_ticket_get_history(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "intention", abort(40000, "Invalid intention ticket")
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
@@ -272,7 +275,8 @@ def intention_ticket_assign(user, ticket_id, user_id):
     """
     Assign intention ticket to ``jr_sales``. Only ``admin``, ``jr_admin``, ``sales`` can do this.
     """
-    f_app.ticket.get(ticket_id)
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "intention", abort(40000, "Invalid intention ticket")
     user_role = f_app.user.get_role(user_id)
     if "jr_sales" not in user_role and "sales" not in user_role:
         abort(40399)
@@ -303,6 +307,7 @@ def intention_ticket_edit(user, ticket_id, params):
     history_params = {"updated_time": datetime.utcnow()}
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "intention", abort(40000, "Invalid intention ticket")
     if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
@@ -415,6 +420,7 @@ def support_ticket_get(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "support", abort(40000, "Invalid support ticket")
     enable_custom_fields = True
     if len(user_roles) == 0:
         if ticket.get("creator_user_id") != user["id"]:
@@ -435,6 +441,7 @@ def support_ticket_remove(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "support", abort(40000, "Invalid support ticket")
     if len(set(user_roles) & set(['admin', 'jr_admin', 'support'])) > 0 or user["id"] == ticket.get("creator_user_id"):
         f_app.ticket.update_set_status(ticket_id, "deleted")
     else:
@@ -449,6 +456,7 @@ def support_ticket_get_history(user, ticket_id):
     """
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "support", abort(40000, "Invalid support ticket")
     if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
@@ -462,7 +470,8 @@ def support_ticket_assign(user, ticket_id, user_id):
     """
     Assign support ticket to ``jr_support``. Only ``admin``, ``jr_admin``, ``support`` can do this.
     """
-    f_app.ticket.get(ticket_id)
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "support", abort(40000, "Invalid support ticket")
     f_app.user.get(user_id)
     return f_app.ticket.update_set(ticket_id, {"assignee": [ObjectId(user_id)], "status": "assigned", "assigned_time": datetime.utcnow()})
 
@@ -486,6 +495,7 @@ def support_ticket_edit(user, ticket_id, params):
     history_params = {"updated_time": datetime.utcnow()}
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "support", abort(40000, "Invalid support ticket")
     if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & set(user_roles)) == 0:
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
