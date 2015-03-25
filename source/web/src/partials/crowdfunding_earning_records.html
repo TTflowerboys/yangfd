@@ -87,6 +87,18 @@
                 </h2>
             </div>
         </div>
+        <div id="pager" class="pager">
+            <button id="pre" disabled="disabled" style="display:none;">
+                <img class="pre" src="/static/images/user/pre-page.png"/>
+                <img class="pre-disabled" style="display:none" src="/static/images/user/pre-page-disabled.png"/>
+                {{_('上一页')}}
+            </button>
+            <button id="next" disabled="disabled" style="display:none;">
+                {{_('下一页')}}
+                <img class="next" src="/static/images/user/next-page.png"/>
+                <img class="next-disabled" style="display:none" src="/static/images/user/next-page-disabled.png"/>
+            </button>
+        </div>
 
         <!-- @@include=../static/templates/earning_list_item.tpl.html-->
     </div>

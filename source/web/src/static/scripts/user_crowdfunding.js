@@ -4,8 +4,8 @@
 var per_page = 12
 var earningParams = {type: 'earnings', per_page: per_page}
 var investmentParams = {type: 'investment', per_page: per_page}
-var transactionParams = {per_page: per_page}
-var accountOrderParams = {per_page: per_page}
+var transactionParams = {type: 'recharge,withdrawal,investment,earnings,recovery', per_page: per_page}
+var accountOrderParams = {type: 'recharge,withdrawal', per_page: per_page}
 
 window.getCrowdfundingType = function (type) {
     var inputCrowdfundingType = {
@@ -301,7 +301,7 @@ function updateTransactionListItems(data) {
             var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
             $('#transaction_list').append(orderResult)
         })
-    }else{
+    } else {
         $('#transaction_list').hide()
         $('#emptyTransactionList').show()
     }
@@ -331,7 +331,7 @@ function updateAccountOrderListItems(data) {
             var orderResult = _.template($('#transaction_list_item_template').html())({order: order})
             $('#account_transaction_list').append(orderResult)
         })
-    }else{
+    } else {
         $('#account_transaction_list').hide()
         $('#emptyAccountOrderList').show()
     }
@@ -349,6 +349,29 @@ function updateAccountOrderList(params) {
 
         })
 }
+
+var investment = []
+var investmentPage = 0
+function updateInvestment(data) {
+    if (investment.length <= investmentPage) {
+        updateInvestmentListItems(investment[investmentPage])
+    } else {
+        investmentParams.time = time
+        updateInvestmentList(investmentParams);
+    }
+}
+
+var investment = []
+var investmentPage = 0
+function updateTransaction(data) {
+    if (investment.length <= investmentPage) {
+        updateTransactionListItems(investment[investmentPage])
+    } else {
+        investmentParams.time = time
+        updateTransactionList(investmentParams);
+    }
+}
+
 
 function changeTransactionType(page) {
     switch (page) {
@@ -606,3 +629,50 @@ updateInvestmentList(investmentParams)
 updateEarningList(earningParams)
 changeTransactionType(0)
 changeAccountTransactionType(0)
+
+function initInvestment(data, param, time, $preButton, $nextButton, loadData, loadDataItem, currentPage) {
+
+    var dataCount = data[currentPage].length
+
+    if (dataCount < per_page) {
+        if (currentPage === 0) {
+            $preButton.hide()
+            $nextButton.hide()
+        } else {
+            $preButton.show()
+            $nextButton.hide()
+        }
+    } else {
+        if (currentPage === 0) {
+            $preButton.hide()
+            $nextButton.show()
+        } else {
+            $preButton.show()
+            $nextButton.show()
+        }
+    }
+    $preButton.click(function () {
+        currentPage = currentPage - 1
+        loadDataItem(data, currentPage)
+    })
+
+    $nextButton.click(function () {
+        currentPage = currentPage + 1
+        param.time = time
+        loadData(param, data, currentPage)
+    })
+}
+
+startPaging([], investmentParams, undefined, $1, $2, updateInvestmentList, updateInvestmentListItems, 0)
+startPaging([], earningParams, undefined, $1, $2, updateEarningList, updateEarningListItems, 0)
+startPaging([], transactionParams, undefined, $1, $2, updateTransactionList, updateTransactionListItems, 0)
+startPaging([], accountOrderParams, undefined, $1, $2, updateAccountOrderList, updateAccountOrderListItems, 0)
+
+function changeAccountTransactionPage(data, currentPage, times) {
+    if (currentPage === undefined) {
+        currentPage = 0
+    }
+    if (times === undefined) {
+        times = []
+    }
+}
