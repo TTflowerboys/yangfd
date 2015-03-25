@@ -47,7 +47,7 @@
         [[UIApplication sharedApplication] openURL:phoneUrl];
     } else
     {
-        UIAlertView *calert = [[UIAlertView alloc]initWithTitle:STR(@"Phone Not Available") message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil, nil];
+        UIAlertView *calert = [[UIAlertView alloc]initWithTitle:STR(@"电话不可用") message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil, nil];
         [calert show];
     }
 }
