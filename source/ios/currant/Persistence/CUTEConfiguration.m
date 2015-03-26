@@ -10,13 +10,23 @@
 
 @implementation CUTEConfiguration
 
+static NSString *host = nil;
 + (NSString *)host {
-    return @"localhost";
+    if (!host) {
+        host = [[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CurrantHost"] copy];
+    }
+    return host;
 }
 
 + (NSURL *)hostURL {
-    return [NSURL URLWithString:CONCAT(@"http://", [self host], @":8181")];
+    if  ([[self host] isEqualToString:@"localhost"]) {
+        return [NSURL URLWithString:CONCAT(@"http://", [self host], @":8181")];
+    }
+    else {
+        return [NSURL URLWithString:CONCAT(@"http://", [self host])];
+    }
 }
+
 
 + (NSString *)servicePhone {
     return @"4000926433";
