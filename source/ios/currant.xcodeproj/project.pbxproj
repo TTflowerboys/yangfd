@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C1EA76F1AC3DA1900B0FC22 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
+		2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2C41B76E1AC0169400DF5608 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C41B76D1AC0169400DF5608 /* base.css */; };
 		2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
@@ -35,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		2C1EA7701AC3EED100B0FC22 /* CUTEMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMapView.h; sourceTree = "<group>"; };
+		2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMapView.m; sourceTree = "<group>"; };
 		2C41B76D1AC0169400DF5608 /* base.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = base.css; sourceTree = "<group>"; };
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
@@ -196,6 +199,8 @@
 			children = (
 				2CB43DDB1ABD4AB4004DF663 /* CUTEWebViewController.h */,
 				2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */,
+				2C1EA7701AC3EED100B0FC22 /* CUTEMapView.h */,
+				2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -375,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */,
+				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
 				2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */,
 				2CDBB2FA1AC146790024E225 /* CUTEDataManager.m in Sources */,
