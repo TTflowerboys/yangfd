@@ -14,6 +14,7 @@
 #import <AddressBook/AddressBook.h>
 #import "CUTEMapView.h"
 #import <SMCalloutView.h>
+#import "CUTEConfiguration.h"
 
 
 @interface CUTEPropertyListViewController () <MKMapViewDelegate, SMCalloutViewDelegate>
@@ -44,38 +45,48 @@
     [self.view bringSubviewToFront:_mapButton];
 }
 
-- (void)onMapButtonPressed:(id)sender {
+- (void)flipMapViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion  {
+    CGFloat duration = animated? 0.2: 0;
     if ([_mapButton.attachment isEqualToString:@"ShowMap"]) {
         if (!_mapView) {
-            _mapView = [[CUTEMapView alloc] initWithFrame:self.view.bounds];
+            _mapView = [[CUTEMapView alloc] initWithFrame:TabBarControllerViewFrame];
             _mapView.delegate = self;
             SMCalloutView *calloutView = [[SMCalloutView alloc] init];
             calloutView.delegate = self;
             _mapView.calloutView = calloutView;
         }
-        [UIView transitionFromView:self.webView toView:_mapView duration:0.2 options:UIViewAnimationOptionTransitionFlipFromRight
+        [UIView transitionFromView:self.webView toView:_mapView duration:duration options:UIViewAnimationOptionTransitionFlipFromRight
                         completion:^(BOOL finished) {
                             self.webView.hidden = YES;
                             _mapView.hidden = NO;
                             [self clearBackButton];
-
                             [_mapButton setImage:IMAGE(@"button-selector-list") forState:UIControlStateNormal];
                             _mapButton.attachment = @"ShowList";
                             [self loadMapData];
+                            if (completion) {
+                                completion(finished);
+                            }
                         }];
     }
     else {
-        [UIView transitionFromView:_mapView toView:self.webView duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft
+        [UIView transitionFromView:_mapView toView:self.webView duration:duration options:UIViewAnimationOptionTransitionFlipFromLeft
                         completion:^(BOOL finished) {
                             self.webView.hidden = NO;
                             _mapView.hidden = YES;
                             [self updateBackButton];
                             [_mapButton setImage:IMAGE(@"button-selector-map") forState:UIControlStateNormal];
                             _mapButton.attachment = @"ShowMap";
-        }];
+                            if (completion) {
+                                completion(finished);
+                            }
+                        }];
     }
 
     [self.view bringSubviewToFront:_mapButton];
+}
+
+- (void)onMapButtonPressed:(id)sender {
+    [self flipMapViewAnimated:YES completion:nil];
 }
 
 - (void)loadMapData {
@@ -186,13 +197,17 @@
             subtitleLabel.attributedText = attriString;
             _mapView.calloutView.subtitleView = subtitleLabel;
             _mapView.calloutView.rightAccessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-accessory"]];
+            _mapView.calloutView.attachment = property;
             [_mapView.calloutView presentCalloutFromRect:view.bounds inView:view constrainedToView:_mapView animated:YES];
         }
     });
 }
 
 - (void)calloutViewClicked:(SMCalloutView *)calloutView {
-
+    [self flipMapViewAnimated:YES completion:^(BOOL finished) {
+        NSDictionary *property = calloutView.attachment;
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:CONCAT(@"/property/", property[@"id"]) relativeToURL:[CUTEConfiguration hostURL]]]];
+    }];
 }
 
 @end

@@ -30,7 +30,7 @@
 
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlPath relativeToURL:[CUTEConfiguration hostURL]]];
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+        _webView = [[UIWebView alloc] initWithFrame:TabBarControllerViewFrame];
         [self.view addSubview:_webView];
         _webView.delegate = self;
         
@@ -41,7 +41,7 @@
         //just clean the cache
         [_webView removeFromSuperview];
         _webView = nil;
-        _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+        _webView = [[UIWebView alloc] initWithFrame:TabBarControllerViewFrame];
         [self.view addSubview:_webView];
         _webView.delegate = self;
         
