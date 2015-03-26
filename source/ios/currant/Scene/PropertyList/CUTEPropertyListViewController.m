@@ -9,6 +9,10 @@
 #import "CUTEPropertyListViewController.h"
 #import <MapKit/MapKit.h>
 #import <NSObject+Attachment.h>
+#import <BBTJSON.h>
+#import <MKMapView+BBT.h>
+#import <AddressBook/AddressBook.h>
+
 
 @interface CUTEPropertyListViewController ()
 {
@@ -51,6 +55,7 @@
 
                             [_mapButton setImage:IMAGE(@"button-selector-list") forState:UIControlStateNormal];
                             _mapButton.attachment = @"ShowList";
+                            [self loadMapData];
                         }];
     }
     else {
@@ -65,6 +70,27 @@
     }
 
     [self.view bringSubviewToFront:_mapButton];
+}
+
+- (void)loadMapData {
+    if (!IsArrayNilOrEmpty(_mapView.annotations)) {
+        [_mapView removeAnnotations:_mapView.annotations];
+    }
+
+    NSString *rawPropertyList = [self.webView stringByEvaluatingJavaScriptFromString:@"JSON.stringify(propertyList)"];
+    NSArray *propertyList = [rawPropertyList JSONObject];
+
+    NSMutableArray *locations = [NSMutableArray arrayWithCapacity:propertyList.count];
+    NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:propertyList.count];
+    _.arrayEach(propertyList, ^(NSDictionary *property) {
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:[property[@"latitude"] doubleValue] longitude:[property[@"longitude"] doubleValue]];
+            [locations addObject:location];
+        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake([property[@"latitude"] doubleValue], [property[@"longitude"] doubleValue]) addressDictionary:@{                                                                                                        (NSString *) kABPersonAddressStreetKey : property[@"name"]}];
+
+            [annotations addObject:placemark];
+    });
+    [_mapView addAnnotations:annotations];
+    [_mapView zoomToFitMapLocationsInsideArray:locations];
 }
 
 - (void)updateMapButtonWithURL:(NSURL *)url {
