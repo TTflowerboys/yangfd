@@ -549,3 +549,98 @@ def support_ticket_search(user, params):
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
     return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)
+
+
+@f_api('/lease_ticket/<ticket_id>/edit', params=dict(
+    status=str,
+    lease_type="enum:lease_type",
+    space=("i18n:area", None, "meter ** 2, foot ** 2"),
+    property_id=ObjectId,
+    price="i18n:currency",
+    lease_period=int,
+    lease_available_time=datetime,
+    cash_pledge="enum:cash_pledge",
+    bill_covered=bool,
+    unset_fields=(list, None, str),
+))
+@f_app.user.login.check(check_role=True)
+def lease_ticket_edit(ticket_id, user, params):
+    """
+    Use ``none`` on ``ticket_id`` to create a new lease ticket.
+
+    Valid status: ``draft``, ``to rent``, ``hidden``, ``leased``, ``deleted``.
+    """
+    if "status" in params:
+        assert params["status"] in ("draft", "to rent", "hidden", "leased", "deleted"), abort(40000, "Invalid status")
+
+        if params["status"] == "leased":
+            params.setdefault("leased_time", datetime.utcnow())
+
+    if ticket_id == "none":
+        params.setdefault("type", "lease")
+        params.setdefault("status", "draft")
+        params.setdefault("lease_period", 0)
+        params.setdefault("lease_available_time", datetime.utcnow())
+
+        if user:
+            params.setdefault("user_id", ObjectId(user["id"]))
+            params.setdefault("creator_user_id", ObjectId(user["id"]))
+
+        return f_app.ticket.add(params)
+
+    else:
+        ticket = f_app.ticket.get(ticket_id)
+        assert ticket["type"] == "lease", abort(40000, "Invalid lease ticket")
+
+        if ticket["creator_user_id"] is not None and user["id"] != ticket["creator_user_id"]:
+            assert set(user["role"]) & set(["admin", "jr_admin", "support"]), abort(40300, "no permission to update user lease_ticket")
+
+        unset_fields = params.get("unset_fields", [])
+        result = f_app.ticket.update_set(ticket_id, params)
+        if unset_fields:
+            result = f_app.ticket.update(ticket_id, {"$unset": {i: "" for i in unset_fields}})
+        return result
+
+
+@f_api('/sale_ticket/<ticket_id>/edit', params=dict(
+    status=str,
+    property_id=ObjectId,
+    has_commission=bool,
+    locales=(list, None, str),
+    unset_fields=(list, None, str),
+))
+@f_app.user.login.check(check_role=True)
+def sale_ticket_edit(ticket_id, user, params):
+    """
+    Use ``none`` on ``ticket_id`` to create a new lease ticket.
+
+    Valid status: ``draft``, ``selling``, ``hidden``, ``sold``, ``deleted``.
+    """
+    if "status" in params:
+        assert params["status"] in ("draft", "selling", "hidden", "sold", "deleted"), abort(40000, "Invalid status")
+
+        if params["status"] == "sold":
+            params.setdefault("sold_time", datetime.utcnow())
+
+    if ticket_id == "none":
+        params.setdefault("type", "sale")
+        params.setdefault("status", "draft")
+
+        if user:
+            params.setdefault("user_id", ObjectId(user["id"]))
+            params.setdefault("creator_user_id", ObjectId(user["id"]))
+
+        return f_app.ticket.add(params)
+
+    else:
+        ticket = f_app.ticket.get(ticket_id)
+        assert ticket["type"] == "sale", abort(40000, "Invalid sale ticket")
+
+        if ticket["creator_user_id"] is not None and user["id"] != ticket["creator_user_id"]:
+            assert set(user["role"]) & set(["admin", "jr_admin", "support"]), abort(40300, "no permission to update user sale_ticket")
+
+        unset_fields = params.get("unset_fields", [])
+        result = f_app.ticket.update_set(ticket_id, params)
+        if unset_fields:
+            result = f_app.ticket.update(ticket_id, {"$unset": {i: "" for i in unset_fields}})
+        return result
