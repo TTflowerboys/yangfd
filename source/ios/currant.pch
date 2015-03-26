@@ -14,6 +14,8 @@
 
 #import <BBTCommonMarco.h>
 #import <BBTUIMarco.h>
+#import "Underscore.h"
+#define _ Underscore
 
 //http://stackoverflow.com/questions/510269/shortcuts-in-objective-c-to-concatenate-nsstrings
 

@@ -9,7 +9,7 @@
 #import "CUTEWebViewController.h"
 #import "CUTEConfiguration.h"
 
-@interface CUTEWebViewController () <UIWebViewDelegate>
+@interface CUTEWebViewController ()
 {
     UIWebView *_webView;
 }
@@ -17,6 +17,7 @@
 @end
 
 @implementation CUTEWebViewController
+@synthesize webView = _webView;
 
 - (id) init {
     self = [super init];
@@ -28,7 +29,6 @@
 - (void)loadURLPath:(NSString *)urlPath {
 
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlPath relativeToURL:[CUTEConfiguration hostURL]]];
-
     if (!_webView) {
         _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
         [self.view addSubview:_webView];
@@ -47,7 +47,6 @@
         
         [_webView loadRequest:urlRequest];
     }
-
 }
 
 
@@ -78,7 +77,8 @@
 //    return UIStatusBarStyleLightContent;
 //}
 
-- (void)updateBackButton:(BOOL)show {
+- (void)updateBackButton {
+    BOOL show = [_webView canGoBack];
     if  (show) {
         if (!self.navigationItem.leftBarButtonItem) {
             UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
@@ -99,13 +99,23 @@
         }
     }
     else {
-      if (self.navigationItem.leftBarButtonItem) {
+        [self clearBackButton];
+    }
+}
+
+- (void)clearBackButton {
+    if (self.navigationItem.leftBarButtonItem) {
         self.navigationItem.leftBarButtonItem = nil;
-      }
     }
 }
 
 #pragma UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    return YES;
+}
+
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
    
@@ -113,11 +123,11 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-     [self updateBackButton:[webView canGoBack]];
+    [self updateBackButton];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [self updateBackButton:[webView canGoBack]];
+    [self updateBackButton];
 }
 
 /*

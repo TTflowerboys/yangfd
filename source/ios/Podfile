@@ -7,6 +7,7 @@ xcodeproj 'currant'
 
 pod 'BBTUtility', :git => "git@git.bbtechgroup.com:bbt/ios-bbtutility.git", :tag => "0.0.1"
 pod 'BBTRestClient', :git => "git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git", :tag => "0.0.1"
+pod 'Underscore.m', '~> 0.2.1'
 
 pod "DeepLinkSDK"
 pod 'WebViewJavascriptBridge', '~> 4.1.3'
