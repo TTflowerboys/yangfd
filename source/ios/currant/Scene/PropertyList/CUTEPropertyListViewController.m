@@ -67,4 +67,19 @@
     [self.view bringSubviewToFront:_mapButton];
 }
 
+- (void)updateMapButtonWithURL:(NSURL *)url {
+    if ([_mapButton.attachment isEqualToString:@"ShowMap"] && [url.path hasPrefix:self.urlPath]) {
+        [_mapButton setHidden:NO];
+    }
+    else {
+        [_mapButton setHidden:YES];
+    }
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    [self updateMapButtonWithURL:request.URL];
+    return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+}
+
 @end

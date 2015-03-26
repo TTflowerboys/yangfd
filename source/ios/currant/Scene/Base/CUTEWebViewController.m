@@ -9,7 +9,7 @@
 #import "CUTEWebViewController.h"
 #import "CUTEConfiguration.h"
 
-@interface CUTEWebViewController () <UIWebViewDelegate>
+@interface CUTEWebViewController ()
 {
     UIWebView *_webView;
 }
@@ -110,6 +110,12 @@
 }
 
 #pragma UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    return YES;
+}
+
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
    

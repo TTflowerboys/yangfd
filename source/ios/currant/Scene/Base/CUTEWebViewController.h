@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CUTEWebViewController : UIViewController
+@interface CUTEWebViewController : UIViewController <UIWebViewDelegate>
 
 @property (strong, nonatomic) NSString *urlPath;
 
