@@ -38,34 +38,29 @@
             </td>
         </tr>
     </table>
-    <textarea id="transactionOrderList" style="display:none;">{{json_dumps(transaction_list)}}</textarea>
+    <div class="dataPanel">
+        <table class="transaction_list" id="transaction_list">
+            <tr>
+                <th class="col_time">时间</th>
+                <th class="col_type">交易类型</th>
+                <th class="col_content">交易详情</th>
+                <th class="col_price">金额</th>
+            </tr>
 
-    <table class="transaction_list" id="transaction_list">
-        <tr>
-            <th class="col_time">时间</th>
-            <th class="col_type">交易类型</th>
-            <th class="col_content">交易详情</th>
-            <th class="col_price">金额</th>
-        </tr>
-
-    </table>
-    <div class="transaction_list phone" id="transaction_list_phone"></div>
-
-    <div id="emptyTransactionList" class="emptyPlaceHolder" style="display:none;">
-        <img src="/static/images/icon/notice-message.png" alt=""/>
-        <div class="holderText">
-            <h2>
-                没有交易记录
-            </h2>
+        </table>
+        <div class="transaction_list phone" id="transaction_list_phone"></div>
+        <div id="emptyTransactionList">
+            <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+            <!--@@include=/message_holder.html {"hint":"{{_('没有交易记录')}}"}-->
         </div>
     </div>
     <div id="transactionPager">
         <div id="pager" class="pager">
-            <button id="pre" style="display:none;">
+            <button id="pre">
                 <img class="pre" src="/static/images/user/pre-page.png"/>
                 {{_('上一页')}}
             </button>
-            <button id="next" style="display:none;">
+            <button id="next">
                 {{_('下一页')}}
                 <img class="next" src="/static/images/user/next-page.png"/>
             </button>

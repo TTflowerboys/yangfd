@@ -57,6 +57,17 @@ $('.titleFrame tr .titleCell a').click(function () {
     })
 })
 
+
+var investment
+var investmentPage
+var earning
+var earningPage
+var transaction
+var transactionPage
+var accountOrder
+var accountOrderPage
+
+
 function changeMainPage(page) {
     $.each($('.contentFrame'), function (i, val) {
 
@@ -66,6 +77,40 @@ function changeMainPage(page) {
             $(this).hide()
         }
     })
+    switch (page) {
+        case 1:
+            if (investment === undefined) {
+                investment = []
+                investmentPage = 0
+                initInvestment()
+                updateInvestment()
+            }
+            break;
+        case 2:
+            if (earning === undefined) {
+                earning = []
+                earningPage = 0
+                initEarning()
+                updateEarning()
+            }
+            break;
+        case 3:
+            if (transaction === undefined) {
+                transaction = []
+                transactionPage = 0
+                initTransaction()
+                updateTransaction()
+            }
+            break;
+        case 4:
+            if (accountOrder === undefined) {
+                accountOrder = []
+                accountOrderPage = 0
+                initAccountOrder()
+                updateAccountOrder()
+            }
+            break;
+    }
 }
 
 var colors = ['#F7464A', '#46BFBD', '#FDB45C']
@@ -481,38 +526,23 @@ $('#accountTransactionDateRange').dateRangePicker(
 
 function showPreButton(preButtonId, currentPage) {
     if (currentPage === 0) {
-        $(preButtonId).hide()
+        $(preButtonId).css('visibility', 'hidden')
     } else {
-        $(preButtonId).show()
+        $(preButtonId).css('visibility', 'visible')
     }
 }
 
 function showNextButton(nextButtonId, data) {
     if (data.length < per_page) {
-        $(nextButtonId).hide()
+        $(nextButtonId).css('visibility', 'hidden')
     } else {
-        $(nextButtonId).show()
+        $(nextButtonId).css('visibility', 'visible')
     }
 }
 
 function showPager(currentPage, data, preButtonId, nextButtonId) {
     showPreButton(preButtonId, currentPage)
     showNextButton(nextButtonId, data)
-}
-
-function loadData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId) {
-    $.betterPost('/api/1/order/search', params)
-        .done(function (val) {
-            loadDataItems(val, tdId, listId, emptyId, templateId)
-            data.push(val)
-            showPager(currentPage, val, preButtonId, nextButtonId)
-        })
-        .fail(function (errorCode) {
-
-        })
-        .always(function () {
-
-        })
 }
 
 function loadDataItems(data, tdId, listId, emptyId, templateId) {
@@ -532,7 +562,24 @@ function loadDataItems(data, tdId, listId, emptyId, templateId) {
     }
 }
 
-function updateData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId) {
+function loadData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId, progressId) {
+    $(progressId).show()
+    $.betterPost('/api/1/order/search', params)
+        .done(function (val) {
+            loadDataItems(val, tdId, listId, emptyId, templateId)
+            data.push(val)
+            showPager(currentPage, val, preButtonId, nextButtonId)
+        })
+        .fail(function (errorCode) {
+
+        })
+        .always(function () {
+            $(progressId).hide()
+        })
+}
+
+function updateData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId,
+                    progressId) {
 
     if (currentPage < data.length) {
         loadDataItems(data[currentPage], tdId, listId, emptyId, templateId)
@@ -544,11 +591,11 @@ function updateData(params, data, currentPage, tdId, listId, emptyId, templateId
             var lastData = data[data.length - 1]
             params.time = lastData[lastData.length - 1].time
         }
-        loadData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId)
+        loadData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId, progressId)
     }
 }
 
-function initData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId) {
+function initData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId, progressId) {
     $(preButtonId).click(function () {
         currentPage -= 1
         updateData(params, data, currentPage, tdId, listId, emptyId, templateId, preButtonId, nextButtonId)
@@ -559,66 +606,50 @@ function initData(params, data, currentPage, tdId, listId, emptyId, templateId, 
     })
 }
 
-var investment = []
-var investmentPage = 0
-var earning = []
-var earningPage = 0
-var transaction = []
-var transactionPage = 0
-var accountOrder = []
-var accountOrderPage = 0
-
 function initInvestment() {
     initData(investmentParams, investment, investmentPage, '#investmentList tr td', '#investmentList',
-        'emptyInvestmentList', '#investment_list_item_template', '#investmentPager #pager #pre',
-        '#investmentPager #pager #next')
+        '#emptyInvestmentList #emptyPlaceHolder', '#investment_list_item_template', '#investmentPager #pager #pre',
+        '#investmentPager #pager #next', '#emptyInvestmentList #loadIndicator')
 }
 
 function updateInvestment() {
     updateData(investmentParams, investment, investmentPage, '#investmentList tr td', '#investmentList',
-        'emptyInvestmentList', '#investment_list_item_template', '#investmentPager #pager #pre',
-        '#investmentPager #pager #next')
+        '#emptyInvestmentList #emptyPlaceHolder', '#investment_list_item_template', '#investmentPager #pager #pre',
+        '#investmentPager #pager #next', '#emptyInvestmentList #loadIndicator')
 }
 
 function initEarning() {
-    initData(earningParams, earning, earningPage, '#earningList tr td', '#earningList', '#emptyEarningList',
-        '#earning_list_item_template', '#earningPager #pager #pre', '#earningPager #pager #next')
+    initData(earningParams, earning, earningPage, '#earningList tr td', '#earningList',
+        '#emptyEarningList #emptyPlaceHolder', '#earning_list_item_template', '#earningPager #pager #pre',
+        '#earningPager #pager #next', '#emptyEarningList #loadIndicator')
 }
 
 function updateEarning() {
-    updateData(earningParams, earning, earningPage, '#earningList tr td', '#earningList', '#emptyEarningList',
-        '#earning_list_item_template', '#earningPager #pager #pre', '#earningPager #pager #next')
+    updateData(earningParams, earning, earningPage, '#earningList tr td', '#earningList',
+        '#emptyEarningList #emptyPlaceHolder', '#earning_list_item_template', '#earningPager #pager #pre',
+        '#earningPager #pager #next', '#emptyEarningList #loadIndicator')
 }
 
 function initTransaction() {
     initData(transactionParams, transaction, transactionPage, '#transaction_list tr td', '#transaction_list',
-        '#emptyTransactionList', '#transaction_list_item_template', '#transactionPager #pager #pre',
-        '#transactionPager #pager #next')
+        '#emptyTransactionList #emptyPlaceHolder', '#transaction_list_item_template', '#transactionPager #pager #pre',
+        '#transactionPager #pager #next', '#emptyTransactionList #loadIndicator')
 }
 
 function updateTransaction() {
     updateData(transactionParams, transaction, transactionPage, '#transaction_list tr td', '#transaction_list',
-        '#emptyTransactionList', '#transaction_list_item_template', '#transactionPager #pager #pre',
-        '#transactionPager #pager #next')
+        '#emptyTransactionList #emptyPlaceHolder', '#transaction_list_item_template', '#transactionPager #pager #pre',
+        '#transactionPager #pager #next', '#emptyTransactionList #loadIndicator')
 }
-
 
 function initAccountOrder() {
     initData(accountOrderParams, accountOrder, accountOrderPage, '#account_transaction_list tr td',
-        '#account_transaction_list', '#emptyAccountOrderList', '#transaction_list_item_template',
-        '#accountOrderPager #pager #pre', '#accountOrderPager #pager #next')
+        '#account_transaction_list', '#emptyAccountOrderList #emptyPlaceHolder', '#transaction_list_item_template',
+        '#accountOrderPager #pager #pre', '#accountOrderPager #pager #next', '#emptyAccountOrderList #loadIndicator')
 }
 
 function updateAccountOrder() {
     updateData(accountOrderParams, accountOrder, accountOrderPage, '#account_transaction_list tr td',
-        '#account_transaction_list', '#emptyAccountOrderList', '#transaction_list_item_template',
-        '#accountOrderPager #pager #pre', '#accountOrderPager #pager #next')
+        '#account_transaction_list', '#emptyAccountOrderList #emptyPlaceHolder', '#transaction_list_item_template',
+        '#accountOrderPager #pager #pre', '#accountOrderPager #pager #next', '#emptyAccountOrderList #loadIndicator')
 }
-initInvestment()
-updateInvestment()
-initEarning()
-updateEarning()
-initTransaction()
-updateTransaction()
-initAccountOrder()
-updateAccountOrder()

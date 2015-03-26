@@ -67,38 +67,34 @@
         <div>
             <div>image?</div>
         </div>
-        <textarea id="earningOrderList" style="display:none;">{{json_dumps(earning_list)}}</textarea>
-
-        <table class="earningList" id="earningList">
-            <tr>
-                <th class="col_name">项目名称</th>
-                <th class="col_type">类型</th>
-                <th class="col_price">金额</th>
-                <th class="col_date">预计收益时间</th>
-                <th class="col_date">实际收益时间</th>
-                <th class="col_status">支付状态</th>
-            </tr>
-        </table>
-        <div id="emptyEarningList" class="emptyPlaceHolder" style="display:none;">
-            <img src="/static/images/icon/notice-message.png" alt=""/>
-            <div class="holderText">
-                <h2>
-                    没有收益记录
-                </h2>
+        <div class="dataPanel">
+            <table class="earningList" id="earningList">
+                <tr>
+                    <th class="col_name">项目名称</th>
+                    <th class="col_type">类型</th>
+                    <th class="col_price">金额</th>
+                    <th class="col_date">预计收益时间</th>
+                    <th class="col_date">实际收益时间</th>
+                    <th class="col_status">支付状态</th>
+                </tr>
+            </table>
+            <div id="emptyEarningList">
+                <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+                <!--@@include=/message_holder.html {"hint":"{{_('没有收益记录')}}"}-->
             </div>
-        </div>
-        <div id="earningPager">
-            <div id="pager" class="pager">
-                <button id="pre" style="display:none;">
-                    <img class="pre" src="/static/images/user/pre-page.png"/>
-                    {{_('上一页')}}
-                </button>
-                <button id="next" style="display:none;">
-                    {{_('下一页')}}
-                    <img class="next" src="/static/images/user/next-page.png"/>
-                </button>
+            <div id="earningPager">
+                <div id="pager" class="pager">
+                    <button id="pre">
+                        <img class="pre" src="/static/images/user/pre-page.png"/>
+                        {{_('上一页')}}
+                    </button>
+                    <button id="next">
+                        {{_('下一页')}}
+                        <img class="next" src="/static/images/user/next-page.png"/>
+                    </button>
+                </div>
             </div>
+            <!-- @@include=../static/templates/earning_list_item.tpl.html-->
         </div>
-        <!-- @@include=../static/templates/earning_list_item.tpl.html-->
     </div>
 </div>
