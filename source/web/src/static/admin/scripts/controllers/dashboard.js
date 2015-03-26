@@ -3,12 +3,17 @@
 
 (function () {
 
-    function ctrlDashboard($scope, $state, $http, userApi, shopApi) {
+    function ctrlDashboard($scope, $state, $http, userApi, $rootScope, growl, errors) {
 
         $scope.user = {}
 
         userApi.checkLogin()
             .then(function (user) {
+                if (_.isEmpty(user.role)) {
+                    growl.addErrorMessage($rootScope.renderHtml(errors[40105]), {enableHtml: true})
+                    location.href = '/'
+                    return
+                }
                 angular.extend($scope.user, user)
             }, function () {
                 $state.go('signIn')
