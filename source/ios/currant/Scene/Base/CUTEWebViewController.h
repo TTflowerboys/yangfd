@@ -12,8 +12,15 @@
 
 @property (strong, nonatomic) NSString *urlPath;
 
+@property (nonatomic, readonly) UIWebView *webView;
+
+
 - (void)loadURLPath:(NSString *)urlPath;
 
 - (void)onPhoneButtonPressed:(id)sender;
+
+- (void)updateBackButton;
+
+- (void)clearBackButton;
 
 @end

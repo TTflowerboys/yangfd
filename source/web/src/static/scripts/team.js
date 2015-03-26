@@ -183,6 +183,10 @@
             var ua = navigator.userAgent.toLowerCase()
             return (/micromessenger/.test(ua)) && ((/iphone/.test(ua)) || /ipad/.test(ua)) ? true : false
         },
+        isCurrantClient: function () {
+            var ua = navigator.userAgent.toLowerCase()
+            return (/currant/.test(ua)) ? true : false
+        },
         /**
          * convert to https link
          * @param {object} {link:'',property_id:'',news_id:''}

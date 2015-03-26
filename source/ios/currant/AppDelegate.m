@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "CUTEWebViewController.h"
+#import "CUTEPropertyListViewController.h"
 #import "CUTEDataManager.h"
 #import "CUTEConfiguration.h"
 #import <UIImage+Resize.h>
@@ -57,6 +58,20 @@
     return nav;
 }
 
+- (UINavigationController *)makePropertyListViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
+    
+    CUTEPropertyListViewController *controller = [[CUTEPropertyListViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] init];
+    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    controller.urlPath = urlPath;
+    nav.tabBarItem = tabItem;
+    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:controller action:@selector(onPhoneButtonPressed:)];
+    controller.navigationItem.title = STR(@"洋房东");
+    [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
+    [nav setViewControllers:@[controller]];
+    return nav;
+}
+
 - (UINavigationController *)makeEditViewControllerWithTitle:(NSString *)title icon:(NSString *)icon{
     
     CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
@@ -84,7 +99,7 @@
     UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit"];
     [rootViewController setViewControllers:@[
                                              homeViewController,
-                                             [self makeViewControllerWithTitle:STR(@"海外房产") icon:@"tab-property" urlPath:@"/property_list"],
+                                             [self makePropertyListViewControllerWithTitle:STR(@"海外房产") icon:@"tab-property" urlPath:@"/property_list"],
                                              editViewController,
                                              [self makeViewControllerWithTitle:STR(@"出租") icon:@"tab-rent" urlPath:@"/rent_list"],
                                              [self makeViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user"],
