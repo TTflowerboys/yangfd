@@ -10,6 +10,7 @@
 #import "CUTEWebViewController.h"
 #import "CUTEDataManager.h"
 #import "CUTEConfiguration.h"
+#import <UIImage+Resize.h>
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -50,11 +51,26 @@
     controller.urlPath = urlPath;
     nav.tabBarItem = tabItem;
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:controller action:@selector(onPhoneButtonPressed:)];
-    controller.navigationItem.title = STR(@"YoungFunding");
+    controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     [nav setViewControllers:@[controller]];
     return nav;
 }
+
+- (UINavigationController *)makeEditViewControllerWithTitle:(NSString *)title icon:(NSString *)icon{
+    
+    CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] init];
+    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:nil];
+    nav.tabBarItem = tabItem;
+    
+    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:controller action:@selector(onPhoneButtonPressed:)];
+    controller.navigationItem.title = STR(@"洋房东");
+    [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
+    [nav setViewControllers:@[controller]];
+    return nav;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -64,21 +80,23 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
-    UINavigationController *homeViewController = [self makeViewControllerWithTitle:STR(@"Home") icon:@"tab-home" urlPath:@"/"];
-    UINavigationController *editViewController = [self makeViewControllerWithTitle:nil icon:@"tab-edit" urlPath:nil];
-    editViewController.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
+    UINavigationController *homeViewController = [self makeViewControllerWithTitle:STR(@"主页") icon:@"tab-home" urlPath:@"/"];
+    UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit"];
     [rootViewController setViewControllers:@[
                                              homeViewController,
-                                             [self makeViewControllerWithTitle:STR(@"Property List") icon:@"tab-property" urlPath:@"/property_list"],
+                                             [self makeViewControllerWithTitle:STR(@"海外房产") icon:@"tab-property" urlPath:@"/property_list"],
                                              editViewController,
-                                             [self makeViewControllerWithTitle:STR(@"Rent") icon:@"tab-rent" urlPath:@"/rent_list"],
-                                             [self makeViewControllerWithTitle:STR(@"Me") icon:@"tab-user" urlPath:@"/user"],
+                                             [self makeViewControllerWithTitle:STR(@"出租") icon:@"tab-rent" urlPath:@"/rent_list"],
+                                             [self makeViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user"],
                                              ] animated:YES];
     [self.window setRootViewController:rootViewController];
     rootViewController.delegate = self;
+    [rootViewController.tabBar setBackgroundImage:[IMAGE(@"tabbar-background") resizedImage:CGSizeMake([UIScreen mainScreen].bounds.size.width, rootViewController.tabBar.frame.size.height) interpolationQuality:kCGInterpolationHigh]];
     // this will generate a black tab bar
     //http://stackoverflow.com/questions/18734794/how-can-i-change-the-text-and-icon-colors-for-tabbaritems-in-ios-7
     rootViewController.tabBar.barTintColor = HEXCOLOR(0x333333, 1);
+    
+   
     // this will give selected icons and text your apps tint color
     //rootViewController.tabBar.tintColor = HEXCOLOR(0x7a7a7a, 1);  // appTintColor is a UIColor *
     [[UINavigationBar appearance] setBarTintColor:HEXCOLOR(0x333333, 1.0)];

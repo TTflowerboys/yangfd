@@ -374,7 +374,7 @@ def admin_user_add(user, params):
 
     if f_app.common.i18n_default_locale in ["zh_Hans_CN", "zh_Hant_HK"]:
         template_invoke_name = "new_admin_cn"
-        sendgrid_template_id = " d224c59f-76ee-49be-be7d-35695bc4d090"
+        sendgrid_template_id = "d224c59f-76ee-49be-be7d-35695bc4d090"
     else:
         template_invoke_name = "new_admin_en"
         sendgrid_template_id = "0ada154f-0b38-473a-8e01-87dcdb827f6f"
