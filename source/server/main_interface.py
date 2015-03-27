@@ -696,6 +696,14 @@ def calculator():
     return common_template("calculator-phone", intention_list=intention_list, title=title)
 
 
+
+@f_get('/customer_sales')
+@check_ip_and_redirect_domain
+@check_crowdfunding_ready
+def customer_sales():
+    title = _('二手房出售')
+    return common_template("customer_sales", title=title)
+
 @f_get('/user')
 @check_ip_and_redirect_domain
 def user():
