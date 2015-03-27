@@ -12,6 +12,63 @@
 		2C41B76E1AC0169400DF5608 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C41B76D1AC0169400DF5608 /* base.css */; };
 		2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
+		2CA2E6951AC5460600053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
+		2CA2E6961AC5460600053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
+		2CA2E6971AC5460600053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
+		2CA2E6981AC5460600053965 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
+		2CA2E6991AC5460600053965 /* CUTEDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBB2F91AC146790024E225 /* CUTEDataManager.m */; };
+		2CA2E69A1AC5460600053965 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DAE1ABC1372004DF663 /* main.m */; };
+		2CA2E69B1AC5460600053965 /* CUTEConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBB2FC1AC1472E0024E225 /* CUTEConfiguration.m */; };
+		2CA2E69D1AC5460600053965 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
+		2CA2E69E1AC5460600053965 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
+		2CA2E69F1AC5460600053965 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
+		2CA2E6A11AC5460600053965 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */; };
+		2CA2E6A21AC5460600053965 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
+		2CA2E6A31AC5460600053965 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C41B76D1AC0169400DF5608 /* base.css */; };
+		2CA2E6A41AC5460600053965 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
+		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
+		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
+		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
+		2CA2E6B11AC5487800053965 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
+		2CA2E6B21AC5487800053965 /* CUTEDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBB2F91AC146790024E225 /* CUTEDataManager.m */; };
+		2CA2E6B31AC5487800053965 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DAE1ABC1372004DF663 /* main.m */; };
+		2CA2E6B41AC5487800053965 /* CUTEConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBB2FC1AC1472E0024E225 /* CUTEConfiguration.m */; };
+		2CA2E6B61AC5487800053965 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
+		2CA2E6B71AC5487800053965 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
+		2CA2E6B81AC5487800053965 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
+		2CA2E6BA1AC5487800053965 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */; };
+		2CA2E6BB1AC5487800053965 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
+		2CA2E6BC1AC5487800053965 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C41B76D1AC0169400DF5608 /* base.css */; };
+		2CA2E6BD1AC5487800053965 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
+		2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
+		2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
+		2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
+		2CA2E6CA1AC5496700053965 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
+		2CA2E6CB1AC5496700053965 /* CUTEDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBB2F91AC146790024E225 /* CUTEDataManager.m */; };
+		2CA2E6CC1AC5496700053965 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DAE1ABC1372004DF663 /* main.m */; };
+		2CA2E6CD1AC5496700053965 /* CUTEConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBB2FC1AC1472E0024E225 /* CUTEConfiguration.m */; };
+		2CA2E6CF1AC5496700053965 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
+		2CA2E6D01AC5496700053965 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
+		2CA2E6D11AC5496700053965 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
+		2CA2E6D31AC5496700053965 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */; };
+		2CA2E6D41AC5496700053965 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
+		2CA2E6D51AC5496700053965 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C41B76D1AC0169400DF5608 /* base.css */; };
+		2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
+		2CA2E6E11AC54BF200053965 /* currant-dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DD1AC54BF200053965 /* currant-dev-Info.plist */; };
+		2CA2E6E21AC54BF200053965 /* currant-dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DD1AC54BF200053965 /* currant-dev-Info.plist */; };
+		2CA2E6E31AC54BF200053965 /* currant-dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DD1AC54BF200053965 /* currant-dev-Info.plist */; };
+		2CA2E6E41AC54BF200053965 /* currant-dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DD1AC54BF200053965 /* currant-dev-Info.plist */; };
+		2CA2E6E51AC54BF200053965 /* currant-dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DD1AC54BF200053965 /* currant-dev-Info.plist */; };
+		2CA2E6E61AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
+		2CA2E6E71AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
+		2CA2E6E81AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
+		2CA2E6E91AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
+		2CA2E6EA1AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
+		2CA2E6EB1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
+		2CA2E6EC1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
+		2CA2E6ED1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
+		2CA2E6EE1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
+		2CA2E6EF1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
 		2CB43DAF1ABC1372004DF663 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DAE1ABC1372004DF663 /* main.m */; };
 		2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CB43DC01ABC1373004DF663 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */; };
@@ -42,6 +99,13 @@
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
 		2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyListViewController.m; sourceTree = "<group>"; };
+		2CA2E6A91AC5460600053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CA2E6DD1AC54BF200053965 /* currant-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-dev-Info.plist"; sourceTree = "<group>"; };
+		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
+		2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-test-Info.plist"; sourceTree = "<group>"; };
+		2CA2E6E01AC54BF200053965 /* currant.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = currant.pch; sourceTree = "<group>"; };
 		2CB43DA91ABC1372004DF663 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB43DAD1ABC1372004DF663 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CB43DAE1ABC1372004DF663 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -53,7 +117,6 @@
 		2CB43DD81ABC26B2004DF663 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2CB43DDB1ABD4AB4004DF663 /* CUTEWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWebViewController.h; sourceTree = "<group>"; };
 		2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEWebViewController.m; sourceTree = "<group>"; };
-		2CB43DDE1ABD50BD004DF663 /* currant.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = currant.pch; sourceTree = SOURCE_ROOT; };
 		2CB43DDF1ABD59AE004DF663 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		2CB43DE01ABD59CC004DF663 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.xib"; sourceTree = "<group>"; };
 		2CB43DE91ABD5CE3004DF663 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -68,6 +131,36 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2CA2E69C1AC5460600053965 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CA2E69D1AC5460600053965 /* AddressBook.framework in Frameworks */,
+				2CA2E69E1AC5460600053965 /* MapKit.framework in Frameworks */,
+				2CA2E69F1AC5460600053965 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CA2E6B51AC5487800053965 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CA2E6B61AC5487800053965 /* AddressBook.framework in Frameworks */,
+				2CA2E6B71AC5487800053965 /* MapKit.framework in Frameworks */,
+				2CA2E6B81AC5487800053965 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CA2E6CE1AC5496700053965 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CA2E6CF1AC5496700053965 /* AddressBook.framework in Frameworks */,
+				2CA2E6D01AC5496700053965 /* MapKit.framework in Frameworks */,
+				2CA2E6D11AC5496700053965 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2CB43DA61ABC1372004DF663 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -121,6 +214,9 @@
 			children = (
 				2CB43DA91ABC1372004DF663 /* currant.app */,
 				2CB43DC51ABC1373004DF663 /* currantTests.xctest */,
+				2CA2E6A91AC5460600053965 /* currant.app */,
+				2CA2E6C21AC5487800053965 /* currant.app */,
+				2CA2E6DB1AC5496700053965 /* currant.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,9 +241,12 @@
 			isa = PBXGroup;
 			children = (
 				2CB43DAD1ABC1372004DF663 /* Info.plist */,
+				2CA2E6DD1AC54BF200053965 /* currant-dev-Info.plist */,
+				2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */,
+				2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */,
+				2CA2E6E01AC54BF200053965 /* currant.pch */,
 				2CB43DAE1ABC1372004DF663 /* main.m */,
 				2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */,
-				2CB43DDE1ABD50BD004DF663 /* currant.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -246,6 +345,63 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2CA2E6921AC5460600053965 /* currant-dev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CA2E6A61AC5460600053965 /* Build configuration list for PBXNativeTarget "currant-dev" */;
+			buildPhases = (
+				2CA2E6931AC5460600053965 /* Check Pods Manifest.lock */,
+				2CA2E6941AC5460600053965 /* Sources */,
+				2CA2E69C1AC5460600053965 /* Frameworks */,
+				2CA2E6A01AC5460600053965 /* Resources */,
+				2CA2E6A51AC5460600053965 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "currant-dev";
+			productName = currant;
+			productReference = 2CA2E6A91AC5460600053965 /* currant.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2CA2E6AB1AC5487800053965 /* currant-test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CA2E6BF1AC5487800053965 /* Build configuration list for PBXNativeTarget "currant-test" */;
+			buildPhases = (
+				2CA2E6AC1AC5487800053965 /* Check Pods Manifest.lock */,
+				2CA2E6AD1AC5487800053965 /* Sources */,
+				2CA2E6B51AC5487800053965 /* Frameworks */,
+				2CA2E6B91AC5487800053965 /* Resources */,
+				2CA2E6BE1AC5487800053965 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "currant-test";
+			productName = currant;
+			productReference = 2CA2E6C21AC5487800053965 /* currant.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2CA2E6C41AC5496700053965 /* currant-production */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CA2E6D81AC5496700053965 /* Build configuration list for PBXNativeTarget "currant-production" */;
+			buildPhases = (
+				2CA2E6C51AC5496700053965 /* Check Pods Manifest.lock */,
+				2CA2E6C61AC5496700053965 /* Sources */,
+				2CA2E6CE1AC5496700053965 /* Frameworks */,
+				2CA2E6D21AC5496700053965 /* Resources */,
+				2CA2E6D71AC5496700053965 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "currant-production";
+			productName = currant;
+			productReference = 2CA2E6DB1AC5496700053965 /* currant.app */;
+			productType = "com.apple.product-type.application";
+		};
 		2CB43DA81ABC1372004DF663 /* currant */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2CB43DCF1ABC1373004DF663 /* Build configuration list for PBXNativeTarget "currant" */;
@@ -293,8 +449,18 @@
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Foster Yin";
 				TargetAttributes = {
+					2CA2E6921AC5460600053965 = {
+						DevelopmentTeam = CVJ4KG6V54;
+					};
+					2CA2E6AB1AC5487800053965 = {
+						DevelopmentTeam = CVJ4KG6V54;
+					};
+					2CA2E6C41AC5496700053965 = {
+						DevelopmentTeam = CVJ4KG6V54;
+					};
 					2CB43DA81ABC1372004DF663 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = CVJ4KG6V54;
 					};
 					2CB43DC41ABC1373004DF663 = {
 						CreatedOnToolsVersion = 6.2;
@@ -315,12 +481,57 @@
 			projectRoot = "";
 			targets = (
 				2CB43DA81ABC1372004DF663 /* currant */,
+				2CA2E6921AC5460600053965 /* currant-dev */,
+				2CA2E6AB1AC5487800053965 /* currant-test */,
+				2CA2E6C41AC5496700053965 /* currant-production */,
 				2CB43DC41ABC1373004DF663 /* currantTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2CA2E6A01AC5460600053965 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CA2E6A11AC5460600053965 /* LaunchScreen.xib in Resources */,
+				2CA2E6A21AC5460600053965 /* Localizable.strings in Resources */,
+				2CA2E6A31AC5460600053965 /* base.css in Resources */,
+				2CA2E6E71AC54BF200053965 /* currant-production-Info.plist in Resources */,
+				2CA2E6E21AC54BF200053965 /* currant-dev-Info.plist in Resources */,
+				2CA2E6EC1AC54BF200053965 /* currant-test-Info.plist in Resources */,
+				2CA2E6A41AC5460600053965 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CA2E6B91AC5487800053965 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CA2E6BA1AC5487800053965 /* LaunchScreen.xib in Resources */,
+				2CA2E6BB1AC5487800053965 /* Localizable.strings in Resources */,
+				2CA2E6BC1AC5487800053965 /* base.css in Resources */,
+				2CA2E6E81AC54BF200053965 /* currant-production-Info.plist in Resources */,
+				2CA2E6E31AC54BF200053965 /* currant-dev-Info.plist in Resources */,
+				2CA2E6ED1AC54BF200053965 /* currant-test-Info.plist in Resources */,
+				2CA2E6BD1AC5487800053965 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CA2E6D21AC5496700053965 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CA2E6D31AC5496700053965 /* LaunchScreen.xib in Resources */,
+				2CA2E6D41AC5496700053965 /* Localizable.strings in Resources */,
+				2CA2E6D51AC5496700053965 /* base.css in Resources */,
+				2CA2E6E91AC54BF200053965 /* currant-production-Info.plist in Resources */,
+				2CA2E6E41AC54BF200053965 /* currant-dev-Info.plist in Resources */,
+				2CA2E6EE1AC54BF200053965 /* currant-test-Info.plist in Resources */,
+				2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2CB43DA71ABC1372004DF663 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -328,6 +539,9 @@
 				2CB43DC01ABC1373004DF663 /* LaunchScreen.xib in Resources */,
 				2CB43DE81ABD5CE3004DF663 /* Localizable.strings in Resources */,
 				2C41B76E1AC0169400DF5608 /* base.css in Resources */,
+				2CA2E6E61AC54BF200053965 /* currant-production-Info.plist in Resources */,
+				2CA2E6E11AC54BF200053965 /* currant-dev-Info.plist in Resources */,
+				2CA2E6EB1AC54BF200053965 /* currant-test-Info.plist in Resources */,
 				2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,6 +550,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CA2E6E51AC54BF200053965 /* currant-dev-Info.plist in Resources */,
+				2CA2E6EF1AC54BF200053965 /* currant-test-Info.plist in Resources */,
+				2CA2E6EA1AC54BF200053965 /* currant-production-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +574,96 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		2CA2E6931AC5460600053965 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2CA2E6A51AC5460600053965 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2CA2E6AC1AC5487800053965 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2CA2E6BE1AC5487800053965 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2CA2E6C51AC5496700053965 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2CA2E6D71AC5496700053965 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A02E954989AD2505AB628CB7 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -375,6 +682,48 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2CA2E6941AC5460600053965 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CA2E6951AC5460600053965 /* AppDelegate.m in Sources */,
+				2CA2E6961AC5460600053965 /* CUTEMapView.m in Sources */,
+				2CA2E6971AC5460600053965 /* CUTEWebViewController.m in Sources */,
+				2CA2E6981AC5460600053965 /* CUTEPropertyListViewController.m in Sources */,
+				2CA2E6991AC5460600053965 /* CUTEDataManager.m in Sources */,
+				2CA2E69A1AC5460600053965 /* main.m in Sources */,
+				2CA2E69B1AC5460600053965 /* CUTEConfiguration.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CA2E6AD1AC5487800053965 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */,
+				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
+				2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */,
+				2CA2E6B11AC5487800053965 /* CUTEPropertyListViewController.m in Sources */,
+				2CA2E6B21AC5487800053965 /* CUTEDataManager.m in Sources */,
+				2CA2E6B31AC5487800053965 /* main.m in Sources */,
+				2CA2E6B41AC5487800053965 /* CUTEConfiguration.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CA2E6C61AC5496700053965 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */,
+				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
+				2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */,
+				2CA2E6CA1AC5496700053965 /* CUTEPropertyListViewController.m in Sources */,
+				2CA2E6CB1AC5496700053965 /* CUTEDataManager.m in Sources */,
+				2CA2E6CC1AC5496700053965 /* main.m in Sources */,
+				2CA2E6CD1AC5496700053965 /* CUTEConfiguration.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2CB43DA51ABC1372004DF663 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -428,6 +777,102 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2CA2E6A71AC5460600053965 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D71FAA99AADAD5513E122AE /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/currant/currant.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-dev-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = currant;
+				PROVISIONING_PROFILE = "9f7e8f70-1778-4760-8674-40e683cd7b08";
+			};
+			name = Debug;
+		};
+		2CA2E6A81AC5460600053965 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74C38B0D53E631D7141C9D35 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/currant/currant.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-dev-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = currant;
+				PROVISIONING_PROFILE = "9f7e8f70-1778-4760-8674-40e683cd7b08";
+			};
+			name = Release;
+		};
+		2CA2E6C01AC5487800053965 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D71FAA99AADAD5513E122AE /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/currant/currant.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-test-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = currant;
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		2CA2E6C11AC5487800053965 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74C38B0D53E631D7141C9D35 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/currant/currant.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-test-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = currant;
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		2CA2E6D91AC5496700053965 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D71FAA99AADAD5513E122AE /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/currant/currant.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-production-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = currant;
+				PROVISIONING_PROFILE = "b8cd408d-2d40-41a3-86d0-33e8dd2aeddb";
+			};
+			name = Debug;
+		};
+		2CA2E6DA1AC5496700053965 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74C38B0D53E631D7141C9D35 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/currant/currant.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-production-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = currant;
+				PROVISIONING_PROFILE = "b8cd408d-2d40-41a3-86d0-33e8dd2aeddb";
+			};
+			name = Release;
+		};
 		2CB43DCD1ABC1373004DF663 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -487,7 +932,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -510,8 +956,9 @@
 			baseConfigurationReference = 3D71FAA99AADAD5513E122AE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/currant.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/currant/currant.pch";
 				INFOPLIST_FILE = currant/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -524,8 +971,9 @@
 			baseConfigurationReference = 74C38B0D53E631D7141C9D35 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/currant.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/currant/currant.pch";
 				INFOPLIST_FILE = currant/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -570,6 +1018,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2CA2E6A61AC5460600053965 /* Build configuration list for PBXNativeTarget "currant-dev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CA2E6A71AC5460600053965 /* Debug */,
+				2CA2E6A81AC5460600053965 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CA2E6BF1AC5487800053965 /* Build configuration list for PBXNativeTarget "currant-test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CA2E6C01AC5487800053965 /* Debug */,
+				2CA2E6C11AC5487800053965 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CA2E6D81AC5496700053965 /* Build configuration list for PBXNativeTarget "currant-production" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CA2E6D91AC5496700053965 /* Debug */,
+				2CA2E6DA1AC5496700053965 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2CB43DA41ABC1372004DF663 /* Build configuration list for PBXProject "currant" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
