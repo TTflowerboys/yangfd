@@ -122,7 +122,7 @@ gulp.task('clean', function () {
 // 'test': xxx-test.bbtechgroup.com
 // 'production': online production version
 
-gulp.task('build', ['lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend'],
+gulp.task('build', ['lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend', 'setupCDN'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -198,6 +198,29 @@ gulp.task('build:html-extend', ['build:less2css'], function () {
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
         .pipe(gulp.dest(myPaths.dist))
+})
+
+gulp.task('setupCDN', ['build:html-extend'], function () {
+    var time = new Date().getTime()
+    //argv.cdn = 'http://localhost:8181'
+
+    var onRenameFinished =  function () {
+        gulp.src(myPaths.dist + '*.html')
+            .pipe(replace(/\/static\/images\//g, argv.cdn + '/static-' + time + '/images/'))
+            .pipe(replace(/\/static\/sprite\//g, argv.cdn + '/static-' + time + '/sprite/'))
+            .pipe(replace(/\/static\/styles\//g, argv.cdn + '/static-' + time + '/styles/'))
+            .pipe(gulp.dest(myPaths.dist))
+
+        gulp.src(myPaths.dist + 'static-' + time + '/styles/' + '**/*.css')
+            .pipe(debug())
+            .pipe(replace(/\/static\/images\//g,  argv.cdn + '/static-' + time + '/images/'))
+            .pipe(gulp.dest(myPaths.dist + 'static-' + time + '/styles/'))
+    }
+
+    //html should only in root folder
+    gulp.src(myPaths.dist + '/static/**')
+        .pipe(gulp.dest(myPaths.dist + 'static-' + time))
+        .on('end', onRenameFinished); 
 })
 
 var livereload = require('gulp-livereload')
