@@ -32,6 +32,8 @@ var gutil = require('gulp-util')
 var preprocess = require('gulp-preprocess')
 var uglify = require('gulp-uglify');
 var pageSprite = require('gulp-page-sprite')
+var replace = require('gulp-replace')
+var argv = require('yargs').argv;
 
 
 var myPaths = {
@@ -120,19 +122,7 @@ gulp.task('clean', function () {
 // 'test': xxx-test.bbtechgroup.com
 // 'production': online production version
 
-gulp.task('build_dev', ['lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend-dev'],
-    function () {
-        console.info(chalk.black.bgWhite.bold('Building tasks done!'))
-    })
-
-
-gulp.task('build_test', ['lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend-test'],
-    function () {
-        console.info(chalk.black.bgWhite.bold('Building tasks done!'))
-    })
-
-
-gulp.task('build_production', ['lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static','build:less2css',  'build:html-extend-production'],
+gulp.task('build', ['lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -194,15 +184,11 @@ gulp.task('sprite', ['clean', 'build:clean-sprite', 'build:copy-src-to-sprite'],
     .pipe(gulp.dest(myPaths.sprite))
 })
 
-
-var buildExtend = function(env) {
-
+gulp.task('build:html-extend', ['build:less2css'], function () {
     var publicHtmlFilter = filter('*.html')
-  //  var emailFilter = filter('static/emails/*.html')
-
     return gulp.src(myPaths.sprite_html, {base: './sprite/'})
         .pipe(extender({verbose: false}))
-        .pipe(preprocess({context: {ENV: env}}))
+        .pipe(preprocess({context: {ENV: argv.env}}))
         .pipe(publicHtmlFilter)
         .pipe(usemin({
             //TODO: Rev images
@@ -212,22 +198,7 @@ var buildExtend = function(env) {
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
         .pipe(gulp.dest(myPaths.dist))
-}
-
-gulp.task('build:html-extend-dev', ['build:less2css'], function () {
-    return buildExtend('dev')
 })
-
-
-gulp.task('build:html-extend-test', ['build:less2css'], function () {
-    return buildExtend('test')
-})
-
-
-gulp.task('build:html-extend-production', ['build:less2css'], function () {
-    return buildExtend('production')
-})
-
 
 var livereload = require('gulp-livereload')
 gulp.task('watch', ['symlink', 'less2css', 'html-extend'], function () {
