@@ -212,9 +212,9 @@ gulp.task('setupCDN', ['build:html-extend'], function () {
             .pipe(gulp.dest(myPaths.dist))
 
         gulp.src(myPaths.dist + 'static-' + time + '/styles/' + '**/*.css')
-            .pipe(debug())
             .pipe(replace(/\/static\/images\//g,  argv.cdn + '/static-' + time + '/images/'))
             .pipe(gulp.dest(myPaths.dist + 'static-' + time + '/styles/'))
+        //TODO can update images in js
     }
 
     //html should only in root folder
