@@ -7,7 +7,19 @@
 //
 
 #import "CUTERentTypeListViewController.h"
+#import "CUTEPropertyInfoForm.h"
+#import "CUTERectTypeListForm.h"
+
 
 @implementation CUTERentTypeListViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.formController.form = [[CUTERectTypeListForm alloc] init];
+    }
+    return self;
+}
 
 @end
