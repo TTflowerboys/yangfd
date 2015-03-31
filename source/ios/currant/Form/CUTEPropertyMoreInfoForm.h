@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <FXForms.h>
+#import "CUTEPropertyFacilityForm.h"
 
 @interface CUTEPropertyMoreInfoForm : NSObject <FXForm>
 
 @property (nonatomic, copy) NSString *propertyTitle;
 @property (nonatomic, copy) NSString *propertyDescription;
-@property (nonatomic, copy) NSString *facility;
+@property (nonatomic, strong) CUTEPropertyFacilityForm *facility;
 @property (nonatomic, copy) NSString *feature;
 
 @end

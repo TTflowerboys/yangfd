@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <FXForms.h>
-#import "CUTEPropertyInfoForm.h"
+#import "CUTERentAddressMapForm.h"
 
 @interface CUTERectTypeListForm : NSObject <FXForm>
 
-@property (strong, nonatomic) CUTEPropertyInfoForm *single;
+@property (strong, nonatomic) CUTERentAddressMapForm *single;
 
-@property (strong, nonatomic) CUTEPropertyInfoForm *whole;
+@property (strong, nonatomic) CUTERentAddressMapForm *whole;
 
 
 @end
