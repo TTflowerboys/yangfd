@@ -5,9 +5,9 @@
   "scripts": {
     "debug": "npm install && gulp clean && gulp debug",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build_dev": "npm install --production && npm run i18n && gulp build --env dev --cdn http\\:\\/\\/currant-dev.bbtechgroup.com",
-    "build_test": "npm install --production && npm run i18n && gulp build --env test --cdn http\\:\\/\\/currant-test.bbtechgroup.com",
-    "build_production": "npm install --production && npm run i18n && gulp build --env production --cdn  http\\:\\/\\/yangfd.com",
+    "build_dev": "npm install --production && npm run i18n && gulp build --env dev --cdn \\/\\/currant-dev.bbtechgroup.com",
+    "build_test": "npm install --production && npm run i18n && gulp build --env test --cdn \\/\\/currant-test.bbtechgroup.com",
+    "build_production": "npm install --production && npm run i18n && gulp build --env production --cdn  \\/\\/yangfd.com",
     "styleguideinit": "kss-node --init",
     "styleguide": "kss-node ./src/static/styles/ --less ./src/static/styles/styleguide.less --template ./.styleguide-template/",
     "theme": "gulp styleless2css",
