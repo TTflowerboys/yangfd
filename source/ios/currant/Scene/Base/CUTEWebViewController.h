@@ -7,15 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CUTEViewController.h"
 
-@interface CUTEWebViewController : UIViewController <UIWebViewDelegate>
-
-@property (strong, nonatomic) NSString *urlPath;
+@interface CUTEWebViewController : CUTEViewController <UIWebViewDelegate>
 
 @property (nonatomic, readonly) UIWebView *webView;
 
-
-- (void)loadURLPath:(NSString *)urlPath;
+- (void)loadURL:(NSURL *)url;
 
 - (void)onPhoneButtonPressed:(id)sender;
 

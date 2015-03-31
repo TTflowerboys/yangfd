@@ -15,6 +15,7 @@
 #import "CUTEMapView.h"
 #import <SMCalloutView.h>
 #import "CUTEConfiguration.h"
+#import "NSURL+CUTE.h"
 
 
 @interface CUTEPropertyListViewController () <MKMapViewDelegate, SMCalloutViewDelegate>
@@ -31,8 +32,8 @@
 
 @implementation CUTEPropertyListViewController
 
-- (void)loadURLPath:(NSString *)urlPath {
-    [super loadURLPath:urlPath];
+- (void)loadURL:(NSURL *)url {
+    [super loadURL:url];
 
     if (!_mapButton) {
         _mapButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -111,7 +112,7 @@
 }
 
 - (void)updateMapButtonWithURL:(NSURL *)url {
-    if ([_mapButton.attachment isEqualToString:@"ShowMap"] && [url.path hasPrefix:self.urlPath]) {
+    if ([_mapButton.attachment isEqualToString:@"ShowMap"] && [url.path hasPrefix:self.url.path]) {
         [_mapButton setHidden:NO];
     }
     else {
@@ -206,7 +207,7 @@
 - (void)calloutViewClicked:(SMCalloutView *)calloutView {
     [self flipMapViewAnimated:YES completion:^(BOOL finished) {
         NSDictionary *property = calloutView.attachment;
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:CONCAT(@"/property/", property[@"id"]) relativeToURL:[CUTEConfiguration hostURL]]]];
+        [self loadURL:[NSURL WebURLWithString:CONCAT(@"/property/", property[@"id"])]];
     }];
 }
 

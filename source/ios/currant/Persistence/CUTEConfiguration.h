@@ -14,6 +14,8 @@
 
 + (NSURL *)hostURL;
 
++ (NSString *)yangfdScheme;
+
 + (NSString *)servicePhone;
 
 @end
