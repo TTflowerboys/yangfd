@@ -8,7 +8,7 @@
 <!--@@block = main -->
 <div class="main_container">
     <div>
-        <div class="title">房屋出售</div>
+        <div class="title">房屋出租</div>
         <div class="content">
             <div>
                 <div></div>
@@ -33,19 +33,19 @@
                             <div class="property_type">
                                 <img src="static/images/customer/btn_apartment_active.png">
                                 <div>
-                                    现代公寓
+                                    单间
                                 </div>
                             </div>
                             <div class="property_type">
                                 <img src="static/images/customer/btn_house_normal.png">
                                 <div>
-                                    别墅
+                                    整租
                                 </div>
                             </div>
                             <div class="property_type">
-                                <img src="static/images/customer/btn_student_normal.png">
+                                <img src="static/images/customer/btn_rent_normal.png">
                                 <div>
-                                    学生公寓
+                                    合租
                                 </div>
                             </div>
                         </td>
@@ -103,7 +103,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="text">售价</div>
+                            <div class="text">租金</div>
 
                         </td>
                         <td class="sales_price">
@@ -116,16 +116,29 @@
                                     <option value="HKD">{{_('港币')}}</option>
                                 </select>
                             </div>
+                            <div><input></div>
                             <div>
-                                <input>
+                                <select>
+                                    <option selected>{{_('押一付三')}}</option>
+                                </select>
                             </div>
-                            <div style="display: none">
-                                <div>
-                                    更多详情和设施描述
-                                </div>
-                                <div>
-                                    填写可增加30%浏览量
-                                </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text">租期</div>
+
+                        </td>
+                        <td class="sales_price">
+                            <div>
+                                <select>
+                                    <option selected>{{_('无')}}</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span>开始于</span>
+                            </div>
+                            <div>
                             </div>
                         </td>
                     </tr>

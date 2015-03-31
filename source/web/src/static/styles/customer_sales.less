@@ -3,12 +3,12 @@ main {
     .main_container {
         max-width: @max-width;
         margin: 0 auto;
-        .title{
+        .title {
             margin-top: 60px;
             margin-bottom: 10px;
             font-size: 24px;
         }
-        .subtitle{
+        .subtitle {
             padding: 58px 40px 50px 40px;
             font-size: 20px;
         }
@@ -17,7 +17,7 @@ main {
             background-color: #f6f6f6;
             margin-bottom: 140px;
             padding: 40px 0;
-            hr{
+            hr {
                 color: #cccccc;
             }
         }
@@ -28,24 +28,24 @@ main {
             width: 50%;
             float: left;
         }
-        td{
+        td {
             font-size: 16px;
             padding: 20px 0;
         }
-        .text{
+        .text {
             text-align: right;
             color: #999999;
-            padding: 0 50px ;
+            padding: 0 50px;
         }
-        .property_type{
+        .property_type {
             color: #333333;
             font-size: 16px;
             float: left;
             text-align: center;
             padding: 0 30px;
         }
-        .postcode{
-            input{
+        .postcode {
+            input {
                 border-radius: 4px;
                 -moz-border-radius: 4px;
                 -webkit-border-radius: 4px;
@@ -53,20 +53,73 @@ main {
                 width: 140px;
                 border: 1px solid #cccccc;
             }
-            button{
+            button {
                 border-radius: 4px;
                 -moz-border-radius: 4px;
                 -webkit-border-radius: 4px;
                 height: 50px;
                 width: 100px;
                 border: 2px solid #e60012;
-                &.find_address{
+                &.find_address {
                     background-color: #e60012;
                     color: #ffffff;
+                    margin: auto 15px;
                 }
-                &.customer_input{
+                &.customer_input {
                     background-color: transparent;
                     color: #e60012;
+                }
+            }
+        }
+        .room_count{
+            overflow: hidden;
+            div{
+                float: left;
+                height: 50px;
+                line-height: 50px;
+                select{
+                    vertical-align: middle;
+                    color: #555555;
+                    border: 1px solid #cccccc;
+                    display: inline-block;
+                    background: transparent;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    height: 50px;
+                    line-height: 40px;
+                    margin-right: 8px;
+                }
+                span{
+                    margin-right: 16px;
+                }
+            }
+        }
+        .sales_price{
+            overflow: hidden;
+            div{
+                float: left;
+                height: 50px;
+                line-height: 50px;
+                margin-right: 8px;
+                select{
+                    vertical-align: middle;
+                    color: #555555;
+                    border: 1px solid #cccccc;
+                    display: inline-block;
+                    background: transparent;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    height: 50px;
+                    line-height: 40px;
+                }
+                input{
+                    margin-left: 20px;
+                    border-radius: 4px;
+                    -moz-border-radius: 4px;
+                    -webkit-border-radius: 4px;
+                    height: 50px;
+                    width: 140px;
+                    border: 1px solid #cccccc;
                 }
             }
         }
