@@ -9,9 +9,11 @@
 #import "AppDelegate.h"
 #import "CUTEWebViewController.h"
 #import "CUTEPropertyListViewController.h"
+#import "CUTERentTypeListViewController.h"
 #import "CUTEDataManager.h"
 #import "CUTEConfiguration.h"
 #import <UIImage+Resize.h>
+#import "NSURL+CUTE.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -49,7 +51,7 @@
     CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] init];
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    controller.urlPath = urlPath;
+    controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:controller action:@selector(onPhoneButtonPressed:)];
     controller.navigationItem.title = STR(@"洋房东");
@@ -63,7 +65,7 @@
     CUTEPropertyListViewController *controller = [[CUTEPropertyListViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] init];
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    controller.urlPath = urlPath;
+    controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:controller action:@selector(onPhoneButtonPressed:)];
     controller.navigationItem.title = STR(@"洋房东");
@@ -72,13 +74,13 @@
     return nav;
 }
 
-- (UINavigationController *)makeEditViewControllerWithTitle:(NSString *)title icon:(NSString *)icon{
+- (UINavigationController *)makeEditViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
 
-    CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
+    CUTERentTypeListViewController *controller = [[CUTERentTypeListViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] init];
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:nil];
     nav.tabBarItem = tabItem;
-
+    controller.url = [NSURL YangfdURLWithString:urlPath];
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:controller action:@selector(onPhoneButtonPressed:)];
     controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
@@ -96,7 +98,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
     UINavigationController *homeViewController = [self makeViewControllerWithTitle:STR(@"主页") icon:@"tab-home" urlPath:@"/"];
-    UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit"];
+    UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit" urlPath:@"/rent_new"];
     [rootViewController setViewControllers:@[
                                              homeViewController,
                                              [self makePropertyListViewControllerWithTitle:STR(@"海外房产") icon:@"tab-property" urlPath:@"/property_list"],
@@ -126,7 +128,7 @@
                                                         } forState:UIControlStateNormal];
     [self.window makeKeyAndVisible];
     CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)([(UINavigationController *)[rootViewController.viewControllers firstObject] topViewController]);
-    [firstWebviewController loadURLPath:firstWebviewController.urlPath];
+    [firstWebviewController loadURL:firstWebviewController.url];
     return YES;
 }
 
@@ -163,13 +165,16 @@
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UINavigationController *)viewController {
     if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
         CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
-        if ([[self needLoginURLList] containsObject:webViewController.urlPath] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
-            NSURL *originalURL = [NSURL URLWithString:webViewController.urlPath relativeToURL:[CUTEConfiguration hostURL]];
-          [webViewController loadURLPath:CONCAT(@"/signin?from=", [originalURL.absoluteString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding])];
+        if ([[self needLoginURLList] containsObject:webViewController.url.path] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
+            NSURL *originalURL = webViewController.url;
+            [webViewController loadURL:[NSURL WebURLWithString:CONCAT(@"/signin?from=", [originalURL.absoluteString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding])]];
         }
         else {
-          [webViewController loadURLPath:[webViewController urlPath]];
+            [webViewController loadURL:webViewController.url];
         }
+    }
+    else {
+        
     }
 }
 

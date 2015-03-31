@@ -27,6 +27,10 @@ static NSString *host = nil;
     }
 }
 
++ (NSString *)yangfdScheme {
+    return @"yangfd";
+}
+
 
 + (NSString *)servicePhone {
     return @"4000926433";

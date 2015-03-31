@@ -26,9 +26,9 @@
     return self;
 }
 
-- (void)loadURLPath:(NSString *)urlPath {
+- (void)loadURL:(NSURL *)url {
 
-    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlPath relativeToURL:[CUTEConfiguration hostURL]]];
+    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
     if (!_webView) {
         _webView = [[UIWebView alloc] initWithFrame:TabBarControllerViewFrame];
         [self.view addSubview:_webView];
