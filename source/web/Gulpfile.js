@@ -206,19 +206,19 @@ gulp.task('setupCDN', ['build:html-extend'], function () {
         var onRenameFinished =  function () {
             //html should only in root folder
             gulp.src(myPaths.dist + '*.html')
-                .pipe(replace(/\/static\/images\//g, argv.cdn + '/static/' + time + '/images/'))
-                .pipe(replace(/\/static\/sprite\//g, argv.cdn + '/static/' + time + '/sprite/'))
-                .pipe(replace(/\/static\/styles\//g, argv.cdn + '/static/' + time + '/styles/'))
-                .pipe(replace(/\/static\/vendors\//g, argv.cdn + '/static/' + time + '/vendors/'))
-                .pipe(replace(/\/static\/fonts\//g, argv.cdn + '/static/' + time + '/fonts/'))
+                .pipe(replace(/\/static\/images\//g, argv.cdn + '/' + time + '/images/'))
+                .pipe(replace(/\/static\/sprite\//g, argv.cdn + '/' + time + '/sprite/'))
+                .pipe(replace(/\/static\/styles\//g, argv.cdn + '/' + time + '/styles/'))
+                .pipe(replace(/\/static\/vendors\//g, argv.cdn + '/' + time + '/vendors/'))
+                .pipe(replace(/\/static\/fonts\//g, argv.cdn + '/' + time + '/fonts/'))
                 .pipe(gulp.dest(myPaths.dist))
 
             gulp.src(myPaths.dist + 'static-' + time + '/styles/' + '**/*.css')
-                .pipe(replace(/\/static\/images\//g,  argv.cdn + '/static/' + time + '/images/'))
+                .pipe(replace(/\/static\/images\//g,  argv.cdn + '/' + time + '/images/'))
                 .pipe(gulp.dest(myPaths.dist + 'static-' + time + '/styles/'))
 
             gulp.src(myPaths.dist + 'static-' + time + '/scripts/' + '**/*.js')
-                .pipe(replace(/\/static\/images\//g,  argv.cdn + '/static/' + time + '/images/'))
+                .pipe(replace(/\/static\/images\//g,  argv.cdn + '/' + time + '/images/'))
                 .pipe(gulp.dest(myPaths.dist + 'static-' + time + '/scripts/'))
         }
 
