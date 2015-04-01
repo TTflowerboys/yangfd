@@ -44,6 +44,11 @@
 		2C401E1F1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E1C1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m */; };
 		2C401E201ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E1C1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m */; };
 		2C401E211ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E1C1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m */; };
+		2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
+		2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
+		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
+		2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
+		2C401E2B1ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C41B76E1AC0169400DF5608 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C41B76D1AC0169400DF5608 /* base.css */; };
 		2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
@@ -157,6 +162,8 @@
 		2C401E1B1ACAB9BF00613093 /* CUTEPropertyFacilityForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyFacilityForm.h; sourceTree = "<group>"; };
 		2C401E1C1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyFacilityForm.m; sourceTree = "<group>"; };
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
+		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
+		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
 		2C41B76D1AC0169400DF5608 /* base.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = base.css; sourceTree = "<group>"; };
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
@@ -310,6 +317,8 @@
 			children = (
 				2C401E221ACB95B900613093 /* Macro */,
 				2C79C2B41ACA570C000E7F67 /* Category */,
+				2C401E251ACB9CE100613093 /* ObjectUtil.c */,
+				2C401E261ACB9CE100613093 /* ObjectUtil.h */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -871,6 +880,7 @@
 			files = (
 				2C401E1F1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */,
+				2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
 				2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */,
 				2C7520451ACA775C0008B42A /* CUTEViewController.m in Sources */,
@@ -895,6 +905,7 @@
 			files = (
 				2C401E201ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */,
+				2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
 				2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */,
 				2C7520461ACA775C0008B42A /* CUTEViewController.m in Sources */,
@@ -919,6 +930,7 @@
 			files = (
 				2C401E1E1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */,
+				2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
 				2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */,
 				2C7520441ACA775C0008B42A /* CUTEViewController.m in Sources */,
@@ -943,6 +955,7 @@
 			files = (
 				2C401E1D1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */,
+				2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
 				2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */,
@@ -967,6 +980,7 @@
 			files = (
 				2C401E1A1ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
 				2C401DBB1ACA874000613093 /* CUTERectTypeListForm.m in Sources */,
+				2C401E2B1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C401DC21ACA898400613093 /* CUTEPropertyInfoForm.m in Sources */,
 				2C401DC91ACA8EA500613093 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C401E131ACAB43A00613093 /* CUTERentAddressMapForm.m in Sources */,
