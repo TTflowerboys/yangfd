@@ -7,6 +7,7 @@
 //
 
 #import "CUTERentPriceForm.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTERentPriceForm
 

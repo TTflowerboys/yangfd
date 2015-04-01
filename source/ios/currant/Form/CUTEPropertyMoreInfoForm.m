@@ -7,6 +7,7 @@
 //
 
 #import "CUTEPropertyMoreInfoForm.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTEPropertyMoreInfoForm
 

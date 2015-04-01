@@ -9,6 +9,7 @@
 #import "CUTEDataManager.h"
 #import "CUTEConfiguration.h"
 #import "CUTEUserDefaultKey.h"
+#import "CUTECommonMacro.h"
 
 #define DomainKey(key) [NSString stringWithFormat:@"%@/%@", [CUTEConfiguration host], key]
 

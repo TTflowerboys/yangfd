@@ -16,7 +16,7 @@
 #import <SMCalloutView.h>
 #import "CUTEConfiguration.h"
 #import "NSURL+CUTE.h"
-
+#import "CUTECommonMacro.h"
 
 @interface CUTEPropertyListViewController () <MKMapViewDelegate, SMCalloutViewDelegate>
 {

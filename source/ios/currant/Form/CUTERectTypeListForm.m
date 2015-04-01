@@ -7,6 +7,7 @@
 //
 
 #import "CUTERectTypeListForm.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTERectTypeListForm
 

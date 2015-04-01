@@ -7,6 +7,7 @@
 //
 
 #import "CUTEConfiguration.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTEConfiguration
 

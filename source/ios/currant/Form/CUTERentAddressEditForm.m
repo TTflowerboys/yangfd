@@ -7,6 +7,7 @@
 //
 
 #import "CUTERentAddressEditForm.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTERentAddressEditForm
 

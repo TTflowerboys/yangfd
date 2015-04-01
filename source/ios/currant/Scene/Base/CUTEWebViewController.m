@@ -11,6 +11,7 @@
 #import <NJKWebViewProgressView.h>
 #import <NJKWebViewProgress.h>
 #import "CUTEUIMacro.h"
+#import "CUTECommonMacro.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {

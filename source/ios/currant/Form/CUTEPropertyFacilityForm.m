@@ -7,6 +7,7 @@
 //
 
 #import "CUTEPropertyFacilityForm.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTEPropertyFacilityForm
 
