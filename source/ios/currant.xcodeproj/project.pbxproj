@@ -156,6 +156,7 @@
 		2C401E151ACAB45B00613093 /* CUTERentAddressEditForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentAddressEditForm.m; sourceTree = "<group>"; };
 		2C401E1B1ACAB9BF00613093 /* CUTEPropertyFacilityForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyFacilityForm.h; sourceTree = "<group>"; };
 		2C401E1C1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyFacilityForm.m; sourceTree = "<group>"; };
+		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C41B76D1AC0169400DF5608 /* base.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = base.css; sourceTree = "<group>"; };
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
@@ -249,6 +250,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C401E221ACB95B900613093 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				2C401E241ACB972D00613093 /* CUTEUIMacro.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
 		2C41B76C1AC0166100DF5608 /* CSS */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +308,7 @@
 		2C79C2B31ACA570C000E7F67 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				2C401E221ACB95B900613093 /* Macro */,
 				2C79C2B41ACA570C000E7F67 /* Category */,
 			);
 			path = Misc;

@@ -14,6 +14,7 @@
 #import "CUTEConfiguration.h"
 #import <UIImage+Resize.h>
 #import "NSURL+CUTE.h"
+#import "CUTEUIMacro.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -110,13 +111,13 @@
     [rootViewController.tabBar setBackgroundImage:[IMAGE(@"tabbar-background") resizedImage:CGSizeMake([UIScreen mainScreen].bounds.size.width, rootViewController.tabBar.frame.size.height) interpolationQuality:kCGInterpolationHigh]];
     // this will generate a black tab bar
     //http://stackoverflow.com/questions/18734794/how-can-i-change-the-text-and-icon-colors-for-tabbaritems-in-ios-7
-    rootViewController.tabBar.barTintColor = HEXCOLOR(0x333333, 1);
+    rootViewController.tabBar.barTintColor = CUTE_BAR_COLOR;
 
 
     // this will give selected icons and text your apps tint color
     //rootViewController.tabBar.tintColor = HEXCOLOR(0x7a7a7a, 1);  // appTintColor is a UIColor *
-    [[UINavigationBar appearance] setBarTintColor:HEXCOLOR(0x333333, 1.0)];
-    [[UINavigationBar appearance] setTintColor:HEXCOLOR(0xe63e3c, 1.0)];
+    [[UINavigationBar appearance] setBarTintColor:CUTE_BAR_COLOR];
+    [[UINavigationBar appearance] setTintColor:CUTE_MAIN_COLOR];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]}];
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0f],
                                                         NSForegroundColorAttributeName : HEXCOLOR(0x7a7a7a, 1)} forState:UIControlStateSelected];

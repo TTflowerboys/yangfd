@@ -10,6 +10,7 @@
 #import "CUTEConfiguration.h"
 #import <NJKWebViewProgressView.h>
 #import <NJKWebViewProgress.h>
+#import "CUTEUIMacro.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -82,6 +83,7 @@
     CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    _progressView.progressBarView.backgroundColor =  CUTE_MAIN_COLOR;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -165,7 +167,7 @@
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
 {
     [_progressView setProgress:progress animated:YES];
-    self.title = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    //self.title = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 /*
