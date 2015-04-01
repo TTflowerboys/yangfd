@@ -13,3 +13,4 @@ pod 'Underscore.m', '~> 0.2.1'
 pod 'SMCalloutView', '~> 2.1.1'
 
 pod 'FXForms'
+pod 'NJKWebViewProgress', '~> 0.2.3'

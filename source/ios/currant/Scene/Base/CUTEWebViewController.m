@@ -8,10 +8,16 @@
 
 #import "CUTEWebViewController.h"
 #import "CUTEConfiguration.h"
+#import <NJKWebViewProgressView.h>
+#import <NJKWebViewProgress.h>
 
-@interface CUTEWebViewController ()
+@interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
     UIWebView *_webView;
+
+    NJKWebViewProgressView *_progressView;
+
+    NJKWebViewProgress *_progressProxy;
 }
 
 @end
@@ -26,13 +32,14 @@
     return self;
 }
 
+
 - (void)loadURL:(NSURL *)url {
 
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
     if (!_webView) {
         _webView = [[UIWebView alloc] initWithFrame:TabBarControllerViewFrame];
         [self.view addSubview:_webView];
-        _webView.delegate = self;
+        _webView.delegate = _progressProxy;
         
         [_webView loadRequest:urlRequest];
     }
@@ -43,7 +50,7 @@
         _webView = nil;
         _webView = [[UIWebView alloc] initWithFrame:TabBarControllerViewFrame];
         [self.view addSubview:_webView];
-        _webView.delegate = self;
+        _webView.delegate = _progressProxy;
         
         [_webView loadRequest:urlRequest];
     }
@@ -63,9 +70,33 @@
     }
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    _progressProxy = [[NJKWebViewProgress alloc] init];
+    _progressProxy.webViewProxyDelegate = self;
+    _progressProxy.progressDelegate = self;
+
+    CGFloat progressBarHeight = 2.f;
+    CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
+    CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
+    _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
+    _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar addSubview:_progressView];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    // Remove progress view
+    // because UINavigationBar is shared with other ViewControllers
+    [_progressView removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -128,6 +159,13 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self updateBackButton];
+}
+
+#pragma mark - NJKWebViewProgressDelegate
+-(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
+{
+    [_progressView setProgress:progress animated:YES];
+    self.title = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 /*
