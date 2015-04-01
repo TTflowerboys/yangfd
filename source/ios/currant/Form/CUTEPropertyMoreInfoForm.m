@@ -11,7 +11,7 @@
 
 @implementation CUTEPropertyMoreInfoForm
 
-- (NSArray *)fields {
+- (NSArray *)cuteFields {
     return @[
              @{FXFormFieldKey: @"propertyTitle", FXFormFieldTitle:STR(@"标题"), FXFormFieldHeader:STR(@"其他")},
                 @{FXFormFieldKey: @"propertyDescription", FXFormFieldTitle:STR(@"详细描述")},

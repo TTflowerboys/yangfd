@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FXForms.h>
+#import "CUTEForm.h"
 #import "CUTERentAddressEditForm.h"
 #import "CUTEPropertyInfoForm.h"
 #import <MapKit/MapKit.h>
 
-@interface CUTERentAddressMapForm : NSObject <FXForm>
+@interface CUTERentAddressMapForm : CUTEForm
 
 @property (strong, nonatomic) CLLocation *location;
 

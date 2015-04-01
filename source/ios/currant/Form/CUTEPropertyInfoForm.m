@@ -11,7 +11,7 @@
 
 @implementation CUTEPropertyInfoForm
 
-- (NSArray *)fields {
+- (NSArray *)cuteFields {
     return @[
              @{FXFormFieldKey: @"photo", FXFormFieldHeader: STR(@"房间照片")},
                 @{FXFormFieldKey: @"propertyType", FXFormFieldHeader: STR(@"基本信息")},

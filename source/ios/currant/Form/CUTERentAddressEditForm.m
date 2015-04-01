@@ -11,7 +11,7 @@
 
 @implementation CUTERentAddressEditForm
 
-- (NSArray *)fields {
+- (NSArray *)cuteFields {
     return @[
              @{FXFormFieldKey: @"street", FXFormFieldTitle: STR(@"街道"), FXFormFieldHeader:STR(@"位置")},
                 @{FXFormFieldKey: @"building", FXFormFieldTitle: STR(@"建筑")},

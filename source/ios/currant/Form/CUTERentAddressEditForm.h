@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FXForms.h>
+#import "CUTEForm.h"
 #import "CUTEPropertyInfoForm.h"
 
-@interface CUTERentAddressEditForm : NSObject <FXForm>
+@interface CUTERentAddressEditForm : CUTEForm
 
 @property (strong, nonatomic) NSString *street;
 @property (strong, nonatomic) NSString *building;

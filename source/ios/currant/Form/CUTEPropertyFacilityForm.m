@@ -11,7 +11,7 @@
 
 @implementation CUTEPropertyFacilityForm
 
-- (NSArray *)fields {
+- (NSArray *)cuteFields {
     return @[
              @{FXFormFieldKey: @"television", FXFormFieldHeader: STR(@"常用设施")},
              @"toaster",

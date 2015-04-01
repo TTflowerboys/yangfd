@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FXForms.h>
+#import "CUTEForm.h"
 
-@interface CUTEPropertyFacilityForm : NSObject <FXForm>
+@interface CUTEPropertyFacilityForm : CUTEForm
 
 @property (nonatomic) BOOL television;
 @property (nonatomic) BOOL toaster;

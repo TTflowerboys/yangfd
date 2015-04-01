@@ -8,13 +8,14 @@
 
 #import "CUTERectTypeListForm.h"
 #import "CUTECommonMacro.h"
+#import "CUTEFormRentTypeCell.h"
 
 @implementation CUTERectTypeListForm
 
-- (NSArray *)fields {
+- (NSArray *)cuteFields {
     return @[
-             @{FXFormFieldKey: @"single", FXFormFieldTitle:STR(@"单间"), FXFormFieldHeader:STR(@"房产类型")},
-                @{FXFormFieldKey: @"whole", FXFormFieldTitle:STR(@"整租")},
+             @{FXFormFieldKey: @"single", FXFormFieldTitle:STR(@"单间"), FXFormFieldHeader:STR(@"房产类型"), FXFormFieldCell: [CUTEFormRentTypeCell class]},
+             @{FXFormFieldKey: @"whole", FXFormFieldTitle:STR(@"整租"), FXFormFieldCell: [CUTEFormRentTypeCell class]},
              ];
 }
 

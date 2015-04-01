@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FXForms.h>
+#import "CUTEForm.h"
 #import "CUTEPropertyMoreInfoForm.h"
 #import "CUTERentPriceForm.h"
 
-@interface CUTEPropertyInfoForm : NSObject <FXForm>
+@interface CUTEPropertyInfoForm : CUTEForm
 
 @property (nonatomic, strong) UIImage *photo;
 @property (nonatomic, copy) NSString *propertyType;

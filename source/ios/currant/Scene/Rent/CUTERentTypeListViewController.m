@@ -9,6 +9,7 @@
 #import "CUTERentTypeListViewController.h"
 #import "CUTEPropertyInfoForm.h"
 #import "CUTERectTypeListForm.h"
+#import "CUTEFormDefaultCell.h"
 
 
 @implementation CUTERentTypeListViewController
@@ -18,6 +19,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.formController.form = [[CUTERectTypeListForm alloc] init];
+        [self.formController registerDefaultFieldCellClass:[CUTEFormDefaultCell class]];
     }
     return self;
 }

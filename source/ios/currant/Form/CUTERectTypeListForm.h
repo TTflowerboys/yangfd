@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FXForms.h>
+#import "CUTEForm.h"
 #import "CUTERentAddressMapForm.h"
 
-@interface CUTERectTypeListForm : NSObject <FXForm>
+@interface CUTERectTypeListForm : CUTEForm
 
 @property (strong, nonatomic) CUTERentAddressMapForm *single;
 

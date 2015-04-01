@@ -10,6 +10,21 @@
 		2C1EA76F1AC3DA1900B0FC22 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
 		2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2C226E6A1ACBDCEF00658132 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DAD1ABC1372004DF663 /* Info.plist */; };
+		2C226E6D1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */; };
+		2C226E6E1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */; };
+		2C226E6F1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */; };
+		2C226E701ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */; };
+		2C226E711ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */; };
+		2C226E741ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E731ACBE9DB00658132 /* CUTEFormDefaultCell.m */; };
+		2C226E751ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E731ACBE9DB00658132 /* CUTEFormDefaultCell.m */; };
+		2C226E761ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E731ACBE9DB00658132 /* CUTEFormDefaultCell.m */; };
+		2C226E771ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E731ACBE9DB00658132 /* CUTEFormDefaultCell.m */; };
+		2C226E781ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E731ACBE9DB00658132 /* CUTEFormDefaultCell.m */; };
+		2C226E7B1ACBEF5700658132 /* CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E7A1ACBEF5700658132 /* CUTEForm.m */; };
+		2C226E7C1ACBEF5700658132 /* CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E7A1ACBEF5700658132 /* CUTEForm.m */; };
+		2C226E7D1ACBEF5700658132 /* CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E7A1ACBEF5700658132 /* CUTEForm.m */; };
+		2C226E7E1ACBEF5700658132 /* CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E7A1ACBEF5700658132 /* CUTEForm.m */; };
+		2C226E7F1ACBEF5700658132 /* CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E7A1ACBEF5700658132 /* CUTEForm.m */; };
 		2C401DB71ACA874000613093 /* CUTERectTypeListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401DB61ACA874000613093 /* CUTERectTypeListForm.m */; };
 		2C401DB81ACA874000613093 /* CUTERectTypeListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401DB61ACA874000613093 /* CUTERectTypeListForm.m */; };
 		2C401DB91ACA874000613093 /* CUTERectTypeListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401DB61ACA874000613093 /* CUTERectTypeListForm.m */; };
@@ -131,6 +146,12 @@
 		2C1EA7701AC3EED100B0FC22 /* CUTEMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMapView.h; sourceTree = "<group>"; };
 		2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMapView.m; sourceTree = "<group>"; };
 		2C226E691ACBCD9200658132 /* CUTECommonMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECommonMacro.h; sourceTree = "<group>"; };
+		2C226E6B1ACBE2AB00658132 /* CUTEFormRentTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormRentTypeCell.h; sourceTree = "<group>"; };
+		2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormRentTypeCell.m; sourceTree = "<group>"; };
+		2C226E721ACBE9DB00658132 /* CUTEFormDefaultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormDefaultCell.h; sourceTree = "<group>"; };
+		2C226E731ACBE9DB00658132 /* CUTEFormDefaultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormDefaultCell.m; sourceTree = "<group>"; };
+		2C226E791ACBEF5700658132 /* CUTEForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEForm.h; sourceTree = "<group>"; };
+		2C226E7A1ACBEF5700658132 /* CUTEForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEForm.m; sourceTree = "<group>"; };
 		2C401DB51ACA874000613093 /* CUTERectTypeListForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERectTypeListForm.h; sourceTree = "<group>"; };
 		2C401DB61ACA874000613093 /* CUTERectTypeListForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERectTypeListForm.m; sourceTree = "<group>"; };
 		2C401DBC1ACA898400613093 /* CUTEPropertyInfoForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyInfoForm.h; sourceTree = "<group>"; };
@@ -262,6 +283,10 @@
 			children = (
 				2C75203A1ACA760E0008B42A /* CUTERentTypeListViewController.h */,
 				2C75203B1ACA760E0008B42A /* CUTERentTypeListViewController.m */,
+				2C226E6B1ACBE2AB00658132 /* CUTEFormRentTypeCell.h */,
+				2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */,
+				2C226E721ACBE9DB00658132 /* CUTEFormDefaultCell.h */,
+				2C226E731ACBE9DB00658132 /* CUTEFormDefaultCell.m */,
 			);
 			path = Rent;
 			sourceTree = "<group>";
@@ -283,6 +308,8 @@
 				2C401DC41ACA8EA500613093 /* CUTEPropertyMoreInfoForm.m */,
 				2C401E1B1ACAB9BF00613093 /* CUTEPropertyFacilityForm.h */,
 				2C401E1C1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m */,
+				2C226E791ACBEF5700658132 /* CUTEForm.h */,
+				2C226E7A1ACBEF5700658132 /* CUTEForm.m */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -836,12 +863,15 @@
 			files = (
 				2C401E1F1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */,
+				2C226E761ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
 				2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */,
+				2C226E6F1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
 				2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */,
 				2C7520451ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA2E6B11AC5487800053965 /* CUTEPropertyListViewController.m in Sources */,
 				2C401DCF1ACA9A9F00613093 /* CUTERentPriceForm.m in Sources */,
+				2C226E7D1ACBEF5700658132 /* CUTEForm.m in Sources */,
 				2C401E111ACAB43A00613093 /* CUTERentAddressMapForm.m in Sources */,
 				2C401DB91ACA874000613093 /* CUTERectTypeListForm.m in Sources */,
 				2CA2E6B21AC5487800053965 /* CUTEDataManager.m in Sources */,
@@ -861,12 +891,15 @@
 			files = (
 				2C401E201ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */,
+				2C226E771ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
 				2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */,
+				2C226E701ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
 				2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */,
 				2C7520461ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA2E6CA1AC5496700053965 /* CUTEPropertyListViewController.m in Sources */,
 				2C401DD01ACA9A9F00613093 /* CUTERentPriceForm.m in Sources */,
+				2C226E7E1ACBEF5700658132 /* CUTEForm.m in Sources */,
 				2C401E121ACAB43A00613093 /* CUTERentAddressMapForm.m in Sources */,
 				2C401DBA1ACA874000613093 /* CUTERectTypeListForm.m in Sources */,
 				2CA2E6CB1AC5496700053965 /* CUTEDataManager.m in Sources */,
@@ -886,12 +919,15 @@
 			files = (
 				2C401E1E1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */,
+				2C226E751ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
 				2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */,
+				2C226E6E1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
 				2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */,
 				2C7520441ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA94A9B1ACA42CD00DF7497 /* CUTEPropertyListViewController.m in Sources */,
 				2C401DCE1ACA9A9F00613093 /* CUTERentPriceForm.m in Sources */,
+				2C226E7C1ACBEF5700658132 /* CUTEForm.m in Sources */,
 				2C401E101ACAB43A00613093 /* CUTERentAddressMapForm.m in Sources */,
 				2C401DB81ACA874000613093 /* CUTERectTypeListForm.m in Sources */,
 				2CA94A9C1ACA42CD00DF7497 /* CUTEDataManager.m in Sources */,
@@ -911,12 +947,15 @@
 			files = (
 				2C401E1D1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */,
+				2C226E741ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
 				2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */,
+				2C226E6D1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
 				2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */,
 				2C401DCD1ACA9A9F00613093 /* CUTERentPriceForm.m in Sources */,
+				2C226E7B1ACBEF5700658132 /* CUTEForm.m in Sources */,
 				2C401E0F1ACAB43A00613093 /* CUTERentAddressMapForm.m in Sources */,
 				2C401DB71ACA874000613093 /* CUTERectTypeListForm.m in Sources */,
 				2CDBB2FA1AC146790024E225 /* CUTEDataManager.m in Sources */,
@@ -936,12 +975,15 @@
 			files = (
 				2C401E1A1ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
 				2C401DBB1ACA874000613093 /* CUTERectTypeListForm.m in Sources */,
+				2C226E781ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
 				2C401E2B1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C401DC21ACA898400613093 /* CUTEPropertyInfoForm.m in Sources */,
 				2C401DC91ACA8EA500613093 /* CUTEPropertyMoreInfoForm.m in Sources */,
+				2C226E711ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2C401E131ACAB43A00613093 /* CUTERentAddressMapForm.m in Sources */,
 				2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */,
 				2C401E211ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
+				2C226E7F1ACBEF5700658132 /* CUTEForm.m in Sources */,
 				2C79C2BC1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2C7520401ACA760F0008B42A /* CUTERentTypeListViewController.m in Sources */,
 				2C7520471ACA775C0008B42A /* CUTEViewController.m in Sources */,

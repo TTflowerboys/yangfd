@@ -10,7 +10,7 @@
 
 @implementation CUTERentAddressMapForm
 
-- (NSArray *)fields {
+- (NSArray *)cuteFields {
     return @[@{FXFormFieldKey: @"location"},@{FXFormFieldKey: @"edit"},@{FXFormFieldKey: @"propertyInfo"},
              ];
 }

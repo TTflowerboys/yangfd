@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FXForms.h>
+#import "CUTEForm.h"
 
-@interface CUTERentPriceForm : NSObject <FXForm>
+@interface CUTERentPriceForm : CUTEForm
 
 @property (strong, nonatomic) NSString *currency;
 @property (strong, nonatomic) NSString *deposit;
