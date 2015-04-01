@@ -11,8 +11,7 @@
 
 #import <BBTCommonMarco.h>
 #import <BBTUIMarco.h>
-#import "Underscore.h"
-#define _ Underscore
+#import <MACollectionUtilities.h>
 
 #define TabBarHeight                     49
 #define TabBarControllerViewFrame CGRectMake(0, 0, ScreenWidth, ScreenHeight - TabBarHeight)

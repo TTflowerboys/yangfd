@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2C1EA76F1AC3DA1900B0FC22 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
 		2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
+		2C226E6A1ACBDCEF00658132 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DAD1ABC1372004DF663 /* Info.plist */; };
 		2C401DB71ACA874000613093 /* CUTERectTypeListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401DB61ACA874000613093 /* CUTERectTypeListForm.m */; };
 		2C401DB81ACA874000613093 /* CUTERectTypeListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401DB61ACA874000613093 /* CUTERectTypeListForm.m */; };
 		2C401DB91ACA874000613093 /* CUTERectTypeListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401DB61ACA874000613093 /* CUTERectTypeListForm.m */; };
@@ -49,7 +50,6 @@
 		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E2B1ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
-		2C41B76E1AC0169400DF5608 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C41B76D1AC0169400DF5608 /* base.css */; };
 		2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
 		2C75203C1ACA760E0008B42A /* CUTERentTypeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C75203B1ACA760E0008B42A /* CUTERentTypeListViewController.m */; };
@@ -77,9 +77,6 @@
 		2CA2E6B61AC5487800053965 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
 		2CA2E6B71AC5487800053965 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2CA2E6B81AC5487800053965 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
-		2CA2E6BA1AC5487800053965 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */; };
-		2CA2E6BB1AC5487800053965 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
-		2CA2E6BC1AC5487800053965 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C41B76D1AC0169400DF5608 /* base.css */; };
 		2CA2E6BD1AC5487800053965 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
 		2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
@@ -91,17 +88,10 @@
 		2CA2E6CF1AC5496700053965 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
 		2CA2E6D01AC5496700053965 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2CA2E6D11AC5496700053965 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
-		2CA2E6D31AC5496700053965 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */; };
-		2CA2E6D41AC5496700053965 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
-		2CA2E6D51AC5496700053965 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C41B76D1AC0169400DF5608 /* base.css */; };
 		2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
-		2CA2E6E61AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
-		2CA2E6E81AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
 		2CA2E6E91AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
 		2CA2E6EA1AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
-		2CA2E6EB1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
 		2CA2E6ED1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
-		2CA2E6EE1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
 		2CA2E6EF1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
 		2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
@@ -113,20 +103,13 @@
 		2CA94AA01ACA42CD00DF7497 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
 		2CA94AA11ACA42CD00DF7497 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2CA94AA21ACA42CD00DF7497 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
-		2CA94AA41ACA42CD00DF7497 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */; };
-		2CA94AA51ACA42CD00DF7497 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
-		2CA94AA61ACA42CD00DF7497 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C41B76D1AC0169400DF5608 /* base.css */; };
-		2CA94AA71ACA42CD00DF7497 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
-		2CA94AA81ACA42CD00DF7497 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
 		2CA94AA91ACA42CD00DF7497 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
 		2CA94AB11ACA434600DF7497 /* currant-dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */; };
 		2CB43DAF1ABC1372004DF663 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DAE1ABC1372004DF663 /* main.m */; };
 		2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
-		2CB43DC01ABC1373004DF663 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */; };
 		2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DCB1ABC1373004DF663 /* currantTests.m */; };
 		2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
 		2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
-		2CB43DE81ABD5CE3004DF663 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
 		2CDBB2FA1AC146790024E225 /* CUTEDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBB2F91AC146790024E225 /* CUTEDataManager.m */; };
 		2CDBB2FD1AC1472E0024E225 /* CUTEConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBB2FC1AC1472E0024E225 /* CUTEConfiguration.m */; };
 		82037DC2E4CBE6EBA4114331 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
@@ -165,7 +148,6 @@
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
-		2C41B76D1AC0169400DF5608 /* base.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = base.css; sourceTree = "<group>"; };
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
 		2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyListViewController.m; sourceTree = "<group>"; };
@@ -264,14 +246,6 @@
 				2C226E691ACBCD9200658132 /* CUTECommonMacro.h */,
 			);
 			path = Macro;
-			sourceTree = "<group>";
-		};
-		2C41B76C1AC0166100DF5608 /* CSS */ = {
-			isa = PBXGroup;
-			children = (
-				2C41B76D1AC0169400DF5608 /* base.css */,
-			);
-			path = CSS;
 			sourceTree = "<group>";
 		};
 		2C554F8B1AC2BCCD00F51D33 /* PropertyList */ = {
@@ -407,7 +381,6 @@
 		2CB43DD51ABC2662004DF663 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				2C41B76C1AC0166100DF5608 /* CSS */,
 				2CB43DD81ABC26B2004DF663 /* Images.xcassets */,
 			);
 			path = Resource;
@@ -634,10 +607,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CA2E6BA1AC5487800053965 /* LaunchScreen.xib in Resources */,
-				2CA2E6BB1AC5487800053965 /* Localizable.strings in Resources */,
-				2CA2E6BC1AC5487800053965 /* base.css in Resources */,
-				2CA2E6E81AC54BF200053965 /* currant-production-Info.plist in Resources */,
 				2CA2E6ED1AC54BF200053965 /* currant-test-Info.plist in Resources */,
 				2CA2E6BD1AC5487800053965 /* Images.xcassets in Resources */,
 			);
@@ -647,11 +616,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CA2E6D31AC5496700053965 /* LaunchScreen.xib in Resources */,
-				2CA2E6D41AC5496700053965 /* Localizable.strings in Resources */,
-				2CA2E6D51AC5496700053965 /* base.css in Resources */,
 				2CA2E6E91AC54BF200053965 /* currant-production-Info.plist in Resources */,
-				2CA2E6EE1AC54BF200053965 /* currant-test-Info.plist in Resources */,
 				2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -660,12 +625,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CA94AA41ACA42CD00DF7497 /* LaunchScreen.xib in Resources */,
-				2CA94AA51ACA42CD00DF7497 /* Localizable.strings in Resources */,
-				2CA94AA61ACA42CD00DF7497 /* base.css in Resources */,
 				2CA94AB11ACA434600DF7497 /* currant-dev-Info.plist in Resources */,
-				2CA94AA71ACA42CD00DF7497 /* currant-production-Info.plist in Resources */,
-				2CA94AA81ACA42CD00DF7497 /* currant-test-Info.plist in Resources */,
 				2CA94AA91ACA42CD00DF7497 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -674,11 +634,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CB43DC01ABC1373004DF663 /* LaunchScreen.xib in Resources */,
-				2CB43DE81ABD5CE3004DF663 /* Localizable.strings in Resources */,
-				2C41B76E1AC0169400DF5608 /* base.css in Resources */,
-				2CA2E6E61AC54BF200053965 /* currant-production-Info.plist in Resources */,
-				2CA2E6EB1AC54BF200053965 /* currant-test-Info.plist in Resources */,
+				2C226E6A1ACBDCEF00658132 /* Info.plist in Resources */,
 				2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

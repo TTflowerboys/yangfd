@@ -100,13 +100,13 @@
 
     NSMutableArray *locations = [NSMutableArray arrayWithCapacity:propertyList.count];
     NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:propertyList.count];
-    _.arrayEach(propertyList, ^(NSDictionary *property) {
+    for (NSDictionary *property in propertyList) {
         CLLocation *location = [[CLLocation alloc] initWithLatitude:[property[@"latitude"] doubleValue] longitude:[property[@"longitude"] doubleValue]];
         [locations addObject:location];
         MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake([property[@"latitude"] doubleValue], [property[@"longitude"] doubleValue]) addressDictionary:nil];
         placemark.attachment = property;
         [annotations addObject:placemark];
-    });
+    }
     [_mapView addAnnotations:annotations];
     [_mapView zoomToFitMapLocationsInsideArray:locations];
 }
