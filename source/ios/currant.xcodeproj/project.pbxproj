@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2C1EA76F1AC3DA1900B0FC22 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
 		2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
-		2C226E6A1ACBDCEF00658132 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DAD1ABC1372004DF663 /* Info.plist */; };
 		2C226E6D1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */; };
 		2C226E6E1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */; };
 		2C226E6F1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */; };
@@ -25,6 +24,16 @@
 		2C226E7D1ACBEF5700658132 /* CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E7A1ACBEF5700658132 /* CUTEForm.m */; };
 		2C226E7E1ACBEF5700658132 /* CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E7A1ACBEF5700658132 /* CUTEForm.m */; };
 		2C226E7F1ACBEF5700658132 /* CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E7A1ACBEF5700658132 /* CUTEForm.m */; };
+		2C27F1EB1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
+		2C27F1EC1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
+		2C27F1ED1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
+		2C27F1EE1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
+		2C27F1EF1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
+		2C27F1F21ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1F11ACCF7DF002BECCF /* CUTEFormImagePickerCell.m */; };
+		2C27F1F31ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1F11ACCF7DF002BECCF /* CUTEFormImagePickerCell.m */; };
+		2C27F1F41ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1F11ACCF7DF002BECCF /* CUTEFormImagePickerCell.m */; };
+		2C27F1F51ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1F11ACCF7DF002BECCF /* CUTEFormImagePickerCell.m */; };
+		2C27F1F61ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1F11ACCF7DF002BECCF /* CUTEFormImagePickerCell.m */; };
 		2C401DB71ACA874000613093 /* CUTERectTypeListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401DB61ACA874000613093 /* CUTERectTypeListForm.m */; };
 		2C401DB81ACA874000613093 /* CUTERectTypeListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401DB61ACA874000613093 /* CUTERectTypeListForm.m */; };
 		2C401DB91ACA874000613093 /* CUTERectTypeListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C401DB61ACA874000613093 /* CUTERectTypeListForm.m */; };
@@ -104,9 +113,7 @@
 		2CA2E6D01AC5496700053965 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2CA2E6D11AC5496700053965 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 		2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
-		2CA2E6E91AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
 		2CA2E6EA1AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
-		2CA2E6ED1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
 		2CA2E6EF1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
 		2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
@@ -119,7 +126,6 @@
 		2CA94AA11ACA42CD00DF7497 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2CA94AA21ACA42CD00DF7497 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 		2CA94AA91ACA42CD00DF7497 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
-		2CA94AB11ACA434600DF7497 /* currant-dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */; };
 		2CB43DAF1ABC1372004DF663 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DAE1ABC1372004DF663 /* main.m */; };
 		2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DCB1ABC1373004DF663 /* currantTests.m */; };
@@ -152,6 +158,10 @@
 		2C226E731ACBE9DB00658132 /* CUTEFormDefaultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormDefaultCell.m; sourceTree = "<group>"; };
 		2C226E791ACBEF5700658132 /* CUTEForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEForm.h; sourceTree = "<group>"; };
 		2C226E7A1ACBEF5700658132 /* CUTEForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEForm.m; sourceTree = "<group>"; };
+		2C27F1E91ACCEA93002BECCF /* FXForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXForms.h; sourceTree = "<group>"; };
+		2C27F1EA1ACCEA93002BECCF /* FXForms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXForms.m; sourceTree = "<group>"; };
+		2C27F1F01ACCF7DF002BECCF /* CUTEFormImagePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormImagePickerCell.h; sourceTree = "<group>"; };
+		2C27F1F11ACCF7DF002BECCF /* CUTEFormImagePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormImagePickerCell.m; sourceTree = "<group>"; };
 		2C401DB51ACA874000613093 /* CUTERectTypeListForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERectTypeListForm.h; sourceTree = "<group>"; };
 		2C401DB61ACA874000613093 /* CUTERectTypeListForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERectTypeListForm.m; sourceTree = "<group>"; };
 		2C401DBC1ACA898400613093 /* CUTEPropertyInfoForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyInfoForm.h; sourceTree = "<group>"; };
@@ -260,6 +270,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C27F1E81ACCEA6C002BECCF /* Library3rd */ = {
+			isa = PBXGroup;
+			children = (
+				2C27F1E91ACCEA93002BECCF /* FXForms.h */,
+				2C27F1EA1ACCEA93002BECCF /* FXForms.m */,
+			);
+			path = Library3rd;
+			sourceTree = "<group>";
+		};
 		2C401E221ACB95B900613093 /* Macro */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +306,8 @@
 				2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */,
 				2C226E721ACBE9DB00658132 /* CUTEFormDefaultCell.h */,
 				2C226E731ACBE9DB00658132 /* CUTEFormDefaultCell.m */,
+				2C27F1F01ACCF7DF002BECCF /* CUTEFormImagePickerCell.h */,
+				2C27F1F11ACCF7DF002BECCF /* CUTEFormImagePickerCell.m */,
 			);
 			path = Rent;
 			sourceTree = "<group>";
@@ -360,6 +381,7 @@
 		2CB43DAB1ABC1372004DF663 /* currant */ = {
 			isa = PBXGroup;
 			children = (
+				2C27F1E81ACCEA6C002BECCF /* Library3rd */,
 				2C79C2B31ACA570C000E7F67 /* Misc */,
 				2CDBB2FF1AC1507C0024E225 /* Constant */,
 				2CDBB2F71AC1465D0024E225 /* Persistence */,
@@ -634,7 +656,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CA2E6ED1AC54BF200053965 /* currant-test-Info.plist in Resources */,
 				2CA2E6BD1AC5487800053965 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -643,7 +664,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CA2E6E91AC54BF200053965 /* currant-production-Info.plist in Resources */,
 				2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -652,7 +672,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CA94AB11ACA434600DF7497 /* currant-dev-Info.plist in Resources */,
 				2CA94AA91ACA42CD00DF7497 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -661,7 +680,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C226E6A1ACBDCEF00658132 /* Info.plist in Resources */,
 				2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -864,6 +882,8 @@
 				2C401E1F1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */,
 				2C226E761ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
+				2C27F1ED1ACCEA93002BECCF /* FXForms.m in Sources */,
+				2C27F1F41ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */,
 				2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C226E6F1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
@@ -892,6 +912,8 @@
 				2C401E201ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */,
 				2C226E771ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
+				2C27F1EE1ACCEA93002BECCF /* FXForms.m in Sources */,
+				2C27F1F51ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */,
 				2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C226E701ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
@@ -920,6 +942,8 @@
 				2C401E1E1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */,
 				2C226E751ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
+				2C27F1EC1ACCEA93002BECCF /* FXForms.m in Sources */,
+				2C27F1F31ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */,
 				2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C226E6E1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
@@ -948,6 +972,8 @@
 				2C401E1D1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */,
 				2C226E741ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
+				2C27F1EB1ACCEA93002BECCF /* FXForms.m in Sources */,
+				2C27F1F21ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */,
 				2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C226E6D1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
@@ -982,6 +1008,8 @@
 				2C226E711ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2C401E131ACAB43A00613093 /* CUTERentAddressMapForm.m in Sources */,
 				2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */,
+				2C27F1F61ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */,
+				2C27F1EF1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C401E211ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C226E7F1ACBEF5700658132 /* CUTEForm.m in Sources */,
 				2C79C2BC1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,

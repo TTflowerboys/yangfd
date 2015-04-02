@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FXForms.h>
+#import "FXForms.h"
 
 @interface CUTEForm : NSObject <FXForm>
 

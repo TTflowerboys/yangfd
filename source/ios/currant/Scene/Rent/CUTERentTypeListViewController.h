@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FXForms/FXForms.h>
+#import "FXForms.h"
 
 @interface CUTERentTypeListViewController : FXFormViewController
 
