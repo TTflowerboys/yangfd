@@ -18,6 +18,12 @@
     self.accessoryView = nil;
 }
 
+- (void)update {
+    [super update];
+    self.accessoryType = UITableViewCellAccessoryNone;
+    self.accessoryView = nil;
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
 
