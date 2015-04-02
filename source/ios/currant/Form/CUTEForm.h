@@ -11,6 +11,4 @@
 
 @interface CUTEForm : NSObject <FXForm>
 
-- (NSArray *)cuteFields;
-
 @end

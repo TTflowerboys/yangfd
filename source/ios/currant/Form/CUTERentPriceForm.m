@@ -11,7 +11,7 @@
 
 @implementation CUTERentPriceForm
 
-- (NSArray *)cuteFields {
+- (NSArray *)fields {
     return @[
              @{FXFormFieldKey: @"currency", FXFormFieldTitle:STR(@"货币"), FXFormFieldOptions: @[@"CNY", @"GBP", @"USD", @"EUR", @"HKD"], FXFormFieldDefaultValue: @"CNY", FXFormFieldHeader: STR(@"租金")},
                 @{FXFormFieldKey: @"deposit", FXFormFieldTitle:STR(@"押金"), FXFormFieldOptions: @[STR(@"面议"), STR(@"押三付一")], FXFormFieldDefaultValue: STR(@"面议"),},
