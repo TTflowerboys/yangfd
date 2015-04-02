@@ -16,8 +16,4 @@
 #define TabBarHeight                     49
 #define TabBarControllerViewFrame CGRectMake(0, 0, ScreenWidth, ScreenHeight - TabBarHeight)
 
-//http://stackoverflow.com/questions/510269/shortcuts-in-objective-c-to-concatenate-nsstrings
-
-#define CONCAT(...) [@[__VA_ARGS__] componentsJoinedByString:@""]
-
 #endif
