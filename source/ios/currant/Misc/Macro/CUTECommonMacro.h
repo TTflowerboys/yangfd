@@ -9,8 +9,8 @@
 #ifndef currant_CUTECommonMacro_h
 #define currant_CUTECommonMacro_h
 
-#import <BBTCommonMarco.h>
-#import <BBTUIMarco.h>
+#import <BBTCommonMacro.h>
+#import <BBTUIMacro.h>
 #import <MACollectionUtilities.h>
 
 #define TabBarHeight                     49

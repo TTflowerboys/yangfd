@@ -56,7 +56,7 @@ CHECKOUT OPTIONS:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
     :tag: 0.0.1
   BBTUtility:
-    :commit: fda4909f4927fc3ad92bdbb79d9efc51426f55af
+    :commit: 3c09e16b64ec64253364d47ba565cf73a2d00ec6
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
 
 SPEC CHECKSUMS:
