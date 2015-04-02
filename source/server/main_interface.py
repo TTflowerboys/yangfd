@@ -1041,7 +1041,6 @@ def wechat_endpoint():
             "status": {"$in": ["selling", "sold out"]},
         }, per_page=9, time_field="mtime")))
 
-        root = common_root()
         etree.SubElement(root, "MsgType").text = "news"
         etree.SubElement(root, "ArticleCount").text = str(len(properties) + 1)
 
