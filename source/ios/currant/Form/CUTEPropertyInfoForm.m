@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEFormImagePickerCell.h"
 #import "CUTEFormButtonCell.h"
+#import "CUTERentContactViewController.h"
 
 @implementation CUTEPropertyInfoForm
 
@@ -21,12 +22,7 @@
                 @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积")},
                 @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金")},
                 @{FXFormFieldKey: @"moreInfo", FXFormFieldTitle:STR(@"填写更多描述")},
-             ];
-}
-
-- (NSArray *)extraFields {
-    return @[
-             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"预览并发布"), FXFormFieldHeader: @"", FXFormFieldAction: @""},
+             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"预览并发布"), FXFormFieldViewController:[CUTERentContactViewController class], FXFormFieldHeader: @""},
              ];
 }
 

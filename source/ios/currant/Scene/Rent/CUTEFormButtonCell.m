@@ -14,16 +14,18 @@
 
 - (void)setUp {
     [super setUp];
-    self.button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.button setTitle:self.field.title forState:UIControlStateNormal];
-    [self.button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.button setBackgroundColor:CUTE_MAIN_COLOR];
-    [self.contentView addSubview:self.button];
+    self.accessoryType = UITableViewCellAccessoryNone;
+    self.accessoryView = nil;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.button.frame = self.contentView.bounds;
+
+    self.textLabel.textColor = [UIColor whiteColor];
+    self.textLabel.font = [UIFont systemFontOfSize:16];
+    self.textLabel.backgroundColor = CUTE_MAIN_COLOR;
+    self.textLabel.textAlignment = NSTextAlignmentCenter;
+    self.textLabel.frame = self.bounds;
 }
 
 @end
