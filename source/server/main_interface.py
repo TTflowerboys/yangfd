@@ -704,6 +704,13 @@ def customer_sales():
     title = _('二手房出售')
     return common_template("customer_sales", title=title)
 
+@f_get('/customer_rentals')
+@check_ip_and_redirect_domain
+@check_crowdfunding_ready
+def customer_rentals():
+    title = _('房屋出租')
+    return common_template("customer_rentals", title=title)
+
 @f_get('/user')
 @check_ip_and_redirect_domain
 def user():

@@ -34,7 +34,12 @@
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {
-                angular.extend(currentItem, data.val)
+                if (_.isEmpty(data.val.id)) {
+                    $stateParams.id = data.val
+                } else {
+                    angular.extend(currentItem, data.val)
+                    $stateParams.id = data.val.id
+                }
                 if ($scope.submitted) {
                     $scope.cancelDelayer()
                     $state.go('^')
