@@ -46,15 +46,31 @@
                     }
                     &.phone {
                         margin-left: @content-margin-left;
-                        font-size: 16px;
-                        margin-bottom: 0;
+
                         > a {
                             color: #dcdcdc;
                             text-decoration: none;
+
+                            @media @phone {
+                                font-size:14px;
+                            }
+
+                            img{
+                                margin-right: 5px;
+                                vertical-align: middle;
+                                @media @phone {
+                                    display: none;
+                                }
+                            }
+
+                            span{
+                                vertical-align: middle;
+                                line-height: 32px;
+                                font-size: 32px;
+                            }
                         }
-                        @media @phone {
-                            font-size:14px;
-                        }
+
+
 
                     }
                     &.email {

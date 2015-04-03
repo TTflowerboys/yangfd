@@ -40,7 +40,35 @@
     <body>
         <!-- @@include =../partials/user_data.html -->
         <div class="page">
+            <div class="supHeader_wrapper hiddenInClient">
+                <div class="supHeader">
+                    <div class="user">
+                        %if user:
+                        <a class="nickname" href="/user_settings">
+                            <img alt="" src="/static/images/common/header/user.png"/> {{user.get('nickname')}}
+                        </a>
+                        <a class="message" id="message" href="/user_messages">
+                            <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
+                            <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" /> {{_('消息')}}
+                        </a>
+                        <a id="logout" class="logout" href="/logout">
+                            <img alt="" src="/static/images/common/header/logout.png"/> {{_('登出')}}
+                        </a>
+                        %else:
+                        <a id="login" class="login">{{_('登录')}}</a>
+                        <a id="register" class="register" onclick="project.goToSignUp()">{{_('注册')}}</a>
+                        %end
+                    </div>
 
+                    <div class="country">
+                        <a class="select-country">
+                            <img alt="" src="/static/images/common/header/flag-uk.png" />
+                            <span>{{_('英国')}}</span>
+                            <img alt="" src="/static/images/common/header/switch-normal.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div id="header" class="siteHeader_wrapper hiddenInClient">
                 <header class="siteHeader">
                     <a href="/"><img class="logo" src="/static/images/logo/logo-header.png" alt=""/></a>
@@ -52,22 +80,14 @@
                         <!-- @endif -->
                         <li><a href="/news_list">{{_('投资资讯')}}</a></li>
                     </ul>
-                    <div class="user">
-                        %if user:
-                            <a class="nickname" href="/user_settings">
-                                <img alt="" src="/static/images/common/header/user.png"/> {{user.get('nickname')}}
-                            </a>
-                            <a class="message" id="message" href="/user_messages">
-                                <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
-                                <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" />
-                            </a>
-                            <a id="logout" class="logout" href="/logout">
-                                <img alt="" src="/static/images/common/header/logout.png"/>
-                            </a>
-                        %else:
-                            <button id="login" class="login ghostButton red">{{_('登录')}}</button>
-                            <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('注册')}}</button>
-                        %end
+                    <div class="callus">
+                        <img id="icon-message" alt="" src="/static/images/common/header/phone.png" />
+                        <div class="contact">
+                            <span class="title">{{_('免费咨询')}}</span>
+                            <span class="phone">
+                                <a href="tel:4000926433"><i></i>400-0926-433</a>
+                            </span>
+                        </div>
                     </div>
                 </header>
                 <div class="siteHeader_phone rmm" >
@@ -102,10 +122,13 @@
                     <div class="contact">
                         <h3>{{_('联系我们')}}</h3>
                         <p class="phone">
-                            {{_('电话：')}} <a href="tel:4000926433"><i></i>400-0926-433</a>
+                            <a href="tel:4000926433">
+                                <img id="icon-message" alt="" src="/static/images/common/ico_footer_phone.png" />
+                                <span>400-0926-433</span>
+                            </a>
                         </p>
                         <p class="email">
-                            {{_('邮箱：')}} <a href="mailto:services@youngfunding.co.uk?subject=Feedback">services@youngfunding.co.uk</a>
+                            <a href="mailto:services@youngfunding.co.uk?subject=Feedback">services@youngfunding.co.uk</a>
                         </p>
                         <p class="address">{{_('英国总部')}}: Digital Enterprise Centre, 6 Mitre Passage, O2 Arena, Greenwich, London</p>
                         <!--<p class="address">{{_('中国总部')}}：湖北省武汉市洪山区国际企业中心</p>-->

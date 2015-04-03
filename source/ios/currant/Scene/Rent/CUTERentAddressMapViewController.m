@@ -11,10 +11,19 @@
 #import "CUTECommonMacro.h"
 #import "FXForms.h"
 #import "CUTEPropertyInfoForm.h"
+#import "CUTEMapTextField.h"
+#import "CUTERentAddressEditForm.h"
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate>
+{
+    MKMapView *_mapView;
 
-@property (nonatomic, strong) MKMapView *mapView;
+    CUTEMapTextField *_textField;
+
+    CLLocationManager *_locationManager;
+}
+
+@property (nonatomic, strong) CLLocationManager *loationManager;
 
 @end
 
@@ -31,12 +40,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.mapView = [[MKMapView alloc] init];
-    self.mapView.frame = self.view.bounds;
-    self.mapView.delegate = self;
-    [self.view addSubview:self.mapView];
     self.navigationItem.title = STR(@"地址");
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onRightButtonPressed:)];
+
+    _locationManager = [[CLLocationManager alloc] init];
+    [_locationManager requestAlwaysAuthorization];
+    _mapView = [[MKMapView alloc] init];
+    _mapView.frame = self.view.bounds;
+    _mapView.delegate = self;
+    _mapView.showsUserLocation = YES;
+    [self.view addSubview:_mapView];
+
+    _textField = [[CUTEMapTextField alloc] initWithFrame:CGRectMake(16, 30 + TouchHeightDefault + StatusBarHeight, ScreenWidth - 32, 60)];
+    _textField.leftView = [[UIImageView alloc] initWithImage:IMAGE(@"map-address-edit")];
+    _textField.leftViewMode = UITextFieldViewModeAlways;
+    _textField.rightView = [[UIImageView alloc] initWithImage:IMAGE(@"map-address-location")];
+    _textField.rightViewMode = UITextFieldViewModeAlways;
+    _textField.background = [[UIImage imageNamed:@"map-textfield-background"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+    [self.view addSubview:_textField];
+    _textField.leftView.userInteractionEnabled = YES;
+    [_textField.leftView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAddressEditButtonTapped:)]];
+}
+
+- (void)onAddressEditButtonTapped:(id)sender {
+    FXFormViewController *controller = [[FXFormViewController alloc] init];
+    controller.formController.form = [CUTERentAddressEditForm new];
+    controller.navigationItem.title = STR(@"位置");
+    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:nil action:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)onRightButtonPressed:(id)sender {

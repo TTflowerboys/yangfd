@@ -1,5 +1,165 @@
 @import "_imports";
 
+.supHeader{
+    margin: 0 auto; height: 100%; max-width: @max-width;
+    @media @phone {
+        display:none;
+    }
+
+    &_wrapper {
+        .clearfix();
+        background: @sup-header-bg;
+        position: relative;
+        height: @sup-header-height;
+        z-index: @header-z-index;
+        width: 100%;
+        min-width:@min-page-width;
+
+        @media @phone {
+            position:static;
+            height:15px;
+            min-width:0;
+        }
+    }
+
+    .country {
+        white-space: nowrap;
+        float: left;
+        height:100%;
+
+        .select-country{
+            height:@sup-header-height;
+            line-height:@sup-header-height;
+            color: @mute-color;
+            .clipped(10em);
+            display:inline-block;
+            overflow:hidden;
+            text-align:center;
+            vertical-align:middle;
+            text-decoration:none;
+
+            &:hover {
+                color:@light-color;
+            }
+
+            img {
+                margin-left: 5px;
+                margin-right:5px;
+                vertical-align: middle;
+                max-width:none; //not use the reset.css config
+            }
+        }
+    }
+
+    .user {
+        white-space: nowrap;
+        height:100%;
+        float: right;
+
+        .login{
+            cursor: pointer;
+            color: @mute-color;
+            .clipped(10em);
+            display:inline-block;
+            overflow:hidden;
+            text-decoration:none;
+            padding-right:20px;
+            margin-top: 3px;
+
+            &:hover {
+                color:@light-color;
+            }
+        }
+
+        .register{
+            cursor: pointer;
+            color: @mute-color;
+            .clipped(10em);
+            display:inline-block;
+            overflow:hidden;
+            text-decoration:none;
+            margin-top: 3px;
+
+            &:hover {
+                color:@light-color;
+            }
+        }
+
+        .nickname  {
+            height:@sup-header-height;
+            line-height:@sup-header-height;
+            color: @mute-color;
+            .clipped(10em);
+            display:inline-block;
+            overflow:hidden;
+            text-align:center;
+            vertical-align:middle;
+            text-decoration:none;
+            padding-right:20px;
+
+            &:hover {
+                color:@light-color;
+            }
+
+            img {
+                margin-right:5px;
+                vertical-align: text-bottom;
+                max-width:none; //not use the reset.css config
+            }
+        }
+
+        .message {
+            height:@sup-header-height;
+            line-height:@sup-header-height;
+            color: @mute-color;
+            .clipped(10em);
+            display:inline-block;
+            overflow:hidden;
+            text-align:center;
+            vertical-align:middle;
+            text-decoration:none;
+            padding-right:20px;
+
+            &:hover {
+                color:@light-color;
+            }
+
+            img {
+                margin-right:5px;
+                vertical-align: text-bottom;
+                max-width:none; //not use the reset.css config
+                margin-top:6px;
+                &#icon-message-notif {
+                    margin-top:1px;
+                }
+            }
+
+        }
+
+        .logout {
+            height:@sup-header-height;
+            line-height:@sup-header-height;
+            color: @mute-color;
+            .clipped(10em);
+            display:inline-block;
+            overflow:hidden;
+            text-align:center;
+            vertical-align:middle;
+            text-decoration:none;
+            margin-top: 3px;
+
+            &:hover {
+                color:@light-color;
+            }
+
+            img {
+                margin-right:5px;
+                vertical-align: text-bottom;
+                max-width:none; //not use the reset.css config
+            }
+        }
+    }
+}
 .siteHeader {
     margin: 0 auto; height: 100%; max-width: @max-width;
     @media @phone {
@@ -21,21 +181,14 @@
         }
     }
 
-    &_phone {
-        display:none;
-        @media @phone {
-            display:block;
-            z-index: @header-z-index;
-        }
-    }
-
     .logo {
         float: left;
-        margin-top: 10px;
+        margin-top: 15px;
         height:60px;
     }
-    .country { display: none; }
-    .navbar { .horizontalList(@padding: 16px); float: left; margin-top: 32px; margin-left: 70px;
+
+
+    .navbar { .horizontalList(@padding: 16px); float: left; margin-top: 35px; margin-left: 125px;
               > li {
                   > a {
                       color: @mute-color;
@@ -51,63 +204,36 @@
               }
             }
 
-    .user { float: right; margin-top: 28px; white-space: nowrap; text-align: right;
-            overflow:hidden;
+    .callus {
+        float: right;
+        margin-top: 20px;
+        white-space: nowrap;
+        overflow:hidden;
+        border-left:1px solid #555;
+        padding-left: 28px;
 
-            .nickname  {
-                font-size: 18px;
-                color: #888888;
-                height:32px;
-                line-height:32px;
-                .clipped(10em);
-                display: inline-block;
-                text-decoration:none;
-                padding-right:20px;
-                border-right:1px solid #555;
-                vertical-align:middle;
-                &:hover {
-                    color:@light-color;
-                }
+        .contact{
+            display: inline-block;
+            padding-left: 12px;
 
-                img {
-                    margin-right:20px;
-                    vertical-align:middle;
-                    max-width:none; //not use the reset.css config
-                }
+            .title{
+                display: block;
+                color: @mute-color;
+                text-decoration: none;
+                font-size: @small-font-size;
+                margin-bottom: -5px;
             }
 
-            .message {
-                padding-left:20px;
-                padding-right:20px;
-                border-right:1px solid #555;
-                height:32px;
-                line-height:32px;
-                display:inline-block;
-                overflow:hidden;
-                text-align:center;
-                vertical-align:middle;
-                img {
-                    margin-top:6px;
-                    max-width:none; //not use the reset.css config
-
-                    &#icon-message-notif {
-                        margin-top:1px;
-                    }
-                }
-
-            }
-
-            .logout {
-                padding-left:20px;
-                height:32px;
-                line-height:32px;
-                display:inline-block;
-                overflow:hidden;
-                vertical-align:middle;
-                img {
-                    vertical-align:middle;
-                    max-width:none; //not use the reset.css config
+            .phone{
+                display: block;
+                a{
+                    text-decoration: none;
+                    color: @red;
+                    font-size: @large-font-size;
+                    font-weight: bold;
                 }
             }
-          }
+        }
+    }
+
 }

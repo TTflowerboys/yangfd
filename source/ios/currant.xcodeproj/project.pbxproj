@@ -94,6 +94,11 @@
 		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E2B1ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
+		2C427E371ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E361ACEA9CF000378A9 /* CUTEMapTextField.m */; };
+		2C427E381ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E361ACEA9CF000378A9 /* CUTEMapTextField.m */; };
+		2C427E391ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E361ACEA9CF000378A9 /* CUTEMapTextField.m */; };
+		2C427E3A1ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E361ACEA9CF000378A9 /* CUTEMapTextField.m */; };
+		2C427E3B1ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E361ACEA9CF000378A9 /* CUTEMapTextField.m */; };
 		2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
 		2C75203C1ACA760E0008B42A /* CUTERentTypeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C75203B1ACA760E0008B42A /* CUTERentTypeListViewController.m */; };
@@ -207,6 +212,8 @@
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
+		2C427E351ACEA9CF000378A9 /* CUTEMapTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMapTextField.h; sourceTree = "<group>"; };
+		2C427E361ACEA9CF000378A9 /* CUTEMapTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMapTextField.m; sourceTree = "<group>"; };
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
 		2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyListViewController.m; sourceTree = "<group>"; };
@@ -342,6 +349,8 @@
 				2C27F1F11ACCF7DF002BECCF /* CUTEFormImagePickerCell.m */,
 				2C27F2031ACD30FE002BECCF /* CUTEFormButtonCell.h */,
 				2C27F2041ACD30FE002BECCF /* CUTEFormButtonCell.m */,
+				2C427E351ACEA9CF000378A9 /* CUTEMapTextField.h */,
+				2C427E361ACEA9CF000378A9 /* CUTEMapTextField.m */,
 			);
 			path = Rent;
 			sourceTree = "<group>";
@@ -551,7 +560,6 @@
 				2CA2E6B51AC5487800053965 /* Frameworks */,
 				2CA2E6B91AC5487800053965 /* Resources */,
 				2CA2E6BE1AC5487800053965 /* Copy Pods Resources */,
-				2CA94A931AC944C300DF7497 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -571,7 +579,7 @@
 				2CA2E6CE1AC5496700053965 /* Frameworks */,
 				2CA2E6D21AC5496700053965 /* Resources */,
 				2CA2E6D71AC5496700053965 /* Copy Pods Resources */,
-				2CA94A941AC94AC300DF7497 /* ShellScript */,
+				2C9B687E1ACE93160081E68B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -654,6 +662,9 @@
 						DevelopmentTeam = CVJ4KG6V54;
 					};
 					2CA2E6C41AC5496700053965 = {
+						DevelopmentTeam = CVJ4KG6V54;
+					};
+					2CA94A951ACA42CD00DF7497 = {
 						DevelopmentTeam = CVJ4KG6V54;
 					};
 					2CB43DA81ABC1372004DF663 = {
@@ -747,6 +758,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		2C9B687E1ACE93160081E68B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "branch=${1:-'master'}\nbuildNumber=$(expr $(git rev-list $branch --count) - $(git rev-list HEAD..$branch --count))\necho \"Updating build number to $buildNumber using branch '$branch'.\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"";
+		};
 		2CA2E6AC1AC5487800053965 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -806,32 +830,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		2CA94A931AC944C300DF7497 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#http://tgoode.com/2014/06/05/sensible-way-increment-bundle-version-cfbundleversion-xcode/\nbranch=${1:-'master'}\nbuildNumber=$(expr $(git rev-list $branch --count) - $(git rev-list HEAD..$branch --count))\necho \"Updating build number to $buildNumber using branch '$branch'.\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\n";
-		};
-		2CA94A941AC94AC300DF7497 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#http://tgoode.com/2014/06/05/sensible-way-increment-bundle-version-cfbundleversion-xcode/\n\nbranch=${1:-'master'}\nbuildNumber=$(expr $(git rev-list $branch --count) - $(git rev-list HEAD..$branch --count))\necho \"Updating build number to $buildNumber using branch '$branch'.\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\n";
 		};
 		2CA94A961ACA42CD00DF7497 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -940,6 +938,7 @@
 				2C27F20E1ACD414D002BECCF /* CUTERectContactForm.m in Sources */,
 				2C79C2BA1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2C401E181ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
+				2C427E391ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
 				2C27F2071ACD30FE002BECCF /* CUTEFormButtonCell.m in Sources */,
 				2C75203E1ACA760F0008B42A /* CUTERentTypeListViewController.m in Sources */,
 			);
@@ -974,6 +973,7 @@
 				2C27F20F1ACD414D002BECCF /* CUTERectContactForm.m in Sources */,
 				2C79C2BB1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2C401E191ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
+				2C427E3A1ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
 				2C27F2081ACD30FE002BECCF /* CUTEFormButtonCell.m in Sources */,
 				2C75203F1ACA760F0008B42A /* CUTERentTypeListViewController.m in Sources */,
 			);
@@ -1008,6 +1008,7 @@
 				2C27F20D1ACD414D002BECCF /* CUTERectContactForm.m in Sources */,
 				2C79C2B91ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2C401E171ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
+				2C427E381ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
 				2C27F2061ACD30FE002BECCF /* CUTEFormButtonCell.m in Sources */,
 				2C75203D1ACA760F0008B42A /* CUTERentTypeListViewController.m in Sources */,
 			);
@@ -1042,6 +1043,7 @@
 				2C27F20C1ACD414D002BECCF /* CUTERectContactForm.m in Sources */,
 				2C79C2B81ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2C401E161ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
+				2C427E371ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
 				2C27F2051ACD30FE002BECCF /* CUTEFormButtonCell.m in Sources */,
 				2C75203C1ACA760E0008B42A /* CUTERentTypeListViewController.m in Sources */,
 			);
@@ -1062,6 +1064,7 @@
 				2C401E131ACAB43A00613093 /* CUTERentAddressMapForm.m in Sources */,
 				2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */,
 				2C27F1F61ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */,
+				2C427E3B1ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
 				2C27F1EF1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C401E211ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C27F2021ACD289A002BECCF /* CUTERentAddressMapViewController.m in Sources */,
@@ -1120,7 +1123,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "b8cd408d-2d40-41a3-86d0-33e8dd2aeddb";
+				PROVISIONING_PROFILE = "9f7e8f70-1778-4760-8674-40e683cd7b08";
 			};
 			name = Debug;
 		};
@@ -1130,15 +1133,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-test-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "b8cd408d-2d40-41a3-86d0-33e8dd2aeddb";
+				PROVISIONING_PROFILE = "9f7e8f70-1778-4760-8674-40e683cd7b08";
 			};
 			name = Release;
 		};
@@ -1166,8 +1169,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-production-Info.plist";
@@ -1201,15 +1204,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-dev-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "75e9aa95-6dab-4048-9035-eb7fe858fe46";
+				PROVISIONING_PROFILE = "9f7e8f70-1778-4760-8674-40e683cd7b08";
 			};
 			name = Release;
 		};
@@ -1299,14 +1302,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = currant/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9f7e8f70-1778-4760-8674-40e683cd7b08";
 			};
 			name = Debug;
 		};
@@ -1316,14 +1319,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = currant/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9f7e8f70-1778-4760-8674-40e683cd7b08";
 			};
 			name = Release;
 		};
