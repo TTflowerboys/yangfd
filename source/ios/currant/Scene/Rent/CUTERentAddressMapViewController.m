@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) MKMapView *mapView;
 
+@property (nonatomic, strong) CLLocationManager *loationManager;
+
 @end
 
 @implementation CUTERentAddressMapViewController
@@ -31,9 +33,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.loationManager = [[CLLocationManager alloc] init];
+    [self.loationManager requestAlwaysAuthorization];
     self.mapView = [[MKMapView alloc] init];
     self.mapView.frame = self.view.bounds;
     self.mapView.delegate = self;
+    self.mapView.showsUserLocation = YES;
     [self.view addSubview:self.mapView];
     self.navigationItem.title = STR(@"地址");
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onRightButtonPressed:)];
