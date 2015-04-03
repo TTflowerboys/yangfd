@@ -10,18 +10,30 @@
     <div>
         <div class="title">房屋出租</div>
         <div class="content">
-            <div>
-                <div></div>
-                <div>
-                    填写详情
+            <div class="step">
+                <div class="line"></div>
+                <div class="start">
+                    <div class="main">
+                        <img src="static/images/customer/step_1_write.png">
+                        <div>
+                            填写详情
+                        </div>
+                    </div>
                 </div>
-                <div>预览发布</div>
+                <div class="end">
+                    <div class="main">
+                        <img src="static/images/customer/step_1_show.png">
+                        <div>
+                            预览发布
+                        </div>
+                    </div>
+                </div>
             </div>
             <hr/>
             <div class="detail">
                 <table class="information">
                     <tr>
-                        <th colspan="2" style="text-align: left">
+                        <th colspan="2" style="text-align: left;font-weight: normal;">
                             <div class="subtitle">基本信息</div>
                         </th>
                     </tr>
@@ -66,7 +78,13 @@
                                     手动填写
                                 </button>
                             </div>
-                            <div style="display: none">
+                        </td>
+                    </tr>
+                    <tr style="display: none">
+                        <td>
+                        </td>
+                        <td >
+                            <div class="address">
                                 <input placeholder="单元号">
                                 <input placeholder="单元名">
                                 <input placeholder="房间号">
@@ -117,7 +135,7 @@
                                 </select>
                             </div>
                             <div><input></div>
-                            <div>
+                            <div class="lease">
                                 <select>
                                     <option selected>{{_('押一付三')}}</option>
                                 </select>
@@ -144,102 +162,133 @@
                     </tr>
                 </table>
                 <div class="information">
-                    <div>
+                    <div class="subtitle">
                         上传图片
                     </div>
-                    <div>
-                        请将图片文件直接拖拽至此，或者自行<a>查找</a>电脑中的图片文件。
-                    </div>
-                    <hr/>
-                    <div>
-                        <div>
-                            <div>
-                                图片不再电脑中？
+                    <div class="image_panel">
+                        <div class="upload_image">
+                            请将图片文件直接拖拽至此，<br>或者自行查找电脑中的图片文件。
+                        </div>
+                        <div class="with_weixin">
+                            <div class="information">
+                                <div class="on_phone">
+                                    图片在手机上？
+                                </div>
+                                <div class="no_problem">
+                                    没关系，您可通过微信扫描二维码关注我们的公众账号来上传图片
+                                </div>
                             </div>
-                            <div>
-                                没关系，您可通过微信扫描二维码关注我们的公众账号来上传图片
+                            <div class="information">
+                                <div class="qrcode">
+                                    <img/>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <img/>
-                        </div>
                     </div>
+
                 </div>
             </div>
-            <div style="display: none">
-                <hr/>
-                <table>
+            <div>
+                <hr class="divider"/>
+                <table class="submit">
                     <tr>
                         <td>
-                            <div>
+                            <div class="text">
                                 标题
                             </div>
                         </td>
-                        <td>
-                            <input>
+                        <td class="content">
+                            <input class="headline">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div>
+                            <div class="text">
                                 描述
                             </div>
                         </td>
-                        <td>
-                            <textarea></textarea>
+                        <td class="content">
+                            <input class="description">
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div>
+                            <div class="text">
                                 设施
                             </div>
                         </td>
-                        <td>
-                            <div>
-                                <input type="checkbox">
-                                <input type="checkbox">
-                                <input type="checkbox">
-                                <input type="checkbox">
-                                <input type="checkbox">
-                                <input type="checkbox">
-                                <input type="checkbox">
-                                <input type="checkbox">
-                                <input type="checkbox">
-                                <input type="checkbox">
+                        <td class="content">
+                            <ul>
+                                <li>
+                                    <input type="checkbox">
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                </li>
 
-                            </div>
+                            </ul>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div>
+                            <div class="text">
                                 街区描述
                             </div>
                         </td>
-                        <td>
-                            <div>
-                                <div>
-                                    学区
-                                </div>
-                                <div>
-                                    学校
-                                </div>
-                                <div>
-                                    +
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    学区
-                                </div>
-                                <div>
-                                    学区
-                                </div>
-                                <div>
-                                    学区
-                                </div>
-
+                        <td class="content">
+                            <ul>
+                                <li>
+                                    <div>
+                                        学区
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        学区
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        +
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="block_description">
+                                <ul>
+                                    <li>
+                                        <div>
+                                            学区
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            学区
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            学区
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </td>
                     </tr>
