@@ -22,10 +22,39 @@
         }
     }
 
+    .country {
+        white-space: nowrap;
+        float: left;
+        height:100%;
+
+        .select-country{
+            height:@sup-header-height;
+            line-height:@sup-header-height;
+            color: @mute-color;
+            .clipped(10em);
+            display:inline-block;
+            overflow:hidden;
+            text-align:center;
+            vertical-align:middle;
+            text-decoration:none;
+
+            &:hover {
+                color:@light-color;
+            }
+
+            img {
+                margin-left: 5px;
+                margin-right:5px;
+                vertical-align: middle;
+                max-width:none; //not use the reset.css config
+            }
+        }
+    }
+
     .user {
         white-space: nowrap;
-        text-align: right;
         height:100%;
+        float: right;
 
         .login{
             cursor: pointer;
@@ -157,9 +186,9 @@
         margin-top: 15px;
         height:60px;
     }
-    .country { display: none; }
 
-    .navbar { .horizontalList(@padding: 16px); float: left; margin-top: 35px; margin-left: 70px;
+
+    .navbar { .horizontalList(@padding: 16px); float: left; margin-top: 35px; margin-left: 125px;
               > li {
                   > a {
                       color: @mute-color;
