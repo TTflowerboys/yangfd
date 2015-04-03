@@ -42,23 +42,23 @@
         <div class="page">
             <div class="supHeader_wrapper hiddenInClient">
                 <div class="supHeader">
-                    <!--<div class="user">
+                    <div class="user">
                         %if user:
                         <a class="nickname" href="/user_settings">
                             <img alt="" src="/static/images/common/header/user.png"/> {{user.get('nickname')}}
                         </a>
                         <a class="message" id="message" href="/user_messages">
                             <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
-                            <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" />
+                            <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" /> {{_('消息')}}
                         </a>
                         <a id="logout" class="logout" href="/logout">
-                            <img alt="" src="/static/images/common/header/logout.png"/>
+                            <img alt="" src="/static/images/common/header/logout.png"/> {{_('登出')}}
                         </a>
                         %else:
-                        <button id="login" class="login ghostButton red">{{_('登录')}}</button>
-                        <button id="register" class="register textButton" onclick="project.goToSignUp()">{{_('注册')}}</button>
+                        <a id="login" class="login">{{_('登录')}}</a>
+                        <a id="register" class="register" onclick="project.goToSignUp()">{{_('注册')}}</a>
                         %end
-                    </div>-->
+                    </div>
                 </div>
             </div>
             <div id="header" class="siteHeader_wrapper hiddenInClient">

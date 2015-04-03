@@ -1,6 +1,7 @@
 @import "_imports";
 
 .supHeader{
+    margin: 0 auto; height: 100%; max-width: @max-width;
     @media @phone {
         display:none;
     }
@@ -21,45 +22,84 @@
         }
     }
 
-    .user { float: right; margin-top: 28px; white-space: nowrap; text-align: right;
+    .user {
+        white-space: nowrap;
+        text-align: right;
+        height:100%;
 
-
-        .nickname  {
-            font-size: 18px;
-            color: #888888;
-            height:32px;
-            line-height:32px;
+        .login{
+            cursor: pointer;
+            color: @mute-color;
             .clipped(10em);
-            display: inline-block;
+            display:inline-block;
+            overflow:hidden;
             text-decoration:none;
             padding-right:20px;
-            border-right:1px solid #555;
+            margin-top: 3px;
+
+            &:hover {
+                color:@light-color;
+            }
+        }
+
+        .register{
+            cursor: pointer;
+            color: @mute-color;
+            .clipped(10em);
+            display:inline-block;
+            overflow:hidden;
+            text-decoration:none;
+            margin-top: 3px;
+
+            &:hover {
+                color:@light-color;
+            }
+        }
+
+        .nickname  {
+            height:@sup-header-height;
+            line-height:@sup-header-height;
+            color: @mute-color;
+            .clipped(10em);
+            display:inline-block;
+            overflow:hidden;
+            text-align:center;
             vertical-align:middle;
+            text-decoration:none;
+            padding-right:20px;
+
             &:hover {
                 color:@light-color;
             }
 
             img {
-                margin-right:20px;
-                vertical-align:middle;
+                margin-right:5px;
+                vertical-align: text-bottom;
                 max-width:none; //not use the reset.css config
             }
         }
 
         .message {
-            padding-left:20px;
-            padding-right:20px;
-            border-right:1px solid #555;
-            height:32px;
-            line-height:32px;
+            height:@sup-header-height;
+            line-height:@sup-header-height;
+            color: @mute-color;
+            .clipped(10em);
             display:inline-block;
             overflow:hidden;
             text-align:center;
             vertical-align:middle;
-            img {
-                margin-top:6px;
-                max-width:none; //not use the reset.css config
+            text-decoration:none;
+            padding-right:20px;
 
+            &:hover {
+                color:@light-color;
+            }
+
+            img {
+                margin-right:5px;
+                vertical-align: text-bottom;
+                max-width:none; //not use the reset.css config
+                margin-top:6px;
                 &#icon-message-notif {
                     margin-top:1px;
                 }
@@ -68,14 +108,24 @@
         }
 
         .logout {
-            padding-left:20px;
-            height:32px;
-            line-height:32px;
+            height:@sup-header-height;
+            line-height:@sup-header-height;
+            color: @mute-color;
+            .clipped(10em);
             display:inline-block;
             overflow:hidden;
+            text-align:center;
             vertical-align:middle;
+            text-decoration:none;
+            margin-top: 3px;
+
+            &:hover {
+                color:@light-color;
+            }
+
             img {
-                vertical-align:middle;
+                margin-right:5px;
+                vertical-align: text-bottom;
                 max-width:none; //not use the reset.css config
             }
         }
@@ -102,21 +152,14 @@
         }
     }
 
-    &_phone {
-        display:none;
-        @media @phone {
-            display:block;
-            z-index: @header-z-index;
-        }
-    }
-
     .logo {
         float: left;
-        margin-top: 10px;
+        margin-top: 15px;
         height:60px;
     }
     .country { display: none; }
-    .navbar { .horizontalList(@padding: 16px); float: left; margin-top: 32px; margin-left: 70px;
+
+    .navbar { .horizontalList(@padding: 16px); float: left; margin-top: 35px; margin-left: 70px;
               > li {
                   > a {
                       color: @mute-color;
@@ -134,7 +177,7 @@
 
     .callus {
         float: right;
-        margin-top: 16px;
+        margin-top: 20px;
         white-space: nowrap;
         overflow:hidden;
         border-left:1px solid #555;
@@ -158,6 +201,7 @@
                     text-decoration: none;
                     color: @red;
                     font-size: @large-font-size;
+                    font-weight: bold;
                 }
             }
         }
