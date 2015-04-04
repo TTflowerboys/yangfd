@@ -2,9 +2,6 @@
 
 .supHeader{
     margin: 0 auto; height: 100%; max-width: @max-width;
-    @media @phone {
-        display:none;
-    }
 
     &_wrapper {
         .clearfix();
@@ -16,9 +13,7 @@
         min-width:@min-page-width;
 
         @media @phone {
-            position:static;
-            height:15px;
-            min-width:0;
+            display:none;
         }
     }
 
