@@ -25,9 +25,10 @@
     CLLocationManager *_locationManager;
 
     CLLocation *_location;
+
+    CLGeocoder *_geocoder;
 }
 
-@property (nonatomic, strong) CLLocationManager *loationManager;
 
 @end
 
@@ -48,22 +49,13 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onRightButtonPressed:)];
 
     _locationManager = [[CLLocationManager alloc] init];
-    [_locationManager requestWhenInUseAuthorization];
-    [_loationManager startUpdatingLocation];
-    _loationManager.delegate = self;
-#ifdef __IPHONE_8_0
-    // Use one or the other, not both. Depending on what you put in info.plist
-    [_loationManager requestWhenInUseAuthorization];
-    [_loationManager requestAlwaysAuthorization];
-#endif
+    _locationManager.delegate = self;
+    _locationManager.distanceFilter = kCLDistanceFilterNone;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 
     _mapView = [[MKMapView alloc] init];
     _mapView.frame = self.view.bounds;
     _mapView.delegate = self;
-    _mapView.showsUserLocation = YES;
-    [_mapView setMapType:MKMapTypeStandard];
-    [_mapView setZoomEnabled:YES];
-    [_mapView setScrollEnabled:YES];
     [self.view addSubview:_mapView];
 
     _textField = [[CUTEMapTextField alloc] initWithFrame:CGRectMake(16, 30 + TouchHeightDefault + StatusBarHeight, ScreenWidth - 32, 60)];
@@ -74,23 +66,30 @@
     [self.view addSubview:_textField];
     _textField.rightView.userInteractionEnabled = YES;
     [_textField.rightView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAddressLocationButtonTapped:)]];
-
     _userLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_userLocationButton setImage:IMAGE(@"map-user-location") forState:UIControlStateNormal];
     _userLocationButton.frame = CGRectMake(ScreenWidth - 40 -15, ScreenHeight - TabBarHeight - 40 - 15, 40, 40);
     [self.view addSubview:_userLocationButton];
     [_userLocationButton addTarget:self action:@selector(onUserLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onMapLongPressed:)];
+    [longPressGesture setMinimumPressDuration:1.0];
+    [_mapView addGestureRecognizer:longPressGesture];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
+    if ([CLLocationManager locationServicesEnabled]) {
 
-    _locationManager.distanceFilter = kCLDistanceFilterNone;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [_locationManager startUpdatingLocation];
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+            [_locationManager requestWhenInUseAuthorization];
+            [_locationManager requestAlwaysAuthorization];
+        }
+        [_locationManager startUpdatingLocation];
+        //_mapView.showsUserLocation = YES;
+    }
 }
-
 
 - (void)onAddressBeginEditing:(id)sender {
     FXFormViewController *controller = [[FXFormViewController alloc] init];
@@ -117,6 +116,44 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+- (void)onMapLongPressed:(UIGestureRecognizer *)sender {
+    if (sender.state  == UIGestureRecognizerStateBegan) {
+        CGPoint touchPoint = [sender locationInView:_mapView];
+
+        CLLocationCoordinate2D touchMapCoordinate = [_mapView convertPoint:touchPoint toCoordinateFromView:_mapView];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:touchMapCoordinate.latitude longitude:touchMapCoordinate.longitude];
+          if (!_location || [location distanceFromLocation:_location] > 10) {
+              [sender cancelsTouchesInView];
+              [self updateLocation:location];
+          }
+    }
+}
+
+- (void)updateLocation:(CLLocation *)location {
+    _location = location;
+    [_mapView removeAnnotations:_mapView.annotations];
+    MKPlacemark *annotation = [[MKPlacemark alloc] initWithCoordinate:_location.coordinate addressDictionary:nil];
+    [_mapView addAnnotation:annotation];
+
+    if (!_geocoder) {
+        _geocoder = [[CLGeocoder alloc] init];
+    }
+
+    [_geocoder reverseGeocodeLocation:_location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (!IsArrayNilOrEmpty(placemarks)) {
+            CLPlacemark *placemark = placemarks[0];
+            _textField.text = [@[NilNullToEmpty(placemark.subThoroughfare),
+                                 NilNullToEmpty(placemark.thoroughfare),
+                                 NilNullToEmpty(placemark.postalCode),
+                                 NilNullToEmpty(placemark.locality),
+                                 NilNullToEmpty(placemark.administrativeArea),
+                                 NilNullToEmpty(placemark.country)]
+                               componentsJoinedByString:@" "];
+        }
+    }];
+
+}
+
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(__unused BOOL)animated
 {
     //update field value
@@ -124,14 +161,12 @@
                                                   longitude:mapView.centerCoordinate.longitude];
 }
 
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     if (!_location) {
-        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
-        [mapView setRegion:[mapView regionThatFits:region] animated:YES];
-        _location = userLocation.location;
-        [_mapView removeAnnotations:_mapView.annotations];
-        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:userLocation.coordinate addressDictionary:nil];
-        [_mapView addAnnotation:placemark];
+        CLLocation *location = [locations lastObject];
+        [self updateLocation:location];
+        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
+        [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
     }
 }
 
