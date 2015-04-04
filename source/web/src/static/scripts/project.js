@@ -69,7 +69,8 @@
             }
         },
         updateMenuTitle: function (text) {
-            $('.siteHeader_phone .rmm-toggled .rmm-toggled-controls .rmm-center').text(text)
+            //Replace all underscore to space for issue 5973
+            $('.siteHeader_phone .rmm-toggled .rmm-toggled-controls .rmm-center').text(text.replace(/_/g, ' '))
         },
         repaintHowItWorks: function () {
 
