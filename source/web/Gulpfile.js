@@ -213,13 +213,13 @@ gulp.task('setupCDN', ['build:html-extend'], function () {
                 .pipe(replace(/\/static\/fonts\//g, argv.cdn + '/' + time + '/fonts/'))
                 .pipe(gulp.dest(myPaths.dist))
 
-            gulp.src(myPaths.dist + 'static-' + time + '/styles/' + '**/*.css')
+            gulp.src(myPaths.dist + 'static/' + time + '/styles/' + '**/*.css')
                 .pipe(replace(/\/static\/images\//g,  argv.cdn + '/' + time + '/images/'))
-                .pipe(gulp.dest(myPaths.dist + 'static-' + time + '/styles/'))
+                .pipe(gulp.dest(myPaths.dist + 'static/' + time + '/styles/'))
 
-            gulp.src(myPaths.dist + 'static-' + time + '/scripts/' + '**/*.js')
+            gulp.src(myPaths.dist + 'static/' + time + '/scripts/' + '**/*.js')
                 .pipe(replace(/\/static\/images\//g,  argv.cdn + '/' + time + '/images/'))
-                .pipe(gulp.dest(myPaths.dist + 'static-' + time + '/scripts/'))
+                .pipe(gulp.dest(myPaths.dist + 'static/' + time + '/scripts/'))
         }
 
         gulp.src(myPaths.dist + '/static/**')
