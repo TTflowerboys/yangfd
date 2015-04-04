@@ -984,6 +984,10 @@ def landregistry_value_ranges(zipcode_index, params):
 
 @f_get("/robots.txt")
 def robots_txt():
+    if "currant-test" in request.urlparts[1]:
+        return("User-agent: *\n"
+               "Disallow: /\n")
+
     return("User-agent: *\n"
            "Disallow: /static/\n"
            "Disallow: /admin/\n")
