@@ -14,16 +14,21 @@
 #import "CUTEMapTextField.h"
 #import "CUTERentAddressEditForm.h"
 
-@interface CUTERentAddressMapViewController () <MKMapViewDelegate>
+@interface CUTERentAddressMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {
     MKMapView *_mapView;
 
     CUTEMapTextField *_textField;
 
+    UIButton *_userLocationButton;
+
     CLLocationManager *_locationManager;
+
+    CLLocation *_location;
+
+    CLGeocoder *_geocoder;
 }
 
-@property (nonatomic, strong) CLLocationManager *loationManager;
 
 @end
 
@@ -44,30 +49,63 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onRightButtonPressed:)];
 
     _locationManager = [[CLLocationManager alloc] init];
-    [_locationManager requestAlwaysAuthorization];
+    _locationManager.delegate = self;
+    _locationManager.distanceFilter = kCLDistanceFilterNone;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+
     _mapView = [[MKMapView alloc] init];
     _mapView.frame = self.view.bounds;
     _mapView.delegate = self;
-    _mapView.showsUserLocation = YES;
     [self.view addSubview:_mapView];
 
     _textField = [[CUTEMapTextField alloc] initWithFrame:CGRectMake(16, 30 + TouchHeightDefault + StatusBarHeight, ScreenWidth - 32, 60)];
-    _textField.leftView = [[UIImageView alloc] initWithImage:IMAGE(@"map-address-edit")];
-    _textField.leftViewMode = UITextFieldViewModeAlways;
     _textField.rightView = [[UIImageView alloc] initWithImage:IMAGE(@"map-address-location")];
     _textField.rightViewMode = UITextFieldViewModeAlways;
     _textField.background = [[UIImage imageNamed:@"map-textfield-background"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+    _textField.delegate = self;
     [self.view addSubview:_textField];
-    _textField.leftView.userInteractionEnabled = YES;
-    [_textField.leftView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAddressEditButtonTapped:)]];
+    _textField.rightView.userInteractionEnabled = YES;
+    [_textField.rightView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAddressLocationButtonTapped:)]];
+    _userLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_userLocationButton setImage:IMAGE(@"map-user-location") forState:UIControlStateNormal];
+    _userLocationButton.frame = CGRectMake(ScreenWidth - 40 -15, ScreenHeight - TabBarHeight - 40 - 15, 40, 40);
+    [self.view addSubview:_userLocationButton];
+    [_userLocationButton addTarget:self action:@selector(onUserLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onMapLongPressed:)];
+    [longPressGesture setMinimumPressDuration:1.0];
+    [_mapView addGestureRecognizer:longPressGesture];
+
 }
 
-- (void)onAddressEditButtonTapped:(id)sender {
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    if ([CLLocationManager locationServicesEnabled]) {
+
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+            [_locationManager requestWhenInUseAuthorization];
+            [_locationManager requestAlwaysAuthorization];
+        }
+        [_locationManager startUpdatingLocation];
+        //_mapView.showsUserLocation = YES;
+    }
+}
+
+- (void)onAddressBeginEditing:(id)sender {
     FXFormViewController *controller = [[FXFormViewController alloc] init];
     controller.formController.form = [CUTERentAddressEditForm new];
     controller.navigationItem.title = STR(@"位置");
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)onAddressLocationButtonTapped:(id)sender {
+
+}
+
+- (void)onUserLocationButtonPressed:(id)sender {
+    _location = nil;
+    [_locationManager startUpdatingLocation];
 }
 
 - (void)onRightButtonPressed:(id)sender {
@@ -78,9 +116,42 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+- (void)onMapLongPressed:(UIGestureRecognizer *)sender {
+    if (sender.state  == UIGestureRecognizerStateBegan) {
+        CGPoint touchPoint = [sender locationInView:_mapView];
+
+        CLLocationCoordinate2D touchMapCoordinate = [_mapView convertPoint:touchPoint toCoordinateFromView:_mapView];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:touchMapCoordinate.latitude longitude:touchMapCoordinate.longitude];
+          if (!_location || [location distanceFromLocation:_location] > 10) {
+              [sender cancelsTouchesInView];
+              [self updateLocation:location];
+          }
+    }
+}
+
+- (void)updateLocation:(CLLocation *)location {
+    _location = location;
+    [_mapView removeAnnotations:_mapView.annotations];
+    MKPlacemark *annotation = [[MKPlacemark alloc] initWithCoordinate:_location.coordinate addressDictionary:nil];
+    [_mapView addAnnotation:annotation];
+
+    if (!_geocoder) {
+        _geocoder = [[CLGeocoder alloc] init];
+    }
+
+    [_geocoder reverseGeocodeLocation:_location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (!IsArrayNilOrEmpty(placemarks)) {
+            CLPlacemark *placemark = placemarks[0];
+            _textField.text = [@[NilNullToEmpty(placemark.subThoroughfare),
+                                 NilNullToEmpty(placemark.thoroughfare),
+                                 NilNullToEmpty(placemark.postalCode),
+                                 NilNullToEmpty(placemark.locality),
+                                 NilNullToEmpty(placemark.administrativeArea),
+                                 NilNullToEmpty(placemark.country)]
+                               componentsJoinedByString:@" "];
+        }
+    }];
+
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(__unused BOOL)animated
@@ -88,6 +159,38 @@
     //update field value
     self.field.value = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                   longitude:mapView.centerCoordinate.longitude];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    if (!_location) {
+        CLLocation *location = [locations lastObject];
+        [self updateLocation:location];
+        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
+        [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+    }
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:@"annotation"];
+    if (!view) {
+        view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotation"];
+        //view.canShowCallout = YES;
+    }
+    view.annotation = annotation;
+    view.image = IMAGE(@"icon-location-building");
+    return view;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self onAddressBeginEditing:textField];
+    [textField endEditing:YES];
 }
 
 

@@ -10,11 +10,11 @@
 
 @implementation CUTEMapTextField
 
-- (CGRect)editingRectForBounds:(CGRect)bounds
+- (CGRect)textRectForBounds:(CGRect)bounds
 {
-    CGRect rect = [super editingRectForBounds:bounds];
-    rect.origin.x = rect.origin.x + 4;
-    rect.size.width = rect.size.width - 8;
+    CGRect rect = [super textRectForBounds:bounds];
+    rect.origin.x = rect.origin.x + 16;
+    rect.size.width = rect.size.width - 24;
     return rect;
 
 }

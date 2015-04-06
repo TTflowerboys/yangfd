@@ -18,7 +18,7 @@ f_app.dependency_register("qrcode", race="python")
 import currant_util
 import currant_data_helper
 
-BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅', '学区房', '英国房产', '洋房东', '海外投资', '海外房产', '海外买房', '海外房地产', '海外房产投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
+BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅', '学区房', '英国房产', '海外投资', '海外房产', '海外买房', '海外房地产', '海外房产投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
 
 
 def check_ip_and_redirect_domain(func):
@@ -195,19 +195,19 @@ def property_list(params):
     if "country" in params and len(params['country']):
         for country in country_list:
             if country.get('id') == str(params['country']):
-                title += country.get('value') + ' '
+                title += country.get('value') + '_'
 
     if "city" in params and len(params['city']):
         for city in city_list:
             if city.get('id') == str(params['city']):
-                title += city.get('value') + ' '
+                title += city.get('value') + '_'
 
     if "property_type" in params and len(params['property_type']):
         for property_type in property_type_list:
             if property_type.get('id') == str(params['property_type']):
-                title += property_type.get('value') + ' '
+                title += property_type.get('value') + '_'
 
-    title += _('房产列表 洋房东')
+    title += _('房产列表-洋房东')
 
     return common_template("property_list",
                            city_list=city_list,
@@ -239,9 +239,9 @@ def property_get(property_id, user):
 
     title = _(property.get('name', '房产详情'))
     if property.get('city') and property.get('city').get('value'):
-        title += ' ' + _(property.get('city').get('value'))
+        title += '_' + _(property.get('city').get('value'))
     if property.get('country') and property.get('country').get('value'):
-        title += ' ' + _(property.get('country').get('value'))
+        title += '_' + _(property.get('country').get('value'))
     description = property.get('name', _('房产详情'))
 
     tags = []
@@ -328,7 +328,7 @@ def crowdfunding_list(params):
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     investment_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('investment_type'))
 
-    title = _('众筹列表 洋房东')
+    title = _('众筹列表-洋房东')
     return common_template("crowdfunding_list",
                            intention_list=intention_list,
                            investment_type_list=investment_type_list,
@@ -998,6 +998,10 @@ def landregistry_value_ranges(zipcode_index, params):
 
 @f_get("/robots.txt")
 def robots_txt():
+    if "currant-test" in request.urlparts[1]:
+        return("User-agent: *\n"
+               "Disallow: /\n")
+
     return("User-agent: *\n"
            "Disallow: /static/\n"
            "Disallow: /admin/\n")

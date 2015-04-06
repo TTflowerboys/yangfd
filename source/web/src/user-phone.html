@@ -27,13 +27,16 @@
 <!--@@block = main-->
 <div class="userPage">
     <div class="aside userProfile">
+        <a class="logout" href="/logout">
+            <i><img src="/static/images/user/logout.png"/></i>
+        </a>
         <div class="account">
             <h1>{{user.get('nickname')}}</h1>
-            <p>
+            <p class="vip">
                 %if user.get('is_vip'):
-                <span style="background:#ffae00;color: #091225;padding: 2px 5px;"><strong>VIP</strong></span>
+                <span class="vipActive"><strong>VIP</strong></span>
                 %else:
-                <span style="background:#444444;color: #091225;padding: 2px 5px;"><strong>VIP</strong></span>
+                <span class="vipInactive"><strong>VIP</strong></span>
                 %end
             </p>
             %if user.get('phone_verified'):
