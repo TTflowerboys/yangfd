@@ -1,3 +1,6 @@
+
+var property_type
+
 $('#typeApartment').click(function () {
 
     $('#typeApartment img').attr('src', '/static/images/customer/btn_apartment_active.png');
@@ -41,7 +44,7 @@ $('#findAddress').click(function () {
     var address = $('#postcode')[0].value
     $.betterPost('http://maps.googleapis.com/maps/api/geocode/json?address='+address)
         .done(function (val) {
-            $('#neighborhood')[0].value = val.results[0].address_components[1].long_name
+            $('#neighborhood1')[0].value = val.results[0].address_components[1].long_name
             $('#locality')[0].value = val.results[0].address_components[2].long_name
         })
     $('#address').show()
