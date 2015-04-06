@@ -616,7 +616,7 @@ def property_get(property_id, user):
 
 
 @f_api('/wechat/menu/get')
-@f_app.user.login.check(role=['admin', 'operation'])
+@f_app.user.login.check(role=['admin', 'operation', 'jr_operation'])
 def wechat_menu_get(user):
     return f_app.wechat.api("menu/get", method="GET")["menu"]
 
@@ -624,13 +624,13 @@ def wechat_menu_get(user):
 @f_api('/wechat/menu/create', params=dict(
     json=(str, True),
 ))
-@f_app.user.login.check(role=['admin', 'operation'])
+@f_app.user.login.check(role=['admin', 'operation', 'jr_operation'])
 def wechat_menu_create(user, params):
     return f_app.wechat.api("menu/create", params=json.loads(params["json"]))
 
 
 @f_api('/wechat/menu/delete')
-@f_app.user.login.check(role=['admin', 'operation'])
+@f_app.user.login.check(role=['admin', 'operation', 'jr_operation'])
 def wechat_menu_delete(user):
     return f_app.wechat.api("menu/delete", method="GET")
 
