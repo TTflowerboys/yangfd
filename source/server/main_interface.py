@@ -711,14 +711,14 @@ def customer_sales_preview():
     title = _('出售预览')
     return common_template("customer_sales_preview", title=title)
 
-@f_get('/customer_rentals')
+@f_get('/rental/create')
 @check_ip_and_redirect_domain
 @check_crowdfunding_ready
 def customer_rentals():
     title = _('房屋出租')
     return common_template("customer_rentals", title=title)
 
-@f_get('/customer_rentals_preview')
+@f_get('/rental/publish')
 @check_ip_and_redirect_domain
 @check_crowdfunding_ready
 def customer_rentals_preview():

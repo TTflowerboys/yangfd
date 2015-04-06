@@ -1,0 +1,130 @@
+<!--@@master = masters/master.html-->
+<!--@@block =head -->
+
+<!--build:css(dist) /static/styles/project/customer_sales_preview.html.css-->
+<link rel="stylesheet" href="/static/styles/customer_sales_preview.css"/>
+<!--endbuild-->
+<!--@@close-->
+<!--@@block = main -->
+<div class="main_container">
+    <div>
+        <div class="title">房屋出租</div>
+        <div class="content">
+            <div class="step">
+                <div class="line red"></div>
+                <div class="start">
+                    <div class="main">
+                        <img src="static/images/customer/ico_step_2_write.png">
+                        <div>
+                            填写详情
+                        </div>
+                    </div>
+                </div>
+                <div class="end">
+                    <div class="main">
+                        <img src="static/images/customer/ico_step_2_show.png">
+                        <div>
+                            预览发布
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="detail">
+                <table class="information">
+                    <tr>
+                        <td>
+                            <div class="text">
+                                姓名
+                            </div>
+                        </td>
+                        <td>
+                            <div class="address">
+                                <input/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text">
+                                手机号
+                            </div>
+                        </td>
+                        <td>
+                            <div class="address">
+                                <input/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text">
+                                验证码
+                            </div>
+                        </td>
+                        <td>
+                            <div class="postcode">
+                                <input/>
+                                <button type="button" class="find_address">
+                                    获取验证码
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text">
+                                邮箱
+                            </div>
+                        </td>
+                        <td>
+                            <div class="address">
+                                <input/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div class="postcode">
+                                确认代表您同意创建一个洋房东账号供以后查看租客请求使用
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="information">
+                    <div>
+                        <img>
+                    </div>
+                    <div>
+                        <div>
+                            <div>封面</div>
+                            <div>包含您提交的房产名称以及类型</div>
+                        </div>
+                        <div>
+                            <div>房产设施</div>
+                            <div>填写详细的房产设施能增加30%的阅览</div>
+                        </div>
+                        <div>
+                            <div>管理方</div>
+                            <div>填写详细的管理方增加30%的阅览</div>
+                        </div>
+                        <div>
+                            <div>项目财务分析</div>
+                            <div>填写详细的项目财务分析能增加30%的阅览</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center">
+                <button style="width: 320px;height: 50px;border-radius: 4px;border: 1px solid #e60012;color: #ffffff;background-color: #e60012;">预览并发布</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--@@close-->
+<!--@@block=scripts-->
+<!--build:js /static/scripts/customer_sales_preview.html.js-->
+<script src="/static/scripts/customer_sales_preview.js"></script>
+<!--endbuild-->
+<!--@@close-->
