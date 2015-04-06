@@ -1,0 +1,270 @@
+<!--@@master=masters/master.html-->
+<!--@@block=head -->
+
+<!--build:css(dist) /static/styles/property_list.html.css-->
+<link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
+<link rel="stylesheet" href="/static/styles/project/addtionalHouseCard.css"/>
+<link rel="stylesheet" href="/static/styles/project/houseInfobox.css"/>
+<link rel="stylesheet" href="/static/styles/propertyList.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+
+<!--@@block=main -->
+<div class="property_data_manager" style="display:none">
+
+    <textarea id="countryData">
+        {{json_dumps(country_list)}}
+    </textarea>
+    <textarea id="cityData">
+        {{json_dumps(city_list)}}
+    </textarea>
+    <textarea id="propertyCountryData">
+        {{json_dumps(property_country_list)}}
+    </textarea>
+    <textarea id="propertyCityData">
+        {{json_dumps(property_city_list)}}
+    </textarea>
+    <textarea id="propertyTypeData">
+        {{json_dumps(property_type_list)}}
+    </textarea>
+    <textarea id="intentionData">
+        {{json_dumps(intention_list)}}
+    </textarea>
+    <textarea id="budgetData">
+        {{json_dumps(budget_list)}}
+    </textarea>
+    <textarea id="bedroomCountData">
+        {{json_dumps(bedroom_count_list)}}
+    </textarea>
+    <textarea id="buildingAreaData">
+        {{json_dumps(building_area_list)}}
+    </textarea>
+</div>
+
+<div class="category_wrapper">
+    <div class="category">
+        <span>{{_('我想在')}}</span>
+        <select class="ghostSelect" name="propertyCountry">
+            <option value="" selected>{{_('任意国家/地区')}}</option>
+            %for index, country in enumerate(property_country_list):
+                <option value="{{country.get('id')}}">{{country.get('value')}}</option>
+            %end
+        </select>
+        <span>{{_('的')}}</span>
+        <hr class="separator_phone"/>
+        <select class="ghostSelect" name="propertyCity">
+            <option value="" selected>{{_('任意城市')}}</option>
+            %for index, city in enumerate(property_city_list):
+                <option value="{{city.get('id')}}">{{city.get('value')}}</option>
+            %end
+        </select>
+        <span>{{_('投资')}}</span>
+        <hr class="separator_phone"/>
+        <select class="ghostSelect" name="propertyType">
+            <option value="" selected>{{_('任意类型房产')}}</option>
+            %for index, property_type in enumerate(property_type_list):
+                <option value="{{property_type.get('id')}}">{{property_type.get('value')}}</option>
+            %end
+        </select>
+    </div>
+</div>
+
+<div id="result" class="result">
+    <div id="tags" class="tags">
+        <div class="tags_inner">
+            %if budget_list:
+                <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
+                <div class="price">
+                    <img class="price_icon" alt="" src="/static/images/property_list/price-tag.png"/>
+                    <h4 class="price_title">{{_('价格')}}
+                        (
+                        {{_('单选')}}
+                        ,
+                        <!--@@include=partials/current_currency.html -->
+                        )
+                    </h4>
+                    <div id="budgetTag" class="inner">
+                        %for index, budget in enumerate(budget_list):
+                            %if budget.get('currency') == _.currency:
+                                <div class="toggleTag" data-id="{{budget.get('id')}}" data-index="{{index}}">{{budget.get('value')}}</div>
+                            %end
+                        %end
+                    </div>
+                </div>
+            %end
+
+            %if intention_list:
+                <div class="intention">
+                    <img class="intention_icon" alt="" src="/static/images/property_list/intention-tag.png"/>
+                    <h4 class="intention_title">{{_('投资意向(多选)')}}</h4>
+
+                    <div id="intentionTag" class="inner">
+                        %for index, intention in enumerate(intention_list):
+                            <div class="toggleTag" data-id="{{intention.get('id')}}">{{intention.get('value')}}
+                            </div>
+                        %end
+                    </div>
+                </div>
+            %end
+
+            <div class="bedroomCount">
+                <img class="bedroomCount_icon" alt="" src="/static/images/property_list/bedroom-tag.png"/>
+                <h4 class="bedroomCount_title">{{_('居室数')}}</h4>
+                <div id="bedroomCountTag" class="inner">
+                    % for bedroom_count in bedroom_count_list:
+                        <div class="toggleTag" data-id="{{bedroom_count.get('id')}}">{{bedroom_count.get('value')}}</div>
+                    % end
+                </div>
+            </div>
+
+             <div class="buildingArea">
+                <img class="buildingArea_icon" alt="" src="/static/images/property_list/size-tag.png"/>
+                <h4 class="buildingArea_title">{{_('面积')}}</h4>
+                <div id="buildingAreaTag" class="inner">
+                    % for building_area in building_area_list:
+                        <div class="toggleTag" data-id="{{building_area.get('id')}}">{{building_area.get('value')}}</div>
+                    % end
+                </div>
+            </div>
+        </div>
+        <div class="contact">
+            <a href="tel:4000926433" >{{_('拨打400-0926-433咨询')}}</a>
+        </div>
+        <button id="showTags"  class="showTags textButton" data-state="closed">
+            <label>{{_('更多选择')}}</label>
+            <img alt="" src="/static/images/property_list/tags-indicator-phone.png"/>
+        </button>
+    </div>
+
+    <div id="result_list_container" class="result_list_container">
+        <h2 id="number_container" class="result_number" style="display:none">
+            <!--{{_('共找到')}}<span id="number" class="number"></span> {{_('套房产')}}-->
+            {{_('共找到下列房产')}}
+        </h2>
+        <div data-tabs>
+            <ul id="tabSelector" class="tabSelector">
+                <li data-tab=list>
+                    <img class="active" alt="{{_('列表')}}" src="/static/images/property_list/tab-list-active.png"/>
+                    <img class="normal" alt="{{_('列表')}}" src="/static/images/property_list/tab-list-normal.png"/>
+                </li>
+                <li data-tab=map>
+                    <img class="normal" alt="{{_('地图')}}" src="/static/images/property_list/tab-map-normal.png"/>
+                    <img class="active" alt="{{_('地图')}}" src="/static/images/property_list/tab-map-active.png"/>
+                </li>
+            </ul>
+            <div class="tabContent">
+                <div class="item" data-tab-name="list">
+                    <div id="result_list" class="result_list">
+
+                    </div>
+                    <div id="addtionalResultList_wrapper" class="addtionalResultList_wrapper" style="display:none;">
+                        <div class="noSuitableHint">
+                            <div class="line"></div>
+                            <label class="hint">
+                                {{_('没有找到合适的？来这里看看吧')}}
+                            </label>
+                        </div>
+                        <div id="addtionalResultList" class="addtionalResultList">
+                 
+                        </div>
+                    </div>
+                    <hr class="border">
+                    <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+                    <button id="loadMore" class="loadMore ghostButton red">{{_('加载更多')}}</button>
+                </div>
+                <div  class="item" data-tab-name="map">
+                    <div id="mapCanvas" class="mapCanvas" style="position:relative;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="display:none">
+        <img alt="" src="/static/images/property_list/empty-hint.png"/>
+        <div class="info">
+            <h2 class="hint">{{_('暂无房产信息，洋房东业务团队正在筹备...')}}</h2>
+            <p class="addition">{{_('您可以更改筛选条件，或者')}}<strong>{{_('提交您的置业需求')}}</strong>，将有置业顾问与您联系</p>
+        </div>
+        <!-- @@include=partials/requirement_form.html -->
+        <h2 class="successMessage" style="display:none">{{_('置业需求已提交，稍后我们的工作人员会联系你')}}</h2>
+    </div>
+
+    <div class="tabSelector_phone hiddenInClient" data-tab="list">
+        <img class="list" alt="" src="/static/images/property_list/tab-list-phone.png"/>
+        <img class="map" alt="" src="/static/images/property_list/tab-map-phone.png"/>
+    </div>
+
+    <ul class="floatBar_phone hiddenInClient">
+        <li class="phone"><a href="tel:4000926433" >{{_('拨打400-0926-433咨询')}}</a></li>
+        <li class="requirement"><a href="/requirement"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
+    </ul>
+</div>
+<!-- @@include=/static/templates/house_card.tpl.html-->
+<!-- @@include=/static/templates/addtional_house_card.tpl.html-->
+
+<script id="houseInfobox_template" type="text/template">
+    <div class="houseInfobox_wrapper infobox">
+        <div class="houseInfobox arrow_box">
+            <a href="/property/{=house.id=}">
+                <div class="imagePart">
+                    {_if (house.cover){_}
+                    <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);" width=120 height=80/>
+                    {_ } else if(house.reality_images && house.reality_images.length) {_}
+                    <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);" width=120 height=80/>
+                    {_ }else { _}
+                    <img class="withPlaceholder"  width=120 height=80 />
+                    {_}_}
+                    <div class="labels">
+                        {_if (house.property_type && house.property_type.value){_}
+                        <label class="type" for="">{=house.property_type.value=}</label>
+                        {_}_}
+                    </div>
+                </div>
+                <div class=description>
+                    <h1 class=name>
+                        {_if (house.country){_}
+                        <span class="country">
+                            {=house.country.value=}
+                        </span>
+                        {_}_}
+                        {_if (house.city){_}
+                        <span class="city">
+                            {=house.city.value=}
+                        </span>
+                        {_}_}
+                        {=house.name=}
+                    </h1>
+                    {_if (house.property_type && house.property_type.value){_}
+                    <label class="type" for="">{=house.property_type.value=}</label>
+                    {_}_}
+                     {_if(house.intention && house.intention.length) {_}
+                    <div class="intentions">
+                        <img src="/static/images/property_details/tag-icon.png"/>
+                        <label>
+                            {_ _.each(house.intention, function(oneIntention) { _}
+                            {=oneIntention.value=}
+                            {_})_}
+                        </label>
+                    </div>
+                    {_}_}
+                    <label class=price>
+                        <!--@@include=partials/get_unit_price.tpl.html  -->
+                    </label>
+                </div>
+                <img class="enter_phone" alt="" src="/static/images/property_list/icon-map-item-enter-phone.png"/>
+            </a>
+        </div>
+    </div>
+</script>
+
+<!--@@close-->
+
+
+<!--@@block=scripts -->
+<!--build:js /static/scripts/property_list.html.js-->
+<script src="/static/scripts/property_list.js"></script>
+<script src="/static/scripts/property_list_map.js"></script>
+<!--endbuild-->
+<!--@@close-->
+
