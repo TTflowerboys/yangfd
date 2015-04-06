@@ -10,22 +10,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-@f_api('/property/search_nearby', params=dict(
-    status=(list, ["selling", "sold out"], str),
-    latitude=(float, True),
-    longitude=(float, True),
-    search_range=(float, True),
-))
-@f_app.user.login.check(check_role=True)
-def property_search_nearby(user, params):
-    """
-    ``search_range`` is the radius you want to search within. The unit is meter.
-    """
-    if "status" in params:
-        params["status"] = {"$in": params.pop("status")}
-    return f_app.property.get_nearby(params)
-
-
 @f_api('/property/search', params=dict(
     per_page=int,
     mtime=datetime,
@@ -49,11 +33,14 @@ def property_search_nearby(user, params):
     slug=str,
     bedroom_count="enum:bedroom_count",
     building_area="enum:building_area",
+    user_generated=bool,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
     """
-    Only ``admin``, ``jr_admin``, ``operation``, ``jr_operation``, ``developer`` and ``agency`` could use the ``target_property_id`` and ``status`` param.
+    Only ``admin``, ``jr_admin``, ``operation``, ``jr_operation``, ``developer`` and ``agency`` could use the ``target_property_id`` param.
+
+    Non-administrator users who specify the ``status`` param to anything else than ``selling`` or ``sold out`` will be restricted to search user-generated properties only (those with ``user_generated`` set to ``True``).
 
     Syntax examples for ``sort``:
 
@@ -63,10 +50,14 @@ def property_search(user, params):
     ``time`` should be a unix timestamp in utc.
     ``building_area`` format: ``,40,meter ** 2``, ``40,100,foot ** 2``, ``100,,meter ** 2``
     """
+    params.setdefault("user_generated", {"$ne": True})
     random = params.pop("random", False)
     sort = params.pop("sort", ["mtime", "desc"])
-    if params["status"] != ["selling", "sold out"] or "target_property_id" in params:
+    if "target_property_id" in params:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_property_id")
+    if params["status"] != ["selling", "sold out"]:
+        if not set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]):
+            params["user_generated"] = True
     if "property_type" in params:
         params["property_type"] = {"$in": params["property_type"]}
 
@@ -213,7 +204,7 @@ def property_search(user, params):
     name=str,
     developer=str,
 ))
-@f_app.user.login.check(check_role=True, role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer'])
+@f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer', 'agency'])
 def property_search_with_plot(user, params):
     """
     Only ``admin``, ``jr_admin``, ``operation``, ``jr_operation``, ``developer`` and ``agency`` could use the ``target_property_id`` and ``status`` param.
@@ -228,8 +219,6 @@ def property_search_with_plot(user, params):
     """
     random = params.pop("random", False)
     sort = params.pop("sort", ["mtime", "desc"])
-    if params["status"] != ["selling", "sold out"] or "target_property_id" in params:
-        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_property_id")
     if "property_type" in params:
         params["property_type"] = {"$in": params["property_type"]}
 
@@ -456,7 +445,7 @@ property_params = dict(
 
 
 @f_api('/property/<property_id>/edit', params=property_params)
-@f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer', 'agency'])
+@f_app.user.login.check(check_role=True)
 def property_edit(property_id, user, params):
     """
     This API will act based on the ``property_id``. To add a new property, use "none" for ``property_id``.
@@ -508,6 +497,11 @@ def property_edit(property_id, user, params):
     if property_id == "none":
         action = lambda params: f_app.property.add(params)
 
+        if not user or not set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]):
+            params["user_generated"] = True
+            if user:
+                params["user_id"] = user["id"]
+
         params.setdefault("status", "draft")
 
         if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
@@ -515,6 +509,15 @@ def property_edit(property_id, user, params):
 
     else:
         property = f_app.property.get(property_id)
+
+        user_generated = False
+        if not user or not set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]):
+            assert property.get("user_generated") == True, abort(40300, "Non-admin could only edit user generated properties")
+            user_generated = True
+            if "user_id" in property:
+                assert user and property["user_id"] == user["id"], abort(40300, "Non-admin could only edit his own generated properties")
+            elif user:
+                params["user_id"] = user["id"]
 
         def _action(params):
             unset_fields = params.get("unset_fields", [])
@@ -525,77 +528,78 @@ def property_edit(property_id, user, params):
 
         action = _action
 
-        # Status-only updates
-        if len(params) == 1 and "status" in params:
-            # Approved properties
-            if property["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
+        if not user_generated:
+            # Status-only updates
+            if len(params) == 1 and "status" in params:
+                # Approved properties
+                if property["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed"):
 
-                # Only allow updating to post-review statuses
-                assert params["status"] in ("selling", "hidden", "sold out", "deleted", "restricted"), abort(40000, "Invalid status for a reviewed property")
+                    # Only allow updating to post-review statuses
+                    assert params["status"] in ("selling", "hidden", "sold out", "deleted", "restricted"), abort(40000, "Invalid status for a reviewed property")
 
-                if params["status"] == "deleted":
-                    assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
+                    if params["status"] == "deleted":
+                        assert set(user["role"]) & set(["admin", "jr_admin"]), abort(40300, "No access to update the status")
 
-            # Not approved properties
-            else:
-                # Submit for approval
-                if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed", "deleted"):
-                    if len(f_app.task.search({"status": {"$nin": ["completed", "canceled"]}, "property_id": property_id, "type": "render_pdf"})):
-                        abort(40087, "pdf is still rendering")
-
-                    assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
-                    if "target_property_id" in property:
-                        def action(params):
-                            with f_app.mongo() as m:
-                                property = f_app.property.get_database(m).find_one({"_id": ObjectId(property_id)})
-                            property.pop("_id")
-                            property["status"] = params["status"]
-                            target_property_id = property.pop("target_property_id")
-                            unset_fields = property.pop("unset_fields", [])
-                            f_app.property.update_set(target_property_id, property, _ignore_render_pdf=True)
-                            if unset_fields:
-                                unset_fields.append("unset_fields")
-                                f_app.property.update(target_property_id, {"$unset": {i: "" for i in unset_fields}})
-                            f_app.property.update_set(property_id, {"status": "deleted"})
-                            return f_app.property.get(target_property_id)
-                    else:
-                        def action(params):
-                            with f_app.mongo() as m:
-                                property = f_app.property.get_database(m).find_one({"_id": ObjectId(property_id)})
-                            f_app.property.update_set(property_id, params, _ignore_render_pdf=True)
-                            unset_fields = property.pop("unset_fields", [])
-                            if unset_fields:
-                                unset_fields.append("unset_fields")
-                                f_app.property.update(property_id, {"$unset": {i: "" for i in unset_fields}})
-                            return f_app.property.get(property_id)
-
-                if params["status"] == "not reviewed":
-                    # TODO: make sure all needed fields are present
-                    params["submitter_user_id"] = user["id"]
-
-        else:
-            if "status" in params:
-                assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed"), abort(40000, "Editing and reviewing cannot happen at the same time")
-
-                if params["status"] == "not reviewed" and "brochure" in params and len(params["brochure"]):
-                    abort(40087, "pdf may need rendering")
-
-            if property["status"] in ("selling", "hidden", "sold out", "restricted"):
-                existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
-                if existing_draft:
-                    # action = lambda params: f_app.property.update_set(existing_draft[0], params)
-                    abort(40300, "An existing draft already exists")
-
+                # Not approved properties
                 else:
+                    # Submit for approval
+                    if params["status"] not in ("draft", "not translated", "translating", "rejected", "not reviewed", "deleted"):
+                        if len(f_app.task.search({"status": {"$nin": ["completed", "canceled"]}, "property_id": property_id, "type": "render_pdf"})):
+                            abort(40087, "pdf is still rendering")
+
+                        assert set(user["role"]) & set(["admin", "jr_admin", "operation"]), abort(40300, "No access to review property")
+                        if "target_property_id" in property:
+                            def action(params):
+                                with f_app.mongo() as m:
+                                    property = f_app.property.get_database(m).find_one({"_id": ObjectId(property_id)})
+                                property.pop("_id")
+                                property["status"] = params["status"]
+                                target_property_id = property.pop("target_property_id")
+                                unset_fields = property.pop("unset_fields", [])
+                                f_app.property.update_set(target_property_id, property, _ignore_render_pdf=True)
+                                if unset_fields:
+                                    unset_fields.append("unset_fields")
+                                    f_app.property.update(target_property_id, {"$unset": {i: "" for i in unset_fields}})
+                                f_app.property.update_set(property_id, {"status": "deleted"})
+                                return f_app.property.get(target_property_id)
+                        else:
+                            def action(params):
+                                with f_app.mongo() as m:
+                                    property = f_app.property.get_database(m).find_one({"_id": ObjectId(property_id)})
+                                f_app.property.update_set(property_id, params, _ignore_render_pdf=True)
+                                unset_fields = property.pop("unset_fields", [])
+                                if unset_fields:
+                                    unset_fields.append("unset_fields")
+                                    f_app.property.update(property_id, {"$unset": {i: "" for i in unset_fields}})
+                                return f_app.property.get(property_id)
+
+                    if params["status"] == "not reviewed":
+                        # TODO: make sure all needed fields are present
+                        params["submitter_user_id"] = user["id"]
+
+            else:
+                if "status" in params:
+                    assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed"), abort(40000, "Editing and reviewing cannot happen at the same time")
+
+                    if params["status"] == "not reviewed" and "brochure" in params and len(params["brochure"]):
+                        abort(40087, "pdf may need rendering")
+
+                if property["status"] in ("selling", "hidden", "sold out", "restricted"):
+                    existing_draft = f_app.property.search({"target_property_id": property_id, "status": {"$ne": "deleted"}})
+                    if existing_draft:
+                        # action = lambda params: f_app.property.update_set(existing_draft[0], params)
+                        abort(40300, "An existing draft already exists")
+
+                    else:
+                        params.setdefault("status", "draft")
+                        params["target_property_id"] = property_id
+                        action = lambda params: f_app.property.add(params)
+
+                elif property["status"] == "rejected":
                     params.setdefault("status", "draft")
-                    params["target_property_id"] = property_id
-                    action = lambda params: f_app.property.add(params)
 
-            elif property["status"] == "rejected":
-                params.setdefault("status", "draft")
-
-            elif property["status"] == "not reviewed":
-                abort(40000, "Not reviewed property could not be changed. Reverting the status is required before any modification")
+                elif property["status"] == "not reviewed":
+                    abort(40000, "Not reviewed property could not be changed. Reverting the status is required before any modification")
 
     return action(params)
 
@@ -605,7 +609,8 @@ def property_edit(property_id, user, params):
 def property_get(property_id, user):
     property = f_app.property.output([property_id])[0]
     if property["status"] not in ["selling", "sold out", "restricted"]:
-        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+        if not set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]):
+            assert property.get("user_generated") == True, abort(40300, "No access to specify status or target_property_id")
 
     return property
 
