@@ -95,17 +95,17 @@
                         </td>
                         <td>
                             <div class="postcode">
-                                <input/>
-                                <button type="button" class="find_address">
+                                <input id="postcode"/>
+                                <button id="findAddress" type="button" class="find_address">
                                     查找地址
                                 </button>
-                                <button type="button" class="customer_input">
+                                <button id="inputAddress" type="button" class="customer_input">
                                     手动填写
                                 </button>
                             </div>
                         </td>
                     </tr>
-                    <tr style="display: none">
+                    <tr id="address" style="display: none">
                         <td>
                         </td>
                         <td>
@@ -113,9 +113,9 @@
                                 <input placeholder="单元号">
                                 <input placeholder="单元名">
                                 <input placeholder="房间号">
-                                <input placeholder="街道1">
+                                <input placeholder="街道1" id="neighborhood">
                                 <input placeholder="街道2">
-                                <input placeholder="城市">
+                                <input placeholder="城市" id="locality">
                             </div>
                         </td>
                     </tr>
