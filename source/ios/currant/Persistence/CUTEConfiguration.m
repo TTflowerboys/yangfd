@@ -20,12 +20,7 @@ static NSString *host = nil;
 }
 
 + (NSURL *)hostURL {
-    if  ([[self host] isEqualToString:@"localhost"]) {
-        return [NSURL URLWithString:CONCAT(@"http://", [self host], @":8181")];
-    }
-    else {
-        return [NSURL URLWithString:CONCAT(@"http://", [self host])];
-    }
+    return [NSURL URLWithString:CONCAT(@"http://", [self host])];
 }
 
 + (NSString *)yangfdScheme {
@@ -35,6 +30,10 @@ static NSString *host = nil;
 
 + (NSString *)servicePhone {
     return @"4000926433";
+}
+
++ (NSString *)apiEndpoint {
+    return CONCAT(@"http://", [self host], @"/api/1/");
 }
 
 @end

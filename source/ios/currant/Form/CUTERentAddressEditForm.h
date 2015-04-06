@@ -13,9 +13,7 @@
 @interface CUTERentAddressEditForm : CUTEForm
 
 @property (strong, nonatomic) NSString *street;
-@property (strong, nonatomic) NSString *building;
 @property (strong, nonatomic) NSString *city;
-@property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) NSString *postCode;
 @property (strong, nonatomic) NSString *country;
 
