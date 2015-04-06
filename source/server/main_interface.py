@@ -715,8 +715,9 @@ def customer_sales_preview():
 @check_ip_and_redirect_domain
 @check_crowdfunding_ready
 def customer_rentals():
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     title = _('房屋出租')
-    return common_template("customer_rentals", title=title)
+    return common_template("customer_rentals", intention_list=intention_list, title=title)
 
 @f_get('/rental/publish')
 @check_ip_and_redirect_domain
