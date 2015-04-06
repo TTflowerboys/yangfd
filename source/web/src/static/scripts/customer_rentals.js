@@ -1,6 +1,4 @@
 
-var property_type
-
 $('#typeApartment').click(function () {
 
     $('#typeApartment img').attr('src', '/static/images/customer/btn_apartment_active.png');
@@ -53,4 +51,10 @@ $('#findAddress').click(function () {
 
 $('#inputAddress').click(function () {
     $('#address').show()
+})
+$('#submit').click(function(){
+    $.betterPost('/api/1/property/none/edit',{})
+        .done(function (val) {
+
+        })
 })

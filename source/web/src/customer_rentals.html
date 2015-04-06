@@ -268,7 +268,7 @@
                             </div>
                         </td>
                         <td class="content">
-                            <input class="description">
+                            <textarea class="description"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -279,30 +279,11 @@
                         </td>
                         <td class="content">
                             <ul class="facilities">
+                                %for index, facility in enumerate(indoor_facility_list):
                                 <li>
-                                    <input type="checkbox"><span>电视</span>
+                                    <input type="checkbox" value="{{facility.get('id')}}"><span>{{facility.get('value')}}</span>
                                 </li>
-                                <li>
-                                    <input type="checkbox"><span>电视</span>
-                                </li>
-                                <li>
-                                    <input type="checkbox"><span>电视</span>
-                                </li>
-                                <li>
-                                    <input type="checkbox"><span>电视</span>
-                                </li>
-                                <li>
-                                    <input type="checkbox"><span>电视</span>
-                                </li>
-                                <li>
-                                    <input type="checkbox"><span>电视</span>
-                                </li>
-                                <li>
-                                    <input type="checkbox"><span>电视</span>
-                                </li>
-                                <li>
-                                    <input type="checkbox"><span>电视</span>
-                                </li>
+                                %end
                             </ul>
                         </td>
                     </tr>
@@ -314,8 +295,8 @@
                         </td>
                         <td class="content">
                             <ul id="intentionTag" class="inner">
-                                %for index, intention in enumerate(intention_list):
-                                <li class="toggleTag selected" data-id="{{intention.get('id')}}">{{intention.get('value')}}
+                                %for index, region_highlight in enumerate(region_highlight_list):
+                                <li class="toggleTag selected" data-id="{{region_highlight.get('id')}}">{{region_highlight.get('value')}}
                                     <img alt="" src="/static/images/intention/close.png">
                                 </li>
                                 %end
@@ -330,21 +311,13 @@
                         <td>
                             <div class="block_description">
                                 <ul>
-                                    <li>
+                                    %for index, region_highlight in enumerate(region_highlight_list):
+                                    <li id="{{region_highlight.get('id')}}">
                                         <div>
-                                            学区
+                                            {{region_highlight.get('value')}}
                                         </div>
                                     </li>
-                                    <li>
-                                        <div>
-                                            学区
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            学区
-                                        </div>
-                                    </li>
+                                    %end
                                 </ul>
                             </div>
                         </td>
@@ -352,7 +325,7 @@
                 </table>
             </div>
             <div style="text-align: center">
-                <button class="submit_button">预览并发布</button>
+                <button class="submit_button" id="submit">预览并发布</button>
             </div>
         </div>
     </div>
