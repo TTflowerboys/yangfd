@@ -221,6 +221,68 @@ def property_list(params):
                            )
 
 
+@f_get('/rent_list', params=dict(
+    property_type=str,
+    country=str,
+    city=str,
+    budget=str,
+    intention=str,
+    bedroom_count=str,
+    building_area=str
+))
+@check_ip_and_redirect_domain
+def rent_list(params):
+    city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
+    property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
+    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+    country_list = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
+    bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
+    building_area_list = f_app.i18n.process_i18n(f_app.enum.get_all("building_area"))
+    property_country_list = []
+    property_country_id_list = []
+    for index, country in enumerate(country_list):
+        if country.get('slug') == 'US' or country.get('slug') == 'GB':
+            property_country_list.append(country)
+            property_country_id_list.append(country.get('id'))
+
+    property_city_list = []
+    if ("country" in params and len(params['country'])):
+        for index, city in enumerate(city_list):
+            if city.get('country').get('id') in property_country_id_list:
+                if str(params['country']) == city.get('country').get('id'):
+                    property_city_list.append(city)
+
+    title = ''
+
+    if "country" in params and len(params['country']):
+        for country in country_list:
+            if country.get('id') == str(params['country']):
+                title += country.get('value') + '_'
+
+    if "city" in params and len(params['city']):
+        for city in city_list:
+            if city.get('id') == str(params['city']):
+                title += city.get('value') + '_'
+
+    if "property_type" in params and len(params['property_type']):
+        for property_type in property_type_list:
+            if property_type.get('id') == str(params['property_type']):
+                title += property_type.get('value') + '_'
+
+    title += _('房产列表-洋房东')
+
+    return common_template("rent_list",
+                           city_list=city_list,
+                           property_country_list=property_country_list,
+                           property_city_list=property_city_list,
+                           property_type_list=property_type_list,
+                           intention_list=intention_list,
+                           bedroom_count_list=bedroom_count_list,
+                           building_area_list=building_area_list,
+                           title=title
+                           )
+
+
 @f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
 @check_ip_and_redirect_domain
 @f_app.user.login.check(check_role=True)
@@ -584,10 +646,10 @@ def user_favorites(user):
 def user_crowdfunding(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     title = _('海外众筹')
-    transaction_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'],'type':{'$in':['investment','withdrawal','recharge','earnings','recovery']}}, per_page=0), permission_check=False)
-    investment_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'],'type':'investment'}, per_page=0), permission_check=False)
-    earning_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'],'type':'earnings'}, per_page=0), permission_check=False)
-    account_order_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'],'type':{'$in':['withdrawal','recharge']}}, per_page=0), permission_check=False)
+    transaction_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'], 'type': {'$in': ['investment', 'withdrawal', 'recharge', 'earnings', 'recovery']}}, per_page=0), permission_check=False)
+    investment_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'], 'type': 'investment'}, per_page=0), permission_check=False)
+    earning_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'], 'type': 'earnings'}, per_page=0), permission_check=False)
+    account_order_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'], 'type': {'$in': ['withdrawal', 'recharge']}}, per_page=0), permission_check=False)
     logger.debug(transaction_list)
     logger.debug(investment_list)
     logger.debug(earning_list)
@@ -696,7 +758,6 @@ def calculator():
     return common_template("calculator-phone", intention_list=intention_list, title=title)
 
 
-
 @f_get('/customer_sales')
 @check_ip_and_redirect_domain
 @check_crowdfunding_ready
@@ -704,12 +765,14 @@ def customer_sales():
     title = _('二手房出售')
     return common_template("customer_sales", title=title)
 
+
 @f_get('/customer_sales_preview')
 @check_ip_and_redirect_domain
 @check_crowdfunding_ready
 def customer_sales_preview():
     title = _('出售预览')
     return common_template("customer_sales_preview", title=title)
+
 
 @f_get('/rental/create')
 @check_ip_and_redirect_domain
@@ -719,12 +782,14 @@ def customer_rentals():
     title = _('房屋出租')
     return common_template("customer_rentals", intention_list=intention_list, title=title)
 
+
 @f_get('/rental/publish')
 @check_ip_and_redirect_domain
 @check_crowdfunding_ready
 def customer_rentals_preview():
     title = _('出租预览')
     return common_template("customer_rentals_preview", title=title)
+
 
 @f_get('/user')
 @check_ip_and_redirect_domain

@@ -38,7 +38,7 @@ PODS:
   - SMCalloutView (2.1.2)
 
 DEPENDENCIES:
-  - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`, tag `0.0.1`)
+  - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - MACollectionUtilities (~> 0.0.1)
   - NJKWebViewProgress (~> 0.2.3)
@@ -47,14 +47,13 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   BBTRestClient:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
-    :tag: 0.0.1
   BBTUtility:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
 
 CHECKOUT OPTIONS:
   BBTRestClient:
+    :commit: 81dc811a97a0b9c750e871de5a6ea3d756691a46
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
-    :tag: 0.0.1
   BBTUtility:
     :commit: 3c09e16b64ec64253364d47ba565cf73a2d00ec6
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git

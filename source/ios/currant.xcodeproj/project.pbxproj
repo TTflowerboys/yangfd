@@ -119,6 +119,11 @@
 		2C427E561AD25110000378A9 /* CUTEEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E531AD25110000378A9 /* CUTEEnum.m */; };
 		2C427E571AD25110000378A9 /* CUTEEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E531AD25110000378A9 /* CUTEEnum.m */; };
 		2C427E581AD25110000378A9 /* CUTEEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E531AD25110000378A9 /* CUTEEnum.m */; };
+		2C427E5B1AD28A74000378A9 /* CUTECityEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E5A1AD28A74000378A9 /* CUTECityEnum.m */; };
+		2C427E5C1AD28A74000378A9 /* CUTECityEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E5A1AD28A74000378A9 /* CUTECityEnum.m */; };
+		2C427E5D1AD28A74000378A9 /* CUTECityEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E5A1AD28A74000378A9 /* CUTECityEnum.m */; };
+		2C427E5E1AD28A74000378A9 /* CUTECityEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E5A1AD28A74000378A9 /* CUTECityEnum.m */; };
+		2C427E5F1AD28A74000378A9 /* CUTECityEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E5A1AD28A74000378A9 /* CUTECityEnum.m */; };
 		2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
 		2C75203C1ACA760E0008B42A /* CUTERentTypeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C75203B1ACA760E0008B42A /* CUTERentTypeListViewController.m */; };
@@ -242,6 +247,8 @@
 		2C427E4B1AD2414D000378A9 /* CUTEEnumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEEnumManager.m; sourceTree = "<group>"; };
 		2C427E521AD25110000378A9 /* CUTEEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEEnum.h; sourceTree = "<group>"; };
 		2C427E531AD25110000378A9 /* CUTEEnum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEEnum.m; sourceTree = "<group>"; };
+		2C427E591AD28A74000378A9 /* CUTECityEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECityEnum.h; sourceTree = "<group>"; };
+		2C427E5A1AD28A74000378A9 /* CUTECityEnum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECityEnum.m; sourceTree = "<group>"; };
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
 		2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyListViewController.m; sourceTree = "<group>"; };
@@ -356,6 +363,8 @@
 			children = (
 				2C427E521AD25110000378A9 /* CUTEEnum.h */,
 				2C427E531AD25110000378A9 /* CUTEEnum.m */,
+				2C427E591AD28A74000378A9 /* CUTECityEnum.h */,
+				2C427E5A1AD28A74000378A9 /* CUTECityEnum.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -964,6 +973,7 @@
 				2C27F1ED1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C427E4E1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2C27F1F41ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */,
+				2C427E5D1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C226E6F1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
@@ -1003,6 +1013,7 @@
 				2C27F1EE1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C427E4F1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2C27F1F51ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */,
+				2C427E5E1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C226E701ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
@@ -1042,6 +1053,7 @@
 				2C27F1EC1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C427E4D1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2C27F1F31ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */,
+				2C427E5C1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C226E6E1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
@@ -1081,6 +1093,7 @@
 				2C27F1EB1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C427E4C1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2C27F1F21ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */,
+				2C427E5B1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C226E6D1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
@@ -1114,6 +1127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C401E1A1ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
+				2C427E5F1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2C401DBB1ACA874000613093 /* CUTERectTypeListForm.m in Sources */,
 				2C226E781ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
 				2C401E2B1ACB9CE100613093 /* ObjectUtil.c in Sources */,

@@ -13,10 +13,10 @@
 #import <BBTCommonMacro.h>
 
 @interface CUTEEnumManager () {
+
     NSMutableDictionary *_enumCache;
 
     BBTRestClient *_backingManager;
-
 }
 
 @end
@@ -45,16 +45,41 @@
     return self;
 }
 
-- (AFHTTPRequestOperation *)getEnumByType:(NSString *)type completion:(dispatch_block_t)comletion {
-    return [_backingManager POST:@"/api/1/enum/search" parameters:@{@"type": type} resultClass:[CUTEEnum class] completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
-
- }];
+- (void)getEnumsByType:(NSString *)type completion:(void (^)(NSArray *))block {
+    if ([_enumCache objectForKey:type]) {
+      if (block) {
+        block([_enumCache objectForKey:type]);
+      }
+    }
+    else {
+      [_backingManager GET:@"/api/1/enum/search" parameters:@{@"type": type} resultClass:[CUTEEnum class] completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
+          if (responseObject && [responseObject isKindOfClass:[NSArray class]] && !IsArrayNilOrEmpty(responseObject)) {
+            [_enumCache setValue:responseObject forKey:type];
+              if (block) {
+                block(responseObject);
+              }
+          }
+          else {
+            if (block) {
+              block(nil);
+            }
+          }
+        }];
+    }
 }
 
 - (void)startLoadAllEnums {
-    AFHTTPRequestOperation *operation =  [self getEnumByType:@"country" completion:nil];
+    [self getEnumsByType:@"country" completion:nil];
+    [self getEnumsByType:@"city" completion:nil];
+    [self getEnumsByType:@"property_type" completion:nil];
+    [self getEnumsByType:@"deposit_option" completion:nil];
+    [self getEnumsByType:@"indoor_facility" completion:nil];
+    [self getEnumsByType:@"region_highlight" completion:nil];
 }
 
-
+- (NSArray *)enumsForType:(NSString *)type {
+    //TODO sychroize for the cache not existed
+    return [_enumCache objectForKey:type];
+}
 
 @end

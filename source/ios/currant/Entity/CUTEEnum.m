@@ -7,6 +7,7 @@
 //
 
 #import "CUTEEnum.h"
+#import "CUTECityEnum.h"
 
 @implementation CUTEEnum
 
@@ -18,6 +19,18 @@
              @"type": @"type",
              @"time": @"time",
              @"value": @"value"};
+}
+
++ (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary
+{
+    if (JSONDictionary && [JSONDictionary count] > 0)
+    {
+        if ([[JSONDictionary objectForKey:@"type"] isEqualToString:@"city"])
+        {
+            return [CUTECityEnum class];
+        }
+    }
+    return [self class];
 }
 
 @end

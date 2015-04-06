@@ -15,6 +15,9 @@
 #import "CUTERentAddressEditForm.h"
 #import "CUTEPlacemark.h"
 #import "CUTERentAddressEditViewController.h"
+#import "CUTEEnumManager.h"
+#import "CUTEEnum.h"
+#import <MACollectionUtilities.h>
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {
@@ -97,9 +100,29 @@
 
 - (void)onAddressBeginEditing:(id)sender {
     CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
-    controller.formController.form = [CUTERentAddressEditForm new];
+    CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
+    NSArray *countries = [[CUTEEnumManager sharedInstance] enumsForType:@"country"];
+    NSArray *countryValues = [countries ma_map:^id(CUTEEnum *obj) {
+        return [obj value];
+    }];
+    NSArray *cities = [[CUTEEnumManager sharedInstance] enumsForType:@"city"];
+    NSArray *cityValues = [cities ma_map:^id(CUTEEnum *obj) {
+        return [obj value];
+    }];
+    [form setAllCountries:countries];
+    NSInteger countryIndex = [countryValues indexOfObject:_placemark.country];
+    if (countryIndex != NSNotFound) {
+        [form setDefaultCountry:[countries objectAtIndex:countryIndex]];
+    }
+    [form setAllCities:cities];
+    NSInteger cityIndex = [cityValues indexOfObject:_placemark.locality];
+    if (cityIndex != NSNotFound) {
+        [form setDefaultCity:[cities objectAtIndex:cityIndex]];
+    }
+
+    controller.formController.form = form;
+
     controller.navigationItem.title = STR(@"位置");
-    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:nil action:nil];
     controller.placemark = _placemark;
     [self.navigationController pushViewController:controller animated:YES];
 }

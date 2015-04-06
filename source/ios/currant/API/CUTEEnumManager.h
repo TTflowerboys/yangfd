@@ -13,8 +13,10 @@
 
 + (instancetype)sharedInstance;
 
-- (AFHTTPRequestOperation *)getEnumByType:(NSString *)type completion:(dispatch_block_t)comletion;
+- (void)getEnumsByType:(NSString *)type completion:(void (^)(NSArray *))block;
 
 - (void)startLoadAllEnums;
+
+- (NSArray *)enumsForType:(NSString *)type;
 
 @end
