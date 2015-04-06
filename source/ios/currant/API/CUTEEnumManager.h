@@ -17,4 +17,6 @@
 
 - (void)startLoadAllEnums;
 
+- (NSArray *)enumsForType:(NSString *)type;
+
 @end
