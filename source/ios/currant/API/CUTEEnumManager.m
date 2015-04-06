@@ -45,14 +45,27 @@
     return self;
 }
 
-- (AFHTTPRequestOperation *)getEnumByType:(NSString *)type completion:(dispatch_block_t)comletion {
-    return [_backingManager POST:@"/api/1/enum/search" parameters:@{@"type": type} resultClass:[CUTEEnum class] completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
-
- }];
+- (void)getEnumsByType:(NSString *)type completion:(void (^)(NSArray *))block {
+    if ([_enumCache objectForKey:type]) {
+      block([_enumCache objectForKey:type]);
+    }
+    else {
+      [_backingManager GET:@"/api/1/enum/search" parameters:@{@"type": type} resultClass:[CUTEEnum class] completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
+          if (responseObject && [responseObject isKindOfClass:[NSArray class]] && !IsArrayNilOrEmpty(responseObject)) {
+            [_enumCache setValue:responseObject forKey:type];
+            block(responseObject);
+          }
+          else {
+            block(nil);
+          }
+        }];
+    }
 }
 
 - (void)startLoadAllEnums {
-    AFHTTPRequestOperation *operation =  [self getEnumByType:@"country" completion:nil];
+    [self getEnumsByType:@"country" completion:nil];
+    [self getEnumsByType:@"city" completion:nil];
+    [self getEnumsByType:@"property_type" completion:nil];
 }
 
 
