@@ -18,4 +18,6 @@
 
 + (NSString *)servicePhone;
 
++ (NSString *)apiEndpoint;
+
 @end

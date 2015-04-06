@@ -16,6 +16,7 @@
 #import "NSURL+CUTE.h"
 #import "CUTEUIMacro.h"
 #import "CUTECommonMacro.h"
+#import "CUTEEnumManager.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -132,6 +133,8 @@
     [self.window makeKeyAndVisible];
     CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)([(UINavigationController *)[rootViewController.viewControllers firstObject] topViewController]);
     [firstWebviewController loadURL:firstWebviewController.url];
+
+    [[CUTEEnumManager sharedInstance] startLoadAllEnums];
     return YES;
 }
 
