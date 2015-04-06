@@ -42,19 +42,19 @@
                             <div class="text">房产类型</div>
                         </td>
                         <td>
-                            <div class="property_type">
+                            <div id="typeApartment" class="property_type">
                                 <img src="/static/images/customer/btn_apartment_active.png">
                                 <div>
                                     现代公寓
                                 </div>
                             </div>
-                            <div class="property_type">
+                            <div id="typeVilla" class="property_type">
                                 <img src="/static/images/customer/btn_house_normal.png">
                                 <div>
                                     别墅
                                 </div>
                             </div>
-                            <div class="property_type">
+                            <div id="typeStudent" class="property_type">
                                 <img src="/static/images/customer/btn_student_normal.png">
                                 <div>
                                     学生公寓
@@ -67,19 +67,19 @@
                             <div class="text">出租类型</div>
                         </td>
                         <td>
-                            <div class="property_type">
+                            <div id="typeSingle" class="property_type">
                                 <img src="/static/images/customer/btn_apartment_active.png">
                                 <div>
                                     单间
                                 </div>
                             </div>
-                            <div class="property_type">
+                            <div id="typeEntire" class="property_type">
                                 <img src="/static/images/customer/btn_house_normal.png">
                                 <div>
                                     整租
                                 </div>
                             </div>
-                            <div class="property_type">
+                            <div id="typeRoommate" class="property_type">
                                 <img src="/static/images/customer/btn_rent_normal.png">
                                 <div>
                                     合租
@@ -127,19 +127,55 @@
                         </td>
                         <td class="room_count">
                             <div>
-                                <select></select>
+                                <select>
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
                             </div>
                             <div><span>室</span></div>
                             <div>
-                                <select></select>
+                                <select>
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
                             </div>
                             <div><span>厅</span></div>
                             <div>
-                                <select></select>
+                                <select>
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
                             </div>
                             <div><span>厨</span></div>
                             <div>
-                                <select></select>
+                                <select>
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
                             </div>
                             <div><span>卫</span></div>
                         </td>
@@ -159,7 +195,7 @@
                                     <option value="HKD">{{_('港币')}}</option>
                                 </select>
                             </div>
-                            <div><input></div>
+                            <div><input>/周</div>
                             <div class="lease">
                                 <select>
                                     <option selected>{{_('押一付三')}}</option>
@@ -323,7 +359,7 @@
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
-<!--build:js /static/scripts/customer_sales.html.js-->
-<script src="/static/scripts/customer_sales.js"></script>
+<!--build:js /static/scripts/customer_rentals.html.js-->
+<script src="/static/scripts/customer_rentals.js"></script>
 <!--endbuild-->
 <!--@@close-->
