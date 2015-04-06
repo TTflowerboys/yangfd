@@ -34,8 +34,8 @@ angular.module('app')
                                 if (n2Length > 2) {
                                     n2Length = 2;
                                 }
-                                var n3 = n1 + '.' + n2;
-                                res = $filter('number')(n3, n2Length)
+                                res = n1 + '.' + n2.substring(0,n2Length);
+                                //res = $filter('number')(n3, n2Length)
                                 scope.value = res.replace(/,/g, '')
                             } else {
                                 res += '.'

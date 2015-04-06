@@ -19,6 +19,7 @@
                 $scope.cancelDelayer()
                 return
             }
+            //Property item used for submit, use angular toJson to remove angular-specific tags
             $scope.submitItem = JSON.parse(angular.toJson($scope.item))
             $scope.submitItem = misc.cleanTempData($scope.submitItem)
             $scope.submitItem = misc.cleanI18nEmptyUnit($scope.submitItem)
@@ -142,11 +143,15 @@
             if (!_.isEmpty(editItem.city)) {
                 editItem.city = editItem.city.id
             }
+            //Property item which is the original one when enter the edit page, used for rollback
             $scope.itemOrigin = editItem
+            //Property item which is currently editing, aka, used for two-way binding
             $scope.item = angular.copy($scope.itemOrigin)
+            //Property item which is latest submitted to server when auto saving
             $scope.lastItem = angular.copy($scope.itemOrigin)
         }
 
+        // Used for get target item for draft property
         function onGetTargetItem(item) {
             var editTargetItem = angular.copy(item)
             if (!_.isEmpty(editTargetItem.property_type)) {

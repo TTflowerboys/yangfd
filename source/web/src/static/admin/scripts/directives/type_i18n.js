@@ -1,4 +1,7 @@
-/* Created by frank on 14-9-12. */
+/* Created by frank on 14-9-12.
+*  Init inputs for all i18n field
+* */
+
 angular.module('app')
     .directive('typeI18n', function (i18nLanguages) {
         return {

@@ -163,6 +163,7 @@ angular.module('app')
                 })
             },
 
+            //Clean all i18n initialized value when i18n input not modified
             cleanI18nEmptyUnit: function (i18nData) {
                 if (_.isNumber(i18nData) || i18nData === true) {
                     return i18nData

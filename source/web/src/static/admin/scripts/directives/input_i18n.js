@@ -1,5 +1,6 @@
 /**
  * Created by zhou on 15-2-11.
+ * Add placeholder to input that don't have value for current language, but have other language
  */
 angular.module('app')
     .directive('inputI18n', function (i18nLanguages, $rootScope) {

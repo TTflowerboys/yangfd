@@ -1,4 +1,6 @@
-/* Created by frank on 14-9-15. */
+/* Created by frank on 14-9-15.
+* Add unit selection for input, like price input on property edit
+* */
 angular.module('app')
     .directive('typeI18nUnit', function () {
         return {

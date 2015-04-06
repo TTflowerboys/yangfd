@@ -1,5 +1,7 @@
 /**
  * Created by Michael on 14/11/13.
+ *
+ * Used for property list page, control edit panel from sales and other roles
  */
 (function () {
 
