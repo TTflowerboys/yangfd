@@ -13,6 +13,8 @@
 #import "CUTEPropertyInfoForm.h"
 #import "CUTEMapTextField.h"
 #import "CUTERentAddressEditForm.h"
+#import "CUTEPlacemark.h"
+#import "CUTERentAddressEditViewController.h"
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {
@@ -27,6 +29,8 @@
     CLLocation *_location;
 
     CLGeocoder *_geocoder;
+
+    CUTEPlacemark *_placemark;
 }
 
 
@@ -92,10 +96,11 @@
 }
 
 - (void)onAddressBeginEditing:(id)sender {
-    FXFormViewController *controller = [[FXFormViewController alloc] init];
+    CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
     controller.formController.form = [CUTERentAddressEditForm new];
     controller.navigationItem.title = STR(@"位置");
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:nil action:nil];
+    controller.placemark = _placemark;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -142,13 +147,8 @@
     [_geocoder reverseGeocodeLocation:_location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!IsArrayNilOrEmpty(placemarks)) {
             CLPlacemark *placemark = placemarks[0];
-            _textField.text = [@[NilNullToEmpty(placemark.subThoroughfare),
-                                 NilNullToEmpty(placemark.thoroughfare),
-                                 NilNullToEmpty(placemark.postalCode),
-                                 NilNullToEmpty(placemark.locality),
-                                 NilNullToEmpty(placemark.administrativeArea),
-                                 NilNullToEmpty(placemark.country)]
-                               componentsJoinedByString:@" "];
+            _placemark = [CUTEPlacemark placeMarkWithCLPlaceMark:placemark];
+            _textField.text = _placemark.address;
         }
     }];
 

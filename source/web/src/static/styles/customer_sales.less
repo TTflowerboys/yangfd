@@ -1,4 +1,6 @@
 @import "project/_imports";
+@import "project/toggleTag";
+
 main {
     .main_container {
         max-width: @max-width;
@@ -8,41 +10,41 @@ main {
             height: 160px;
             padding-top: 50px;
             position: relative;
-            .start{
+            .start {
                 width: 50%;
                 position: absolute;
-                .main{
+                .main {
                     width: 77%;
                     float: right;
                     text-align: center;
-                    div{
+                    div {
                         font-size: 16px;
-                        color:#e60012;
+                        color: #e60012;
                     }
                 }
             }
-            .end{
+            .end {
                 width: 50%;
                 left: 50%;
                 position: absolute;
-                .main{
+                .main {
                     width: 77%;
                     text-align: center;
-                    div{
+                    div {
                         font-size: 16px;
-                        color:#999999;
+                        color: #999999;
                     }
                 }
             }
         }
-        .line{
+        .line {
             width: 38%;
             height: 10px;
             position: absolute;
             background: #dddddd;
             top: 66px;
             left: 31%;
-            &.red{
+            &.red {
                 background: #e60012;
             }
         }
@@ -114,9 +116,9 @@ main {
                 }
             }
         }
-        .address{
+        .address {
             font-weight: normal;
-            input{
+            input {
                 border-radius: 4px;
                 -moz-border-radius: 4px;
                 -webkit-border-radius: 4px;
@@ -184,7 +186,7 @@ main {
                     border: 1px solid #cccccc;
                 }
             }
-            .lease{
+            .lease {
                 margin-top: 20px;
             }
         }
@@ -252,6 +254,14 @@ main {
                 }
             }
 
+        }
+        .submit_button {
+            width: 320px;
+            height: 50px;
+            border-radius: 4px;
+            border: 1px solid #e60012;
+            color: #ffffff;
+            background-color: #e60012;
         }
     }
 }
