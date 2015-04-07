@@ -170,6 +170,23 @@ $(window).resize(window.updateTabSelectorFixed);
         }
     }
 
+    function isRangeMatch(range, baseRange) {
+        if (baseRange[0] === '' && baseRange[1] === '') {
+            return true
+        }
+        else if (baseRange[0] === '') {
+            return parseFloat(range[1]) < parseFloat(baseRange[1])
+        }
+        else if (baseRange[1] === '') {
+            return parseFloat(range[0]) > parseFloat(baseRange[1])
+        }
+        else {
+            return (parseFloat(range[0]) > parseFloat(baseRange[0]) && parseFloat(range[0])< parseFloat(baseRange[1])) ||
+                (parseFloat(range[1]) > parseFloat(baseRange[0]) && parseFloat(range[1]) < parseFloat(baseRange[1]))
+        }
+        return false
+    }
+
     function filterPropertyHouseTypes(array, budgetType, bedroomCount, buildingArea) {
         var budgetRange = null
         if (budgetType) {
@@ -190,13 +207,13 @@ $(window).resize(window.updateTabSelectorFixed);
                     var bedroomCountCheck = true
                     var buildingAreaCheck = true
                     if (budgetRange) {
-                        priceCheck = house_type.total_price_min && house_type.total_price_min.value && parseFloat(house_type.total_price_min.value) > parseFloat(budgetRange[0])
+                        priceCheck = house_type.total_price_min && house_type.total_price_min.value && isRangeMatch([house_type.total_price_min.value, house_type.total_price_max.value], budgetRange)
                     }
                     if (bedroomRange) {
                         bedroomCountCheck = parseInt(house_type.bedroom_count) >= parseInt(bedroomRange[0]) && parseInt(house_type.bedroom_count) <= parseInt(bedroomRange[1])
                     }
                     if (buildingAreaRange) {
-                        buildingAreaCheck = house_type.building_area_min && house_type.building_area_min.value && parseFloat(house_type.building_area_min.value) > parseFloat(buildingAreaRange[0])
+                        buildingAreaCheck = house_type.building_area_min && house_type.building_area_min.value && isRangeMatch([house_type.building_area_min.value, house_type.building_area_max.value], buildingAreaRange)
                     }
 
                     return priceCheck && bedroomCountCheck && buildingAreaCheck
