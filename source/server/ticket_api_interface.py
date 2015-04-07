@@ -592,18 +592,37 @@ def rent_ticket_edit(ticket_id, user, params):
         ticket = f_app.ticket.get(ticket_id)
         assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
 
-        if user:
-            if ticket["creator_user_id"] is not None and user["id"] != ticket["creator_user_id"]:
-                assert set(user["role"]) & set(["admin", "jr_admin", "support"]), abort(40300, "no permission to update user rent_ticket")
-
-            elif ticket["creator_user_id"] is None:
-                params["user_id"] = user["id"]
+        if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
+            pass
+        elif ticket.get("creator_user_id"):
+            if ticket.get("creator_user_id") != user["id"]:
+                abort(40399, logger.warning("Permission denied", exc_info=False))
+        elif user:
+            params["user_id"] = user["id"]
 
         unset_fields = params.get("unset_fields", [])
         result = f_app.ticket.update_set(ticket_id, params)
         if unset_fields:
             result = f_app.ticket.update(ticket_id, {"$unset": {i: "" for i in unset_fields}})
         return result
+
+
+@f_api('/rent_ticket/<ticket_id>')
+@f_app.user.login.check(check_role=True)
+def rent_ticket_get(user, ticket_id):
+    """
+    View single rent ticket.
+    """
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
+
+    if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
+        pass
+    elif ticket.get("creator_user_id"):
+        if ticket.get("creator_user_id") != user["id"]:
+            abort(40399, logger.warning("Permission denied", exc_info=False))
+
+    return f_app.ticket.output([ticket_id])[0]
 
 
 @f_api('/sale_ticket/<ticket_id>/edit', params=dict(
@@ -640,11 +659,34 @@ def sale_ticket_edit(ticket_id, user, params):
         ticket = f_app.ticket.get(ticket_id)
         assert ticket["type"] == "sale", abort(40000, "Invalid sale ticket")
 
-        if ticket["creator_user_id"] is not None and user["id"] != ticket["creator_user_id"]:
-            assert set(user["role"]) & set(["admin", "jr_admin", "support"]), abort(40300, "no permission to update user sale_ticket")
+        if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
+            pass
+        elif ticket.get("creator_user_id"):
+            if ticket.get("creator_user_id") != user["id"]:
+                abort(40399, logger.warning("Permission denied", exc_info=False))
+        elif user:
+            params["user_id"] = user["id"]
 
         unset_fields = params.get("unset_fields", [])
         result = f_app.ticket.update_set(ticket_id, params)
         if unset_fields:
             result = f_app.ticket.update(ticket_id, {"$unset": {i: "" for i in unset_fields}})
         return result
+
+
+@f_api('/sale_ticket/<ticket_id>')
+@f_app.user.login.check(check_role=True)
+def sale_ticket_get(user, ticket_id):
+    """
+    View single sale ticket.
+    """
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "sale", abort(40000, "Invalid sale ticket")
+
+    if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
+        pass
+    elif ticket.get("creator_user_id"):
+        if ticket.get("creator_user_id") != user["id"]:
+            abort(40399, logger.warning("Permission denied", exc_info=False))
+
+    return f_app.ticket.output([ticket_id])[0]
