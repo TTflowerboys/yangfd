@@ -592,8 +592,12 @@ def rent_ticket_edit(ticket_id, user, params):
         ticket = f_app.ticket.get(ticket_id)
         assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
 
-        if ticket["creator_user_id"] is not None and user["id"] != ticket["creator_user_id"]:
-            assert set(user["role"]) & set(["admin", "jr_admin", "support"]), abort(40300, "no permission to update user rent_ticket")
+        if user:
+            if ticket["creator_user_id"] is not None and user["id"] != ticket["creator_user_id"]:
+                assert set(user["role"]) & set(["admin", "jr_admin", "support"]), abort(40300, "no permission to update user rent_ticket")
+
+            elif ticket["creator_user_id"] is None:
+                params["user_id"] = user["id"]
 
         unset_fields = params.get("unset_fields", [])
         result = f_app.ticket.update_set(ticket_id, params)
