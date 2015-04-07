@@ -15,6 +15,6 @@
 @property (nonatomic, copy) NSString *propertyTitle;
 @property (nonatomic, copy) NSString *propertyDescription;
 @property (nonatomic, strong) CUTEPropertyFacilityForm *facility;
-@property (nonatomic, copy) NSString *feature;
+//@property (nonatomic, copy) NSString *feature;
 
 @end
