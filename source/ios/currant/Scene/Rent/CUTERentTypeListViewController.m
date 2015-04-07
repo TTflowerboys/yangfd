@@ -10,6 +10,10 @@
 #import "CUTEPropertyInfoForm.h"
 #import "CUTERectTypeListForm.h"
 #import "CUTEFormDefaultCell.h"
+#import "CUTEDataManager.h"
+#import "CUTEEnumManager.h"
+#import "CUTETicket.h"
+#import "CUTERectTypeListForm.h"
 
 
 @implementation CUTERentTypeListViewController
@@ -18,10 +22,17 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.formController.form = [[CUTERectTypeListForm alloc] init];
         [self.formController registerDefaultFieldCellClass:[CUTEFormDefaultCell class]];
     }
     return self;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CUTETicket *ticket = [CUTETicket new];
+    CUTERectTypeListForm *form = (CUTERectTypeListForm *)[self.formController form];
+    ticket.rentType = [form rentTypeAtIndex:indexPath.row];
+    
+    [[CUTEDataManager sharedInstance] pushRentTicket:ticket];
 }
 
 @end

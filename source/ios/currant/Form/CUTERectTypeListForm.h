@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "CUTEForm.h"
 #import "CUTERentAddressMapForm.h"
+#import "CUTEEnum.h"
 
 @interface CUTERectTypeListForm : CUTEForm
 
-@property (strong, nonatomic) CUTERentAddressMapForm *single;
+- (void)setRentTypeList:(NSArray *)rentTypeList;
 
-@property (strong, nonatomic) CUTERentAddressMapForm *whole;
-
+- (CUTEEnum *)rentTypeAtIndex:(NSInteger)index;
 
 @end

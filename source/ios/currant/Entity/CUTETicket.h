@@ -18,6 +18,8 @@
 
 @property (strong, nonatomic) NSString *status;
 
+@property (strong, nonatomic) CUTEEnum *rentType;
+
 @property (strong, nonatomic) CUTEEnum *rentPeriod;
 
 @property (strong, nonatomic) CUTEEnum *depositOption;

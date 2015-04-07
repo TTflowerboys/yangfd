@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CUTEProperty.h"
+#import "CUTETicket.h"
 
 @interface CUTEDataManager : NSObject
 
@@ -21,10 +21,10 @@
 
 - (void)restoreAllCookies;
 
-- (void)pushRentProperty:(CUTEProperty *)property;
+- (void)pushRentTicket:(CUTETicket *)ticket;
 
-- (CUTEProperty *)popRentProperty;
+- (CUTETicket *)popRentTicket;
 
-- (CUTEProperty *)currentRentProperty;
+- (CUTETicket *)currentRentTicket;
 
 @end

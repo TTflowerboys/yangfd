@@ -75,6 +75,9 @@
     [self getEnumsByType:@"deposit_option" completion:nil];
     [self getEnumsByType:@"indoor_facility" completion:nil];
     [self getEnumsByType:@"region_highlight" completion:nil];
+    [self getEnumsByType:@"rent_type" completion:nil];
+    [self getEnumsByType:@"rent_period" completion:nil];
+    [self getEnumsByType:@"deposit_type" completion:nil];
 }
 
 - (NSArray *)enumsForType:(NSString *)type {

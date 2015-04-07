@@ -15,7 +15,7 @@
 #define DomainKey(key) [NSString stringWithFormat:@"%@/%@", [CUTEConfiguration host], key]
 
 @interface CUTEDataManager () {
-    NSMutableArray *_rentPropertyList;
+    NSMutableArray *_rentTicketList;
 }
 
 @end
@@ -39,7 +39,7 @@
 {
     self = [super init];
     if (self) {
-        _rentPropertyList = [NSMutableArray array];
+        _rentTicketList = [NSMutableArray array];
     }
     return self;
 }
@@ -120,16 +120,16 @@
 
 #pragma Rent Property
 
-- (void)pushRentProperty:(CUTEProperty *)property {
-    [_rentPropertyList pushObject:property];
+- (void)pushRentTicket:(CUTETicket *)ticket {
+    [_rentTicketList pushObject:ticket];
 }
 
-- (CUTEProperty *)popRentProperty {
-    return [_rentPropertyList popObject];
+- (CUTETicket *)popRentTicket {
+    return [_rentTicketList popObject];
 }
 
-- (CUTEProperty *)currentRentProperty {
-    return [_rentPropertyList lastObject];
+- (CUTETicket *)currentRentTicket {
+    return [_rentTicketList lastObject];
 }
 
 

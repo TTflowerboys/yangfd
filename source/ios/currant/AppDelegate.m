@@ -17,6 +17,7 @@
 #import "CUTEUIMacro.h"
 #import "CUTECommonMacro.h"
 #import "CUTEEnumManager.h"
+#import "CUTERectTypeListForm.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -181,8 +182,11 @@
             [webViewController loadURL:webViewController.url];
         }
     }
-    else {
-        
+    else if ([viewController.topViewController isKindOfClass:[CUTERentTypeListViewController class]]){
+
+        CUTERectTypeListForm *form = [[CUTERectTypeListForm alloc] init];
+        [form setRentTypeList:[[CUTEEnumManager sharedInstance] enumsForType:@"rent_type"]];
+        [[(CUTERentTypeListViewController *)viewController.topViewController formController] setForm:form];
     }
 }
 
