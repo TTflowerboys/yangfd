@@ -551,36 +551,36 @@ def support_ticket_search(user, params):
     return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)
 
 
-@f_api('/lease_ticket/<ticket_id>/edit', params=dict(
+@f_api('/rent_ticket/<ticket_id>/edit', params=dict(
     status=str,
-    lease_type="enum:lease_type",
+    rent_type="enum:rent_type",
     space=("i18n:area", None, "meter ** 2, foot ** 2"),
     property_id=ObjectId,
     price="i18n:currency",
-    lease_period=int,
-    lease_available_time=datetime,
-    cash_pledge="enum:cash_pledge",
+    rent_period=int,
+    rent_available_time=datetime,
+    deposit_type="enum:deposit_type",
     bill_covered=bool,
     unset_fields=(list, None, str),
 ))
 @f_app.user.login.check(check_role=True)
-def lease_ticket_edit(ticket_id, user, params):
+def rent_ticket_edit(ticket_id, user, params):
     """
-    Use ``none`` on ``ticket_id`` to create a new lease ticket.
+    Use ``none`` on ``ticket_id`` to create a new rent ticket.
 
-    Valid status: ``draft``, ``to rent``, ``hidden``, ``leased``, ``deleted``.
+    Valid status: ``draft``, ``for rent``, ``hidden``, ``rent``, ``deleted``.
     """
     if "status" in params:
-        assert params["status"] in ("draft", "to rent", "hidden", "leased", "deleted"), abort(40000, "Invalid status")
+        assert params["status"] in ("draft", "for rent", "hidden", "rent", "deleted"), abort(40000, "Invalid status")
 
-        if params["status"] == "leased":
-            params.setdefault("leased_time", datetime.utcnow())
+        if params["status"] == "rent":
+            params.setdefault("rent_time", datetime.utcnow())
 
     if ticket_id == "none":
-        params.setdefault("type", "lease")
+        params.setdefault("type", "rent")
         params.setdefault("status", "draft")
-        params.setdefault("lease_period", 0)
-        params.setdefault("lease_available_time", datetime.utcnow())
+        params.setdefault("rent_period", 0)
+        params.setdefault("rent_available_time", datetime.utcnow())
 
         if user:
             params.setdefault("user_id", ObjectId(user["id"]))
@@ -590,10 +590,10 @@ def lease_ticket_edit(ticket_id, user, params):
 
     else:
         ticket = f_app.ticket.get(ticket_id)
-        assert ticket["type"] == "lease", abort(40000, "Invalid lease ticket")
+        assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
 
         if ticket["creator_user_id"] is not None and user["id"] != ticket["creator_user_id"]:
-            assert set(user["role"]) & set(["admin", "jr_admin", "support"]), abort(40300, "no permission to update user lease_ticket")
+            assert set(user["role"]) & set(["admin", "jr_admin", "support"]), abort(40300, "no permission to update user rent_ticket")
 
         unset_fields = params.get("unset_fields", [])
         result = f_app.ticket.update_set(ticket_id, params)
@@ -612,7 +612,7 @@ def lease_ticket_edit(ticket_id, user, params):
 @f_app.user.login.check(check_role=True)
 def sale_ticket_edit(ticket_id, user, params):
     """
-    Use ``none`` on ``ticket_id`` to create a new lease ticket.
+    Use ``none`` on ``ticket_id`` to create a new sale ticket.
 
     Valid status: ``draft``, ``selling``, ``hidden``, ``sold``, ``deleted``.
     """
