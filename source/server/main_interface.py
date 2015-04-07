@@ -222,20 +222,20 @@ def property_list(params):
 
 
 @f_get('/rent_list', params=dict(
-    property_type=str,
+    rent_type=str,
     country=str,
     city=str,
-    budget=str,
-    intention=str,
+    #budget=str,
+    rent_period=str,
     bedroom_count=str,
     building_area=str
 ))
 @check_ip_and_redirect_domain
 def rent_list(params):
     city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
-    property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
-    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+    rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     country_list = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
+    rent_period_list = f_app.i18n.process_i18n(f_app.enum.get_all("rent_period"))
     bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
     building_area_list = f_app.i18n.process_i18n(f_app.enum.get_all("building_area"))
     property_country_list = []
@@ -264,19 +264,19 @@ def rent_list(params):
             if city.get('id') == str(params['city']):
                 title += city.get('value') + '_'
 
-    if "property_type" in params and len(params['property_type']):
-        for property_type in property_type_list:
-            if property_type.get('id') == str(params['property_type']):
-                title += property_type.get('value') + '_'
+    if "rent_type" in params and len(params['rent_type']):
+        for rent_type in rent_type_list:
+            if rent_type.get('id') == str(params['rent_type']):
+                title += rent_type.get('value') + '_'
 
-    title += _('房产列表-洋房东')
+    title += _('出租列表-洋房东')
 
     return common_template("rent_list",
                            city_list=city_list,
                            property_country_list=property_country_list,
                            property_city_list=property_city_list,
-                           property_type_list=property_type_list,
-                           intention_list=intention_list,
+                           rent_type_list=rent_type_list,
+                           rent_period_list=rent_period_list,
                            bedroom_count_list=bedroom_count_list,
                            building_area_list=building_area_list,
                            title=title

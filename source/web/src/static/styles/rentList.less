@@ -1,0 +1,550 @@
+@import "project/_imports";
+
+* {
+    box-sizing: border-box;
+}
+
+body{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+main {
+    .category {
+        text-align:center;
+        margin-top:96px;
+        overflow: hidden;
+        &_wrapper {
+            height: 240px;
+            width:100%;
+            background:#f6f6f6;
+            overflow: hidden;
+            display:none; // display none for update height
+
+            @media @phone {
+                height:auto;
+                display:block;
+            }
+        }
+
+        @media @phone {
+            margin-top:0;
+            padding:0;
+            border-bottom:1px solid #ccc;
+        }
+
+        span {
+            color:#333333;
+            @media @phone {
+                display:none;
+            }
+
+        }
+        select {
+            color:#333333;
+            @media @phone {
+                float:left;
+                display:inline-block;
+                width:33%;
+                margin-top:0;
+                font-size:@base-font-size-mobile;
+                font-weight:bold;
+                border:0;
+            }
+
+            &:after {
+                width:1px;
+                height:100%;
+                background:red;
+                content:"fsjdlk";
+            }
+        }
+
+        .separator_phone {
+            display:none;
+            @media @phone {
+                float:left;
+                display:inline;
+                height:40px;
+                width:1px;
+                background:#ccc;
+                margin:0;
+            }
+
+        }
+    }
+
+    .result {
+        overflow:hidden;
+        width:1260px;
+        margin: 0 auto;
+
+        @media @phone {
+            width:100%;
+        }
+
+        .tags {
+            float: right;
+           // margin-left: 60px;
+            margin-top:140px;
+            margin-bottom:60px;
+            background:#f6f6f6;
+            width: 340px;
+            padding: 24px 20px 10px 20px;
+
+            @media @phone {
+
+                float:left;
+                margin:0;
+                width:100%;
+                max-width: none;
+                padding:0 12px;
+            }
+
+            .tags_inner {
+                overflow:hidden;
+                @media @phone {
+                    height:auto; //collapse default
+                    display:none;
+                }
+
+            }
+
+
+            .title {
+                margin-top:0;
+                margin-left:0;
+                margin-bottom: 24px;
+                font-size:18px;
+                line-height: 1em;
+                color: #333333;
+
+                @media @phone {
+                    display:none;
+                }
+            }
+
+            .contact {
+                margin: 0;
+                border-top: 1px solid #ccc;
+                display:block;
+                height: 50px;
+                overflow:hidden;
+
+                a {
+                    text-decoration:none;
+                    color:@red;
+                    font-size:20px;
+                    line-height:34px;
+                    margin-top:12px;
+                    text-align:center;
+                    display:block;
+                }
+
+                @media @phone {
+                    min-height:135px;
+                    display:none;
+                }
+
+            }
+
+            .showTags {
+                display:none;
+                @media @phone {
+                    color:#999;
+                    display:block;
+                    text-align:center;
+                    padding:0 10px;
+                    margin: 10px auto;
+                    font-size:@base-font-size-mobile;
+                    line-height:2em;
+                }
+
+            }
+
+            .rental, .rentPeriod, .bedroomCount, .buildingArea {
+                margin: 0;
+                border-top: 1px solid #ccc;
+                display:block;
+                overflow:hidden;
+
+                @media @phone {
+                    min-height:0;
+                    border-top: 0;
+                }
+
+
+                &_icon {
+                    float:left;
+                    display:inline-block;
+                    margin-top:16px;
+
+                    @media @phone {
+                        margin-top:20px;
+                    }
+
+                }
+                &_title {
+                    float:left;
+                    display:inline-block;
+                    margin-top:16px;
+                    margin-left:8px;
+                    font-size:@base-font-size-mobile;
+                    line-height:14px;
+
+                    @media @phone {
+                        margin-top:20px;
+                    }
+                }
+
+                .inner {
+                    overflow:hidden;
+                    margin-top:48px;
+                    margin-bottom:5px;
+                    .toggleTag {
+                        float: left;
+                        margin-right:12px;
+                        margin-bottom:12px;
+                    }
+
+                    @media @phone {
+                        margin-top:46px;
+                    }
+
+                }
+            }
+        }
+
+        .result_number {
+            font-size:16px;
+            line-height:1em;
+            margin:0 0 44px 60px;
+
+
+            @media @phone {
+                font-size:14px;
+                margin:0 0 10px 12px;
+            }
+
+            .number {
+                color:#e82633;
+            }
+        }
+        .result_list_container {
+            margin-top:80px;
+            margin-bottom:80px;
+            width: 860px;
+            display:inline-block;
+            float:left;
+            overflow:hidden;
+
+            @media @phone {
+                width:100%;
+                margin-top:30px;
+                margin-bottom:0px;
+            }
+
+        }
+
+        .tabSelector_phone {
+            display:none;//default hide
+            @media @phone {
+                display:block;
+                overflow:hidden;
+                position:fixed;
+                z-index:@float_bar_phone-z-index;
+                bottom:50px;
+                right:0px;
+                padding:10px;
+                cursor:pointer;
+            }
+
+            img {
+                height:40px;
+                width:40px;
+            }
+
+            &[data-tab=map] {
+                img.list {
+                    display:block;
+                }
+                img.map {
+                    display:none;
+                }
+            }
+
+            &[data-tab=list] {
+                img.list {
+                    display:none;
+                }
+                img.map {
+                    display:block;
+                }
+            }
+        }
+
+        div[data-tabs] {
+            overflow:hidden;
+            .tabContent {
+                float:right;
+                width:800px;
+
+                @media @phone {
+                    width:100%;
+                }
+                >div.item {
+                    display: none;
+                    &.selectedTab { display: block; }
+                }
+
+            }
+
+            .tabSelector {
+                float:left;
+                width:60px;
+                display:none;//default hide
+
+                @media @phone {
+                    display:none;
+                }
+                li {
+                    height:40px;
+                    width:40px;
+                    overflow:hidden;
+                    cursor:pointer;
+
+                    img.normal {
+                        display:block;
+                    }
+
+                    img.active {
+                        display:none;
+                    }
+
+                    &.selectedTab {
+                        img.normal {
+                            display:none;
+                        }
+
+                        img.active {
+                            display:block;
+                        }
+                    }
+
+                }
+            }
+        }
+
+        .mapCanvas {
+            width:100%;
+            height:800px;
+
+            @media @phone {
+                height:300px;
+            }
+        }
+
+        .result_list {
+
+            overflow:hidden;
+
+            @media @phone {
+                margin-top:15px;
+            }
+
+            .houseCard {
+                margin-top:0;
+                margin-bottom:60px;
+                display:block;
+                width:100%;
+
+                @media @phone {
+                    display:none;
+                }
+            }
+
+            .houseCard_phone {
+                .textPart_inner {
+                    .border {
+                        margin:0;
+                        width:100%;
+                    }
+                }
+            }
+        }
+
+        .addtionalResultList_wrapper {
+            .noSuitableHint {
+                position:relative;
+                height:18px;
+                .line {
+                    border-top:1px solid #ccc;
+                    margin:9px 0;
+                    width:100%;
+                    position:absolute;
+                }
+
+                .hint {
+                    position:absolute;
+                    width:260px;
+                    height:18px;
+                    top:0;
+                    left:270px;
+                    background:white;
+                    text-align:center;
+                    color:#999;
+                }
+            }
+
+            .addtionalResultList {
+                overflow:hidden;
+                margin-bottom:50px;
+            }
+        }
+
+        .border {
+            max-width:800px;
+            color:#ccc;
+            margin: 0;
+        }
+
+        .loadIndicator {
+            margin: 60px auto 20px auto;
+            display:block;
+        }
+
+        .loadMore {
+            margin: 40px auto 100px auto;
+            width: 132px;
+            display:block;
+
+            @media @phone {
+                margin-top:20px;
+                margin-bottom:40px;
+                width:auto;
+            }
+
+        }
+
+        .emptyPlaceHolder {
+            margin:140px auto 100px 60px;
+            width:800px;
+            display:inline-block;
+            overflow:hidden;
+
+            @media @phone {
+                width:100%;
+                margin:20px auto;
+            }
+
+
+            img {
+                float:left;
+                @media @phone {
+                    float:none;
+                    display:block;
+                    margin-left:auto;
+                    margin-right:auto;
+                }
+            }
+
+            .info {
+                float:left;
+                margin-left:20px;
+
+
+                .hint {
+                    font-size:24px;
+                    line-height:1;
+                    margin-top:14px;
+                    color:#e60012;
+
+                    @media @phone {
+                        font-size:14px;
+                    }
+
+                }
+
+                .addition {
+                    font-size:16px;
+                    color:#ccc;
+                    margin-bottom:60px;
+
+                    strong {
+                        color:#666;
+                    }
+
+                    @media @phone {
+                        margin-bottom:20px;
+                        font-size:12px;
+                    }
+
+                }
+            }
+
+
+            .requirement_form {
+                float:left;
+                margin-top:0;
+                width:100%;
+            }
+
+            .successMessage {
+                float:left;
+                margin-top:80px;
+            }
+
+        }
+
+
+    }
+}
+
+
+.floatBar_phone {
+    display:none;
+    @media @phone {
+        display:block;
+        overflow:hidden;
+        position:fixed;
+        z-index:@float_bar_phone-z-index;
+        bottom:0;
+        width:100%;
+        background:#333;
+    }
+
+    li {
+        @media @phone {
+            float:left;
+            display:inline-block;
+            text-align:center;
+            height:40px;
+            font-size:16px;
+            line-height:40px;
+        }
+
+        &.phone {
+            width: 75%;
+        }
+
+        &.requirement {
+            width: 25%;
+        }
+
+        a {
+            text-decoration:none;
+            color:#999;
+        }
+
+        img {
+            @media @phone {
+                height:20px;
+                margin-top:10px;
+            }
+        }
+    }
+}
