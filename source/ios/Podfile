@@ -9,7 +9,6 @@ link_with 'currant', 'currant-dev', 'currant-test', 'currant-production', 'curra
 
 pod 'BBTUtility', :git => "git@git.bbtechgroup.com:bbt/ios-bbtutility.git"
 pod 'BBTRestClient', :git => "git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git"
-pod 'MACollectionUtilities', '~> 0.0.1'
 pod 'SMCalloutView', '~> 2.1.1'
 
 pod 'NJKWebViewProgress', '~> 0.2.3'

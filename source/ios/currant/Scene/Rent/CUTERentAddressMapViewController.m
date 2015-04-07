@@ -17,7 +17,7 @@
 #import "CUTERentAddressEditViewController.h"
 #import "CUTEEnumManager.h"
 #import "CUTEEnum.h"
-#import <MACollectionUtilities.h>
+#import <NSArray+Frankenstein.h>
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {
@@ -102,11 +102,11 @@
     CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
     CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
     NSArray *countries = [[CUTEEnumManager sharedInstance] enumsForType:@"country"];
-    NSArray *countryValues = [countries ma_map:^id(CUTEEnum *obj) {
+    NSArray *countryValues = [countries map:^id(CUTEEnum *obj) {
         return [obj value];
     }];
     NSArray *cities = [[CUTEEnumManager sharedInstance] enumsForType:@"city"];
-    NSArray *cityValues = [cities ma_map:^id(CUTEEnum *obj) {
+    NSArray *cityValues = [cities map:^id(CUTEEnum *obj) {
         return [obj value];
     }];
     [form setAllCountries:countries];

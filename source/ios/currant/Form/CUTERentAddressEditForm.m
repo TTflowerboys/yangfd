@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEEnum.h"
 #import "CUTECityEnum.h"
+#import <NSArray+Frankenstein.h>
 
 @interface CUTERentAddressEditForm () {
     CUTEEnum *_defaultCountry;
@@ -43,7 +44,7 @@
 }
 
 - (NSArray *)countryValues {
-    NSArray *countryValues = [_allCountries ma_map:^id(CUTEEnum *obj) {
+    NSArray *countryValues = [_allCountries map:^id(CUTEEnum *obj) {
         return [obj value];
     }];
     return countryValues;
@@ -59,12 +60,11 @@
 
 - (NSArray *)cityValuesOfCountry:(CUTEEnum *)country {
     if (country) {
-        NSArray *cityValue = [[_allCities ma_select:^BOOL(CUTECityEnum *obj) {
-            return [obj.country.identifier isEqualToString:country.identifier] && !IsNilNullOrEmpty(obj.value);
-        }] ma_map:^id(CUTEEnum *obj) {
-            return [obj value];
+        return [[_allCities collect:^BOOL(CUTECityEnum *object) {
+            return [object.country.identifier isEqualToString:country.identifier] && !IsNilNullOrEmpty(object.value);
+        }] map:^id(CUTEEnum *object) {
+            return [object value];
         }];
-        return cityValue;
     }
     return nil;
 }

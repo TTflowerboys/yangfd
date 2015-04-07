@@ -10,8 +10,16 @@
 #import "CUTEConfiguration.h"
 #import "CUTEUserDefaultKey.h"
 #import "CUTECommonMacro.h"
+#import <NSArray+Frankenstein.h>
 
 #define DomainKey(key) [NSString stringWithFormat:@"%@/%@", [CUTEConfiguration host], key]
+
+@interface CUTEDataManager () {
+    NSMutableArray *_rentPropertyList;
+}
+
+@end
+
 
 @implementation CUTEDataManager
 
@@ -25,6 +33,15 @@
     });
     
     return sharedInstance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _rentPropertyList = [NSMutableArray array];
+    }
+    return self;
 }
 
 - (BOOL)isUserLoggedIn {
@@ -99,6 +116,20 @@
 {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:DomainKey(key)];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma Rent Property
+
+- (void)pushRentProperty:(CUTEProperty *)property {
+    [_rentPropertyList pushObject:property];
+}
+
+- (CUTEProperty *)popRentProperty {
+    return [_rentPropertyList popObject];
+}
+
+- (CUTEProperty *)currentRentProperty {
+    return [_rentPropertyList lastObject];
 }
 
 
