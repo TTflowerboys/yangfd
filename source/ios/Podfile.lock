@@ -53,7 +53,7 @@ CHECKOUT OPTIONS:
     :commit: 81dc811a97a0b9c750e871de5a6ea3d756691a46
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
   BBTUtility:
-    :commit: a6b174fbcf654f69a9f8417347522122b53396e1
+    :commit: e6304af85f756512435b65f0237808b5b09da750
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
 
 SPEC CHECKSUMS:
