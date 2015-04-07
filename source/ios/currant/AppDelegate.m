@@ -135,6 +135,8 @@
     [firstWebviewController loadURL:firstWebviewController.url];
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
+
+
     return YES;
 }
 

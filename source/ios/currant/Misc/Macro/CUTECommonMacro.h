@@ -11,7 +11,6 @@
 
 #import <BBTCommonMacro.h>
 #import <BBTUIMacro.h>
-#import <MACollectionUtilities.h>
 
 #define TabBarHeight                     49
 #define TabBarControllerViewFrame CGRectMake(0, 0, ScreenWidth, ScreenHeight - TabBarHeight)
