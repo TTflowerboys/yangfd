@@ -3,6 +3,7 @@
 
 <!--build:css(dist) /static/styles/project/customer_sales.html.css-->
 <link rel="stylesheet" href="/static/styles/customer_sales.css"/>
+<link rel="stylesheet" href="/static/vendors/jquery-upload-file/jquery-upload-file.css"/>
 <!--endbuild-->
 <!--@@close-->
 <!--@@block = main -->
@@ -41,50 +42,44 @@
                         <td>
                             <div class="text">房产类型</div>
                         </td>
-                        <td>
-                            <div id="typeApartment" class="property_type">
-                                <img src="/static/images/customer/btn_apartment_active.png">
-                                <div>
-                                    现代公寓
+                        <td id="propertyType">
+                            %for index, property_type in enumerate(property_type_list):
+                               %if (property_type.get('slug')!='new_property'):
+                                %if (index==0):
+                                <div class="property_type selected" data-id="{{property_type.get('id')}}">
+                                    {{property_type.get('value')}}
                                 </div>
-                            </div>
-                            <div id="typeVilla" class="property_type">
-                                <img src="/static/images/customer/btn_house_normal.png">
-                                <div>
-                                    别墅
+                                %else:
+                                <div class="property_type" data-id="{{property_type.get('id')}}">
+                                    {{property_type.get('value')}}
                                 </div>
-                            </div>
-                            <div id="typeStudent" class="property_type">
-                                <img src="/static/images/customer/btn_student_normal.png">
-                                <div>
-                                    学生公寓
-                                </div>
-                            </div>
+                                    %end
+                                %end
+                            %end
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div class="text">出租类型</div>
                         </td>
-                        <td>
-                            <div id="typeSingle" class="property_type">
-                                <img src="/static/images/customer/btn_apartment_active.png">
-                                <div>
-                                    单间
-                                </div>
+                        <td id="rentalType">
+                            %for index, rent_type in enumerate(rent_type_list):
+                            %if (index==0):
+                            <div class="property_type selected" data-id="{{rent_type.get('id')}}">
+                                {{rent_type.get('value')}}
                             </div>
-                            <div id="typeEntire" class="property_type">
-                                <img src="/static/images/customer/btn_house_normal.png">
-                                <div>
-                                    整租
-                                </div>
+                            %else:
+                            <div class="property_type" data-id="{{rent_type.get('id')}}">
+                                {{rent_type.get('value')}}
                             </div>
-                            <div id="typeRoommate" class="property_type">
-                                <img src="/static/images/customer/btn_rent_normal.png">
-                                <div>
-                                    合租
-                                </div>
-                            </div>
+                            %end
+                            %end
+                            <!--<div id="typeSingle" class="property_type selected">-->
+                                <!--单间-->
+                            <!--</div>-->
+                            <!--<div id="typeEntire" class="property_type">-->
+                                <!--整租-->
+                            <!--</div>-->
                         </td>
                     </tr>
                     <tr>
@@ -186,7 +181,9 @@
                             <div><input id="price">/周</div>
                             <div class="lease" id="lease">
                                 <select>
-                                    <option selected>{{_('押一付三')}}</option>
+                                    %for index, deposit_type in enumerate(deposit_type_list):
+                                    <option value="{{deposit_type.get('id')}}">{{deposit_type.get('value')}}</option>
+                                    %end
                                 </select>
                             </div>
                         </td>
@@ -199,7 +196,9 @@
                         <td class="sales_price">
                             <div>
                                 <select>
-                                    <option selected>{{_('无')}}</option>
+                                    %for index, rent_period in enumerate(rent_period_list):
+                                    <option value="{{rent_period.get('id')}}">{{rent_period.get('value')}}</option>
+                                    %end
                                 </select>
                             </div>
                             <div>
@@ -215,7 +214,7 @@
                         上传图片
                     </div>
                     <div class="image_panel">
-                        <div class="upload_image">
+                        <div id="fileuploader" class="upload_image">
                             请将图片文件直接拖拽至此，<br>或者自行查找电脑中的图片文件。
                         </div>
                         <div class="with_weixin">
@@ -246,7 +245,7 @@
                             </div>
                         </td>
                         <td class="content">
-                            <input class="headline">
+                            <input class="headline" id="title">
                         </td>
                     </tr>
                     <tr>
@@ -256,7 +255,7 @@
                             </div>
                         </td>
                         <td class="content">
-                            <textarea class="description"></textarea>
+                            <textarea class="description" id="description"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -321,6 +320,7 @@
 <!--@@close-->
 <!--@@block=scripts-->
 <!--build:js /static/scripts/customer_rentals.html.js-->
+<script src="/static/vendors/jquery-upload-file/jquery-upload-file.js"></script>
 <script src="/static/scripts/customer_rentals.js"></script>
 <!--endbuild-->
 <!--@@close-->

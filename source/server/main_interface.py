@@ -780,9 +780,14 @@ def customer_sales_preview():
 def customer_rentals():
     region_highlight_list = f_app.i18n.process_i18n(f_app.enum.get_all('region_highlight'))
     indoor_facility_list = f_app.i18n.process_i18n(f_app.enum.get_all('indoor_facility'))
-
+    rent_period_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_period'))
+    deposit_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('deposit_type'))
+    rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
+    property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     title = _('房屋出租')
-    return common_template("customer_rentals", region_highlight_list=region_highlight_list, indoor_facility_list=indoor_facility_list, title=title)
+    return common_template("customer_rentals", region_highlight_list=region_highlight_list, rent_period_list=rent_period_list,
+    indoor_facility_list=indoor_facility_list, deposit_type_list=deposit_type_list, rent_type_list=rent_type_list,
+    property_type_list=property_type_list, title=title)
 
 
 @f_get('/rental/publish')

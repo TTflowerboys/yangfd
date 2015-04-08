@@ -82,11 +82,22 @@ main {
             padding: 0 50px;
         }
         .property_type {
-            color: #333333;
+            cursor: pointer;
+            display: inline-block;
+            color: #999999;
+            background-color: transparent;
+            border: 2px solid #cccccc !important;
+            margin-right: 20px;
+            line-height: 28px;
+            text-align: center;
+            &.selected {
+                color: #ffffff;
+                background-color: #e60012;
+                border: 2px solid #e60012 !important;
+            }
             font-size: 16px;
             float: left;
-            text-align: center;
-            padding: 0 30px;
+            padding: 6px 10px;
         }
         .postcode {
             input {
