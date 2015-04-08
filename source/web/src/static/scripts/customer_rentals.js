@@ -102,3 +102,8 @@ $('#rentPeriodStartDate').dateRangePicker({
         startDate = parseInt((new Date($.format.date(obj.date1, 'yyyy-MM-dd')) - 0) / 1000, 10)
     }
 });
+
+$('#load_more .load_more').click(function () {
+    $('#load_more').hide()
+    $('#more_information').show()
+})
