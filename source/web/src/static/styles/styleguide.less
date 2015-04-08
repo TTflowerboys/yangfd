@@ -104,25 +104,41 @@
 // house card styles
 //
 // Markup:
-// <div class=houseCard>
-// <img src="http://upload.wikimedia.org/wikipedia/commons/7/71/Brisbane_Residential_Buildings.jpg" width=320 height=240/>
-// <div class=description>
-//      <h1 class=name>Ebury Bridge Road, Pimlic</h1>
-//      <span class=price>￥ <strong>300</strong>万</span>
-//      <div class=details>
-//      <p class=size>3, 2.5 baths, 1,400 sqft</p>
-//      <p class=estimate><span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong></span></p>
-//      <ul class=properties>
-//      <li><i>⌘</i> 超额收益 股权投资</li>
-//      <li><i>⌘</i> 别墅</li>
-//      <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li>
-//      </ul>
+//<div class=houseCard>
+//    <div class="imagePart">
+//        <a href="">
+//            <img src="http://upload.wikimedia.org/wikipedia/commons/7/71/Brisbane_Residential_Buildings.jpg" width=320 height=213 onerror="window.onImgError(this);"/>
+//        </a>
+//        <div class="labels">
+//            <label class="rent" for="">5年包租8%</label>
+//            <label class="type" for="">学生公寓</label>
+//        </div>
+//    </div>
+//    <div class="description_wrapper">
+//      <div class=description>
+//        <h1 class=name>Ebury Bridge Road, Pimlic</h1>
+//        <span class=price>￥ <strong>300</strong>万</span>
+//        <div class=details>
+//            <div class="left">
+//                <p class=size>3, 2.5 baths, 1,400 sqft</p>
+//                <p class=estimate>
+//                    <span class=label>预期年租金<br>收益率</span><span class=value><strong>6~10</strong></span>
+//                </p>
+//            </div>
+//            <div class="right">
+//                <ul class=properties>
+//                    <li><i>⌘</i> 超额收益 股权投资</li>
+//                    <li><i>⌘</i> 别墅</li>
+//                    <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li>
+//                </ul>
+//            </div>
+//        </div>
+//        <div class=action>
+//          <a href="#" class="button red">查看详情</a>
+//        </div>
 //      </div>
-//      <div class=action>
-//      <a href="#" class="button red">查看详情</a>
-//      </div>
-// </div>
-// </div>
+//    </div>
+//</div>
 //
 // Styleguide 7
 @import "project/houseCard";
@@ -235,6 +251,49 @@
 //
 // Styleguide 9
 @import "project/processCard";
+// Rent house Card
+//
+// rent card styles
+//
+// Markup:
+//<div class="rentCard">
+//    <div class="imagePart">
+//        <a href=""><img src="http://upload.wikimedia.org/wikipedia/commons/7/71/Brisbane_Residential_Buildings.jpg" width=320 height=213 onerror="window.onImgError(this);"/>
+//        </a>
+//        <div class="labels">
+//            <label class="property-type" for="">学生公寓</label>
+//            <label class="rent-type" for="">单间</label>
+//        </div>
+//    </div>
+//    <div class="description_wrapper">
+//      <div class=description>
+//        <p class=name>Caney Walph三居室 全新家电 优惠价 业主急租</p>
+//        <span class=price>￥ <strong>300</strong>/周</span>
+//          <ul class=properties>
+//             <li><i>⌘</i> 139 Ebury Bridge Road, Pimlic</li>
+//             <li><i>⌘</i> 华人聚集 高端商圈</li>
+//         </ul>
+//        <div class=details>
+//            <div class="left">
+//                <div class="room">
+//                    <p class="label">居室</p>
+//                    <p class="value">3室1厅</p>
+//                </div>
+//                <div class="size">
+//                    <p class="label">面积</p>
+//                    <p class="value">1,400 sqft</p>
+//                </div>
+//            </div>
+//            <div class="right">
+//                <p class=date>今天</p>
+//            </div>
+//        </div>
+//      </div>
+//     </div>
+//</div>
+//
+// Styleguide 10
+@import "project/rentCard";
 
 body { font-family: @font-normal !important; }
 
