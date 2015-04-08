@@ -22,7 +22,7 @@ angular.module('app')
                     data[scope.name] = _.map(newValue, function (i) {
                         return i.id
                     })
-                    scope.api.update(data, {
+                    scope.api.update(item.id, data, {
                         errorMessage: true
                     }).then(function () {
                         scope.open = false
