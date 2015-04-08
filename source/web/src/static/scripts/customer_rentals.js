@@ -107,3 +107,9 @@ $('#load_more .load_more').click(function () {
     $('#load_more').hide()
     $('#more_information').show()
 })
+$('#more_region_highlight_handler').click(function(){
+    $('#more_region_highlight_img').show()
+    $('#more_region_highlight').show()
+
+
+})

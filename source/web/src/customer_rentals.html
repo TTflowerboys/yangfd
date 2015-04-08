@@ -45,17 +45,17 @@
                         </td>
                         <td id="propertyType">
                             %for index, property_type in enumerate(property_type_list):
-                               %if (property_type.get('slug')!='new_property'):
-                                %if (index==0):
-                                <div class="property_type selected" data-id="{{property_type.get('id')}}">
-                                    {{property_type.get('value')}}
-                                </div>
-                                %else:
-                                <div class="property_type" data-id="{{property_type.get('id')}}">
-                                    {{property_type.get('value')}}
-                                </div>
-                                    %end
-                                %end
+                            %if (property_type.get('slug')!='new_property'):
+                            %if (index==0):
+                            <div class="property_type selected" data-id="{{property_type.get('id')}}">
+                                {{property_type.get('value')}}
+                            </div>
+                            %else:
+                            <div class="property_type" data-id="{{property_type.get('id')}}">
+                                {{property_type.get('value')}}
+                            </div>
+                            %end
+                            %end
                             %end
                         </td>
                     </tr>
@@ -206,7 +206,7 @@
                     </tr>
                     <tr id="load_more">
                         <td></td>
-                        <td >
+                        <td>
                             <div class="load_more">
                                 更多详情和设施描述
                             </div>
@@ -295,12 +295,17 @@
                                 </li>
                                 %end
                                 <li>
-                                    <img alt="" src="/static/images/customer/ico_add_panel.png">
+                                    <div id="more_region_highlight_handler">
+                                        <img alt="" src="/static/images/customer/ico_add_panel.png">
+                                    </div>
+                                    <div id="more_region_highlight_img" style="padding-left: 5px;display: none;">
+                                        <img alt="" src="/static/images/customer/bg_more_description.png">
+                                    </div>
                                 </li>
                             </ul>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="more_region_highlight" style="display: none;">
                         <td></td>
                         <td>
                             <div class="block_description">
