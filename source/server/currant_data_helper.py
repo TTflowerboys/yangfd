@@ -41,7 +41,7 @@ def get_favorite_list(fav_type):
 
 def get_featured_property_list():
     property_id_list = []
-    for news_category in ("primier_apartment_london", "studenthouse_sheffield"):
+    for news_category in ("studenthouse_sheffield", "primier_apartment_london"):
         property_id_list.extend(f_app.property.search({
             "status": {"$in": ["selling", "sold out"]},
             "news_category._id": ObjectId(f_app.enum.get_by_slug(news_category)["id"]),
