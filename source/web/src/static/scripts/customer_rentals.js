@@ -49,8 +49,6 @@ $('#inputAddress').click(function () {
     $('#address').show()
 })
 $('#submit').click(function () {
-    console.log()
-    console.log()
     var images = []
     var imageSrc = uploadObj.getResponses()
     for (var i = 0; i < imageSrc.length; i += 1) {
@@ -67,7 +65,8 @@ $('#submit').click(function () {
         'address': JSON.stringify({'zh_Hans_CN': address}),
         'name': JSON.stringify({'zh_Hans_CN': address}),
         'description': JSON.stringify({'zh_Hans_CN': $('#description')[0].value}),
-        'reality_images': JSON.stringify({'zh_Hans_CN': images})
+        'reality_images': JSON.stringify({'zh_Hans_CN': images}),
+        'zipcode': $('#postcode')[0].value
     }
     var ticketData = {
         'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'),
