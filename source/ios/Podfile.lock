@@ -23,6 +23,7 @@ PODS:
   - BBTRestClient (0.0.1):
     - Overcoat (~> 1.2)
   - BBTUtility (0.0.1)
+  - Bolts (1.1.4)
   - Mantle (1.5.4):
     - Mantle/extobjc (= 1.5.4)
   - Mantle/extobjc (1.5.4)
@@ -39,6 +40,7 @@ PODS:
 DEPENDENCIES:
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
+  - Bolts (~> 1.1.4)
   - NJKWebViewProgress (~> 0.2.3)
   - SMCalloutView (~> 2.1.1)
 
@@ -60,6 +62,7 @@ SPEC CHECKSUMS:
   AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
   BBTRestClient: 25965557c7608407aaaa0b30d1ea07735e971488
   BBTUtility: c019d4fbdcea22fac854c64235f5ca5c9d8210b8
+  Bolts: f8e2f94edbf9fec7bb8de5ecaaa3aa6b7de6f64e
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   Overcoat: 45e4d20eafc02c8d7fcde3cb89d35f0630a9fa80

@@ -99,32 +99,42 @@
 }
 
 - (void)onAddressBeginEditing:(id)sender {
-    CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
-    CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
-    NSArray *countries = [[CUTEEnumManager sharedInstance] enumsForType:@"country"];
-    NSArray *countryValues = [countries map:^id(CUTEEnum *obj) {
-        return [obj value];
-    }];
-    NSArray *cities = [[CUTEEnumManager sharedInstance] enumsForType:@"city"];
-    NSArray *cityValues = [cities map:^id(CUTEEnum *obj) {
-        return [obj value];
-    }];
-    [form setAllCountries:countries];
-    NSInteger countryIndex = [countryValues indexOfObject:_placemark.country];
-    if (countryIndex != NSNotFound) {
-        [form setDefaultCountry:[countries objectAtIndex:countryIndex]];
-    }
-    [form setAllCities:cities];
-    NSInteger cityIndex = [cityValues indexOfObject:_placemark.locality];
-    if (cityIndex != NSNotFound) {
-        [form setDefaultCity:[cities objectAtIndex:cityIndex]];
-    }
+    NSArray *requiredEnums = @[@"country", @"city"];
 
-    controller.formController.form = form;
+    [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
+        return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+    }]] continueWithSuccessBlock:^id(BFTask *task) {
+        if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
+            CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
+            CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
+            NSArray *countries = [task.result objectAtIndex:0];
+            NSArray *countryValues = [countries map:^id(CUTEEnum *obj) {
+                return [obj value];
+            }];
+            NSArray *cities = [task.result objectAtIndex:1];
+            NSArray *cityValues = [cities map:^id(CUTEEnum *obj) {
+                return [obj value];
+            }];
+            [form setAllCountries:countries];
+            NSInteger countryIndex = [countryValues indexOfObject:_placemark.country];
+            if (countryIndex != NSNotFound) {
+                [form setDefaultCountry:[countries objectAtIndex:countryIndex]];
+            }
+            [form setAllCities:cities];
+            NSInteger cityIndex = [cityValues indexOfObject:_placemark.locality];
+            if (cityIndex != NSNotFound) {
+                [form setDefaultCity:[cities objectAtIndex:cityIndex]];
+            }
 
-    controller.navigationItem.title = STR(@"位置");
-    controller.placemark = _placemark;
-    [self.navigationController pushViewController:controller animated:YES];
+            controller.formController.form = form;
+
+            controller.navigationItem.title = STR(@"位置");
+            controller.placemark = _placemark;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+        
+        return nil;
+    }];
 }
 
 - (void)onAddressLocationButtonTapped:(id)sender {

@@ -184,9 +184,14 @@
     }
     else if ([viewController.topViewController isKindOfClass:[CUTERentTypeListViewController class]]){
 
-        CUTERectTypeListForm *form = [[CUTERectTypeListForm alloc] init];
-        [form setRentTypeList:[[CUTEEnumManager sharedInstance] enumsForType:@"rent_type"]];
-        [[(CUTERentTypeListViewController *)viewController.topViewController formController] setForm:form];
+        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithSuccessBlock:^id(BFTask *task) {
+            if (task.result) {
+                CUTERectTypeListForm *form = [[CUTERectTypeListForm alloc] init];
+                [form setRentTypeList:task.result];
+                [[(CUTERentTypeListViewController *)viewController.topViewController formController] setForm:form];
+            }
+            return nil;
+        }];
     }
 }
 

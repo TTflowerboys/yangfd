@@ -11,6 +11,7 @@
 #import "CUTEConfiguration.h"
 #import "CUTEEnum.h"
 #import <BBTCommonMacro.h>
+#import <NSArray+Frankenstein.h>
 
 @interface CUTEEnumManager () {
 
@@ -45,44 +46,38 @@
     return self;
 }
 
-- (void)getEnumsByType:(NSString *)type completion:(void (^)(NSArray *))block {
+- (BFTask *)getEnumsByType:(NSString *)type {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if ([_enumCache objectForKey:type]) {
-      if (block) {
-        block([_enumCache objectForKey:type]);
-      }
+        [tcs setResult:[_enumCache objectForKey:type]];
     }
     else {
-      [_backingManager GET:@"/api/1/enum/search" parameters:@{@"type": type} resultClass:[CUTEEnum class] completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
-          if (responseObject && [responseObject isKindOfClass:[NSArray class]] && !IsArrayNilOrEmpty(responseObject)) {
-            [_enumCache setValue:responseObject forKey:type];
-              if (block) {
-                block(responseObject);
-              }
-          }
-          else {
-            if (block) {
-              block(nil);
+        [_backingManager GET:@"/api/1/enum/search" parameters:@{@"type": type} resultClass:[CUTEEnum class] completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
+            if (responseObject && [responseObject isKindOfClass:[NSArray class]] && !IsArrayNilOrEmpty(responseObject)) {
+                [_enumCache setValue:responseObject forKey:type];
+                [tcs setResult:responseObject];
             }
-          }
+            else {
+                [tcs setError:error];
+            }
         }];
     }
+    return tcs.task;
 }
 
-- (void)startLoadAllEnums {
-    [self getEnumsByType:@"country" completion:nil];
-    [self getEnumsByType:@"city" completion:nil];
-    [self getEnumsByType:@"property_type" completion:nil];
-    [self getEnumsByType:@"deposit_option" completion:nil];
-    [self getEnumsByType:@"indoor_facility" completion:nil];
-    [self getEnumsByType:@"region_highlight" completion:nil];
-    [self getEnumsByType:@"rent_type" completion:nil];
-    [self getEnumsByType:@"rent_period" completion:nil];
-    [self getEnumsByType:@"deposit_type" completion:nil];
-}
-
-- (NSArray *)enumsForType:(NSString *)type {
-    //TODO sychroize for the cache not existed
-    return [_enumCache objectForKey:type];
+- (BFTask *)startLoadAllEnums {
+    return [BFTask taskForCompletionOfAllTasks:
+            [@[@"country",
+               @"city",
+               @"property_type",
+               @"deposit_type",
+               @"indoor_facility",
+               @"region_highlight",
+               @"rent_type",
+               @"rent_period"]
+             map:^id(id object) {
+                 return [self getEnumsByType:object];
+             }]];
 }
 
 @end

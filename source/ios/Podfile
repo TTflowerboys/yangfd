@@ -12,3 +12,4 @@ pod 'BBTRestClient', :git => "git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git"
 pod 'SMCalloutView', '~> 2.1.1'
 
 pod 'NJKWebViewProgress', '~> 0.2.3'
+pod 'Bolts', '~> 1.1.4'

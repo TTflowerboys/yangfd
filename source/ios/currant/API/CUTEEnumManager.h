@@ -8,15 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <BBTRestClient.h>
+#import <Bolts.h>
 
 @interface CUTEEnumManager : NSObject
 
 + (instancetype)sharedInstance;
 
-- (void)getEnumsByType:(NSString *)type completion:(void (^)(NSArray *))block;
+- (BFTask *)getEnumsByType:(NSString *)type;
 
-- (void)startLoadAllEnums;
-
-- (NSArray *)enumsForType:(NSString *)type;
+- (BFTask *)startLoadAllEnums;
 
 @end
