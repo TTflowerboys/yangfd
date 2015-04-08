@@ -646,6 +646,148 @@ def rent_ticket_get(user, ticket_id):
     return f_app.ticket.output([ticket_id])[0]
 
 
+@f_api('/rent_ticket/search', params=dict(
+    status=(list, ["for rent"], str),
+    per_page=int,
+    time=datetime,
+    sort=(list, ["time", 'desc'], str),
+    rent_type="enum:rent_type",
+    user_id=ObjectId,
+    price=str,
+    bedroom_count="enum:bedroom_count",
+    building_area="enum:building_area",
+    property_type=(list, None, "enum:property_type"),
+    intention=(list, None, "enum:intention"),
+    country='enum:country',
+    city='enum:city',
+))
+@f_app.user.login.check(check_role=True)
+def rent_ticket_search(user, params):
+    params.setdefault("type", "rent")
+    if "phone" in params:
+        params["phone"] = f_app.util.parse_phone(params)
+
+    sort = params.pop("sort")
+    per_page = params.pop("per_page", 0)
+
+    if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
+        pass
+    elif not set(params["status"]) <= {"for rent", "rent"}:
+        if user:
+            # Force to search his own rent ticket
+            params["user_id"] = ObjectId(user["id"])
+        else:
+            abort(40100)
+
+    if "user_id" in params:
+        params["creator_user_id"] = params.pop("user_id")
+
+    property_params = {"$and": []}
+    non_project_params = {"$and": []}
+    main_house_types_elem_params = {"$and": []}
+
+    if "property_type" in params:
+        property_params["property_type"] = {"$in": params.pop("property_type")}
+
+    if "intention" in params:
+        property_params["intention"] = {"$in": params.pop("intention")}
+
+    if "city" in params:
+        property_params["city"] = params.pop("city")
+
+    if "country" in params:
+        property_params["country"] = params.pop("country")
+
+    if "price" in params:
+        budget = [x.strip() for x in params.pop("price").split(",")]
+        assert len(budget) == 3 and budget[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
+        non_project_price_filter = []
+        main_house_types_elem_price_filter = []
+        for currency in f_app.common.currency:
+            condition = {"total_price.unit": currency}
+            house_condition = {"total_price_max.unit": currency}
+            if currency == budget[2]:
+                condition["total_price.value_float"] = {}
+                if budget[0]:
+                    condition["total_price.value_float"]["$gte"] = float(budget[0])
+                    house_condition["total_price_max.value_float"] = {"$gte": float(budget[0])}
+                if budget[1]:
+                    condition["total_price.value_float"]["$lte"] = float(budget[1])
+                    house_condition["total_price_min.value_float"] = {"$lte": float(budget[1])}
+            else:
+                condition["total_price.value_float"] = {}
+                if budget[0]:
+                    condition["total_price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
+                    house_condition["total_price_max.value_float"] = {"$gte": float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))}
+                if budget[1]:
+                    condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
+                    house_condition["total_price_min.value_float"] = {"$lte": float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))}
+            non_project_price_filter.append(condition)
+            main_house_types_elem_price_filter.append(house_condition)
+        non_project_params["$and"].append({"$or": non_project_price_filter})
+        main_house_types_elem_params["$and"].append({"$or": main_house_types_elem_price_filter})
+
+    if "bedroom_count" in params:
+        bedroom_count = f_app.util.parse_bedroom_count(params.pop("bedroom_count"))
+        if bedroom_count[0] and bedroom_count[1]:
+            if bedroom_count[0] == bedroom_count[1]:
+                bedroom_filter = bedroom_count[0]
+            elif bedroom_count[0] > bedroom_count[1]:
+                abort(40000, logger.warning("Invalid bedroom_count: start value cannot be greater than end value"))
+            else:
+                bedroom_filter = {"$gte": bedroom_count[0], "$lte": bedroom_count[1]}
+        elif bedroom_count[0]:
+            bedroom_filter = {"$gte": bedroom_count[0]}
+        elif bedroom_count[1]:
+            bedroom_filter = {"$lte": bedroom_count[1]}
+
+        non_project_params["bedroom_count"] = bedroom_filter
+        main_house_types_elem_params["bedroom_count"] = bedroom_filter
+
+    if "building_area" in params:
+        building_area_filter = []
+        space_filter = []
+        building_area = f_app.util.parse_building_area(params.pop("building_area"))
+
+        for building_area_unit in ("meter ** 2", "foot ** 2"):
+            condition = {"space.unit": building_area_unit}
+            house_condition = {"building_area.unit": building_area_unit}
+            if building_area_unit == building_area[2]:
+                condition["space.value_float"] = {}
+                if building_area[0]:
+                    condition["space.value_float"]["$gte"] = float(building_area[0])
+                    house_condition["building_area_max.value_float"] = {"$gte": float(building_area[0])}
+                if building_area[1]:
+                    condition["space.value_float"]["$lte"] = float(building_area[1])
+                    house_condition["building_area_min.value_float"] = {"$lte": float(building_area[1])}
+            else:
+                condition["space.value_float"] = {}
+                if building_area[0]:
+                    condition["space.value_float"]["$gte"] = float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[0]}, building_area_unit))
+                    house_condition["building_area_max.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[0]}, building_area_unit))}
+                if building_area[1]:
+                    condition["space.value_float"]["$lte"] = float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[1]}, building_area_unit))
+                    house_condition["building_area_min.value_float"] = {"$lte": float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[1]}, building_area_unit))}
+            space_filter.append(condition)
+            building_area_filter.append(house_condition)
+        non_project_params["$and"].append({"$or": space_filter})
+        main_house_types_elem_params["$and"].append({"$or": building_area_filter})
+
+    if len(main_house_types_elem_params["$and"]):
+        property_params["$and"].append({"$or": [non_project_params, {"main_house_types": {"$elemMatch": main_house_types_elem_params}}]})
+
+    if len(property_params["$and"]) < 1:
+        property_params.pop("$and")
+
+    if len(property_params):
+        # property_params.setdefault("status", ["selling", "sold out"])
+        property_params.setdefault("user_generated", True)
+        property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
+        params["property_id"] = {"$in": property_id_list}
+
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
+
+
 @f_api('/sale_ticket/add', params=dict(
     status=(str, "draft"),
     property_id=ObjectId,
@@ -728,3 +870,145 @@ def sale_ticket_get(user, ticket_id):
             abort(40399, logger.warning("Permission denied", exc_info=False))
 
     return f_app.ticket.output([ticket_id])[0]
+
+
+@f_api('/sale_ticket/search', params=dict(
+    status=(list, ["selling"], str),
+    per_page=int,
+    time=datetime,
+    sort=(list, ["time", 'desc'], str),
+    sale_type="enum:sale_type",
+    user_id=ObjectId,
+    price=str,
+    bedroom_count="enum:bedroom_count",
+    building_area="enum:building_area",
+    property_type=(list, None, "enum:property_type"),
+    intention=(list, None, "enum:intention"),
+    country='enum:country',
+    city='enum:city',
+))
+@f_app.user.login.check(check_role=True)
+def sale_ticket_search(user, params):
+    params.setdefault("type", "sale")
+    if "phone" in params:
+        params["phone"] = f_app.util.parse_phone(params)
+
+    sort = params.pop("sort")
+    per_page = params.pop("per_page", 0)
+
+    if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
+        pass
+    elif not set(params["status"]) <= {"selling", "sold"}:
+        if user:
+            # Force to search his own sale ticket
+            params["user_id"] = ObjectId(user["id"])
+        else:
+            abort(40100)
+
+    if "user_id" in params:
+        params["creator_user_id"] = params.pop("user_id")
+
+    property_params = {"$and": []}
+    non_project_params = {"$and": []}
+    main_house_types_elem_params = {"$and": []}
+
+    if "property_type" in params:
+        property_params["property_type"] = {"$in": params.pop("property_type")}
+
+    if "intention" in params:
+        property_params["intention"] = {"$in": params.pop("intention")}
+
+    if "city" in params:
+        property_params["city"] = params.pop("city")
+
+    if "country" in params:
+        property_params["country"] = params.pop("country")
+
+    if "price" in params:
+        budget = [x.strip() for x in params.pop("price").split(",")]
+        assert len(budget) == 3 and budget[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
+        non_project_price_filter = []
+        main_house_types_elem_price_filter = []
+        for currency in f_app.common.currency:
+            condition = {"total_price.unit": currency}
+            house_condition = {"total_price_max.unit": currency}
+            if currency == budget[2]:
+                condition["total_price.value_float"] = {}
+                if budget[0]:
+                    condition["total_price.value_float"]["$gte"] = float(budget[0])
+                    house_condition["total_price_max.value_float"] = {"$gte": float(budget[0])}
+                if budget[1]:
+                    condition["total_price.value_float"]["$lte"] = float(budget[1])
+                    house_condition["total_price_min.value_float"] = {"$lte": float(budget[1])}
+            else:
+                condition["total_price.value_float"] = {}
+                if budget[0]:
+                    condition["total_price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
+                    house_condition["total_price_max.value_float"] = {"$gte": float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))}
+                if budget[1]:
+                    condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
+                    house_condition["total_price_min.value_float"] = {"$lte": float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))}
+            non_project_price_filter.append(condition)
+            main_house_types_elem_price_filter.append(house_condition)
+        non_project_params["$and"].append({"$or": non_project_price_filter})
+        main_house_types_elem_params["$and"].append({"$or": main_house_types_elem_price_filter})
+
+    if "bedroom_count" in params:
+        bedroom_count = f_app.util.parse_bedroom_count(params.pop("bedroom_count"))
+        if bedroom_count[0] and bedroom_count[1]:
+            if bedroom_count[0] == bedroom_count[1]:
+                bedroom_filter = bedroom_count[0]
+            elif bedroom_count[0] > bedroom_count[1]:
+                abort(40000, logger.warning("Invalid bedroom_count: start value cannot be greater than end value"))
+            else:
+                bedroom_filter = {"$gte": bedroom_count[0], "$lte": bedroom_count[1]}
+        elif bedroom_count[0]:
+            bedroom_filter = {"$gte": bedroom_count[0]}
+        elif bedroom_count[1]:
+            bedroom_filter = {"$lte": bedroom_count[1]}
+
+        non_project_params["bedroom_count"] = bedroom_filter
+        main_house_types_elem_params["bedroom_count"] = bedroom_filter
+
+    if "building_area" in params:
+        building_area_filter = []
+        space_filter = []
+        building_area = f_app.util.parse_building_area(params.pop("building_area"))
+
+        for building_area_unit in ("meter ** 2", "foot ** 2"):
+            condition = {"space.unit": building_area_unit}
+            house_condition = {"building_area.unit": building_area_unit}
+            if building_area_unit == building_area[2]:
+                condition["space.value_float"] = {}
+                if building_area[0]:
+                    condition["space.value_float"]["$gte"] = float(building_area[0])
+                    house_condition["building_area_max.value_float"] = {"$gte": float(building_area[0])}
+                if building_area[1]:
+                    condition["space.value_float"]["$lte"] = float(building_area[1])
+                    house_condition["building_area_min.value_float"] = {"$lte": float(building_area[1])}
+            else:
+                condition["space.value_float"] = {}
+                if building_area[0]:
+                    condition["space.value_float"]["$gte"] = float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[0]}, building_area_unit))
+                    house_condition["building_area_max.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[0]}, building_area_unit))}
+                if building_area[1]:
+                    condition["space.value_float"]["$lte"] = float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[1]}, building_area_unit))
+                    house_condition["building_area_min.value_float"] = {"$lte": float(f_app.i18n.convert_i18n_unit({"unit": building_area[2], "value": building_area[1]}, building_area_unit))}
+            space_filter.append(condition)
+            building_area_filter.append(house_condition)
+        non_project_params["$and"].append({"$or": space_filter})
+        main_house_types_elem_params["$and"].append({"$or": building_area_filter})
+
+    if len(main_house_types_elem_params["$and"]):
+        property_params["$and"].append({"$or": [non_project_params, {"main_house_types": {"$elemMatch": main_house_types_elem_params}}]})
+
+    if len(property_params["$and"]) < 1:
+        property_params.pop("$and")
+
+    if len(property_params):
+        # property_params.setdefault("status", ["selling", "sold out"])
+        property_params.setdefault("user_generated", True)
+        property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
+        params["property_id"] = {"$in": property_id_list}
+
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
