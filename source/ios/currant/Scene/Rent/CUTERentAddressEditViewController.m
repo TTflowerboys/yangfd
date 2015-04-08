@@ -17,16 +17,22 @@
         UITextField *textField = textFieldCell.textField;
         textField.text = self.placemark.street;
     }
-    else if ([cell.field.key isEqualToString:@"postCode"]) {
+    else if ([cell.field.key isEqualToString:@"zipcode"]) {
         FXFormTextFieldCell *textFieldCell = (FXFormTextFieldCell *)cell;
         UITextField *textField = textFieldCell.textField;
-        textField.text = self.placemark.postalCode;
+        textField.text = self.placemark.zipcode;
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    //reload city base on country
+    //[[self.formController tableView] reloadData];
 }
 
 - (void)onSaveButtonPressed:(id)sender {

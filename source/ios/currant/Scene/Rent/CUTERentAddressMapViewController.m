@@ -15,9 +15,11 @@
 #import "CUTERentAddressEditForm.h"
 #import "CUTEPlacemark.h"
 #import "CUTERentAddressEditViewController.h"
+#import "CUTEPropertyInfoViewController.h"
 #import "CUTEEnumManager.h"
 #import "CUTEEnum.h"
 #import <NSArray+Frankenstein.h>
+#import "CUTEDataManager.h"
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {
@@ -108,31 +110,24 @@
             CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
             CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
             NSArray *countries = [task.result objectAtIndex:0];
-            NSArray *countryValues = [countries map:^id(CUTEEnum *obj) {
-                return [obj value];
-            }];
             NSArray *cities = [task.result objectAtIndex:1];
-            NSArray *cityValues = [cities map:^id(CUTEEnum *obj) {
-                return [obj value];
-            }];
             [form setAllCountries:countries];
-            NSInteger countryIndex = [countryValues indexOfObject:_placemark.country];
+            NSInteger countryIndex = [countries indexOfObject:_placemark.country];
             if (countryIndex != NSNotFound) {
-                [form setDefaultCountry:[countries objectAtIndex:countryIndex]];
+                [form setCountry:[countries objectAtIndex:countryIndex]];
             }
             [form setAllCities:cities];
-            NSInteger cityIndex = [cityValues indexOfObject:_placemark.locality];
+            NSInteger cityIndex = [cities indexOfObject:_placemark.city];
             if (cityIndex != NSNotFound) {
-                [form setDefaultCity:[cities objectAtIndex:cityIndex]];
+                [form setCity:[cities objectAtIndex:cityIndex]];
             }
-
             controller.formController.form = form;
 
             controller.navigationItem.title = STR(@"位置");
             controller.placemark = _placemark;
             [self.navigationController pushViewController:controller animated:YES];
         }
-        
+
         return nil;
     }];
 }
@@ -147,11 +142,32 @@
 }
 
 - (void)onRightButtonPressed:(id)sender {
-    FXFormViewController *controller = [[FXFormViewController alloc] init];
-    controller.formController.form = [CUTEPropertyInfoForm new];
-    controller.navigationItem.title = STR(@"房产信息");
-    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.navigationController pushViewController:controller animated:YES];
+
+    CUTETicket *currentTicket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    if (currentTicket) {
+        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithSuccessBlock:^id(BFTask *task) {
+            if (!IsArrayNilOrEmpty(task.result)) {
+                CUTEProperty *property = [CUTEProperty new];
+                property.street = _placemark.street;
+                property.latitude = _location.coordinate.latitude;
+                property.longitude = _location.coordinate.longitude;
+                property.country = _placemark.country;
+                property.city = _placemark.city;
+                property.zipcode = _placemark.zipcode;
+                currentTicket.property = property;
+
+                CUTEPropertyInfoViewController *controller = [[CUTEPropertyInfoViewController alloc] init];
+                CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
+                [form setAllPropertyTypes:task.result];
+                controller.formController.form = form;
+                controller.navigationItem.title = STR(@"房产信息");
+                controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:nil action:nil];
+                [self.navigationController pushViewController:controller animated:YES];
+                
+            }
+            return nil;
+        }];
+    }
 }
 
 - (void)onMapLongPressed:(UIGestureRecognizer *)sender {

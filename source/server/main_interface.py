@@ -225,6 +225,7 @@ def property_list(params):
     rent_type=str,
     country=str,
     city=str,
+    property_type=str,
     #budget=str,
     rent_period=str,
     bedroom_count=str,
@@ -234,6 +235,7 @@ def property_list(params):
 def rent_list(params):
     city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
+    property_type_list= f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     country_list = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
     rent_period_list = f_app.i18n.process_i18n(f_app.enum.get_all("rent_period"))
     bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
@@ -276,6 +278,7 @@ def rent_list(params):
                            property_country_list=property_country_list,
                            property_city_list=property_city_list,
                            rent_type_list=rent_type_list,
+                           property_type_list=property_type_list,
                            rent_period_list=rent_period_list,
                            bedroom_count_list=bedroom_count_list,
                            building_area_list=building_area_list,

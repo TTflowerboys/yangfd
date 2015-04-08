@@ -33,4 +33,18 @@
     return [self class];
 }
 
+//FXForm use this to display
+- (NSString *)fieldDescription {
+    return self.value;
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[self class]]) {
+      return [self.slug isEqual:[object slug]];
+    }
+    else {
+      return false;
+    }
+}
+
 @end

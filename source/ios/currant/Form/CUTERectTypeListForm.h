@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "CUTEForm.h"
-#import "CUTERentAddressMapForm.h"
 #import "CUTEEnum.h"
 
 @interface CUTERectTypeListForm : CUTEForm

@@ -7,17 +7,14 @@
 //
 
 #import "CUTEEnumManager.h"
-#import <BBTRestClient.h>
-#import "CUTEConfiguration.h"
 #import "CUTEEnum.h"
 #import <BBTCommonMacro.h>
 #import <NSArray+Frankenstein.h>
+#import "CUTEAPIManager.h"
 
 @interface CUTEEnumManager () {
 
     NSMutableDictionary *_enumCache;
-
-    BBTRestClient *_backingManager;
 }
 
 @end
@@ -41,7 +38,6 @@
     self = [super init];
     if (self) {
         _enumCache = [NSMutableDictionary dictionary];
-        _backingManager = [BBTRestClient clientWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]] account:nil];
     }
     return self;
 }
@@ -52,14 +48,15 @@
         [tcs setResult:[_enumCache objectForKey:type]];
     }
     else {
-        [_backingManager GET:@"/api/1/enum/search" parameters:@{@"type": type} resultClass:[CUTEEnum class] completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
-            if (responseObject && [responseObject isKindOfClass:[NSArray class]] && !IsArrayNilOrEmpty(responseObject)) {
-                [_enumCache setValue:responseObject forKey:type];
-                [tcs setResult:responseObject];
+        [[[CUTEAPIManager sharedInstance] GET:@"/api/1/enum/search" parameters:@{@"type": type} resultClass:[CUTEEnum class]] continueWithSuccessBlock:^id(BFTask *task) {
+            if (task.result) {
+                [_enumCache setValue:task.result forKey:type];
+                [tcs setResult:task.result];
             }
             else {
-                [tcs setError:error];
+                [tcs setError:task.error];
             }
+            return nil;
         }];
     }
     return tcs.task;
