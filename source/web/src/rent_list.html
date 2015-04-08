@@ -61,6 +61,14 @@
         </select>
         <span>{{_('找')}}</span>
         <hr class="separator_phone"/>
+        <select class="ghostSelect" name="propertyType">
+            <option value="" selected>{{_('任意类型房产')}}</option>
+            %for index, property_type in enumerate(property_type_list):
+            <option value="{{property_type.get('id')}}">{{property_type.get('value')}}</option>
+            %end
+        </select>
+        <span>{{_('找')}}</span>
+        <hr class="separator_phone"/>
         <select class="ghostSelect" name="rentType">
             <option value="" selected>{{_('单间或整租')}}</option>
             %for index, rent_type in enumerate(rent_type_list):
@@ -194,10 +202,6 @@
         <img class="map" alt="" src="/static/images/property_list/tab-map-phone.png"/>
     </div>
 
-    <ul class="floatBar_phone hiddenInClient">
-        <li class="phone"><a href="tel:4000926433" >{{_('拨打400-0926-433咨询')}}</a></li>
-        <li class="requirement"><a href="/requirement"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
-    </ul>
 </div>
 <!-- @@include=/static/templates/house_card.tpl.html-->
 <!-- @@include=/static/templates/addtional_house_card.tpl.html-->
