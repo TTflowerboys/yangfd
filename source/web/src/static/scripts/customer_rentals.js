@@ -107,9 +107,26 @@ $('#load_more .load_more').click(function () {
     $('#load_more').hide()
     $('#more_information').show()
 })
-$('#more_region_highlight_handler').click(function(){
+$('#more_region_highlight_handler').click(function () {
     $('#more_region_highlight_img').show()
     $('#more_region_highlight').show()
+})
 
+$('#more_region_highlight li').click(function () {
+    var id = $(this)[0].getAttribute('data-id')
+    var shouldAdd = true
+    $.each($('#intentionTag li'), function (i, val) {
+        if (id === $(this)[0].getAttribute('data-id')) {
+            shouldAdd = false
+        }
+    })
+    if (shouldAdd) {
+        $('<li class="toggleTag selected" data-id="' + id + '">' +
+        $(this)[0].innerText +
+        '<img alt="" src="/static/images/intention/close.png"/></li>').insertBefore($('#more_region_highlight_panel'))
+    }
+})
 
+$('#intentionTag').on('click', '.toggleTag img', function (event) {
+    $(event.target).parent().remove()
 })

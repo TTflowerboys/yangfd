@@ -200,7 +200,9 @@
                                 <span>开始于</span>
                             </div>
                             <div>
-                                <input id="rentPeriodStartDate" type="text">
+                                <div class="date">
+                                    <input id="rentPeriodStartDate" type="text"><img src="customer_rentals.html">
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -294,7 +296,7 @@
                                     <img alt="" src="/static/images/intention/close.png">
                                 </li>
                                 %end
-                                <li>
+                                <li id="more_region_highlight_panel" style="width: 100px;">
                                     <div id="more_region_highlight_handler">
                                         <img alt="" src="/static/images/customer/ico_add_panel.png">
                                     </div>
@@ -311,7 +313,7 @@
                             <div class="block_description">
                                 <ul>
                                     %for index, region_highlight in enumerate(region_highlight_list):
-                                    <li id="{{region_highlight.get('id')}}">
+                                    <li data-id="{{region_highlight.get('id')}}">
                                         <div>
                                             {{region_highlight.get('value')}}
                                         </div>
