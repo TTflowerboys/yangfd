@@ -17,10 +17,10 @@
         UITextField *textField = textFieldCell.textField;
         textField.text = self.placemark.street;
     }
-    else if ([cell.field.key isEqualToString:@"postCode"]) {
+    else if ([cell.field.key isEqualToString:@"zipcode"]) {
         FXFormTextFieldCell *textFieldCell = (FXFormTextFieldCell *)cell;
         UITextField *textField = textFieldCell.textField;
-        textField.text = self.placemark.postalCode;
+        textField.text = self.placemark.zipcode;
     }
 }
 

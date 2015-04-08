@@ -30,7 +30,7 @@
     return @[
              @{FXFormFieldKey: @"street", FXFormFieldTitle: STR(@"街道"), FXFormFieldHeader:STR(@"位置")},
              @{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: [self cityValuesOfCountry:_defaultCountry], FXFormFieldDefaultValue: _defaultCity? _defaultCity.value: @""},
-             @{FXFormFieldKey: @"postCode", FXFormFieldTitle: STR(@"邮政编码")},
+             @{FXFormFieldKey: @"zipcode", FXFormFieldTitle: STR(@"邮政编码")},
              @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: [self countryValues], FXFormFieldDefaultValue: _defaultCountry? _defaultCountry.value: @""}
              ];
 }

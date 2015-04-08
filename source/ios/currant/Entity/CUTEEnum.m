@@ -33,4 +33,17 @@
     return [self class];
 }
 
+- (NSString *)description {
+    return self.value;
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[self class]]) {
+      return [self.slug isEqual:[object slug]];
+    }
+    else {
+      return false;
+    }
+}
+
 @end
