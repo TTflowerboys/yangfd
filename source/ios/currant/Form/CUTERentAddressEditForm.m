@@ -13,11 +13,8 @@
 #import <NSArray+Frankenstein.h>
 
 @interface CUTERentAddressEditForm () {
-    CUTEEnum *_defaultCountry;
 
     NSArray *_allCountries;
-
-    CUTEEnum *_defaultCity;
 
     NSArray *_allCities;
 }
@@ -29,41 +26,24 @@
 - (NSArray *)fields {
     return @[
              @{FXFormFieldKey: @"street", FXFormFieldTitle: STR(@"街道"), FXFormFieldHeader:STR(@"位置")},
-             @{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: [self cityValuesOfCountry:_defaultCountry], FXFormFieldDefaultValue: _defaultCity? _defaultCity.value: @""},
+             @{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: [self citiesOfCountry:_country], FXFormFieldDefaultValue: _city? _city: (CUTEEnum *)[[self citiesOfCountry:_country] firstObject]},
              @{FXFormFieldKey: @"zipcode", FXFormFieldTitle: STR(@"邮政编码")},
-             @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: [self countryValues], FXFormFieldDefaultValue: _defaultCountry? _defaultCountry.value: @""}
+             @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject]}
              ];
-}
-
-- (void)setDefaultCountry:(CUTEEnum *)country {
-    _defaultCountry = country;
 }
 
 - (void)setAllCountries:(NSArray *)allCountries {
     _allCountries = allCountries;
 }
 
-- (NSArray *)countryValues {
-    NSArray *countryValues = [_allCountries map:^id(CUTEEnum *obj) {
-        return [obj value];
-    }];
-    return countryValues;
-}
-
-- (void)setDefaultCity:(CUTEEnum *)city {
-    _defaultCity = city;
-}
-
 - (void)setAllCities:(NSArray *)allCities {
     _allCities = allCities;
 }
 
-- (NSArray *)cityValuesOfCountry:(CUTEEnum *)country {
+- (NSArray *)citiesOfCountry:(CUTEEnum *)country {
     if (country) {
-        return [[_allCities collect:^BOOL(CUTECityEnum *object) {
+        return [_allCities collect:^BOOL(CUTECityEnum *object) {
             return [object.country.identifier isEqualToString:country.identifier] && !IsNilNullOrEmpty(object.value);
-        }] map:^id(CUTEEnum *object) {
-            return [object value];
         }];
     }
     return nil;

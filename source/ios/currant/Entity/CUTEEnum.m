@@ -33,7 +33,8 @@
     return [self class];
 }
 
-- (NSString *)description {
+//FXForm use this to display
+- (NSString *)fieldDescription {
     return self.value;
 }
 

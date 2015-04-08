@@ -29,6 +29,12 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    //reload city base on country
+    //[[self.formController tableView] reloadData];
+}
+
 - (void)onSaveButtonPressed:(id)sender {
 
     [self.navigationController popViewControllerAnimated:YES];

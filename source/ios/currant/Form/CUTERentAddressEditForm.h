@@ -18,11 +18,7 @@
 @property (strong, nonatomic) NSString *zipcode;
 @property (strong, nonatomic) CUTEEnum *country;
 
-- (void)setDefaultCountry:(CUTEEnum *)country;
-
 - (void)setAllCountries:(NSArray *)allCountries;
-
-- (void)setDefaultCity:(CUTEEnum *)city;
 
 - (void)setAllCities:(NSArray *)allCities;
 

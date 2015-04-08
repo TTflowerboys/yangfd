@@ -43,4 +43,6 @@
 @property (strong, nonatomic) NSArray *indoorFacilities;
 
 
+- (NSDictionary *)toParams;
+
 @end

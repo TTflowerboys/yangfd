@@ -40,9 +40,9 @@
     return [@[NilNullToEmpty(self.subThoroughfare),
               NilNullToEmpty(self.thoroughfare),
               NilNullToEmpty(self.zipcode),
-              NilNullToEmpty(self.city.description),
+              NilNullToEmpty(self.city.value),
               NilNullToEmpty(self.administrativeArea),
-              NilNullToEmpty(self.country)]
+              NilNullToEmpty(self.country.value)]
             componentsJoinedByString:@" "];
 }
 
