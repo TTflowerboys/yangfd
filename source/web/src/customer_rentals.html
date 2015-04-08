@@ -74,12 +74,6 @@
                             </div>
                             %end
                             %end
-                            <!--<div id="typeSingle" class="property_type selected">-->
-                                <!--单间-->
-                            <!--</div>-->
-                            <!--<div id="typeEntire" class="property_type">-->
-                                <!--整租-->
-                            <!--</div>-->
                         </td>
                     </tr>
                     <tr>
@@ -194,7 +188,7 @@
 
                         </td>
                         <td class="sales_price">
-                            <div>
+                            <div id="rent_period">
                                 <select>
                                     %for index, rent_period in enumerate(rent_period_list):
                                     <option value="{{rent_period.get('id')}}">{{rent_period.get('value')}}</option>
@@ -205,6 +199,7 @@
                                 <span>开始于</span>
                             </div>
                             <div>
+                                <input id="transactionDateStart" type="text">
                             </div>
                         </td>
                     </tr>

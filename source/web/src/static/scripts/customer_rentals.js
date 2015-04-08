@@ -81,6 +81,7 @@ $('#submit').click(function () {
             ticketData.property_id = val
             $.betterPost('/api/1/rent_ticket/none/edit', ticketData)
                 .done(function (val) {
+                    //TODO 需要跳转
                 })
         })
 })
