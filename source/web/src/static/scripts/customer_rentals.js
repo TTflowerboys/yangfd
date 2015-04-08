@@ -71,9 +71,9 @@ $('#submit').click(function () {
     var ticketData = {
         'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'),
         'deposit_type': $('#deposit_type').children('option:selected').val(),
-        //'price': 1,
+        'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'price': $('#price')[0].value}),
         'rent_period': $('#rent_period').children('option:selected').val(),
-        //'rent_available_time': 1,
+        'rent_available_time': startDate,
         'title': $('#title')[0].value
     }
     $.betterPost('/api/1/property/none/edit', propertyData)
@@ -91,4 +91,14 @@ $(document).ready(function () {
         url: '/api/1/upload_image',
         fileName: 'data'
     });
+});
+var startDate
+$('#rentPeriodStartDate').dateRangePicker({
+    autoClose: true,
+    singleDate: true,
+    showShortcuts: false
+}).bind('datepicker-change', function (event, obj) {
+    if (obj.date1) {
+        startDate = parseInt((new Date($.format.date(obj.date1, 'yyyy-MM-dd')) - 0) / 1000, 10)
+    }
 });
