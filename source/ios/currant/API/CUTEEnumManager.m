@@ -49,7 +49,7 @@
     }
     else {
         [[[CUTEAPIManager sharedInstance] GET:@"/api/1/enum/search" parameters:@{@"type": type} resultClass:[CUTEEnum class]] continueWithSuccessBlock:^id(BFTask *task) {
-            if (task.result) {
+            if (task.result && !IsArrayNilOrEmpty(task.result)) {
                 [_enumCache setValue:task.result forKey:type];
                 [tcs setResult:task.result];
             }

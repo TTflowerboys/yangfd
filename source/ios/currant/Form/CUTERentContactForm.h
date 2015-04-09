@@ -7,10 +7,13 @@
 //
 
 #import "CUTEForm.h"
+#import "CUTEEnum.h"
 
 @interface CUTERentContactForm : CUTEForm
 
 @property (strong, nonatomic) NSString *name;
+
+@property (strong, nonatomic) CUTEEnum *country;
 
 @property (strong, nonatomic) NSString *phone;
 
@@ -19,5 +22,7 @@
 @property (strong, nonatomic) NSString *email;
 
 @property (nonatomic) BOOL acceptProxy;
+
+- (void)setAllCountries:(NSArray *)allCountries;
 
 @end

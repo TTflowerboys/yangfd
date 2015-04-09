@@ -8,6 +8,16 @@
 
 #import "CUTERentContactViewController.h"
 #import "CUTECommonMacro.h"
+#import "CUTEFormVerificationCodeCell.h"
+#import "CUTEAPIManager.h"
+#import "CUTEEnum.h"
+
+@interface CUTERentContactViewController () {
+    NSString *_verificationToken;
+}
+
+@end
+
 
 @implementation CUTERentContactViewController
 
@@ -33,7 +43,26 @@
     self.tableView.tableFooterView = footerView;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[CUTEFormVerificationCodeCell class]]) {
+        CUTEFormVerificationCodeCell *codeCell = (CUTEFormVerificationCodeCell *)cell;
+        [codeCell.verificationButton addTarget:self action:@selector(onVerificationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+- (void)onVerificationButtonPressed:(id)sender {
+
+    CUTEEnum *country = [[self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]] value];
+    NSString *phone = [[self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]] value];
+    [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":phone, @"country":country.identifier} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+
+        return nil;
+    }];
+}
+
 - (void)onRightButtonPressed:(id)sender {
+
+     FXFormField *propertyTypeField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
 
 }
 

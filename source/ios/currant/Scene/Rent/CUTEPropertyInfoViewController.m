@@ -19,6 +19,7 @@
 #import "CUTEConfiguration.h"
 #import <BBTJSON.h>
 #import <NSArray+Frankenstein.h>
+#import "CUTEEnumManager.h"
 
 @interface CUTEPropertyInfoViewController () {
     BBTRestClient *_imageUploader;
@@ -51,10 +52,14 @@
         }];
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
-            CUTERentContactForm *form = [CUTERentContactForm new];
-            contactViewController.formController.form = form;
-            [self.navigationController pushViewController:contactViewController animated:YES];
+            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithSuccessBlock:^id(BFTask *task) {
+                CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
+                CUTERentContactForm *form = [CUTERentContactForm new];
+                [form setAllCountries:task.result];
+                contactViewController.formController.form = form;
+                [self.navigationController pushViewController:contactViewController animated:YES];
+                return nil;
+            }];
         }];
 
         [sequencer run];

@@ -21,9 +21,18 @@
 
 @implementation CUTERentTypeListForm
 
+- (NSString *)formKeyFromTitle:(NSString *)title {
+    if ([title isEqualToString:@"单间"]) {
+        return @"single";
+    }
+    else {
+        return @"whole";
+    }
+}
+
 - (NSArray *)fields {
     NSArray *array = [_rentTypeList map:^id(CUTEEnum *object) {
-        return [NSMutableDictionary dictionaryWithDictionary:@{FXFormFieldKey: object.value, FXFormFieldTitle:object.value, FXFormFieldCell: [CUTEFormRentTypeCell class], FXFormFieldViewController: [CUTERentAddressMapViewController class]}];
+        return [NSMutableDictionary dictionaryWithDictionary:@{FXFormFieldKey: [self formKeyFromTitle:object.value], FXFormFieldTitle:object.value, FXFormFieldCell: [CUTEFormRentTypeCell class], FXFormFieldViewController: [CUTERentAddressMapViewController class]}];
     }];
     if (!IsArrayNilOrEmpty(array)) {
         [array[0] setObject:STR(@"房产类型") forKey:FXFormFieldHeader];

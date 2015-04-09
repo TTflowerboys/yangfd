@@ -139,6 +139,11 @@
 		2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
 		2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
 		2C4AEC831AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
+		2C4AEC861AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC851AD65537004DEE23 /* CUTEFormVerificationCodeCell.m */; };
+		2C4AEC871AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC851AD65537004DEE23 /* CUTEFormVerificationCodeCell.m */; };
+		2C4AEC881AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC851AD65537004DEE23 /* CUTEFormVerificationCodeCell.m */; };
+		2C4AEC891AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC851AD65537004DEE23 /* CUTEFormVerificationCodeCell.m */; };
+		2C4AEC8A1AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC851AD65537004DEE23 /* CUTEFormVerificationCodeCell.m */; };
 		2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
 		2C5ECC431AD5084D00163E9E /* CUTEPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5ECC421AD5084D00163E9E /* CUTEPlacemark.m */; };
@@ -290,6 +295,8 @@
 		2C427EA81AD3803B000378A9 /* CUTECurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECurrency.m; sourceTree = "<group>"; };
 		2C4AEC7D1AD6466A004DEE23 /* CUTEUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUser.h; sourceTree = "<group>"; };
 		2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUser.m; sourceTree = "<group>"; };
+		2C4AEC841AD65537004DEE23 /* CUTEFormVerificationCodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormVerificationCodeCell.h; sourceTree = "<group>"; };
+		2C4AEC851AD65537004DEE23 /* CUTEFormVerificationCodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormVerificationCodeCell.m; sourceTree = "<group>"; };
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
 		2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyListViewController.m; sourceTree = "<group>"; };
@@ -460,6 +467,8 @@
 				2C226E731ACBE9DB00658132 /* CUTEFormDefaultCell.m */,
 				2C27F1F01ACCF7DF002BECCF /* CUTEFormImagePickerCell.h */,
 				2C27F1F11ACCF7DF002BECCF /* CUTEFormImagePickerCell.m */,
+				2C4AEC841AD65537004DEE23 /* CUTEFormVerificationCodeCell.h */,
+				2C4AEC851AD65537004DEE23 /* CUTEFormVerificationCodeCell.m */,
 				2C27F2031ACD30FE002BECCF /* CUTEFormButtonCell.h */,
 				2C27F2041ACD30FE002BECCF /* CUTEFormButtonCell.m */,
 				2C427E351ACEA9CF000378A9 /* CUTEMapTextField.h */,
@@ -1029,6 +1038,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4AEC881AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C401E1F1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */,
 				2C5ECC4C1AD51A1500163E9E /* CUTEPropertyInfoViewController.m in Sources */,
@@ -1076,6 +1086,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4AEC891AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C401E201ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */,
 				2C5ECC4D1AD51A1500163E9E /* CUTEPropertyInfoViewController.m in Sources */,
@@ -1123,6 +1134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4AEC871AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C401E1E1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */,
 				2C5ECC4B1AD51A1500163E9E /* CUTEPropertyInfoViewController.m in Sources */,
@@ -1170,6 +1182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4AEC861AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C401E1D1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */,
 				2C5ECC4A1AD51A1500163E9E /* CUTEPropertyInfoViewController.m in Sources */,
@@ -1237,6 +1250,7 @@
 				2C226E7F1ACBEF5700658132 /* CUTEForm.m in Sources */,
 				2C5ECC551AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2C27F2091ACD30FE002BECCF /* CUTEFormButtonCell.m in Sources */,
+				2C4AEC8A1AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C5ECC471AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
 				2C5ECC4E1AD51A1500163E9E /* CUTEPropertyInfoViewController.m in Sources */,
 				2C427E421ACFFC3E000378A9 /* CUTERentAddressEditViewController.m in Sources */,
