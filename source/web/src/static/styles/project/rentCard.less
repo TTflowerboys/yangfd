@@ -10,7 +10,6 @@
     float:left; position: relative; border-top: @border-width solid @border-color; font-size: 14px; color: @grey;
     min-height: @house_card-height;
     min-width: 700px;
-    display:block;
     width:100%;
 
     &:hover {
@@ -20,10 +19,8 @@
     }
 
     @media @phone {
-        position:static;
-        min-height:0;
-        min-width:0;
-        display:none;
+        min-width: initial;
+        border-bottom: 1px solid @border-color;
     }
 
     p { margin: 0; }
@@ -117,6 +114,11 @@
             top:0;
             width:100%;
             height:100%;
+
+            @media @phone {
+                position:relative;
+                padding: 10px;
+            }
         }
 
         @media @phone {
@@ -124,39 +126,68 @@
             padding-top:0;
         }
 
-        >p {
-            font-size: @normal-font-size;
-            font-weight: bold;
-            margin: 0;
-            color: @black;
-            font-family: @font-normal;
-            max-width:60%;
-            .limitedLines(2, 30px, transparent);
+        .titles{
+            >.name {
+                font-size: @normal-font-size;
+                font-weight: bold;
+                margin: 0;
+                color: @black;
+                font-family: @font-normal;
+                max-width:60%;
+                .limitedLines(2, 30px, transparent);
 
-            a {
-                text-decoration:none;
-                color:@black;
+                a {
+                    text-decoration:none;
+                    color:@black;
+                }
+
+                @media @phone {
+                    float: left;
+                    font-size: @root-font-size;
+                    .limitedLines(2, 24px, transparent);
+                    max-width:70%;
+                }
             }
-        }
 
-        >.price {
-            color: @red;
-            font-size: 14px;
-            position: absolute;
-            right: 0;
-            top: 0;
-            max-width:35%;
-            text-align:right;
-            margin-right: @padding-top;
+            >.price {
+                color: @red;
+                font-size: 14px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                max-width:35%;
+                text-align:right;
+                margin-right: @padding-top;
 
-            @media @phone {
-                position:static;
+                strong {
+                    font-size: @normal-font-size;
+                }
+
+                @media @phone {
+                    position:relative;
+                    max-width:30%;
+                    float: right;
+                    margin-right: inherit;
+                }
             }
-            strong { font-size: @normal-font-size;}
+
+            > .date {
+                display: none;
+
+                @media @phone {
+                    display:inherit;
+                    position:relative;
+                    float: right;
+                }
+            }
         }
 
         >.properties {
             margin-top: @padding-top/2;
+
+            @media @phone {
+                display: inline-block;
+            }
         }
 
         >.details {
@@ -205,208 +236,32 @@
                 }
 
             }
-        }
-    }
-}
 
-.rentCard_phone {
-    display:none;
-    background:#fff4f5;
-    @media @phone {
-        display:block;
-        margin-bottom:50px;
-    }
+            @media @phone {
+                position: relative;
+                display: inline-block;
+                margin-top: @padding-top/2;
+                margin-bottom: inherit;
 
-    a {
-        text-decoration:none;//in trigger text-decoration for inner element in samsung galaxy device
-    }
+                >.left {
+                    width:100%; // for ie
 
-    .imagePart {
-        overflow:hidden;
-        position:relative;
-        display:block;
-        img {
-            width:100%;
-            float:left;
-            min-height:160px;
-        }
-
-        .labels {
-            position: absolute;
-            left: 0;
-            top:0;
-            height:30px;
-            width:100%;
-            z-index:@house_card-image-text-z-index;
-            label {
-                position:static;
-                float:left;
-                color:white;
-                font-size:16px;
-                line-height:30px;
-                padding:0 12px;
-
-                &.type {
-                    background:#333;
-                }
-                &.rent {
-                    background:#e60012;
-                }
-
-            }
-        }
-
-        @imagePart-height:85px;
-
-        .soldOut {
-            height: 160px;
-            position: absolute;
-            width: 100%;
-            img {
-                position: absolute;
-                left: 0;
-                top:0;
-                height:100%;
-                height:~"calc(100% - 85px)";
-                width:100%;
-                z-index:@house_card-sold-out-background-z-index;
-            }
-
-            label {
-                position:absolute;
-                z-index:@house_card-image-text-z-index;
-                width:100%;
-                height:160px;
-                color:#666666;
-                text-align: center;
-                display: block;
-                line-height:200px;
-                font-size:16px;
-            }
-        }
-
-        .imageText {
-            width:100%;
-            height:@imagePart-height;
-            float:left;
-
-            .left {
-                display:inline-block;
-                background:#e60012;
-                float:left;
-                width:60%;
-                height:100%;
-                padding:14px 12px;
-
-                .name {
-                    margin:0 0 6px 0;
-                    font-size:20px;
-                    .limitedLines(2, 20px, #e60012);
-                    height:38px;
-                    color:white;
-                }
-                .size {
-                    margin:0;
-                    font-size:14px;
-                    line-height:1em;
-                    color:#ccc;
-                }
-
-            }
-
-            .right {
-                display:inline-block;
-                background:#333333;
-                float:right;
-                width:40%;
-                height:100%;
-                table {
-                    margin:9px auto 0 auto;
-                    .price {
-                        color:#e60012;
-                        font-size:14px;
-                        strong {
-                            font-size:24px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .textPart {
-        overflow:hidden;
-        &_inner {
-
-            margin-top:16px;
-            overflow:hidden;
-            float:left;
-            width:100%;
-
-            .border {
-                margin:0 12px;
-                height:16px;
-                border-bottom:1px solid #ccc;
-                width:~"calc(100% - 24px)";
-                overflow:hidden;
-            }
-        }
-        &_innerTable {
-            table-layout:fixed;
-            width:100%;
-        }
-
-        width:100%;
-        min-height:80px;
-        overflow:hidden;
-        .properties {
-            width:60%;
-            border-right:1px solid #ccc;
-            background:transparent;
-
-            ul {
-                margin: 12px;
-                li {
-                    vertical-align:middle;
-                    font-size:14px;
-                    line-height:15px;
-                    margin-bottom:8px;
-                    color:#999;
-                    overflow:hidden;
-
-                    img {
-                        float:left;
-                        display:inline-block;
-                        margin-right:5px;
-                        vertical-align:middle;
+                    .value{
+                        font-size: @root-font-size;
                     }
 
-                    label {
-                        float:left;
-                        display:inline-block;
-                        width: 80%;
-                        width:~"calc(100% - 30px)"
+                    .room{
+                        width: 48%;
+                    }
+
+                    .size{
+                        width: 48%;
                     }
                 }
-            }
-        }
 
-        .estimate {
-            width:40%;
-            .label {
-                display:block;
-                font-size:14px;
-                color:#999;
-                padding:0 6px 0 12px;
-            }
-
-            .value {
-                display:block;
-                font-size:24px;
-                color:#e60012;
-                padding: 0 6px 0 12px;
-                word-wrap:break-word;
-                width:100%;
+                >.right {
+                    display: none;
+                }
             }
         }
     }
