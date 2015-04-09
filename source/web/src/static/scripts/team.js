@@ -115,10 +115,10 @@
 
             if (currencyType === 'CNY') {
                 if (parseInt(number) > 100000000) {
-                    return '<strong>' + team.encodeCurrency(parseInt(number) / 100000000) + '</strong>'  + '亿'
+                    return '<strong>' + team.encodeCurrency(parseInt(number) / 100000000) + '</strong>' + '亿'
                 }
                 else if (parseInt(number) > 10000) {
-                    return '<strong>' + team.encodeCurrency(parseInt(number) / 10000) + '</strong>'  + '万'
+                    return '<strong>' + team.encodeCurrency(parseInt(number) / 10000) + '</strong>' + '万'
                 }
                 else {
                     return '<strong>' + team.encodeCurrency(number) + '</strong>'
@@ -129,15 +129,28 @@
                     return '<strong>' + team.encodeCurrency(parseInt(number) / 1000) + 'k' + '</strong>'
                 }
                 else {
-                    return  '<strong>'  + team.encodeCurrency(number) + '</strong>'
+                    return  '<strong>' + team.encodeCurrency(number) + '</strong>'
                 }
             }
         },
-        dayCountBefore: function(date) {
-            var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+        dayCountBefore: function (date) {
+            var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
             var today = new Date();
-            var diffDays = Math.round((date.getTime() - today.getTime())/(oneDay));
+            var diffDays = Math.round((date.getTime() - today.getTime()) / (oneDay));
             return diffDays;
+        },
+        parsePublishDate: function (tdate) {
+            var system_date = new Date(Date.parse(tdate));
+            var user_date = new Date();
+            if (navigator.userAgent.match(/MSIE\s([^;]*)/).ie) {
+                system_date = Date.parse(tdate.replace(/( \+)/, ' UTC$1'))
+            }
+            var diff = Math.floor((user_date - system_date) / 1000);
+            if (diff <= 86400) {return window.i18n('今天');}
+            if (diff <= 129600) {return window.i18n('昨天');}
+            if (diff < 604800) {return Math.round(diff / 86400) + window.i18n('天前');}
+            if (diff <= 777600) {return window.i18n('上周');}
+            return system_date;
         },
         /**
          * Share something to Weibo
@@ -166,8 +179,8 @@
             var top = (screen.height / 2) - (height / 2)
 
             window.open(url, '_blank',
-                        'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
-                        width + ', height=' + height + ', top=' + top + ', left=' + left)
+                    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
+                    width + ', height=' + height + ', top=' + top + ', left=' + left)
 
             return false
         },
@@ -215,8 +228,8 @@
             // IE Support
             if (document.selection) {
 
-                var sel = document.selection.createRange ();
-                sel.moveStart ('character', -elem.value.length);
+                var sel = document.selection.createRange();
+                sel.moveStart('character', -elem.value.length);
                 caretPos = sel.text.length;
             }
             // Firefox support
@@ -227,18 +240,19 @@
             return (caretPos);
         },
         setCaretPosition: function (elem, caretPos) {
-            if(elem !== null) {
-                if(elem.createTextRange) {
+            if (elem !== null) {
+                if (elem.createTextRange) {
                     var range = elem.createTextRange();
                     range.move('character', caretPos);
                     range.select();
                 }
                 else {
-                    if(elem.selectionStart) {
+                    if (elem.selectionStart) {
                         elem.setSelectionRange(caretPos, caretPos);
                     }
                 }
             }
         }
     }
-})();
+})
+();

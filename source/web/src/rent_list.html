@@ -2,9 +2,7 @@
 <!--@@block=head -->
 
 <!--build:css(dist) /static/styles/property_list.html.css-->
-<link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
-<link rel="stylesheet" href="/static/styles/project/addtionalHouseCard.css"/>
-<link rel="stylesheet" href="/static/styles/project/houseInfobox.css"/>
+<link rel="stylesheet" href="/static/styles/project/rentCard.css"/>
 <link rel="stylesheet" href="/static/styles/rentList.css"/>
 <!--endbuild-->
 
@@ -27,6 +25,9 @@
     </textarea>
     <textarea id="rentTypeData">
         {{json_dumps(rent_type_list)}}
+    </textarea>
+    <textarea id="propertyTypeData">
+        {{json_dumps(property_type_list)}}
     </textarea>
     <textarea id="rentPeriodData">
         {{json_dumps(rent_period_list)}}
@@ -203,70 +204,14 @@
     </div>
 
 </div>
-<!-- @@include=/static/templates/house_card.tpl.html-->
-<!-- @@include=/static/templates/addtional_house_card.tpl.html-->
-
-<script id="houseInfobox_template" type="text/template">
-    <div class="houseInfobox_wrapper infobox">
-        <div class="houseInfobox arrow_box">
-            <a href="/property/{=house.id=}">
-                <div class="imagePart">
-                    {_if (house.cover){_}
-                    <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);" width=120 height=80/>
-                    {_ } else if(house.reality_images && house.reality_images.length) {_}
-                    <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);" width=120 height=80/>
-                    {_ }else { _}
-                    <img class="withPlaceholder"  width=120 height=80 />
-                    {_}_}
-                    <div class="labels">
-                        {_if (house.rent_type && house.rent_type.value){_}
-                        <label class="type" for="">{=house.rent_type.value=}</label>
-                        {_}_}
-                    </div>
-                </div>
-                <div class=description>
-                    <h1 class=name>
-                        {_if (house.country){_}
-                        <span class="country">
-                            {=house.country.value=}
-                        </span>
-                        {_}_}
-                        {_if (house.city){_}
-                        <span class="city">
-                            {=house.city.value=}
-                        </span>
-                        {_}_}
-                        {=house.name=}
-                    </h1>
-                    {_if (house.rent_type && house.rent_type.value){_}
-                    <label class="type" for="">{=house.rent_type.value=}</label>
-                    {_}_}
-                     {_if(house.intention && house.intention.length) {_}
-                    <div class="intentions">
-                        <img src="/static/images/property_details/tag-icon.png"/>
-                        <label>
-                            {_ _.each(house.intention, function(oneIntention) { _}
-                            {=oneIntention.value=}
-                            {_})_}
-                        </label>
-                    </div>
-                    {_}_}
-                    <label class=price>
-                        <!--@@include=partials/get_unit_price.tpl.html  -->
-                    </label>
-                </div>
-                <img class="enter_phone" alt="" src="/static/images/property_list/icon-map-item-enter-phone.png"/>
-            </a>
-        </div>
-    </div>
-</script>
+<!-- @@include=/static/templates/rent_card.tpl.html-->
 
 <!--@@close-->
 
 
 <!--@@block=scripts -->
-<!--build:js /static/scripts/property_list.html.js-->
-<script src="/static/scripts/property_list.js"></script>
+<!--build:js /static/scripts/rent_list.html.js-->
+<script src="/static/scripts/rent_list.js"></script>
 <script src="/static/scripts/property_list_map.js"></script>
 <!--endbuild-->
 <!--@@close-->

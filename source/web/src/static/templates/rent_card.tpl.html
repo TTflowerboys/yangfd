@@ -1,0 +1,82 @@
+<script id="rentCard_template" type="text/template">
+    <div class="rentCard">
+        <div class="imagePart">
+            <a href="/property-to-rent/{=rent.id=}">
+                if(rent.property.reality_images && rent.property.reality_images.length) {_}
+                <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" width=320 height=213 onerror="window.onImgError(this);"/>
+                {_}else {_}
+                <img class="withPlaceholder" width="320" height="213"/>
+                {_}_}
+            </a>
+            <div class="labels">
+                <label class="property-type" for="">{=rent.property.property_type.value=}</label>
+                <label class="rent-type" for="">{=rent.rent_type.value=}</label>
+            </div>
+        </div>
+        <div class="description_wrapper">
+            <div class="description">
+                <div class="titles">
+                    if(rent.title) {_}
+                    <p class="name">{=rent.title=}</p>
+                    {_}_}
+                    if(rent.price) {_}
+                    <span class="price"><strong>{!team.formatCurrency(parseInt(rent.price.value))!}</strong>{=window.i18n('/周')=}</span>
+                    {_}_}
+                    <p class="date">{!team.parseReadableDate(parseInt(rent.last_modified_time))!}</p>
+                </div>
+                <ul class="properties">
+                    {_if(rent.property.street) {_}
+                    <li>
+                        <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                        {=rent.property.street=}
+                    </li>
+                    {_}_}
+                    if(rent.property.region_highlight && rent.property.region_highlight.length) {_}
+                    <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                        {_ _.each(rent.region_highlight, function(highlight) { _}
+                        {=highlight.value=}
+                        {_})_}
+                    </li>
+                    {_})_}
+                </ul>
+                <div class="details">
+                    <div class="left">
+                        <div class="room">
+                            <p class="label">居室</p>
+                            <p class="value">
+                                {_if(rent.property.bedroom_count) {_}
+                                {=rent.property.bedroom_count=} {=window.i18n('室')=},
+                                {_}_}
+                                {_if(rent.property.living_room_count) {_}
+                                {=rent.property.living_room_count=} {=window.i18n('厅')=},
+                                {_}_}
+                            </p>
+                        </div>
+                        <div class="size">
+                            <p class="label">面积</p>
+                            <p class="value">
+                                {_if(rent.space) {_}
+                                {= parseFloat(rent.property.space.value).toFixed(2)=}
+                                {_if (rent.property.space.unit === 'foot ** 2'){_}
+                                foot <sup>2</sup>
+                                {_} else if(rent.property.space.unit === 'acre'){_}
+                                acre
+                                {_} else if (rent.property.space.unit === 'meter ** 2') {_}
+                                m <sup>2</sup>
+                                {_} else if (rent.property.space.unit === 'kilometer ** 2') {_}
+                                km <sup>2</sup>
+                                {_} else {_}
+                                {=rent.space.unit=}
+                                {_}_}
+                                {_}_}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <p class="date">{!team.parseReadableDate(parseInt(rent.last_modified_time))!}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
