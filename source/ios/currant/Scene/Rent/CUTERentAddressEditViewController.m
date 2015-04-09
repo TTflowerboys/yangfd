@@ -11,28 +11,21 @@
 
 @implementation CUTERentAddressEditViewController
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(FXFormBaseCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([cell.field.key isEqualToString:@"street"]) {
-        FXFormTextFieldCell *textFieldCell = (FXFormTextFieldCell *)cell;
-        UITextField *textField = textFieldCell.textField;
-        textField.text = self.placemark.street;
-    }
-    else if ([cell.field.key isEqualToString:@"zipcode"]) {
-        FXFormTextFieldCell *textFieldCell = (FXFormTextFieldCell *)cell;
-        UITextField *textField = textFieldCell.textField;
-        textField.text = self.placemark.zipcode;
-    }
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+
     [super viewWillAppear:animated];
     //reload city base on country
+    //FXFormField *cityField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+
     //[[self.formController tableView] reloadData];
+    NSArray *sections = [self.formController sections];
+//    FXFormSection *section = [sections firstObject];
+
 }
 
 - (void)onSaveButtonPressed:(id)sender {

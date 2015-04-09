@@ -12,5 +12,7 @@
 
 @property (strong, nonatomic) CUTEEnum *country;
 
++ (CUTECityEnum *)cityWithValue:(NSString *)value;
+
 
 @end

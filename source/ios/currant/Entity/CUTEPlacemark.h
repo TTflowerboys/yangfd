@@ -29,6 +29,8 @@
 
 + (CUTEPlacemark *)placeMarkWithCLPlaceMark:(CLPlacemark *)placemark;
 
++ (CUTEPlacemark *)placeMarkWithGoogleResult:(NSDictionary *)result;
+
 - (NSString *)address;
 
 - (NSString *)street;
