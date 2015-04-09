@@ -792,8 +792,6 @@ def rent_ticket_search(user, params):
 @f_app.user.login.check(check_role=True)
 def sale_ticket_add(user, params):
     """
-    Use ``none`` on ``ticket_id`` to create a new sale ticket.
-
     Valid status: ``draft``, ``selling``, ``hidden``, ``sold``, ``deleted``.
     """
     if "status" in params:
@@ -821,8 +819,6 @@ def sale_ticket_add(user, params):
 @f_app.user.login.check(check_role=True)
 def sale_ticket_edit(ticket_id, user, params):
     """
-    Use ``none`` on ``ticket_id`` to create a new sale ticket.
-
     Valid status: ``draft``, ``selling``, ``hidden``, ``sold``, ``deleted``.
     """
     if "status" in params:
