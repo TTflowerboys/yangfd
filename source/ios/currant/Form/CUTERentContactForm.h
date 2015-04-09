@@ -8,7 +8,7 @@
 
 #import "CUTEForm.h"
 
-@interface CUTERectContactForm : CUTEForm
+@interface CUTERentContactForm : CUTEForm
 
 @property (strong, nonatomic) NSString *name;
 

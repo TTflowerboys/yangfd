@@ -8,7 +8,7 @@
 
 #import "CUTEPropertyInfoViewController.h"
 #import "CUTERentContactViewController.h"
-#import "CUTERectContactForm.h"
+#import "CUTERentContactForm.h"
 #import "CUTEDataManager.h"
 #import <Bolts/Bolts.h>
 #import "CUTEAPIManager.h"
@@ -52,7 +52,7 @@
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
-            CUTERectContactForm *form = [CUTERectContactForm new];
+            CUTERentContactForm *form = [CUTERentContactForm new];
             contactViewController.formController.form = form;
             [self.navigationController pushViewController:contactViewController animated:YES];
         }];

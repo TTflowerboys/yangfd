@@ -10,7 +10,7 @@
 #import "CUTEForm.h"
 #import "CUTEEnum.h"
 
-@interface CUTERectTypeListForm : CUTEForm
+@interface CUTERentTypeListForm : CUTEForm
 
 - (void)setRentTypeList:(NSArray *)rentTypeList;
 

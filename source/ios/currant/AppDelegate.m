@@ -17,7 +17,7 @@
 #import "CUTEUIMacro.h"
 #import "CUTECommonMacro.h"
 #import "CUTEEnumManager.h"
-#import "CUTERectTypeListForm.h"
+#import "CUTERentTypeListForm.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -186,7 +186,7 @@
 
         [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithSuccessBlock:^id(BFTask *task) {
             if (task.result) {
-                CUTERectTypeListForm *form = [[CUTERectTypeListForm alloc] init];
+                CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
                 [form setRentTypeList:task.result];
                 [[(CUTERentTypeListViewController *)viewController.topViewController formController] setForm:form];
             }

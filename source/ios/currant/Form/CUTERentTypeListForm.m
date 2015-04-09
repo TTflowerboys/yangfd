@@ -6,20 +6,20 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTERectTypeListForm.h"
+#import "CUTERentTypeListForm.h"
 #import "CUTECommonMacro.h"
 #import "CUTEFormRentTypeCell.h"
 #import "CUTERentAddressMapViewController.h"
 #import <NSArray+Frankenstein.h>
 #import "CUTEEnum.h"
 
-@interface CUTERectTypeListForm () {
+@interface CUTERentTypeListForm () {
     NSArray *_rentTypeList;
 }
 
 @end
 
-@implementation CUTERectTypeListForm
+@implementation CUTERentTypeListForm
 
 - (NSArray *)fields {
     NSArray *array = [_rentTypeList map:^id(CUTEEnum *object) {

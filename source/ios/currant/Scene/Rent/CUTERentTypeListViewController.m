@@ -8,12 +8,12 @@
 
 #import "CUTERentTypeListViewController.h"
 #import "CUTEPropertyInfoForm.h"
-#import "CUTERectTypeListForm.h"
+#import "CUTERentTypeListForm.h"
 #import "CUTEFormDefaultCell.h"
 #import "CUTEDataManager.h"
 #import "CUTEEnumManager.h"
 #import "CUTETicket.h"
-#import "CUTERectTypeListForm.h"
+#import "CUTERentTypeListForm.h"
 
 
 @implementation CUTERentTypeListViewController
@@ -29,7 +29,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CUTETicket *ticket = [CUTETicket new];
-    CUTERectTypeListForm *form = (CUTERectTypeListForm *)[self.formController form];
+    CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
     ticket.rentType = [form rentTypeAtIndex:indexPath.row];
     
     [[CUTEDataManager sharedInstance] pushRentTicket:ticket];

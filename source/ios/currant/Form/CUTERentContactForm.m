@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTERectContactForm.h"
+#import "CUTERentContactForm.h"
 #import "CUTECommonMacro.h"
 
-@implementation CUTERectContactForm
+@implementation CUTERentContactForm
 
 - (NSArray *)fields {
     return @[
