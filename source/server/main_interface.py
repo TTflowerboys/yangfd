@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from app import f_app
-from bottle import response
-from bson.objectid import ObjectId
-from lxml import etree
+import logging
+import calendar
 from datetime import datetime
 from hashlib import sha1
-from libfelix.f_interface import f_get, f_post, static_file, template, request, redirect, html_redirect, error, abort, template_gettext as _
+from bson.objectid import ObjectId
+from lxml import etree
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
 import qrcode
 import bottle
-import logging
-import calendar
-logger = logging.getLogger(__name__)
-f_app.dependency_register("qrcode", race="python")
+from app import f_app
+from libfelix.f_interface import f_get, f_post, static_file, template, request, response, redirect, html_redirect, error, abort, template_gettext as _
 import currant_util
 import currant_data_helper
+
+logger = logging.getLogger(__name__)
+f_app.dependency_register("qrcode", race="python")
 
 BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅', '学区房', '英国房产', '海外投资', '海外房产', '海外买房', '海外房地产', '海外房产投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
 
