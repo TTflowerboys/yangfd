@@ -15,6 +15,17 @@
 #import <Sequencer.h>
 #import "CUTEProperty.h"
 #import <UIKit/UIKit.h>
+#import <BBTRestClient.h>
+#import "CUTEConfiguration.h"
+#import <BBTJSON.h>
+#import <NSArray+Frankenstein.h>
+
+@interface CUTEPropertyInfoViewController () {
+    BBTRestClient *_imageUploader;
+}
+
+@end
+
 
 @implementation CUTEPropertyInfoViewController
 
@@ -25,8 +36,8 @@
     if (ticket && property) {
         Sequencer *sequencer = [Sequencer new];
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[self uploadImage] continueWithBlock:^id(BFTask *task) {
-                property.realityImages = @[@"http://bbt-currant.s3.amazonaws.com/1ac690bbb2e4406a949c9ed5d37ed466"];
+            [[self uploadImages] continueWithBlock:^id(BFTask *task) {
+                property.realityImages = task.result;
                 completion(task.result);
                 return nil;
             }];
@@ -50,27 +61,54 @@
     }
 }
 
-- (BFTask *)uploadImage {
-
-    FXFormImagePickerCell *imagePickerCell = (FXFormImagePickerCell *)[[self.formController tableView] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    UIImage *image = [[imagePickerCell imageView] image];
+- (BFTask *)updateImage:(UIImage*)image {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if (image) {
         NSData *dataImage = UIImageJPEGRepresentation(image, 1.0f);
-        return [[CUTEAPIManager sharedInstance] POST:@"/api/1/upload_image" parameters:@{@"data": dataImage, @"thumbnail_size":@"320,213"} resultClass:nil];
+
+        if (!_imageUploader) {
+            _imageUploader = [BBTRestClient clientWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]] account:nil];
+        }
+        [_imageUploader POST:@"/api/1/upload_image" parameters:@{@"thumbnail_size":@"320,213"} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            //do not put image inside parameters dictionary as I did, but append it!
+            [formData appendPartWithFileData:dataImage name:@"data" fileName:@"filename.jpg" mimeType:@"image/jpeg"];
+        }  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *responseDic = (NSDictionary *)responseObject;
+            if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
+                NSString *url = responseDic[@"val"][@"url"];
+                [tcs setResult:url];
+            }
+            else {
+                [tcs setError:[NSError errorWithDomain:responseDic[@"msg"] code:[[responseDic objectForKey:@"ret"] integerValue] userInfo:responseDic]];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [tcs setError:error];
+        }];
     }
-    return nil;
+    else {
+        [tcs setResult:nil];
+    }
+    return tcs.task;
+
+}
+
+- (BFTask *)uploadImages {
+    FXFormImagePickerCell *imagePickerCell = (FXFormImagePickerCell *)[[self.formController tableView] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    UIImage *image = [[imagePickerCell imageView] image];
+    NSArray *images = @[image];
+    return [BFTask taskForCompletionOfAllTasksWithResults:[images map:^id(UIImage *object) {
+        return [self updateImage:object];
+    }]];
+
 }
 
 - (BFTask *)addProperty {
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
     CUTEProperty *property = ticket.property;
-
     FXFormField *propertyTypeField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     property.propertyType = propertyTypeField.value;
     FXFormField *bedroomCountField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
     property.bedroomCount = [bedroomCountField.value integerValue];
-    //    FXFormField *spaceField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
-
     BFTask *task = [[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:[property toParams] resultClass:[CUTEProperty class]];
     return task;
 }
