@@ -56,6 +56,19 @@ $('#submit').click(function () {
     }
     var address = $('#locality')[0].value + $('#neighborhood1')[0].value + $('#neighborhood2')[0].value +
         $('#unit_name')[0].value + $('#unit_number')[0].value + $('#room_name')[0].value
+    var rentPrice = $('#price')[0].value
+    if(rentPrice){
+        $('sales_price_error').hide()
+    }else{
+        $('sales_price_error').show()
+        return
+    }
+    if(startDate){
+        $('date_error').hide()
+    }else{
+        $('date_error').show()
+        return
+    }
     var propertyData = {
         'kitchen_count': $('#kitchen_count').children('option:selected').val(),
         'bathroom_count': $('#bathroom_count').children('option:selected').val(),
@@ -71,7 +84,7 @@ $('#submit').click(function () {
     var ticketData = {
         'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'),
         'deposit_type': $('#deposit_type').children('option:selected').val(),
-        'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'price': $('#price')[0].value}),
+        'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'price': rentPrice}),
         'rent_period': $('#rent_period').children('option:selected').val(),
         'rent_available_time': startDate,
         'title': $('#title')[0].value

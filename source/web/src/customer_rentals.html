@@ -181,6 +181,9 @@
                                     %end
                                 </select>
                             </div>
+                            <div id="sales_price_error" class="error">
+                                请填写租金
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -203,6 +206,9 @@
                                 <div class="date">
                                     <input id="rentPeriodStartDate" type="text"><img src="customer_rentals.html">
                                 </div>
+                            </div>
+                            <div id="date_error" class="error">
+                                请填写租期开始时间
                             </div>
                         </td>
                     </tr>
@@ -291,11 +297,11 @@
                         </td>
                         <td class="content">
                             <ul id="intentionTag" class="inner">
-                                %for index, region_highlight in enumerate(region_highlight_list):
-                                <li class="toggleTag selected" data-id="{{region_highlight.get('id')}}">{{region_highlight.get('value')}}
-                                    <img alt="" src="/static/images/intention/close.png">
-                                </li>
-                                %end
+                                <!--%for index, region_highlight in enumerate(region_highlight_list):-->
+                                <!--<li class="toggleTag selected" data-id="{{region_highlight.get('id')}}">{{region_highlight.get('value')}}-->
+                                    <!--<img alt="" src="/static/images/intention/close.png">-->
+                                <!--</li>-->
+                                <!--%end-->
                                 <li id="more_region_highlight_panel" style="width: 100px;">
                                     <div id="more_region_highlight_handler">
                                         <img alt="" src="/static/images/customer/ico_add_panel.png">
