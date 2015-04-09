@@ -565,8 +565,6 @@ def support_ticket_search(user, params):
 @f_app.user.login.check(check_role=True)
 def rent_ticket_add(user, params):
     """
-    Use ``none`` on ``ticket_id`` to create a new rent ticket.
-
     Valid status: ``draft``, ``for rent``, ``hidden``, ``rent``, ``deleted``.
     """
     if "status" in params:
@@ -600,8 +598,6 @@ def rent_ticket_add(user, params):
 @f_app.user.login.check(check_role=True)
 def rent_ticket_edit(ticket_id, user, params):
     """
-    Use ``none`` on ``ticket_id`` to create a new rent ticket.
-
     Valid status: ``draft``, ``for rent``, ``hidden``, ``rent``, ``deleted``.
     """
     if "status" in params:
@@ -664,9 +660,6 @@ def rent_ticket_get(user, ticket_id):
 @f_app.user.login.check(check_role=True)
 def rent_ticket_search(user, params):
     params.setdefault("type", "rent")
-    if "phone" in params:
-        params["phone"] = f_app.util.parse_phone(params)
-
     sort = params.pop("sort")
     per_page = params.pop("per_page", 0)
 
@@ -678,6 +671,8 @@ def rent_ticket_search(user, params):
             params["user_id"] = ObjectId(user["id"])
         else:
             abort(40100)
+
+    params["status"] = {"$in": params["status"]}
 
     if "user_id" in params:
         params["creator_user_id"] = params.pop("user_id")
@@ -890,9 +885,6 @@ def sale_ticket_get(user, ticket_id):
 @f_app.user.login.check(check_role=True)
 def sale_ticket_search(user, params):
     params.setdefault("type", "sale")
-    if "phone" in params:
-        params["phone"] = f_app.util.parse_phone(params)
-
     sort = params.pop("sort")
     per_page = params.pop("per_page", 0)
 
@@ -904,6 +896,8 @@ def sale_ticket_search(user, params):
             params["user_id"] = ObjectId(user["id"])
         else:
             abort(40100)
+
+    params["status"] = {"$in": params["status"]}
 
     if "user_id" in params:
         params["creator_user_id"] = params.pop("user_id")
