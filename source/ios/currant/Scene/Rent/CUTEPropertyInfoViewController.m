@@ -71,7 +71,8 @@
     property.bedroomCount = [bedroomCountField.value integerValue];
     //    FXFormField *spaceField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
 
-    return [[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:[property toParams] resultClass:[CUTEProperty class]];
+    BFTask *task = [[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:[property toParams] resultClass:[CUTEProperty class]];
+    return task;
 }
 
 

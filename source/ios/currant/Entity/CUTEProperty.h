@@ -9,6 +9,7 @@
 #import "MTLModel.h"
 #import "CUTEEnum.h"
 #import "CUTEArea.h"
+#import "CUTEI18n.h"
 
 @interface CUTEProperty : MTLModel <MTLJSONSerializing>
 
@@ -18,7 +19,7 @@
 
 @property (strong, nonatomic) NSArray * realityImages;
 
-@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) CUTEI18n *name;
 
 @property (nonatomic) float longitude;
 
@@ -28,11 +29,11 @@
 
 @property (strong, nonatomic) CUTEEnum *city;
 
-@property (strong, nonatomic) NSString *street;
+@property (strong, nonatomic) CUTEI18n *street;
 
 @property (strong, nonatomic) NSString *zipcode;
 
-@property (strong, nonatomic) NSString *propertyDescription;
+@property (strong, nonatomic) CUTEI18n *propertyDescription;
 
 @property (nonatomic) NSInteger bedroomCount;
 

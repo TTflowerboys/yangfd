@@ -21,16 +21,28 @@
 }
 
 - (NSDictionary *)toParams {
-    return @{@"bedroom_count": @(self.bedroomCount),
-             @"city": self.city? self.city.identifier: @"",
-             @"country": self.country? self.country.identifier: @"",
-             @"latitude":@(self.latitude),
-             @"longitude":@(self.longitude),
-             @"name":self.name? self.name: @"",
-             @"description":self.propertyDescription? self.propertyDescription: @"",
-             @"street": self.street? self.street: @"",
-             @"zipcode": self.zipcode? self.zipcode: @"",
-             };
+    NSMutableDictionary *params =
+    [NSMutableDictionary dictionaryWithDictionary:@{@"bedroom_count": @(self.bedroomCount),
+                                                    @"latitude":@(self.latitude),
+                                                    @"longitude":@(self.longitude),
+                                                    @"zipcode": self.zipcode? self.zipcode: @"",
+                                                    }];
+    if (self.name && self.name.toParams) {
+        [params setValue:self.name.toParams forKey:@"name"];
+    }
+    if (self.propertyDescription && self.propertyDescription.toParams) {
+        [params setValue:self.propertyDescription.toParams forKey:@"description"];
+    }
+    if (self.street && self.street.toParams) {
+        [params setValue:self.street.toParams forKey:@"street"];
+    }
+    if (self.country && self.country.identifier) {
+        [params setValue:self.country.identifier forKey:@"country"];
+    }
+    if (self.city && self.city.identifier) {
+        [params setValue:self.city.identifier forKey:@"city"];
+    }
+    return params;
 }
 
 @end

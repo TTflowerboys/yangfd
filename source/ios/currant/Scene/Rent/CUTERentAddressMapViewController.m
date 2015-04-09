@@ -148,7 +148,7 @@
         [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithSuccessBlock:^id(BFTask *task) {
             if (!IsArrayNilOrEmpty(task.result)) {
                 CUTEProperty *property = [CUTEProperty new];
-                property.street = _placemark.street;
+                property.street = [CUTEI18n i18nWithValue:_placemark.street];
                 property.latitude = _location.coordinate.latitude;
                 property.longitude = _location.coordinate.longitude;
                 property.country = _placemark.country;
