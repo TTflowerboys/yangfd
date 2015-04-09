@@ -13,6 +13,12 @@
     display:block;
     width:100%;
 
+    &:hover {
+        background-color: @light-orange;
+        border-top: @border-width solid @border-hover-color;
+        cursor: pointer;
+    }
+
     @media @phone {
         position:static;
         min-height:0;
@@ -118,7 +124,7 @@
             padding-top:0;
         }
 
-        > p {
+        >p {
             font-size: @normal-font-size;
             font-weight: bold;
             margin: 0;
@@ -133,7 +139,7 @@
             }
         }
 
-        .price {
+        >.price {
             color: @red;
             font-size: 14px;
             position: absolute;
@@ -149,18 +155,18 @@
             strong { font-size: @normal-font-size;}
         }
 
-        .properties {
+        >.properties {
             margin-top: @padding-top/2;
         }
 
-        > .details {
+        >.details {
             font-family: @font-song;
             overflow: hidden;
             width:100%;
             position: absolute;
             bottom: 0;
             margin-bottom: @padding-top/2;
-            .left {
+            >.left {
                 float: left;
                 width:70%; // for ie
 
@@ -201,12 +207,6 @@
             }
         }
     }
-}
-
-.rentCard:hover {
-    background-color: @light-orange;
-    border-top: @border-width solid @border-hover-color;
-    cursor: pointer;
 }
 
 .rentCard_phone {
