@@ -359,6 +359,7 @@ $(window).resize(window.updateTabSelectorFixed);
             .done(function (val) {
                 var array = val.content
                 var totalResultCount = val.count
+                array = filterPropertyHouseTypes(array, budgetType, bedroomCount, buildingArea)
                 if (!_.isEmpty(array)) {
 
                     lastItemTime = _.last(array).mtime
