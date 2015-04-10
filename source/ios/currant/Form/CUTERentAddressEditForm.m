@@ -24,12 +24,25 @@
 @implementation CUTERentAddressEditForm
 
 - (NSArray *)fields {
-    return @[
-             @{FXFormFieldKey: @"street", FXFormFieldTitle: STR(@"街道"), FXFormFieldHeader:STR(@"位置")},
-             @{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: [self citiesOfCountry:_country], FXFormFieldDefaultValue: _city? _city: (CUTEEnum *)[[self citiesOfCountry:_country] firstObject]},
-             @{FXFormFieldKey: @"zipcode", FXFormFieldTitle: STR(@"邮政编码")},
-             @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject]}
-             ];
+    NSMutableArray *array = [NSMutableArray
+                             arrayWithArray:@[
+                                              @{FXFormFieldKey: @"street", FXFormFieldTitle: STR(@"街道"), FXFormFieldHeader:STR(@"位置"), FXFormFieldDefaultValue: _street? _street: @""},
+                                              @{FXFormFieldKey: @"zipcode", FXFormFieldTitle: STR(@"邮政编码"), FXFormFieldDefaultValue: _zipcode? _zipcode: @""},
+                                              ]];
+    if (_country) {
+        [array addObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country}];
+    }
+    else {
+        [array addObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries}];
+    }
+    if (_city) {
+        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: [self citiesOfCountry:_country], FXFormFieldDefaultValue: _city} atIndex:1];
+    }
+    else {
+        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: [self citiesOfCountry:_country]} atIndex:1];
+    }
+
+    return array;
 }
 
 - (void)setAllCountries:(NSArray *)allCountries {

@@ -20,4 +20,6 @@
 
 + (NSString *)apiEndpoint;
 
++ (NSString *)googleAPIKey;
+
 @end

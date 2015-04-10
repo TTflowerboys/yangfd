@@ -20,6 +20,8 @@
 #import "CUTEEnum.h"
 #import <NSArray+Frankenstein.h>
 #import "CUTEDataManager.h"
+#import <BBTRestClient.h>
+#import "CUTEConfiguration.h"
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {
@@ -33,7 +35,7 @@
 
     CLLocation *_location;
 
-    CLGeocoder *_geocoder;
+    BBTRestClient *_geocoder;
 
     CUTEPlacemark *_placemark;
 }
@@ -121,6 +123,8 @@
             if (cityIndex != NSNotFound) {
                 [form setCity:[cities objectAtIndex:cityIndex]];
             }
+            form.street = _placemark.street;
+            form.zipcode = _placemark.zipcode;
             controller.formController.form = form;
 
             controller.navigationItem.title = STR(@"位置");
@@ -190,15 +194,19 @@
     [_mapView addAnnotation:annotation];
 
     if (!_geocoder) {
-        _geocoder = [[CLGeocoder alloc] init];
+        _geocoder = [BBTRestClient clientWithBaseURL:nil account:nil];
     }
 
-    [_geocoder reverseGeocodeLocation:_location completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (!IsArrayNilOrEmpty(placemarks)) {
-            CLPlacemark *placemark = placemarks[0];
-            _placemark = [CUTEPlacemark placeMarkWithCLPlaceMark:placemark];
+    NSString *geocoderURLString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?latlng=%lf,%lf&key=%@&language=en", _location.coordinate.latitude, _location.coordinate.longitude, [CUTEConfiguration googleAPIKey]];
+    [_geocoder POST:geocoderURLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        if ([[dic objectForKey:@"status"] isEqualToString:@"OK"] && !IsArrayNilOrEmpty([dic objectForKey:@"results"])) {
+            NSDictionary *place = [[dic objectForKey:@"results"] objectAtIndex:0];
+            _placemark = [CUTEPlacemark placeMarkWithGoogleResult:place];
             _textField.text = _placemark.address;
         }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
     }];
 
 }

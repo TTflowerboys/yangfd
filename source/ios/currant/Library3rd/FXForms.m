@@ -630,7 +630,7 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
 
 @interface FXFormController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, copy) NSArray *sections;
+
 @property (nonatomic, strong) NSMutableDictionary *cellHeightCache;
 @property (nonatomic, strong) NSMutableDictionary *cellClassesForFieldTypes;
 @property (nonatomic, strong) NSMutableDictionary *cellClassesForFieldClasses;
@@ -669,19 +669,7 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
 @end
 
 
-@interface FXFormSection : NSObject
 
-+ (NSArray *)sectionsWithForm:(id<FXForm>)form controller:(FXFormController *)formController;
-
-@property (nonatomic, strong) id<FXForm> form;
-@property (nonatomic, strong) id header;
-@property (nonatomic, strong) id footer;
-@property (nonatomic, strong) NSMutableArray *fields;
-@property (nonatomic, assign) BOOL isSortable;
-
-- (void)addNewField;
-
-@end
 
 
 @implementation FXFormField
@@ -1996,6 +1984,10 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
 {
     _form = form;
     self.sections = [FXFormSection sectionsWithForm:form controller:self];
+}
+
+- (void)updateFormSections {
+    self.sections = [FXFormSection sectionsWithForm:_form controller:self];
 }
 
 - (NSUInteger)numberOfSections

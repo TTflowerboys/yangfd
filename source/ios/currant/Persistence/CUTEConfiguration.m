@@ -36,4 +36,8 @@ static NSString *host = nil;
     return CONCAT(@"http://", [self host], @"/api/1/");
 }
 
++ (NSString *)googleAPIKey {
+    return @"AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU";
+}
+
 @end

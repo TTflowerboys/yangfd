@@ -27,4 +27,10 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
++ (CUTECityEnum *)cityWithValue:(NSString *)value {
+    CUTECityEnum *city = [CUTECityEnum new];
+    city.value = value;
+    return city;
+}
+
 @end

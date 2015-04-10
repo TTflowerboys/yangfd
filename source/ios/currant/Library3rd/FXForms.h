@@ -144,12 +144,15 @@ UIKIT_EXTERN NSString *const FXFormFieldTypeImage; //image
 @property (nonatomic, strong) FXFormController *parentFormController;
 @property (nonatomic, weak) id<FXFormControllerDelegate> delegate;
 @property (nonatomic, strong) id<FXForm> form;
+@property (nonatomic, copy) NSArray *sections;
 
 - (NSUInteger)numberOfSections;
 - (NSUInteger)numberOfFieldsInSection:(NSUInteger)section;
 - (FXFormField *)fieldForIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForField:(FXFormField *)field;
 - (void)enumerateFieldsWithBlock:(void (^)(FXFormField *field, NSIndexPath *indexPath))block;
+
+- (void)updateFormSections;
 
 - (Class)cellClassForField:(FXFormField *)field;
 - (void)registerDefaultFieldCellClass:(Class)cellClass;
@@ -164,6 +167,19 @@ UIKIT_EXTERN NSString *const FXFormFieldTypeImage; //image
 
 @end
 
+@interface FXFormSection : NSObject
+
++ (NSArray *)sectionsWithForm:(id<FXForm>)form controller:(FXFormController *)formController;
+
+@property (nonatomic, strong) id<FXForm> form;
+@property (nonatomic, strong) id header;
+@property (nonatomic, strong) id footer;
+@property (nonatomic, strong) NSMutableArray *fields;
+@property (nonatomic, assign) BOOL isSortable;
+
+- (void)addNewField;
+
+@end
 
 @protocol FXFormFieldViewController <NSObject>
 
