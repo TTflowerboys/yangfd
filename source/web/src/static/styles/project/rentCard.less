@@ -11,6 +11,7 @@
     min-height: @house_card-height;
     min-width: 700px;
     width:100%;
+    margin-bottom: 60px;
 
     &:hover {
         background-color: @light-orange;
@@ -33,6 +34,10 @@
         width:320px;
         z-index:@house_card-image-z-index;
 
+        @media @phone {
+            width:100%;
+        }
+
         a {
             img {
                 position: absolute;
@@ -44,7 +49,6 @@
                 @media @phone {
                     position:static;
                     float:left;
-                    width:100%;
                 }
             }
         }

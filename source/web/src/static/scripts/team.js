@@ -140,9 +140,9 @@
             return diffDays;
         },
         parsePublishDate: function (tdate) {
-            var system_date = new Date(Date.parse(tdate));
+            var system_date = new Date(tdate * 1000);
             var user_date = new Date();
-            if (navigator.userAgent.match(/MSIE\s([^;]*)/).ie) {
+            if (navigator.userAgent.match(/MSIE\s([^;]*)/)) {
                 system_date = Date.parse(tdate.replace(/( \+)/, ' UTC$1'))
             }
             var diff = Math.floor((user_date - system_date) / 1000);

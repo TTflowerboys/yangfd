@@ -172,10 +172,10 @@ $(window).resize(window.updateTabSelectorFixed);
         }
         var lastItemTime = getLastItemTimeByBudget(budgetType)
         if (lastItemTime) {
-            params.mtime = lastItemTime
+            params.last_modified_time = lastItemTime
 
             //Load more triggered
-            ga('send', 'event', 'property_list', 'trigger', 'load-more')
+            ga('send', 'event', 'rent_list', 'trigger', 'load-more')
         }
 
         $('#result_list_container').show()
@@ -192,7 +192,7 @@ $(window).resize(window.updateTabSelectorFixed);
             .done(function (val) {
                 var array = val
                 if (!_.isEmpty(array)) {
-                    lastItemTime = _.last(array).mtime
+                    lastItemTime = _.last(array).last_modified_time
 
                     if (!window.rentList) {
                         window.rentList = []
@@ -207,27 +207,15 @@ $(window).resize(window.updateTabSelectorFixed);
                             lastItemTime = rent.last_modified_time
                         }
                     })
-
-                    setLastItemTimeBudget(budgetType, lastItemTime)
-
-                    updatePropertyCardMouseEnter()
-
-                    if (totalResultCount > getCurrentTotalCount()) {
-                        $('#loadMore').show()
-                    }
-                    else {
-                        $('#loadMore').hide()
-                    }
-                }
-                else {
+                    totalResultCount = getCurrentTotalCount()
+                    $('#loadMore').show()
+                }else {
                     $('#loadMore').hide()
                 }
 
-            })
-            .fail (function () {
+            }).fail (function () {
                 $('#loadMore').show()
-            })
-            .always(function () {
+            }).always(function () {
                 updateResultCount(totalResultCount)
                 $('#loadIndicator').hide()
                 isLoading = false
@@ -388,12 +376,9 @@ $(window).resize(window.updateTabSelectorFixed);
 
     function updateResultCount(count) {
         var $numberContainer = $('#number_container')
-        //var $number = $numberContainer.find('#number')
-        setTotalResultCountByBudget(getSelectedBudgetType(), count)
-        setCurrentResultCountByBudget(getSelectedBudgetType(), getCurrentTotalCount())
         if (count) {
             //$number.text(count)
-            $numberContainer.text(window.i18n('共找到下列房产'))
+            $numberContainer.text(window.i18n('共找到下列出租房'))
             $numberContainer.show()
             $('#result_list_container').show()
             showEmptyPlaceHolder(false)
@@ -402,8 +387,7 @@ $(window).resize(window.updateTabSelectorFixed);
             //$number.text(count)
             $('#result_list_container').hide()
             showEmptyPlaceHolder(true)
-
-            ga('send', 'event', 'property_list', 'result', 'empty-result',$('.emptyPlaceHolder').find('textarea[name=description]').text())
+            ga('send', 'event', 'rent_list', 'result', 'empty-result',$('.emptyPlaceHolder').find('textarea[name=description]').text())
         }
     }
 
@@ -502,20 +486,20 @@ $(window).resize(window.updateTabSelectorFixed);
 
         var $countrySelect = $('select[name=propertyCountry]')
         $countrySelect.change(function () {
-            ga('send', 'event', 'property_list', 'change', 'select-country',$('select[name=propertyCountry]').children('option:selected').text())
+            ga('send', 'event', 'rent_list', 'change', 'select-country',$('select[name=propertyCountry]').children('option:selected').text())
             location.href = window.team.setQuery('country', $('select[name=propertyCountry]').children('option:selected').val())
         })
 
         var $citySelect = $('select[name=propertyCity]')
         $citySelect.change(function () {
-            ga('send', 'event', 'property_list', 'change', 'select-city',$('select[name=propertyCity]').children('option:selected').text())
+            ga('send', 'event', 'rent_list', 'change', 'select-city',$('select[name=propertyCity]').children('option:selected').text())
             location.href = window.team.setQuery('city', $('select[name=propertyCity]').children('option:selected').val())
 
         })
 
         var $propertyTypeSelect = $('select[name=propertyType]')
         $propertyTypeSelect.change(function () {
-            ga('send', 'event', 'property_list', 'change', 'select-proprty-type',$('select[name=propertyType]').children('option:selected').text())
+            ga('send', 'event', 'rent_list', 'change', 'select-proprty-type',$('select[name=propertyType]').children('option:selected').text())
             location.href = window.team.setQuery('property_type', $('select[name=propertyType]').children('option:selected').val())
         })
     })
@@ -537,7 +521,7 @@ $(window).resize(window.updateTabSelectorFixed);
             $item.addClass('selected')
         }
 
-        ga('send', 'event', 'property_list', 'change', 'change-budget',$item.text())
+        ga('send', 'event', 'rent_list', 'change', 'change-budget',$item.text())
         location.href = window.team.setQuery('budget', getSelectedBudgetType())
     })
 
@@ -551,7 +535,7 @@ $(window).resize(window.updateTabSelectorFixed);
             $item.addClass('selected')
         }
 
-        ga('send', 'event', 'property_list', 'change', 'change-intention',$item.text())
+        ga('send', 'event', 'rent_list', 'change', 'change-intention',$item.text())
         location.href = window.team.setQuery('intention', getSelectedIntention())
     })
 
@@ -565,7 +549,7 @@ $(window).resize(window.updateTabSelectorFixed);
             $item.addClass('selected')
         }
 
-        ga('send', 'event', 'property_list', 'change', 'change-bedroomCount',$item.text())
+        ga('send', 'event', 'rent_list', 'change', 'change-bedroomCount',$item.text())
         location.href = window.team.setQuery('bedroom_count', getSelectedBedroomCount())
     })
 
@@ -579,7 +563,7 @@ $(window).resize(window.updateTabSelectorFixed);
             $item.addClass('selected')
         }
 
-        ga('send', 'event', 'property_list', 'change', 'change-buildingArea',$item.text())
+        ga('send', 'event', 'rent_list', 'change', 'change-buildingArea',$item.text())
         location.href = window.team.setQuery('building_area', getSelectedBuildingArea())
     })
 

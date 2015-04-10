@@ -2,42 +2,52 @@
     <div class="rentCard">
         <div class="imagePart">
             <a href="/property-to-rent/{=rent.id=}">
-                if(rent.property.reality_images && rent.property.reality_images.length) {_}
-                <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" width=320 height=213 onerror="window.onImgError(this);"/>
-                {_}else {_}
-                <img class="withPlaceholder" width="320" height="213"/>
-                {_}_}
+                {_if(rent.property.reality_images && rent.property.reality_images.length) {_}
+                    <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+                {_ }else { _}
+                    <img class="withPlaceholder"/>
+                {_ } _}
             </a>
             <div class="labels">
-                <label class="property-type" for="">{=rent.property.property_type.value=}</label>
-                <label class="rent-type" for="">{=rent.rent_type.value=}</label>
+                {_if(rent.property.property_type) {_}
+                    <label class="property-type">{=rent.property.property_type.value=}</label>
+                {_}_}
+                {_if(rent.rent_type) {_}
+                    <label class="rent-type">{=rent.rent_type.value=}</label>
+                {_}_}
             </div>
         </div>
         <div class="description_wrapper">
             <div class="description">
                 <div class="titles">
-                    if(rent.title) {_}
-                    <p class="name">{=rent.title=}</p>
+                    {_if(rent.title) {_}
+                        <p class="name">{=rent.title=}</p>
                     {_}_}
-                    if(rent.price) {_}
-                    <span class="price"><strong>{!team.formatCurrency(parseInt(rent.price.value))!}</strong>{=window.i18n('/周')=}</span>
+                    {_if(rent.price) {_}
+                        <span class="price"><strong>{!team.formatCurrency(parseInt(rent.price.value))!}</strong>{=window.i18n('/周')=}</span>
                     {_}_}
-                    <p class="date">{!team.parseReadableDate(parseInt(rent.last_modified_time))!}</p>
+                    <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}</p>
                 </div>
                 <ul class="properties">
-                    {_if(rent.property.street) {_}
                     <li>
                         <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
-                        {=rent.property.street=}
+                        {_if(rent.property.city && rent.property.city.country && rent.property.city.country.value) {_}
+                            {= rent.property.city.country.value + " " =}
+                        {_}_}
+                        {_if(rent.property.city && rent.property.city.value) {_}
+                            {= rent.property.city.value + " " =}
+                        {_}_}
+                        {_if(rent.property.street) {_}
+                            {= rent.property.street =}
+                        {_}_}
                     </li>
-                    {_}_}
-                    if(rent.property.region_highlight && rent.property.region_highlight.length) {_}
+                    {_if(rent.property.region_highlight && rent.property.region_highlight.length) {_}
                     <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
                         {_ _.each(rent.region_highlight, function(highlight) { _}
-                        {=highlight.value=}
-                        {_})_}
+                            {=highlight.value=}
+                        {_ }) _}
                     </li>
-                    {_})_}
+                    {_}_}
                 </ul>
                 <div class="details">
                     <div class="left">
@@ -45,10 +55,10 @@
                             <p class="label">居室</p>
                             <p class="value">
                                 {_if(rent.property.bedroom_count) {_}
-                                {=rent.property.bedroom_count=} {=window.i18n('室')=},
+                                    {=rent.property.bedroom_count + window.i18n('室') =}
                                 {_}_}
                                 {_if(rent.property.living_room_count) {_}
-                                {=rent.property.living_room_count=} {=window.i18n('厅')=},
+                                    {=rent.property.living_room_count + window.i18n('厅')=}
                                 {_}_}
                             </p>
                         </div>
@@ -73,10 +83,11 @@
                         </div>
                     </div>
                     <div class="right">
-                        <p class="date">{!team.parseReadableDate(parseInt(rent.last_modified_time))!}</p>
+                        <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}</p>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </script>

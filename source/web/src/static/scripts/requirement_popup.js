@@ -7,7 +7,9 @@
         errorArea.hide()
         container.find('.requirement_form').show()
 
-        container.find('form[name=requirement]')[0].reset()
+        if(container.find('form[name=requirement]')[0]){
+            container.find('form[name=requirement]')[0].reset()
+        }
 
         if (window.user) {
             if (window.user.nickname) {
