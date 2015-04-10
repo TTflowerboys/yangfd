@@ -39,7 +39,12 @@
         [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: [self citiesOfCountry:_country], FXFormFieldDefaultValue: _city} atIndex:1];
     }
     else {
-        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: [self citiesOfCountry:_country]} atIndex:1];
+        if (!IsArrayNilOrEmpty([self citiesOfCountry:_country])) {
+             [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: [self citiesOfCountry:_country]} atIndex:1];
+        }
+//        else {
+//             [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市")} atIndex:1];
+//        }
     }
 
     return array;

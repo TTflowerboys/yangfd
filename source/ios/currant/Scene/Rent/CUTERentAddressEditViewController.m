@@ -8,6 +8,15 @@
 
 #import "CUTERentAddressEditViewController.h"
 #import "CUTECommonMacro.h"
+#import "CUTERentAddressEditForm.h"
+#import "CUTEDataManager.h"
+
+@interface CUTERentAddressEditViewController () {
+    CUTEEnum *_lastCountry;
+}
+
+@end
+
 
 @implementation CUTERentAddressEditViewController
 
@@ -17,20 +26,32 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-
     [super viewWillAppear:animated];
-    //reload city base on country
-    //FXFormField *cityField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-
-    //[[self.formController tableView] reloadData];
-    NSArray *sections = [self.formController sections];
-//    FXFormSection *section = [sections firstObject];
-
+    [self checkNeedUpdateCityOptions];
 }
+
+- (void)checkNeedUpdateCityOptions {
+    CUTEEnum *country = [[self.formController fieldForKey:@"country"] value];
+    if (![_lastCountry isEqual:country]) {
+        [(CUTERentAddressEditForm *)self.formController.form setCity:nil];
+        [self.formController updateFormSections];
+        [self.tableView reloadData];
+        _lastCountry = country;
+    }
+}
+
+
 
 - (void)onSaveButtonPressed:(id)sender {
 
     [self.navigationController popViewControllerAnimated:YES];
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)[self.formController form];
+    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTEProperty *property = [ticket property];
+    property.street = [CUTEI18n i18nWithValue:form.street];
+    property.city = form.city;
+    property.zipcode = form.zipcode;
+    property.country = form.country;
 
 }
 

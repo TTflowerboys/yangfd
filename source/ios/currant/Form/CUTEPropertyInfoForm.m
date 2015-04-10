@@ -29,7 +29,7 @@
                 @{FXFormFieldKey: @"bedroom", FXFormFieldTitle:STR(@"居室"), FXFormFieldCell: [FXFormStepperCell class]},
                 @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积")},
                 @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金")},
-                @{FXFormFieldKey: @"moreInfo", FXFormFieldTitle:STR(@"填写更多描述")},
+                @{FXFormFieldKey: @"moreInfo", FXFormFieldTitle:STR(@"填写更多描述（选填）")},
              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"预览并发布"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
              ];
 }

@@ -20,6 +20,7 @@
 #import <BBTJSON.h>
 #import <NSArray+Frankenstein.h>
 #import "CUTEEnumManager.h"
+#import "CUTECommonMacro.h"
 
 @interface CUTEPropertyInfoViewController () {
     BBTRestClient *_imageUploader;
@@ -114,7 +115,10 @@
     property.propertyType = propertyTypeField.value;
     FXFormField *bedroomCountField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
     property.bedroomCount = [bedroomCountField.value integerValue];
-    BFTask *task = [[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:[property toParams] resultClass:[CUTEProperty class]];
+    BFTask *task = [[[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:[property toParams] resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        NSString *propertyId = task.result;
+        return [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/" , propertyId) parameters:nil resultClass:[CUTEProperty class]];
+    }];
     return task;
 }
 

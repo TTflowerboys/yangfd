@@ -149,7 +149,9 @@ UIKIT_EXTERN NSString *const FXFormFieldTypeImage; //image
 - (NSUInteger)numberOfSections;
 - (NSUInteger)numberOfFieldsInSection:(NSUInteger)section;
 - (FXFormField *)fieldForIndexPath:(NSIndexPath *)indexPath;
+- (FXFormField *)fieldForKey:(NSString *)key;
 - (NSIndexPath *)indexPathForField:(FXFormField *)field;
+- (NSIndexPath *)indexPathForKey:(NSString *)key;
 - (void)enumerateFieldsWithBlock:(void (^)(FXFormField *field, NSIndexPath *indexPath))block;
 
 - (void)updateFormSections;

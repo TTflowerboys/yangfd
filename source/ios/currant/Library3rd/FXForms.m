@@ -2010,6 +2010,19 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
     return [self sectionAtIndex:indexPath.section].fields[indexPath.row];
 }
 
+- (FXFormField *)fieldForKey:(NSString *)key {
+    for (FXFormSection *section in self.sections)
+    {
+        for (FXFormField *field in section.fields) {
+            if ([field.key isEqualToString:key]) {
+                return field;
+            }
+        }
+    }
+    return nil;
+
+}
+
 - (NSIndexPath *)indexPathForField:(FXFormField *)field
 {
     NSUInteger sectionIndex = 0;
@@ -2021,6 +2034,23 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
             return [NSIndexPath indexPathForRow:fieldIndex inSection:sectionIndex];
         }
         sectionIndex ++;
+    }
+    return nil;
+}
+
+- (NSIndexPath *)indexPathForKey:(NSString *)key
+{
+    NSUInteger sectionIndex = 0;
+    for (FXFormSection *section in self.sections)
+    {
+        NSUInteger fieldIndex = 0;
+        for (FXFormField *field in section.fields) {
+            if ([field.key isEqualToString:key]) {
+                return [NSIndexPath indexPathForRow:fieldIndex inSection:sectionIndex];
+            }
+            fieldIndex++;
+        }
+        sectionIndex++;
     }
     return nil;
 }
