@@ -10,4 +10,11 @@
 
 @implementation CUTEArea
 
++ (CUTEArea *)areaWithValue:(float)value unit :(NSString *)unit {
+    CUTEArea *area = [CUTEArea new];
+    area.value = value;
+    area.unit = unit;
+    return area;
+}
+
 @end

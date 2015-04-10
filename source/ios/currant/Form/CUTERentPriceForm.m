@@ -29,7 +29,7 @@
                                @{FXFormFieldKey: @"needSetPeriod", FXFormFieldTitle:STR(@"设置租期"), FXFormFieldHeader: STR(@"租期"), FXFormFieldAction: @"setRentPeriod"},
                                ]];
     if (self.needSetPeriod) {
-        [array addObject:@{FXFormFieldKey: @"startDate", FXFormFieldTitle:STR(@"开始日期")}];
+        [array addObject:@{FXFormFieldKey: @"startDate", FXFormFieldTitle:STR(@"开始日期"), FXFormFieldDefaultValue: [NSDate new]}];
         [array addObject:@{FXFormFieldKey: @"租期", FXFormFieldOptions: _allRentPeriods, FXFormFieldDefaultValue: [_allRentPeriods firstObject]}];
     }
     return array;

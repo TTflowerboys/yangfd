@@ -10,4 +10,10 @@
 
 @interface CUTECurrency : MTLModel
 
+@property (strong, nonatomic) NSString *unit;
+
+@property (nonatomic) float value;
+
++ (CUTECurrency *)currencyWithValue:(float)value unit:(NSString *)unit;
+
 @end

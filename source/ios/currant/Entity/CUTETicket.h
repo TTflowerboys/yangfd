@@ -22,7 +22,7 @@
 
 @property (strong, nonatomic) CUTEEnum *rentPeriod;
 
-@property (strong, nonatomic) CUTEEnum *depositOption;
+@property (strong, nonatomic) CUTEEnum *depositType;
 
 @property (strong, nonatomic) CUTEArea *space;
 

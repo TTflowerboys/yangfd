@@ -10,4 +10,10 @@
 
 @interface CUTEArea : MTLModel
 
+@property (strong, nonatomic) NSString *unit;
+
+@property (nonatomic) float value;
+
++ (CUTEArea *)areaWithValue:(float)value unit:(NSString *)unit;
+
 @end

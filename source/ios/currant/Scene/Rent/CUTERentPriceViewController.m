@@ -8,6 +8,8 @@
 
 #import "CUTERentPriceViewController.h"
 #import "CUTECommonMacro.h"
+#import "CUTERentPriceForm.h"
+#import "CUTEDataManager.h"
 
 @implementation CUTERentPriceViewController
 
@@ -30,6 +32,15 @@
 - (void)onSaveButtonPressed:(id)sender {
 
     [self.navigationController popViewControllerAnimated:YES];
+    CUTERentPriceForm *form = (CUTERentPriceForm *)[[self formController] form];
+    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    ticket.depositType = form.depositType;
+    ticket.price = [CUTECurrency currencyWithValue:form.rentPrice unit:form.currency];
+    ticket.billCovered = form.containBill;
+    if (form.needSetPeriod) {
+        ticket.rentAvailableTime = [[form startDate] timeIntervalSince1970];
+        ticket.rentPeriod = [form period];
+    }
     
 }
 

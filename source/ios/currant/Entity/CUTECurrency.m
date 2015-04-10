@@ -10,4 +10,11 @@
 
 @implementation CUTECurrency
 
++ (CUTECurrency *)currencyWithValue:(float)value unit:(NSString *)unit {
+    CUTECurrency *currency = [CUTECurrency new];
+    currency.unit = unit;
+    currency.value = value;
+    return currency;
+}
+
 @end

@@ -23,15 +23,33 @@
 #import "CUTECommonMacro.h"
 #import "CUTERentPriceViewController.h"
 #import "CUTERentPriceForm.h"
+#import "CUTEAreaForm.h"
 
 @interface CUTEPropertyInfoViewController () {
     BBTRestClient *_imageUploader;
+    FXFormViewController *_editAreaViewController;
 }
 
 @end
 
 
 @implementation CUTEPropertyInfoViewController
+
+- (void)editArea {
+    FXFormViewController *controller = [FXFormViewController new];
+    CUTEAreaForm *form = [CUTEAreaForm new];
+    controller.formController.form = form;
+    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveAreaButtonPressed:)];
+    [self.navigationController pushViewController:controller animated:YES];
+    _editAreaViewController = controller;
+}
+
+- (void)onSaveAreaButtonPressed:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+    CUTEAreaForm *form = (CUTEAreaForm *)_editAreaViewController.formController.form;
+    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    ticket.space = [CUTEArea areaWithValue:form.area unit:form.unit];
+}
 
 - (void)editRentPrice {
     NSArray *requiredEnums = @[@"deposit_type", @"rent_period"];
