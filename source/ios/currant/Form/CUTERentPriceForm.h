@@ -8,13 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "CUTEForm.h"
+#import "CUTEEnum.h"
 
 @interface CUTERentPriceForm : CUTEForm
 
 @property (strong, nonatomic) NSString *currency;
-@property (strong, nonatomic) NSString *deposit;
+@property (strong, nonatomic) CUTEEnum *depositType;
 @property (strong, nonatomic) NSString *rentPrice;
 @property (nonatomic) BOOL containBill;
-@property (nonatomic) BOOL needSetDuration;
+@property (nonatomic) BOOL needSetPeriod;
+@property (strong, nonatomic) NSDate *startDate;
+@property (strong, nonatomic) CUTEEnum *period;
+
+
+- (void)setAllDepositTypes:(NSArray *)depositTypes;
+
+- (void)setAllRentPeriods:(NSArray *)rentPeriods;
 
 @end

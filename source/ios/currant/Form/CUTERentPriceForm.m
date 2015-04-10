@@ -9,16 +9,38 @@
 #import "CUTERentPriceForm.h"
 #import "CUTECommonMacro.h"
 
+@interface CUTERentPriceForm () {
+    NSArray *_allDepositTypes;
+
+    NSArray *_allRentPeriods;
+}
+
+@end
+
 @implementation CUTERentPriceForm
 
 - (NSArray *)fields {
-    return @[
-             @{FXFormFieldKey: @"currency", FXFormFieldTitle:STR(@"货币"), FXFormFieldOptions: @[@"CNY", @"GBP", @"USD", @"EUR", @"HKD"], FXFormFieldDefaultValue: @"CNY", FXFormFieldHeader: STR(@"租金")},
-                @{FXFormFieldKey: @"deposit", FXFormFieldTitle:STR(@"押金"), FXFormFieldOptions: @[STR(@"面议"), STR(@"押三付一")], FXFormFieldDefaultValue: STR(@"面议"),},
-             @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金")},
-                @{FXFormFieldKey: @"containBill", FXFormFieldTitle:STR(@"包Bill"), FXFormFieldHeader: STR(@"其他")},
-                @{FXFormFieldKey: @"needSetDuration", FXFormFieldTitle:STR(@"设置租期"), FXFormFieldHeader: STR(@"租期")},
-             ];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:
+                             @[
+                               @{FXFormFieldKey: @"currency", FXFormFieldTitle:STR(@"货币"), FXFormFieldOptions: @[@"CNY", @"GBP", @"USD", @"EUR", @"HKD"], FXFormFieldDefaultValue: @"CNY", FXFormFieldHeader: STR(@"租金")},
+                               @{FXFormFieldKey: @"depositType", FXFormFieldTitle:STR(@"押金"), FXFormFieldOptions: _allDepositTypes, FXFormFieldDefaultValue: [_allDepositTypes firstObject],},
+                               @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金")},
+                               @{FXFormFieldKey: @"containBill", FXFormFieldTitle:STR(@"包Bill"), FXFormFieldHeader: STR(@"其他")},
+                               @{FXFormFieldKey: @"needSetPeriod", FXFormFieldTitle:STR(@"设置租期"), FXFormFieldHeader: STR(@"租期"), FXFormFieldAction: @"setRentPeriod"},
+                               ]];
+    if (self.needSetPeriod) {
+        [array addObject:@{FXFormFieldKey: @"startDate", FXFormFieldTitle:STR(@"开始日期")}];
+        [array addObject:@{FXFormFieldKey: @"租期", FXFormFieldOptions: _allRentPeriods, FXFormFieldDefaultValue: [_allRentPeriods firstObject]}];
+    }
+    return array;
+}
+
+- (void)setAllDepositTypes:(NSArray *)depositTypes {
+    _allDepositTypes = depositTypes;
+}
+
+- (void)setAllRentPeriods:(NSArray *)rentPeriods {
+    _allRentPeriods = rentPeriods;
 }
 
 

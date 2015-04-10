@@ -21,6 +21,8 @@
 #import <NSArray+Frankenstein.h>
 #import "CUTEEnumManager.h"
 #import "CUTECommonMacro.h"
+#import "CUTERentPriceViewController.h"
+#import "CUTERentPriceForm.h"
 
 @interface CUTEPropertyInfoViewController () {
     BBTRestClient *_imageUploader;
@@ -30,6 +32,25 @@
 
 
 @implementation CUTEPropertyInfoViewController
+
+- (void)editRentPrice {
+    NSArray *requiredEnums = @[@"deposit_type", @"rent_period"];
+    [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
+        return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+    }]] continueWithSuccessBlock:^id(BFTask *task) {
+        if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
+            CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
+            CUTERentPriceForm *form = [CUTERentPriceForm new];
+            [form setAllDepositTypes:[task.result objectAtIndex:0]];
+            [form setAllRentPeriods:[task.result objectAtIndex:1]];
+            controller.formController.form = form;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+
+        return nil;
+    }];
+
+}
 
 - (void)submit
 {
