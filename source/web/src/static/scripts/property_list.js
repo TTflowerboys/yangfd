@@ -124,13 +124,6 @@ $(window).resize(window.updateTabSelectorFixed);
         }
     }
 
-    var onePageItemCount = 5
-    //better check is phone cell
-    var onePageMinItemCount = Math.ceil($('#main').height() / $('#houseCard_template').attr('data-cell-height'))
-    if (onePageItemCount < onePageMinItemCount) {
-        onePageItemCount = onePageMinItemCount;
-    }
-
 
     function getCurrentTotalCount() {
         if (window.team.isPhone()) {
