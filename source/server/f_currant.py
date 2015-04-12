@@ -364,7 +364,7 @@ class f_currant_ticket(f_ticket):
         Ticket
         ==================================================================
     """
-    def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False):
+    def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False, fuzzy_user_info=False):
         ticket_list = f_app.ticket.get(ticket_id_list)
         user_id_set = set()
         enum_id_set = set()
@@ -388,6 +388,20 @@ class f_currant_ticket(f_ticket):
             user_dict[u["id"]] = u
         for t in ticket_list:
             t["creator_user"] = user_dict.get(t.pop("creator_user_id"))
+
+            if fuzzy_user_info:
+                if "nickname" in t["creator_user"]:
+                    t["creator_user"]["nickname"] = t["creator_user"]["nickname"][:1] + "**"
+
+                if "email" in t["creator_user"]:
+                    t["creator_user"]["email"] = t["creator_user"]["email"][:3] + "**@**"
+
+                if "phone" in t["creator_user"]:
+                    if len(t["creator_user"]["phone"]) > 9:
+                        t["creator_user"]["phone"] = t["creator_user"]["phone"][:6] + "*" * (len(t["creator_user"]["phone"]) - 9) + t["creator_user"]["phone"][-3:]
+                    else:
+                        t["creator_user"]["phone"] = t["creator_user"]["phone"][:6] + "***"
+
             if isinstance(t.get("assignee"), list):
                 t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
             if t.get("budget"):

@@ -565,10 +565,10 @@ def support_ticket_search(user, params):
 @f_app.user.login.check(check_role=True)
 def rent_ticket_add(user, params):
     """
-    Valid status: ``draft``, ``for rent``, ``hidden``, ``rent``, ``deleted``.
+    Valid status: ``draft``, ``to rent``, ``hidden``, ``rent``, ``deleted``.
     """
     if "status" in params:
-        assert params["status"] in ("draft", "for rent", "hidden", "rent", "deleted"), abort(40000, "Invalid status")
+        assert params["status"] in ("draft", "to rent", "hidden", "rent", "deleted"), abort(40000, "Invalid status")
 
         if params["status"] == "rent":
             params.setdefault("rent_time", datetime.utcnow())
@@ -598,10 +598,10 @@ def rent_ticket_add(user, params):
 @f_app.user.login.check(check_role=True)
 def rent_ticket_edit(ticket_id, user, params):
     """
-    Valid status: ``draft``, ``for rent``, ``hidden``, ``rent``, ``deleted``.
+    Valid status: ``draft``, ``to rent``, ``hidden``, ``rent``, ``deleted``.
     """
     if "status" in params:
-        assert params["status"] in ("draft", "for rent", "hidden", "rent", "deleted"), abort(40000, "Invalid status")
+        assert params["status"] in ("draft", "to rent", "hidden", "rent", "deleted"), abort(40000, "Invalid status")
 
         if params["status"] == "rent":
             params.setdefault("rent_time", datetime.utcnow())
@@ -633,17 +633,34 @@ def rent_ticket_get(user, ticket_id):
     ticket = f_app.ticket.get(ticket_id)
     assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
 
+    fuzzy_user_info = True
     if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
-        pass
+        fuzzy_user_info = False
     elif ticket.get("creator_user_id"):
         if ticket.get("creator_user_id") != user["id"]:
             abort(40399, logger.warning("Permission denied", exc_info=False))
 
-    return f_app.ticket.output([ticket_id])[0]
+    return f_app.ticket.output([ticket_id], fuzzy_user_info=fuzzy_user_info)[0]
+
+
+@f_api('/rent_ticket/<ticket_id>/contact_info')
+@f_app.user.login.check(force=True)
+def rent_ticket_contact_info(user, ticket_id):
+    """
+    View contact info for single rent ticket.
+    """
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
+
+    if ticket["status"] not in {"to rent", "rent"}:
+        abort(40399, logger.warning("specified rent ticket is currently not available", exc_info=False))
+
+    f_app.log.add("rent_ticket_view_contact_info", ticket_id=ticket_id)
+    return f_app.user.get(ticket["creator_user_id"])["phone"]
 
 
 @f_api('/rent_ticket/search', params=dict(
-    status=(list, ["for rent"], str),
+    status=(list, ["to rent"], str),
     per_page=int,
     time=datetime,
     sort=(list, ["time", 'desc'], str),
@@ -663,9 +680,10 @@ def rent_ticket_search(user, params):
     sort = params.pop("sort")
     per_page = params.pop("per_page", 0)
 
+    fuzzy_user_info = True
     if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
-        pass
-    elif not set(params["status"]) <= {"for rent", "rent"}:
+        fuzzy_user_info = False
+    elif not set(params["status"]) <= {"to rent", "rent"}:
         if user:
             # Force to search his own rent ticket
             params["user_id"] = ObjectId(user["id"])
@@ -775,12 +793,12 @@ def rent_ticket_search(user, params):
         property_params.pop("$and")
 
     if len(property_params):
-        # property_params.setdefault("status", ["selling", "sold out"])
+        # property_params.setdefault("status", ["for sale", "sold out"])
         property_params.setdefault("user_generated", True)
         property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
         params["property_id"] = {"$in": property_id_list}
 
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), fuzzy_user_info=fuzzy_user_info)
 
 
 @f_api('/sale_ticket/add', params=dict(
@@ -792,10 +810,10 @@ def rent_ticket_search(user, params):
 @f_app.user.login.check(check_role=True)
 def sale_ticket_add(user, params):
     """
-    Valid status: ``draft``, ``selling``, ``hidden``, ``sold``, ``deleted``.
+    Valid status: ``draft``, ``for sale``, ``hidden``, ``sold``, ``deleted``.
     """
     if "status" in params:
-        assert params["status"] in ("draft", "selling", "hidden", "sold", "deleted"), abort(40000, "Invalid status")
+        assert params["status"] in ("draft", "for sale", "hidden", "sold", "deleted"), abort(40000, "Invalid status")
 
         if params["status"] == "sold":
             params.setdefault("sold_time", datetime.utcnow())
@@ -819,10 +837,10 @@ def sale_ticket_add(user, params):
 @f_app.user.login.check(check_role=True)
 def sale_ticket_edit(ticket_id, user, params):
     """
-    Valid status: ``draft``, ``selling``, ``hidden``, ``sold``, ``deleted``.
+    Valid status: ``draft``, ``for sale``, ``hidden``, ``sold``, ``deleted``.
     """
     if "status" in params:
-        assert params["status"] in ("draft", "selling", "hidden", "sold", "deleted"), abort(40000, "Invalid status")
+        assert params["status"] in ("draft", "for sale", "hidden", "sold", "deleted"), abort(40000, "Invalid status")
 
         if params["status"] == "sold":
             params.setdefault("sold_time", datetime.utcnow())
@@ -854,17 +872,18 @@ def sale_ticket_get(user, ticket_id):
     ticket = f_app.ticket.get(ticket_id)
     assert ticket["type"] == "sale", abort(40000, "Invalid sale ticket")
 
+    fuzzy_user_info = True
     if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
-        pass
+        fuzzy_user_info = False
     elif ticket.get("creator_user_id"):
         if ticket.get("creator_user_id") != user["id"]:
             abort(40399, logger.warning("Permission denied", exc_info=False))
 
-    return f_app.ticket.output([ticket_id])[0]
+    return f_app.ticket.output([ticket_id], fuzzy_user_info=fuzzy_user_info)[0]
 
 
 @f_api('/sale_ticket/search', params=dict(
-    status=(list, ["selling"], str),
+    status=(list, ["for sale"], str),
     per_page=int,
     time=datetime,
     sort=(list, ["time", 'desc'], str),
@@ -884,9 +903,10 @@ def sale_ticket_search(user, params):
     sort = params.pop("sort")
     per_page = params.pop("per_page", 0)
 
+    fuzzy_user_info = True
     if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
-        pass
-    elif not set(params["status"]) <= {"selling", "sold"}:
+        fuzzy_user_info = False
+    elif not set(params["status"]) <= {"for sale", "sold"}:
         if user:
             # Force to search his own sale ticket
             params["user_id"] = ObjectId(user["id"])
@@ -996,9 +1016,9 @@ def sale_ticket_search(user, params):
         property_params.pop("$and")
 
     if len(property_params):
-        # property_params.setdefault("status", ["selling", "sold out"])
+        # property_params.setdefault("status", ["for sale", "sold out"])
         property_params.setdefault("user_generated", True)
         property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
         params["property_id"] = {"$in": property_id_list}
 
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), fuzzy_user_info=fuzzy_user_info)
