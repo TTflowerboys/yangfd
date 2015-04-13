@@ -314,9 +314,9 @@ def property_get(property_id, user):
         tags = [item['value'] for item in property['intention'] if 'value' in item]
 
     keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
-    wexin = f_app.wechat.get_jsapi_signature()
+    weixin = f_app.wechat.get_jsapi_signature()
 
-    return common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin = wexin)
+    return common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin = weixin)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>', params=dict(
@@ -452,12 +452,13 @@ def news(news_id):
     related_news_list = f_app.i18n.process_i18n(currant_data_helper.get_related_news_list(news))
     title = news.get('title')
     keywords = "new,UK news" + ",".join(BASE_KEYWORDS_ARRAY)
+    weixin = f_app.wechat.get_jsapi_signature()
 
     if news.get('summary'):
         description = news.get('summary')
-        return common_template("news", news=news, related_news_list=related_news_list, title=title, description=description, keywords=keywords)
+        return common_template("news", news=news, related_news_list=related_news_list, title=title, description=description, keywords=keywords,weixin=weixin)
     else:
-        return common_template("news", news=news, related_news_list=related_news_list, title=title, keywords=keywords)
+        return common_template("news", news=news, related_news_list=related_news_list, title=title, keywords=keywords,weixin=weixin)
 
 
 @f_get('/notice_list')
