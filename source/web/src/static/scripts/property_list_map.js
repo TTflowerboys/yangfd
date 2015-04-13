@@ -200,7 +200,7 @@
                 $('body').append(scriptString)
             }
             else {
-                updateMap()
+                //updateMap()
                 if (window.propertyList) {
                     updateMap()
                 }
