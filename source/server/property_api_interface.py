@@ -344,6 +344,8 @@ property_params = dict(
     intention=(list, None, 'enum:intention'),
     equity_type='enum:equity_type',
     investment_type=(list, None, 'enum:investment_type'),
+    indoor_facility=(list, None, 'enum:indoor_facility'),
+    community_facility=(list, None, 'enum:community_facility'),
     slug=str,
 
     # Listing options
