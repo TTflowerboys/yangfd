@@ -34,4 +34,7 @@
 
 @property (strong, nonatomic) CUTEProperty *property;
 
+
+- (NSDictionary *)toParams;
+
 @end

@@ -17,4 +17,11 @@
     return currency;
 }
 
+- (NSDictionary *)toParams {
+    return @{
+             @"unit":self.unit,
+             @"value":[NSString stringWithFormat:@"%lf", self.value]
+             };
+}
+
 @end

@@ -76,16 +76,25 @@
     CUTEProperty *property = ticket.property;
     if (ticket && property) {
         Sequencer *sequencer = [Sequencer new];
+        if (!IsArrayNilOrEmpty(property.realityImages)) {
+            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                [[self uploadImages] continueWithBlock:^id(BFTask *task) {
+                    property.realityImages = task.result;
+                    completion(task.result);
+                    return nil;
+                }];
+            }];
+        }
+        
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[self uploadImages] continueWithBlock:^id(BFTask *task) {
-                property.realityImages = task.result;
+            [[self addProperty] continueWithBlock:^id(BFTask *task) {
                 completion(task.result);
                 return nil;
             }];
         }];
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[self addProperty] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/rent_ticket/add/" parameters:[ticket toParams] resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
                 completion(task.result);
                 return nil;
             }];
@@ -156,7 +165,8 @@
     property.bedroomCount = [bedroomCountField.value integerValue];
     BFTask *task = [[[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:[property toParams] resultClass:nil] continueWithBlock:^id(BFTask *task) {
         NSString *propertyId = task.result;
-        return [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/" , propertyId) parameters:nil resultClass:[CUTEProperty class]];
+        property.identifier = propertyId;
+        return task;
     }];
     return task;
 }

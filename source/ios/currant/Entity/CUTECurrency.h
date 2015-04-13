@@ -16,4 +16,6 @@
 
 + (CUTECurrency *)currencyWithValue:(float)value unit:(NSString *)unit;
 
+- (NSDictionary *)toParams;
+
 @end

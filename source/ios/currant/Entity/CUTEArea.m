@@ -17,4 +17,11 @@
     return area;
 }
 
+- (NSDictionary *)toParams {
+    return @{
+             @"unit":self.unit,
+             @"value":@(self.value)
+             };
+}
+
 @end

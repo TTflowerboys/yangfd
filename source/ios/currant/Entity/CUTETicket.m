@@ -23,4 +23,24 @@
              };
 }
 
+- (NSDictionary *)toParams {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic addEntriesFromDictionary:@{@"space":self.space.toParams,
+                                    @"bill_covered":@(self.billCovered),
+                                    @"price":self.price.toParams,
+                                    @"property_id":self.property.identifier
+                                    }];
+    if (self.depositType) {
+        [dic setValue:self.depositType.identifier forKey:@"deposit_type"];
+    }
+    if (self.rentType) {
+        [dic setValue:self.rentType.identifier forKey:@"rent_type"];
+    }
+    if (self.rentPeriod) {
+        [dic setValue:self.rentPeriod forKey:@"rent_period"];
+    }
+
+    return dic;
+}
+
 @end

@@ -16,4 +16,6 @@
 
 + (CUTEArea *)areaWithValue:(float)value unit:(NSString *)unit;
 
+- (NSDictionary *)toParams;
+
 @end

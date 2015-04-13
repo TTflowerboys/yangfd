@@ -62,7 +62,7 @@
 
 - (void)onRightButtonPressed:(id)sender {
 
-     FXFormField *propertyTypeField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+//     FXFormField *propertyTypeField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
 
 }
 
