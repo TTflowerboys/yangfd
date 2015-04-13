@@ -10,6 +10,21 @@
 #import "CUTECommonMacro.h"
 #import <NSArray+Frankenstein.h>
 
+@interface CUTEPlacemark ()
+
+@property (nonatomic, copy) NSString *name; // eg. Apple Inc.
+@property (nonatomic, copy) NSString *thoroughfare; // street address, eg. 1 Infinite Loop
+@property (nonatomic, copy) NSString *subThoroughfare; // eg. 1
+@property (nonatomic, copy) NSString *subLocality; // neighborhood, common name, eg. Mission District
+@property (nonatomic, copy) NSString *administrativeArea; // state, eg. CA
+@property (nonatomic, copy) NSString *subAdministrativeArea; // county, eg. Santa Clara
+@property (nonatomic, copy) NSString *ISOcountryCode; // eg. US
+@property (nonatomic, copy) NSString *inlandWater; // eg. Lake Tahoe
+@property (nonatomic, copy) NSString *ocean; // eg. Pacific Ocean
+@property (nonatomic, copy) NSArray *areasOfInterest; // eg. Golden Gate Park
+
+@end
+
 @implementation CUTEPlacemark
 
 + (CUTEPlacemark *)placeMarkWithCLPlaceMark:(CLPlacemark *)placemark {
@@ -17,17 +32,12 @@
     retPlacemark.name = placemark.name;
     retPlacemark.subThoroughfare = placemark.subThoroughfare;
     retPlacemark.thoroughfare = placemark.thoroughfare;
-//    retPlacemark.city = placemark.locality;
+    retPlacemark.street = [@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "];
     retPlacemark.subLocality = placemark.subLocality;
     retPlacemark.administrativeArea = placemark.administrativeArea;
     retPlacemark.subAdministrativeArea = placemark.subAdministrativeArea;
     retPlacemark.zipcode = placemark.postalCode;
     retPlacemark.ISOcountryCode = placemark.ISOcountryCode;
-//    CUTEEnum *country = [CUTEEnum new];
-//    country.slug = placemark.ISOcountryCode;
-//    country.value = placemark.country;
-//    country.type = @"country";
-//    retPlacemark.country = country;
     retPlacemark.inlandWater = placemark.inlandWater;
     retPlacemark.ocean = placemark.ocean;
     retPlacemark.areasOfInterest = placemark.areasOfInterest;
@@ -74,18 +84,11 @@
 }
 
 - (NSString *)address {
-    return [@[NilNullToEmpty(self.subThoroughfare),
-              NilNullToEmpty(self.thoroughfare),
+    return [@[NilNullToEmpty(self.street),
               NilNullToEmpty(self.zipcode),
               NilNullToEmpty(self.city.value),
               NilNullToEmpty(self.administrativeArea),
               NilNullToEmpty(self.country.value)]
-            componentsJoinedByString:@" "];
-}
-
-- (NSString *)street {
-    return [@[NilNullToEmpty(self.subThoroughfare),
-              NilNullToEmpty(self.thoroughfare)]
             componentsJoinedByString:@" "];
 }
 
