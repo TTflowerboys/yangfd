@@ -314,7 +314,9 @@ def property_get(property_id, user):
         tags = [item['value'] for item in property['intention'] if 'value' in item]
 
     keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
-    return common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
+    wexin = f_app.wechat.get_jsapi_signature()
+
+    return common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin = wexin)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>', params=dict(
