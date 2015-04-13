@@ -379,6 +379,7 @@ class f_currant_ticket(f_ticket):
             if t.get("property_id"):
                 property_id_set.add(t["property_id"])
 
+        user_id_set = filter(None, user_id_set)
         user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields)
         user_dict = {}
         enum_dict = f_app.enum.get(enum_id_set, multi_return=dict)
@@ -389,7 +390,7 @@ class f_currant_ticket(f_ticket):
         for t in ticket_list:
             t["creator_user"] = user_dict.get(t.pop("creator_user_id"))
 
-            if fuzzy_user_info:
+            if t["creator_user"] and fuzzy_user_info:
                 if "nickname" in t["creator_user"]:
                     t["creator_user"]["nickname"] = t["creator_user"]["nickname"][:1] + "**"
 
