@@ -14,6 +14,7 @@
 
 @property (nonatomic) float value;
 
+
 + (CUTEArea *)areaWithValue:(float)value unit:(NSString *)unit;
 
 - (NSDictionary *)toParams;

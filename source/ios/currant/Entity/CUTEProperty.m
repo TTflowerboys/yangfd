@@ -7,11 +7,15 @@
 //
 
 #import "CUTEProperty.h"
+#import "CUTECommonMacro.h"
+#import "CUTEEnum.h"
+#import <NSArray+Frankenstein.h>
 
 @implementation CUTEProperty
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
+    //TODO finish mapping
     return @{@"identifier": @"id",
              @"slug": @"slug",
              @"status": @"status",
@@ -41,6 +45,16 @@
     }
     if (self.city && self.city.identifier) {
         [params setValue:self.city.identifier forKey:@"city"];
+    }
+    if (!IsArrayNilOrEmpty(self.indoorFacilities)) {
+        [params setValue:[[self.indoorFacilities map:^id(CUTEEnum *object) {
+            return object.identifier;
+        }] componentsJoinedByString:@","] forKey:@"indoor_facility"];
+    }
+    if (!IsArrayNilOrEmpty(self.communityFacilities)) {
+        [params setValue:[[self.communityFacilities map:^id(CUTEEnum *object) {
+            return object.identifier;
+        }] componentsJoinedByString:@","] forKey:@"community_facility"];
     }
     return params;
 }

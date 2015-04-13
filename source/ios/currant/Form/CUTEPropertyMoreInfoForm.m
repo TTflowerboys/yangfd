@@ -8,6 +8,7 @@
 
 #import "CUTEPropertyMoreInfoForm.h"
 #import "CUTECommonMacro.h"
+#import "CUTEPropertyFacilityViewController.h"
 
 @implementation CUTEPropertyMoreInfoForm
 
@@ -15,7 +16,7 @@
     return @[
              @{FXFormFieldKey: @"propertyTitle", FXFormFieldTitle:STR(@"标题"), FXFormFieldHeader:STR(@"其他")},
                 @{FXFormFieldKey: @"propertyDescription", FXFormFieldTitle:STR(@"详细描述")},
-                @{FXFormFieldKey: @"facility", FXFormFieldTitle:STR(@"房间设施")},
+             @{FXFormFieldKey: @"facility", FXFormFieldTitle:STR(@"房间设施"), FXFormFieldAction:@"editFacilities"},
 //                @{FXFormFieldKey: @"feature", FXFormFieldTitle:STR(@"街区亮点")},
              ];
 }

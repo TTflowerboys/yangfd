@@ -8,15 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "CUTEForm.h"
+#import "CUTEEnum.h"
 
 @interface CUTEPropertyFacilityForm : CUTEForm
 
-@property (nonatomic) BOOL television;
-@property (nonatomic) BOOL toaster;
-@property (nonatomic) BOOL washingMachine;
-@property (nonatomic) BOOL firePlace;
-@property (nonatomic) BOOL parkingSpace;
-@property (nonatomic) BOOL pool;
-@property (nonatomic) BOOL basketballCourt;
+- (void)setAllIndoorFacilities:(NSArray *)indoorFacilities;
+
+- (CUTEEnum *)getIndoorFacilityByKey:(NSString *)key;
+
+- (void)setAllCommunityFacilities:(NSArray *)communityFacilities;
+
+- (CUTEEnum *)getCommunityFacilityByKey:(NSString *)key;
 
 @end
