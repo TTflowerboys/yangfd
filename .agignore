@@ -6,7 +6,7 @@
 /source/web/README.md
 /source/web/snippets.js
 /source/web/styleguide/
-/source/web/src/static/admin/
+#/source/web/src/static/admin/
 /source/web/src/static/emails/
 /source/web/src/static/themes/
 /source/web/src/static/vendors/

@@ -14,18 +14,19 @@
 {
     return @{@"identifier": @"id",
              @"status": @"status",
-             @"rentPeriod": @"lease_period",
-             @"depositOption": @"cash_pledge",
+             @"rentPeriod": @"rent_period",
+             @"depositType": @"deposit_type",
              @"space": @"space",
              @"billCovered": @"bill_covered",
-             @"rentAvailableTime": @"lease_available_time",
-             @"rentType": @"lease_type"
+             @"rentAvailableTime": @"rent_available_time",
+             @"rentType": @"rent_type"
              };
 }
 
 - (NSDictionary *)toParams {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic addEntriesFromDictionary:@{@"space":self.space.toParams,
+    [dic addEntriesFromDictionary:@{
+                                    @"space":self.space.toParams,
                                     @"bill_covered":@(self.billCovered),
                                     @"price":self.price.toParams,
                                     @"property_id":self.property.identifier
@@ -35,6 +36,9 @@
     }
     if (self.rentType) {
         [dic setValue:self.rentType.identifier forKey:@"rent_type"];
+    }
+    if (self.rentAvailableTime) {
+        [dic setValue:[NSNumber numberWithLong:[self.rentAvailableTime timeIntervalSince1970]] forKey:@"rent_available_time"];
     }
     if (self.rentPeriod) {
         [dic setValue:self.rentPeriod forKey:@"rent_period"];

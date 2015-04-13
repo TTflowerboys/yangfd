@@ -14,10 +14,16 @@
 - (NSArray *)fields {
     NSMutableArray *array = [NSMutableArray arrayWithArray:
                              @[
-                               @{FXFormFieldKey: @"unit", FXFormFieldTitle:STR(@"单位"), FXFormFieldOptions: @[@"meter ** 2", @"foot ** 2"], FXFormFieldDefaultValue: @"meter ** 2"},
+                               @{FXFormFieldKey: @"unitPresentation", FXFormFieldTitle:STR(@"单位"), FXFormFieldOptions: @[STR(@"平方米"), STR(@"平方英尺")], FXFormFieldDefaultValue: STR(@"平方米")},
                                @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积")}
                                ]];
     return array;
+}
+
+- (NSString *)unit {
+    return @{STR(@"平方米"): @"meter ** 2",
+             STR(@"平方英尺"): @"foot ** 2"
+             }[self.unitPresentation];
 }
 
 @end

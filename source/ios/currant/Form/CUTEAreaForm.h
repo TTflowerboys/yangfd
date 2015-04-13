@@ -11,11 +11,10 @@
 
 @interface CUTEAreaForm : CUTEForm
 
-@property (strong, nonatomic) NSString *unit;
+@property (strong, nonatomic) NSString *unitPresentation;
 
 @property (nonatomic) CGFloat area;
 
-
-
+- (NSString *)unit;
 
 @end

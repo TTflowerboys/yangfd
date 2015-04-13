@@ -30,7 +30,7 @@
 
 @property (strong, nonatomic) CUTECurrency *price;
 
-@property (nonatomic) NSTimeInterval rentAvailableTime;
+@property (strong, nonatomic) NSDate *rentAvailableTime;
 
 @property (strong, nonatomic) CUTEProperty *property;
 
