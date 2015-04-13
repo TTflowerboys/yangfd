@@ -23,11 +23,11 @@
     retPlacemark.subAdministrativeArea = placemark.subAdministrativeArea;
     retPlacemark.zipcode = placemark.postalCode;
     retPlacemark.ISOcountryCode = placemark.ISOcountryCode;
-    CUTEEnum *country = [CUTEEnum new];
-    country.slug = placemark.ISOcountryCode;
-    country.value = placemark.country;
-    country.type = @"country";
-    retPlacemark.country = country;
+//    CUTEEnum *country = [CUTEEnum new];
+//    country.slug = placemark.ISOcountryCode;
+//    country.value = placemark.country;
+//    country.type = @"country";
+//    retPlacemark.country = country;
     retPlacemark.inlandWater = placemark.inlandWater;
     retPlacemark.ocean = placemark.ocean;
     retPlacemark.areasOfInterest = placemark.areasOfInterest;

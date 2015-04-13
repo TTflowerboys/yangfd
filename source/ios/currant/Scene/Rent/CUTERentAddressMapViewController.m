@@ -35,7 +35,7 @@
 
     CLLocation *_location;
 
-    BBTRestClient *_geocoder;
+    CLGeocoder *_geocoder;
 
     CUTEPlacemark *_placemark;
 }
@@ -193,22 +193,56 @@
     MKPlacemark *annotation = [[MKPlacemark alloc] initWithCoordinate:_location.coordinate addressDictionary:nil];
     [_mapView addAnnotation:annotation];
 
+//    if (!_geocoder) {
+//        _geocoder = [BBTRestClient clientWithBaseURL:nil account:nil];
+//    }
+//
+//    NSString *geocoderURLString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?latlng=%lf,%lf&key=%@&language=en", _location.coordinate.latitude, _location.coordinate.longitude, [CUTEConfiguration googleAPIKey]];
+//    [_geocoder POST:geocoderURLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSDictionary *dic = (NSDictionary *)responseObject;
+//        if ([[dic objectForKey:@"status"] isEqualToString:@"OK"] && !IsArrayNilOrEmpty([dic objectForKey:@"results"])) {
+//            NSDictionary *place = [[dic objectForKey:@"results"] objectAtIndex:0];
+//            _placemark = [CUTEPlacemark placeMarkWithGoogleResult:place];
+//            _textField.text = _placemark.address;
+//        }
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//
+//    }];
+
+
     if (!_geocoder) {
-        _geocoder = [BBTRestClient clientWithBaseURL:nil account:nil];
+        _geocoder = [[CLGeocoder alloc] init];
     }
 
-    NSString *geocoderURLString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?latlng=%lf,%lf&key=%@&language=en", _location.coordinate.latitude, _location.coordinate.longitude, [CUTEConfiguration googleAPIKey]];
-    [_geocoder POST:geocoderURLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dic = (NSDictionary *)responseObject;
-        if ([[dic objectForKey:@"status"] isEqualToString:@"OK"] && !IsArrayNilOrEmpty([dic objectForKey:@"results"])) {
-            NSDictionary *place = [[dic objectForKey:@"results"] objectAtIndex:0];
-            _placemark = [CUTEPlacemark placeMarkWithGoogleResult:place];
-            _textField.text = _placemark.address;
+    [_geocoder reverseGeocodeLocation:_location completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark *placemark = [placemarks firstObject];
+        if (placemark) {
+            NSArray *requiredEnums = @[@"country", @"city"];
+
+            [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
+                return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+            }]] continueWithSuccessBlock:^id(BFTask *task) {
+                if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
+                    NSArray *coutries = [task.result[0] collect:^BOOL(CUTEEnum *object) {
+                        return [[object slug] isEqualToString:placemark.ISOcountryCode];
+                    }];
+
+                    NSArray *cities = [task.result[1] collect:^BOOL(CUTECityEnum *object) {
+                        return [[object.country slug] isEqualToString:placemark.ISOcountryCode] && [[[placemark locality] lowercaseString] hasPrefix:[[object value] lowercaseString]];
+                    }];
+                    _placemark = [CUTEPlacemark placeMarkWithCLPlaceMark:placemark];
+                    _placemark.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
+                    _placemark.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
+                    _textField.text = _placemark.address;
+
+                }
+                
+                return nil;
+            }];
+
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
     }];
-
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(__unused BOOL)animated

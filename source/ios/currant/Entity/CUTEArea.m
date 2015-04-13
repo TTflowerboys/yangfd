@@ -20,7 +20,7 @@
 - (NSDictionary *)toParams {
     return @{
              @"unit":self.unit,
-             @"value":@(self.value)
+             @"value":[NSString stringWithFormat:@"%lf", self.value]
              };
 }
 

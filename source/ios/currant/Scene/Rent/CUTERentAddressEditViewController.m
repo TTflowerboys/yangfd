@@ -32,12 +32,12 @@
 
 - (void)checkNeedUpdateCityOptions {
     CUTEEnum *country = [[self.formController fieldForKey:@"country"] value];
-    if (![_lastCountry isEqual:country]) {
+    if (_lastCountry && ![_lastCountry isEqual:country]) {
         [(CUTERentAddressEditForm *)self.formController.form setCity:nil];
         [self.formController updateFormSections];
         [self.tableView reloadData];
-        _lastCountry = country;
     }
+    _lastCountry = country;
 }
 
 
