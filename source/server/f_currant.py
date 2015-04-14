@@ -1802,7 +1802,7 @@ class f_currant_util(f_util):
         else:
             abort(40000, self.logger.warning("wrong type, cannot parse budget", exc_info=False))
 
-        assert budget["type"] == "budget", abort(40000, self.logger.warning("wrong type, cannot parse budget", exc_info=False))
+        assert budget["type"] in ["budget", "rental_budget"], abort(40000, self.logger.warning("wrong type, cannot parse budget", exc_info=False))
         assert budget.get("slug") is not None and budget["slug"].startswith("budget:"), abort(self.logger.warning("wrong type, cannot parse budget", exc_info=False))
         assert budget.get("currency") is not None and budget["currency"] in f_app.common.currency, abort(self.logger.warning("wrong type, cannot parse budget", exc_info=False))
 

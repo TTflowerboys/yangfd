@@ -666,7 +666,7 @@ def rent_ticket_contact_info(user, ticket_id):
     sort=(list, ["time", 'desc'], str),
     rent_type="enum:rent_type",
     user_id=ObjectId,
-    price=str,
+    rental_budget="enum:rental_budget",
     bedroom_count="enum:bedroom_count",
     building_area="enum:building_area",
     property_type=(list, None, "enum:property_type"),
@@ -711,34 +711,26 @@ def rent_ticket_search(user, params):
     if "country" in params:
         property_params["country"] = params.pop("country")
 
-    if "price" in params:
-        budget = [x.strip() for x in params.pop("price").split(",")]
+    if "rental_budget" in params:
+        budget = f_app.util.parse_budget(params.pop("rental_budget"))
         assert len(budget) == 3 and budget[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
-        non_project_price_filter = []
-        main_house_types_elem_price_filter = []
+        price_filter = []
         for currency in f_app.common.currency:
             condition = {"total_price.unit": currency}
-            house_condition = {"total_price_max.unit": currency}
             if currency == budget[2]:
                 condition["total_price.value_float"] = {}
                 if budget[0]:
                     condition["total_price.value_float"]["$gte"] = float(budget[0])
-                    house_condition["total_price_max.value_float"] = {"$gte": float(budget[0])}
                 if budget[1]:
                     condition["total_price.value_float"]["$lte"] = float(budget[1])
-                    house_condition["total_price_min.value_float"] = {"$lte": float(budget[1])}
             else:
                 condition["total_price.value_float"] = {}
                 if budget[0]:
                     condition["total_price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
-                    house_condition["total_price_max.value_float"] = {"$gte": float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))}
                 if budget[1]:
                     condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
-                    house_condition["total_price_min.value_float"] = {"$lte": float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))}
-            non_project_price_filter.append(condition)
-            main_house_types_elem_price_filter.append(house_condition)
-        non_project_params["$and"].append({"$or": non_project_price_filter})
-        main_house_types_elem_params["$and"].append({"$or": main_house_types_elem_price_filter})
+            price_filter.append(condition)
+        params["$or"] = price_filter
 
     if "bedroom_count" in params:
         bedroom_count = f_app.util.parse_bedroom_count(params.pop("bedroom_count"))
