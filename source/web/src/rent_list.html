@@ -27,6 +27,9 @@
     <textarea id="rentTypeData">
         {{json_dumps(rent_type_list)}}
     </textarea>
+    <textarea id="rentBudgetData">
+        {{json_dumps(rent_budget_list)}}
+    </textarea>
     <textarea id="propertyTypeData">
         {{json_dumps(property_type_list)}}
     </textarea>
@@ -83,23 +86,21 @@
             <a href="/rental/create" class="rentalCreate button red"><span class=big>{{_('发布租房信息')}}</span></a>
 
             <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
-                <!--<div class="price">
-                    <img class="price_icon" alt="" src="/static/images/property_list/price-tag.png"/>
-                    <h4 class="price_title">{{_('价格')}}
+                <div class="rentalBudget">
+                    <img class="rentalBudget_icon" alt="" src="/static/images/property_list/price-tag.png"/>
+                    <h4 class="rentalBudget_title">{{_('租金')}}
                         (
-                        {{_('单选')}}
-                        ,
-                        &lt;!&ndash;@@include=partials/current_currency.html &ndash;&gt;
+                        <!--@@include=partials/current_currency.html -->
                         )
                     </h4>
-                    <div id="budgetTag" class="inner">
-                        %for index, budget in enumerate(budget_list):
-                            %if budget.get('currency') == _.currency:
-                                <div class="toggleTag" data-id="{{budget.get('id')}}" data-index="{{index}}">{{budget.get('value')}}</div>
+                    <div id="rentBudgetTag" class="inner">
+                        %for index, rent_budget in enumerate(rent_budget_list):
+                            %if rent_budget.get('currency') == _.currency:
+                                <div class="toggleTag" data-id="{{rent_budget.get('id')}}" data-index="{{index}}">{{rent_budget.get('value')}}</div>
                             %end
                         %end
                     </div>
-                </div>-->
+                </div>
 
 
             %if rent_period_list:

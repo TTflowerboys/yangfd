@@ -10,6 +10,7 @@
     window.propertyCountryData = getData('propertyCountryData')
     window.propertyCityData = getData('propertyCityData')
     window.rentTypeData = getData('rentTypeData')
+    window.rentBudgetData = getData('rentBudgetData')
     window.propertyTypeData = getData('propertyTypeData')
     window.rentPeriodData = getData('rentPeriodData')
     window.bedroomCountData = getData('bedroomCountData')
@@ -37,6 +38,15 @@
     }
 
     // Init side tag filters value from URL
+    var rentBudgetFromURL = window.team.getQuery('rent_budget', location.href)
+    if (rentBudgetFromURL) {
+        selectTagFilter('#rentBudgetTag', rentBudgetFromURL)
+
+        if (window.team.isPhone()) {
+            showTagsOnMobile()
+        }
+    }
+
     var rentPeriodFromURL = window.team.getQuery('rent_period', location.href)
     if (rentPeriodFromURL) {
         selectTagFilter('#rentPeriodTag', rentPeriodFromURL)
@@ -109,10 +119,10 @@
             params.rent_type = rentType
         }
 
-        /*var budgetType = getSelectedBudgetType()
-         if (budgetType) {
-         params.budget = budgetType
-         }*/
+        var rentBudgetType = getSelectedTagFilterDataId('#rentBudgetTag')
+        if (rentBudgetType) {
+            params.rental_budget = rentBudgetType
+        }
 
         var rentPeriod = getSelectedTagFilterDataId('#rentPeriodTag')
         if (rentPeriod) {
@@ -271,6 +281,20 @@
         }
         return ''
     }
+
+    $('#tags #rentBudgetTag').on('click', '.toggleTag', function (event) {
+        var $item = $(event.target)
+        var alreadySelected = $item.hasClass('selected')
+        var $parent = $(event.target.parentNode)
+        $parent.find('.toggleTag').removeClass('selected')
+
+        if (!alreadySelected) {
+            $item.addClass('selected')
+        }
+
+        ga('send', 'event', 'rent_list', 'change', 'change-rent-budget', $item.text())
+        location.href = window.team.setQuery('rent_budget', getSelectedTagFilterDataId('#rentBudgetTag'))
+    })
 
     $('#tags #rentPeriodTag').on('click', '.toggleTag', function (event) {
         var $item = $(event.target)
