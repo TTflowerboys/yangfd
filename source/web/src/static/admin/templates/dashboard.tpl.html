@@ -114,6 +114,12 @@
                                             <span class="hidden-sm text">{%$root.i18n('房间数')%}</span>
                                         </a>
                                     </li>
+                                    <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.rent_budget')}">
+                                        <a class="submenu" href ui-sref="dashboard.enums.rent_budget">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('租房预算')%}</span>
+                                        </a>
+                                    </li>
                                 </ul>
 
                             </li>

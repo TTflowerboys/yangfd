@@ -406,6 +406,51 @@
                     location.reload()
                 })
         }
+        $scope.getEditRentBudget = function () {
+            api.getI18nEnumsById($stateParams.id)
+                .success(function (data) {
+                    $scope.item = data.val || {}
+                    $scope.item.tempValues = _.pairs($scope.item.value)
+                    for (var i = $scope.item.tempValues.length - 1; i >= 0; i -= 1) {
+                        if ($scope.item.tempValues[i][0] === '_i18n') {
+                            $scope.item.tempValues.splice(i, 1)
+                        } else {
+                            $scope.onAddLanguage($scope.item.tempValues[i][0])
+                        }
+                    }
+                    var index0 = $scope.item.slug.indexOf(':') + 1
+                    var index1 = $scope.item.slug.indexOf(',')
+                    var index2 = $scope.item.slug.lastIndexOf(',')
+                    $scope.item.limit = parseInt($scope.item.slug.substring(index0, index1), 10)
+                    $scope.item.ceiling = parseInt($scope.item.slug.substring(index1 + 1, index2), 10)
+                })
+        }
+        $scope.addRentBudget = function ($event, form) {
+            if ($scope.item.limit === undefined &&
+                $scope.item.ceiling === undefined &&
+                $scope.item.value === undefined &&
+                $scope.item.tempValues === undefined) {
+                return
+            }
+            $scope.item.value = _.object($scope.item.tempValues)
+            api.addRentBudget($scope.item.limit, $scope.item.ceiling, $scope.item.currency, $scope.item.value)
+                .success(function () {
+                    $scope.item.limit = undefined
+                    $scope.item.ceiling = undefined
+                    $scope.item.value = undefined
+                    $scope.item.tempValues = undefined
+                })
+        }
+        $scope.editRentBudget = function ($event, form) {
+
+            $scope.item.value = _.object($scope.item.tempValues)
+            api.editRentBudget($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.currency,
+                $scope.item.value)
+                .success(function () {
+                    $state.go('^')
+                    location.reload()
+                })
+        }
     }
 
     angular.module('app').controller('ctrlEnums', ctrlEnums)

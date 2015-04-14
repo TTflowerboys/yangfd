@@ -256,6 +256,24 @@ angular.module('app')
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
+            .state('dashboard.enums.rent_budget', {
+                url: '/rent_budget',
+                templateUrl: '/static/admin/templates/dashboard.enums.rent_budget.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.rent_budget.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.rent_budget.create.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.rent_budget.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.enums.rent_budget.edit.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
         /**
          * 房产
          */

@@ -197,6 +197,36 @@
                     errorMessage: true
                 }, config))
             },
+            addRentBudget: function (limit, ceiling, currency, value) {
+                var slug = 'rent_budget:'
+                slug += limit ? limit : ''
+                slug += ','
+                slug += ceiling ? ceiling : ''
+                slug += ','
+                slug += currency
+                var data = {
+                    type: 'rent_budget',
+                    slug: slug,
+                    currency: currency,
+                    value: value
+                }
+                return $http.post('/api/1/enum/add', data, {errorMessage: true})
+            },
+            editRentBudget: function (id, limit, ceiling, currency, value) {
+                var slug = 'rent_budget:'
+                slug += limit ? limit : ''
+                slug += ','
+                slug += ceiling ? ceiling : ''
+                slug += ','
+                slug += currency
+                var data = {
+                    type: 'rent_budget',
+                    slug: slug,
+                    currency: currency,
+                    value: value
+                }
+                return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
+            },
             remove: function (id, config) {
                 return $http.post('/api/1/enum/' + id + '/remove', {mode: 'clean'}, config)
             },
