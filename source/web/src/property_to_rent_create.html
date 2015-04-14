@@ -10,7 +10,7 @@
 <!--@@block = main -->
 <div class="main_container">
     <div>
-        <div class="title">房屋出租</div>
+        <div class="title">{{_('房屋出租')}}</div>
         <div class="content">
             <div class="step">
                 <div class="line"></div>
@@ -18,7 +18,7 @@
                     <div class="main">
                         <img src="/static/images/customer/ico_step_1_write.png">
                         <div>
-                            填写详情
+                            {{_('填写详情')}}
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                     <div class="main">
                         <img src="/static/images/customer/ico_step_1_show.png">
                         <div>
-                            预览发布
+                            {{_('预览发布')}}
                         </div>
                     </div>
                 </div>
@@ -36,12 +36,12 @@
                 <table class="information">
                     <tr>
                         <th colspan="2" style="text-align: left;font-weight: normal;">
-                            <div class="subtitle">基本信息</div>
+                            <div class="subtitle">{{_('基本信息')}}</div>
                         </th>
                     </tr>
                     <tr>
                         <td>
-                            <div class="text">房产类型</div>
+                            <div class="text">{{_('房产类型')}}</div>
                         </td>
                         <td id="propertyType">
                             %for index, property_type in enumerate(property_type_list):
@@ -61,7 +61,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="text">出租类型</div>
+                            <div class="text">{{_('出租类型')}}</div>
                         </td>
                         <td id="rentalType">
                             %for index, rent_type in enumerate(rent_type_list):
@@ -80,17 +80,17 @@
                     <tr>
                         <td>
                             <div class="text">
-                                Postcode
+                                {{_('Postcode')}}
                             </div>
                         </td>
                         <td>
                             <div class="postcode">
                                 <input id="postcode"/>
                                 <button id="findAddress" type="button" class="find_address">
-                                    查找地址
+                                    {{_('查找地址')}}
                                 </button>
                                 <button id="inputAddress" type="button" class="customer_input">
-                                    手动填写
+                                    {{_('手动填写')}}
                                 </button>
                             </div>
                         </td>
@@ -100,19 +100,19 @@
                         </td>
                         <td>
                             <div class="address">
-                                <input placeholder="单元号" id="unit_number">
-                                <input placeholder="单元名" id="unit_name">
-                                <input placeholder="房间号" id="room_name">
-                                <input placeholder="街道1" id="neighborhood1">
-                                <input placeholder="街道2" id="neighborhood2">
-                                <input placeholder="城市" id="locality">
+                                <input placeholder="{{_('单元号')}}" id="unit_number">
+                                <input placeholder="{{_('单元名')}}" id="unit_name">
+                                <input placeholder="{{_('房间号')}}" id="room_name">
+                                <input placeholder="{{_('街道1')}}" id="neighborhood1">
+                                <input placeholder="{{_('街道2')}}" id="neighborhood2">
+                                <input placeholder="{{_('城市')}}" id="locality">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div class="text">
-                                房屋户型
+                                {{_('房屋户型')}}
                             </div>
                         </td>
                         <td class="room_count">
@@ -126,7 +126,7 @@
                                     <option value="5">5</option>
                                 </select>
                             </div>
-                            <div><span>室</span></div>
+                            <div><span>{{_('室')}}</span></div>
                             <div>
                                 <select id="living_room_count">
                                     <option value="0" selected>0</option>
@@ -137,7 +137,7 @@
                                     <option value="5">5</option>
                                 </select>
                             </div>
-                            <div><span>厅</span></div>
+                            <div><span>{{_('厅')}}</span></div>
                             <div>
                                 <select id="kitchen_count">
                                     <option value="0" selected>0</option>
@@ -146,7 +146,7 @@
                                     <option value="3">3</option>
                                 </select>
                             </div>
-                            <div><span>厨</span></div>
+                            <div><span>{{_('厨')}}</span></div>
                             <div>
                                 <select id="bathroom_count">
                                     <option value="0" selected>0</option>
@@ -155,12 +155,12 @@
                                     <option value="3">3</option>
                                 </select>
                             </div>
-                            <div><span>卫</span></div>
+                            <div><span>{{_('卫')}}</span></div>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div class="text">租金</div>
+                            <div class="text">{{_('租金')}}</div>
 
                         </td>
                         <td class="sales_price">
@@ -173,7 +173,7 @@
                                     <option value="HKD">{{_('港币')}}</option>
                                 </select>
                             </div>
-                            <div><input id="price">/周</div>
+                            <div><input id="price">{{_('/周')}}</div>
                             <div class="lease" id="lease">
                                 <select>
                                     %for index, deposit_type in enumerate(deposit_type_list):
@@ -182,13 +182,13 @@
                                 </select>
                             </div>
                             <div id="sales_price_error" class="error">
-                                请填写租金
+                                {{_('请填写租金')}}
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <div class="text">租期</div>
+                            <div class="text">{{_('租期')}}</div>
 
                         </td>
                         <td class="sales_price">
@@ -200,7 +200,7 @@
                                 </select>
                             </div>
                             <div>
-                                <span>开始于</span>
+                                <span>{{_('开始于')}}</span>
                             </div>
                             <div>
                                 <div class="date">
@@ -209,7 +209,7 @@
                                 </div>
                             </div>
                             <div id="date_error" class="error">
-                                请填写租期开始时间
+                                {{_('请填写租期开始时间')}}
                             </div>
                         </td>
                     </tr>
@@ -217,29 +217,29 @@
                         <td></td>
                         <td>
                             <div class="load_more">
-                                更多详情和设施描述
+                                {{_('更多详情和设施描述')}}
                             </div>
                             <div class="more_info">
-                                填写可增加30%浏览量
+                                {{_('填写可增加30%浏览量')}}
                             </div>
                         </td>
                     </tr>
                 </table>
                 <div class="information">
                     <div class="subtitle">
-                        上传图片
+                        {{_('上传图片')}}
                     </div>
                     <div class="image_panel">
                         <div id="fileuploader" class="upload_image">
-                            请将图片文件直接拖拽至此，<br>或者自行查找电脑中的图片文件。
+                            {{_('请将图片文件直接拖拽至此，<br>或者自行查找电脑中的图片文件。')}}
                         </div>
                         <div class="with_weixin">
                             <div class="information">
                                 <div class="on_phone">
-                                    图片在手机上？
+                                    {{_('图片在手机上？')}}
                                 </div>
                                 <div class="no_problem">
-                                    没关系，您可通过微信扫描二维码关注我们的公众账号来上传图片
+                                    {{_('没关系，您可通过微信扫描二维码关注我们的公众账号来上传图片')}}
                                 </div>
                             </div>
                             <div class="information">
@@ -257,7 +257,7 @@
                     <tr>
                         <td>
                             <div class="text">
-                                标题
+                                {{_('标题')}}
                             </div>
                         </td>
                         <td class="content">
@@ -267,7 +267,7 @@
                     <tr>
                         <td>
                             <div class="text">
-                                描述
+                                {{_('描述')}}
                             </div>
                         </td>
                         <td class="content">
@@ -277,7 +277,7 @@
                     <tr>
                         <td>
                             <div class="text">
-                                设施
+                                {{_('设施')}}
                             </div>
                         </td>
                         <td class="content">
@@ -293,7 +293,7 @@
                     <tr>
                         <td>
                             <div class="text">
-                                街区描述
+                                {{_('街区描述')}}
                             </div>
                         </td>
                         <td class="content">
@@ -328,7 +328,7 @@
                 </table>
             </div>
             <div style="text-align: center">
-                <button class="submit_button" id="submit">预览并发布</button>
+                <button class="submit_button" id="submit">{{_('预览并发布')}}</button>
             </div>
         </div>
     </div>
