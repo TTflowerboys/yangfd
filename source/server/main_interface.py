@@ -221,7 +221,7 @@ def property_list(params):
                            )
 
 
-@f_get('/rent_list', params=dict(
+@f_get('/property_to_rent_list', params=dict(
     rent_type=str,
     country=str,
     city=str,
@@ -232,7 +232,7 @@ def property_list(params):
     building_area=str
 ))
 @check_ip_and_redirect_domain
-def rent_list(params):
+def property_to_rent_list(params):
     city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     rent_budget_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
@@ -274,7 +274,7 @@ def rent_list(params):
 
     title += _('出租列表-洋房东')
 
-    return common_template("rent_list",
+    return common_template("property_to_rent_list",
                            city_list=city_list,
                            property_country_list=property_country_list,
                            property_city_list=property_city_list,
@@ -766,26 +766,26 @@ def calculator():
     return common_template("calculator-phone", intention_list=intention_list, title=title)
 
 
-@f_get('/customer_sales')
+@f_get('/property-for-sale/create')
 @check_ip_and_redirect_domain
 @check_crowdfunding_ready
-def customer_sales():
+def property_for_sale_create():
     title = _('二手房出售')
-    return common_template("customer_sales", title=title)
+    return common_template("property_for_sale_create", title=title)
 
 
-@f_get('/customer_sales_preview')
+@f_get('/property-for-sale/publish')
 @check_ip_and_redirect_domain
 @check_crowdfunding_ready
-def customer_sales_preview():
+def property_for_sale_publish():
     title = _('出售预览')
-    return common_template("customer_sales_preview", title=title)
+    return common_template("property_for_sale_publish", title=title)
 
 
-@f_get('/rental/create')
+@f_get('/property-to-rent/create')
 @check_ip_and_redirect_domain
 @check_crowdfunding_ready
-def customer_rentals():
+def property_to_rent_create():
     region_highlight_list = f_app.i18n.process_i18n(f_app.enum.get_all('region_highlight'))
     indoor_facility_list = f_app.i18n.process_i18n(f_app.enum.get_all('indoor_facility'))
     rent_period_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_period'))
@@ -793,17 +793,17 @@ def customer_rentals():
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     title = _('房屋出租')
-    return common_template("customer_rentals", region_highlight_list=region_highlight_list, rent_period_list=rent_period_list,
+    return common_template("property_to_rent_create", region_highlight_list=region_highlight_list, rent_period_list=rent_period_list,
     indoor_facility_list=indoor_facility_list, deposit_type_list=deposit_type_list, rent_type_list=rent_type_list,
     property_type_list=property_type_list, title=title)
 
 
-@f_get('/rental/publish')
+@f_get('/property-to-rent/publish')
 @check_ip_and_redirect_domain
 @check_crowdfunding_ready
-def customer_rentals_preview():
+def property_to_rent_publish():
     title = _('出租预览')
-    return common_template("customer_rentals_preview", title=title)
+    return common_template("property_to_rent_publish", title=title)
 
 
 @f_get('/user')

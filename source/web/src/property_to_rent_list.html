@@ -1,9 +1,9 @@
 <!--@@master=masters/master.html-->
 <!--@@block=head -->
 
-<!--build:css(dist) /static/styles/property_list.html.css-->
+<!--build:css(dist) /static/styles/property_to_rent_list.html.css-->
 <link rel="stylesheet" href="/static/styles/project/rentCard.css"/>
-<link rel="stylesheet" href="/static/styles/rentList.css"/>
+<link rel="stylesheet" href="/static/styles/property_to_rent_list.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseInfobox.css"/>
 <!--endbuild-->
 
@@ -83,7 +83,7 @@
 <div id="result" class="result">
     <div id="tags" class="tags">
         <div class="tags_inner">
-            <a href="/rental/create" class="rentalCreate button red"><span class=big>{{_('发布租房信息')}}</span></a>
+            <a href="/property-to-rent/create" class="rentalCreate button red"><span class=big>{{_('发布租房信息')}}</span></a>
 
             <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
                 <div class="rentalBudget">
@@ -209,9 +209,9 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
-<!--build:js /static/scripts/rent_list.html.js-->
-<script src="/static/scripts/rent_list.js"></script>
-<script src="/static/scripts/rent_list_map.js"></script>
+<!--build:js /static/scripts/property_to_rent_list.html.js-->
+<script src="/static/scripts/property_to_rent_list.js"></script>
+<script src="/static/scripts/property_to_rent_map.js"></script>
 <!--endbuild-->
 <!--@@close-->
 
