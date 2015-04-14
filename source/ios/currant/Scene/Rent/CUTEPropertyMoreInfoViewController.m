@@ -12,8 +12,15 @@
 #import "CUTEEnumManager.h"
 #import <NSArray+Frankenstein.h>
 #import "CUTECommonMacro.h"
+#import "CUTEDataManager.h"
+#import "CUTEPropertyMoreInfoForm.h"
 
 @implementation CUTEPropertyMoreInfoViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
+}
 
 - (void)editFacilities {
 
@@ -33,6 +40,18 @@
 
         return nil;
     }];
+}
+
+- (void)onSaveButtonPressed:(id)sender {
+
+    [self.navigationController popViewControllerAnimated:YES];
+    CUTEPropertyMoreInfoForm *form = (CUTEPropertyMoreInfoForm *)[self.formController form];
+    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTEProperty *property = [ticket property];
+
+    property.name = [CUTEI18n i18nWithValue:form.propertyTitle];
+    property.propertyDescription = [CUTEI18n i18nWithValue:form.propertyDescription];
+    
 }
 
 @end

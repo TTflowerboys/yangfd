@@ -71,7 +71,7 @@
                @"indoor_facility",
                @"region_highlight",
                @"rent_type",
-               @"rent_period"
+               @"rent_period",
                @"community_facility"]
              map:^id(id object) {
                  return [self getEnumsByType:object];

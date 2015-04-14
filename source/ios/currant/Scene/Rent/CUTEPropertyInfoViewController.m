@@ -49,6 +49,7 @@
     CUTEAreaForm *form = (CUTEAreaForm *)_editAreaViewController.formController.form;
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
     ticket.space = [CUTEArea areaWithValue:form.area unit:form.unit];
+    ticket.property.space = ticket.space;
 }
 
 - (void)editRentPrice {

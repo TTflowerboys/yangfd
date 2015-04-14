@@ -188,7 +188,9 @@
             if (task.result) {
                 CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
                 [form setRentTypeList:task.result];
-                [[(CUTERentTypeListViewController *)viewController.topViewController formController] setForm:form];
+                CUTERentTypeListViewController *controller = (CUTERentTypeListViewController *)[viewController topViewController];
+                controller.formController.form = form;
+                [controller.tableView reloadData];
             }
             return nil;
         }];

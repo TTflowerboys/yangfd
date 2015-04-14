@@ -26,11 +26,15 @@
 - (NSDictionary *)toParams {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic addEntriesFromDictionary:@{
-                                    @"space":self.space.toParams,
                                     @"bill_covered":@(self.billCovered),
-                                    @"price":self.price.toParams,
                                     @"property_id":self.property.identifier
                                     }];
+    if (self.space) {
+        [dic setValue:self.space.toParams forKey:@"space"];
+    }
+    if (self.price) {
+        [dic setValue:self.price.toParams forKey:@"price"];
+    }
     if (self.depositType) {
         [dic setValue:self.depositType.identifier forKey:@"deposit_type"];
     }

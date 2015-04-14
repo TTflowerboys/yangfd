@@ -31,7 +31,9 @@
     CUTETicket *ticket = [CUTETicket new];
     CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
     ticket.rentType = [form rentTypeAtIndex:indexPath.row];
-    
+    CUTEProperty *property = [CUTEProperty new];
+    ticket.property = property;
+
     [[CUTEDataManager sharedInstance] pushRentTicket:ticket];
 }
 

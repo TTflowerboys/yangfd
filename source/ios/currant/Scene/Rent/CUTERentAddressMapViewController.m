@@ -165,14 +165,13 @@
     if (currentTicket) {
         [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithSuccessBlock:^id(BFTask *task) {
             if (!IsArrayNilOrEmpty(task.result)) {
-                CUTEProperty *property = [CUTEProperty new];
+                CUTEProperty *property = currentTicket.property;
                 property.street = [CUTEI18n i18nWithValue:_placemark.street];
                 property.latitude = _location.coordinate.latitude;
                 property.longitude = _location.coordinate.longitude;
                 property.country = _placemark.country;
                 property.city = _placemark.city;
                 property.zipcode = _placemark.zipcode;
-                currentTicket.property = property;
 
                 CUTEPropertyInfoViewController *controller = [[CUTEPropertyInfoViewController alloc] init];
                 CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
