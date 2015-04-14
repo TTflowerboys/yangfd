@@ -16,7 +16,7 @@
 
 @interface CUTEPropertyInfoForm : CUTEForm
 
-@property (nonatomic, strong) UIImage *photo;
+@property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) CUTEEnum *propertyType;
 @property (nonatomic, assign) NSUInteger bedroom;
 @property (nonatomic, strong) CUTEAreaForm *area;

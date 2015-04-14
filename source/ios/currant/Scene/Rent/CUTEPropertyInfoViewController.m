@@ -24,6 +24,9 @@
 #import "CUTERentPriceViewController.h"
 #import "CUTERentPriceForm.h"
 #import "CUTEAreaForm.h"
+#import "CUTEPropertyInfoForm.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+
 
 @interface CUTEPropertyInfoViewController () {
     BBTRestClient *_imageUploader;
@@ -77,16 +80,19 @@
     CUTEProperty *property = ticket.property;
     if (ticket && property) {
         Sequencer *sequencer = [Sequencer new];
-        if (!IsArrayNilOrEmpty(property.realityImages)) {
+        NSArray *images = [(CUTEPropertyInfoForm *)self.formController.form photos];
+        if (!IsArrayNilOrEmpty(images)) {
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[self uploadImages] continueWithBlock:^id(BFTask *task) {
+                [[BFTask taskForCompletionOfAllTasksWithResults:[images map:^id(ALAsset *object) {
+                    return [self updateImage:object];
+                }]] continueWithBlock:^id(BFTask *task) {
                     property.realityImages = task.result;
                     completion(task.result);
                     return nil;
                 }];
             }];
         }
-        
+
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [[self addProperty] continueWithBlock:^id(BFTask *task) {
                 completion(task.result);
@@ -116,10 +122,10 @@
     }
 }
 
-- (BFTask *)updateImage:(UIImage*)image {
+- (BFTask *)updateImage:(ALAsset*)image {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if (image) {
-        NSData *dataImage = UIImageJPEGRepresentation(image, 1.0f);
+        NSData *dataImage = UIImageJPEGRepresentation([UIImage imageWithCGImage:[[image defaultRepresentation] fullResolutionImage]], 1.0);
 
         if (!_imageUploader) {
             _imageUploader = [BBTRestClient clientWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]] account:nil];
@@ -147,15 +153,6 @@
 
 }
 
-- (BFTask *)uploadImages {
-    FXFormImagePickerCell *imagePickerCell = (FXFormImagePickerCell *)[[self.formController tableView] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    UIImage *image = [[imagePickerCell imageView] image];
-    NSArray *images = @[image];
-    return [BFTask taskForCompletionOfAllTasksWithResults:[images map:^id(UIImage *object) {
-        return [self updateImage:object];
-    }]];
-
-}
 
 - (BFTask *)addProperty {
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];

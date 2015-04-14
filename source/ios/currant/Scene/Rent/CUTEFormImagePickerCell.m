@@ -9,6 +9,21 @@
 #import "CUTEFormImagePickerCell.h"
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
+#import <CTAssetsPickerController.h>
+#import <NSArray+Frankenstein.h>
+#import "CUTEFormImagePickerPlaceholderView.h"
+#import "MasonryMake.h"
+#import <UIView+BBT.h>
+
+@interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate>
+{
+    CUTEFormImagePickerPlaceholderView *_placeholderView;
+
+    UIScrollView *_scrollView;
+
+    UIButton *_addButton;
+}
+@end
 
 @implementation CUTEFormImagePickerCell
 
@@ -20,19 +35,167 @@
 
 - (void)setUp {
     [super setUp];
-    [self.imageView setImage:IMAGE(@"icon-camera")];
+    _placeholderView = [CUTEFormImagePickerPlaceholderView new];
+    [self.contentView addSubview:_placeholderView];
+    _scrollView = [UIScrollView new];
+    [self.contentView addSubview:_scrollView];
+    _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_addButton setImage:IMAGE(@"button-add-image") forState:UIControlStateNormal];
+    [self.contentView addSubview:_addButton];
+    [_addButton addTarget:self action:@selector(onAddButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView setHidden:YES];
+    [_addButton setHidden:YES];
+
+    MakeBegin(_placeholderView)
+    MakeTopEqualTo(self.contentView.top).offset(20);
+    MakeCenterXEqualTo(self.contentView);
+    MakeEnd
+
+    MakeBegin(_scrollView)
+    MakeTopEqualTo(self.contentView.top).offset(16);
+    MakeBottomEqualTo(self.contentView.bottom).offset(-16);
+    MakeLeftEqualTo(self.contentView.left);
+    MakeRighEqualTo(self.contentView.right).offset(-98);
+    MakeEnd
+
+    MakeBegin(_addButton)
+    MakeTopEqualTo(_scrollView.top);
+    MakeBottomEqualTo(_scrollView.bottom);
+    MakeRighEqualTo(self.contentView.right).offset(-8);
+    MakeEnd
+
 }
 
-- (void) layoutSubviews
+- (NSArray *)getImages {
+    return (NSArray *)self.field.value;
+}
+
+- (void)setImages:(NSArray *)images {
+    self.field.value = images;
+}
+
+- (void)update
 {
-    [super layoutSubviews];
-    self.imageView.frame = CGRectMake(RectWidthExclude(self.bounds, self.imageView.image.size.width) / 2, 22, self.imageView.image.size.width, self.imageView.image.size.height);
+    BOOL hidePlaceHolder = !IsArrayNilOrEmpty([self getImages]);
+    [_placeholderView setHidden:hidePlaceHolder];
+    [_scrollView setHidden:!hidePlaceHolder];
+    [_addButton setHidden:!hidePlaceHolder];
 
-    self.textLabel.textColor = CUTE_MAIN_COLOR;
-    self.textLabel.font = [UIFont systemFontOfSize:12];
-    CGSize textSize = TextSizeOfLabel(self.textLabel);
-    self.textLabel.frame = CGRectMake(RectWidthExclude(self.bounds, textSize.width) / 2, RectY(self.imageView.frame) + RectHeight(self.imageView.frame) + 10, textSize.width, textSize.height);
-
+    [self updateThumbnails:[self getImages]];
+    [self setNeedsLayout];
 }
+
+- (void)updateThumbnails:(NSArray *)assets {
+    [_scrollView removeAllSubViews];
+
+    if (!IsArrayNilOrEmpty(assets)) {
+        CGFloat sideWidth = RectHeight(_scrollView.bounds);
+        CGFloat margin = 10;
+        [assets enumerateObjectsUsingBlock:^(ALAsset *obj, NSUInteger idx, BOOL *stop) {
+            UIImage *image = [UIImage imageWithCGImage:obj.thumbnail];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            [_scrollView addSubview:imageView];
+            imageView.frame = CGRectMake(sideWidth * idx + margin * (idx + 1), 0, sideWidth, sideWidth);
+        }];
+        _scrollView.contentSize = CGSizeMake((sideWidth + margin) * [assets count], sideWidth);
+    }
+}
+
+- (UIViewController *)tableViewController
+{
+    id responder = self.superview;
+    while (responder)
+    {
+        if ([responder isKindOfClass:[UIViewController class]])
+        {
+            return responder;
+        }
+        responder = [responder nextResponder];
+    }
+    return nil;
+}
+
+- (void)showImagePickerFrom:(UIViewController *)controller {
+    CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+    picker.assetsFilter = [ALAssetsFilter allPhotos];
+    picker.showsCancelButton = (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad);
+    picker.delegate = self;
+    picker.selectedAssets = [NSMutableArray arrayWithArray:[self getImages]];
+    picker.alwaysEnableDoneButton = YES;
+    [controller presentViewController:picker animated:YES completion:^{
+
+    }];
+}
+
+- (void)onAddButtonPressed:(id)sender {
+    [self showImagePickerFrom:[self tableViewController]];
+}
+
+- (void)didSelectWithTableView:(UITableView *)tableView controller:(UIViewController *)controller
+{
+    [tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
+    if (!_placeholderView.isHidden) {
+        [self showImagePickerFrom:controller];
+    }
+}
+
+#pragma mark - Assets Picker Delegate
+
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker isDefaultAssetsGroup:(ALAssetsGroup *)group
+{
+    return ([[group valueForProperty:ALAssetsGroupPropertyType] integerValue] == ALAssetsGroupSavedPhotos);
+}
+
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
+{
+    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self setImages:assets];
+    [self update];
+}
+
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(ALAsset *)asset
+{
+    // Enable video clips if they are at least 5s
+    if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
+    {
+        NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
+        return lround(duration) >= 5;
+    }
+    else
+    {
+        return YES;
+    }
+}
+
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
+{
+    if (picker.selectedAssets.count >= 10)
+    {
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:@"Attention"
+                                   message:@"Please select not more than 10 assets"
+                                  delegate:nil
+                         cancelButtonTitle:nil
+                         otherButtonTitles:@"OK", nil];
+
+        [alertView show];
+    }
+
+    if (!asset.defaultRepresentation)
+    {
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:@"Attention"
+                                   message:@"Your asset has not yet been downloaded to your device"
+                                  delegate:nil
+                         cancelButtonTitle:nil
+                         otherButtonTitles:@"OK", nil];
+
+        [alertView show];
+    }
+
+    return (picker.selectedAssets.count < 10 && asset.defaultRepresentation != nil);
+}
+
+
 
 @end

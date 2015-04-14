@@ -231,6 +231,11 @@
 		2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DCB1ABC1373004DF663 /* currantTests.m */; };
 		2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
 		2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
+		2CB748F81ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */; };
+		2CB748F91ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */; };
+		2CB748FA1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */; };
+		2CB748FB1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */; };
+		2CB748FC1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */; };
 		2CD989F41ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */; };
 		2CD989F51ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */; };
 		2CD989F61ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */; };
@@ -358,6 +363,9 @@
 		2CB43DDF1ABD59AE004DF663 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		2CB43DE01ABD59CC004DF663 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.xib"; sourceTree = "<group>"; };
 		2CB43DE91ABD5CE3004DF663 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		2CB748F51ADCED09003BC2A5 /* MasonryMake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasonryMake.h; sourceTree = "<group>"; };
+		2CB748F61ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormImagePickerPlaceholderView.h; sourceTree = "<group>"; };
+		2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormImagePickerPlaceholderView.m; sourceTree = "<group>"; };
 		2CD989F21ADBCE9400AD763A /* CUTEPropertyFacilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyFacilityViewController.h; sourceTree = "<group>"; };
 		2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyFacilityViewController.m; sourceTree = "<group>"; };
 		2CD989F91ADBCF6D00AD763A /* CUTEPropertyMoreInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyMoreInfoViewController.h; sourceTree = "<group>"; };
@@ -438,6 +446,7 @@
 			children = (
 				2C401E241ACB972D00613093 /* CUTEUIMacro.h */,
 				2C226E691ACBCD9200658132 /* CUTECommonMacro.h */,
+				2CB748F51ADCED09003BC2A5 /* MasonryMake.h */,
 			);
 			path = Macro;
 			sourceTree = "<group>";
@@ -501,6 +510,8 @@
 				2C226E731ACBE9DB00658132 /* CUTEFormDefaultCell.m */,
 				2C27F1F01ACCF7DF002BECCF /* CUTEFormImagePickerCell.h */,
 				2C27F1F11ACCF7DF002BECCF /* CUTEFormImagePickerCell.m */,
+				2CB748F61ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.h */,
+				2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */,
 				2C4AEC841AD65537004DEE23 /* CUTEFormVerificationCodeCell.h */,
 				2C4AEC851AD65537004DEE23 /* CUTEFormVerificationCodeCell.m */,
 				2C27F2031ACD30FE002BECCF /* CUTEFormButtonCell.h */,
@@ -1093,6 +1104,7 @@
 				2C427E9D1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2C226E6F1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CD989F61ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
+				2CB748FA1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
 				2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */,
 				2C427E561AD25110000378A9 /* CUTEEnum.m in Sources */,
@@ -1145,6 +1157,7 @@
 				2C427E9E1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2C226E701ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CD989F71ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
+				2CB748FB1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
 				2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */,
 				2C427E571AD25110000378A9 /* CUTEEnum.m in Sources */,
@@ -1197,6 +1210,7 @@
 				2C427E9C1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2C226E6E1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CD989F51ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
+				2CB748F91ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
 				2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */,
 				2C427E551AD25110000378A9 /* CUTEEnum.m in Sources */,
@@ -1249,6 +1263,7 @@
 				2C427E9B1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2C226E6D1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
 				2CD989F41ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
+				2CB748F81ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
 				2C427E541AD25110000378A9 /* CUTEEnum.m in Sources */,
@@ -1285,6 +1300,7 @@
 				2C3B59601AD7D32700607BD4 /* CUTERentPriceViewController.m in Sources */,
 				2C401E1A1ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
 				2C5ECC6A1AD6271E00163E9E /* CUTEI18n.m in Sources */,
+				2CB748FC1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2C427E5F1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2C401DBB1ACA874000613093 /* CUTERentTypeListForm.m in Sources */,
 				2C226E781ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,

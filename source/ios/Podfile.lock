@@ -24,9 +24,12 @@ PODS:
     - Overcoat (~> 1.2)
   - BBTUtility (0.0.1)
   - Bolts (1.1.4)
+  - CTAssetsPickerController (2.9.3)
   - Mantle (1.5.4):
     - Mantle/extobjc (= 1.5.4)
   - Mantle/extobjc (1.5.4)
+  - Masonry (0.6.1)
+  - MBProgressHUD (0.9.1)
   - NJKWebViewProgress (0.2.3):
     - NJKWebViewProgress/Core (= 0.2.3)
     - NJKWebViewProgress/ProgressView (= 0.2.3)
@@ -42,6 +45,9 @@ DEPENDENCIES:
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (~> 1.1.4)
+  - CTAssetsPickerController (~> 2.9.3)
+  - Masonry (~> 0.6.1)
+  - MBProgressHUD (~> 0.9.1)
   - NJKWebViewProgress (~> 0.2.3)
   - Sequencer (~> 1.0.1)
   - SMCalloutView (~> 2.1.1)
@@ -65,7 +71,10 @@ SPEC CHECKSUMS:
   BBTRestClient: 25965557c7608407aaaa0b30d1ea07735e971488
   BBTUtility: c019d4fbdcea22fac854c64235f5ca5c9d8210b8
   Bolts: f8e2f94edbf9fec7bb8de5ecaaa3aa6b7de6f64e
+  CTAssetsPickerController: 56a4a228dcb48a9375ab8d4922e82ac74af74aa1
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
+  Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   Overcoat: 45e4d20eafc02c8d7fcde3cb89d35f0630a9fa80
   Sequencer: 53040fea35ecde55ba9cdb3a505a00cfb0e797b2
