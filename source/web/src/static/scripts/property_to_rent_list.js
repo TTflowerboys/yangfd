@@ -121,7 +121,7 @@
 
         var rentBudgetType = getSelectedTagFilterDataId('#rentBudgetTag')
         if (rentBudgetType) {
-            params.rental_budget = rentBudgetType
+            params.rent_budget = rentBudgetType
         }
 
         var rentPeriod = getSelectedTagFilterDataId('#rentPeriodTag')
