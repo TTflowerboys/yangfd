@@ -2836,7 +2836,7 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
 @end
 
 
-@interface FXFormTextFieldCell () <UITextFieldDelegate>
+@interface FXFormTextFieldCell () 
 
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, assign, getter = isReturnKeyOverriden) BOOL returnKeyOverridden;

@@ -228,7 +228,7 @@ UIKIT_EXTERN NSString *const FXFormFieldTypeImage; //image
 @end
 
 
-@interface FXFormTextFieldCell : FXFormBaseCell
+@interface FXFormTextFieldCell : FXFormBaseCell <UITextFieldDelegate>
 
 @property (nonatomic, readonly) UITextField *textField;
 

@@ -8,6 +8,7 @@
 
 #import "CUTERentPriceForm.h"
 #import "CUTECommonMacro.h"
+#import "CUTEFormRentPriceTextFieldCell.h"
 
 @interface CUTERentPriceForm () {
     NSArray *_allDepositTypes;
@@ -24,7 +25,7 @@
                              @[
                                @{FXFormFieldKey: @"currency", FXFormFieldTitle:STR(@"货币"), FXFormFieldOptions: @[@"CNY", @"GBP", @"USD", @"EUR", @"HKD"], FXFormFieldDefaultValue: @"CNY", FXFormFieldHeader: STR(@"租金")},
                                @{FXFormFieldKey: @"depositType", FXFormFieldTitle:STR(@"押金"), FXFormFieldOptions: _allDepositTypes, FXFormFieldDefaultValue: [_allDepositTypes firstObject],},
-                               @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldType:FXFormFieldTypeFloat},
+                               @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormRentPriceTextFieldCell class]},
                                @{FXFormFieldKey: @"containBill", FXFormFieldTitle:STR(@"包Bill"), FXFormFieldHeader: STR(@"其他")},
                                @{FXFormFieldKey: @"needSetPeriod", FXFormFieldTitle:STR(@"设置租期"), FXFormFieldHeader: STR(@"租期"), FXFormFieldAction: @"setRentPeriod"},
                                ]];
@@ -33,6 +34,15 @@
         [array addObject:@{FXFormFieldKey: @"租期", FXFormFieldOptions: _allRentPeriods, FXFormFieldDefaultValue: [_allRentPeriods firstObject]}];
     }
     return array;
+}
+
+- (NSString *)currencySymbol {
+    return @{@"CNY":@"￥",
+             @"GBP":@"£",
+             @"USD":@"$",
+             @"EUR":@"€",
+             @"HKD":@"$"
+             }[self.currency];
 }
 
 - (void)setAllDepositTypes:(NSArray *)depositTypes {

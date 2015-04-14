@@ -21,6 +21,8 @@
 @property (strong, nonatomic) CUTEEnum *period;
 
 
+- (NSString *)currencySymbol;
+
 - (void)setAllDepositTypes:(NSArray *)depositTypes;
 
 - (void)setAllRentPeriods:(NSArray *)rentPeriods;

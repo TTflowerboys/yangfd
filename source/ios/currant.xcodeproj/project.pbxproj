@@ -236,6 +236,11 @@
 		2CB748FA1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */; };
 		2CB748FB1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */; };
 		2CB748FC1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */; };
+		2CB748FF1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748FE1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m */; };
+		2CB749001ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748FE1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m */; };
+		2CB749011ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748FE1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m */; };
+		2CB749021ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748FE1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m */; };
+		2CB749031ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748FE1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m */; };
 		2CD989F41ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */; };
 		2CD989F51ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */; };
 		2CD989F61ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */; };
@@ -366,6 +371,8 @@
 		2CB748F51ADCED09003BC2A5 /* MasonryMake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasonryMake.h; sourceTree = "<group>"; };
 		2CB748F61ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormImagePickerPlaceholderView.h; sourceTree = "<group>"; };
 		2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormImagePickerPlaceholderView.m; sourceTree = "<group>"; };
+		2CB748FD1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormRentPriceTextFieldCell.h; sourceTree = "<group>"; };
+		2CB748FE1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormRentPriceTextFieldCell.m; sourceTree = "<group>"; };
 		2CD989F21ADBCE9400AD763A /* CUTEPropertyFacilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyFacilityViewController.h; sourceTree = "<group>"; };
 		2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyFacilityViewController.m; sourceTree = "<group>"; };
 		2CD989F91ADBCF6D00AD763A /* CUTEPropertyMoreInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyMoreInfoViewController.h; sourceTree = "<group>"; };
@@ -514,6 +521,8 @@
 				2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */,
 				2C4AEC841AD65537004DEE23 /* CUTEFormVerificationCodeCell.h */,
 				2C4AEC851AD65537004DEE23 /* CUTEFormVerificationCodeCell.m */,
+				2CB748FD1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.h */,
+				2CB748FE1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m */,
 				2C27F2031ACD30FE002BECCF /* CUTEFormButtonCell.h */,
 				2C27F2041ACD30FE002BECCF /* CUTEFormButtonCell.m */,
 				2C427E351ACEA9CF000378A9 /* CUTEMapTextField.h */,
@@ -1106,6 +1115,7 @@
 				2CD989F61ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
 				2CB748FA1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
+				2CB749011ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */,
 				2C427E561AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2C7520451ACA775C0008B42A /* CUTEViewController.m in Sources */,
@@ -1159,6 +1169,7 @@
 				2CD989F71ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
 				2CB748FB1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
+				2CB749021ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */,
 				2C427E571AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2C7520461ACA775C0008B42A /* CUTEViewController.m in Sources */,
@@ -1212,6 +1223,7 @@
 				2CD989F51ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
 				2CB748F91ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
+				2CB749001ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */,
 				2C427E551AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2C7520441ACA775C0008B42A /* CUTEViewController.m in Sources */,
@@ -1265,6 +1277,7 @@
 				2CD989F41ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
 				2CB748F81ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
+				2CB748FF1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
 				2C427E541AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */,
@@ -1320,6 +1333,7 @@
 				2C5ECC551AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2C27F2091ACD30FE002BECCF /* CUTEFormButtonCell.m in Sources */,
 				2CD989F81ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
+				2CB749031ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2C4AEC8A1AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C5ECC471AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
 				2C5ECC4E1AD51A1500163E9E /* CUTEPropertyInfoViewController.m in Sources */,

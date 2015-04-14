@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTERentPriceForm.h"
 #import "CUTEDataManager.h"
+#import "CUTEFormRentPriceTextFieldCell.h"
 
 @implementation CUTERentPriceViewController
 
@@ -22,6 +23,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    FXFormField *field = [self.formController fieldForIndexPath:indexPath];
+    CUTERentPriceForm *form = (CUTERentPriceForm *)[[self formController] form];
+    if ([field.key isEqualToString:@"rentPrice"]) {
+        CUTEFormRentPriceTextFieldCell *textFieldCell = (CUTEFormRentPriceTextFieldCell *)cell;
+        [textFieldCell setCurrencySymbol:form.currencySymbol];
+    }
 }
 
 - (void)setRentPeriod {
