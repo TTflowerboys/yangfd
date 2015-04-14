@@ -24,7 +24,7 @@
                         <p class="name">{=rent.title=}</p>
                     {_}_}
                     {_if(rent.price) {_}
-                        <span class="price"><strong>{!team.formatCurrency(parseInt(rent.price.value))!}</strong>{=window.i18n('/周')=}</span>
+                        <span class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
                     {_}_}
                     <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}</p>
                 </div>
@@ -66,14 +66,14 @@
                             <p class="label">面积</p>
                             <p class="value">
                                 {_if(rent.space) {_}
-                                {= parseFloat(rent.property.space.value).toFixed(2)=}
-                                {_if (rent.property.space.unit === 'foot ** 2'){_}
+                                {= parseFloat(rent.space.value).toFixed(2)=}
+                                {_if (rent.space.unit === 'foot ** 2'){_}
                                 foot <sup>2</sup>
-                                {_} else if(rent.property.space.unit === 'acre'){_}
+                                {_} else if(rent.space.unit === 'acre'){_}
                                 acre
-                                {_} else if (rent.property.space.unit === 'meter ** 2') {_}
+                                {_} else if (rent.space.unit === 'meter ** 2') {_}
                                 m <sup>2</sup>
-                                {_} else if (rent.property.space.unit === 'kilometer ** 2') {_}
+                                {_} else if (rent.space.unit === 'kilometer ** 2') {_}
                                 km <sup>2</sup>
                                 {_} else {_}
                                 {=rent.space.unit=}

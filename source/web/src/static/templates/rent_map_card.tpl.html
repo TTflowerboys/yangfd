@@ -18,7 +18,6 @@
                     {_if(rent.title) {_}
                     <h1 class=name>{=rent.title=}</h1>
                     {_}_}
-                    {_if(house.intention && house.intention.length) {_}
                     <div class="intentions">
                         <img src="/static/images/property_details/tag-icon.png"/>
                         <label>
@@ -28,14 +27,14 @@
                             {_}_}
                             <!--Space-->
                             {_if(rent.space) {_}
-                            {= parseFloat(rent.property.space.value).toFixed(2)=}
-                            {_if (rent.property.space.unit === 'foot ** 2'){_}
+                            {= parseFloat(rent.space.value).toFixed(2)=}
+                            {_if (rent.space.unit === 'foot ** 2'){_}
                             foot <sup>2</sup>
-                            {_} else if(rent.property.space.unit === 'acre'){_}
+                            {_} else if(rent.space.unit === 'acre'){_}
                             acre
-                            {_} else if (rent.property.space.unit === 'meter ** 2') {_}
+                            {_} else if (rent.space.unit === 'meter ** 2') {_}
                             m <sup>2</sup>
-                            {_} else if (rent.property.space.unit === 'kilometer ** 2') {_}
+                            {_} else if (rent.space.unit === 'kilometer ** 2') {_}
                             km <sup>2</sup>
                             {_} else {_}
                             {=rent.space.unit=}
@@ -43,9 +42,8 @@
                             {_}_}
                         </label>
                     </div>
-                    {_}_}
                     {_if(rent.price) {_}
-                        <label class="price"><strong>{!team.formatCurrency(parseInt(rent.price.value))!}</strong>{=window.i18n('/周')=}</label>
+                        <label class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value))!}</strong>{=window.i18n('/周')=}</label>
                     {_}_}
                 </div>
                 <img class="enter_phone" alt="" src="/static/images/property_list/icon-map-item-enter-phone.png"/>

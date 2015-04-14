@@ -77,13 +77,18 @@
          * @param {string | number} number 123456.789
          * @returns {string} currency 123,456.78
          */
-        encodeCurrency: function (number) {
+        encodeCurrency: function (number,fixedBit) {
             var parts;
             if (number !== 0 && !number) {return '';}
             var numberString = number.toString()
             numberString = team.decodeCurrency(numberString)
             if (numberString.indexOf('.') >= 0) {
-                numberString = parseFloat(numberString, 10).toFixed(2).toString()
+                if(fixedBit){
+                    numberString = parseFloat(numberString, 10).toFixed(fixedBit).toString()
+                }else{
+                    numberString = parseFloat(numberString, 10).toFixed(2).toString()
+                }
+
             }
             parts = numberString.split('.')
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -108,28 +113,28 @@
         decodeCurrency: function (currency) {
             return currency.replace(/[,\s]/g, '')
         },
-        formatCurrency: function (number, currencyType) {
+        formatCurrency: function (number, currencyType,fixedBit) {
             if (!currencyType) {
                 currencyType = window.currency
             }
 
             if (currencyType === 'CNY') {
                 if (parseInt(number) > 100000000) {
-                    return '<strong>' + team.encodeCurrency(parseInt(number) / 100000000) + '</strong>' + '亿'
+                    return '<strong>' + team.encodeCurrency(parseInt(number) / 100000000,fixedBit) + '</strong>' + '亿'
                 }
                 else if (parseInt(number) > 10000) {
                     return '<strong>' + team.encodeCurrency(parseInt(number) / 10000) + '</strong>' + '万'
                 }
                 else {
-                    return '<strong>' + team.encodeCurrency(number) + '</strong>'
+                    return '<strong>' + team.encodeCurrency(number,fixedBit) + '</strong>'
                 }
             }
             else {
                 if (parseInt(number) > 1000) {
-                    return '<strong>' + team.encodeCurrency(parseInt(number) / 1000) + 'k' + '</strong>'
+                    return '<strong>' + team.encodeCurrency(parseInt(number) / 1000,fixedBit) + 'k' + '</strong>'
                 }
                 else {
-                    return  '<strong>' + team.encodeCurrency(number) + '</strong>'
+                    return  '<strong>' + team.encodeCurrency(number,fixedBit) + '</strong>'
                 }
             }
         },

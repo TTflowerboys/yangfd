@@ -16,7 +16,7 @@
 
     function createMapPin(map, layer, mapId, result) {
         if (result) {
-            var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
+            var location = new Microsoft.Maps.Location(result.property.latitude, result.property.longitude);
             var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-building.png', width: 30, height: 45});
 
             layer.push(pin)
@@ -33,7 +33,7 @@
         if (window.mapInfoBoxLayerCache[mapId]) {
             map.entities.remove(window.mapInfoBoxLayerCache[mapId]);
         }
-        var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
+        var location = new Microsoft.Maps.Location(result.property.latitude, result.property.longitude);
         var layer = new Microsoft.Maps.EntityCollection()
         var infoboxOptions = null
         if (window.team.isPhone()) {
@@ -43,7 +43,7 @@
             infoboxOptions = {offset:new Microsoft.Maps.Point(-160,50) };
         }
         var infobox = new Microsoft.Maps.Infobox(location, infoboxOptions);
-        var houseResult = _.template($('#houseInfobox_template').html())({house: result})
+        var houseResult = _.template($('#houseInfobox_template').html())({rent: result})
         infobox.setHtmlContent(houseResult)
 
         layer.push(infobox)
