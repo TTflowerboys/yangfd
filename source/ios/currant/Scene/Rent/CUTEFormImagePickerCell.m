@@ -98,6 +98,7 @@
             imageView.frame = CGRectMake(sideWidth * idx + margin * (idx + 1), 0, sideWidth, sideWidth);
         }];
         _scrollView.contentSize = CGSizeMake((sideWidth + margin) * [assets count], sideWidth);
+        [_scrollView scrollRectToVisible:[(UIView *)[[_scrollView subviews] lastObject] frame] animated:NO];
     }
 }
 

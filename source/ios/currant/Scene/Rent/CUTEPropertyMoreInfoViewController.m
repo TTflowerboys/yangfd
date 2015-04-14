@@ -43,15 +43,12 @@
 }
 
 - (void)onSaveButtonPressed:(id)sender {
-
     [self.navigationController popViewControllerAnimated:YES];
     CUTEPropertyMoreInfoForm *form = (CUTEPropertyMoreInfoForm *)[self.formController form];
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
     CUTEProperty *property = [ticket property];
-
     property.name = [CUTEI18n i18nWithValue:form.propertyTitle];
     property.propertyDescription = [CUTEI18n i18nWithValue:form.propertyDescription];
-    
 }
 
 @end
