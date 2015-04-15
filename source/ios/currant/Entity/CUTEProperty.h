@@ -12,6 +12,7 @@
 #import "CUTEI18n.h"
 #import "CUTECurrency.h"
 #import "CUTEArea.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface CUTEProperty : MTLModel <MTLJSONSerializing>
 
@@ -23,9 +24,7 @@
 
 @property (strong, nonatomic) CUTEI18n *name;
 
-@property (nonatomic) float longitude;
-
-@property (nonatomic) float latitude;
+@property (strong, nonatomic) CLLocation *location;
 
 @property (strong, nonatomic) CUTEEnum *country;
 
@@ -34,6 +33,8 @@
 @property (strong, nonatomic) CUTEI18n *street;
 
 @property (strong, nonatomic) NSString *zipcode;
+
+@property (readonly, nonatomic) NSString *address;
 
 @property (strong, nonatomic) CUTEI18n *propertyDescription;
 

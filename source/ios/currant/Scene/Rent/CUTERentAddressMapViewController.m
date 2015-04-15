@@ -13,7 +13,6 @@
 #import "CUTEPropertyInfoForm.h"
 #import "CUTEMapTextField.h"
 #import "CUTERentAddressEditForm.h"
-#import "CUTEPlacemark.h"
 #import "CUTERentAddressEditViewController.h"
 #import "CUTEPropertyInfoViewController.h"
 #import "CUTEEnumManager.h"
@@ -33,14 +32,8 @@
 
     UIButton *_userLocationButton;
 
-    CLLocation *_location;
-
     CLGeocoder *_geocoder;
-
-    CUTEPlacemark *_placemark;
 }
-
-
 @end
 
 @implementation CUTERentAddressMapViewController
@@ -91,8 +84,11 @@
     [super viewDidAppear:YES];
 
     //update address after edit user's address
-    if (_placemark) {
-        _textField.text = _placemark.address;
+    CUTEProperty *property = [[CUTEDataManager sharedInstance] currentRentTicket].property;
+    _textField.text = property.address;
+
+    if (property.location) {
+        [self updateLocation:property.location];
     }
 }
 
@@ -140,6 +136,7 @@
 
 - (void)onAddressBeginEditing:(id)sender {
     NSArray *requiredEnums = @[@"country", @"city"];
+    CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
 
     [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
         return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
@@ -150,21 +147,20 @@
             NSArray *countries = [task.result objectAtIndex:0];
             NSArray *cities = [task.result objectAtIndex:1];
             [form setAllCountries:countries];
-            NSInteger countryIndex = [countries indexOfObject:_placemark.country];
+            NSInteger countryIndex = [countries indexOfObject:property.country];
             if (countryIndex != NSNotFound) {
                 [form setCountry:[countries objectAtIndex:countryIndex]];
             }
             [form setAllCities:cities];
-            NSInteger cityIndex = [cities indexOfObject:_placemark.city];
+            NSInteger cityIndex = [cities indexOfObject:property.city];
             if (cityIndex != NSNotFound) {
                 [form setCity:[cities objectAtIndex:cityIndex]];
             }
-            form.street = _placemark.street;
-            form.zipcode = _placemark.zipcode;
+            form.street = property.street.value;
+            form.zipcode = property.zipcode;
             controller.formController.form = form;
 
             controller.navigationItem.title = STR(@"位置");
-            controller.placemark = _placemark;
             [self.navigationController pushViewController:controller animated:YES];
         }
         else {
@@ -202,14 +198,6 @@
     if (currentTicket) {
         [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
             if (!IsArrayNilOrEmpty(task.result)) {
-                CUTEProperty *property = currentTicket.property;
-                property.street = [CUTEI18n i18nWithValue:_placemark.street];
-                property.latitude = _location.coordinate.latitude;
-                property.longitude = _location.coordinate.longitude;
-                property.country = _placemark.country;
-                property.city = _placemark.city;
-                property.zipcode = _placemark.zipcode;
-
                 CUTEPropertyInfoViewController *controller = [[CUTEPropertyInfoViewController alloc] init];
                 CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
                 [form setAllPropertyTypes:task.result];
@@ -232,9 +220,10 @@
     if (sender.state  == UIGestureRecognizerStateBegan) {
         CGPoint touchPoint = [sender locationInView:_mapView];
 
+        CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
         CLLocationCoordinate2D touchMapCoordinate = [_mapView convertPoint:touchPoint toCoordinateFromView:_mapView];
         CLLocation *location = [[CLLocation alloc] initWithLatitude:touchMapCoordinate.latitude longitude:touchMapCoordinate.longitude];
-          if (!_location || [location distanceFromLocation:_location] > 10) {
+          if (!property.location || [location distanceFromLocation:property.location] > 10) {
               [sender cancelsTouchesInView];
               [self updateLocation:location];
               [SVProgressHUD show];
@@ -265,7 +254,8 @@
 }
 
 - (BFTask *)updateAddress {
-    return [[self reverseGeocodeLocation:_location] continueWithBlock:^id(BFTask *task) {
+    CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
+    return [[self reverseGeocodeLocation:property.location] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
             CLPlacemark *placemark = task.result;
             NSArray *requiredEnums = @[@"country", @"city"];
@@ -280,10 +270,12 @@
                     NSArray *cities = [task.result[1] collect:^BOOL(CUTECityEnum *object) {
                         return [[object.country slug] isEqualToString:placemark.ISOcountryCode] && [[[placemark locality] lowercaseString] hasPrefix:[[object value] lowercaseString]];
                     }];
-                    _placemark = [CUTEPlacemark placeMarkWithCLPlaceMark:placemark];
-                    _placemark.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
-                    _placemark.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
-                    _textField.text = _placemark.address;
+                    CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
+                    property.street = [CUTEI18n i18nWithValue:[@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "]];
+                    property.zipcode = placemark.postalCode;
+                    property.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
+                    property.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
+                    _textField.text = property.address;
                 }
                 return task;
             }];
@@ -293,9 +285,10 @@
 }
 
 - (void)updateLocation:(CLLocation *)location {
-    _location = location;
+    CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
+    property.location = location;
     [_mapView removeAnnotations:_mapView.annotations];
-    MKPlacemark *annotation = [[MKPlacemark alloc] initWithCoordinate:_location.coordinate addressDictionary:nil];
+    MKPlacemark *annotation = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
     [_mapView addAnnotation:annotation];
 }
 

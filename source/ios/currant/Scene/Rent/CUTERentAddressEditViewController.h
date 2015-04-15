@@ -7,10 +7,8 @@
 //
 
 #import "FXForms.h"
-#import "CUTEPlacemark.h"
 
 @interface CUTERentAddressEditViewController : FXFormViewController
 
-@property (nonatomic, strong) CUTEPlacemark *placemark;
 
 @end
