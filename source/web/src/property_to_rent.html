@@ -1,0 +1,383 @@
+<!--@@master = masters/master.html-->
+
+<!--@@block = custom_header-->
+<div class="propertyHeader_phone  rmm" >
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+            <div class="rmm-button">
+                <img src="/static/images/common/header/phone/menu.png"/>
+            </div>
+            <div id="rmm-center-wrapper" class="rmm-center">
+                <label id="newsHeader_title" class="title" for="">
+                    %if rent:
+                    {{rent.get('title',_('出租房详情'))}}
+                    %end
+                </label>
+            </div>
+            <div class="rmm-toggled-share">
+                <img src="/static/images/property_details/phone/wechat_share.png" />
+            </div>
+        </div>
+        <ul class="rmm-menu" style="display:none;">
+            <li><a href="/">{{_('首页')}}</a></li>
+            <li><a href="/property_list">{{_('海外房产')}}</a></li>
+            <li><a href="/news_list">{{_('投资资讯')}}</a></li>
+        </ul>
+    </div>
+</div>
+
+<!--@@close-->
+
+%if rent:
+<!--@@block = head-->
+% from bottle import request
+
+<!--build:css(dist) /static/styles/propertyToRent.html.css-->
+<link rel="stylesheet" href="/static/vendors/jquery.stickynavbar/animate.min.css"/>
+<link rel="stylesheet" href="/static/vendors/iOSList/jquery.ioslist.css"/>
+<link rel="stylesheet" href="/static/styles/rentDetails.css"/>
+<link rel="stylesheet" href="/static/styles/rentCard.css"/>
+<link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
+<link rel="stylesheet" href="/static/styles/bingMap.css"/>
+<link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
+<link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
+<!--endbuild-->
+
+<!-- minor change from original repo https://github.com/Fykec/excanvas, detail can check change log -->
+<!--[if lte IE 8]>
+<script type="text/javascript" src="/static/vendors/excanvas.min.js"></script>
+<![endif]-->
+
+
+<div id="stickyNavbar" class="stickyNavbar unsticky">
+    <nav id="nav">
+        <ul class="nav navbar-nav">
+            <li class="menuItem">
+                <a href="#rentDetails_description">{{_('出租房详情')}}</a>
+            </li >
+            %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country').get('slug') in ['US', 'GB']:
+            <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
+            %end
+            % if rent['property'].get('community_facility', []) and len(rent['property'].get('community_facility', [])):
+            <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
+            % end
+        </ul>
+        <a class="contact" href="tel:4000926433">
+            {{!_('拨打 <strong>400-0926-433</strong>')}}
+        </a>
+    </nav>
+</div>
+<!--@@close-->
+
+<!--@@block = main-->
+<div class="propertyDetails">
+    <div class="breadcrumb">
+        % if rent['property'].get('country').get('value'):
+        <a class="parent" href="/property_list?country={{rent['property'].get('country',{}).get('id')}}" target="_blank">{{rent['property'].get('country',{}).get('value','')}}</a> /
+        % end
+        % if rent['property'].get('city').get('value'):
+        <a class="parent" href="/property_list?country={{rent['property'].get('country',{}).get('id')}}&city={{rent['property'].get('city',{}).get('id')}}" target="_blank">{{rent['property'].get('city',{}).get('value','')}}</a> /
+        % end
+        % if rent['property'].get('property_type') and rent['property'].get('property_type').get('value'):
+        <a class="parent" href="/property_list?country={{rent['property'].get('country',{}).get('id')}}&city={{rent['property'].get('city',{}).get('id')}}&property_type={{rent['property'].get('property_type').get('id')}}" target="_blank">{{rent['property'].get('property_type',{}).get('value','')}}</a> /
+        %end
+        <span class="current">{{rent['property'].get('name','')}}</span>
+    </div>
+    <div class="content">
+        <div class="pictures" data-tabs>
+            <div class="labels">
+                %if rent['property'].get('property_type') and rent['property'].get('property_type').get('value'):
+                <label class="type" for="">{{rent['property'].get('property_type').get('value')}}</label>
+                %end
+            </div>
+
+            <div class="big">
+                <div class="item" data-tab-name="reality_images">
+                    % if rent['property'].get('reality_images'):
+                    <div class="rslides_wrapper">
+                        <ul class="rslides" data-init="false">
+                            % for image in rent['property'].get(name):
+                            <li>
+                                <div class="img" data-style="background:url('<url>') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');" data-url="{{!fetch_image(image, property_id=rent['property'].get('id'))}}">
+                                </div>
+                            </li>
+                            % end
+                        </ul>
+                        <div class="leftPressArea"></div>
+                        <div class="rightPressArea"></div>
+                    </div>
+                    % else :
+                    <img class="withPlaceholder" alt=""/>
+                    % end
+                </div>
+            </div>
+
+            <div id="propertyDetails_description" class="meta scrollto">
+                <div class="seperator"></div>
+                <h3 class="propertyDetails_title">{{_('房产详情')}}</h3>
+                <ul class="numbers">
+                    <li>
+                        {{_('房屋面积')}}
+                        % if rent['property'].get('space'):
+                        <strong>
+                            {{float("{0:.2f}".format(float(rent['property'].get('space',{}).get('value',0))))}}
+                            <span class="unit">
+                                {{!format_unit(rent['property'].get('space',{}).get('unit',''))}}
+                            </span>
+                        </strong>
+                        % end
+                    </li>
+                    % if rent['property'].get('bedroom_count','') :
+                    <li>
+                        {{_('卧室')}}
+                        <strong>{{ rent['property'].get('bedroom_count','') }}</strong>
+                    </li>
+                    % end
+
+                    % if rent['property'].get('bathroom_count') :
+                    <li>
+                        {{_('卫生间')}}
+                        <strong>{{ rent['property'].get('bathroom_count') }}</strong>
+                    </li>
+                    % end
+
+                    % if rent['property'].get('living_room_count',''):
+                    <li>
+                        {{_('客厅')}}
+                        <strong>{{ rent['property'].get('living_room_count','') }}</strong>
+                    </li>
+                    % end
+
+                    % if rent['property'].get('kitchen_count','') :
+                    <li>
+                        {{_('厨房')}}
+                        <strong>{{ rent['property'].get('kitchen_count','') }}</strong>
+                    </li>
+                    % end
+                </ul>
+                <div class="seperator"></div>
+                <table class="other">
+                    <colgroup>
+                        <col class="col-name">
+                        <col>
+                        <col class="col-name">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td class="name">
+                                <i>
+                                    <img src="/static/images/property_details/icon-house.png" alt=""/>
+                                </i>
+                                <label>
+                                    {{_('产权类型')}}
+                                </label>
+                            </td>
+                            <td class="value">
+                                {{rent['property'].get('equity_type',{}).get('value','') }}
+                            </td>
+                        </tr>
+                        % if 'address' in rent['property']:
+                        <tr>
+                            <td class="name">
+                                <i>
+                                    <img src="/static/images/property_details/icon-location.png" alt=""/>
+                                </i>
+                                <label>
+                                    {{_('产权地址')}}
+                                </label>
+                            </td>
+                            <td class="value">
+                                {{rent['property'].get('address')}}
+                            </td>
+                        </tr>
+                        % end
+                        % if 'street' in rent['property']:
+                        <tr>
+                            <td class="name">
+                                <i>
+                                    <img src="/static/images/property_details/icon-map.png" alt=""/>
+                                </i>
+                                <label>
+                                    {{_('街区')}}
+                                </label>
+                            </td>
+                            <td class="value">
+                                {{rent['property'].get('street','')}}
+                            </td>
+                        </tr>
+                        % end
+                    </tbody>
+                </table>
+
+                %if rent.get('description'):
+                <div class="description" data-ui="description">
+                    {{!rent.get('description')}}
+                </div>
+                <div class="clearfix expendDescription_wrapper">
+                    <button data-fn="expendDescription" class="ghostButton red" >{{_('展开')}}</button>
+                </div>
+                %end
+            </div>
+
+            %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country').get('slug') in ['US', 'GB']:
+            <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
+                <div class="seperator"></div>
+                <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
+                <div class="staticMap">
+                    <img id="mapImg" class="mapImg" alt=""/>
+                    <div id="showMap" class="button red">
+                        <label for="">
+                            {{_('查看房产周边设施')}}
+                        </label>
+                        <img class="icons" alt="" src="/static/images/property_details/icon-static-map-category.png"/>
+                    </div>
+                </div>
+                <!--@@include partials/bing_map.html  -->
+                <!--@@include partials/bing_map_icons.html -->
+                <img src="/static/images/common/ajax-loader.gif" id="mapLoadIndicator" class="mapLoadIndicator" style="display:none;"/>
+            </div>
+            %end
+        </div>
+    </div>
+
+        <div class="aside">
+            <div class="propertyCard">
+                <h1>{{rent.get('title','')}}</h1>
+                % if 'country' in rent['property'] or 'city' in rent['property']:
+                    % country = rent['property'].get('country',{}).get('value')
+                    % city = rent['property'].get('city',{}).get('value')
+                    % city_string = ', '.join([x for x in [country,city] if x])
+                    <div class="tag">
+                        <img src="/static/images/property_details/location-icon.png" alt=""/>
+                        <label>
+                            {{city_string}}
+                        </label>
+                    </div>
+                % end
+
+                % if 'price' in rent and rent.get('price'):
+                <div class="price">
+                    <table>
+                        <tr>
+                            <td class="price_inner">
+                                <span class="mute">{{_('租金')}}</span>
+                                <br/>
+                                <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
+                                <span data-type="formatted_currency">
+                                    {{int(float(rent.get('price',{}).get('value','')))}}
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                %end
+
+                <div class="seperator"></div>
+                    <table class="actions">
+                        <tr>
+                            <td style="text-align:left;">
+                            </td>
+                            <td style="text-align:center;">
+                                <button data-fn="shareToWeChat" class="flatButton green">
+                                    <img src="/static/images/property_details/icon-wechat.png" alt=""/>
+                                    {{_('分享到微信')}}
+                                </button>
+                            </td>
+                            <td style="text-align:right;">
+                                % title = rent.get('title','')
+                                <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{title}}'}) ">
+                                    <img src="/static/images/property_details/icon-weibo.png" alt=""/>
+                                    {{_('分享到微博')}}
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
+            <img src="" alt="二维码" width="220" height="220"/>
+            <p>{{_('打开微信，使用 “扫一扫” 即可将网页分享到朋友圈')}}</p>
+        </div>
+
+        <div class="wechatPage_popup" style="display:none;">
+            <h1 class="tip"> {{!_('点击右上角')}}</h1>
+            <img class="buttonHolder"  alt="" src="/static/images/property_details/wechat_share/phone/wechat_button.png"/>
+            <h1 class="tip"> {{!_('分享链接给微信好友')}}</h1>
+            <div class="guide">
+                <img  alt="" src="/static/images/property_details/wechat_share/phone/wechat_guide.png"/>
+            </div>
+            <a class="gotIt" href ="#close-modal" rel="modal:close">{{_('我知道了')}}</a>
+        </div>
+
+        <!-- @@include=/static/templates/place_item.tpl.html-->
+
+
+        <!--@@close-->
+
+        <!--@@block = scripts-->
+
+        <script>
+
+            //just load after jquery
+            window.initSlidesImages = function ($slides) {
+                if ($slides.attr('data-init') === 'false') {
+                    $slides.find('li .img').each(function( index ) {
+                        var url = $(this).attr('data-url')
+                        if (team.isPhone()) {
+                            url += '_thumbnail'
+                        }
+                        var r = new RegExp('<url>', 'g');
+                        var style = $(this).attr('data-style').replace(r, url)
+                        $(this).attr('style', style)
+                    });
+                    $slides.attr('data-init', 'true')
+                }
+            }
+            // init the first slides
+            initSlidesImages($('.pictures [data-tab-name]').first().find('.rslides'))
+        </script>
+
+        <!--build:js /static/scripts/property.html.js-->
+        <script src="/static/vendors/jquery.easing.min.js"></script>
+        <script src="/static/vendors/jquery.stickynavbar/jquery.stickyNavbar.modified.js"></script>
+        <script src="/static/vendors/iOSList/jquery.ioslist.js"></script>
+        <script src="/static/scripts/property_gallery.js"></script>
+        <script src="/static/scripts/show_historical_price.js"></script>
+        <script src="/static/scripts/bing_map.js"></script>
+        <script src="/static/scripts/property_map.js"></script>
+        <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
+        <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
+        <script src="/static/vendors/jquery.dotdotdot.js"></script>
+        <script src="/static/vendors/jweixin-1.0.0.js"></script>
+        <!--endbuild-->
+        <script>
+            $(function () {
+                $('#menu_button_phone').click(function (e) {
+                    if ($('#menu_content_phone').is(':visible')) {
+                        $('#menu_content_phone').hide()
+                    }
+                    else {
+                        $('#menu_content_phone').show()
+                    }
+                })
+
+                $('#menu_content_phone a').click(function (e) {
+                    $('#menu_content_phone').hide()
+                })
+
+                $('[data-fn=expendDescription]').on('click', function () {
+                    $(this).parent().hide()
+                        .parent().find('[data-ui=description]').height('auto')
+                    $(this).parent().hide()
+                        .parent().find('[data-ui=description]').toggleClass("no-after")
+                    ga('send', 'event', 'property_detail', 'click', 'extend-description')
+                });
+
+        </script>
+        <!-- @endif -->
+
+        <!--@@close-->
+%end
