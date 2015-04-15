@@ -25,7 +25,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import <INTULocationManager.h>
 
-@interface CUTERentAddressMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
+@interface CUTERentAddressMapViewController () <MKMapViewDelegate, UITextFieldDelegate>
 {
     MKMapView *_mapView;
 
@@ -96,23 +96,45 @@
     }
 }
 
-- (void)startUpdateLocation {
-    [SVProgressHUD show];
+- (BFTask *)requestLocation {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:10 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         if (status == INTULocationStatusSuccess) {
-            CLLocation *location = currentLocation;
-            [self updateLocation:location];
-            [self updateAddress];
-            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
-            [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
-            [SVProgressHUD dismiss];
+
+            [tcs setResult:currentLocation];
         }
         else if (status == INTULocationStatusTimedOut) {
-            [SVProgressHUD showErrorWithStatus:STR(@"获取当前位置超时")];
+            [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置超时")}]];
         }
         else if (status == INTULocationStatusError) {
-            [SVProgressHUD showErrorWithStatus:STR(@"获取当前位置失败")];
+            [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置失败")}]];
         }
+    }];
+    return tcs.task;
+}
+
+- (void)startUpdateLocation {
+    [SVProgressHUD show];
+    [[self requestLocation] continueWithBlock:^id(BFTask *task) {
+        if (task.result) {
+            CLLocation *location = task.result;
+            [self updateLocation:location];
+            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
+            [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+            return [[self updateAddress] continueWithBlock:^id(BFTask *task) {
+                if (task.result) {
+                    [SVProgressHUD dismiss];
+                }
+                else {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                return nil;
+            }];
+        }
+        else {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        return nil;
     }];
 }
 
@@ -215,18 +237,38 @@
           if (!_location || [location distanceFromLocation:_location] > 10) {
               [sender cancelsTouchesInView];
               [self updateLocation:location];
-              [self updateAddress];
+              [SVProgressHUD show];
+              [[self updateAddress] continueWithBlock:^id(BFTask *task) {
+                  if (task.error || task.exception || task.isCancelled) {
+                      [SVProgressHUD showErrorWithError:task.error];
+                      return nil;
+                  } else {
+                      [SVProgressHUD dismiss];
+                      return nil;
+                  }
+              }];
           }
     }
 }
 
-- (void)updateAddress {
-    [SVProgressHUD show];
-    [_geocoder reverseGeocodeLocation:_location completionHandler:^(NSArray *placemarks, NSError *error) {
-        CLPlacemark *placemark = [placemarks firstObject];
-        if (placemark) {
-            NSArray *requiredEnums = @[@"country", @"city"];
+- (BFTask *)reverseGeocodeLocation:(CLLocation *)location {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (!IsArrayNilOrEmpty(placemarks)) {
+            [tcs setResult:placemarks.firstObject];
+        }
+        else {
+            [tcs setError:error];
+        }
+    }];
+    return [tcs task];
+}
 
+- (BFTask *)updateAddress {
+    return [[self reverseGeocodeLocation:_location] continueWithBlock:^id(BFTask *task) {
+        if (task.result) {
+            CLPlacemark *placemark = task.result;
+            NSArray *requiredEnums = @[@"country", @"city"];
             [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
                 return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
             }]] continueWithSuccessBlock:^id(BFTask *task) {
@@ -242,21 +284,12 @@
                     _placemark.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
                     _placemark.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
                     _textField.text = _placemark.address;
-                    [SVProgressHUD dismiss];
                 }
-                else {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-
-                return nil;
+                return task;
             }];
         }
-        else {
-            [SVProgressHUD showErrorWithError:error];
-        }
-
+        return task;
     }];
-
 }
 
 - (void)updateLocation:(CLLocation *)location {
@@ -271,16 +304,6 @@
     //update field value
     self.field.value = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                   longitude:mapView.centerCoordinate.longitude];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    if (!_location) {
-        CLLocation *location = [locations lastObject];
-        [self updateLocation:location];
-        [self updateAddress];
-        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
-        [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
-    }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
