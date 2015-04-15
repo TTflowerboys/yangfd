@@ -26,6 +26,7 @@
 #import "CUTEAreaForm.h"
 #import "CUTEPropertyInfoForm.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "SVProgressHUD+CUTEAPI.h"
 
 
 @interface CUTEPropertyInfoViewController () {
@@ -76,6 +77,7 @@
 
 - (void)submit
 {
+    [SVProgressHUD show];
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
     CUTEProperty *property = ticket.property;
     if (ticket && property) {
@@ -86,38 +88,60 @@
                 [[BFTask taskForCompletionOfAllTasksWithResults:[images map:^id(ALAsset *object) {
                     return [self updateImage:object];
                 }]] continueWithBlock:^id(BFTask *task) {
-                    property.realityImages = task.result;
-                    completion(task.result);
-                    return nil;
+                    if (task.error || task.exception || task.isCancelled) {
+                        [SVProgressHUD showErrorWithError:task.error];
+                        return nil;
+                    } else {
+                        property.realityImages = task.result;
+                        completion(task.result);
+                        return nil;
+                    }
+
                 }];
             }];
         }
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [[self addProperty] continueWithBlock:^id(BFTask *task) {
-                completion(task.result);
-                return nil;
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                    return nil;
+                } else {
+                    completion(task.result);
+                    return nil;
+                }
             }];
         }];
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/rent_ticket/add/" parameters:[ticket toParams] resultClass:nil] continueWithBlock:^id(BFTask *task) {
-                completion(task.result);
-                return nil;
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                    return nil;
+                } else {
+                    completion(task.result);
+                    return nil;
+                }
             }];
         }];
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithSuccessBlock:^id(BFTask *task) {
-                CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
-                CUTERentContactForm *form = [CUTERentContactForm new];
-                [form setAllCountries:task.result];
-                contactViewController.formController.form = form;
-                [self.navigationController pushViewController:contactViewController animated:YES];
-                return nil;
+            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithBlock:^id(BFTask *task) {
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                    return nil;
+                } else {
+                    CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
+                    CUTERentContactForm *form = [CUTERentContactForm new];
+                    [form setAllCountries:task.result];
+                    contactViewController.formController.form = form;
+                    [self.navigationController pushViewController:contactViewController animated:YES];
+                    [SVProgressHUD dismiss];
+                    return nil;
+                }
             }];
         }];
-
+        
         [sequencer run];
     }
 }

@@ -10,10 +10,10 @@ link_with 'currant', 'currant-dev', 'currant-test', 'currant-production', 'curra
 pod 'BBTUtility', :git => "git@git.bbtechgroup.com:bbt/ios-bbtutility.git"
 pod 'BBTRestClient', :git => "git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git"
 pod 'SMCalloutView', '~> 2.1.1'
-
+pod 'INTULocationManager', '~> 3.0.1'
 pod 'NJKWebViewProgress', '~> 0.2.3'
 pod 'Bolts', '~> 1.1.4'
 pod 'Sequencer', '~> 1.0.1'
 pod 'CTAssetsPickerController', '~> 2.9.3'
-pod 'MBProgressHUD', '~> 0.9.1'
 pod 'Masonry', '~> 0.6.1'
+pod 'SVProgressHUD', '~> 1.1.3'

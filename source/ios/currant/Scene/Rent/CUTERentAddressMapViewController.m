@@ -22,6 +22,8 @@
 #import "CUTEDataManager.h"
 #import <BBTRestClient.h>
 #import "CUTEConfiguration.h"
+#import "SVProgressHUD+CUTEAPI.h"
+#import <INTULocationManager.h>
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {
@@ -30,8 +32,6 @@
     CUTEMapTextField *_textField;
 
     UIButton *_userLocationButton;
-
-    CLLocationManager *_locationManager;
 
     CLLocation *_location;
 
@@ -59,10 +59,6 @@
     self.navigationItem.title = STR(@"地址");
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onRightButtonPressed:)];
 
-    _locationManager = [[CLLocationManager alloc] init];
-    _locationManager.delegate = self;
-    _locationManager.distanceFilter = kCLDistanceFilterNone;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     _geocoder = [[CLGeocoder alloc] init];
 
     _mapView = [[MKMapView alloc] init];
@@ -88,19 +84,11 @@
     [longPressGesture setMinimumPressDuration:1.0];
     [_mapView addGestureRecognizer:longPressGesture];
 
+    [self startUpdateLocation];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    if ([CLLocationManager locationServicesEnabled]) {
-
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-            [_locationManager requestWhenInUseAuthorization];
-            [_locationManager requestAlwaysAuthorization];
-        }
-        [_locationManager startUpdatingLocation];
-        //_mapView.showsUserLocation = YES;
-    }
 
     //update address after edit user's address
     if (_placemark) {
@@ -108,12 +96,32 @@
     }
 }
 
+- (void)startUpdateLocation {
+    [SVProgressHUD show];
+    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:10 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        if (status == INTULocationStatusSuccess) {
+            CLLocation *location = currentLocation;
+            [self updateLocation:location];
+            [self updateAddress];
+            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
+            [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+            [SVProgressHUD dismiss];
+        }
+        else if (status == INTULocationStatusTimedOut) {
+            [SVProgressHUD showErrorWithStatus:STR(@"获取当前位置超时")];
+        }
+        else if (status == INTULocationStatusError) {
+            [SVProgressHUD showErrorWithStatus:STR(@"获取当前位置失败")];
+        }
+    }];
+}
+
 - (void)onAddressBeginEditing:(id)sender {
     NSArray *requiredEnums = @[@"country", @"city"];
 
     [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
         return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
-    }]] continueWithSuccessBlock:^id(BFTask *task) {
+    }]] continueWithBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
             CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
             CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
@@ -137,6 +145,9 @@
             controller.placemark = _placemark;
             [self.navigationController pushViewController:controller animated:YES];
         }
+        else {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
 
         return nil;
     }];
@@ -144,26 +155,30 @@
 
 - (void)onAddressLocationButtonTapped:(id)sender {
 
+    [SVProgressHUD show];
     [_geocoder geocodeAddressString:_textField.text completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!IsArrayNilOrEmpty(placemarks)) {
             CLPlacemark *placemark = [placemarks firstObject];
             [self updateLocation:placemark.location];
             MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 800, 800);
             [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+            [SVProgressHUD dismiss];
+        }
+        else {
+            [SVProgressHUD showErrorWithError:error];
         }
     }];
 }
 
 - (void)onUserLocationButtonPressed:(id)sender {
-    _location = nil;
-    [_locationManager startUpdatingLocation];
+    [self startUpdateLocation];
 }
 
 - (void)onRightButtonPressed:(id)sender {
 
     CUTETicket *currentTicket = [[CUTEDataManager sharedInstance] currentRentTicket];
     if (currentTicket) {
-        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithSuccessBlock:^id(BFTask *task) {
+        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
             if (!IsArrayNilOrEmpty(task.result)) {
                 CUTEProperty *property = currentTicket.property;
                 property.street = [CUTEI18n i18nWithValue:_placemark.street];
@@ -180,8 +195,12 @@
                 controller.navigationItem.title = STR(@"房产信息");
                 controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:nil action:nil];
                 [self.navigationController pushViewController:controller animated:YES];
-                
+
             }
+            else {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+
             return nil;
         }];
     }
@@ -202,6 +221,7 @@
 }
 
 - (void)updateAddress {
+    [SVProgressHUD show];
     [_geocoder reverseGeocodeLocation:_location completionHandler:^(NSArray *placemarks, NSError *error) {
         CLPlacemark *placemark = [placemarks firstObject];
         if (placemark) {
@@ -222,14 +242,19 @@
                     _placemark.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
                     _placemark.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
                     _textField.text = _placemark.address;
-
+                    [SVProgressHUD dismiss];
+                }
+                else {
+                    [SVProgressHUD showErrorWithError:task.error];
                 }
 
                 return nil;
             }];
-            
         }
-        
+        else {
+            [SVProgressHUD showErrorWithError:error];
+        }
+
     }];
 
 }

@@ -18,6 +18,8 @@
 #import "CUTECommonMacro.h"
 #import "CUTEEnumManager.h"
 #import "CUTERentTypeListForm.h"
+#import <AFNetworkActivityIndicatorManager.h>
+#import "SVProgressHUD+CUTEAPI.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -96,6 +98,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     NSArray *userAgentComponents =  @[[[NSBundle mainBundle] bundleIdentifier], [AppDelegate versionBuild]];
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[userAgentComponents componentsJoinedByString:@"/"], @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
@@ -183,14 +186,18 @@
         }
     }
     else if ([viewController.topViewController isKindOfClass:[CUTERentTypeListViewController class]]){
-
-        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithSuccessBlock:^id(BFTask *task) {
+        [SVProgressHUD show];
+        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
                 [form setRentTypeList:task.result];
                 CUTERentTypeListViewController *controller = (CUTERentTypeListViewController *)[viewController topViewController];
                 controller.formController.form = form;
                 [controller.tableView reloadData];
+                [SVProgressHUD dismiss];
+            }
+            else {
+                [SVProgressHUD showErrorWithError:task.error];
             }
             return nil;
         }];

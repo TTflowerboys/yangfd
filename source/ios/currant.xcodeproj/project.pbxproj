@@ -241,6 +241,11 @@
 		2CB749011ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748FE1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m */; };
 		2CB749021ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748FE1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m */; };
 		2CB749031ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB748FE1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m */; };
+		2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
+		2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
+		2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
+		2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
+		2CB749111ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CD989F41ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */; };
 		2CD989F51ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */; };
 		2CD989F61ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */; };
@@ -373,6 +378,8 @@
 		2CB748F71ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormImagePickerPlaceholderView.m; sourceTree = "<group>"; };
 		2CB748FD1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormRentPriceTextFieldCell.h; sourceTree = "<group>"; };
 		2CB748FE1ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormRentPriceTextFieldCell.m; sourceTree = "<group>"; };
+		2CB7490B1ADE4755003BC2A5 /* SVProgressHUD+CUTEAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+CUTEAPI.h"; sourceTree = "<group>"; };
+		2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+CUTEAPI.m"; sourceTree = "<group>"; };
 		2CD989F21ADBCE9400AD763A /* CUTEPropertyFacilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyFacilityViewController.h; sourceTree = "<group>"; };
 		2CD989F31ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyFacilityViewController.m; sourceTree = "<group>"; };
 		2CD989F91ADBCF6D00AD763A /* CUTEPropertyMoreInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyMoreInfoViewController.h; sourceTree = "<group>"; };
@@ -674,6 +681,8 @@
 				2C427E4B1AD2414D000378A9 /* CUTEEnumManager.m */,
 				2C5ECC4F1AD525AC00163E9E /* CUTEAPIManager.h */,
 				2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */,
+				2CB7490B1ADE4755003BC2A5 /* SVProgressHUD+CUTEAPI.h */,
+				2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1101,6 +1110,7 @@
 				2CD989FD1ADBCF6D00AD763A /* CUTEPropertyMoreInfoViewController.m in Sources */,
 				2C5ECC4C1AD51A1500163E9E /* CUTEPropertyInfoViewController.m in Sources */,
 				2C5ECC531AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
+				2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C27F2151ACD459E002BECCF /* CUTERentContactViewController.m in Sources */,
 				2C3B595E1AD7D32700607BD4 /* CUTERentPriceViewController.m in Sources */,
 				2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */,
@@ -1155,6 +1165,7 @@
 				2CD989FE1ADBCF6D00AD763A /* CUTEPropertyMoreInfoViewController.m in Sources */,
 				2C5ECC4D1AD51A1500163E9E /* CUTEPropertyInfoViewController.m in Sources */,
 				2C5ECC541AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
+				2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C27F2161ACD459E002BECCF /* CUTERentContactViewController.m in Sources */,
 				2C3B595F1AD7D32700607BD4 /* CUTERentPriceViewController.m in Sources */,
 				2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */,
@@ -1209,6 +1220,7 @@
 				2CD989FC1ADBCF6D00AD763A /* CUTEPropertyMoreInfoViewController.m in Sources */,
 				2C5ECC4B1AD51A1500163E9E /* CUTEPropertyInfoViewController.m in Sources */,
 				2C5ECC521AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
+				2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C27F2141ACD459E002BECCF /* CUTERentContactViewController.m in Sources */,
 				2C3B595D1AD7D32700607BD4 /* CUTERentPriceViewController.m in Sources */,
 				2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */,
@@ -1263,6 +1275,7 @@
 				2CD989FB1ADBCF6D00AD763A /* CUTEPropertyMoreInfoViewController.m in Sources */,
 				2C5ECC4A1AD51A1500163E9E /* CUTEPropertyInfoViewController.m in Sources */,
 				2C5ECC511AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
+				2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C27F2131ACD459E002BECCF /* CUTERentContactViewController.m in Sources */,
 				2C3B595C1AD7D32700607BD4 /* CUTERentPriceViewController.m in Sources */,
 				2C4AEC7F1AD6466A004DEE23 /* CUTEUser.m in Sources */,
@@ -1323,6 +1336,7 @@
 				2C27F2171ACD459E002BECCF /* CUTERentContactViewController.m in Sources */,
 				2C401DC91ACA8EA500613093 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C226E711ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
+				2CB749111ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */,
 				2C27F1F61ACCF7DF002BECCF /* CUTEFormImagePickerCell.m in Sources */,
 				2C427E3B1ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
