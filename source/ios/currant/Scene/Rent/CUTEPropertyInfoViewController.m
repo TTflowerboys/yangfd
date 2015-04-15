@@ -40,8 +40,10 @@
 @implementation CUTEPropertyInfoViewController
 
 - (void)editArea {
+    CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
     FXFormViewController *controller = [FXFormViewController new];
     CUTEAreaForm *form = [CUTEAreaForm new];
+    form.area = property.space.value;
     controller.formController.form = form;
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveAreaButtonPressed:)];
     [self.navigationController pushViewController:controller animated:YES];
@@ -62,8 +64,17 @@
         return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
+            CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
             CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
             CUTERentPriceForm *form = [CUTERentPriceForm new];
+            form.currency = ticket.price.unit;
+            form.depositType = ticket.depositType;
+            form.rentPrice = ticket.price.value;
+            form.containBill = ticket.billCovered;
+            form.needSetPeriod = ticket.rentPeriod? YES: NO;
+            form.startDate = ticket.rentAvailableTime;
+            form.period = ticket.rentPeriod;
+            
             [form setAllDepositTypes:[task.result objectAtIndex:0]];
             [form setAllRentPeriods:[task.result objectAtIndex:1]];
             controller.formController.form = form;

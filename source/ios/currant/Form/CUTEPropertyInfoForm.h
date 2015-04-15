@@ -13,6 +13,7 @@
 #import "CUTERentContactForm.h"
 #import "CUTEEnum.h"
 #import "CUTEAreaForm.h"
+#import "CUTEProperty.h"
 
 @interface CUTEPropertyInfoForm : CUTEForm
 
@@ -23,6 +24,8 @@
 @property (nonatomic, strong) CUTERentPriceForm *rentPrice;
 @property (nonatomic, strong) CUTEPropertyMoreInfoForm *moreInfo;
 @property (strong, nonatomic) CUTERentContactForm *submit;
+
+
 
 - (void)setAllPropertyTypes:(NSArray *)allPropertyTypes;
 

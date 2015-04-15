@@ -200,6 +200,8 @@
             if (!IsArrayNilOrEmpty(task.result)) {
                 CUTEPropertyInfoViewController *controller = [[CUTEPropertyInfoViewController alloc] init];
                 CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
+                form.propertyType = currentTicket.property.propertyType;
+                form.bedroom = currentTicket.property.bedroomCount;
                 [form setAllPropertyTypes:task.result];
                 controller.formController.form = form;
                 controller.navigationItem.title = STR(@"房产信息");
