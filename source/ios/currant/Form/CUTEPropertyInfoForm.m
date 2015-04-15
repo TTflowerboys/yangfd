@@ -27,7 +27,7 @@
     return @[
              @{FXFormFieldKey: @"photos", FXFormFieldTitle:STR(@"添加照片"), FXFormFieldHeader: STR(@"房间照片"), FXFormFieldCell: [CUTEFormImagePickerCell class], FXFormFieldType:FXFormFieldTypeImage},
                 @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"房产类型"), FXFormFieldHeader: STR(@"基本信息") ,FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: _propertyType? _propertyType: (CUTEEnum *)[_allPropertyTypes firstObject]},
-                @{FXFormFieldKey: @"bedroom", FXFormFieldTitle:STR(@"居室"), FXFormFieldCell: [FXFormStepperCell class]},
+             @{FXFormFieldKey: @"bedroom", FXFormFieldTitle:STR(@"居室"), FXFormFieldCell: [FXFormStepperCell class], FXFormFieldDefaultValue: @(_bedroom)},
                 @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积"), FXFormFieldAction: @"editArea"},
                 @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldAction: @"editRentPrice"},
              @{FXFormFieldKey: @"moreInfo", FXFormFieldTitle:STR(@"填写更多描述（选填）"), FXFormFieldViewController: [CUTEPropertyMoreInfoViewController class]},

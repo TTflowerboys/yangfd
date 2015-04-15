@@ -25,6 +25,7 @@ PODS:
   - BBTUtility (0.0.1)
   - Bolts (1.1.4)
   - CTAssetsPickerController (2.9.3)
+  - FXModelValidation (1.0.4)
   - INTULocationManager (3.0.1)
   - Mantle (1.5.4):
     - Mantle/extobjc (= 1.5.4)
@@ -47,6 +48,7 @@ DEPENDENCIES:
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (~> 1.1.4)
   - CTAssetsPickerController (~> 2.9.3)
+  - FXModelValidation (~> 1.0.4)
   - INTULocationManager (~> 3.0.1)
   - Masonry (~> 0.6.1)
   - NJKWebViewProgress (~> 0.2.3)
@@ -74,6 +76,7 @@ SPEC CHECKSUMS:
   BBTUtility: c019d4fbdcea22fac854c64235f5ca5c9d8210b8
   Bolts: f8e2f94edbf9fec7bb8de5ecaaa3aa6b7de6f64e
   CTAssetsPickerController: 56a4a228dcb48a9375ab8d4922e82ac74af74aa1
+  FXModelValidation: da19759297c1d830fa880c139092c4ff3f95295e
   INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa

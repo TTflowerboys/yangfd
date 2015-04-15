@@ -27,8 +27,6 @@
 - (NSDictionary *)toParams {
     NSMutableDictionary *params =
     [NSMutableDictionary dictionaryWithDictionary:@{@"bedroom_count": @(self.bedroomCount),
-                                                    @"latitude":@(self.latitude),
-                                                    @"longitude":@(self.longitude),
                                                     @"zipcode": self.zipcode? self.zipcode: @"",
                                                     }];
     if (self.name && self.name.toParams) {
@@ -59,7 +57,19 @@
     if (!IsArrayNilOrEmpty(self.realityImages)) {
         [params setValue:[self.realityImages componentsJoinedByString:@","] forKey:@"reality_images"];
     }
+    if (self.location) {
+        [params setValue:@(self.location.coordinate.latitude) forKey:@"latitude"];
+        [params setValue:@(self.location.coordinate.longitude) forKey:@"longitude"];
+    }
     return params;
+}
+
+- (NSString *)address {
+    return [@[NilNullToEmpty(self.street.value),
+              NilNullToEmpty(self.zipcode),
+              NilNullToEmpty(self.city.value),
+              NilNullToEmpty(self.country.value)]
+            componentsJoinedByString:@" "];
 }
 
 @end

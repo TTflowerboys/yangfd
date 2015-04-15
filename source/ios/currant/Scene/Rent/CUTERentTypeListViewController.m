@@ -27,14 +27,18 @@
     return self;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)viewDidLoad {
+    [super viewDidLoad];
     CUTETicket *ticket = [CUTETicket new];
-    CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
-    ticket.rentType = [form rentTypeAtIndex:indexPath.row];
     CUTEProperty *property = [CUTEProperty new];
     ticket.property = property;
-
     [[CUTEDataManager sharedInstance] pushRentTicket:ticket];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
+    ticket.rentType = [form rentTypeAtIndex:indexPath.row];
 }
 
 @end

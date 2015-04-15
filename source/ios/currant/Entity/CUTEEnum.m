@@ -8,6 +8,7 @@
 
 #import "CUTEEnum.h"
 #import "CUTECityEnum.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTEEnum
 
@@ -38,9 +39,9 @@
     return self.value;
 }
 
-- (BOOL)isEqual:(id)object {
+- (BOOL)isEqual:(CUTEEnum *)object {
     if ([object isKindOfClass:[self class]]) {
-      return [self.slug isEqual:[object slug]];
+        return [self.identifier isEqualToString:[object identifier]];
     }
     else {
       return false;

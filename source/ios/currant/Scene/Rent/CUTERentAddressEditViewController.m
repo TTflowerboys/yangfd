@@ -52,12 +52,6 @@
     property.city = form.city;
     property.zipcode = form.zipcode;
     property.country = form.country;
-
-    self.placemark.street = form.street;
-    self.placemark.city = form.city;
-    self.placemark.country = form.country;
-    self.placemark.zipcode = form.zipcode;
-
 }
 
 @end
