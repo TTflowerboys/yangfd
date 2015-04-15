@@ -19,6 +19,13 @@ User Interface
    :maxdepth: 2
 
    main
+   main_phone
+   news
+   property
+   property_to_rent
+   region_report
+   user_setting
+   crowdfunding
 
 =============
 API Reference
