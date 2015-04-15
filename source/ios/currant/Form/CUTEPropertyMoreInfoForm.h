@@ -12,8 +12,8 @@
 
 @interface CUTEPropertyMoreInfoForm : CUTEForm
 
-@property (nonatomic, copy) NSString *propertyTitle;
-@property (nonatomic, copy) NSString *propertyDescription;
+@property (nonatomic, copy) NSString *ticketTitle;
+@property (nonatomic, copy) NSString *ticketDescription;
 @property (nonatomic, strong) CUTEPropertyFacilityForm *facility;
 //@property (nonatomic, copy) NSString *feature;
 

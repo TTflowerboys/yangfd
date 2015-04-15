@@ -48,6 +48,15 @@
         [dic setValue:self.rentPeriod forKey:@"rent_period"];
     }
 
+    if (!self.title) {
+        self.title = [CUTEI18n i18nWithValue:[NSString stringWithFormat:@"%d居室 %@出租", self.property.bedroomCount, self.rentType.value]];
+    }
+    [dic setValue:self.title.toParams forKey:@"title"];
+
+    if (self.ticketDescription) {
+        [dic setValue:self.ticketDescription.toParams forKey:@"description"];
+    }
+
     return dic;
 }
 

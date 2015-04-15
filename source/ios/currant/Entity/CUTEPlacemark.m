@@ -87,7 +87,6 @@
     return [@[NilNullToEmpty(self.street),
               NilNullToEmpty(self.zipcode),
               NilNullToEmpty(self.city.value),
-              NilNullToEmpty(self.administrativeArea),
               NilNullToEmpty(self.country.value)]
             componentsJoinedByString:@" "];
 }

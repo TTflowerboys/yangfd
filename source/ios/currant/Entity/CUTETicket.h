@@ -11,10 +11,15 @@
 #import "CUTEArea.h"
 #import "CUTECurrency.h"
 #import "CUTEProperty.h"
+#import "CUTEI18n.h"
 
 @interface CUTETicket : MTLModel <MTLJSONSerializing>
 
 @property (strong, nonatomic) NSString *identifier;
+
+@property (strong, nonatomic) CUTEI18n *title;
+
+@property (strong, nonatomic) CUTEI18n *ticketDescription;
 
 @property (strong, nonatomic) NSString *status;
 

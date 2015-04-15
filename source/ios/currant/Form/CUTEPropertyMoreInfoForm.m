@@ -14,8 +14,8 @@
 
 - (NSArray *)fields {
     return @[
-             @{FXFormFieldKey: @"propertyTitle", FXFormFieldTitle:STR(@"标题"), FXFormFieldHeader:STR(@"其他")},
-             @{FXFormFieldKey: @"propertyDescription", FXFormFieldTitle:STR(@"详细描述"),FXFormFieldType:FXFormFieldTypeLongText},
+             @{FXFormFieldKey: @"ticketTitle", FXFormFieldTitle:STR(@"标题"), FXFormFieldHeader:STR(@"其他")},
+             @{FXFormFieldKey: @"ticketDescription", FXFormFieldTitle:STR(@"详细描述"),FXFormFieldType:FXFormFieldTypeLongText},
              @{FXFormFieldKey: @"facility", FXFormFieldTitle:STR(@"房间设施"), FXFormFieldAction:@"editFacilities"},
 //                @{FXFormFieldKey: @"feature", FXFormFieldTitle:STR(@"街区亮点")},
              ];

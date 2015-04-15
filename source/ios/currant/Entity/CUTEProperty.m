@@ -56,6 +56,9 @@
             return object.identifier;
         }] componentsJoinedByString:@","] forKey:@"community_facility"];
     }
+    if (!IsArrayNilOrEmpty(self.realityImages)) {
+        [params setValue:[self.realityImages componentsJoinedByString:@","] forKey:@"reality_images"];
+    }
     return params;
 }
 
