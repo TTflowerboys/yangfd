@@ -811,6 +811,9 @@ def rent_ticket_search(user, params):
     if len(property_params["$and"]) < 1:
         property_params.pop("$and")
 
+    if len(params["$and"]) < 1:
+        params.pop("$and")
+
     if len(property_params):
         # property_params.setdefault("status", ["for sale", "sold out"])
         property_params.setdefault("user_generated", True)
