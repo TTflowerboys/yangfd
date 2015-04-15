@@ -18,68 +18,8 @@ import currant_data_helper
 logger = logging.getLogger(__name__)
 f_app.dependency_register("qrcode", race="python")
 
-BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅', '学区房', '英国房产', '海外投资', '海外房产', '海外买房', '海外房地产', '海外房产投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
-
-
-def check_ip_and_redirect_domain(func):
-    def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
-        try:
-            country = f_app.geoip.get_country(request.remote_route[0])
-            host = request.urlparts[1]
-
-            # Don't redirect dev & test
-            if "bbtechgroup.com" not in host:
-                # Special hack to remove "beta."
-                request_url = request.url
-
-                if country == "CN" or "MicroMessenger" in request.get_header('User-Agent'):
-                    target_url = request_url.replace("youngfunding.co.uk", "yangfd.com")
-                    logger.debug("Visitor country detected:", country, "redirecting to yangfd.com if not already. Host:", host, "target_url:", target_url)
-                    assert host.endswith(("yangfd.com", "yangfd.cn")), redirect(target_url)
-
-        except bottle.HTTPError:
-            raise
-        except IndexError:
-            pass
-
-        return func(*args, **kwargs)
-
-    return __check_ip_and_redirect_domain_replace_func
-
-
-def check_crowdfunding_ready(func):
-    def __check_crowdfunding_ready_replace_func(*args, **kwargs):
-        if not f_app.common.crowdfunding_ready:
-            redirect("/")
-        else:
-            return func(*args, **kwargs)
-
-    return __check_crowdfunding_ready_replace_func
-
-
-def common_template(path, **kwargs):
-    if 'title' not in kwargs:
-        kwargs['title'] = _('洋房东')
-    if 'description' not in kwargs:
-        kwargs['description'] = _("我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")
-    if 'keywords' not in kwargs:
-        kwargs['keywords'] = ",".join(BASE_KEYWORDS_ARRAY)
-    if 'user' not in kwargs:
-        kwargs['user'] = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields())
-    if 'country_list' not in kwargs:
-        kwargs['country_list'] = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
-    if 'budget_list' not in kwargs:
-        kwargs['budget_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('budget'))
-
-    # setup page utils
-    kwargs.setdefault("format_unit", currant_util.format_unit)
-    kwargs.setdefault("fetch_image", currant_util.fetch_image)
-    kwargs.setdefault("totimestamp", currant_util.totimestamp)
-    return template(path, **kwargs)
-
-
 @f_get('/')
-@check_ip_and_redirect_domain
+@currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
 def default(user):
     property_list = []
@@ -106,7 +46,7 @@ def default(user):
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
 
     title = _('洋房东')
-    return common_template(
+    return currant_util.common_template(
         "index",
         title=title,
         property_list=property_list,
@@ -118,703 +58,52 @@ def default(user):
 
 
 @f_get('/signup')
-@check_ip_and_redirect_domain
+@currant_util.check_ip_and_redirect_domain
 def signup():
-    return common_template("signup")
+    return currant_util.common_template("signup")
 
 
 @f_get('/vip_sign_up')
-@check_ip_and_redirect_domain
+@currant_util.check_ip_and_redirect_domain
 def vip_sign_up():
-    return common_template("sign_up_vip")
+    return currant_util.common_template("sign_up_vip")
 
 
 @f_get('/signin')
-@check_ip_and_redirect_domain
+@currant_util.check_ip_and_redirect_domain
 def signin():
-    return common_template("signin")
+    return currant_util.common_template("signin")
 
 
 @f_get('/intention')
-@check_ip_and_redirect_domain
+@currant_util.check_ip_and_redirect_domain
 def intention():
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    return common_template("intention", intention_list=intention_list)
+    return currant_util.common_template("intention", intention_list=intention_list)
 
 
 @f_get('/reset_password')
-@check_ip_and_redirect_domain
+@currant_util.check_ip_and_redirect_domain
 def resetPassword():
-    return common_template("reset_password")
-
-
-@f_get('/region_report/<zipcode_index:re:[A-Z0-9]{2,3}>')
-@check_ip_and_redirect_domain
-def region_report(zipcode_index):
-    report = currant_data_helper.get_report(zipcode_index)
-    report = f_app.i18n.process_i18n(report)
-    title = report.get('name') + _('街区分析报告')
-    description = report.get('description', _('洋房东街区投资分析报告'))
-    keywords = report.get('name') + ',' + u'街区投资分析报告' + ',' + ','.join(BASE_KEYWORDS_ARRAY)
-    return common_template("region_report", report=report, title=title, description=description, keywords=keywords)
-
-
-@f_get('/property_list', '/property-list', params=dict(
-    property_type=str,
-    country=str,
-    city=str,
-    budget=str,
-    intention=str,
-    bedroom_count=str,
-    building_area=str
-))
-@check_ip_and_redirect_domain
-def property_list(params):
-    city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
-    property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
-    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    country_list = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
-    bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
-    building_area_list = f_app.i18n.process_i18n(f_app.enum.get_all("building_area"))
-    property_country_list = []
-    property_country_id_list = []
-    for index, country in enumerate(country_list):
-        if country.get('slug') == 'US' or country.get('slug') == 'GB':
-            property_country_list.append(country)
-            property_country_id_list.append(country.get('id'))
-
-    property_city_list = []
-    if ("country" in params and len(params['country'])):
-        for index, city in enumerate(city_list):
-            if city.get('country').get('id') in property_country_id_list:
-                if str(params['country']) == city.get('country').get('id'):
-                    property_city_list.append(city)
-
-    title = ''
-
-    if "country" in params and len(params['country']):
-        for country in country_list:
-            if country.get('id') == str(params['country']):
-                title += country.get('value') + '_'
-
-    if "city" in params and len(params['city']):
-        for city in city_list:
-            if city.get('id') == str(params['city']):
-                title += city.get('value') + '_'
-
-    if "property_type" in params and len(params['property_type']):
-        for property_type in property_type_list:
-            if property_type.get('id') == str(params['property_type']):
-                title += property_type.get('value') + '_'
-
-    title += _('房产列表-洋房东')
-
-    return common_template("property_list",
-                           city_list=city_list,
-                           property_country_list=property_country_list,
-                           property_city_list=property_city_list,
-                           property_type_list=property_type_list,
-                           intention_list=intention_list,
-                           bedroom_count_list=bedroom_count_list,
-                           building_area_list=building_area_list,
-                           title=title
-                           )
-
-
-@f_get('/property_to_rent_list', params=dict(
-    rent_type=str,
-    country=str,
-    city=str,
-    property_type=str,
-    rent_budget=str,
-    rent_period=str,
-    bedroom_count=str,
-    building_area=str
-))
-@check_ip_and_redirect_domain
-def property_to_rent_list(params):
-    city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
-    rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
-    rent_budget_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
-    property_type_list= f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
-    country_list = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
-    rent_period_list = f_app.i18n.process_i18n(f_app.enum.get_all("rent_period"))
-    bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
-    building_area_list = f_app.i18n.process_i18n(f_app.enum.get_all("building_area"))
-    property_country_list = []
-    property_country_id_list = []
-    for index, country in enumerate(country_list):
-        if country.get('slug') == 'US' or country.get('slug') == 'GB':
-            property_country_list.append(country)
-            property_country_id_list.append(country.get('id'))
-
-    property_city_list = []
-    if ("country" in params and len(params['country'])):
-        for index, city in enumerate(city_list):
-            if city.get('country').get('id') in property_country_id_list:
-                if str(params['country']) == city.get('country').get('id'):
-                    property_city_list.append(city)
-
-    title = ''
-
-    if "country" in params and len(params['country']):
-        for country in country_list:
-            if country.get('id') == str(params['country']):
-                title += country.get('value') + '_'
-
-    if "city" in params and len(params['city']):
-        for city in city_list:
-            if city.get('id') == str(params['city']):
-                title += city.get('value') + '_'
-
-    if "rent_type" in params and len(params['rent_type']):
-        for rent_type in rent_type_list:
-            if rent_type.get('id') == str(params['rent_type']):
-                title += rent_type.get('value') + '_'
-
-    title += _('出租列表-洋房东')
-
-    return common_template("property_to_rent_list",
-                           city_list=city_list,
-                           property_country_list=property_country_list,
-                           property_city_list=property_city_list,
-                           rent_type_list=rent_type_list,
-                           rent_budget_list = rent_budget_list,
-                           property_type_list=property_type_list,
-                           rent_period_list=rent_period_list,
-                           bedroom_count_list=bedroom_count_list,
-                           building_area_list=building_area_list,
-                           title=title
-                           )
-
-
-@f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(check_role=True)
-def property_get(property_id, user):
-    property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
-    if property["status"] not in ["selling", "sold out", "restricted"]:
-        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
-    favorite_list = currant_data_helper.get_favorite_list('property')
-    favorite_list = f_app.i18n.process_i18n(favorite_list)
-    related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
-
-    report = None
-
-    if property.get('zipcode_index') and property.get('country').get('slug') == 'GB':
-        report = f_app.i18n.process_i18n(currant_data_helper.get_report(property.get('zipcode_index')))
-
-    title = _(property.get('name', '房产详情'))
-    if property.get('city') and property.get('city').get('value'):
-        title += '_' + _(property.get('city').get('value'))
-    if property.get('country') and property.get('country').get('value'):
-        title += '_' + _(property.get('country').get('value'))
-    description = property.get('name', _('房产详情'))
-
-    tags = []
-    if 'intention' in property and property.get('intention'):
-        tags = [item['value'] for item in property['intention'] if 'value' in item]
-
-    keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
-    weixin = f_app.wechat.get_jsapi_signature()
-
-    return common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin = weixin)
-
-
-@f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>', params=dict(
-    link=(str, True),
-))
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def pdfviewer(user, property_id, params):
-    property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
-    if property["status"] not in ["selling", "sold out", "restricted"]:
-        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
-    for brochure in property.get('brochure'):
-        if brochure.get('url') == params["link"]:
-            title = property.get('name', _('房产详情')) + ' PDF'
-            link = params["link"].encode('utf-8')
-            return common_template("pdf_viewer", link=link, title=title)
-
-    return redirect('/404')
-
-
-@f_get('/crowdfunding/<property_id:re:[0-9a-fA-F]{24}>')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
-def crowdfunding_get(property_id):
-    property = f_app.i18n.process_i18n(f_app.shop.item.output([property_id])[0])
-    favorite_list = f_app.i18n.process_i18n(currant_data_helper.get_favorite_list('item'))
-    related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
-
-    report = None
-
-    if property.get('zipcode_index') and property.get('country').get('slug') == 'GB':
-        report = f_app.i18n.process_i18n(currant_data_helper.get_report(property.get('zipcode_index')))
-
-    title = _(property.get('name', '房产详情'))
-    if property.get('city') and property.get('city').get('value'):
-        title += ' ' + _(property.get('city').get('value'))
-    if property.get('country') and property.get('country').get('value'):
-        title += ' ' + _(property.get('country').get('value'))
-    description = property.get('name', _('房产详情'))
-
-    tags = []
-    if 'intention' in property and property.get('intention'):
-        tags = [item['value'] for item in property['intention'] if 'value' in item]
-
-    # keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + BASE_KEYWORDS_ARRAY)
-    keywords = ""
-    return common_template("crowdfunding", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
-
-
-@f_get('/pdf_viewer/crowdfunding/<crowdfunding_id:re:[0-9a-fA-F]{24}>', params=dict(
-    link=(str, True),
-    filename=(str, True)
-))
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
-@f_app.user.login.check(force=True)
-def crowdfunding_pdfviewer(user, crowdfunding_id, params):
-    crowdfunding = f_app.i18n.process_i18n(f_app.shop.item.output([crowdfunding_id])[0])
-    for material in crowdfunding.get('materials'):
-        if material.get('link') == params["link"] and material.get('filename') == params['filename']:
-            title = params["filename"].encode('utf-8')
-            link = params["link"].encode('utf-8')
-            return common_template("pdf_viewer", link=link, title=title)
-
-    return redirect('/404')
-
-
-@f_get('/crowdfunding_list', params=dict(
-    property_type=str,
-    country=str,
-    city=str,
-))
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
-def crowdfunding_list(params):
-    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    investment_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('investment_type'))
-
-    title = _('众筹列表-洋房东')
-    return common_template("crowdfunding_list",
-                           intention_list=intention_list,
-                           investment_type_list=investment_type_list,
-                           title=title
-                           )
-
-
-@f_get('/user_finish_declare')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
-def user_finish_declare():
-    title = _('用户声明')
-    return common_template("user_finish_declare", title=title)
-
-
-@f_get('/user_finish_info')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
-def user_finish_info():
-    title = _('补充个人信息')
-    state_list = f_app.i18n.process_i18n(f_app.enum.get_all('state'))
-    city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
-    return common_template("user_finish_info", title=title, state_list=state_list, city_list=city_list)
-
-
-@f_get('/user_finish_auth')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
-def user_finish_auth():
-    title = _('确认真实身份')
-    return common_template("user_finish_auth", title=title)
-
-
-@f_get('/user_finish_investment')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
-def user_finish_investment():
-    title = _('确认投资信息')
-    return common_template("user_finish_investment", title=title)
-
-
-@f_get('/news_list')
-@check_ip_and_redirect_domain
-def news_list():
-    title = _('房产资讯')
-    return common_template("news_list", title=title)
-
-
-@f_get('/news/<news_id:re:[0-9a-fA-F]{24}>')
-@check_ip_and_redirect_domain
-def news(news_id):
-    news = f_app.blog.post.output([news_id])[0]
-    news = f_app.i18n.process_i18n(news)
-    related_news_list = f_app.i18n.process_i18n(currant_data_helper.get_related_news_list(news))
-    title = news.get('title')
-    keywords = "new,UK news" + ",".join(BASE_KEYWORDS_ARRAY)
-    weixin = f_app.wechat.get_jsapi_signature()
-
-    if news.get('summary'):
-        description = news.get('summary')
-        return common_template("news", news=news, related_news_list=related_news_list, title=title, description=description, keywords=keywords,weixin=weixin)
-    else:
-        return common_template("news", news=news, related_news_list=related_news_list, title=title, keywords=keywords,weixin=weixin)
-
-
-@f_get('/notice_list')
-@check_ip_and_redirect_domain
-def notice_list():
-    title = _('网站公告')
-    return common_template("notice_list", title=title)
-
-
-@f_get('/guides')
-@check_ip_and_redirect_domain
-def guides():
-    title = _('购房指南')
-    return common_template("guides", title=title)
-
-
-@f_get('/laws')
-@check_ip_and_redirect_domain
-def laws():
-    title = _('法律法规')
-    return common_template("laws", title=title)
-
-
-@f_get('/about')
-@check_ip_and_redirect_domain
-def about():
-    news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
-        f_app.blog.post_search(
-            {
-                "title.en_GB": "About Us"
-            }, per_page=1
-        )
-    ))
-
-    title = news_list[0].get('title')
-    return common_template("aboutus_content", news=news_list[0], title=title)
-
-
-@f_get('/terms')
-@check_ip_and_redirect_domain
-def terms():
-    news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
-        f_app.blog.post_search(
-            {
-                "title.en_GB": "YoungFunding Terms Of Use"
-            }, per_page=1
-        )
-    ))
-
-    title = news_list[0].get('title')
-    return common_template("aboutus_content", news=news_list[0], title=title)
-
-
-@f_get('/about/marketing')
-@check_ip_and_redirect_domain
-def marketing():
-    news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
-        f_app.blog.post_search(
-            {
-                "title.en_GB": "Marketing Cooperation"
-            }, per_page=1
-        )
-    ))
-
-    title = news_list[0].get('title')
-    return common_template("aboutus_content", news=news_list[0], title=title)
-
-
-@f_get('/about/media')
-@check_ip_and_redirect_domain
-def media():
-    news_list = f_app.i18n.process_i18n(f_app.blog.post_output(
-        f_app.blog.post_search(
-            {
-                "title.en_GB": "Media Cooperation"
-            }, per_page=1
-        )
-    ))
-
-    title = news_list[0].get('title')
-    return common_template("aboutus_content", news=news_list[0], title=title)
-
-
-@f_get('/partner')
-@check_ip_and_redirect_domain
-def partner():
-    title = _('合作伙伴')
-    return common_template("partner", title=title)
-
-
-@f_get('/qa')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
-def qa():
-    title = _('众筹投资问答')
-    return common_template("qa", title=title)
-
-
-@f_get('/user_settings')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_settings(user):
-    title = _('账户信息')
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    return common_template("user_settings", user=user, title=title)
-
-
-@f_get('/user_verify_email')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_verify_email(user):
-    title = _('验证邮箱')
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    return common_template("user_verify_email", user=user, title=title)
-
-
-@f_get('/user_change_email')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_change_email(user):
-    title = _('更改邮箱')
-
-    return common_template("user_change_email", user=currant_data_helper.get_user_with_custom_fields(user), title=title)
-
-
-@f_get('/user_change_password')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_change_password(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    title = _('更改密码')
-    return common_template("user_change_password", user=user, title=title)
-
-
-@f_get('/user_change_phone_1')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_change_phone_1(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    title = _('更改手机号')
-    return common_template("user_change_phone_1", user=user, title=title)
-
-
-@f_get('/user_change_phone_2')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_change_phone_2(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    title = _('更改手机号')
-    return common_template("user_change_phone_2", user=user, title=title)
-
-
-@f_get('/user_verify_phone_1')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_verify_phone_1(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    title = _('验证手机号')
-    return common_template("user_verify_phone_1", user=user, title=title)
-
-
-@f_get('/user_verify_phone_2')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_verify_phone_2(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    title = _('验证手机号')
-    return common_template("user_change_phone_2", user=user, title=title)
-
-
-@f_get('/user_favorites')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_favorites(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    title = _('我的收藏')
-    raw_list = currant_data_helper.get_favorite_list('property')
-    favorite_list = []
-    for item in raw_list:
-        if item.get('property'):
-            favorite_list.append(item)
-
-    favorite_list = f_app.i18n.process_i18n(favorite_list)
-    return common_template("user_favorites", user=user, favorite_list=favorite_list, title=title)
-
-
-@f_get('/user_crowdfunding')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
-@f_app.user.login.check(force=True)
-def user_crowdfunding(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    title = _('海外众筹')
-    transaction_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'], 'type': {'$in': ['investment', 'withdrawal', 'recharge', 'earnings', 'recovery']}}, per_page=0), permission_check=False)
-    investment_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'], 'type': 'investment'}, per_page=0), permission_check=False)
-    earning_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'], 'type': 'earnings'}, per_page=0), permission_check=False)
-    account_order_list = f_app.order.output(f_app.order.custom_search({'user.id': user['id'], 'type': {'$in': ['withdrawal', 'recharge']}}, per_page=0), permission_check=False)
-    logger.debug(transaction_list)
-    logger.debug(investment_list)
-    logger.debug(earning_list)
-    logger.debug(account_order_list)
-    transaction_list = f_app.i18n.process_i18n(transaction_list)
-    investment_list = f_app.i18n.process_i18n(investment_list)
-    earning_list = f_app.i18n.process_i18n(earning_list)
-    account_order_list = f_app.i18n.process_i18n(account_order_list)
-    return common_template("user_crowdfunding", user=user, transaction_list=transaction_list, investment_list=investment_list, earning_list=earning_list, account_order_list=account_order_list, title=title)
-
-
-@f_get('/user_intentions')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_intentions(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    intention_ticket_list = currant_data_helper.get_intention_ticket_list(user)
-    intention_ticket_status_list = f_app.enum.get_all('intention_ticket_status')
-    for ticket in intention_ticket_list:
-        for ticket_status in intention_ticket_status_list:
-            if 'intention_ticket_status:' + ticket['status'] == ticket_status['slug']:
-                ticket['status_presentation'] = ticket_status
-
-    intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
-    title = _('投资意向单')
-    return common_template("user_intentions", user=user, intention_ticket_list=intention_ticket_list, title=title)
-
-
-@f_get('/user_properties')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_properties(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    intention_ticket_list = currant_data_helper.get_bought_intention_ticket_list(user)
-    intention_ticket_list = [i for i in intention_ticket_list if i.get("property")]
-    intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
-
-    title = _('我的房产')
-    return common_template("user_properties", user=user, intention_ticket_list=intention_ticket_list, title=title)
-
-
-@f_get('/user_messages')
-@check_ip_and_redirect_domain
-@f_app.user.login.check(force=True)
-def user_messages(user):
-    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    message_list = currant_data_helper.get_message_list(user)
-    message_type_list = f_app.enum.get_all('message_type')
-    for message in message_list:
-        for message_type in message_type_list:
-            if 'message_type:' + message['type'] == message_type['slug']:
-                message['type_presentation'] = message_type
-    message_list = f_app.i18n.process_i18n(message_list)
-    title = _('消息')
-    return common_template("user_messages", user=user, message_list=message_list, title=title)
-
-
-@f_get('/verify_email_status')
-@check_ip_and_redirect_domain
-def verify_email_status():
-    title = _('验证邮箱')
-    return common_template("verify_email_status", title=title)
-
-
-# phone specific pages
-
-
-@f_get('/requirement')
-@check_ip_and_redirect_domain
-def requirement():
-    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    title = _('提交置业需求')
-    return common_template("requirement-phone", intention_list=intention_list, title=title)
-
-
-@f_get('/wechat_share')
-@check_ip_and_redirect_domain
-def wechat_share():
-    title = _('微信分享')
-    return common_template("wechat_share-phone", title=title)
-
-
-@f_get('/how_it_works', params=dict(slug=str),)
-@check_ip_and_redirect_domain
-def how_it_works(params):
-    if params and "slug" in params:
-        current_intention_title = params["slug"]
-        for intention in f_app.enum.get_all('intention'):
-            if intention.get('slug') == current_intention_title:
-                current_intention = intention
-    else:
-        current_intention = f_app.enum.get_all('intention')[0]
-    current_intention = f_app.i18n.process_i18n(current_intention)
-    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    title = current_intention.get('value')
-    description = current_intention.get('description', current_intention.get('value'))
-    keywords = current_intention.get('value') + ',' + ','.join(BASE_KEYWORDS_ARRAY)
-    return common_template("how_it_works-phone", intention_list=intention_list, current_intention=current_intention, title=title, description=description, keywords=keywords)
-
-
-@f_get('/calculator')
-@check_ip_and_redirect_domain
-def calculator():
-    intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    title = _('房贷计算器')
-    return common_template("calculator-phone", intention_list=intention_list, title=title)
-
+    return currant_util.common_template("reset_password")
 
 @f_get('/property-for-sale/create')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
+@currant_util.check_ip_and_redirect_domain
+@currant_util.check_crowdfunding_ready
 def property_for_sale_create():
     title = _('二手房出售')
-    return common_template("property_for_sale_create", title=title)
+    return currant_util.common_template("property_for_sale_create", title=title)
 
 
 @f_get('/property-for-sale/publish')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
+@currant_util.check_ip_and_redirect_domain
+@currant_util.check_crowdfunding_ready
 def property_for_sale_publish():
     title = _('出售预览')
-    return common_template("property_for_sale_publish", title=title)
-
-
-@f_get('/property-to-rent/create')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
-def property_to_rent_create():
-    region_highlight_list = f_app.i18n.process_i18n(f_app.enum.get_all('region_highlight'))
-    indoor_facility_list = f_app.i18n.process_i18n(f_app.enum.get_all('indoor_facility'))
-    rent_period_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_period'))
-    deposit_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('deposit_type'))
-    rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
-    property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
-    title = _('房屋出租')
-    return common_template("property_to_rent_create", region_highlight_list=region_highlight_list, rent_period_list=rent_period_list,
-    indoor_facility_list=indoor_facility_list, deposit_type_list=deposit_type_list, rent_type_list=rent_type_list,
-    property_type_list=property_type_list, title=title)
-
-
-@f_get('/property-to-rent/publish')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
-def property_to_rent_publish():
-    title = _('出租预览')
-    return common_template("property_to_rent_publish", title=title)
-
-
-@f_get('/user')
-@check_ip_and_redirect_domain
-def user():
-    title = _('账户信息')
-    return common_template("user-phone", title=title)
-
+    return currant_util.common_template("property_for_sale_publish", title=title)
 
 @f_get('/admin')
-@check_ip_and_redirect_domain
+@currant_util.check_ip_and_redirect_domain
 def admin():
     return template("admin")
 
@@ -829,21 +118,21 @@ def error_401(error=None):
 @error(403)
 def error_403(error=None):
     title = _('无法访问该页面')
-    return common_template("403", title=title)
+    return currant_util.common_template("403", title=title)
 
 
 @f_get('/404')
 @error(404)
 def error_404(error=None):
     title = _('找不到页面')
-    return common_template("404", title=title)
+    return currant_util.common_template("404", title=title)
 
 
 @f_get('/500')
 @error(500)
 def error_500(error=None):
     title = _('服务器开小差了')
-    return common_template("500", title=title)
+    return currant_util.common_template("500", title=title)
 
 
 @f_get("/static/<filepath:path>")
@@ -967,7 +256,7 @@ def reverse_proxy(params):
 @f_get("/logout", params=dict(
     return_url=str,
 ))
-@check_ip_and_redirect_domain
+@currant_util.check_ip_and_redirect_domain
 def logout(params):
     return_url = params.pop("return_url", "/")
     f_app.user.login.logout()
@@ -1023,59 +312,6 @@ def sitemap():
 
     response.set_header(b"Content-Type", b"application/xml")
     return etree.tostring(root, xml_declaration=True, encoding="UTF-8")
-
-
-@f_get("/landregistry/<zipcode_index>/home_values", params=dict(
-    width=(int, 400),
-    height=(int, 212),
-    force_reload=(bool, False),
-))
-def landregistry_home_values(zipcode_index, params):
-    size = [params["width"], params["height"]]
-    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
-    result = f_app.landregistry.get_month_average_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
-    response.set_header(b"Content-Type", b"image/png")
-    return result
-
-
-@f_get("/landregistry/<zipcode_index>/value_trend", params=dict(
-    width=(int, 400),
-    height=(int, 212),
-    force_reload=(bool, False),
-))
-def landregistry_value_trend(zipcode_index, params):
-    size = [params["width"], params["height"]]
-    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
-    result = f_app.landregistry.get_month_average_by_zipcode_index_with_type(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
-    response.set_header(b"Content-Type", b"image/png")
-    return result
-
-
-@f_get("/landregistry/<zipcode_index>/average_values", params=dict(
-    width=(int, 400),
-    height=(int, 212),
-    force_reload=(bool, False),
-))
-def landregistry_average_values(zipcode_index, params):
-    size = [params["width"], params["height"]]
-    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
-    result = f_app.landregistry.get_average_values_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
-    response.set_header(b"Content-Type", b"image/png")
-    return result
-
-
-@f_get("/landregistry/<zipcode_index>/value_ranges", params=dict(
-    width=(int, 400),
-    height=(int, 212),
-    force_reload=(bool, False),
-))
-def landregistry_value_ranges(zipcode_index, params):
-    size = [params["width"], params["height"]]
-    zipcode_index_size = "%s|%d|%d" % (zipcode_index, size[0], size[1])
-    result = f_app.landregistry.get_price_distribution_by_zipcode_index(zipcode_index_size, zipcode_index, size=size, force_reload=params["force_reload"])
-    response.set_header(b"Content-Type", b"image/png")
-    return result
-
 
 @f_get("/robots.txt")
 def robots_txt():

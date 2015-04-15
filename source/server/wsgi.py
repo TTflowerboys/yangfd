@@ -20,7 +20,18 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 from app import f_app
 
+# Pages
 import main_interface
+import crowdfunding_interface
+import main_interface_phone
+import news_interface
+import property_interface
+import property_to_rent_interface
+import user_setting_interface
+import region_report_interface
+
+
+# API
 import misc_api_interface
 import news_api_interface
 import enum_api_interface
