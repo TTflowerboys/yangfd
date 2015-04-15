@@ -159,7 +159,7 @@ def region_report(zipcode_index):
     return common_template("region_report", report=report, title=title, description=description, keywords=keywords)
 
 
-@f_get('/property_list', params=dict(
+@f_get('/property_list', '/property-list', params=dict(
     property_type=str,
     country=str,
     city=str,
