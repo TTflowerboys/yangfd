@@ -31,7 +31,7 @@
                                ]];
     if (self.needSetPeriod) {
         [array addObject:@{FXFormFieldKey: @"startDate", FXFormFieldTitle:STR(@"开始日期"), FXFormFieldDefaultValue: [NSDate new]}];
-        [array addObject:@{FXFormFieldKey: @"租期", FXFormFieldOptions: _allRentPeriods, FXFormFieldDefaultValue: [_allRentPeriods firstObject]}];
+        [array addObject:@{FXFormFieldKey: @"period", FXFormFieldTitle: @"租期", FXFormFieldOptions: _allRentPeriods, FXFormFieldDefaultValue: [_allRentPeriods firstObject]}];
     }
     return array;
 }
