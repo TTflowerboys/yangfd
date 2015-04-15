@@ -389,6 +389,9 @@ property_params = dict(
     bathroom_count=int,
     kitchen_count=int,
     facing_direction="enum:facing_direction",
+    house_name=("i18n", None, str),
+    floor=("i18n", None, str),
+    community=("i18n", None, str),
     space=("i18n:area", None, "meter ** 2, foot ** 2"),
     floor_plan=("i18n", None, list, None, str, None, "replaces"),
 

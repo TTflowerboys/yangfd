@@ -553,6 +553,8 @@ def support_ticket_search(user, params):
 
 @f_api('/rent_ticket/add', params=dict(
     status=(str, "draft"),
+    title=("i18n", None, str),
+    description=("i18n", None, str),
     rent_type="enum:rent_type",
     space=("i18n:area", None, "meter ** 2, foot ** 2"),
     property_id=ObjectId,
@@ -585,6 +587,8 @@ def rent_ticket_add(user, params):
 
 @f_api('/rent_ticket/<ticket_id>/edit', params=dict(
     status=str,
+    title=("i18n", None, str),
+    description=("i18n", None, str),
     rent_type="enum:rent_type",
     space=("i18n:area", None, "meter ** 2, foot ** 2"),
     property_id=ObjectId,
@@ -666,9 +670,10 @@ def rent_ticket_contact_info(user, ticket_id):
     sort=(list, ["time", 'desc'], str),
     rent_type="enum:rent_type",
     user_id=ObjectId,
-    rental_budget="enum:rental_budget",
+    rent_budget="enum:rent_budget",
     bedroom_count="enum:bedroom_count",
     building_area="enum:building_area",
+    space=("enum:building_area"),
     property_type=(list, None, "enum:property_type"),
     intention=(list, None, "enum:intention"),
     country='enum:country',
@@ -695,6 +700,7 @@ def rent_ticket_search(user, params):
     if "user_id" in params:
         params["creator_user_id"] = params.pop("user_id")
 
+    params["$and"] = []
     property_params = {"$and": []}
     non_project_params = {"$and": []}
     main_house_types_elem_params = {"$and": []}
@@ -711,8 +717,8 @@ def rent_ticket_search(user, params):
     if "country" in params:
         property_params["country"] = params.pop("country")
 
-    if "rental_budget" in params:
-        budget = f_app.util.parse_budget(params.pop("rental_budget"))
+    if "rent_budget" in params:
+        budget = f_app.util.parse_budget(params.pop("rent_budget"))
         assert len(budget) == 3 and budget[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
         price_filter = []
         for currency in f_app.common.currency:
@@ -730,7 +736,7 @@ def rent_ticket_search(user, params):
                 if budget[1]:
                     condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
             price_filter.append(condition)
-        params["$or"] = price_filter
+        params["$and"].append({"$or": price_filter})
 
     if "bedroom_count" in params:
         bedroom_count = f_app.util.parse_bedroom_count(params.pop("bedroom_count"))
@@ -777,6 +783,27 @@ def rent_ticket_search(user, params):
             building_area_filter.append(house_condition)
         non_project_params["$and"].append({"$or": space_filter})
         main_house_types_elem_params["$and"].append({"$or": building_area_filter})
+
+    if "space" in params:
+        space_filter = []
+        space = f_app.util.parse_building_area(params.pop("space"))
+
+        for space_unit in ("meter ** 2", "foot ** 2"):
+            condition = {"space.unit": space_unit}
+            if space_unit == space[2]:
+                condition["space.value_float"] = {}
+                if space[0]:
+                    condition["space.value_float"]["$gte"] = float(space[0])
+                if space[1]:
+                    condition["space.value_float"]["$lte"] = float(space[1])
+            else:
+                condition["space.value_float"] = {}
+                if space[0]:
+                    condition["space.value_float"]["$gte"] = float(f_app.i18n.convert_i18n_unit({"unit": space[2], "value": space[0]}, space_unit))
+                if space[1]:
+                    condition["space.value_float"]["$lte"] = float(f_app.i18n.convert_i18n_unit({"unit": space[2], "value": space[1]}, space_unit))
+            space_filter.append(condition)
+        params["$and"].append({"$or": space_filter})
 
     if len(main_house_types_elem_params["$and"]):
         property_params["$and"].append({"$or": [non_project_params, {"main_house_types": {"$elemMatch": main_house_types_elem_params}}]})
