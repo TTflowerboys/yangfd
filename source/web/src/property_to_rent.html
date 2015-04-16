@@ -55,7 +55,7 @@
             <li class="menuItem">
                 <a href="#rentDetails_description">{{_('出租房详情')}}</a>
             </li >
-            %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country').get('slug') in ['US', 'GB']:
+            %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country') and rent['property'].get('country').get('slug') in ['US', 'GB']:
             <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
             %end
             % if rent['property'].get('community_facility', []) and len(rent['property'].get('community_facility', [])):
@@ -72,10 +72,10 @@
 <!--@@block = main-->
 <div class="propertyDetails">
     <div class="breadcrumb">
-        % if rent['property'].get('country').get('value'):
+        % if rent['property'].get('country') and rent['property'].get('country').get('value'):
         <a class="parent" href="/property_list?country={{rent['property'].get('country',{}).get('id')}}" target="_blank">{{rent['property'].get('country',{}).get('value','')}}</a> /
         % end
-        % if rent['property'].get('city').get('value'):
+        % if rent['property'].get('city') and rent['property'].get('city').get('value'):
         <a class="parent" href="/property_list?country={{rent['property'].get('country',{}).get('id')}}&city={{rent['property'].get('city',{}).get('id')}}" target="_blank">{{rent['property'].get('city',{}).get('value','')}}</a> /
         % end
         % if rent['property'].get('property_type') and rent['property'].get('property_type').get('value'):
@@ -220,7 +220,7 @@
                 %end
             </div>
 
-            %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country').get('slug') in ['US', 'GB']:
+            %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country') and rent['property'].get('country').get('slug') in ['US', 'GB']:
             <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
                 <div class="seperator"></div>
                 <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
