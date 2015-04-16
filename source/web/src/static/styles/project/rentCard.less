@@ -13,6 +13,11 @@
     width:100%;
     margin-bottom: 60px;
 
+    a {
+        text-decoration:none;
+        color: @grey;
+    }
+
     &:hover {
         background-color: @light-orange;
         border-top: @border-width solid @border-hover-color;
@@ -38,18 +43,16 @@
             width:100%;
         }
 
-        a {
-            img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                height:100%;
-                cursor:pointer;
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height:100%;
+            cursor:pointer;
 
-                @media @phone {
-                    position:static;
-                    float:left;
-                }
+            @media @phone {
+                position:static;
+                float:left;
             }
         }
 
