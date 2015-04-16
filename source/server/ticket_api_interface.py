@@ -553,8 +553,8 @@ def support_ticket_search(user, params):
 
 @f_api('/rent_ticket/add', params=dict(
     status=(str, "draft"),
-    title=("i18n", None, str),
-    description=("i18n", None, str),
+    title=str,
+    description=str,
     rent_type="enum:rent_type",
     space=("i18n:area", None, "meter ** 2, foot ** 2"),
     property_id=ObjectId,
@@ -587,8 +587,8 @@ def rent_ticket_add(user, params):
 
 @f_api('/rent_ticket/<ticket_id>/edit', params=dict(
     status=str,
-    title=("i18n", None, str),
-    description=("i18n", None, str),
+    title=str,
+    description=str,
     rent_type="enum:rent_type",
     space=("i18n:area", None, "meter ** 2, foot ** 2"),
     property_id=ObjectId,
