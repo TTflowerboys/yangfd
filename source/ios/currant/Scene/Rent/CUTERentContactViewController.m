@@ -11,6 +11,7 @@
 #import "CUTEFormVerificationCodeCell.h"
 #import "CUTEAPIManager.h"
 #import "CUTEEnum.h"
+#import <WXApi.h>
 
 @interface CUTERentContactViewController () {
     NSString *_verificationToken;

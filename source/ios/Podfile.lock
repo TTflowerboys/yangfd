@@ -42,6 +42,7 @@ PODS:
   - Sequencer (1.0.1)
   - SMCalloutView (2.1.2)
   - SVProgressHUD (1.1.3)
+  - WeixinSDK (1.4.3)
 
 DEPENDENCIES:
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
@@ -55,6 +56,7 @@ DEPENDENCIES:
   - Sequencer (~> 1.0.1)
   - SMCalloutView (~> 2.1.1)
   - SVProgressHUD (~> 1.1.3)
+  - WeixinSDK (~> 1.4.3)
 
 EXTERNAL SOURCES:
   BBTRestClient:
@@ -85,5 +87,6 @@ SPEC CHECKSUMS:
   Sequencer: 53040fea35ecde55ba9cdb3a505a00cfb0e797b2
   SMCalloutView: 4078d89b847731e514b1a919fed33b383a24a106
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+  WeixinSDK: 012c72fbaf8cef68afa7b0d0bb81c67a7a5c9136
 
 COCOAPODS: 0.36.3

@@ -22,4 +22,6 @@
 
 + (NSString *)googleAPIKey;
 
++ (NSString *)weixinAPPId;
+
 @end

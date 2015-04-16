@@ -40,4 +40,9 @@ static NSString *host = nil;
     return @"AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU";
 }
 
++ (NSString *)weixinAPPId {
+    //TODO wait for the weixin approved
+    return @"";
+}
+
 @end
