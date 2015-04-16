@@ -143,7 +143,7 @@ def user_login(params):
     is_vip=bool,
 ))
 @rate_limit("register", ip=10)
-def register(params):
+def user_register(params):
     """
     Basic user register
 
@@ -168,6 +168,74 @@ def register(params):
     f_app.user.login.success(user_id)
     f_app.log.add("login", user_id=user_id)
     f_app.user.counter_update(user_id)
+
+    return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
+
+
+@f_api('/user/mobile-register', params=dict(
+    nolog="password",
+    email=(str, True),
+    nickname=(str, True),
+    phone=(str, True),
+    country=("enum:country", True),
+    locales=(list, None, str),
+))
+@rate_limit("register", ip=5)
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
+def user_mobile_register(user, params):
+    """
+    Basic user register for mobile
+
+    Password will be generated and sent to the provided mailbox.
+    """
+
+    if "@" not in params["email"]:
+        abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
+
+    params["phone"] = f_app.util.parse_phone(params, retain_country=True)
+
+    if f_app.user.get_id_by_email(params["email"]):
+        abort(40325)
+    if f_app.user.get_id_by_phone(params["phone"]):
+        abort(40351)
+
+    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
+    params["password"] = password
+
+    user_id = f_app.user.add(params)
+    f_app.log.add("add", user_id=user_id)
+
+    locale = params["locales"][0] if params["locales"] else f_app.common.i18n_default_locale
+    request._requested_i18n_locales_list = [locale]
+    if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
+        template_invoke_name = "new_user_cn"
+        sendgrid_template_id = "1c4c392c-2c8d-4b8f-a6ca-556d757ac482"
+    else:
+        template_invoke_name = "new_user_en"
+        sendgrid_template_id = "f69da86f-ba73-4196-840d-7696aa36f3ec"
+    substitution_vars = {
+        "to": [params["email"]],
+        "sub": {
+            "%nickname%": [params["nickname"]],
+            "%phone%": [params["phone"]],
+            "%password%": [params["password"]],
+            "%logo_url%": [f_app.common.email_template_logo_url]
+        }
+    }
+    xsmtpapi = substitution_vars
+    xsmtpapi["category"] = ["new_user"]
+    xsmtpapi["template_id"] = sendgrid_template_id
+    f_app.email.schedule(
+        target=params["email"],
+        subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
+        text=template("static/emails/new_user", password=params["password"], nickname=params["nickname"], phone=params["phone"]),
+        display="html",
+        substitution_vars=substitution_vars,
+        template_invoke_name=template_invoke_name,
+        xsmtpapi=xsmtpapi,
+    )
+    f_app.user.login.success(user_id)
+    f_app.user.sms.request(user_id)
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
