@@ -181,7 +181,7 @@ def user_register(params):
     locales=(list, None, str),
 ))
 @rate_limit("register", ip=5)
-def user_mobile_register(user, params):
+def user_mobile_register(params):
     """
     Basic user register for mobile
 
