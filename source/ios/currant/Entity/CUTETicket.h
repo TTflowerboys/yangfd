@@ -17,9 +17,9 @@
 
 @property (strong, nonatomic) NSString *identifier;
 
-@property (strong, nonatomic) CUTEI18n *title;
+@property (strong, nonatomic) NSString *title;
 
-@property (strong, nonatomic) CUTEI18n *ticketDescription;
+@property (strong, nonatomic) NSString *ticketDescription;
 
 @property (strong, nonatomic) NSString *status;
 

@@ -10,4 +10,8 @@
 
 @interface CUTEFormImagePickerCell : FXFormImagePickerCell
 
+- (NSArray *)images;
+
+- (void)setImages:(NSArray *)images;
+
 @end

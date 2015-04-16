@@ -49,12 +49,12 @@
     }
 
     if (!self.title) {
-        self.title = [CUTEI18n i18nWithValue:[NSString stringWithFormat:@"%d居室 %@出租", self.property.bedroomCount, self.rentType.value]];
+        self.title = [NSString stringWithFormat:@"%d居室 %@出租", self.property.bedroomCount, self.rentType.value];
     }
-    [dic setValue:self.title.toParams forKey:@"title"];
+    [dic setValue:self.title forKey:@"title"];
 
     if (self.ticketDescription) {
-        [dic setValue:self.ticketDescription.toParams forKey:@"description"];
+        [dic setValue:self.ticketDescription forKey:@"description"];
     }
 
     return dic;

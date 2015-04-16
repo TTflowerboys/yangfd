@@ -14,9 +14,13 @@
 
 - (void)setAllIndoorFacilities:(NSArray *)indoorFacilities;
 
+- (void)setSelectedIndoorFacilities:(NSArray *)selectedIndoorFacilities;
+
 - (CUTEEnum *)getIndoorFacilityByKey:(NSString *)key;
 
 - (void)setAllCommunityFacilities:(NSArray *)communityFacilities;
+
+- (void)setSelectedCommunityFacilities:(NSArray *)selectedCommunityFacilities;
 
 - (CUTEEnum *)getCommunityFacilityByKey:(NSString *)key;
 

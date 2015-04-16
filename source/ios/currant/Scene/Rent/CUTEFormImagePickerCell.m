@@ -14,6 +14,7 @@
 #import "CUTEFormImagePickerPlaceholderView.h"
 #import "MasonryMake.h"
 #import <UIView+BBT.h>
+#import "CUTEDataManager.h"
 
 @interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate>
 {
@@ -66,7 +67,7 @@
 
 }
 
-- (NSArray *)getImages {
+- (NSArray *)images {
     return (NSArray *)self.field.value;
 }
 
@@ -76,12 +77,12 @@
 
 - (void)update
 {
-    BOOL hidePlaceHolder = !IsArrayNilOrEmpty([self getImages]);
+    BOOL hidePlaceHolder = !IsArrayNilOrEmpty([self images]);
     [_placeholderView setHidden:hidePlaceHolder];
     [_scrollView setHidden:!hidePlaceHolder];
     [_addButton setHidden:!hidePlaceHolder];
 
-    [self updateThumbnails:[self getImages]];
+    [self updateThumbnails:[self images]];
     [self setNeedsLayout];
 }
 
@@ -121,7 +122,7 @@
     picker.assetsFilter = [ALAssetsFilter allPhotos];
     picker.showsCancelButton = (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad);
     picker.delegate = self;
-    picker.selectedAssets = [NSMutableArray arrayWithArray:[self getImages]];
+    picker.selectedAssets = [NSMutableArray arrayWithArray:[self images]];
     picker.alwaysEnableDoneButton = YES;
     [controller presentViewController:picker animated:YES completion:^{
 
@@ -151,6 +152,7 @@
 {
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     [self setImages:assets];
+    [[[[CUTEDataManager sharedInstance] currentRentTicket] property] setRealityImages:assets];
     [self update];
 }
 

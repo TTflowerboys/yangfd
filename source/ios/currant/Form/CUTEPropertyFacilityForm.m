@@ -16,12 +16,26 @@
 {
     NSArray *_allIndoorFacilities;
 
+    NSArray *_selectedIndoorFacilities;
+
     NSArray *_allCommunityFacilities;
+
+    NSArray *_selectedCommunityFacilities;
 }
 
 @end
 
 @implementation CUTEPropertyFacilityForm
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+
+    }
+    return self;
+}
+
 
 - (NSArray *)fields {
     NSMutableArray *array = [NSMutableArray array];
@@ -31,10 +45,10 @@
         {
             CUTEEnum *facility = [_allIndoorFacilities objectAtIndex:i];
             if (i == 0) {
-                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value,FXFormFieldHeader: STR(@"常用设施"), FXFormFieldType: FXFormFieldTypeBoolean}];
+                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value,FXFormFieldHeader: STR(@"常用设施"), FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedIndoorFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:"}];
             }
             else {
-                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value, FXFormFieldType: FXFormFieldTypeBoolean}];
+              [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value, FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedIndoorFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:"}];
             }
         }
     }
@@ -44,10 +58,10 @@
         {
             CUTEEnum *facility = [_allCommunityFacilities objectAtIndex:i];
             if (i == 0) {
-                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value,FXFormFieldHeader: STR(@"小区设施"), FXFormFieldType: FXFormFieldTypeBoolean}];
+                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value,FXFormFieldHeader: STR(@"小区设施"), FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedCommunityFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:"}];
             }
             else {
-                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value, FXFormFieldType: FXFormFieldTypeBoolean}];
+                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value, FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedCommunityFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:"}];
             }
         }
     }
@@ -58,6 +72,10 @@
     _allIndoorFacilities = indoorFacilities;
 }
 
+- (void)setSelectedIndoorFacilities:(NSArray *)selectedIndoorFacilities {
+    _selectedIndoorFacilities = selectedIndoorFacilities;
+}
+
 - (CUTEEnum *)getIndoorFacilityByKey:(NSString *)key {
     return [[_allIndoorFacilities collect:^BOOL(CUTEEnum *object) {
         return [object.identifier isEqualToString:key];
@@ -66,6 +84,10 @@
 
 - (void)setAllCommunityFacilities:(NSArray *)communityFacilities {
     _allCommunityFacilities = communityFacilities;
+}
+
+- (void)setSelectedCommunityFacilities:(NSArray *)selectedCommunityFacilities {
+    _selectedCommunityFacilities = selectedCommunityFacilities;
 }
 
 - (CUTEEnum *)getCommunityFacilityByKey:(NSString *)key {

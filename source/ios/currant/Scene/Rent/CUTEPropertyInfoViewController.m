@@ -27,6 +27,8 @@
 #import "CUTEPropertyInfoForm.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "SVProgressHUD+CUTEAPI.h"
+#import "CUTEFormImagePickerCell.h"
+#import "CUTEPropertyMoreInfoViewController.h"
 
 
 @interface CUTEPropertyInfoViewController () {
@@ -38,6 +40,18 @@
 
 
 @implementation CUTEPropertyInfoViewController
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[CUTEFormImagePickerCell class]]) {
+        CUTEFormImagePickerCell *pickerCell = (CUTEFormImagePickerCell *)cell;
+        //TODO in the future the pickerCell can support show image from url
+        NSArray *images = [[[[[CUTEDataManager sharedInstance] currentRentTicket] property] realityImages] collect:^BOOL(id object) {
+            return [object isKindOfClass:[ALAsset class]];
+        }];
+        [pickerCell setImages:images];
+        [pickerCell update];        
+    }
+}
 
 - (void)editArea {
     CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
@@ -56,6 +70,7 @@
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
     ticket.space = [CUTEArea areaWithValue:form.area unit:form.unit];
     ticket.property.space = ticket.space;
+    _editAreaViewController = nil;
 }
 
 - (void)editRentPrice {
@@ -84,6 +99,16 @@
         return nil;
     }];
 
+}
+
+- (void)editMoreInfo {
+    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTEPropertyMoreInfoViewController *controller = [CUTEPropertyMoreInfoViewController new];
+    CUTEPropertyMoreInfoForm *form = [CUTEPropertyMoreInfoForm new];
+    form.ticketTitle = ticket.title;
+    form.ticketDescription = ticket.ticketDescription;
+    controller.formController.form = form;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)submit
@@ -171,8 +196,7 @@
         }  success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *responseDic = (NSDictionary *)responseObject;
             if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
-                NSString *url = responseDic[@"val"][@"url"];
-                [tcs setResult:url];
+                [tcs setResult:responseDic[@"val"]];
             }
             else {
                 [tcs setError:[NSError errorWithDomain:responseDic[@"msg"] code:[[responseDic objectForKey:@"ret"] integerValue] userInfo:responseDic]];
@@ -185,7 +209,6 @@
         [tcs setResult:nil];
     }
     return tcs.task;
-
 }
 
 
@@ -203,6 +226,7 @@
     }];
     return task;
 }
+
 
 
 @end

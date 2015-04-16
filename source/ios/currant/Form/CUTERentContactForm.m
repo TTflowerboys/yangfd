@@ -22,10 +22,10 @@
 - (NSArray *)fields {
     return @[
              @{FXFormFieldKey: @"name", FXFormFieldTitle: STR(@"姓名"), FXFormFieldHeader: STR(@"填写联系方式")},
+             @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱")},
              @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject]},
               @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号")},
              @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class]},
-              @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱")},
              ];
 }
 

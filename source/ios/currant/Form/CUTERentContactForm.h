@@ -13,13 +13,13 @@
 
 @property (strong, nonatomic) NSString *name;
 
+@property (strong, nonatomic) NSString *email;
+
 @property (strong, nonatomic) CUTEEnum *country;
 
 @property (strong, nonatomic) NSString *phone;
 
 @property (strong, nonatomic) NSString *code;
-
-@property (strong, nonatomic) NSString *email;
 
 @property (nonatomic) BOOL acceptProxy;
 

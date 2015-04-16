@@ -29,10 +29,14 @@
         return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
+            CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+            CUTEProperty *property = [ticket property];
             CUTEPropertyFacilityViewController *controller = [[CUTEPropertyFacilityViewController alloc] init];
             CUTEPropertyFacilityForm *form = [CUTEPropertyFacilityForm new];
             [form setAllIndoorFacilities:task.result[0]];
+            [form setSelectedIndoorFacilities:property.indoorFacilities];
             [form setAllCommunityFacilities:task.result[1]];
+            [form setSelectedCommunityFacilities:property.communityFacilities];
             controller.formController.form = form;
             [self.navigationController pushViewController:controller animated:YES];
             return nil;
@@ -46,8 +50,8 @@
     [self.navigationController popViewControllerAnimated:YES];
     CUTEPropertyMoreInfoForm *form = (CUTEPropertyMoreInfoForm *)[self.formController form];
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
-    ticket.title = [CUTEI18n i18nWithValue:form.ticketTitle];
-    ticket.ticketDescription = [CUTEI18n i18nWithValue:form.ticketDescription];
+    ticket.title = form.ticketTitle;
+    ticket.ticketDescription = form.ticketDescription;
 }
 
 @end

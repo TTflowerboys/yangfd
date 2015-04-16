@@ -55,7 +55,8 @@
         }] componentsJoinedByString:@","] forKey:@"community_facility"];
     }
     if (!IsArrayNilOrEmpty(self.realityImages)) {
-        [params setValue:[self.realityImages componentsJoinedByString:@","] forKey:@"reality_images"];
+
+        [params setValue:[CUTEI18n i18nWithValue:CONCAT(@"[", [self.realityImages componentsJoinedByString:@","], @"]")].toParams forKey:@"reality_images"];
     }
     if (self.location) {
         [params setValue:@(self.location.coordinate.latitude) forKey:@"latitude"];
