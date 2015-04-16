@@ -7,8 +7,23 @@
 //
 
 #import "CUTEForm.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTEForm
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            [[self class] validationInit];
+        });
+    }
+    return self;
+}
+
+- (NSArray * )rules {
+    return nil;
+}
 
 @end

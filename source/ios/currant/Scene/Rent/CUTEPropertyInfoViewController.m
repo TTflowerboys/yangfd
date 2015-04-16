@@ -33,7 +33,10 @@
 
 @interface CUTEPropertyInfoViewController () {
     BBTRestClient *_imageUploader;
+
     FXFormViewController *_editAreaViewController;
+
+    CUTERentPriceViewController *_editRentPriceViewController;
 }
 
 @end
@@ -49,19 +52,23 @@
             return [object isKindOfClass:[ALAsset class]];
         }];
         [pickerCell setImages:images];
-        [pickerCell update];        
+        [pickerCell update];
     }
 }
 
 - (void)editArea {
+  if (!_editAreaViewController) {
     CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
     FXFormViewController *controller = [FXFormViewController new];
     CUTEAreaForm *form = [CUTEAreaForm new];
     form.area = property.space.value;
     controller.formController.form = form;
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveAreaButtonPressed:)];
-    [self.navigationController pushViewController:controller animated:YES];
+    controller.navigationItem.title = STR(@"面积");
     _editAreaViewController = controller;
+
+  }
+  [self.navigationController pushViewController:_editAreaViewController animated:YES];
 }
 
 - (void)onSaveAreaButtonPressed:(id)sender {
@@ -70,7 +77,6 @@
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
     ticket.space = [CUTEArea areaWithValue:form.area unit:form.unit];
     ticket.property.space = ticket.space;
-    _editAreaViewController = nil;
 }
 
 - (void)editRentPrice {
@@ -79,6 +85,7 @@
         return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
+          if (!_editRentPriceViewController) {
             CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
             CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
             CUTERentPriceForm *form = [CUTERentPriceForm new];
@@ -89,11 +96,14 @@
             form.needSetPeriod = ticket.rentPeriod? YES: NO;
             form.startDate = ticket.rentAvailableTime;
             form.period = ticket.rentPeriod;
-            
+
             [form setAllDepositTypes:[task.result objectAtIndex:0]];
             [form setAllRentPeriods:[task.result objectAtIndex:1]];
             controller.formController.form = form;
-            [self.navigationController pushViewController:controller animated:YES];
+            controller.navigationItem.title = STR(@"租金");
+            _editRentPriceViewController = controller;
+          }
+            [self.navigationController pushViewController:_editRentPriceViewController animated:YES];
         }
 
         return nil;
@@ -111,8 +121,49 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+-(void)showErrors {
+    NSMutableString *message = [NSMutableString string];
+
+    CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
+    [form.errors enumerateKeysAndObjectsUsingBlock:^(NSString *attribute, NSArray *errors, BOOL *stop) {
+        for(NSString *error in errors) {
+            [message appendFormat:@"- %@\n", error];
+        };
+    }];
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!"
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+
+- (BOOL)validate {
+    CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
+    form.scenario = @"submit";
+    if (![form validate]) {
+        [self showErrors];
+        return NO;
+    }
+    if (!_editAreaViewController) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请编辑面积")];
+        return NO;
+    }
+    if (!_editRentPriceViewController) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请编辑租金")];
+        return NO;
+    }
+    return YES;
+}
+
 - (void)submit
 {
+    if (![self validate]) {
+        return;
+    }
+
     [SVProgressHUD show];
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
     CUTEProperty *property = ticket.property;
@@ -177,7 +228,7 @@
                 }
             }];
         }];
-        
+
         [sequencer run];
     }
 }
