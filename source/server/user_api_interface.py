@@ -204,7 +204,7 @@ def user_mobile_register(params):
     user_id = f_app.user.add(params)
     f_app.log.add("add", user_id=user_id)
 
-    locale = params["locales"][0] if params["locales"] else f_app.common.i18n_default_locale
+    locale = params["locales"][0] if "locales" in params and params["locales"] else f_app.common.i18n_default_locale
     request._requested_i18n_locales_list = [locale]
     if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
         template_invoke_name = "new_user_cn"
