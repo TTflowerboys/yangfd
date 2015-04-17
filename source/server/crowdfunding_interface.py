@@ -9,6 +9,7 @@ import currant_data_helper
 
 logger = logging.getLogger(__name__)
 
+
 @f_get('/crowdfunding/<property_id:re:[0-9a-fA-F]{24}>')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
@@ -69,10 +70,10 @@ def crowdfunding_list(params):
 
     title = _('众筹列表-洋房东')
     return currant_util.common_template("crowdfunding_list",
-                           intention_list=intention_list,
-                           investment_type_list=investment_type_list,
-                           title=title
-                           )
+                                        intention_list=intention_list,
+                                        investment_type_list=investment_type_list,
+                                        title=title
+                                        )
 
 
 @f_get('/user_finish_declare')

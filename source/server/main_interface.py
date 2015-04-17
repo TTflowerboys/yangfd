@@ -18,6 +18,7 @@ import currant_data_helper
 logger = logging.getLogger(__name__)
 f_app.dependency_register("qrcode", race="python")
 
+
 @f_get('/')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
@@ -87,6 +88,7 @@ def intention():
 def resetPassword():
     return currant_util.common_template("reset_password")
 
+
 @f_get('/property-for-sale/create')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
@@ -101,6 +103,7 @@ def property_for_sale_create():
 def property_for_sale_publish():
     title = _('出售预览')
     return currant_util.common_template("property_for_sale_publish", title=title)
+
 
 @f_get('/admin')
 @currant_util.check_ip_and_redirect_domain
@@ -312,6 +315,7 @@ def sitemap():
 
     response.set_header(b"Content-Type", b"application/xml")
     return etree.tostring(root, xml_declaration=True, encoding="UTF-8")
+
 
 @f_get("/robots.txt")
 def robots_txt():

@@ -9,6 +9,7 @@ import currant_data_helper
 
 logger = logging.getLogger(__name__)
 
+
 @f_get('/property_list', '/property-list', params=dict(
     property_type=str,
     country=str,
@@ -60,15 +61,16 @@ def property_list(params):
     title += _('房产列表-洋房东')
 
     return currant_util.common_template("property_list",
-                           city_list=city_list,
-                           property_country_list=property_country_list,
-                           property_city_list=property_city_list,
-                           property_type_list=property_type_list,
-                           intention_list=intention_list,
-                           bedroom_count_list=bedroom_count_list,
-                           building_area_list=building_area_list,
-                           title=title
-                           )
+                                        city_list=city_list,
+                                        property_country_list=property_country_list,
+                                        property_city_list=property_city_list,
+                                        property_type_list=property_type_list,
+                                        intention_list=intention_list,
+                                        bedroom_count_list=bedroom_count_list,
+                                        building_area_list=building_area_list,
+                                        title=title
+                                        )
+
 
 @f_get('/property/<property_id:re:[0-9a-fA-F]{24}>')
 @currant_util.check_ip_and_redirect_domain
@@ -100,7 +102,7 @@ def property_get(property_id, user):
     keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
-    return currant_util.common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin = weixin)
+    return currant_util.common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin=weixin)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>', params=dict(

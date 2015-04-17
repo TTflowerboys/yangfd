@@ -9,6 +9,7 @@ import currant_data_helper
 
 logger = logging.getLogger(__name__)
 
+
 @f_get('/news_list')
 @currant_util.check_ip_and_redirect_domain
 def news_list():
@@ -28,9 +29,9 @@ def news(news_id):
 
     if news.get('summary'):
         description = news.get('summary')
-        return currant_util.common_template("news", news=news, related_news_list=related_news_list, title=title, description=description, keywords=keywords,weixin=weixin)
+        return currant_util.common_template("news", news=news, related_news_list=related_news_list, title=title, description=description, keywords=keywords, weixin=weixin)
     else:
-        return currant_util.common_template("news", news=news, related_news_list=related_news_list, title=title, keywords=keywords,weixin=weixin)
+        return currant_util.common_template("news", news=news, related_news_list=related_news_list, title=title, keywords=keywords, weixin=weixin)
 
 
 @f_get('/notice_list')

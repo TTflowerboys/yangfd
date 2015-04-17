@@ -9,6 +9,7 @@ import currant_data_helper
 
 logger = logging.getLogger(__name__)
 
+
 @f_get('/user_settings')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
