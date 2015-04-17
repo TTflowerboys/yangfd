@@ -321,6 +321,7 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [self onAddressBeginEditing:textField];
+    [textField resignFirstResponder];
     [textField endEditing:YES];
 }
 
