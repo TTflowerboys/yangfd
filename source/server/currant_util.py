@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 import logging
 from datetime import datetime
+from functools import wraps
 import bottle
 from app import f_app
 from libfelix.f_interface import f_get, f_post, static_file, template, request, response, redirect, html_redirect, error, abort, template_gettext as _
@@ -44,6 +45,7 @@ def fetch_image(image, **kwargs):
 
 
 def check_ip_and_redirect_domain(func):
+    @wraps(func)
     def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
         try:
             country = f_app.geoip.get_country(request.remote_route[0])
@@ -70,6 +72,7 @@ def check_ip_and_redirect_domain(func):
 
 
 def check_crowdfunding_ready(func):
+    @wraps(func)
     def __check_crowdfunding_ready_replace_func(*args, **kwargs):
         if not f_app.common.crowdfunding_ready:
             redirect("/")
