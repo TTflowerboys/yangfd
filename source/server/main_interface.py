@@ -105,6 +105,14 @@ def property_for_sale_publish():
     return currant_util.common_template("property_for_sale_publish", title=title)
 
 
+@f_get('/wechat-poster')
+@check_ip_and_redirect_domain
+@check_crowdfunding_ready
+def wechat_poster():
+    title = _('微信展示页')
+    return common_template("wechat_poster"， title=title)
+
+
 @f_get('/admin')
 @currant_util.check_ip_and_redirect_domain
 def admin():
