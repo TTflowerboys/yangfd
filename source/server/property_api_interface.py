@@ -614,7 +614,7 @@ def property_edit(property_id, user, params):
 def property_get(property_id, user):
     property = f_app.property.output([property_id])[0]
     if property["status"] not in ["selling", "sold out", "restricted"]:
-        if not set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]):
+        if not user or not set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]):
             assert property.get("user_generated") == True, abort(40300, "No access to specify status or target_property_id")
 
     return property
