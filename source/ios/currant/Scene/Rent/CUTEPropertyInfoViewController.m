@@ -29,6 +29,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEFormImagePickerCell.h"
 #import "CUTEPropertyMoreInfoViewController.h"
+#import "CUTERentAreaViewController.h"
 #import "CUTEImageUploader.h"
 
 
@@ -36,7 +37,7 @@
 
     CUTEImageUploader *_imageUploader;
 
-    FXFormViewController *_editAreaViewController;
+    CUTERentAreaViewController *_editAreaViewController;
 
     CUTERentPriceViewController *_editRentPriceViewController;
 }
@@ -71,24 +72,14 @@
 - (void)editArea {
   if (!_editAreaViewController) {
     CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
-    FXFormViewController *controller = [FXFormViewController new];
+    CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
     CUTEAreaForm *form = [CUTEAreaForm new];
     form.area = property.space.value;
     controller.formController.form = form;
-    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveAreaButtonPressed:)];
-    controller.navigationItem.title = STR(@"面积");
     _editAreaViewController = controller;
 
   }
   [self.navigationController pushViewController:_editAreaViewController animated:YES];
-}
-
-- (void)onSaveAreaButtonPressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-    CUTEAreaForm *form = (CUTEAreaForm *)_editAreaViewController.formController.form;
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
-    ticket.space = [CUTEArea areaWithValue:form.area unit:form.unit];
-    ticket.property.space = ticket.space;
 }
 
 - (void)editRentPrice {

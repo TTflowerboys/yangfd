@@ -11,6 +11,7 @@
 #import "CUTERentPriceForm.h"
 #import "CUTEDataManager.h"
 #import "CUTEFormRentPriceTextFieldCell.h"
+#import "SVProgressHUD+CUTEAPI.h"
 
 @implementation CUTERentPriceViewController
 
@@ -18,6 +19,7 @@
     [super viewDidLoad];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
+    self.navigationItem.title = STR(@"租金");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -39,7 +41,19 @@
     [self.tableView reloadData];
 }
 
+- (BOOL)validate {
+    CUTERentPriceForm *form = (CUTERentPriceForm *)self.formController.form;
+    if (form.rentPrice <= 0.0) {
+        [SVProgressHUD showErrorWithStatus:STR(@"租金必须大于0")];
+        return NO;
+    }
+    return YES;
+}
+
 - (void)onSaveButtonPressed:(id)sender {
+    if (![self validate]) {
+        return;
+    }
 
     [self.navigationController popViewControllerAnimated:YES];
     CUTERentPriceForm *form = (CUTERentPriceForm *)[[self formController] form];
