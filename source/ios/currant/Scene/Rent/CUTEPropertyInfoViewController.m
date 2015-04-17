@@ -202,6 +202,19 @@
         }];
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier) parameters:nil resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
+                if (task.error || task.exception || task.isCancelled) {
+
+                }
+                else {
+
+                }
+                completion(task.result);
+                return nil;
+            }];
+        }];
+
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/rent_ticket/add/" parameters:[ticket toParams] resultClass:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
