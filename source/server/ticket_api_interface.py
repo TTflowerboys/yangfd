@@ -722,19 +722,19 @@ def rent_ticket_search(user, params):
         assert len(budget) == 3 and budget[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
         price_filter = []
         for currency in f_app.common.currency:
-            condition = {"total_price.unit": currency}
+            condition = {"price.unit": currency}
             if currency == budget[2]:
-                condition["total_price.value_float"] = {}
+                condition["price.value_float"] = {}
                 if budget[0]:
-                    condition["total_price.value_float"]["$gte"] = float(budget[0])
+                    condition["price.value_float"]["$gte"] = float(budget[0])
                 if budget[1]:
-                    condition["total_price.value_float"]["$lte"] = float(budget[1])
+                    condition["price.value_float"]["$lte"] = float(budget[1])
             else:
-                condition["total_price.value_float"] = {}
+                condition["price.value_float"] = {}
                 if budget[0]:
-                    condition["total_price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
+                    condition["price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
                 if budget[1]:
-                    condition["total_price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
+                    condition["price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
             price_filter.append(condition)
         params["$and"].append({"$or": price_filter})
 
@@ -805,7 +805,13 @@ def rent_ticket_search(user, params):
             space_filter.append(condition)
         params["$and"].append({"$or": space_filter})
 
-    if len(main_house_types_elem_params["$and"]):
+    if len(non_project_params["$and"]) < 1:
+        non_project_params.pop("$and")
+
+    if len(main_house_types_elem_params["$and"]) < 1:
+        main_house_types_elem_params.pop("$and")
+
+    if len(non_project_params):
         property_params["$and"].append({"$or": [non_project_params, {"main_house_types": {"$elemMatch": main_house_types_elem_params}}]})
 
     if len(property_params["$and"]) < 1:
@@ -817,6 +823,7 @@ def rent_ticket_search(user, params):
     if len(property_params):
         # property_params.setdefault("status", ["for sale", "sold out"])
         property_params.setdefault("user_generated", True)
+        logger.debug(property_params)
         property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
         params["property_id"] = {"$in": property_id_list}
 

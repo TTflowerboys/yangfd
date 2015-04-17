@@ -162,7 +162,13 @@ def property_search(user, params):
         non_project_params["$and"].append({"$or": space_filter})
         main_house_types_elem_params["$and"].append({"$or": building_area_filter})
 
-    if len(main_house_types_elem_params["$and"]):
+    if len(non_project_params["$and"]) < 1:
+        non_project_params.pop("$and")
+
+    if len(main_house_types_elem_params["$and"]) < 1:
+        main_house_types_elem_params.pop("$and")
+
+    if len(non_project_params):
         params["$and"].append({"$or": [non_project_params, {"main_house_types": {"$elemMatch": main_house_types_elem_params}}]})
 
     if len(params["$and"]) < 1:
