@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import logging
+import six
 from app import f_app
 from libfelix.f_interface import f_get, abort, template_gettext as _
 import currant_util
@@ -87,7 +88,7 @@ def rent_ticket_get(rent_ticket_id, user):
     # if rent_ticket.get('zipcode_index') and rent_ticket.get('country').get('slug') == 'GB':
     #     report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket.get('zipcode_index')))
 
-    title = str(rent_ticket.get('title', ''))
+    title = six.text_type(rent_ticket.get('title', ''), "utf-8")
     if rent_ticket["property"].get('city') and rent_ticket["property"].get('city').get('value'):
         title += '_' + _(rent_ticket["property"].get('city').get('value'))
     if rent_ticket["property"].get('country') and rent_ticket["property"].get('country').get('value'):
