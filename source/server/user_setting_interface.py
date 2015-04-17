@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import logging
-import bottle
 from app import f_app
-from libfelix.f_interface import f_get, f_post, static_file, template, request, response, redirect, html_redirect, error, abort, template_gettext as _
+from libfelix.f_interface import f_get, template_gettext as _
 import currant_util
 import currant_data_helper
 
 logger = logging.getLogger(__name__)
 
 
-@f_get('/user_settings')
+@f_get('/user_settings', '/user-settings')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_settings(user):
@@ -19,7 +18,7 @@ def user_settings(user):
     return currant_util.common_template("user_settings", user=user, title=title)
 
 
-@f_get('/user_verify_email')
+@f_get('/user_verify_email', '/user-verify-email')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_email(user):
@@ -28,7 +27,7 @@ def user_verify_email(user):
     return currant_util.common_template("user_verify_email", user=user, title=title)
 
 
-@f_get('/user_change_email')
+@f_get('/user_change_email', '/user-change-email')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_email(user):
@@ -37,7 +36,7 @@ def user_change_email(user):
     return currant_util.common_template("user_change_email", user=currant_data_helper.get_user_with_custom_fields(user), title=title)
 
 
-@f_get('/user_change_password')
+@f_get('/user_change_password', '/user-change-password')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_password(user):
@@ -46,7 +45,7 @@ def user_change_password(user):
     return currant_util.common_template("user_change_password", user=user, title=title)
 
 
-@f_get('/user_change_phone_1')
+@f_get('/user_change_phone_1', '/user-change-phone-1')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_1(user):
@@ -55,7 +54,7 @@ def user_change_phone_1(user):
     return currant_util.common_template("user_change_phone_1", user=user, title=title)
 
 
-@f_get('/user_change_phone_2')
+@f_get('/user_change_phone_2', '/user-change-phone-2')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_change_phone_2(user):
@@ -64,7 +63,7 @@ def user_change_phone_2(user):
     return currant_util.common_template("user_change_phone_2", user=user, title=title)
 
 
-@f_get('/user_verify_phone_1')
+@f_get('/user_verify_phone_1', '/user-verify-phone-1')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_1(user):
@@ -73,7 +72,7 @@ def user_verify_phone_1(user):
     return currant_util.common_template("user_verify_phone_1", user=user, title=title)
 
 
-@f_get('/user_verify_phone_2')
+@f_get('/user_verify_phone_2', '/user-verify-phone-2')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_verify_phone_2(user):
@@ -82,7 +81,7 @@ def user_verify_phone_2(user):
     return currant_util.common_template("user_change_phone_2", user=user, title=title)
 
 
-@f_get('/user_favorites')
+@f_get('/user_favorites', '/user-favorites')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_favorites(user):
@@ -98,7 +97,7 @@ def user_favorites(user):
     return currant_util.common_template("user_favorites", user=user, favorite_list=favorite_list, title=title)
 
 
-@f_get('/user_crowdfunding')
+@f_get('/user_crowdfunding', '/user-crowdfunding')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
 @f_app.user.login.check(force=True)
@@ -120,7 +119,7 @@ def user_crowdfunding(user):
     return currant_util.common_template("user_crowdfunding", user=user, transaction_list=transaction_list, investment_list=investment_list, earning_list=earning_list, account_order_list=account_order_list, title=title)
 
 
-@f_get('/user_intentions')
+@f_get('/user_intentions', '/user-intentions')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_intentions(user):
@@ -137,7 +136,7 @@ def user_intentions(user):
     return currant_util.common_template("user_intentions", user=user, intention_ticket_list=intention_ticket_list, title=title)
 
 
-@f_get('/user_properties')
+@f_get('/user_properties', '/user-properties')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_properties(user):
@@ -150,7 +149,7 @@ def user_properties(user):
     return currant_util.common_template("user_properties", user=user, intention_ticket_list=intention_ticket_list, title=title)
 
 
-@f_get('/user_messages')
+@f_get('/user_messages', '/user-messages')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
 def user_messages(user):
@@ -166,7 +165,7 @@ def user_messages(user):
     return currant_util.common_template("user_messages", user=user, message_list=message_list, title=title)
 
 
-@f_get('/verify_email_status')
+@f_get('/verify_email_status', '/verify-email-status')
 @currant_util.check_ip_and_redirect_domain
 def verify_email_status():
     title = _('验证邮箱')

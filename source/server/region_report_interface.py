@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import logging
-import bottle
 from app import f_app
-from libfelix.f_interface import f_get, f_post, static_file, template, request, response, redirect, html_redirect, error, abort, template_gettext as _
+from libfelix.f_interface import f_get, response, template_gettext as _
 import currant_util
 import currant_data_helper
 
 logger = logging.getLogger(__name__)
 
 
-@f_get('/region_report/<zipcode_index:re:[A-Z0-9]{2,3}>')
+@f_get('/region_report/<zipcode_index:re:[A-Z0-9]{2,3}>', '/region-report/<zipcode_index:re:[A-Z0-9]{2,3}>')
 @currant_util.check_ip_and_redirect_domain
 def region_report(zipcode_index):
     report = currant_data_helper.get_report(zipcode_index)

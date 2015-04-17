@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import logging
-import bottle
 from app import f_app
-from libfelix.f_interface import f_get, f_post, static_file, template, request, response, redirect, html_redirect, error, abort, template_gettext as _
+from libfelix.f_interface import f_get, abort, template_gettext as _
 import currant_util
-import currant_data_helper
 
 logger = logging.getLogger(__name__)
 
 
-@f_get('/property_to_rent_list', params=dict(
+@f_get('/property_to_rent_list', '/property-to-rent-list', params=dict(
     rent_type=str,
     country=str,
     city=str,

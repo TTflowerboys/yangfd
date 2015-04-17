@@ -83,9 +83,9 @@ def intention():
     return currant_util.common_template("intention", intention_list=intention_list)
 
 
-@f_get('/reset_password')
+@f_get('/reset_password', '/reset-password')
 @currant_util.check_ip_and_redirect_domain
-def resetPassword():
+def reset_password():
     return currant_util.common_template("reset_password")
 
 
