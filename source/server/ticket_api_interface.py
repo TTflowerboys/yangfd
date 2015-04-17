@@ -64,7 +64,7 @@ def intention_ticket_add(params):
                 if noregister:
                     user_params.pop("email")
 
-                user_id = f_app.user.add(user_params, noregister=noregister)
+                user_id = f_app.user.add(user_params, noregister=noregister, retain_country=True)
                 f_app.log.add("add", user_id=user_id)
                 # Log in and send password for newly registered user
                 if not noregister:
@@ -127,7 +127,7 @@ def intention_ticket_add(params):
                 if noregister:
                     user_params.pop("email")
 
-                user_id = f_app.user.add(user_params, noregister=noregister)
+                user_id = f_app.user.add(user_params, noregister=noregister, retain_country=True)
                 f_app.log.add("add", user_id=user_id)
                 # Log in and send password for newly registered user
                 if not noregister:

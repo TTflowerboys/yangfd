@@ -163,7 +163,7 @@ def user_register(params):
 
     f_app.captcha.validate(params["solution"], params["challenge"])
 
-    user_id = f_app.user.add(params)
+    user_id = f_app.user.add(params, retain_country=True)
 
     f_app.user.login.success(user_id)
     f_app.log.add("login", user_id=user_id)
@@ -201,7 +201,7 @@ def user_mobile_register(params):
     password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
     params["password"] = password
 
-    user_id = f_app.user.add(params)
+    user_id = f_app.user.add(params, retain_country=True)
     f_app.log.add("add", user_id=user_id)
 
     locale = params["locales"][0] if "locales" in params and params["locales"] else f_app.common.i18n_default_locale
@@ -430,7 +430,7 @@ def admin_user_add(user, params):
     password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
     params["password"] = password
 
-    user_id = f_app.user.add(params)
+    user_id = f_app.user.add(params, retain_country=True)
     f_app.log.add("add", user_id=user_id)
 
     if f_app.common.use_ssl:
