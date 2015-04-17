@@ -35,6 +35,9 @@
     if (self.propertyDescription && self.propertyDescription.toParams) {
         [params setValue:self.propertyDescription.toParams forKey:@"description"];
     }
+    if (self.propertyType) {
+        [params setValue:self.propertyType.identifier forKey:@"property_type"];
+    }
     if (self.street && self.street.toParams) {
         [params setValue:self.street.toParams forKey:@"street"];
     }
@@ -56,7 +59,7 @@
     }
     if (!IsArrayNilOrEmpty(self.realityImages)) {
 
-        [params setValue:[CUTEI18n i18nWithValue:CONCAT(@"[", [self.realityImages componentsJoinedByString:@","], @"]")].toParams forKey:@"reality_images"];
+        [params setValue:@{DEFAULT_I18N_LOCALE:self.realityImages} forKey:@"reality_images"];
     }
     if (self.location) {
         [params setValue:@(self.location.coordinate.latitude) forKey:@"latitude"];

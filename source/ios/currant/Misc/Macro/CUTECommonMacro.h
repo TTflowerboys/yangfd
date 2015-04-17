@@ -15,6 +15,6 @@
 #define TabBarHeight                     49
 #define TabBarControllerViewFrame CGRectMake(0, 0, ScreenWidth, ScreenHeight - TabBarHeight)
 
-#define DEFAULT_I18N_LOCALE @"zh_CN"
+#define DEFAULT_I18N_LOCALE @"zh_Hans_CN"
 
 #endif

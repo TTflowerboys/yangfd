@@ -29,10 +29,12 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEFormImagePickerCell.h"
 #import "CUTEPropertyMoreInfoViewController.h"
+#import "CUTEImageUploader.h"
 
 
 @interface CUTEPropertyInfoViewController () {
-    BBTRestClient *_imageUploader;
+
+    CUTEImageUploader *_imageUploader;
 
     FXFormViewController *_editAreaViewController;
 
@@ -43,6 +45,16 @@
 
 
 @implementation CUTEPropertyInfoViewController
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _imageUploader = [CUTEImageUploader new];
+    }
+    return self;
+}
+
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[CUTEFormImagePickerCell class]]) {
@@ -147,6 +159,11 @@
 //        [self showErrors];
 //        return NO;
 //    }
+    if (form.bedroom < 1) {
+        [SVProgressHUD showErrorWithStatus:STR(@"居室数至少为1个")];
+        return NO;
+    }
+
     if (!_editAreaViewController) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑面积")];
         return NO;
@@ -173,13 +190,16 @@
         if (!IsArrayNilOrEmpty(images)) {
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
                 [[BFTask taskForCompletionOfAllTasksWithResults:[images map:^id(ALAsset *object) {
-                    return [self updateImage:object];
+                    NSData *dataImage = UIImageJPEGRepresentation([UIImage imageWithCGImage:[[object defaultRepresentation] fullResolutionImage]], 1.0);
+                    return [_imageUploader updateImage:dataImage];
                 }]] continueWithBlock:^id(BFTask *task) {
                     if (task.error || task.exception || task.isCancelled) {
                         [SVProgressHUD showErrorWithError:task.error];
                         return nil;
                     } else {
-                        property.realityImages = task.result;
+                        property.realityImages = [task.result map:^id(NSDictionary *object) {
+                            return [object objectForKey:@"url"];
+                        }];
                         completion(task.result);
                         return nil;
                     }
@@ -198,19 +218,6 @@
                     completion(task.result);
                     return nil;
                 }
-            }];
-        }];
-
-        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier) parameters:nil resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
-
-                }
-                else {
-
-                }
-                completion(task.result);
-                return nil;
             }];
         }];
 
@@ -247,36 +254,6 @@
         [sequencer run];
     }
 }
-
-- (BFTask *)updateImage:(ALAsset*)image {
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    if (image) {
-        NSData *dataImage = UIImageJPEGRepresentation([UIImage imageWithCGImage:[[image defaultRepresentation] fullResolutionImage]], 1.0);
-
-        if (!_imageUploader) {
-            _imageUploader = [BBTRestClient clientWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]] account:nil];
-        }
-        [_imageUploader POST:@"/api/1/upload_image" parameters:@{@"thumbnail_size":@"320,213"} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            //do not put image inside parameters dictionary as I did, but append it!
-            [formData appendPartWithFileData:dataImage name:@"data" fileName:@"filename.jpg" mimeType:@"image/jpeg"];
-        }  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *responseDic = (NSDictionary *)responseObject;
-            if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
-                [tcs setResult:responseDic[@"val"]];
-            }
-            else {
-                [tcs setError:[NSError errorWithDomain:responseDic[@"msg"] code:[[responseDic objectForKey:@"ret"] integerValue] userInfo:responseDic]];
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [tcs setError:error];
-        }];
-    }
-    else {
-        [tcs setResult:nil];
-    }
-    return tcs.task;
-}
-
 
 - (BFTask *)addProperty {
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];

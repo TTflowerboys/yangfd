@@ -215,6 +215,11 @@
 		2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
 		2CA2E6EA1AC54BF200053965 /* currant-production-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */; };
 		2CA2E6EF1AC54BF200053965 /* currant-test-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */; };
+		2CA5F7701AE10382001132E0 /* CUTEImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */; };
+		2CA5F7711AE10382001132E0 /* CUTEImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */; };
+		2CA5F7721AE10382001132E0 /* CUTEImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */; };
+		2CA5F7731AE10382001132E0 /* CUTEImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */; };
+		2CA5F7741AE10382001132E0 /* CUTEImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */; };
 		2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -357,6 +362,8 @@
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
 		2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-test-Info.plist"; sourceTree = "<group>"; };
+		2CA5F76E1AE10382001132E0 /* CUTEImageUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEImageUploader.h; sourceTree = "<group>"; };
+		2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEImageUploader.m; sourceTree = "<group>"; };
 		2CA94AAE1ACA42CD00DF7497 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-dev-Info.plist"; sourceTree = "<group>"; };
 		2CB43DA91ABC1372004DF663 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -681,6 +688,8 @@
 				2C427E4B1AD2414D000378A9 /* CUTEEnumManager.m */,
 				2C5ECC4F1AD525AC00163E9E /* CUTEAPIManager.h */,
 				2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */,
+				2CA5F76E1AE10382001132E0 /* CUTEImageUploader.h */,
+				2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */,
 				2CB7490B1ADE4755003BC2A5 /* SVProgressHUD+CUTEAPI.h */,
 				2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */,
 			);
@@ -1114,6 +1123,7 @@
 				2C27F2151ACD459E002BECCF /* CUTERentContactViewController.m in Sources */,
 				2C3B595E1AD7D32700607BD4 /* CUTERentPriceViewController.m in Sources */,
 				2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */,
+				2CA5F7721AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2C226E761ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
 				2C27F1ED1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C427E4E1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
@@ -1169,6 +1179,7 @@
 				2C27F2161ACD459E002BECCF /* CUTERentContactViewController.m in Sources */,
 				2C3B595F1AD7D32700607BD4 /* CUTERentPriceViewController.m in Sources */,
 				2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */,
+				2CA5F7731AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2C226E771ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
 				2C27F1EE1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C427E4F1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
@@ -1224,6 +1235,7 @@
 				2C27F2141ACD459E002BECCF /* CUTERentContactViewController.m in Sources */,
 				2C3B595D1AD7D32700607BD4 /* CUTERentPriceViewController.m in Sources */,
 				2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */,
+				2CA5F7711AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2C226E751ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
 				2C27F1EC1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C427E4D1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
@@ -1279,6 +1291,7 @@
 				2C27F2131ACD459E002BECCF /* CUTERentContactViewController.m in Sources */,
 				2C3B595C1AD7D32700607BD4 /* CUTERentPriceViewController.m in Sources */,
 				2C4AEC7F1AD6466A004DEE23 /* CUTEUser.m in Sources */,
+				2CA5F7701AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2C226E741ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
 				2C27F1EB1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C427E4C1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
@@ -1330,6 +1343,7 @@
 				2C427E5F1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2C401DBB1ACA874000613093 /* CUTERentTypeListForm.m in Sources */,
 				2C226E781ACBE9DB00658132 /* CUTEFormDefaultCell.m in Sources */,
+				2CA5F7741AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2C427EAD1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2C401E2B1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C401DC21ACA898400613093 /* CUTEPropertyInfoForm.m in Sources */,
