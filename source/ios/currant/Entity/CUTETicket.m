@@ -7,6 +7,7 @@
 //
 
 #import "CUTETicket.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTETicket
 
@@ -44,8 +45,9 @@
     if (self.rentAvailableTime) {
         [dic setValue:[NSNumber numberWithLong:[self.rentAvailableTime timeIntervalSince1970]] forKey:@"rent_available_time"];
     }
-    if (self.rentPeriod) {
-        [dic setValue:self.rentPeriod.identifier forKey:@"rent_period"];
+    NSArray *rentPeriodSlugArray = [self.rentPeriod.slug componentsSeparatedByString:@":"];
+    if (self.rentPeriod && !IsArrayNilOrEmpty(rentPeriodSlugArray) && rentPeriodSlugArray.count >=2) {
+        [dic setValue:rentPeriodSlugArray[1] forKey:@"rent_period"];
     }
 
     if (!self.title) {
