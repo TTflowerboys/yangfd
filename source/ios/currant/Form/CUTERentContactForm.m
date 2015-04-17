@@ -25,7 +25,7 @@
              @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱")},
              @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject]},
               @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号")},
-             @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class]},
+             @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldCell: @"codeFieldEndEdit"},
              ];
 }
 

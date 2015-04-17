@@ -66,6 +66,23 @@
     }];
 }
 
+- (BOOL)validate {
+    return YES;
+}
+
+- (void)codeFieldEndEdit {
+
+    //1. valideate
+    //2. if user not create
+    // register
+    //else use the user to verify
+
+}
+
+- (BFTask *)verifyPhoneCode {
+    return [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", [CUTEDataManager sharedInstance].user.identifier, @"/sms_verification/verify") parameters:nil resultClass:nil];
+}
+
 - (BFTask *)userRegister {
 
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
@@ -82,6 +99,9 @@
     return [[CUTEAPIManager sharedInstance] POST:@"" parameters:nil resultClass:nil];
 }
 - (void)onRightButtonPressed:(id)sender {
+    if (![self validate]) {
+        return;
+    }
     [SVProgressHUD show];
 
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
@@ -111,17 +131,6 @@
                 return nil;
             } else {
                 completion(task.result);
-                return nil;
-            }
-        }];
-    }];
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket",ticket.identifier) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
-                [SVProgressHUD showErrorWithError:task.error];
-                return nil;
-            } else {
-                [SVProgressHUD dismiss];
                 return nil;
             }
         }];
