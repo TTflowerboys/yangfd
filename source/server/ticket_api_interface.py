@@ -671,6 +671,7 @@ def rent_ticket_contact_info(user, ticket_id):
     rent_type="enum:rent_type",
     user_id=ObjectId,
     rent_budget="enum:rent_budget",
+    rent_period=str,
     bedroom_count="enum:bedroom_count",
     building_area="enum:building_area",
     space=("enum:building_area"),
