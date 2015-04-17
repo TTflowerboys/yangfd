@@ -13,18 +13,154 @@
         <link rel="stylesheet" href="/static/styles/phone/wechatPoster.css">
         <!--endbuild-->
 
-        <!--<link rel="stylesheet" href="http://c.lagou.com/css/companyslide/wyy-base-pc.css?v=1.5.5.7_034455">-->
-        <!--<link rel="stylesheet" href="http://c.lagou.com/css/companyslide/wyy-animation.css?v=1.5.5.7_034455">-->
+
+
+        <link rel="stylesheet" href="http://c.lagou.com/css/companyslide/wyy-base-pc.css?v=1.5.5.7_034455">
+        <link rel="stylesheet" href="http://c.lagou.com/css/companyslide/wyy-animation.css?v=1.5.5.7_034455">
         <style>
 
         </style>
     </head>
-    <body marginwidth="0" marginheight="0" class="">
+    <body marginwidth="0" marginheight="0" class="loading">
         <div class="loadingCover">
-            <div class="ring">
-
+            <div class="proBox">
+                <canvas id="procanvas" class="procanvas" value="0%"></canvas>
+                <span id="proText" class="proText"></span>
             </div>
+
+            <p class="info">正在加载资源<br>请稍后</p>
+            <p class="logo"></p>
         </div>
+        <script type="text/javascript">
+            window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
+            //进度条类
+            function Process(conf){
+                var defaultConfig = {
+
+                }
+                var config = {}
+
+                extendConfig()
+                var _ = this
+                var canvas = document.getElementById(config.canvasId)
+                var context = canvas.getContext('2d')
+                var textEle = document.getElementById(config.textId)
+                this.canvasvalue = canvas.getAttribute("value") || '0%'
+                this.process = parseInt(this.canvasvalue.substring(0, this.canvasvalue.length - 1))
+                this.scale = window.devicePixelRatio
+                this.outerWidth = config.outerWidth
+                this.innerWidth = config.innerWidth
+
+                this.center = [this.outerWidth / 2 * this.scale, this.outerWidth / 2 * this.scale]
+                canvas.style.width = this.outerWidth + 'px'
+                canvas.style.height = this.outerWidth + 'px'
+                canvas.width = this.outerWidth * this.scale
+                canvas.height = this.outerWidth * this.scale
+
+                initStyle()
+
+                this.draw = function () {
+                    //开始画一个underColor的圆
+                    context.beginPath()
+                    context.moveTo(this.center[0], this.center[1])
+                    context.arc(this.center[0], this.center[1], this.center[0], 0, Math.PI * 2, false)
+                    context.closePath()
+                    context.fillStyle = config.underColor
+                    context.fill()
+
+                    // 画进度(activeColor)
+                    if(this.process != 0 && this.process != 100){
+                        context.beginPath()
+                        context.moveTo(this.center[0], this.center[1])
+                        context.arc(this.center[0], this.center[1], this.center[0], - Math.PI / 2, Math.PI*2* (this.process / 100) - Math.PI / 2, false)
+                        context.closePath()
+                        context.fillStyle = config.activeColor
+                        context.fill()
+                    }
+                    else if(this.process == 100){
+                        context.beginPath()
+                        context.moveTo(this.center[0], this.center[1])
+                        context.arc(this.center[0], this.center[1], this.center[0], 0, Math.PI*2, false)
+                        context.closePath()
+                        context.fillStyle = config.activeColor
+                        context.fill()
+                    }
+                    // 画内部空白(backColor)
+                    context.beginPath()
+                    context.moveTo(this.center[0], this.center[1])
+                    context.arc(this.center[0], this.center[1], this.center[0]*this.innerWidth/this.outerWidth*this.scale, 0, Math.PI * 2, true)
+                    context.closePath()
+                    context.fillStyle = config.backColor
+                    context.fill()
+                }
+                this.changeText = function () {
+                    this.canvasvalue = this.process + '%';
+                    textEle.innerText = this.canvasvalue
+                }
+                function initStyle(){
+                    var w = _.outerWidth + 'px'
+                    canvas.parentElement.style.width = w
+                    canvas.parentElement.style.height = w
+                    canvas.nextElementSibling.style.lineHeight = w
+                }
+                function extendConfig(){
+                    var k
+                    for(k in defaultConfig){
+                        config[k] = defaultConfig[k]
+                    }
+                    for(k in conf){
+                        config[k] = conf[k]
+                    }
+                }
+
+            }
+            Process.prototype.moveTo = function(process, time, callback){
+                var _ = this,
+                    time = time || 3000,
+                    past = new Date,
+                    now,
+                    pastProcess = this.process,
+                    step = process - this.process
+                if(_.raf !== undefined){
+                    cancelAnimationFrame(_.raf)
+                }
+                function move(){
+                    now = new Date
+                    if((now - past) / time >= (_.process - pastProcess) / step){
+                        _.process =  Math.min(pastProcess + Math.floor((now - past) / time * step), process)
+                        _.draw()
+                        _.changeText()
+                    }
+                    if(_.process < process){
+                        _.raf = requestAnimationFrame(move)
+                    }
+                    if(_.process === process){
+                        setTimeout(function(){
+                            callback && typeof callback === 'function' && callback()
+                        },200)
+                    }
+                }
+                _.raf = requestAnimationFrame(move)
+            }
+            Process.prototype.finish = function(cb){
+                this.moveTo(100, 500, cb)
+            }
+            var process = new Process({
+                canvasId: 'procanvas',
+                textId: 'proText',
+                outerWidth: '130',
+                innerWidth: '121',
+                backColor: 'rgba(51,51,51,1)',
+                underColor: '#3f3f3f',
+                activeColor: '#aec227'
+            })
+            process.moveTo(80, 10000, function(){
+                process.moveTo(90, 5000)
+            })
+
+
+
+        </script>
         <div class="swiper-container" style="background-image: url(http://c.lagou.com/images/companyslide/company_default/company_default03.jpg);">
             <div class="swiper-wrapper" style="">
                 <div class="swiper-slide swiper-slide-bg commen" style="">
@@ -208,10 +344,14 @@
             </div>
         </div>
 
+
         <!--build:js /static/scripts/wechat_poster.html.js-->
         <script type="text/javascript" src="/static/vendors/jquery/jquery-2.1.0.min.js"></script>
         <script type="text/javascript" src="/static/vendors/swiper/swiper.jquery.min.js"></script>
         <!--endbuild-->
+
+
+
         <script>
             var mySwiper = new Swiper('.swiper-container', {
                 direction: 'vertical',
@@ -245,7 +385,6 @@
                 companyHeightReset(); //company页的宽高
                 shareDiv();
             });
-
             //company页的宽高
             function companyHeightReset() {
                 if($("#company-tri").length>0){
@@ -281,7 +420,6 @@
                 }
                 if($(".intro-tri").length>0){
                     $(".intro-tri").each(function(){
-                        console.log($(this).position());
                         var objTop = $(this).position().top-3;
                         var parentHeight = $(this).parent().height() - objTop -$(this).height();
                         $(this).next().css({
@@ -292,6 +430,7 @@
                 }
             }
 
+
             function shareDiv(){
                 $("#share").on('click',function() {
                     $(".share-to-moments").fadeIn();
@@ -300,6 +439,18 @@
                     $(this).hide();
                 });
             }
+
+            $(function() {
+                function loadCallback(){
+                    $('.loadingCover').fadeOut(400, function(){
+                        $('body').removeClass('loading')
+                    })
+                }
+                setTimeout(function(){
+                    process.finish(loadCallback)
+                },20000)
+
+            });
         </script>
 
 

@@ -110,7 +110,7 @@ def property_for_sale_publish():
 @check_crowdfunding_ready
 def wechat_poster():
     title = _('微信展示页')
-    return common_template("wechat_poster"， title=title)
+    return common_template("wechat_poster", title=title)
 
 
 @f_get('/admin')

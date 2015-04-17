@@ -1,0 +1,71 @@
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+    position: relative;
+    height: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-user-select: none;
+    user-select: none;
+    padding: 0;
+    font-family: 'Open Sans', Tahoma, Arial, 'Source Han Sans CN', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', STHeiti, sans-serif;
+}
+
+.loading .loadingCover{
+    display: block;
+}
+.loadingCover {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 100;
+    background: #333;
+    text-align: center;
+}
+.loadingCover .proBox{
+    position: relative;
+    display: inline-block;
+    /*width: 130px;*/
+    /*height: 130px;*/
+    margin-top: 25vh;
+    text-align: center;
+}
+.loadingCover .procanvas{
+}
+.loadingCover .proText{
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    /*line-height: 130px;*/
+    font-weight: 100;
+    font-size: 40px;
+    color: #aec227;
+}
+.loadingCover .info{
+    font-size: 25px;
+    margin-top: 5vh;
+    color: #aec227;
+}
+.swiper-container {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+}
+.swiper-wrapper {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+}
+.swiper-slide {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+}
