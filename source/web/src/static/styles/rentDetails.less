@@ -160,6 +160,7 @@ body{
 
     > .content {
         width: 800px;
+        margin-bottom: 56px;
         float: left;
 
         @media @phone {
@@ -167,6 +168,7 @@ body{
         }
 
     }
+
     > .aside {
         width: 360px;
         float: right;
@@ -176,6 +178,7 @@ body{
         }
 
     }
+
     &_title { margin-bottom: 24px; color: #666; margin-top: 24px; font-size: 16px; }
     .seperator {
         border-top: 1px solid @border-color;
@@ -241,7 +244,7 @@ body{
                 }
 
             }
-            .item { display: none;
+            .item {
                     &.selectedTab { display: block; }
                   }
             div[data-tab-name=video] {
@@ -256,68 +259,6 @@ body{
 
                     @media @phone {
                         margin: 100px auto;
-                    }
-                }
-            }
-        }
-        .thumbnails {
-            margin-top: 24px; margin-bottom: 48px;
-            @media @phone {
-                margin-top: 0;
-                margin-bottom: 0;
-            }
-
-            > ul {
-                .clearfix();
-                > li {
-                    float: left;
-                    width: 20%;
-                    position: relative;
-                    cursor: pointer;
-                    > img {
-                        display: block;
-                        max-width: 100%;
-                        height:106px;
-                        width:233px;
-
-                        @media @phone {
-                            height: 53px;
-                        }
-
-                    }
-                    > span {
-                        position: absolute; left: 0; top: 0; width: 100%; height: 100%;
-                    }
-                    .border {
-                        display: none; border: 3px solid @red;
-                    }
-                    .text {
-                        text-align: center;
-                        .imageOpacity(0.5);
-                        background: white;
-
-                        font-size: 20px;
-                        color: black;
-
-                        @media @phone {
-                            font-size: 14px;
-                            color: #747474;
-                        }
-
-                        &_wrapper {
-                            display: table; height: 106px;
-
-
-                            @media @phone {
-                                height: 53px;
-                            }
-
-                        }
-                        display: table-cell; vertical-align: middle; padding: 0 8px;
-                    }
-                    &.selectedTab {
-                        .border { display: block; }
-                        .text { display: none; }
                     }
                 }
             }
@@ -349,23 +290,6 @@ body{
         border-radius:0;
         right:0;
         top:0;
-    }
-
-    .videocontent{
-        .video-js{
-            width:800px;
-            height:533px;
-
-            // Making VideoJS videos scale in all browsers, tablets and phones for responsive design
-            // http://coolestguidesontheplanet.com/videodrome/videojs/
-            @media @phone {
-                width:auto;
-                height:auto;
-                padding-top: 56.25%
-            }
-        }
-
-        .vjs-fullscreen {padding-top: 0}
     }
 
     .propertyCard_phone {
@@ -526,23 +450,15 @@ body{
         }
     }
     .meta {
+        margin-top:56px;
         overflow:hidden;
 
         @media @phone {
             width: 100%
         }
 
-        .propertyDetails_title {
-            @media @phone {
-                margin-top: 0;
-                margin-bottom: 20px;
-                margin-left: 20px;
-                font-size: @base-title-font-size-mobile;
-            }
-        }
-
-
         .numbers {
+
             @media @phone {
                 display:block;
                 border-bottom:1px solid #ccc;
@@ -552,7 +468,7 @@ body{
 
             .clearfix(); margin-bottom: 16px;
             > li {
-                float: left; width: 100% / 5; border-right: 1px solid @border-color; padding-left: 8px;
+                float: left; width: 100% / 4; border-right: 1px solid @border-color; padding-left: 8px;
                 @media @phone {
                     font-size:@base-font-size-mobile;
                     height:100%;
@@ -587,6 +503,54 @@ body{
                 }
             }
         }
+
+        .numbersWithoutSeperator {
+
+            @media @phone {
+                display:block;
+                border-bottom:1px solid #ccc;
+                padding-bottom:15px;
+                padding-top:15px;
+            }
+
+            .clearfix(); margin-bottom: 16px;
+            > li {
+                float: left; width: 100% / 4; padding-left: 8px;
+                @media @phone {
+                    font-size:@base-font-size-mobile;
+                    height:100%;
+                    min-height:70px;
+                }
+
+                &:first-child {
+                    @media @phone {
+                        padding-left: 8px;
+                    }
+
+                }
+
+                &:last-child {
+                    border-right:none;
+                }
+
+                strong {
+                    display: block; font-size: 24px; font-weight: normal; color: @dark-text-color;
+                    @media @phone {
+                        font-size:16px;
+                    }
+
+                    .unit {
+                        line-height:1;
+                        font-size:14px;
+
+                        @media @phone {
+                            font-size: 9px;
+                        }
+                    }
+                }
+            }
+        }
+
         .other {
             width: 100%;
             overflow:hidden;
@@ -637,33 +601,12 @@ body{
             a { text-decoration: none; }
         }
     }
-    .advantages {
-        margin-top: 48px; margin-bottom: 48px;
-        @media @phone {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
 
-        ul {
-            list-style: none inside url(/static/images/property_details/icon-right-arrow.png);
-        }
-        background: #f6f6f6;
-        color: #666666;
-        font-size: 16px;
-        line-height: 1.8;
-        padding: 24px 16px;
-
-        @media @phone {
-            font-size: @base-font-size-mobile;
-            padding: 20px 20px;
-        }
-
-    }
     .description {
-        font-size: 14px; .limitedLines(5; 20px); margin-top: 24px;white-space: pre-line;
+        font-size: 15px; .limitedLines(5; 20px); margin-top: 24px;white-space: pre-line;
 
         &.no-after {
-            font-size: 14px; margin-top: 24px;
+            font-size: 15px; margin-top: 24px;
             height: auto;
 
             &:after {
@@ -690,6 +633,64 @@ body{
                 width: 100%;
                 font-size:14px;
                 padding:9px 6px;
+            }
+        }
+    }
+
+    .facilities{
+        &_wrapper {
+            .facility_title{
+                font-size: @large-font-size;
+                font-weight: bold;
+                display: inline;
+            }
+
+            .more {
+                margin-left: 8px;
+            }
+        }
+
+        @media @phone {
+            display:block;
+            border-bottom:1px solid #ccc;
+            padding-bottom:15px;
+            padding-top:15px;
+        }
+
+        .clearfix(); margin-bottom: 16px;
+        > li {
+            float: left; width: 100% / 4; padding-left: 8px;
+            @media @phone {
+                font-size:@base-font-size-mobile;
+                height:100%;
+                min-height:70px;
+            }
+
+            &:first-child {
+                @media @phone {
+                    padding-left: 8px;
+                }
+
+            }
+
+            &:last-child {
+                border-right:none;
+            }
+
+            strong {
+                display: block; font-size: 24px; font-weight: normal; color: @dark-text-color;
+                @media @phone {
+                    font-size:16px;
+                }
+
+                .unit {
+                    line-height:1;
+                    font-size:14px;
+
+                    @media @phone {
+                        font-size: 9px;
+                    }
+                }
             }
         }
     }
@@ -766,251 +767,6 @@ body{
                         }
                     }
                 }
-            }
-        }
-    }
-
-    .houseTypes {
-        line-height: 1;
-        overflow: hidden;
-        min-height: 246px;
-        a { color: inherit; text-decoration: none; cursor: pointer; }
-
-        @media @phone {
-            background: #333;
-            padding-top: 20px;
-        }
-
-        .propertyDetails_title {
-
-            @media @phone {
-                margin-top: 0;
-                margin-bottom: 0;
-                color: white;
-                margin-left: 20px;
-                font-size: @base-title-font-size-mobile;
-            }
-        }
-
-        .table_wrapper {
-            position: absolute; bottom: 0; color: white; background: fade(black, 60%); padding: 8px 0;
-            left: 0; width: 100%; }
-        ul {
-            > li {
-                position: relative; padding: 0 8px;
-            }
-        }
-
-        table {
-            text-align: left; width: 100%;
-            td {
-                border-left: 1px solid #444; padding: 0 8px;
-                &:first-child { border-left: none; }
-                .name {
-                    display: block;
-                    font-size: @base-font-size-mobile;
-                    margin-bottom: 8px; }
-                .value {
-                    font-size: 16px;
-                }
-            }
-
-        }
-        .text2 {
-            background: #eee; padding: 8px 0;
-
-            @media @phone {
-                padding: 0;
-            }
-
-            td {
-                border-color: #ccc;
-
-                .name {
-                    @media @phone {
-                        color: white;
-                        font-size:@base-font-size-mobile;
-                    }
-                }
-
-                .value {
-                    color:@red;
-
-                    @media @phone {
-                        color: white;
-                    }
-                }
-
-                &.space {
-                    @media @phone {
-                        // border: 0;
-                        padding-left: 8px;
-                        height: 56px;
-                        background: #e60012;
-                        font-size:@base-font-size-mobile;
-                    }
-
-                    strong {
-                        @media @phone {
-                            color: white;
-                            font-size:@base-title-font-size-mobile;
-                        }
-                    }
-                }
-                &.price {
-                    @media @phone {
-                        // border: 0;
-                        padding-left: 8px;
-                        height: 56px;
-                        background: #e60012;
-                        font-size:@base-font-size-mobile;
-                    }
-
-                    strong {
-                        @media @phone {
-                            color: white;
-                            font-size:@base-title-font-size-mobile;
-                        }
-                    }
-                }
-            }
-        }
-        strong {
-            color: @red;
-        }
-        .jcarousel-wrapper {
-            padding-left: 24px; padding-right: 24px; border: none;
-
-            @media @phone {
-                padding-left: 32px;
-                padding-right: 32px;
-            }
-
-            .jcarousel {
-                ul {
-                    li {
-                        width:251px !important;
-                        height:211px !important;
-                        display:inline-block;
-                        @media @phone {
-                            border: 0;
-                        }
-
-                        div {
-                            img {
-                                height:155px !important;
-                                width:100%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .jcarousel-control-prev {
-            left: 0;
-            @media @phone {
-                left: 8px;
-            }
-
-        }
-        .jcarousel-control-next {
-            right: 0;
-
-            @media @phone {
-                right: 8px;
-            }
-
-        }
-    }
-
-    .brief {
-        overflow:hidden;
-        .propertyDetails_title {
-
-            @media @phone {
-                margin-top: 0;
-                margin-bottom: 0;
-                margin-left: 0;
-                font-size: @base-font-size-mobile;
-                height: 52px;
-                line-height: 52px;
-                padding-left: 12px;
-                background: #f4f4f4;
-                border-bottom: 1px solid #c5c5c5;
-            }
-        }
-
-        .table { width: 100%;
-                 &_wrapper {
-                     background: #f4f4f4; padding: 0 16px;
-                     @media @phone {
-                         padding: 0 0 0 20px;
-                     }
-                 }
-                 tr { border-top: 1px solid #c5c5c5;
-                      &:first-child { border-top: none; }
-                      td {
-                          @media @phone {
-                              font-size: @base-font-size-mobile;
-                          }
-
-                          .hint {
-                              position:relative;
-                              padding: 16px 0;
-
-                              &:after {
-                                  content: ' ';
-                                  color: #c5c5c5;
-                                  display: block;
-                                  position: absolute;
-                                  width: 0;
-                                  @height: 70%;
-                                  height: @height;
-                                  border-left: 1px solid;
-                                  top: (100% - @height) /2;
-                                  right: 24px;
-
-                                  @media @phone {
-                                      display: none;
-                                  }
-                              }
-                          }
-
-                          .value {
-                              padding: 16px 0;
-                          }
-                      }
-                    }
-               }
-    }
-
-    .trend {
-        overflow:hidden;
-        .propertyDetails_title {
-            @media @phone {
-                margin-top: 20px;
-                margin-left: 12px;
-                margin-bottom: 12px;
-                font-size: @base-font-size-mobile;
-            }
-        }
-        .historical_price_description {
-            margin-bottom: 24px;
-            @media @phone {
-                margin: 0 12px 12px 12px;
-
-                font-size: @base-font-size-mobile;
-            }
-        }
-
-        canvas {
-            width: 800px;
-            height: 400px;
-
-            @media @phone {
-                width: 100%;
-                height: 200px;
-                padding: 0 12px 0 12px;
             }
         }
     }
@@ -1158,165 +914,7 @@ body{
 
         }
     }
-    .brochure {
-        overflow:hidden;
-        .propertyDetails_title {
-            @media @phone {
-                margin-top: 20px;
-                margin-left: 12px;
-                margin-bottom: 12px;
-                font-size: @base-font-size-mobile;
-            }
-        }
 
-        &_wrapper {
-            position: relative;
-        }
-
-        /** Carousel **/
-
-        .brochures {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-
-            a {
-                cursor: pointer;
-            }
-
-            img {
-                width: 800px;
-                display: block;
-                margin: 0 auto;
-
-                @media @phone {
-                    //TODO:should align to brochures width
-                    max-width: 320px;
-                }
-            }
-        }
-
-        .brochures ul {
-            width: 20000em;
-            position: relative;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .brochures li {
-            float: left;
-        }
-
-        /** Carousel Controls **/
-
-        .brochures-control-prev,
-        .brochures-control-next {
-            position: absolute;
-            top: 50%;
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            background: #4E443C;
-            color: #fff;
-            text-decoration: none;
-            text-shadow: 0 0 1px #000;
-            font: 24px/27px Arial, sans-serif;
-            -webkit-border-radius: 30px;
-            -moz-border-radius: 30px;
-            border-radius: 30px;
-            -webkit-box-shadow: 0 0 2px #999;
-            -moz-box-shadow: 0 0 2px #999;
-            box-shadow: 0 0 2px #999;
-        }
-
-        .brochures-control-prev {
-            left: 0;
-            margin-left: 5%;
-        }
-
-        .brochures-control-next {
-            right: 0;
-            margin-right: 5%;
-        }
-
-        .brochures-control-prev:hover span,
-        .brochures-control-next:hover span {
-            display: block;
-        }
-
-        .brochures-control-prev.inactive,
-        .brochures-control-next.inactive {
-            opacity: .5;
-            cursor: default;
-        }
-
-        .leftPressArea {
-            position:absolute;
-            height:100%;
-            width:20%;
-            z-index:2;
-            box-shadow:none;
-            background:transparent;
-            cursor:pointer;
-            border-radius:0;
-            left:0;
-            top:0;
-        }
-
-        .rightPressArea {
-
-            position:absolute;
-            height:100%;
-            width:20%;
-            z-index:2;
-            box-shadow:none;
-            background:transparent;
-            cursor:pointer;
-            border-radius:0;
-            right:0;
-            top:0;
-        }
-
-        .guide{
-            padding-top: 10%;
-            position: relative;
-            background-color:@brochure-guide-color ;
-            &_text{
-                z-index:3;
-                position: absolute;
-                left:0;
-                right: 0;
-                max-width: 100%;
-                font-size: 25px;
-                text-align: center;
-                a {
-                    color: @red ;
-                    text-decoration: none;
-                    font-weight: bold;
-                }
-            }
-
-
-        }
-
-        .brochures_entry{
-            position: relative;
-            min-height:100px;
-
-            &_wrapper{
-                width: 100%;
-                position: absolute;
-                text-align: center;
-                top: 20px;
-                a {
-                    font-size: 20px;
-                    padding: 6px 24px;
-                }
-            }
-
-        }
-    }
     .nearby {
         > ul { .clearfix(); margin: 0 -10px 56px;
                > li {

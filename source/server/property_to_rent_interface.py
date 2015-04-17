@@ -88,13 +88,13 @@ def rent_ticket_get(rent_ticket_id, user):
     # if rent_ticket.get('zipcode_index') and rent_ticket.get('country').get('slug') == 'GB':
     #     report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket.get('zipcode_index')))
 
-    title = rent_ticket.get('title', '')
+    title = rent_ticket.get('title', _('出租房详情'))
     if not isinstance(title, six.string_types):
         title = six.text_type(title)
-    if rent_ticket["property"].get('city') and rent_ticket["property"].get('city').get('value'):
-        title += '_' + _(rent_ticket["property"].get('city').get('value'))
-    if rent_ticket["property"].get('country') and rent_ticket["property"].get('country').get('value'):
-        title += '_' + _(rent_ticket["property"].get('country').get('value'))
+    if rent_ticket["property"].get('city', {}) and rent_ticket["property"].get('city', {}).get('value', ''):
+        title += '_' + _(rent_ticket["property"].get('city', {}).get('value', ''))
+    if rent_ticket["property"].get('country', {}) and rent_ticket["property"].get('country', {}).get('value', ''):
+        title += '_' + _(rent_ticket["property"].get('country', {}).get('value', ''))
     description = rent_ticket.get('description', _('详情'))
 
     keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)

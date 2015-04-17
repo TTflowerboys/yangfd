@@ -3,9 +3,9 @@
         <a href="/property-to-rent/{=rent.id=}">
             <div class="imagePart">
                     {_if(rent.property.reality_images && rent.property.reality_images.length) {_}
-                        <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+                        <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);" width="320" height="213"/>
                     {_ }else { _}
-                        <img class="withPlaceholder"/>
+                        <img class="withPlaceholder" width="320" height="213"/>
                     {_ } _}
 
                 <div class="labels">

@@ -72,18 +72,18 @@
 <div class="propertyDetails">
     <div class="breadcrumb">
         % if rent['property'].get('country') and rent['property'].get('country').get('value'):
-        <a class="parent" href="/property_list?country={{rent['property'].get('country',{}).get('id')}}" target="_blank">{{rent['property'].get('country',{}).get('value','')}}</a> /
+        <a class="parent" href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('id')}}" target="_blank">{{rent['property'].get('country',{}).get('value','')}}</a> /
         % end
         % if rent['property'].get('city') and rent['property'].get('city').get('value'):
-        <a class="parent" href="/property_list?country={{rent['property'].get('country',{}).get('id')}}&city={{rent['property'].get('city',{}).get('id')}}" target="_blank">{{rent['property'].get('city',{}).get('value','')}}</a> /
+        <a class="parent" href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('id')}}&city={{rent['property'].get('city',{}).get('id')}}" target="_blank">{{rent['property'].get('city',{}).get('value','')}}</a> /
         % end
         % if rent['property'].get('property_type') and rent['property'].get('property_type').get('value'):
-        <a class="parent" href="/property_list?country={{rent['property'].get('country',{}).get('id')}}&city={{rent['property'].get('city',{}).get('id')}}&property_type={{rent['property'].get('property_type').get('id')}}" target="_blank">{{rent['property'].get('property_type',{}).get('value','')}}</a> /
+        <a class="parent" href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('id')}}&city={{rent['property'].get('city',{}).get('id')}}&property_type={{rent['property'].get('property_type').get('id')}}" target="_blank">{{rent['property'].get('property_type',{}).get('value','')}}</a> /
         %end
-        <span class="current">{{rent['property'].get('name','')}}</span>
+        <span class="current">{{rent.get('title','')}}</span>
     </div>
     <div class="content">
-        <div class="pictures" data-tabs>
+        <div class="pictures" >
             <div class="labels">
                 %if rent['property'].get('property_type') and rent['property'].get('property_type').get('value'):
                 <label class="type" for="">{{rent['property'].get('property_type').get('value')}}</label>
@@ -95,7 +95,7 @@
                     % if rent['property'].get('reality_images'):
                     <div class="rslides_wrapper">
                         <ul class="rslides" data-init="false">
-                            % for image in rent['property'].get(name):
+                            % for image in rent['property'].get('reality_images'):
                             <li>
                                 <div class="img" data-style="background:url('<url>') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');" data-url="{{!fetch_image(image, property_id=rent['property'].get('id'))}}">
                                 </div>
@@ -110,134 +110,131 @@
                     % end
                 </div>
             </div>
+        </div>
 
-            <div id="propertyDetails_description" class="meta scrollto">
-                <div class="seperator"></div>
-                <h3 class="propertyDetails_title">{{_('房产详情')}}</h3>
-                <ul class="numbers">
-                    <li>
-                        {{_('房屋面积')}}
-                        % if rent['property'].get('space'):
-                        <strong>
-                            {{float("{0:.2f}".format(float(rent['property'].get('space',{}).get('value',0))))}}
-                            <span class="unit">
-                                {{!format_unit(rent['property'].get('space',{}).get('unit',''))}}
-                            </span>
-                        </strong>
-                        % end
-                    </li>
-                    % if rent['property'].get('bedroom_count','') :
-                    <li>
-                        {{_('卧室')}}
-                        <strong>{{ rent['property'].get('bedroom_count','') }}</strong>
-                    </li>
+        <div id="propertyDetails_description" class="meta scrollto">
+            <ul class="numbers">
+                <li>
+                    {{_('房屋面积')}}
+                    % if rent['property'].get('space'):
+                    <strong>
+                        {{float("{0:.2f}".format(float(rent['property'].get('space',{}).get('value',0))))}}
+                        <span class="unit">
+                            {{!format_unit(rent['property'].get('space',{}).get('unit',''))}}
+                        </span>
+                    </strong>
                     % end
+                </li>
+                % if rent['property'].get('bedroom_count','') :
+                <li>
+                    {{_('卧室')}}
+                    <strong>{{ rent['property'].get('bedroom_count','') }}</strong>
+                </li>
+                % end
 
-                    % if rent['property'].get('bathroom_count') :
-                    <li>
-                        {{_('卫生间')}}
-                        <strong>{{ rent['property'].get('bathroom_count') }}</strong>
-                    </li>
-                    % end
+                % if rent['property'].get('bathroom_count') :
+                <li>
+                    {{_('卫生间')}}
+                    <strong>{{ rent['property'].get('bathroom_count') }}</strong>
+                </li>
+                % end
 
-                    % if rent['property'].get('living_room_count',''):
-                    <li>
-                        {{_('客厅')}}
-                        <strong>{{ rent['property'].get('living_room_count','') }}</strong>
-                    </li>
-                    % end
+                % if rent['property'].get('living_room_count',''):
+                <li>
+                    {{_('客厅')}}
+                    <strong>{{ rent['property'].get('living_room_count','') }}</strong>
+                </li>
+                % end
+            </ul>
+            <div class="seperator"></div>
+            <ul class="numbersWithoutSeperator">
+                % if 'street' in rent['property']:
+                <li>
+                    {{_('街区')}}
+                    <strong>
+                        {{rent['property'].get('street','')}}
+                    </strong>
 
-                    % if rent['property'].get('kitchen_count','') :
-                    <li>
-                        {{_('厨房')}}
-                        <strong>{{ rent['property'].get('kitchen_count','') }}</strong>
-                    </li>
-                    % end
-                </ul>
-                <div class="seperator"></div>
-                <table class="other">
-                    <colgroup>
-                        <col class="col-name">
-                        <col>
-                        <col class="col-name">
-                        <col>
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <td class="name">
-                                <i>
-                                    <img src="/static/images/property_details/icon-house.png" alt=""/>
-                                </i>
-                                <label>
-                                    {{_('产权类型')}}
-                                </label>
-                            </td>
-                            <td class="value">
-                                {{rent['property'].get('equity_type',{}).get('value','') }}
-                            </td>
-                        </tr>
-                        % if 'address' in rent['property']:
-                        <tr>
-                            <td class="name">
-                                <i>
-                                    <img src="/static/images/property_details/icon-location.png" alt=""/>
-                                </i>
-                                <label>
-                                    {{_('产权地址')}}
-                                </label>
-                            </td>
-                            <td class="value">
-                                {{rent['property'].get('address')}}
-                            </td>
-                        </tr>
-                        % end
-                        % if 'street' in rent['property']:
-                        <tr>
-                            <td class="name">
-                                <i>
-                                    <img src="/static/images/property_details/icon-map.png" alt=""/>
-                                </i>
-                                <label>
-                                    {{_('街区')}}
-                                </label>
-                            </td>
-                            <td class="value">
-                                {{rent['property'].get('street','')}}
-                            </td>
-                        </tr>
-                        % end
-                    </tbody>
-                </table>
+                </li>
+                % end
+                % if 'community' in rent['property']:
+                <li>
+                    {{_('小区')}}
+                    <strong>{{ rent['property'].get('community','') }}</strong>
+                </li>
+                % end
 
-                %if rent.get('description'):
-                <div class="description" data-ui="description">
-                    {{!rent.get('description')}}
-                </div>
-                <div class="clearfix expendDescription_wrapper">
-                    <button data-fn="expendDescription" class="ghostButton red" >{{_('展开')}}</button>
-                </div>
-                %end
+                % if 'floor' in rent['property']:
+                <li>
+                    {{_('楼层')}}
+                    <strong>{{ rent['property'].get('floor','') }}</strong>
+                </li>
+                % end
+
+                % if 'house_name' in rent['property']:
+                <li>
+                    {{_('房间名')}}
+                    <strong>{{ rent['property'].get('house_name','') }}</strong>
+                </li>
+                % end
+            </ul>
+
+            %if rent.get('description'):
+            <div class="seperator"></div>
+            <div class="description" data-ui="description">
+                {{!rent.get('description')}}
             </div>
-
-            %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country') and rent['property'].get('country').get('slug') in ['US', 'GB']:
-            <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
-                <div class="seperator"></div>
-                <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
-                <div class="staticMap">
-                    <img id="mapImg" class="mapImg" alt=""/>
-                    <div id="showMap" class="button red">
-                        <label for="">
-                            {{_('查看房产周边设施')}}
-                        </label>
-                        <img class="icons" alt="" src="/static/images/property_details/icon-static-map-category.png"/>
-                    </div>
-                </div>
-                <!--@@include partials/bing_map.html  -->
-                <!--@@include partials/bing_map_icons.html -->
-                <img src="/static/images/common/ajax-loader.gif" id="mapLoadIndicator" class="mapLoadIndicator" style="display:none;"/>
+            <div class="clearfix expendDescription_wrapper">
+                <button data-fn="expendDescription" class="ghostButton red" >{{_('展开')}}</button>
             </div>
             %end
         </div>
+
+        % if 'indoor_facility' in rent['property'] or 'community_facility' in rent['property']:
+        <div class="seperator"></div>
+        <div class="facilities_section scrollto">
+            % if rent['property'].get('indoor_facility'):
+            <div class="facilities_wrapper">
+                <h3 class="facility_title">{{_('房间设施')}}</h3>
+                <a class="more">{{_('更多')}}</a>
+                <ul class="facilities">
+                    % for facility in rent['property'].get('indoor_facility'):
+                    %if facility.get('value'):
+                    <li>
+                        <div class="image_wrapper">
+                            <img src="/static/images/intention/icon/school_nearby_house-red.png" alt="">
+                        </div>
+                        <div class="text">
+                            {{facility.get('value')}}
+                        </div>
+                    </li>
+                    %end
+                    % end
+                </ul>
+            </div>
+            % end
+        </div>
+        % end
+
+        %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country') and rent['property'].get('country').get('slug') in ['US', 'GB']:
+        <div class="seperator"></div>
+        <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
+            <div class="seperator"></div>
+            <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
+            <div class="staticMap">
+                <img id="mapImg" class="mapImg" alt=""/>
+                <div id="showMap" class="button red">
+                    <label for="">
+                        {{_('查看房产周边设施')}}
+                    </label>
+                    <img class="icons" alt="" src="/static/images/property_details/icon-static-map-category.png"/>
+                </div>
+            </div>
+            <!--@@include partials/bing_map.html  -->
+            <!--@@include partials/bing_map_icons.html -->
+            <img src="/static/images/common/ajax-loader.gif" id="mapLoadIndicator" class="mapLoadIndicator" style="display:none;"/>
+        </div>
+        %end
     </div>
 
         <div class="aside">
@@ -296,6 +293,8 @@
             </div>
         </div>
 
+</div>
+
         <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
             <img src="" alt="二维码" width="220" height="220"/>
             <p>{{_('打开微信，使用 “扫一扫” 即可将网页分享到朋友圈')}}</p>
@@ -339,14 +338,13 @@
             initSlidesImages($('.pictures [data-tab-name]').first().find('.rslides'))
         </script>
 
-        <!--build:js /static/scripts/property.html.js-->
+        <!--build:js /static/scripts/property-to-rent.html.js-->
         <script src="/static/vendors/jquery.easing.min.js"></script>
         <script src="/static/vendors/jquery.stickynavbar/jquery.stickyNavbar.modified.js"></script>
         <script src="/static/vendors/iOSList/jquery.ioslist.js"></script>
         <script src="/static/scripts/property_gallery.js"></script>
         <script src="/static/scripts/show_historical_price.js"></script>
         <script src="/static/scripts/bing_map.js"></script>
-        <script src="/static/scripts/property_map.js"></script>
         <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
         <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
         <script src="/static/vendors/jquery.dotdotdot.js"></script>
@@ -375,8 +373,48 @@
                     ga('send', 'event', 'property_detail', 'click', 'extend-description')
                 });
 
+                //Map Part
+                %if rent['property'].get('latitude') and rent['property'].get('longitude'):
+                if ($('.maps_wrapper')) {
+                    var location = {latitude:{{rent['property'].get('latitude')}}, longitude:{{rent['property'].get('longitude')}}}
+                    window.setupMap(location, function () {
+
+                        $('#mapImg, #showMap').click(function (e) {
+                            if (!$('#mapLoadIndicator').is(':visible')) {
+                                window.showMapIndicator()
+                                var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></' + 'script>'
+                                window.onBingMapScriptLoad = function () {
+                                    //showMap
+                                    $('.staticMap').hide()
+                                    $('.maps').show()
+                                    //setUp Map Tabs
+                                    $('.maps').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName){
+                                        $('[data-tab-name=' + tabName + ']').show()
+                                    })
+
+                                    //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
+                                    window.showMapIndicator()
+                                        window.showTransitMap(location, null, true, 14, '{{rent['property'].get('country').get('slug')}}', function () {
+                                        window.hideMapIndicator()
+                                    })
+                                    window.showMapIndicator()
+                                        window.showSchoolMap(location, null, true, 14, '{{rent['property'].get('country').get('slug')}}', function () {
+                                        window.hideMapIndicator()
+                                    })
+                                    window.showMapIndicator()
+                                        window.showFacilityMap(location, null, true, 14, '{{rent['property'].get('country').get('slug')}}', function () {
+                                        window.hideMapIndicator()
+                                    })
+                                    window.hideMapIndicator()
+                                }
+                                $('body').append(scriptString)
+                            }
+                        })
+                    })
+                }
+                %end
+            })
         </script>
-        <!-- @endif -->
 
         <!--@@close-->
 %end
