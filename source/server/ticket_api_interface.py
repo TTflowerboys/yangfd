@@ -720,7 +720,7 @@ def rent_ticket_search(user, params):
 
     if "rent_budget" in params:
         budget = f_app.util.parse_budget(params.pop("rent_budget"))
-        assert len(budget) == 3 and budget[2] in f_app.common.currency, abort(40000, logger.warning("Invalid price", exc_info=False))
+        assert len(budget) == 3 and budget[2] in f_app.common.currency, abort(40000, logger.warning("Invalid rent_budget", exc_info=False))
         price_filter = []
         for currency in f_app.common.currency:
             condition = {"price.unit": currency}
