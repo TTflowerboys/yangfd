@@ -106,8 +106,8 @@
             form.rentPrice = ticket.price.value;
             form.containBill = ticket.billCovered;
             form.needSetPeriod = ticket.rentPeriod? YES: NO;
-            form.startDate = ticket.rentAvailableTime;
-            form.period = ticket.rentPeriod;
+            form.rentAvailableTime = ticket.rentAvailableTime;
+            form.rentPeriod = ticket.rentPeriod;
 
             [form setAllDepositTypes:[task.result objectAtIndex:0]];
             [form setAllRentPeriods:[task.result objectAtIndex:1]];

@@ -45,7 +45,7 @@
         [dic setValue:[NSNumber numberWithLong:[self.rentAvailableTime timeIntervalSince1970]] forKey:@"rent_available_time"];
     }
     if (self.rentPeriod) {
-        [dic setValue:self.rentPeriod forKey:@"rent_period"];
+        [dic setValue:self.rentPeriod.identifier forKey:@"rent_period"];
     }
 
     if (!self.title) {

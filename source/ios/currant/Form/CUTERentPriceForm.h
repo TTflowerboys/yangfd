@@ -17,8 +17,8 @@
 @property (nonatomic) float rentPrice;
 @property (nonatomic) BOOL containBill;
 @property (nonatomic) BOOL needSetPeriod;
-@property (strong, nonatomic) NSDate *startDate;
-@property (strong, nonatomic) CUTEEnum *period;
+@property (strong, nonatomic) NSDate *rentAvailableTime;
+@property (strong, nonatomic) CUTEEnum *rentPeriod;
 
 
 - (NSString *)currencySymbol;

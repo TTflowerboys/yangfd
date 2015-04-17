@@ -48,8 +48,8 @@
     ticket.price = [CUTECurrency currencyWithValue:form.rentPrice unit:form.currency];
     ticket.billCovered = form.containBill;
     if (form.needSetPeriod) {
-        ticket.rentAvailableTime = [form startDate];
-        ticket.rentPeriod = [form period];
+        ticket.rentAvailableTime = [form rentAvailableTime];
+        ticket.rentPeriod = [form rentPeriod];
     }
 }
 

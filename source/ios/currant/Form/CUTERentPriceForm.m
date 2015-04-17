@@ -11,6 +11,7 @@
 #import "CUTEFormRentPriceTextFieldCell.h"
 
 @interface CUTERentPriceForm () {
+
     NSArray *_allDepositTypes;
 
     NSArray *_allRentPeriods;
@@ -30,8 +31,8 @@
                                @{FXFormFieldKey: @"needSetPeriod", FXFormFieldTitle:STR(@"设置租期"), FXFormFieldHeader: STR(@"租期"), FXFormFieldAction: @"setRentPeriod", FXFormFieldDefaultValue: @(_needSetPeriod)},
                                ]];
     if (self.needSetPeriod) {
-        [array addObject:@{FXFormFieldKey: @"startDate", FXFormFieldTitle:STR(@"开始日期"), FXFormFieldDefaultValue: _startDate? : [NSDate new]}];
-        [array addObject:@{FXFormFieldKey: @"period", FXFormFieldTitle: @"租期", FXFormFieldOptions: _allRentPeriods, FXFormFieldDefaultValue: _period? : [_allRentPeriods firstObject]}];
+        [array addObject:@{FXFormFieldKey: @"rentAvailableTime", FXFormFieldTitle:STR(@"开始日期"), FXFormFieldDefaultValue: _rentAvailableTime? : [NSDate new]}];
+        [array addObject:@{FXFormFieldKey: @"rentPeriod", FXFormFieldTitle: @"租期", FXFormFieldOptions: _allRentPeriods, FXFormFieldDefaultValue: _rentPeriod? : [_allRentPeriods firstObject]}];
     }
     return array;
 }
