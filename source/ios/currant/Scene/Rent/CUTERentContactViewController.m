@@ -12,6 +12,11 @@
 #import "CUTEAPIManager.h"
 #import "CUTEEnum.h"
 #import <WXApi.h>
+#import "CUTEUser.h"
+#import "CUTERentContactForm.h"
+#import <Sequencer.h>
+#import "CUTEDataManager.h"
+#import "SVProgressHUD+CUTEAPI.h"
 
 @interface CUTERentContactViewController () {
     NSString *_verificationToken;
@@ -61,10 +66,67 @@
     }];
 }
 
+- (BFTask *)userRegister {
+
+    CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
+    CUTEUser *user = [CUTEUser new];
+    user.nickname = form.name;
+    user.email = form.email;
+    user.country = form.country;
+    user.phone = form.phone;
+    return [[CUTEAPIManager sharedInstance] POST:@"/api/1/user/mobile-register" parameters:[user toParams] resultClass:[CUTEUser class]];
+
+}
+
+- (BFTask *)bindTicket {
+    return [[CUTEAPIManager sharedInstance] POST:@"" parameters:nil resultClass:nil];
+}
 - (void)onRightButtonPressed:(id)sender {
+    [SVProgressHUD show];
 
-//     FXFormField *propertyTypeField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-
+    CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
+    CUTEUser *user = [CUTEUser new];
+    user.nickname = form.name;
+    user.email = form.email;
+    user.country = form.country;
+    user.phone = form.phone;
+    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    Sequencer *sequencer = [Sequencer new];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/mobile-register" parameters:[user toParams] resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [SVProgressHUD showErrorWithError:task.error];
+                return nil;
+            } else {
+                [[CUTEDataManager sharedInstance] setUser:task.result];
+                completion(task.result);
+                return nil;
+            }
+        }];
+    }];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:nil resultClass:nil] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [SVProgressHUD showErrorWithError:task.error];
+                return nil;
+            } else {
+                completion(task.result);
+                return nil;
+            }
+        }];
+    }];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket",ticket.identifier) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [SVProgressHUD showErrorWithError:task.error];
+                return nil;
+            } else {
+                [SVProgressHUD dismiss];
+                return nil;
+            }
+        }];
+    }];
+    [sequencer run];
 }
 
 @end

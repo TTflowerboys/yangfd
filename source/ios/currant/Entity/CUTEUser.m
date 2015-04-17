@@ -14,14 +14,23 @@
 {
     return @{@"identifier": @"id",
              @"nickname": @"nickname",
+             @"countryCode":@"country_code",
+             @"country":@"country",
              @"phone": @"phone",
              @"email": @"email",
              };
 }
 
++ (NSValueTransformer *)countryJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+}
+
+
 - (NSDictionary *)toParams {
     return @{
              @"nickname":self.nickname,
+             @"country":self.country.identifier,
              @"phone":self.phone,
              @"email":self.email,
              };

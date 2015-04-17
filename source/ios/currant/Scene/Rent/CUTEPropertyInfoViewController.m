@@ -143,10 +143,10 @@
 - (BOOL)validate {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
     form.scenario = @"submit";
-    if (![form validate]) {
-        [self showErrors];
-        return NO;
-    }
+//    if (![form validate]) {
+//        [self showErrors];
+//        return NO;
+//    }
     if (!_editAreaViewController) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑面积")];
         return NO;
@@ -194,6 +194,7 @@
                     [SVProgressHUD showErrorWithError:task.error];
                     return nil;
                 } else {
+                    property.identifier = task.result;
                     completion(task.result);
                     return nil;
                 }
@@ -206,6 +207,7 @@
                     [SVProgressHUD showErrorWithError:task.error];
                     return nil;
                 } else {
+                    ticket.identifier = task.result;
                     completion(task.result);
                     return nil;
                 }

@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "CUTETicket.h"
+#import "CUTEUser.h"
 
 @interface CUTEDataManager : NSObject
 
 + (instancetype)sharedInstance;
+
+@property (strong, nonatomic) CUTEUser *user;
 
 - (BOOL)isUserLoggedIn;
 
