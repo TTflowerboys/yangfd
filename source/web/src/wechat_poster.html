@@ -11,15 +11,11 @@
         <!--build:css(dist) /static/styles/wechat_poster.html.css-->
         <link rel="stylesheet" href="/static/vendors/swiper/swiper.min.css">
         <link rel="stylesheet" href="/static/styles/phone/wechatPoster.css">
+
+
         <!--endbuild-->
-
-
-
-        <link rel="stylesheet" href="http://c.lagou.com/css/companyslide/wyy-base-pc.css?v=1.5.5.7_034455">
-        <link rel="stylesheet" href="http://c.lagou.com/css/companyslide/wyy-animation.css?v=1.5.5.7_034455">
-        <style>
-
-        </style>
+        <!--<link rel="stylesheet" href="http://c.lagou.com/css/companyslide/wyy-base-pc.css?v=1.5.5.7_034455">-->
+        <!--<link rel="stylesheet" href="http://c.lagou.com/css/companyslide/wyy-animation.css?v=1.5.5.7_034455">-->
     </head>
     <body marginwidth="0" marginheight="0" class="loading">
         <div class="loadingCover">
@@ -39,7 +35,6 @@
 
                 }
                 var config = {}
-
                 extendConfig()
                 var _ = this
                 var canvas = document.getElementById(config.canvasId)
@@ -50,7 +45,6 @@
                 this.scale = window.devicePixelRatio
                 this.outerWidth = config.outerWidth
                 this.innerWidth = config.innerWidth
-
                 this.center = [this.outerWidth / 2 * this.scale, this.outerWidth / 2 * this.scale]
                 canvas.style.width = this.outerWidth + 'px'
                 canvas.style.height = this.outerWidth + 'px'
@@ -157,20 +151,17 @@
             process.moveTo(80, 10000, function(){
                 process.moveTo(90, 5000)
             })
-
-
-
         </script>
-        <div class="swiper-container" style="background-image: url(http://c.lagou.com/images/companyslide/company_default/company_default03.jpg);">
+        <div class="swiper-container" style="">
             <div class="swiper-wrapper" style="">
                 <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="index-slogan lagou hide">
+                    <div class="index-slogan animate hide">
                         <p>
                             我是<b>洋房东</b><br>
                             <span>我在拉勾网等你</span>
                         </p>
                     </div>
-                    <div class="index-lagou-logo lagou hide">
+                    <div class="lagou hide">
                         <img id="test-pic" src="Cgo8PFUJI4uAHyZ9AABTnTJTOnk340.png">
                     </div>
                     <div class="index-arrow-down"></div>
@@ -243,7 +234,7 @@
                                 <a href="javascript:;"> 查看更多&gt;</a>
                             </div>
                         </div>
-                        <a class="lagou-btn send-resume" href="javascript:;"> 投递简历 </a>
+                        <a class="btn send-resume" href="javascript:;"> 投递简历 </a>
                     </div>
                     <div class="arrow-down"></div>
                 </div>
@@ -269,7 +260,7 @@
                                 <a href="javascript:;"> 查看更多&gt;</a>
                             </div>
                         </div>
-                        <a class="lagou-btn send-resume" href="javascript:;"> 投递简历 </a>
+                        <a class="btn send-resume" href="javascript:;"> 投递简历 </a>
                     </div>
                     <div class="arrow-down"></div>
                 </div>
@@ -294,7 +285,7 @@
                                 <a href="javascript:;"> 查看更多&gt;</a>
                             </div>
                         </div>
-                        <a class="lagou-btn send-resume" href="javascript:;"> 投递简历 </a>
+                        <a class="btn send-resume" href="javascript:;"> 投递简历 </a>
                     </div>
                     <div class="arrow-down"></div>
                 </div>
@@ -316,7 +307,7 @@
                                 1、1年以上销售或客户服务工作经验2、商端地产项目销售、大客户销售、奢侈品（珠宝、名车、商端会所、服饰&amp;配饰等）销售、海外产品销售经验者优先；3、<a href="javascript:;"> 查看更多&gt;</a>
                             </div>
                         </div>
-                        <a class="lagou-btn send-resume" href="javascript:;"> 投递简历 </a>
+                        <a class="btn send-resume" href="javascript:;"> 投递简历 </a>
                     </div>
                     <div class="arrow-down"></div>
                 </div>
@@ -331,7 +322,7 @@
                         </div>
                     </div>
                     <div class="white-block pd10" style="top: 78.796875px; height: 237.203125px;">
-                        <a class="lagou-btn  lagou hide" id="share"> 推荐给朋友们看看 </a>
+                        <a class="btn  lagou hide" id="share"> 推荐给朋友们看看 </a>
                         <a href="javascript:;">
                             <p class="copyright  lagou hide">
                                 该页面由<span>拉勾网</span>提供并生成
@@ -344,13 +335,10 @@
             </div>
         </div>
 
-
         <!--build:js /static/scripts/wechat_poster.html.js-->
         <script type="text/javascript" src="/static/vendors/jquery/jquery-2.1.0.min.js"></script>
         <script type="text/javascript" src="/static/vendors/swiper/swiper.jquery.min.js"></script>
         <!--endbuild-->
-
-
 
         <script>
             var mySwiper = new Swiper('.swiper-container', {
@@ -364,33 +352,33 @@
                     slideShadows : true
                 },*/
                 onInit: function (swiper, direction) {
-                    var index = swiper.activeIndex;
-                    var height = $(window).innerHeight();
-                    var obj = $(".swiper-slide");
-                    obj.not(".swiper-slide-visible").find(".lagou").addClass('hide');
-                    obj.eq(index).find(".lagou").removeClass("hide");
+                    var index = swiper.activeIndex
+                    var height = $(window).innerHeight()
+                    var obj = $(".swiper-slide")
+                    obj.not(".swiper-slide-visible").find(".lagou").addClass('hide')
+//                    obj.eq(index).find(".lagou").removeClass("hide")
                 },
                 onSlideChangeEnd: function (swiper, direction) {
-                    var index = swiper.activeIndex;
-                    var obj = $(".swiper-slide");
-                    //companyHeightReset();
-                    obj.eq(index).siblings().find(".lagou").addClass('hide');
-                    obj.eq(index).find(".lagou").removeClass("hide");
+                    var index = swiper.activeIndex
+                    var obj = $(".swiper-slide")
+                    //companyHeightReset()
+                    obj.eq(index).siblings().find(".lagou").addClass('hide')
+                    obj.eq(index).find(".lagou").removeClass("hide")
                 }
             });
             $('.loadingCover').css({
                 height: $(window).height()
             })
             $(function() {
-                companyHeightReset(); //company页的宽高
-                shareDiv();
+                companyHeightReset() //company页的宽高
+                shareDiv()
             });
             //company页的宽高
             function companyHeightReset() {
                 if($("#company-tri").length>0){
-                    var $obj = $("#company-tri");
-                    var objTop = $obj.position().top + $obj.height();
-                    var parentHeight = $obj.parent().height() - objTop;
+                    var $obj = $("#company-tri")
+                    var objTop = $obj.position().top + $obj.height()
+                    var parentHeight = $obj.parent().height() - objTop
                     $obj.next().css({
                         'top': objTop -2+ "px",
                         'height': parentHeight + "px"
@@ -399,8 +387,8 @@
 
                 if($(".job-tri").length>0){
                     $(".job-tri").each(function(){
-                        var objTop = $(this).position().top + $(this).height();
-                        var parentHeight = $(this).parent().height() - objTop;
+                        var objTop = $(this).position().top + $(this).height()
+                        var parentHeight = $(this).parent().height() - objTop
                         $(this).next().css({
                             'top': objTop -2+ "px",
                             'height': parentHeight + "px"
@@ -410,51 +398,39 @@
 
                 if($(".lagou-tri").length>0){
                     $(".lagou-tri").each(function(){
-                        var objTop = $(this).position().top-3;
-                        var parentHeight = $(this).parent().height() - objTop -$(this).height();
+                        var objTop = $(this).position().top-3
+                        var parentHeight = $(this).parent().height() - objTop -$(this).height()
                         $(this).next().css({
                             'top': objTop -2+ "px",
                             'height': parentHeight + "px"
-                        });
-                    });
-                }
-                if($(".intro-tri").length>0){
-                    $(".intro-tri").each(function(){
-                        var objTop = $(this).position().top-3;
-                        var parentHeight = $(this).parent().height() - objTop -$(this).height();
-                        $(this).next().css({
-                            'top': objTop -2 +"px",
-                            'height': parentHeight + "px"
-                        });
-                    });
+                        })
+                    })
                 }
             }
 
 
             function shareDiv(){
                 $("#share").on('click',function() {
-                    $(".share-to-moments").fadeIn();
-                });
+                    $(".share-to-moments").fadeIn()
+                })
                 $(".share-to-moments").on('click',function() {
-                    $(this).hide();
-                });
+                    $(this).hide()
+                })
             }
 
             $(function() {
                 function loadCallback(){
                     $('.loadingCover').fadeOut(400, function(){
                         $('body').removeClass('loading')
+                        $(".swiper-slide").eq(0).find('.lagou').removeClass('hide')
                     })
                 }
                 setTimeout(function(){
                     process.finish(loadCallback)
-                },20000)
+                },3000)
 
-            });
+            })
         </script>
-
-
-
 
     </body>
 </html>

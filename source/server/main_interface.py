@@ -106,11 +106,11 @@ def property_for_sale_publish():
 
 
 @f_get('/wechat-poster')
-@check_ip_and_redirect_domain
-@check_crowdfunding_ready
+@currant_util.check_ip_and_redirect_domain
+@currant_util.check_crowdfunding_ready
 def wechat_poster():
     title = _('微信展示页')
-    return common_template("wechat_poster", title=title)
+    return currant_util.common_template("wechat_poster", title=title)
 
 
 @f_get('/admin')

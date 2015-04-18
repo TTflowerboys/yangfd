@@ -9,9 +9,22 @@ body {
     -webkit-user-select: none;
     user-select: none;
     padding: 0;
-    font-family: 'Open Sans', Tahoma, Arial, 'Source Han Sans CN', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', STHeiti, sans-serif;
+    font-family: Arial,"Hiragino Sans GB","微软雅黑","宋体";
 }
 
+.swiper-container {
+    /*height: 1036px;*/
+    width: 100%;
+}
+.swiper-slide {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.swiper-slide-bg{
+    background-repeat:no-repeat;
+    background-size:100%;
+}
 .loading .loadingCover{
     display: block;
 }
