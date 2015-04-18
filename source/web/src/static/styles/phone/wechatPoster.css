@@ -21,7 +21,6 @@ body {
     user-select: none;
     padding: 0;
     font-family: OpenSans-Light,"HelveticaNeue","Helvetica Neue",Helvetica,Arial,"Liberation Sans",FreeSans,sans-serif;
-
 }
 p{
     margin: 0;
@@ -158,6 +157,14 @@ p{
     background: url("../../images/wechat_poster/up_button.png") no-repeat top center;
     background-size: contain;
 }
+.page{
+    width: 100%;
+    height: 100%;
+}
+.page_1{
+    background: url("../../images/wechat_poster/page_1_bg.jpg") 50% 50%;
+    background-size: cover;
+}
 .topTitleNav p{
     opacity: 0;
     animation: tada2 0.4s linear 0.6s 1;
@@ -210,9 +217,47 @@ p{
     font-weight: bold;
     line-height: 8vh;
 }
-.page_1{
+
+.page_2 p{
+    position: absolute;
+    color: #afc327;
+}
+.page_2 p.line1{
+    width: 100%;
+    height: 7vh;
+    line-height: 7vh;
+    font-size: 5.6vh;
+    top: 10vh;
+}
+.page_2 p.line2{
+    width: 72%;
+    left: 14%;
+    height: 6.16vh;
+    line-height: 6.16vh;
+    top: 22vh;
+    color: #586c4f;
+    font-size: 4.8vh;
+    font-weight: bold;
+}
+.page_2 p.line2:after{
+    position: absolute;
     width: 100%;
     height: 100%;
-    background: url("../../images/wechat_poster/page_1_bg.jpg") 50% 50%;
-    background-size: cover;
+    background: #afc327;
+    transform: skewX(-15deg);
+    left: 0;
+    z-index: -1;
+    content: '';
+}
+.page_2 p.line2 sub{
+    font-size: 3vh;
+    vertical-align:baseline ;
+}
+.page_2 p.line3{
+    width: 100%;
+    height: 3vh;
+    line-height: 3vh;
+    font-size: 2.5vh;
+    top: 33.5vh;
+    font-weight: bold;
 }
