@@ -88,6 +88,9 @@
                 %if rent['property'].get('property_type') and rent['property'].get('property_type').get('value'):
                 <label class="type" for="">{{rent['property'].get('property_type').get('value')}}</label>
                 %end
+                %if rent.get('rent_type') and rent.get('rent_type').get('value'):
+                <label class="rent" for="">{{rent.get('rent_type').get('value')}}</label>
+                %end
             </div>
 
             <div class="big">
@@ -114,17 +117,17 @@
 
         <div id="propertyDetails_description" class="meta scrollto">
             <ul class="numbers">
+                % if rent['property'].get('space'):
                 <li>
                     {{_('房屋面积')}}
-                    % if rent['property'].get('space'):
                     <strong>
                         {{float("{0:.2f}".format(float(rent['property'].get('space',{}).get('value',0))))}}
                         <span class="unit">
                             {{!format_unit(rent['property'].get('space',{}).get('unit',''))}}
                         </span>
                     </strong>
-                    % end
                 </li>
+                % end
                 % if rent['property'].get('bedroom_count','') :
                 <li>
                     {{_('卧室')}}
@@ -204,9 +207,30 @@
                         <div class="image_wrapper">
                             <img src="/static/images/intention/icon/school_nearby_house-red.png" alt="">
                         </div>
-                        <div class="text">
+                        <strong>
                             {{facility.get('value')}}
+                        </strong>
+                    </li>
+                    %end
+                    % end
+                </ul>
+            </div>
+            % end
+
+            % if rent['property'].get('community_facility'):
+            <div class="facilities_wrapper">
+                <h3 class="facility_title">{{_('小区设施')}}</h3>
+                <a class="more">{{_('更多')}}</a>
+                <ul class="facilities">
+                    % for facility in rent['property'].get('community_facility'):
+                    %if facility.get('value'):
+                    <li>
+                        <div class="image_wrapper">
+                            <img src="/static/images/intention/icon/school_nearby_house-red.png" alt="">
                         </div>
+                        <strong>
+                            {{facility.get('value')}}
+                        </strong>
                     </li>
                     %end
                     % end
@@ -219,8 +243,6 @@
         %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country') and rent['property'].get('country').get('slug') in ['US', 'GB']:
         <div class="seperator"></div>
         <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
-            <div class="seperator"></div>
-            <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
             <div class="staticMap">
                 <img id="mapImg" class="mapImg" alt=""/>
                 <div id="showMap" class="button red">

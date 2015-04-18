@@ -5,6 +5,7 @@
 @light-text-color: #999;
 @dark-text-color: #555;
 @brochure-guide-color:#FFF7E4;
+@standard-margin:8px;
 
 body{
     -webkit-touch-callout: none;
@@ -38,7 +39,7 @@ body{
 
         img {
             height:5px;
-            margin-top: 8px;
+            margin-top: @standard-margin;
             vertical-align: top;
         }
     }
@@ -468,7 +469,7 @@ body{
 
             .clearfix(); margin-bottom: 16px;
             > li {
-                float: left; width: 100% / 4; border-right: 1px solid @border-color; padding-left: 8px;
+                float: left; width: 100% / 4; border-right: 1px solid @border-color; padding-left: @standard-margin;
                 @media @phone {
                     font-size:@base-font-size-mobile;
                     height:100%;
@@ -477,7 +478,7 @@ body{
 
                 &:first-child {
                     @media @phone {
-                        padding-left: 8px;
+                        padding-left: @standard-margin;
                     }
 
                 }
@@ -515,7 +516,7 @@ body{
 
             .clearfix(); margin-bottom: 16px;
             > li {
-                float: left; width: 100% / 4; padding-left: 8px;
+                float: left; width: 100% / 4; padding-left: @standard-margin;
                 @media @phone {
                     font-size:@base-font-size-mobile;
                     height:100%;
@@ -524,7 +525,7 @@ body{
 
                 &:first-child {
                     @media @phone {
-                        padding-left: 8px;
+                        padding-left: @standard-margin;
                     }
 
                 }
@@ -575,7 +576,7 @@ body{
                 }
 
             }
-            td { padding: 8px 0; vertical-align: top; }
+            td { padding: @standard-margin 0; vertical-align: top; }
             strong { color: #555; }
             i {
                 display: inline-block;
@@ -646,9 +647,13 @@ body{
             }
 
             .more {
-                margin-left: 8px;
+                margin-left: @standard-margin;
             }
         }
+
+        margin-top: @standard-margin * 2;
+        margin-bottom: @standard-margin * 2;
+        .clearfix();
 
         @media @phone {
             display:block;
@@ -657,9 +662,12 @@ body{
             padding-top:15px;
         }
 
-        .clearfix(); margin-bottom: 16px;
+
         > li {
-            float: left; width: 100% / 4; padding-left: 8px;
+            float: left;
+            width: 100% / 4;
+            padding-left: @standard-margin;
+            margin-top:  @standard-margin * 2;
             @media @phone {
                 font-size:@base-font-size-mobile;
                 height:100%;
@@ -668,28 +676,19 @@ body{
 
             &:first-child {
                 @media @phone {
-                    padding-left: 8px;
+                    padding-left: @standard-margin;
                 }
-
             }
 
-            &:last-child {
-                border-right:none;
+            .image_wrapper {
+                float: left;
+                margin-right: 20px;
             }
 
             strong {
-                display: block; font-size: 24px; font-weight: normal; color: @dark-text-color;
+                display: block; font-size: @root-font-size; font-weight: normal; color: @dark-text-color;
                 @media @phone {
-                    font-size:16px;
-                }
-
-                .unit {
-                    line-height:1;
-                    font-size:14px;
-
-                    @media @phone {
-                        font-size: 9px;
-                    }
+                    font-size:@root-font-size;
                 }
             }
         }
@@ -697,7 +696,7 @@ body{
 
     .maps_wrapper {
         overflow:hidden;
-        height:620px;
+        height:480px;
         margin-bottom:0px;
 
         @media @phone {
@@ -717,6 +716,7 @@ body{
 
             >.map {
                 width:522px;
+                height:480px;
                 @media @phone {
                     width:100%;
                 }
@@ -806,19 +806,19 @@ body{
                                 font-size: @base-font-size-mobile;
                             }
 
-                            &.annotation4 { color: #00d3ff; border-top: none; left: 0; top: 100%; margin-top: 8px; z-index: 2;
+                            &.annotation4 { color: #00d3ff; border-top: none; left: 0; top: 100%; margin-top: @standard-margin; z-index: 2;
                                             @media @phone {
                                                 margin-top: 4px;
                                             }
 
                                           }
-                            &.annotation5 { color: #c5c5c5; border-top: none; left: 0; top: 100%; margin-top: 8px; padding-top: 32px; z-index: 1;
+                            &.annotation5 { color: #c5c5c5; border-top: none; left: 0; top: 100%; margin-top: @standard-margin; padding-top: 32px; z-index: 1;
                                             @media @phone {
                                                 margin-top: 4px;
                                             }
 
                                           }
-                            &.annotation6 { color: #e20013; border-bottom: none; right: 0; bottom: 100%; margin-bottom: 8px;
+                            &.annotation6 { color: #e20013; border-bottom: none; right: 0; bottom: 100%; margin-bottom: @standard-margin;
                                             @media @phone {
                                                 margin-bottom: 4px;
                                             }
@@ -875,7 +875,7 @@ body{
                  td {
                      position: relative; padding-left: 20px;
                      @media @phone {
-                         padding-left: 8px;
+                         padding-left: @standard-margin;
                      }
 
                      .bar { position: absolute; width: 10px; height: 100%; left: 0; top: 0;
@@ -922,7 +922,7 @@ body{
                    i { display: inline-block; vertical-align: middle; width: 20px; height: 20px; margin-right: 4px;
                        img { vertical-align: top }
                      }
-                   hr { margin: 8px 0 8px; }
+                   hr { margin: @standard-margin 0 @standard-margin; }
                    > strong { color: @red; font-size: 30px; }
                    > ul {
                        margin: 24px 0;
@@ -1051,13 +1051,13 @@ body{
     }
 
     .intentionForm {
-        padding: 8px 24px 8px; margin-top: 16px; background: #f6f6f6; overflow: hidden; margin-bottom: 16px;
+        padding: @standard-margin 24px @standard-margin; margin-top: 16px; background: #f6f6f6; overflow: hidden; margin-bottom: 16px;
         .row { .clearfix(); }
         @input-size: 14px;
         @input-height: 44px;
         @input-color: #333;
         input[type=text], textarea { border: 1px solid @border-color; border-radius: 4px; display: block; width: 100%;
-                                     height: @input-height; padding: 4px 16px; margin: 8px 0; font-size: @input-size;
+                                     height: @input-height; padding: 4px 16px; margin: @standard-margin 0; font-size: @input-size;
                                      color: @input-color; vertical-align: middle;
                                    }
         input[type=text][readonly] { background: #f6f6f6; }
@@ -1066,7 +1066,7 @@ body{
         textarea { height: 200px; margin-top: 16px; font-size: 14px; }
         select { vertical-align: middle; font-size: @input-size; width: 100%; color: @input-color; }
         button { width: 100%; margin: 16px 0; padding: 16px 0; line-height: 1; font-size: 16px; }
-        hr { margin: 8px 0; }
+        hr { margin: @standard-margin 0; }
         .contact {
             color: @red; font-size: 24px; text-align: center; padding: 16px 0;
             a{
@@ -1081,7 +1081,7 @@ body{
                              }
                     }
         select {
-            height: @input-height; border: 1px solid @border-color; vertical-align: middle; margin: 8px 0;
+            height: @input-height; border: 1px solid @border-color; vertical-align: middle; margin: @standard-margin 0;
             font-size: 14px; background: white;
             &[name=country] {
                 width: 120px; float: left;
@@ -1115,7 +1115,7 @@ body{
                }
         .content {
             > li { display: none; color: #eee; font-size: 12px;
-                   background: #333; padding: 16px 8px; border-radius: 4px;
+                   background: #333; padding: @standard-margin*2 @standard-margin; border-radius: 4px;
                    &.selected { display: block; }
                    > h3 { margin: 0; }
                    > h4 { margin: 16px 0; color: #aaa; }
@@ -1128,7 +1128,7 @@ body{
     .calculator {
         .table_wrapper { padding: 16px 0; }
         table { width: 100%;
-                td { padding: 8px 0; }
+                td { padding: @standard-margin 0; }
               }
         .col-name { width: 120px; }
         .col-value { }
