@@ -18,8 +18,12 @@
 #import "CUTEDataManager.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "FXFormViewController+CUTEForm.h"
+#import "CUTERentShareViewController.h"
+#import <WXApi.h>
+#import <WXApiObject.h>
+#import "CUTEConfiguration.h"
 
-@interface CUTERentContactViewController () {
+@interface CUTERentContactViewController () <UIAlertViewDelegate> {
 
     BOOL _userVerified;
 
@@ -125,7 +129,9 @@
     }
 }
 
+
 - (void)onRightButtonPressed:(id)sender {
+
 
     [SVProgressHUD showWithStatus:STR(@"发布中...")];
 
@@ -144,13 +150,51 @@
                 return nil;
             } else {
                 completion(task.result);
-                [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [SVProgressHUD dismiss];
+
+                [self shareToWechat];
+               // [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
+
+//                [self.navigationController popToRootViewControllerAnimated:YES];
                 return nil;
             }
         }];
     }];
     [sequencer run];
+}
+
+- (void)shareToWechat {
+
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"微信分享") message:nil delegate:self cancelButtonTitle:STR(@"取消") otherButtonTitles:STR(@"分享给微信好友"), STR(@"分享到微信朋友圈"), nil];
+    [alertView show];
+}
+
+#pragma UIAlerViewDelegate 
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+    if([WXApi isWXAppInstalled]){
+        CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+        SendMessageToWXReq *wechatReq = [[SendMessageToWXReq alloc] init];
+        WXMediaMessage *message = [[WXMediaMessage alloc] init];
+        message.title = ticket.title;
+        message.description = ticket.ticketDescription;
+        WXWebpageObject *webpage = [WXWebpageObject new];
+        webpage.webpageUrl = [CUTEConfiguration host];
+        wechatReq.message = message;
+        wechatReq.bText = NO;
+        if(buttonIndex == 1){
+            wechatReq.scene = WXSceneSession;
+        }else if (buttonIndex == 2) {
+            wechatReq.scene = WXSceneTimeline;
+        }
+        [WXApi sendReq:wechatReq];
+    }else{
+        NSLog(@"not install wechat");
+
+    }
+
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end
