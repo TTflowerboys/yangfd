@@ -85,7 +85,7 @@
         if (![self validateFormWithScenario:@"register"]) {
             return;
         }
-        [SVProgressHUD showWithStatus:STR(@"发送中")];
+        [SVProgressHUD showWithStatus:STR(@"发送中...")];
         CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
         CUTEUser *user = [CUTEUser new];
         user.nickname = form.name;
@@ -110,7 +110,7 @@
     //after create can validate the code
     if ([CUTEDataManager sharedInstance].user) {
         [SVProgressHUD showWithStatus:STR(@"验证中...")];
-        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", [CUTEDataManager sharedInstance].user.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", [CUTEDataManager sharedInstance].user.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             //update verify status
             if (task.result) {
                 [SVProgressHUD showSuccessWithStatus:STR(@"验证成功")];
@@ -127,7 +127,7 @@
 
 - (void)onRightButtonPressed:(id)sender {
 
-    [SVProgressHUD show];
+    [SVProgressHUD showWithStatus:STR(@"发布中...")];
 
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
     CUTEUser *user = [CUTEUser new];

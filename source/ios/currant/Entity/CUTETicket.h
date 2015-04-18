@@ -13,6 +13,8 @@
 #import "CUTEProperty.h"
 #import "CUTEI18n.h"
 
+#define kTicketStatusToRent @"to rent"
+
 @interface CUTETicket : MTLModel <MTLJSONSerializing>
 
 @property (strong, nonatomic) NSString *identifier;
