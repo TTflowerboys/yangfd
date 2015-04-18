@@ -38,7 +38,12 @@
     CUTEAreaForm *form = (CUTEAreaForm *)self.formController.form;
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
     ticket.space = [CUTEArea areaWithValue:form.area unit:form.unit];
-    ticket.property.space = ticket.space;
+    if (ticket.rentType.slug && [ticket.rentType.slug hasSuffix:@":whole"]) {
+        ticket.property.space = ticket.space;
+    }
+    else {
+        ticket.property.space = nil;
+    }
 }
 
 @end
