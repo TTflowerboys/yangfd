@@ -178,6 +178,105 @@ body{
             display: none;
         }
 
+        .propertyCard {
+            hr { color: #ccc; }
+            img { vertical-align: middle; }
+            > h1 { color: #333; }
+            > .tag { padding-right: 8px;
+                overflow:hidden;
+                line-height:1.8em;
+                img {
+                    margin-top: 4px;
+                    display:inline-block;
+                    float:left;
+                }
+                label {
+                    display:inline-block;
+                    float:right;
+                    width:91%;
+                }
+                a { text-decoration: none; }
+            }
+
+            .rentPrice {
+                margin:30px 0;
+                background: #f4f4f4;
+
+                .price_inner {
+                    width: 100%;
+                    padding-top: @standard-margin;
+                    padding-left: @standard-margin;
+                    padding-right: @standard-margin;
+                    color: @red;
+                    font-size: @normal-font-size;
+                    display:inline-block;
+
+                    strong { font-size: 36px; }
+                }
+
+                .seperator {
+                    margin: @standard-margin*2 @standard-margin;
+                }
+
+                .priceItems {
+
+                    @media @phone {
+                        display:block;
+                        border-bottom:1px solid #ccc;
+                        padding-bottom:15px;
+                        padding-top:15px;
+                    }
+
+                    .clearfix();
+                    padding-bottom: 16px;
+                    > li {
+                        float: left; width: 100% / 2;
+                        border-right: 1px solid @border-color;
+                        padding-left: @standard-margin;
+                        @media @phone {
+                            font-size:@base-font-size-mobile;
+                            height:100%;
+                            min-height:70px;
+                        }
+
+                        &:first-child {
+                            @media @phone {
+                                padding-left: @standard-margin;
+                            }
+
+                        }
+
+                        &:last-child {
+                            border-right:none;
+                        }
+
+                        strong {
+                            display: block; font-size: 24px; font-weight: normal; color: @dark-text-color;
+                            @media @phone {
+                                font-size:16px;
+                            }
+
+                            .unit {
+                                line-height:1;
+                                font-size:14px;
+
+                                @media @phone {
+                                    font-size: 9px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            > .actions { width: 100%;
+                .flatButton { padding: 0; width: 110px; font-size: 12px; line-height: 40px;
+                    img { vertical-align: text-top; }
+                }
+            }
+        }
+
+
     }
 
     &_title { margin-bottom: 24px; color: #666; margin-top: 24px; font-size: 16px; }

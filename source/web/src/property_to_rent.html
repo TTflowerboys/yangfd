@@ -262,6 +262,9 @@
         <div class="aside">
             <div class="propertyCard">
                 <h1>{{rent.get('title','')}}</h1>
+                <label class="publishDate">
+
+                </label>
                 % if 'country' in rent['property'] or 'city' in rent['property']:
                     % country = rent['property'].get('country',{}).get('value')
                     % city = rent['property'].get('city',{}).get('value')
@@ -275,19 +278,51 @@
                 % end
 
                 % if 'price' in rent and rent.get('price'):
-                <div class="price">
-                    <table>
-                        <tr>
-                            <td class="price_inner">
-                                <span class="mute">{{_('租金')}}</span>
-                                <br/>
-                                <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
-                                <span data-type="formatted_currency">
-                                    {{int(float(rent.get('price',{}).get('value','')))}}
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="rentPrice">
+                    <div class="price_inner">
+                        <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
+                        <span data-type="formatted_currency">
+                            {{int(float(rent.get('price',{}).get('value','')))}}
+                        </span>
+                        % if 'bill_covered' in rent and rent.get('bill_covered'):
+                        <span>
+                            {{_('，包水电费')}}
+                        </span>
+                        % end
+                    </div>
+                    <div class="seperator"></div>
+                    <ul class="priceItems">
+                        <li>
+                            {{_('租期')}}
+                            % if 'rent_period' in rent and rent.get('rent_period',''):
+                            <strong>
+                                {{rent.get('rent_period','')}}
+                            </strong>
+                            % else :
+                            <strong>
+                                {{_('面议')}}
+                            </strong>
+                            % end
+                            % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
+                            <span>
+                                {{rent.get('rent_available_time','')}}
+                            </span>
+                            % end
+                        </li>
+
+                        <li>
+                            {{_('押金')}}
+                            % if 'deposit_type' in rent and rent.get('deposit_type',{}).get('value',''):
+                            <strong>
+                                {{rent.get('deposit_type',{}).get('value','')}}
+                            </strong>
+                            % else :
+                            <strong>
+                                {{_('面议')}}
+                            </strong>
+                            % end
+                        </li>
+                    </ul>
                 </div>
                 %end
 
@@ -295,6 +330,10 @@
                     <table class="actions">
                         <tr>
                             <td style="text-align:left;">
+                                <button data-fn="addFav" class="flatButton">
+                                    <img src="/static/images/property_details/icon-star.png" alt=""/>
+                                    <span class="text"> {{_('收藏')}} </span>
+                                </button>
                             </td>
                             <td style="text-align:center;">
                                 <button data-fn="shareToWeChat" class="flatButton green">
