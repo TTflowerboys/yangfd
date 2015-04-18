@@ -19,6 +19,19 @@
 
 @implementation CUTERentContactForm
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            [[self class] validationInit];
+        });
+    }
+    return self;
+}
+
+
 - (NSArray *)fields {
     return @[
              @{FXFormFieldKey: @"name", FXFormFieldTitle: STR(@"姓名"), FXFormFieldHeader: STR(@"填写联系方式")},
@@ -31,6 +44,26 @@
 
 - (void)setAllCountries:(NSArray *)allCountries {
     _allCountries = allCountries;
+}
+
+- (NSArray *)rules {
+    return @[
+             @{
+                 FXModelValidatorAttributes : @[@"name", @"email", @"country", @"phone"],
+                 FXModelValidatorType: @"required",
+                 FXModelValidatorOn: @[@"register"]
+                 },
+             @{
+                 FXModelValidatorAttributes: @[@"country", @"phone"],
+                 FXModelValidatorType: @"required",
+                 FXModelValidatorOn: @[@"sendCode"]
+                 },
+             @{
+                 FXModelValidatorAttributes : @"email",
+                 FXModelValidatorType : @"email",
+                 FXModelValidatorOn: @[@"register"],
+                 },
+             ];
 }
 
 

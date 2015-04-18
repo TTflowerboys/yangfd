@@ -14,10 +14,10 @@
 - (id)init {
     self = [super init];
     if (self) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            [[self class] validationInit];
-        });
+//        static dispatch_once_t onceToken;
+//        dispatch_once(&onceToken, ^{
+//            [[self class] validationInit];
+//        });
     }
     return self;
 }

@@ -49,7 +49,7 @@ DEPENDENCIES:
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (~> 1.1.4)
   - CTAssetsPickerController (~> 2.9.3)
-  - FXModelValidation (~> 1.0.4)
+  - FXModelValidation
   - INTULocationManager (~> 3.0.1)
   - Masonry (~> 0.6.1)
   - NJKWebViewProgress (~> 0.2.3)
