@@ -398,10 +398,10 @@ class f_currant_ticket(f_ticket):
                     t["creator_user"]["email"] = t["creator_user"]["email"][:3] + "**@**"
 
                 if "phone" in t["creator_user"]:
-                    if len(t["creator_user"]["phone"]) > 9:
-                        t["creator_user"]["phone"] = t["creator_user"]["phone"][:6] + "*" * (len(t["creator_user"]["phone"]) - 9) + t["creator_user"]["phone"][-3:]
+                    if len(t["creator_user"]["phone"]) > 6:
+                        t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "*" * (len(t["creator_user"]["phone"]) - 6) + t["creator_user"]["phone"][-3:]
                     else:
-                        t["creator_user"]["phone"] = t["creator_user"]["phone"][:6] + "***"
+                        t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "***"
 
             if isinstance(t.get("assignee"), list):
                 t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
