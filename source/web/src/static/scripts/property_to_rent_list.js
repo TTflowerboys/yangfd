@@ -14,7 +14,7 @@
     window.propertyTypeData = getData('propertyTypeData')
     window.rentPeriodData = getData('rentPeriodData')
     window.bedroomCountData = getData('bedroomCountData')
-    window.buildingAreaData = getData('buildingAreaData')
+    window.spaceData = getData('spaceData')
 
     // Init top filters value from URL
     var countryFromURL = window.team.getQuery('country', location.href)
@@ -65,9 +65,9 @@
         }
     }
 
-    var buildingAreaFromURL = window.team.getQuery('building_area', location.href)
-    if (buildingAreaFromURL) {
-        selectTagFilter('#buildingAreaTag', buildingAreaFromURL)
+    var spaceFromURL = window.team.getQuery('space', location.href)
+    if (spaceFromURL) {
+        selectTagFilter('#spaceTag', spaceFromURL)
 
         if (window.team.isPhone()) {
             showTagsOnMobile()
@@ -132,9 +132,9 @@
         if (bedroomCount) {
             params.bedroom_count = bedroomCount
         }
-        var buildingArea = getSelectedTagFilterDataId('#buildingAreaTag')
-        if (buildingArea) {
-            params.building_area = buildingArea
+        var space = getSelectedTagFilterDataId('#spaceTag')
+        if (space) {
+            params.space = space
         }
 
         if (lastItemTime) {
@@ -324,7 +324,7 @@
         location.href = window.team.setQuery('bedroom_count', getSelectedTagFilterDataId('#bedroomCountTag'))
     })
 
-    $('#tags #buildingAreaTag').on('click', '.toggleTag', function (event) {
+    $('#tags #spaceTag').on('click', '.toggleTag', function (event) {
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -334,8 +334,8 @@
             $item.addClass('selected')
         }
 
-        ga('send', 'event', 'rent_list', 'change', 'change-buildingArea', $item.text())
-        location.href = window.team.setQuery('building_area', getSelectedTagFilterDataId('#buildingAreaTag'))
+        ga('send', 'event', 'rent_list', 'change', 'change-space', $item.text())
+        location.href = window.team.setQuery('space', getSelectedTagFilterDataId('#spaceTag'))
     })
 
     // Show or Hide tag filters on mobile
