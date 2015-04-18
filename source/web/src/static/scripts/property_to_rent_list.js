@@ -153,7 +153,7 @@
         isLoading = true
 
         var totalResultCount = getCurrentTotalCount()
-        $.betterPost('/api/1/rent_ticket/search?status=draft', params)
+        $.betterPost('/api/1/rent_ticket/search', params)
             .done(function (val) {
                 var array = val
                 if (!_.isEmpty(array)) {

@@ -109,7 +109,7 @@
                     <h4 class="rentPeriod_title">{{_('租期')}}</h4>
                     <div id="rentPeriodTag" class="inner">
                         %for index, rent_period in enumerate(rent_period_list):
-                            <div class="toggleTag" data-id="{{str(rent_period.get('slug')).split(':')[1]}}">{{rent_period.get('value')}}
+                            <div class="toggleTag" data-id="{{rent_period.get('id')}}">{{rent_period.get('value')}}
                             </div>
                         %end
                     </div>
