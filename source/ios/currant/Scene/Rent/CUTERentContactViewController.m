@@ -65,7 +65,6 @@
 }
 
 - (void)onVerificationButtonPressed:(id)sender {
-
     //TODO for phone existed user let him login
 
     if ([CUTEDataManager sharedInstance].user) {
@@ -151,10 +150,8 @@
             } else {
                 completion(task.result);
                 [SVProgressHUD dismiss];
-
                 [self shareToWechat];
-               // [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
-
+//                [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
 //                [self.navigationController popToRootViewControllerAnimated:YES];
                 return nil;
             }
@@ -175,23 +172,28 @@
 
     if([WXApi isWXAppInstalled]){
         CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
-        SendMessageToWXReq *wechatReq = [[SendMessageToWXReq alloc] init];
-        WXMediaMessage *message = [[WXMediaMessage alloc] init];
+        WXMediaMessage *message = [WXMediaMessage message];
         message.title = ticket.title;
         message.description = ticket.ticketDescription;
-        WXWebpageObject *webpage = [WXWebpageObject new];
-        webpage.webpageUrl = [CUTEConfiguration host];
-        wechatReq.message = message;
-        wechatReq.bText = NO;
-        if(buttonIndex == 1){
-            wechatReq.scene = WXSceneSession;
-        }else if (buttonIndex == 2) {
-            wechatReq.scene = WXSceneTimeline;
-        }
-        [WXApi sendReq:wechatReq];
-    }else{
-        NSLog(@"not install wechat");
+        [message setThumbImage:[UIImage imageNamed:@"AppIcon"]];
+        WXWebpageObject *ext = [WXWebpageObject object];
+        ext.webpageUrl = [[NSURL URLWithString:CONCAT(@"/property-to-rent/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
+        message.mediaObject = ext;
 
+        SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+        req.bText = NO;
+        req.message = message;
+        if (buttonIndex == 1) {
+            req.scene = WXSceneSession;
+        }
+        else {
+            req.scene = WXSceneTimeline;
+        }
+        
+        [WXApi sendReq:req];
+
+    }else{
+        [SVProgressHUD showErrorWithStatus:STR(@"请安装微信")];
     }
 
     [self.navigationController popToRootViewControllerAnimated:YES];
