@@ -9,13 +9,15 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="format-detection" content="telephone=no">
         <!--build:css(dist) /static/styles/wechat_poster.html.css-->
+        <link rel="stylesheet" href="/static/styles/team/reset.less">
         <link rel="stylesheet" href="/static/vendors/swiper/swiper.min.css">
+        <link rel="stylesheet" href="/static/styles/phone/animation.css">
         <link rel="stylesheet" href="/static/styles/phone/wechatPoster.css">
 
 
         <!--endbuild-->
-        <!--<link rel="stylesheet" href="http://c.lagou.com/css/companyslide/wyy-base-pc.css?v=1.5.5.7_034455">-->
-        <!--<link rel="stylesheet" href="http://c.lagou.com/css/companyslide/wyy-animation.css?v=1.5.5.7_034455">-->
+        <!--<link rel="stylesheet" href="http://c.animate.com/css/companyslide/wyy-base-pc.css?v=1.5.5.7_034455">-->
+        <!--<link rel="stylesheet" href="http://c.animate.com/css/companyslide/wyy-animation.css?v=1.5.5.7_034455">-->
     </head>
     <body marginwidth="0" marginheight="0" class="loading">
         <div class="loadingCover">
@@ -23,7 +25,6 @@
                 <canvas id="procanvas" class="procanvas" value="0%"></canvas>
                 <span id="proText" class="proText"></span>
             </div>
-
             <p class="info">正在加载资源<br>请稍后</p>
             <p class="logo"></p>
         </div>
@@ -155,38 +156,39 @@
         <div class="swiper-container" style="">
             <div class="swiper-wrapper" style="">
                 <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="index-slogan animate hide">
-                        <p>
-                            我是<b>洋房东</b><br>
-                            <span>我在拉勾网等你</span>
-                        </p>
+                    <div class="page_1">
+                        <div class="topTitleNav animate">
+                            <p class="location animate">英国 伦敦 金丝雀码头</p>
+                            <p class="title animate">两室一厅好房整租</p>
+                            <p class="titleEn animate">Letting!</p>
+                        </div>
+
                     </div>
-                    <div class="lagou hide">
-                        <img id="test-pic" src="Cgo8PFUJI4uAHyZ9AABTnTJTOnk340.png">
+                    <div class="bottomBox animate">
+                        <div class="scrollUp">继续</div>
                     </div>
-                    <div class="index-arrow-down"></div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen swiper-slide-visible swiper-slide-active" style="">
-                    <div class="company-slogan lagou">初创的跨国互联网金融创业公司,专注于为投资...</div>
-                    <div class="company-word lagou clearfix">
+                    <div class="company-slogan animate">初创的跨国互联网金融创业公司,专注于为投资...</div>
+                    <div class="company-word animate clearfix">
                         <div class="company-keyword">带薪年假</div>
                         <div class="company-keyword">扁平管理</div>
                         <div class="company-keyword">五险一金</div>
                         <div class="company-keyword">弹性工作</div>
                     </div>
                     <div class="white-tri company-tri" id="company-tri">
-                        <div class="company-logo-circle  lagou">
+                        <div class="company-logo-circle  animate">
                             <img class="company-logo" src="Cgo8PFUJI4uAHyZ9AABTnTJTOnk340.png">
                         </div>
                     </div>
                     <div class="white-block company-white-block" style="top: 266.59375px; height: 150.40625px;">
-                        <div class="company-icon1  lagou">
+                        <div class="company-icon1  animate">
                             <p>武汉</p>
                         </div>
-                        <div class="company-icon2 lagou">
+                        <div class="company-icon2 animate">
                             <p>初创型</p>
                         </div>
-                        <div class="company-icon3 lagou">
+                        <div class="company-icon3 animate">
                             <p>移动互联网</p>
                         </div>
                     </div>
@@ -195,12 +197,12 @@
                 <!---->
                 <div class="swiper-slide swiper-slide-bg" style="">
                     <div class="white-tri intro-tri">
-                        <p class="intro-title  lagou hide">
+                        <p class="intro-title  animate hide">
                             <span>洋房东</span><img src="future-company.png">
                         </p>
                     </div>
                     <div class="white-block" style="top: -5px; height: 321px;">
-                        <p class="intro-content content  lagou hide">专注于为投资人提供多样化的海外投资置业机会,以丰富的投资分析报告,专业的置业顾问,低门槛的投资方式助推用户的海外投资之路。
+                        <p class="intro-content content  animate hide">专注于为投资人提供多样化的海外投资置业机会,以丰富的投资分析报告,专业的置业顾问,低门槛的投资方式助推用户的海外投资之路。
                             洋房东将首先在中国和英国上线,为您提供英国的楼盘、公寓、别墅、学区房等多样化的海外置业机会,同时可以根据您的...
                         </p>
                     </div>
@@ -208,19 +210,19 @@
                 </div>
 
                 <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="job-top  lagou hide">
+                    <div class="job-top  animate hide">
                         <h1>平面设计师</h1>
                         <h2>经验不限/学历不限/全职</h2>
                         <h3>
                             <span class="rmb"></span>4k-6k
                         </h3>
                     </div>
-                    <div class="job-icon  lagou hide" style="background-image:url(http://c.lagou.com/images/companyslide/avatar/sheji.png);"></div>
+                    <div class="job-icon  animate hide" style=""></div>
                     <div class="white-tri job-tri">
                         <p class="job-title">职位描述</p>
                     </div>
                     <div class="white-block" style="top: 225px; height: 192px;">
-                        <div class="job-frame  lagou hide">
+                        <div class="job-frame  animate hide">
                             <div class="job-content content">
                                 <p><strong>岗位职责:</strong></p>
                                 <ol>
@@ -239,19 +241,19 @@
                     <div class="arrow-down"></div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="job-top  lagou hide">
+                    <div class="job-top  animate hide">
                         <h1>前端开发工程师</h1>
                         <h2>1-3年/学历不限/全职</h2>
                         <h3>
                             <span class="rmb"></span>7k-12k
                         </h3>
                     </div>
-                    <div class="job-icon  lagou hide" style="background-image:url(http://c.lagou.com/images/companyslide/avatar/jishu.png);"></div>
+                    <div class="job-icon  animate hide" style=""></div>
                     <div class="white-tri job-tri">
                         <p class="job-title">职位描述</p>
                     </div>
                     <div class="white-block" style="top: 225px; height: 192px;">
-                        <div class="job-frame  lagou hide">
+                        <div class="job-frame  animate hide">
                             <div class="job-content content">
                                 <p><strong>岗位职责:</strong></p>
                                 <p>1.和设计师，产品经理,后台开发人员配合，高效地完成前端开发工作</p>
@@ -265,19 +267,19 @@
                     <div class="arrow-down"></div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="job-top  lagou hide">
+                    <div class="job-top  animate hide">
                         <h1>互联网金融产品经理</h1>
                         <h2>1-3年/本科及以上/全职</h2>
                         <h3>
                             <span class="rmb"></span>8k-16k
                         </h3>
                     </div>
-                    <div class="job-icon  lagou hide" style="background-image:url(http://c.lagou.com/images/companyslide/avatar/chanpin.png);"></div>
+                    <div class="job-icon  animate hide" style=""></div>
                     <div class="white-tri job-tri">
                         <p class="job-title">职位描述</p>
                     </div>
                     <div class="white-block" style="top: 225px; height: 192px;">
-                        <div class="job-frame  lagou hide">
+                        <div class="job-frame  animate hide">
                             <div class="job-content content">
                                 <p>岗位职责：&nbsp;</p>
                                 <p>1. 负责互联网金融平台理财产品的规划和设计，包括但不限于众筹类、资金集合类、各种量化或结构化产品、固定收益类产品；</p>
@@ -290,19 +292,19 @@
                     <div class="arrow-down"></div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="job-top  lagou hide">
+                    <div class="job-top  animate hide">
                         <h1>海外市场投资顾问</h1>
                         <h2>1年以下/学历不限/全职</h2>
                         <h3>
                             <span class="rmb"></span>4k-8k
                         </h3>
                     </div>
-                    <div class="job-icon  lagou hide" style="background-image:url(http://c.lagou.com/images/companyslide/avatar/scxs.png);"></div>
+                    <div class="job-icon  animate hide" style="background-image:url(http://c.animate.com/images/companyslide/avatar/scxs.png);"></div>
                     <div class="white-tri job-tri">
                         <p class="job-title">职位描述</p>
                     </div>
                     <div class="white-block" style="top: 225px; height: 192px;">
-                        <div class="job-frame  lagou hide">
+                        <div class="job-frame  animate hide">
                             <div class="job-content content">
                                 1、1年以上销售或客户服务工作经验2、商端地产项目销售、大客户销售、奢侈品（珠宝、名车、商端会所、服饰&amp;配饰等）销售、海外产品销售经验者优先；3、<a href="javascript:;"> 查看更多&gt;</a>
                             </div>
@@ -312,19 +314,19 @@
                     <div class="arrow-down"></div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="end-h1 lagou hide">
+                    <div class="end-h1 animate hide">
                         <h1 class="center" id="endH1">洋房东</h1>
                         <h2 class="center"><a href="javascript:;">更多职位等着你</a></h2>
                     </div>
-                    <div class="white-tri lagou-tri">
-                        <div class="company-logo-circle  lagou hide">
+                    <div class="white-tri animate-tri">
+                        <div class="company-logo-circle  animate hide">
                             <img class="company-logo" src="Cgo8PFUJI4uAHyZ9AABTnTJTOnk340.png">
                         </div>
                     </div>
                     <div class="white-block pd10" style="top: 78.796875px; height: 237.203125px;">
-                        <a class="btn  lagou hide" id="share"> 推荐给朋友们看看 </a>
+                        <a class="btn  animate hide" id="share"> 推荐给朋友们看看 </a>
                         <a href="javascript:;">
-                            <p class="copyright  lagou hide">
+                            <p class="copyright  animate hide">
                                 该页面由<span>拉勾网</span>提供并生成
                             </p>
                         </a>
@@ -333,6 +335,7 @@
                     <div class="share-to-moments"></div>
                 </div>
             </div>
+
         </div>
 
         <!--build:js /static/scripts/wechat_poster.html.js-->
@@ -355,81 +358,33 @@
                     var index = swiper.activeIndex
                     var height = $(window).innerHeight()
                     var obj = $(".swiper-slide")
-                    obj.not(".swiper-slide-visible").find(".lagou").addClass('hide')
-//                    obj.eq(index).find(".lagou").removeClass("hide")
+                    obj.not(".swiper-slide-visible").find(".animate").addClass('hide')
+//                    obj.eq(index).find(".animate").removeClass("hide")
                 },
                 onSlideChangeEnd: function (swiper, direction) {
                     var index = swiper.activeIndex
                     var obj = $(".swiper-slide")
                     //companyHeightReset()
-                    obj.eq(index).siblings().find(".lagou").addClass('hide')
-                    obj.eq(index).find(".lagou").removeClass("hide")
+                    obj.eq(index).siblings().find(".animate").addClass('hide')
+                    obj.eq(index).find(".animate").removeClass("hide")
                 }
             });
             $('.loadingCover').css({
                 height: $(window).height()
             })
-            $(function() {
-                companyHeightReset() //company页的宽高
-                shareDiv()
-            });
-            //company页的宽高
-            function companyHeightReset() {
-                if($("#company-tri").length>0){
-                    var $obj = $("#company-tri")
-                    var objTop = $obj.position().top + $obj.height()
-                    var parentHeight = $obj.parent().height() - objTop
-                    $obj.next().css({
-                        'top': objTop -2+ "px",
-                        'height': parentHeight + "px"
-                    });
-                }
-
-                if($(".job-tri").length>0){
-                    $(".job-tri").each(function(){
-                        var objTop = $(this).position().top + $(this).height()
-                        var parentHeight = $(this).parent().height() - objTop
-                        $(this).next().css({
-                            'top': objTop -2+ "px",
-                            'height': parentHeight + "px"
-                        });
-                    });
-                }
-
-                if($(".lagou-tri").length>0){
-                    $(".lagou-tri").each(function(){
-                        var objTop = $(this).position().top-3
-                        var parentHeight = $(this).parent().height() - objTop -$(this).height()
-                        $(this).next().css({
-                            'top': objTop -2+ "px",
-                            'height': parentHeight + "px"
-                        })
-                    })
-                }
-            }
-
-
-            function shareDiv(){
-                $("#share").on('click',function() {
-                    $(".share-to-moments").fadeIn()
-                })
-                $(".share-to-moments").on('click',function() {
-                    $(this).hide()
-                })
-            }
-
-            $(function() {
+            $(window).load(function(){
+                //所有资源加载完毕后：
                 function loadCallback(){
                     $('.loadingCover').fadeOut(400, function(){
                         $('body').removeClass('loading')
-                        $(".swiper-slide").eq(0).find('.lagou').removeClass('hide')
+                        $(".swiper-slide").eq(0).find('.animate').removeClass('hide')
                     })
                 }
                 setTimeout(function(){
                     process.finish(loadCallback)
-                },3000)
-
+                },500)
             })
+
         </script>
 
     </body>
