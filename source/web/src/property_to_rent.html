@@ -117,13 +117,13 @@
 
         <div id="propertyDetails_description" class="meta scrollto">
             <ul class="numbers">
-                % if rent['property'].get('space'):
+                % if rent.get('space'):
                 <li>
                     {{_('房屋面积')}}
                     <strong>
-                        {{float("{0:.2f}".format(float(rent['property'].get('space',{}).get('value',0))))}}
+                        {{float("{0:.2f}".format(float(rent.get('space',{}).get('value',0))))}}
                         <span class="unit">
-                            {{!format_unit(rent['property'].get('space',{}).get('unit',''))}}
+                            {{!format_unit(rent.get('space',{}).get('unit',''))}}
                         </span>
                     </strong>
                 </li>
