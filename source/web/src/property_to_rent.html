@@ -294,9 +294,9 @@
                     <ul class="priceItems">
                         <li>
                             {{_('租期')}}
-                            % if 'rent_period' in rent and rent.get('rent_period',''):
+                            % if 'rent_period' in rent and rent.get('rent_period',{}).get('value',''):
                             <strong>
-                                {{rent.get('rent_period','')}}
+                                {{rent.get('rent_period',{}).get('value','')}}
                             </strong>
                             % else :
                             <strong>
