@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "FXForms.h"
-#import "NSObject+FXModelValidation.h"
-#import <FXModel.h>
+#import <NGRValidator.h>
 
+@interface CUTEForm : NSObject <FXForm>
 
-@interface CUTEForm : NSObject <FXForm, FXModelValidation>
+- (NSError *)validateFormWithScenario:(NSString *)scenario;
 
 @end

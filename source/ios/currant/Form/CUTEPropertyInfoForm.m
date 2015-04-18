@@ -12,7 +12,6 @@
 #import "CUTEFormButtonCell.h"
 #import "CUTERentContactViewController.h"
 #import "CUTEPropertyMoreInfoViewController.h"
-#import <FXModel.h>
 #import <NSArray+Frankenstein.h>
 
 @interface CUTEPropertyInfoForm () {
@@ -23,18 +22,6 @@
 
 
 @implementation CUTEPropertyInfoForm
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            [[self class] validationInit];
-        });
-    }
-    return self;
-}
 
 - (NSArray *)fields {
     return @[
@@ -56,23 +43,6 @@
     return [_allPropertyTypes map:^id(CUTEEnum *object) {
         return [object value];
     }];
-}
-
-- (NSArray *)rules {
-    return @[
-            @{
-                    FXModelValidatorAttributes : @[@"bedroom"],
-                    FXModelValidatorType: @"required",
-                    FXModelValidatorOn: @"submit"
-            },
-            @{
-                    FXModelValidatorAttributes: @[@"bedroom"],
-                    FXModelValidatorType: @"number",
-                    FXModelValidatorTooSmall: STR(@"卧室至少一间"),
-                    FXModelValidatorMin:@(1),
-                    FXModelValidatorOn: @"submit"
-            }
-    ];
 }
 
 @end

@@ -11,19 +11,9 @@
 
 @implementation CUTEForm
 
-- (id)init {
-    self = [super init];
-    if (self) {
-//        static dispatch_once_t onceToken;
-//        dispatch_once(&onceToken, ^{
-//            [[self class] validationInit];
-//        });
-    }
-    return self;
-}
-
-- (NSArray * )rules {
+- (NSError *)validateFormWithScenario:(NSString *)scenario {
     return nil;
 }
+
 
 @end

@@ -25,4 +25,6 @@
 
 - (void)setAllCountries:(NSArray *)allCountries;
 
+- (NSError *)validateFormWithScenario:(NSString *)scenario;
+
 @end

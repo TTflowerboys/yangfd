@@ -17,6 +17,7 @@
 #import <Sequencer.h>
 #import "CUTEDataManager.h"
 #import "SVProgressHUD+CUTEAPI.h"
+#import "FXFormViewController+CUTEForm.h"
 
 @interface CUTERentContactViewController () {
 
@@ -35,7 +36,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"发布到微信") style:UIBarButtonItemStylePlain target:self action:@selector(onRightButtonPressed:)];
     self.navigationItem.rightBarButtonItem.enabled = false;
     UILabel * label = [UILabel new];
-    NSString *str = STR(@"确认代表您同意创建一个洋房东账号供以后查看租客请求使用");
+    NSString *str = STR(@"为保证资料真实性，请先填写个人信息再验证手机号");
     NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSForegroundColorAttributeName: HEXCOLOR(0x999999, 1.0)}];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     [style setLineSpacing:8];
@@ -57,24 +58,6 @@
         CUTEFormVerificationCodeCell *codeCell = (CUTEFormVerificationCodeCell *)cell;
         [codeCell.verificationButton addTarget:self action:@selector(onVerificationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
-}
-
-- (BOOL)validateFormWithScenario:(NSString *)scenario {
-
-    CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
-    form.scenario = scenario;
-    if (![form validate]) {
-        NSMutableString *message = [NSMutableString string];
-
-        [form.errors enumerateKeysAndObjectsUsingBlock:^(NSString *attribute, NSArray *errors, BOOL *stop) {
-            for(NSString *error in errors) {
-                [message appendFormat:@"- %@\n", error];
-            };
-        }];
-        [SVProgressHUD showErrorWithStatus:message];
-        return NO;
-    }
-    return YES;
 }
 
 - (void)onVerificationButtonPressed:(id)sender {

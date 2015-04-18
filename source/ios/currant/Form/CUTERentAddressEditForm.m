@@ -12,6 +12,7 @@
 #import "CUTECityEnum.h"
 #import <NSArray+Frankenstein.h>
 
+
 @interface CUTERentAddressEditForm () {
 
     NSArray *_allCountries;
@@ -62,6 +63,17 @@
         }];
     }
     return nil;
+}
+
+- (NSError *)validateFormWithScenario:(NSString *)scenario {
+    NSError *error = nil;
+    [NGRValidator validateModel:self error:&error delegate:nil rules:^NSArray *{
+        return @[NGRValidate(@"city").required(),
+                 NGRValidate(@"postcode").required(),
+                 NGRValidate(@"coutry").required()
+                 ];
+    }];
+    return error;
 }
 
 @end

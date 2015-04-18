@@ -183,9 +183,9 @@
     }
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        if (result) {
-            [self.navigationController pushViewController:result animated:YES];
-        }
+
+        [self.navigationController pushViewController:_rentAddressEditViewController animated:YES];
+
     }];
 
     [sequencer run];

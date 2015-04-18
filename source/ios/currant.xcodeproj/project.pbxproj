@@ -149,6 +149,16 @@
 		2C44E40F1AE120E500E61BBA /* CUTERentAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44E40C1AE120E500E61BBA /* CUTERentAreaViewController.m */; };
 		2C44E4101AE120E500E61BBA /* CUTERentAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44E40C1AE120E500E61BBA /* CUTERentAreaViewController.m */; };
 		2C44E4111AE120E500E61BBA /* CUTERentAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44E40C1AE120E500E61BBA /* CUTERentAreaViewController.m */; };
+		2C44E4141AE242EE00E61BBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
+		2C44E4151AE242F200E61BBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
+		2C44E4161AE242F300E61BBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
+		2C44E4171AE242F400E61BBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
+		2C44E4181AE242F400E61BBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
+		2C44E41B1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44E41A1AE2458700E61BBA /* FXFormViewController+CUTEForm.m */; };
+		2C44E41C1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44E41A1AE2458700E61BBA /* FXFormViewController+CUTEForm.m */; };
+		2C44E41D1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44E41A1AE2458700E61BBA /* FXFormViewController+CUTEForm.m */; };
+		2C44E41E1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44E41A1AE2458700E61BBA /* FXFormViewController+CUTEForm.m */; };
+		2C44E41F1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44E41A1AE2458700E61BBA /* FXFormViewController+CUTEForm.m */; };
 		2C4AEC7F1AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
 		2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
 		2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
@@ -344,6 +354,8 @@
 		2C427EA81AD3803B000378A9 /* CUTECurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECurrency.m; sourceTree = "<group>"; };
 		2C44E40B1AE120E500E61BBA /* CUTERentAreaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentAreaViewController.h; sourceTree = "<group>"; };
 		2C44E40C1AE120E500E61BBA /* CUTERentAreaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentAreaViewController.m; sourceTree = "<group>"; };
+		2C44E4191AE2458700E61BBA /* FXFormViewController+CUTEForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FXFormViewController+CUTEForm.h"; sourceTree = "<group>"; };
+		2C44E41A1AE2458700E61BBA /* FXFormViewController+CUTEForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FXFormViewController+CUTEForm.m"; sourceTree = "<group>"; };
 		2C4AEC7D1AD6466A004DEE23 /* CUTEUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUser.h; sourceTree = "<group>"; };
 		2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUser.m; sourceTree = "<group>"; };
 		2C4AEC841AD65537004DEE23 /* CUTEFormVerificationCodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormVerificationCodeCell.h; sourceTree = "<group>"; };
@@ -550,6 +562,8 @@
 				2C27F2041ACD30FE002BECCF /* CUTEFormButtonCell.m */,
 				2C427E351ACEA9CF000378A9 /* CUTEMapTextField.h */,
 				2C427E361ACEA9CF000378A9 /* CUTEMapTextField.m */,
+				2C44E4191AE2458700E61BBA /* FXFormViewController+CUTEForm.h */,
+				2C44E41A1AE2458700E61BBA /* FXFormViewController+CUTEForm.m */,
 			);
 			path = Rent;
 			sourceTree = "<group>";
@@ -912,6 +926,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA2E6BD1AC5487800053965 /* Images.xcassets in Resources */,
+				2C44E4161AE242F300E61BBA /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,6 +935,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */,
+				2C44E4171AE242F400E61BBA /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -928,6 +944,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA94AA91ACA42CD00DF7497 /* Images.xcassets in Resources */,
+				2C44E4151AE242F200E61BBA /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -936,6 +953,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */,
+				2C44E4141AE242EE00E61BBA /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -944,6 +962,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA2E6EF1AC54BF200053965 /* currant-test-Info.plist in Resources */,
+				2C44E4181AE242F400E61BBA /* Localizable.strings in Resources */,
 				2CA2E6EA1AC54BF200053965 /* currant-production-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1166,6 +1185,7 @@
 				2C5ECC681AD6271E00163E9E /* CUTEI18n.m in Sources */,
 				2C401E181ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
 				2C427EA41AD3802A000378A9 /* CUTEArea.m in Sources */,
+				2C44E41D1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */,
 				2C427E391ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
 				2C427E961AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2C27F2071ACD30FE002BECCF /* CUTEFormButtonCell.m in Sources */,
@@ -1223,6 +1243,7 @@
 				2C5ECC691AD6271E00163E9E /* CUTEI18n.m in Sources */,
 				2C401E191ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
 				2C427EA51AD3802A000378A9 /* CUTEArea.m in Sources */,
+				2C44E41E1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */,
 				2C427E3A1ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
 				2C427E971AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2C27F2081ACD30FE002BECCF /* CUTEFormButtonCell.m in Sources */,
@@ -1280,6 +1301,7 @@
 				2C5ECC671AD6271E00163E9E /* CUTEI18n.m in Sources */,
 				2C401E171ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
 				2C427EA31AD3802A000378A9 /* CUTEArea.m in Sources */,
+				2C44E41C1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */,
 				2C427E381ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
 				2C427E951AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2C27F2061ACD30FE002BECCF /* CUTEFormButtonCell.m in Sources */,
@@ -1337,6 +1359,7 @@
 				2C5ECC661AD6271E00163E9E /* CUTEI18n.m in Sources */,
 				2C401E161ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
 				2C427EA21AD3802A000378A9 /* CUTEArea.m in Sources */,
+				2C44E41B1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */,
 				2C427E371ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
 				2C427E941AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2C27F2051ACD30FE002BECCF /* CUTEFormButtonCell.m in Sources */,
@@ -1349,6 +1372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C44E41F1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */,
 				2C3B59601AD7D32700607BD4 /* CUTERentPriceViewController.m in Sources */,
 				2C401E1A1ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
 				2C5ECC6A1AD6271E00163E9E /* CUTEI18n.m in Sources */,

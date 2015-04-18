@@ -9,6 +9,7 @@
 #import "CUTERentContactForm.h"
 #import "CUTECommonMacro.h"
 #import "CUTEFormVerificationCodeCell.h"
+#import <NGRValidator.h>
 
 @interface CUTERentContactForm () {
     NSArray *_allCountries;
@@ -18,18 +19,6 @@
 
 
 @implementation CUTERentContactForm
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            [[self class] validationInit];
-        });
-    }
-    return self;
-}
 
 
 - (NSArray *)fields {
@@ -46,25 +35,15 @@
     _allCountries = allCountries;
 }
 
-- (NSArray *)rules {
-    return @[
-             @{
-                 FXModelValidatorAttributes : @[@"name", @"email", @"country", @"phone"],
-                 FXModelValidatorType: @"required",
-                 FXModelValidatorOn: @[@"register"]
-                 },
-             @{
-                 FXModelValidatorAttributes: @[@"country", @"phone"],
-                 FXModelValidatorType: @"required",
-                 FXModelValidatorOn: @[@"sendCode"]
-                 },
-             @{
-                 FXModelValidatorAttributes : @"email",
-                 FXModelValidatorType : @"email",
-                 FXModelValidatorOn: @[@"register"],
-                 },
-             ];
+- (NSError *)validateFormWithScenario:(NSString *)scenario {
+    NSError *error = nil;
+    [NGRValidator validateModel:self error:&error delegate:nil rules:^NSArray *{
+        return @[NGRValidate(@"name").required(),
+                 NGRValidate(@"email").required().syntax(NGRSyntaxEmail),
+                 NGRValidate(@"phone").required()
+                 ];
+    }];
+    return error;
 }
-
 
 @end

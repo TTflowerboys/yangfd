@@ -26,4 +26,14 @@
              }[self.unitPresentation];
 }
 
+
+- (NSError *)validateFormWithScenario:(NSString *)scenario {
+    NSError *error = nil;
+    [NGRValidator validateModel:self error:&error delegate:nil rules:^NSArray *{
+        return @[NGRValidate(@"area").required().min(FLT_EPSILON),
+                 ];
+    }];
+    return error;
+}
+
 @end

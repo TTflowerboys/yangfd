@@ -124,32 +124,10 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
--(void)showErrors {
-    NSMutableString *message = [NSMutableString string];
-
-    CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-    [form.errors enumerateKeysAndObjectsUsingBlock:^(NSString *attribute, NSArray *errors, BOOL *stop) {
-        for(NSString *error in errors) {
-            [message appendFormat:@"- %@\n", error];
-        };
-    }];
-
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!"
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-}
-
 
 - (BOOL)validate {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-    form.scenario = @"submit";
-//    if (![form validate]) {
-//        [self showErrors];
-//        return NO;
-//    }
+
     if (form.bedroom < 1) {
         [SVProgressHUD showErrorWithStatus:STR(@"居室数至少为1个")];
         return NO;
@@ -234,6 +212,8 @@
                     CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
                     CUTERentContactForm *form = [CUTERentContactForm new];
                     [form setAllCountries:task.result];
+                    //set default country same with the property
+                    form.country = property.country;
                     contactViewController.formController.form = form;
                     [self.navigationController pushViewController:contactViewController animated:YES];
                     [SVProgressHUD dismiss];

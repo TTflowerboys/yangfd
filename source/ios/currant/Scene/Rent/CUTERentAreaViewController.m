@@ -12,6 +12,7 @@
 #import "CUTEDataManager.h"
 #import "CUTEAreaForm.h"
 #import "SVProgressHUD+CUTEAPI.h"
+#import "FXFormViewController+CUTEForm.h"
 
 @implementation CUTERentAreaViewController
 
@@ -21,17 +22,8 @@
     self.navigationItem.title = STR(@"面积");
 }
 
-- (BOOL)validate {
-    CUTEAreaForm *form = (CUTEAreaForm *)self.formController.form;
-    if (form.area <= FLT_EPSILON) {
-        [SVProgressHUD showErrorWithStatus:STR(@"面积必须大于0")];
-        return NO;
-    }
-    return YES;
-}
-
 - (void)onSaveButtonPressed:(id)sender {
-    if (![self validate]) {
+    if (![self validateFormWithScenario:@"save"]) {
         return;
     }
     [self.navigationController popViewControllerAnimated:YES];

@@ -12,6 +12,7 @@
 #import "CUTEDataManager.h"
 #import "CUTEFormRentPriceTextFieldCell.h"
 #import "SVProgressHUD+CUTEAPI.h"
+#import "FXFormViewController+CUTEForm.h"
 
 @implementation CUTERentPriceViewController
 
@@ -41,17 +42,8 @@
     [self.tableView reloadData];
 }
 
-- (BOOL)validate {
-    CUTERentPriceForm *form = (CUTERentPriceForm *)self.formController.form;
-    if (form.rentPrice <= 0.0) {
-        [SVProgressHUD showErrorWithStatus:STR(@"租金必须大于0")];
-        return NO;
-    }
-    return YES;
-}
-
 - (void)onSaveButtonPressed:(id)sender {
-    if (![self validate]) {
+    if (![self validateFormWithScenario:@"save"]) {
         return;
     }
 

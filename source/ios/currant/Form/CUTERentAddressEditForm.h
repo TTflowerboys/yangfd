@@ -23,4 +23,6 @@
 
 - (void)setAllCities:(NSArray *)allCities;
 
+- (NSError *)validateFormWithScenario:(NSString *)scenario;
+
 @end

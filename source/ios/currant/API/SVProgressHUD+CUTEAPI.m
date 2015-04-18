@@ -25,6 +25,9 @@
     if (error && [error.domain isEqualToString:@"BBTAPIDomain"]) {
         [SVProgressHUD showErrorWithStatus:[SVProgressHUD apiErrorMessageFromCode:error.code]];
     }
+    else if (error && [error.domain isEqualToString:@"com.ngr.validator.domain"]) {
+        [SVProgressHUD showErrorWithStatus:STR(error.localizedDescription)];
+    }
     else {
         [SVProgressHUD showErrorWithStatus:error.userInfo[NSLocalizedDescriptionKey]];
     }
