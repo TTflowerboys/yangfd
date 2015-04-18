@@ -15,8 +15,6 @@
 
 - (void)loadURL:(NSURL *)url;
 
-- (void)onPhoneButtonPressed:(id)sender;
-
 - (void)updateBackButton;
 
 - (void)clearBackButton;
