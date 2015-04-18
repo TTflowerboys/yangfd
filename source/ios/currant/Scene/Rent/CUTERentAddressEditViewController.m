@@ -50,7 +50,7 @@
     CUTEProperty *property = [ticket property];
     property.street = [CUTEI18n i18nWithValue:form.street];
     property.city = form.city;
-    property.zipcode = form.zipcode;
+    property.zipcode = form.postcode;
     property.country = form.country;
 }
 

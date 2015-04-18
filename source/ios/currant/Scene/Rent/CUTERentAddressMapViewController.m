@@ -95,16 +95,18 @@
 - (BFTask *)requestLocation {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:30 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-        if (status == INTULocationStatusSuccess) {
-
+        if (currentLocation) {
             [tcs setResult:currentLocation];
         }
-        else if (status == INTULocationStatusTimedOut) {
-            [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置超时")}]];
+        else {
+            if (status == INTULocationStatusTimedOut) {
+                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置超时")}]];
+            }
+            else if (status == INTULocationStatusError) {
+                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置失败")}]];
+            }
         }
-        else if (status == INTULocationStatusError) {
-            [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置失败")}]];
-        }
+
     }];
     return tcs.task;
 }
@@ -157,7 +159,7 @@
                 [form setCity:[cities objectAtIndex:cityIndex]];
             }
             form.street = property.street.value;
-            form.zipcode = property.zipcode;
+            form.postcode = property.zipcode;
             controller.formController.form = form;
 
             controller.navigationItem.title = STR(@"位置");

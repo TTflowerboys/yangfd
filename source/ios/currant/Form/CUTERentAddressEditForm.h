@@ -16,7 +16,7 @@
 
 @property (strong, nonatomic) NSString *street;
 @property (strong, nonatomic) CUTECityEnum *city;
-@property (strong, nonatomic) NSString *zipcode;
+@property (strong, nonatomic) NSString *postcode;
 @property (strong, nonatomic) CUTEEnum *country;
 
 - (void)setAllCountries:(NSArray *)allCountries;

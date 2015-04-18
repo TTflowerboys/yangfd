@@ -27,7 +27,7 @@
     NSMutableArray *array = [NSMutableArray
                              arrayWithArray:@[
                                               @{FXFormFieldKey: @"street", FXFormFieldTitle: STR(@"街道"), FXFormFieldHeader:STR(@"位置"), FXFormFieldDefaultValue: _street? _street: @""},
-                                              @{FXFormFieldKey: @"zipcode", FXFormFieldTitle: STR(@"邮政编码"), FXFormFieldDefaultValue: _zipcode? _zipcode: @""},
+                                              @{FXFormFieldKey: @"postcode", FXFormFieldTitle: STR(@"Postcode"), FXFormFieldDefaultValue: _postcode? _postcode: @""},
                                               ]];
     if (_country) {
         [array addObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country}];
