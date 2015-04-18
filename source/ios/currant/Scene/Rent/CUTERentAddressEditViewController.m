@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTERentAddressEditForm.h"
 #import "CUTEDataManager.h"
+#import "SVProgressHUD+CUTEAPI.h"
 
 @interface CUTERentAddressEditViewController () {
     CUTEEnum *_lastCountry;
@@ -40,10 +41,30 @@
     _lastCountry = country;
 }
 
+- (BOOL)validateForm {
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    if (!form.city) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请编辑城市")];
+        return NO;
+    }
+    if (IsNilNullOrEmpty(form.postcode)) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请编辑Postcode")];
+        return NO;
+    }
+    if (!form.country) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请编辑国家")];
+    }
+    return YES;
+}
+
+
 
 
 - (void)onSaveButtonPressed:(id)sender {
-
+    if (![self validateForm]) {
+        return;
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)[self.formController form];
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];

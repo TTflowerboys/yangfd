@@ -23,12 +23,15 @@
 #import "CUTEConfiguration.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import <INTULocationManager.h>
+#import <Sequencer.h>
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, UITextFieldDelegate>
 {
     MKMapView *_mapView;
 
     CUTEMapTextField *_textField;
+
+    CUTERentAddressEditViewController *_rentAddressEditViewController;
 
     UIButton *_userLocationButton;
 
@@ -137,40 +140,55 @@
 }
 
 - (void)onAddressBeginEditing:(id)sender {
-    NSArray *requiredEnums = @[@"country", @"city"];
-    CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
 
-    [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
-        return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
-    }]] continueWithBlock:^id(BFTask *task) {
-        if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
-            CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
-            CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
-            NSArray *countries = [task.result objectAtIndex:0];
-            NSArray *cities = [task.result objectAtIndex:1];
-            [form setAllCountries:countries];
-            NSInteger countryIndex = [countries indexOfObject:property.country];
-            if (countryIndex != NSNotFound) {
-                [form setCountry:[countries objectAtIndex:countryIndex]];
-            }
-            [form setAllCities:cities];
-            NSInteger cityIndex = [cities indexOfObject:property.city];
-            if (cityIndex != NSNotFound) {
-                [form setCity:[cities objectAtIndex:cityIndex]];
-            }
-            form.street = property.street.value;
-            form.postcode = property.zipcode;
-            controller.formController.form = form;
+    Sequencer *sequencer = [Sequencer new];
+    if (!_rentAddressEditViewController) {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            NSArray *requiredEnums = @[@"country", @"city"];
+            CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
+            [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
+                return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+            }]] continueWithBlock:^id(BFTask *task) {
+                if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
+                    if (!_rentAddressEditViewController) {
+                        CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
+                        CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
+                        NSArray *countries = [task.result objectAtIndex:0];
+                        NSArray *cities = [task.result objectAtIndex:1];
+                        [form setAllCountries:countries];
+                        NSInteger countryIndex = [countries indexOfObject:property.country];
+                        if (countryIndex != NSNotFound) {
+                            [form setCountry:[countries objectAtIndex:countryIndex]];
+                            controller.lastCountry = form.country;
+                        }
+                        [form setAllCities:cities];
+                        NSInteger cityIndex = [cities indexOfObject:property.city];
+                        if (cityIndex != NSNotFound) {
+                            [form setCity:[cities objectAtIndex:cityIndex]];
+                        }
+                        form.street = property.street.value;
+                        form.postcode = property.zipcode;
+                        controller.formController.form = form;
+                        controller.navigationItem.title = STR(@"位置");
+                        _rentAddressEditViewController = controller;
+                    }
+                    completion(_rentAddressEditViewController);
+                }
+                else {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                return nil;
+            }];
+        }];
+    }
 
-            controller.navigationItem.title = STR(@"位置");
-            [self.navigationController pushViewController:controller animated:YES];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        if (result) {
+            [self.navigationController pushViewController:result animated:YES];
         }
-        else {
-            [SVProgressHUD showErrorWithError:task.error];
-        }
-
-        return nil;
     }];
+
+    [sequencer run];
 }
 
 - (void)onAddressLocationButtonTapped:(id)sender {
@@ -194,8 +212,19 @@
     [self startUpdateLocation];
 }
 
-- (void)onRightButtonPressed:(id)sender {
+- (BOOL)validateForm {
+    CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
+    if (!_rentAddressEditViewController && (!property.zipcode || !property.country || !property.city)) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请编辑地址")];
+        return NO;
+    }
+    return YES;
+}
 
+- (void)onRightButtonPressed:(id)sender {
+    if (![self validateForm]) {
+        return;
+    }
     CUTETicket *currentTicket = [[CUTEDataManager sharedInstance] currentRentTicket];
     if (currentTicket) {
         [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
