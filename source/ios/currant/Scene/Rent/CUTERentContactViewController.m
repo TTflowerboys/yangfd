@@ -62,13 +62,22 @@
 
 - (void)onVerificationButtonPressed:(id)sender {
 
+    //TODO for phone existed user let him login
+
     if ([CUTEDataManager sharedInstance].user) {
         if (![self validateFormWithScenario:@"sendCode"]) {
             return;
         }
+        [SVProgressHUD showWithStatus:STR(@"发送中...")];
         CUTEEnum *country = [[self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]] value];
         NSString *phone = [[self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]] value];
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":phone, @"country":country.identifier} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else {
+                [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
+            }
             return nil;
         }];
     }
@@ -76,6 +85,7 @@
         if (![self validateFormWithScenario:@"register"]) {
             return;
         }
+        [SVProgressHUD showWithStatus:STR(@"发送中")];
         CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
         CUTEUser *user = [CUTEUser new];
         user.nickname = form.name;
@@ -84,9 +94,11 @@
         user.phone = form.phone;
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/mobile-register" parameters:[user toParams] resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
+                [SVProgressHUD showErrorWithError:task.error];
                 return nil;
             } else {
                 [[CUTEDataManager sharedInstance] setUser:task.result];
+                [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
                 return nil;
             }
         }];
@@ -132,7 +144,8 @@
                 return nil;
             } else {
                 completion(task.result);
-                [SVProgressHUD dismiss];
+                [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
+                [self.navigationController popToRootViewControllerAnimated:YES];
                 return nil;
             }
         }];
