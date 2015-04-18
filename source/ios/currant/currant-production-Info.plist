@@ -36,6 +36,10 @@
 	<string>4</string>
 	<key>CurrantHost</key>
 	<string>yangfd.com</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>洋房东需要使用您的位置</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>洋房东需要使用您的位置</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

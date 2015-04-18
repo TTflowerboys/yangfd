@@ -28,7 +28,8 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic addEntriesFromDictionary:@{
                                     @"bill_covered":@(self.billCovered),
-                                    @"property_id":self.property.identifier
+                                    @"property_id":self.property.identifier,
+                                    @"status":self.status
                                     }];
     if (self.space) {
         [dic setValue:self.space.toParams forKey:@"space"];
