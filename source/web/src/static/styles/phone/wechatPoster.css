@@ -9,6 +9,16 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.clearfix:after {
+    content: "\200B";
+    display: block;
+    height: 0;
+    clear: both
+}
+
+.clearfix {
+    *zoom:1
+}
 html {
     height: 100%;
 }
@@ -26,7 +36,7 @@ p{
     margin: 0;
 }
 .hide{
-    display: none;
+    display: none !important;
 }
 .swiper-container {
     /*height: 1036px;*/
@@ -163,52 +173,53 @@ p{
     background-size: cover;
 
 }
-.page_1{
-    background: url("../../images/wechat_poster/page_1_bg.jpg") 50% 50%;
+.pageCover{
+    background: url("../../images/wechat_poster/page_cover_bg.jpg") 50% 50%;
     background-size: cover;
 }
-.topTitleNav p{
+.pageCover .topTitleNav p{
     opacity: 0;
     animation: tada2 0.4s linear 0.6s 1;
     -webkit-animation: tada2 0.4s linear 0.6s 1;
     animation-fill-mode: forwards;
     -webkit-animation-fill-mode: forwards;
 }
-.topTitleNav p:nth-child(1){
+.pageCover .topTitleNav p:nth-child(1){
     animation-delay: 0.6s;
     -webkit-animation-delay: 0.6s;
 }
-.topTitleNav p:nth-child(2){
+.pageCover .topTitleNav p:nth-child(2){
     animation-delay: 0.8s;
     -webkit-animation-delay: 0.8s;
 }
-.topTitleNav p:nth-child(3){
+.pageCover .topTitleNav p:nth-child(3){
     animation-delay: 1s;
     -webkit-animation-delay: 1s;
 }
-.topTitleNav .location{
+.pageCover .topTitleNav .location{
     position: absolute;
-    left: 13%;
+    left: 50%;
+    margin-left: -19vh;
     top: 8.5vh;
-    width: 74%;
+    width: 38vh;
     height: 6vh;
     background: #333;
     color: #afc327;
-    font-size: 3vh;
+    font-size: 3.4vh;
     line-height: 6vh;
 }
-.topTitleNav .title{
+.pageCover .topTitleNav .title{
     position: absolute;
     width: 96%;
     left: 2%;
     height: 8vh;
-    top: 17vh;
+    top: 18vh;
     color: #333;
     font-size: 5.7vh;
     line-height: 8vh;
     overflow: hidden;
 }
-.topTitleNav .titleEn{
+.pageCover .topTitleNav .titleEn{
     position: absolute;
     width: 100%;
     height: 10vh;
@@ -220,51 +231,166 @@ p{
     line-height: 8vh;
 }
 
-.page_2 p{
+.pageRental>p{
     position: absolute;
     color: #afc327;
+    opacity: 0;
+    -webkit-animation: tada2 0.4s linear 0s 1;
+    animation: tada2 0.4s linear 0s 1;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
 }
-.page_2 p.line1{
+.pageRental p.line1{
     width: 100%;
     height: 7vh;
     line-height: 7vh;
     font-size: 5.6vh;
     top: 10vh;
 }
-.page_2 p.line2{
-    width: 72%;
-    left: 14%;
+.pageRental p.line2{
+    width: 38vh;
+    left: 50%;
+    margin-left: -19vh;
     height: 6.16vh;
     line-height: 6.16vh;
     top: 22vh;
     color: #586c4f;
     font-size: 4.8vh;
     font-weight: bold;
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+
 }
-.page_2 p.line2 *{
+.pageRental p.line2 *{
     position: relative;
     z-index: 1;
 }
-.page_2 p.line2:after{
+.pageRental p.line2:after{
     position: absolute;
     width: 100%;
     height: 100%;
     background: #afc327;
-    transform: skewX(-15deg);
     -webkit-transform: skewX(-15deg);
+    transform: skewX(-15deg);
     left: 0;
     z-index: 0;
     content: '';
 }
-.page_2 p.line2 sub{
+.pageRental p.line2 sub{
     font-size: 3vh;
     vertical-align:baseline ;
 }
-.page_2 p.line3{
+.pageRental p.line3{
     width: 100%;
-    height: 3vh;
-    line-height: 3vh;
+    height: 3.2vh;
+    line-height: 3.2vh;
     font-size: 2.5vh;
-    top: 33.5vh;
+    top: 33vh;
     font-weight: bold;
+    -webkit-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+}
+.pageRental .itemBox{
+    position: absolute;
+    margin: 0 0 0 -25vh;
+    padding: 0;
+    list-style: none;
+    width: 50vh;
+    height: 42vh;
+    left: 50%;
+    top: 45vh;
+}
+.pageRental .itemBox li{
+    overflow: hidden;
+    opacity: 0;
+    display: block;
+    height: 7vh;
+    margin-bottom: 3.2vh;
+    border: 1px solid #fff;
+    font-size: 3.4vh;
+    text-align: left;
+    line-height: 7vh;
+    vertical-align: top;
+    -webkit-animation:tada1 0.2s linear 0s 1;
+    animation:tada1 0.2s linear 0s 1;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+.pageRental .itemBox li>span{
+    position: relative;
+    font-size: 2.2vh;
+    margin-right: 1.5vh;
+    top: 0.5vh;
+    vertical-align: inherit;
+}
+.pageRental .itemBox li:nth-child(2n-1){
+    float: left;
+    margin-right: 3.2vh;
+}
+.pageRental .itemBox li:nth-child(2n){
+    overflow: hidden;
+}
+.pageRental .itemBox li:nth-child(1){
+    width: 40%;
+    -webkit-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+}
+.pageRental .itemBox li:nth-child(2){
+    -webkit-animation-delay: 0.7s;
+    animation-delay: 0.7s;
+}
+.pageRental .itemBox li:nth-child(3){
+    width: 30%;
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+}
+.pageRental .itemBox li:nth-child(4){
+    -webkit-animation-delay: 0.9s;
+    animation-delay: 0.9s;
+}
+.pageRental .itemBox li:nth-child(5){
+    width: 55%;
+    -webkit-animation-delay: 1.0s;
+    animation-delay: 1.0s;
+}
+.pageRental .itemBox li:nth-child(6){
+    -webkit-animation-delay: 1.1s;
+    animation-delay: 1.1s;
+}
+.pageRental .itemBox li:nth-child(7){
+    width: 100%;
+    -webkit-animation-delay: 1.2s;
+    animation-delay: 1.2s;
+}
+
+.pageRental .itemBox li i{
+    display: inline-block;
+    width: 3vh;
+    height: 3vh;
+    margin: 2vh 1vh 2vh 2vh;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+.pageRental .itemBox li i.sizeIcon{
+    background-image: url("../../images/wechat_poster/size.png");
+}
+.pageRental .itemBox li i.roomsIcon{
+    background-image: url("../../images/wechat_poster/rooms.png");
+}
+.pageRental .itemBox li i.rentalIcon{
+    background-image: url("../../images/wechat_poster/rental.png");
+}
+.pageRental .itemBox li i.estateIcon{
+    background-image: url("../../images/wechat_poster/estate.png");
+}
+.pageRental .itemBox li i.streetIcon{
+    background-image: url("../../images/wechat_poster/street.png");
+}
+.pageRental .itemBox li i.doorIcon{
+    background-image: url("../../images/wechat_poster/door.png");
+}
+.pageRental .itemBox li i.timeIcon{
+    background-image: url("../../images/wechat_poster/time.png");
 }

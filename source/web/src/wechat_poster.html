@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="/static/styles/team/reset.less">
         <link rel="stylesheet" href="/static/vendors/swiper/swiper.min.css">
         <link rel="stylesheet" href="/static/styles/phone/animation.css">
-        <link rel="stylesheet" href="/static/styles/phone/wechatPoster.css">
+        <link rel="stylesheet" href="/static/styles/phone/wechatPoster.css?a=16">
 
 
         <!--endbuild-->
@@ -159,7 +159,7 @@
         <div class="swiper-container" style="">
             <div class="swiper-wrapper" style="">
                 <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="page page_1">
+                    <div class="page pageCover">
                         <div class="topTitleNav animate">
                             <p class="location animate">英国 伦敦 金丝雀码头</p>
                             <p class="title animate">两室一厅好房整租</p>
@@ -171,10 +171,19 @@
                     </div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="page page_2">
+                    <div class="page pageRental">
                         <p class="line1 animate">仅需</p>
                         <p class="line2 animate"><span>¥ 4,000/周,</span><sub>包Bill</sub></p>
                         <p class="line3 animate">您就可以租到</p>
+                        <ul class="itemBox clearfix">
+                            <li class="animate"><i class="sizeIcon"></i>144㎡</li>
+                            <li class="animate"><i class="roomsIcon"></i>4<span>室</span>1<span>厅</span>1<span>卫</span></li>
+                            <li class="animate"><i class="rentalIcon"></i>整租</li>
+                            <li class="animate"><i class="estateIcon"></i>WATER FRONT</li>
+                            <li class="animate"><i class="streetIcon"></i>WE4 EB7</li>
+                            <li class="animate"><i class="doorIcon"></i>17-06</li>
+                            <li class="animate"><i class="timeIcon"></i>一年以上,2015年6月14日起</li>
+                        </ul>
                     </div>
                     <div class="bottomBox animate">
                         <div class="scrollUp">继续</div>
@@ -215,7 +224,8 @@
                     obj.not(".swiper-slide-visible").find(".animate").addClass('hide')
 //                    obj.eq(index).find(".animate").removeClass("hide")
                 },
-                onSlideChangeEnd: function (swiper, direction) {
+                onTransitionEnd: function (swiper, direction) {
+                    console.log(new Date + ': onSlideChangeEnd!')
                     var index = swiper.activeIndex
                     var obj = $(".swiper-slide")
                     //companyHeightReset()
