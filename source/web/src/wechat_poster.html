@@ -30,6 +30,7 @@
         </div>
         <script type="text/javascript">
             window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
+            window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame
             //进度条类
             function Process(conf){
                 var defaultConfig = {
@@ -43,14 +44,16 @@
                 var textEle = document.getElementById(config.textId)
                 this.canvasvalue = canvas.getAttribute("value") || '0%'
                 this.process = parseInt(this.canvasvalue.substring(0, this.canvasvalue.length - 1))
-                this.scale = window.devicePixelRatio
+                this.scale = window.devicePixelRatio || 1
                 this.outerWidth = config.outerWidth
                 this.innerWidth = config.innerWidth
                 this.center = [this.outerWidth / 2 * this.scale, this.outerWidth / 2 * this.scale]
-                canvas.style.width = this.outerWidth + 'px'
-                canvas.style.height = this.outerWidth + 'px'
+
                 canvas.width = this.outerWidth * this.scale
                 canvas.height = this.outerWidth * this.scale
+
+                canvas.style.width = this.outerWidth + 'px'
+                canvas.style.height = this.outerWidth + 'px'
 
                 initStyle()
 
@@ -64,7 +67,7 @@
                     context.fill()
 
                     // 画进度(activeColor)
-                    if(this.process != 0 && this.process != 100){
+                    if(this.process !== 0 && this.process !== 100){
                         context.beginPath()
                         context.moveTo(this.center[0], this.center[1])
                         context.arc(this.center[0], this.center[1], this.center[0], - Math.PI / 2, Math.PI*2* (this.process / 100) - Math.PI / 2, false)
@@ -72,7 +75,7 @@
                         context.fillStyle = config.activeColor
                         context.fill()
                     }
-                    else if(this.process == 100){
+                    else if(this.process === 100){
                         context.beginPath()
                         context.moveTo(this.center[0], this.center[1])
                         context.arc(this.center[0], this.center[1], this.center[0], 0, Math.PI*2, false)
@@ -83,14 +86,14 @@
                     // 画内部空白(backColor)
                     context.beginPath()
                     context.moveTo(this.center[0], this.center[1])
-                    context.arc(this.center[0], this.center[1], this.center[0]*this.innerWidth/this.outerWidth*this.scale, 0, Math.PI * 2, true)
+                    context.arc(this.center[0], this.center[1], this.center[0]*this.innerWidth/this.outerWidth, 0, Math.PI * 2, true)
                     context.closePath()
                     context.fillStyle = config.backColor
                     context.fill()
                 }
                 this.changeText = function () {
                     this.canvasvalue = this.process + '%';
-                    textEle.innerText = this.canvasvalue
+                    textEle.innerHTML = this.canvasvalue
                 }
                 function initStyle(){
                     var w = _.outerWidth + 'px'
@@ -143,8 +146,8 @@
             var process = new Process({
                 canvasId: 'procanvas',
                 textId: 'proText',
-                outerWidth: '130',
-                innerWidth: '121',
+                outerWidth: '100',
+                innerWidth: '94',
                 backColor: 'rgba(51,51,51,1)',
                 underColor: '#3f3f3f',
                 activeColor: '#aec227'
@@ -170,7 +173,7 @@
                 <div class="swiper-slide swiper-slide-bg commen" style="">
                     <div class="page page_2">
                         <p class="line1 animate">仅需</p>
-                        <p class="line2 animate">¥ 4,000/周,<sub>包Bill</sub></p>
+                        <p class="line2 animate"><span>¥ 4,000/周,</span><sub>包Bill</sub></p>
                         <p class="line3 animate">您就可以租到</p>
                     </div>
                     <div class="bottomBox animate">
@@ -191,13 +194,19 @@
         <script>
             var mySwiper = new Swiper('.swiper-container', {
                 direction: 'vertical',
-               /* effect: 'coverflow',
+                effect: 'coverflow',
                 coverflow: {
                     rotate: 50,
                     stretch: 0,
                     depth: 100,
                     modifier: 1,
                     slideShadows : true
+                },
+                /*cube: {
+                    slideShadows: true,
+                    shadow: true,
+                    shadowOffset: 20,
+                    shadowScale: 0.94
                 },*/
                 onInit: function (swiper, direction) {
                     var index = swiper.activeIndex
@@ -220,14 +229,14 @@
             $(window).load(function(){
                 //所有资源加载完毕后：
                 function loadCallback(){
-                    $('.loadingCover').fadeOut(400, function(){
+                    $('.loadingCover').fadeOut(200, function(){
                         $('body').removeClass('loading')
                         $(".swiper-slide").eq(0).find('.animate').removeClass('hide')
                     })
                 }
                 setTimeout(function(){
                     process.finish(loadCallback)
-                },500)
+                },0)
             })
 
         </script>
