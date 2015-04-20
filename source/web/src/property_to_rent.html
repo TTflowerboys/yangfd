@@ -360,6 +360,18 @@
                         </tr>
                     </table>
                 </div>
+
+                <div class="host_wrapper">
+                    <div class="host">
+                        <label class="hostName">{{rent.get('creator_user',{}).get('nickname','')}}</label>
+                        <div>
+                            <img src="/static/images/common/float_bar/float-window-phone.png"></img>
+                            <span class="hostPhone">+{{rent.get('creator_user',{}).get('country_code','')}} {{rent.get('creator_user',{}).get('phone','')}}</span>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
 
