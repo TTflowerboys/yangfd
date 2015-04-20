@@ -169,6 +169,7 @@ p{
 .page{
     width: 100%;
     height: 100%;
+    overflow: hidden;
     background: url("../../images/wechat_poster/container_bg.jpg") 50% 50%;
     background-size: cover;
 
@@ -302,7 +303,6 @@ p{
     top: 45vh;
 }
 .pageRental .itemBox li{
-    overflow: hidden;
     opacity: 0;
     display: block;
     height: 7vh;
@@ -393,4 +393,105 @@ p{
 }
 .pageRental .itemBox li i.timeIcon{
     background-image: url("../../images/wechat_poster/time.png");
+}
+
+.pageDescription h2{
+    margin: 6vh 0 0vh;
+    font-size: 10vh;
+    color: #afc327;
+    font-weight: 400;
+}
+.pageDescription p{
+    margin: -5vh auto 5vh;
+    font-size: 3vh;
+    line-height: 1.4em;
+}
+.modal{
+    width: 100%;
+    height: 100%;
+    padding: 10vh 0;
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    overflow: auto;
+    background-image: url("../../images/wechat_poster/container_bg.jpg");
+    background-position: 50% 50%;
+    background-size: cover;
+    text-align: center;
+    opacity: 0;
+    animation: bounceInDown 0.4s linear 0s 1;
+    -webkit-animation: bounceInDown 0.4s linear 0s 1;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+}
+.modal.animation{
+    animation: fadeOutUp 0.4s linear 0s 1;
+    -webkit-animation: fadeOutUp 0.4s linear 0s 1;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+}
+.descriptionMore p{
+    width: 48vh;
+    margin: 0 auto 5vh;
+    color: #fff;
+    text-align: left;
+    font-size: 3.4vh;
+    line-height: 1.5em;
+}
+
+.btn{
+    padding: 1.2vh 4vh;
+    border-radius: 1.2vh;
+    border: 1px solid #fff;
+    cursor: pointer;
+    font-size:2.6vh;
+    color: #fff;
+}
+.page a:hover{
+    border-color: #aec227;
+    color: #aec227;
+}
+.pageDescription .facilities{
+    width: 44vh;
+    margin: 8vh auto 4.5vh;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+.pageDescription .facilities li{
+    display: block;
+    float: left;
+    width: 22vh;
+    height: 7vh;
+    line-height: 7vh;
+    vertical-align: top;
+    font-size: 2.6vh;
+}
+.pageDescription .facilities li i{
+    display: inline-block;
+    width: 4.5vh;
+    height: 4.5vh;
+    margin: 1.25vh 2vh 1.25vh;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+.pageDescription .facilities li i.tvIcon{
+    background-image: url("../../images/wechat_poster/tv.png");
+}
+.pageDescription .facilities li i.fireIcon{
+    background-image: url("../../images/wechat_poster/fire.png");
+}
+.pageDescription .facilities li i.iceIcon{
+    background-image: url("../../images/wechat_poster/ice.png");
+}
+.pageDescription .facilities li i.heaterIcon{
+    background-image: url("../../images/wechat_poster/heater.png");
+}
+.pageDescription .facilities li i.washerIcon{
+    background-image: url("../../images/wechat_poster/washer.png");
+}
+.pageDescription .facilities li i.warmIcon{
+    background-image: url("../../images/wechat_poster/warm.png");
 }
