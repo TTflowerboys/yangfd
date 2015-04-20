@@ -31,7 +31,7 @@
     [super viewDidLoad];
     CUTETicket *ticket = [CUTETicket new];
     CUTEProperty *property = [CUTEProperty new];
-    ticket.status = kTicketStatusToRent;
+    ticket.status = kTicketStatusDraft;
     ticket.property = property;
     [[CUTEDataManager sharedInstance] pushRentTicket:ticket];
 }

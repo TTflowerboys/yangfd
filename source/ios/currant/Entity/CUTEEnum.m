@@ -9,6 +9,7 @@
 #import "CUTEEnum.h"
 #import "CUTECityEnum.h"
 #import "CUTECommonMacro.h"
+#import "CUTERentPeriod.h"
 
 @implementation CUTEEnum
 
@@ -29,6 +30,9 @@
         if ([[JSONDictionary objectForKey:@"type"] isEqualToString:@"city"])
         {
             return [CUTECityEnum class];
+        }
+        else if ([[JSONDictionary objectForKey:@"type"] isEqualToString:@"rent_period"]) {
+            return [CUTERentPeriod class];
         }
     }
     return [self class];

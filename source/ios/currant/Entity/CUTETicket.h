@@ -12,8 +12,10 @@
 #import "CUTECurrency.h"
 #import "CUTEProperty.h"
 #import "CUTEI18n.h"
+#import "CUTERentPeriod.h"
 
 #define kTicketStatusToRent @"to rent"
+#define kTicketStatusDraft @"draft"
 
 @interface CUTETicket : MTLModel <MTLJSONSerializing>
 
@@ -27,7 +29,7 @@
 
 @property (strong, nonatomic) CUTEEnum *rentType;
 
-@property (strong, nonatomic) CUTEEnum *rentPeriod;
+@property (strong, nonatomic) CUTERentPeriod *rentPeriod;
 
 @property (strong, nonatomic) CUTEEnum *depositType;
 

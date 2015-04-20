@@ -78,29 +78,18 @@
          * @returns {string} currency 123,456.78
          */
         encodeCurrency: function (number,fixedBit) {
+            if(fixedBit === undefined){
+                fixedBit = 2
+            }
             var parts;
             if (number !== 0 && !number) {return '';}
             var numberString = number.toString()
             numberString = team.decodeCurrency(numberString)
             if (numberString.indexOf('.') >= 0) {
-                if(fixedBit){
-                    numberString = parseFloat(numberString, 10).toFixed(fixedBit).toString()
-                }else{
-                    numberString = parseFloat(numberString, 10).toFixed(2).toString()
-                }
-
+                numberString = parseFloat(numberString, 10).toFixed(fixedBit).toString()
             }
             parts = numberString.split('.')
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-            if (parts[1]) {
-                if (parts[1].length === 1) {
-                    parts[1] = parts[1] + '0'
-                }
-                if (parts[1].length > 2) { parts[1] = parts[1].substr(0, 2) }
-            }
-            else {
-                parts[1] = '00'
-            }
             return parts.join('.')
         },
 
@@ -113,7 +102,7 @@
         decodeCurrency: function (currency) {
             return currency.replace(/[,\s]/g, '')
         },
-        formatCurrency: function (number, currencyType,fixedBit) {
+        formatCurrency: function (number, fixedBit, currencyType) {
             if (!currencyType) {
                 currencyType = window.currency
             }

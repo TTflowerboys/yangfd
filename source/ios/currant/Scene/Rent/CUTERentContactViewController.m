@@ -143,7 +143,8 @@
     CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:nil resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:
+          @{@"status": kTicketStatusToRent} resultClass:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
                 return nil;
@@ -161,7 +162,6 @@
 }
 
 - (void)shareToWechat {
-
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"微信分享") message:nil delegate:self cancelButtonTitle:STR(@"取消") otherButtonTitles:STR(@"分享给微信好友"), STR(@"分享到微信朋友圈"), nil];
     [alertView show];
 }

@@ -14,16 +14,9 @@
 {
     CGRect rect = [super textRectForBounds:bounds];
     rect.origin.x = rect.origin.x + 16;
-    rect.size.width = rect.size.width - 24;
+    rect.size.width = rect.size.width - 32;
     return rect;
 
-}
-
-- (CGRect)leftViewRectForBounds:(CGRect)bounds
-{
-    CGRect rect = [super leftViewRectForBounds:bounds];
-    rect.origin.x = 18;
-    return rect;
 }
 
 - (CGRect)rightViewRectForBounds:(CGRect)bounds{

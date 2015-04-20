@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CUTEForm.h"
 #import "CUTEEnum.h"
+#import "CUTERentPeriod.h"
 
 @interface CUTERentPriceForm : CUTEForm
 
@@ -18,7 +19,7 @@
 @property (nonatomic) BOOL containBill;
 @property (nonatomic) BOOL needSetPeriod;
 @property (strong, nonatomic) NSDate *rentAvailableTime;
-@property (strong, nonatomic) CUTEEnum *rentPeriod;
+@property (strong, nonatomic) CUTERentPeriod *rentPeriod;
 
 
 - (NSString *)currencySymbol;

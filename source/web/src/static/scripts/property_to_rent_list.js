@@ -138,7 +138,7 @@
         }
 
         if (lastItemTime) {
-            params.time = lastItemTime
+            params.last_modified_time = lastItemTime
             //Load more triggered
             ga('send', 'event', 'rent_list', 'trigger', 'load-more')
         }

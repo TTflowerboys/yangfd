@@ -80,7 +80,7 @@ def property_to_rent_list(params):
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(check_role=True)
 def rent_ticket_get(rent_ticket_id, user):
-    rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id])[0])
+    rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
     if rent_ticket["status"] not in ["draft", "to rent"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 

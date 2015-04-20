@@ -238,15 +238,11 @@
         // }});
 
         findNearByLocations(map, mapId, location, country, ['4013', '4170','4482', '4493', '4580', '4581', '9511', '9520', '9707', '9708', '9989'], function (searchResults) {
-            if (searchResults) {
-                if (searchResults.length === 0) {
-                    window.alert('No results for the query');
-                }
-                else {
-                    updateMapResults(map, mapId, $list, searchResults)
-                    $list.ioslist()
-                }
+            if (searchResults&&searchResults.length > 0) {
+                updateMapResults(map, mapId, $list, searchResults)
+                $list.ioslist()
             }
+            //TODO:Hide this tab
 
             map.setView({zoom: zoom? zoom:13, center: location})
 
@@ -271,15 +267,12 @@
         });
 
         findNearByLocations(map, mapId, location, country, ['8211', '8200'], function (searchResults) {
-            if (searchResults) {
-                if (searchResults.length === 0) {
-                    window.alert('No results for the query');
-                }
-                else {
-                    updateMapResults(map, mapId, $list, searchResults)
-                    $list.ioslist()
-                }
+            if (searchResults&&searchResults.length > 0) {
+                updateMapResults(map, mapId, $list, searchResults)
+                $list.ioslist()
             }
+            //TODO:Hide this tab
+
             map.setView({zoom: zoom? zoom:13, center: location})
             if (polygon) {
                 map.entities.push(polygon)
@@ -301,15 +294,12 @@
         });
 
         findNearByLocations(map, mapId, location, country, ['4017', '5400', '5540', '5800', '6000', '6512', '7011', '7832', '7997', '8060', '8231', '9221', '9504', '9505', '9510', '9523', '9530', '9539'], function (searchResults) {
-            if (searchResults) {
-                if (searchResults.length === 0) {
-                    window.alert('No results for the query');
-                }
-                else {
-                    updateMapResults(map, mapId, $list, searchResults)
-                    $list.ioslist()
-                }
+            if (searchResults&&searchResults.length > 0) {
+                updateMapResults(map, mapId, $list, searchResults)
+                $list.ioslist()
             }
+            //TODO:Hide this tab
+
             map.setView({zoom: zoom? zoom:13, center: location})
             if (polygon) {
                 map.entities.push(polygon)

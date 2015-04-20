@@ -3,9 +3,9 @@
         <a href="/property-to-rent/{=rent.id=}">
             <div class="imagePart">
                     {_if(rent.property.reality_images && rent.property.reality_images.length) {_}
-                        <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);" width="320" height="213"/>
+                        <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
                     {_ }else { _}
-                        <img class="withPlaceholder" width="320" height="213"/>
+                        <img class="withPlaceholder"/>
                     {_ } _}
 
                 <div class="labels">
@@ -26,7 +26,7 @@
                         {_if(rent.price) {_}
                             <span class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
                         {_}_}
-                        <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}</p>
+                        <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('发布')=}</p>
                     </div>
                     <ul class="properties">
                         <li>
@@ -52,7 +52,7 @@
                     <div class="details">
                         <div class="left">
                             <div class="room">
-                                <p class="label">居室</p>
+                                <p class="label">{=window.i18n('居室')=}</p>
                                 <p class="value">
                                     {_if(rent.property.bedroom_count) {_}
                                         {=rent.property.bedroom_count + window.i18n('室') =}
@@ -63,7 +63,7 @@
                                 </p>
                             </div>
                             <div class="size">
-                                <p class="label">面积</p>
+                                <p class="label">{=window.i18n('面积')=}</p>
                                 <p class="value">
                                     {_if(rent.space) {_}
                                     {= parseFloat(rent.space.value).toFixed(2)=}
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div class="right">
-                            <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}</p>
+                            <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('发布')=}</p>
                         </div>
                     </div>
                 </div>
