@@ -221,6 +221,8 @@
     }
 }
 
+//TODO need image count limit?
+
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
 {
     if (picker.selectedAssets.count >= 10)
