@@ -15,14 +15,17 @@
 #import "MasonryMake.h"
 #import <UIView+BBT.h>
 #import "CUTEDataManager.h"
+#import "SVProgressHUD+CUTEAPI.h"
 
-@interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate>
+@interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate, UIActionSheetDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
     CUTEFormImagePickerPlaceholderView *_placeholderView;
 
     UIScrollView *_scrollView;
 
     UIButton *_addButton;
+
+    CTAssetsPickerController *_assetsPickerController;
 }
 @end
 
@@ -75,6 +78,19 @@
     self.field.value = images;
 }
 
+- (void)addImage:(ALAsset *)image {
+    if ([self images] == nil) {
+        [self setImages:@[]];
+    }
+    [self setImages:[[self images] arrayByAddingObject:image]];
+}
+
+- (void)updateImages:(NSArray *)images {
+    [self setImages:images];
+    [[[[CUTEDataManager sharedInstance] currentRentTicket] property] setRealityImages:[self images]];
+    [self update];
+}
+
 - (void)update
 {
     BOOL hidePlaceHolder = !IsArrayNilOrEmpty([self images]);
@@ -117,28 +133,63 @@
     return nil;
 }
 
+- (CTAssetsPickerController *)assetsPickerController {
+    if (!_assetsPickerController) {
+        CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+        picker.assetsFilter = [ALAssetsFilter allPhotos];
+        picker.showsCancelButton = (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad);
+        picker.delegate = self;
+        picker.alwaysEnableDoneButton = YES;
+        _assetsPickerController = picker;
+    }
+    return _assetsPickerController;
+}
+
 - (void)showImagePickerFrom:(UIViewController *)controller {
-    CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-    picker.assetsFilter = [ALAssetsFilter allPhotos];
-    picker.showsCancelButton = (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad);
-    picker.delegate = self;
-    picker.selectedAssets = [NSMutableArray arrayWithArray:[self images]];
-    picker.alwaysEnableDoneButton = YES;
-    [controller presentViewController:picker animated:YES completion:^{
+    [self assetsPickerController].selectedAssets = [NSMutableArray arrayWithArray:[self images]];
+    [controller presentViewController:[self assetsPickerController] animated:YES completion:^  {
 
     }];
 }
 
+- (void)showCameraFrom:(UIViewController *)controller {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.delegate = self;
+        [controller presentViewController:picker animated:YES completion:^{
+
+        }];
+    }
+}
+
+- (void)showActionSheet {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:STR(@"选择照片") delegate:self cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:STR(@"从手机选择"), STR(@"拍照"), nil];
+    [actionSheet showInView:[self tableViewController].view];
+}
+
 - (void)onAddButtonPressed:(id)sender {
-    [self showImagePickerFrom:[self tableViewController]];
+    [self showActionSheet];
 }
 
 - (void)didSelectWithTableView:(UITableView *)tableView controller:(UIViewController *)controller
 {
     [tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
     if (!_placeholderView.isHidden) {
-        [self showImagePickerFrom:controller];
+        [self showActionSheet];
     }
+}
+
+#pragma mark - UIActionSheetDelegate 
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self showImagePickerFrom:[self tableViewController]];
+    }
+    else if (buttonIndex == 1) {
+        [self showCameraFrom:[self tableViewController]];
+    }
+
 }
 
 #pragma mark - Assets Picker Delegate
@@ -152,7 +203,7 @@
 {
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     [self setImages:assets];
-    [[[[CUTEDataManager sharedInstance] currentRentTicket] property] setRealityImages:assets];
+    [[[[CUTEDataManager sharedInstance] currentRentTicket] property] setRealityImages:[self images]];
     [self update];
 }
 
@@ -199,6 +250,34 @@
     return (picker.selectedAssets.count < 10 && asset.defaultRepresentation != nil);
 }
 
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
 
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    if (image == nil)
+    {
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    }
+
+    [SVProgressHUD show];
+    ALAssetsLibrary *library = [self assetsPickerController].assetsLibrary;
+    [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+        if (error) {
+            [SVProgressHUD showErrorWithError:error];
+        } else {
+            [library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                [self addImage:asset];
+                [[[[CUTEDataManager sharedInstance] currentRentTicket] property] setRealityImages:[self images]];
+                [self update];
+                [SVProgressHUD dismiss];
+                [picker dismissViewControllerAnimated:YES completion:NULL];
+            } failureBlock:^(NSError *error) {
+                [SVProgressHUD showErrorWithError:error];
+            }];
+        }
+    }];
+}
 
 @end
