@@ -391,13 +391,13 @@ class f_currant_ticket(f_ticket):
             t["creator_user"] = user_dict.get(t.pop("creator_user_id"))
 
             if t["creator_user"] and fuzzy_user_info:
-                if "nickname" in t["creator_user"]:
+                if "nickname" in t["creator_user"] and t["creator_user"]["nickname"] is not None:
                     t["creator_user"]["nickname"] = t["creator_user"]["nickname"][:1] + "**"
 
-                if "email" in t["creator_user"]:
+                if "email" in t["creator_user"] and t["creator_user"]["email"] is not None:
                     t["creator_user"]["email"] = t["creator_user"]["email"][:3] + "**@**"
 
-                if "phone" in t["creator_user"]:
+                if "phone" in t["creator_user"] and t["creator_user"]["phone"] is not None:
                     if len(t["creator_user"]["phone"]) > 6:
                         t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "*" * (len(t["creator_user"]["phone"]) - 6) + t["creator_user"]["phone"][-3:]
                     else:
