@@ -12,6 +12,11 @@
 		2C1609261AE263C6003587E6 /* CUTERentShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */; };
 		2C1609271AE263C7003587E6 /* CUTERentShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */; };
 		2C1609281AE263C8003587E6 /* CUTERentShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */; };
+		2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
+		2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
+		2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
+		2C1E66F51AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
+		2C1E66F61AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1EA76F1AC3DA1900B0FC22 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
 		2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2C226E6D1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C226E6C1ACBE2AB00658132 /* CUTEFormRentTypeCell.m */; };
@@ -300,6 +305,8 @@
 /* Begin PBXFileReference section */
 		2C1609221AE263BB003587E6 /* CUTERentShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentShareViewController.h; sourceTree = "<group>"; };
 		2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentShareViewController.m; sourceTree = "<group>"; };
+		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
+		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		2C1EA7701AC3EED100B0FC22 /* CUTEMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMapView.h; sourceTree = "<group>"; };
 		2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMapView.m; sourceTree = "<group>"; };
@@ -505,6 +512,8 @@
 				2C427E531AD25110000378A9 /* CUTEEnum.m */,
 				2C427E591AD28A74000378A9 /* CUTECityEnum.h */,
 				2C427E5A1AD28A74000378A9 /* CUTECityEnum.m */,
+				2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */,
+				2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */,
 				2C427EA01AD3802A000378A9 /* CUTEArea.h */,
 				2C427EA11AD3802A000378A9 /* CUTEArea.m */,
 				2C427EA71AD3803B000378A9 /* CUTECurrency.h */,
@@ -1170,6 +1179,7 @@
 				2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9D1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2C226E6F1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
+				2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CD989F61ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
 				2CB748FA1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
@@ -1229,6 +1239,7 @@
 				2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9E1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2C226E701ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
+				2C1E66F51AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CD989F71ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
 				2CB748FB1ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
@@ -1288,6 +1299,7 @@
 				2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9C1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2C226E6E1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
+				2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CD989F51ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
 				2CB748F91ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
@@ -1347,6 +1359,7 @@
 				2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9B1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2C226E6D1ACBE2AB00658132 /* CUTEFormRentTypeCell.m in Sources */,
+				2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CD989F41ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
 				2CB748F81ADD01E1003BC2A5 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
@@ -1413,6 +1426,7 @@
 				2CD989F81ADBCE9400AD763A /* CUTEPropertyFacilityViewController.m in Sources */,
 				2CB749031ADD1E8D003BC2A5 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2C4AEC8A1AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */,
+				2C1E66F61AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2C5ECC471AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
 				2C5ECC4E1AD51A1500163E9E /* CUTEPropertyInfoViewController.m in Sources */,
 				2C427E421ACFFC3E000378A9 /* CUTERentAddressEditViewController.m in Sources */,

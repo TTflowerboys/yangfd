@@ -89,22 +89,25 @@
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
           if (!_editRentPriceViewController) {
-            CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
-            CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
-            CUTERentPriceForm *form = [CUTERentPriceForm new];
-            form.currency = ticket.price.unit;
-            form.depositType = ticket.depositType;
-            form.rentPrice = ticket.price.value;
-            form.containBill = ticket.billCovered;
-            form.needSetPeriod = ticket.rentPeriod? YES: NO;
-            form.rentAvailableTime = ticket.rentAvailableTime;
-            form.rentPeriod = ticket.rentPeriod;
+              CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+              ticket.rentAvailableTime = [NSDate date];
+              CUTERentPeriod *defaultRentPeriod = [CUTERentPeriod negotiableRentPeriod];
+              ticket.rentPeriod = defaultRentPeriod;
+              CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
+              CUTERentPriceForm *form = [CUTERentPriceForm new];
+              form.currency = ticket.price.unit;
+              form.depositType = ticket.depositType;
+              form.rentPrice = ticket.price.value;
+              form.containBill = ticket.billCovered;
+              form.needSetPeriod = YES;
+              form.rentAvailableTime = ticket.rentAvailableTime;
+              form.rentPeriod = ticket.rentPeriod;
 
-            [form setAllDepositTypes:[task.result objectAtIndex:0]];
-            [form setAllRentPeriods:[task.result objectAtIndex:1]];
-            controller.formController.form = form;
-            controller.navigationItem.title = STR(@"租金");
-            _editRentPriceViewController = controller;
+              [form setAllDepositTypes:[task.result objectAtIndex:0]];
+              [form setAllRentPeriods:[[task.result objectAtIndex:1] arrayByAddingObject:defaultRentPeriod]];
+              controller.formController.form = form;
+              controller.navigationItem.title = STR(@"租金");
+              _editRentPriceViewController = controller;
           }
             [self.navigationController pushViewController:_editRentPriceViewController animated:YES];
         }

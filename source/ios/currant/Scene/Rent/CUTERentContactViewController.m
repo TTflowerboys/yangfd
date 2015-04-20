@@ -162,7 +162,6 @@
 }
 
 - (void)shareToWechat {
-
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"微信分享") message:nil delegate:self cancelButtonTitle:STR(@"取消") otherButtonTitles:STR(@"分享给微信好友"), STR(@"分享到微信朋友圈"), nil];
     [alertView show];
 }
