@@ -666,8 +666,8 @@ def rent_ticket_contact_info(user, ticket_id):
 @f_api('/rent_ticket/search', params=dict(
     status=(list, ["to rent"], str),
     per_page=int,
-    time=datetime,
-    sort=(list, ["time", 'desc'], str),
+    last_modified_time=datetime,
+    sort=(list, ["last_modified_time", 'desc'], str),
     rent_type="enum:rent_type",
     user_id=ObjectId,
     rent_budget="enum:rent_budget",
@@ -828,7 +828,7 @@ def rent_ticket_search(user, params):
         property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
         params["property_id"] = {"$in": property_id_list}
 
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), fuzzy_user_info=fuzzy_user_info)
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort, time_field="last_modified_time"), fuzzy_user_info=fuzzy_user_info)
 
 
 @f_api('/sale_ticket/add', params=dict(
