@@ -14,6 +14,7 @@
 #import "CUTEI18n.h"
 
 #define kTicketStatusToRent @"to rent"
+#define kTicketStatusDraft @"draft"
 
 @interface CUTETicket : MTLModel <MTLJSONSerializing>
 
