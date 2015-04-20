@@ -40,17 +40,21 @@
         z-index:@house_card-image-z-index;
 
         @media @phone {
-            width:100%;
+            width: 100%;
+            height: 100%;
         }
 
         img {
             position: absolute;
-
+            width: 320px;
+            min-height: 213px;
             cursor:pointer;
 
             @media @phone {
                 position:static;
                 float:left;
+                width: 100%;
+                min-height: 213px;
             }
         }
 
@@ -81,29 +85,6 @@
 
             }
         }
-
-        .soldOut {
-            img {
-                position: absolute;
-                left: 0;
-                top:0;
-                height:100%;
-                width:100%;
-                z-index:@house_card-sold-out-background-z-index;
-            }
-
-            label {
-                position:absolute;
-                z-index:@house_card-image-text-z-index;
-                width:100%;
-                height:100%;
-                color:#666666;
-                text-align: center;
-                display: block;
-                line-height: @house_card_image-height;
-                font-size:44px;
-            }
-        }
     }
 
 
@@ -132,13 +113,14 @@
         }
 
         .titles{
+            display: block;
             >.name {
                 font-size: @normal-font-size;
                 font-weight: bold;
                 margin: 0;
                 color: @black;
                 font-family: @font-normal;
-                max-width:60%;
+                max-width:70%;
                 .limitedLines(2, 30px, transparent);
 
                 a {
@@ -147,10 +129,8 @@
                 }
 
                 @media @phone {
-                    float: left;
                     font-size: @root-font-size;
                     .limitedLines(2, 24px, transparent);
-                    max-width:70%;
                 }
             }
 
@@ -169,7 +149,7 @@
                 }
 
                 @media @phone {
-                    position:relative;
+                    position: absolute;
                     max-width:30%;
                     float: right;
                     margin-right: inherit;
@@ -182,16 +162,16 @@
                 @media @phone {
                     display:inherit;
                     position:relative;
-                    float: right;
                 }
             }
         }
 
         >.properties {
+            display: inline-block;
             margin-top: @padding-top/2;
 
             @media @phone {
-                display: inline-block;
+                display: block;
             }
         }
 
