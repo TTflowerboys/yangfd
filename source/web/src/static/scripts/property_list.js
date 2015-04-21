@@ -3,16 +3,16 @@ window.resizeCategory = function () {
     var $category = $categoryWrapper.find('.category')
 
     if (window.team.isPhone()) {
-        $categoryWrapper.css({'height':'auto'});
+        $categoryWrapper.css({'height': 'auto'});
         $category.css('margin-top', '0')
         $categoryWrapper.show()
     }
     else {
         var availHeight = window.screen.availHeight
-        var wrapperHeight =  availHeight / 8.0 > 100 ? availHeight / 8.0 : 100
+        var wrapperHeight = availHeight / 8.0 > 100 ? availHeight / 8.0 : 100
         var categoryHeight = 40
-        $categoryWrapper.css({'height':wrapperHeight+'px'});
-        $category.css('margin-top', (wrapperHeight - categoryHeight) / 2+ 'px')
+        $categoryWrapper.css({'height': wrapperHeight + 'px'});
+        $category.css('margin-top', (wrapperHeight - categoryHeight) / 2 + 'px')
         $categoryWrapper.show()
     }
 };
@@ -24,19 +24,19 @@ $(window).on('resize', window.resizeCategory);
 window.updateTabSelectorFixed = function () {
     if (!window.team.isPhone()) {
         var scrollOffset = $(window).scrollTop()
-        var $list = $('.tabContent').width() > 0 ? $('#result_list'): $('#emptyPlaceHolder')
+        var $list = $('.tabContent').width() > 0 ? $('#result_list') : $('#emptyPlaceHolder')
         var listTop = $list.offset().top
         var listHeight = $list.height()
         var $tabSelector = $('.tabSelector')
         var tabLeft = $list.offset().left - 60
         if (scrollOffset > listTop + listHeight - 20) {
-            $tabSelector.css({'position':'static', 'top':'0', left:'0', 'margin-top': '0x'})
+            $tabSelector.css({'position': 'static', 'top': '0', left: '0', 'margin-top': '0x'})
         }
         else if (scrollOffset > listTop - 20) {
-            $tabSelector.css({'position':'fixed', 'top':'20px', left:tabLeft, 'margin-top':'0'})
+            $tabSelector.css({'position': 'fixed', 'top': '20px', left: tabLeft, 'margin-top': '0'})
         }
         else {
-            $tabSelector.css({'position':'static', 'top':'0', left:'0', 'margin-top': '0x'})
+            $tabSelector.css({'position': 'static', 'top': '0', left: '0', 'margin-top': '0x'})
         }
     }
 }
@@ -135,22 +135,22 @@ $(window).resize(window.updateTabSelectorFixed);
     }
 
     function getBudgetCurrentTotalCount(budgetId) {
-       return $('#addtionalResultList').children('[data-budget-id=' + budgetId +']').length
+        return $('#addtionalResultList').children('[data-budget-id=' + budgetId + ']').length
     }
 
 
     function updatePropertyCardMouseEnter() {
-        $('.houseCard').mouseenter(function(event){
+        $('.houseCard').mouseenter(function (event) {
             $(event.delegateTarget).find('button.openRequirement').show()
         });
 
-        $('.houseCard').mouseleave(function(event){
+        $('.houseCard').mouseleave(function (event) {
             $(event.delegateTarget).find('button.openRequirement').hide()
         });
     }
 
     window.updateTabSelectorVisibility = function (visible) {
-        var tabSelectorKey =  '.tabSelector'
+        var tabSelectorKey = '.tabSelector'
         if (window.team.isPhone()) {
             tabSelectorKey += '_phone'
         }
@@ -174,7 +174,7 @@ $(window).resize(window.updateTabSelectorFixed);
             return parseFloat(range[0]) > parseFloat(baseRange[1])
         }
         else {
-            return (parseFloat(range[0]) > parseFloat(baseRange[0]) && parseFloat(range[0])< parseFloat(baseRange[1])) ||
+            return (parseFloat(range[0]) > parseFloat(baseRange[0]) && parseFloat(range[0]) < parseFloat(baseRange[1])) ||
                 (parseFloat(range[1]) > parseFloat(baseRange[0]) && parseFloat(range[1]) < parseFloat(baseRange[1]))
         }
         return false
@@ -200,13 +200,15 @@ $(window).resize(window.updateTabSelectorFixed);
                     var bedroomCountCheck = true
                     var buildingAreaCheck = true
                     if (budgetRange) {
-                        priceCheck = house_type.total_price_min && house_type.total_price_min.value && isRangeMatch([house_type.total_price_min.value, house_type.total_price_max.value], budgetRange)
+                        priceCheck = house_type.total_price_min && house_type.total_price_min.value && isRangeMatch([house_type.total_price_min.value, house_type.total_price_max.value],
+                            budgetRange)
                     }
                     if (bedroomRange) {
                         bedroomCountCheck = parseInt(house_type.bedroom_count) >= parseInt(bedroomRange[0]) && parseInt(house_type.bedroom_count) <= parseInt(bedroomRange[1])
                     }
                     if (buildingAreaRange) {
-                        buildingAreaCheck = house_type.building_area_min && house_type.building_area_min.value && isRangeMatch([house_type.building_area_min.value, house_type.building_area_max.value], buildingAreaRange)
+                        buildingAreaCheck = house_type.building_area_min && house_type.building_area_min.value && isRangeMatch([house_type.building_area_min.value, house_type.building_area_max.value],
+                            buildingAreaRange)
                     }
 
                     return priceCheck && bedroomCountCheck && buildingAreaCheck
@@ -217,7 +219,7 @@ $(window).resize(window.updateTabSelectorFixed);
     }
 
     function loadPropertyList() {
-        var params = {'per_page':'5'}
+        var params = {'per_page': '5'}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
         if (country) {
             params.country = country
@@ -305,7 +307,7 @@ $(window).resize(window.updateTabSelectorFixed);
                 }
 
             })
-            .fail (function () {
+            .fail(function () {
                 $('#loadMore').show()
             })
             .always(function () {
@@ -319,7 +321,7 @@ $(window).resize(window.updateTabSelectorFixed);
     }
 
     function loadAddtionalPropertyList(budgetType) {
-        var params = {'per_page':'5', 'budget':budgetType}
+        var params = {'per_page': '5', 'budget': budgetType}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
         if (country) {
             params.country = country
@@ -367,7 +369,7 @@ $(window).resize(window.updateTabSelectorFixed);
                     var index = $('#addtionalResultList').children('.addtionalHouseCard').length - 1
                     _.each(array, function (house) {
                         index = index + 1
-                        var houseResult = _.template($('#addtional_houseCard_template').html())({house: house, budgetId:budgetType, index:index})
+                        var houseResult = _.template($('#addtional_houseCard_template').html())({house: house, budgetId: budgetType, index: index})
                         $('#addtionalResultList').append(houseResult)
 
                         if (lastItemTime > house.mtime) {
@@ -386,7 +388,7 @@ $(window).resize(window.updateTabSelectorFixed);
                 }
 
             })
-            .fail (function () {
+            .fail(function () {
                 $('#loadMore').show()
             })
             .always(function () {
@@ -429,7 +431,7 @@ $(window).resize(window.updateTabSelectorFixed);
                     budgetIndex = budgetIndex - 1
                     var $child = null
                     while (budgetIndex >= 0) {
-                        $child = $('#tags #budgetTag').children('[data-index='+ budgetIndex + ']')
+                        $child = $('#tags #budgetTag').children('[data-index=' + budgetIndex + ']')
                         if (!isBudgetLoadFinished($child.attr('data-id'))) {
                             return $child.attr('data-id')
                         }
@@ -625,7 +627,8 @@ $(window).resize(window.updateTabSelectorFixed);
             $('#result_list_container').hide()
             showEmptyPlaceHolder(true)
 
-            ga('send', 'event', 'property_list', 'result', 'empty-result',$('.emptyPlaceHolder').find('textarea[name=description]').text())
+            ga('send', 'event', 'property_list', 'result', 'empty-result',
+                $('.emptyPlaceHolder').find('textarea[name=description]').text())
         }
     }
 
@@ -647,15 +650,15 @@ $(window).resize(window.updateTabSelectorFixed);
                 selectedIntention = selectedIntention.substring(0, selectedIntention.length - 1)
             }
 
-            var description =  window.i18n('我想在') + ' ' +
-                    selectedCountry + ' ' +
-                    window.i18n('的') + ' ' +
-                    selectedCity + ' ' +
-                    window.i18n('投资')  + ' ' +
-                    selectedType
+            var description = window.i18n('我想在') + ' ' +
+                selectedCountry + ' ' +
+                window.i18n('的') + ' ' +
+                selectedCity + ' ' +
+                window.i18n('投资') + ' ' +
+                selectedType
 
             if (selectedBudget) {
-                description = description  +
+                description = description +
                     window.i18n('，价值为') + ' ' +
                     selectedBudget + ' '
             }
@@ -724,21 +727,27 @@ $(window).resize(window.updateTabSelectorFixed);
 
         var $countrySelect = $('select[name=propertyCountry]')
         $countrySelect.change(function () {
-            ga('send', 'event', 'property_list', 'change', 'select-country',$('select[name=propertyCountry]').children('option:selected').text())
-            location.href = window.team.setQuery('country', $('select[name=propertyCountry]').children('option:selected').val())
+            ga('send', 'event', 'property_list', 'change', 'select-country',
+                $('select[name=propertyCountry]').children('option:selected').text())
+            location.href = window.team.setQuery('country',
+                $('select[name=propertyCountry]').children('option:selected').val())
         })
 
         var $citySelect = $('select[name=propertyCity]')
         $citySelect.change(function () {
-            ga('send', 'event', 'property_list', 'change', 'select-city',$('select[name=propertyCity]').children('option:selected').text())
-            location.href = window.team.setQuery('city', $('select[name=propertyCity]').children('option:selected').val())
+            ga('send', 'event', 'property_list', 'change', 'select-city',
+                $('select[name=propertyCity]').children('option:selected').text())
+            location.href = window.team.setQuery('city',
+                $('select[name=propertyCity]').children('option:selected').val())
 
         })
 
         var $propertyTypeSelect = $('select[name=propertyType]')
         $propertyTypeSelect.change(function () {
-            ga('send', 'event', 'property_list', 'change', 'select-proprty-type',$('select[name=propertyType]').children('option:selected').text())
-            location.href = window.team.setQuery('property_type', $('select[name=propertyType]').children('option:selected').val())
+            ga('send', 'event', 'property_list', 'change', 'select-proprty-type',
+                $('select[name=propertyType]').children('option:selected').text())
+            location.href = window.team.setQuery('property_type',
+                $('select[name=propertyType]').children('option:selected').val())
         })
     })
 
@@ -759,7 +768,7 @@ $(window).resize(window.updateTabSelectorFixed);
             $item.addClass('selected')
         }
 
-        ga('send', 'event', 'property_list', 'change', 'change-budget',$item.text())
+        ga('send', 'event', 'property_list', 'change', 'change-budget', $item.text())
         location.href = window.team.setQuery('budget', getSelectedBudgetType())
     })
 
@@ -773,7 +782,7 @@ $(window).resize(window.updateTabSelectorFixed);
             $item.addClass('selected')
         }
 
-        ga('send', 'event', 'property_list', 'change', 'change-intention',$item.text())
+        ga('send', 'event', 'property_list', 'change', 'change-intention', $item.text())
         location.href = window.team.setQuery('intention', getSelectedIntention())
     })
 
@@ -787,7 +796,7 @@ $(window).resize(window.updateTabSelectorFixed);
             $item.addClass('selected')
         }
 
-        ga('send', 'event', 'property_list', 'change', 'change-bedroomCount',$item.text())
+        ga('send', 'event', 'property_list', 'change', 'change-bedroomCount', $item.text())
         location.href = window.team.setQuery('bedroom_count', getSelectedBedroomCount())
     })
 
@@ -801,7 +810,7 @@ $(window).resize(window.updateTabSelectorFixed);
             $item.addClass('selected')
         }
 
-        ga('send', 'event', 'property_list', 'change', 'change-buildingArea',$item.text())
+        ga('send', 'event', 'property_list', 'change', 'change-buildingArea', $item.text())
         location.href = window.team.setQuery('building_area', getSelectedBuildingArea())
     })
 
@@ -822,7 +831,7 @@ $(window).resize(window.updateTabSelectorFixed);
         var $button = $('#showTags')
         var $tags = $('#tags .tags_inner')
         if ($button.attr('data-state') === 'open') {
-            $tags.animate({'max-height':'0'}, 400, 'swing')
+            $tags.animate({'max-height': '0'}, 400, 'swing')
             $tags.slideUp(400)
             $button.find('label').text(window.i18n('更多选择'))
             $button.find('img').removeClass('rotated')
@@ -872,7 +881,7 @@ $(window).resize(window.updateTabSelectorFixed);
         removeAllSelectedIntentions() //remove all selected, only use the url intention
         selectIntention(intentionFromURL)
 
-        if (window.team.isPhone()){
+        if (window.team.isPhone()) {
             showTags()
         }
     }
@@ -881,7 +890,7 @@ $(window).resize(window.updateTabSelectorFixed);
     if (budgetFromURL) {
         selectBudget(budgetFromURL)
 
-        if (window.team.isPhone()){
+        if (window.team.isPhone()) {
             showTags()
         }
     }
@@ -890,7 +899,7 @@ $(window).resize(window.updateTabSelectorFixed);
     if (bedroomFromURL) {
         selectBedroom(bedroomFromURL)
 
-        if (window.team.isPhone()){
+        if (window.team.isPhone()) {
             showTags()
         }
     }
@@ -899,7 +908,7 @@ $(window).resize(window.updateTabSelectorFixed);
     if (buildingAreaFromURL) {
         selectBuildingArea(buildingAreaFromURL)
 
-        if (window.team.isPhone()){
+        if (window.team.isPhone()) {
             showTags()
         }
     }
@@ -920,7 +929,7 @@ $(window).resize(window.updateTabSelectorFixed);
             }
 
             setTimeout(function () {
-                if (windowHeight  + scrollPos > requireToScrollHeight) {
+                if (windowHeight + scrollPos > requireToScrollHeight) {
                     if (!isLoading) {
                         if (isCurrentBudgetLoadFinished()) {
                             if (!window.team.isPhone()) {
