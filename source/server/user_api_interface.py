@@ -172,7 +172,7 @@ def user_register(params):
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
-@f_api('/user/mobile-register', params=dict(
+@f_api('/user/fast-register', params=dict(
     nolog="password",
     email=(str, True),
     nickname=(str, True),
@@ -181,11 +181,11 @@ def user_register(params):
     locales=(list, None, str),
 ))
 @rate_limit("register", ip=5)
-def user_mobile_register(params):
+def user_fast_register(params):
     """
-    Basic user register for mobile
+    Basic user register, the faster way.
 
-    Password will be generated and sent to the provided mailbox.
+    Password will be generated and sent to the provided mailbox, and SMS verification code will be sent immediately after registration.
     """
 
     if "@" not in params["email"]:
