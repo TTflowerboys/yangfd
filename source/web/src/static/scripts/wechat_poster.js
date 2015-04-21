@@ -42,7 +42,7 @@
         resistanceRatio: 0,
     })
     photoThumbsSwiper = new Swiper('.photoThumbs', {
-        slidesPerView: 5,
+        slidesPerView: 3,
         spaceBetween: 10,
         centeredSlides: true,
         touchRatio: 0.2,
@@ -50,6 +50,8 @@
         nested: true,
         resistanceRatio: 0,
     });
+    photoSwiper.params.control = photoThumbsSwiper;
+    photoThumbsSwiper.params.control = photoSwiper;
     $('.loadingCover').css({
         height: $(window).height()
     })
