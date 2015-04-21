@@ -44,11 +44,12 @@
     photoThumbsSwiper = new Swiper('.photoThumbs', {
         slidesPerView: 3,
         spaceBetween: 10,
-        centeredSlides: true,
+        //centeredSlides: true,
         touchRatio: 0.2,
         slideToClickedSlide: true,
         nested: true,
         resistanceRatio: 0,
+        slidesPerGroup: 2,
     });
     photoSwiper.params.control = photoThumbsSwiper;
     photoThumbsSwiper.params.control = photoSwiper;

@@ -14,6 +14,11 @@
 .clearfix {
     *zoom:1
 }
+/*to be extend*/
+.animationForwards{
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
 html {
     height: 100%;
 }
@@ -117,8 +122,7 @@ p{
         animation: bounceUp 0.6s linear 0.6s 1;
         -webkit-animation: bounceUp 0.6s linear 0.6s 1;
         opacity: 0;
-        animation-fill-mode: forwards;
-        -webkit-animation-fill-mode: forwards;
+        .animationForwards;
         text-align: center;
         .scrollUp{
             display: inline-block;
@@ -171,12 +175,15 @@ p{
             height: 14vh;
             margin: 8vh auto;
             ul{
-                margin: 4vh auto;
+                margin: 0;
                 li{
                     width: 12vh;
                     height: 12vh;
                     background-size: cover;
                     background-repeat: no-repeat;
+                }
+                li.swiper-slide-active{
+                    border: 3px solid #afc327;
                 }
             }
         }
@@ -199,8 +206,7 @@ p{
             opacity: 0;
             animation: tada2 0.4s linear 0.6s 1;
             -webkit-animation: tada2 0.4s linear 0.6s 1;
-            animation-fill-mode: forwards;
-            -webkit-animation-fill-mode: forwards;
+            .animationForwards;
             &:nth-child(1){
                 animation-delay: 0.6s;
                 -webkit-animation-delay: 0.6s;
@@ -257,8 +263,7 @@ p{
         opacity: 0;
         -webkit-animation: tada2 0.4s linear 0s 1;
         animation: tada2 0.4s linear 0s 1;
-        -webkit-animation-fill-mode: forwards;
-        animation-fill-mode: forwards;
+        .animationForwards;
     }
     p.line1{
         width: 100%;
@@ -330,8 +335,7 @@ p{
             vertical-align: top;
             -webkit-animation:tada1 0.2s linear 0s 1;
             animation:tada1 0.2s linear 0s 1;
-            -webkit-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
+            .animationForwards;
             >span{
                 position: relative;
                 font-size: 2.4vh;
@@ -420,8 +424,7 @@ p{
         font-weight: 400;
         -webkit-animation: tada2 0.4s linear 0s 1;
         animation: tada2 0.4s linear 0s 1;
-        -webkit-animation-fill-mode: forwards;
-        animation-fill-mode: forwards;
+        .animationForwards;
     }
     p{
         opacity: 0;
@@ -430,8 +433,7 @@ p{
         line-height: 1.4em;
         -webkit-animation: tada2 0.4s linear 0s 1;
         animation: tada2 0.4s linear 0s 1;
-        -webkit-animation-fill-mode: forwards;
-        animation-fill-mode: forwards;
+        .animationForwards;
     }
 }
 .modal{
@@ -450,8 +452,7 @@ p{
     opacity: 0;
     animation: fadeInDown 0.4s linear 0s 1;
     -webkit-animation: fadeInDown 0.4s linear 0s 1;
-    animation-fill-mode: forwards;
-    -webkit-animation-fill-mode: forwards;
+    .animationForwards;
     color:#fff;
     h2{font-size: 3vh;}
     .facilities{
@@ -461,8 +462,7 @@ p{
 .modal.animation{
     animation: fadeOutUp 0.4s linear 0s 1;
     -webkit-animation: fadeOutUp 0.4s linear 0s 1;
-    animation-fill-mode: forwards;
-    -webkit-animation-fill-mode: forwards;
+    .animationForwards;
 }
 .descriptionMore p{
     width: 48vh;
@@ -495,8 +495,7 @@ p{
             opacity: 0;
             -webkit-animation:tada1 0.2s linear 0s 1;
             animation:tada1 0.2s linear 0s 1;
-            -webkit-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
+            .animationForwards;
         }
         display: block;
         float: left;
@@ -571,8 +570,7 @@ p{
         opacity: 0;
         -webkit-animation: tada2 0.4s linear 0s 1;
         animation: tada2 0.4s linear 0s 1;
-        -webkit-animation-fill-mode: forwards;
-        animation-fill-mode: forwards;
+        .animationForwards;
     }
     .viewMoreBtn{
         -webkit-animation-delay: 0.4s;
@@ -601,13 +599,18 @@ p{
             background-size: contain;
             animation: bounceInDown2 0.6s linear 0s 1;
             -webkit-animation: bounceInDown2 0.6s linear 0s 1;
-            -webkit-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
+            .animationForwards;
         }
     }
 }
-.pagePhoto .photoList{
-    margin: 0;
-    padding: 0;
-    position: relative;
+.pagePhoto{
+    .photoList{
+        margin: 0;
+        padding: 0;
+        position: relative;
+        li{
+
+        }
+    }
+
 }
