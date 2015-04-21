@@ -16,8 +16,9 @@
 #import <UIView+BBT.h>
 #import "CUTEDataManager.h"
 #import "SVProgressHUD+CUTEAPI.h"
+#import <UIActionSheet+Blocks.h>
 
-@interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate, UIActionSheetDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
     CUTEFormImagePickerPlaceholderView *_placeholderView;
 
@@ -164,8 +165,15 @@
 }
 
 - (void)showActionSheet {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:STR(@"选择照片") delegate:self cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:STR(@"从手机选择"), STR(@"拍照"), nil];
-    [actionSheet showInView:[self tableViewController].view];
+    [UIActionSheet showInView:[self tableViewController].view withTitle:STR(@"选择照片") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"从手机选择"), STR(@"拍照")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+
+        if (buttonIndex == 0) {
+            [self showImagePickerFrom:[self tableViewController]];
+        }
+        else if (buttonIndex == 1) {
+            [self showCameraFrom:[self tableViewController]];
+        }
+    }];
 }
 
 - (void)onAddButtonPressed:(id)sender {
@@ -178,18 +186,6 @@
     if (!_placeholderView.isHidden) {
         [self showActionSheet];
     }
-}
-
-#pragma mark - UIActionSheetDelegate 
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        [self showImagePickerFrom:[self tableViewController]];
-    }
-    else if (buttonIndex == 1) {
-        [self showCameraFrom:[self tableViewController]];
-    }
-
 }
 
 #pragma mark - Assets Picker Delegate

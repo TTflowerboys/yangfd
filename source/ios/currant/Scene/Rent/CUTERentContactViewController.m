@@ -22,8 +22,9 @@
 #import <WXApi.h>
 #import <WXApiObject.h>
 #import "CUTEConfiguration.h"
+#import <UIAlertView+Blocks.h>
 
-@interface CUTERentContactViewController () <UIAlertViewDelegate> {
+@interface CUTERentContactViewController () {
 
     BOOL _userVerified;
 
@@ -162,41 +163,36 @@
 }
 
 - (void)shareToWechat {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"微信分享") message:nil delegate:self cancelButtonTitle:STR(@"取消") otherButtonTitles:STR(@"分享给微信好友"), STR(@"分享到微信朋友圈"), nil];
-    [alertView show];
-}
+    [UIAlertView showWithTitle:STR(@"微信分享") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"分享给微信好友"), STR(@"分享到微信朋友圈")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
-#pragma UIAlerViewDelegate 
+        if([WXApi isWXAppInstalled] && buttonIndex != alertView.cancelButtonIndex){
+            CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+            WXMediaMessage *message = [WXMediaMessage message];
+            message.title = ticket.title;
+            message.description = ticket.ticketDescription;
+            [message setThumbImage:[UIImage imageNamed:@"AppIcon"]];
+            WXWebpageObject *ext = [WXWebpageObject object];
+            ext.webpageUrl = [[NSURL URLWithString:CONCAT(@"/property-to-rent/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
+            message.mediaObject = ext;
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+            SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+            req.bText = NO;
+            req.message = message;
+            if (buttonIndex == 1) {
+                req.scene = WXSceneSession;
+            }
+            else {
+                req.scene = WXSceneTimeline;
+            }
 
-    if([WXApi isWXAppInstalled]){
-        CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
-        WXMediaMessage *message = [WXMediaMessage message];
-        message.title = ticket.title;
-        message.description = ticket.ticketDescription;
-        [message setThumbImage:[UIImage imageNamed:@"AppIcon"]];
-        WXWebpageObject *ext = [WXWebpageObject object];
-        ext.webpageUrl = [[NSURL URLWithString:CONCAT(@"/property-to-rent/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
-        message.mediaObject = ext;
+            [WXApi sendReq:req];
 
-        SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-        req.bText = NO;
-        req.message = message;
-        if (buttonIndex == 1) {
-            req.scene = WXSceneSession;
-        }
-        else {
-            req.scene = WXSceneTimeline;
+        }else{
+            [SVProgressHUD showErrorWithStatus:STR(@"请安装微信")];
         }
         
-        [WXApi sendReq:req];
-
-    }else{
-        [SVProgressHUD showErrorWithStatus:STR(@"请安装微信")];
-    }
-
-    [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
 }
 
 @end
