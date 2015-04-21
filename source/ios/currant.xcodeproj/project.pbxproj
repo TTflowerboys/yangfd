@@ -216,6 +216,11 @@
 		2C79C2BA1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */; };
 		2C79C2BB1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */; };
 		2C79C2BC1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */; };
+		2C96E2741AE6566300F3590C /* CUTEWxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEWxManager.m */; };
+		2C96E2751AE6566300F3590C /* CUTEWxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEWxManager.m */; };
+		2C96E2761AE6566300F3590C /* CUTEWxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEWxManager.m */; };
+		2C96E2771AE6566300F3590C /* CUTEWxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEWxManager.m */; };
+		2C96E2781AE6566300F3590C /* CUTEWxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEWxManager.m */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -391,6 +396,8 @@
 		2C7520421ACA775C0008B42A /* CUTEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEViewController.m; sourceTree = "<group>"; };
 		2C79C2B61ACA5725000E7F67 /* NSURL+CUTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CUTE.h"; sourceTree = "<group>"; };
 		2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+CUTE.m"; sourceTree = "<group>"; };
+		2C96E2721AE6566300F3590C /* CUTEWxManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWxManager.h; sourceTree = "<group>"; };
+		2C96E2731AE6566300F3590C /* CUTEWxManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEWxManager.m; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -733,6 +740,8 @@
 				2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */,
 				2CB7490B1ADE4755003BC2A5 /* SVProgressHUD+CUTEAPI.h */,
 				2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */,
+				2C96E2721AE6566300F3590C /* CUTEWxManager.h */,
+				2C96E2731AE6566300F3590C /* CUTEWxManager.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1197,6 +1206,7 @@
 				2C401DC71ACA8EA500613093 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C5ECC451AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
 				2C401DC01ACA898400613093 /* CUTEPropertyInfoForm.m in Sources */,
+				2C96E2761AE6566300F3590C /* CUTEWxManager.m in Sources */,
 				2C27F2001ACD289A002BECCF /* CUTERentAddressMapViewController.m in Sources */,
 				2CA2E6B31AC5487800053965 /* main.m in Sources */,
 				2CA2E6B41AC5487800053965 /* CUTEConfiguration.m in Sources */,
@@ -1257,6 +1267,7 @@
 				2C401DC81ACA8EA500613093 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C5ECC461AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
 				2C401DC11ACA898400613093 /* CUTEPropertyInfoForm.m in Sources */,
+				2C96E2771AE6566300F3590C /* CUTEWxManager.m in Sources */,
 				2C27F2011ACD289A002BECCF /* CUTERentAddressMapViewController.m in Sources */,
 				2CA2E6CC1AC5496700053965 /* main.m in Sources */,
 				2CA2E6CD1AC5496700053965 /* CUTEConfiguration.m in Sources */,
@@ -1317,6 +1328,7 @@
 				2C401DC61ACA8EA500613093 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C5ECC441AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
 				2C401DBF1ACA898400613093 /* CUTEPropertyInfoForm.m in Sources */,
+				2C96E2751AE6566300F3590C /* CUTEWxManager.m in Sources */,
 				2C27F1FF1ACD289A002BECCF /* CUTERentAddressMapViewController.m in Sources */,
 				2CA94A9D1ACA42CD00DF7497 /* main.m in Sources */,
 				2CA94A9E1ACA42CD00DF7497 /* CUTEConfiguration.m in Sources */,
@@ -1377,6 +1389,7 @@
 				2C401DC51ACA8EA500613093 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C5ECC431AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
 				2C401DBE1ACA898400613093 /* CUTEPropertyInfoForm.m in Sources */,
+				2C96E2741AE6566300F3590C /* CUTEWxManager.m in Sources */,
 				2C27F1FE1ACD289A002BECCF /* CUTERentAddressMapViewController.m in Sources */,
 				2CB43DAF1ABC1372004DF663 /* main.m in Sources */,
 				2CDBB2FD1AC1472E0024E225 /* CUTEConfiguration.m in Sources */,
@@ -1419,6 +1432,7 @@
 				2C427E3B1ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
 				2C27F1EF1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C401E211ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
+				2C96E2781AE6566300F3590C /* CUTEWxManager.m in Sources */,
 				2C27F2021ACD289A002BECCF /* CUTERentAddressMapViewController.m in Sources */,
 				2C226E7F1ACBEF5700658132 /* CUTEForm.m in Sources */,
 				2C5ECC551AD525AC00163E9E /* CUTEAPIManager.m in Sources */,

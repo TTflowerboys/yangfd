@@ -20,9 +20,9 @@
 #import "CUTERentTypeListForm.h"
 #import <AFNetworkActivityIndicatorManager.h>
 #import "SVProgressHUD+CUTEAPI.h"
-#import <WXApi.h>
+#import "CUTEWxManager.h"
 
-@interface AppDelegate () <UITabBarControllerDelegate, WXApiDelegate>
+@interface AppDelegate () <UITabBarControllerDelegate>
 
 @end
 
@@ -103,7 +103,8 @@
     NSArray *userAgentComponents =  @[[[NSBundle mainBundle] bundleIdentifier], [AppDelegate versionBuild]];
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[userAgentComponents componentsJoinedByString:@"/"], @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-    [WXApi registerApp:[CUTEConfiguration weixinAPPId]];
+
+    [CUTEWxManager registerWeixinAPIKey:[CUTEConfiguration weixinAPPId]];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
@@ -171,7 +172,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [WXApi handleOpenURL:url delegate:self];
+    return [[CUTEWxManager sharedInstance] handleOpenURL:url];
 }
 
 - (void)onPhoneButtonPressed:(id)sender
@@ -187,16 +188,6 @@
     }
 }
 
-
-#pragma WXApi Delegate
-
--(void) onReq:(BaseReq*)req {
-
-}
-
--(void) onResp:(BaseResp*)resp {
-
-}
 
 - (NSArray *)needLoginURLList {
     return @[@"/user"];
