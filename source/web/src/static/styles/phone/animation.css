@@ -23,6 +23,31 @@
         transform: translateY(0)
     }
 }
+@-webkit-keyframes bounceInDown2 {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%)
+    }
+
+    60% {
+        opacity: 0.8;
+        -webkit-transform: translateY(10%);
+        transform: translateY(10%)
+    }
+
+    80% {
+        opacity: 0.9;
+        -webkit-transform: translateY(-3%);
+        transform: translateY(-3%)
+    }
+
+    100% {
+        opacity: 0.9;
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+}
 @-webkit-keyframes fadeOutUp {
     0% {
         opacity: 1;

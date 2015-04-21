@@ -220,114 +220,102 @@
                         <div class="scrollUp">继续</div>
                     </div>
                 </div>
-
-
-            </div>
-
-        </div>
-        <div class="descriptionMore hide modal" data-trigger="viewMoreBtn">
-            <div class="modalWrapper">
-                <div class="modalSlide">
-                    <p>
-                        40层高的888 Collins Street 是<br>
-                        Dockland区的最高建筑。<br>
-                        由Lelend Lease开发，Lelend<br>
-                        Lease是澳洲最大地产开发商，<br>
-                        以品质卓越，售后杰出而闻名，<br>
-                        曾承建多个著名项目包括：上<br>
-                        海世博会澳大利亚馆承建商，<br>
-                        悉尼歌剧院，吉隆坡双子塔，<br>
-                        911遗址重建等。<br><br>
-                        项目优势：<br>
-                        - Victoria Harbour内的许多公<br>
-                        寓都拥有绝佳的视野，从维多利<br>
-                        亚港区到中心商务区的景色一览<br>
-                        无遗，西边的博尔特桥和码头也<br>
-                        尽收眼底；<br><br>
-                        每套公寓的配备与装修在品质上<br>
-                    </p>
-                    <a class="btn btnCloseModal" id="closeViewMoreBtn">收起</a>
+                <div class="swiper-slide swiper-slide-bg commen" style="">
+                    <div class="page pageMap">
+                        <!--<img id="mapImage" src="" alt=""/>-->
+                        <div class="mapImage" id="mapImage">
+                            <div class="pushpin animate"></div>
+                        </div>
+                    </div>
+                    <div class="bottomBox mapBottom animate">
+                        <div class="location">
+                            <h2>地址</h2>
+                            <p>湖北省武汉市光谷大道<br>国际企业中心</p>
+                        </div>
+                        <div class="scrollUp">继续</div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
+
+            </div>
+
+        </div>
+        <!--更多描述弹出层 start-->
+        <div class="descriptionMore hide modal" data-trigger="viewMoreBtn">
+            <p>
+                40层高的888 Collins Street 是<br>
+                Dockland区的最高建筑。<br>
+                由Lelend Lease开发，Lelend<br>
+                Lease是澳洲最大地产开发商，<br>
+                以品质卓越，售后杰出而闻名，<br>
+                曾承建多个著名项目包括：上<br>
+                海世博会澳大利亚馆承建商，<br>
+                悉尼歌剧院，吉隆坡双子塔，<br>
+                911遗址重建等。<br><br>
+                项目优势：<br>
+                - Victoria Harbour内的许多公<br>
+                寓都拥有绝佳的视野，从维多利<br>
+                亚港区到中心商务区的景色一览<br>
+                无遗，西边的博尔特桥和码头也<br>
+                尽收眼底；<br><br>
+                每套公寓的配备与装修在品质上<br>
+            </p>
+            <a class="btn btnCloseModal" id="closeViewMoreBtn">收起</a>
+        </div>
+        <!--更多描述弹出层 end-->
+        <!--更多设施弹出层 start-->
+        <div class="facilitiesMore hide modal" data-trigger="morefacilitiesBtn">
+            <h2 class="animate">居家设施</h2>
+            <ul class="facilities clearfix">
+                <li class="animate"><i class="tvIcon"></i>电视机</li>
+                <li class="animate"><i class="fireIcon"></i>天然气</li>
+                <li class="animate"><i class="iceIcon"></i>电冰箱</li>
+                <li class="animate"><i class="heaterIcon"></i>热水器</li>
+                <li class="animate"><i class="washerIcon"></i>洗衣机</li>
+                <li class="animate"><i class="warmIcon"></i>暖气</li>
+                <li class="animate"><i class="tvIcon"></i>电视机</li>
+                <li class="animate"><i class="fireIcon"></i>天然气</li>
+            </ul>
+            <h2 class="animate">社区设施</h2>
+            <ul class="facilities clearfix">
+                <li class="animate"><i class="tvIcon"></i>电视机</li>
+                <li class="animate"><i class="fireIcon"></i>天然气</li>
+                <li class="animate"><i class="iceIcon"></i>电冰箱</li>
+                <li class="animate"><i class="heaterIcon"></i>热水器</li>
+                <li class="animate"><i class="washerIcon"></i>洗衣机</li>
+                <li class="animate"><i class="warmIcon"></i>暖气</li>
+            </ul>
+            <a class="btn btnCloseModal" id="closeFacilitiesMoreBtn">收起</a>
+        </div>
+        <!--更多设施弹出层 end-->
         <!--build:js /static/scripts/wechat_poster.html.js-->
         <script type="text/javascript" src="/static/vendors/jquery/jquery-2.1.0.min.js"></script>
         <script type="text/javascript" src="/static/vendors/swiper/swiper.jquery.min.js"></script>
+        <script type="text/javascript" src="/static/scripts/wechat_poster.js"></script>
         <!--endbuild-->
 
         <script>
-            var mySwiper = new Swiper('.swiper-container', {
-                direction: 'vertical',
-                effect: 'slide',
-                containerScroll: 'true',
-                coverflow: {
-                    rotate: 50,
-                    stretch: 0,
-                    depth: 100,
-                    modifier: 1,
-                    slideShadows : true
-                },
-                /*cube: {
-                    slideShadows: true,
-                    shadow: true,
-                    shadowOffset: 20,
-                    shadowScale: 0.94
-                },*/
-                onInit: function (swiper, direction) {
-                    var index = swiper.activeIndex
-                    var height = $(window).innerHeight()
-                    var obj = $(".swiper-slide")
-                    obj.not(".swiper-slide-visible").find(".animate").addClass('hide')
-//                    obj.eq(index).find(".animate").removeClass("hide")
-                },
-                onTransitionEnd: function (swiper, direction) {
-                    console.log(new Date + ': onSlideChangeEnd!')
-                    var index = swiper.activeIndex
-                    var obj = $(".swiper-slide")
-                    //companyHeightReset()
-                    obj.eq(index).siblings().find(".animate").addClass('hide')
-                    obj.eq(index).find(".animate").removeClass("hide")
-                }
-            });
-            $('.loadingCover').css({
-                height: $(window).height()
-            })
-            $(window).load(function(){
-                //所有资源加载完毕后：
-                function loadCallback(){
-                    $('.loadingCover').fadeOut(200, function(){
-                        $('body').removeClass('loading')
-                        $(".swiper-slide").eq(0).find('.animate').removeClass('hide')
-                    })
-                }
-                setTimeout(function(){
-                    process.finish(loadCallback)
-                },0)
-            })
-            //点击按钮弹出对应的modal层,按钮上加上 .btnModal
-            function initModal(){
-                $('.btnModal').on('click', function(){
-                    var triggerId = $(this).attr('id')
-                    var modal = $('[data-trigger=' + triggerId + ']')
+            function initMapSrc(config){
+                config.height = parseInt(config.width * $(window).height() / $(window).width())
 
-                    modal.removeClass('hide')
-//                    mySwiper.lockSwipes() //阻止外层swiper的滚动
-
-                })
-                $('.btnCloseModal').on('click', function(){
-                    var modal = $(this).parents('.modal')
-                    modal.addClass('animation')
-                    setTimeout(function(){
-                        modal.addClass('hide').removeClass('animation')
-                    },400)
+                var baseSrc = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&format=jpeg&key={key}'
+                for(var k in config){
+                    baseSrc = baseSrc.replace('{' + k + '}', config[k])
+                }
+                $('.mapImage').css({
+                    'background-image': 'url(' + baseSrc + ')'
                 })
             }
-            $(function(){
-                initModal()
+            $(function () {
+                initMapSrc({
+                    key: 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43',
+                    width: 600,
+                    centerPoint: '47.610,-122.107',
+                    zoomLevel: 12
+                })
             })
-
         </script>
+
 
     </body>
 </html>
