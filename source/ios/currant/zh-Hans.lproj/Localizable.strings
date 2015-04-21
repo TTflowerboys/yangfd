@@ -28,3 +28,8 @@
 
 //rent price
 "RentPrice is too small." = "租金不能为0";
+
+
+//MWPhotoBrowser
+
+"Done" = "完成";

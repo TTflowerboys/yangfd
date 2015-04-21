@@ -17,8 +17,10 @@
 #import "CUTEDataManager.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import <UIActionSheet+Blocks.h>
+#import <NSObject+Attachment.h>
+#import <MWPhotoBrowser.h>
 
-@interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate, MWPhotoBrowserDelegate>
 {
     CUTEFormImagePickerPlaceholderView *_placeholderView;
 
@@ -112,12 +114,27 @@
         [assets enumerateObjectsUsingBlock:^(ALAsset *obj, NSUInteger idx, BOOL *stop) {
             UIImage *image = [UIImage imageWithCGImage:obj.thumbnail];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onImageTapped:)]];
+            imageView.userInteractionEnabled = YES;
+            imageView.attachment = [NSNumber numberWithInteger:idx];
             [_scrollView addSubview:imageView];
             imageView.frame = CGRectMake(sideWidth * idx + margin * (idx + 1), 0, sideWidth, sideWidth);
         }];
         _scrollView.contentSize = CGSizeMake((sideWidth + margin) * [assets count], sideWidth);
         [_scrollView scrollRectToVisible:[(UIView *)[[_scrollView subviews] lastObject] frame] animated:NO];
     }
+}
+
+- (void)onImageTapped:(UITapGestureRecognizer *)tapGesture {
+    NSNumber *index = tapGesture.view.attachment;
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = NO;
+    browser.displaySelectionButtons = YES;
+    browser.alwaysShowControls = NO;
+    [browser setCurrentPhotoIndex:index.integerValue];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [[self tableViewController] presentViewController:nc animated:YES completion:nil];
 }
 
 - (UIViewController *)tableViewController
@@ -197,10 +214,8 @@
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
+    [self updateImages:assets];
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    [self setImages:assets];
-    [[[[CUTEDataManager sharedInstance] currentRentTicket] property] setRealityImages:[self images]];
-    [self update];
 }
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(ALAsset *)asset
@@ -247,6 +262,47 @@
 
     return (picker.selectedAssets.count < 10 && asset.defaultRepresentation != nil);
 }
+
+#pragma mark - MWPhotoBrowserDelegate 
+
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
+{
+    return [self images].count;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
+{
+    ALAsset *asset = [[self images] objectAtIndex:index];
+    return [MWPhoto photoWithURL:asset.defaultRepresentation.url];
+}
+
+
+- (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index
+{
+    ALAsset *asset = [[self images] objectAtIndex:index];
+    if (!asset.attachment) {
+        return YES;
+    }
+    else {
+        return [[asset attachment] boolValue];
+    }
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected {
+    ALAsset *asset = [[self images] objectAtIndex:index];
+    asset.attachment = [NSNumber numberWithBool:selected];
+}
+
+- (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser {
+
+    NSArray *editedAssets = [[self images] collect:^BOOL(ALAsset *asset) {
+        return asset.attachment == nil || [asset.attachment boolValue];
+    }];
+    [self updateImages:editedAssets];
+    [[self tableViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker
