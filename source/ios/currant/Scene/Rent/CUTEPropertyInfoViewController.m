@@ -91,7 +91,6 @@
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
         else {
-            [self.navigationController popToRootViewControllerAnimated:NO];
             CUTEUnfinishedRentTicketViewController *unfinisedController = [CUTEUnfinishedRentTicketViewController new];
             [self.navigationController setViewControllers:@[unfinisedController] animated:YES];
         }

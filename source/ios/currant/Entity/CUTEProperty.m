@@ -26,11 +26,12 @@
              @"city": @"city",
              @"street": @"street",
              @"zipcode": @"zipcode",
-             @"address": @"address",
              @"propertyDescription": @"description",
              @"bedroomCount": @"bedroom_count",
              @"space": @"space",
-             @"status": @"status"
+             @"status": @"status",
+             @"indoorFacilities": @"indoor_facility",
+             @"communityFacilities": @"community_facility"
              };
 }
 
@@ -44,7 +45,10 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
-      
++ (NSValueTransformer *)cityJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECityEnum class]];
+}
 
 + (NSValueTransformer *)nameJSONTransformer
 {
@@ -76,6 +80,16 @@
 + (NSValueTransformer *)spaceSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEArea class]];
+}
+
++ (NSValueTransformer *)indoorFacilitiesJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
+}
+
++ (NSValueTransformer *)communityFacilitiesJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
 }
 
 - (NSDictionary *)toParams {
