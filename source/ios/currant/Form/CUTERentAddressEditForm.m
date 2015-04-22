@@ -70,7 +70,7 @@
     [NGRValidator validateModel:self error:&error delegate:nil rules:^NSArray *{
         return @[NGRValidate(@"city").required(),
                  NGRValidate(@"postcode").required(),
-                 NGRValidate(@"coutry").required()
+                 NGRValidate(@"country").required()
                  ];
     }];
     return error;

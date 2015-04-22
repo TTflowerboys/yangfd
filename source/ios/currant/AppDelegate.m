@@ -24,6 +24,7 @@
 #import "CUTENotificationKey.h"
 #import "CUTETicket.h"
 #import "CUTERentShareViewController.h"
+#import "CUTERentShareForm.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -239,6 +240,7 @@
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
     CUTERentShareViewController *shareController = [CUTERentShareViewController new];
+//    shareController.formController.form = [CUTERentShareForm new];
     shareController.ticket = ticket;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
     [self.tabBarController presentViewController:nc animated:NO completion:nil];
