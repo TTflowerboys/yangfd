@@ -160,8 +160,8 @@
                 <div class="swiper-slide swiper-slide-bg commen" style="">
                     <div class="page pageCover">
                         <div class="topTitleNav animate">
-                            <p class="location animate">英国 伦敦 金丝雀码头</p>
-                            <p class="title animate">两室一厅好房整租</p>
+                            <p class="location animate">{{rent['property'].get('country',{}).get('value','')}} {{rent['property'].get('city',{}).get('value','')}} {{rent['property'].get('street','')}}</p>
+                            <p class="title animate">{{rent.get('title','')}}</p>
                             <p class="titleEn animate">Letting!</p>
                         </div>
                     </div>
@@ -173,17 +173,37 @@
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen" style="">
                     <div class="page pageRental">
-                        <p class="line1 animate">仅需</p>
-                        <p class="line2 animate"><span>¥ 4,000/周,</span><sub>包Bill</sub></p>
+                        <p class="line1 animate">{{_('仅需')}}</p>
+                        <p class="line2 animate">
+                            <span>¥ {{int(float(rent.get('price',{}).get('value','')))}}{{_('/周')}}</span>
+                            % if 'bill_covered' in rent and rent.get('bill_covered'):
+                            <sub>
+                                {{_('，包Bill')}}
+                            </sub>
+                            % end
+                        </p>
                         <p class="line3 animate">您就可以租到</p>
                         <ul class="itemBox clearfix">
-                            <li class="animate"><i class="sizeIcon"></i>144㎡</li>
-                            <li class="animate"><i class="roomsIcon"></i>4<span>室</span>1<span>厅</span>1<span>卫</span></li>
-                            <li class="animate"><i class="rentalIcon"></i>整租</li>
-                            <li class="animate"><i class="estateIcon"></i>WATER FRONT</li>
-                            <li class="animate"><i class="streetIcon"></i>WE4 EB7</li>
-                            <li class="animate"><i class="doorIcon"></i>17-06</li>
-                            <li class="animate"><i class="timeIcon"></i>一年以上,2015年6月14日起</li>
+                            <li class="animate">
+                                <i class="sizeIcon"></i>
+                                {{float("{0:.2f}".format(float(rent.get('space',{}).get('value',0))))}}
+                                {{!format_unit(rent.get('space',{}).get('unit',''))}}
+                            </li>
+                            <li class="animate">
+                                <i class="roomsIcon"></i>{{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}</span>
+                            </li>
+                            <li class="animate"><i class="rentalIcon"></i>{{rent.get('rent_type',{}).get('value', '')}}</li>
+                            <li class="animate"><i class="estateIcon"></i>{{rent['property'].get('city',{}).get('value','')}} {{rent['property'].get('street','')}}</li>
+                            <li class="animate"><i class="streetIcon"></i>{{rent['property'].get('zipcode','')}}</li>
+                            <li class="animate"><i class="doorIcon"></i>{{rent['property'].get('楼层','')}}</li>
+                            <li class="animate"><i class="timeIcon"></i>
+                                % if 'rent_period' in rent and rent.get('rent_period',{}).get('value',''):
+                                    {{rent.get('rent_period',{}).get('value','')}}，
+                                % end
+                                % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
+                                    {{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}{{_('起')}}
+                                % end
+                                </li>
                         </ul>
                     </div>
                     <div class="bottomBox animate">
@@ -236,12 +256,12 @@
                 <div class="swiper-slide swiper-slide-bg commen" style="">
                     <div class="page pagePhoto swiper-container">
                         <ul class="swiper-wrapper photoList">
-                            <li class="swiper-slide" style="background-image: url('./static/images/wechat_poster/sample_ptoto.jpg')"></li>
-                            <li class="swiper-slide" style="background-image: url('./static/images/wechat_poster/sample_ptoto.jpg')"></li>
-                            <li class="swiper-slide" style="background-image: url('./static/images/wechat_poster/sample_ptoto.jpg')"></li>
-                            <li class="swiper-slide" style="background-image: url('./static/images/wechat_poster/sample_ptoto.jpg')"></li>
-                            <li class="swiper-slide" style="background-image: url('./static/images/wechat_poster/sample_ptoto.jpg')"></li>
-                            <li class="swiper-slide" style="background-image: url('./static/images/wechat_poster/sample_ptoto.jpg')"></li>
+                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
+                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
+                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
+                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
+                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
+                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
                         </ul>
                     </div>
 
@@ -249,11 +269,11 @@
                         <div class="photoThumbsBox">
                             <div class="photoThumbs swiper-container">
                                 <ul class="swiper-wrapper thumbList">
-                                    <li class="swiper-slide" style="background-image: url('./static/images/wechat_poster/sample_thumb.jpg')"></li>
-                                    <li class="swiper-slide" style="background-image: url('./static/images/wechat_poster/sample_thumb.jpg')"></li>
-                                    <li class="swiper-slide" style="background-image: url('./static/images/wechat_poster/sample_thumb.jpg')"></li>
-                                    <li class="swiper-slide" style="background-image: url('./static/images/wechat_poster/sample_thumb.jpg')"></li>
-                                    <li class="swiper-slide" style="background-image: url('./static/images/wechat_poster/sample_thumb.jpg')"></li>
+                                    <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_thumb.jpg')"></li>
+                                    <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_thumb.jpg')"></li>
+                                    <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_thumb.jpg')"></li>
+                                    <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_thumb.jpg')"></li>
+                                    <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_thumb.jpg')"></li>
                                 </ul>
                             </div>
                             <div class="arrowButton prevButton" data-action="Prev"></div>
@@ -382,7 +402,6 @@
                 })
             })
         </script>
-
 
     </body>
 </html>
