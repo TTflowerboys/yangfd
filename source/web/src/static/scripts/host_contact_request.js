@@ -25,6 +25,7 @@ $(function () {
         else {
             $('#contactRequestBtn').hide()
             $('.contactRequestForm').show()
+            window.location.hash = 'contactRequest'
         }
     })
 
@@ -47,7 +48,10 @@ $(function () {
             $requestSMSCodeBtn.prop('disabled', false)
             $requestSMSCodeBtn.text(window.i18n('发送中...'))
 
-            var params = $(this).serializeObject()
+            var params = $contactRequestForm.serializeObject({
+                noEmptyString: true,
+                exclude: ['code','rent_id']
+            })
             $.betterPost('/api/1/user/fast-register', params)
                 .done(function (val) {
                     window.user = val
@@ -63,7 +67,7 @@ $(function () {
 
                     //ga('send', 'event', 'signup', 'result', 'signup-failed', window.getErrorMessageFromErrorCode(ret))
                     $requestSMSCodeBtn.text(window.i18n('重新发送'))
-                    $requestSMSCodeBtn.prop('disabled', true)
+                    $requestSMSCodeBtn.prop('disabled', false)
                 })
         }
     })
@@ -73,7 +77,9 @@ $(function () {
         //ga('send', 'event', 'property_detail', 'submit', 'requirement-submit')
         $submit.prop('disabled', true)
         $feedback.hide()
-        var params = $(this).serializeObject({exclude: ['nickname','email','country','phone']})
+        var params = $(this).serializeObject({
+            exclude: ['nickname','email','country','phone','rent_id']
+        })
 
         var api = '/api/1/user/' + window.user.id + '/sms_verification/verify'
         $.betterPost(api, params)
@@ -81,6 +87,7 @@ $(function () {
                 $feedback.show().text($(this).attr('data-message-success'))
 
                 $requestContactBtn.click()
+                window.location.hash = 'host'
                 //ga('send', 'event', 'property_detail', 'result', 'requirement-submit-success')
             })
             .fail(function (errorCode) {

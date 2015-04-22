@@ -362,14 +362,14 @@
                 </div>
 
                 <div class="host_wrapper">
-                    <div class="host">
+                    <div class="host" id="host">
                         <label class="hostName">{{rent.get('creator_user',{}).get('nickname','')}}</label>
                         <div class="hostPhone">
                             <img src="/static/images/common/float_bar/float-window-phone.png"></img>
                             <span>+{{rent.get('creator_user',{}).get('country_code','')}} {{rent.get('creator_user',{}).get('phone','')}}</span>
                         </div>
                     </div>
-                    <div class="contactRequest">
+                    <div class="contactRequest" id="contactRequest">
                         <button id="contactRequestBtn" class="flatButton">{{_('查看房东完整联系方式')}}</button>
                         <form class="contactRequestForm" name="contactRequestForm"
                             data-message-success="{{_('提交成功')}}"
