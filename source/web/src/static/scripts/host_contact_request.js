@@ -12,12 +12,12 @@ $(function () {
      * */
     $requestContactBtn.on('click', function (e) {
         if (window.user && rentId) {
+            $('.contactRequest').hide()
             $.betterPost('/api/1/rent_ticket/' + rentId + '/contact_info')
                 .done(function (val) {
                     var phone = val
                     $('.hostPhone span').text(phone)
-
-                    $('.contactRequest').hide()
+                    window.location.hash = 'host'
                 })
             //TODO: issue #6317
             //.fail(function () {})
@@ -87,7 +87,6 @@ $(function () {
                 $feedback.show().text($(this).attr('data-message-success'))
 
                 $requestContactBtn.click()
-                window.location.hash = 'host'
                 //ga('send', 'event', 'property_detail', 'result', 'requirement-submit-success')
             })
             .fail(function (errorCode) {

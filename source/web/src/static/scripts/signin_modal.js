@@ -17,7 +17,9 @@ $('#modal_shadow').click(function () {
     $('#modal').hide()
 });
 
-var errorArea = $('form[name=signin]').find('.errorMessage')
+// ErrorMessage[0] is target for signin page which response to error code from url
+var errorArea = $($('form[name=signin]').find('.errorMessage')[1])
+
 $('form[name=signin]').submit(function (e) {
     e.preventDefault()
     ga('send', 'event', 'signin', 'click', 'signin-submit')
