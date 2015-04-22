@@ -21,8 +21,13 @@
 #import <AFNetworkActivityIndicatorManager.h>
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEWxManager.h"
+#import "CUTENotificationKey.h"
+#import "CUTETicket.h"
+#import "CUTERentShareViewController.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
+
+@property (nonatomic, strong) UITabBarController *tabBarController;
 
 @end
 
@@ -106,6 +111,8 @@
 
     [CUTEWxManager registerWeixinAPIKey:[CUTEConfiguration weixinAPPId]];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
+
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
     UINavigationController *homeViewController = [self makeViewControllerWithTitle:STR(@"主页") icon:@"tab-home" urlPath:@"/"];
@@ -118,6 +125,7 @@
                                              [self makeViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user"],
                                              ] animated:YES];
     [self.window setRootViewController:rootViewController];
+    self.tabBarController = rootViewController;
     rootViewController.delegate = self;
     [rootViewController.tabBar setBackgroundImage:[IMAGE(@"tabbar-background") resizedImage:CGSizeMake([UIScreen mainScreen].bounds.size.width, rootViewController.tabBar.frame.size.height) interpolationQuality:kCGInterpolationHigh]];
     // this will generate a black tab bar
@@ -223,6 +231,17 @@
             return nil;
         }];
     }
+}
+
+#pragma mark - Push Notification
+
+- (void)onReceiveTicketPublish:(NSNotification *)notif {
+    NSDictionary *userInfo = notif.userInfo;
+    CUTETicket *ticket = userInfo[@"ticket"];
+    CUTERentShareViewController *shareController = [CUTERentShareViewController new];
+    shareController.ticket = ticket;
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
+    [self.tabBarController presentViewController:nc animated:NO completion:nil];
 }
 
 @end

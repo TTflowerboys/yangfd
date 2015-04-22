@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CUTETicket.h"
 
 @interface CUTERentShareViewController : UIViewController
+
+@property (strong, nonatomic) CUTETicket *ticket;
+
 
 @end

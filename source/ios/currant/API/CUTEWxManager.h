@@ -19,4 +19,6 @@
 
 - (void)sendRequst:(BaseReq *)req onResponse:(void (^)(BaseResp *response))onResponse;
 
+- (void)shareToWechatWithTitle:(NSString *)title description:(NSString *)description url: (NSString *)url;
+
 @end

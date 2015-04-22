@@ -22,6 +22,7 @@
 #import "CUTEWxManager.h"
 #import "CUTEConfiguration.h"
 #import <UIAlertView+Blocks.h>
+#import "CUTENotificationKey.h"
 
 @interface CUTERentContactViewController () {
 
@@ -66,6 +67,12 @@
 
 - (void)onVerificationButtonPressed:(id)sender {
     //TODO for phone existed user let him login
+
+#warning DEBUG_CODE
+#ifdef DEBUG
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": [CUTEDataManager sharedInstance].currentRentTicket}];
+#endif
 
     if ([CUTEDataManager sharedInstance].user) {
         if (![self validateFormWithScenario:@"sendCode"]) {
@@ -150,70 +157,13 @@
             } else {
                 completion(task.result);
                 [SVProgressHUD dismiss];
-                [self shareToWechat];
-//                [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
-//                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
                 return nil;
             }
         }];
     }];
     [sequencer run];
-}
-
-- (BaseReq *)makeWechatRequstWithScene:(NSInteger)scene title:(NSString *)title description:(NSString *)description url: (NSString *)url {
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = title;
-    message.description = description;
-    [message setThumbImage:[UIImage imageNamed:@"AppIcon"]];
-    WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = url;
-    message.mediaObject = ext;
-    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = scene;
-    return req;
-}
-
-- (void)shareToWechat {
-    [UIAlertView showWithTitle:STR(@"微信分享") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"分享给微信好友"), STR(@"分享到微信朋友圈")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-
-        if([WXApi isWXAppInstalled] && buttonIndex != alertView.cancelButtonIndex){
-            CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
-            BaseReq *req = [self makeWechatRequstWithScene:buttonIndex == 1? WXSceneSession: WXSceneTimeline title:ticket.title description:ticket.ticketDescription url:[[NSURL URLWithString:CONCAT(@"/property-to-rent/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
-
-            [[CUTEWxManager sharedInstance] sendRequst:req onResponse:^(BaseResp *resp) {
-                if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
-                    SendMessageToWXResp *backResp = (SendMessageToWXResp *)resp;
-                    if (backResp.errCode == WXSuccess) {
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [SVProgressHUD showSuccessWithStatus:STR(@"分享成功")];
-                        });
-
-                    }
-                    else if (backResp.errCode == WXErrCodeUserCancel) {
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [SVProgressHUD showErrorWithStatus:STR(@"分享取消")];
-                        });
-                    }
-                    else {
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [SVProgressHUD showErrorWithStatus:STR(@"分享失败")];
-                        });
-                    }
-                }
-            }];
-        }else{
-            [SVProgressHUD showErrorWithStatus:STR(@"请安装微信")];
-        }
-        
-        [self.navigationController popToRootViewControllerAnimated:NO];
-
-        //TODO show
-        CUTERentShareViewController *shareController = [CUTERentShareViewController new];
-        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nc animated:NO completion:nil];
-    }];
 }
 
 @end

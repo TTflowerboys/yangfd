@@ -398,6 +398,7 @@
 		2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+CUTE.m"; sourceTree = "<group>"; };
 		2C96E2721AE6566300F3590C /* CUTEWxManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWxManager.h; sourceTree = "<group>"; };
 		2C96E2731AE6566300F3590C /* CUTEWxManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEWxManager.m; sourceTree = "<group>"; };
+		2C96E2791AE74CCD00F3590C /* CUTENotificationKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTENotificationKey.h; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -774,6 +775,7 @@
 			isa = PBXGroup;
 			children = (
 				2CDBB3001AC150C90024E225 /* CUTEUserDefaultKey.h */,
+				2C96E2791AE74CCD00F3590C /* CUTENotificationKey.h */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
