@@ -15,7 +15,7 @@
     *zoom:1
 }
 /*to be extend*/
-.animationForwards{
+.animationForwards(){
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
 }
@@ -100,8 +100,8 @@ p{
     height: 100%;
     color: #fff;
     text-align: center;
-    background: url("../../images/wechat_poster/container_bg.jpg") 50% 50%;
-    background-size: cover;
+    background-image: url("../../images/wechat_poster/container_bg.jpg");
+    .coverCenter;
     .topTitleNav{
         position: absolute;
         top: -4vh;
@@ -161,30 +161,92 @@ p{
             color: #b6d11e;
         }
         p{
-            font-size: 4.5vh;
+            font-size: 4vh;
             line-height: 1.5em;
+            font-weight: lighter;
         }
     }
     .photoBottom{
         z-index: 100;
-        height: 40vh;
+        height: 35vh;
         bottom: -4vh;
         background-image: url("../../images/wechat_poster/map_bottom_bg.png");
-        .photoThumbs{
-            width: 45vh;
+        -webkit-animation-delay: 0s;
+        animation-delay: 0s;
+        .photoThumbsBox{
+            position: relative;
+            width: 44vh;
             height: 14vh;
-            margin: 8vh auto;
-            ul{
+            margin: 6vh auto;
+            .arrowButton{
+                width: 3vh;
+                height: 6vh;
+                position: absolute;
+                z-index: 100;
+                top: 4vh;
+                background-position: 50% 50%;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            .prevButton{
+                background-image: url("../../images/wechat_poster/left_arrow.png");
+                left: -5vh;
+            }
+            .nextButton{
+                background-image: url("../../images/wechat_poster/right_arrow.png");
+                right: -5vh;
+            }
+            .swiper-wrapper{
                 margin: 0;
-                li{
-                    width: 12vh;
-                    height: 12vh;
-                    background-size: cover;
+                .swiper-slide{
+                    width: 14vh;
+                    height: 14vh;
+                    .coverCenter;
                     background-repeat: no-repeat;
                 }
-                li.swiper-slide-active{
+                .swiper-slide-active{
                     border: 3px solid #afc327;
                 }
+            }
+        }
+
+    }
+    .coverBackBottom{
+        height: 16vh;
+        bottom: -4vh;
+        background-image: url("../../images/wechat_poster/copyright_background.png");
+        .poweredBy{
+            height: 2vh;
+            font-size: 2vh;
+            margin: 2vh auto 2vh;
+            color: #afc327;
+            font-weight: bold;
+        }
+        .logoBox{
+            float: left;
+            width: 50%;
+            .logo{
+                height: 4vh;
+                background-image: url("../../images/wechat_poster/logo_cover_back.png");
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: 50% 50%;
+            }
+        }
+        .siteLinkBox{
+            float: right;
+            width: 40%;
+            .siteLink{
+                height: 4vh;
+                display: inline-block;
+                padding: 1vh 2vh;
+                border-radius: 1.2vh;
+                border: 1px solid #fff;
+                cursor: pointer;
+                font-size: 2vh;
+                line-height: 1em;
+                text-decoration: none;
+                color: #fff;
             }
         }
 
@@ -194,15 +256,16 @@ p{
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: url("../../images/wechat_poster/container_bg.jpg") 50% 50%;
-    background-size: cover;
+    background-image: url("../../images/wechat_poster/container_bg.jpg");
+    .coverCenter;
 
 }
 .pageCover{
-    background: url("../../images/wechat_poster/page_cover_bg.jpg") 50% 50%;
-    background-size: cover;
+    background-image: url("../../images/wechat_poster/page_cover_bg.jpg");
+    .coverCenter;
     .topTitleNav {
         p{
+            display: inline-block;
             opacity: 0;
             animation: tada2 0.4s linear 0.6s 1;
             -webkit-animation: tada2 0.4s linear 0.6s 1;
@@ -221,11 +284,8 @@ p{
             }
         }
         .location{
-            position: absolute;
-            left: 50%;
-            margin-left: -19vh;
-            top: 8.5vh;
-            width: 38vh;
+            margin: 8.5vh auto 3.5vh;
+            padding: 0 3vh;
             height: 6vh;
             background: #333;
             color: #afc327;
@@ -233,26 +293,22 @@ p{
             line-height: 6vh;
         }
         .title{
-            position: absolute;
-            width: 96%;
-            left: 2%;
+            width: 100%;
+            margin: 0 auto 2.5vh;
             height: 8vh;
-            top: 18vh;
             color: #333;
             font-size: 5.7vh;
             line-height: 8vh;
             overflow: hidden;
         }
         .titleEn{
-            position: absolute;
-            width: 100%;
+            margin: 0 auto;
             height: 10vh;
-            top: 30vh;
             color: #333;
             font-size: 8vh;
             font-family: 'Aleo';
             font-weight: bold;
-            line-height: 8vh;
+            line-height: 10vh;
         }
     }
 }
@@ -332,7 +388,6 @@ p{
             font-size: 3.1vh;
             text-align: left;
             line-height: 7vh;
-            vertical-align: top;
             -webkit-animation:tada1 0.2s linear 0s 1;
             animation:tada1 0.2s linear 0s 1;
             .animationForwards;
@@ -341,7 +396,7 @@ p{
                 font-size: 2.4vh;
                 margin-right: 1.5vh;
                 top: 0.5vh;
-                vertical-align: inherit;
+                vertical-align: bottom;
             }
             &:nth-child(2n-1){
                 float: left;
@@ -384,6 +439,7 @@ p{
             }
             i{
                 display: inline-block;
+                float: left;
                 width: 3vh;
                 height: 3vh;
                 margin: 2vh 1vh 2vh 2vh;
@@ -430,6 +486,7 @@ p{
         opacity: 0;
         margin: -5vh auto 5vh;
         font-size: 3vh;
+        font-weight: lighter;
         line-height: 1.4em;
         -webkit-animation: tada2 0.4s linear 0s 1;
         animation: tada2 0.4s linear 0s 1;
@@ -446,8 +503,7 @@ p{
     z-index: 100;
     overflow: auto;
     background-image: url("../../images/wechat_poster/container_bg.jpg");
-    background-position: 50% 50%;
-    background-size: cover;
+    .coverCenter;
     text-align: center;
     opacity: 0;
     animation: fadeInDown 0.4s linear 0s 1;
@@ -473,6 +529,7 @@ p{
     line-height: 1.5em;
 }
 .btn{
+    display: inline-block;
     padding: 1.3vh 4vh;
     border-radius: 1.2vh;
     border: 1px solid #fff;
@@ -502,7 +559,6 @@ p{
         width: 22vh;
         height: 7vh;
         line-height: 7vh;
-        vertical-align: top;
         font-size: 2.6vh;
         &:nth-child(1){
             -webkit-animation-delay: 0.6s;
@@ -538,6 +594,7 @@ p{
         }
         i{
             display: inline-block;
+            float: left;
             width: 4.5vh;
             height: 4.5vh;
             margin: 1.25vh 2vh 1.25vh;
@@ -586,8 +643,7 @@ p{
         width: 100%;
         height: 100%;
         position: relative;
-        background-position: 50% 50%;
-        background-size: cover;
+        .coverCenter;
         .pushpin{
             position: absolute;
             left: 50%;
@@ -609,8 +665,108 @@ p{
         padding: 0;
         position: relative;
         li{
-
+            width: 100%;
+            height: 100%;
+            .coverCenter;
+            background-repeat: no-repeat;
         }
     }
 
+}
+.pageRegion{
+    h2{
+        //position: absolute;
+        //left: 50%;
+        //margin-left: -18vh;
+        //top: 8.5vh;
+        width: 36vh;
+        height: 5.4vh;
+        margin: 8vh auto 4vh;
+        background: #afc327;
+        color: #333;
+        font-size: 3vh;
+        line-height: 5.4vh;
+        font-weight: lighter;
+        span{
+            font-weight: bold;
+        }
+        -webkit-animation: tada2 0.4s linear 0s 1;
+        animation: tada2 0.4s linear 0s 1;
+    }
+    p.description{
+        opacity: 0;
+        margin: 0 auto 4vh;
+        font-size: 2.8vh;
+        font-weight: lighter;
+        line-height: 1.6em;
+        -webkit-animation: tada2 0.4s linear 0s 1;
+        animation: tada2 0.4s linear 0s 1;
+        .animationForwards;
+        .delay(0.2s);
+    }
+    .btn{
+        opacity: 0;
+        margin: 0 auto 6vh;
+        -webkit-animation: tada2 0.4s linear 0s 1;
+        animation: tada2 0.4s linear 0s 1;
+        .animationForwards;
+        .delay(0.4s);
+    }
+    p.tag{
+        opacity: 0;
+        height: 3.2vh;
+        font-size: 2.4vh;
+        -webkit-animation: tada2 0.4s linear 0s 1;
+        animation: tada2 0.4s linear 0s 1;
+        .animationForwards;
+        .delay(0.6s);
+        &:before{
+            position: relative;
+            content: '';
+            display: inline-block;
+            width: 3.2vh;
+            height: 3.2vh;
+            margin-right: 1vh;
+            top: 0.5vh;
+            background-image: url("../../images/wechat_poster/tag.png");
+            .coverCenter;
+        }
+    }
+}
+.pageCoverBack{
+    background-image: url("../../images/wechat_poster/page_cover_bg.jpg");
+    .coverCenter;
+    .topTitleNav{
+        p{
+            &:extend(.pageCover .topTitleNav p all);
+        }
+        .location{
+            &:extend(.pageCover .topTitleNav .location);
+        }
+        .title{
+            &:extend(.pageCover .topTitleNav .title);
+        }
+        .contact{
+            position: absolute;
+            width: 80%;
+            left: 10%;
+            height: 6vh;
+            top: 28.5vh;
+            font-size: 5.4vh;
+            .btn{
+                color: #333;
+                border:2px solid #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+    }
+}
+.coverCenter(){
+    background-position: 50% 50%;
+    background-size: cover;
+}
+.delay(@time){
+    -webkit-animation-delay: (@time);
+    animation-delay: (@time);
 }
