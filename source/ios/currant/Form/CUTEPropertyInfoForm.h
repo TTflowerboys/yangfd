@@ -14,6 +14,7 @@
 #import "CUTEEnum.h"
 #import "CUTEAreaForm.h"
 #import "CUTEProperty.h"
+#import "CUTERentTypeListForm.h"
 
 @interface CUTEPropertyInfoForm : CUTEForm
 
@@ -22,6 +23,8 @@
 @property (nonatomic, assign) NSUInteger bedroom;
 @property (nonatomic, strong) CUTEAreaForm *area;
 @property (nonatomic, strong) CUTERentPriceForm *rentPrice;
+@property (strong, nonatomic) CUTERentTypeListForm *rentType;
+@property (strong, nonatomic) CLLocation *location;
 @property (nonatomic, strong) CUTEPropertyMoreInfoForm *moreInfo;
 @property (strong, nonatomic) CUTERentContactForm *submit;
 

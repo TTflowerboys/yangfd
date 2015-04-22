@@ -26,6 +26,11 @@ PODS:
   - Bolts (1.1.4)
   - CTAssetsPickerController (2.9.3)
   - DACircularProgress (2.3.1)
+  - FMDB (2.5):
+    - FMDB/standard (= 2.5)
+  - FMDB/common (2.5)
+  - FMDB/standard (2.5):
+    - FMDB/common
   - INTULocationManager (3.0.1)
   - Mantle (1.5.4):
     - Mantle/extobjc (= 1.5.4)
@@ -56,6 +61,8 @@ PODS:
   - UIActionSheet+Blocks (0.9)
   - UIAlertView+Blocks (0.9)
   - WeixinSDK (1.4.3)
+  - YTKKeyValueStore (0.1.2):
+    - FMDB (~> 2.0)
 
 DEPENDENCIES:
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
@@ -73,6 +80,7 @@ DEPENDENCIES:
   - UIActionSheet+Blocks (~> 0.9)
   - UIAlertView+Blocks (~> 0.9)
   - WeixinSDK (~> 1.4.3)
+  - YTKKeyValueStore
 
 EXTERNAL SOURCES:
   BBTRestClient:
@@ -95,6 +103,7 @@ SPEC CHECKSUMS:
   Bolts: f8e2f94edbf9fec7bb8de5ecaaa3aa6b7de6f64e
   CTAssetsPickerController: 56a4a228dcb48a9375ab8d4922e82ac74af74aa1
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
@@ -111,5 +120,6 @@ SPEC CHECKSUMS:
   UIActionSheet+Blocks: e180b7dad0a721ab7f212ac9742af799008bb358
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
   WeixinSDK: 012c72fbaf8cef68afa7b0d0bb81c67a7a5c9136
+  YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
 COCOAPODS: 0.36.3

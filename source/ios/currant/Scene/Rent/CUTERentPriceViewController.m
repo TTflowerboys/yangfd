@@ -49,7 +49,7 @@
 
     [self.navigationController popViewControllerAnimated:YES];
     CUTERentPriceForm *form = (CUTERentPriceForm *)[[self formController] form];
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTETicket *ticket = self.ticket;
     ticket.depositType = form.depositType;
     ticket.price = [CUTECurrency currencyWithValue:form.rentPrice unit:form.currency];
     ticket.billCovered = form.containBill;

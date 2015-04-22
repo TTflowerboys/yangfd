@@ -22,3 +22,5 @@ pod 'UIActionSheet+Blocks', '~> 0.9'
 pod 'UIAlertView+Blocks', '~> 0.9'
 pod 'MWPhotoBrowser', '~> 1.4.1'
 pod 'WeixinSDK', '~> 1.4.3'
+pod 'YTKKeyValueStore'
+

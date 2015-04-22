@@ -6,14 +6,13 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "MTLModel.h"
+#import <Mantle.h>
 
-@interface CUTEArea : MTLModel
+@interface CUTEArea : MTLModel <MTLJSONSerializing>
 
 @property (strong, nonatomic) NSString *unit;
 
 @property (nonatomic) float value;
-
 
 + (CUTEArea *)areaWithValue:(float)value unit:(NSString *)unit;
 

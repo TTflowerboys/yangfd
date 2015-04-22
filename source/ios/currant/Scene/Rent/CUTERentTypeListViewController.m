@@ -14,6 +14,14 @@
 #import "CUTEEnumManager.h"
 #import "CUTETicket.h"
 #import "CUTERentTypeListForm.h"
+#import "CUTERentAddressMapViewController.h"
+
+@interface CUTERentTypeListViewController ()
+
+
+@end
+
+
 
 
 @implementation CUTERentTypeListViewController
@@ -29,17 +37,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CUTETicket *ticket = [CUTETicket new];
-    CUTEProperty *property = [CUTEProperty new];
-    ticket.status = kTicketStatusDraft;
-    ticket.property = property;
-    [[CUTEDataManager sharedInstance] pushRentTicket:ticket];
+    if (!self.ticket) {
+        CUTETicket *ticket = [CUTETicket new];
+        CUTEProperty *property = [CUTEProperty new];
+        ticket.identifier = [[NSUUID UUID] UUIDString];
+        ticket.status = kTicketStatusDraft;
+        ticket.property = property;
+        self.ticket = ticket;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
     CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
-    ticket.rentType = [form rentTypeAtIndex:indexPath.row];
+    self.ticket.rentType = [form rentTypeAtIndex:indexPath.row];
+
+    if (self.singleUseForReedit) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else  {
+        CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
+        mapController.ticket = self.ticket;
+        [self.navigationController pushViewController:mapController animated:YES];
+    }
 }
 
 @end

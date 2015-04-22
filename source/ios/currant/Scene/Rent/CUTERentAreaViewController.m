@@ -28,7 +28,7 @@
     }
     [self.navigationController popViewControllerAnimated:YES];
     CUTEAreaForm *form = (CUTEAreaForm *)self.formController.form;
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTETicket *ticket = self.ticket;
     ticket.space = [CUTEArea areaWithValue:form.area unit:form.unit];
     if (ticket.rentType.slug && [ticket.rentType.slug hasSuffix:@":whole"]) {
         ticket.property.space = ticket.space;

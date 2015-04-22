@@ -31,6 +31,10 @@
 #import "CUTEPropertyMoreInfoViewController.h"
 #import "CUTERentAreaViewController.h"
 #import "CUTEImageUploader.h"
+#import "CUTEUnfinishedRentTicketViewController.h"
+#import "CUTERentTypeListViewController.h"
+#import "CUTERentTypeListForm.h"
+#import "CUTERentAddressMapViewController.h"
 
 
 @interface CUTEPropertyInfoViewController () {
@@ -56,12 +60,20 @@
     return self;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title = STR(@"房产信息");
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"返回") style:UIBarButtonItemStylePlain target:self action:@selector(onLeftButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:nil action:nil];
+}
+
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[CUTEFormImagePickerCell class]]) {
         CUTEFormImagePickerCell *pickerCell = (CUTEFormImagePickerCell *)cell;
         //TODO in the future the pickerCell can support show image from url
-        NSArray *images = [[[[[CUTEDataManager sharedInstance] currentRentTicket] property] realityImages] collect:^BOOL(id object) {
+        pickerCell.ticket = self.ticket;
+        NSArray *images = [[[self.ticket property] realityImages] collect:^BOOL(id object) {
             return [object isKindOfClass:[ALAsset class]];
         }];
         [pickerCell setImages:images];
@@ -69,14 +81,32 @@
     }
 }
 
+- (void)onLeftButtonPressed:(id)sender {
+    //may user have edit, but not submit
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    
+    NSArray *controllers = self.navigationController.viewControllers;
+    if (!IsArrayNilOrEmpty(controllers) && controllers.firstObject != self) {
+        if ([controllers.firstObject isKindOfClass:[CUTEUnfinishedRentTicketViewController class]]) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        else {
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            CUTEUnfinishedRentTicketViewController *unfinisedController = [CUTEUnfinishedRentTicketViewController new];
+            [self.navigationController setViewControllers:@[unfinisedController] animated:YES];
+        }
+    }
+}
+
 - (void)editArea {
   if (!_editAreaViewController) {
-    CUTEProperty *property = [[[CUTEDataManager sharedInstance] currentRentTicket] property];
-    CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
-    CUTEAreaForm *form = [CUTEAreaForm new];
-    form.area = property.space.value;
-    controller.formController.form = form;
-    _editAreaViewController = controller;
+      CUTEProperty *property = self.ticket.property;
+      CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
+      controller.ticket = self.ticket;
+      CUTEAreaForm *form = [CUTEAreaForm new];
+      form.area = property.space.value;
+      controller.formController.form = form;
+      _editAreaViewController = controller;
 
   }
   [self.navigationController pushViewController:_editAreaViewController animated:YES];
@@ -89,11 +119,12 @@
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
           if (!_editRentPriceViewController) {
-              CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+              CUTETicket *ticket = self.ticket;
               ticket.rentAvailableTime = [NSDate date];
               CUTERentPeriod *defaultRentPeriod = [CUTERentPeriod negotiableRentPeriod];
               ticket.rentPeriod = defaultRentPeriod;
               CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
+              controller.ticket = self.ticket;
               CUTERentPriceForm *form = [CUTERentPriceForm new];
               form.currency = ticket.price.unit;
               form.depositType = ticket.depositType;
@@ -117,9 +148,35 @@
 
 }
 
+- (void)editRentType {
+    [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+        if (task.result) {
+            CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+            [form setRentTypeList:task.result];
+            CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
+            controller.ticket = self.ticket;
+            controller.formController.form = form;
+            [self.navigationController pushViewController:controller animated:YES];
+
+        }
+        else {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        return nil;
+    }];
+
+}
+
+- (void)editLocation {
+    CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
+    mapController.ticket = self.ticket;
+    [self.navigationController pushViewController:mapController animated:YES];
+}
+
 - (void)editMoreInfo {
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTETicket *ticket = self.ticket;
     CUTEPropertyMoreInfoViewController *controller = [CUTEPropertyMoreInfoViewController new];
+    controller.ticket = ticket;
     CUTEPropertyMoreInfoForm *form = [CUTEPropertyMoreInfoForm new];
     form.ticketTitle = ticket.title;
     form.ticketDescription = ticket.ticketDescription;
@@ -154,7 +211,7 @@
     }
 
     [SVProgressHUD show];
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
     if (ticket && property) {
         Sequencer *sequencer = [Sequencer new];
@@ -213,6 +270,7 @@
                     return nil;
                 } else {
                     CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
+                    contactViewController.ticket = self.ticket;
                     CUTERentContactForm *form = [CUTERentContactForm new];
                     [form setAllCountries:task.result];
                     //set default country same with the property
@@ -230,7 +288,7 @@
 }
 
 - (BFTask *)addProperty {
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
     FXFormField *propertyTypeField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     property.propertyType = propertyTypeField.value;

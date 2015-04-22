@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "MTLModel.h"
+#import <Mantle.h>
 
-@interface CUTEI18n : MTLModel
+@interface CUTEI18n : MTLModel <MTLJSONSerializing>
 
 @property (strong, nonatomic) NSString *locale;
 

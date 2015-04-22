@@ -24,10 +24,8 @@
 
 - (void)restoreAllCookies;
 
-- (void)pushRentTicket:(CUTETicket *)ticket;
+- (void)saveRentTicketToUnfinised:(CUTETicket *)ticket;
 
-- (CUTETicket *)popRentTicket;
-
-- (CUTETicket *)currentRentTicket;
+- (NSArray *)getAllUnfinishedRentTickets;
 
 @end

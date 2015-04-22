@@ -14,6 +14,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
 #import "CUTEPropertyMoreInfoForm.h"
+#import "CUTEDataManager.h"
 
 @implementation CUTEPropertyMoreInfoViewController
 
@@ -29,9 +30,10 @@
         return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
-            CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+            CUTETicket *ticket = self.ticket;
             CUTEProperty *property = [ticket property];
             CUTEPropertyFacilityViewController *controller = [[CUTEPropertyFacilityViewController alloc] init];
+            controller.ticket = self.ticket;
             CUTEPropertyFacilityForm *form = [CUTEPropertyFacilityForm new];
             [form setAllIndoorFacilities:task.result[0]];
             [form setSelectedIndoorFacilities:property.indoorFacilities];
@@ -49,7 +51,7 @@
 - (void)onSaveButtonPressed:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
     CUTEPropertyMoreInfoForm *form = (CUTEPropertyMoreInfoForm *)[self.formController form];
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTETicket *ticket = self.ticket;
     ticket.title = form.ticketTitle;
     ticket.ticketDescription = form.ticketDescription;
 }

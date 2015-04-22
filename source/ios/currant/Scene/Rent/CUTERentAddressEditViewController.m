@@ -12,6 +12,7 @@
 #import "CUTEDataManager.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "FXFormViewController+CUTEForm.h"
+#import "CUTEDataManager.h"
 
 @interface CUTERentAddressEditViewController () {
     CUTEEnum *_lastCountry;
@@ -49,12 +50,13 @@
     
     [self.navigationController popViewControllerAnimated:YES];
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)[self.formController form];
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTETicket *ticket = self.ticket;
     CUTEProperty *property = [ticket property];
     property.street = [CUTEI18n i18nWithValue:form.street];
     property.city = form.city;
     property.zipcode = form.postcode;
     property.country = form.country;
+
 }
 
 @end

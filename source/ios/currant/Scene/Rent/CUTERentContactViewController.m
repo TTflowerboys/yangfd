@@ -67,13 +67,6 @@
 
 - (void)onVerificationButtonPressed:(id)sender {
     //TODO for phone existed user let him login
-
-#warning DEBUG_CODE
-#ifdef DEBUG
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": [CUTEDataManager sharedInstance].currentRentTicket}];
-#endif
-
     if ([CUTEDataManager sharedInstance].user) {
         if (![self validateFormWithScenario:@"sendCode"]) {
             return;
@@ -146,7 +139,7 @@
     user.email = form.email;
     user.country = form.country;
     user.phone = form.phone;
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTETicket *ticket = self.ticket;
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:

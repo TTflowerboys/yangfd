@@ -8,10 +8,13 @@
 
 #import "FXForms.h"
 #import "CUTEEnum.h"
+#import "CUTETicket.h"
 
 @interface CUTERentAddressEditViewController : FXFormViewController
 
 @property (strong, nonatomic) CUTEEnum *lastCountry;
+
+@property (strong, nonatomic) CUTETicket *ticket;
 
 
 @end

@@ -25,6 +25,7 @@
 #import "CUTETicket.h"
 #import "CUTERentShareViewController.h"
 #import "CUTERentShareForm.h"
+#import "CUTEUnfinishedRentTicketViewController.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -59,6 +60,8 @@
     return versionBuild;
 }
 
+#define kEditTabBarIndex 2
+
 - (UINavigationController *)makeViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
 
     CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
@@ -88,17 +91,15 @@
 }
 
 - (UINavigationController *)makeEditViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
-
-    CUTERentTypeListViewController *controller = [[CUTERentTypeListViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] init];
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:nil];
+    tabItem.tag = kEditTabBarIndex;
     nav.tabBarItem = tabItem;
+
     [nav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]} forState:UIControlStateNormal];
     [nav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]} forState:UIControlStateSelected];
-    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:self action:@selector(onPhoneButtonPressed:)];
-    controller.navigationItem.title = STR(@"洋房东");
+    nav.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
-    [nav setViewControllers:@[controller]];
     return nav;
 }
 
@@ -215,22 +216,30 @@
             [webViewController loadURL:webViewController.url];
         }
     }
-    else if ([viewController.topViewController isKindOfClass:[CUTERentTypeListViewController class]]){
-        [SVProgressHUD show];
-        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
-            if (task.result) {
-                CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
-                [form setRentTypeList:task.result];
-                CUTERentTypeListViewController *controller = (CUTERentTypeListViewController *)[viewController topViewController];
-                controller.formController.form = form;
-                [controller.tableView reloadData];
-                [SVProgressHUD dismiss];
-            }
-            else {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            return nil;
-        }];
+    else if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController == nil) {
+        NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
+        if (!IsArrayNilOrEmpty(unfinishedRentTickets)) {
+            CUTEUnfinishedRentTicketViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketViewController new];
+            [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
+        }
+        else {
+            [SVProgressHUD show];
+            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+                if (task.result) {
+                    CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+                    [form setRentTypeList:task.result];
+                    CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
+                    controller.formController.form = form;
+                    [viewController setViewControllers:@[controller] animated:NO];
+                    [SVProgressHUD dismiss];
+                }
+                else {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                return nil;
+            }];
+
+        }
     }
 }
 

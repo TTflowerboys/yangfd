@@ -11,11 +11,14 @@
 #import "CUTEUserDefaultKey.h"
 #import "CUTECommonMacro.h"
 #import <NSArray+Frankenstein.h>
+#import <YTKKeyValueStore.h>
 
 #define DomainKey(key) [NSString stringWithFormat:@"%@/%@", [CUTEConfiguration host], key]
 
 @interface CUTEDataManager () {
     NSMutableArray *_rentTicketList;
+
+    YTKKeyValueStore *_store;
 }
 
 @end
@@ -30,9 +33,25 @@
     
     dispatch_once(&pred, ^{
         sharedInstance = [[[self class] alloc] init];
+        [sharedInstance setupStore];
     });
     
     return sharedInstance;
+}
+
+#pragma mark - Tables
+
+#define KTABLE_SETTINGS @"cute_settings"
+#define KTABLE_UNFINISHE_RENT_TICKETS @"cute_unfinished_rent_tickets"
+
+#pragma mark - Keys
+
+#define KSETTING_COOKIES @"cookies"
+
+- (void)setupStore {
+    _store = [[YTKKeyValueStore alloc] initDBWithName:@"cute.db"];
+    [_store createTableWithName:KTABLE_SETTINGS];
+    [_store createTableWithName:KTABLE_UNFINISHE_RENT_TICKETS];
 }
 
 - (instancetype)init
@@ -58,7 +77,7 @@
 
 - (void)saveAllCookies {
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[CUTEConfiguration hostURL]];
-    [self persistUserObject:cookies forKey:CUTE_USER_DEFAULT_COOKIES_KEY];
+    [_store putObject:cookies withId:KSETTING_COOKIES intoTable:KTABLE_SETTINGS];
 }
 
 - (void)cleanAllCookies {
@@ -70,53 +89,13 @@
 }
 
 - (void)restoreAllCookies {
-    NSArray *bplCookies = (NSArray *)[self getUserObjectForKey:CUTE_USER_DEFAULT_COOKIES_KEY];
+    NSArray *bplCookies = (NSArray *)[_store getObjectById:KSETTING_COOKIES fromTable:KTABLE_SETTINGS];
     NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     for (NSHTTPCookie *cookie in bplCookies) {
         [cookieStorage setCookie:cookie];
-       
     }
 }
 
-- (void)persistSystemObject:(NSObject *)object forKey:(NSString *)key
-{
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:object];
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:key];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSObject *)getSystemObjectForKey:(NSString *)key
-{
-    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-    if (data && [data length] > 0)
-    {
-        return [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    }
-    return nil;
-}
-
-- (void)persistUserObject:(NSObject *)object forKey:(NSString *)key
-{
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:object];
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:DomainKey(key)];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSObject *)getUserObjectForKey:(NSString *)key
-{
-    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:DomainKey(key)];
-    if (data && [data length] > 0)
-    {
-        return [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    }
-    return nil;
-}
-
-- (void)clearUserObjectForKey:(NSString *)key
-{
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:DomainKey(key)];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
 
 #pragma Rent Property
 
@@ -130,6 +109,17 @@
 
 - (CUTETicket *)currentRentTicket {
     return [_rentTicketList lastObject];
+}
+
+- (void)saveRentTicketToUnfinised:(CUTETicket *)ticket {
+    [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:ticket] withId:ticket.identifier intoTable:KTABLE_UNFINISHE_RENT_TICKETS];
+}
+
+- (NSArray *)getAllUnfinishedRentTickets {
+    return [[_store getAllItemsFromTable:KTABLE_UNFINISHE_RENT_TICKETS] map:^id(YTKKeyValueItem *object) {
+        MTLJSONAdapter *ticket = [[MTLJSONAdapter alloc] initWithJSONDictionary:object.itemObject modelClass:[CUTETicket class] error:nil];
+        return [ticket model];
+    }];
 }
 
 
