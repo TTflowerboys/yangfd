@@ -88,9 +88,10 @@
     [self setImages:[[self images] arrayByAddingObject:image]];
 }
 
+#warning TODO here can upload image
 - (void)updateImages:(NSArray *)images {
     [self setImages:images];
-    [[[[CUTEDataManager sharedInstance] currentRentTicket] property] setRealityImages:[self images]];
+    self.ticket.property.realityImages = images;
     [self update];
 }
 
@@ -323,7 +324,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         } else {
             [library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
                 [self addImage:asset];
-                [[[[CUTEDataManager sharedInstance] currentRentTicket] property] setRealityImages:[self images]];
+                self.ticket.property.realityImages = [self images];
                 [self update];
                 [SVProgressHUD dismiss];
                 [picker dismissViewControllerAnimated:YES completion:NULL];

@@ -32,7 +32,7 @@
 
 - (NSArray *)fields {
     NSArray *array = [_rentTypeList map:^id(CUTEEnum *object) {
-        return [NSMutableDictionary dictionaryWithDictionary:@{FXFormFieldKey: [self formKeyFromTitle:object.value], FXFormFieldTitle:object.value, FXFormFieldCell: [CUTEFormRentTypeCell class], FXFormFieldViewController: [CUTERentAddressMapViewController class]}];
+        return [NSMutableDictionary dictionaryWithDictionary:@{FXFormFieldKey: [self formKeyFromTitle:object.value], FXFormFieldTitle:object.value, FXFormFieldCell: [CUTEFormRentTypeCell class]}];
     }];
     if (!IsArrayNilOrEmpty(array)) {
         [array[0] setObject:STR(@"房产类型") forKey:FXFormFieldHeader];

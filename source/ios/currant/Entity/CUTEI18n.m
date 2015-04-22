@@ -11,6 +11,11 @@
 
 @implementation CUTEI18n
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey
+{
+    return @{@"value": @"value"};
+}
+
 - (NSString *)locale {
     if (!_locale) {
         return DEFAULT_I18N_LOCALE;

@@ -10,6 +10,12 @@
 
 @implementation CUTECurrency
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey
+{
+    return @{@"unit": @"unit",
+             @"value": @"value"};
+}
+
 + (CUTECurrency *)currencyWithValue:(float)value unit:(NSString *)unit {
     CUTECurrency *currency = [CUTECurrency new];
     currency.unit = unit;

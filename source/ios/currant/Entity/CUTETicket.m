@@ -16,6 +16,7 @@
     return @{@"identifier": @"id",
              @"status": @"status",
              @"rentPeriod": @"rent_period",
+             @"rentType": @"rent_type",
              @"depositType": @"deposit_type",
              @"space": @"space",
              @"billCovered": @"bill_covered",
@@ -24,13 +25,47 @@
              };
 }
 
++ (NSValueTransformer *)propertyJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEProperty class]];
+}
+
++ (NSValueTransformer *)rentTypeJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+}
+
++ (NSValueTransformer *)rentPeriodJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTERentPeriod class]];
+}
+
++ (NSValueTransformer *)depositTypeJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+}
+
++ (NSValueTransformer *)spceJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEArea class]];
+}
+
++ (NSValueTransformer *)currencyTypeJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
+}
+
 - (NSDictionary *)toParams {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic addEntriesFromDictionary:@{
                                     @"bill_covered":@(self.billCovered),
-                                    @"property_id":self.property.identifier,
-                                    @"status":self.status
                                     }];
+    if (self.status) {
+        [dic setValue:self.status forKey:@"status"];
+    }
+    if (self.property && self.property.identifier) {
+        [dic setValue:self.property.identifier forKey:@"property_id"];
+    }
     if (self.space) {
         [dic setValue:self.space.toParams forKey:@"space"];
     }

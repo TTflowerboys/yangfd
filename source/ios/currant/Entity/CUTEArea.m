@@ -10,6 +10,12 @@
 
 @implementation CUTEArea
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey
+{
+    return @{@"unit": @"unit",
+             @"value": @"value"};
+}
+
 + (CUTEArea *)areaWithValue:(float)value unit :(NSString *)unit {
     CUTEArea *area = [CUTEArea new];
     area.value = value;

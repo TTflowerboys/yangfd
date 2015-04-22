@@ -19,7 +19,7 @@
 }
 
 - (void)toggleIndoorFacility:(CUTEEnum *)facility on:(BOOL)on {
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
     NSMutableArray *oldArray = [NSMutableArray arrayWithArray:property.indoorFacilities];
     if (on) {
@@ -36,7 +36,7 @@
 }
 
 - (void)toggleCommunityFacility:(CUTEEnum *)facility on:(BOOL)on {
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
     NSMutableArray *oldArray = [NSMutableArray arrayWithArray:property.communityFacilities];
     if (on) {
@@ -74,7 +74,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    CUTETicket *ticket = [[CUTEDataManager sharedInstance] currentRentTicket];
+    CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
     FXFormSwitchCell *switchCell = (FXFormSwitchCell *)cell;
     CUTEPropertyFacilityForm *form = (CUTEPropertyFacilityForm *)self.formController.form;

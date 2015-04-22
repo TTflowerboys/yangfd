@@ -9,7 +9,9 @@
 #import "CUTEProperty.h"
 #import "CUTECommonMacro.h"
 #import "CUTEEnum.h"
+#import "CUTECityEnum.h"
 #import <NSArray+Frankenstein.h>
+#import <MapKit/MapKit.h>
 
 @implementation CUTEProperty
 
@@ -17,11 +19,77 @@
 {
     //TODO finish mapping
     return @{@"identifier": @"id",
-             @"slug": @"slug",
+             @"propertyType": @"property_type",
+             @"realityImages": @"reality_images",
+             @"name": @"name",
+             @"country": @"country",
+             @"city": @"city",
+             @"street": @"street",
+             @"zipcode": @"zipcode",
+             @"propertyDescription": @"description",
+             @"bedroomCount": @"bedroom_count",
+             @"space": @"space",
              @"status": @"status",
-             @"type": @"type",
-             @"time": @"time",
-             @"value": @"value"};
+             @"indoorFacilities": @"indoor_facility",
+             @"communityFacilities": @"community_facility"
+             };
+}
+
++ (NSValueTransformer *)propertyTypeJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+}
+
++ (NSValueTransformer *)countryJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+}
+
++ (NSValueTransformer *)cityJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECityEnum class]];
+}
+
++ (NSValueTransformer *)nameJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEI18n class]];
+}
+
++ (NSValueTransformer *)locationJSONTransformer
+{
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSDictionary *locationDict) {
+        CLLocationDegrees latitude = [locationDict[@"latitude"] doubleValue];
+        CLLocationDegrees longitude = [locationDict[@"longitude"] doubleValue];
+
+        return [NSValue valueWithMKCoordinate:CLLocationCoordinate2DMake(latitude, longitude)];
+    } reverseBlock:^(CLLocation *location) {
+        return @{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude)};
+    }];
+}
+
++ (NSValueTransformer *)streetJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEI18n class]];
+}
+
++ (NSValueTransformer *)propertyDescriptionJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEI18n class]];
+}
+
++ (NSValueTransformer *)spaceSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEArea class]];
+}
+
++ (NSValueTransformer *)indoorFacilitiesJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
+}
+
++ (NSValueTransformer *)communityFacilitiesJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
 }
 
 - (NSDictionary *)toParams {

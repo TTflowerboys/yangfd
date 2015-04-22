@@ -7,8 +7,11 @@
 //
 
 #import "FXForms.h"
+#import "CUTETicket.h"
 
 @interface CUTEFormImagePickerCell : FXFormImagePickerCell
+
+@property (strong, nonatomic) CUTETicket *ticket;
 
 - (NSArray *)images;
 
