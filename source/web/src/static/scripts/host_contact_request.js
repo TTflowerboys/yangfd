@@ -109,4 +109,13 @@ $(function () {
         }
     })
 
+
+    // Init contact request section based on url params
+    // If url have 'requestContact = true', means init with request contact button clicked
+    var initRequestContact = team.getQuery('requestContact')
+    if(initRequestContact){
+        $requestContactBtn.click()
+    }
+
+
 })

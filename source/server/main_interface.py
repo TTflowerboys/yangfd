@@ -105,6 +105,23 @@ def property_for_sale_publish():
     return currant_util.common_template("property_for_sale_publish", title=title)
 
 
+@f_get('/host-contact-request/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(check_role=True)
+def rent_ticket_get(rent_ticket_id, user):
+    rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
+    if rent_ticket["status"] not in ["draft", "to rent"]:
+        assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
+
+    # report = None
+    # if rent_ticket.get('zipcode_index') and rent_ticket.get('country').get('slug') == 'GB':
+    #     report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket.get('zipcode_index')))
+
+    title = _('房东联系方式')
+
+    return currant_util.common_template("host_contact_request-phone", rent=rent_ticket, title=title)
+
+
 @f_get('/wechat-poster')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready

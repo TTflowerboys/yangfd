@@ -5,7 +5,6 @@
 @light-text-color: #999;
 @dark-text-color: #555;
 @brochure-guide-color: #FFF7E4;
-@standard-margin: 8px;
 
 body {
     -webkit-touch-callout: none;
@@ -1238,50 +1237,6 @@ body {
                 width: 35%; float: right;
             }
         }
-    }
-    .intentionTags {
-        //> h2 { font-size: 16px; color: #666; margin-bottom: 24px; }
-        > .tab { color: @red; .clearfix();
-            > li { float: left;
-                position: relative;
-                padding-bottom: 16px; width: 25%; cursor: pointer;
-                height: 100px; font-size: 12px;
-                img { display: block; margin: 0 auto; }
-                .text { margin: 16px auto; text-align: center; }
-                &:after {
-                    .arrow(up; #333; 16px;);
-                    position: absolute;
-                    bottom: 0;
-                    left: 36px;
-                    display: none;
-                    margin: 0 auto;
-                }
-                &.selectedTab:after {
-                    display: inline-block;
-                }
-            }
-        }
-        .content {
-            > li { display: none; color: #eee; font-size: 12px;
-                background: #333; padding: @standard-margin*2 @standard-margin; border-radius: 4px;
-                &.selected { display: block; }
-                > h3 { margin: 0; }
-                > h4 { margin: 16px 0; color: #aaa; }
-                > ul { padding-left: 2em; }
-                > ol { padding-left: 2em; }
-                .strong { color: @red; font-size: 14px; }
-            }
-        }
-    }
-    .calculator {
-        .table_wrapper { padding: 16px 0; }
-        table { width: 100%;
-            td { padding: @standard-margin 0; }
-        }
-        .col-name { width: 120px; }
-        .col-value { }
-        .name { text-align: right; color: #aaa; }
-        .value { text-align: right; color: @red; font-size: 24px; }
     }
 }
 
