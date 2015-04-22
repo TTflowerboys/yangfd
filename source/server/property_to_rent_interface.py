@@ -84,6 +84,7 @@ def rent_ticket_get(rent_ticket_id, user):
     if rent_ticket["status"] not in ["draft", "to rent"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 
+    publish_time = f_app.util.format_time(rent_ticket.get('time'))
     # report = None
     # if rent_ticket.get('zipcode_index') and rent_ticket.get('country').get('slug') == 'GB':
     #     report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket.get('zipcode_index')))
@@ -100,7 +101,7 @@ def rent_ticket_get(rent_ticket_id, user):
     keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
-    return currant_util.common_template("property_to_rent", rent=rent_ticket, title=title, description=description, keywords=keywords, weixin=weixin)
+    return currant_util.common_template("property_to_rent", rent=rent_ticket, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin)
 
 
 @f_get('/property-to-rent/create')

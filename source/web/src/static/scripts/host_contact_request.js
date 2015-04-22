@@ -17,7 +17,6 @@ $(function () {
                 .done(function (val) {
                     var phone = val
                     $('.hostPhone span').text(phone)
-                    window.location.hash = 'host'
                 })
             //TODO: issue #6317
             //.fail(function () {})
@@ -25,7 +24,6 @@ $(function () {
         else {
             $('#contactRequestBtn').hide()
             $('.contactRequestForm').show()
-            window.location.hash = 'contactRequest'
         }
     })
 
@@ -115,6 +113,7 @@ $(function () {
     var initRequestContact = team.getQuery('requestContact')
     if(initRequestContact){
         $requestContactBtn.click()
+        window.location.hash = 'contactRequest'
     }
 
 

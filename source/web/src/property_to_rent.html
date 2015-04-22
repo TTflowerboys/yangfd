@@ -269,8 +269,8 @@
             <div class="propertyCard">
                 <h1>{{rent.get('title','')}}</h1>
                 <label class="publishDate">
-                    % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
-                        {{rent.get('rent_available_time','')}}{{_('发布')}}
+                    % if publish_time:
+                        <span>{{publish_time}}</span>{{_('发布')}}
                     % end
                 </label>
                 % if 'country' in rent['property'] or 'city' in rent['property']:
@@ -314,7 +314,7 @@
                             % end
                             % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
                             <span>
-                                {{rent.get('rent_available_time','')}}
+                                {{rent.get('rent_available_time').strftime("%Y-%m-%d")}}{{_('起')}}
                             </span>
                             % end
                         </li>
@@ -488,6 +488,9 @@
         <!--endbuild-->
         <script>
             $(function () {
+                //Format publish time
+                $('.publishDate span').text(team.parsePublishDate($('.publishDate span').text()))
+
                 $('#menu_button_phone').click(function (e) {
                     if ($('#menu_content_phone').is(':visible')) {
                         $('#menu_content_phone').hide()
