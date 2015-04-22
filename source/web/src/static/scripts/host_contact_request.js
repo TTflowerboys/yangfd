@@ -36,7 +36,7 @@ $(function () {
         var valid = $.validate($contactRequestForm, {
             onError: function (dom, validator, index) {
                 $feedback.empty()
-                $feedback.append(window.getErrorMessageFromErrorCode(errorCode, api))
+                $feedback.append(window.getErrorMessage(dom.name, validator))
                 $feedback.show()
             },
             exclude: ['code']
@@ -75,9 +75,10 @@ $(function () {
         $feedback.hide()
         var params = $(this).serializeObject({exclude: ['nickname','email','country','phone']})
 
-        $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', data)
+        var api = '/api/1/user/' + window.user.id + '/sms_verification/verify'
+        $.betterPost(api, params)
             .done(function () {
-                $feedback.show().text($form.attr('data-message-success'))
+                $feedback.show().text($(this).attr('data-message-success'))
 
                 $requestContactBtn.click()
                 //ga('send', 'event', 'property_detail', 'result', 'requirement-submit-success')
@@ -102,5 +103,4 @@ $(function () {
         }
     })
 
-    validateForm() //user may have logged in all data is ready
 })
