@@ -3,30 +3,91 @@
 
 <!--@@block=head -->
 <!--build:css(dist) /static/styles/news.html.css-->
+<link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
+<link rel="stylesheet" href="/static/styles/project/processCard.css"/>
 <link rel="stylesheet" href="/static/styles/crowfundingIntroduce.css"/>
 <!--endbuild-->
 
 <!--@@close-->
 
 <!--@@block=main -->
-
-
+<div class="gallery">
+    <ul class="rslides" data-init="false">
+        <li>
+            <div class="img" data-style="background:url('<url>') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');" data-url="/static/images/background/crowdfunding_cover_bg.jpg">
+                <div class="img_shadow"></div>
+            </div>
+            <div class="imageText_table">
+                <div class="imageText_wrapper">
+                    <div class="imageText">
+                        <h1 class="slogan">众筹，聚沙成塔都金融力量</h1>
+                        <h2>门槛低，操作简单，灵活省心都投资方案</h2>
+                        <a class="button orange" href="">参与众筹投资</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="box chartBox">
+    <h2>英国，最 稳健的长线地产投资市场</h2>
+    <p>
+        据<strong>仲量联行</strong>统计，自1997年开始，15年内伦敦房价增长高达276%，2013年，<br>
+        伦敦新建住宅市场销售均价上涨12.1%。未来，伦敦房价还将稳定上涨
+    </p>
+    <div class="chart">
+        <img src="/static/images/crowdfunding/table.png" alt="过去15年，英国和伦敦房价涨势图"/>
+    </div>
+</div>
+<div class="box chartBox2">
+    <p>
+        同时，2011年-2013年间，英国房屋租金平均水平上涨同样十分明显
+    </p>
+    <div class="chart">
+        <img src="/static/images/crowdfunding/table2.png" alt="2011年-2013年间，英国房屋租金平均水平上涨图"/>
+    </div>
+</div>
 <!--@@close-->
 
 <!--@@block=scripts -->
 
 <script>
-    (function () {
 
 
-    })()
+    //just load after jquery
+    window.initSlidesImages = function ($slides) {
+        if ($slides.attr('data-init') === 'false') {
+            $slides.find('li .img').each(function( index ) {
+                var url = $(this).attr('data-url')
+                if (team.isPhone()) {
+                    url += '_thumbnail'
+                }
+                var r = new RegExp('<url>', 'g');
+                var style = $(this).attr('data-style').replace(r, url)
+                $(this).attr('style', style)
+            });
+            $slides.attr('data-init', 'true')
+        }
+    }
 
-
-
+    window.initSlidesImages($('.gallery .rslides'))
+    function initCoverSize(){
+        if($(window).width() > 1920){
+            $('.gallery').css('height', $(window).width() * 540 / 1920 + 'px')
+        }
+    }
+    $(function(){
+        $(".rslides").responsiveSlides({
+            pager: true
+        })
+//        initCoverSize()
+//        $(window).resize(initCoverSize)
+    })
 
 
 </script>
-
+<!--build:js /static/scripts/index.html.js-->
+<!--endbuild-->
 <!--@@close-->
 
 

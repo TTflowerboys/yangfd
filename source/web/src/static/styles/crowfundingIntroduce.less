@@ -1,0 +1,154 @@
+@import "project/_imports";
+@orange: #ff6600;
+@text: #666;
+.orangeBg(){
+    background-color: @orange;
+}
+.orangeColor(){
+    color: @orange;
+}
+
+body{
+    //调试用
+    background: url('https://redmine.bbtechgroup.com/attachments/download/3685/crowfunding_preview_150422.png') 50% 42px no-repeat !important;
+}
+.page{
+    //调试用
+    opacity: 0.9;
+}
+main{
+
+    color: @text;
+    .gallery {
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 102px;
+        .img {
+            position: relative;
+            display: block;
+            width: 100%;
+            background-size: cover;
+            background-position: 50% 50% !important;
+            @media @phone {
+                min-height:200px;
+                height:200px;
+            }
+        }
+
+        .img:before{
+            content:"";
+            display: block;
+            padding-top: 540px; 	/* initial ratio of 1:1*/
+        }
+
+        .img_shadow{
+            background:#000000;
+            opacity: .30; /* Standards Compliant Browsers */
+            filter: alpha(opacity=20); /* IE 7 and Earlier */
+            /* Next 2 lines IE8 */
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+            min-width: 100%;
+            min-height: 100%;
+            position: absolute;
+            top:0;
+        }
+
+        .imageText {
+            &_table {
+                display: table;
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin-top: 110px;
+                @media @phone {
+                    margin-top: 40px;
+                }
+                width: 100%;
+            }
+            &_wrapper {
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+                height: 100%;
+                width: 100%;
+            }
+
+            margin: 0 auto;
+            .slogan {
+                color: #ffffff;
+                font-size: 54px;
+                margin-bottom: 20px;
+                @media @phone {
+                    font-size:22px;
+                    line-height:1em;
+                }
+            }
+            h2{
+                position: static;
+                font-size: 30px;
+                @media @phone {
+                    font-size:14px;
+                    line-height:1em;
+                }
+            }
+            .button {
+                font-size: 25px;
+                margin-top: 93px;
+                padding: 16px 46px;
+
+                @media @phone {
+                    margin-top:30px;
+
+                    font-size:14px;
+                    line-height:14px;
+                    padding: 8px 10px;
+                    border-radius: 3px;
+                }
+                &.orange{
+                    .orangeBg;
+                }
+            }
+        }
+    }
+    .box{
+        margin-bottom: 100px;
+        text-align: center;
+        overflow: hidden;
+        h2{
+            position: relative;
+            display: inline-block;
+            margin-bottom: 90px;
+            font-size: 34px;
+            text-align: center;
+            &:after{
+                position: absolute;
+                left: 1%;
+                bottom: -6px;
+                width: 98%;
+                height: 4px;
+                background-color: #ccc;
+                content: '';
+            }
+        }
+
+        p{
+            margin: 0 auto 48px;
+            padding: 50px;
+            font-size: 22px;
+            line-height: 1.8em;
+            text-align: center;
+            strong{
+                .orangeColor;
+            }
+        }
+        &.chartBox2{
+            background-color: #eeeeee;
+            background-size: cover;
+            p{
+                margin-top: 32px;
+            }
+        }
+    }
+
+}
