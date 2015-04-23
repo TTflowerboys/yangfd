@@ -16,6 +16,7 @@
 #import "CUTEDataManager.h"
 #import "CUTEPropertyInfoViewController.h"
 #import "CUTEPropertyInfoForm.h"
+#import "CUTEUnfinishedRentTicketCell.h"
 
 @interface CUTEUnfinishedRentTicketViewController ()
 
@@ -66,13 +67,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ticketCell"];
+    CUTEUnfinishedRentTicketCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ticketCell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ticketCell"];
+        cell = [[CUTEUnfinishedRentTicketCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ticketCell"];
         cell.backgroundColor = RANDOMCOLOR;
     }
     CUTETicket *ticket = [self.unfinishedRentTickets objectAtIndex:indexPath.row];
-    cell.textLabel.text = ticket.title;
+    [cell updateWithTicket:ticket];
     return cell;
 }
 

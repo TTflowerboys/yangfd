@@ -19,6 +19,10 @@
 #import <UIActionSheet+Blocks.h>
 #import <NSObject+Attachment.h>
 #import <MWPhotoBrowser.h>
+#import "CUTEImageUploader.h"
+#import <Bolts.h>
+#import <Sequencer/Sequencer.h>
+#import <UIImageView+AFNetworking.h>
 
 @interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate, MWPhotoBrowserDelegate>
 {
@@ -29,6 +33,8 @@
     UIButton *_addButton;
 
     CTAssetsPickerController *_assetsPickerController;
+
+    CUTEImageUploader *_imageUploader;
 }
 @end
 
@@ -73,55 +79,45 @@
 
 }
 
-- (NSArray *)images {
-    return (NSArray *)self.field.value;
-}
-
-- (void)setImages:(NSArray *)images {
-    self.field.value = images;
-}
-
-- (void)addImage:(ALAsset *)image {
-    if ([self images] == nil) {
-        [self setImages:@[]];
-    }
-    [self setImages:[[self images] arrayByAddingObject:image]];
-}
-
-#warning TODO here can upload image
-- (void)updateImages:(NSArray *)images {
-    [self setImages:images];
-    self.ticket.property.realityImages = images;
-    [self update];
+- (NSArray *)assets {
+    //TODO url and assets mapping
+    return nil;
 }
 
 - (void)update
 {
-    BOOL hidePlaceHolder = !IsArrayNilOrEmpty([self images]);
+    BOOL hidePlaceHolder = !IsArrayNilOrEmpty([self ticket].property.realityImages);
     [_placeholderView setHidden:hidePlaceHolder];
     [_scrollView setHidden:!hidePlaceHolder];
     [_addButton setHidden:!hidePlaceHolder];
 
-    [self updateThumbnails:[self images]];
+    [self updateThumbnails:[self ticket].property.realityImages];
     [self setNeedsLayout];
 }
 
-- (void)updateThumbnails:(NSArray *)assets {
+- (void)updateThumbnails:(NSArray *)items {
     [_scrollView removeAllSubViews];
 
-    if (!IsArrayNilOrEmpty(assets)) {
+    if (!IsArrayNilOrEmpty(items)) {
         CGFloat sideWidth = RectHeight(_scrollView.bounds);
         CGFloat margin = 10;
-        [assets enumerateObjectsUsingBlock:^(ALAsset *obj, NSUInteger idx, BOOL *stop) {
-            UIImage *image = [UIImage imageWithCGImage:obj.thumbnail];
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        [items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+            UIImageView *imageView = [[UIImageView alloc] init];
+            if ([obj isKindOfClass:[ALAsset class]]) {
+                UIImage *image = [UIImage imageWithCGImage:((ALAsset *)obj).thumbnail];
+                [imageView setImage:image];
+            }
+            else if ([obj isKindOfClass:[NSString class]]) {
+                [imageView setImageWithURL:[NSURL URLWithString:obj]];
+            }
             [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onImageTapped:)]];
             imageView.userInteractionEnabled = YES;
             imageView.attachment = [NSNumber numberWithInteger:idx];
             [_scrollView addSubview:imageView];
             imageView.frame = CGRectMake(sideWidth * idx + margin * (idx + 1), 0, sideWidth, sideWidth);
         }];
-        _scrollView.contentSize = CGSizeMake((sideWidth + margin) * [assets count], sideWidth);
+        _scrollView.contentSize = CGSizeMake((sideWidth + margin) * [items count], sideWidth);
         [_scrollView scrollRectToVisible:[(UIView *)[[_scrollView subviews] lastObject] frame] animated:NO];
     }
 }
@@ -165,7 +161,7 @@
 }
 
 - (void)showImagePickerFrom:(UIViewController *)controller {
-    [self assetsPickerController].selectedAssets = [NSMutableArray arrayWithArray:[self images]];
+    [self assetsPickerController].selectedAssets = [NSMutableArray arrayWithArray:[self assets]];
     [controller presentViewController:[self assetsPickerController] animated:YES completion:^  {
 
     }];
@@ -198,6 +194,30 @@
     [self showActionSheet];
 }
 
+- (BFTask *)uploadImages:(NSArray *)images {
+    return [[BFTask taskForCompletionOfAllTasksWithResults:[images map:^id(ALAsset *object) {
+#warning DEBUG_CODE
+#ifdef DEBUG
+        NSData *dataImage = UIImageJPEGRepresentation([UIImage imageWithCGImage:[object thumbnail]], 1.0);
+#else
+        NSData *dataImage = UIImageJPEGRepresentation([UIImage imageWithCGImage:[[object defaultRepresentation] fullResolutionImage]], 1.0);
+#endif
+
+        if (!_imageUploader) {
+            _imageUploader = [CUTEImageUploader new];
+        }
+        return [_imageUploader updateImage:dataImage];
+    }]] continueWithBlock:^id(BFTask *task) {
+        if (task.error || task.exception || task.isCancelled) {
+            return task;
+        } else {
+            return [BFTask taskWithResult:[task.result map:^id(NSDictionary *object) {
+                return [object objectForKey:@"url"];
+            }]];
+        }
+    }];
+}
+
 - (void)didSelectWithTableView:(UITableView *)tableView controller:(UIViewController *)controller
 {
     [tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
@@ -215,8 +235,19 @@
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
-    [self updateImages:assets];
-    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [SVProgressHUD show];
+    [[self uploadImages:assets] continueWithBlock:^id(BFTask *task) {
+        if (task.error || task.exception || task.isCancelled) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else {
+            self.ticket.property.realityImages = task.result;
+            [self update];
+            [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            [SVProgressHUD dismiss];
+        }
+        return nil;
+    }];
 }
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(ALAsset *)asset
@@ -269,19 +300,19 @@
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
 {
-    return [self images].count;
+    return [[[self ticket] property] realityImages].count;
 }
 
 - (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
 {
-    ALAsset *asset = [[self images] objectAtIndex:index];
-    return [MWPhoto photoWithURL:asset.defaultRepresentation.url];
+    NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
+    return [MWPhoto photoWithURL:[NSURL URLWithString:asset]];
 }
 
 
 - (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index
 {
-    ALAsset *asset = [[self images] objectAtIndex:index];
+    NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
     if (!asset.attachment) {
         return YES;
     }
@@ -291,16 +322,18 @@
 }
 
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected {
-    ALAsset *asset = [[self images] objectAtIndex:index];
+    NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
     asset.attachment = [NSNumber numberWithBool:selected];
 }
 
 - (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser {
 
-    NSArray *editedAssets = [[self images] collect:^BOOL(ALAsset *asset) {
+    NSArray *editedAssets = [[self ticket].property.realityImages collect:^BOOL(NSString *asset) {
         return asset.attachment == nil || [asset.attachment boolValue];
     }];
-    [self updateImages:editedAssets];
+
+    self.ticket.property.realityImages = editedAssets;
+    [self update];
     [[self tableViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -309,7 +342,6 @@
 - (void)imagePickerController:(UIImagePickerController *)picker
 didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     if (image == nil)
     {
@@ -317,22 +349,42 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }
 
     [SVProgressHUD show];
-    ALAssetsLibrary *library = [self assetsPickerController].assetsLibrary;
-    [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
-        if (error) {
-            [SVProgressHUD showErrorWithError:error];
-        } else {
-            [library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-                [self addImage:asset];
-                self.ticket.property.realityImages = [self images];
-                [self update];
-                [SVProgressHUD dismiss];
-                [picker dismissViewControllerAnimated:YES completion:NULL];
-            } failureBlock:^(NSError *error) {
+    Sequencer *sequencer = [Sequencer new];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        ALAssetsLibrary *library = [self assetsPickerController].assetsLibrary;
+        [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error) {
                 [SVProgressHUD showErrorWithError:error];
-            }];
-        }
+            } else {
+                [library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                    completion(asset);
+                } failureBlock:^(NSError *error) {
+                    [SVProgressHUD showErrorWithError:error];
+                }];
+            }
+        }];
     }];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[self uploadImages:@[result]] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else {
+                if ([self ticket].property.realityImages == nil) {
+                    self.ticket.property.realityImages = @[];
+                }
+
+                self.ticket.property.realityImages = [[[[self ticket] property] realityImages] arrayByAddingObjectsFromArray:task.result];
+                [self update];
+                [picker dismissViewControllerAnimated:YES completion:NULL];
+                [SVProgressHUD dismiss];
+            }
+            return nil;
+        }];
+    }];
+
+    [sequencer run];
 }
 
 @end

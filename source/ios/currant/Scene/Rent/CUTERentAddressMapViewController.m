@@ -298,6 +298,33 @@
 }
 
 - (BFTask *)updateAddress {
+
+#warning DEBUG_CODE
+#ifdef DEBUG
+    CUTEProperty *property = self.ticket.property;
+    NSArray *requiredEnums = @[@"country", @"city"];
+    return [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
+        return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+    }]] continueWithSuccessBlock:^id(BFTask *task) {
+        if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
+            NSArray *coutries = [task.result[0] collect:^BOOL(CUTEEnum *object) {
+                return [object.slug isEqualToString:@"CN"];
+            }];
+
+            NSArray *cities = [task.result[1] collect:^BOOL(CUTECityEnum *object) {
+                return [[object.country slug] isEqualToString:@"CN"];
+            }];
+            property.street = [CUTEI18n i18nWithValue:@"street"];
+            property.zipcode = @"430079";
+            property.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
+            property.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
+            _textField.text = property.address;
+        }
+        return task;
+    }];
+
+
+#else
     CUTEProperty *property = self.ticket.property;
     return [[self reverseGeocodeLocation:property.location] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
@@ -325,6 +352,8 @@
         }
         return task;
     }];
+
+#endif
 }
 
 - (void)updateLocation:(CLLocation *)location {

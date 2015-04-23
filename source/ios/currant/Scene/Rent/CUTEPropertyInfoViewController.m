@@ -40,7 +40,7 @@
 
 @interface CUTEPropertyInfoViewController () {
 
-    CUTEImageUploader *_imageUploader;
+//    CUTEImageUploader *_imageUploader;
 
     CUTERentAreaViewController *_editAreaViewController;
 
@@ -56,7 +56,6 @@
 {
     self = [super init];
     if (self) {
-        _imageUploader = [CUTEImageUploader new];
     }
     return self;
 }
@@ -72,12 +71,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[CUTEFormImagePickerCell class]]) {
         CUTEFormImagePickerCell *pickerCell = (CUTEFormImagePickerCell *)cell;
-        //TODO in the future the pickerCell can support show image from url
         pickerCell.ticket = self.ticket;
-        NSArray *images = [[[self.ticket property] realityImages] collect:^BOOL(id object) {
-            return [object isKindOfClass:[ALAsset class]];
-        }];
-        [pickerCell setImages:images];
         [pickerCell update];
     }
 }
@@ -217,28 +211,7 @@
     CUTEProperty *property = ticket.property;
     if (ticket && property) {
         Sequencer *sequencer = [Sequencer new];
-        NSArray *images = [(CUTEPropertyInfoForm *)self.formController.form photos];
-        if (!IsArrayNilOrEmpty(images)) {
-            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[BFTask taskForCompletionOfAllTasksWithResults:[images map:^id(ALAsset *object) {
-                    NSData *dataImage = UIImageJPEGRepresentation([UIImage imageWithCGImage:[[object defaultRepresentation] fullResolutionImage]], 1.0);
-                    return [_imageUploader updateImage:dataImage];
-                }]] continueWithBlock:^id(BFTask *task) {
-                    if (task.error || task.exception || task.isCancelled) {
-                        [SVProgressHUD showErrorWithError:task.error];
-                        return nil;
-                    } else {
-                        property.realityImages = [task.result map:^id(NSDictionary *object) {
-                            return [object objectForKey:@"url"];
-                        }];
-                        completion(task.result);
-                        return nil;
-                    }
-
-                }];
-            }];
-        }
-
+        
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [[self addProperty] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
