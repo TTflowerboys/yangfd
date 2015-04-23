@@ -3,8 +3,6 @@
 
 <!--@@block=head -->
 <!--build:css(dist) /static/styles/news.html.css-->
-<link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
-<link rel="stylesheet" href="/static/styles/project/processCard.css"/>
 <link rel="stylesheet" href="/static/styles/crowfundingIntroduce.css"/>
 <!--endbuild-->
 
@@ -14,7 +12,10 @@
 <div class="gallery">
     <ul class="rslides" data-init="false">
         <li>
-            <div class="img" data-style="background:url('<url>') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');" data-url="/static/images/background/crowdfunding_cover_bg.jpg">
+            <!--<div class="img" data-style="background:url('<url>') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');" data-url="/static/images/background/crowdfunding_cover_bg.jpg">
+                <div class="img_shadow"></div>
+            </div>-->
+            <div class="img" style="background-image: url('/static/images/background/crowdfunding_cover_bg.jpg')">
                 <div class="img_shadow"></div>
             </div>
             <div class="imageText_table">
@@ -54,40 +55,8 @@
 <script>
 
 
-    //just load after jquery
-    window.initSlidesImages = function ($slides) {
-        if ($slides.attr('data-init') === 'false') {
-            $slides.find('li .img').each(function( index ) {
-                var url = $(this).attr('data-url')
-                if (team.isPhone()) {
-                    url += '_thumbnail'
-                }
-                var r = new RegExp('<url>', 'g');
-                var style = $(this).attr('data-style').replace(r, url)
-                $(this).attr('style', style)
-            });
-            $slides.attr('data-init', 'true')
-        }
-    }
-
-    window.initSlidesImages($('.gallery .rslides'))
-    function initCoverSize(){
-        if($(window).width() > 1920){
-            $('.gallery').css('height', $(window).width() * 540 / 1920 + 'px')
-        }
-    }
-    $(function(){
-        $(".rslides").responsiveSlides({
-            pager: true
-        })
-//        initCoverSize()
-//        $(window).resize(initCoverSize)
-    })
-
-
 </script>
-<!--build:js /static/scripts/index.html.js-->
-<!--endbuild-->
+
 <!--@@close-->
 
 

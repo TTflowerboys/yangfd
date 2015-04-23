@@ -1,6 +1,9 @@
 @import "project/_imports";
 @orange: #ff6600;
 @text: #666;
+.lighter(){
+    font-weight: lighter;
+}
 .orangeBg(){
     background-color: @orange;
 }
@@ -17,8 +20,11 @@ body{
     opacity: 0.9;
 }
 main{
-
+    h1,h2{
+        .lighter()
+    }
     color: @text;
+    .lighter();
     .gallery {
         position: relative;
         overflow: hidden;
@@ -43,11 +49,11 @@ main{
 
         .img_shadow{
             background:#000000;
-            opacity: .30; /* Standards Compliant Browsers */
-            filter: alpha(opacity=20); /* IE 7 and Earlier */
+            opacity: .60; /* Standards Compliant Browsers */
+            filter: alpha(opacity=60); /* IE 7 and Earlier */
             /* Next 2 lines IE8 */
-            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
             min-width: 100%;
             min-height: 100%;
             position: absolute;
