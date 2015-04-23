@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="UTF-8">
-        <title>出租房产微信展示页</title>
+        <title>{{title}}</title>
+        <meta name="Description" content="{{description}}">
+        <meta name="Keywords" content="{{keywords}}">
+        <!-- @@include = ./partials/meta.html -->
         <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -14,8 +15,8 @@
         <link rel="stylesheet" href="/static/styles/phone/animation.css">
         <link rel="stylesheet" href="/static/styles/phone/wechatPoster.css">
         <!--endbuild-->
-        <!--<link rel="stylesheet" href="http://c.animate.com/css/companyslide/wyy-base-pc.css?v=1.5.5.7_034455">-->
-        <!--<link rel="stylesheet" href="http://c.animate.com/css/companyslide/wyy-animation.css?v=1.5.5.7_034455">-->
+
+        <!-- @@include = ./partials/favicon.html -->
     </head>
     <body marginwidth="0" marginheight="0" class="loading">
         <div class="loadingCover">
@@ -23,7 +24,7 @@
                 <canvas id="procanvas" class="procanvas" value="0%"></canvas>
                 <span id="proText" class="proText"></span>
             </div>
-            <p class="info">正在加载资源<br>请稍后</p>
+            <p class="info">{{_('正在加载资源')}}<br>{{_('请稍后')}}</p>
             <p class="logo"></p>
         </div>
         <script type="text/javascript">
@@ -166,7 +167,7 @@
                         </div>
                     </div>
                     <div class="bottomBox animate">
-                        <div class="scrollUp">继续</div>
+                        <div class="scrollUp">{{_('继续')}}</div>
                     </div>
 
 
@@ -182,7 +183,7 @@
                             </sub>
                             % end
                         </p>
-                        <p class="line3 animate">您就可以租到</p>
+                        <p class="line3 animate">{{_('您就可以租到')}}</p>
                         <ul class="itemBox clearfix">
                             <li class="animate">
                                 <i class="sizeIcon"></i>
@@ -195,8 +196,10 @@
                             <li class="animate"><i class="rentalIcon"></i>{{rent.get('rent_type',{}).get('value', '')}}</li>
                             <li class="animate"><i class="estateIcon"></i>{{rent['property'].get('city',{}).get('value','')}} {{rent['property'].get('street','')}}</li>
                             <li class="animate"><i class="streetIcon"></i>{{rent['property'].get('zipcode','')}}</li>
-                            <li class="animate"><i class="doorIcon"></i>{{rent['property'].get('楼层','')}}</li>
-                            <li class="animate"><i class="timeIcon"></i>
+                            % if 'floor' in rent['property'] and rent['property'].get('floor',''):
+                            <li class="animate"><i class="doorIcon"></i>{{rent['property'].get('floor','')}}</li>
+                            % end
+                            <li class="animate time"><i class="timeIcon"></i>
                                 % if 'rent_period' in rent and rent.get('rent_period',{}).get('value',''):
                                     {{rent.get('rent_period',{}).get('value','')}}，
                                 % end
@@ -207,13 +210,16 @@
                         </ul>
                     </div>
                     <div class="bottomBox animate">
-                        <div class="scrollUp">继续</div>
+                        <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen" style="">
                     <div class="page pageDescription">
                         <h2 class="animate">“</h2>
-                        <p class="description animate">时尚购物，美味佳肴，艺术娱乐<br>
+
+                        <p class="description animate">
+                            <!-- todo -->
+                            时尚购物，美味佳肴，艺术娱乐<br>
                             于一身的金丝雀码头<br>
                             是英国首都伦敦<br>
                             一个重要的金融区和购物区<br>
@@ -221,7 +227,7 @@
                             你的一切需求都能得到满足<br>
                         </p>
                         <a class="btn btnModal animate viewMoreBtn" id="viewMoreBtn">查看更多</a>
-
+                        <!-- 等图标设计完成后再做sprites-->
                         <ul class="facilities clearfix">
                             <li class="animate"><i class="tvIcon"></i>电视机</li>
                             <li class="animate"><i class="fireIcon"></i>天然气</li>
@@ -235,7 +241,7 @@
 
                     </div>
                     <div class="bottomBox animate">
-                        <div class="scrollUp">继续</div>
+                        <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen" style="">
@@ -248,9 +254,13 @@
                     <div class="bottomBox mapBottom animate">
                         <div class="location">
                             <h2>地址</h2>
-                            <p>湖北省武汉市光谷大道<br>国际企业中心</p>
+                            <p>
+                                {{rent['property'].get('city',{}).get('value','')}}{{_('市')}}{{rent['property'].get('street','')}}<br>
+                                {{rent['property'].get('address','')}}
+                            </p>
+                            <!--<p>湖北省武汉市光谷大道<br>国际企业中心</p>-->
                         </div>
-                        <div class="scrollUp">继续</div>
+                        <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen" style="">
@@ -280,7 +290,7 @@
                             <div class="arrowButton nextButton" data-action="Next"></div>
                         </div>
 
-                        <div class="scrollUp">继续</div>
+                        <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen" style="">
@@ -300,7 +310,7 @@
                         <p class="tag animate">华人多, 学生多, 美食, 中国城</p>
                     </div>
                     <div class="bottomBox animate">
-                        <div class="scrollUp">继续</div>
+                        <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen" style="">
@@ -353,6 +363,7 @@
         <!--更多设施弹出层 start-->
         <div class="facilitiesMore hide modal" data-trigger="morefacilitiesBtn">
             <h2 class="animate">居家设施</h2>
+            <!-- 等图标设计完成后再做sprites-->
             <ul class="facilities clearfix">
                 <li class="animate"><i class="tvIcon"></i>电视机</li>
                 <li class="animate"><i class="fireIcon"></i>天然气</li>
@@ -385,7 +396,7 @@
             function initMapSrc(config){
                 config.height = parseInt(config.width * $(window).height() / $(window).width())
 
-                var baseSrc = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&format=jpeg&key={key}'
+                var baseSrc = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&mapLayer=TrafficFlow&format=jpeg&key={key}'
                 for(var k in config){
                     baseSrc = baseSrc.replace('{' + k + '}', config[k])
                 }
@@ -397,7 +408,7 @@
                 initMapSrc({
                     key: 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43',
                     width: 600,
-                    centerPoint: '47.610,-122.107',
+                    centerPoint: '{{rent["property"].get("latitude","")}},{{rent["property"].get("longitude","")}}',
                     zoomLevel: 12
                 })
             })
