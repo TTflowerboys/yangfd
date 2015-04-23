@@ -149,7 +149,6 @@
         $('#number_container').show()
 
         $('#loadIndicator').show()
-        $('#loadMore').hide()
         isLoading = true
 
         var totalResultCount = getCurrentTotalCount()
@@ -173,15 +172,13 @@
                         }
                     })
                     totalResultCount = getCurrentTotalCount()
-                    $('#loadMore').show()
+
                     isAllItemsLoaded = false
                 } else {
-                    $('#loadMore').hide()
                     isAllItemsLoaded = true
                 }
 
             }).fail(function () {
-            $('#loadMore').show()
         }).always(function () {
                 updateResultCount(totalResultCount)
                 $('#loadIndicator').hide()
@@ -205,7 +202,7 @@
             $('#result_list_container').hide()
             $('.emptyPlaceHolder').show();
             ga('send', 'event', 'rent_list', 'result', 'empty-result',
-                $('.emptyPlaceHolder').find('textarea[name=description]').text())
+               $('.emptyPlaceHolder').find('textarea[name=description]').text())
         }
     }
 
