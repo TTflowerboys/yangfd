@@ -213,31 +213,42 @@
                         <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-slide-bg commen" style="">
+                <div class="swiper-slide swiper-slide-bg commen
+                % if description in rent and rent.get('description') or 'indoor_facility' in rent['property'] or 'community_facility' in rent['property']:
+                show
+                % else:
+                hideInWechat
+                % end
+                " style="">
                     <div class="page pageDescription">
+                        <!--% if description in rent and rent.get('description'):-->
                         <h2 class="animate">“</h2>
-
                         <p class="description animate">
-                            <!-- todo -->
-                            时尚购物，美味佳肴，艺术娱乐<br>
-                            于一身的金丝雀码头<br>
-                            是英国首都伦敦<br>
-                            一个重要的金融区和购物区<br>
-                            在这里<br>
-                            你的一切需求都能得到满足<br>
+                            {{rent.get('description','统计表明填写更多房产的描述和配套设施能缩短出租用时')}}
                         </p>
-                        <a class="btn btnModal animate viewMoreBtn" id="viewMoreBtn">查看更多</a>
+                        <!--% end-->
+                        % if rent.get('description'):
+                        <a class="btn btnModal animate viewMoreBtn" id="viewMoreBtn">{{_('查看更多')}}</a>
+                        % end
+                        <!--% if 'indoor_facility' in rent['property'] or 'community_facility' in rent['property']:-->
                         <!-- 等图标设计完成后再做sprites-->
                         <ul class="facilities clearfix">
-                            <li class="animate"><i class="tvIcon"></i>电视机</li>
-                            <li class="animate"><i class="fireIcon"></i>天然气</li>
-                            <li class="animate"><i class="iceIcon"></i>电冰箱</li>
-                            <li class="animate"><i class="heaterIcon"></i>热水器</li>
-                            <li class="animate"><i class="washerIcon"></i>洗衣机</li>
-                            <li class="animate"><i class="warmIcon"></i>暖气</li>
+                            <!--<li class="animate"><i class="tvIcon"></i><span>电视机</span></li>
+                            <li class="animate"><i class="fireIcon"></i><span>天然气</span></li>
+                            <li class="animate"><i class="iceIcon"></i><span>电冰箱</span></li>
+                            <li class="animate gray"><i class="heaterIcon gray"></i><span>热水器</span></li>
+                            <li class="animate"><i class="washerIcon"></i><span>洗衣机</span></li>
+                            <li class="animate"><i class="warmIcon"></i><span>暖气</span></li>-->
+                            % for item in rent['property'].get('indoor_facility',[]):
+                            <li class="animate"><i class=""></i><span>{{item.get('value','')}}</span></li>
+                            % end
+                            % for item in rent['property'].get('community_facility',[]):
+                            <li class="animate"><i class=""></i><span>{{item.get('value','')}}</span></li>
+                            %end
                         </ul>
-                        <a class="btn btnModal animate morefacilitiesBtn" id="morefacilitiesBtn">更多居家设施</a>
-
+                        <!-- 只有上面的设施条数大于6时展示，js控制-->
+                        <a class="btn btnModal animate morefacilitiesBtn" id="morefacilitiesBtn">{{_('更多设施')}}</a>
+                        <!--% end-->
 
                     </div>
                     <div class="bottomBox animate">
@@ -253,7 +264,7 @@
                     </div>
                     <div class="bottomBox mapBottom animate">
                         <div class="location">
-                            <h2>地址</h2>
+                            <h2>{{_('地址')}}</h2>
                             <p>
                                 {{rent['property'].get('city',{}).get('value','')}}{{_('市')}}{{rent['property'].get('street','')}}<br>
                                 {{rent['property'].get('address','')}}
@@ -263,15 +274,14 @@
                         <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
+                % if rent['property'].get('community_facility', []) and len(rent['property'].get('community_facility', [])):
                 <div class="swiper-slide swiper-slide-bg commen" style="">
                     <div class="page pagePhoto swiper-container">
                         <ul class="swiper-wrapper photoList">
-                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
-                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
-                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
-                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
-                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
-                            <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_ptoto.jpg')"></li>
+                            % for item in rent['property'].get('reality_images'):
+                            <li class="swiper-slide" style="background-image: url('{{item}}')"></li>
+                            %end
+
                         </ul>
                     </div>
 
@@ -279,11 +289,9 @@
                         <div class="photoThumbsBox">
                             <div class="photoThumbs swiper-container">
                                 <ul class="swiper-wrapper thumbList">
-                                    <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_thumb.jpg')"></li>
-                                    <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_thumb.jpg')"></li>
-                                    <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_thumb.jpg')"></li>
-                                    <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_thumb.jpg')"></li>
-                                    <li class="swiper-slide" style="background-image: url('/static/images/wechat_poster/sample_thumb.jpg')"></li>
+                                                                        % for item in rent['property'].get('reality_images'):
+                                    <li class="swiper-slide" style="background-image: url('{{item}}')"></li>
+                                    %end
                                 </ul>
                             </div>
                             <div class="arrowButton prevButton" data-action="Prev"></div>
@@ -293,33 +301,40 @@
                         <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-slide-bg commen" style="">
+                % end
+                <div class="swiper-slide swiper-slide-bg commen " style="">
                     <div class="page pageRegion">
-                        <h2 class="animate">街区报告：<span>阿尔德盖特</span></h2>
+                        <h2 class="animate">{{_('街区报告：')}}<span>{{rent['property'].get('street','')}}</span></h2>
                         <p class="description animate">
-                            伦敦最具潜力区域之一<br>
-                            全球一流科技，金融机构环绕<br>
-                            富有艺术活力的肖尔迪奇<br>
-                            红砖巷和斯皮塔佛德<br>
-                            以及包含各样娱乐休闲设施的<br>
-                            圣凯瑟琳岛<br>
-                            使得阿尔德盖特成为一个<br>
-                            独一无二的地区<br>
+                            <!--todo-->
+                            <!--伦敦最具潜力区域之一<br>-->
+                            <!--全球一流科技，金融机构环绕<br>-->
+                            <!--富有艺术活力的肖尔迪奇<br>-->
+                            <!--红砖巷和斯皮塔佛德<br>-->
+                            <!--以及包含各样娱乐休闲设施的<br>-->
+                            <!--圣凯瑟琳岛<br>-->
+                            <!--使得阿尔德盖特成为一个<br>-->
+                            <!--独一无二的地区<br>-->
+                            暂无内容
                         </p>
-                        <a class="btn animate viewMoreBtn" id="">查看更多</a>
-                        <p class="tag animate">华人多, 学生多, 美食, 中国城</p>
+                        <a class="btn animate viewMoreBtn" id="">{{_('查看更多')}}</a>
+                        <p class="tag animate">
+                            <!-- todo -->
+                            <!--华人多, 学生多, 美食, 中国城-->
+                            暂无内容
+                        </p>
                     </div>
                     <div class="bottomBox animate">
                         <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-slide-bg commen" style="">
+                <div class="swiper-slide swiper-slide-bg commen hideOutsideWechat" style="">
                     <div class="page pageCoverBack">
                         <div class="topTitleNav animate">
-                            <p class="location animate">英国 伦敦</p>
-                            <p class="title animate">两室一厅好房出售</p>
+                            <p class="location animate">{{rent['property'].get('country',{}).get('value','')}} {{rent['property'].get('city',{}).get('value','')}}</p>
+                            <p class="title animate">{{rent.get('title','')}}</p>
                             <p class="contact animate">
-                                <a href="" class="btn">获取卖家联系方式</a>
+                                <a href="/request-host-contact/{{rent.get('id','')}}?requestContact=true" class="btn">{{_('获取卖家联系方式')}}</a>
                             </p>
                         </div>
                     </div>
@@ -329,73 +344,56 @@
                             <div class="logo"></div>
                         </div>
                         <div class="siteLinkBox">
-                            <a href="" class="btn siteLink">访问我们的网站</a>
+                            <a href="/" class="btn siteLink">{{_('访问我们的网站')}}</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
         <!--更多描述弹出层 start-->
         <div class="descriptionMore hide modal" data-trigger="viewMoreBtn">
             <p>
-                40层高的888 Collins Street 是<br>
-                Dockland区的最高建筑。<br>
-                由Lelend Lease开发，Lelend<br>
-                Lease是澳洲最大地产开发商，<br>
-                以品质卓越，售后杰出而闻名，<br>
-                曾承建多个著名项目包括：上<br>
-                海世博会澳大利亚馆承建商，<br>
-                悉尼歌剧院，吉隆坡双子塔，<br>
-                911遗址重建等。<br><br>
-                项目优势：<br>
-                - Victoria Harbour内的许多公<br>
-                寓都拥有绝佳的视野，从维多利<br>
-                亚港区到中心商务区的景色一览<br>
-                无遗，西边的博尔特桥和码头也<br>
-                尽收眼底；<br><br>
-                每套公寓的配备与装修在品质上<br>
+                {{rent.get('description','统计表明填写更多房产的描述和配套设施能缩短出租用时')}}
             </p>
-            <a class="btn btnCloseModal" id="closeViewMoreBtn">收起</a>
+            <a class="btn btnCloseModal" id="closeViewMoreBtn">{{_('收起')}}</a>
         </div>
         <!--更多描述弹出层 end-->
         <!--更多设施弹出层 start-->
         <div class="facilitiesMore hide modal" data-trigger="morefacilitiesBtn">
-            <h2 class="animate">居家设施</h2>
+            <h2 class="animate">{{_('居家设施')}}</h2>
             <!-- 等图标设计完成后再做sprites-->
             <ul class="facilities clearfix">
-                <li class="animate"><i class="tvIcon"></i>电视机</li>
-                <li class="animate"><i class="fireIcon"></i>天然气</li>
-                <li class="animate"><i class="iceIcon"></i>电冰箱</li>
-                <li class="animate"><i class="heaterIcon"></i>热水器</li>
-                <li class="animate"><i class="washerIcon"></i>洗衣机</li>
-                <li class="animate"><i class="warmIcon"></i>暖气</li>
-                <li class="animate"><i class="tvIcon"></i>电视机</li>
-                <li class="animate"><i class="fireIcon"></i>天然气</li>
+                % for item in rent['property'].get('indoor_facility',[]):
+                <li class="animate"><i class=""></i><span>{{item.get('value','')}}</span></li>
+                % end
+                <!--<li class="animate"><i class="tvIcon"></i><span>电视机</span></li>
+                <li class="animate"><i class="fireIcon"></i><span>天然气</span></li>
+                <li class="animate"><i class="iceIcon"></i><span>电冰箱</span></li>
+                <li class="animate gray"><i class="heaterIcon gray"></i><span>热水器</span></li>
+                <li class="animate"><i class="washerIcon"></i><span>洗衣机</span></li>
+                <li class="animate"><i class="warmIcon"></i><span>暖气</span></li>-->
             </ul>
-            <h2 class="animate">社区设施</h2>
+            <h2 class="animate">{{_('社区设施')}}</h2>
             <ul class="facilities clearfix">
-                <li class="animate"><i class="tvIcon"></i>电视机</li>
-                <li class="animate"><i class="fireIcon"></i>天然气</li>
-                <li class="animate"><i class="iceIcon"></i>电冰箱</li>
-                <li class="animate"><i class="heaterIcon"></i>热水器</li>
-                <li class="animate"><i class="washerIcon"></i>洗衣机</li>
-                <li class="animate"><i class="warmIcon"></i>暖气</li>
+                % for item in rent['property'].get('community_facility',[]):
+                <li class="animate"><i class=""></i><span>{{item.get('value','')}}</span></li>
+                %end
             </ul>
-            <a class="btn btnCloseModal" id="closeFacilitiesMoreBtn">收起</a>
+            <a class="btn btnCloseModal" id="closeFacilitiesMoreBtn">{{_('收起')}}</a>
         </div>
         <!--更多设施弹出层 end-->
+
         <!--build:js /static/scripts/wechat_poster.html.js-->
         <script type="text/javascript" src="/static/vendors/jquery/jquery-2.1.0.min.js"></script>
         <script type="text/javascript" src="/static/vendors/swiper/swiper.jquery.min.js"></script>
+        <script type="text/javascript" src="/static/scripts/team.js"></script>
         <script type="text/javascript" src="/static/scripts/wechat_poster.js"></script>
         <!--endbuild-->
 
         <script>
             function initMapSrc(config){
                 config.height = parseInt(config.width * $(window).height() / $(window).width())
-
                 var baseSrc = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&mapLayer=TrafficFlow&format=jpeg&key={key}'
                 for(var k in config){
                     baseSrc = baseSrc.replace('{' + k + '}', config[k])
@@ -413,6 +411,5 @@
                 })
             })
         </script>
-
     </body>
 </html>

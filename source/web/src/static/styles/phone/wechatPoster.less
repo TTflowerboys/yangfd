@@ -487,8 +487,14 @@ p{
         .animationForwards;
     }
     p{
+        position: relative;
+        overflow: hidden;
+        text-overflow:ellipsis;
         opacity: 0;
-        margin: -5vh auto 5vh;
+        max-height: 25vh;
+        white-space: pre-line;
+        margin: -8vh auto 4vh;
+        padding: 0 8vh;
         font-size: 3vh;
         font-weight: lighter;
         line-height: 1.4em;
@@ -496,6 +502,7 @@ p{
         animation: tada2 0.4s linear 0s 1;
         .animationForwards;
     }
+
 }
 .modal{
     width: 100%;
@@ -526,9 +533,9 @@ p{
 }
 .descriptionMore p{
     width: 48vh;
-    margin: 0 auto 5vh;
+    margin: 0 auto 8vh;
     color: #fff;
-    text-align: left;
+    text-align: center;
     font-size: 3.4vh;
     line-height: 1.5em;
 }
@@ -547,7 +554,7 @@ p{
 }
 .facilities{
     width: 44vh;
-    margin: 8vh auto 4.5vh;
+    margin: 8vh auto 4vh;
     padding: 0;
     list-style: none;
     text-align: left;
@@ -583,23 +590,32 @@ p{
             background-repeat: no-repeat;
         }
         i.tvIcon{
-            background-image: url("../../images/wechat_poster/tv.png");
+            .iconImg('../../images/wechat_poster/tv');
         }
         i.fireIcon{
-            background-image: url("../../images/wechat_poster/fire.png");
+            .iconImg('../../images/wechat_poster/fire');
         }
         i.iceIcon{
-            background-image: url("../../images/wechat_poster/ice.png");
+            .iconImg('../../images/wechat_poster/ice');
         }
         i.heaterIcon{
-            background-image: url("../../images/wechat_poster/heater.png");
+            .iconImg('../../images/wechat_poster/heater');
         }
         i.washerIcon{
-            background-image: url("../../images/wechat_poster/washer.png");
+            .iconImg('../../images/wechat_poster/washer');
         }
         i.warmIcon{
-            background-image: url("../../images/wechat_poster/warm.png");
+            .iconImg('../../images/wechat_poster/warm');
         }
+        &.gray *{
+            opacity:0.4;
+        }
+    }
+}
+.iconImg(@src){
+    background-image: url("@{src}.png");
+    &.gray{
+        background-image: url("@{src}_white.png");
     }
 }
 .pageDescription{

@@ -81,7 +81,7 @@
             window.process.finish(loadCallback)
         },0)
     })
-//点击按钮弹出对应的modal层,按钮上加上 .btnModal
+    //点击按钮弹出对应的modal层,按钮上加上 .btnModal
     function initModal(){
         $('.btnModal').on('click', function(){
             var triggerId = $(this).attr('id')
@@ -98,8 +98,39 @@
             },400)
         })
     }
+    //根据设施的条数来觉定是否显示'更多设施'按钮
+    function showBtnOrNot(){
+        var $btn = $('.morefacilitiesBtn')
+        if($btn.prev('.facilities').find('li').length <= 6){
+            $btn.hide()
+        }
+    }
+    //根据是否为在微信中打开页面决定某些页面显示与否
+    function hidePage(){
+        if(window.team.isWeChat()){
+            $('.hideInWechat').each(function(){
+                mySwiper.removeSlide($(this).index())
+            })
+        }else{
+            $('.hideOutsideWechat').each(function(){
+                mySwiper.removeSlide($(this).index())
+            })
+        }
+    }
+    //详情与设施页只显示6项设施
+    function showSixFacilitiesOnly(){
+        $('.pageDescription').find('.facilities li').each(function(){
+            if($(this).index() >= 6){
+                $(this).remove()
+            }
+        })
+    }
+
     $(function(){
         initModal()
+        showBtnOrNot()
+        hidePage()
+        showSixFacilitiesOnly()
     })
 
 })(jQuery, window.Swiper)
