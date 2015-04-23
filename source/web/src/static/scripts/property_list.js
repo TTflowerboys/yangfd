@@ -303,6 +303,7 @@ $(window).resize(window.updateTabSelectorFixed);
             .always(function () {
                 updateResultCount(totalResultCount)
                 isLoading = false
+                $('#loadIndicator').hide()
                 if (!window.team.isCurrantClient()) {
                     window.updateTabSelectorVisibility(true)
                 }
