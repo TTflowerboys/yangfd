@@ -56,6 +56,8 @@
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 100)];
     [footerView addSubview:label];
     self.tableView.tableFooterView = footerView;
+
+    //TODO if user has account can log in
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -66,7 +68,6 @@
 }
 
 - (void)onVerificationButtonPressed:(id)sender {
-    //TODO for phone existed user let him login
     if ([CUTEDataManager sharedInstance].user) {
         if (![self validateFormWithScenario:@"sendCode"]) {
             return;
@@ -101,6 +102,7 @@
                 return nil;
             } else {
                 [[CUTEDataManager sharedInstance] setUser:task.result];
+                [[CUTEDataManager sharedInstance] saveAllCookies];
                 [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
                 return nil;
             }
@@ -150,8 +152,10 @@
             } else {
                 completion(task.result);
                 [SVProgressHUD dismiss];
-                [self.navigationController popToRootViewControllerAnimated:YES];
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
+                [self.navigationController popToRootViewControllerAnimated:NO];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
+                });
                 return nil;
             }
         }];

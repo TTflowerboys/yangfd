@@ -38,10 +38,16 @@
         var params = $(this).serializeObject()
         params.password = Base64.encode(params.password)
         $.betterPost("/api/1/user/login", params)
-            .done(function () {
+            .done(function (result) {
                 ga('send', 'event', 'signin', 'result', 'signin-success')
 
-                project.goBackFromURL()
+                if (window.mobileClient !== undefined) {
+                    window.mobileClient.signIn(result)
+                    project.replaceToFromURL()
+                }
+                else {
+                    project.goBackFromURL()
+                }
             })
             .fail(function (ret) {
                 errorArea.empty()

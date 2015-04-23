@@ -16,7 +16,6 @@
 #define DomainKey(key) [NSString stringWithFormat:@"%@/%@", [CUTEConfiguration host], key]
 
 @interface CUTEDataManager () {
-    NSMutableArray *_rentTicketList;
 
     YTKKeyValueStore *_store;
 }
@@ -34,6 +33,9 @@
     dispatch_once(&pred, ^{
         sharedInstance = [[[self class] alloc] init];
         [sharedInstance setupStore];
+        [sharedInstance restoreAllCookies];
+        [sharedInstance restoreUser];
+
     });
     
     return sharedInstance;
@@ -46,21 +48,13 @@
 
 #pragma mark - Keys
 
-#define KSETTING_COOKIES @"cookies"
+#define KSETTING_AUTH_COOKIE @"currant_auth"
+#define KSETTING_USER @"user"
 
 - (void)setupStore {
     _store = [[YTKKeyValueStore alloc] initDBWithName:@"cute.db"];
     [_store createTableWithName:KTABLE_SETTINGS];
     [_store createTableWithName:KTABLE_UNFINISHE_RENT_TICKETS];
-}
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        _rentTicketList = [NSMutableArray array];
-    }
-    return self;
 }
 
 - (BOOL)isUserLoggedIn {
@@ -77,7 +71,12 @@
 
 - (void)saveAllCookies {
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[CUTEConfiguration hostURL]];
-    [_store putObject:cookies withId:KSETTING_COOKIES intoTable:KTABLE_SETTINGS];
+    for (NSHTTPCookie *cookie in cookies) {
+        if ([cookie.name isEqualToString:KSETTING_AUTH_COOKIE] && !IsNilNullOrEmpty(cookie.value)) {
+            [_store putString:cookie.value withId:KSETTING_AUTH_COOKIE intoTable:KTABLE_SETTINGS];
+            break;
+        }
+    }
 }
 
 - (void)cleanAllCookies {
@@ -89,27 +88,42 @@
 }
 
 - (void)restoreAllCookies {
-    NSArray *bplCookies = (NSArray *)[_store getObjectById:KSETTING_COOKIES fromTable:KTABLE_SETTINGS];
-    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (NSHTTPCookie *cookie in bplCookies) {
+    NSString *cookieValue = (NSString *)[_store getStringById:KSETTING_AUTH_COOKIE fromTable:KTABLE_SETTINGS];
+    if (cookieValue) {
+        NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+        NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:@{@"name":KSETTING_AUTH_COOKIE,
+                                                                          @"value":cookieValue
+                                                                          }];
+
         [cookieStorage setCookie:cookie];
     }
 }
 
 
+#pragma mark - User
+
+- (void)restoreUser {
+    YTKKeyValueItem *item = [_store getYTKKeyValueItemById:KSETTING_USER fromTable:KTABLE_SETTINGS];
+    if (item && item.itemObject) {
+        self.user = (CUTEUser *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:item.itemObject modelClass:[CUTEUser class] error:nil] model];
+    }
+}
+
+- (void)saveUser:(CUTEUser *)user {
+    self.user = user;
+    if (user) {
+        [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:user] withId:KSETTING_USER intoTable:KTABLE_SETTINGS];
+    }
+    else {
+        [self cleanUser];
+    }
+}
+
+- (void)cleanUser {
+    [_store deleteObjectById:KSETTING_USER fromTable:KTABLE_SETTINGS];
+}
+
 #pragma Rent Property
-
-- (void)pushRentTicket:(CUTETicket *)ticket {
-    [_rentTicketList pushObject:ticket];
-}
-
-- (CUTETicket *)popRentTicket {
-    return [_rentTicketList popObject];
-}
-
-- (CUTETicket *)currentRentTicket {
-    return [_rentTicketList lastObject];
-}
 
 - (void)saveRentTicketToUnfinised:(CUTETicket *)ticket {
     [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:ticket] withId:ticket.identifier intoTable:KTABLE_UNFINISHE_RENT_TICKETS];
