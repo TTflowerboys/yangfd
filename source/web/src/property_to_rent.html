@@ -560,7 +560,7 @@
         <script>
             $(function () {
                 //Format publish time
-                $('.publishDate span').text(team.parsePublishDate($('.publishDate span').text()))
+                $('.publishDate span').text(team.parsePublishDate($($('.publishDate span')[0]).text()))
 
                 $('#menu_button_phone').click(function (e) {
                     if ($('#menu_content_phone').is(':visible')) {
