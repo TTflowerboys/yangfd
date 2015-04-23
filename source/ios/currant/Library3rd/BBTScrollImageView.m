@@ -9,6 +9,7 @@
 #import "BBTScrollImageView.h"
 #import <UIImageView+AFNetworking.h>
 #import <BBTCommonMacro.h>
+#import <UIView+BBT.h>
 
 @implementation BBTScrollImageView
 @synthesize scrollImageDelegate = _scrollImageDelegate;
@@ -27,6 +28,9 @@
 }
 
 - (void)setImages:(NSArray *)imagesArray {
+
+    [self removeAllSubViews];
+    
     CGFloat curXLoc = 0;
 	if ([imagesArray count] >= 1) {
 		NSUInteger i;

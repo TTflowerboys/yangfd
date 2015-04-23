@@ -27,6 +27,11 @@
 		2C07AB851AE8DD8E00907075 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB821AE8DD8E00907075 /* CUTEUnfinishedRentTicketPlaceholderImageView.m */; };
 		2C07AB861AE8DD8E00907075 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB821AE8DD8E00907075 /* CUTEUnfinishedRentTicketPlaceholderImageView.m */; };
 		2C07AB871AE8DD8E00907075 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB821AE8DD8E00907075 /* CUTEUnfinishedRentTicketPlaceholderImageView.m */; };
+		2C07AB8A1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
+		2C07AB8B1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
+		2C07AB8C1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
+		2C07AB8D1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
+		2C07AB8E1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
 		2C1609241AE263BB003587E6 /* CUTERentShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */; };
 		2C1609251AE263C6003587E6 /* CUTERentShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */; };
 		2C1609261AE263C6003587E6 /* CUTERentShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */; };
@@ -350,6 +355,8 @@
 		2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTScrollImageView.m; sourceTree = "<group>"; };
 		2C07AB811AE8DD8E00907075 /* CUTEUnfinishedRentTicketPlaceholderImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUnfinishedRentTicketPlaceholderImageView.h; sourceTree = "<group>"; };
 		2C07AB821AE8DD8E00907075 /* CUTEUnfinishedRentTicketPlaceholderImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUnfinishedRentTicketPlaceholderImageView.m; sourceTree = "<group>"; };
+		2C07AB881AE8FF6600907075 /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
+		2C07AB891AE8FF6600907075 /* UIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
 		2C1609221AE263BB003587E6 /* CUTERentShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentShareViewController.h; sourceTree = "<group>"; };
 		2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentShareViewController.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
@@ -552,6 +559,8 @@
 				2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */,
 				2C27F1E91ACCEA93002BECCF /* FXForms.h */,
 				2C27F1EA1ACCEA93002BECCF /* FXForms.m */,
+				2C07AB881AE8FF6600907075 /* UIView+Border.h */,
+				2C07AB891AE8FF6600907075 /* UIView+Border.m */,
 			);
 			path = Library3rd;
 			sourceTree = "<group>";
@@ -1285,6 +1294,7 @@
 				2C07AB7E1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2C5ECC681AD6271E00163E9E /* CUTEI18n.m in Sources */,
 				2C401E181ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
+				2C07AB8C1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C427EA41AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2C44E41D1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */,
 				2C427E391ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
@@ -1352,6 +1362,7 @@
 				2C07AB7F1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2C5ECC691AD6271E00163E9E /* CUTEI18n.m in Sources */,
 				2C401E191ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
+				2C07AB8D1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C427EA51AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2C44E41E1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */,
 				2C427E3A1ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
@@ -1419,6 +1430,7 @@
 				2C07AB7D1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2C5ECC671AD6271E00163E9E /* CUTEI18n.m in Sources */,
 				2C401E171ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
+				2C07AB8B1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C427EA31AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2C44E41C1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */,
 				2C427E381ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
@@ -1486,6 +1498,7 @@
 				2C07AB7C1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2C5ECC661AD6271E00163E9E /* CUTEI18n.m in Sources */,
 				2C401E161ACAB45B00613093 /* CUTERentAddressEditForm.m in Sources */,
+				2C07AB8A1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C427EA21AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2C44E41B1AE2458700E61BBA /* FXFormViewController+CUTEForm.m in Sources */,
 				2C427E371ACEA9CF000378A9 /* CUTEMapTextField.m in Sources */,
@@ -1552,6 +1565,7 @@
 				2C07AB721AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2C7520471ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C427E501AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
+				2C07AB8E1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C44E4111AE120E500E61BBA /* CUTERentAreaViewController.m in Sources */,
 				2C401DD11ACA9A9F00613093 /* CUTERentPriceForm.m in Sources */,
 				2C27F2101ACD414D002BECCF /* CUTERentContactForm.m in Sources */,

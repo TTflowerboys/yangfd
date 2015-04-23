@@ -33,6 +33,8 @@
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-add") style:UIBarButtonItemStylePlain target:self action:@selector(onAddButtonPressed:)];
     self.navigationItem.title = STR(@"未完成文档");
+    self.tableView.backgroundColor = HEXCOLOR(0xeeeeee, 1);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -66,11 +68,15 @@
     return self.unfinishedRentTickets.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 268 + 10;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CUTEUnfinishedRentTicketCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ticketCell"];
     if (!cell) {
         cell = [[CUTEUnfinishedRentTicketCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ticketCell"];
-        cell.backgroundColor = RANDOMCOLOR;
     }
     CUTETicket *ticket = [self.unfinishedRentTickets objectAtIndex:indexPath.row];
     [cell updateWithTicket:ticket];

@@ -26,25 +26,25 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.image = IMAGE(@"img-rent-placehodler");
         _iconView = [[UIImageView alloc] initWithImage:IMAGE(@"icon-camera")];
         [self addSubview:_iconView];
 
         _label = [UILabel new];
         _label.text = STR(@"暂未添加照片");
         _label.textColor = CUTE_MAIN_COLOR;
-        _label.font = [UIFont systemFontOfSize:12];
+        _label.font = [UIFont systemFontOfSize:16];
         [self addSubview:_label];
 
         MakeBegin(_iconView)
         MakeCenterXEqualTo(self);
-        MakeTopEqualTo(self.top);
+        MakeTopEqualTo(self.top).offset(60);
         MakeEnd
 
         MakeBegin(_label)
         MakeCenterXEqualTo(self);
-        MakeTopEqualTo(_iconView.bottom).offset(10);
+        MakeTopEqualTo(_iconView.bottom).offset(16);
         MakeEnd
-
     }
     return self;
 }

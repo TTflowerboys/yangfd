@@ -63,7 +63,12 @@
 
         return [NSValue valueWithMKCoordinate:CLLocationCoordinate2DMake(latitude, longitude)];
     } reverseBlock:^(CLLocation *location) {
-        return @{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude)};
+        if (location && [location isKindOfClass:[CLLocation class]]) {
+            return @{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude)};
+        }
+        else {
+            return @{};
+        }
     }];
 }
 
