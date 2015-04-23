@@ -121,6 +121,75 @@
             </div>
         </div>
 
+        <div class="propertyCard_phone" >
+            <div class="rentPrice row">
+                <div class="title">
+                    <h1 class="name">{{rent.get('title','')}}</h1>
+                    <label class="publishDate">
+                        % if publish_time:
+                        <span>{{publish_time}}</span>{{_('发布')}}
+                        % end
+                    </label>
+                </div>
+
+                <div class="price_inner">
+                    % if 'price' in rent and rent.get('price'):
+                        <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
+                        <span data-type="formatted_currency">
+                            {{int(float(rent.get('price',{}).get('value','')))}}
+                        </span>
+                    % end
+                    {{_('/周')}}
+                    % if 'bill_covered' in rent and rent.get('bill_covered'):
+                        <span>
+                            {{_('，包水电费')}}
+                        </span>
+                    % end
+                </div>
+            </div>
+            % if 'country' in rent['property'] or 'city' in rent['property']:
+            % country = rent['property'].get('country',{}).get('value')
+            % city = rent['property'].get('city',{}).get('value')
+            % city_string = ', '.join([x for x in [country,city] if x])
+            <div class="tag row">
+                <img src="/static/images/property_details/location-icon.png" alt=""/>
+                <label>
+                    {{city_string}}
+                </label>
+            </div>
+            % end
+            <div class="seperator"></div>
+            <ul class="priceItems row">
+                <li>
+                    % if 'rent_period' in rent and rent.get('rent_period',{}).get('value',''):
+                    <strong>
+                        {{_('租期')}}{{rent.get('rent_period',{}).get('value','')}}
+                    </strong>
+                    % else :
+                    <strong>
+                        {{_('租期面议')}}
+                    </strong>
+                    % end
+                    % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
+                    <span>
+                        {{rent.get('rent_available_time').strftime("%Y-%m-%d")}}{{_('起')}}
+                    </span>
+                    % end
+                </li>
+                <li>
+
+                    % if 'deposit_type' in rent and rent.get('deposit_type',{}).get('value',''):
+                    <strong>
+                        {{_('押金')}}{{rent.get('deposit_type',{}).get('value','')}}
+                    </strong>
+                    % else :
+                    <strong>
+                        {{_('面议')}}
+                    </strong>
+                    % end
+                </li>
+            </ul>
+        </div>
         <div id="propertyDetails_description" class="meta scrollto">
             <ul class="numbers">
                 % if rent.get('space'):
@@ -200,12 +269,13 @@
         </div>
 
         % if 'indoor_facility' in rent['property'] or 'community_facility' in rent['property']:
-        <div class="seperator"></div>
         <div class="facilities_section scrollto">
+            <div class="seperator"></div>
             % if rent['property'].get('indoor_facility'):
             <div class="facilities_wrapper">
                 <h3 class="facility_title">{{_('房间设施')}}</h3>
                 <a class="more">{{_('更多')}}</a>
+                <a class="ghostButton red more">{{_('更多')}}</a>
                 <ul class="facilities">
                     % for facility in rent['property'].get('indoor_facility'):
                     %if facility.get('value'):
@@ -227,6 +297,7 @@
             <div class="facilities_wrapper">
                 <h3 class="facility_title">{{_('小区设施')}}</h3>
                 <a class="more">{{_('更多')}}</a>
+                <a class="ghostButton red more">{{_('更多')}}</a>
                 <ul class="facilities">
                     % for facility in rent['property'].get('community_facility'):
                     %if facility.get('value'):
@@ -247,8 +318,8 @@
         % end
 
         %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country') and rent['property'].get('country').get('slug') in ['US', 'GB']:
-        <div class="seperator"></div>
         <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
+            <div class="seperator"></div>
             <div class="staticMap">
                 <img id="mapImg" class="mapImg" alt=""/>
                 <div id="showMap" class="button red">
@@ -489,7 +560,7 @@
         <script>
             $(function () {
                 //Format publish time
-                $('.publishDate span').text(team.parsePublishDate($('.publishDate span').text()))
+                $('.publishDate span').text(team.parsePublishDate($($('.publishDate span')[0]).text()))
 
                 $('#menu_button_phone').click(function (e) {
                     if ($('#menu_content_phone').is(':visible')) {

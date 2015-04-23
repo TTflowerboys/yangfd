@@ -13,8 +13,4 @@
 
 @property (strong, nonatomic) CUTETicket *ticket;
 
-- (NSArray *)images;
-
-- (void)setImages:(NSArray *)images;
-
 @end

@@ -52,7 +52,7 @@ def check_ip_and_redirect_domain(func):
             host = request.urlparts[1]
 
             # Don't redirect dev & test
-            if "bbtechgroup.com" not in host:
+            if "yangfd" in host or "youngfunding" in host:
                 # Special hack to remove "beta."
                 request_url = request.url
 

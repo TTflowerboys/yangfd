@@ -4,7 +4,7 @@
 @border-color: #ccc;
 @light-text-color: #999;
 @dark-text-color: #555;
-@brochure-guide-color: #FFF7E4;
+@background-grey: #f4f4f4;
 
 body {
     -webkit-touch-callout: none;
@@ -276,13 +276,20 @@ body {
 
     }
 
-    &_title { margin-bottom: 24px; color: #666; margin-top: 24px; font-size: 16px; }
+    &_title {
+        margin-bottom: 24px;
+        color: #666;
+        margin-top: 24px;
+        font-size: @root-font-size;
+    }
+
     .seperator {
         border-top: 1px solid @border-color;
         margin-top: 40px;
         margin-bottom: 40px;
         @media @phone {
-            display: none;
+            margin-top: 0;
+            margin-bottom: 0;
         }
 
     }
@@ -393,120 +400,106 @@ body {
         display: none;
         overflow: hidden;
         position: relative;
-        background: #333;
-        table-layout: fixed;
+        background: @background-grey;
 
         @media @phone {
-            display: table;
+            display: block;
         }
 
-        width: 100%;
-        min-height: 85px;
-        float: left;
-        .left {
-            background: #e60012;
-            width: 50%;
-            padding: 9px;
-            .name {
-                margin: 0 0 6px 0;
-                font-size: 20px;
-                .limitedLines(1, 20px, #e60012);
-                color: white;
+        >.rentPrice {
+            display: inline-block;
+            width: 100%;
+            padding: @standard-margin*2 @standard-margin @standard-margin @standard-margin;
+            background: #f4f4f4;
+
+            .title{
+                float: left;
+                width: 65%;
+                border-right: 1px solid @border-color;
+                .name {
+                    font-size: @normal-font-size;
+                    font-weight: bold;
+                    margin: 0;
+                    font-family: @font-normal;
+                    .limitedLines(2, 30px, @background-grey);
+
+                    @media @phone {
+                        .limitedLines(2, 24px, @background-grey);
+                    }
+                }
             }
-            .tag {
-                margin: 0;
-                font-size: 14px;
-                line-height: 1.4em;
-                color: white;
-                overflow: hidden;
 
-                img {
-                    float: left;
-                    display: inline-block;
-                    margin-right: 5px;
-                    margin-top: 3px;
-                }
+            .price_inner {
+                float: right;
+                color: @red;
+                width: 30%;
+                font-size: @normal-font-size;
+                display: inline-block;
 
-                label {
-                    float: left;
-                    display: inline-block;
-                    width: 80%;
-                    width: ~"calc(100% - 30px)"
-                }
+                strong { font-size: @large-font-size; }
             }
         }
 
-        .middle {
-            background: #333333;
-            width: 34%;
-            table {
-                margin: 9px 0;
-                .price {
-                    float: right;
-                    padding: 0 9px 0 0;
-                    font-size: 14px;
-                    text-align: right;
-                    color: white;
-                    line-height: 24px;
-                    strong {
-                        color: #e60012;
-                        font-size: 20px;
+        >.seperator {
+            @media @phone {
+                display: block;
+                margin: @standard-margin;
+            }
+        }
+
+        >.tag {
+            margin: 0px @standard-margin;
+            .limitedLines(1, 30px, @background-grey);
+        }
+
+        >.priceItems {
+
+            @media @phone {
+                display: block;
+                padding-bottom: @standard-margin;
+                padding-top: @standard-margin;
+            }
+
+            .clearfix();
+            padding-bottom: 16px;
+            > li {
+                float: left; width: 100% / 2;
+                border-right: 1px solid @border-color;
+                padding-left: @standard-margin;
+                @media @phone {
+                    font-size: @base-font-size-mobile;
+                    height: 100%;
+                    min-height: 50px;
+                }
+
+                &:first-child {
+                    @media @phone {
+                        padding-left: @standard-margin;
                     }
                 }
 
-                .minimumDownPaymentRate {
-                    float: right;
-                    padding: 0 9px 0;
-                    font-size: 14px;
-                    line-height: 24px;
-                    text-align: right;
-                    color: white;
+                &:last-child {
+                    border-right: none;
                 }
 
-            }
-        }
-
-        .right {
-            background: #222;
-            width: 16%;
-            table {
-                margin: 0;
-                width: 100%;
-                text-align: center;
-            }
-        }
-    }
-
-    .numbers_phone {
-        .clearfix(); width: 100%;
-        display: none;
-        @media @phone {
-            display: block;
-            border-bottom: 1px solid #ccc;
-
-        }
-        overflow: hidden;
-        float: left;
-        padding: 12px 0;
-        margin-bottom: 12px;
-        .column {
-            width: 50%;
-            float: left;
-            border-left: 1px solid #ccc;
-            padding-left: @base-font-size-mobile;
-
-            .text {
-                font-size: @base-font-size-mobile; }
-            .percentage {
-                display: block; font-size: @base-font-size-mobile; min-height: 28px; vertical-align: bottom;
                 strong {
-                    line-height: 28px; }
-                &.emphasized {
-                    color: @red;
-                    strong { font-size: 24px; word-break: break-all; display: block; }
+                    display: block; font-size: 24px; font-weight: normal; color: @dark-text-color;
+                    @media @phone {
+                        font-size: 16px;
+                    }
+
+                    .unit {
+                        line-height: 1;
+                        font-size: 14px;
+
+                        @media @phone {
+                            font-size: 9px;
+                        }
+                    }
                 }
             }
         }
+
     }
 
     .nav {
@@ -550,25 +543,27 @@ body {
         overflow: hidden;
 
         @media @phone {
+            margin:0px;
+            padding: @standard-margin * 2 @standard-margin;
             width: 100%
         }
 
         .numbers {
+            .clearfix();
+            margin-bottom: @standard-margin * 2;
 
             @media @phone {
                 display: block;
-                border-bottom: 1px solid #ccc;
-                padding-bottom: 15px;
-                padding-top: 15px;
+                padding-bottom: @standard-margin * 2;
+                margin-bottom: 0px;
             }
 
-            .clearfix(); margin-bottom: 16px;
             > li {
                 float: left; width: 100% / 4; border-right: 1px solid @border-color; padding-left: @standard-margin;
                 @media @phone {
                     font-size: @base-font-size-mobile;
                     height: 100%;
-                    min-height: 70px;
+                    min-height: 50px;
                 }
 
                 &:first-child {
@@ -583,9 +578,9 @@ body {
                 }
 
                 strong {
-                    display: block; font-size: 24px; font-weight: normal; color: @dark-text-color;
+                    display: block; font-size: @large-font-size; font-weight: normal; color: @dark-text-color;
                     @media @phone {
-                        font-size: 16px;
+                        font-size: @root-font-size-mobile;
                     }
 
                     .unit {
@@ -593,7 +588,7 @@ body {
                         font-size: 14px;
 
                         @media @phone {
-                            font-size: 9px;
+                            font-size: @small-font-size-mobile;
                         }
                     }
                 }
@@ -601,21 +596,21 @@ body {
         }
 
         .numbersWithoutSeperator {
+            .clearfix();
+            margin-bottom: @standard-margin * 2;
 
             @media @phone {
                 display: block;
-                border-bottom: 1px solid #ccc;
-                padding-bottom: 15px;
-                padding-top: 15px;
+                padding-bottom: @standard-margin * 2;
+                padding-top: @standard-margin * 2;
+                margin-bottom: 0px;
             }
 
-            .clearfix(); margin-bottom: 16px;
             > li {
                 float: left; width: 100% / 4; padding-left: @standard-margin;
                 @media @phone {
                     font-size: @base-font-size-mobile;
                     height: 100%;
-                    min-height: 70px;
                 }
 
                 &:first-child {
@@ -630,17 +625,18 @@ body {
                 }
 
                 strong {
-                    display: block; font-size: 24px; font-weight: normal; color: @dark-text-color;
+                    margin-left: @standard-margin;
+                    font-size: @large-font-size; font-weight: normal; color: @dark-text-color;
                     @media @phone {
-                        font-size: 16px;
+                        font-size: @root-font-size-mobile;
                     }
 
                     .unit {
                         line-height: 1;
-                        font-size: 14px;
+                        font-size: @small-font-size;
 
                         @media @phone {
-                            font-size: 9px;
+                            font-size: @small-font-size-mobile;
                         }
                     }
                 }
@@ -698,10 +694,10 @@ body {
     }
 
     .description {
-        font-size: 15px; .limitedLines(5; 20px); margin-top: 24px; white-space: pre-line;
+        font-size: 15px; .limitedLines(5, 20px, white); margin-top: 24px; white-space: pre-line;
 
         &.no-after {
-            font-size: 15px; margin-top: 24px;
+            font-size: 15px;
             height: auto;
 
             &:after {
@@ -712,7 +708,7 @@ body {
         @media @phone {
             font-size: @base-font-size-mobile;
             margin-top: 0;
-            padding: 20px;
+            padding: @standard-margin * 2;
         }
     }
 
@@ -733,27 +729,54 @@ body {
     }
 
     .facilities {
+        &_section {
+            @media @phone {
+                padding: @standard-margin;
+            }
+        }
+
         &_wrapper {
+            @media @phone {
+                padding: @standard-margin * 2 @standard-margin;
+            }
+
             .facility_title {
                 font-size: @large-font-size;
                 font-weight: bold;
                 display: inline;
+
+                @media @phone {
+                    font-size: @root-font-size-mobile;
+                    font-weight: normal;
+                }
             }
 
             .more {
                 margin-left: @standard-margin;
+
+                @media @phone {
+                    display: none;
+                }
+            }
+
+            .ghostButton {
+                display: none;
+                float: right;
+
+                @media @phone {
+                    display: inline;
+                }
             }
         }
 
         margin-top: @standard-margin * 2;
         margin-bottom: @standard-margin * 2;
+
         .clearfix();
 
         @media @phone {
             display: block;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 15px;
-            padding-top: 15px;
+            margin: @standard-margin * 2;
         }
 
         > li {
@@ -764,7 +787,8 @@ body {
             @media @phone {
                 font-size: @base-font-size-mobile;
                 height: 100%;
-                min-height: 70px;
+                width: 100% / 2;
+                min-height: 50px;
             }
 
             &:first-child {
@@ -795,6 +819,11 @@ body {
         @media @phone {
             height: 320px;
         }
+
+        >.seperator {
+            display: none;
+        }
+
         .propertyDetails_title {
             @media @phone {
                 margin-top: 0;
@@ -804,63 +833,6 @@ body {
             }
         }
 
-        .maps {
-
-            > .map {
-                width: 522px;
-                height: 480px;
-                @media @phone {
-                    width: 100%;
-                }
-
-            }
-
-            > .tabs {
-                width: 278px;
-
-                @media @phone {
-                    width: 100%;
-                }
-
-                .category {
-                    //padding:0 10px;
-                    li {
-                        font-size: 14px;
-                    }
-                }
-
-                .list {
-                    ul {
-                        li[data-type=placeItem] {
-                            height: 60px;
-
-                            .content {
-                                .left {
-                                    width: 150px;
-
-                                    .title {
-                                        font-size: 16px;
-                                        line-height: 25px;
-                                        height: 25px;
-                                    }
-
-                                    .subtitle {
-                                        display: block;
-                                        line-height: 20px;
-                                    }
-                                }
-
-                                .right {
-                                    .hint {
-                                        width: 60px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     .incoming {
