@@ -103,3 +103,14 @@ def user_finish_auth():
 def user_finish_investment():
     title = _('确认投资信息')
     return currant_util.common_template("user_finish_investment", title=title)
+
+
+@f_get('/crowdfunding-introduce')
+@currant_util.check_ip_and_redirect_domain
+@currant_util.check_crowdfunding_ready
+def crowdfunding_introduce():    
+    title = _('众筹模式介绍页面')
+    description = ""
+    keywords = ""
+    return currant_util.common_template("crowfunding_introduce", title=title, description=description, keywords=keywords)
+    
