@@ -263,7 +263,6 @@ $(window).resize(window.updateTabSelectorFixed);
         $('#number_container').show()
 
         $('#loadIndicator').show()
-        $('#loadMore').hide()
         isLoading = true
 
         var totalResultCount = getCurrentTotalCount()
@@ -295,25 +294,16 @@ $(window).resize(window.updateTabSelectorFixed);
 
                     updatePropertyCardMouseEnter()
 
-                    if (totalResultCount > getCurrentTotalCount()) {
-                        $('#loadMore').show()
-                    }
-                    else {
-                        $('#loadMore').hide()
-                    }
-                }
-                else {
-                    $('#loadMore').hide()
+
                 }
 
             })
             .fail(function () {
-                $('#loadMore').show()
             })
             .always(function () {
                 updateResultCount(totalResultCount)
-                $('#loadIndicator').hide()
                 isLoading = false
+                $('#loadIndicator').hide()
                 if (!window.team.isCurrantClient()) {
                     window.updateTabSelectorVisibility(true)
                 }
@@ -354,7 +344,6 @@ $(window).resize(window.updateTabSelectorFixed);
         }
 
         $('#loadIndicator').show()
-        $('#loadMore').hide()
         isLoading = true
 
         $.betterPost('/api/1/property/search', params)
@@ -381,15 +370,10 @@ $(window).resize(window.updateTabSelectorFixed);
                     setTotalResultCountByBudget(budgetType, totalResultCount)
                     setCurrentResultCountByBudget(budgetType, getBudgetCurrentTotalCount(budgetType))
                     $('#addtionalResultList_wrapper').show()
-                    $('#loadMore').hide()
-                }
-                else {
-                    $('#loadMore').hide()
                 }
 
             })
             .fail(function () {
-                $('#loadMore').show()
             })
             .always(function () {
                 $('#loadIndicator').hide()
@@ -752,11 +736,6 @@ $(window).resize(window.updateTabSelectorFixed);
     })
 
 
-    $('#loadMore').click(function () {
-        loadPropertyList()
-    })
-
-
     $('#tags #budgetTag').on('click', '.toggleTag', function (event) {
 
         var $item = $(event.target)
@@ -919,17 +898,17 @@ $(window).resize(window.updateTabSelectorFixed);
     $(window).scroll(function () {
 
         if ($('[data-tab-name=list]').is(':visible')) {
-            var scrollPos = $(window).scrollTop()
+           // var scrollPos = $(window).scrollTop()
             var windowHeight = $(window).height()
             var listHeight = $('#result_list').height()
             var itemCount = getCurrentTotalCount()
             var requireToScrollHeight = listHeight
             if (itemCount > 1) {
-                requireToScrollHeight = parseInt(listHeight * (itemCount - 1) / itemCount)
+                requireToScrollHeight = listHeight * 0.6
             }
 
             setTimeout(function () {
-                if (windowHeight + scrollPos > requireToScrollHeight) {
+                if (windowHeight +  $(window).scrollTop() > requireToScrollHeight) {
                     if (!isLoading) {
                         if (isCurrentBudgetLoadFinished()) {
                             if (!window.team.isPhone()) {
