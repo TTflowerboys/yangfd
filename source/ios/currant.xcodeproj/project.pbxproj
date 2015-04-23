@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C07AB6E1AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB6D1AE8C5AA00907075 /* CUTEMoblieClient.m */; };
+		2C07AB6F1AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB6D1AE8C5AA00907075 /* CUTEMoblieClient.m */; };
+		2C07AB701AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB6D1AE8C5AA00907075 /* CUTEMoblieClient.m */; };
+		2C07AB711AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB6D1AE8C5AA00907075 /* CUTEMoblieClient.m */; };
+		2C07AB721AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB6D1AE8C5AA00907075 /* CUTEMoblieClient.m */; };
 		2C1609241AE263BB003587E6 /* CUTERentShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */; };
 		2C1609251AE263C6003587E6 /* CUTERentShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */; };
 		2C1609261AE263C6003587E6 /* CUTERentShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */; };
@@ -231,6 +236,10 @@
 		2C96E2851AE795CD00F3590C /* CUTEUnfinishedRentTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2821AE795CD00F3590C /* CUTEUnfinishedRentTicketViewController.m */; };
 		2C96E2861AE795CD00F3590C /* CUTEUnfinishedRentTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2821AE795CD00F3590C /* CUTEUnfinishedRentTicketViewController.m */; };
 		2C96E2871AE795CD00F3590C /* CUTEUnfinishedRentTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2821AE795CD00F3590C /* CUTEUnfinishedRentTicketViewController.m */; };
+		2C96E2891AE89D7E00F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
+		2C96E28A1AE89D8A00F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
+		2C96E28B1AE89D9300F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
+		2C96E28C1AE89D9B00F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -318,6 +327,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C07AB6C1AE8C5AA00907075 /* CUTEMoblieClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMoblieClient.h; sourceTree = "<group>"; };
+		2C07AB6D1AE8C5AA00907075 /* CUTEMoblieClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMoblieClient.m; sourceTree = "<group>"; };
 		2C1609221AE263BB003587E6 /* CUTERentShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentShareViewController.h; sourceTree = "<group>"; };
 		2C1609231AE263BB003587E6 /* CUTERentShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentShareViewController.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
@@ -413,6 +424,7 @@
 		2C96E27B1AE757D800F3590C /* CUTERentShareForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentShareForm.m; sourceTree = "<group>"; };
 		2C96E2811AE795CD00F3590C /* CUTEUnfinishedRentTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUnfinishedRentTicketViewController.h; sourceTree = "<group>"; };
 		2C96E2821AE795CD00F3590C /* CUTEUnfinishedRentTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUnfinishedRentTicketViewController.m; sourceTree = "<group>"; };
+		2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -461,6 +473,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C96E28B1AE89D9300F3590C /* JavaScriptCore.framework in Frameworks */,
 				2CA2E6B61AC5487800053965 /* AddressBook.framework in Frameworks */,
 				2CA2E6B71AC5487800053965 /* MapKit.framework in Frameworks */,
 				2CA2E6B81AC5487800053965 /* libPods.a in Frameworks */,
@@ -471,6 +484,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C96E28C1AE89D9B00F3590C /* JavaScriptCore.framework in Frameworks */,
 				2CA2E6CF1AC5496700053965 /* AddressBook.framework in Frameworks */,
 				2CA2E6D01AC5496700053965 /* MapKit.framework in Frameworks */,
 				2CA2E6D11AC5496700053965 /* libPods.a in Frameworks */,
@@ -481,6 +495,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C96E2891AE89D7E00F3590C /* JavaScriptCore.framework in Frameworks */,
 				2CA94AA01ACA42CD00DF7497 /* AddressBook.framework in Frameworks */,
 				2CA94AA11ACA42CD00DF7497 /* MapKit.framework in Frameworks */,
 				2CA94AA21ACA42CD00DF7497 /* libPods.a in Frameworks */,
@@ -491,6 +506,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C96E28A1AE89D8A00F3590C /* JavaScriptCore.framework in Frameworks */,
 				2C1EA76F1AC3DA1900B0FC22 /* AddressBook.framework in Frameworks */,
 				2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */,
 				C4A0594E53CF2777C29B6FC8 /* libPods.a in Frameworks */,
@@ -770,6 +786,8 @@
 			children = (
 				2CB43DDB1ABD4AB4004DF663 /* CUTEWebViewController.h */,
 				2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */,
+				2C07AB6C1AE8C5AA00907075 /* CUTEMoblieClient.h */,
+				2C07AB6D1AE8C5AA00907075 /* CUTEMoblieClient.m */,
 				2C7520411ACA775C0008B42A /* CUTEViewController.h */,
 				2C7520421ACA775C0008B42A /* CUTEViewController.m */,
 				2C1EA7701AC3EED100B0FC22 /* CUTEMapView.h */,
@@ -810,6 +828,7 @@
 		EE6A7AB7A64BC31EFB1C1CFA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */,
 				2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */,
 				2C554F891AC2BC3700F51D33 /* MapKit.framework */,
 				82E3282C891185CD9B12868A /* libPods.a */,
@@ -1187,6 +1206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C07AB701AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2C4AEC881AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C401E1F1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C3B59651AD7E67500607BD4 /* CUTEAreaForm.m in Sources */,
@@ -1250,6 +1270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C07AB711AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2C4AEC891AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C401E201ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C3B59661AD7E67500607BD4 /* CUTEAreaForm.m in Sources */,
@@ -1313,6 +1334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C07AB6F1AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2C4AEC871AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C401E1E1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C3B59641AD7E67500607BD4 /* CUTEAreaForm.m in Sources */,
@@ -1376,6 +1398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C07AB6E1AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2C4AEC861AD65537004DEE23 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C401E1D1ACAB9BF00613093 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C3B59631AD7E67500607BD4 /* CUTEAreaForm.m in Sources */,
@@ -1484,6 +1507,7 @@
 				2C427E981AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2C427EA61AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2C1609281AE263C8003587E6 /* CUTERentShareViewController.m in Sources */,
+				2C07AB721AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2C7520471ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C427E501AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2C44E4111AE120E500E61BBA /* CUTERentAreaViewController.m in Sources */,

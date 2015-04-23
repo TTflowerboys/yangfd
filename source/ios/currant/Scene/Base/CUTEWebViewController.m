@@ -12,6 +12,9 @@
 #import <NJKWebViewProgress.h>
 #import "CUTEUIMacro.h"
 #import "CUTECommonMacro.h"
+#import <JavaScriptCore/JavaScriptCore.h>
+#import <JavaScriptCore/JSValue.h>
+#import "CUTEMoblieClient.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -20,6 +23,8 @@
     NJKWebViewProgressView *_progressView;
 
     NJKWebViewProgress *_progressProxy;
+
+    JSContext *_jsContext;
 }
 
 @end
@@ -34,6 +39,19 @@
     return self;
 }
 
+- (void)registerJSFunctionWith:(NSString *)name implement:(void (^)(JSValue *value))implement {
+    _jsContext[@"window"][@"moblieClient"][name] = implement;
+}
+
+- (void)setupJSContextWithWebView:(UIWebView *)webView {
+    _jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+//    [_jsContext evaluateScript:@"window.mobileClient = {};"];
+    [_jsContext setObject:[CUTEMoblieClient new] forKeyedSubscript:@"mobileClient"];
+
+//    [self registerJSFunctionWith:@"log" implement:^ (JSValue * msg) {
+//        DebugLog(@"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,msg);
+//    }];
+}
 
 - (void)loadURL:(NSURL *)url {
 
@@ -42,6 +60,7 @@
         _webView = [[UIWebView alloc] initWithFrame:TabBarControllerViewFrame];
         [self.view addSubview:_webView];
         _webView.delegate = _progressProxy;
+        [self setupJSContextWithWebView:_webView];
         
         [_webView loadRequest:urlRequest];
     }
@@ -53,6 +72,7 @@
         _webView = [[UIWebView alloc] initWithFrame:TabBarControllerViewFrame];
         [self.view addSubview:_webView];
         _webView.delegate = _progressProxy;
+        [self setupJSContextWithWebView:_webView];
         
         [_webView loadRequest:urlRequest];
     }

@@ -61,9 +61,11 @@ $(function () {
         params.challenge = getRecaptchaChallenge()
         params.solution = getRecaptchaResponse()
         $.betterPost('/api/1/user/register', params)
-            .done(function () {
+            .done(function (result) {
                 ga('send', 'event', 'signup', 'result', 'signup-success')
-
+                if (window.mobileClient !== undefined) {
+                    window.mobileClient.signIn(result)
+                }
                 window.project.goToIntention()
             }).fail(function (ret) {
                 errorArea.empty()

@@ -24,6 +24,10 @@
 
 - (void)restoreAllCookies;
 
+- (void)saveUser:(CUTEUser *)user;
+
+- (void)cleanUser;
+
 - (void)saveRentTicketToUnfinised:(CUTETicket *)ticket;
 
 - (NSArray *)getAllUnfinishedRentTickets;

@@ -15,6 +15,7 @@
 #import "CUTETicket.h"
 #import "CUTERentTypeListForm.h"
 #import "CUTERentAddressMapViewController.h"
+#import "CUTECommonMacro.h"
 
 @interface CUTERentTypeListViewController ()
 
@@ -37,6 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = STR(@"房产类型");
     if (!self.ticket) {
         CUTETicket *ticket = [CUTETicket new];
         CUTEProperty *property = [CUTEProperty new];

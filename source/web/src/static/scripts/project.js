@@ -32,6 +32,15 @@
             }
             return false //prevent default action for <a>
         },
+        replaceToFromURL: function () {
+            if (team.getQuery('from') !== '') {
+                window.location.replace(team.getQuery('from'));
+            } else {
+                // Return to home page if no from provide
+                window.location.href = window.location.origin;
+            }
+            return false //prevent default action for <a>
+        },
         showSignInModal: function () {
             $('#modal_shadow').show()
             $('#modal').show()
@@ -45,6 +54,15 @@
                 window.project.showSignInModal()
             }
             return false
+        },
+        logout: function () {
+            if (window.mobileClient !== undefined) {
+                window.mobileClient.logOut()
+                window.location.replace('/logout?return_url=%2Fsignin')
+            }
+            else {
+                window.location = '/logout?return_url=%2Fsignin';
+            }
         },
         goToUserSettings: function () {
             if (team.isPhone()) {
