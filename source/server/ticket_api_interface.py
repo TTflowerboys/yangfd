@@ -1054,3 +1054,47 @@ def sale_ticket_search(user, params):
         params["property_id"] = {"$in": property_id_list}
 
     return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), fuzzy_user_info=fuzzy_user_info)
+
+
+@f_api('/crowdfunding_reservation_ticket/add', params=dict(
+    email=(str, True),
+    country=("enum:country", True),
+    estimated_investment_amount="i18n:currency",
+))
+def crowdfunding_reservation_ticket_add(params):
+    params.setdefault("type", "crowdfunding_reservation")
+    ticket_id = f_app.ticket.add(params)
+    return ticket_id
+
+
+@f_api('/crowdfunding_reservation_ticket/<ticket_id>')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
+def crowdfunding_reservation_ticket_get(user, ticket_id):
+    """
+    View single crowdfunding_reservation ticket.
+    """
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "crowdfunding_reservation", abort(40000, "Invalid intention ticket")
+    return f_app.ticket.output([ticket_id])[0]
+
+
+@f_api('/crowdfunding_reservation_ticket/search', params=dict(
+    status=(list, None, str),
+    per_page=int,
+    time=datetime,
+    sort=(list, ["time", 'desc'], str),
+    email=str,
+    country="enum:country",
+    creator_user_id=ObjectId,
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
+def crowdfunding_reservation_ticket_search(user, params):
+    params.setdefault("type", "crowdfunding_reservation")
+
+    sort = params.pop("sort")
+    per_page = params.pop("per_page", 0)
+
+    if "status" in params:
+        params["status"] = {"$in": params["status"]}
+
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
