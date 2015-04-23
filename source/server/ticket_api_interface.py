@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime
-from app import f_app
-from bson.objectid import ObjectId
-from libfelix.f_interface import f_api, abort, template, request
 import random
 import logging
+import phonenumbers
+from bson.objectid import ObjectId
+from app import f_app
+from libfelix.f_interface import f_api, abort, template, request
 logger = logging.getLogger(__name__)
 
 
@@ -660,7 +661,8 @@ def rent_ticket_contact_info(user, ticket_id):
         abort(40399, logger.warning("specified rent ticket is currently not available", exc_info=False))
 
     f_app.log.add("rent_ticket_view_contact_info", ticket_id=ticket_id)
-    return f_app.user.get(ticket["creator_user_id"])["phone"]
+    phone = phonenumbers.parse(f_app.user.get(ticket["creator_user_id"])["phone"])
+    return str(phone.national_number)
 
 
 @f_api('/rent_ticket/search', params=dict(
