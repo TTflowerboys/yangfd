@@ -907,7 +907,6 @@ $(window).resize(window.updateTabSelectorFixed);
             }
 
             setTimeout(function () {
-                console.log("windowHeight: " + windowHeight + " scrollTop: " + $(window).scrollTop() + " requireToScrollHeight: " + requireToScrollHeight)
                 if (windowHeight +  $(window).scrollTop() > requireToScrollHeight) {
                     if (!isLoading) {
                         if (isCurrentBudgetLoadFinished()) {
