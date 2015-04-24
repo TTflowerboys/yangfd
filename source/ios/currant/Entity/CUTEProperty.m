@@ -58,10 +58,16 @@
 + (NSValueTransformer *)locationJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSDictionary *locationDict) {
-        CLLocationDegrees latitude = [locationDict[@"latitude"] doubleValue];
-        CLLocationDegrees longitude = [locationDict[@"longitude"] doubleValue];
+        if (locationDict && [locationDict isKindOfClass:[NSDictionary class]] && [locationDict objectForKey:@"latitude"] && [locationDict objectForKey:@"longitude"]) {
+            
+            CLLocationDegrees latitude = [locationDict[@"latitude"] doubleValue];
+            CLLocationDegrees longitude = [locationDict[@"longitude"] doubleValue];
 
-        return [NSValue valueWithMKCoordinate:CLLocationCoordinate2DMake(latitude, longitude)];
+            return [NSValue valueWithMKCoordinate:CLLocationCoordinate2DMake(latitude, longitude)];
+        }
+        else {
+            return [NSValue new];
+        }
     } reverseBlock:^(CLLocation *location) {
         if (location && [location isKindOfClass:[CLLocation class]]) {
             return @{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude)};
@@ -134,7 +140,7 @@
 
         [params setValue:@{DEFAULT_I18N_LOCALE:self.realityImages} forKey:@"reality_images"];
     }
-    if (self.location) {
+    if (self.location && [self.location isKindOfClass:[CLLocation class]]) {
         [params setValue:@(self.location.coordinate.latitude) forKey:@"latitude"];
         [params setValue:@(self.location.coordinate.longitude) forKey:@"longitude"];
     }

@@ -78,6 +78,7 @@
 
 - (void)onLeftButtonPressed:(id)sender {
     //may user have edit, but not submit
+    self.ticket.property.bedroomCount = [(CUTEPropertyInfoForm *)(self.formController.form) bedroom];
     [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
     
     NSArray *controllers = self.navigationController.viewControllers;
