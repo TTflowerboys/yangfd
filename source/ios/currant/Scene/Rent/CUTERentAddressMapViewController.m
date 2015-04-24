@@ -357,11 +357,13 @@
 }
 
 - (void)updateLocation:(CLLocation *)location {
-    CUTEProperty *property = self.ticket.property;
-    property.location = location;
-    [_mapView removeAnnotations:_mapView.annotations];
-    MKPlacemark *annotation = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
-    [_mapView addAnnotation:annotation];
+    if (location && [location isKindOfClass:[CLLocation class]]) {
+        CUTEProperty *property = self.ticket.property;
+        property.location = location;
+        [_mapView removeAnnotations:_mapView.annotations];
+        MKPlacemark *annotation = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
+        [_mapView addAnnotation:annotation];
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(__unused BOOL)animated

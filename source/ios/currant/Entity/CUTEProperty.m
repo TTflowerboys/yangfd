@@ -82,7 +82,7 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEI18n class]];
 }
 
-+ (NSValueTransformer *)spaceSONTransformer
++ (NSValueTransformer *)spaceJSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEArea class]];
 }

@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <BFTask.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface CUTEImageUploader : NSObject
 
-- (BFTask *)updateImage:(NSData*)imageData;
+- (BFTask *)uploadImageAsset:(ALAsset*)asset;
 
 @end

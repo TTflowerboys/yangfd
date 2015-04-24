@@ -11,6 +11,8 @@
 #import <BBTRestClient.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "CUTEConfiguration.h"
+#import "CUTEDataManager.h"
+#import "CUTECommonMacro.h"
 
 @interface CUTEImageUploader () {
 
@@ -56,7 +58,22 @@
     return request;
 }
 
-- (BFTask *)updateImage:(NSData*)imageData {
+- (BFTask *)uploadImageAsset:(ALAsset *)asset {
+    NSString *assetURLStr = [[asset valueForProperty:ALAssetPropertyAssetURL] absoluteString];
+    if (!IsNilNullOrEmpty(assetURLStr)) {
+         NSString *urlStr = [[CUTEDataManager sharedInstance] getImageURLStringForAssetURLString:assetURLStr];
+        if (!IsNilNullOrEmpty(urlStr)) {
+            return [BFTask taskWithResult:urlStr];
+        }
+    }
+
+#warning DEBUG_CODE
+#ifdef DEBUG
+    NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:[asset thumbnail]], 1.0);
+#else
+    NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]], 1.0);
+#endif
+
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if (imageData) {
         if (!_imageUploader) {
@@ -65,7 +82,10 @@
         [_imageUploader.operationQueue addOperation: [_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration hostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *responseDic = (NSDictionary *)responseObject;
             if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
-                [tcs setResult:responseDic[@"val"]];
+                NSString *urlStr = responseDic[@"val"][@"url"];
+                [tcs setResult:urlStr];
+                [[CUTEDataManager sharedInstance] saveImageURLString:urlStr forAssetURLString:assetURLStr];
+                [[CUTEDataManager sharedInstance] saveAssetURLString:assetURLStr forImageURLString:urlStr];
             }
             else {
                 [tcs setError:[NSError errorWithDomain:responseDic[@"msg"] code:[[responseDic objectForKey:@"ret"] integerValue] userInfo:responseDic]];

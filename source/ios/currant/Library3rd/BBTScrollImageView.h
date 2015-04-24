@@ -20,6 +20,8 @@
 
 @property (nonatomic, assign) id <BBTScrollImageViewDelegate> scrollImageDelegate;
 
+@property (nonatomic) BOOL imageTapEnabled;
+
 - (void)setImages:(NSArray *)imagesArray;
 
 @end

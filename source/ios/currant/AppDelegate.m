@@ -26,6 +26,10 @@
 #import "CUTERentShareViewController.h"
 #import "CUTERentShareForm.h"
 #import "CUTEUnfinishedRentTicketViewController.h"
+#warning DEBUG_CODE
+#ifdef DEBUG
+#import <FLEXManager.h>
+#endif
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -153,6 +157,10 @@
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
 
+#warning DEBUG_CODE
+#ifdef DEBUG
+//    [[FLEXManager sharedManager] showExplorer];
+#endif
 
     return YES;
 }
