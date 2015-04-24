@@ -189,11 +189,11 @@
         return NO;
     }
 
-    if (!_editAreaViewController) {
+    if (!_editAreaViewController && !self.ticket.space) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑面积")];
         return NO;
     }
-    if (!_editRentPriceViewController) {
+    if (!_editRentPriceViewController && !self.ticket.price) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑租金")];
         return NO;
     }
