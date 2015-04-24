@@ -12,11 +12,11 @@ $(function () {
      * */
     $requestContactBtn.on('click', function (e) {
         if (window.user && rentId) {
-            $('.contactRequest').hide()
             $.betterPost('/api/1/rent_ticket/' + rentId + '/contact_info')
                 .done(function (val) {
                     var phone = val
-                    $('.hostPhone span').text(phone)
+                    $($('.hostPhone span')[1]).text(phone)
+                    $('.contactRequest').hide()
                 })
             //TODO: issue #6317
             //.fail(function () {})

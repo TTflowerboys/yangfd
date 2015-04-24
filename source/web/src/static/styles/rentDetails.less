@@ -267,7 +267,9 @@ body {
                 }
             }
 
-            > .actions { width: 100%;
+            > .actions {
+                width: 100%;
+                margin-bottom: 40px;
                 .flatButton { padding: 0; width: 110px; font-size: 12px; line-height: 40px;
                     img { vertical-align: text-top; }
                 }
@@ -1111,12 +1113,22 @@ body {
         }
     }
 
-    .host_wrapper {
+    /*.host_wrapper {
         margin: 30px 0;
         background: #f4f4f4;
 
         .host {
+            padding-top: @standard-margin*3;
+            .avatar {
+                background-image: url('/static/images/property_details/ico_phoneowner.png');
+                height: 80px;
+                width: 80px;
+                background-repeat: no-repeat;
+                display: inherit;
+                margin: 0 auto;
+            }
             .hostName {
+                margin-top: @standard-margin*2;
                 width: 100%;
                 padding: @standard-margin;
                 font-size: @large-font-size;
@@ -1128,6 +1140,14 @@ body {
                 padding: @standard-margin;
                 font-size: @large-font-size;
                 text-align: center;
+
+                .phoneIco{
+                    display: inline-block;
+                    background-image: url('/static/images/property_details/ico_phone.png');
+                    height: 32px;
+                    width: 32px;
+                    background-repeat: no-repeat;
+                }
             }
         }
 
@@ -1143,7 +1163,7 @@ body {
                 font-size: @root-font-size;
             }
         }
-    }
+    }*/
 
     .contactRequestForm {
         display: none;
