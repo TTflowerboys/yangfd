@@ -13,7 +13,7 @@
 
 - (NSArray *)fields {
     return @[@{FXFormFieldKey: @"view", FXFormFieldTitle: STR(@"查看我的房产")},
-             @{FXFormFieldKey: @"copy", FXFormFieldTitle: STR(@"复制页面链接"), FXFormFieldHeader: STR(@"分享")},
+             @{FXFormFieldKey: @"copyLink", FXFormFieldTitle: STR(@"复制页面链接"), FXFormFieldHeader: STR(@"分享")},
              @{FXFormFieldKey: @"qrcode", FXFormFieldTitle: STR(@"二维码")},
              @{FXFormFieldKey: @"wechat", FXFormFieldTitle: STR(@"分享到微信")},];
 }
