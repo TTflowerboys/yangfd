@@ -24,3 +24,4 @@ pod 'MWPhotoBrowser', '~> 1.4.1'
 pod 'WeixinSDK', '~> 1.4.3'
 pod 'YTKKeyValueStore'
 
+pod 'FLEX', '~> 2.0', :configurations => ['Debug']
