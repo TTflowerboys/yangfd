@@ -77,11 +77,39 @@
     MakeRighEqualTo(self.contentView.right).offset(-8);
     MakeEnd
 
+
+
 }
 
-- (NSArray *)assets {
-    //TODO url and assets mapping
-    return nil;
+- (BFTask *)getAssetsFromImageURLArray:(NSArray *)array {
+    return [BFTask taskForCompletionOfAllTasksWithResults:[array map:^id(NSString *object) {
+        NSString *assetStr = [[CUTEDataManager sharedInstance] getAssetURLStringForImageURLString:object];
+        return [self getAssetFromURLString:assetStr];
+    }]];
+}
+
+- (BFTask *)getAssetFromURLString:(NSString *)urlStr {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [[self assetsPickerController].assetsLibrary assetForURL:[NSURL URLWithString:urlStr] resultBlock:^(ALAsset *asset) {
+        [tcs setResult:asset];
+    } failureBlock:^(NSError *error) {
+        [tcs setError:error];
+    }];
+    return tcs.task;
+}
+
+- (void)updateImages:(NSArray *)images {
+    self.ticket.property.realityImages = [NSMutableArray arrayWithArray:IsArrayNilOrEmpty(images)? @[]: images];
+}
+
+- (void)addImage:(NSString *)imageURLStr {
+    if (IsArrayNilOrEmpty(self.ticket.property.realityImages)) {
+        self.ticket.property.realityImages = [NSMutableArray arrayWithObject:imageURLStr];
+    }
+    else
+    {
+        self.ticket.property.realityImages = [NSMutableArray arrayWithArray:[self.ticket.property.realityImages arrayByAddingObject:imageURLStr]];
+    }
 }
 
 - (void)update
@@ -160,10 +188,20 @@
     return _assetsPickerController;
 }
 
-- (void)showImagePickerFrom:(UIViewController *)controller {
-    [self assetsPickerController].selectedAssets = [NSMutableArray arrayWithArray:[self assets]];
-    [controller presentViewController:[self assetsPickerController] animated:YES completion:^  {
+- (CUTEImageUploader *)imageUploader {
+    if (!_imageUploader) {
 
+        _imageUploader = [CUTEImageUploader new];
+    }
+    return _imageUploader;
+}
+
+- (void)showImagePickerFrom:(UIViewController *)controller {
+    [[self getAssetsFromImageURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
+        [self assetsPickerController].selectedAssets = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
+        [controller presentViewController:[self assetsPickerController] animated:YES completion:^ {
+        }];
+        return nil;
     }];
 }
 
@@ -194,30 +232,6 @@
     [self showActionSheet];
 }
 
-- (BFTask *)uploadImages:(NSArray *)images {
-    return [[BFTask taskForCompletionOfAllTasksWithResults:[images map:^id(ALAsset *object) {
-#warning DEBUG_CODE
-#ifdef DEBUG
-        NSData *dataImage = UIImageJPEGRepresentation([UIImage imageWithCGImage:[object thumbnail]], 1.0);
-#else
-        NSData *dataImage = UIImageJPEGRepresentation([UIImage imageWithCGImage:[[object defaultRepresentation] fullResolutionImage]], 1.0);
-#endif
-
-        if (!_imageUploader) {
-            _imageUploader = [CUTEImageUploader new];
-        }
-        return [_imageUploader updateImage:dataImage];
-    }]] continueWithBlock:^id(BFTask *task) {
-        if (task.error || task.exception || task.isCancelled) {
-            return task;
-        } else {
-            return [BFTask taskWithResult:[task.result map:^id(NSDictionary *object) {
-                return [object objectForKey:@"url"];
-            }]];
-        }
-    }];
-}
-
 - (void)didSelectWithTableView:(UITableView *)tableView controller:(UIViewController *)controller
 {
     [tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
@@ -236,12 +250,14 @@
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
     [SVProgressHUD show];
-    [[self uploadImages:assets] continueWithBlock:^id(BFTask *task) {
+    [[BFTask taskForCompletionOfAllTasksWithResults:[assets map:^id(ALAsset *object) {
+        return [[self imageUploader] uploadImageAsset:object];
+    }]] continueWithBlock:^id(BFTask *task) {
         if (task.error || task.exception || task.isCancelled) {
             [SVProgressHUD showErrorWithError:task.error];
         }
         else {
-            self.ticket.property.realityImages = task.result;
+            [self updateImages:task.result];
             [self update];
             [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
             [SVProgressHUD dismiss];
@@ -250,50 +266,36 @@
     }];
 }
 
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(ALAsset *)asset
-{
-    // Enable video clips if they are at least 5s
-    if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
-    {
-        NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
-        return lround(duration) >= 5;
-    }
-    else
-    {
-        return YES;
-    }
-}
-
 //TODO need image count limit?
 
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
-{
-    if (picker.selectedAssets.count >= 10)
-    {
-        UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:@"Attention"
-                                   message:@"Please select not more than 10 assets"
-                                  delegate:nil
-                         cancelButtonTitle:nil
-                         otherButtonTitles:@"OK", nil];
-
-        [alertView show];
-    }
-
-    if (!asset.defaultRepresentation)
-    {
-        UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:@"Attention"
-                                   message:@"Your asset has not yet been downloaded to your device"
-                                  delegate:nil
-                         cancelButtonTitle:nil
-                         otherButtonTitles:@"OK", nil];
-
-        [alertView show];
-    }
-
-    return (picker.selectedAssets.count < 10 && asset.defaultRepresentation != nil);
-}
+//- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
+//{
+//    if (picker.selectedAssets.count >= 10)
+//    {
+//        UIAlertView *alertView =
+//        [[UIAlertView alloc] initWithTitle:@"Attention"
+//                                   message:@"Please select not more than 10 assets"
+//                                  delegate:nil
+//                         cancelButtonTitle:nil
+//                         otherButtonTitles:@"OK", nil];
+//
+//        [alertView show];
+//    }
+//
+//    if (!asset.defaultRepresentation)
+//    {
+//        UIAlertView *alertView =
+//        [[UIAlertView alloc] initWithTitle:@"Attention"
+//                                   message:@"Your asset has not yet been downloaded to your device"
+//                                  delegate:nil
+//                         cancelButtonTitle:nil
+//                         otherButtonTitles:@"OK", nil];
+//
+//        [alertView show];
+//    }
+//
+//    return (picker.selectedAssets.count < 10 && asset.defaultRepresentation != nil);
+//}
 
 #pragma mark - MWPhotoBrowserDelegate 
 
@@ -331,8 +333,7 @@
     NSArray *editedAssets = [[self ticket].property.realityImages collect:^BOOL(NSString *asset) {
         return asset.attachment == nil || [asset.attachment boolValue];
     }];
-
-    self.ticket.property.realityImages = editedAssets;
+    [self updateImages:editedAssets];
     [self update];
     [[self tableViewController] dismissViewControllerAnimated:YES completion:nil];
 }
@@ -366,16 +367,12 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }];
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[self uploadImages:@[result]] continueWithBlock:^id(BFTask *task) {
+        [[[self imageUploader] uploadImageAsset:result] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
             else {
-                if ([self ticket].property.realityImages == nil) {
-                    self.ticket.property.realityImages = @[];
-                }
-
-                self.ticket.property.realityImages = [[[[self ticket] property] realityImages] arrayByAddingObjectsFromArray:task.result];
+                [self addImage:task.result];
                 [self update];
                 [picker dismissViewControllerAnimated:YES completion:NULL];
                 [SVProgressHUD dismiss];
