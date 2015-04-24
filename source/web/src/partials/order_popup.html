@@ -1,0 +1,49 @@
+<!--预约众筹的弹出层-->
+<div id="order_popup" class="order_popup" style="display: none">
+    <div id="order_popup_shadow" class="order_popup_shadow"></div>
+    <div class="order_wrapper">
+        <div id="order" class="order">
+            <div class="info">
+                <div class="order_title">
+                    <h2 class="title">{{_('提供您的预约信息')}}</h2>
+                    <p>{{_('您也可以拨打我们的热线电话进行预约')}}</p>
+                </div>
+                <div class="contact">
+                    <label class="hint">客服热线</label>
+                    <a href="tel:4000926433" >400-0926-433</a>
+                </div>
+            </div>
+            <form class="order_form" name="order">
+                <!--<div class="form_row">
+                    <input class="country ghostInput" name="country" type="text" placeholder="{{_('国家')}}" data-validator="required, trim"/>
+                </div>-->
+                <div class="form_row">
+                    <select name="country" class="country ghostSelect" style="color:#4d4d4d;" placeholder="{{_('国家')}}">
+                        %for index, country  in enumerate(country_list):
+                        <option value="{{country.get('id')}}">
+
+                            {{country.get('value')}}
+                        </option>
+                        %end
+                    </select>
+                </div>
+                <div class="form_row">
+                    <input class="email ghostInput" name="email" type="text" placeholder="{{_('E-Mail')}}" data-validator="required, trim email"/>
+                </div>
+                <div class="form_row">
+                    <input class="budget ghostInput" name="budget" type="text" placeholder="{{_('预期投资金额(选填)')}}" data-validator="trim number"/>
+                </div>
+
+                <input name="property_id" type="hidden"/>
+                <p class="errorMessage" style="display:none"></p>
+                <div class="form_row">
+                    <button type="submit" class="button red">{{_('提交')}}</button>
+                    <button name="cancel" type="button" class="button " style="display:none">{{_('取消')}}</button>
+                </div>
+
+            </form>
+
+            <h2 class="successMessage" style="display:none">{{_('预约需求已提交，稍后我们的置业顾问会联系您')}}</h2>
+        </div>
+    </div>
+</div>
