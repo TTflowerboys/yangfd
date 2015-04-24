@@ -417,7 +417,7 @@
                                 </button>
                             </td>
                             <td style="text-align:center;">
-                                <button data-fn="shareToWeChat" class="flatButton green">
+                                <button data-fn="shareToWeChat" class="flatButton green" data-id="{{rent.get('id','')}}">
                                     <img src="/static/images/property_details/icon-wechat.png" alt=""/>
                                     {{_('分享到微信')}}
                                 </button>
@@ -495,6 +495,7 @@
         <script src="/static/vendors/jquery.dotdotdot.js"></script>
         <script src="/static/vendors/jweixin-1.0.0.js"></script>
         <script src="/static/scripts/host_contact_request.js"></script>
+        <script src="/static/scripts/property_to_rent_actions.js"></script>
         <!--endbuild-->
         <script>
             $(function () {
@@ -520,6 +521,24 @@
                     $(this).parent().hide()
                         .parent().find('[data-ui=description]').toggleClass("no-after")
                     ga('send', 'event', 'property_detail', 'click', 'extend-description')
+                });
+
+                window.openWeChatShare = function (rentId) {
+                    if (window.team.isWeChat()) {
+                        if (window.team.isWeChatiOS()) {
+                            $('.wechatPage_popup .buttonHolder').attr('src', '/static/images/property_details/wechat_share/phone/wechat_button_ios.png')
+                        }
+                        $('.wechatPage_popup').modal()
+                        $('.wechatPage_popup').find('.close-modal').hide()
+                    }
+                    else {
+                        location.href = '/wechat-poster/' + rentId
+                    }
+                }
+
+                $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
+                    window.openWeChatShare('{{rent.get('id','')}}')
+                    //ga('send', 'event', 'property_to_rent_detail', 'share', 'open-wechat-mobile')
                 });
 
                 //Map Part
