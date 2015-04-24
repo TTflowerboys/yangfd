@@ -19,6 +19,7 @@
              @"rentType": @"rent_type",
              @"depositType": @"deposit_type",
              @"space": @"space",
+             @"price": @"price",
              @"billCovered": @"bill_covered",
              @"rentAvailableTime": @"rent_available_time",
              @"rentType": @"rent_type"
@@ -50,9 +51,21 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEArea class]];
 }
 
-+ (NSValueTransformer *)currencyTypeJSONTransformer
++ (NSValueTransformer *)priceJSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
+}
+
++ (NSValueTransformer *)rentAvailableTimeJSONTransformer
+{
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:
+            ^id(NSNumber *number)
+            {
+                NSTimeInterval secs = [number doubleValue];
+                return [NSDate dateWithTimeIntervalSince1970:secs];
+            } reverseBlock:^id(NSDate *d) {
+                return @([d timeIntervalSince1970]);
+            }];
 }
 
 - (NSString *)titleForDisplay {

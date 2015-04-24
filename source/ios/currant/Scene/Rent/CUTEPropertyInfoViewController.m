@@ -94,11 +94,10 @@
 
 - (void)editArea {
   if (!_editAreaViewController) {
-      CUTEProperty *property = self.ticket.property;
       CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
       controller.ticket = self.ticket;
       CUTEAreaForm *form = [CUTEAreaForm new];
-      form.area = property.space.value;
+      form.area = self.ticket.space.value;
       controller.formController.form = form;
       _editAreaViewController = controller;
 

@@ -10,7 +10,6 @@
 #import "CUTEEnum.h"
 #import "CUTEArea.h"
 #import "CUTEI18n.h"
-#import "CUTECurrency.h"
 #import "CUTEArea.h"
 #import <CoreLocation/CoreLocation.h>
 

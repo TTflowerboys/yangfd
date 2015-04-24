@@ -55,7 +55,7 @@
     self.navigationItem.title = STR(@"地址");
 
     if (self.singleUseForReedit) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"完成") style:UIBarButtonItemStylePlain target:self action:@selector(onDoneButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
     }
     else {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
@@ -229,7 +229,7 @@
     return YES;
 }
 
-- (void)onDoneButtonPressed:(id)sender {
+- (void)onSaveButtonPressed:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
