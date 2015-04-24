@@ -1,5 +1,7 @@
 @import "project/_imports";
 @orange: #ff6600;
+@orange2: #ff7800;
+@blue: #0ba1df;
 @text: #666;
 .lighter(){
     font-weight: lighter;
@@ -10,15 +12,28 @@
 .orangeColor(){
     color: @orange;
 }
+.howItWorks {
+    display: block;
+    @media @phone {
+        display: none;
+    }
+}
+.howItWorks_phone {
+    display: none;
+    @media @phone {
+        display: block;
+    }
+}
+.clearfix {
+    *zoom: 1;
+    &:after {
+        content: "\200B";
+        display: block;
+        height: 0;
+        clear: both;
+    }
+}
 
-body{
-    //调试用
-    background: url('https://redmine.bbtechgroup.com/attachments/download/3685/crowfunding_preview_150422.png') 50% 42px no-repeat !important;
-}
-.page{
-    //调试用
-    opacity: 0.9;
-}
 main{
     h1,h2{
         .lighter()
@@ -29,6 +44,9 @@ main{
         position: relative;
         overflow: hidden;
         margin-bottom: 102px;
+        @media @phone {
+            margin-bottom: 60px;
+        }
         .img {
             position: relative;
             display: block;
@@ -94,7 +112,7 @@ main{
                 position: static;
                 font-size: 30px;
                 @media @phone {
-                    font-size:14px;
+                    font-size:16px;
                     line-height:1em;
                 }
             }
@@ -117,24 +135,64 @@ main{
             }
         }
     }
+    .container{
+        width: 1280px;
+        margin: 0 auto;
+        @media @phone {
+            width: 100%;
+        }
+        .part{
+            float: left;
+
+            @media @phone {
+                margin: 0 auto 30px;
+            }
+
+
+            &.partOfTwo{
+                width: 640px;
+                @media @phone {
+                    width: 100%;
+                }
+            }
+            &.partOfThree{
+                width: 420px;
+                &:first-child{
+                    margin-left: 10px;
+                }
+                @media @phone{
+                    width: 100%;
+                }
+            }
+        }
+    }
     .box{
         margin-bottom: 100px;
         text-align: center;
         overflow: hidden;
+        @media @phone {
+            margin-bottom: 70px;
+        }
         h2{
             position: relative;
             display: inline-block;
             margin-bottom: 90px;
             font-size: 34px;
-            text-align: center;
-            &:after{
+            @media @phone {
+                font-size: 21px;
+                margin-bottom: 30px;
+            }
+            &.title:after{
                 position: absolute;
-                left: 1%;
+                left: 0;
                 bottom: -6px;
-                width: 98%;
+                width: 100%;
                 height: 4px;
                 background-color: #ccc;
                 content: '';
+                @media @phone {
+                    height: 2px;
+                }
             }
         }
 
@@ -143,7 +201,11 @@ main{
             padding: 50px;
             font-size: 22px;
             line-height: 1.8em;
-            text-align: center;
+            @media @phone {
+                margin-bottom: 20px;
+                padding: 30px;
+                font-size: 16px;
+            }
             strong{
                 .orangeColor;
             }
@@ -151,8 +213,241 @@ main{
         &.chartBox2{
             background-color: #eeeeee;
             background-size: cover;
+            margin-bottom: 145px;
+            @media @phone {
+                margin-bottom: 65px;
+            }
             p{
                 margin-top: 32px;
+            }
+        }
+        &.whatBox {
+            margin-bottom: 0;
+            h2{
+                margin-bottom: 50px;
+                @media @phone {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+        &.operationMode{
+            margin-bottom: 70px;
+            padding: 100px 0;
+            background: url("../images/crowdfunding/background.png") 50% 50%;
+            background-size: cover;
+            @media @phone {
+                padding: 80px 0 20px;
+                margin-bottom: 100px;
+            }
+            .pic{
+                @media @phone {
+                    padding: 0 10%;
+                }
+            }
+            .textWrapper{
+                text-align: left;
+                @media @phone {
+                    text-align: center;
+                }
+                h2{
+                    margin: 54px auto 50px 50px;
+                    @media @phone {
+                        margin: 20px auto 20px;
+                    }
+                }
+                p{
+                    font-size: 18px;
+                    line-height: 2em;
+                    @media @phone {
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+        &.advantage{
+            .part{
+                margin-bottom: 0;
+                @media @phone {
+                    margin-bottom: 80px;
+                    &:nth-child(3){
+                        margin: 0 auto;
+                    }
+                }
+
+            }
+            h2{
+                position: relative;
+                color: @orange2;
+                margin-bottom: 54px;
+                @media @phone {
+                    font-size: 24px;
+                    margin-bottom: 40px;
+                }
+                &:before,&:after{
+                    position: absolute;
+                    content: '';
+                    background-color: @orange2;
+                    width: 4px;
+                    height: 100%;
+                    -webkit-transform: skewX(-22deg);
+                    transform: skewX(-22deg);
+                    z-index: 10;
+                    @media @phone {
+                        width: 2px;
+                    }
+                }
+                &:before{
+                    left: -20px;
+                    @media @phone {
+                        left: -15px;
+                    }
+                }
+                &:after{
+                    right: -20px;
+                    @media @phone {
+                        right: -15px;
+                    }
+                }
+            }
+            h3{
+                margin-bottom: 40px;
+                font-size: 20px;
+                font-weight: bold;
+                @media @phone {
+                    width: 80%;
+                    margin: 0 auto 40px;
+                    text-align: center;
+                    font-size: 18px;
+                }
+            }
+            ol{
+                li{
+                    position: relative;
+                    width: 290px;
+                    margin: 0 auto 22px;
+                    padding-left: 45px;
+                    text-align: left;
+                    font-size: 18px;
+                    line-height: 1.5em;
+                    @media @phone {
+                        width: 65%;
+                        margin: 0 auto 16px;
+                        font-size: 16px;
+                    }
+                    &:before{
+                        position: absolute;
+                        width: 22px;
+                        height: 22px;
+                        content: '';
+                        top: 2px;
+                        left: 8px;
+                        background-image: url("../images/crowdfunding/num_sprites.png");
+                        background-repeat: no-repeat;
+                        background-size: 100%;
+                        @media @phone {
+                            width: 18px;
+                            height: 18px;
+                        }
+                    }
+                    &:nth-child(1):before{
+                        background-position: 0 0;
+                    }
+                    &:nth-child(2):before{
+                        background-position: 0 percentage(1/4);
+                    }
+                    &:nth-child(3):before{
+                        background-position: 0  percentage(2/4);
+                    }
+                    &:nth-child(4):before{
+                        background-position: 0  percentage(3/4);
+                    }
+                    &:nth-child(5):before{
+                        background-position: 0  percentage(4/4);
+                    }
+                }
+            }
+        }
+        &.orderBox{
+            .part:nth-child(1){
+                margin-bottom: 130px;
+            }
+            margin-bottom: 60px;
+            @media @phone{
+                margin-bottom: 100px;
+            }
+            .pic{
+                margin-bottom: 40px;
+                img{
+                    @media @phone {
+                        width: 100%;
+                    }
+                }
+            }
+            .textWrapper{
+                margin-bottom: 35px;
+                height: 440px;
+                @media @phone {
+                    height: auto;
+                }
+                h2{
+                    margin-bottom: 12px;
+                    font-size: 38px;
+                    @media @phone {
+                        font-size: 28px;
+                        margin-bottom: 8px;
+                    }
+                }
+                h3{
+                    margin-bottom: 34px;
+                    font-size: 28px;
+                    @media @phone{
+                        font-size: 24px;
+                        margin-bottom: 20px;
+                    }
+                    &.orange{
+                        color: @orange;
+                    }
+                    &.blue{
+                        color: @blue;
+                    }
+                }
+                h4{
+                    margin-bottom: 60px;
+                    font-size: 24px;
+                    @media @phone{
+                        margin-bottom: 30px;
+                        padding: 0 10%;
+                        font-size: 21px;
+                    }
+
+                }
+                p{
+                    margin-bottom: 35px;
+                    padding: 0 40px;
+                    font-size: 17px;
+                    line-height: 1.8em;
+                    text-align: left;
+                    @media @phone {
+                        margin-bottom: 20px;
+                        font-size: 15px;
+                        text-align: center;
+                    }
+                }
+
+            }
+            .button{
+                font-size: 24px;
+                padding: 15px 30px;
+                @media @phone {
+                    font-size: 21px;
+                    padding: 28px 35px;
+                }
+                &.orange{
+                    background-color: @orange;
+                }
+                &.blue{
+                    background-color: @blue;
+                }
             }
         }
     }
