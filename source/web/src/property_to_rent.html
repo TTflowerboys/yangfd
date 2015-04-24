@@ -143,7 +143,7 @@
                     {{_('/周')}}
                     % if 'bill_covered' in rent and rent.get('bill_covered'):
                         <span>
-                            {{_('，包水电费')}}
+                            {{_('包水电费')}}
                         </span>
                     % end
                 </div>
@@ -436,10 +436,25 @@
                 <!--@@include=./partials/host_contact_request.html -->
 
 
-        </div>
+            </div>
         </div>
 
 </div>
+
+<ul class="floatBar_phone hiddenInClient">
+    <li class="phone">
+        <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" >
+            {{_('联系房东')+':'}}
+            <span>+{{rent.get('creator_user',{}).get('country_code','') }}</span>
+            <span>{{rent.get('creator_user',{}).get('phone','')}}</span>
+        </a>
+    </li>
+    <li class="favorite"
+        data-fn="addFav"
+        data-message-40090="{{_('已经收藏过了')}}"
+        ><img src="/static/images/property_details/phone/favorite.png"></img>
+    </li>
+</ul>
 
         <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
             <img src="" alt="二维码" width="220" height="220"/>

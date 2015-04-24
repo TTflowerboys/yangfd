@@ -113,7 +113,7 @@ $(function () {
     var initRequestContact = team.getQuery('requestContact')
     if(initRequestContact){
         $requestContactBtn.click()
-        window.location.hash = 'contactRequest'
+        //window.location.hash = 'contactRequest'
     }
 
 
