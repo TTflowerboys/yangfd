@@ -129,14 +129,14 @@ def wechat_poster(rent_ticket_id):
     title = _('微信展示页')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
     # if rent_ticket["status"] not in ["draft", "to rent"]:
-        # assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
+    # assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 
     # report = None
     # if rent_ticket.get('zipcode_index') and rent_ticket.get('country').get('slug') == 'GB':
     #     report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket.get('zipcode_index')))
 
     # if not isinstance(title, six.string_types):
-        # title = six.text_type(title)
+    # title = six.text_type(title)
     if rent_ticket["property"].get('city', {}) and rent_ticket["property"].get('city', {}).get('value', ''):
         title += '_' + _(rent_ticket["property"].get('city', {}).get('value', ''))
     if rent_ticket["property"].get('country', {}) and rent_ticket["property"].get('country', {}).get('value', ''):

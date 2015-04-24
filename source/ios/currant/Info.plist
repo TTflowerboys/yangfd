@@ -35,7 +35,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CurrantHost</key>
-	<string>localhost:8181</string>
+	<string>172.22.27.191:8181</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>

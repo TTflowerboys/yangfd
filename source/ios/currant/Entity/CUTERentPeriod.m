@@ -14,12 +14,13 @@
 +(CUTERentPeriod *)negotiableRentPeriod {
     CUTERentPeriod *rentPeriod = [CUTERentPeriod new];
     //no id, only value
+    rentPeriod.type = @"rent_period";
     rentPeriod.value = STR(@"面议");
     return rentPeriod;
 }
 
 - (BOOL)isEqual:(CUTERentPeriod *)object {
-    if ([object isKindOfClass:[self class]]) {
+    if ([object isKindOfClass:[self class]] && !IsNilNullOrEmpty(self.value)) {
         return [self.value isEqualToString:[object value]];
     }
     else {

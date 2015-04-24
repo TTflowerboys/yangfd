@@ -1,5 +1,7 @@
 @import "project/_imports";
 
+@light-text-color: #999;
+@dark-text-color: #555;
 
 main {
     max-width:@max-width;
@@ -13,20 +15,47 @@ main {
 
 .host_wrapper {
     background: #f4f4f4;
-
+    color: @light-text-color;
     .host {
+        padding-top: @standard-margin*3;
+
+        @media @phone {
+            padding-top: @standard-margin*6;
+        }
+        .avatar {
+            height: 80px;
+            width: 80px;
+            display: inherit;
+            margin: 0 auto;
+        }
+
         .hostName {
+            margin-top: @standard-margin*2;
             width: 100%;
             padding: @standard-margin;
             font-size: @large-font-size;
             text-align: center;
             display: inline-block;
+            font-weight: bold;
+
+            @media @phone {
+                padding-top: @standard-margin*4;
+            }
         }
 
         .hostPhone {
-            padding: @standard-margin;
-            font-size: @large-font-size;
+            padding: @standard-margin @standard-margin @standard-margin*2 @standard-margin;
+            font-size: @slarge-font-size;
             text-align: center;
+            color: @dark-text-color;
+            position: relative;
+
+            .phoneIco{
+                display: inline-block;
+                height: 32px;
+                width: 32px;
+                vertical-align: text-bottom;
+            }
         }
     }
 

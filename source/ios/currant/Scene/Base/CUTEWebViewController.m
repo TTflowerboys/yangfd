@@ -39,18 +39,9 @@
     return self;
 }
 
-- (void)registerJSFunctionWith:(NSString *)name implement:(void (^)(JSValue *value))implement {
-    _jsContext[@"window"][@"moblieClient"][name] = implement;
-}
-
 - (void)setupJSContextWithWebView:(UIWebView *)webView {
     _jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-//    [_jsContext evaluateScript:@"window.mobileClient = {};"];
     [_jsContext setObject:[CUTEMoblieClient new] forKeyedSubscript:@"mobileClient"];
-
-//    [self registerJSFunctionWith:@"log" implement:^ (JSValue * msg) {
-//        DebugLog(@"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,msg);
-//    }];
 }
 
 - (void)loadURL:(NSURL *)url {

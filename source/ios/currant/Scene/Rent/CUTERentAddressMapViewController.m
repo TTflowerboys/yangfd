@@ -55,7 +55,7 @@
     self.navigationItem.title = STR(@"地址");
 
     if (self.singleUseForReedit) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"完成") style:UIBarButtonItemStylePlain target:self action:@selector(onDoneButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
     }
     else {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
@@ -229,7 +229,7 @@
     return YES;
 }
 
-- (void)onDoneButtonPressed:(id)sender {
+- (void)onSaveButtonPressed:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -357,11 +357,13 @@
 }
 
 - (void)updateLocation:(CLLocation *)location {
-    CUTEProperty *property = self.ticket.property;
-    property.location = location;
-    [_mapView removeAnnotations:_mapView.annotations];
-    MKPlacemark *annotation = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
-    [_mapView addAnnotation:annotation];
+    if (location && [location isKindOfClass:[CLLocation class]]) {
+        CUTEProperty *property = self.ticket.property;
+        property.location = location;
+        [_mapView removeAnnotations:_mapView.annotations];
+        MKPlacemark *annotation = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
+        [_mapView addAnnotation:annotation];
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(__unused BOOL)animated

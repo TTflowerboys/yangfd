@@ -32,4 +32,12 @@
 
 - (NSArray *)getAllUnfinishedRentTickets;
 
+- (void)saveImageURLString:(NSString *)imageURLStr forAssetURLString:(NSString *)urlStr;
+
+- (NSString *)getImageURLStringForAssetURLString:(NSString *)urlStr;
+
+- (void)saveAssetURLString:(NSString *)urlStr forImageURLString:(NSString *)imageURLStr;
+
+- (NSString *)getAssetURLStringForImageURLString:(NSString *)imageURLStr;
+
 @end

@@ -43,6 +43,7 @@
 
 @property (strong, nonatomic) CUTEProperty *property;
 
+- (NSString *)titleForDisplay;
 
 - (NSDictionary *)toParams;
 

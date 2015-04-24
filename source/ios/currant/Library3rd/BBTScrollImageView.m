@@ -57,10 +57,13 @@
 			imageView.tag = index;
 			[self addSubview:imageView];
             
-            self.userInteractionEnabled = YES;
-            imageView.userInteractionEnabled = YES;
-			UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
-			[imageView addGestureRecognizer:tapped];
+            //self.userInteractionEnabled = YES;
+            if (self.imageTapEnabled) {
+                imageView.userInteractionEnabled = YES;
+                UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
+                [imageView addGestureRecognizer:tapped];
+            }
+
 		    [self setContentSize:CGSizeMake([imagesArray count] * self.frame.size.width, [self bounds].size.height)];
         }
 	}

@@ -26,6 +26,10 @@
 #import "CUTERentShareViewController.h"
 #import "CUTERentShareForm.h"
 #import "CUTEUnfinishedRentTicketViewController.h"
+#warning DEBUG_CODE
+#ifdef DEBUG
+#import <FLEXManager.h>
+#endif
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -98,7 +102,7 @@
 
     [nav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]} forState:UIControlStateNormal];
     [nav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]} forState:UIControlStateSelected];
-    nav.title = STR(@"洋房东");
+    nav.title = STR(@"出租发布");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     return nav;
 }
@@ -153,6 +157,20 @@
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
 
+#warning DEBUG_CODE
+#ifdef DEBUG
+//    [[FLEXManager sharedManager] showExplorer];
+
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        CUTETicket *ticket = [CUTETicket new];
+//        ticket.title = @"";
+//        CUTERentShareViewController *shareController = [CUTERentShareViewController new];
+//        shareController.formController.form = [CUTERentShareForm new];
+//        shareController.ticket = ticket;
+//        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
+//        [self.tabBarController presentViewController:nc animated:NO completion:nil];
+//    });
+#endif
 
     return YES;
 }
@@ -249,7 +267,7 @@
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
     CUTERentShareViewController *shareController = [CUTERentShareViewController new];
-//    shareController.formController.form = [CUTERentShareForm new];
+    shareController.formController.form = [CUTERentShareForm new];
     shareController.ticket = ticket;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
     [self.tabBarController presentViewController:nc animated:NO completion:nil];

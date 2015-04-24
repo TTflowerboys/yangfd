@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "MTLModel.h"
+#import <MTLModel.h>
+#import <MTLJSONAdapter.h>
 
-@interface CUTECurrency : MTLModel
+@interface CUTECurrency : MTLModel <MTLJSONSerializing>
 
 @property (strong, nonatomic) NSString *unit;
 

@@ -19,6 +19,7 @@
              @"rentType": @"rent_type",
              @"depositType": @"deposit_type",
              @"space": @"space",
+             @"price": @"price",
              @"billCovered": @"bill_covered",
              @"rentAvailableTime": @"rent_available_time",
              @"rentType": @"rent_type"
@@ -45,14 +46,41 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
-+ (NSValueTransformer *)spceJSONTransformer
++ (NSValueTransformer *)spaceJSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEArea class]];
 }
 
-+ (NSValueTransformer *)currencyTypeJSONTransformer
++ (NSValueTransformer *)priceJSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
+}
+
++ (NSValueTransformer *)rentAvailableTimeJSONTransformer
+{
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:
+            ^id(NSNumber *number)
+            {
+                NSTimeInterval secs = [number doubleValue];
+                return [NSDate dateWithTimeIntervalSince1970:secs];
+            } reverseBlock:^id(NSDate *d) {
+                return @([d timeIntervalSince1970]);
+            }];
+}
+
+- (NSString *)titleForDisplay {
+    if (self.title) {
+        return self.title;
+    }
+    if (self.property && self.property.bedroomCount > 0 && self.rentType)
+    {
+        return [NSString stringWithFormat:@"%d居室 %@出租", self.property.bedroomCount, self.rentType.value];
+    }
+    if (self.property && self.rentType && self.property.address) {
+        return [NSString stringWithFormat:@"%@ %@出租", self.property.address, self.rentType.value];
+    }
+
+    return nil;
 }
 
 - (NSDictionary *)toParams {
@@ -86,10 +114,10 @@
         [dic setValue:self.rentPeriod.identifier forKey:@"rent_period"];
     }
 
-    if (!self.title) {
-        self.title = [NSString stringWithFormat:@"%d居室 %@出租", self.property.bedroomCount, self.rentType.value];
+    NSString *title = self.titleForDisplay;
+    if (title) {
+        [dic setValue:title forKey:@"title"];
     }
-    [dic setValue:self.title forKey:@"title"];
 
     if (self.ticketDescription) {
         [dic setValue:self.ticketDescription forKey:@"description"];

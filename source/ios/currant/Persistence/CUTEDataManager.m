@@ -45,6 +45,9 @@
 
 #define KTABLE_SETTINGS @"cute_settings"
 #define KTABLE_UNFINISHE_RENT_TICKETS @"cute_unfinished_rent_tickets"
+#define KTABLE_URL_ASSET @"url_asset"
+#define KTABLE_ASSET_URL @"asset_url"
+
 
 #pragma mark - Keys
 
@@ -53,8 +56,14 @@
 
 - (void)setupStore {
     _store = [[YTKKeyValueStore alloc] initDBWithName:@"cute.db"];
-    [_store createTableWithName:KTABLE_SETTINGS];
-    [_store createTableWithName:KTABLE_UNFINISHE_RENT_TICKETS];
+
+    [@[KTABLE_SETTINGS,
+       KTABLE_UNFINISHE_RENT_TICKETS,
+       KTABLE_ASSET_URL,
+       KTABLE_URL_ASSET]
+     enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+         [_store createTableWithName:obj];
+     }];
 }
 
 - (BOOL)isUserLoggedIn {
@@ -134,6 +143,22 @@
         MTLJSONAdapter *ticket = [[MTLJSONAdapter alloc] initWithJSONDictionary:object.itemObject modelClass:[CUTETicket class] error:nil];
         return [ticket model];
     }];
+}
+
+- (void)saveImageURLString:(NSString *)imageURLStr forAssetURLString:(NSString *)urlStr {
+    [_store putString:imageURLStr withId:urlStr intoTable:KTABLE_ASSET_URL];
+}
+
+- (NSString *)getImageURLStringForAssetURLString:(NSString *)urlStr {
+    return [_store getStringById:urlStr fromTable:KTABLE_ASSET_URL];
+}
+
+- (void)saveAssetURLString:(NSString *)urlStr forImageURLString:(NSString *)imageURLStr {
+    [_store putString:urlStr withId:imageURLStr intoTable:KTABLE_URL_ASSET];
+}
+
+- (NSString *)getAssetURLStringForImageURLString:(NSString *)imageURLStr {
+    return [_store getStringById:imageURLStr fromTable:KTABLE_URL_ASSET];
 }
 
 

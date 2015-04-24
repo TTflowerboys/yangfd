@@ -37,18 +37,24 @@
 #define TEXT_VIEW_HEIGHT 68
 #define EDIT_BUTTON_WIDTH 68
 
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = HEXCOLOR(0xeeeeee, 1);
+        self.selectionStyle = UITableViewCellSeparatorStyleNone;
 
         _placeholderView = [[CUTEUnfinishedRentTicketPlaceholderImageView alloc] initWithFrame:self.contentView.bounds];
         [self.contentView addSubview:_placeholderView];
 
         _scrollImageView = [[BBTScrollImageView alloc] initWithFrame:CGRectMake(0, 0, RectWidth(self.contentView.bounds), IMAGE_VIEW_HEIGHT)];
         [self.contentView addSubview:_scrollImageView];
+        //http://stackoverflow.com/questions/6636844/uiscrollview-inside-uitableviewcell-touch-detect
+        //make scrollview can pass touch to tableviewcell and responsable for pan
+        [_scrollImageView setUserInteractionEnabled:NO];
+        [self.contentView addGestureRecognizer:_scrollImageView.panGestureRecognizer];
 
         _textContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, IMAGE_VIEW_HEIGHT, RectWidth(self.contentView.bounds) - EDIT_BUTTON_WIDTH, TEXT_VIEW_HEIGHT)];
         [self.contentView addSubview:_textContainerView];
@@ -79,14 +85,14 @@
 
         MakeBegin(_nameLabel)
         MakeLeftEqualTo(_textContainerView.left).offset(18);
-        MakeTopEqualTo(_textContainerView.top).offset(10);
+        MakeTopEqualTo(_textContainerView.top).offset(5);
         MakeRighEqualTo(_textContainerView.right).offset(-10);
-        MakeBottomEqualTo(_textContainerView.bottom).offset(-24);
+        MakeBottomEqualTo(_textContainerView.bottom).offset(-14);
         MakeEnd
 
         MakeBegin(_typeLabel)
         MakeLeftEqualTo(_nameLabel.left);
-        MakeTopEqualTo(_nameLabel.bottom).offset(7);
+        MakeBottomEqualTo(_textContainerView.bottom).offset(-3);
         MakeRighEqualTo(_textContainerView.right).offset(-10);
         MakeEnd
 
@@ -113,7 +119,7 @@
         [_scrollImageView setHidden:NO];
         [_placeholderView setHidden:YES];
     }
-    [_nameLabel setText:ticket.title];
+    [_nameLabel setText:ticket.titleForDisplay];
     [_typeLabel setText:ticket.rentType.value];
 }
 

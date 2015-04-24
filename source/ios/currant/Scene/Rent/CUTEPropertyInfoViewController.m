@@ -78,6 +78,7 @@
 
 - (void)onLeftButtonPressed:(id)sender {
     //may user have edit, but not submit
+    self.ticket.property.bedroomCount = [(CUTEPropertyInfoForm *)(self.formController.form) bedroom];
     [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
     
     NSArray *controllers = self.navigationController.viewControllers;
@@ -94,11 +95,10 @@
 
 - (void)editArea {
   if (!_editAreaViewController) {
-      CUTEProperty *property = self.ticket.property;
       CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
       controller.ticket = self.ticket;
       CUTEAreaForm *form = [CUTEAreaForm new];
-      form.area = property.space.value;
+      form.area = self.ticket.space.value;
       controller.formController.form = form;
       _editAreaViewController = controller;
 
@@ -189,11 +189,11 @@
         return NO;
     }
 
-    if (!_editAreaViewController) {
+    if (!_editAreaViewController && !self.ticket.space) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑面积")];
         return NO;
     }
-    if (!_editRentPriceViewController) {
+    if (!_editRentPriceViewController && !self.ticket.price) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑租金")];
         return NO;
     }
