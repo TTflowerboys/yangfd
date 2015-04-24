@@ -3,11 +3,11 @@ from __future__ import unicode_literals, absolute_import
 from datetime import datetime, timedelta
 import random
 import re
-import phonenumbers
 import json
 import csv
 import time
 from collections import defaultdict
+import phonenumbers
 import numpy as np
 from bson.objectid import ObjectId
 from bson.code import Code
@@ -388,20 +388,22 @@ class f_currant_ticket(f_ticket):
         for u in user_list:
             user_dict[u["id"]] = u
         for t in ticket_list:
-            t["creator_user"] = user_dict.get(t.pop("creator_user_id"))
+            creator_user = user_dict.get(t.pop("creator_user_id"))
+            if creator_user:
+                t["creator_user"] = creator_user
 
-            if t["creator_user"] and fuzzy_user_info:
-                if "nickname" in t["creator_user"] and t["creator_user"]["nickname"] is not None:
-                    t["creator_user"]["nickname"] = t["creator_user"]["nickname"][:1] + "**"
+                if fuzzy_user_info:
+                    if "nickname" in t["creator_user"] and t["creator_user"]["nickname"] is not None:
+                        t["creator_user"]["nickname"] = t["creator_user"]["nickname"][:1] + "**"
 
-                if "email" in t["creator_user"] and t["creator_user"]["email"] is not None:
-                    t["creator_user"]["email"] = t["creator_user"]["email"][:3] + "**@**"
+                    if "email" in t["creator_user"] and t["creator_user"]["email"] is not None:
+                        t["creator_user"]["email"] = t["creator_user"]["email"][:3] + "**@**"
 
-                if "phone" in t["creator_user"] and t["creator_user"]["phone"] is not None:
-                    if len(t["creator_user"]["phone"]) > 6:
-                        t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "*" * (len(t["creator_user"]["phone"]) - 6) + t["creator_user"]["phone"][-3:]
-                    else:
-                        t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "***"
+                    if "phone" in t["creator_user"] and t["creator_user"]["phone"] is not None:
+                        if len(t["creator_user"]["phone"]) > 6:
+                            t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "*" * (len(t["creator_user"]["phone"]) - 6) + t["creator_user"]["phone"][-3:]
+                        else:
+                            t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "***"
 
             if isinstance(t.get("assignee"), list):
                 t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
