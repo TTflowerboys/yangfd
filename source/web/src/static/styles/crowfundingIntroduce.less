@@ -131,7 +131,11 @@ main{
                 }
                 &.orange{
                     .orangeBg;
+                    &:hover{
+                        background-color: lighten(@orange, 10%);
+                    }
                 }
+
             }
         }
     }
@@ -444,9 +448,15 @@ main{
                 }
                 &.orange{
                     background-color: @orange;
+                    &:hover{
+                        background-color: lighten(@orange, 10%);
+                    }
                 }
                 &.blue{
                     background-color: @blue;
+                    &:hover{
+                        background-color: lighten(@blue, 10%);
+                    }
                 }
             }
         }
