@@ -23,9 +23,9 @@
         onInit: function (swiper, direction) {
             //var index = swiper.activeIndex
             //var height = $(window).innerHeight()
-            //var obj = $('.swiper-slide')
-            //obj.not('.swiper-slide-visible').find('.animate').addClass('hide')
-//                    obj.eq(index).find('.animate').removeClass('hide')
+            createPhotoListSwiper()
+
+            //obj.eq(index).find('.animate').removeClass('hide')
         },
         onTransitionEnd: function (swiper, direction) {
             //console.log(new Date + ': onSlideChangeEnd!')
@@ -36,33 +36,36 @@
             obj.eq(index).find('.animate').removeClass('hide')
         }
     });
-    photoSwiper = new Swiper('.pagePhoto', {
-        slidesPerView: 1,
-        spaceBetween: 10,
-        //nested: true,
-    })
-    photoThumbsSwiper = new Swiper('.photoThumbs', {
-        effect: 'slide',
-        slidesPerView: 3,
-        spaceBetween: 10,
-        centeredSlides: true,
-        touchRatio: 0.3,
-        slideToClickedSlide: true,
-        //nested: true,
-        //slidesPerGroup: 1,
-        //resistanceRatio: 0,
-        //nextButton: 'nextButton',
-        //prevButton: 'prevButton',
-        onInit: function(){
-            $('.animate').addClass('hide')
-        }
-    });
-    $('.photoThumbs').siblings('.arrowButton').on('click', function(){
-        var action = $(this).data('action')
-        photoThumbsSwiper['slide' + action]()
-    })
-    photoSwiper.params.control = photoThumbsSwiper;
-    photoThumbsSwiper.params.control = photoSwiper;
+    function createPhotoListSwiper(){
+        photoSwiper = new Swiper('.pagePhoto', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            //nested: true,
+        })
+        photoThumbsSwiper = new Swiper('.photoThumbs', {
+            effect: 'slide',
+            slidesPerView: 3,
+            spaceBetween: 10,
+            centeredSlides: true,
+            touchRatio: 0.3,
+            slideToClickedSlide: true,
+            //nested: true,
+            //slidesPerGroup: 1,
+            //resistanceRatio: 0,
+            //nextButton: 'nextButton',
+            //prevButton: 'prevButton',
+            onInit: function(){
+                var obj = $('.swiper-slide')
+                obj.not('.swiper-slide-visible').find('.animate').addClass('hide')
+            }
+        });
+        $('.photoThumbs').siblings('.arrowButton').on('click', function(){
+            var action = $(this).data('action')
+            photoThumbsSwiper['slide' + action]()
+        })
+        photoSwiper.params.control = photoThumbsSwiper;
+        photoThumbsSwiper.params.control = photoSwiper;
+    }
     $(window).load(function(){
         //所有资源加载完毕后：
         function loadCallback(){
