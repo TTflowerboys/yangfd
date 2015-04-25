@@ -180,9 +180,7 @@
     function clickJoinInHanddler(){
         var orderBoxPosY = $('.orderBox').offset().top
         $('.joinIn').click(function(e){
-            $('body').animate({
-                scrollTop: orderBoxPosY
-            })
+            $('body,html').stop(true,true).animate({scrollTop: orderBoxPosY}, 500);
             e.preventDefault()
             return false
         })
