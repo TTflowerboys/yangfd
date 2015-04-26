@@ -54,10 +54,14 @@
         未来，伦敦房价还将稳定上涨
     </p>
     <div class="chart howItWorks">
-        <img src="/static/images/crowdfunding/table.png" height="428px" alt="过去15年，英国和伦敦房价涨势图"/>
+        <div class="img" style="background-image : url('/static/images/crowdfunding/table.png')">
+
+        </div>
     </div>
     <div class="chart howItWorks_phone">
-        <img src="/static/images/crowdfunding/table_mobile.png" alt="过去15年，英国和伦敦房价涨势图"/>
+        <div class="img" style="background-image: url('/static/images/crowdfunding/table_mobile.png')">
+
+        </div>
     </div>
 </div>
 <div class="box chartBox2">
@@ -65,10 +69,14 @@
         同时，2011年-2013年间，英国房屋租金平均水平上涨同样十分明显
     </p>
     <div class="chart howItWorks">
-        <img src="/static/images/crowdfunding/table2.png" height="413px" alt="2011年-2013年间，英国房屋租金平均水平上涨图"/>
+        <div class="img" style="background-image : url('/static/images/crowdfunding/table2.png')">
+
+        </div>
     </div>
     <div class="chart howItWorks_phone">
-        <img src="/static/images/crowdfunding/table2_mobile.png" alt="2011年-2013年间，英国房屋租金平均水平上涨图"/>
+        <div class="img" style="background-image : url('/static/images/crowdfunding/table2_mobile.png')">
+
+        </div>
     </div>
 </div>
 <div class="box whatBox">
@@ -82,7 +90,9 @@
 <div class="box operationMode">
     <div class="container clearfix">
         <div class="pic part partOfTwo">
-            <img src="/static/images/crowdfunding/circle.png" alt="杨房东运作模式图"/>
+            <div class="img" style="background-image : url('/static/images/crowdfunding/circle.png')">
+
+            </div>
         </div>
         <div class="textWrapper part partOfTwo">
             <h2>洋房东的运作模式</h2>
@@ -134,7 +144,7 @@
 <div class="box orderBox">
     <div class="container clearfix">
         <div class="part partOfTwo">
-            <div class="pic">
+            <div class="img">
                 <img src="/static/images/crowdfunding/apartment_pic1.jpg" alt=""/>
             </div>
             <div class="textWrapper">
@@ -148,7 +158,7 @@
 
         </div>
         <div class="part partOfTwo">
-            <div class="pic">
+            <div class="img">
                 <img src="/static/images/crowdfunding/apartment_pic2.jpg" alt=""/>
             </div>
             <div class="textWrapper">
@@ -171,12 +181,7 @@
 
 <script>
 (function(){
-    //设置图片在手机上的高度，预先空出位置,好像没有什么作用..
-    function initMobileImageHeight(){
-        var deviceWidth = $(window).width()
-        $('.chartBox .howItWorks_phone img').css('height', deviceWidth * 428 / 640 + 'px')
-        $('.chartBox2 .howItWorks_phone img').css('height', deviceWidth * 421 / 640 + 'px')
-    }
+
     function clickJoinInHanddler(){
         var orderBoxPosY = $('.orderBox').offset().top
         $('.joinIn').click(function(e){
@@ -186,8 +191,6 @@
         })
     }
     $(function(){
-        initMobileImageHeight()
-        $(window).resize(initMobileImageHeight)
         clickJoinInHanddler()
     })
 

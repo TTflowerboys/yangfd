@@ -215,6 +215,23 @@ main{
                 .orangeColor;
             }
         }
+        .img{
+            margin: 0 auto;
+            background-size: contain;
+        }
+        @device-width:calc(~'100%+0px');
+        &.chartBox{
+            .img{
+                width:1200px;
+                height: 428px;
+                @media @phone{
+                    width: 100vw;
+                    height: 100vw * 428 / 640;
+
+                }
+            }
+
+        }
         &.chartBox2{
             background-color: #eeeeee;
             background-size: cover;
@@ -225,6 +242,14 @@ main{
             }
             p{
                 margin-top: 32px;
+            }
+            .img{
+                width: 1204px;
+                height: 413px;
+                @media @phone{
+                    width: 100vw;
+                    height: 100vw * 421 / 640;
+                }
             }
         }
         &.whatBox {
@@ -248,11 +273,7 @@ main{
                 padding: 80px 0 20px;
                 margin-bottom: 100px;
             }
-            .pic{
-                @media @phone {
-                    padding: 0 10%;
-                }
-            }
+
             .textWrapper{
                 text-align: left;
                 @media @phone {
@@ -270,6 +291,14 @@ main{
                     @media @phone {
                         font-size: 17px;
                     }
+                }
+            }
+            .img{
+                width: 482px;
+                height: 490px;
+                @media @phone {
+                    width: 80vw;
+                    height: 80vw * 490 / 482;
                 }
             }
         }
@@ -384,11 +413,14 @@ main{
             @media @phone{
                 margin-bottom: 100px;
             }
-            .pic{
+            .img{
                 margin-bottom: 40px;
                 img{
+                    width: 580px;
+                    height: 390px;
                     @media @phone {
-                        width: 100%;
+                        width: 100vw;
+                        height: 100vw * 390 / 580;
                     }
                 }
             }
