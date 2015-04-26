@@ -249,12 +249,11 @@
                     $(this).css('border', '1px solid #999')
                 }
             )
-
             var valid = $.validate(this, {onError: function (dom, validator, index) {
                 errorArea.text(window.getErrorMessage(dom.name, validator))
                 errorArea.show()
                 $(dom).css('border', '2px solid red')
-            }, exclude:['budget']})
+            }})
             if (!valid) {return}
 
             var params = $(this).serializeObject()
@@ -276,7 +275,7 @@
             $.betterPost(api, params)
                 .done(function (val) {
                     successArea.show()
-                    container.find('.order_form').hide()
+                    container.find('.order_form,.info,.closePopupBtn').hide()
                     submitSuccessCallBack()
 
                     ga('send', 'event', 'orderPopup', 'result', 'submit-success');
@@ -295,56 +294,19 @@
 
 
         //Only bind click once
-        container.find('button[name=cancel]').off('click').on('click', function () {
+        container.find('button[name=cancel],.closePopupBtn').off('click').on('click', function () {
             container.hide()
 
             ga('send', 'event', 'floatBar', 'click', 'cancel-order-popup')
         });
     }
 
-    window.setOrderFormContent = function (popup, budgetId, intentionId, propertyId) {
-        if (budgetId) {
-            popup.find('select.budget option[value=' + budgetId + ']').attr('selected', 'selected')
-        }
 
-        if (budgetId && intentionId) {
-
-            var selectedBudget =  popup.find('select.budget option[value=' + budgetId + ']').text()
-            var selectedIntention
-            var rawIntentionList = $('#dataIntentionList').text()
-            if (rawIntentionList) {
-                var intentionArray = JSON.parse(rawIntentionList)
-                _.each(intentionArray, function (item) {
-                    if (item.id === intentionId) {
-                        selectedIntention = item.value
-                    }
-                })
-            }
-
-            var description =  window.i18n('我想投资价值为')
-            if (selectedBudget) {
-                description = description  + ' ' +
-                selectedBudget + ' '
-            }
-
-            if (selectedIntention) {
-                description = description + window.i18n('的房产，投资意向为') + ' ' +
-                selectedIntention
-            }
-            description = description + window.i18n('。')
-
-            popup.find('[name=description]').text(description)
-        }
-
-        if (propertyId) {
-            popup.find('input[name=property_id]').val(propertyId)
-        }
-    }
 
     window.openOrderForm = function (event, budgetId, intentionId, propertyId) {
         var popup = $('#order_popup')
         window.resetOrderForm(popup)
-        window.setOrderFormContent(popup, budgetId, intentionId, propertyId)
+
         popup.find('.order_title').show()
         window.showOrderCancelButton(popup)
 

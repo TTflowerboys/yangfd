@@ -10,6 +10,7 @@
     }
 
     .order {
+        position: relative;
         &_wrapper {
             z-index: @order_popup-content-z-index;
             position: absolute;
@@ -23,13 +24,13 @@
 
             @media @phone {
                 min-width:0;
+                padding-top:50px;
             }
 
         }
 
         max-width:@max-width + 80px;
         margin:0 auto;
-        overflow:hidden;
 
         .info {
             float: left;
@@ -47,7 +48,7 @@
                 float:left;
                 margin-top: 40px;
                 padding-left: 46px;
-                background: url("../images/crowdfunding/phone_icon.png") 5px 0 no-repeat;
+                background: url("/static/images/crowdfunding/phone_icon.png") 5px 0 no-repeat;
                 @media @phone {
                     background: none;
                     margin-top: 10px;
@@ -63,7 +64,7 @@
                     line-height:24px;
                     @media @phone {
                         padding-left: 25px;
-                        background: url("../images/crowdfunding/phone_icon.png") 5px 0 no-repeat;
+                        background: url("/static/images/crowdfunding/phone_icon.png") 5px 0 no-repeat;
                         background-size: contain;
                         display:inline-block;
                     }
@@ -123,7 +124,19 @@
                 margin: 100px 20px;
             }
         }
-
+        .closePopupBtn{
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: -80px;
+            right: 20px;
+            background: url("/static/images/index/announcement_close.png") 50% 50% no-repeat;
+            background-size: cover;
+            cursor: pointer;
+            @media @phone {
+                top: -50px;
+            }
+        }
         @media @phone {
             margin: 20px auto;
         }
@@ -205,6 +218,7 @@
     button[name=cancel] {
         margin-left:20px;
         @media @phone {
+            display: block;
             width: 100%;
             margin-left:0;
         }

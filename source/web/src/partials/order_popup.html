@@ -3,6 +3,8 @@
     <div id="order_popup_shadow" class="order_popup_shadow"></div>
     <div class="order_wrapper">
         <div id="order" class="order">
+            <div class="closePopupBtn"></div>
+
             <div class="info">
                 <div class="order_title">
                     <h2 class="title">{{_('提供您的预约信息')}}</h2>
@@ -31,7 +33,7 @@
                     <input class="email ghostInput" name="email" type="text" placeholder="{{_('E-Mail')}}" data-validator="required, trim email"/>
                 </div>
                 <div class="form_row">
-                    <input class="budget ghostInput" name="budget" type="text" placeholder="{{_('预期投资金额(选填)')}}" data-validator="trim number"/>
+                    <input class="budget ghostInput" name="budget" type="text" placeholder="{{_('预期投资金额(选填)')}}" data-value="0" data-validator="trim number"/>
                 </div>
 
                 <input name="property_id" type="hidden"/>
