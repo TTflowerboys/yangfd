@@ -41,8 +41,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = STR(@"联系方式");
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"发布到微信") style:UIBarButtonItemStylePlain target:self action:@selector(onRightButtonPressed:)];
-    self.navigationItem.rightBarButtonItem.enabled = false;
     UILabel * label = [UILabel new];
     NSString *str = STR(@"为保证资料真实性，请先填写个人信息再验证手机号");
     NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSForegroundColorAttributeName: HEXCOLOR(0x999999, 1.0)}];
@@ -134,7 +132,7 @@
 }
 
 
-- (void)onRightButtonPressed:(id)sender {
+- (void)submit {
 
     [SVProgressHUD showWithStatus:STR(@"发布中...")];
 

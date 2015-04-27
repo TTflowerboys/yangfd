@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEFormVerificationCodeCell.h"
 #import <NGRValidator.h>
+#import "CUTEFormButtonCell.h"
 
 @interface CUTERentContactForm () {
     NSArray *_allCountries;
@@ -28,6 +29,7 @@
              @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject]},
               @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号")},
              @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldAction: @"codeFieldEndEdit"},
+             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"发布到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
              ];
 }
 

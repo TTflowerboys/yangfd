@@ -145,6 +145,11 @@
     }];
 }
 
+- (void)deleteUnfinishedRentTicket:(CUTETicket *)ticket
+{
+    [_store deleteObjectById:ticket.identifier fromTable:KTABLE_UNFINISHE_RENT_TICKETS];
+}
+
 - (void)saveImageURLString:(NSString *)imageURLStr forAssetURLString:(NSString *)urlStr {
     [_store putString:imageURLStr withId:urlStr intoTable:KTABLE_ASSET_URL];
 }
