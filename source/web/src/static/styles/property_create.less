@@ -1,6 +1,39 @@
 @import "project/_imports";
+
+
+.clearfix {
+    *zoom:1;
+    &:after {
+        content: "\200B";
+        display: block;
+        height: 0;
+        clear: both;
+    }
+}
 main {
     .main_container {
+        table{
+            color: #999999;
+        }
+        input[type=checkbox]{
+            position: relative;
+            visibility: hidden;
+            margin-right: 10px;
+            &:after{
+                position: absolute;
+                visibility: visible;
+                content:'';
+                z-index: 10;
+                width: 16px;
+                height: 16px;
+                top: 50%;
+                margin-top: -8px;
+                background: url('/static/images/common/checkbox_background.png') 0 0 no-repeat;
+            }
+            &:checked:after{
+                background-position: 0 -16px;
+            }
+        }
         max-width: @max-width;
         margin: 0 auto;
         .step {
@@ -46,7 +79,7 @@ main {
                 background: #e60012;
             }
         }
-        .title {
+        .mainTitle {
             margin-top: 60px;
             margin-bottom: 10px;
             font-size: 24px;
@@ -54,6 +87,7 @@ main {
         .subtitle {
             padding: 58px 40px 50px 40px;
             font-size: 20px;
+            color: #555555;
         }
 
         .content {
@@ -74,11 +108,16 @@ main {
         td {
             font-size: 16px;
             padding: 20px 0;
+            &.title{
+                width: 120px;
+            }
+
         }
         .text {
+            display: block;
             text-align: right;
             color: #999999;
-            padding: 0 50px;
+            padding: 0 40px;
         }
         .property_type {
             cursor: pointer;
@@ -154,6 +193,7 @@ main {
                     -moz-border-radius: 4px;
                     -webkit-border-radius: 4px;
                     font-size: 14px;
+                    width: 60px;
                     height: 50px;
                     line-height: 40px;
                     margin-right: 8px;
@@ -161,6 +201,11 @@ main {
                 span {
                     margin-right: 16px;
                 }
+            }
+        }
+        #load_more{
+            .load_more{
+                cursor: pointer;
             }
         }
         .sales_price {
@@ -182,26 +227,46 @@ main {
                     -webkit-border-radius: 4px;
                     font-size: 14px;
                     height: 50px;
+                    margin-right: 8px;
                     line-height: 40px;
                 }
                 input {
-                    margin-left: 20px;
-                    margin-top: 2px;
+                    margin: 2px 8px auto 20px;
                     border-radius: 4px;
                     -moz-border-radius: 4px;
                     -webkit-border-radius: 4px;
                     height: 50px;
                     width: 140px;
                     border: 1px solid #cccccc;
+                    &[type=checkbox]{
+                        width: 20px;
+                        float: left;
+                    }
+                }
+                label{
+                    vertical-align:middle;
                 }
                 .date {
+                    position: relative;
+
                     input {
+                        margin-left: 0;
+                        width: 180px;
                     }
-                    img {
+                    .calendarIcon{
+                        position: absolute;
+                        content: '';
+                        z-index: 10;
+                        width: 24px;
+                        height: 24px;
+                        right: 18px;
+                        top: 50%;
+                        margin-top: -12px;
+                        background: url('/static/images/common/calendar_icon.png');
                     }
                 }
             }
-            .lease {
+            .lease,.containFee {
                 margin-top: 20px;
             }
         }
@@ -243,6 +308,7 @@ main {
         }
         .submit {
             width: 100%;
+
             .content {
                 width: 85%;
                 .headline {
@@ -265,6 +331,7 @@ main {
                     width: 88%;
                     li {
                         float: left;
+
                     }
                 }
             }
@@ -300,11 +367,22 @@ main {
             background-color: #e60012;
         }
         .facilities {
-            span {
-                color: #999999;
-                font-size: 16px;
-                margin-right: 44px;
+            li{
+                width: 110px;
+                display: block;
+                height: 50px;
+                line-height: 50px;
+                input{
+                }
+                label {
+                    color: #999999;
+                    font-size: 16px;
+                    vertical-align: middle;
+                }
             }
+        }
+        #more_region_highlight_handler>img{
+            cursor: pointer;
         }
         .block_description {
             width: 80%;
@@ -316,6 +394,7 @@ main {
             -webkit-border-radius: 4px;
             border: 1px solid #cccccc;
             overflow: hidden;
+            cursor: pointer;
             ul {
 
                 li {

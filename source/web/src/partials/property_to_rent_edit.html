@@ -1,7 +1,7 @@
 <!--在Web上新建出租房信息和编辑出租房信息都共用这个模板-->
 <div class="route" data-route="step1">
-    <div class="title">{{_('房屋出租')}}</div>
-    <div class="content">
+    <div class="mainTitle">{{_('房屋出租')}}</div>
+    <form class="content" id="form1">
         <div class="step">
             <div class="line"></div>
             <div class="start">
@@ -30,7 +30,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="title">
                         <div class="text">{{_('房产类型')}}</div>
                     </td>
                     <td id="propertyType">
@@ -50,7 +50,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="title">
                         <div class="text">{{_('出租类型')}}</div>
                     </td>
                     <td id="rentalType">
@@ -68,14 +68,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <div class="text">
+                    <td class="title">
+                        <label class="text" for="postcode">
                             {{_('Postcode')}}
-                        </div>
+                        </label>
                     </td>
                     <td>
                         <div class="postcode">
-                            <input id="postcode"/>
+                            <input id="postcode" id="text" name="postcode" data-validator="required, trim" data-name="postcode"/>
                             <button id="findAddress" type="button" class="find_address">
                                 {{_('查找地址')}}
                             </button>
@@ -86,14 +86,14 @@
                     </td>
                 </tr>
                 <tr id="address" style="display: none">
-                    <td>
+                    <td class="title">
                     </td>
                     <td>
                         <div class="address">
-                            <input placeholder="{{_('国家')}}" id="country">
-                            <input placeholder="{{_('城市')}}" id="city">
+                            <input placeholder="{{_('国家')}}" id="country" name="country" data-validator="required, trim" data-name="{{_('国家')}}">
+                            <input placeholder="{{_('城市')}}" id="city" name="city" data-validator="required, trim" data-name="{{_('城市')}}">
                             <!--<input placeholder="{{_('街区')}}" id="unit_number">-->
-                            <input placeholder="{{_('街道')}}" id="street">
+                            <input placeholder="{{_('街道')}}" id="street" name="street" data-validator="required, trim" data-name="{{_('街道')}}">
                             <input placeholder="{{_('小区')}}" id="community">
                             <input placeholder="{{_('楼层')}}" id="floor">
                             <input placeholder="{{_('房间号')}}" id="house_name">
@@ -102,6 +102,40 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="title">
+                        <div class="text">{{_('租金')}}</div>
+
+                    </td>
+                    <td class="sales_price">
+                        <div>
+                            <select id="unit">
+                                <option value="CNY" selected>{{_('人民币')}}</option>
+                                <option value="GBP">{{_('英镑')}}</option>
+                                <option value="USD">{{_('美元')}}</option>
+                                <option value="EUR">{{_('欧元')}}</option>
+                                <option value="HKD">{{_('港币')}}</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input id="price" name="price" data-validator="required, trim" data-name="{{_('租金')}}">{{_('/周')}}
+                        </div>
+                        <div class="lease" id="lease">
+                            <select>
+                                %for index, deposit_type in enumerate(deposit_type_list):
+                                <option value="{{deposit_type.get('id')}}">{{deposit_type.get('value')}}</option>
+                                %end
+                            </select>
+                        </div>
+                        <div class="containFee">
+                            <input id="containFee" type="checkbox" value=""/>
+                            <label for="containFee">是否包水电网费</label>
+                        </div>
+                        <div id="sales_price_error" class="error">
+                            {{_('请填写租金')}}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="title">
                     <td>
                         <div class="text">
                             {{_('房屋户型')}}
@@ -151,37 +185,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <div class="text">{{_('租金')}}</div>
-
+                    <td class="title">
+                        <!--如果用户选择出租类型为整租：-->
+                        <label class="text" data-show="entireHouse" for="roomSize">{{_('房屋面积')}}</label>
+                        <!--如果用户选择出租类型为单间：-->
+                        <label class="text" data-show="singleRoom" for="roomSize">{{_('房间面积')}}</label>
                     </td>
-                    <td class="sales_price">
+                    <td>
                         <div>
-                            <select id="unit">
-                                <option value="CNY" selected>{{_('人民币')}}</option>
-                                <option value="GBP">{{_('英镑')}}</option>
-                                <option value="USD">{{_('美元')}}</option>
-                                <option value="EUR">{{_('欧元')}}</option>
-                                <option value="HKD">{{_('港币')}}</option>
-                            </select>
-                        </div>
-                        <div><input id="price">{{_('/周')}}</div>
-                        <div class="lease" id="lease">
-                            <select>
-                                %for index, deposit_type in enumerate(deposit_type_list):
-                                <option value="{{deposit_type.get('id')}}">{{deposit_type.get('value')}}</option>
-                                %end
-                            </select>
-                        </div>
-                        <div id="sales_price_error" class="error">
-                            {{_('请填写租金')}}
+                            <input type="text" id="roomSize" name="roomSize" data-validator="required, trim" data-name="{{_('面积')}}"/>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="title">
                         <div class="text">{{_('租期')}}</div>
-
                     </td>
                     <td class="sales_price">
                         <div id="rent_period">
@@ -196,8 +214,7 @@
                         </div>
                         <div>
                             <div class="date">
-                                <input id="rentPeriodStartDate" type="text">
-                                <!--<img src="property_to_rent_create.html">-->
+                                <input id="rentPeriodStartDate" type="text"/><i class="calendarIcon"></i>
                             </div>
                         </div>
                         <div id="date_error" class="error">
@@ -247,7 +264,7 @@
             <hr class="divider"/>
             <table class="submit">
                 <tr>
-                    <td>
+                    <td class="title">
                         <div class="text">
                             {{_('标题')}}
                         </div>
@@ -257,7 +274,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="title">
                         <div class="text">
                             {{_('描述')}}
                         </div>
@@ -266,24 +283,40 @@
                         <textarea class="description" id="description"></textarea>
                     </td>
                 </tr>
-                <tr>
-                    <td>
+                <tr class="facilitiesBox">
+                    <td class="title">
                         <div class="text">
-                            {{_('设施')}}
+                            {{_('居家设施')}}
                         </div>
                     </td>
                     <td class="content">
-                        <ul class="facilities">
+                        <ul class="facilities indoorFacilities clearfix">
                             %for index, facility in enumerate(indoor_facility_list):
                             <li>
-                                <input type="checkbox" value="{{facility.get('id')}}"><span>{{facility.get('value')}}</span>
+                                <input type="checkbox" value="{{facility.get('id')}}" id="{{facility.get('id')}}"><label for="{{facility.get('id')}}">{{facility.get('value')}}</label>
+                            </li>
+                            %end
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="facilitiesBox">
+                    <td class="title">
+                        <div class="text">
+                            {{_('社区设施')}}
+                        </div>
+                    </td>
+                    <td class="content">
+                        <ul class="facilities communityFacilities clearfix">
+                            %for index, facility in enumerate(community_facility_list):
+                            <li>
+                                <input type="checkbox" value="{{facility.get('id')}}" id="{{facility.get('id')}}"><label for="{{facility.get('id')}}">{{facility.get('value')}}</label>
                             </li>
                             %end
                         </ul>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="title">
                         <div class="text">
                             {{_('街区描述')}}
                         </div>
@@ -322,5 +355,5 @@
         <div style="text-align: center">
             <button class="submit_button" id="submit">{{_('预览并发布')}}</button>
         </div>
-    </div>
+    </form>
 </div>
