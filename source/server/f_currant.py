@@ -67,6 +67,40 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         time.sleep(10)
         self.logger.debug("Test for DB upgrade 5, nothing changed.")
 
+    def v6(self, m):
+        self.logger.debug("Migrating property.zipcode_index => report_id")
+        property_db = f_app.property.get_database(m)
+        report_db = f_app.report.get_database(m)
+        report_zipcode_index_map = {}
+        for property in property_db.find({"zipcode_index": {"$exists": True}}):
+            if property["zipcode_index"] not in report_zipcode_index_map:
+                report = report_db.find_one({"zipcode_index": property["zipcode_index"]})
+                if report is None:
+                    self.logger.warning("report not found for zipcode_index", property["zipcode_index"], "while processing property", str(property["_id"]), exc_info=False)
+                    report_zipcode_index_map[property["zipcode_index"]] = None
+                else:
+                    report_zipcode_index_map[property["zipcode_index"]] = report["_id"]
+
+            if report_zipcode_index_map[property["zipcode_index"]]:
+                self.logger.debug("updating report_id", str(report_zipcode_index_map[property["zipcode_index"]]), "for property", str(property["_id"]))
+                property_db.update({"_id": property["_id"]}, {"$set": {"report_id": report_zipcode_index_map[property["zipcode_index"]]}, "$unset": {"zipcode_index": ""}})
+
+        self.logger.debug("Migrating item.zipcode_index => report_id")
+        item_db = f_app.shop.item.get_database(m)
+        for item in item_db.find({"zipcode_index": {"$exists": True}}):
+            if item["zipcode_index"] not in report_zipcode_index_map:
+                report = report_db.find_one({"zipcode_index": item["zipcode_index"]})
+                if report is None:
+                    self.logger.warning("report not found for zipcode_index", item["zipcode_index"], "while processing item", str(item["_id"]), exc_info=False)
+                    report_zipcode_index_map[item["zipcode_index"]] = None
+                else:
+                    report_zipcode_index_map[item["zipcode_index"]] = report["_id"]
+
+            if report_zipcode_index_map[item["zipcode_index"]]:
+                self.logger.debug("updating report_id", str(report_zipcode_index_map[item["zipcode_index"]]), "for item", str(item["_id"]))
+                item_db.update({"_id": item["_id"]}, {"$set": {"report_id": report_zipcode_index_map[property["zipcode_index"]]}, "$unset": {"zipcode_index": ""}})
+
+
 currant_mongo_upgrade()
 
 

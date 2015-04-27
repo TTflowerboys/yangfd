@@ -22,7 +22,6 @@ logger = logging.getLogger(__name__)
     per_page=int,
     time=datetime,
     category=(list, None, "enum:news_category"),
-    zipcode_index=str,
     category_slugs=(list, None, str),
     country='enum:country',
 ))
@@ -42,7 +41,6 @@ def news_list(params):
 @f_api('/news/add', params=dict(
     title=('i18n', None, str),
     content=('i18n', None, str),
-    zipcode_index=str,
     category=(list, True, "enum:news_category"),
     country="enum:country",
     city="enum:city",
@@ -55,7 +53,6 @@ def news_list(params):
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'operation', 'jr_operation'])
 def news_add(user, params):
     """
-    ``zipcode_index`` is the key related to properties, internal use only.
     ``link`` is the source link, not the link to itself.
     """
     params["blog_id"] = ObjectId(f_app.blog.get_by_slug(f_app.common.blog_slug)['id'])
@@ -76,7 +73,6 @@ def news_get(news_id):
     street=('i18n', None, str),
     images=(list, None, str, None, "replaces"),
     link=(str, None),
-    zipcode_index=(str, None),
     slug=(str, None),
     summary=('i18n', None, str),
 ))

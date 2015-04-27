@@ -84,8 +84,8 @@ def property_get(property_id, user):
 
     report = None
 
-    if property.get('zipcode_index') and property.get('country').get('slug') == 'GB':
-        report = f_app.i18n.process_i18n(currant_data_helper.get_report(property.get('zipcode_index')))
+    if property.get('report_id') and property.get('country').get('slug') == 'GB':
+        report = f_app.i18n.process_i18n(currant_data_helper.get_report(property.get('report_id')))
 
     title = _(property.get('name', '房产详情'))
     if property.get('city') and property.get('city').get('value'):
