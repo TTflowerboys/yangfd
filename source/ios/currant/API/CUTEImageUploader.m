@@ -13,6 +13,8 @@
 #import "CUTEConfiguration.h"
 #import "CUTEDataManager.h"
 #import "CUTECommonMacro.h"
+#import "AssetsLibraryProvider.h"
+
 
 @interface CUTEImageUploader () {
 
@@ -58,22 +60,7 @@
     return request;
 }
 
-- (BFTask *)uploadImageAsset:(ALAsset *)asset {
-    NSString *assetURLStr = [[asset valueForProperty:ALAssetPropertyAssetURL] absoluteString];
-    if (!IsNilNullOrEmpty(assetURLStr)) {
-         NSString *urlStr = [[CUTEDataManager sharedInstance] getImageURLStringForAssetURLString:assetURLStr];
-        if (!IsNilNullOrEmpty(urlStr)) {
-            return [BFTask taskWithResult:urlStr];
-        }
-    }
-
-#warning DEBUG_CODE
-#ifdef DEBUG
-    NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:[asset thumbnail]], 1.0);
-#else
-    NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]], 1.0);
-#endif
-
+- (BFTask *)uploadData:(NSData *)imageData assetURLString:(NSString *)assetURLStr {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if (imageData) {
         if (!_imageUploader) {
@@ -99,6 +86,46 @@
         [tcs setResult:nil];
     }
     return tcs.task;
+
+}
+
+- (BFTask *)uploadImageAsset:(ALAsset *)asset {
+    NSString *assetURLStr = [[asset valueForProperty:ALAssetPropertyAssetURL] absoluteString];
+    if (!IsNilNullOrEmpty(assetURLStr)) {
+         NSString *urlStr = [[CUTEDataManager sharedInstance] getImageURLStringForAssetURLString:assetURLStr];
+        if (!IsNilNullOrEmpty(urlStr)) {
+            return [BFTask taskWithResult:urlStr];
+        }
+    }
+    //Use png data for orientation http://stackoverflow.com/questions/22308921/fix-ios-picture-orientation-after-upload-php
+    NSData *imageData = UIImagePNGRepresentation([UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]]);
+
+    return [self uploadData:imageData assetURLString:assetURLStr];
+}
+
+- (BFTask *)uploadImageWithAssetURLString:(NSString*)assetURLStr {
+    if (!IsNilNullOrEmpty(assetURLStr)) {
+        NSString *urlStr = [[CUTEDataManager sharedInstance] getImageURLStringForAssetURLString:assetURLStr];
+        if (!IsNilNullOrEmpty(urlStr)) {
+            return [BFTask taskWithResult:urlStr];
+        }
+    }
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
+        [tcs setResult:asset];
+    } failureBlock:^(NSError *error) {
+        [tcs setError:error];
+    }];
+    return [[tcs task] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            return task;
+        }
+        else {
+            //Use png data for orientation http://stackoverflow.com/questions/22308921/fix-ios-picture-orientation-after-upload-php
+            NSData *imageData = UIImagePNGRepresentation([UIImage imageWithCGImage:[[task.result defaultRepresentation] fullResolutionImage]]);
+            return [self uploadData:imageData assetURLString:assetURLStr];
+        }
+    }];
 }
 
 

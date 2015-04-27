@@ -25,7 +25,6 @@
 #import "CUTERentPriceForm.h"
 #import "CUTEAreaForm.h"
 #import "CUTEPropertyInfoForm.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEFormImagePickerCell.h"
 #import "CUTEPropertyMoreInfoViewController.h"
@@ -40,7 +39,7 @@
 
 @interface CUTEPropertyInfoViewController () {
 
-//    CUTEImageUploader *_imageUploader;
+    CUTEImageUploader *_imageUploader;
 
     CUTERentAreaViewController *_editAreaViewController;
 
@@ -58,6 +57,14 @@
     if (self) {
     }
     return self;
+}
+
+- (CUTEImageUploader *)imageUploader {
+    if (!_imageUploader) {
+
+        _imageUploader = [CUTEImageUploader new];
+    }
+    return _imageUploader;
 }
 
 - (void)viewDidLoad {
@@ -211,6 +218,28 @@
     CUTEProperty *property = ticket.property;
     if (ticket && property) {
         Sequencer *sequencer = [Sequencer new];
+
+        if (!IsArrayNilOrEmpty([property realityImages])) {
+            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                [[BFTask taskForCompletionOfAllTasksWithResults:[[property realityImages] map:^id(NSString *object) {
+                    if ([object hasPrefix:@"assets-library:"]) {
+                        return [[self imageUploader] uploadImageWithAssetURLString:object];
+                    }
+                    else {
+                        return [BFTask taskWithResult:object];
+                    }
+                }]] continueWithBlock:^id(BFTask *task) {
+                    if (task.result) {
+                        property.realityImages = task.result;
+                        completion(task.result);
+                    }
+                    else {
+                        [SVProgressHUD showErrorWithError:task.error];
+                    }
+                    return nil;
+                }];
+            }];
+        }
         
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [[self addProperty] continueWithBlock:^id(BFTask *task) {
@@ -302,6 +331,8 @@
     }];
     return task;
 }
+
+
 
 
 
