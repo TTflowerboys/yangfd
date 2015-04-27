@@ -353,6 +353,7 @@ property_params = dict(
     indoor_facility=(list, None, 'enum:indoor_facility'),
     community_facility=(list, None, 'enum:community_facility'),
     slug=str,
+    user_generated=bool,
 
     # Listing options
     status=str,
