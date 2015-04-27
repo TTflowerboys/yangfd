@@ -43,7 +43,7 @@
 
     window.setupOrderForm = function(container, submitSuccessCallBack) {
 
-        function enableSubmitButton(enable) {
+        /*function enableSubmitButton(enable) {
             var button = container.find('button[type=submit]')
             if (enable) {
                 button.prop('disabled', false);
@@ -53,7 +53,7 @@
                 button.prop('disabled', true);
                 button.removeClass('red').addClass('gray')
             }
-        }
+        }*/
 
         //remove bind event first Bug #5515
         container.find('form[name=order]').off('submit').submit(function (e) {
