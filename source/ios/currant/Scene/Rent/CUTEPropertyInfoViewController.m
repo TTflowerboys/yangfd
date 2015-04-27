@@ -292,7 +292,10 @@
     property.propertyType = propertyTypeField.value;
     FXFormField *bedroomCountField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
     property.bedroomCount = [bedroomCountField.value integerValue];
-    BFTask *task = [[[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:[property toParams] resultClass:nil] continueWithBlock:^id(BFTask *task) {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[property toParams]];
+    //user_generated = true, so that even use addmin can use the api to generated ordinary property can visit by everyone
+    //[params setObject:@"true" forKey:@"user_generated"];
+    BFTask *task = [[[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
         NSString *propertyId = task.result;
         property.identifier = propertyId;
         return task;
