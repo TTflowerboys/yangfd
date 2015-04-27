@@ -21,11 +21,11 @@
          shadowScale: 0.94
          },*/
         onInit: function (swiper, direction) {
-            //var index = swiper.activeIndex
-            //var height = $(window).innerHeight()
-            createPhotoListSwiper()
-
-            //obj.eq(index).find('.animate').removeClass('hide')
+            if($('.pagePhoto').length > 0){
+                createPhotoListSwiper()
+            }else{
+                allInitHanddler()
+            }
         },
         onTransitionEnd: function (swiper, direction) {
             //console.log(new Date + ': onSlideChangeEnd!')
@@ -55,8 +55,7 @@
             //nextButton: 'nextButton',
             //prevButton: 'prevButton',
             onInit: function(){
-                var obj = $('.swiper-slide')
-                obj.not('.swiper-slide-visible').find('.animate').addClass('hide')
+                allInitHanddler()
             }
         });
         $('.photoThumbs').siblings('.arrowButton').on('click', function(){
@@ -66,15 +65,16 @@
         photoSwiper.params.control = photoThumbsSwiper;
         photoThumbsSwiper.params.control = photoSwiper;
     }
+    function allInitHanddler(){
+        var obj = $('.swiper-slide')
+        obj.not('.swiper-slide-visible').find('.animate').addClass('hide')
+    }
     $(window).load(function(){
         //所有资源加载完毕后：
         function loadCallback(){
-
             $('.loadingCover').css({
                 height: $(window).height()
             })
-
-
             $('.loadingCover').fadeOut(200, function(){
                 $('body').removeClass('loading')
                 $('.swiper-slide').eq(0).find('.animate').removeClass('hide')
