@@ -23,10 +23,13 @@
 #import "CUTEConfiguration.h"
 #import <UIAlertView+Blocks.h>
 #import "CUTENotificationKey.h"
+#import "CUTERentTickePublisher.h"
 
 @interface CUTERentContactViewController () {
 
     BOOL _userVerified;
+
+    CUTERentTickePublisher *_publisher;
 
 }
 
@@ -142,25 +145,25 @@
     user.country = form.country;
     user.phone = form.phone;
     CUTETicket *ticket = self.ticket;
-    Sequencer *sequencer = [Sequencer new];
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:
-          @{@"status": kTicketStatusToRent} resultClass:nil] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
-                [SVProgressHUD showErrorWithError:task.error];
-                return nil;
-            } else {
-                completion(task.result);
-                [SVProgressHUD dismiss];
-                [self.navigationController popToRootViewControllerAnimated:NO];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
-                });
-                return nil;
-            }
-        }];
+
+    if (!_publisher) {
+        _publisher = [CUTERentTickePublisher new];
+    }
+
+    [[_publisher publish:ticket] continueWithBlock:^id(BFTask *task) {
+        if (task.error || task.exception || task.isCancelled) {
+            [SVProgressHUD showErrorWithError:task.error];
+            return nil;
+        } else {
+            [SVProgressHUD dismiss];
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
+            });
+            return nil;
+        }
+        return nil;
     }];
-    [sequencer run];
 }
 
 @end
