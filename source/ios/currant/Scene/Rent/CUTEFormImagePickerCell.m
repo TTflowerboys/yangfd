@@ -23,6 +23,7 @@
 #import <Bolts.h>
 #import <Sequencer/Sequencer.h>
 #import <UIImageView+AFNetworking.h>
+#import "UIImageView+Assets.h"
 
 @interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate, MWPhotoBrowserDelegate>
 {
@@ -81,10 +82,9 @@
 
 }
 
-- (BFTask *)getAssetsFromImageURLArray:(NSArray *)array {
+- (BFTask *)getAssetsFromURLArray:(NSArray *)array {
     return [BFTask taskForCompletionOfAllTasksWithResults:[array map:^id(NSString *object) {
-        NSString *assetStr = [[CUTEDataManager sharedInstance] getAssetURLStringForImageURLString:object];
-        return [self getAssetFromURLString:assetStr];
+        return [self getAssetFromURLString:object];
     }]];
 }
 
@@ -132,13 +132,7 @@
         [items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 
             UIImageView *imageView = [[UIImageView alloc] init];
-            if ([obj isKindOfClass:[ALAsset class]]) {
-                UIImage *image = [UIImage imageWithCGImage:((ALAsset *)obj).thumbnail];
-                [imageView setImage:image];
-            }
-            else if ([obj isKindOfClass:[NSString class]]) {
-                [imageView setImageWithURL:[NSURL URLWithString:obj]];
-            }
+            [imageView setImageWithAssetURL:[NSURL URLWithString:obj]];
             [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onImageTapped:)]];
             imageView.userInteractionEnabled = YES;
             imageView.attachment = [NSNumber numberWithInteger:idx];
@@ -196,8 +190,12 @@
     return _imageUploader;
 }
 
+- (ALAssetsLibrary *)assetLibrary {
+    return [self assetsPickerController].assetsLibrary;
+}
+
 - (void)showImagePickerFrom:(UIViewController *)controller {
-    [[self getAssetsFromImageURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
+    [[self getAssetsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
         [self assetsPickerController].selectedAssets = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
         [controller presentViewController:[self assetsPickerController] animated:YES completion:^ {
         }];
@@ -249,21 +247,15 @@
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
-    [SVProgressHUD show];
-    [[BFTask taskForCompletionOfAllTasksWithResults:[assets map:^id(ALAsset *object) {
+    [self updateImages:[assets map:^id(ALAsset *object) {
+        return [[object valueForProperty:ALAssetPropertyAssetURL] absoluteString];
+    }]];
+    [self update];
+    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+
+    [BFTask taskForCompletionOfAllTasksWithResults:[assets map:^id(ALAsset *object) {
         return [[self imageUploader] uploadImageAsset:object];
-    }]] continueWithBlock:^id(BFTask *task) {
-        if (task.error || task.exception || task.isCancelled) {
-            [SVProgressHUD showErrorWithError:task.error];
-        }
-        else {
-            [self updateImages:task.result];
-            [self update];
-            [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-            [SVProgressHUD dismiss];
-        }
-        return nil;
-    }];
+    }]];
 }
 
 //TODO need image count limit?
@@ -349,39 +341,23 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
 
-    [SVProgressHUD show];
-    Sequencer *sequencer = [Sequencer new];
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        ALAssetsLibrary *library = [self assetsPickerController].assetsLibrary;
-        [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
-            if (error) {
-                [SVProgressHUD showErrorWithError:error];
-            } else {
-                [library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-                    completion(asset);
-                } failureBlock:^(NSError *error) {
-                    [SVProgressHUD showErrorWithError:error];
-                }];
-            }
-        }];
-    }];
+    [SVProgressHUD showWithStatus:STR(@"保存到本地")];
+    ALAssetsLibrary *library = [self assetsPickerController].assetsLibrary;
+    [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+        if (error) {
+            [SVProgressHUD showErrorWithError:error];
+        } else {
+            [self addImage:[assetURL absoluteString]];
+            [self update];
+            [picker dismissViewControllerAnimated:YES completion:NULL];
+            [SVProgressHUD dismiss];
 
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[self imageUploader] uploadImageAsset:result] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else {
-                [self addImage:task.result];
-                [self update];
-                [picker dismissViewControllerAnimated:YES completion:NULL];
-                [SVProgressHUD dismiss];
-            }
-            return nil;
-        }];
+            [library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                [[self imageUploader] uploadImageAsset:asset];
+            } failureBlock:^(NSError *error) {
+            }];
+        }
     }];
-
-    [sequencer run];
 }
 
 @end

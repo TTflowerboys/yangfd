@@ -184,5 +184,15 @@
 }
 
 .hiddenOnMobile {
-    display:none;
+    @media @phone {
+        display:none !important;
+    }
+}
+
+.hiddenOnPCWeb {
+    display: none !important;
+
+    @media @phone {
+        display: inherit !important;
+    }
 }

@@ -47,13 +47,12 @@
     [SVProgressHUD show];
     [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
-            [SVProgressHUD dismiss];
             CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
             [form setRentTypeList:task.result];
             CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
             controller.formController.form = form;
             [self.navigationController pushViewController:controller animated:YES];
-
+            [SVProgressHUD dismiss];
         }
         else {
             [SVProgressHUD showErrorWithError:task.error];
@@ -104,7 +103,6 @@
             return nil;
         }];
     }
-
 }
 
 @end

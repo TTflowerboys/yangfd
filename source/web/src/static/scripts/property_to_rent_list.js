@@ -30,6 +30,12 @@
     var propertyTypeFromURL = window.team.getQuery('property_type', location.href)
     if (propertyTypeFromURL) {
         selectPropertyType(propertyTypeFromURL)
+
+        selectTagFilter('#propertyTypeTag', propertyTypeFromURL)
+
+        if (window.team.isPhone()) {
+            showTagsOnMobile()
+        }
     }
 
     var rentTypeFromURL = window.team.getQuery('rent_type', location.href)
@@ -278,6 +284,20 @@
         }
         return ''
     }
+
+    $('#tags #propertyTypeTag').on('click', '.toggleTag', function (event) {
+        var $item = $(event.target)
+        var alreadySelected = $item.hasClass('selected')
+        var $parent = $(event.target.parentNode)
+        $parent.find('.toggleTag').removeClass('selected')
+
+        if (!alreadySelected) {
+            $item.addClass('selected')
+        }
+
+        ga('send', 'event', 'rent_list', 'change', 'change-property-type', $item.text())
+        location.href = window.team.setQuery('property_type', getSelectedTagFilterDataId('#propertyTypeTag'))
+    })
 
     $('#tags #rentBudgetTag').on('click', '.toggleTag', function (event) {
         var $item = $(event.target)

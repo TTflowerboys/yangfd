@@ -32,6 +32,8 @@
 
 - (NSArray *)getAllUnfinishedRentTickets;
 
+- (void)deleteUnfinishedRentTicket:(CUTETicket *)ticket;
+
 - (void)saveImageURLString:(NSString *)imageURLStr forAssetURLString:(NSString *)urlStr;
 
 - (NSString *)getImageURLStringForAssetURLString:(NSString *)urlStr;

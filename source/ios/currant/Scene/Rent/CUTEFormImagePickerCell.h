@@ -8,6 +8,7 @@
 
 #import "FXForms.h"
 #import "CUTETicket.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface CUTEFormImagePickerCell : FXFormImagePickerCell
 

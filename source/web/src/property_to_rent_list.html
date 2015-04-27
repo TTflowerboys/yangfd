@@ -87,6 +87,21 @@
 
             <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
 
+
+            %if rent_budget_list:
+                <div class="propertyType hiddenOnPCWeb">
+                    <img class="propertyType_icon" alt="" src="/static/images/property_list/intention-tag.png"/>
+                    <h4 class="propertyType_title">{{_('房产类型')}}</h4>
+                    <div id="propertyTypeTag" class="inner">
+                        %for index, property_type in enumerate(property_type_list):
+                        <div class="toggleTag" data-id="{{property_type.get('id')}}">{{property_type.get('value')}}
+                        </div>
+                        %end
+                    </div>
+                </div>
+            %end
+
+            %if rent_budget_list:
                 <div class="rentalBudget">
                     <img class="rentalBudget_icon" alt="" src="/static/images/property_list/price-tag.png"/>
                     <h4 class="rentalBudget_title">{{_('租金')}}
@@ -96,12 +111,13 @@
                     </h4>
                     <div id="rentBudgetTag" class="inner">
                         %for index, rent_budget in enumerate(rent_budget_list):
-                            %if rent_budget.get('currency') == _.currency:
-                                <div class="toggleTag" data-id="{{rent_budget.get('id')}}" data-index="{{index}}">{{rent_budget.get('value')}}</div>
-                            %end
+                        %if rent_budget.get('currency') == _.currency:
+                        <div class="toggleTag" data-id="{{rent_budget.get('id')}}" data-index="{{index}}">{{rent_budget.get('value')}}</div>
+                        %end
                         %end
                     </div>
                 </div>
+            %end
 
 
             %if rent_period_list:
@@ -141,16 +157,6 @@
                 </div>
             %end
 
-            <!--<div class="propertyType">
-                <img class="propertyType_icon" alt="" src="/static/images/property_list/intention-tag.png"/>
-                <h4 class="propertyType_title">{{_('房产类型')}}</h4>
-                <div id="propertyTypeTag" class="inner">
-                    %for index, property_type in enumerate(property_type_list):
-                    <div class="toggleTag" data-id="{{property_type.get('id')}}">{{property_type.get('value')}}
-                    </div>
-                    %end
-                </div>
-            </div>-->
         </div>
         <button id="showTags"  class="showTags textButton" data-state="closed">
             <label>{{_('更多选择')}}</label>

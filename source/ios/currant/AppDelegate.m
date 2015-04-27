@@ -256,7 +256,6 @@
                 }
                 return nil;
             }];
-
         }
     }
 }
@@ -266,6 +265,7 @@
 - (void)onReceiveTicketPublish:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
+    [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
     CUTERentShareViewController *shareController = [CUTERentShareViewController new];
     shareController.formController.form = [CUTERentShareForm new];
     shareController.ticket = ticket;

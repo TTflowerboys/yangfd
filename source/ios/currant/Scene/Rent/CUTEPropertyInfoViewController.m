@@ -11,8 +11,6 @@
 #import "CUTERentContactForm.h"
 #import "CUTEDataManager.h"
 #import <Bolts/Bolts.h>
-#import "CUTEAPIManager.h"
-#import <Sequencer.h>
 #import "CUTEProperty.h"
 #import <UIKit/UIKit.h>
 #import <BBTRestClient.h>
@@ -25,26 +23,25 @@
 #import "CUTERentPriceForm.h"
 #import "CUTEAreaForm.h"
 #import "CUTEPropertyInfoForm.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEFormImagePickerCell.h"
 #import "CUTEPropertyMoreInfoViewController.h"
 #import "CUTERentAreaViewController.h"
-#import "CUTEImageUploader.h"
 #import "CUTEUnfinishedRentTicketViewController.h"
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentTypeListForm.h"
 #import "CUTERentAddressMapViewController.h"
 #import "CUTENotificationKey.h"
+#import "CUTERentTickePublisher.h"
 
 
 @interface CUTEPropertyInfoViewController () {
 
-//    CUTEImageUploader *_imageUploader;
-
     CUTERentAreaViewController *_editAreaViewController;
 
     CUTERentPriceViewController *_editRentPriceViewController;
+
+    CUTERentTickePublisher *_publisher;
 }
 
 @end
@@ -206,103 +203,59 @@
         return;
     }
 
-    [SVProgressHUD show];
+    if (!_publisher) {
+        _publisher = [CUTERentTickePublisher new];
+    }
+
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
+
+
     if (ticket && property) {
-        Sequencer *sequencer = [Sequencer new];
-        
-        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[self addProperty] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
-                    [SVProgressHUD showErrorWithError:task.error];
-                    return nil;
-                } else {
-                    property.identifier = task.result;
-                    completion(task.result);
-                    return nil;
-                }
-            }];
-        }];
 
-        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/rent_ticket/add/" parameters:[ticket toParams] resultClass:nil] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
-                    [SVProgressHUD showErrorWithError:task.error];
-                    return nil;
-                } else {
-                    ticket.identifier = task.result;
-                    completion(task.result);
-                    return nil;
-                }
-            }];
-        }];
+        FXFormField *propertyTypeField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        property.propertyType = propertyTypeField.value;
+        FXFormField *bedroomCountField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
+        property.bedroomCount = [bedroomCountField.value integerValue];
 
-        //user logged in
         if ([CUTEDataManager sharedInstance].user) {
-            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:
-                  @{@"status": kTicketStatusToRent} resultClass:nil] continueWithBlock:^id(BFTask *task) {
-                    if (task.error || task.exception || task.isCancelled) {
-                        [SVProgressHUD showErrorWithError:task.error];
-                        return nil;
-                    } else {
-                        completion(task.result);
-                        [SVProgressHUD dismiss];
-                        [self.navigationController popToRootViewControllerAnimated:NO];
+            [SVProgressHUD showWithStatus:STR(@"发布中...")];
+            [[_publisher publish:ticket] continueWithBlock:^id(BFTask *task) {
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                else {
+                    [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
+                    [self.navigationController popToRootViewControllerAnimated:NO];
 
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
-                        });
-                        return nil;
-                    }
-                }];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
+                    });
+                }
+                return nil;
             }];
         }
         else {
-            // no user
-            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithBlock:^id(BFTask *task) {
-                    if (task.error || task.exception || task.isCancelled) {
-                        [SVProgressHUD showErrorWithError:task.error];
-                        return nil;
-                    } else {
-                        CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
-                        contactViewController.ticket = self.ticket;
-                        CUTERentContactForm *form = [CUTERentContactForm new];
-                        [form setAllCountries:task.result];
-                        //set default country same with the property
-                        form.country = property.country;
-                        contactViewController.formController.form = form;
-                        [self.navigationController pushViewController:contactViewController animated:YES];
-                        [SVProgressHUD dismiss];
-                        return nil;
-                    }
-                }];
+            [SVProgressHUD show];
+            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithBlock:^id(BFTask *task) {
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                    return nil;
+                } else {
+                    CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
+                    contactViewController.ticket = self.ticket;
+                    CUTERentContactForm *form = [CUTERentContactForm new];
+                    [form setAllCountries:task.result];
+                    //set default country same with the property
+                    form.country = property.country;
+                    contactViewController.formController.form = form;
+                    [self.navigationController pushViewController:contactViewController animated:YES];
+                    [SVProgressHUD dismiss];
+                    return nil;
+                }
             }];
         }
-        [sequencer run];
     }
 }
-
-- (BFTask *)addProperty {
-    CUTETicket *ticket = self.ticket;
-    CUTEProperty *property = ticket.property;
-    FXFormField *propertyTypeField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-    property.propertyType = propertyTypeField.value;
-    FXFormField *bedroomCountField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
-    property.bedroomCount = [bedroomCountField.value integerValue];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[property toParams]];
-    //user_generated = true, so that even use addmin can use the api to generated ordinary property can visit by everyone
-    //[params setObject:@"true" forKey:@"user_generated"];
-    BFTask *task = [[[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
-        NSString *propertyId = task.result;
-        property.identifier = propertyId;
-        return task;
-    }];
-    return task;
-}
-
-
 
 @end

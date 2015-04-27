@@ -14,4 +14,6 @@
 
 - (BFTask *)uploadImageAsset:(ALAsset*)asset;
 
+- (BFTask *)uploadImageWithAssetURLString:(NSString*)assetURLStr;
+
 @end

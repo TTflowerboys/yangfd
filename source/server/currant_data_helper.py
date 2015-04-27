@@ -183,8 +183,8 @@ def get_property_related_news_list(property):
 # Report
 
 
-def get_report(zipcode_index):
-    report = f_app.report.output(f_app.report.search({"zipcode_index": {"$in": [zipcode_index]}}, per_page=1))
+def get_report(report_id):
+    report = f_app.report.output([report_id])
     if len(report):
         report = report[0]
     return report

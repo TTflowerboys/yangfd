@@ -10,6 +10,7 @@
 #import <UIImageView+AFNetworking.h>
 #import <BBTCommonMacro.h>
 #import <UIView+BBT.h>
+#import "UIImageView+Assets.h"
 
 @implementation BBTScrollImageView
 @synthesize scrollImageDelegate = _scrollImageDelegate;
@@ -39,16 +40,9 @@
 			imageView.contentMode = UIViewContentModeScaleAspectFill;
             imageView.clipsToBounds = YES;
             NSInteger index = i - 1;
-            id imageItem = [imagesArray objectAtIndex:index];
-            if (!IsNilNullOrEmpty(imageItem) && [imageItem isKindOfClass:[NSString class]])
-            {
-                [imageView setImageWithURL:[NSURL URLWithString:imageItem] placeholderImage:nil];
-            }
-            else if ([imageItem isKindOfClass:[UIImage class]])
-            {
-                [imageView setImage:imageItem];
-            }
-
+            NSString *imageItem = [imagesArray objectAtIndex:index];
+            [imageView setImageWithAssetURL:[NSURL URLWithString:imageItem]];
+            
 			CGRect rect = imageView.frame;
 			rect.size = CGSizeMake(self.frame.size.width, self.frame.size.height);
 			rect.origin = CGPointMake(curXLoc, 0);

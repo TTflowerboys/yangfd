@@ -13,6 +13,8 @@
 #import "CUTEArea.h"
 #import <CoreLocation/CoreLocation.h>
 
+#define kPropertyStatusDraft @"draft"
+
 @interface CUTEProperty : MTLModel <MTLJSONSerializing>
 
 @property (strong, nonatomic) NSString *identifier;

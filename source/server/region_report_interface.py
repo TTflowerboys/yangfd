@@ -9,6 +9,7 @@ import currant_data_helper
 logger = logging.getLogger(__name__)
 
 
+# TODO: make a new interface for new report
 @f_get('/region_report/<zipcode_index:re:[A-Z0-9]{2,3}>', '/region-report/<zipcode_index:re:[A-Z0-9]{2,3}>')
 @currant_util.check_ip_and_redirect_domain
 def region_report(zipcode_index):

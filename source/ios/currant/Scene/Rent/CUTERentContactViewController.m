@@ -23,10 +23,13 @@
 #import "CUTEConfiguration.h"
 #import <UIAlertView+Blocks.h>
 #import "CUTENotificationKey.h"
+#import "CUTERentTickePublisher.h"
 
 @interface CUTERentContactViewController () {
 
     BOOL _userVerified;
+
+    CUTERentTickePublisher *_publisher;
 
 }
 
@@ -38,8 +41,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = STR(@"联系方式");
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"发布到微信") style:UIBarButtonItemStylePlain target:self action:@selector(onRightButtonPressed:)];
-    self.navigationItem.rightBarButtonItem.enabled = false;
     UILabel * label = [UILabel new];
     NSString *str = STR(@"为保证资料真实性，请先填写个人信息再验证手机号");
     NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSForegroundColorAttributeName: HEXCOLOR(0x999999, 1.0)}];
@@ -131,7 +132,7 @@
 }
 
 
-- (void)onRightButtonPressed:(id)sender {
+- (void)submit {
 
     [SVProgressHUD showWithStatus:STR(@"发布中...")];
 
@@ -142,25 +143,25 @@
     user.country = form.country;
     user.phone = form.phone;
     CUTETicket *ticket = self.ticket;
-    Sequencer *sequencer = [Sequencer new];
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:
-          @{@"status": kTicketStatusToRent} resultClass:nil] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
-                [SVProgressHUD showErrorWithError:task.error];
-                return nil;
-            } else {
-                completion(task.result);
-                [SVProgressHUD dismiss];
-                [self.navigationController popToRootViewControllerAnimated:NO];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
-                });
-                return nil;
-            }
-        }];
+
+    if (!_publisher) {
+        _publisher = [CUTERentTickePublisher new];
+    }
+
+    [[_publisher publish:ticket] continueWithBlock:^id(BFTask *task) {
+        if (task.error || task.exception || task.isCancelled) {
+            [SVProgressHUD showErrorWithError:task.error];
+            return nil;
+        } else {
+            [SVProgressHUD dismiss];
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
+            });
+            return nil;
+        }
+        return nil;
     }];
-    [sequencer run];
 }
 
 @end
