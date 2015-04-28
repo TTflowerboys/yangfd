@@ -16,6 +16,8 @@
 #import "CUTEPropertyMoreInfoForm.h"
 #import "CUTEDataManager.h"
 #import "CUTERentTickePublisher.h"
+#import <UIAlertView+Blocks.h>
+#import "CUTENotificationKey.h"
 
 @implementation CUTEPropertyMoreInfoViewController
 
@@ -46,6 +48,16 @@
         }
 
         return nil;
+    }];
+}
+
+- (void)delete {
+    [UIAlertView showWithTitle:STR(@"删除草稿") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"确定")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (alertView.cancelButtonIndex != buttonIndex) {
+            [self.navigationController popToRootViewControllerAnimated:NO];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_DELETE object:nil userInfo:@{@"ticket": self.ticket}];
+        }
     }];
 }
 

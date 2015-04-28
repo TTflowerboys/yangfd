@@ -9,6 +9,7 @@
 #import "CUTEPropertyMoreInfoForm.h"
 #import "CUTECommonMacro.h"
 #import "CUTEPropertyFacilityViewController.h"
+#import "CUTEFormButtonCell.h"
 
 @implementation CUTEPropertyMoreInfoForm
 
@@ -18,6 +19,7 @@
              @{FXFormFieldKey: @"ticketDescription", FXFormFieldTitle:STR(@"详细描述"),FXFormFieldType:FXFormFieldTypeLongText, FXFormFieldDefaultValue:_ticketDescription? : @""},
              @{FXFormFieldKey: @"facility", FXFormFieldTitle:STR(@"房间设施"), FXFormFieldAction:@"editFacilities"},
 //                @{FXFormFieldKey: @"feature", FXFormFieldTitle:STR(@"街区亮点")},
+             @{FXFormFieldKey: @"delete", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"删除草稿"), FXFormFieldHeader: @"", FXFormFieldAction: @"delete"},
              ];
 }
 

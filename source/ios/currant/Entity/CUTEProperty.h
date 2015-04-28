@@ -14,6 +14,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 #define kPropertyStatusDraft @"draft"
+#define kPropertyStatusDeleted @"deleted"
 
 @interface CUTEProperty : MTLModel <MTLJSONSerializing>
 

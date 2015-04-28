@@ -21,4 +21,6 @@
 
 - (BFTask *)publishTicket:(CUTETicket *)ticket;
 
+- (BFTask *)deleteTicket:(CUTETicket *)ticket;
+
 @end

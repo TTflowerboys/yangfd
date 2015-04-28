@@ -139,6 +139,15 @@
     return tcs.task;
 }
 
+- (BFTask *)deleteTicket:(CUTETicket *)ticket {
+    ticket.status = kTicketStatusDeleted;
+    ticket.property.status = kPropertyStatusDeleted;
+    return [BFTask taskForCompletionOfAllTasks:
+            @[[self editProperty:ticket.property],
+              [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:ticket.toParams resultClass:nil]
+              ]];
+}
+
 - (BFTask *)editProperty:(CUTEProperty *)property {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
     [params setObject:@"true" forKey:@"user_generated"];

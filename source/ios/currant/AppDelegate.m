@@ -26,6 +26,7 @@
 #import "CUTERentShareViewController.h"
 #import "CUTERentShareForm.h"
 #import "CUTEUnfinishedRentTicketViewController.h"
+#import "CUTERentTickePublisher.h"
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <FLEXManager.h>
@@ -118,6 +119,7 @@
     [CUTEWxManager registerWeixinAPIKey:[CUTEConfiguration weixinAPPId]];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketDelete:) name:KNOTIF_TICKET_DELETE object:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
@@ -270,6 +272,14 @@
 }
 
 #pragma mark - Push Notification
+
+- (void)onReceiveTicketDelete:(NSNotification *)notif {
+    NSDictionary *userInfo = notif.userInfo;
+    CUTETicket *ticket = userInfo[@"ticket"];
+    [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
+    [[CUTERentTickePublisher sharedInstance] deleteTicket:ticket];
+    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:2] silent:YES];
+}
 
 - (void)onReceiveTicketPublish:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;

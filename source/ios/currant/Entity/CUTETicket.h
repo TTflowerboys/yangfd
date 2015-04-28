@@ -16,6 +16,7 @@
 
 #define kTicketStatusToRent @"to rent"
 #define kTicketStatusDraft @"draft"
+#define kTicketStatusDeleted @"deleted"
 
 @interface CUTETicket : MTLModel <MTLJSONSerializing>
 
