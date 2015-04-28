@@ -38,9 +38,7 @@
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.property.toParams];
-        [params setObject:@"true" forKey:@"user_generated"];
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        [[self editProperty:ticket.property] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [tcs setError:task.error];
             }
@@ -97,10 +95,7 @@
         }
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[property toParams]];
-            //user_generated = true, so that even use addmin can use the api to generated ordinary property can visit by everyone
-            [params setObject:@"true" forKey:@"user_generated"];
-            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
+            [[self editProperty:property] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [tcs setError:task.error];
                     return nil;
@@ -130,6 +125,21 @@
     }
 
     return tcs.task;
+}
+
+- (BFTask *)editProperty:(CUTEProperty *)property {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
+    [params setObject:@"true" forKey:@"user_generated"];
+    return [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier? : @"none" , @"/edit") parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        if (task.error || task.exception || task.isCancelled) {
+            return task;
+        } else {
+            if ([task.result isKindOfClass:[NSDictionary class]]) {
+                return [BFTask taskWithResult:task.result[@"id"]];
+            }
+            return task;
+        }
+    }];
 }
 
 @end
