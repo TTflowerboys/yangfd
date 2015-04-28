@@ -24,6 +24,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import <INTULocationManager.h>
 #import <Sequencer.h>
+#import "CUTERentTickePublisher.h"
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, UITextFieldDelegate>
 {
@@ -36,6 +37,9 @@
     UIButton *_userLocationButton;
 
     CLGeocoder *_geocoder;
+
+    CUTERentTickePublisher *_publisher;
+
 }
 @end
 
@@ -239,31 +243,54 @@
     }
     CUTETicket *currentTicket = self.ticket;
     if (currentTicket) {
-        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
-            if (!IsArrayNilOrEmpty(task.result)) {
-                CUTEPropertyInfoViewController *controller = [[CUTEPropertyInfoViewController alloc] init];
-                controller.ticket = self.ticket;
-                CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
-                form.propertyType = currentTicket.property.propertyType;
-                form.bedroom = currentTicket.property.bedroomCount;
-                [form setAllPropertyTypes:task.result];
-                controller.formController.form = form;
-                [self.navigationController pushViewController:controller animated:YES];
-
+        Sequencer *sequencer = [Sequencer new];
+        if (IsNilNullOrEmpty(currentTicket.identifier)) {
+            if (!_publisher) {
+                _publisher = [CUTERentTickePublisher new];
             }
-            else {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
+            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                [[_publisher createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
+                    if (task.error || task.exception || task.isCancelled) {
+                        [SVProgressHUD showErrorWithError:task.error];
+                    }
+                    else {
+                        currentTicket.identifier = task.result[@"ticket_id"];
+                        currentTicket.property.identifier = task.result[@"property_id"];
+                        completion(currentTicket);
+                    }
+                    return nil;
+                }];
+            }];
+        }
 
-            return nil;
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
+                if (!IsArrayNilOrEmpty(task.result)) {
+                    CUTEPropertyInfoViewController *controller = [[CUTEPropertyInfoViewController alloc] init];
+                    controller.ticket = self.ticket;
+                    CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
+                    form.propertyType = currentTicket.property.propertyType;
+                    form.bedroom = currentTicket.property.bedroomCount;
+                    [form setAllPropertyTypes:task.result];
+                    controller.formController.form = form;
+                    [self.navigationController pushViewController:controller animated:YES];
+
+                }
+                else {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                
+                return nil;
+            }];
         }];
+
+        [sequencer run];
     }
 }
 
 - (void)onMapLongPressed:(UIGestureRecognizer *)sender {
     if (sender.state  == UIGestureRecognizerStateBegan) {
         CGPoint touchPoint = [sender locationInView:_mapView];
-
         CUTEProperty *property = self.ticket.property;
         CLLocationCoordinate2D touchMapCoordinate = [_mapView convertPoint:touchPoint toCoordinateFromView:_mapView];
         CLLocation *location = [[CLLocation alloc] initWithLatitude:touchMapCoordinate.latitude longitude:touchMapCoordinate.longitude];
@@ -299,32 +326,6 @@
 
 - (BFTask *)updateAddress {
 
-#warning DEBUG_CODE
-#ifdef DEBUG
-    CUTEProperty *property = self.ticket.property;
-    NSArray *requiredEnums = @[@"country", @"city"];
-    return [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
-        return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
-    }]] continueWithSuccessBlock:^id(BFTask *task) {
-        if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
-            NSArray *coutries = [task.result[0] collect:^BOOL(CUTEEnum *object) {
-                return [object.slug isEqualToString:@"CN"];
-            }];
-
-            NSArray *cities = [task.result[1] collect:^BOOL(CUTECityEnum *object) {
-                return [[object.country slug] isEqualToString:@"CN"];
-            }];
-            property.street = [CUTEI18n i18nWithValue:@"street"];
-            property.zipcode = @"430079";
-            property.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
-            property.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
-            _textField.text = property.address;
-        }
-        return task;
-    }];
-
-
-#else
     CUTEProperty *property = self.ticket.property;
     return [[self reverseGeocodeLocation:property.location] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
@@ -352,8 +353,6 @@
         }
         return task;
     }];
-
-#endif
 }
 
 - (void)updateLocation:(CLLocation *)location {

@@ -13,7 +13,7 @@
 
 @interface CUTERentTickePublisher : NSObject
 
-- (BFTask *)createTicket;
+- (BFTask *)createTicket:(CUTETicket *)ticket;
 
 - (BFTask *)publish:(CUTETicket *)ticket;
 

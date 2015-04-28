@@ -34,11 +34,13 @@
     return _imageUploader;
 }
 
-- (BFTask *)createTicket {
+- (BFTask *)createTicket:(CUTETicket *)ticket {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:@{@"status":kPropertyStatusDraft, @"user_generated": @"true"} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.property.toParams];
+        [params setObject:@"true" forKey:@"user_generated"];
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/property/none/edit" parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [tcs setError:task.error];
             }
@@ -49,19 +51,13 @@
         }];
     }];
 
-    //TODO move it after edit map
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/rent_ticket/add/" parameters:@{@"property_id": result, @"status":kTicketStatusDraft} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/rent_ticket/add/" parameters:ticket.toParams resultClass:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [tcs setError:task.error];
             }
             else {
-                CUTETicket *ticket = [CUTETicket new];
-                ticket.identifier = task.result;
-                CUTEProperty *property = [CUTEProperty new];
-                property.identifier = result;
-                ticket.property = property;
-                [tcs setResult:ticket];
+                [tcs setResult:@{@"ticket_id":task.result, @"property_id":result}];
             }
             return nil;
         }];

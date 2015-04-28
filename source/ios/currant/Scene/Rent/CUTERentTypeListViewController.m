@@ -16,12 +16,9 @@
 #import "CUTERentTypeListForm.h"
 #import "CUTERentAddressMapViewController.h"
 #import "CUTECommonMacro.h"
-#import "CUTERentTickePublisher.h"
-#import "SVProgressHUD+CUTEAPI.h"
 
 @interface CUTERentTypeListViewController ()
 {
-    CUTERentTickePublisher *_publisher;
 }
 
 @end
@@ -43,35 +40,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = STR(@"房产类型");
+    if (!self.ticket) {
+        CUTETicket *ticket = [CUTETicket new];
+        CUTEProperty *property = [CUTEProperty new];
+        property.status = kPropertyStatusDraft;
+        ticket.status = kTicketStatusDraft;
+        ticket.property = property;
+        self.ticket = ticket;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
+    self.ticket.rentType = [form rentTypeAtIndex:indexPath.row];
+
     if (self.singleUseForReedit) {
-        self.ticket.rentType = [form rentTypeAtIndex:indexPath.row];
         [self.navigationController popViewControllerAnimated:YES];
     }
     else  {
-        if (!self.ticket) {
-            [SVProgressHUD show];
-            if (!_publisher) {
-                _publisher = [CUTERentTickePublisher new];
-            }
-            [[_publisher createTicket] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                else {
-                    [SVProgressHUD dismiss];
-                    self.ticket = task.result;
-                    self.ticket.rentType = [form rentTypeAtIndex:indexPath.row];
-                    CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
-                    mapController.ticket = self.ticket;
-                    [self.navigationController pushViewController:mapController animated:YES];
-                }
-                return nil;
-            }];
-        }
+        CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
+        mapController.ticket = self.ticket;
+        [self.navigationController pushViewController:mapController animated:YES];
     }
 }
 
