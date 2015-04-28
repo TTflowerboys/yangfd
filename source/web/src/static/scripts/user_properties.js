@@ -49,7 +49,8 @@ $(function () {
 
         var params = {
             //'user_id': window.user.id,
-            'per_page':-1
+            'per_page':-1,
+            'status':['draft','to rent','rent']
         }
         $.betterPost('/api/1/rent_ticket/search', params)
             .done(function(val){
@@ -61,6 +62,11 @@ $(function () {
                             var houseResult = _.template($('#my_rentCard_template').html())({rent: rent})
                             $list.append(houseResult)
                         })
+
+                        bindRentItemWechatShareClick()
+                        bindRentItemRefreshClick()
+                        bindRentItemConfirmRentClick()
+                        bindRentItemRemoveClick()
                     }else{
                         $rentPlaceholder.show()
                     }
@@ -82,7 +88,7 @@ $(function () {
     }
 
     /*
-    * User interaction
+    * User interaction on page
     * */
     $('button#showRentBtn').click(function () {
         switchTypeTab('rent')
@@ -104,7 +110,79 @@ $(function () {
         loadOwnProperty()
     })
 
-    $('#list').on('click', '.houseCard #removeProperty', function (event) {
+
+    /*
+     * User interaction on rent list item
+     * */
+
+    function bindRentItemWechatShareClick(){
+        $('.actions #wechatShare').click(function (e) {
+            var ticketId = $(this).attr('data-id')
+            $('#popupShareToWeChat')
+                .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.origin + '/wechat-poster/' + ticketId)).end()
+                .modal()
+            //ga('send', 'event', 'property_detail', 'share', 'open-wechat-web')
+        })
+    }
+
+    function bindRentItemRefreshClick(){
+        $('.actions #refresh').click(function (e) {
+            var ticketId = $(e.target).attr('data-id')
+            var params = {
+                'status': 'to rent'
+            }
+            $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
+                .done(function (data) {
+                    $(e.target).unbind('click')
+                    $(e.target).text(window.i18n('刚刚刷新'))
+                    $(e.target).addClass('disabled')
+                })
+                .fail(function (ret) {
+                    window.alert(window.i18n('刷新失败'))
+                })
+        })
+    }
+
+    function bindRentItemConfirmRentClick(){
+            $('.actions #confirmRent').click(function (e) {
+                if (window.confirm(window.i18n('确定已经成功出租了吗？确定将不再接收系统刷新提醒')) === true) {
+                    var ticketId = $(e.target).attr('data-id')
+                    var params = {
+                        'status': 'rent'
+                    }
+                    $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
+                        .done(function (data) {
+                            location.reload()
+                        })
+                        .fail(function (ret) {
+                            window.alert(window.i18n('失败'))
+                        })
+                }
+            })
+    }
+
+    function bindRentItemRemoveClick(){
+        $('.imgAction_wrapper #remove').on('click', function (e) {
+            if (window.confirm(window.i18n('确定删除该出租房吗？注意：此操作不可逆')) === true) {
+                var ticketId = $(e.target).attr('data-id')
+                var params = {
+                    'status': 'deleted'
+                }
+                $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
+                    .done(function (data) {
+                        location.reload()
+                    })
+                    .fail(function (ret) {
+                        window.alert(window.i18n('失败'))
+                    })
+            }
+        })
+    }
+
+    /*
+     * User interaction on rent list item
+     * */
+     $('#list').on('click', '.houseCard #removeProperty', function (event) {
         if (window.confirm(window.i18n('确定删除该房产吗？')) === true) {
             var ticketId = $(event.target).attr('data-id')
             $.betterPost('/api/1/intention_ticket/' + ticketId + '/remove')

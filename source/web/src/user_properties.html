@@ -53,6 +53,22 @@
             </p>
         </div>
     </div>
+
+    <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
+        <img src="" alt="二维码" width="220" height="220"/>
+        <p>{{_('打开微信，使用 “扫一扫” 即可将移动端主页分享到朋友圈')}}</p>
+    </div>
+
+    <div class="wechatPage_popup" style="display:none;">
+        <h1 class="tip"> {{!_('点击右上角')}}</h1>
+        <img class="buttonHolder"  alt="" src="/static/images/property_details/wechat_share/phone/wechat_button.png"/>
+        <h1 class="tip"> {{!_('分享链接给微信好友')}}</h1>
+        <div class="guide">
+            <img  alt="" src="/static/images/property_details/wechat_share/phone/wechat_guide.png"/>
+        </div>
+        <a class="gotIt" href ="#close-modal" rel="modal:close">{{_('我知道了')}}</a>
+    </div>
+
     <!-- @@include=static/templates/my_rent_card.tpl.html-->
     <!-- @@include=static/templates/ticket_house_card.tpl.html-->
 
