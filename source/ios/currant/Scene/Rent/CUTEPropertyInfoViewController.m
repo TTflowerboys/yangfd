@@ -99,6 +99,21 @@
     }
 }
 
+- (void)editPropertyType {
+    CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
+    self.ticket.property.propertyType = form.propertyType;
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)editBedroomCount {
+    CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
+    self.ticket.property.bedroomCount = form.bedroom;
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+}
+
 - (void)editArea {
   if (!_editAreaViewController) {
       CUTERentAreaViewController *controller = [CUTERentAreaViewController new];

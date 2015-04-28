@@ -44,6 +44,10 @@
     _lastCountry = country;
 }
 
+- (void)optionBack {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)onSaveButtonPressed:(id)sender {
     if (![self validateFormWithScenario:@"edit"]) {
         return;

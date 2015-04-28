@@ -23,6 +23,10 @@
     self.navigationItem.title = STR(@"面积");
 }
 
+- (void)optionBack {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)onSaveButtonPressed:(id)sender {
     if (![self validateFormWithScenario:@"save"]) {
         return;
