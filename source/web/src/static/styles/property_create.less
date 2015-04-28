@@ -12,8 +12,16 @@
 }
 main {
     .main_container {
+        max-width: @max-width;
+        margin: 0 auto;
         table{
             color: #999999;
+        }
+        input{
+            border-radius: 4px;
+            padding: 10px;
+            height: 50px;
+            border: 1px solid #cccccc;
         }
         input[type=checkbox]{
             position: relative;
@@ -34,8 +42,18 @@ main {
                 background-position: 0 -16px;
             }
         }
-        max-width: @max-width;
-        margin: 0 auto;
+        select{
+            vertical-align: middle;
+            color: #555555;
+            border: 1px solid #cccccc;
+            display: inline-block;
+            background: #ffffff;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 50px;
+            line-height: 40px;
+        }
+
         .step {
             overflow: hidden;
             height: 160px;
@@ -266,12 +284,17 @@ main {
                     }
                 }
             }
-            .lease,.containFee {
+            .lease,.billCovered {
                 margin-top: 20px;
             }
         }
         .image_panel {
             margin: auto 40px;
+            .ajax-file-upload{
+                &:hover{
+                    color: #fff;
+                }
+            }
             .upload_image {
                 width: 100%;
                 padding: 64px;
@@ -282,6 +305,73 @@ main {
                 border-radius: 10px;
                 -moz-border-radius: 10px;
                 -webkit-border-radius: 10px;
+
+            }
+            #uploadProgress{
+                width: 500px;
+                height: 500px;
+                margin-top: 20px;
+                padding: 10px;
+                overflow-y: auto;
+                border: 2px dashed #ccc;
+                border-radius: 10px;
+                .ajax-file-upload-statusbar{
+                    float: left;
+                    position: relative;
+                    height: 140px;
+                    margin: 6px;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    overflow: hidden;
+                    .ajax-file-upload-progress {
+                        position: absolute;
+                        left: 10PX;
+                        top: 60px;
+                        margin: 0 10px 5px 10px;
+                        width: 100px;
+                        border: none;
+                        padding: 1px;
+                        border-radius: 0;
+                        display: inline-block;
+                        overflow: hidden;
+                        .ajax-file-upload-bar {
+
+                            background: url('/static/images/common/ajax_uploader.gif');
+                            width: 100%;
+                            background-size: contain;
+                            height: 15px;
+                            padding: 0;
+                            border-radius: 0;
+                            color: #FFFFFF;
+                        }
+                    }
+                    .ajax-file-upload-filename {
+                        position: absolute;
+                        width: 100%;
+                        height: auto;
+                        color: #fff;
+                        padding: 12px;
+                        line-height: 1.2em;
+                        font-size: 12px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        margin: 0;
+                        bottom: -60px;
+                        background: rgba(0,0,0,0.6);
+                        left: 0;
+                        transition: all 0.4s ease-in 0s;
+                    }
+                    &:hover .ajax-file-upload-filename{
+                        bottom: 0;
+                        transition: all 0.4s ease-in 0s;
+                    }
+                    .ajax-file-upload-red{
+                        margin-right: 0px;
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                    }
+                }
             }
             .with_weixin {
                 padding-top: 80px;
@@ -305,6 +395,12 @@ main {
         }
         .divider {
             margin: 40px;
+        }
+        .errorMsg{
+            width: 100%;
+            padding: 10px 0 0;
+            color: #f00;
+            text-align: center;
         }
         .submit {
             width: 100%;
@@ -359,6 +455,7 @@ main {
             color: #999999;
         }
         .submit_button {
+            margin: 30px auto;
             width: 320px;
             height: 50px;
             border-radius: 4px;
@@ -373,6 +470,7 @@ main {
                 height: 50px;
                 line-height: 50px;
                 input{
+                    float: left;
                 }
                 label {
                     color: #999999;

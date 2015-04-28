@@ -117,18 +117,18 @@
                             </select>
                         </div>
                         <div>
-                            <input id="price" name="price" data-validator="required, trim" data-name="{{_('租金')}}">{{_('/周')}}
+                            <input id="price" name="price" data-validator="required, trim, number" data-name="{{_('租金')}}">{{_('/周')}}
                         </div>
                         <div class="lease" id="lease">
-                            <select>
+                            <select id="deposit_type">
                                 %for index, deposit_type in enumerate(deposit_type_list):
                                 <option value="{{deposit_type.get('id')}}">{{deposit_type.get('value')}}</option>
                                 %end
                             </select>
                         </div>
-                        <div class="containFee">
-                            <input id="containFee" type="checkbox" value=""/>
-                            <label for="containFee">是否包水电网费</label>
+                        <div class="billCovered">
+                            <input id="billCovered" type="checkbox" value=""/>
+                            <label for="billCovered">是否包水电网费</label>
                         </div>
                         <div id="sales_price_error" class="error">
                             {{_('请填写租金')}}
@@ -186,14 +186,18 @@
                 </tr>
                 <tr>
                     <td class="title">
-                        <!--如果用户选择出租类型为整租：-->
-                        <label class="text" data-show="entireHouse" for="roomSize">{{_('房屋面积')}}</label>
                         <!--如果用户选择出租类型为单间：-->
                         <label class="text" data-show="singleRoom" for="roomSize">{{_('房间面积')}}</label>
+                        <!--如果用户选择出租类型为整租：-->
+                        <label class="text" data-show="entireHouse" for="roomSize" style="display: none;">{{_('房屋面积')}}</label>
                     </td>
                     <td>
                         <div>
-                            <input type="text" id="roomSize" name="roomSize" data-validator="required, trim" data-name="{{_('面积')}}"/>
+                            <input type="text" id="roomSize" name="roomSize" data-validator="required, trim, decimalNumber" data-name="{{_('面积')}}"/>
+                            <select id="spaceUnit">
+                                <option value="meter ** 2" selected="">{{_('平方米')}}</option>
+                                <option value="foot ** 2">{{_('平方英尺')}}</option>
+                            </select>
                         </div>
                     </td>
                 </tr>
@@ -240,9 +244,10 @@
                 </div>
                 <div class="image_panel">
                     <div id="fileuploader" class="upload_image">
-                        {{_('请将图片文件直接拖拽至此，<br>或者自行查找电脑中的图片文件。')}}
+                        {{_('请将图片文件直接拖拽至此，')}}<br>{{_('或者自行查找电脑中的图片文件。')}}
                     </div>
-                    <div class="with_weixin">
+                    <div id="uploadProgress" class="clearfix"></div>
+                    <div class="with_weixin" style="display: none">
                         <div class="information">
                             <div class="on_phone">
                                 {{_('图片在手机上？')}}
@@ -352,6 +357,7 @@
                 </tr>
             </table>
         </div>
+        <div class="errorMsg" style="display: none;"></div>
         <div style="text-align: center">
             <button class="submit_button" id="submit">{{_('预览并发布')}}</button>
         </div>
