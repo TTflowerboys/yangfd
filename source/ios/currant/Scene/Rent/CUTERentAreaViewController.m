@@ -13,6 +13,7 @@
 #import "CUTEAreaForm.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "FXFormViewController+CUTEForm.h"
+#import "CUTERentTickePublisher.h"
 
 @implementation CUTERentAreaViewController
 
@@ -36,6 +37,9 @@
     else {
         ticket.property.space = nil;
     }
+
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
 }
 
 @end

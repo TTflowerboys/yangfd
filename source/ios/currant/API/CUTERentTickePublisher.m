@@ -27,6 +27,18 @@
 
 @implementation CUTERentTickePublisher
 
++ (instancetype)sharedInstance
+{
+    static dispatch_once_t pred;
+    __strong static id sharedInstance = nil;
+
+    dispatch_once(&pred, ^{
+        sharedInstance = [[[self class] alloc] init];
+    });
+
+    return sharedInstance;
+}
+
 - (CUTEImageUploader *)imageUploader {
     if (!_imageUploader) {
 

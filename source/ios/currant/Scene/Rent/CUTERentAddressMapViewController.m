@@ -38,8 +38,6 @@
 
     CLGeocoder *_geocoder;
 
-    CUTERentTickePublisher *_publisher;
-
 }
 @end
 
@@ -234,6 +232,8 @@
 }
 
 - (void)onSaveButtonPressed:(id)sender {
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -246,11 +246,8 @@
         [SVProgressHUD show];
         Sequencer *sequencer = [Sequencer new];
         if (IsNilNullOrEmpty(currentTicket.identifier)) {
-            if (!_publisher) {
-                _publisher = [CUTERentTickePublisher new];
-            }
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[_publisher createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
+                [[[CUTERentTickePublisher sharedInstance] createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
                     if (task.error || task.exception || task.isCancelled) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }

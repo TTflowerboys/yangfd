@@ -240,10 +240,9 @@
 }
 
 - (void)updatePublishRentTicketTabWithController:(UINavigationController *)viewController silent:(BOOL)silent {
-    UIViewController *oldController = viewController.topViewController;
     NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
 
-    if (oldController == nil || (unfinishedRentTickets.count == 0 && ![oldController isKindOfClass:[CUTERentTypeListViewController class]])) {
+    if (unfinishedRentTickets.count == 0) {
         if (!silent) {
             [SVProgressHUD show];
         }
@@ -264,7 +263,7 @@
             return nil;
         }];
     }
-    else if (oldController == nil || (unfinishedRentTickets.count > 0 && ![oldController isKindOfClass:[CUTEUnfinishedRentTicketViewController class]])) {
+    else if (unfinishedRentTickets.count > 0) {
         CUTEUnfinishedRentTicketViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketViewController new];
         [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
     }

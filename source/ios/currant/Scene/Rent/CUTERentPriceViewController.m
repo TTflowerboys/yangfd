@@ -13,6 +13,7 @@
 #import "CUTEFormRentPriceTextFieldCell.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "FXFormViewController+CUTEForm.h"
+#import "CUTERentTickePublisher.h"
 
 @implementation CUTERentPriceViewController
 
@@ -57,6 +58,9 @@
         ticket.rentAvailableTime = [form rentAvailableTime];
         ticket.rentPeriod = [form rentPeriod];
     }
+
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:ticket];
 }
 
 @end

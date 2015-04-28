@@ -15,6 +15,7 @@
 #import "CUTEDataManager.h"
 #import "CUTEPropertyMoreInfoForm.h"
 #import "CUTEDataManager.h"
+#import "CUTERentTickePublisher.h"
 
 @implementation CUTEPropertyMoreInfoViewController
 
@@ -54,6 +55,9 @@
     CUTETicket *ticket = self.ticket;
     ticket.title = form.ticketTitle;
     ticket.ticketDescription = form.ticketDescription;
+
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
 }
 
 @end

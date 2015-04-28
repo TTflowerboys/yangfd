@@ -10,12 +10,21 @@
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
 #import "CUTEPropertyFacilityForm.h"
+#import "CUTEDataManager.h"
+#import "CUTERentTickePublisher.h"
 
 @implementation CUTEPropertyFacilityViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = STR(@"设施");
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
 }
 
 - (void)toggleIndoorFacility:(CUTEEnum *)facility on:(BOOL)on {
