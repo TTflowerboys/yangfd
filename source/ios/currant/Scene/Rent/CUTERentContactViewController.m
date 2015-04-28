@@ -148,7 +148,7 @@
         _publisher = [CUTERentTickePublisher new];
     }
 
-    [[_publisher publish:ticket] continueWithBlock:^id(BFTask *task) {
+    [[_publisher publishTicket:ticket] continueWithBlock:^id(BFTask *task) {
         if (task.error || task.exception || task.isCancelled) {
             [SVProgressHUD showErrorWithError:task.error];
             return nil;

@@ -243,6 +243,7 @@
     }
     CUTETicket *currentTicket = self.ticket;
     if (currentTicket) {
+        [SVProgressHUD show];
         Sequencer *sequencer = [Sequencer new];
         if (IsNilNullOrEmpty(currentTicket.identifier)) {
             if (!_publisher) {
@@ -274,6 +275,7 @@
                     [form setAllPropertyTypes:task.result];
                     controller.formController.form = form;
                     [self.navigationController pushViewController:controller animated:YES];
+                    [SVProgressHUD dismiss];
 
                 }
                 else {

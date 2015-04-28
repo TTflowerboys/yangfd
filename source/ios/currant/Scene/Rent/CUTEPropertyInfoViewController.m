@@ -220,7 +220,7 @@
 
         if ([CUTEDataManager sharedInstance].user) {
             [SVProgressHUD showWithStatus:STR(@"发布中...")];
-            [[_publisher publish:ticket] continueWithBlock:^id(BFTask *task) {
+            [[_publisher publishTicket:ticket] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }

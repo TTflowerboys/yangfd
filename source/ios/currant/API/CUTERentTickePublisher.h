@@ -15,6 +15,8 @@
 
 - (BFTask *)createTicket:(CUTETicket *)ticket;
 
-- (BFTask *)publish:(CUTETicket *)ticket;
+- (BFTask *)editTicket:(CUTETicket *)ticket;
+
+- (BFTask *)publishTicket:(CUTETicket *)ticket;
 
 @end
