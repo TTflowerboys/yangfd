@@ -135,11 +135,15 @@
 #pragma Rent Property
 
 - (void)saveRentTicketToUnfinised:(CUTETicket *)ticket {
+    DebugLog(@"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,ticket.identifier);
+
     [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:ticket] withId:ticket.identifier intoTable:KTABLE_UNFINISHE_RENT_TICKETS];
 }
 
 - (NSArray *)getAllUnfinishedRentTickets {
-    return [[_store getAllItemsFromTable:KTABLE_UNFINISHE_RENT_TICKETS] map:^id(YTKKeyValueItem *object) {
+    return [[[_store getAllItemsFromTable:KTABLE_UNFINISHE_RENT_TICKETS] sortedArrayUsingComparator:^NSComparisonResult(YTKKeyValueItem *obj1, YTKKeyValueItem *obj2) {
+        return [obj2.createdTime compare:obj1.createdTime];
+    }] map:^id(YTKKeyValueItem *object) {
         MTLJSONAdapter *ticket = [[MTLJSONAdapter alloc] initWithJSONDictionary:object.itemObject modelClass:[CUTETicket class] error:nil];
         return [ticket model];
     }];

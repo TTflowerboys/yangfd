@@ -13,6 +13,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "FXFormViewController+CUTEForm.h"
 #import "CUTEDataManager.h"
+#import "CUTERentTickePublisher.h"
 
 @interface CUTERentAddressEditViewController () {
     CUTEEnum *_lastCountry;
@@ -57,6 +58,11 @@
     property.zipcode = form.postcode;
     property.country = form.country;
 
+    //check is a draft ticket not a unfinished one
+    if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+        [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+        [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    }
 }
 
 @end

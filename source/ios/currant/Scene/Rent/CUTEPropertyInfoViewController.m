@@ -33,7 +33,8 @@
 #import "CUTERentAddressMapViewController.h"
 #import "CUTENotificationKey.h"
 #import "CUTERentTickePublisher.h"
-
+#import "CUTERentAddressEditViewController.h"
+#import "CUTERentAddressEditForm.h"
 
 @interface CUTEPropertyInfoViewController () {
 
@@ -168,10 +169,40 @@
 }
 
 - (void)editLocation {
-    CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
-    mapController.ticket = self.ticket;
-    mapController.singleUseForReedit = YES;
-    [self.navigationController pushViewController:mapController animated:YES];
+    NSArray *requiredEnums = @[@"country", @"city"];
+    CUTEProperty *property = self.ticket.property;
+    [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
+        return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+    }]] continueWithBlock:^id(BFTask *task) {
+        if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
+            CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
+            controller.ticket = self.ticket;
+            CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
+            NSArray *countries = [task.result objectAtIndex:0];
+            NSArray *cities = [task.result objectAtIndex:1];
+            [form setAllCountries:countries];
+            NSInteger countryIndex = [countries indexOfObject:property.country];
+            if (countryIndex != NSNotFound) {
+                [form setCountry:[countries objectAtIndex:countryIndex]];
+                controller.lastCountry = form.country;
+            }
+            [form setAllCities:cities];
+            NSInteger cityIndex = [cities indexOfObject:property.city];
+            if (cityIndex != NSNotFound) {
+                [form setCity:[cities objectAtIndex:cityIndex]];
+            }
+            form.street = property.street.value;
+            form.postcode = property.zipcode;
+            controller.formController.form = form;
+            controller.navigationItem.title = STR(@"位置");
+            [self.navigationController pushViewController:controller animated:YES];
+
+        }
+        else {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        return nil;
+    }];
 }
 
 - (void)editMoreInfo {

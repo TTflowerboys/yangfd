@@ -41,6 +41,8 @@
     [super viewWillAppear:animated];
     self.unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
     [self.tableView reloadData];
+    //scroll to the top, the first one is the recent edit one
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 - (void)onAddButtonPressed:(id)sender {
