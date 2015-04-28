@@ -9,6 +9,6 @@
 #import "FXForms.h"
 #import "CUTEFormDefaultCell.h"
 
-@interface CUTEFormRentTypeCell : CUTEFormDefaultCell
+@interface CUTEFormRentTypeCell : FXFormDefaultCell
 
 @end

@@ -8,14 +8,17 @@
 
 #import "CUTERentShareForm.h"
 #import "CUTECommonMacro.h"
+#import "CUTEQrcodeCell.h"
+#import "CUTEFormShareButtonCell.h"
+#import "CUTEFormTextCell.h"
 
 @implementation CUTERentShareForm
 
 - (NSArray *)fields {
-    return @[@{FXFormFieldKey: @"view", FXFormFieldTitle: STR(@"查看我的房产")},
-             @{FXFormFieldKey: @"copyLink", FXFormFieldTitle: STR(@"复制页面链接"), FXFormFieldHeader: STR(@"分享")},
-             @{FXFormFieldKey: @"qrcode", FXFormFieldTitle: STR(@"二维码")},
-             @{FXFormFieldKey: @"wechat", FXFormFieldTitle: STR(@"分享到微信")},];
+    return @[@{FXFormFieldKey: @"view", FXFormFieldTitle: STR(@"查看我的房产"), FXFormFieldCell: [CUTEFormTextCell class]},
+             @{FXFormFieldKey: @"copyLink", FXFormFieldTitle: STR(@"复制页面链接"), FXFormFieldHeader: STR(@"分享"), FXFormFieldCell: [CUTEFormTextCell class]},
+             @{FXFormFieldKey: @"qrcode", FXFormFieldTitle: STR(@"二维码"), FXFormFieldCell: [CUTEQrcodeCell class]},
+             @{FXFormFieldKey: @"wechat", FXFormFieldTitle: STR(@"分享到微信"), FXFormFieldCell: [CUTEFormShareButtonCell class]},];
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "CUTEAreaForm.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "FXFormViewController+CUTEForm.h"
+#import "CUTERentTickePublisher.h"
 
 @implementation CUTERentAreaViewController
 
@@ -20,6 +21,10 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
     self.navigationItem.title = STR(@"面积");
+}
+
+- (void)optionBack {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)onSaveButtonPressed:(id)sender {
@@ -36,6 +41,9 @@
     else {
         ticket.property.space = nil;
     }
+
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
 }
 
 @end

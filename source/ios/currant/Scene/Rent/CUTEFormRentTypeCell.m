@@ -11,6 +11,11 @@
 
 @implementation CUTEFormRentTypeCell
 
++ (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width
+{
+    return 56;
+}
+
 - (void)update {
     [super update];
     if (self.field) {

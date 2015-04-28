@@ -13,6 +13,7 @@
 #import "CUTEFormRentPriceTextFieldCell.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "FXFormViewController+CUTEForm.h"
+#import "CUTERentTickePublisher.h"
 
 @implementation CUTERentPriceViewController
 
@@ -42,6 +43,10 @@
     [self.tableView reloadData];
 }
 
+- (void)optionBack {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)onSaveButtonPressed:(id)sender {
     if (![self validateFormWithScenario:@"save"]) {
         return;
@@ -57,6 +62,9 @@
         ticket.rentAvailableTime = [form rentAvailableTime];
         ticket.rentPeriod = [form rentPeriod];
     }
+
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:ticket];
 }
 
 @end

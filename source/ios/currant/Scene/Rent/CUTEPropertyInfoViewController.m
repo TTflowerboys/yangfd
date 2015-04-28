@@ -33,15 +33,14 @@
 #import "CUTERentAddressMapViewController.h"
 #import "CUTENotificationKey.h"
 #import "CUTERentTickePublisher.h"
-
+#import "CUTERentAddressEditViewController.h"
+#import "CUTERentAddressEditForm.h"
 
 @interface CUTEPropertyInfoViewController () {
 
     CUTERentAreaViewController *_editAreaViewController;
 
     CUTERentPriceViewController *_editRentPriceViewController;
-
-    CUTERentTickePublisher *_publisher;
 }
 
 @end
@@ -62,6 +61,14 @@
     self.navigationItem.title = STR(@"房产信息");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"返回") style:UIBarButtonItemStylePlain target:self action:@selector(onLeftButtonPressed:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:nil action:nil];
+
+//    _kvoController = [FBKVOController new];
+//    self.KVOController = _kvoController;
+//
+//    [self.KVOController observe:self keyPaths:@[@"formController.form.bedroom", @"formController.form.propertyType"] options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+//        [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+//        [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+//    }];
 }
 
 
@@ -74,10 +81,12 @@
 }
 
 - (void)onLeftButtonPressed:(id)sender {
-    //may user have edit, but not submit
-    self.ticket.property.bedroomCount = [(CUTEPropertyInfoForm *)(self.formController.form) bedroom];
+    CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
+    self.ticket.property.bedroomCount = form.bedroom;
+    self.ticket.property.propertyType = form.propertyType;
     [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    
+    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+
     NSArray *controllers = self.navigationController.viewControllers;
     if (!IsArrayNilOrEmpty(controllers) && controllers.firstObject != self) {
         if ([controllers.firstObject isKindOfClass:[CUTEUnfinishedRentTicketViewController class]]) {
@@ -88,6 +97,21 @@
             [self.navigationController setViewControllers:@[unfinisedController] animated:YES];
         }
     }
+}
+
+- (void)editPropertyType {
+    CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
+    self.ticket.property.propertyType = form.propertyType;
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)editBedroomCount {
+    CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
+    self.ticket.property.bedroomCount = form.bedroom;
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
 }
 
 - (void)editArea {
@@ -143,6 +167,7 @@
     [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
             CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+            form.rentType = self.ticket.rentType;
             [form setRentTypeList:task.result];
             CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
             controller.ticket = self.ticket;
@@ -160,10 +185,40 @@
 }
 
 - (void)editLocation {
-    CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
-    mapController.ticket = self.ticket;
-    mapController.singleUseForReedit = YES;
-    [self.navigationController pushViewController:mapController animated:YES];
+    NSArray *requiredEnums = @[@"country", @"city"];
+    CUTEProperty *property = self.ticket.property;
+    [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
+        return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+    }]] continueWithBlock:^id(BFTask *task) {
+        if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
+            CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
+            controller.ticket = self.ticket;
+            CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
+            NSArray *countries = [task.result objectAtIndex:0];
+            NSArray *cities = [task.result objectAtIndex:1];
+            [form setAllCountries:countries];
+            NSInteger countryIndex = [countries indexOfObject:property.country];
+            if (countryIndex != NSNotFound) {
+                [form setCountry:[countries objectAtIndex:countryIndex]];
+                controller.lastCountry = form.country;
+            }
+            [form setAllCities:cities];
+            NSInteger cityIndex = [cities indexOfObject:property.city];
+            if (cityIndex != NSNotFound) {
+                [form setCity:[cities objectAtIndex:cityIndex]];
+            }
+            form.street = property.street.value;
+            form.postcode = property.zipcode;
+            controller.formController.form = form;
+            controller.navigationItem.title = STR(@"位置");
+            [self.navigationController pushViewController:controller animated:YES];
+
+        }
+        else {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        return nil;
+    }];
 }
 
 - (void)editMoreInfo {
@@ -203,10 +258,6 @@
         return;
     }
 
-    if (!_publisher) {
-        _publisher = [CUTERentTickePublisher new];
-    }
-
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
 
@@ -220,7 +271,7 @@
 
         if ([CUTEDataManager sharedInstance].user) {
             [SVProgressHUD showWithStatus:STR(@"发布中...")];
-            [[_publisher publish:ticket] continueWithBlock:^id(BFTask *task) {
+            [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
@@ -256,6 +307,10 @@
             }];
         }
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
 }
 
 @end

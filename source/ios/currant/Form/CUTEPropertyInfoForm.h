@@ -19,10 +19,10 @@
 @interface CUTEPropertyInfoForm : CUTEForm
 
 @property (nonatomic, strong) NSArray *photos;
+@property (nonatomic, strong) CUTERentPriceForm *rentPrice;
 @property (nonatomic, strong) CUTEEnum *propertyType;
 @property (nonatomic, assign) NSUInteger bedroom;
 @property (nonatomic, strong) CUTEAreaForm *area;
-@property (nonatomic, strong) CUTERentPriceForm *rentPrice;
 @property (strong, nonatomic) CUTERentTypeListForm *rentType;
 @property (strong, nonatomic) CLLocation *location;
 @property (nonatomic, strong) CUTEPropertyMoreInfoForm *moreInfo;

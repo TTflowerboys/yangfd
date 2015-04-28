@@ -15,6 +15,9 @@
 #import "CUTEDataManager.h"
 #import "CUTEPropertyMoreInfoForm.h"
 #import "CUTEDataManager.h"
+#import "CUTERentTickePublisher.h"
+#import <UIAlertView+Blocks.h>
+#import "CUTENotificationKey.h"
 
 @implementation CUTEPropertyMoreInfoViewController
 
@@ -48,12 +51,25 @@
     }];
 }
 
+- (void)delete {
+    [UIAlertView showWithTitle:STR(@"删除草稿") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"确定")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (alertView.cancelButtonIndex != buttonIndex) {
+            [self.navigationController popToRootViewControllerAnimated:NO];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_DELETE object:nil userInfo:@{@"ticket": self.ticket}];
+        }
+    }];
+}
+
 - (void)onSaveButtonPressed:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
     CUTEPropertyMoreInfoForm *form = (CUTEPropertyMoreInfoForm *)[self.formController form];
     CUTETicket *ticket = self.ticket;
     ticket.title = form.ticketTitle;
     ticket.ticketDescription = form.ticketDescription;
+
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
 }
 
 @end
