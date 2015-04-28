@@ -14,6 +14,9 @@
 #import <UIImageView+AFNetworking.h>
 #import "CUTEConfiguration.h"
 #import "NSString+Encoding.h"
+#import "CUTEQrcodeCell.h"
+#import "CUTEWebViewController.h"
+#import "SVProgressHUD+CUTEAPI.h"
 
 @interface CUTERentShareViewController ()
 
@@ -29,8 +32,12 @@
     self.navigationItem.title = STR(@"发布成功");
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[CUTEWxManager sharedInstance] shareToWechatWithTitle:self.ticket.title description:self.ticket.ticketDescription url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+        [self shareToWechat];
     });
+}
+
+- (void)shareToWechat {
+    [[CUTEWxManager sharedInstance] shareToWechatWithTitle:self.ticket.title description:self.ticket.ticketDescription url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath  {
@@ -44,22 +51,34 @@
         MakeEnd
     }
     else if ([field.key isEqualToString:@"qrcode"]) {
-        MakeBegin(cell.imageView)
-        MakeCenterEqualTo(cell.contentView);
-        MakeEnd
-
+        CUTEQrcodeCell *qrcodeCell = (CUTEQrcodeCell *)cell;
         NSURL *originalURL = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
         NSString *content = [[originalURL absoluteString] stringByURLEncoding];
         NSString *path = CONCAT(@"/qrcode/generate?content=", content);
-        [cell.imageView setImageWithURL:[NSURL URLWithString:path relativeToURL:[CUTEConfiguration hostURL]]];
+        NSURL *url = [NSURL URLWithString:path relativeToURL:[CUTEConfiguration hostURL]];
+        [qrcodeCell.qrcodeView setImageWithURL:[NSURL URLWithString:url.absoluteString]];
+    }
+}
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    FXFormField *field = [self.formController fieldForIndexPath:indexPath];
+    if ([field.key isEqualToString:@"view"]) {
+        CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
+        [controller loadURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+    else if ([field.key isEqualToString:@"copyLink"]) {
+        [UIPasteboard generalPasteboard].string = [[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
+        [SVProgressHUD showSuccessWithStatus:STR(@"已复制至粘贴版")];
+    }
+    else if ([field.key isEqualToString:@"qrcode"]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     else if ([field.key isEqualToString:@"wechat"]) {
-        cell.imageView.image = IMAGE(@"icon-wechat");
-        cell.backgroundColor = HEXCOLOR(0x8acd24, 1);
-        cell.textLabel.textColor = [UIColor whiteColor];
-
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self shareToWechat];
     }
+
 }
 
 - (void)onDoneButtonPressed:(id)sender {

@@ -48,6 +48,8 @@
             return nil;
         }];
     }];
+
+    //TODO move it after edit map
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/rent_ticket/add/" parameters:@{@"property_id": result, @"status":kTicketStatusDraft} resultClass:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
@@ -59,7 +61,6 @@
                 CUTEProperty *property = [CUTEProperty new];
                 property.identifier = result;
                 ticket.property = property;
-
                 [tcs setResult:ticket];
             }
             return nil;
