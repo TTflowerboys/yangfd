@@ -233,29 +233,40 @@
             [webViewController loadURL:webViewController.url];
         }
     }
+    //only update when first create, not care the controller push and pop
     else if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController == nil) {
-        NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
-        if (!IsArrayNilOrEmpty(unfinishedRentTickets)) {
-            CUTEUnfinishedRentTicketViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketViewController new];
-            [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
-        }
-        else {
+        [self updatePublishRentTicketTabWithController:viewController silent:NO];
+    }
+}
+
+- (void)updatePublishRentTicketTabWithController:(UINavigationController *)viewController silent:(BOOL)silent {
+    UIViewController *oldController = viewController.topViewController;
+    NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
+
+    if (oldController == nil || (unfinishedRentTickets.count == 0 && ![oldController isKindOfClass:[CUTERentTypeListViewController class]])) {
+        if (!silent) {
             [SVProgressHUD show];
-            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
-                if (task.result) {
-                    CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
-                    [form setRentTypeList:task.result];
-                    CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
-                    controller.formController.form = form;
-                    [viewController setViewControllers:@[controller] animated:NO];
+        }
+        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+                [form setRentTypeList:task.result];
+                CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
+                controller.formController.form = form;
+                [viewController setViewControllers:@[controller] animated:NO];
+                if (!silent) {
                     [SVProgressHUD dismiss];
                 }
-                else {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                return nil;
-            }];
-        }
+            }
+            else {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            return nil;
+        }];
+    }
+    else if (oldController == nil || (unfinishedRentTickets.count > 0 && ![oldController isKindOfClass:[CUTEUnfinishedRentTicketViewController class]])) {
+        CUTEUnfinishedRentTicketViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketViewController new];
+        [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
     }
 }
 
@@ -265,6 +276,8 @@
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
     [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
+    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:2] silent:YES];
+
     CUTERentShareViewController *shareController = [CUTERentShareViewController new];
     shareController.formController.form = [CUTERentShareForm new];
     shareController.ticket = ticket;
