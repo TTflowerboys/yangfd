@@ -144,7 +144,7 @@
             if (diff <= 129600) {return window.i18n('昨天');}
             if (diff < 604800) {return Math.round(diff / 86400) + window.i18n('天前');}
             if (diff <= 777600) {return window.i18n('上周');}
-            return system_date;
+            return system_date.toLocaleDateString();
         },
         /**
          * Share something to Weibo
