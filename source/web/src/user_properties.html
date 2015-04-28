@@ -1,35 +1,59 @@
 <!--@@master = masters/user_master.html-->
+
 <!--@@block =head -->
 <!--build:css(dist) /static/styles/user_properties.html.css-->
+<link rel="stylesheet" href="/static/styles/project/ownRentCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
-<link rel="stylesheet" href="/static/styles/userFavorites.css"/>
+<link rel="stylesheet" href="/static/styles/userProperties.css"/>
 <!--endbuild-->
 <!--@@close-->
+
 <!--@@block = main -->
 <div class="content">
-    <textarea id="dataTicketList" style="display:none;">{{json_dumps(intention_ticket_list)}}</textarea>
     <div class="contentHeader">
         <h1>{{_('我的房产')}}</h1>
-        %if intention_ticket_list:
-            <label class="count_wrapper">
-                {{_('(共')}} <i class="count">{{len(intention_ticket_list)}}</i> {{_('条房产)')}}
-            </label>
-        %end
+        <div class="buttons">
+            <button id="showRentBtn" class="rent button red">{{_('出租房产')}}</button>
+            <button id="showOwnBtn" class="own ghostButton red">{{_('自有房产')}}</button>
+            <!--<button id="showRead" class="read ghostButton red">{{_('出售')}}</button>-->
+        </div>
     </div>
-    <div id="list" class="list">
-
+    <div class="tabs ui-tabs ui-widget">
+        <ul class="ui-tabs-nav">
+            <li id="showRentTab" class="ui-tabs-selected rent">
+                <a>{{_('出租房产')}}</a>
+            </li>
+            <li id="showOwnTab" class="own">
+                <a>{{_('自有房产')}}</a>
+            </li>
+        </ul>
     </div>
 
-    <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="display:none;">
+    <div class="list_wrapper">
+        <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+        <div id="list" class="list"></div>
+    </div>
+
+    <div id="ownPlaceHolder" class="emptyPlaceHolder" style="display:none;">
         <img src="/static/images/icon/notice.png" alt=""/>
         <div class="holderText">
-            <h2>{{_('没有房产')}}
-            </h2>
+            <h2>{{_('没有房产')}}</h2>
             <p>
                 {{!_('去<a href="/property_list">房产列表</a>看看吧')}}
             </p>
         </div>
     </div>
+
+    <div id="rentPlaceHolder" class="emptyPlaceHolder" style="display:none;">
+        <img src="/static/images/icon/notice.png" alt=""/>
+        <div class="holderText">
+            <h2>{{_('没有要出租的房产')}}</h2>
+            <p>
+                {{!_('有房出租？去<a href="/property_list">发布出租房</a>吧')}}
+            </p>
+        </div>
+    </div>
+    <!-- @@include=static/templates/my_rent_card.tpl.html-->
     <!-- @@include=static/templates/ticket_house_card.tpl.html-->
 
 

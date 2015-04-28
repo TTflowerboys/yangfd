@@ -141,12 +141,9 @@ def user_intentions(user):
 @f_app.user.login.check(force=True)
 def user_properties(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    intention_ticket_list = currant_data_helper.get_bought_intention_ticket_list(user)
-    intention_ticket_list = [i for i in intention_ticket_list if i.get("property")]
-    intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
 
     title = _('我的房产')
-    return currant_util.common_template("user_properties", user=user, intention_ticket_list=intention_ticket_list, title=title)
+    return currant_util.common_template("user_properties", user=user, title=title)
 
 
 @f_get('/user_messages', '/user-messages')
