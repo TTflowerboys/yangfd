@@ -9,13 +9,13 @@
 #import "CUTERentTypeListViewController.h"
 #import "CUTEPropertyInfoForm.h"
 #import "CUTERentTypeListForm.h"
-#import "CUTEFormDefaultCell.h"
 #import "CUTEDataManager.h"
 #import "CUTEEnumManager.h"
 #import "CUTETicket.h"
 #import "CUTERentTypeListForm.h"
 #import "CUTERentAddressMapViewController.h"
 #import "CUTECommonMacro.h"
+#import "CUTEFormRentTypeCell.h"
 
 @interface CUTERentTypeListViewController ()
 {
@@ -32,7 +32,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self.formController registerDefaultFieldCellClass:[CUTEFormDefaultCell class]];
     }
     return self;
 }
@@ -50,9 +49,23 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    CUTEFormRentTypeCell *typeCell = (CUTEFormRentTypeCell *)cell;
+    CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
+    if ([typeCell.field.value isEqual:form.rentType]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
+    form.rentType = [form rentTypeAtIndex:indexPath.row];
     self.ticket.rentType = [form rentTypeAtIndex:indexPath.row];
+    [tableView reloadData];
 
     if (self.singleUseForReedit) {
         [self.navigationController popViewControllerAnimated:YES];

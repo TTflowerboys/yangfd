@@ -12,6 +12,8 @@
 
 @interface CUTERentTypeListForm : CUTEForm
 
+@property (strong, nonatomic) CUTEEnum *rentType;
+
 - (void)setRentTypeList:(NSArray *)rentTypeList;
 
 - (CUTEEnum *)rentTypeAtIndex:(NSInteger)index;

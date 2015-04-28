@@ -152,6 +152,7 @@
     [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
             CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+            form.rentType = self.ticket.rentType;
             [form setRentTypeList:task.result];
             CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
             controller.ticket = self.ticket;
