@@ -21,7 +21,9 @@
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) CUTERentPriceForm *rentPrice;
 @property (nonatomic, strong) CUTEEnum *propertyType;
-@property (nonatomic, assign) NSUInteger bedroom;
+@property (nonatomic, assign) NSUInteger bedroomCount;
+@property (nonatomic, assign) NSUInteger livingroomCount;
+@property (nonatomic, assign) NSUInteger bathroomCount;
 @property (nonatomic, strong) CUTEAreaForm *area;
 @property (strong, nonatomic) CUTERentTypeListForm *rentType;
 @property (strong, nonatomic) CLLocation *location;

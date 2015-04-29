@@ -28,6 +28,8 @@
              @"zipcode": @"zipcode",
              @"propertyDescription": @"description",
              @"bedroomCount": @"bedroom_count",
+             @"livingroomCount": @"living_room_count",
+             @"bathroomCount": @"bathroom_count",
              @"space": @"space",
              @"status": @"status",
              @"indoorFacilities": @"indoor_facility",
@@ -106,6 +108,8 @@
 - (NSDictionary *)toParams {
     NSMutableDictionary *params =
     [NSMutableDictionary dictionaryWithDictionary:@{@"bedroom_count": @(self.bedroomCount),
+                                                    @"living_room_count": @(self.livingroomCount),
+                                                    @"bathroom_count": @(self.bathroomCount),
                                                     @"zipcode": self.zipcode? self.zipcode: @"",
                                                     }];
     if (self.name && self.name.toParams) {

@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEFormImagePickerCell.h"
 #import "CUTEFormButtonCell.h"
+#import "CUTEFormRoomsPickerCell.h"
 #import "CUTERentContactViewController.h"
 #import "CUTEPropertyMoreInfoViewController.h"
 #import <NSArray+Frankenstein.h>
@@ -28,7 +29,7 @@
              @{FXFormFieldKey: @"photos", FXFormFieldTitle:STR(@"添加照片"), FXFormFieldHeader: STR(@"房间照片"), FXFormFieldCell: [CUTEFormImagePickerCell class], FXFormFieldType:FXFormFieldTypeImage},
              @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldAction: @"editRentPrice", FXFormFieldHeader: STR(@"基本信息")},
                 @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"房产类型"),FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: _propertyType? _propertyType: (CUTEEnum *)[_allPropertyTypes firstObject], FXFormFieldAction: @"editPropertyType"},
-             @{FXFormFieldKey: @"bedroom", FXFormFieldTitle:STR(@"居室"), FXFormFieldCell: [FXFormStepperCell class], FXFormFieldDefaultValue: @(_bedroom), FXFormFieldAction: @"editBedroomCount"},
+             @{FXFormFieldKey: @"rooms", FXFormFieldTitle:STR(@"房间"), FXFormFieldCell: [CUTEFormRoomsPickerCell class], @"style": @(1), FXFormFieldAction: @"editRooms:"},
                 @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积"), FXFormFieldAction: @"editArea"},
              @{FXFormFieldKey: @"rentType", FXFormFieldTitle:STR(@"出租类型"), FXFormFieldAction: @"editRentType"},
              @{FXFormFieldKey: @"location", FXFormFieldTitle:STR(@"位置"), FXFormFieldCell: [FXFormDefaultCell class], FXFormFieldAction: @"editLocation"},

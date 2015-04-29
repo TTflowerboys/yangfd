@@ -42,6 +42,10 @@
 
 @property (nonatomic) NSInteger bedroomCount;
 
+@property (nonatomic) NSInteger livingroomCount;
+
+@property (nonatomic) NSInteger bathroomCount;
+
 @property (strong, nonatomic) CUTEArea *space;
 
 @property (strong, nonatomic) NSString *status;
