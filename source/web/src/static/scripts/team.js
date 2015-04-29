@@ -146,6 +146,20 @@
             if (diff <= 777600) {return window.i18n('上周');}
             return system_date.toLocaleDateString();
         },
+
+        isToday: function (tdate) {
+            var system_date = new Date(tdate * 1000);
+            var user_date = new Date();
+            if (navigator.userAgent.match(/MSIE\s([^;]*)/)) {
+                system_date = Date.parse(tdate.replace(/( \+)/, ' UTC$1'))
+            }
+            var diff = Math.floor((user_date - system_date) / 1000);
+            if (diff <= 86400) {
+                return true
+            }else{
+                return false
+            }
+        },
         /**
          * Share something to Weibo
          * @param {object} {title:'',url:'',pic:''}

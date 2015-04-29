@@ -82,7 +82,9 @@
 
 - (void)onLeftButtonPressed:(id)sender {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-    self.ticket.property.bedroomCount = form.bedroom;
+    self.ticket.property.bedroomCount = form.bedroomCount;
+    self.ticket.property.livingroomCount = form.livingroomCount;
+    self.ticket.property.bathroomCount = form.bathroomCount;
     self.ticket.property.propertyType = form.propertyType;
     [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
     [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
@@ -107,9 +109,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)editBedroomCount {
+- (void)editRooms:(id)sender {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-    self.ticket.property.bedroomCount = form.bedroom;
+    self.ticket.property.bedroomCount = form.bedroomCount;
+    self.ticket.property.livingroomCount = form.livingroomCount;
+    self.ticket.property.bathroomCount = form.bathroomCount;
     [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
     [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
 }
@@ -236,7 +240,7 @@
 - (BOOL)validate {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
 
-    if (form.bedroom < 1) {
+    if (form.bedroomCount < 1) {
         [SVProgressHUD showErrorWithStatus:STR(@"居室数至少为1个")];
         return NO;
     }
@@ -261,14 +265,7 @@
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
 
-
     if (ticket && property) {
-
-        FXFormField *propertyTypeField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-        property.propertyType = propertyTypeField.value;
-        FXFormField *bedroomCountField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
-        property.bedroomCount = [bedroomCountField.value integerValue];
-
         if ([CUTEDataManager sharedInstance].user) {
             [SVProgressHUD showWithStatus:STR(@"发布中...")];
             [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket] continueWithBlock:^id(BFTask *task) {

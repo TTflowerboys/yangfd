@@ -28,13 +28,17 @@
                     <div class="titles">
                         <a href="/property-to-rent/{=rent.id=}">
                             {_if(rent.title) {_}
-                            <p class="name">{=rent.title=}</p>
+                            <p class="name" id="name">{=rent.title=}</p>
                             {_}_}
                         </a>
                         <div class="imgAction_wrapper">
-                            <img id='edit' data-id="{=rent.id=}" class="imgAction" src="/static/images/user/button_edit.png" alt=""/>
+                            <img id='edit' data-id="{=rent.id=}" class="imgAction hiddenOnMobile" src="/static/images/user/button_edit.png" alt=""/>
                             <img id='remove' data-id="{=rent.id=}" class="imgAction" src="/static/images/user/button_delete.png" alt=""/>
-                            <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('发布')=}</p>
+                            {_if(rent.last_modified_time > rent.time ) {_}
+                                <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('更新过')=}</p>
+                            {_}else{_}
+                                <p class="date">{!team.parsePublishDate(parseInt(rent.time))!}{=window.i18n('发布')=}</p>
+                            {_}_}
                         </div>
                     </div>
                     <ul class="properties">
@@ -59,7 +63,14 @@
                             <a id="wechatShare" class="action" data-id="{=rent.id=}">{=window.i18n('微信分享')=}</a>
                         </li>
                         <li>
+                            {_if(team.isToday(parseInt(rent.last_modified_time))){_}
+                            <p class="action">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('已刷新过')=}</p>
+                            {_}else{_}
                             <a id="refresh" class="action" data-id="{=rent.id=}">{=window.i18n('刷新')=}</a>
+                            {_}_}
+                            <div id="arrowBox" class="arrowBox">
+                                <p>{=window.i18n('每24小时只能刷新一次')=}</p>
+                            </div>
                         </li>
                         <li>
                             <a id='confirmRent' class="action" data-id="{=rent.id=}">{=window.i18n('确认已出租')=}</a>

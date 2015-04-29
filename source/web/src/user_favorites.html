@@ -2,37 +2,63 @@
 <!--@@block =head -->
 
 <!--build:css(dist) /static/styles/user_favorites.html.css-->
+<link rel="stylesheet" href="/static/styles/project/favRentCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
 <link rel="stylesheet" href="/static/styles/userFavorites.css"/>
 <!--endbuild-->
 <!--@@close-->
 <!--@@block = main -->
 <div class="content">
-    <textarea id="favoriteData" style="display:none;">{{json_dumps(favorite_list)}}</textarea>
     <div class="contentHeader">
         <h1>{{_('我的收藏')}}</h1>
-
-        <label class="count_wrapper">
-            {{_('(共')}} <i class="count">{{len(favorite_list)}}</i> {{_('条收藏)')}}</label>
+        <div class="buttons">
+            <button id="showRentBtn" class="rent button red">{{_('出租房产')}}</button>
+            <button id="showOwnBtn" class="own ghostButton red">{{_('海外房产')}}</button>
+            <!--<button id="showRead" class="read ghostButton red">{{_('出售')}}</button>-->
+        </div>
     </div>
-    <div id="list" class="list">
-
+    <div class="tabs ui-tabs ui-widget">
+        <ul class="ui-tabs-nav">
+            <li id="showRentTab" class="ui-tabs-selected rent">
+                <a>{{_('出租房产')}}</a>
+            </li>
+            <li id="showOwnTab" class="own">
+                <a>{{_('自有房产')}}</a>
+            </li>
+        </ul>
     </div>
-    <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="{{'display:none;' if len(favorite_list) else ''}}">
+
+    <div class="list_wrapper">
+        <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+        <div id="list" class="list"></div>
+    </div>
+
+    <div id="ownPlaceHolder" class="emptyPlaceHolder" style="display:none;">
         <img src="/static/images/icon/notice.png" alt=""/>
         <div class="holderText">
-            <h2>{{_('您还没有收藏')}}
-            </h2>
+            <h2>{{_('没有收藏的房产')}}</h2>
             <p>
-                {{!_('去<a href="/property_list">房产列表</a>看看吧')}}
+                {{!_('去<a href="/property_list">海外房产列表</a>看看吧')}}
+            </p>
+        </div>
+    </div>
+
+    <div id="rentPlaceHolder" class="emptyPlaceHolder" style="display:none;">
+        <img src="/static/images/icon/notice.png" alt=""/>
+        <div class="holderText">
+            <h2>{{_('没有收藏的出租房产')}}</h2>
+            <p>
+                {{!_('去<a href="/property_to_rent_list">出租房产列表</a>看看吧')}}
             </p>
         </div>
     </div>
     <!-- @@include=static/templates/favorite_house_card.tpl.html-->
+    <!-- @@include=static/templates/favorite_rent_card.tpl.html-->
+
 </div>
 <!--@@close-->
 <!--@@block=scripts-->
-<!--build:js /static/scripts/favorites.js-->
-<script src="/static/scripts/favorites.js"></script>
+<!--build:js /static/scripts/user_favorites.js-->
+<script src="/static/scripts/user_favorites.js"></script>
 <!--endbuild-->
 <!--@@close-->

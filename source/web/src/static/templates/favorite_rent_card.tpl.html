@@ -1,0 +1,97 @@
+<script id="fav_rentCard_template" type="text/template">
+    <div class="rentCard">
+
+            <div class="imagePart">
+                <a href="/property-to-rent/{=rent.id=}">
+                    {_if(rent.property.reality_images && rent.property.reality_images.length) {_}
+                        <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+                    {_ }else { _}
+                        <img class="withPlaceholder"/>
+                    {_ } _}
+
+                    <div class="labels">
+                        {_if(rent.property.property_type) {_}
+                            <label class="property-type">{=rent.property.property_type.value=}</label>
+                        {_}_}
+                        {_if(rent.rent_type) {_}
+                            <label class="rent-type">{=rent.rent_type.value=}</label>
+                        {_}_}
+                    </div>
+                </a>
+            </div>
+            <div class="description_wrapper">
+                <div class="description">
+                    <div class="titles">
+                        <a href="/property-to-rent/{=rent.id=}">
+                            {_if(rent.title) {_}
+                                <p id="name" class="name">{=rent.title=}</p>
+                            {_}_}
+                        </a>
+                        {_if(rent.price) {_}
+                            <span class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
+                        {_}_}
+                        <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('发布')=}</p>
+                    </div>
+                    <ul class="properties">
+                        <li>
+                            <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                            {_if(rent.property.city && rent.property.city.country && rent.property.city.country.value) {_}
+                                {= rent.property.city.country.value + " " =}
+                            {_}_}
+                            {_if(rent.property.city && rent.property.city.value) {_}
+                                {= rent.property.city.value + " " =}
+                            {_}_}
+                            {_if(rent.property.street) {_}
+                                {= rent.property.street =}
+                            {_}_}
+                        </li>
+                        {_if(rent.property.region_highlight && rent.property.region_highlight.length) {_}
+                        <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                            {_ _.each(rent.region_highlight, function(highlight) { _}
+                                {=highlight.value=}
+                            {_ }) _}
+                        </li>
+                        {_}_}
+                    </ul>
+                    <div class="details">
+                        <div class="left">
+                            <div class="room">
+                                <p class="label">{=window.i18n('居室')=}</p>
+                                <p class="value">
+                                    {_if(rent.property.bedroom_count) {_}
+                                        {=rent.property.bedroom_count + window.i18n('室') =}
+                                    {_}_}
+                                    {_if(rent.property.living_room_count) {_}
+                                        {=rent.property.living_room_count + window.i18n('厅')=}
+                                    {_}_}
+                                </p>
+                            </div>
+                            <div class="size">
+                                <p class="label">{=window.i18n('面积')=}</p>
+                                <p class="value">
+                                    {_if(rent.space) {_}
+                                    {= parseFloat(rent.space.value).toFixed(2)=}
+                                    {_if (rent.space.unit === 'foot ** 2'){_}
+                                    foot <sup>2</sup>
+                                    {_} else if(rent.space.unit === 'acre'){_}
+                                    acre
+                                    {_} else if (rent.space.unit === 'meter ** 2') {_}
+                                    m <sup>2</sup>
+                                    {_} else if (rent.space.unit === 'kilometer ** 2') {_}
+                                    km <sup>2</sup>
+                                    {_} else {_}
+                                    {=rent.space.unit=}
+                                    {_}_}
+                                    {_}_}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <button id="cancelFavorite" data-id={=rent.id=} class="ghostButton darkGray">{=window.i18n('取消收藏')=}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</script>

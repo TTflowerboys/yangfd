@@ -268,7 +268,9 @@
                     controller.ticket = self.ticket;
                     CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
                     form.propertyType = currentTicket.property.propertyType;
-                    form.bedroom = currentTicket.property.bedroomCount;
+                    form.bedroomCount = currentTicket.property.bedroomCount;
+                    form.livingroomCount = currentTicket.property.livingroomCount;
+                    form.bathroomCount = currentTicket.property.bathroomCount;
                     [form setAllPropertyTypes:task.result];
                     controller.formController.form = form;
                     [self.navigationController pushViewController:controller animated:YES];

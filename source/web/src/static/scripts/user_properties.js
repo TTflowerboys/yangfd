@@ -100,12 +100,12 @@ $(function () {
         loadOwnProperty()
     })
 
-    $('button#showRentTab').click(function () {
+    $('#showRentTab').click(function () {
         switchTypeTab('rent')
         loadRentProperty()
     })
 
-    $('button#showOwnTab').click(function () {
+    $('#showOwnTab').click(function () {
         switchTypeTab('own')
         loadOwnProperty()
     })
@@ -134,7 +134,8 @@ $(function () {
             $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
                 .done(function (data) {
                     $(e.target).unbind('click')
-                    $(e.target).text(window.i18n('刚刚刷新'))
+                    $(e.target).text(window.i18n('刚刚刷新过'))
+                    $(e.target).parent().parent().parent().find('.imgAction_wrapper .date').text(window.i18n('刚刚刷新过'))
                     $(e.target).addClass('disabled')
                 })
                 .fail(function (ret) {

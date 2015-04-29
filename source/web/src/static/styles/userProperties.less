@@ -1,5 +1,11 @@
 @import "/project/_imports";
 
+.main {
+    @media @phone {
+        background-color:@light-grey;
+    }
+}
+
 div.content {
     min-height: 800px;
     @media @phone {
@@ -40,6 +46,11 @@ div.content {
         .list {
             margin-top: 20px;
             margin-bottom: 40px;
+
+            @media @phone {
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
 
             .cell {
                 padding: 30px 20px;
@@ -145,6 +156,7 @@ div.content {
         }
     }
     .ui-tabs {
+        text-align: center;
         display: none;
         @media @phone {
             display: block;
@@ -169,6 +181,7 @@ div.content {
             -moz-border-radius: 0;
             -webkit-border-radius: 0;
             border-radius: 0;
+            display: inline-flex;
             a {
                 padding: 6px;
                 width: 100%;
@@ -180,6 +193,7 @@ div.content {
             -webkit-border-radius: 6px 0 0 6px;
             border-radius: 6px 0 0 6px;
             border-right: 0 !important;
+            margin-right: -3px;
         }
         .ui-tabs-nav li:last-child {
             -moz-border-radius: 0 6px 6px 0;
