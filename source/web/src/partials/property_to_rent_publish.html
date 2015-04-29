@@ -1,5 +1,4 @@
-<div class="route" data-route="step2">
-    <div class="content">
+<div class="route publishRoute" data-route="step2" style="display: none;">
     <div class="step">
         <div class="line red"></div>
         <div class="start">
@@ -20,95 +19,99 @@
         </div>
     </div>
     <hr/>
-    <div class="detail">
+    <div class="clearfix">
 
-        <table class="information">
-            <tr>
-                <td>
-                    <div class="text">
-                        {{_('姓名')}}
-                    </div>
-                </td>
-                <td>
-                    <div class="">
-                        <input/>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="text">
-                        {{_('手机号')}}
-                    </div>
-                </td>
-                <td>
-                    <div class="">
-                        <input/>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="text">
-                        {{_('验证码')}}
-                    </div>
-                </td>
-                <td>
-                    <div class="verification_code">
-                        <input />
-                        <button type="button">
-                            {{_('获取验证码')}}
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="text">
-                        {{_('邮箱')}}
-                    </div>
-                </td>
-                <td>
-                    <div class="">
-                        <input/>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <div class="description">
-                        {{_('确认代表您同意创建一个洋房东账号供以后查看租客请求使用')}}
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div class="information">
-            <div>
-                <img>
+        <div class="wrap leftWrap
+        %if user:
+        hasLogin
+        %end
+        ">
+            <div class="titleWrap">
+                <h2>微信展示预览</h2>
+                <h3>微信展示预览</h3>
             </div>
-            <div>
-                <div>
-                    <div>{{_('封面')}}</div>
-                    <div>{{_('包含您提交的房产名称以及类型')}}</div>
+            %if not user:
+
+            <form id="form2">
+                <div class="formGroup">
+                    <p>为保证房源真实性，请先完善个人资料或<a class="link" onclick="javascript:project.showSignInModalOrGoToSignIn()">点击此处登陆</a>，再完成房源的发布</p>
                 </div>
-                <div>
-                    <div>{{_('房产设施')}}</div>
-                    <div>{{_('填写详细的房产设施能增加30%的阅览')}}</div>
+                <div class="formGroup">
+                    <label for="nickname">{{_('姓名')}}</label>
+                    <input type="text" id="nickname" name="nickname" data-validator="required trim"/>
                 </div>
-                <div>
-                    <div>{{_('管理方')}}</div>
-                    <div>{{_('填写详细的管理方增加30%的阅览')}}</div>
+                <div class="formGroup">
+                    <label for="email">{{_('邮箱')}}</label>
+                    <input type="text" id="email" name="email" data-validator="required trim email"/>
                 </div>
-                <div>
-                    <div>{{_('项目财务分析')}}</div>
-                    <div>{{_('填写详细的项目财务分析能增加30%的阅览')}}</div>
+                <div class="formGroup">
+                    <label for="phone">{{_('手机号')}}</label>
+                    <select name="country">
+                        %for index, country in enumerate(country_list):
+                        <option value="{{country.get('id')}}"
+                            % if country.get('id') == user.get('country',{}).get('id') if user and user.get('country') else None:
+                        selected
+                        %end
+                        >
+                        %if (country.get('slug') == 'CN'):
+                        (+86)
+                        %elif (country.get('slug') == 'GB') :
+                        (+44)
+                        %elif (country.get('slug') == 'US') :
+                        (+1)
+                        %elif (country.get('slug') == 'HK') :
+                        (+852)
+                        %end
+                        {{country.get('value')}}
+                        </option>
+                        %end
+                    </select>
+                    <input type="text" id="phone" name="phone" data-validator="required trim number"/>
                 </div>
+                <div class="formGroup">
+                    <label for="code">{{_('验证码')}}</label>
+                    <input type="text" id="code" name="code" data-validator="required trim"/>
+                    <button type="button" id="requestSMSCodeBtn">
+                        {{_('获取验证码')}}
+                    </button>
+                    <div class="errorMsgOfGetCode"></div>
+                </div>
+
+                <div class="formGroup">
+                    <label></label>
+                    <span>{{_('确认代表您同意创建一个洋房东账号供以后查看租客请求使用')}}</span>
+                </div>
+            </form>
+            %end
+
+        </div>
+
+        <div class="
+        %if not user:
+        rightWrap
+        %end
+        wrap clearfix">
+            <div class="previewBox">
+                <iframe src="" id="previewIframe" style="width:252px;height: 448px;">
+
+                </iframe>
+            </div>
+            <div class="infoBox">
+                <dl class="info">
+                    <dt class="active">{{_('封面')}}</dt>
+                    <dd class="active">{{_('包含您提交的房产名称以及类型')}}</dd>
+                    <dt>{{_('房产设施')}}</dt>
+                    <dd>{{_('填写详细的房产设施能增加30%的阅览')}}</dd>
+                    <dt>{{_('管理方')}}</dt>
+                    <dd>{{_('填写详细的管理方增加30%的阅览')}}</dd>
+                    <dt>{{_('项目财务分析')}}</dt>
+                    <dd>{{_('填写详细的项目财务分析能增加30%的阅览')}}</dd>
+                </dl>
             </div>
         </div>
     </div>
+    <div class="errorMsg2" style="display: none;"></div>
     <div style="text-align: center">
-        <button class="submit_button">{{_('预览并发布')}}</button>
+        <button class="submit_button" id="publish">{{_('发布')}}</button>
     </div>
-</div>
 </div>

@@ -1,7 +1,7 @@
 <!--在Web上新建出租房信息和编辑出租房信息都共用这个模板-->
-<div class="route" data-route="step1">
+<div class="route editRoute" data-route="step1" style="display: none">
     <div class="mainTitle">{{_('房屋出租')}}</div>
-    <form class="content" id="form1">
+    <div class="content">
         <div class="step">
             <div class="line"></div>
             <div class="start">
@@ -22,344 +22,347 @@
             </div>
         </div>
         <hr/>
-        <div class="detail">
-            <table class="information">
-                <tr>
-                    <th colspan="2" style="text-align: left;font-weight: normal;">
-                        <div class="subtitle">{{_('基本信息')}}</div>
-                    </th>
-                </tr>
-                <tr>
-                    <td class="title">
-                        <div class="text">{{_('房产类型')}}</div>
-                    </td>
-                    <td id="propertyType">
-                        %for index, property_type in enumerate(property_type_list):
-                        %if (property_type.get('slug')!='new_property'):
-                        %if (index==0):
-                        <div class="property_type selected" data-id="{{property_type.get('id')}}">
-                            {{property_type.get('value')}}
-                        </div>
-                        %else:
-                        <div class="property_type" data-id="{{property_type.get('id')}}">
-                            {{property_type.get('value')}}
-                        </div>
-                        %end
-                        %end
-                        %end
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">
-                        <div class="text">{{_('出租类型')}}</div>
-                    </td>
-                    <td id="rentalType">
-                        %for index, rent_type in enumerate(rent_type_list):
-                        %if (index==0):
-                        <div class="property_type selected" data-id="{{rent_type.get('id')}}">
-                            {{rent_type.get('value')}}
-                        </div>
-                        %else:
-                        <div class="property_type" data-id="{{rent_type.get('id')}}">
-                            {{rent_type.get('value')}}
-                        </div>
-                        %end
-                        %end
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">
-                        <label class="text" for="postcode">
-                            {{_('Postcode')}}
-                        </label>
-                    </td>
-                    <td>
-                        <div class="postcode">
-                            <input id="postcode" id="text" name="postcode" data-validator="required, trim" data-name="postcode"/>
-                            <button id="findAddress" type="button" class="find_address">
-                                {{_('查找地址')}}
-                            </button>
-                            <button id="inputAddress" type="button" class="customer_input">
-                                {{_('手动填写')}}
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr id="address" style="display: none">
-                    <td class="title">
-                    </td>
-                    <td>
-                        <div class="address">
-                            <input placeholder="{{_('国家')}}" id="country" name="country" data-validator="required, trim" data-name="{{_('国家')}}">
-                            <input placeholder="{{_('城市')}}" id="city" name="city" data-validator="required, trim" data-name="{{_('城市')}}">
-                            <!--<input placeholder="{{_('街区')}}" id="unit_number">-->
-                            <input placeholder="{{_('街道')}}" id="street" name="street" data-validator="required, trim" data-name="{{_('街道')}}">
-                            <input placeholder="{{_('小区')}}" id="community">
-                            <input placeholder="{{_('楼层')}}" id="floor">
-                            <input placeholder="{{_('房间号')}}" id="house_name">
 
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">
-                        <div class="text">{{_('租金')}}</div>
-
-                    </td>
-                    <td class="sales_price">
-                        <div>
-                            <select id="unit">
-                                <option value="CNY" selected>{{_('人民币')}}</option>
-                                <option value="GBP">{{_('英镑')}}</option>
-                                <option value="USD">{{_('美元')}}</option>
-                                <option value="EUR">{{_('欧元')}}</option>
-                                <option value="HKD">{{_('港币')}}</option>
-                            </select>
-                        </div>
-                        <div>
-                            <input id="price" name="price" data-validator="required, trim, number" data-name="{{_('租金')}}">{{_('/周')}}
-                        </div>
-                        <div class="lease" id="lease">
-                            <select id="deposit_type">
-                                %for index, deposit_type in enumerate(deposit_type_list):
-                                <option value="{{deposit_type.get('id')}}">{{deposit_type.get('value')}}</option>
-                                %end
-                            </select>
-                        </div>
-                        <div class="billCovered">
-                            <input id="billCovered" type="checkbox" value=""/>
-                            <label for="billCovered">是否包水电网费</label>
-                        </div>
-                        <div id="sales_price_error" class="error">
-                            {{_('请填写租金')}}
-                        </div>
-                    </td>
-                </tr>
-                <tr class="title">
-                    <td>
-                        <div class="text">
-                            {{_('房屋户型')}}
-                        </div>
-                    </td>
-                    <td class="room_count">
-                        <div>
-                            <select id="bedroom_count">
-                                <option value="0" selected>0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                        <div><span>{{_('室')}}</span></div>
-                        <div>
-                            <select id="living_room_count">
-                                <option value="0" selected>0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                        <div><span>{{_('厅')}}</span></div>
-                        <div>
-                            <select id="kitchen_count">
-                                <option value="0" selected>0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                        <div><span>{{_('厨')}}</span></div>
-                        <div>
-                            <select id="bathroom_count">
-                                <option value="0" selected>0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                        <div><span>{{_('卫')}}</span></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">
-                        <!--如果用户选择出租类型为单间：-->
-                        <label class="text" data-show="singleRoom" for="roomSize">{{_('房间面积')}}</label>
-                        <!--如果用户选择出租类型为整租：-->
-                        <label class="text" data-show="entireHouse" for="roomSize" style="display: none;">{{_('房屋面积')}}</label>
-                    </td>
-                    <td>
-                        <div>
-                            <input type="text" id="roomSize" name="roomSize" data-validator="required, trim, decimalNumber" data-name="{{_('面积')}}"/>
-                            <select id="spaceUnit">
-                                <option value="meter ** 2" selected="">{{_('平方米')}}</option>
-                                <option value="foot ** 2">{{_('平方英尺')}}</option>
-                            </select>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">
-                        <div class="text">{{_('租期')}}</div>
-                    </td>
-                    <td class="sales_price">
-                        <div id="rent_period">
-                            <select>
-                                %for index, rent_period in enumerate(rent_period_list):
-                                <option value="{{rent_period.get('id')}}">{{rent_period.get('value')}}</option>
-                                %end
-                            </select>
-                        </div>
-                        <div>
-                            <span>{{_('开始于')}}</span>
-                        </div>
-                        <div>
-                            <div class="date">
-                                <input id="rentPeriodStartDate" type="text"/><i class="calendarIcon"></i>
+        <form id="form1">
+            <div class="detail">
+                <table class="information">
+                    <tr>
+                        <th colspan="2" style="text-align: left;font-weight: normal;">
+                            <div class="subtitle">{{_('基本信息')}}</div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <div class="text">{{_('房产类型')}}</div>
+                        </td>
+                        <td id="propertyType">
+                            %for index, property_type in enumerate(property_type_list):
+                            %if (property_type.get('slug')!='new_property'):
+                            %if (index==0):
+                            <div class="property_type selected" data-id="{{property_type.get('id')}}">
+                                {{property_type.get('value')}}
                             </div>
-                        </div>
-                        <div id="date_error" class="error">
-                            {{_('请填写租期开始时间')}}
-                        </div>
-                    </td>
-                </tr>
-                <tr id="load_more">
-                    <td></td>
-                    <td>
-                        <div class="load_more">
-                            {{_('更多详情和设施描述')}}
-                        </div>
-                        <div class="more_info">
-                            {{_('填写可增加30%浏览量')}}
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <div class="information">
-                <div class="subtitle">
-                    {{_('上传图片')}}
-                </div>
-                <div class="image_panel">
-                    <div id="fileuploader" class="upload_image">
-                        {{_('请将图片文件直接拖拽至此，')}}<br>{{_('或者自行查找电脑中的图片文件。')}}
+                            %else:
+                            <div class="property_type" data-id="{{property_type.get('id')}}">
+                                {{property_type.get('value')}}
+                            </div>
+                            %end
+                            %end
+                            %end
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <div class="text">{{_('出租类型')}}</div>
+                        </td>
+                        <td id="rentalType">
+                            %for index, rent_type in enumerate(rent_type_list):
+                            %if (index==0):
+                            <div class="property_type selected" data-id="{{rent_type.get('id')}}">
+                                {{rent_type.get('value')}}
+                            </div>
+                            %else:
+                            <div class="property_type" data-id="{{rent_type.get('id')}}">
+                                {{rent_type.get('value')}}
+                            </div>
+                            %end
+                            %end
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <label class="text" for="postcode">
+                                {{_('Postcode')}}
+                            </label>
+                        </td>
+                        <td>
+                            <div class="postcode">
+                                <input id="postcode" id="text" name="postcode" data-validator="required, trim" data-name="postcode"/>
+                                <button id="findAddress" type="button" class="find_address">
+                                    {{_('查找地址')}}
+                                </button>
+                                <button id="inputAddress" type="button" class="customer_input">
+                                    {{_('手动填写')}}
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="address" style="display: none">
+                        <td class="title">
+                        </td>
+                        <td>
+                            <div class="address">
+                                <input placeholder="{{_('国家')}}" id="country" name="country" data-validator="required, trim" data-name="{{_('国家')}}">
+                                <input placeholder="{{_('城市')}}" id="city" name="city" data-validator="required, trim" data-name="{{_('城市')}}">
+                                <!--<input placeholder="{{_('街区')}}" id="unit_number">-->
+                                <input placeholder="{{_('街道')}}" id="street" name="street" data-validator="required, trim" data-name="{{_('街道')}}">
+                                <input placeholder="{{_('小区')}}" id="community">
+                                <input placeholder="{{_('楼层')}}" id="floor">
+                                <input placeholder="{{_('房间号')}}" id="house_name">
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <div class="text">{{_('租金')}}</div>
+
+                        </td>
+                        <td class="sales_price">
+                            <div>
+                                <select id="unit">
+                                    <option value="CNY" selected>{{_('人民币')}}</option>
+                                    <option value="GBP">{{_('英镑')}}</option>
+                                    <option value="USD">{{_('美元')}}</option>
+                                    <option value="EUR">{{_('欧元')}}</option>
+                                    <option value="HKD">{{_('港币')}}</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input id="price" name="price" data-validator="required, trim, number" data-name="{{_('租金')}}">{{_('/周')}}
+                            </div>
+                            <div class="lease" id="lease">
+                                <select id="deposit_type">
+                                    %for index, deposit_type in enumerate(deposit_type_list):
+                                    <option value="{{deposit_type.get('id')}}">{{deposit_type.get('value')}}</option>
+                                    %end
+                                </select>
+                            </div>
+                            <div class="billCovered">
+                                <input id="billCovered" type="checkbox" value=""/>
+                                <label for="billCovered">是否包水电网费</label>
+                            </div>
+                            <!--<div id="sales_price_error" class="error">
+                                {{_('请填写租金')}}
+                            </div>-->
+                        </td>
+                    </tr>
+                    <tr class="title">
+                        <td>
+                            <div class="text">
+                                {{_('房屋户型')}}
+                            </div>
+                        </td>
+                        <td class="room_count">
+                            <div>
+                                <select id="bedroom_count">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div><span>{{_('室')}}</span></div>
+                            <div>
+                                <select id="living_room_count">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div><span>{{_('厅')}}</span></div>
+                            <div>
+                                <select id="kitchen_count">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div><span>{{_('厨')}}</span></div>
+                            <div>
+                                <select id="bathroom_count">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div><span>{{_('卫')}}</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <!--如果用户选择出租类型为单间：-->
+                            <label class="text" data-show="singleRoom" for="roomSize">{{_('房间面积')}}</label>
+                            <!--如果用户选择出租类型为整租：-->
+                            <label class="text" data-show="entireHouse" for="roomSize" style="display: none;">{{_('房屋面积')}}</label>
+                        </td>
+                        <td>
+                            <div>
+                                <input type="text" id="roomSize" name="roomSize" data-validator="required, trim, decimalNumber" data-name="{{_('面积')}}"/>
+                                <select id="spaceUnit">
+                                    <option value="meter ** 2" selected="">{{_('平方米')}}</option>
+                                    <option value="foot ** 2">{{_('平方英尺')}}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <div class="text">{{_('租期')}}</div>
+                        </td>
+                        <td class="sales_price">
+                            <div id="rent_period">
+                                <select>
+                                    %for index, rent_period in enumerate(rent_period_list):
+                                    <option value="{{rent_period.get('id')}}">{{rent_period.get('value')}}</option>
+                                    %end
+                                </select>
+                            </div>
+                            <div>
+                                <span>{{_('开始于')}}</span>
+                            </div>
+                            <div>
+                                <div class="date">
+                                    <input id="rentPeriodStartDate" type="text"/><i class="calendarIcon"></i>
+                                </div>
+                            </div>
+                            <!--<div id="date_error" class="error">
+                                {{_('请填写租期开始时间')}}
+                            </div>-->
+                        </td>
+                    </tr>
+                    <tr id="load_more">
+                        <td></td>
+                        <td>
+                            <div class="load_more">
+                                {{_('更多详情和设施描述')}}
+                            </div>
+                            <div class="more_info">
+                                {{_('填写可增加30%浏览量')}}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="information">
+                    <div class="subtitle">
+                        {{_('上传图片')}}
                     </div>
-                    <div id="uploadProgress" class="clearfix"></div>
-                    <div class="with_weixin" style="display: none">
-                        <div class="information">
-                            <div class="on_phone">
-                                {{_('图片在手机上？')}}
-                            </div>
-                            <div class="no_problem">
-                                {{_('没关系，您可通过微信扫描二维码关注我们的公众账号来上传图片')}}
-                            </div>
+                    <div class="image_panel">
+                        <div id="fileuploader" class="upload_image">
+                            {{_('请将图片文件直接拖拽至此，')}}<br>{{_('或者自行查找电脑中的图片文件。')}}
                         </div>
-                        <div class="information">
-                            <div class="qrcode">
-                                <img/>
+                        <div id="uploadProgress" class="clearfix"></div>
+                        <div class="with_weixin" style="display: none">
+                            <div class="information">
+                                <div class="on_phone">
+                                    {{_('图片在手机上？')}}
+                                </div>
+                                <div class="no_problem">
+                                    {{_('没关系，您可通过微信扫描二维码关注我们的公众账号来上传图片')}}
+                                </div>
+                            </div>
+                            <div class="information">
+                                <div class="qrcode">
+                                    <img/>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="more_information" style="display: none">
-            <hr class="divider"/>
-            <table class="submit">
-                <tr>
-                    <td class="title">
-                        <div class="text">
-                            {{_('标题')}}
-                        </div>
-                    </td>
-                    <td class="content">
-                        <input class="headline" id="title">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">
-                        <div class="text">
-                            {{_('描述')}}
-                        </div>
-                    </td>
-                    <td class="content">
-                        <textarea class="description" id="description"></textarea>
-                    </td>
-                </tr>
-                <tr class="facilitiesBox">
-                    <td class="title">
-                        <div class="text">
-                            {{_('居家设施')}}
-                        </div>
-                    </td>
-                    <td class="content">
-                        <ul class="facilities indoorFacilities clearfix">
-                            %for index, facility in enumerate(indoor_facility_list):
-                            <li>
-                                <input type="checkbox" value="{{facility.get('id')}}" id="{{facility.get('id')}}"><label for="{{facility.get('id')}}">{{facility.get('value')}}</label>
-                            </li>
-                            %end
-                        </ul>
-                    </td>
-                </tr>
-                <tr class="facilitiesBox">
-                    <td class="title">
-                        <div class="text">
-                            {{_('社区设施')}}
-                        </div>
-                    </td>
-                    <td class="content">
-                        <ul class="facilities communityFacilities clearfix">
-                            %for index, facility in enumerate(community_facility_list):
-                            <li>
-                                <input type="checkbox" value="{{facility.get('id')}}" id="{{facility.get('id')}}"><label for="{{facility.get('id')}}">{{facility.get('value')}}</label>
-                            </li>
-                            %end
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">
-                        <div class="text">
-                            {{_('街区描述')}}
-                        </div>
-                    </td>
-                    <td class="content">
-                        <ul id="intentionTag" class="inner">
-                            <li id="more_region_highlight_panel" style="width: 100px;">
-                                <div id="more_region_highlight_handler">
-                                    <img alt="" src="/static/images/customer/ico_add_panel.png">
-                                </div>
-                                <div id="more_region_highlight_img" style="padding-left: 5px;display: none;">
-                                    <img alt="" src="/static/images/customer/bg_more_description.png">
-                                </div>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr id="more_region_highlight" style="display: none;">
-                    <td></td>
-                    <td>
-                        <div class="block_description">
-                            <ul>
-                                %for index, region_highlight in enumerate(region_highlight_list):
-                                <li data-id="{{region_highlight.get('id')}}">
-                                    <div>
-                                        {{region_highlight.get('value')}}
-                                    </div>
+            <div id="more_information" style="display: none">
+                <hr class="divider"/>
+                <table class="submit">
+                    <tr>
+                        <td class="title">
+                            <div class="text">
+                                {{_('标题')}}
+                            </div>
+                        </td>
+                        <td class="content">
+                            <input class="headline" id="title">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <div class="text">
+                                {{_('描述')}}
+                            </div>
+                        </td>
+                        <td class="content">
+                            <textarea class="description" id="description"></textarea>
+                        </td>
+                    </tr>
+                    <tr class="facilitiesBox">
+                        <td class="title">
+                            <div class="text">
+                                {{_('居家设施')}}
+                            </div>
+                        </td>
+                        <td class="content">
+                            <ul class="facilities indoorFacilities clearfix">
+                                %for index, facility in enumerate(indoor_facility_list):
+                                <li>
+                                    <input type="checkbox" value="{{facility.get('id')}}" id="{{facility.get('id')}}"><label for="{{facility.get('id')}}">{{facility.get('value')}}</label>
                                 </li>
                                 %end
                             </ul>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+                        </td>
+                    </tr>
+                    <tr class="facilitiesBox">
+                        <td class="title">
+                            <div class="text">
+                                {{_('社区设施')}}
+                            </div>
+                        </td>
+                        <td class="content">
+                            <ul class="facilities communityFacilities clearfix">
+                                %for index, facility in enumerate(community_facility_list):
+                                <li>
+                                    <input type="checkbox" value="{{facility.get('id')}}" id="{{facility.get('id')}}"><label for="{{facility.get('id')}}">{{facility.get('value')}}</label>
+                                </li>
+                                %end
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <div class="text">
+                                {{_('街区描述')}}
+                            </div>
+                        </td>
+                        <td class="content">
+                            <ul id="intentionTag" class="inner">
+                                <li id="more_region_highlight_panel" style="width: 100px;">
+                                    <div id="more_region_highlight_handler">
+                                        <img alt="" src="/static/images/customer/ico_add_panel.png">
+                                    </div>
+                                    <div id="more_region_highlight_img" style="padding-left: 5px;display: none;">
+                                        <img alt="" src="/static/images/customer/bg_more_description.png">
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr id="more_region_highlight" style="display: none;">
+                        <td></td>
+                        <td>
+                            <div class="block_description">
+                                <ul>
+                                    %for index, region_highlight in enumerate(region_highlight_list):
+                                    <li data-id="{{region_highlight.get('id')}}">
+                                        <div>
+                                            {{region_highlight.get('value')}}
+                                        </div>
+                                    </li>
+                                    %end
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
         <div class="errorMsg" style="display: none;"></div>
         <div style="text-align: center">
             <button class="submit_button" id="submit">{{_('预览并发布')}}</button>
         </div>
-    </form>
+    </div>
 </div>

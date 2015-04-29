@@ -115,15 +115,15 @@ def property_to_rent_create():
     deposit_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('deposit_type'))
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
-    title = _('房屋出租')
+    title = _('出租房源发布')
     return currant_util.common_template("property_to_rent_create", region_highlight_list=region_highlight_list, rent_period_list=rent_period_list,
                                         indoor_facility_list=indoor_facility_list, community_facility_list=community_facility_list, deposit_type_list=deposit_type_list, rent_type_list=rent_type_list,
                                         property_type_list=property_type_list, title=title)
 
 
-@f_get('/property-to-rent/publish')
+@f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/edit/')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
-def property_to_rent_publish():
-    title = _('出租预览')
-    return currant_util.common_template("property_to_rent_publish", title=title)
+def property_to_rent_edit(rent_ticket_id):
+    title = _('出租房源编辑')
+    return currant_util.common_template("property_to_rent_edit", title=title)

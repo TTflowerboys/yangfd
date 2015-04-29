@@ -1,5 +1,9 @@
 (function(){
     var imageArr = []
+    var $errorMsg = $('.errorMsg')
+    var $errorMsg2 = $('.errorMsg2')
+    var $errorMsgOfGetCode = $('.errorMsgOfGetCode')
+    var $requestSMSCodeBtn = $('#requestSMSCodeBtn')
     $('#fileuploader').uploadFile({
         url: '/api/1/upload_image',
         fileName: 'data',
@@ -41,6 +45,7 @@
             }
         })
     })
+
     //一个简单的通过hash控制页面类容展示的机制
     function HashRoute(){
         var _ = this
@@ -56,6 +61,9 @@
             var isMatch = false
             var routes = Object.keys(_.router)
             $.each(routes, function(index, route){
+                if(_.getHash() === ''){
+                    _.router['/'] && _.router['/'].call(null)
+                }
                 if(route === _.getHash()){ //字符串完全匹配
                     _.router[route].call(null)
                     return
@@ -93,15 +101,17 @@
         this.setHash(route)
         return this
     }
+
     var hashRoute = new HashRoute()
     hashRoute.when('/', function(){
         $('[data-route=step1]').show()
         $('[data-route=step2]').hide()
     }).when('/publish/:ticketid', function(ticketid){
-
+        $('#previewIframe').attr('src', location.origin + '/wechat-poster/' + ticketid)
         $('[data-route=step1]').hide()
         $('[data-route=step2]').show()
     })
+
     //根据用户选择的单间或者整租类型来决定显示房间面积还是房屋面积
     function showRoomOrHouse(text){
         if(text === i18n('单间')){
@@ -110,6 +120,7 @@
             $('[data-show=entireHouse]').show().siblings().hide()
         }
     }
+
     $('#rentalType div').click(function () {
         var text = $(this).text()
         $.each($('#rentalType div'), function (i, val) {
@@ -154,6 +165,7 @@
     $('#inputAddress').click(function () {
         $('#address').show()
     })
+
     //验证表单,验证前会重置一下，隐藏上次验证的错误提示信息，遇到错误会把相应的表单变成红色边框，并且返回false
     function validateForm(form){
         var validate = true
@@ -164,7 +176,7 @@
             'number': /^[0-9]+$/,
             'decimalNumber': /^\d+(\.(\d)+)?$/
         }
-        $('.errorMsg').text('').hide()
+        $errorMsg.text('').hide()
         function highlightErrorElem(elem){
             elem.css('border', '2px solid #f00').on('focus', function(){
                 $(this).css('border', '')
@@ -173,14 +185,6 @@
         function removeHighlightElem(elem){
             elem.css('border', '')
         }
-        /*function showErrorMsg(elem, msg){
-            highlightErrorElem(elem)
-            elem.after('<div class="errorMsg" style="position: absolute;left: 0; margin-top: 5px;color: #f00;">' + msg + '</div>').parent().css('position', 'relative')
-        }
-        function removeErrorMsg(elem){
-            removeHighlightElem(elem)
-            elem.next('.errorMsg').remove().parent().css('position', '')
-        }*/
         form.find('[data-validator]').each(function(index, elem){
             var validator = $(elem).data('validator').split(',').map(function(v){
                 return v.trim()
@@ -211,13 +215,15 @@
         }
         if(!validate){
             //window.console.log(errorMsg)
-            $('.errorMsg').text(errorMsg).show()
+            $errorMsg.text(errorMsg).show()
         }
         return validate
     }
+
     function getSpace(){
         return JSON.stringify({'unit': $('#spaceUnit').children('option:selected').val(), 'value': $('#roomSize').val()})
     }
+
     //获取房产模型数据
     function getPropertyData(options){
         var address = $('#country')[0].value + $('#city')[0].value + $('#street')[0].value +
@@ -237,11 +243,11 @@
             //'country': JSON.stringify({'value': {'zh_Hans_CN': $('#country').val()}}), //todo
             //'city': JSON.stringify({'value': {'zh_Hans_CN': $('#city').val()}}), //todo
             //'street': $('#street').val(), //todo
-            'community': JSON.stringify({'zh_Hans_CN': $('#community').val()}),
-            'floor': JSON.stringify({'zh_Hans_CN': $('#floor').val()}),
-            'house_name': JSON.stringify({'zh_Hans_CN': $('#house_name').val()}),
+            //'community': JSON.stringify({'zh_Hans_CN': $('#community').val()}),
+            //'floor': JSON.stringify({'zh_Hans_CN': $('#floor').val()}),
+            //'house_name': JSON.stringify({'zh_Hans_CN': $('#house_name').val()}),
             'address': JSON.stringify({'zh_Hans_CN': address}),
-            'highlight': JSON.stringify({'zh_Hans_CN': []}), //todo?
+            //'highlight': JSON.stringify({'zh_Hans_CN': []}), //todo?
             'reality_images': JSON.stringify({'zh_Hans_CN': imageArr}),
             'region_highlight': JSON.stringify(regionHighlight),
             'kitchen_count': $('#kitchen_count').children('option:selected').val(),
@@ -254,11 +260,21 @@
             'description': JSON.stringify({'zh_Hans_CN': $('#description').val()}),
             'zipcode': $('#postcode').val()
         })
+        if($('#community').val() !== ''){
+            propertyData.community = JSON.stringify({'zh_Hans_CN': $('#community').val()})
+        }
+        if($('#floor').val() !== ''){
+            propertyData.floor = JSON.stringify({'zh_Hans_CN': $('#floor').val()})
+        }
+        if($('#house_name').val() !== ''){
+            propertyData.house_name = JSON.stringify({'zh_Hans_CN': $('#house_name').val()})
+        }
         if($('#rentalType .selected').text().trim() === i18n('整租')){
             propertyData.building_area = getSpace()
         }
         return propertyData
     }
+
     //获取出租单模型数据
     function getTicketData(options){
         var ticketData = $.extend(options,{
@@ -267,14 +283,22 @@
             'space': getSpace(), //面积
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
             'bill_covered': $('#containFee').is(':checked'), //是否包物业水电费
-            'rent_period': $('#rent_period').children('option:selected').val(), //出租多长时间
+            'rent_period': $('#rent_period').find('option:selected').val(), //出租多长时间
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
-            'title': $('#title').val(),
-            'description': $('#description').val()
+            //'title': $('#title').val(),
+            //'description': $('#description').val()
         })
+        if($('#title').val() !== ''){
+            ticketData.title = $('#title').val()
+        }
+        if($('#description').val() !== ''){
+            ticketData.description = $('#description').val()
+        }
         return ticketData
     }
-    $('#form1').submit(function (e) {
+
+    $('#submit').click(function (e) {
+        var $btn = $(this)
         e.preventDefault()
         if(!validateForm($('#form1'))){
             e.preventDefault()
@@ -284,36 +308,30 @@
             'status': 'draft', //将property设置为草稿状态，第二步发布时再不需要设置成草稿状态
         })
 
-        /*$.betterPost('/api/1/property/none/edit', propertyData)
-            .done(function (val) {
-                ticketData.property_id = val
-                $.betterPost('/api/1/rent_ticket/none/edit', ticketData)
-                    .done(function (val) {
-                        //TODO 需要跳转
-                    })
-            })*/
         var property_id = window.property_id || 'none'
+        $btn.prop('disabled', true).text(window.i18n('发送中...'))
         $.betterPost('/api/1/property/' + property_id + '/edit', propertyData)
             .done(function (val) {
                 var ticketData = getTicketData({
                     'property_id': val,
                     'status': 'draft',
                 })
-                window.console.log(ticketData)
-
+                //window.console.log(ticketData)
                 $.betterPost('/api/1/rent_ticket/add', ticketData)
                     .done(function(val){
-                        window.console.log(val)
-
+                        hashRoute.locationHashTo('/publish/' + val)
+                        window.ticketId = val
+                    }).fail(function (ret) {
+                        $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
                     })
+            }).fail(function (ret) {
+                $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
+                $btn.prop('disabled', false).text(window.i18n('重新发布'))
             })
         return false
     })
 
-    $(document).ready(function () {
-        showRoomOrHouse($('#rentalType .property_type').eq(0).text().trim())
-    });
-    var startDate
+    //var startDate
     $('#rentPeriodStartDate')
         .val($.format.date(new Date(), 'yyyy-MM-dd'))
         .parent('.date').dateRangePicker({
@@ -323,9 +341,6 @@
         })
         .bind('datepicker-change', function (event, obj) {
             $(this).find('#rentPeriodStartDate').val($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
-            if (obj.date1) {
-                startDate = parseInt((new Date($.format.date(obj.date1, 'yyyy-MM-dd')) - 0) / 1000, 10)
-            }
         })
 
     $('#load_more .load_more').click(function () {
@@ -355,4 +370,63 @@
     $('#intentionTag').on('click', '.toggleTag img', function (event) {
         $(event.target).parent().remove()
     })
+
+    /*
+     *  Get sms verfication code
+     * */
+    $requestSMSCodeBtn.on('click', function (e) {
+        $errorMsgOfGetCode.empty().hide()
+        var $btn = $(this)
+        // Check email and phone
+        var valid = $.validate($('#form2'), {
+            onError: function (dom, validator, index) {
+                $errorMsgOfGetCode.empty()
+                $errorMsgOfGetCode.text(window.getErrorMessage(dom.name, validator))
+                $errorMsgOfGetCode.show()
+            },
+            exclude: ['code']
+        })
+
+        // Fast register user
+        if (valid) {
+            $btn.prop('disabled', true).text(window.i18n('发送中...'))
+
+            var params = $('#form2').serializeObject({
+                noEmptyString: true,
+                exclude: ['code','rent_id']
+            })
+            console.log(params)
+            $.betterPost('/api/1/user/fast-register', params)
+                .done(function (val) {
+                    window.user = val
+                    $('.leftWrap').addClass('hasLogin').find('form').remove()
+                    //ga('send', 'event', 'signup', 'result', 'signup-success')
+                    //TODO: Count down 1 min to enable resend
+                    //$requestSMSCodeBtn.prop('disabled', true)
+                })
+                .fail(function (ret) {
+                    $errorMsgOfGetCode.empty()
+                    $errorMsgOfGetCode.append(window.getErrorMessageFromErrorCode(ret))
+                    $errorMsgOfGetCode.show()
+                    $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
+                })
+        }
+    })
+
+    $('#publish').on('click', function(e) {
+        $errorMsg2.empty().hide()
+        var $btn = $(this)
+        if(window.user){
+            $btn.prop('disabled', true).text(window.i18n('发布中...'))
+            $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent'})
+                .done(function(val) {
+                    //todo
+                    //跳转到发布成功页面
+                    window.console.log('发布成功')
+                })
+        }
+    })
+    $(document).ready(function () {
+        showRoomOrHouse($('#rentalType .property_type').eq(0).text().trim())
+    });
 })()
