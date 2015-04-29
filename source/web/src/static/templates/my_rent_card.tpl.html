@@ -28,11 +28,11 @@
                     <div class="titles">
                         <a href="/property-to-rent/{=rent.id=}">
                             {_if(rent.title) {_}
-                            <p class="name">{=rent.title=}</p>
+                            <p class="name" id="name">{=rent.title=}</p>
                             {_}_}
                         </a>
                         <div class="imgAction_wrapper">
-                            <img id='edit' data-id="{=rent.id=}" class="imgAction" src="/static/images/user/button_edit.png" alt=""/>
+                            <img id='edit' data-id="{=rent.id=}" class="imgAction hiddenOnMobile" src="/static/images/user/button_edit.png" alt=""/>
                             <img id='remove' data-id="{=rent.id=}" class="imgAction" src="/static/images/user/button_delete.png" alt=""/>
                             <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('发布')=}</p>
                         </div>

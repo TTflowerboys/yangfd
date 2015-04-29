@@ -100,12 +100,12 @@ $(function () {
         loadOwnProperty()
     })
 
-    $('button#showRentTab').click(function () {
+    $('#showRentTab').click(function () {
         switchTypeTab('rent')
         loadRentProperty()
     })
 
-    $('button#showOwnTab').click(function () {
+    $('#showOwnTab').click(function () {
         switchTypeTab('own')
         loadOwnProperty()
     })
