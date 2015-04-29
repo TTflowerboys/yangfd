@@ -77,7 +77,6 @@
         }
     }
 
-
     .description {
         position:relative;
         width:100%;
@@ -126,6 +125,8 @@
 
             .imgAction {
                 margin-right: @standard-margin;
+                cursor:pointer;
+
                 &_wrapper{
                     position: absolute;
                     right: 0;
@@ -208,6 +209,22 @@
 
                 &:last-child {
                     border-right: none;
+                }
+
+                > a {
+                    cursor:pointer;
+
+                    &:hover {
+                        color: @red;
+                    }
+                }
+
+                >a.disabled {
+                    cursor: default;
+
+                    &:hover {
+                        color: @grey;
+                    }
                 }
             }
 

@@ -32,8 +32,8 @@
                             {_}_}
                         </a>
                         <div class="imgAction_wrapper">
-                            <img id='edit' class="imgAction" src="/static/images/user/button_edit.png" alt=""/>
-                            <img id='remove' class="imgAction" src="/static/images/user/button_delete.png" alt=""/>
+                            <img id='edit' data-id="{=rent.id=}" class="imgAction" src="/static/images/user/button_edit.png" alt=""/>
+                            <img id='remove' data-id="{=rent.id=}" class="imgAction" src="/static/images/user/button_delete.png" alt=""/>
                             <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('发布')=}</p>
                         </div>
                     </div>
@@ -56,13 +56,13 @@
                     </ul>
                     <ul class="actions">
                         <li>
-                            <a href='#' class="action">{=window.i18n('微信分享')=}</a>
+                            <a id="wechatShare" class="action" data-id="{=rent.id=}">{=window.i18n('微信分享')=}</a>
                         </li>
                         <li>
-                            <a href='#' class="action">{=window.i18n('刷新')=}</a>
+                            <a id="refresh" class="action" data-id="{=rent.id=}">{=window.i18n('刷新')=}</a>
                         </li>
                         <li>
-                            <a href='#' class="action">{=window.i18n('确认已出租')=}</a>
+                            <a id='confirmRent' class="action" data-id="{=rent.id=}">{=window.i18n('确认已出租')=}</a>
                         </li>
                     </ul>
                 </div>
