@@ -43,7 +43,7 @@ $(function () {
 
         // Fast register user
         if (valid) {
-            $requestSMSCodeBtn.prop('disabled', false)
+            $requestSMSCodeBtn.prop('disabled', true)
             $requestSMSCodeBtn.text(window.i18n('发送中...'))
 
             var params = $contactRequestForm.serializeObject({
