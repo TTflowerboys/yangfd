@@ -41,6 +41,67 @@
             }
         })
     })
+    //一个简单的通过hash控制页面类容展示的机制
+    function HashRoute(){
+        var _ = this
+        this.getHash = function getHash(){
+            return location.hash.replace('#', '')
+        }
+        this.setHash = function setHash(hash){
+            location.hash = hash
+        }
+        function hashChangeHanddler(){
+            var params
+            var hashArr = _.getHash().split('/')
+            var isMatch = false
+            var routes = Object.keys(_.router)
+            $.each(routes, function(index, route){
+                if(route === _.getHash()){ //字符串完全匹配
+                    _.router[route].call(null)
+                    return
+                }
+                params = []
+                isMatch = route.split('/').every(function(v, i){ //匹配hash中有参数的情况，参数前面加冒号
+                    if(v.indexOf(':') === 0){
+                        params.push(hashArr[i])
+                        return true
+                    }
+                    if(v === hashArr[i]){
+                        return true
+                    }
+                    return false
+                })
+                if(isMatch){
+                    _.router[route].apply(null, params)
+                    return
+                }
+            })
+        }
+        this.init = function init(){
+            this.hash = this.getHash()
+            this.router = {}
+            $(window).bind('hashchange', hashChangeHanddler)
+            $(document).ready(hashChangeHanddler) //页面直接载入时也要检查一下hash来执行对应的回调函数
+        }
+        this.init()
+    }
+    HashRoute.prototype.when = function(route, callback){ //注册hash路由和对应的处理函数
+        this.router[route] = callback
+        return this
+    }
+    HashRoute.prototype.locationHashTo = function(route){
+        this.setHash(route)
+        return this
+    }
+    var hashRoute = new HashRoute()
+    hashRoute.when('/', function(){
+        $('[data-route=step1]').show()
+        $('[data-route=step2]').hide()
+    }).when('/publish/:ticketid', function(ticketid){
+
+        $('[data-route=step1]').hide()
+        $('[data-route=step2]').show()
+    })
     //根据用户选择的单间或者整租类型来决定显示房间面积还是房屋面积
     function showRoomOrHouse(text){
         if(text === i18n('单间')){
