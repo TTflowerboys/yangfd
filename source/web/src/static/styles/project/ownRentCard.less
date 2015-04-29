@@ -196,7 +196,6 @@
         }
 
         >.actions {
-            overflow: hidden;
             width:100%;
             position: absolute;
             bottom: 0;
@@ -204,6 +203,7 @@
             border-top: 1px solid @border-color;
             margin-bottom: @standard-margin;
             padding-top:@standard-margin;
+            overflow: visible;
 
             @media @phone {
                 display: block;
@@ -216,6 +216,8 @@
                 border-right: 1px solid @border-color;
                 padding-left: @standard-margin;
                 text-align: center;
+                position: relative;
+                overflow: visible;
 
                 @media @phone {
                     font-size: @base-font-size-mobile;
@@ -240,6 +242,46 @@
 
                     &:hover {
                         color: @grey;
+                    }
+                }
+
+                /*http://stackoverflow.com/questions/12574668/change-color-of-sibling-elements-on-hover-using-css*/
+                #refresh:hover + #arrowBox{
+                    display: inherit;
+                }
+
+                .arrowBox {
+                    position: absolute;
+                    top: -60px;
+                    left:0px;
+                    background: #ff6773;
+                    border: 4px solid #ff6773;
+                    color: @white;
+                    overflow: visible;
+                    display: none;
+
+                    &:after, .arrow_box:before {
+                        top: 100%;
+                        left: 50%;
+                        border: solid transparent;
+                        content: " ";
+                        height: 0;
+                        width: 0;
+                        position: absolute;
+                        pointer-events: none;
+                    }
+
+                    &:after {
+                        border-color: rgba(255, 103, 115, 0);
+                        border-top-color: #ff6773;
+                        border-width: 10px;
+                        margin-left: -10px;
+                    }
+                    &:before {
+                        border-color: rgba(255, 103, 115, 0);
+                        border-top-color: #ff6773;
+                        border-width: 11px;
+                        margin-left: -11px;
                     }
                 }
             }
