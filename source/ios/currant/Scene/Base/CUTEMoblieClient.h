@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <JavaScriptCore/JSExport.h>
 
 @protocol CUTEJSExport <JSExport>
@@ -17,9 +18,14 @@
 
 - (void)logOut;
 
+- (void)editRentTicket:(JSValue *)result;
+
 @end
 
 
 @interface CUTEMoblieClient : NSObject <CUTEJSExport>
+
+@property (nonatomic, weak) UIViewController *controller;
+
 
 @end

@@ -19,4 +19,8 @@
     return [[NSURL alloc] initWithScheme:[CUTEConfiguration yangfdScheme] host:@"page" path:URLString];
 }
 
+- (BOOL)isYangfdURL {
+    return [[self scheme] isEqualToString:[CUTEConfiguration yangfdScheme]];
+}
+
 @end

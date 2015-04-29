@@ -27,6 +27,8 @@
 #import "CUTERentShareForm.h"
 #import "CUTEUnfinishedRentTicketViewController.h"
 #import "CUTERentTickePublisher.h"
+#import "CUTEPropertyInfoForm.h"
+#import "CUTEPropertyInfoViewController.h"
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <FLEXManager.h>
@@ -120,6 +122,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketDelete:) name:KNOTIF_TICKET_DELETE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketEdit:) name:KNOTIF_TICKET_EDIT object:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
@@ -292,6 +295,35 @@
     shareController.ticket = ticket;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
     [self.tabBarController presentViewController:nc animated:NO completion:nil];
+}
+
+- (void)onReceiveTicketEdit:(NSNotification *)notif {
+    NSDictionary *userInfo = notif.userInfo;
+    CUTETicket *ticket = userInfo[@"ticket"];
+    UIViewController *webController = (UIViewController *)notif.object;
+
+    if (ticket && webController && [webController isKindOfClass:[UIViewController class]] && webController.navigationController) {
+        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
+            if (!IsArrayNilOrEmpty(task.result)) {
+                CUTEPropertyInfoViewController *controller = [[CUTEPropertyInfoViewController alloc] init];
+                controller.ticket = ticket;
+                CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
+                form.propertyType = ticket.property.propertyType;
+                form.bedroomCount = ticket.property.bedroomCount;
+                form.livingroomCount = ticket.property.livingroomCount;
+                form.bathroomCount = ticket.property.bathroomCount;
+                [form setAllPropertyTypes:task.result];
+                controller.formController.form = form;
+                [webController.navigationController pushViewController:controller animated:YES];
+            }
+            else {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+
+            return nil;
+        }];
+    }
+
 }
 
 @end

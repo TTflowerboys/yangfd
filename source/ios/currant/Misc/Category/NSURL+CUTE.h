@@ -14,4 +14,6 @@
 
 + (instancetype)YangfdURLWithString:(NSString *)URLString;
 
+- (BOOL)isYangfdURL;
+
 @end

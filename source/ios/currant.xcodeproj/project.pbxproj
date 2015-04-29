@@ -382,6 +382,16 @@
 		2CF8A6A91AF0C2620080DF10 /* BBTPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */; };
 		2CF8A6AA1AF0C2620080DF10 /* BBTPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */; };
 		2CF8A6AB1AF0C2620080DF10 /* BBTPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */; };
+		2CF8A6AE1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6AD1AF0E5D10080DF10 /* CUTERentLoginForm.m */; };
+		2CF8A6AF1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6AD1AF0E5D10080DF10 /* CUTERentLoginForm.m */; };
+		2CF8A6B01AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6AD1AF0E5D10080DF10 /* CUTERentLoginForm.m */; };
+		2CF8A6B11AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6AD1AF0E5D10080DF10 /* CUTERentLoginForm.m */; };
+		2CF8A6B21AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6AD1AF0E5D10080DF10 /* CUTERentLoginForm.m */; };
+		2CF8A6B51AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6B41AF0E8770080DF10 /* CUTERentLoginViewController.m */; };
+		2CF8A6B61AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6B41AF0E8770080DF10 /* CUTERentLoginViewController.m */; };
+		2CF8A6B71AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6B41AF0E8770080DF10 /* CUTERentLoginViewController.m */; };
+		2CF8A6B81AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6B41AF0E8770080DF10 /* CUTERentLoginViewController.m */; };
+		2CF8A6B91AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6B41AF0E8770080DF10 /* CUTERentLoginViewController.m */; };
 		82037DC2E4CBE6EBA4114331 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 		C4A0594E53CF2777C29B6FC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -561,6 +571,10 @@
 		2CF8A6721AF0B65C0080DF10 /* CUTERentTypeListForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentTypeListForm.m; sourceTree = "<group>"; };
 		2CF8A6A51AF0C2620080DF10 /* BBTPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTPickerView.h; sourceTree = "<group>"; };
 		2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTPickerView.m; sourceTree = "<group>"; };
+		2CF8A6AC1AF0E5D10080DF10 /* CUTERentLoginForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentLoginForm.h; sourceTree = "<group>"; };
+		2CF8A6AD1AF0E5D10080DF10 /* CUTERentLoginForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentLoginForm.m; sourceTree = "<group>"; };
+		2CF8A6B31AF0E8770080DF10 /* CUTERentLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentLoginViewController.h; sourceTree = "<group>"; };
+		2CF8A6B41AF0E8770080DF10 /* CUTERentLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentLoginViewController.m; sourceTree = "<group>"; };
 		3D71FAA99AADAD5513E122AE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		74C38B0D53E631D7141C9D35 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		82E3282C891185CD9B12868A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -882,6 +896,8 @@
 				2CF8A5B21AF0B40E0080DF10 /* CUTERentAreaViewController.m */,
 				2CF8A5B31AF0B40E0080DF10 /* CUTERentContactViewController.h */,
 				2CF8A5B41AF0B40E0080DF10 /* CUTERentContactViewController.m */,
+				2CF8A6B31AF0E8770080DF10 /* CUTERentLoginViewController.h */,
+				2CF8A6B41AF0E8770080DF10 /* CUTERentLoginViewController.m */,
 				2CF8A5B51AF0B40E0080DF10 /* CUTERentPriceViewController.h */,
 				2CF8A5B61AF0B40E0080DF10 /* CUTERentPriceViewController.m */,
 				2CF8A5B71AF0B40E0080DF10 /* CUTERentShareViewController.h */,
@@ -954,6 +970,8 @@
 				2CF8A6701AF0B65C0080DF10 /* CUTERentShareForm.m */,
 				2CF8A6711AF0B65C0080DF10 /* CUTERentTypeListForm.h */,
 				2CF8A6721AF0B65C0080DF10 /* CUTERentTypeListForm.m */,
+				2CF8A6AC1AF0E5D10080DF10 /* CUTERentLoginForm.h */,
+				2CF8A6AD1AF0E5D10080DF10 /* CUTERentLoginForm.m */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -1396,6 +1414,7 @@
 				2CF8A5F21AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2761AE6566300F3590C /* CUTEWxManager.m in Sources */,
 				2CA2E6B31AC5487800053965 /* main.m in Sources */,
+				2CF8A6B01AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A21AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2CA2E6B41AC5487800053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64C1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
@@ -1415,6 +1434,7 @@
 				2CF8A68E1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1DF1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2CF8A6931AF0B65C0080DF10 /* CUTERentContactForm.m in Sources */,
+				2CF8A6B71AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
 				2CF8A5DE1AF0B40E0080DF10 /* CUTEPropertyFacilityViewController.m in Sources */,
 				2C427EAB1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6241AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
@@ -1474,6 +1494,7 @@
 				2CF8A5F31AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2771AE6566300F3590C /* CUTEWxManager.m in Sources */,
 				2CA2E6CC1AC5496700053965 /* main.m in Sources */,
+				2CF8A6B11AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A31AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2CA2E6CD1AC5496700053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64D1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
@@ -1493,6 +1514,7 @@
 				2CF8A68F1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1E01AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2CF8A6941AF0B65C0080DF10 /* CUTERentContactForm.m in Sources */,
+				2CF8A6B81AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
 				2CF8A5DF1AF0B40E0080DF10 /* CUTEPropertyFacilityViewController.m in Sources */,
 				2C427EAC1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6251AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
@@ -1552,6 +1574,7 @@
 				2CF8A5F11AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2751AE6566300F3590C /* CUTEWxManager.m in Sources */,
 				2CA94A9D1ACA42CD00DF7497 /* main.m in Sources */,
+				2CF8A6AF1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A11AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2CA94A9E1ACA42CD00DF7497 /* CUTEConfiguration.m in Sources */,
 				2CF8A64B1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
@@ -1571,6 +1594,7 @@
 				2CF8A68D1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1DE1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2CF8A6921AF0B65C0080DF10 /* CUTERentContactForm.m in Sources */,
+				2CF8A6B61AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
 				2CF8A5DD1AF0B40E0080DF10 /* CUTEPropertyFacilityViewController.m in Sources */,
 				2C427EAA1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6231AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
@@ -1630,6 +1654,7 @@
 				2CF8A5F01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2741AE6566300F3590C /* CUTEWxManager.m in Sources */,
 				2CB43DAF1ABC1372004DF663 /* main.m in Sources */,
+				2CF8A6AE1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A01AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2CDBB2FD1AC1472E0024E225 /* CUTEConfiguration.m in Sources */,
 				2CF8A64A1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
@@ -1649,6 +1674,7 @@
 				2CF8A68C1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1DD1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2CF8A6911AF0B65C0080DF10 /* CUTERentContactForm.m in Sources */,
+				2CF8A6B51AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
 				2CF8A5DC1AF0B40E0080DF10 /* CUTEPropertyFacilityViewController.m in Sources */,
 				2C427EA91AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6221AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
@@ -1694,6 +1720,7 @@
 				2CF8A6901AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2C4AEC831AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2C79C2BC1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
+				2CF8A6B91AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
 				2CF8A6AB1AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2CAA85241AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CF8A65D1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
@@ -1714,6 +1741,7 @@
 				2C7520471ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C427E501AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CF8A5EA1AF0B40E0080DF10 /* CUTEPropertyMoreInfoViewController.m in Sources */,
+				2CF8A6B21AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6811AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CF8A5FE1AF0B40E0080DF10 /* CUTERentContactViewController.m in Sources */,
 				2CF8A5E01AF0B40E0080DF10 /* CUTEPropertyFacilityViewController.m in Sources */,

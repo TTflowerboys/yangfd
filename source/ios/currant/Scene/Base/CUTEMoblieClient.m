@@ -9,6 +9,11 @@
 #import "CUTEMoblieClient.h"
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
+#import "CUTETicket.h"
+#import "CUTEPropertyInfoViewController.h"
+#import "CUTEPropertyInfoForm.h"
+#import "CUTEEnumManager.h"
+#import "CUTENotificationKey.h"
 
 @implementation CUTEMoblieClient
 
@@ -30,6 +35,16 @@
 - (void)logOut {
     [[CUTEDataManager sharedInstance] cleanAllCookies];
     [[CUTEDataManager sharedInstance] cleanUser];
+}
+
+- (void)editRentTicket:(JSValue *)result {
+    NSDictionary *dic = [result toDictionary];
+    if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+        CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:nil];
+        if (ticket) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_EDIT object:self.controller userInfo:@{@"ticket": ticket}];
+        }
+    }
 }
 
 @end

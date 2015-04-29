@@ -1,25 +1,21 @@
 //
-//  CUTERectContactForm.h
+//  CUTELoginForm.h
 //  currant
 //
-//  Created by Foster Yin on 4/2/15.
+//  Created by Foster Yin on 4/29/15.
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
 #import "CUTEForm.h"
 #import "CUTEEnum.h"
 
-@interface CUTERentContactForm : CUTEForm
-
-@property (strong, nonatomic) NSString *name;
-
-@property (strong, nonatomic) NSString *email;
+@interface CUTERentLoginForm : CUTEForm
 
 @property (strong, nonatomic) CUTEEnum *country;
 
 @property (strong, nonatomic) NSString *phone;
 
-@property (strong, nonatomic) NSString *code;
+@property (strong, nonatomic) NSString *password;
 
 - (void)setAllCountries:(NSArray *)allCountries;
 

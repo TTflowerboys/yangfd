@@ -265,14 +265,7 @@
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
 
-
     if (ticket && property) {
-
-        FXFormField *propertyTypeField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-        property.propertyType = propertyTypeField.value;
-        FXFormField *bedroomCountField = [self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
-        property.bedroomCount = [bedroomCountField.value integerValue];
-
         if ([CUTEDataManager sharedInstance].user) {
             [SVProgressHUD showWithStatus:STR(@"发布中...")];
             [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket] continueWithBlock:^id(BFTask *task) {

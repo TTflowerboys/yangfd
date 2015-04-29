@@ -24,5 +24,6 @@ pod 'MWPhotoBrowser', '~> 1.4.1'
 pod 'libWeChatSDK', :git => "https://github.com/Fykec/libWeChatSDK.git"
 pod 'YTKKeyValueStore'
 pod 'KVOController'
+pod 'TTTAttributedLabel', '~> 1.13.3'
 
 pod 'FLEX', '~> 2.0', :configurations => ['Debug']
