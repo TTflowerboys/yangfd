@@ -35,10 +35,12 @@ main {
             border: 1px solid #cccccc;
         }
         input[type=checkbox]{
-            position: relative;
             visibility: hidden;
             margin-right: 10px;
-            &:after{
+            &+label{
+                position: relative;
+            }
+            &+label:after{
                 position: absolute;
                 visibility: visible;
                 content:'';
@@ -47,9 +49,10 @@ main {
                 height: 16px;
                 top: 50%;
                 margin-top: -8px;
+                left: -27px;
                 background: url('/static/images/common/checkbox_background.png') 0 0 no-repeat;
             }
-            &:checked:after{
+            &:checked+label:after{
                 background-position: 0 -16px;
             }
         }
