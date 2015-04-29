@@ -61,8 +61,8 @@
             var isMatch = false
             var routes = Object.keys(_.router)
             $.each(routes, function(index, route){
-                if(_.getHash() === ''){
-                    _.router['/'] && _.router['/'].call(null)
+                if(_.getHash() === '' && _.router['/']){
+                     _.router['/'].call(null)
                 }
                 if(route === _.getHash()){ //字符串完全匹配
                     _.router[route].call(null)
@@ -395,7 +395,7 @@
                 noEmptyString: true,
                 exclude: ['code','rent_id']
             })
-            console.log(params)
+            window.console.log(params)
             $.betterPost('/api/1/user/fast-register', params)
                 .done(function (val) {
                     window.user = val
