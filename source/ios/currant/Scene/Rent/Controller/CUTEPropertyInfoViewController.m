@@ -86,6 +86,7 @@
     self.ticket.property.livingroomCount = form.livingroomCount;
     self.ticket.property.bathroomCount = form.bathroomCount;
     self.ticket.property.propertyType = form.propertyType;
+    //TODO how to check just edit published ticket?
     [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
     [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
 
