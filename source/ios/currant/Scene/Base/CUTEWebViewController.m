@@ -15,6 +15,7 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import <JavaScriptCore/JSValue.h>
 #import "CUTEMoblieClient.h"
+#import "CUTEWebConfiguration.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -45,6 +46,8 @@
 }
 
 - (void)loadURL:(NSURL *)url {
+
+    url = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
 
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
     if (!_webView) {
@@ -140,6 +143,12 @@
     }
 }
 
+- (void)updateRightButton {
+    BBTWebBarButtonItem *rightBarButtonItem = [[CUTEWebConfiguration sharedInstance] getRightBarItemFromURL:_webView.request.URL];
+    rightBarButtonItem.webView = _webView;
+    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+}
+
 #pragma UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -157,11 +166,13 @@
     //http://stackoverflow.com/questions/21714365/uiwebview-javascript-losing-reference-to-ios-jscontext-namespace-object
     [self setupJSContextWithWebView:webView];
     [self updateBackButton];
+    [self updateRightButton];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self setupJSContextWithWebView:webView];
     [self updateBackButton];
+    [self updateRightButton];
 }
 
 #pragma mark - NJKWebViewProgressDelegate
