@@ -176,7 +176,19 @@
                     <div class="page pageRental">
                         <p class="line1 animate">{{_('仅需')}}</p>
                         <p class="line2 animate">
-                            <span>¥ {{int(float(rent.get('price',{}).get('value','')))}}{{_('/周')}}</span>
+                            <span>
+                                %if _.currency == 'CNY':
+                                ¥
+                                %elif _.currency == 'GBP':
+                                £
+                                %elif _.currency == 'USD':
+                                $
+                                %elif _.currency == 'EUR':
+                                €
+                                %elif _.currency == 'HKD':
+                                HK$
+                                %end
+                                {{int(float(rent.get('price',{}).get('value','')))}}{{_('/周')}}</span>
                             % if 'bill_covered' in rent and rent.get('bill_covered'):
                             <sub>
                                 {{_('，包Bill')}}
@@ -274,7 +286,7 @@
                         <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
-                % if rent['property'].get('community_facility', []) and len(rent['property'].get('community_facility', [])):
+                % if rent['property'].get('reality_images', []) and len(rent['property'].get('reality_images', [])):
                 <div class="swiper-slide swiper-slide-bg commen" style="">
                     <div class="page pagePhoto swiper-container">
                         <ul class="swiper-wrapper photoList">
