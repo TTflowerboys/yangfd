@@ -67,6 +67,7 @@ $(function () {
                         bindRentItemRefreshClick()
                         bindRentItemConfirmRentClick()
                         bindRentItemRemoveClick()
+                        bindRentItemEditClick()
                     } else {
                         $rentPlaceholder.show()
                     }
@@ -170,7 +171,7 @@ $(function () {
     }
 
     function bindRentItemEditClick() {
-        $('.imgAction_wrapper #remove').on('click', function (e) {
+        $('.imgAction_wrapper #edit').on('click', function (e) {
             var ticketId = $(e.target).attr('data-id')
 
             if (window.mobileClient !== undefined) {
