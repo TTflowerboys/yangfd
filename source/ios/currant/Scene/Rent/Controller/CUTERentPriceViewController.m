@@ -14,6 +14,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "FXFormViewController+CUTEForm.h"
 #import "CUTERentTickePublisher.h"
+#import "CUTENotificationKey.h"
 
 @implementation CUTERentPriceViewController
 
@@ -63,8 +64,7 @@
         ticket.rentPeriod = [form rentPeriod];
     }
 
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:ticket];
-    [[CUTERentTickePublisher sharedInstance] editTicket:ticket];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 }
 
 @end

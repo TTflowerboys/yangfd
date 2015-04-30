@@ -14,6 +14,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "FXFormViewController+CUTEForm.h"
 #import "CUTERentTickePublisher.h"
+#import "CUTENotificationKey.h"
 
 @implementation CUTERentAreaViewController
 
@@ -42,8 +43,7 @@
         ticket.property.space = nil;
     }
 
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 }
 
 @end

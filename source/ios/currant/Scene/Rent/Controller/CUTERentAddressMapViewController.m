@@ -25,6 +25,7 @@
 #import <INTULocationManager.h>
 #import <Sequencer.h>
 #import "CUTERentTickePublisher.h"
+#import "CUTENotificationKey.h"
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, UITextFieldDelegate>
 {
@@ -233,8 +234,7 @@
 }
 
 - (void)onSaveButtonPressed:(id)sender {
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

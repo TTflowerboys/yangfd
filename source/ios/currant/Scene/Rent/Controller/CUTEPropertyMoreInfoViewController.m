@@ -67,9 +67,7 @@
     CUTETicket *ticket = self.ticket;
     ticket.title = form.ticketTitle;
     ticket.ticketDescription = form.ticketDescription;
-
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 }
 
 @end

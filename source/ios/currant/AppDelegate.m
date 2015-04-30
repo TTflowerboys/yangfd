@@ -121,9 +121,11 @@
     [CUTEWxManager registerWeixinAPIKey:[CUTEConfiguration weixinAPPId]];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketSync:) name:KNOTIF_TICKET_SYNC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketDelete:) name:KNOTIF_TICKET_DELETE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketEdit:) name:KNOTIF_TICKET_EDIT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketWechatShare:) name:KNOTIF_TICKET_WECHAT_SHARE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketListReload:) name:KNOTIF_TICKET_LIST_RELOAD object:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
@@ -282,20 +284,31 @@
     CUTETicket *ticket = userInfo[@"ticket"];
     [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
     [[CUTERentTickePublisher sharedInstance] deleteTicket:ticket];
-    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:2] silent:YES];
+    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }
 
 - (void)onReceiveTicketPublish:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
     [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
-    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:2] silent:YES];
+    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 
     CUTERentShareViewController *shareController = [CUTERentShareViewController new];
     shareController.formController.form = [CUTERentShareForm new];
     shareController.ticket = ticket;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
     [self.tabBarController presentViewController:nc animated:NO completion:nil];
+}
+
+- (void)onReceiveTicketSync:(NSNotification *)notif {
+    NSDictionary *userInfo = notif.userInfo;
+    CUTETicket *ticket = userInfo[@"ticket"];
+    if (ticket && ticket.identifier) {
+        if ([ticket.status isEqualToString:kTicketStatusDraft]) {
+            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:ticket];
+        }
+        [[CUTERentTickePublisher sharedInstance] editTicket:ticket];
+    }
 }
 
 - (void)onReceiveTicketEdit:(NSNotification *)notif {
@@ -330,6 +343,10 @@
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
     [[CUTEWxManager sharedInstance] shareToWechatWithTitle:ticket.title description:ticket.ticketDescription url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+}
+
+- (void)onReceiveTicketListReload:(NSNotification *)notif {
+    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }
 
 @end
