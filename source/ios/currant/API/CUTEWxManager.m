@@ -60,7 +60,7 @@
 - (void)shareToWechatWithTitle:(NSString *)title description:(NSString *)description url: (NSString *)url  {
     [UIAlertView showWithTitle:STR(@"微信分享") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"分享给微信好友"), STR(@"分享到微信朋友圈")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
-        if([WXApi isWXAppInstalled] && buttonIndex != alertView.cancelButtonIndex){
+        if([WXApi isWXAppInstalled]){
             if (buttonIndex != alertView.cancelButtonIndex) {
                 BaseReq *req = [self makeWechatRequstWithScene:buttonIndex == 1? WXSceneSession: WXSceneTimeline title:title description:description url:url];
 

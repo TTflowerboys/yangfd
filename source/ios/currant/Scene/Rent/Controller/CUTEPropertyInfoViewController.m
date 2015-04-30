@@ -87,8 +87,7 @@
 - (void)editPropertyType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
     self.ticket.property.propertyType = form.propertyType;
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -97,8 +96,7 @@
     self.ticket.property.bedroomCount = form.bedroomCount;
     self.ticket.property.livingroomCount = form.livingroomCount;
     self.ticket.property.bathroomCount = form.bathroomCount;
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 }
 
 - (void)editArea {
