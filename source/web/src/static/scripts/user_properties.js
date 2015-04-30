@@ -16,23 +16,23 @@ $(function () {
         var params = {
             'user_id': window.user.id,
             'status': 'bought',
-            'per_page':-1
+            'per_page': -1
         }
         $.betterPost('/api/1/intention_ticket/search', params)
-            .done(function(val){
+            .done(function (val) {
                 //Check if tab is still rent
-                if($('.buttons .own').hasClass('button')){
+                if ($('.buttons .own').hasClass('button')) {
                     var array = val
-                    if(array && array.length > 0){
+                    if (array && array.length > 0) {
                         _.each(array, function (ticket) {
                             var houseResult = _.template($('#houseCard_template').html())({ticket: ticket})
                             $list.append(houseResult)
                         })
-                    }else{
+                    } else {
                         $ownPlaceholder.show()
                     }
                 }
-            }).fail(function(){
+            }).fail(function () {
                 $ownPlaceholder.show()
             }).always(function () {
                 $('#loadIndicator').hide()
@@ -49,16 +49,16 @@ $(function () {
 
         var params = {
             //'user_id': window.user.id,
-            'per_page':-1,
-            'status':['draft','to rent','rent']
+            'per_page': -1,
+            'status': ['draft', 'to rent', 'rent']
         }
         $.betterPost('/api/1/rent_ticket/search', params)
-            .done(function(val){
+            .done(function (val) {
                 //Check if tab is still rent
-                if($('.buttons .rent').hasClass('button')){
-                    var array = val
-                    if(array && array.length > 0){
-                        _.each(array, function (rent) {
+                if ($('.buttons .rent').hasClass('button')) {
+                    if (val && val.length > 0) {
+                        window.rentArray = val
+                        _.each(val, function (rent) {
                             var houseResult = _.template($('#my_rentCard_template').html())({rent: rent})
                             $list.append(houseResult)
                         })
@@ -67,11 +67,11 @@ $(function () {
                         bindRentItemRefreshClick()
                         bindRentItemConfirmRentClick()
                         bindRentItemRemoveClick()
-                    }else{
+                    } else {
                         $rentPlaceholder.show()
                     }
                 }
-            }).fail(function(){
+            }).fail(function () {
                 $rentPlaceholder.show()
             }).always(function () {
                 $('#loadIndicator').hide()
@@ -81,15 +81,15 @@ $(function () {
 
     function switchTypeTab(state) {
         $('.ui-tabs-nav li').removeClass('ui-tabs-selected')
-        $('.ui-tabs-nav .'+state).addClass('ui-tabs-selected')
+        $('.ui-tabs-nav .' + state).addClass('ui-tabs-selected')
 
         $('.buttons .button').removeClass('button').addClass('ghostButton')
         $('.buttons .' + state).removeClass('ghostButton').addClass('button')
     }
 
     /*
-    * User interaction on page
-    * */
+     * User interaction on page
+     * */
     $('button#showRentBtn').click(function () {
         switchTypeTab('rent')
         loadRentProperty()
@@ -115,17 +115,24 @@ $(function () {
      * User interaction on rent list item
      * */
 
-    function bindRentItemWechatShareClick(){
+    function bindRentItemWechatShareClick() {
         $('.actions #wechatShare').click(function (e) {
             var ticketId = $(this).attr('data-id')
-            $('#popupShareToWeChat')
-                .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.origin + '/wechat-poster/' + ticketId)).end()
-                .modal()
+
+            if (window.mobileClient !== undefined) {
+                window.mobileClient.wechatShareRentTicket(_.where(window.rentArray, {id: ticketId}))
+            }else{
+                $('#popupShareToWeChat')
+                    .find('img').prop('src',
+                        '/qrcode/generate?content=' + encodeURIComponent(location.origin + '/wechat-poster/' + ticketId)).end()
+                    .modal()
+            }
+
             //ga('send', 'event', 'property_detail', 'share', 'open-wechat-web')
         })
     }
 
-    function bindRentItemRefreshClick(){
+    function bindRentItemRefreshClick() {
         $('.actions #refresh').click(function (e) {
             var ticketId = $(e.target).attr('data-id')
             var params = {
@@ -144,12 +151,35 @@ $(function () {
         })
     }
 
-    function bindRentItemConfirmRentClick(){
-            $('.actions #confirmRent').click(function (e) {
-                if (window.confirm(window.i18n('确定已经成功出租了吗？确定将不再接收系统刷新提醒')) === true) {
-                    var ticketId = $(e.target).attr('data-id')
+    function bindRentItemConfirmRentClick() {
+        $('.actions #confirmRent').click(function (e) {
+            if (window.confirm(window.i18n('确定已经成功出租了吗？确定将不再接收系统刷新提醒')) === true) {
+                var ticketId = $(e.target).attr('data-id')
+                var params = {
+                    'status': 'rent'
+                }
+                $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
+                    .done(function (data) {
+                        location.reload()
+                    })
+                    .fail(function (ret) {
+                        window.alert(window.i18n('失败'))
+                    })
+            }
+        })
+    }
+
+    function bindRentItemEditClick() {
+        $('.imgAction_wrapper #remove').on('click', function (e) {
+            var ticketId = $(e.target).attr('data-id')
+
+            if (window.mobileClient !== undefined) {
+                window.mobileClient.editRentTicket(_.where(window.rentArray, {id: ticketId}))
+            }else{
+                if (window.confirm(window.i18n('确定删除该出租房吗？注意：此操作不可逆')) === true) {
+
                     var params = {
-                        'status': 'rent'
+                        'status': 'deleted'
                     }
                     $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
                         .done(function (data) {
@@ -159,11 +189,13 @@ $(function () {
                             window.alert(window.i18n('失败'))
                         })
                 }
-            })
+            }
+        })
     }
 
-    function bindRentItemRemoveClick(){
+    function bindRentItemRemoveClick() {
         $('.imgAction_wrapper #remove').on('click', function (e) {
+
             if (window.confirm(window.i18n('确定删除该出租房吗？注意：此操作不可逆')) === true) {
                 var ticketId = $(e.target).attr('data-id')
                 var params = {
@@ -183,7 +215,7 @@ $(function () {
     /*
      * User interaction on rent list item
      * */
-     $('#list').on('click', '.houseCard #removeProperty', function (event) {
+    $('#list').on('click', '.houseCard #removeProperty', function (event) {
         if (window.confirm(window.i18n('确定删除该房产吗？')) === true) {
             var ticketId = $(event.target).attr('data-id')
             $.betterPost('/api/1/intention_ticket/' + ticketId + '/remove')
