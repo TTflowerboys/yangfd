@@ -47,4 +47,14 @@
     }
 }
 
+- (void)wechatShareRentTicket:(JSValue *)result {
+    NSDictionary *dic = [result toDictionary];
+    if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+        CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:nil];
+        if (ticket) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_WECHAT_SHARE object:self.controller userInfo:@{@"ticket": ticket}];
+        }
+    }
+}
+
 @end
