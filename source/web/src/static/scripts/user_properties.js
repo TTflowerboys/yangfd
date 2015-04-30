@@ -121,7 +121,7 @@ $(function () {
             var ticketId = $(this).attr('data-id')
 
             if (window.mobileClient !== undefined) {
-                window.mobileClient.wechatShareRentTicket(_.where(window.rentArray, {id: ticketId}))
+                window.mobileClient.wechatShareRentTicket(_.first(_.where(window.rentArray, {id: ticketId})))
             }else{
                 $('#popupShareToWeChat')
                     .find('img').prop('src',

@@ -51,7 +51,7 @@
 }
 
 - (void)wechatShareRentTicket:(JSValue *)result {
-    NSDictionary *dic = [result toDictionary];
+    NSDictionary *dic = [[result toDictionary] copy];
     if (dic && [dic isKindOfClass:[NSDictionary class]]) {
         NSError *error = nil;
         CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];

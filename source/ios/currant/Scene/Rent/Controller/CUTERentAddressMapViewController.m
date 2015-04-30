@@ -343,7 +343,7 @@
                     NSArray *cities = [task.result[1] collect:^BOOL(CUTECityEnum *object) {
                         return [[object.country slug] isEqualToString:placemark.ISOcountryCode] && [[[placemark locality] lowercaseString] hasPrefix:[[object value] lowercaseString]];
                     }];
-                    property.street = [CUTEI18n i18nWithValue:[@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "]];
+                    property.street = [@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "];
                     property.zipcode = placemark.postalCode;
                     property.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
                     property.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];

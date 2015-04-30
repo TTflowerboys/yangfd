@@ -14,8 +14,8 @@
 
 @property (strong, nonatomic) NSString *value;
 
-- (NSDictionary *)toParams;
+//- (NSDictionary *)toParams;
 
-+ (CUTEI18n *)i18nWithValue:(NSString *)value;
+//+ (CUTEI18n *)i18nWithValue:(NSString *)value;
 
 @end

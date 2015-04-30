@@ -112,7 +112,7 @@
                                                     @"bathroom_count": @(self.bathroomCount),
                                                     @"zipcode": self.zipcode? self.zipcode: @"",
                                                     }];
-    if (self.name && self.name.toParams) {
+    if (self.name && self.name.) {
         [params setValue:self.name.toParams forKey:@"name"];
     }
     if (self.propertyDescription && self.propertyDescription.toParams) {

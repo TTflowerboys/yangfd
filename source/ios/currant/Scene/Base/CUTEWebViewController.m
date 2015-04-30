@@ -41,7 +41,10 @@
 
 - (void)setupJSContextWithWebView:(UIWebView *)webView {
     _jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    [_jsContext setObject:[CUTEMoblieClient new] forKeyedSubscript:@"mobileClient"];
+    CUTEMoblieClient *mobileClient = [CUTEMoblieClient new];
+    mobileClient.controller = self;
+    //[_jsContext setObject:mobileClient forKeyedSubscript:@"window.mobileClient"];
+    _jsContext[@"window"][@"mobileClient"] = mobileClient;
 }
 
 - (void)loadURL:(NSURL *)url {
@@ -52,7 +55,7 @@
         [self.view addSubview:_webView];
         _webView.delegate = _progressProxy;
         [self setupJSContextWithWebView:_webView];
-        
+
         [_webView loadRequest:urlRequest];
     }
     else if (_webView && ![_webView.request.URL.absoluteString isEqualToString:urlRequest.URL.absoluteString]) {
@@ -64,7 +67,7 @@
         [self.view addSubview:_webView];
         _webView.delegate = _progressProxy;
         [self setupJSContextWithWebView:_webView];
-        
+
         [_webView loadRequest:urlRequest];
     }
 }
@@ -125,7 +128,7 @@
             [label setBackgroundColor:[UIColor clearColor]];
             [button addSubview:label];
             UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-            
+
             self.navigationItem.leftBarButtonItem = barButton;
         }
     }
@@ -149,11 +152,12 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-   
+
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [self setupJSContextWithWebView:webView];
     [self updateBackButton];
 }
 
