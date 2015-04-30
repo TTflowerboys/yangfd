@@ -126,7 +126,9 @@ def property_to_rent_create():
 @currant_util.check_crowdfunding_ready
 def property_to_rent_edit(rent_ticket_id):
     title = _('出租房源编辑')
-    return currant_util.common_template("property_to_rent_edit", title=title)
+    rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
+    keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
+    return currant_util.common_template("property_to_rent_edit", title=title, keywords=keywords, rent=rent_ticket)
 
 
 @f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/publish-success')
@@ -134,4 +136,6 @@ def property_to_rent_edit(rent_ticket_id):
 @currant_util.check_crowdfunding_ready
 def property_to_rent_edit(rent_ticket_id):
     title = _('房源发布成功')
-    return currant_util.common_template("property_to_rent_publish_success", title=title)
+    rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
+    keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
+    return currant_util.common_template("property_to_rent_publish_success", title=title, keywords=keywords, rent=rent_ticket)

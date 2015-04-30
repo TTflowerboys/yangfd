@@ -1,6 +1,65 @@
-.main{
+@import "project/_imports";
+
+@light_grey: #999;
+@gray-dark: #5f5f5f;
+@gray: #cac9c9;
+@red: #e60012;
+main{
     .main_container {
         max-width: 1200px;
         margin: 0 auto;
+        padding: 120px 0 100px;
+        text-align: center;
+        color: #999;
+        hr{
+            color: @gray;
+        }
+        h1{
+            font-size: 44px;
+            color: @red;
+            margin-bottom: 26px;
+        }
+        h2{
+            padding: 42px 0;
+            font-size: 24px;
+            color: @gray-dark;
+        }
+        p.info{
+            margin:0 auto 64px;
+            font-size: 18px;
+            font-family: @font-mono;
+            color: @gray-dark;
+            a{
+                color: @red;
+            }
+        }
+        .shareBox{
+            width: 278px;
+            height: 190px;
+            margin: 28px auto;
+            .leftWrap{
+                width: 110px;
+                float: left;
+                .flatButton{
+                    text-align: left;
+                    padding: 0 0 0 10px;
+                    margin-bottom: 21px;
+                    width: 110px;
+                    font-size: 12px;
+                    line-height: 40px;
+                    img{
+                        vertical-align: text-top;
+                        margin-right: 5px;
+                    }
+                }
+            }
+            .qrcodeBox{
+                float: left;
+                margin-left: 32px;
+                p{
+                    margin: 0;
+                }
+            }
+        }
     }
 }
