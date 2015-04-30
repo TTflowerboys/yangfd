@@ -175,7 +175,7 @@ $(function () {
             var ticketId = $(e.target).attr('data-id')
 
             if (window.mobileClient !== undefined) {
-                window.mobileClient.editRentTicket(_.where(window.rentArray, {id: ticketId}))
+                window.mobileClient.editRentTicket(_.first(_.where(window.rentArray, {id: ticketId})))
             }else{
                 if (window.confirm(window.i18n('确定删除该出租房吗？注意：此操作不可逆')) === true) {
 
