@@ -100,13 +100,14 @@
     _textField.text = property.address;
 
     if (property.location) {
-        [self updateLocation:property.location];
+        [self updatePlacemarkWithLocation:property.location];
     }
 }
 
 - (BFTask *)requestLocation {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:30 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+    //only need INTULocationAccuracyCity, if set other small accuracy will be very slow
+    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyCity timeout:30 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         if (currentLocation) {
             [tcs setResult:currentLocation];
         }
@@ -128,7 +129,7 @@
     [[self requestLocation] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
             CLLocation *location = task.result;
-            [self updateLocation:location];
+            [self updatePlacemarkWithLocation:location];
             MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
             [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
             return [[self updateAddress] continueWithBlock:^id(BFTask *task) {
@@ -207,7 +208,7 @@
     [_geocoder geocodeAddressString:_textField.text completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!IsArrayNilOrEmpty(placemarks)) {
             CLPlacemark *placemark = [placemarks firstObject];
-            [self updateLocation:placemark.location];
+            [self updatePlacemarkWithLocation:placemark.location];
             MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 800, 800);
             [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
             [SVProgressHUD dismiss];
@@ -297,7 +298,7 @@
         CLLocation *location = [[CLLocation alloc] initWithLatitude:touchMapCoordinate.latitude longitude:touchMapCoordinate.longitude];
           if (!property.location || [location distanceFromLocation:property.location] > 10) {
               [sender cancelsTouchesInView];
-              [self updateLocation:location];
+              [self updatePlacemarkWithLocation:location];
               [SVProgressHUD show];
               [[self updateAddress] continueWithBlock:^id(BFTask *task) {
                   if (task.error || task.exception || task.isCancelled) {
@@ -356,7 +357,7 @@
     }];
 }
 
-- (void)updateLocation:(CLLocation *)location {
+- (void)updatePlacemarkWithLocation:(CLLocation *)location {
     if (location && [location isKindOfClass:[CLLocation class]]) {
         CUTEProperty *property = self.ticket.property;
         property.location = location;
