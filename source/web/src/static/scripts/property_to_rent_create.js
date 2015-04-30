@@ -1,11 +1,16 @@
 (function(){
-    var imageArr = $('#fileuploader').data('files').split(',') || []
+    var imageArr
+    if($('#fileuploader').data('files') !== undefined) {
+        imageArr = $('#fileuploader').data('files').split(',')
+    }else{
+        imageArr = []
+    }
     var $errorMsg = $('.errorMsg')
     var $errorMsg2 = $('.errorMsg2')
     var $errorMsgOfGetCode = $('.errorMsgOfGetCode')
     var $requestSMSCodeBtn = $('#requestSMSCodeBtn')
     window.propertyId = $('#submit').data('propertyid') || 'none'
-    window.ticketId = $('#publish').data('ticketid')
+    window.ticketId = $('#publish').data('ticketid') || location.hash.split('#/publish/')[1]
     $('#fileuploader').uploadFile({
         url: '/api/1/upload_image',
         fileName: 'data',
