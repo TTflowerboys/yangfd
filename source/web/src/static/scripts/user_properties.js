@@ -214,7 +214,7 @@ $(function () {
     }
 
     /*
-     * User interaction on rent list item
+     * User interaction on property list item
      * */
     $('#list').on('click', '.houseCard #removeProperty', function (event) {
         if (window.confirm(window.i18n('确定删除该房产吗？')) === true) {
