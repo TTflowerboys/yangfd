@@ -167,7 +167,7 @@ class f_currant_log(f_log):
             return _format_each(result)
 
     def output(self, log_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
-        logs = self.get(log_id_list, ignore_nonexist=ignore_nonexist, multi_return=list, force_reload=force_reload)
+        logs = self.get(log_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
         property_id_set = set()
         for log in logs:
             if log.get("property_id"):
@@ -339,7 +339,7 @@ class f_currant_user(f_user):
         return str(favorite_id)
 
     def favorite_output(self, favorite_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, ignore_user=True):
-        favorites = self.favorite_get(favorite_id_list, ignore_nonexist=ignore_nonexist, multi_return=list, force_reload=force_reload)
+        favorites = self.favorite_get(favorite_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
         property_set = set()
         item_set = set()
         ticket_set = set()
@@ -1319,7 +1319,7 @@ class f_property(f_app.module_base):
     def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, check_permission=True):
         ignore_sales_comment = True
         user = f_app.user.login.get()
-        propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, multi_return=dict, force_reload=force_reload)
+        propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
         if user:
             user_roles = f_app.user.get_role(user["id"])
             if set(["admin", "jr_admin", "sales", "jr_sales"]) & set(user_roles):
