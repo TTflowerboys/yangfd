@@ -57,7 +57,7 @@
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)[self.formController form];
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = [ticket property];
-    property.street = [CUTEI18n i18nWithValue:form.street];
+    property.street = form.street;
     property.city = form.city;
     property.zipcode = form.postcode;
     property.country = form.country;

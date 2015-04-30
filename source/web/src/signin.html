@@ -41,7 +41,6 @@
             .done(function (result) {
                 ga('send', 'event', 'signin', 'result', 'signin-success')
 
-                window.alert(result)
                 if (window.mobileClient !== undefined) {
                     window.mobileClient.signIn(result)
                     project.replaceToFromURL()

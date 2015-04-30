@@ -211,7 +211,7 @@
             if (cityIndex != NSNotFound) {
                 [form setCity:[cities objectAtIndex:cityIndex]];
             }
-            form.street = property.street.value;
+            form.street = property.street;
             form.postcode = property.zipcode;
             controller.formController.form = form;
             controller.navigationItem.title = STR(@"位置");

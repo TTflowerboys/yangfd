@@ -52,11 +52,6 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECityEnum class]];
 }
 
-+ (NSValueTransformer *)nameJSONTransformer
-{
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEI18n class]];
-}
-
 + (NSValueTransformer *)locationJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSDictionary *locationDict) {
@@ -80,16 +75,6 @@
     }];
 }
 
-+ (NSValueTransformer *)streetJSONTransformer
-{
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEI18n class]];
-}
-
-+ (NSValueTransformer *)propertyDescriptionJSONTransformer
-{
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEI18n class]];
-}
-
 + (NSValueTransformer *)spaceJSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEArea class]];
@@ -105,6 +90,10 @@
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
 }
 
+- (NSDictionary *)toI18nString:(NSString *)string {
+    return @{DEFAULT_I18N_LOCALE: string};
+}
+
 - (NSDictionary *)toParams {
     NSMutableDictionary *params =
     [NSMutableDictionary dictionaryWithDictionary:@{@"bedroom_count": @(self.bedroomCount),
@@ -112,17 +101,17 @@
                                                     @"bathroom_count": @(self.bathroomCount),
                                                     @"zipcode": self.zipcode? self.zipcode: @"",
                                                     }];
-    if (self.name && self.name.) {
-        [params setValue:self.name.toParams forKey:@"name"];
+    if (self.name && self.name) {
+        [params setValue:[self toI18nString:self.name] forKey:@"name"];
     }
-    if (self.propertyDescription && self.propertyDescription.toParams) {
-        [params setValue:self.propertyDescription.toParams forKey:@"description"];
+    if (self.propertyDescription && self.propertyDescription) {
+        [params setValue:[self toI18nString:self.propertyDescription] forKey:@"description"];
     }
     if (self.propertyType) {
         [params setValue:self.propertyType.identifier forKey:@"property_type"];
     }
-    if (self.street && self.street.toParams) {
-        [params setValue:self.street.toParams forKey:@"street"];
+    if (self.street && self.street) {
+        [params setValue:[self toI18nString:self.street] forKey:@"street"];
     }
     if (self.country && self.country.identifier) {
         [params setValue:self.country.identifier forKey:@"country"];
@@ -152,7 +141,7 @@
 }
 
 - (NSString *)address {
-    return [@[NilNullToEmpty(self.street.value),
+    return [@[NilNullToEmpty(self.street),
               NilNullToEmpty(self.zipcode),
               NilNullToEmpty(self.city.value),
               NilNullToEmpty(self.country.value)]

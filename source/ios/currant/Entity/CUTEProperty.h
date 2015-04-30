@@ -9,7 +9,6 @@
 #import "MTLModel.h"
 #import "CUTEEnum.h"
 #import "CUTEArea.h"
-#import "CUTEI18n.h"
 #import "CUTEArea.h"
 #import <CoreLocation/CoreLocation.h>
 
@@ -24,7 +23,7 @@
 
 @property (strong, nonatomic) NSArray * realityImages;
 
-@property (strong, nonatomic) CUTEI18n *name;
+@property (strong, nonatomic) NSString *name;
 
 @property (strong, nonatomic) CLLocation *location;
 
@@ -32,13 +31,13 @@
 
 @property (strong, nonatomic) CUTEEnum *city;
 
-@property (strong, nonatomic) CUTEI18n *street;
+@property (strong, nonatomic) NSString *street;
 
 @property (strong, nonatomic) NSString *zipcode;
 
 @property (readonly, nonatomic) NSString *address;
 
-@property (strong, nonatomic) CUTEI18n *propertyDescription;
+@property (strong, nonatomic) NSString *propertyDescription;
 
 @property (nonatomic) NSInteger bedroomCount;
 
