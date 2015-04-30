@@ -34,8 +34,18 @@
             //companyHeightReset()
             obj.eq(index).siblings().find('.animate').addClass('hide')
             obj.eq(index).find('.animate').removeClass('hide')
+            if(index < 6 && parent && parent.previewMoveTo){ //如果在发布预览页的iframe中展示，那么调用父窗口的方法改变父窗口对应的说明文字状态
+                parent.previewMoveTo(index)
+            }
         }
     });
+    window.wechatSwiperMoveTo = function(num, speed, callback) {
+        if(typeof num !== 'number' || num < 0 || num >5){
+            throw('Num must be an interger between 0 and 5!')
+        }
+        speed = speed || 500
+        mySwiper.slideTo(num, speed, callback)
+    }
     function createPhotoListSwiper(){
         photoSwiper = new Swiper('.pagePhoto', {
             slidesPerView: 1,
