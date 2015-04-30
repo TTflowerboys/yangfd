@@ -8,13 +8,20 @@
 
 
 <!--@@block=action_phone -->
-<div class="otherAction">
-    <button id="cancelFavorite" data-id={=fav.id=} class="ghostButton redPhone">{=window.i18n('取消收藏')=}</button>
-</div>
+
 <!--@@close-->
 
 <!--@@block=cover_phone -->
+<div class="otherAction">
+    <a id="cancelFavorite" data-id={=fav.id=} class="action">
+        <img alt="" src="/static/images/user/button_delete.png"/>
+        <label>{=window.i18n('取消收藏')=}</label>
+    </a>
+</div>
 <div class="undo_phone_shadow" style="display:none;">
-    <button id="undoFavorite"  data-id={=fav.id=} data-property-id="{=fav.property.id=}" class="undo_phone"> <img alt="" src="/static/images/user/favorites/undo.png"/><span>{=window.i18n('撤销')=}</span></button>
+    <button id="undoFavorite"  data-id={=fav.id=} data-property-id="{=fav.property.id=}" class="undo_phone">
+        <img alt="" src="/static/images/user/favorites/undo.png"/>
+        <span>{=window.i18n('撤销')=}</span>
+    </button>
 </div>
 <!--@@close-->

@@ -23,12 +23,14 @@
 }
 
 - (void)signIn:(JSValue *)result {
-
-    [[CUTEDataManager sharedInstance] saveAllCookies];
     NSDictionary *dic = [result toDictionary];
     if (dic && [dic isKindOfClass:[NSDictionary class]]) {
-        CUTEUser *user = (CUTEUser *)[MTLJSONAdapter modelOfClass:[CUTEUser class] fromJSONDictionary:dic error:nil];
-        [[CUTEDataManager sharedInstance] saveUser:user];
+        NSError *error = nil;
+        CUTEUser *user = (CUTEUser *)[MTLJSONAdapter modelOfClass:[CUTEUser class] fromJSONDictionary:dic error:&error];
+        if (!error && user) {
+            [[CUTEDataManager sharedInstance] saveAllCookies];
+            [[CUTEDataManager sharedInstance] saveUser:user];
+        }
     }
 }
 
@@ -40,9 +42,21 @@
 - (void)editRentTicket:(JSValue *)result {
     NSDictionary *dic = [result toDictionary];
     if (dic && [dic isKindOfClass:[NSDictionary class]]) {
-        CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:nil];
-        if (ticket) {
+        NSError *error = nil;
+        CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];
+        if (!error && ticket) {
             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_EDIT object:self.controller userInfo:@{@"ticket": ticket}];
+        }
+    }
+}
+
+- (void)wechatShareRentTicket:(JSValue *)result {
+    NSDictionary *dic = [[result toDictionary] copy];
+    if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+        NSError *error = nil;
+        CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];
+        if (!error && ticket) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_WECHAT_SHARE object:self.controller userInfo:@{@"ticket": ticket}];
         }
     }
 }

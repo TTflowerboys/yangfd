@@ -60,31 +60,34 @@
 - (void)shareToWechatWithTitle:(NSString *)title description:(NSString *)description url: (NSString *)url  {
     [UIAlertView showWithTitle:STR(@"微信分享") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"分享给微信好友"), STR(@"分享到微信朋友圈")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
-        if([WXApi isWXAppInstalled] && buttonIndex != alertView.cancelButtonIndex){
-            BaseReq *req = [self makeWechatRequstWithScene:buttonIndex == 1? WXSceneSession: WXSceneTimeline title:title description:description url:url];
+        if([WXApi isWXAppInstalled]){
+            if (buttonIndex != alertView.cancelButtonIndex) {
+                BaseReq *req = [self makeWechatRequstWithScene:buttonIndex == 1? WXSceneSession: WXSceneTimeline title:title description:description url:url];
 
-            [[CUTEWxManager sharedInstance] sendRequst:req onResponse:^(BaseResp *resp) {
-                if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
-                    SendMessageToWXResp *backResp = (SendMessageToWXResp *)resp;
-                    if (backResp.errCode == WXSuccess) {
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [SVProgressHUD showSuccessWithStatus:STR(@"分享成功")];
-                        });
+                [[CUTEWxManager sharedInstance] sendRequst:req onResponse:^(BaseResp *resp) {
+                    if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
+                        SendMessageToWXResp *backResp = (SendMessageToWXResp *)resp;
+                        if (backResp.errCode == WXSuccess) {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [SVProgressHUD showSuccessWithStatus:STR(@"分享成功")];
+                            });
 
+                        }
+                        else if (backResp.errCode == WXErrCodeUserCancel) {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [SVProgressHUD showErrorWithStatus:STR(@"分享取消")];
+                            });
+                        }
+                        else {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [SVProgressHUD showErrorWithStatus:STR(@"分享失败")];
+                            });
+                        }
                     }
-                    else if (backResp.errCode == WXErrCodeUserCancel) {
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [SVProgressHUD showErrorWithStatus:STR(@"分享取消")];
-                        });
-                    }
-                    else {
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [SVProgressHUD showErrorWithStatus:STR(@"分享失败")];
-                        });
-                    }
-                }
-            }];
-        }else{
+                }];
+            }
+        }
+        else {
             [SVProgressHUD showErrorWithStatus:STR(@"请安装微信")];
         }
     }];

@@ -61,14 +61,6 @@
     self.navigationItem.title = STR(@"房产信息");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"返回") style:UIBarButtonItemStylePlain target:self action:@selector(onLeftButtonPressed:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:nil action:nil];
-
-//    _kvoController = [FBKVOController new];
-//    self.KVOController = _kvoController;
-//
-//    [self.KVOController observe:self keyPaths:@[@"formController.form.bedroom", @"formController.form.propertyType"] options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-//        [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-//        [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
-//    }];
 }
 
 
@@ -86,26 +78,16 @@
     self.ticket.property.livingroomCount = form.livingroomCount;
     self.ticket.property.bathroomCount = form.bathroomCount;
     self.ticket.property.propertyType = form.propertyType;
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 
-    NSArray *controllers = self.navigationController.viewControllers;
-    if (!IsArrayNilOrEmpty(controllers) && controllers.firstObject != self) {
-        if ([controllers.firstObject isKindOfClass:[CUTEUnfinishedRentTicketViewController class]]) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }
-        else {
-            CUTEUnfinishedRentTicketViewController *unfinisedController = [CUTEUnfinishedRentTicketViewController new];
-            [self.navigationController setViewControllers:@[unfinisedController] animated:YES];
-        }
-    }
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:nil];
 }
 
 - (void)editPropertyType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
     self.ticket.property.propertyType = form.propertyType;
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -114,8 +96,7 @@
     self.ticket.property.bedroomCount = form.bedroomCount;
     self.ticket.property.livingroomCount = form.livingroomCount;
     self.ticket.property.bathroomCount = form.bathroomCount;
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 }
 
 - (void)editArea {
@@ -211,7 +192,7 @@
             if (cityIndex != NSNotFound) {
                 [form setCity:[cities objectAtIndex:cityIndex]];
             }
-            form.street = property.street.value;
+            form.street = property.street;
             form.postcode = property.zipcode;
             controller.formController.form = form;
             controller.navigationItem.title = STR(@"位置");

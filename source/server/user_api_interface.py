@@ -44,9 +44,9 @@ def user_authenticate(user):
 def current_user_favorites(user, params):
     """
     Get current user favorites
-    use ``type`` to get item for property favorite
+    use ``type`` to get item for property favorite. Possible values: ``property``, ``item``, ``rent_ticket``, ``sale_ticket``.
     """
-    assert params["type"] in ("property", "item"), abort(40000, logger.warning("Invalid params: invalid favorite type", exc_info=False))
+    assert params["type"] in ("property", "item", "rent_ticket", "sale_ticket"), abort(40000, logger.warning("Invalid params: invalid favorite type", exc_info=False))
     per_page = params.pop("per_page", 0)
     params["user_id"] = ObjectId(user["id"])
     result = f_app.user.favorite.output(f_app.user.favorite_search(params, per_page=per_page), ignore_nonexist=True)
@@ -56,16 +56,16 @@ def current_user_favorites(user, params):
 @f_api('/user/favorite/add', params=dict(
     property_id=ObjectId,
     item_id=ObjectId,
+    ticket_id=ObjectId,
     type=(str, True),
 ))
 @f_app.user.login.check(force=True)
 def current_user_favorites_add(user, params):
     """
     Get current user favorites
-    please specify ``type`` when calling this API
-    ``type`` can be ``property`` or ``item``
+    Please specify ``type`` when calling this API. Possible values: ``property``, ``item``, ``rent_ticket``, ``sale_ticket``.
     """
-    assert params["type"] in ("property", "item"), abort(40000, logger.warning("Invalid params: invalid favorite type", exc_info=False))
+    assert params["type"] in ("property", "item", "rent_ticket", "sale_ticket"), abort(40000, logger.warning("Invalid params: invalid favorite type", exc_info=False))
     if params["type"] == "property" and "property_id" in params:
         property = f_app.property.get(params["property_id"])
         assert property["status"] in ["selling", "sold out"], abort(40398, logger.warning("Permission denied: not a valid property_id", exc_info=False))

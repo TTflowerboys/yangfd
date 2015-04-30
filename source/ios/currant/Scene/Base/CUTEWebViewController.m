@@ -15,6 +15,7 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import <JavaScriptCore/JSValue.h>
 #import "CUTEMoblieClient.h"
+#import "CUTEWebConfiguration.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -23,8 +24,6 @@
     NJKWebViewProgressView *_progressView;
 
     NJKWebViewProgress *_progressProxy;
-
-    JSContext *_jsContext;
 }
 
 @end
@@ -40,11 +39,15 @@
 }
 
 - (void)setupJSContextWithWebView:(UIWebView *)webView {
-    _jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    [_jsContext setObject:[CUTEMoblieClient new] forKeyedSubscript:@"mobileClient"];
+    JSContext *jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    CUTEMoblieClient *mobileClient = [CUTEMoblieClient new];
+    mobileClient.controller = self;
+    jsContext[@"window"][@"mobileClient"] = mobileClient;
 }
 
 - (void)loadURL:(NSURL *)url {
+
+    url = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
 
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
     if (!_webView) {
@@ -52,7 +55,7 @@
         [self.view addSubview:_webView];
         _webView.delegate = _progressProxy;
         [self setupJSContextWithWebView:_webView];
-        
+
         [_webView loadRequest:urlRequest];
     }
     else if (_webView && ![_webView.request.URL.absoluteString isEqualToString:urlRequest.URL.absoluteString]) {
@@ -64,7 +67,7 @@
         [self.view addSubview:_webView];
         _webView.delegate = _progressProxy;
         [self setupJSContextWithWebView:_webView];
-        
+
         [_webView loadRequest:urlRequest];
     }
 }
@@ -125,7 +128,7 @@
             [label setBackgroundColor:[UIColor clearColor]];
             [button addSubview:label];
             UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-            
+
             self.navigationItem.leftBarButtonItem = barButton;
         }
     }
@@ -140,6 +143,12 @@
     }
 }
 
+- (void)updateRightButton {
+    BBTWebBarButtonItem *rightBarButtonItem = [[CUTEWebConfiguration sharedInstance] getRightBarItemFromURL:_webView.request.URL];
+    rightBarButtonItem.webView = _webView;
+    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+}
+
 #pragma UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -149,16 +158,21 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-   
+
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    //http://stackoverflow.com/questions/21714365/uiwebview-javascript-losing-reference-to-ios-jscontext-namespace-object
+    [self setupJSContextWithWebView:webView];
     [self updateBackButton];
+    [self updateRightButton];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [self setupJSContextWithWebView:webView];
     [self updateBackButton];
+    [self updateRightButton];
 }
 
 #pragma mark - NJKWebViewProgressDelegate

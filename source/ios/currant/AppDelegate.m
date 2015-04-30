@@ -76,7 +76,6 @@
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
-    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:self action:@selector(onPhoneButtonPressed:)];
     controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     [nav setViewControllers:@[controller]];
@@ -90,7 +89,6 @@
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
-    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain target:self action:@selector(onPhoneButtonPressed:)];
     controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     [nav setViewControllers:@[controller]];
@@ -121,8 +119,11 @@
     [CUTEWxManager registerWeixinAPIKey:[CUTEConfiguration weixinAPPId]];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketSync:) name:KNOTIF_TICKET_SYNC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketDelete:) name:KNOTIF_TICKET_DELETE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketEdit:) name:KNOTIF_TICKET_EDIT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketWechatShare:) name:KNOTIF_TICKET_WECHAT_SHARE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketListReload:) name:KNOTIF_TICKET_LIST_RELOAD object:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
@@ -207,36 +208,12 @@
     return [[CUTEWxManager sharedInstance] handleOpenURL:url];
 }
 
-- (void)onPhoneButtonPressed:(id)sender
-{
-    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",[CUTEConfiguration servicePhone]]];
-
-    if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
-        [[UIApplication sharedApplication] openURL:phoneUrl];
-    } else
-    {
-        UIAlertView *calert = [[UIAlertView alloc]initWithTitle:STR(@"电话不可用") message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil, nil];
-        [calert show];
-    }
-}
-
-
-- (NSArray *)needLoginURLList {
-    return @[@"/user"];
-}
-
 #pragma UITabbarViewControllerDelegate
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UINavigationController *)viewController {
     if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
         CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
-        if ([[self needLoginURLList] containsObject:webViewController.url.path] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
-            NSURL *originalURL = webViewController.url;
-            [webViewController loadURL:[NSURL WebURLWithString:CONCAT(@"/signin?from=", [originalURL.absoluteString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding])]];
-        }
-        else {
-            [webViewController loadURL:webViewController.url];
-        }
+        [webViewController loadURL:webViewController.url];
     }
     //only update when first create, not care the controller push and pop
     else if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController == nil) {
@@ -281,20 +258,31 @@
     CUTETicket *ticket = userInfo[@"ticket"];
     [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
     [[CUTERentTickePublisher sharedInstance] deleteTicket:ticket];
-    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:2] silent:YES];
+    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }
 
 - (void)onReceiveTicketPublish:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
     [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
-    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:2] silent:YES];
+    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 
     CUTERentShareViewController *shareController = [CUTERentShareViewController new];
     shareController.formController.form = [CUTERentShareForm new];
     shareController.ticket = ticket;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
     [self.tabBarController presentViewController:nc animated:NO completion:nil];
+}
+
+- (void)onReceiveTicketSync:(NSNotification *)notif {
+    NSDictionary *userInfo = notif.userInfo;
+    CUTETicket *ticket = userInfo[@"ticket"];
+    if (ticket && ticket.identifier) {
+        if ([ticket.status isEqualToString:kTicketStatusDraft]) {
+            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:ticket];
+        }
+        [[CUTERentTickePublisher sharedInstance] editTicket:ticket];
+    }
 }
 
 - (void)onReceiveTicketEdit:(NSNotification *)notif {
@@ -323,7 +311,16 @@
             return nil;
         }];
     }
+}
 
+- (void)onReceiveTicketWechatShare:(NSNotification *)notif {
+    NSDictionary *userInfo = notif.userInfo;
+    CUTETicket *ticket = userInfo[@"ticket"];
+    [[CUTEWxManager sharedInstance] shareToWechatWithTitle:ticket.title description:ticket.ticketDescription url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+}
+
+- (void)onReceiveTicketListReload:(NSNotification *)notif {
+    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }
 
 @end

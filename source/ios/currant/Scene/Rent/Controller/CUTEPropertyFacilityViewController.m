@@ -12,6 +12,7 @@
 #import "CUTEPropertyFacilityForm.h"
 #import "CUTEDataManager.h"
 #import "CUTERentTickePublisher.h"
+#import "CUTENotificationKey.h"
 
 @implementation CUTEPropertyFacilityViewController
 
@@ -23,8 +24,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 }
 
 - (void)toggleIndoorFacility:(CUTEEnum *)facility on:(BOOL)on {

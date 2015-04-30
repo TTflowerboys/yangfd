@@ -20,6 +20,8 @@
 
 - (void)editRentTicket:(JSValue *)result;
 
+- (void)wechatShareRentTicket:(JSValue *)result;
+
 @end
 
 

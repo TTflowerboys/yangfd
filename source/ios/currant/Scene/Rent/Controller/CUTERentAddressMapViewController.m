@@ -25,6 +25,7 @@
 #import <INTULocationManager.h>
 #import <Sequencer.h>
 #import "CUTERentTickePublisher.h"
+#import "CUTENotificationKey.h"
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, UITextFieldDelegate>
 {
@@ -100,13 +101,14 @@
     _textField.text = property.address;
 
     if (property.location) {
-        [self updateLocation:property.location];
+        [self updatePlacemarkWithLocation:property.location];
     }
 }
 
 - (BFTask *)requestLocation {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:30 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+    //only need INTULocationAccuracyCity, if set other small accuracy will be very slow
+    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyCity timeout:30 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         if (currentLocation) {
             [tcs setResult:currentLocation];
         }
@@ -128,7 +130,7 @@
     [[self requestLocation] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
             CLLocation *location = task.result;
-            [self updateLocation:location];
+            [self updatePlacemarkWithLocation:location];
             MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
             [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
             return [[self updateAddress] continueWithBlock:^id(BFTask *task) {
@@ -176,7 +178,7 @@
                         if (cityIndex != NSNotFound) {
                             [form setCity:[cities objectAtIndex:cityIndex]];
                         }
-                        form.street = property.street.value;
+                        form.street = property.street;
                         form.postcode = property.zipcode;
                         controller.formController.form = form;
                         controller.navigationItem.title = STR(@"位置");
@@ -207,7 +209,7 @@
     [_geocoder geocodeAddressString:_textField.text completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!IsArrayNilOrEmpty(placemarks)) {
             CLPlacemark *placemark = [placemarks firstObject];
-            [self updateLocation:placemark.location];
+            [self updatePlacemarkWithLocation:placemark.location];
             MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 800, 800);
             [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
             [SVProgressHUD dismiss];
@@ -232,8 +234,7 @@
 }
 
 - (void)onSaveButtonPressed:(id)sender {
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -297,7 +298,7 @@
         CLLocation *location = [[CLLocation alloc] initWithLatitude:touchMapCoordinate.latitude longitude:touchMapCoordinate.longitude];
           if (!property.location || [location distanceFromLocation:property.location] > 10) {
               [sender cancelsTouchesInView];
-              [self updateLocation:location];
+              [self updatePlacemarkWithLocation:location];
               [SVProgressHUD show];
               [[self updateAddress] continueWithBlock:^id(BFTask *task) {
                   if (task.error || task.exception || task.isCancelled) {
@@ -343,7 +344,7 @@
                     NSArray *cities = [task.result[1] collect:^BOOL(CUTECityEnum *object) {
                         return [[object.country slug] isEqualToString:placemark.ISOcountryCode] && [[[placemark locality] lowercaseString] hasPrefix:[[object value] lowercaseString]];
                     }];
-                    property.street = [CUTEI18n i18nWithValue:[@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "]];
+                    property.street = [@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "];
                     property.zipcode = placemark.postalCode;
                     property.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
                     property.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
@@ -356,7 +357,7 @@
     }];
 }
 
-- (void)updateLocation:(CLLocation *)location {
+- (void)updatePlacemarkWithLocation:(CLLocation *)location {
     if (location && [location isKindOfClass:[CLLocation class]]) {
         CUTEProperty *property = self.ticket.property;
         property.location = location;

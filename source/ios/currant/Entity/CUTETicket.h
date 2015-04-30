@@ -11,7 +11,6 @@
 #import "CUTEArea.h"
 #import "CUTECurrency.h"
 #import "CUTEProperty.h"
-#import "CUTEI18n.h"
 #import "CUTERentPeriod.h"
 
 #define kTicketStatusToRent @"to rent"

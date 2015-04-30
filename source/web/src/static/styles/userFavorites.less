@@ -44,6 +44,10 @@
         }
         .list {
             margin-top: 50px;
+
+            @media @phone {
+                margin-top:0px;
+            }
             .houseCard {
                 margin-bottom: 100px;
                 .description {
@@ -124,6 +128,28 @@
                 }
                 &_phone {
                     position: relative;
+
+                    .otherAction {
+                        display: none;
+                        border-top: 1px solid @border-color;
+                        border-bottom: 1px solid @border-color;
+                        min-height: 42px;
+                        > a {
+                            display: block;
+                            text-align: center;
+                            padding: @standard-margin @standard-margin;
+
+                            > label {
+                                vertical-align: text-bottom;
+                                color:#999;
+                                font-size:@root-font-size-mobile;
+                            }
+                        }
+
+                        @media @phone {
+                            display: inherit;
+                        }
+                    }
                     .undo_phone {
                         &_shadow {
                             position: absolute;

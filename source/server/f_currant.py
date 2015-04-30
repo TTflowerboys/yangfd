@@ -167,7 +167,7 @@ class f_currant_log(f_log):
             return _format_each(result)
 
     def output(self, log_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
-        logs = self.get(log_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        logs = self.get(log_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
         property_id_set = set()
         for log in logs:
             if log.get("property_id"):
@@ -179,7 +179,11 @@ class f_currant_log(f_log):
             if log.get("property_id"):
                 log["property"] = property_dict.get(log.pop("property_id"))
 
-        return logs
+        if multi_return == list:
+            return logs
+
+        else:
+            return dict(zip(log_id_list, logs))
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10):
         params.setdefault("status", {"$ne": "deleted"})
@@ -335,9 +339,10 @@ class f_currant_user(f_user):
         return str(favorite_id)
 
     def favorite_output(self, favorite_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, ignore_user=True):
-        favorites = self.favorite_get(favorite_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        favorites = self.favorite_get(favorite_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
         property_set = set()
         item_set = set()
+        ticket_set = set()
         for fav in favorites:
             if ignore_user:
                 del fav["user_id"]
@@ -345,16 +350,25 @@ class f_currant_user(f_user):
                 property_set.add(fav["property_id"])
             if "item_id" in fav:
                 item_set.add(fav["item_id"])
+            if "ticket_id" in fav:
+                ticket_set.add(fav["ticket_id"])
 
         property_dict = f_app.property.output(list(property_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
         item_dict = f_app.shop.item_output(list(item_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
+        ticket_dict = f_app.ticket.output(list(ticket_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
         for fav in favorites:
             if "property_id" in fav:
                 fav["property"] = property_dict.get(str(fav.pop("property_id")))
             if "item_id" in fav:
                 fav["item"] = item_dict.get(str(fav.pop("item_id")))
+            if "ticket_id" in fav:
+                fav["ticket"] = ticket_dict.get(str(fav.pop("ticket_id")))
 
-        return favorites
+        if multi_return == list:
+            return favorites
+
+        else:
+            return dict(zip(favorite_id_list, favorites))
 
     def favorite_get_by_user(self, user_id, fav_type="property"):
         return self.favorite_search({"user_id": ObjectId(user_id), "type": fav_type}, per_page=0)
@@ -398,7 +412,7 @@ class f_currant_ticket(f_ticket):
         Ticket
         ==================================================================
     """
-    def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False, fuzzy_user_info=False):
+    def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False, fuzzy_user_info=False, multi_return=list):
         ticket_list = f_app.ticket.get(ticket_id_list)
         user_id_set = set()
         enum_id_set = set()
@@ -446,7 +460,11 @@ class f_currant_ticket(f_ticket):
             if t.get("property_id"):
                 t["property"] = property_dict.get(str(t.pop("property_id")))
 
-        return ticket_list
+        if multi_return == list:
+            return ticket_list
+
+        else:
+            return dict(zip(ticket_id_list, ticket_list))
 
     def history_single_output(self, ticket_id):
         user_id_set = set([])
@@ -1301,46 +1319,31 @@ class f_property(f_app.module_base):
     def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, check_permission=True):
         ignore_sales_comment = True
         user = f_app.user.login.get()
-        propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, multi_return=multi_return, force_reload=force_reload)
+        propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
         if user:
             user_roles = f_app.user.get_role(user["id"])
             if set(["admin", "jr_admin", "sales", "jr_sales"]) & set(user_roles):
                 ignore_sales_comment = False
 
-        if isinstance(propertys, list):
-            new_properties = []
-            for property in propertys:
-                if isinstance(property, dict):
-                    if not user:
-                        if "brochure" in property:
-                            for item in property["brochure"]:
-                                item.pop("url", None)
-                                item["rendered"] = item.get("rendered", [])[:5]
-                    if not user or not len(user_roles):
-                        property.pop("real_address", None)
-                    if ignore_sales_comment:
-                        property.pop("sales_comment", None)
-                    if property["status"] not in ["selling", "sold out", "restricted"] and check_permission:
-                        assert property.get("user_generated") or user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
-                new_properties.append(property)
+        for property in propertys:
+            if isinstance(property, dict):
+                if not user:
+                    if "brochure" in property:
+                        for item in property["brochure"]:
+                            item.pop("url", None)
+                            item["rendered"] = item.get("rendered", [])[:5]
+                if not user or not len(user_roles):
+                    property.pop("real_address", None)
+                if ignore_sales_comment:
+                    property.pop("sales_comment", None)
+                if property["status"] not in ["selling", "sold out", "restricted"] and check_permission:
+                    assert property.get("user_generated") or user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+
+        if multi_return == list:
+            return propertys
 
         else:
-            new_properties = {}
-            for id, property in propertys.iteritems():
-                if isinstance(property, dict):
-                    if not user:
-                        if "brochure" in property:
-                            for item in property["brochure"]:
-                                item.pop("url", None)
-                                item["rendered"] = item.get("rendered", [])[:5]
-                    if not user or not len(user_roles):
-                        property.pop("real_address", None)
-                    if ignore_sales_comment:
-                        property.pop("sales_comment", None)
-                    if property["status"] not in ["selling", "sold out", "restricted"] and check_permission:
-                        assert property.get("user_generated") or user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
-                new_properties[id] = property
-        return new_properties
+            return dict(zip(property_id_list, propertys))
 
     def search(self, params, sort=["time", "desc"], notime=False, per_page=10, count=False, time_field="time"):
         f_app.util.process_search_params(params)
@@ -2565,7 +2568,7 @@ class f_comment(f_app.module_base):
         return str(comment_id)
 
     @f_cache("comment")
-    def get(self, comment_id_or_list, ignore_nonexist=False, force_reload=False, multi_return=list):
+    def get(self, comment_id_or_list, ignore_nonexist=False, force_reload=False):
         def _format_each(comment):
             comment["id"] = str(comment.pop("_id"))
             comment["item_id"] = str(comment.pop("item_id"))

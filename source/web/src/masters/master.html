@@ -28,7 +28,12 @@
             <!--build:css(dist) /static/styles/client/ios.html.css-->
             <link rel="stylesheet" href="/static/styles/client/ios.css"/>
             <!--endbuild-->
+        %else:
+            <!--build:css(dist) /static/styles/client/nonios.html.css-->
+            <link rel="stylesheet" href="/static/styles/client/nonios.css"/>
+            <!--endbuild-->
         %end
+
 
         <!-- @@placeholder = head -->
 

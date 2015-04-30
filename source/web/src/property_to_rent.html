@@ -318,7 +318,7 @@
         </div>
         % end
 
-        %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country') and rent['property'].get('country').get('slug') in ['US', 'GB']:
+        %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country'):
         <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
             <div class="seperator"></div>
             <div class="staticMap">

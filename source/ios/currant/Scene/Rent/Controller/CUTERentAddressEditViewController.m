@@ -14,6 +14,7 @@
 #import "FXFormViewController+CUTEForm.h"
 #import "CUTEDataManager.h"
 #import "CUTERentTickePublisher.h"
+#import "CUTENotificationKey.h"
 
 @interface CUTERentAddressEditViewController () {
     CUTEEnum *_lastCountry;
@@ -52,20 +53,19 @@
     if (![self validateFormWithScenario:@"edit"]) {
         return;
     }
-    
+
     [self.navigationController popViewControllerAnimated:YES];
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)[self.formController form];
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = [ticket property];
-    property.street = [CUTEI18n i18nWithValue:form.street];
+    property.street = form.street;
     property.city = form.city;
     property.zipcode = form.postcode;
     property.country = form.country;
 
     //check is a draft ticket not a unfinished one
     if (!IsNilNullOrEmpty(self.ticket.identifier)) {
-        [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-        [[CUTERentTickePublisher sharedInstance] editTicket:self.ticket];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
     }
 }
 
