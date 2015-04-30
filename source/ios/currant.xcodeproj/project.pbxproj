@@ -115,6 +115,11 @@
 		2C96E28A1AE89D8A00F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
 		2C96E28B1AE89D9300F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
 		2C96E28C1AE89D9B00F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
+		2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
+		2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
+		2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
+		2C9AFF731AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
+		2C9AFF741AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -450,6 +455,8 @@
 		2C96E2731AE6566300F3590C /* CUTEWxManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEWxManager.m; sourceTree = "<group>"; };
 		2C96E2791AE74CCD00F3590C /* CUTENotificationKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTENotificationKey.h; sourceTree = "<group>"; };
 		2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		2C9AFF6E1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormFixNonBreakingSpaceTextFieldCell.h; sourceTree = "<group>"; };
+		2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormFixNonBreakingSpaceTextFieldCell.m; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -910,6 +917,8 @@
 				2CF8A5C11AF0B40E0080DF10 /* CUTEFormButtonCell.m */,
 				2CF8A5C21AF0B40E0080DF10 /* CUTEFormDefaultCell.h */,
 				2CF8A5C31AF0B40E0080DF10 /* CUTEFormDefaultCell.m */,
+				2C9AFF6E1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.h */,
+				2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */,
 				2CF8A5C41AF0B40E0080DF10 /* CUTEFormImagePickerCell.h */,
 				2CF8A5C51AF0B40E0080DF10 /* CUTEFormImagePickerCell.m */,
 				2CF8A5C61AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.h */,
@@ -1357,6 +1366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2CF8A61F1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2C07AB701AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A6291AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
@@ -1436,6 +1446,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9AFF731AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2CF8A6201AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2C07AB711AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A62A1AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
@@ -1515,6 +1526,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2CF8A61E1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2C07AB6F1AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A6281AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
@@ -1594,6 +1606,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2CF8A61D1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2C07AB6E1AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A6271AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
@@ -1689,6 +1702,7 @@
 				2C401E2B1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2CF8A6771AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
 				2CF8A6261AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
+				2C9AFF741AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2CB749111ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */,
 				2CF8A63A1AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,

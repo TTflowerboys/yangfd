@@ -38,6 +38,7 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - INTULocationManager (3.0.1)
+  - JRSwizzle (1.0)
   - KVOController (1.0.3)
   - libWeChatSDK (1.5)
   - Mantle (1.5.4):
@@ -79,6 +80,7 @@ DEPENDENCIES:
   - CTAssetsPickerController (~> 2.9.3)
   - FLEX (~> 2.0)
   - INTULocationManager (~> 3.0.1)
+  - JRSwizzle (~> 1.0)
   - KVOController
   - libWeChatSDK (from `https://github.com/Fykec/libWeChatSDK.git`)
   - Masonry (~> 0.6.1)
@@ -122,6 +124,7 @@ SPEC CHECKSUMS:
   FLEX: 321e6150cbababb76aaadde355dfce2ee1cac2d8
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
+  JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libWeChatSDK: b9f8a37a77512350370a6e360ec18649c3086ba3
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
