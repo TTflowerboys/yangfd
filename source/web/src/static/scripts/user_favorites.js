@@ -25,7 +25,7 @@ $(function () {
                     var array = val
                     if(array && array.length > 0){
                         _.each(array, function (fav) {
-                            if(fav.property != null){
+                            if(fav.property !== null){
                                 var houseResult = _.template($('#houseCard_template').html())({fav: fav})
                                 $list.append(houseResult)
                             }
