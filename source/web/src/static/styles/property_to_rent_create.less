@@ -608,10 +608,9 @@ main {
                     }
                     .infoBox{
                         float: left;
-                        margin: 150px auto auto 32px;
+                        margin: 110px auto auto 32px;
                         padding-left: 36px;
                         width: 220px;
-                        height: 360px;
                         dl{
                             position: relative;
                             font-size: 14px;
@@ -619,7 +618,7 @@ main {
                                 position: absolute;
                                 content: '';
                                 width: 2px;
-                                height: 266px;
+                                height: 100%;
                                 left: -20px;
                                 top: 12px;
                                 background-color: #ccc;
@@ -627,6 +626,7 @@ main {
                             dt{
                                 position: relative;
                                 font-size: 16px;
+                                cursor: pointer;
                                 &:before{
                                     position: absolute;
                                     content: '';
@@ -654,8 +654,17 @@ main {
                                 -webkit-margin-start: 0;
                                 line-height: 1.2em;
                                 margin-bottom: 32px;
+                                cursor: pointer;
+                                a{
+                                    display: none;
+                                    color: #e60012;
+                                    text-decoration: none;
+                                }
                                 &.active{
                                     color: #555;
+                                    a{
+                                        display: block;
+                                    }
                                 }
                             }
                         }

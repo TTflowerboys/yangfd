@@ -121,9 +121,17 @@ def property_to_rent_create():
                                         property_type_list=property_type_list, title=title)
 
 
-@f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/edit/')
+@f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/edit')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
 def property_to_rent_edit(rent_ticket_id):
     title = _('出租房源编辑')
     return currant_util.common_template("property_to_rent_edit", title=title)
+
+
+@f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/publish-success')
+@currant_util.check_ip_and_redirect_domain
+@currant_util.check_crowdfunding_ready
+def property_to_rent_edit(rent_ticket_id):
+    title = _('房源发布成功')
+    return currant_util.common_template("property_to_rent_publish_success", title=title)

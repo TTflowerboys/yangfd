@@ -92,20 +92,24 @@
         %end
         wrap clearfix">
             <div class="previewBox">
-                <iframe src="" id="previewIframe" style="width:252px;height: 448px;">
+                <iframe src="" id="previewIframe" name="previewIframe" style="width:252px;height: 448px;">
 
                 </iframe>
             </div>
             <div class="infoBox">
                 <dl class="info">
                     <dt class="active">{{_('封面')}}</dt>
-                    <dd class="active">{{_('包含您提交的房产名称以及类型')}}</dd>
+                    <dd class="active">{{_('包含您提交的房产名称以及类型')}}<br><a href="#/">{{_('[返回修改]')}}</a></dd>
+                    <dt>{{_('房屋概况')}}</dt>
+                    <dd>{{_('包含您要出租的房屋的概况')}}<br><a href="#/">{{_('[返回修改]')}}</a></dd>
                     <dt>{{_('房产设施')}}</dt>
-                    <dd>{{_('填写详细的房产设施能增加30%的阅览')}}</dd>
-                    <dt>{{_('管理方')}}</dt>
-                    <dd>{{_('填写详细的管理方增加30%的阅览')}}</dd>
-                    <dt>{{_('项目财务分析')}}</dt>
-                    <dd>{{_('填写详细的项目财务分析能增加30%的阅览')}}</dd>
+                    <dd>{{_('填写详细的房产设施能增加30%的阅览')}}<br><a href="#/">{{_('[返回修改]')}}</a></dd>
+                    <dt>{{_('房屋位置')}}</dt>
+                    <dd>{{_('展示您的房屋在地图上的位置')}}<br><a href="#/">{{_('[返回修改]')}}</a></dd>
+                    <dt>{{_('实景图片')}}</dt>
+                    <dd>{{_('展示您上传的房屋实景图片')}}<br><a href="#/">{{_('[返回修改]')}}</a></dd>
+                    <dt>{{_('街区报告')}}</dt>
+                    <dd>{{_('展示您的房屋所在街区的概况')}}<br><a href="#/">{{_('[返回修改]')}}</a></dd>
                 </dl>
             </div>
         </div>

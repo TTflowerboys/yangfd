@@ -110,6 +110,7 @@
         $('#previewIframe').attr('src', location.origin + '/wechat-poster/' + ticketid)
         $('[data-route=step1]').hide()
         $('[data-route=step2]').show()
+        initInfoHeight()
     })
 
     //根据用户选择的单间或者整租类型来决定显示房间面积还是房屋面积
@@ -151,12 +152,18 @@
             }
             return location
         }
+        var $btn = $(this)
         var address = $('#postcode').val()
         if(address !== ''){
+            $btn.prop('disabled', true).text(window.i18n('获取中...'))
             $.betterPost('http://maps.googleapis.com/maps/api/geocode/json?address=' + address)
                 .done(function (data) {
                     $('#country').val(getLocationFromApiData(data, 'country'))
                     $('#city').val(getLocationFromApiData(data, 'locality'))
+                    $btn.prop('disabled', false).text(window.i18n('重新获取'))
+                }).fail(function (err) {
+                    $errorMsg.text(err).show()
+                    $btn.prop('disabled', false).text(window.i18n('重新获取'))
                 })
         }
         $('#address').show()
@@ -226,8 +233,9 @@
 
     //获取房产模型数据
     function getPropertyData(options){
-        var address = $('#country')[0].value + $('#city')[0].value + $('#street')[0].value +
-            $('#community')[0].value + $('#floor')[0].value + $('#house_name')[0].value
+        /*var address = $('#country')[0].value + $('#city')[0].value + $('#street')[0].value +
+            $('#community')[0].value + $('#floor')[0].value + $('#house_name')[0].value*/
+        var address = $('#community')[0].value + $('#floor')[0].value + $('#house_name')[0].value
         var indoorFacility = $.makeArray($('.indoorFacilities').find('input:checked').map(function(i,v){
             return $(v).val()
         }))
@@ -309,7 +317,7 @@
         })
 
         var property_id = window.property_id || 'none'
-        $btn.prop('disabled', true).text(window.i18n('发送中...'))
+        $btn.prop('disabled', true).text(window.i18n('发布中...'))
         $.betterPost('/api/1/property/' + property_id + '/edit', propertyData)
             .done(function (val) {
                 var ticketData = getTicketData({
@@ -321,8 +329,12 @@
                     .done(function(val){
                         hashRoute.locationHashTo('/publish/' + val)
                         window.ticketId = val
-                    }).fail(function (ret) {
+                        $btn.prop('disabled', false).text(window.i18n('重新发布'))
+
+                    })
+                    .fail(function (ret) {
                         $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
+                        $btn.prop('disabled', false).text(window.i18n('重新发布'))
                     })
             }).fail(function (ret) {
                 $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
@@ -424,9 +436,39 @@
                     //跳转到发布成功页面
                     window.console.log('发布成功')
                 })
+                .fail(function (ret) {
+                    $errorMsg2.empty()
+                    $errorMsg2.append(window.getErrorMessageFromErrorCode(ret))
+                    $errorMsg2.show()
+                    $btn.text(window.i18n('重新发布')).prop('disabled', false)
+                })
         }
     })
+    window.previewMoveTo = function(num){ //给iframe中的微信预览页调用的方法
+        if(typeof num !== 'number' || num < 0 || num >5){
+            throw('Num must be an interger between 0 and 5!')
+        }
+        $('.infoBox dl.info').find('dt,dd').each(function(i, v){
+            if(i === num * 2 || i === num * 2 + 1){
+                $(v).addClass('active')
+            }else{
+                $(v).removeClass('active')
+            }
+        })
+    }
+    $('.infoBox dl.info').find('dt,dd').click(function(){ //点击文案后微信预览页滚动到对应位置
+        var index = Math.floor($(this).index() / 2)
+        if(window.previewIframe && window.previewIframe.window && typeof window.previewIframe.window.wechatSwiperMoveTo === 'function') {
+            window.previewMoveTo(index)
+            window.previewIframe.window.wechatSwiperMoveTo(index)
+            initInfoHeight()
+        }
+    })
+    function initInfoHeight(){
+        $('.infoBox .info').css('height', $('.infoBox .info dd').last().offset().top - $('.infoBox .info dt').first().offset().top -20 + 'px') //设置说明文案左边的竖线的高度
+    }
     $(document).ready(function () {
         showRoomOrHouse($('#rentalType .property_type').eq(0).text().trim())
+        initInfoHeight()
     });
 })()
