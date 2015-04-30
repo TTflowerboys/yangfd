@@ -1,9 +1,11 @@
 (function(){
-    var imageArr = []
+    var imageArr = $('#fileuploader').data('files').split(',') || []
     var $errorMsg = $('.errorMsg')
     var $errorMsg2 = $('.errorMsg2')
     var $errorMsgOfGetCode = $('.errorMsgOfGetCode')
     var $requestSMSCodeBtn = $('#requestSMSCodeBtn')
+    window.propertyId = $('#submit').data('propertyid') || 'none'
+    window.ticketId = $('#publish').data('ticketid')
     $('#fileuploader').uploadFile({
         url: '/api/1/upload_image',
         fileName: 'data',
@@ -16,8 +18,14 @@
         showQueueDiv: 'uploadProgress',
         statusBarWidth: '140px',
         maxFileCount: 12, //最多上传12张图片
+        uploadFolder: '',
         deleteCallback: function(data, pd){
-            var url = data.val.url
+            var url
+            if($.isArray(data)){
+                url = data[0]
+            }else{
+                url = data.val.url
+            }
             var index = imageArr.indexOf(url)
             if(index >= 0){
                 imageArr.splice(index, 1)
@@ -26,7 +34,13 @@
         onSuccess:function(files, data, xhr, pd){
             imageArr.push(data.val.url)
             pd.progressDiv.hide()
-        }
+        },
+        onLoad:function(obj) {
+            $.each(imageArr, function(i, v){
+                obj.createProgress(v);
+                $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(i).find('.ajax-file-upload-progress').hide()
+            })
+        },
     });
     //选择房产类型
     $('#propertyType div').click(function () {
@@ -250,12 +264,12 @@
             'property_type': $('#propertyType .selected').data('id'),
             //'country': JSON.stringify({'value': {'zh_Hans_CN': $('#country').val()}}), //todo
             //'city': JSON.stringify({'value': {'zh_Hans_CN': $('#city').val()}}), //todo
-            //'street': $('#street').val(), //todo
+            'street': JSON.stringify({'zh_Hans_CN': $('#street').val()}), //todo
             //'community': JSON.stringify({'zh_Hans_CN': $('#community').val()}),
             //'floor': JSON.stringify({'zh_Hans_CN': $('#floor').val()}),
             //'house_name': JSON.stringify({'zh_Hans_CN': $('#house_name').val()}),
             'address': JSON.stringify({'zh_Hans_CN': address}),
-            //'highlight': JSON.stringify({'zh_Hans_CN': []}), //todo?
+            'highlight': JSON.stringify({'zh_Hans_CN': []}), //todo?
             'reality_images': JSON.stringify({'zh_Hans_CN': imageArr}),
             'region_highlight': JSON.stringify(regionHighlight),
             'kitchen_count': $('#kitchen_count').children('option:selected').val(),
@@ -285,20 +299,18 @@
 
     //获取出租单模型数据
     function getTicketData(options){
+        var title = $('#title').val() || $('#street').val() + $('#bedroom_count').children('option:selected').val() + window.i18n('居室') + $('#rentalType .selected').text().trim() + window.i18n('出租') //如果用户没有填写title，默认为街区+居室+出租类型，比如“Isle of Dogs三居室单间出租”
         var ticketData = $.extend(options,{
             'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'), //出租类型
             'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
             'space': getSpace(), //面积
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
-            'bill_covered': $('#containFee').is(':checked'), //是否包物业水电费
+            'bill_covered': $('#billCovered').is(':checked'), //是否包物业水电费
             'rent_period': $('#rent_period').find('option:selected').val(), //出租多长时间
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
-            //'title': $('#title').val(),
+            'title': title,
             //'description': $('#description').val()
         })
-        if($('#title').val() !== ''){
-            ticketData.title = $('#title').val()
-        }
         if($('#description').val() !== ''){
             ticketData.description = $('#description').val()
         }
@@ -316,19 +328,29 @@
             'status': 'draft', //将property设置为草稿状态，第二步发布时再不需要设置成草稿状态
         })
 
-        var property_id = window.property_id || 'none'
         $btn.prop('disabled', true).text(window.i18n('发布中...'))
-        $.betterPost('/api/1/property/' + property_id + '/edit', propertyData)
+        $.betterPost('/api/1/property/' + window.propertyId + '/edit', propertyData)
             .done(function (val) {
                 var ticketData = getTicketData({
                     'property_id': val,
                     'status': 'draft',
                 })
+                var ticketApi
                 //window.console.log(ticketData)
-                $.betterPost('/api/1/rent_ticket/add', ticketData)
+                if(window.ticketId){
+                    ticketApi = '/api/1/rent_ticket/' + window.ticketId + '/edit'
+                }else{
+                    ticketApi = '/api/1/rent_ticket/add'
+                }
+                $.betterPost(ticketApi, ticketData)
                     .done(function(val){
-                        hashRoute.locationHashTo('/publish/' + val)
-                        window.ticketId = val
+                        if(!window.ticketId) {
+                            hashRoute.locationHashTo('/publish/' + val)
+                            window.ticketId = val
+                        }
+                        else{
+                            hashRoute.locationHashTo('/publish/' + window.ticketId)
+                        }
                         $btn.prop('disabled', false).text(window.i18n('重新发布'))
 
                     })
@@ -345,7 +367,7 @@
 
     //var startDate
     $('#rentPeriodStartDate')
-        .val($.format.date(new Date(), 'yyyy-MM-dd'))
+
         .parent('.date').dateRangePicker({
             autoClose: true,
             singleDate: true,
@@ -428,13 +450,13 @@
     $('#publish').on('click', function(e) {
         $errorMsg2.empty().hide()
         var $btn = $(this)
+
         if(window.user){
             $btn.prop('disabled', true).text(window.i18n('发布中...'))
             $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent'})
                 .done(function(val) {
-                    //todo
-                    //跳转到发布成功页面
-                    window.console.log('发布成功')
+                    location.href = '/property-to-rent/' + window.ticketId + '/publish-success'
+                    //window.console.log('发布成功')
                 })
                 .fail(function (ret) {
                     $errorMsg2.empty()
@@ -468,7 +490,7 @@
         $('.infoBox .info').css('height', $('.infoBox .info dd').last().offset().top - $('.infoBox .info dt').first().offset().top -20 + 'px') //设置说明文案左边的竖线的高度
     }
     $(document).ready(function () {
-        showRoomOrHouse($('#rentalType .property_type').eq(0).text().trim())
+        showRoomOrHouse($('#rentalType .property_type.selected').text().trim())
         initInfoHeight()
     });
 })()

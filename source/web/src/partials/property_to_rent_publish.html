@@ -116,6 +116,10 @@
     </div>
     <div class="errorMsg2" style="display: none;"></div>
     <div style="text-align: center">
-        <button class="submit_button" id="publish">{{_('发布')}}</button>
+        %if rent.get('status'):
+        <button class="submit_button" id="publish" data-ticketid="{{rent.get('id','')}}">{{_('重新发布')}}</button>
+        %else:
+        <button class="submit_button" id="publish" data-ticketid="{{rent.get('id','')}}">{{_('发布')}}</button>
+        %end
     </div>
 </div>
