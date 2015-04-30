@@ -23,8 +23,6 @@
     NJKWebViewProgressView *_progressView;
 
     NJKWebViewProgress *_progressProxy;
-
-    JSContext *_jsContext;
 }
 
 @end
@@ -40,11 +38,10 @@
 }
 
 - (void)setupJSContextWithWebView:(UIWebView *)webView {
-    _jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    JSContext *jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     CUTEMoblieClient *mobileClient = [CUTEMoblieClient new];
     mobileClient.controller = self;
-    //[_jsContext setObject:mobileClient forKeyedSubscript:@"window.mobileClient"];
-    _jsContext[@"window"][@"mobileClient"] = mobileClient;
+    jsContext[@"window"][@"mobileClient"] = mobileClient;
 }
 
 - (void)loadURL:(NSURL *)url {
@@ -157,11 +154,13 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    //http://stackoverflow.com/questions/21714365/uiwebview-javascript-losing-reference-to-ios-jscontext-namespace-object
     [self setupJSContextWithWebView:webView];
     [self updateBackButton];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [self setupJSContextWithWebView:webView];
     [self updateBackButton];
 }
 
