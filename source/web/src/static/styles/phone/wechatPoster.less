@@ -284,11 +284,11 @@ p{
             line-height: 6vh;
         }
         .title{
-            width: 100%;
+            width: 90vw;
             margin: 0 auto 2.5vh;
             height: 8vh;
             color: #333;
-            font-size: 5.7vh;
+            font-size: 5vh;
             line-height: 8vh;
             overflow: hidden;
         }
@@ -305,7 +305,8 @@ p{
 }
 .pageRental{
     &>p{
-        position: absolute;
+        //position: absolute;
+        position: relative;
         color: #afc327;
         opacity: 0;
         animation: tada2 0.4s linear 0s 1;
@@ -316,15 +317,18 @@ p{
         height: 7vh;
         line-height: 7vh;
         font-size: 5.6vh;
-        top: 10vh;
+        margin-top: 10vh;
     }
     p.line2{
-        width: 38vh;
-        left: 50%;
-        margin-left: -19vh;
-        height: 6.16vh;
-        line-height: 6.16vh;
-        top: 22vh;
+        //width: 38vh;
+        //left: 50%;
+        //margin-left: -19vh;
+        display: inline-table;
+        margin: 4vh auto 0;
+        padding: 1vh 6vw 0;
+        //height: 6.16vh;
+        //line-height: 6.16vh;
+        //top: 22vh;
         color: #586c4f;
         font-size: 4.8vh;
         font-weight: bold;
@@ -353,7 +357,7 @@ p{
         height: 3.2vh;
         line-height: 3.2vh;
         font-size: 2.5vh;
-        top: 33vh;
+        margin-top: 5vh;
         font-weight: bold;
         animation-delay: 0.4s;
     }
@@ -645,14 +649,18 @@ p{
         //left: 50%;
         //margin-left: -18vh;
         //top: 8.5vh;
-        width: 36vh;
+        max-width: 90vw;
+        //width: 36vh;
         height: 5.4vh;
         margin: 8vh auto 4vh;
+        display: inline-block;
+        padding: 0 5vw;
         background: #afc327;
         color: #333;
         font-size: 3vh;
         line-height: 5.4vh;
         font-weight: lighter;
+        overflow: hidden;
         span{
             font-weight: bold;
         }
