@@ -370,7 +370,10 @@
         return false
     })
 
-    //var startDate
+    //startDate
+    if($('#rentPeriodStartDate').val() === ''){
+        $('#rentPeriodStartDate').val($.format.date(new Date(), 'yyyy-MM-dd'))
+    }
     $('#rentPeriodStartDate')
 
         .parent('.date').dateRangePicker({
@@ -491,6 +494,9 @@
             initInfoHeight()
         }
     })
+    if(location.href.indexOf('create') > 0 && window.ticketId !== undefined){ //如果是在新建页，则需要将编辑的地址改成下面这样的，防止用户刷新页面后表单数据没有东西填充了
+        $('.infoBox dl.info').find('a').attr('href', '/property-to-rent/' + window.ticketId + '/edit')
+    }
     function initInfoHeight(){
         $('.infoBox .info').css('height', $('.infoBox .info dd').last().offset().top - $('.infoBox .info dt').first().offset().top -20 + 'px') //设置说明文案左边的竖线的高度
     }
