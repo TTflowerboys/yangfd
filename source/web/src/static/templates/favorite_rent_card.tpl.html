@@ -1,19 +1,19 @@
 <script id="fav_rentCard_template" type="text/template">
-    <div class="rentCard">
+    <div class="rentCard" data-id="{=fav.id=}">
         <div class="imagePart">
-            <a href="/property-to-rent/{=rent.id=}">
-                {_if(rent.property.reality_images && rent.property.reality_images.length) {_}
-                <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+            <a href="/property-to-rent/{=fav.ticket.id=}">
+                {_if(fav.ticket.property.reality_images && fav.ticket.property.reality_images.length) {_}
+                <img src="{=team.convertToHttps({'link':fav.ticket.property.reality_images[0], 'property_id':fav.ticket.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
                 {_ }else { _}
                 <img class="withPlaceholder"/>
                 {_ } _}
 
                 <div class="labels">
-                    {_if(rent.property.property_type) {_}
-                    <label class="property-type">{=rent.property.property_type.value=}</label>
+                    {_if(fav.ticket.property.property_type) {_}
+                    <label class="property-type">{=fav.ticket.property.property_type.value=}</label>
                     {_}_}
-                    {_if(rent.rent_type) {_}
-                    <label class="rent-type">{=rent.rent_type.value=}</label>
+                    {_if(fav.ticket.rent_type) {_}
+                    <label class="rent-type">{=fav.ticket.rent_type.value=}</label>
                     {_}_}
                 </div>
             </a>
@@ -21,32 +21,32 @@
         <div class="description_wrapper">
             <div class="description">
                 <div class="titles">
-                    <a href="/property-to-rent/{=rent.id=}">
-                        {_if(rent.title) {_}
-                        <p id="name" class="name">{=rent.title=}</p>
+                    <a href="/property-to-rent/{=fav.ticket.id=}">
+                        {_if(fav.ticket.title) {_}
+                        <p id="name" class="name">{=fav.ticket.title=}</p>
                         {_}_}
                     </a>
-                    {_if(rent.price) {_}
-                    <span class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
+                    {_if(fav.ticket.price) {_}
+                    <span class="price">{=fav.ticket.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(fav.ticket.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
                     {_}_}
-                    <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('发布')=}</p>
+                    <p class="date">{!team.parsePublishDate(parseInt(fav.ticket.last_modified_time))!}{=window.i18n('发布')=}</p>
                 </div>
                 <ul class="properties">
                     <li>
                         <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
-                        {_if(rent.property.city && rent.property.city.country && rent.property.city.country.value) {_}
-                        {= rent.property.city.country.value + " " =}
+                        {_if(fav.ticket.property.city && fav.ticket.property.city.country && fav.ticket.property.city.country.value) {_}
+                        {= fav.ticket.property.city.country.value + " " =}
                         {_}_}
-                        {_if(rent.property.city && rent.property.city.value) {_}
-                        {= rent.property.city.value + " " =}
+                        {_if(fav.ticket.property.city && fav.ticket.property.city.value) {_}
+                        {= fav.ticket.property.city.value + " " =}
                         {_}_}
-                        {_if(rent.property.street) {_}
-                        {= rent.property.street =}
+                        {_if(fav.ticket.property.street) {_}
+                        {= fav.ticket.property.street =}
                         {_}_}
                     </li>
-                    {_if(rent.property.region_highlight && rent.property.region_highlight.length) {_}
+                    {_if(fav.ticket.property.region_highlight && fav.ticket.property.region_highlight.length) {_}
                     <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
-                        {_ _.each(rent.region_highlight, function(highlight) { _}
+                        {_ _.each(fav.ticket.region_highlight, function(highlight) { _}
                         {=highlight.value=}
                         {_ }) _}
                     </li>
@@ -57,48 +57,48 @@
                         <div class="room">
                             <p class="label">{=window.i18n('居室')=}</p>
                             <p class="value">
-                                {_if(rent.property.bedroom_count) {_}
-                                {=rent.property.bedroom_count + window.i18n('室') =}
+                                {_if(fav.ticket.property.bedroom_count) {_}
+                                {=fav.ticket.property.bedroom_count + window.i18n('室') =}
                                 {_}_}
-                                {_if(rent.property.living_room_count) {_}
-                                {=rent.property.living_room_count + window.i18n('厅')=}
+                                {_if(fav.ticket.property.living_room_count) {_}
+                                {=fav.ticket.property.living_room_count + window.i18n('厅')=}
                                 {_}_}
                             </p>
                         </div>
                         <div class="size">
                             <p class="label">{=window.i18n('面积')=}</p>
                             <p class="value">
-                                {_if(rent.space) {_}
-                                {= parseFloat(rent.space.value).toFixed(2)=}
-                                {_if (rent.space.unit === 'foot ** 2'){_}
+                                {_if(fav.ticket.space) {_}
+                                {= parseFloat(fav.ticket.space.value).toFixed(2)=}
+                                {_if (fav.ticket.space.unit === 'foot ** 2'){_}
                                 foot <sup>2</sup>
-                                {_} else if(rent.space.unit === 'acre'){_}
+                                {_} else if(fav.ticket.space.unit === 'acre'){_}
                                 acre
-                                {_} else if (rent.space.unit === 'meter ** 2') {_}
+                                {_} else if (fav.ticket.space.unit === 'meter ** 2') {_}
                                 m <sup>2</sup>
-                                {_} else if (rent.space.unit === 'kilometer ** 2') {_}
+                                {_} else if (fav.ticket.space.unit === 'kilometer ** 2') {_}
                                 km <sup>2</sup>
                                 {_} else {_}
-                                {=rent.space.unit=}
+                                {=fav.ticket.space.unit=}
                                 {_}_}
                                 {_}_}
                             </p>
                         </div>
                     </div>
                     <div class="right">
-                        <button id="cancelFavorite" data-id={=rent.id=} class="ghostButton darkGray">{=window.i18n('取消收藏')=}</button>
+                        <button data-id={=fav.id=} class="cancelFavorite ghostButton darkGray">{=window.i18n('取消收藏')=}</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="bottomActions">
-            <a id="cancelFavorite_phone" data-id={=rent.id=} class="action">
+            <a data-id={=fav.id=} class="cancelFavorite_phone action">
                 <img alt="" src="/static/images/user/button_delete.png"/>
                 <span>{=window.i18n('取消收藏')=}</span>
             </a>
         </div>
-        <div class="undo_shadow">
-            <button id="undoFavorite" data-id={=rent.id=} data-rent-id="{=rent.id=}" class="undo">
+        <div class="undoFavorite_shadow">
+            <button data-id={=fav.id=} data-rent-id="{=fav.ticket.id=}" class="undoFavorite">
                 <img alt="" src="/static/images/user/favorites/undo.png"/>
                 <span>{=window.i18n('撤销')=}</span>
             </button>

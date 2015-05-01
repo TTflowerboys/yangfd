@@ -24,15 +24,25 @@ $(function () {
                 if($('.buttons .own').hasClass('button')){
                     var array = val
                     if(array && array.length > 0){
+                        var realCount = 0
                         _.each(array, function (fav) {
                             if(fav.property !== null){
                                 var houseResult = _.template($('#houseCard_template').html())({fav: fav})
                                 $list.append(houseResult)
+
+                                bindPropertyItemCancelFav(fav.property.id)
+                                bindPropertyItemUndoCancel(fav.property.id)
+
+                                realCount++
                             }
                         })
 
-                        bindPropertyItemCancelFav()
-                        bindPropertyItemUndoCancel()
+
+
+                        // In case user fav items been all deleted
+                        if(realCount === 0) {
+                            $ownPlaceholder.show()
+                        }
                     }else{
                         $ownPlaceholder.show()
                     }
@@ -53,23 +63,36 @@ $(function () {
         isLoading = true
 
         var params = {
-            //'user_id': window.user.id,
-            'per_page':-1,
-            'status':['draft','to rent','rent']
+            type:'rent_ticket',
+            'per_page':-1
         }
-        $.betterPost('/api/1/rent_ticket/search', params)
+        $.betterPost('/api/1/user/favorite', params)
             .done(function(val){
                 //Check if tab is still rent
                 if($('.buttons .rent').hasClass('button')){
                     var array = val
                     if(array && array.length > 0){
-                        _.each(array, function (rent) {
-                            var houseResult = _.template($('#fav_rentCard_template').html())({rent: rent})
-                            $list.append(houseResult)
+                        var realCount = 0
+                        _.each(array, function (fav) {
+                            if(fav.property !== null) {
+                                var houseResult = _.template($('#fav_rentCard_template').html())({fav: fav})
+                                $list.append(houseResult)
+
+                                var favId = fav.id
+                                console.log(favId)
+                                bindRentItemCancelFav(favId)
+                                bindRentItemUndoCancel(favId)
+
+                                realCount++
+
+                            }
                         })
 
-                        bindRentItemCancelFav()
-                        bindRentItemUndoCancel()
+
+                        // In case user fav items been all deleted
+                        if(realCount === 0) {
+                            $rentPlaceholder.show()
+                        }
                     }else{
                         $rentPlaceholder.show()
                     }
@@ -116,88 +139,83 @@ $(function () {
     /*
      * User interaction on rent list item
      * */
-    function bindRentItemCancelFav(){
-        $('.rentCard #cancelFavorite').on('click', function (event) {
-            ga('send', 'event', 'user-fav', 'click', 'cancel-fav')
+    function bindRentItemCancelFav(favId){
+        $('.rentCard[data-id=' + favId + '] .cancelFavorite').on('click', function (event) {
+            ga('send', 'event', 'user-fav', 'click', 'cancel-rent-fav')
 
-/*            var favoriteId = $(event.currentTarget).attr('data-id')
+            var favoriteId = $(event.currentTarget).attr('data-id')
             $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
                 .done(function (data) {
                     $(event.currentTarget).hide()
-                    var $undoButton = $(event.currentTarget).parents('.houseCard').find('#undoFavorite[data-id=' + favoriteId + ']')
+                    var $undoButton = $(event.currentTarget).parents('.rentCard').find('.undoFavorite[data-id=' + favoriteId + ']')
                     $undoButton.parent().show()
 
-                    ga('send', 'event', 'user-fav', 'click', 'cancel-fav-success')
+                    ga('send', 'event', 'user-fav', 'click', 'cancel-rent-fav-success')
                 })
                 .fail(function (ret) {
                     window.alert(window.i18n('取消收藏失败'))
-                    ga('send', 'event', 'user-fav', 'click', 'cancel-fav-failed')
-                })*/
-            $(event.currentTarget).hide()
-            var $undoButton = $(event.currentTarget).parents('.rentCard').find('#undoFavorite')
-            $undoButton.parent().show()
+                    ga('send', 'event', 'user-fav', 'click', 'cancel-rent-fav-failed')
+                })
         })
 
-        $('.rentCard #cancelFavorite_phone').on('click', function (event) {
-            ga('send', 'event', 'user-fav', 'click', 'cancel-fav')
+        $('.rentCard[data-id=' + favId + '] .cancelFavorite_phone').on('click', function (event) {
+            ga('send', 'event', 'user-fav', 'click', 'cancel-rent-fav')
 
-            /*            var favoriteId = $(event.currentTarget).attr('data-id')
-             $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
-             .done(function (data) {
-             $(event.currentTarget).hide()
-             var $undoButton = $(event.currentTarget).parents('.houseCard').find('#undoFavorite[data-id=' + favoriteId + ']')
-             $undoButton.parent().show()
+            var favoriteId = $(event.currentTarget).attr('data-id')
+            $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
+                .done(function (data) {
+                    $(event.currentTarget).hide()
+                    var $undoButton = $(event.currentTarget).parents('.rentCard').find('.undoFavorite[data-id=' + favoriteId + ']')
+                    $undoButton.parent().show()
 
-             ga('send', 'event', 'user-fav', 'click', 'cancel-fav-success')
-             })
-             .fail(function (ret) {
-             window.alert(window.i18n('取消收藏失败'))
-             ga('send', 'event', 'user-fav', 'click', 'cancel-fav-failed')
-             })*/
-            $(event.currentTarget).hide()
-            var $undoButton = $(event.currentTarget).parents('.rentCard').find('#undoFavorite')
-            $undoButton.parent().show()
+                    ga('send', 'event', 'user-fav', 'click', 'cancel-rent-fav-success')
+                })
+                .fail(function (ret) {
+                    window.alert(window.i18n('取消收藏失败'))
+                    ga('send', 'event', 'user-fav', 'click', 'cancel-rent-fav-failed')
+                })
         })
     }
 
-    function bindRentItemUndoCancel(){
-        $('.rentCard #undoFavorite').on('click', function (event) {
+    function bindRentItemUndoCancel(favId){
+        $('.rentCard[data-id=' + favId + '] .undoFavorite').on('click', function (event) {
             ga('send', 'event', 'user-fav', 'click', 'cancel-fav')
 
-/*            var favoriteId = $(event.currentTarget).attr('data-id')
-            var propertyId = $(event.currentTarget).attr('data-property-id')
-            $.betterPost('/api/1/user/favorite/add', {'property_id': propertyId, 'type':'property'})
+            var originalFavId = $(event.currentTarget).attr('data-id')
+            var rentId = $(event.currentTarget).attr('data-rent-id')
+            $.betterPost('/api/1/user/favorite/add', {'ticket_id': rentId, 'type':'rent_ticket'})
                 .done(function (data) {
                     var favId = data
                     $.betterPost('/api/1/user/favorite/' + favId)
                         .done(function (data) {
                             var fav = data
-                            var houseResult = _.template($('#houseCard_template').html())({fav: fav})
-                            $('.houseCard[data-property-id=' + propertyId + ']').remove()
-                            $('.houseCard_phone[data-property-id=' + propertyId + ']').replaceWith(houseResult)
+                            var houseResult = _.template($('#fav_rentCard_template').html())({fav: fav})
+                            $('.rentCard[data-id=' + originalFavId + ']').replaceWith(houseResult)
+                            bindRentItemCancelFav(fav.id)
+                            bindRentItemUndoCancel(fav.id)
                         })
                     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-success')
                 })
                 .fail(function (ret) {
                     window.alert(window.i18n('撤销失败'))
                     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-failed')
-                })*/
-            var $undoButton = $(event.currentTarget).parents('.rentCard').find('#undoFavorite')
-            $undoButton.parent().hide()
+                })
         })
     }
 
      /*
      * User interaction on property list item
      * */
-    function bindPropertyItemCancelFav(){
-        $('.houseCard_phone #cancelFavorite').on('click', function (event) {
+    function bindPropertyItemCancelFav(propertyId){
+
+        $('.houseCard_phone[data-property-id=' + propertyId + '] .cancelFavorite').on('click', function (event) {
             ga('send', 'event', 'user-fav', 'click', 'cancel-fav')
 
             var favoriteId = $(event.currentTarget).attr('data-id')
             $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
                 .done(function (data) {
-                    var $undoButton = $(event.currentTarget).parents('.houseCard_phone').find('#undoFavorite[data-id=' + favoriteId + ']')
+                    $(event.currentTarget).hide()
+                    var $undoButton = $(event.currentTarget).parents('.houseCard_phone').find('.undoFavorite[data-id=' + favoriteId + ']')
                     $undoButton.parent().show()
 
                     ga('send', 'event', 'user-fav', 'click', 'cancel-fav-success')
@@ -208,14 +226,14 @@ $(function () {
                 })
         })
 
-        $('.houseCard #cancelFavorite').on('click', function (event) {
+        $('.houseCard[data-property-id=' + propertyId + '] .cancelFavorite').on('click', function (event) {
             ga('send', 'event', 'user-fav', 'click', 'cancel-fav')
 
             var favoriteId = $(event.currentTarget).attr('data-id')
             $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
                 .done(function (data) {
                     $(event.currentTarget).hide()
-                    var $undoButton = $(event.currentTarget).parents('.houseCard').find('#undoFavorite[data-id=' + favoriteId + ']')
+                    var $undoButton = $(event.currentTarget).parents('.houseCard').find('.undoFavorite[data-id=' + favoriteId + ']')
                     $undoButton.parent().show()
 
                     ga('send', 'event', 'user-fav', 'click', 'cancel-fav-success')
@@ -227,11 +245,10 @@ $(function () {
         })
     }
 
-    function bindPropertyItemUndoCancel(){
-        $('.houseCard_phone #undoFavorite').on('click', function (event) {
+    function bindPropertyItemUndoCancel(propertyId){
+        $('.houseCard_phone[data-property-id=' + propertyId + '] .undoFavorite').on('click', function (event) {
             ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav')
 
-            var propertyId = $(event.currentTarget).attr('data-property-id')
             $.betterPost('/api/1/user/favorite/add', {'property_id': propertyId, 'type':'property'})
                 .done(function (data) {
                     var favId = data
@@ -241,6 +258,9 @@ $(function () {
                             var houseResult = _.template($('#houseCard_template').html())({fav: fav})
                             $('.houseCard[data-property-id=' + propertyId + ']').remove()
                             $('.houseCard_phone[data-property-id=' + propertyId + ']').replaceWith(houseResult)
+
+                            bindPropertyItemCancelFav(fav.property.id)
+                            bindPropertyItemUndoCancel(fav.property.id)
                         })
                     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-success')
                 })
@@ -250,9 +270,9 @@ $(function () {
                 })
         })
 
-        $('.houseCard #undoFavorite').on('click', function (event) {
+        $('.houseCard[data-property-id=' + propertyId + '] .undoFavorite').on('click', function (event) {
             ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav')
-            var propertyId = $(event.currentTarget).attr('data-property-id')
+
             $.betterPost('/api/1/user/favorite/add', {'property_id': propertyId, 'type':'property'})
                 .done(function (data) {
                     var favId = data
@@ -262,6 +282,9 @@ $(function () {
                             var houseResult = _.template($('#houseCard_template').html())({fav: fav})
                             $('.houseCard_phone[data-property-id=' + propertyId + ']').remove()
                             $('.houseCard[data-property-id=' + propertyId + ']').replaceWith(houseResult)
+
+                            bindPropertyItemCancelFav(fav.property.id)
+                            bindPropertyItemUndoCancel(fav.property.id)
                         })
                     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-success')
                 })
