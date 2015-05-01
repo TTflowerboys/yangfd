@@ -5,6 +5,7 @@ import six
 from app import f_app
 from libfelix.f_interface import f_get, abort, template_gettext as _
 import currant_util
+import currant_data_helper
 
 logger = logging.getLogger(__name__)
 
@@ -84,6 +85,9 @@ def rent_ticket_get(rent_ticket_id, user):
     if rent_ticket["status"] not in ["draft", "to rent"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 
+    favorite_list = currant_data_helper.get_favorite_list('rent_ticket')
+    favorite_list = f_app.i18n.process_i18n(favorite_list)
+
     publish_time = f_app.util.format_time(rent_ticket.get('time'))
     # report = None
     # if rent_ticket.get('zipcode_index') and rent_ticket.get('country').get('slug') == 'GB':
@@ -101,7 +105,7 @@ def rent_ticket_get(rent_ticket_id, user):
     keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
-    return currant_util.common_template("property_to_rent", rent=rent_ticket, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin)
+    return currant_util.common_template("property_to_rent", rent=rent_ticket, favorite_list=favorite_list, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin)
 
 
 @f_get('/property-to-rent/create')
@@ -117,9 +121,8 @@ def property_to_rent_create():
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     rent = {}
     title = _('出租房源发布')
-    return currant_util.common_template("property_to_rent_create", region_highlight_list=region_highlight_list, rent_period_list=rent_period_list,
-                                        indoor_facility_list=indoor_facility_list, community_facility_list=community_facility_list, deposit_type_list=deposit_type_list, rent_type_list=rent_type_list,
-                                        property_type_list=property_type_list, title=title, rent = rent)
+    return currant_util.common_template("property_to_rent_create", region_highlight_list=region_highlight_list, rent_period_list=rent_period_list, indoor_facility_list=indoor_facility_list, community_facility_list=community_facility_list, deposit_type_list=deposit_type_list, rent_type_list=rent_type_list,
+                                        property_type_list=property_type_list, title=title, rent=rent)
 
 
 @f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/edit')
@@ -137,13 +140,13 @@ def property_to_rent_edit(rent_ticket_id):
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     return currant_util.common_template("property_to_rent_edit", title=title, keywords=keywords, rent=rent_ticket, region_highlight_list=region_highlight_list, rent_period_list=rent_period_list,
-                                        indoor_facility_list=indoor_facility_list, community_facility_list=community_facility_list, deposit_type_list=deposit_type_list, rent_type_list=rent_type_list,property_type_list=property_type_list)
+                                        indoor_facility_list=indoor_facility_list, community_facility_list=community_facility_list, deposit_type_list=deposit_type_list, rent_type_list=rent_type_list, property_type_list=property_type_list)
 
 
 @f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/publish-success')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
-def property_to_rent_edit(rent_ticket_id):
+def property_to_rent_publish_success(rent_ticket_id):
     title = _('房源发布成功')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
     keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
