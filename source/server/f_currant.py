@@ -132,9 +132,8 @@ class f_currant_log(f_log):
     @f_cache("log")
     def get(self, log_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(log):
-            log["id"] = str(log.pop("_id"))
             log.pop("cookie", None)
-            return log
+            return f_app.util.process_objectid(log)
 
         if isinstance(log_id_or_list, (tuple, list, set)):
             result = {}
@@ -289,8 +288,7 @@ class f_currant_user(f_user):
     @f_cache("favorite")
     def favorite_get(self, favorite_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(favorite):
-            favorite["id"] = str(favorite.pop("_id"))
-            return favorite
+            return f_app.util.process_objectid(favorite)
 
         if isinstance(favorite_id_or_list, (tuple, list, set)):
             result = {}
@@ -358,11 +356,11 @@ class f_currant_user(f_user):
         ticket_dict = f_app.ticket.output(list(ticket_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
         for fav in favorites:
             if "property_id" in fav:
-                fav["property"] = property_dict.get(str(fav.pop("property_id")))
+                fav["property"] = property_dict.get(fav.pop("property_id"))
             if "item_id" in fav:
-                fav["item"] = item_dict.get(str(fav.pop("item_id")))
+                fav["item"] = item_dict.get(fav.pop("item_id"))
             if "ticket_id" in fav:
-                fav["ticket"] = ticket_dict.get(str(fav.pop("ticket_id")))
+                fav["ticket"] = ticket_dict.get(fav.pop("ticket_id"))
 
         if multi_return == list:
             return favorites
