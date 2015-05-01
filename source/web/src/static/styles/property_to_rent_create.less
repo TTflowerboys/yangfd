@@ -344,13 +344,19 @@ main {
                         border: 2px dashed #ccc;
                         border-radius: 10px;
                         .ajax-file-upload-statusbar{
+                            box-sizing: content-box;
                             float: left;
                             position: relative;
+                            width: 140px !important;
                             height: 140px;
-                            margin: 6px;
-                            padding: 10px;
+                            margin: 5px;
+                            //padding: 10px;
+                            padding: 0;
                             border: 1px solid #ccc;
                             overflow: hidden;
+                            img{
+                                padding: 10px;
+                            }
                             .ajax-file-upload-progress {
                                 position: absolute;
                                 left: 10PX;
@@ -365,7 +371,7 @@ main {
                                 .ajax-file-upload-bar {
 
                                     background: url('/static/images/common/ajax_uploader.gif');
-                                    width: 100%;
+                                    width: 100% !important;
                                     background-size: contain;
                                     height: 15px;
                                     padding: 0;

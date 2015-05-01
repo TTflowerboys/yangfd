@@ -18,8 +18,8 @@
         showPreview: true,
         showDelete: true,
         showDone: false,
-        previewWidth: '120px',
-        previewHeight: '120px',
+        previewWidth: '100%',
+        previewHeight: '100%',
         showQueueDiv: 'uploadProgress',
         statusBarWidth: '140px',
         maxFileCount: 12, //最多上传12张图片
