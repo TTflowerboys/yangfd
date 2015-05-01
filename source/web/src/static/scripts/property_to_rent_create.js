@@ -212,6 +212,7 @@
             elem.css('border', '')
         }
         form.find('[data-validator]').each(function(index, elem){
+            var $this = $(this)
             var validator = $(elem).data('validator').split(',').map(function(v){
                 return v.trim()
             })
@@ -234,6 +235,16 @@
                     //return false
                 }
             }
+            $.each(validator, function(i, v){
+                if(/maxLength\((\d+)\)/.test(v)) {
+                    var maxLength = parseInt(v.match(/maxLength\((\d+)\)/)[1])
+                    if(value.length > maxLength){
+                        validate = false
+                        errorMsg = $this.data('name') + i18n('超出长度限制')
+                        highlightErrorElem($this)
+                    }
+                }
+            })
         })
         if(imageArr.length === 0){
             validate = false

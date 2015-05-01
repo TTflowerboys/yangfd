@@ -370,7 +370,7 @@
                             </div>
                         </td>
                         <td class="content">
-                            <input class="headline" id="title" value="{{rent.get('title','')}}">
+                            <input class="headline" id="title" value="{{rent.get('title','')}}" data-validator="maxLength(30)" data-name="{{_('标题')}}">
                         </td>
                     </tr>
                     <tr>
@@ -380,7 +380,7 @@
                             </div>
                         </td>
                         <td class="content">
-                            <textarea class="description" id="description" >{{rent.get('description','')}}</textarea>
+                            <textarea class="description" id="description" data-validator="maxLength(150)" data-name="{{_('描述')}}">{{rent.get('description','')}}</textarea>
                         </td>
                     </tr>
                     <tr class="facilitiesBox">
