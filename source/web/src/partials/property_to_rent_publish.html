@@ -27,14 +27,14 @@
         %end
         ">
             <div class="titleWrap">
-                <h2>微信展示预览</h2>
-                <h3>微信展示预览</h3>
+                <h2>{{_('微信展示预览')}}</h2>
+                <h3>{{_('微信展示预览')}}</h3>
             </div>
             %if not user:
 
             <form id="form2">
                 <div class="formGroup">
-                    <p>为保证房源真实性，请先完善个人资料或<a class="link" onclick="javascript:project.showSignInModalOrGoToSignIn()">点击此处登陆</a>，再完成房源的发布</p>
+                    <p>{{_('为保证房源真实性，请先完善个人资料或')}}<a class="link" onclick="javascript:project.showSignInModalOrGoToSignIn()">{{_('点击此处登陆')}}</a>{{_('，再完成房源的发布')}}</p>
                 </div>
                 <div class="formGroup">
                     <label for="nickname">{{_('姓名')}}</label>
