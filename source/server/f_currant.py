@@ -1526,8 +1526,7 @@ class f_plot(f_app.module_base):
     @f_cache("plot", support_multi=True)
     def get(self, plot_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(plot):
-            plot["id"] = str(plot.pop("_id"))
-            return plot
+            return f_app.util.process_objectid(plot)
 
         if isinstance(plot_id_or_list, (tuple, list, set)):
             result = {}
@@ -1650,8 +1649,7 @@ class f_report(f_app.module_base):
     @f_cache("report")
     def get(self, report_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(report):
-            report["id"] = str(report.pop("_id"))
-            return report
+            return f_app.util.process_objectid(report)
 
         if isinstance(report_id_or_list, (tuple, list, set)):
             result = {}
@@ -1741,8 +1739,7 @@ class f_zipcode(f_app.module_base):
     @f_cache("zipcode")
     def get(self, zipcode_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(zipcode):
-            zipcode["id"] = str(zipcode.pop("_id"))
-            return zipcode
+            return f_app.util.process_objectid(zipcode)
 
         if isinstance(zipcode_id_or_list, (tuple, list, set)):
             result = {}
@@ -2568,11 +2565,7 @@ class f_comment(f_app.module_base):
     @f_cache("comment")
     def get(self, comment_id_or_list, ignore_nonexist=False, force_reload=False):
         def _format_each(comment):
-            comment["id"] = str(comment.pop("_id"))
-            comment["item_id"] = str(comment.pop("item_id"))
-            comment["user_id"] = str(comment.pop("user_id"))
-
-            return comment
+            return f_app.util.process_objectid(comment)
 
         if isinstance(comment_id_or_list, (tuple, list, set)):
             result = {}

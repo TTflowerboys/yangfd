@@ -74,12 +74,19 @@ def current_user_favorites_add(user, params):
         if result:
             abort(40090, logger.warning("Invalid operation: This property has already been added to your favorites.", exc_info=False))
     elif params["type"] == "item" and "item_id" in params:
-        item = f_app.shop.item_get(params["item_id"])
+        item = f_app.shop.item.get(params["item_id"])
         assert item["status"] in ["new", "sold out"], abort(40398, logger.warning("Permission denied: not a valid item_id", exc_info=False))
         params["user_id"] = ObjectId(user["id"])
         result = f_app.user.favorite_search(params)
         if result:
             abort(40090, logger.warning("Invalid operation: This item has already been added to your favorites.", exc_info=False))
+    elif params["type"] in ("rent_ticket", "sale_ticket") and "ticket_id" in params:
+        ticket = f_app.ticket.get(params["ticket_id"])
+        assert ticket["type"] == params["type"] and ticket["status"] in ("for sale", "to rent", "sold", "rent"), abort(40398, logger.warning("Permission denied: not a valid ticket_id", exc_info=False))
+        params["user_id"] = ObjectId(user["id"])
+        result = f_app.user.favorite_search(params)
+        if result:
+            abort(40090, logger.warning("Invalid operation: This ticket has already been added to your favorites.", exc_info=False))
     else:
         abort(40000, logger.warning("Invalid operation: params not correct", exc_info=False))
 
