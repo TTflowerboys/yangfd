@@ -209,7 +209,11 @@
                             <li class="animate"><i class="estateIcon"></i>{{rent['property'].get('city',{}).get('value','')}} {{rent['property'].get('street','')}}</li>
                             <li class="animate"><i class="streetIcon"></i>{{rent['property'].get('zipcode','')}}</li>
                             % if 'floor' in rent['property'] and rent['property'].get('floor',''):
-                            <li class="animate"><i class="doorIcon"></i>{{rent['property'].get('floor','')}}</li>
+                            <li class="animate"><i class="doorIcon"></i>{{rent['property'].get('floor','')}}
+                            %if 'house_name' in rent.get('property',{}):
+                                -{{rent['property'].get('house_name','')}}
+                            %end
+                            </li>
                             % end
                             <li class="animate time"><i class="timeIcon"></i>
                                 % if 'rent_period' in rent and rent.get('rent_period',{}).get('value',''):
