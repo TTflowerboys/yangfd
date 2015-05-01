@@ -79,7 +79,6 @@ $(function () {
                                 $list.append(houseResult)
 
                                 var favId = fav.id
-                                console.log(favId)
                                 bindRentItemCancelFav(favId)
                                 bindRentItemUndoCancel(favId)
 
