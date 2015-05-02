@@ -11,42 +11,7 @@
     var $requestSMSCodeBtn = $('#requestSMSCodeBtn')
     window.propertyId = $('#submit').data('propertyid') || 'none'
     window.ticketId = $('#publish').data('ticketid') || location.hash.split('#/publish/')[1]
-    $('#fileuploader').uploadFile({
-        url: '/api/1/upload_image',
-        fileName: 'data',
-        //showProgress: true,
-        showPreview: true,
-        showDelete: true,
-        showDone: false,
-        previewWidth: '100%',
-        previewHeight: '100%',
-        showQueueDiv: 'uploadProgress',
-        statusBarWidth: '140px',
-        maxFileCount: 12, //最多上传12张图片
-        uploadFolder: '',
-        deleteCallback: function(data, pd){
-            var url
-            if($.isArray(data)){
-                url = data[0]
-            }else{
-                url = data.val.url
-            }
-            var index = imageArr.indexOf(url)
-            if(index >= 0){
-                imageArr.splice(index, 1)
-            }
-        },
-        onSuccess:function(files, data, xhr, pd){
-            imageArr.push(data.val.url)
-            pd.progressDiv.hide()
-        },
-        onLoad:function(obj) {
-            $.each(imageArr, function(i, v){
-                obj.createProgress(v);
-                $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(i).find('.ajax-file-upload-progress').hide()
-            })
-        },
-    });
+
     //选择房产类型
     $('#propertyType div').click(function () {
         var text = $(this).text()
@@ -163,7 +128,7 @@
         function getLocationFromApiData(data, property){
             var location = ''
             if(data.results.length > 0){
-                data.results[0].address_components.forEach(function(value){
+                $.each(data.results[0].address_components, function(index, value){
                     if(value.types.indexOf(property) >= 0){
                         location = value.long_name
                     }
@@ -514,5 +479,41 @@
     $(document).ready(function () {
         showRoomOrHouse($('#rentalType .property_type.selected').text().trim())
         initInfoHeight()
+        $('#fileuploader').uploadFile({
+            url: '/api/1/upload_image',
+            fileName: 'data',
+            //showProgress: true,
+            showPreview: true,
+            showDelete: true,
+            showDone: false,
+            previewWidth: '100%',
+            previewHeight: '100%',
+            showQueueDiv: 'uploadProgress',
+            statusBarWidth: '140px',
+            maxFileCount: 12, //最多上传12张图片
+            uploadFolder: '',
+            deleteCallback: function(data, pd){
+                var url
+                if($.isArray(data)){
+                    url = data[0]
+                }else{
+                    url = data.val.url
+                }
+                var index = imageArr.indexOf(url)
+                if(index >= 0){
+                    imageArr.splice(index, 1)
+                }
+            },
+            onSuccess:function(files, data, xhr, pd){
+                imageArr.push(data.val.url)
+                pd.progressDiv.hide()
+            },
+            onLoad:function(obj) {
+                $.each(imageArr, function(i, v){
+                    obj.createProgress(v);
+                    $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(i).find('.ajax-file-upload-progress').hide()
+                })
+            },
+        });
     });
 })()

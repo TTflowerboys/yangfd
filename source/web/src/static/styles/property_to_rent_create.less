@@ -31,21 +31,27 @@ main {
                 }
             }
         }
-        input{
+        input[type=text]{
             border-radius: 4px;
             padding: 10px;
             height: 50px;
             border: 1px solid #cccccc;
         }
         input[type=checkbox]{
+            float: none;
             visibility: hidden;
+            visibility: visible\0;
+            border: none;
             margin-right: 10px;
+            line-height: 50px;
+            vert-align: middle;
             &+label{
                 position: relative;
             }
             &+label:after{
                 position: absolute;
                 visibility: visible;
+                visibility: hidden\0;
                 content:'';
                 z-index: 10;
                 width: 16px;
@@ -55,7 +61,7 @@ main {
                 left: -27px;
                 background: url('/static/images/common/checkbox_background.png') 0 0 no-repeat;
             }
-            &:checked+label:after{
+            &:checked+label:after,&.checked+label:after{
                 background-position: 0 -16px;
             }
         }
@@ -68,7 +74,12 @@ main {
             border-radius: 4px;
             font-size: 14px;
             height: 50px;
-            line-height: 40px;
+            line-height: 50px;
+            option{
+                height: 50px;
+                line-height: 50px;
+                vertical-align: middle;
+            }
         }
         button{
             &:disabled{
@@ -186,7 +197,7 @@ main {
                     padding: 6px 10px;
                 }
                 .postcode {
-                    input {
+                    input[type=text] {
                         border-radius: 4px;
                         -moz-border-radius: 4px;
                         -webkit-border-radius: 4px;
@@ -278,7 +289,7 @@ main {
                             margin-right: 8px;
                             line-height: 40px;
                         }
-                        input {
+                        input[type=text] {
                             margin: 2px 8px auto 20px;
                             border-radius: 4px;
                             -moz-border-radius: 4px;
@@ -286,10 +297,10 @@ main {
                             height: 50px;
                             width: 140px;
                             border: 1px solid #cccccc;
-                            &[type=checkbox]{
-                                width: 20px;
-                                float: left;
-                            }
+                        }
+                        input[type=checkbox]{
+                            width: 20px;
+                            margin-left: 20px;
                         }
                         label{
                             vertical-align:middle;
@@ -316,6 +327,8 @@ main {
                     }
                     .lease,.billCovered {
                         margin-top: 20px;
+                        line-height: 50px;
+                        vertical-align: middle;
                     }
                 }
                 .image_panel {
@@ -439,7 +452,6 @@ main {
                         height: 50px;
                         line-height: 50px;
                         input{
-                            float: left;
                         }
                         label {
                             color: #999999;
