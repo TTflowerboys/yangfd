@@ -16,7 +16,14 @@
 }
 /*to be extend*/
 .animationForwards(){
-    animation-fill-mode: forwards;
+    animation-fill-mode: both;
+}
+.animation(@param){
+    &.animation{
+        animation: @param;
+        .animationForwards;
+
+    }
 }
 html {
     height: 100%;
@@ -108,7 +115,7 @@ p{
         height: 40vh;
         background: url("/static/images/wechat_poster/title_background.png") 50% 100%;
         background-size: cover;
-        animation: bounceInDown 0.6s linear 0s 1;
+        .animation(bounceInDown 0.6s linear 0s 1);
     }
     .bottomBox{
         width: 100%;
@@ -117,9 +124,8 @@ p{
         bottom: -3vh;
         background: url("/static/images/wechat_poster/up_button_background.png") 50% 0%;
         background-size: cover;
-        animation: bounceUp 0.6s linear 0.6s 1;
+        .animation(bounceUp 0.6s linear 0.6s 1);
         opacity: 0;
-        .animationForwards;
         text-align: center;
         .scrollUp{
             display: inline-block;
@@ -262,15 +268,14 @@ p{
         p{
             display: inline-block;
             opacity: 0;
-            animation: tada2 0.4s linear 0.6s 1;
-            .animationForwards;
-            &:nth-child(1){
+            .animation(tada2 0.4s linear 0.6s 1);
+            &.animation:nth-child(1){
                 animation-delay: 0.6s;
             }
-            &:nth-child(2){
+            &.animation:nth-child(2){
                 animation-delay: 0.8s;
             }
-            &:nth-child(3){
+            &.animation:nth-child(3){
                 animation-delay: 1s;
             }
         }
@@ -309,8 +314,7 @@ p{
         position: relative;
         color: #afc327;
         opacity: 0;
-        animation: tada2 0.4s linear 0s 1;
-        .animationForwards;
+        .animation(tada2 0.4s linear 0s 1);
     }
     p.line1{
         width: 100%;
@@ -332,7 +336,9 @@ p{
         color: #586c4f;
         font-size: 4.8vh;
         font-weight: bold;
-        animation-delay: 0.2s;
+        &.animation{
+            animation-delay: 0.2s;
+        }
         &:after{
             position: absolute;
             width: 100%;
@@ -360,7 +366,9 @@ p{
         font-size: 2.5vh;
         margin-top: 5vh;
         font-weight: bold;
-        animation-delay: 0.4s;
+        &.animation{
+            animation-delay: 0.4s;
+        }
     }
     .itemBox{
         position: absolute;
@@ -380,8 +388,7 @@ p{
             font-size: 3.1vh;
             text-align: left;
             line-height: 7vh;
-            animation:tada1 0.2s linear 0s 1;
-            .animationForwards;
+            .animation(tada1 0.2s linear 0s 1);
             >span{
                 position: relative;
                 font-size: 2.4vh;
@@ -466,8 +473,7 @@ p{
         font-size: 10vh;
         color: #afc327;
         font-weight: 400;
-        animation: tada2 0.4s linear 0s 1;
-        .animationForwards;
+        .animation(tada2 0.4s linear 0s 1);
     }
     p{
         position: relative;
@@ -481,8 +487,7 @@ p{
         font-size: 3vh;
         font-weight: lighter;
         line-height: 1.4em;
-        animation: tada2 0.4s linear 0s 1;
-        .animationForwards;
+        .animation(tada2 0.4s linear 0s 1);
     }
 
 }
@@ -499,17 +504,15 @@ p{
     .coverCenter;
     text-align: center;
     opacity: 0;
-    animation: fadeInDown 0.4s linear 0s 1;
-    .animationForwards;
+    .animation(fadeInDown 0.4s linear 0s 1);
     color:#fff;
     h2{font-size: 3vh;}
     .facilities{
         margin: 3vh auto 6.8vh;
     }
 }
-.modal.animation{
-    animation: fadeOutUp 0.4s linear 0s 1;
-    .animationForwards;
+.modal.hideAnimation{
+    .animation(fadeOutUp 0.4s linear 0s 1);
 }
 .descriptionMore p{
     width: 48vh;
@@ -541,8 +544,7 @@ p{
     li{
         .pageDescription &{
             opacity: 0;
-            animation:tada1 0.2s linear 0s 1;
-            .animationForwards;
+            .animation(tada1 0.2s linear 0s 1);
         }
         display: block;
         float: left;
@@ -600,13 +602,12 @@ p{
 .pageDescription{
     .btn{
         opacity: 0;
-        animation: tada2 0.4s linear 0s 1;
-        .animationForwards;
+        .animation(tada2 0.4s linear 0s 1);
     }
-    .viewMoreBtn{
+    .viewMoreBtn.animation{
         animation-delay: 0.4s;
     }
-    .morefacilitiesBtn{
+    .morefacilitiesBtn.animation{
         animation-delay: 1.5s;
     }
 }
@@ -625,8 +626,7 @@ p{
             margin-left: -14vh;
             background: url("/static/images/wechat_poster/pushpin.png") 50% 50% no-repeat;
             background-size: contain;
-            animation: bounceInDown2 0.6s linear 0s 1;
-            .animationForwards;
+            .animation(bounceInDown2 0.6s linear 0s 1);
         }
     }
 }
@@ -665,7 +665,7 @@ p{
         span{
             font-weight: bold;
         }
-        animation: tada2 0.4s linear 0s 1;
+        .animation(tada2 0.4s linear 0s 1);
     }
     p.description{
         opacity: 0;
@@ -673,24 +673,27 @@ p{
         font-size: 2.8vh;
         font-weight: lighter;
         line-height: 1.6em;
-        animation: tada2 0.4s linear 0s 1;
-        .animationForwards;
-        .delay(0.2s);
+        .animation(tada2 0.4s linear 0s 1);
+        &.animation{
+            .delay(0.2s);
+        }
     }
     .btn{
         opacity: 0;
         margin: 0 auto 6vh;
-        animation: tada2 0.4s linear 0s 1;
-        .animationForwards;
-        .delay(0.4s);
+        .animation(tada2 0.4s linear 0s 1);
+        &.animation{
+            .delay(0.4s);
+        }
     }
     p.tag{
         opacity: 0;
         height: 3.2vh;
         font-size: 2.4vh;
-        animation: tada2 0.4s linear 0s 1;
-        .animationForwards;
-        .delay(0.6s);
+        .animation(tada2 0.4s linear 0s 1);
+        &.animation{
+            .delay(0.6s);
+        }
         &:before{
             position: relative;
             content: '';
@@ -741,7 +744,7 @@ p{
     animation-delay: (@time);
 }
 .delayFacilities(@child){
-    &:nth-child(@{child}){
+    &.animation:nth-child(@{child}){
         .delay((@child * 0.1 + 0.5s))
     }
 }

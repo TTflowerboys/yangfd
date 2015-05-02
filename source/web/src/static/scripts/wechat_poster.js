@@ -32,8 +32,8 @@
             var index = swiper.activeIndex
             var obj = $('.mainSwiper>.swiper-wrapper>.swiper-slide')
             //companyHeightReset()
-            obj.eq(index).siblings().find('.animate').addClass('hide')
-            obj.eq(index).find('.animate').removeClass('hide')
+            obj.eq(index).siblings().find('.animate').addClass('hide').removeClass('animation')
+            obj.eq(index).find('.animate').removeClass('hide').addClass('animation')
             if(index < 6 && parent && parent.previewMoveTo){ //如果在发布预览页的iframe中展示，那么调用父窗口的方法改变父窗口对应的说明文字状态
                 parent.previewMoveTo(index)
             }
@@ -87,7 +87,7 @@
             })
             $('.loadingCover').fadeOut(200, function(){
                 $('body').removeClass('loading')
-                $('.swiper-slide').eq(0).find('.animate').removeClass('hide')
+                $('.swiper-slide').eq(0).find('.animate').removeClass('hide').addClass('animation')
             })
         }
         setTimeout(function(){
@@ -99,15 +99,15 @@
         $('.btnModal').on('click', function(){
             var triggerId = $(this).attr('id')
             var modal = $('[data-trigger=' + triggerId + ']')
-            modal.find('.animate').removeClass('hide')
-            modal.removeClass('hide')
+            modal.find('.animate').removeClass('hide').addClass('animation')
+            modal.removeClass('hide').addClass('animation')
 
         })
         $('.btnCloseModal').on('click', function(){
             var modal = $(this).parents('.modal')
-            modal.addClass('animation')
+            modal.addClass('hideAnimation')
             setTimeout(function(){
-                modal.addClass('hide').removeClass('animation')
+                modal.addClass('hide').removeClass('hideAnimation','animation')
             },400)
         })
     }
