@@ -2,11 +2,13 @@
 angular.module('app')
     .constant('errors', {
         40000: i18n('参数错误'),
+        40087: 后台仍在处理房产，请稍后再试
         40100: i18n('请先<a href="/admin#/signIn">登录</a>'),
         40101: i18n('请求过于频繁，请稍后再试'),
         40103: i18n('电话或密码错误'),
         40105: i18n('没有管理员权限或管理员级别不够'),
-        40109: i18n('required information not present'),
+        //TODO: server side mistake TBD
+        40109: i18n('没有权限'),
         40300: i18n('没有权限'),
         40301: i18n('no ad in given channel'),
         40302: i18n('不存在的博客文章'),
