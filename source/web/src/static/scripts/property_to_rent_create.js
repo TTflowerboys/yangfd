@@ -505,6 +505,13 @@
                 }
             },
             onSuccess:function(files, data, xhr, pd){
+                if(typeof data === 'string') { //This will happen in IE
+                    try {
+                        data = JSON.parse(data.match(/<pre>((.|\n)+)<\/pre>/m)[1])
+                    } catch(e){
+                        throw('Unexpected response data of uploading file!')
+                    }
+                }
                 imageArr.push(data.val.url)
                 pd.progressDiv.hide()
             },
