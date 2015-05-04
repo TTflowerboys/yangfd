@@ -17,7 +17,7 @@
 
 - (BFTask *)createTicket:(CUTETicket *)ticket;
 
-- (BFTask *)editTicket:(CUTETicket *)ticket;
+- (BFTask *)editTicketExcludeImage:(CUTETicket *)ticket;
 
 - (BFTask *)publishTicket:(CUTETicket *)ticket;
 
