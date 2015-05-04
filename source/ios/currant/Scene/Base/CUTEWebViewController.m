@@ -34,6 +34,8 @@
 - (id) init {
     self = [super init];
     if (self) {
+        //Fix Bug #6364 在iPhone6上依然会出现web页面顶部被header覆盖
+        self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     return self;
 }
@@ -45,29 +47,28 @@
     jsContext[@"window"][@"mobileClient"] = mobileClient;
 }
 
+- (void)updateWebView {
+    [_webView removeFromSuperview];
+    _webView = nil;
+    _webView = [[UIWebView alloc] initWithFrame:TabBarControllerViewFrame];
+    [self.view addSubview:_webView];
+    _webView.delegate = _progressProxy;
+    [self setupJSContextWithWebView:_webView];
+}
+
 - (void)loadURL:(NSURL *)url {
 
     url = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
 
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:TabBarControllerViewFrame];
-        [self.view addSubview:_webView];
-        _webView.delegate = _progressProxy;
-        [self setupJSContextWithWebView:_webView];
-
+        [self updateWebView];
         [_webView loadRequest:urlRequest];
     }
     else if (_webView && ![_webView.request.URL.absoluteString isEqualToString:urlRequest.URL.absoluteString]) {
         //if current have webpage load, need clean the web history cache
         //just clean the cache
-        [_webView removeFromSuperview];
-        _webView = nil;
-        _webView = [[UIWebView alloc] initWithFrame:TabBarControllerViewFrame];
-        [self.view addSubview:_webView];
-        _webView.delegate = _progressProxy;
-        [self setupJSContextWithWebView:_webView];
-
+        [self updateWebView];
         [_webView loadRequest:urlRequest];
     }
 }
