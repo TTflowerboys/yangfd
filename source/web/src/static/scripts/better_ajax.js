@@ -24,6 +24,10 @@ $.each(['Post', 'Get'], function (index, key) {
             }
         }).fail(function (jqXHR, textStatus, errorThrown) {
             deferred.reject(jqXHR.status)
+        }).always(function() {
+            if($('.buttonLoading').length > 0) {
+                $('.buttonLoading').trigger('end')
+            }
         })
         return deferred.promise()
     }

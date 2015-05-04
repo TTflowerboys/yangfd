@@ -17,7 +17,7 @@
         this.elem.data('buttonLoading', true)
         this.options = $.extend(defaultOptions, opts)
         this.bindEvent()
-        this.start()
+        //this.start()
     }
     $.extend(ButtonLoading.prototype, {
         start: function() {
@@ -36,4 +36,5 @@
             })
         }
     })
+    $('.ajaxButton').buttonLoading()
 })(jQuery)
