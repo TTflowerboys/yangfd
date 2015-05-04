@@ -73,13 +73,6 @@
 }
 
 - (void)onLeftButtonPressed:(id)sender {
-    CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-    self.ticket.property.bedroomCount = form.bedroomCount;
-    self.ticket.property.livingroomCount = form.livingroomCount;
-    self.ticket.property.bathroomCount = form.bathroomCount;
-    self.ticket.property.propertyType = form.propertyType;
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
-
     [self.navigationController popToRootViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:nil];
 }
