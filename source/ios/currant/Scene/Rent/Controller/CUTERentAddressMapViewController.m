@@ -25,7 +25,6 @@
 #import <INTULocationManager.h>
 #import <Sequencer.h>
 #import "CUTERentTickePublisher.h"
-#import "CUTENotificationKey.h"
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, UITextFieldDelegate>
 {
@@ -56,14 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = STR(@"地址");
-
-    if (self.singleUseForReedit) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
-    }
-    else {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
-    }
-
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
 
     _geocoder = [[CLGeocoder alloc] init];
 
@@ -233,11 +225,6 @@
     return YES;
 }
 
-- (void)onSaveButtonPressed:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)onContinueButtonPressed:(id)sender {
     if (![self validateForm]) {
         return;
@@ -281,7 +268,7 @@
                 else {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
-                
+
                 return nil;
             }];
         }];

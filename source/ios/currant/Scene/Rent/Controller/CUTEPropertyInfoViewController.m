@@ -230,8 +230,16 @@
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑面积")];
         return NO;
     }
+    if (fequalzero(self.ticket.space.value)) {
+        [SVProgressHUD showErrorWithStatus:STR(@"面积不能为0")];
+        return NO;
+    }
     if (!_editRentPriceViewController && !self.ticket.price) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑租金")];
+        return NO;
+    }
+    if (fequalzero(self.ticket.price.value)) {
+        [SVProgressHUD showErrorWithStatus:STR(@"租金不能为0")];
         return NO;
     }
     return YES;

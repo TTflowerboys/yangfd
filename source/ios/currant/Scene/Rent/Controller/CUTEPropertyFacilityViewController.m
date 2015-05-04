@@ -21,12 +21,6 @@
     self.navigationItem.title = STR(@"设施");
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
-}
-
 - (void)toggleIndoorFacility:(CUTEEnum *)facility on:(BOOL)on {
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
@@ -42,6 +36,8 @@
             property.indoorFacilities = oldArray;
         }
     }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 }
 
 - (void)toggleCommunityFacility:(CUTEEnum *)facility on:(BOOL)on {
@@ -59,6 +55,8 @@
             property.communityFacilities = oldArray;
         }
     }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 }
 
 

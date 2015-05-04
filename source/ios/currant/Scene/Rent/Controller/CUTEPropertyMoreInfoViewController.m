@@ -23,7 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
 }
 
 - (void)editFacilities {
@@ -61,8 +60,15 @@
     }];
 }
 
-- (void)onSaveButtonPressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)onTicketTitleEdit:(id)sender {
+    [self updateTicket];
+}
+
+- (void)onTicketDescriptionEdit:(id)sender {
+    [self updateTicket];
+}
+
+- (void)updateTicket {
     CUTEPropertyMoreInfoForm *form = (CUTEPropertyMoreInfoForm *)[self.formController form];
     CUTETicket *ticket = self.ticket;
     ticket.title = form.ticketTitle;
