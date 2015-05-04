@@ -312,6 +312,9 @@
         $btn.prop('disabled', true).text(window.i18n('发布中...'))
         $.betterPost('/api/1/property/' + window.propertyId + '/edit', propertyData)
             .done(function (val) {
+                if(typeof val === 'string') {
+                    window.propertyId = val
+                }
                 var ticketData = getTicketData({
                     'property_id': val,
                     'status': 'draft',
