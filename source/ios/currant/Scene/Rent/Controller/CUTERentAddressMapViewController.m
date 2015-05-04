@@ -218,10 +218,19 @@
 
 - (BOOL)validateForm {
     CUTEProperty *property = [self.ticket property];
-    if (!_rentAddressEditViewController && (!property.zipcode || !property.country || !property.city)) {
-        [SVProgressHUD showErrorWithStatus:STR(@"请编辑地址")];
+    if (!property.country) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请填写国家")];
         return NO;
     }
+    if (!property.city) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请填写城市")];
+        return NO;
+    }
+    if (!property.zipcode) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请填写Postcode")];
+        return NO;
+    }
+
     return YES;
 }
 
