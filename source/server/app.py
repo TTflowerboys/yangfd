@@ -20,6 +20,7 @@ import libfelix.f_email.f_sendgrid
 import libfelix.f_enum
 import libfelix.f_feedback
 import libfelix.f_geoip
+import libfelix.f_geonames
 import libfelix.f_log
 import libfelix.f_message
 import libfelix.f_mongo

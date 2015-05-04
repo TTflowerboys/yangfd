@@ -13,7 +13,7 @@
 #import <BBTUIMacro.h>
 
 #define TabBarHeight                     49
-#define TabBarControllerViewFrame CGRectMake(0, 0, ScreenWidth, ScreenHeight - TabBarHeight)
+#define TabBarControllerViewFrame CGRectMake(0, 0, ScreenWidth, ScreenHeight - TabBarHeight - TouchHeightDefault - StatusBarHeight)
 
 #define DEFAULT_I18N_LOCALE @"zh_Hans_CN"
 

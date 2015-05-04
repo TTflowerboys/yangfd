@@ -19,11 +19,12 @@
 #import <UIActionSheet+Blocks.h>
 #import <NSObject+Attachment.h>
 #import <MWPhotoBrowser.h>
-#import "CUTEImageUploader.h"
 #import <Bolts.h>
+#import "CUTERentTickePublisher.h"
 #import <Sequencer/Sequencer.h>
 #import <UIImageView+AFNetworking.h>
 #import "UIImageView+Assets.h"
+#import "NSURL+Assets.h"
 
 @interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate, MWPhotoBrowserDelegate>
 {
@@ -34,8 +35,6 @@
     UIButton *_addButton;
 
     CTAssetsPickerController *_assetsPickerController;
-
-    CUTEImageUploader *_imageUploader;
 }
 @end
 
@@ -84,18 +83,25 @@
 
 - (BFTask *)getAssetsFromURLArray:(NSArray *)array {
     return [BFTask taskForCompletionOfAllTasksWithResults:[array map:^id(NSString *object) {
-        return [self getAssetFromURLString:object];
-    }]];
-}
+        NSURL *url = [NSURL URLWithString:object];
+        if (![url isAssetURL]) {
+            NSString *assetString = [[CUTEDataManager sharedInstance] getAssetURLStringForImageURLString:object];
+            url = [NSURL URLWithString:assetString];
+        }
 
-- (BFTask *)getAssetFromURLString:(NSString *)urlStr {
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    [[self assetsPickerController].assetsLibrary assetForURL:[NSURL URLWithString:urlStr] resultBlock:^(ALAsset *asset) {
-        [tcs setResult:asset];
-    } failureBlock:^(NSError *error) {
-        [tcs setError:error];
-    }];
-    return tcs.task;
+        if ([url isAssetURL]) {
+            BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+            [[self assetsPickerController].assetsLibrary assetForURL:url resultBlock:^(ALAsset *asset) {
+                [tcs setResult:asset];
+            } failureBlock:^(NSError *error) {
+                [tcs setError:error];
+            }];
+            return tcs.task;
+        }
+        else {
+            return [BFTask taskWithError:[NSError errorWithDomain:NSStringFromClass([self class]) code:0 userInfo:@{@"bad url": object}]];
+        }
+    }]];
 }
 
 - (void)updateImages:(NSArray *)images {
@@ -182,14 +188,6 @@
     return _assetsPickerController;
 }
 
-- (CUTEImageUploader *)imageUploader {
-    if (!_imageUploader) {
-
-        _imageUploader = [CUTEImageUploader new];
-    }
-    return _imageUploader;
-}
-
 - (ALAssetsLibrary *)assetLibrary {
     return [self assetsPickerController].assetsLibrary;
 }
@@ -252,10 +250,7 @@
     }]];
     [self update];
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-
-    [BFTask taskForCompletionOfAllTasksWithResults:[assets map:^id(ALAsset *object) {
-        return [[self imageUploader] uploadImageAsset:object];
-    }]];
+    [[CUTERentTickePublisher sharedInstance] uploadPropertyImages:self.ticket.property];
 }
 
 //TODO need image count limit?
@@ -289,7 +284,7 @@
 //    return (picker.selectedAssets.count < 10 && asset.defaultRepresentation != nil);
 //}
 
-#pragma mark - MWPhotoBrowserDelegate 
+#pragma mark - MWPhotoBrowserDelegate
 
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
@@ -351,11 +346,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             [self update];
             [picker dismissViewControllerAnimated:YES completion:NULL];
             [SVProgressHUD dismiss];
-
-            [library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-                [[self imageUploader] uploadImageAsset:asset];
-            } failureBlock:^(NSError *error) {
-            }];
+            [[CUTERentTickePublisher sharedInstance] uploadPropertyImages:self.ticket.property];
         }
     }];
 }

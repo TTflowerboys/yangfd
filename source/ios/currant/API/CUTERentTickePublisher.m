@@ -107,6 +107,48 @@
     }]];
 }
 
+- (BFTask *)uploadPropertyImages:(CUTEProperty *)property {
+
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    if (property) {
+        Sequencer *sequencer = [Sequencer new];
+        if (!IsArrayNilOrEmpty([property realityImages])) {
+            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                [[self uploadImages:property.realityImages] continueWithBlock:^id(BFTask *task) {
+                    if (task.result) {
+                        property.realityImages = task.result;
+                        completion(task.result);
+                    }
+                    else {
+                        [tcs setError:task.error];
+                    }
+                    return nil;
+                }];
+            }];
+        }
+
+        if (property && property.identifier) {
+            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toRealityImagesParams];
+                [params setObject:@"true" forKey:@"user_generated"];
+                [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:nil]  continueWithBlock:^id(BFTask *task) {
+                    if (task.error || task.exception || task.isCancelled) {
+                        [tcs setError:task.error];
+                        return nil;
+                    } else {
+                        [tcs setResult:task.result];
+                        return nil;
+                    }
+                }];
+            }];
+        }
+        [sequencer run];
+    }
+
+    return tcs.task;
+}
+
+
 - (BFTask *)uploadImageAndEditProperty:(CUTEProperty *)property {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if (property) {
