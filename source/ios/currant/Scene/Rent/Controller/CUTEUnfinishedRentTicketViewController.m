@@ -31,8 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:IMAGE(@"nav-add") style:UIBarButtonItemStylePlain target:self action:@selector(onAddButtonPressed:)];
-    self.navigationItem.title = STR(@"未完成文档");
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"创建") style:UIBarButtonItemStylePlain target:self action:@selector(onAddButtonPressed:)];
+    self.navigationItem.title = STR(@"出租房草稿");
     self.tableView.backgroundColor = HEXCOLOR(0xeeeeee, 1);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }

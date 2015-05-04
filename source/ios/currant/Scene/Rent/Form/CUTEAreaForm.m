@@ -15,7 +15,7 @@
     NSMutableArray *array = [NSMutableArray arrayWithArray:
                              @[
                                @{FXFormFieldKey: @"unitPresentation", FXFormFieldTitle:STR(@"单位"), FXFormFieldOptions: @[STR(@"平方米"), STR(@"平方英尺")], FXFormFieldDefaultValue: STR(@"平方米"), FXFormFieldAction: @"optionBack"},
-                               @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldDefaultValue:@(_area)}
+                               @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldDefaultValue:@(_area), @"textField.keyboardType": @(UIKeyboardTypeDecimalPad),}
                                ]];
     return array;
 }
