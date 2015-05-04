@@ -290,7 +290,7 @@
             'rent_period': $('#rent_period').find('option:selected').val(), //出租多长时间
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
             'title': title,
-            //'description': $('#description').val()
+            'user_generated': true
         })
         if($('#description').val() !== ''){
             ticketData.description = $('#description').val()
@@ -332,16 +332,16 @@
                         else{
                             hashRoute.locationHashTo('/publish/' + window.ticketId)
                         }
-                        $btn.prop('disabled', false).text(window.i18n('重新发布'))
+                        $btn.prop('disabled', false).text(window.i18n('预览并发布'))
 
                     })
                     .fail(function (ret) {
                         $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
-                        $btn.prop('disabled', false).text(window.i18n('重新发布'))
+                        $btn.prop('disabled', false).text(window.i18n('预览并发布'))
                     })
             }).fail(function (ret) {
                 $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
-                $btn.prop('disabled', false).text(window.i18n('重新发布'))
+                $btn.prop('disabled', false).text(window.i18n('预览并发布'))
             })
         return false
     })
@@ -437,7 +437,7 @@
 
         if(window.user){
             $btn.prop('disabled', true).text(window.i18n('发布中...'))
-            $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent'})
+            $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent','user_generated': true})
                 .done(function(val) {
                     location.href = '/property-to-rent/' + window.ticketId + '/publish-success'
                     //window.console.log('发布成功')
@@ -462,14 +462,16 @@
             }
         })
     }
-    $('.infoBox dl.info').find('dt,dd').click(function(){ //点击文案后微信预览页滚动到对应位置
-        var index = Math.floor($(this).index() / 2)
-        if(window.previewIframe && window.previewIframe.window && typeof window.previewIframe.window.wechatSwiperMoveTo === 'function') {
-            window.previewMoveTo(index)
-            window.previewIframe.window.wechatSwiperMoveTo(index)
-            initInfoHeight()
-        }
-    })
+    window.previewLoaded = function() { //Issue #5996:  预览效果这里如果没有加载完成，右边的页面选择就不应该可以调
+        $('.infoBox dl.info').find('dt,dd').click(function(){ //点击文案后微信预览页滚动到对应位置
+            var index = Math.floor($(this).index() / 2)
+            if(window.previewIframe && window.previewIframe.window && typeof window.previewIframe.window.wechatSwiperMoveTo === 'function') {
+                window.previewMoveTo(index)
+                window.previewIframe.window.wechatSwiperMoveTo(index)
+                initInfoHeight()
+            }
+        })
+    }
     if(location.href.indexOf('create') > 0 && window.ticketId !== undefined){ //如果是在新建页，则需要将编辑的地址改成下面这样的，防止用户刷新页面后表单数据没有东西填充了
         $('.infoBox dl.info').find('a').attr('href', '/property-to-rent/' + window.ticketId + '/edit')
     }

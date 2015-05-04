@@ -79,9 +79,13 @@
         var obj = $('.swiper-slide')
         obj.not('.swiper-slide-visible').find('.animate').addClass('hide')
     }
-    $(window).load(function(){
+    $(window).on('ownLoadEvent', function() {
         //所有资源加载完毕后：
+        window.isOwnLoad = true
         function loadCallback(){
+            if(parent && typeof parent.previewLoaded === 'function') {
+                parent.previewLoaded()
+            }
             $('.loadingCover').css({
                 height: $(window).height()
             })
@@ -94,6 +98,18 @@
             window.process.finish(loadCallback)
         },0)
     })
+    $(document).ready(function() {
+        window.isReady = true
+        if(!window.isOwnLoad && window.isTimeOut) {
+            $(window).trigger('ownLoadEvent')
+        }
+    })
+    $(window).load(function(){
+        if(!window.isOwnLoad) {
+            $(window).trigger('ownLoadEvent')
+        }
+    })
+
     //点击按钮弹出对应的modal层,按钮上加上 .btnModal
     function initModal(){
         $('.btnModal').on('click', function(){
