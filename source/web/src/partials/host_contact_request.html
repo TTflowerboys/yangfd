@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="contactRequest" id="contactRequest">
-        <button id="contactRequestBtn" class="flatButton">{{_('查看房东完整联系方式')}}</button>
+        <button id="contactRequestBtn" class="flatButton ajaxButton">{{_('查看房东完整联系方式')}}</button>
         <form class="contactRequestForm" name="contactRequestForm"
             data-message-success="{{_('提交成功')}}"
             data-message-40000="{{_('你填写的手机或邮箱的格式不正确')}}"
@@ -49,11 +49,11 @@
             </div>
             <div class="row code">
                 <input name="code" type="text" placeholder="{{_('手机验证码')}}" data-validator="trim, required"/>
-                <button name="getCodeBtn" type="button" class="button green">{{_('获取验证码')}}</button>
+                <button name="getCodeBtn" type="button" class="button green ajaxButton">{{_('获取验证码')}}</button>
             </div>
             <div class="row" data-role="serverFeedback" style="display: none; text-align:center;"></div>
             <div class="action">
-                <button class="flatButton" type="submit" disabled>{{_('提交')}}</button>
+                <button class="flatButton ajaxButton" type="submit" disabled>{{_('提交')}}</button>
             </div>
         </form>
     </div>

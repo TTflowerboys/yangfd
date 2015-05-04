@@ -627,7 +627,7 @@
                         <div class="comment_wrapper">
                             <textarea name="comment"></textarea>
                         </div>
-                        <button class="button red">
+                        <button class="button red ajaxButton">
                             {{_('提交')}}
                         </button>
                     </form>
@@ -732,7 +732,7 @@
                                 %end
                             % end
                             <button data-fn="addFav" data-item-id="{{property.get('id','')}}"
-                                    class="flatButton"
+                                    class="flatButton ajaxButton"
                                     style="{{ 'display:none' if isFavorite else ''}}"
                                     data-message-40090="{{_('已经收藏过了')}}"
                                     >
@@ -740,7 +740,7 @@
                                 <span class="text"> {{_('收藏')}} </span>
                             </button>
                             <button data-fn="removeFav"
-                                    class="flatButton"
+                                    class="flatButton ajaxButton"
                                     style="{{ 'display:none' if not isFavorite else ''}}"
                                     % if isFavorite:
                                     data-favorite-id="{{foundId}}"

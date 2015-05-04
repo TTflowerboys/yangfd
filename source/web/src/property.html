@@ -977,7 +977,7 @@
                                 %end
                             % end
                             <button data-fn="addFav" data-property-id="{{property.get('id','')}}"
-                                    class="flatButton"
+                                    class="flatButton ajaxButton"
                                     style="{{ 'display:none' if isFavorite else ''}}"
                                     data-message-40090="{{_('已经收藏过了')}}"
                                     >
@@ -985,7 +985,7 @@
                                 <span class="text"> {{_('收藏')}} </span>
                             </button>
                             <button data-fn="removeFav"
-                                    class="flatButton"
+                                    class="flatButton ajaxButton"
                                     style="{{ 'display:none' if not isFavorite else ''}}"
                                     % if isFavorite:
                                     data-favorite-id="{{foundId}}"
