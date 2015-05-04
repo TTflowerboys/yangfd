@@ -111,11 +111,14 @@
         }
     }
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
-        [tcs setResult:asset];
-    } failureBlock:^(NSError *error) {
-        [tcs setError:error];
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+        [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
+            [tcs setResult:asset];
+        } failureBlock:^(NSError *error) {
+            [tcs setError:error];
+        }];
+    });
+    
     return [[tcs task] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             return task;
