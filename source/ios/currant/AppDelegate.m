@@ -131,9 +131,9 @@
     UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit" urlPath:@"/rent_new"];
     [rootViewController setViewControllers:@[
                                              homeViewController,
-                                             [self makePropertyListViewControllerWithTitle:STR(@"海外房产") icon:@"tab-property" urlPath:@"/property_list"],
+                                             [self makePropertyListViewControllerWithTitle:STR(@"新房") icon:@"tab-property" urlPath:@"/property_list"],
                                              editViewController,
-                                             [self makeViewControllerWithTitle:STR(@"出租") icon:@"tab-rent" urlPath:@"/property_to_rent_list"],
+                                             [self makeViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property_to_rent_list"],
                                              [self makeViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user"],
                                              ] animated:YES];
     [self.window setRootViewController:rootViewController];
