@@ -29,7 +29,7 @@
 {
     static dispatch_once_t pred;
     __strong static id sharedInstance = nil;
-    
+
     dispatch_once(&pred, ^{
         sharedInstance = [[[self class] alloc] init];
         [sharedInstance setupStore];
@@ -37,7 +37,7 @@
         [sharedInstance restoreUser];
 
     });
-    
+
     return sharedInstance;
 }
 
@@ -71,7 +71,7 @@
     NSArray *cookies = [storage cookiesForURL:[CUTEConfiguration hostURL]];
     BOOL isLoggedIn = NO;
     for (NSHTTPCookie *cookie in cookies) {
-        if ([cookie.name isEqualToString:@"currant_auth"] && !IsNilNullOrEmpty(cookie.value)) {
+        if ([cookie.name isEqualToString:KSETTING_AUTH_COOKIE] && !IsNilNullOrEmpty(cookie.value)) {
             isLoggedIn = YES;
         }
     }
@@ -88,12 +88,20 @@
     }
 }
 
+
 - (void)cleanAllCookies {
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    NSArray *cookies = [storage cookies];
     for (NSHTTPCookie *cookie in cookies) {
         [storage deleteCookie:cookie];
     }
+    //http://stackoverflow.com/questions/4471629/how-to-delete-all-cookies-of-uiwebview
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [_store deleteObjectById:KSETTING_AUTH_COOKIE fromTable:KTABLE_SETTINGS];
+
+    NSError *error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:[NSHomeDirectory() stringByAppendingString:@"/Library/Cookies"] error:&error];
 }
 
 - (void)restoreAllCookies {
