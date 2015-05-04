@@ -31,7 +31,9 @@
             <i><img src="/static/images/user/logout.png"/></i>
         </a>
         <div class="account">
-            <h1>{{user.get('nickname')}}</h1>
+            %if user.get('nickname'):
+                <h1>{{user.get('nickname')}}</h1>
+            %end
             <p class="vip">
                 %if user.get('is_vip'):
                 <span class="vipActive"><strong>VIP</strong></span>

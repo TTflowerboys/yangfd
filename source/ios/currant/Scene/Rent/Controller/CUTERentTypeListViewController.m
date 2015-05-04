@@ -16,6 +16,7 @@
 #import "CUTERentAddressMapViewController.h"
 #import "CUTECommonMacro.h"
 #import "CUTEFormRentTypeCell.h"
+#import "CUTENotificationKey.h"
 
 @interface CUTERentTypeListViewController ()
 {
@@ -69,12 +70,19 @@
 
     if (self.singleUseForReedit) {
         [self.navigationController popViewControllerAnimated:YES];
+        [self updateTicket];
     }
     else  {
         CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
         mapController.ticket = self.ticket;
         [self.navigationController pushViewController:mapController animated:YES];
     }
+}
+
+- (void)updateTicket {
+    CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
+    self.ticket.rentType = form.rentType;
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 }
 
 @end

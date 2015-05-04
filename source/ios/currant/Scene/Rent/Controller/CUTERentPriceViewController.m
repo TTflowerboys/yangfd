@@ -21,7 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
     self.navigationItem.title = STR(@"租金");
 }
 
@@ -39,21 +38,30 @@
     }
 }
 
-- (void)setRentPeriod {
+- (void)onRentPriceEdit:(id)sender {
+    [self upateForm];
+}
+
+- (void)onContainBillSwitch:(id)sender {
+    [self upateForm];
+}
+
+- (void)onRentPeriodSwitch:(id)sender {
     [self.formController updateFormSections];
     [self.tableView reloadData];
+    [self upateForm];
+}
+
+- (void)onRentAvailableTimeEdit:(id)sender {
+    [self upateForm];
 }
 
 - (void)optionBack {
     [self.navigationController popViewControllerAnimated:YES];
+    [self upateForm];
 }
 
-- (void)onSaveButtonPressed:(id)sender {
-    if (![self validateFormWithScenario:@"save"]) {
-        return;
-    }
-
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)upateForm {
     CUTERentPriceForm *form = (CUTERentPriceForm *)[[self formController] form];
     CUTETicket *ticket = self.ticket;
     ticket.depositType = form.depositType;

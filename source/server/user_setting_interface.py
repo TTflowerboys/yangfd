@@ -167,3 +167,11 @@ def user_messages(user):
 def verify_email_status():
     title = _('验证邮箱')
     return currant_util.common_template("verify_email_status", title=title)
+
+
+@f_get('/user')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def user():
+    title = _('账户信息')
+    return currant_util.common_template("user-phone", title=title)

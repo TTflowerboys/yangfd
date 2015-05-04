@@ -27,7 +27,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"保存") style:UIBarButtonItemStylePlain target:self action:@selector(onSaveButtonPressed:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,14 +46,18 @@
 
 - (void)optionBack {
     [self.navigationController popViewControllerAnimated:YES];
+    [self updateTicket];
 }
 
-- (void)onSaveButtonPressed:(id)sender {
-    if (![self validateFormWithScenario:@"edit"]) {
-        return;
-    }
+- (void)onStreetEdit:(id)sender {
+    [self updateTicket];
+}
 
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)onPostcodeEdit:(id)sender {
+    [self updateTicket];
+}
+
+- (void)updateTicket {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)[self.formController form];
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = [ticket property];

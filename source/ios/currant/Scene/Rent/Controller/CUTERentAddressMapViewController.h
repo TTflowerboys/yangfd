@@ -16,6 +16,4 @@
 
 @property (strong, nonatomic) CUTETicket *ticket;
 
-@property (nonatomic) BOOL singleUseForReedit;
-
 @end

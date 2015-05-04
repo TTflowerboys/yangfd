@@ -281,7 +281,7 @@
         if ([ticket.status isEqualToString:kTicketStatusDraft]) {
             [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:ticket];
         }
-        [[CUTERentTickePublisher sharedInstance] editTicket:ticket];
+        [[CUTERentTickePublisher sharedInstance] editTicketExcludeImage:ticket];
     }
 }
 

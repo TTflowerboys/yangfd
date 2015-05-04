@@ -78,11 +78,10 @@
     return tcs.task;
 }
 
-- (BFTask *)editTicket:(CUTETicket *)ticket {
-
+- (BFTask *)editTicketExcludeImage:(CUTETicket *)ticket {
     return [BFTask taskForCompletionOfAllTasks:
             @[
-              [self uploadImageAndEditProperty:ticket.property],
+              [self editProperty:ticket.property],
               [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:ticket.toParams resultClass:nil]
               ]];
 }
@@ -90,24 +89,31 @@
 - (BFTask*)publishTicket:(CUTETicket *)ticket
 {
     ticket.status = kTicketStatusToRent;
-    return [self editTicket:ticket];
+    return [BFTask taskForCompletionOfAllTasks:
+            @[
+              [self uploadImageAndEditProperty:ticket.property],
+              [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:ticket.toParams resultClass:nil]
+              ]];
+}
+
+- (BFTask *)uploadImages:(NSArray *)images {
+    return [BFTask taskForCompletionOfAllTasksWithResults:[images map:^id(NSString *object) {
+        if ([[NSURL URLWithString:object] isAssetURL]) {
+            return [[self imageUploader] uploadImageWithAssetURLString:object];
+        }
+        else {
+            return [BFTask taskWithResult:object];
+        }
+    }]];
 }
 
 - (BFTask *)uploadImageAndEditProperty:(CUTEProperty *)property {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if (property) {
         Sequencer *sequencer = [Sequencer new];
-
         if (!IsArrayNilOrEmpty([property realityImages])) {
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[BFTask taskForCompletionOfAllTasksWithResults:[[property realityImages] map:^id(NSString *object) {
-                    if ([[NSURL URLWithString:object] isAssetURL]) {
-                        return [[self imageUploader] uploadImageWithAssetURLString:object];
-                    }
-                    else {
-                        return [BFTask taskWithResult:object];
-                    }
-                }]] continueWithBlock:^id(BFTask *task) {
+                [[self uploadImages:property.realityImages] continueWithBlock:^id(BFTask *task) {
                     if (task.result) {
                         property.realityImages = task.result;
                         completion(task.result);
@@ -132,10 +138,10 @@
                 }
             }];
         }];
-        
+
         [sequencer run];
     }
-    
+
     return tcs.task;
 }
 
