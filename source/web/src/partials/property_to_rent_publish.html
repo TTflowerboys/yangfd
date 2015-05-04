@@ -47,6 +47,18 @@
                 <div class="formGroup">
                     <label for="phone">{{_('手机号')}}</label>
                     <select name="country">
+                        % for country in country_list:
+                            % if country.get('slug') == 'GB':
+                                <option value="{{country.get('id')}}"
+                                % if country.get('id') == user.get('country',{}).get('id') if user and user.get('country') else None:
+                                selected
+                                %end
+                                >
+                                (+44){{country.get('value')}}
+                                </option>
+                                % country_list.remove(country)
+                            %end
+                        %end
                         %for index, country in enumerate(country_list):
                         <option value="{{country.get('id')}}"
                             % if country.get('id') == user.get('country',{}).get('id') if user and user.get('country') else None:
