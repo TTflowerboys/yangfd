@@ -2,6 +2,13 @@
  * Created by levy on 15-5-4.
  */
 (function($) {
+    $.ajaxSetup({
+        beforeSend: function(){
+            if($('.buttonLoadingClicked').length > 0) {
+                $('.buttonLoadingClicked').trigger('start')
+            }
+        }
+    })
     $.fn.buttonLoading = function(opts) {
         return $(this).each(function() {
             if($(this).data('buttonLoading') === undefined){
@@ -21,18 +28,22 @@
     }
     $.extend(ButtonLoading.prototype, {
         start: function() {
-            this.elem.addClass('buttonLoading').prop('disabled', true)
+            this.elem.removeClass('buttonLoadingClicked').addClass('buttonLoading').prop('disabled', true)
         },
-        stop: function() {
+        end: function() {
             this.elem.removeClass('buttonLoading').prop('disabled', false)
         },
         bindEvent: function() {
             var _ = this
-            _.elem.bind('click', function() {
+            _.elem.bind('start', function() {
                 _.start()
             })
+            _.elem.bind('click', function() {
+                $('.buttonLoadingClicked').removeClass('buttonLoadingClicked')
+                $(this).addClass('buttonLoadingClicked')
+            })
             _.elem.bind(_.options.endTrigger, function() {
-                _.stop()
+                _.end()
             })
         }
     })
