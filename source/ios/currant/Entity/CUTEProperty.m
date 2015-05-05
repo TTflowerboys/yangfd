@@ -163,15 +163,16 @@
     return params;
 }
 
+#define AddressPart(part) IsNilNullOrEmpty(part)? @"": CONCAT(part, @" ")
+
 - (NSString *)address {
-    return [@[NilNullToEmpty(self.houseName),
-              NilNullToEmpty(self.floor),
-              NilNullToEmpty(self.community),
-              NilNullToEmpty(self.street),
-              NilNullToEmpty(self.zipcode),
-              NilNullToEmpty(self.city.value),
-              NilNullToEmpty(self.country.value)]
-            componentsJoinedByString:@" "];
+    return CONCAT(AddressPart(self.houseName),
+                  AddressPart(self.floor),
+                  AddressPart(self.community),
+                  AddressPart(self.street),
+                  AddressPart(self.zipcode),
+                  AddressPart(self.city.value),
+                  AddressPart(self.country.value));
 }
 
 @end

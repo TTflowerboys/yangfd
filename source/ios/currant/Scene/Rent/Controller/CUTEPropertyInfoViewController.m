@@ -75,7 +75,9 @@
         [pickerCell update];
     }
     else if ([field.key isEqualToString:@"rentPrice"]) {
-        cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.ticket.price.value], @"/", STR(@"周"));
+        if (self.ticket.price) {
+            cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.ticket.price.value], @"/", STR(@"周"));
+        }
     }
 }
 
