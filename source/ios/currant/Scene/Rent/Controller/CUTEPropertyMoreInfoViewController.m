@@ -10,7 +10,7 @@
 #import "CUTEPropertyFacilityViewController.h"
 #import "CUTEPropertyFacilityForm.h"
 #import "CUTEEnumManager.h"
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
 #import "CUTEPropertyMoreInfoForm.h"

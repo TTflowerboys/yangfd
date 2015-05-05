@@ -16,7 +16,7 @@
 #import <BBTRestClient.h>
 #import "CUTEConfiguration.h"
 #import <BBTJSON.h>
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 #import "CUTEEnumManager.h"
 #import "CUTECommonMacro.h"
 #import "CUTERentPriceViewController.h"

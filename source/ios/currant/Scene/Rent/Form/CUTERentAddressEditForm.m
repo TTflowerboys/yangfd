@@ -10,7 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEEnum.h"
 #import "CUTECityEnum.h"
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 #import "CUTEFormFixNonBreakingSpaceTextFieldCell.h"
 
 
@@ -59,7 +59,7 @@
 
 - (NSArray *)citiesOfCountry:(CUTEEnum *)country {
     if (country) {
-        return [_allCities collect:^BOOL(CUTECityEnum *object) {
+        return [_allCities select:^BOOL(CUTECityEnum *object) {
             return [object.country.identifier isEqualToString:country.identifier] && !IsNilNullOrEmpty(object.value);
         }];
     }

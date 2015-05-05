@@ -10,7 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEEnum.h"
 #import <NSObject+Attachment.h>
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 
 @interface CUTEPropertyFacilityForm ()
 {
@@ -77,7 +77,7 @@
 }
 
 - (CUTEEnum *)getIndoorFacilityByKey:(NSString *)key {
-    return [[_allIndoorFacilities collect:^BOOL(CUTEEnum *object) {
+    return [[_allIndoorFacilities select:^BOOL(CUTEEnum *object) {
         return [object.identifier isEqualToString:key];
     }] firstObject];
 }
@@ -91,7 +91,7 @@
 }
 
 - (CUTEEnum *)getCommunityFacilityByKey:(NSString *)key {
-    return [[_allCommunityFacilities collect:^BOOL(CUTEEnum *object) {
+    return [[_allCommunityFacilities select:^BOOL(CUTEEnum *object) {
         return [object.identifier isEqualToString:key];
     }] firstObject];
 }

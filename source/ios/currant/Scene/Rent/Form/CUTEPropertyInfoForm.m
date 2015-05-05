@@ -13,7 +13,7 @@
 #import "CUTEFormRoomsPickerCell.h"
 #import "CUTERentContactViewController.h"
 #import "CUTEPropertyMoreInfoViewController.h"
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 
 @interface CUTEPropertyInfoForm () {
     NSArray *_allPropertyTypes;
@@ -43,12 +43,10 @@
         return _propertyType;
     }
 
-    __block CUTEEnum *apartment = nil;
-    [_allPropertyTypes enumerateObjectsUsingBlock:^(CUTEEnum *obj, NSUInteger idx, BOOL *stop) {
-        if (obj.slug && [obj.slug isEqualToString:@"apartment"]) {
-            apartment = obj;
-        }
+    CUTEEnum *apartment = [_allPropertyTypes find:^BOOL(CUTEEnum *object) {
+        return object.slug && [object.slug isEqualToString:@"apartment"];
     }];
+    
     if (apartment) {
         return apartment;
     }

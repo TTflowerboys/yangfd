@@ -10,7 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEFormRentTypeCell.h"
 #import "CUTERentAddressMapViewController.h"
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 #import "CUTEEnum.h"
 
 @interface CUTERentTypeListForm () {

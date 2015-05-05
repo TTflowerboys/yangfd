@@ -10,7 +10,7 @@
 #import "CUTEConfiguration.h"
 #import "CUTEUserDefaultKey.h"
 #import "CUTECommonMacro.h"
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 #import <YTKKeyValueStore.h>
 
 #define DomainKey(key) [NSString stringWithFormat:@"%@/%@", [CUTEConfiguration host], key]
@@ -60,10 +60,9 @@
     [@[KTABLE_SETTINGS,
        KTABLE_UNFINISHE_RENT_TICKETS,
        KTABLE_ASSET_URL,
-       KTABLE_URL_ASSET]
-     enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-         [_store createTableWithName:obj];
-     }];
+       KTABLE_URL_ASSET] each:^(id object) {
+           [_store createTableWithName:object];
+       }];
 }
 
 - (BOOL)isUserLoggedIn {

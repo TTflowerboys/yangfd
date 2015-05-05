@@ -10,7 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEEnum.h"
 #import "CUTECityEnum.h"
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 #import <MapKit/MapKit.h>
 
 @implementation CUTEProperty

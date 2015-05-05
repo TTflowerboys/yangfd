@@ -10,7 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
 #import <CTAssetsPickerController.h>
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 #import "CUTEFormImagePickerPlaceholderView.h"
 #import "MasonryMake.h"
 #import <UIView+BBT.h>
@@ -135,8 +135,7 @@
     if (!IsArrayNilOrEmpty(items)) {
         CGFloat sideWidth = RectHeight(_scrollView.bounds);
         CGFloat margin = 10;
-        [items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-
+        [items eachWithIndex:^(id obj, NSUInteger idx) {
             UIImageView *imageView = [[UIImageView alloc] init];
             [imageView setImageWithAssetURL:[NSURL URLWithString:obj]];
             [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onImageTapped:)]];
@@ -317,7 +316,7 @@
 
 - (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser {
 
-    NSArray *editedAssets = [[self ticket].property.realityImages collect:^BOOL(NSString *asset) {
+    NSArray *editedAssets = [[self ticket].property.realityImages select:^BOOL(NSString *asset) {
         return asset.attachment == nil || [asset.attachment boolValue];
     }];
     [self updateImages:editedAssets];

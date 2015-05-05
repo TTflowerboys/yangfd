@@ -8,7 +8,7 @@
 
 #import "CUTEPlacemark.h"
 #import "CUTECommonMacro.h"
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 
 @interface CUTEPlacemark ()
 
@@ -45,7 +45,7 @@
 }
 
 + (NSString *)getComponentByType:(NSString *)type fromCompnents:(NSArray *)components {
-    NSArray *array = [components collect:^BOOL(NSDictionary *object) {
+    NSArray *array = [components select:^BOOL(NSDictionary *object) {
         NSArray *types = [object objectForKey:@"types"];
         return [types containsObject:type];
     }];
@@ -56,7 +56,7 @@
 }
 
 + (NSString *)getISOCountryCodefromCompnents:(NSArray *)components {
-    NSArray *array = [components collect:^BOOL(NSDictionary *object) {
+    NSArray *array = [components select:^BOOL(NSDictionary *object) {
         NSArray *types = [object objectForKey:@"types"];
         return [types containsObject:@"country"];
     }];

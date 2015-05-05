@@ -17,7 +17,7 @@
 #import "CUTEPropertyInfoViewController.h"
 #import "CUTEEnumManager.h"
 #import "CUTEEnum.h"
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 #import "CUTEDataManager.h"
 #import <BBTRestClient.h>
 #import "CUTEConfiguration.h"
@@ -333,11 +333,11 @@
                 return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
             }]] continueWithSuccessBlock:^id(BFTask *task) {
                 if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
-                    NSArray *coutries = [task.result[0] collect:^BOOL(CUTEEnum *object) {
+                    NSArray *coutries = [(NSArray *)task.result[0] select:^BOOL(CUTEEnum *object) {
                         return [[object slug] isEqualToString:placemark.ISOcountryCode];
                     }];
 
-                    NSArray *cities = [task.result[1] collect:^BOOL(CUTECityEnum *object) {
+                    NSArray *cities = [(NSArray *)task.result[1] select:^BOOL(CUTECityEnum *object) {
                         return [[object.country slug] isEqualToString:placemark.ISOcountryCode] && [[[placemark locality] lowercaseString] hasPrefix:[[object value] lowercaseString]];
                     }];
                     property.street = [@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "];

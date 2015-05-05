@@ -10,7 +10,7 @@
 #import <Bolts.h>
 #import <Sequencer.h>
 #import "CUTECommonMacro.h"
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 #import "CUTETicket.h"
 #import "CUTEImageUploader.h"
 #import "CUTEAPIManager.h"
