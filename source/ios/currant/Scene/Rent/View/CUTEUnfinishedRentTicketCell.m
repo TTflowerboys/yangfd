@@ -12,7 +12,6 @@
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
 #import "MasonryMake.h"
-#import "UIView+Border.h"
 
 @interface CUTEUnfinishedRentTicketCell () {
 
@@ -49,17 +48,20 @@
         _placeholderView = [[CUTEUnfinishedRentTicketPlaceholderImageView alloc] initWithFrame:self.contentView.bounds];
         [self.contentView addSubview:_placeholderView];
 
-        _scrollImageView = [[BBTScrollImageView alloc] initWithFrame:CGRectMake(0, 0, RectWidth(self.contentView.bounds), IMAGE_VIEW_HEIGHT)];
+        _scrollImageView = [[BBTScrollImageView alloc] init];
         [self.contentView addSubview:_scrollImageView];
         //http://stackoverflow.com/questions/6636844/uiscrollview-inside-uitableviewcell-touch-detect
         //make scrollview can pass touch to tableviewcell and responsable for pan
         [_scrollImageView setUserInteractionEnabled:NO];
         [self.contentView addGestureRecognizer:_scrollImageView.panGestureRecognizer];
 
-        _textContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, IMAGE_VIEW_HEIGHT, RectWidth(self.contentView.bounds) - EDIT_BUTTON_WIDTH, TEXT_VIEW_HEIGHT)];
+        _textContainerView = [[UIView alloc] init];
         [self.contentView addSubview:_textContainerView];
         _textContainerView.backgroundColor = [UIColor whiteColor];
-        [_textContainerView addLeftBorderWithColor:CUTE_MAIN_COLOR andWidth:8];
+
+        UIView *leftBorder = [UIView new];
+        leftBorder.backgroundColor = CUTE_MAIN_COLOR;
+        [_textContainerView addSubview:leftBorder];
 
         _nameLabel = [UILabel new];
         _nameLabel.font = [UIFont systemFontOfSize:16];
@@ -72,6 +74,14 @@
         _typeLabel.textColor = CUTE_MAIN_COLOR;
         [_textContainerView addSubview:_typeLabel];
 
+
+        _editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_editButton setImage:IMAGE(@"icon-rent-edit") forState:UIControlStateNormal];
+        [_editButton setBackgroundColor:CUTE_MAIN_COLOR];
+        _editButton.userInteractionEnabled = NO;//pass touch to tableview cell
+        [self.contentView addSubview:_editButton];
+
+
         MakeBegin(self.contentView)
         MakeLeftEqualTo(self.left);
         MakeRighEqualTo(self.right);
@@ -81,6 +91,27 @@
 
         MakeBegin(_placeholderView)
         MakeEdgesEqualTo(self.contentView);
+        MakeEnd
+
+        MakeBegin(_scrollImageView)
+        MakeTopEqualTo(self.contentView.top);
+        MakeLeftEqualTo(self.contentView.left);
+        MakeRighEqualTo(self.contentView.right);
+        MakeBottomEqualTo(self.contentView.top).offset(IMAGE_VIEW_HEIGHT);
+        MakeEnd
+
+        MakeBegin(_textContainerView)
+        MakeTopEqualTo(_scrollImageView.bottom);
+        MakeLeftEqualTo(self.contentView.left);
+        MakeBottomEqualTo(self.contentView.bottom);
+        MakeRighEqualTo(self.contentView.right).offset(-EDIT_BUTTON_WIDTH);
+        MakeEnd
+
+        MakeBegin(leftBorder)
+        MakeTopEqualTo(_textContainerView.top);
+        MakeBottomEqualTo(_textContainerView.bottom);
+        MakeLeftEqualTo(_textContainerView.left);
+        MakeRighEqualTo(_textContainerView.left).offset(8);
         MakeEnd
 
         MakeBegin(_nameLabel)
@@ -96,13 +127,13 @@
         MakeRighEqualTo(_textContainerView.right).offset(-10);
         MakeEnd
 
+        MakeBegin(_editButton)
+        MakeLeftEqualTo(_textContainerView.right);
+        MakeRighEqualTo(self.contentView.right);
+        MakeTopEqualTo(_textContainerView.top);
+        MakeBottomEqualTo(self.contentView.bottom);
+        MakeEnd
 
-        _editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_editButton setImage:IMAGE(@"icon-rent-edit") forState:UIControlStateNormal];
-        [_editButton setBackgroundColor:CUTE_MAIN_COLOR];
-        _editButton.userInteractionEnabled = NO;//pass touch to tableview cell
-        _editButton.frame= CGRectMake(RectWidthExclude(self.contentView.bounds, EDIT_BUTTON_WIDTH), IMAGE_VIEW_HEIGHT, EDIT_BUTTON_WIDTH, TEXT_VIEW_HEIGHT);
-        [self.contentView addSubview:_editButton];
     }
     return self;
 }

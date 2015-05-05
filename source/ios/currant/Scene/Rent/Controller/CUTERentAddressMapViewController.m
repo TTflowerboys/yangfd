@@ -251,6 +251,7 @@
                     else {
                         currentTicket.identifier = task.result[@"ticket_id"];
                         currentTicket.property.identifier = task.result[@"property_id"];
+                        [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:currentTicket];
                         completion(currentTicket);
                     }
                     return nil;

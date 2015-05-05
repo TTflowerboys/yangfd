@@ -249,7 +249,17 @@
     }]];
     [self update];
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    [[CUTERentTickePublisher sharedInstance] uploadPropertyImages:self.ticket.property];
+
+    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[[CUTERentTickePublisher sharedInstance] uploadPropertyImages:self.ticket.property] continueWithBlock:^id(BFTask *task) {
+        if (task.error || task.exception || task.isCancelled) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else {
+            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+        }
+        return nil;
+    }];
 }
 
 //TODO need image count limit?
@@ -345,7 +355,17 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             [self update];
             [picker dismissViewControllerAnimated:YES completion:NULL];
             [SVProgressHUD dismiss];
-            [[CUTERentTickePublisher sharedInstance] uploadPropertyImages:self.ticket.property];
+
+            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+            [[[CUTERentTickePublisher sharedInstance] uploadPropertyImages:self.ticket.property]  continueWithBlock:^id(BFTask *task) {
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                else {
+                    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+                }
+                return nil;
+            }];
         }
     }];
 }
