@@ -9,6 +9,7 @@
 #import "CUTEFormRoomsPickerCell.h"
 #import "CUTECommonMacro.h"
 #import "CUTEPropertyInfoForm.h"
+#import <NSArray+ObjectiveSugar.h>
 
 @implementation CUTEFormRoomsPickerCell
 
@@ -23,12 +24,11 @@
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.field.form;
     self.detailTextLabel.text = [NSString stringWithFormat:@"%d室%d厅%d卫", form.bedroomCount, form.livingroomCount, form.bathroomCount];
 
-    [@[@"bedroomCount", @"livingroomCount", @"bathroomCount"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [@[@"bedroomCount", @"livingroomCount", @"bathroomCount"] eachWithIndex:^(id obj, NSUInteger idx) {
         if ([[form valueForKey:obj] integerValue] < [self.pickerView numberOfRowsInComponent:idx]) {
             [self.pickerView selectRow:[[form valueForKey:obj] integerValue] inComponent:idx animated:NO];
         }
     }];
-
 }
 
 - (BOOL)canBecomeFirstResponder

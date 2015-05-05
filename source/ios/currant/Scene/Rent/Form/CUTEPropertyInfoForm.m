@@ -13,7 +13,7 @@
 #import "CUTEFormRoomsPickerCell.h"
 #import "CUTERentContactViewController.h"
 #import "CUTEPropertyMoreInfoViewController.h"
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 
 @interface CUTEPropertyInfoForm () {
     NSArray *_allPropertyTypes;
@@ -28,7 +28,7 @@
     return @[
              @{FXFormFieldKey: @"photos", FXFormFieldTitle:STR(@"添加照片"), FXFormFieldHeader: STR(@"房间照片"), FXFormFieldCell: [CUTEFormImagePickerCell class], FXFormFieldType:FXFormFieldTypeImage},
              @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldAction: @"editRentPrice", FXFormFieldHeader: STR(@"基本信息")},
-                @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"房产类型"),FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: _propertyType? _propertyType: (CUTEEnum *)[_allPropertyTypes firstObject], FXFormFieldAction: @"editPropertyType"},
+                @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"房产类型"),FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: [self defaultPropertyType], FXFormFieldAction: @"editPropertyType"},
              @{FXFormFieldKey: @"rooms", FXFormFieldTitle:STR(@"房间"), FXFormFieldCell: [CUTEFormRoomsPickerCell class], @"style": @(1), FXFormFieldAction: @"editRooms:"},
                 @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积"), FXFormFieldAction: @"editArea"},
              @{FXFormFieldKey: @"rentType", FXFormFieldTitle:STR(@"出租类型"), FXFormFieldAction: @"editRentType"},
@@ -36,6 +36,21 @@
              @{FXFormFieldKey: @"moreInfo", FXFormFieldTitle:STR(@"填写更多描述（选填）"), FXFormFieldAction: @"editMoreInfo"},
              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"预览并发布"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
              ];
+}
+
+- (CUTEEnum *)defaultPropertyType {
+    if (_propertyType) {
+        return _propertyType;
+    }
+
+    CUTEEnum *apartment = [_allPropertyTypes find:^BOOL(CUTEEnum *object) {
+        return object.slug && [object.slug isEqualToString:@"apartment"];
+    }];
+    
+    if (apartment) {
+        return apartment;
+    }
+    return [_allPropertyTypes firstObject];
 }
 
 - (void)setAllPropertyTypes:(NSArray *)allPropertyTypes {

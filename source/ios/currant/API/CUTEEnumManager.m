@@ -9,7 +9,7 @@
 #import "CUTEEnumManager.h"
 #import "CUTEEnum.h"
 #import <BBTCommonMacro.h>
-#import <NSArray+Frankenstein.h>
+#import <NSArray+ObjectiveSugar.h>
 #import "CUTEAPIManager.h"
 
 @interface CUTEEnumManager () {
