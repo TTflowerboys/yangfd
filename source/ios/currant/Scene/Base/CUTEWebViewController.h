@@ -15,6 +15,8 @@
 
 - (void)loadURL:(NSURL *)url;
 
+- (void)updateWithURL:(NSURL *)url;
+
 - (void)updateBackButton;
 
 - (void)clearBackButton;

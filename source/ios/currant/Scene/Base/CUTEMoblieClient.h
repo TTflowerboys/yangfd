@@ -14,9 +14,9 @@
 
 - (void)log:(JSValue *)message;
 
-- (void)signIn:(JSValue *)result;
+- (void)signin:(JSValue *)result;
 
-- (void)logOut;
+- (void)logout:(JSValue *)result;
 
 - (void)editRentTicket:(JSValue *)result;
 

@@ -57,7 +57,10 @@
         },
         logout: function () {
             if (window.mobileClient !== undefined) {
-                window.mobileClient.logOut()
+                var base = window.location.href.match(/(.*\/)/)[0]
+                var url = team.resolveRelative('/logout?return_url=%2Fsignin', base)
+                window.alert(url)
+                window.mobileClient.logout(url)
                 window.location.replace('/logout?return_url=%2Fsignin')
             }
             else {
