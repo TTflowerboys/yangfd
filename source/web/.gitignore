@@ -34,3 +34,6 @@ sprite
 # Users Environment Variables
 .lock-wscript
 .idea
+
+# bower
+src/static/bower_components

@@ -1,0 +1,26 @@
+{
+  "name": "currant",
+  "version": "0.0.1",
+  "authors": [
+    "Currant Team"
+  ],
+  "description": "http://www.yangfd.com",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "license": "ISC",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/static/bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-growl": "0.4.0",
+    "angular-multi-select": "2.0.1",
+    "blueimp-gallery": "2.11.1"
+  }
+}
