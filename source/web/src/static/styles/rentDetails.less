@@ -435,10 +435,10 @@ body {
                 float: right;
                 color: @red;
                 width: 30%;
-                font-size: @normal-font-size;
+                font-size: @root-font-size;
                 display: inline-block;
-
-                strong { font-size: @large-font-size; }
+                text-align: left;
+                strong { font-size: @normal-font-size; }
             }
         }
 
@@ -716,7 +716,7 @@ body {
 
     .expendDescription_wrapper {
         @media @phone {
-            padding: 20px;
+            padding: 20px;font-size: @root-font-size
         }
 
         button[data-fn=expendDescription] {
@@ -772,13 +772,14 @@ body {
         }
 
         margin-top: @standard-margin * 2;
-        margin-bottom: @standard-margin * 2;
+        margin-bottom: @standard-margin * 3;
+        margin-left: @standard-margin * 2;
 
         .clearfix();
 
         @media @phone {
             display: block;
-            margin: @standard-margin * 2;
+            margin: @standard-margin * 2 @standard-margin * 2 0px @standard-margin * 2;
         }
 
         > li {
@@ -786,6 +787,8 @@ body {
             width: 100% / 4;
             padding-left: @standard-margin;
             margin-top: @standard-margin * 2;
+            margin-bottom: @standard-margin;
+
             @media @phone {
                 font-size: @base-font-size-mobile;
                 height: 100%;
@@ -799,9 +802,14 @@ body {
                 }
             }
 
-            .image_wrapper {
+            i {
+                width: 24px;
+                height: 24px;
                 float: left;
-                margin-right: 20px;
+                margin-right: @standard-margin*2;
+                font-size: @large-font-size;
+                color: rgb(255, 186, 0);
+                text-align: center;
             }
 
             strong {

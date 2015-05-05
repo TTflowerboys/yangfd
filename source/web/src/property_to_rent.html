@@ -42,6 +42,7 @@
 <link rel="stylesheet" href="/static/vendors/jquery.stickynavbar/animate.min.css"/>
 <link rel="stylesheet" href="/static/vendors/iOSList/jquery.ioslist.css"/>
 <link rel="stylesheet" href="/static/styles/rentDetails.css"/>
+<link rel="stylesheet" href="/static/styles/iconFont.css">
 <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
 <link rel="stylesheet" href="/static/styles/bingMap.css"/>
 <link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
@@ -275,15 +276,13 @@
             % if rent['property'].get('indoor_facility'):
             <div class="facilities_wrapper">
                 <h3 class="facility_title">{{_('房间设施')}}</h3>
-                <a class="more">{{_('更多')}}</a>
-                <a class="ghostButton red more">{{_('更多')}}</a>
+                <!--<a class="more">{{_('更多')}}</a>
+                <a class="ghostButton red more">{{_('更多')}}</a>-->
                 <ul class="facilities">
                     % for facility in rent['property'].get('indoor_facility'):
                     %if facility.get('value'):
                     <li>
-                        <div class="image_wrapper">
-                            <img src="/static/images/intention/icon/school_nearby_house-red.png" alt="">
-                        </div>
+                        <i class="icon-{{facility.get('slug','')}}"></i>
                         <strong>
                             {{facility.get('value')}}
                         </strong>
@@ -297,15 +296,13 @@
             % if rent['property'].get('community_facility'):
             <div class="facilities_wrapper">
                 <h3 class="facility_title">{{_('小区设施')}}</h3>
-                <a class="more">{{_('更多')}}</a>
-                <a class="ghostButton red more">{{_('更多')}}</a>
+                <!--<a class="more">{{_('更多')}}</a>
+                <a class="ghostButton red more">{{_('更多')}}</a>-->
                 <ul class="facilities">
                     % for facility in rent['property'].get('community_facility'):
                     %if facility.get('value'):
                     <li>
-                        <div class="image_wrapper">
-                            <img src="/static/images/intention/icon/school_nearby_house-red.png" alt="">
-                        </div>
+                        <i class="icon-{{facility.get('slug','')}}"></i>
                         <strong>
                             {{facility.get('value')}}
                         </strong>
