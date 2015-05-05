@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from libfelix.f_common import f_app
-from libfelix.f_interface import f_api, abort
+from libfelix.f_interface import f_api, abort, request
 
 
 import logging
@@ -243,6 +243,7 @@ def lupdate(user):
     admin3=str,
     feature_code=str,
     name=str,
+    geoip=bool,
 ))
 def geonames_search(params):
     """
@@ -258,6 +259,19 @@ def geonames_search(params):
 
     4. Get all PPLX in Barnet (ADM3 of Greator London): country=GB&admin1=ENG&admin2=GLA&admin3=A2&feature_code=PPLX
     """
+    if "geoip" in params and params["geoip"]:
+        # TODO: City?
+        try:
+            remote_ip = request.remote_route[-1]
+        except:
+            remote_ip = None
+
+        try:
+            country = f_app.geoip.get_country(remote_ip)
+            params["country"] = country
+        except:
+            logger.warning("Failed to determine country of ip:", remote_ip)
+
     return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
 
 
