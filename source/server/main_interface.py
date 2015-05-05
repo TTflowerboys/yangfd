@@ -61,32 +61,37 @@ def default(user):
 @f_get('/signup')
 @currant_util.check_ip_and_redirect_domain
 def signup():
-    return currant_util.common_template("signup")
+    title = _('注册')
+    return currant_util.common_template("signup", title=title)
 
 
 @f_get('/vip_sign_up')
 @currant_util.check_ip_and_redirect_domain
 def vip_sign_up():
-    return currant_util.common_template("sign_up_vip")
+    title = _('注册')
+    return currant_util.common_template("sign_up_vip", title=title)
 
 
 @f_get('/signin')
 @currant_util.check_ip_and_redirect_domain
 def signin():
-    return currant_util.common_template("signin")
+    title = _('登录')
+    return currant_util.common_template("signin", title=title)
 
 
 @f_get('/intention')
 @currant_util.check_ip_and_redirect_domain
 def intention():
+    title = _('投资意向')
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    return currant_util.common_template("intention", intention_list=intention_list)
+    return currant_util.common_template("intention", intention_list=intention_list, title=title)
 
 
 @f_get('/reset_password', '/reset-password')
 @currant_util.check_ip_and_redirect_domain
 def reset_password():
-    return currant_util.common_template("reset_password")
+    title = _('重置密码')
+    return currant_util.common_template("reset_password", title=title)
 
 
 @f_get('/property-for-sale/create')

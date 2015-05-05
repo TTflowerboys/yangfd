@@ -16,6 +16,7 @@
 #import <JavaScriptCore/JSValue.h>
 #import "CUTEMoblieClient.h"
 #import "CUTEWebConfiguration.h"
+#import "CUTENavigationUtil.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -86,12 +87,14 @@
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     _progressView.progressBarView.backgroundColor =  CUTE_MAIN_COLOR;
+    [self loadURL:self.url];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -116,21 +119,7 @@
     BOOL show = [_webView canGoBack];
     if  (show) {
         if (!self.navigationItem.leftBarButtonItem) {
-            UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-            [button setImage:[UIImage imageNamed:@"nav-back"] forState:UIControlStateNormal];
-            [button setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 37)];
-            [button addTarget:_webView action:@selector(goBack)forControlEvents:UIControlEventTouchUpInside];
-            [button setFrame:CGRectMake(0, 0, 53, 31)];
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(13, 5, 40, 20)];
-            [label setFont:[UIFont systemFontOfSize:17]];
-            [label setText:STR(@"返回")];
-            label.textAlignment = NSTextAlignmentCenter;
-            [label setTextColor:HEXCOLOR(0xe62e3c, 1)];
-            [label setBackgroundColor:[UIColor clearColor]];
-            [button addSubview:label];
-            UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-
-            self.navigationItem.leftBarButtonItem = barButton;
+            self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:_webView action:@selector(goBack)];
         }
     }
     else {
@@ -159,7 +148,9 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-
+    [self setupJSContextWithWebView:webView];
+    [self updateBackButton];
+    [self updateRightButton];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -168,19 +159,20 @@
     [self setupJSContextWithWebView:webView];
     [self updateBackButton];
     [self updateRightButton];
+    self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self setupJSContextWithWebView:webView];
     [self updateBackButton];
     [self updateRightButton];
+    self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 #pragma mark - NJKWebViewProgressDelegate
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
 {
     [_progressView setProgress:progress animated:YES];
-    //self.title = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 /*
