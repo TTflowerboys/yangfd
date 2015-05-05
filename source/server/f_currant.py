@@ -508,7 +508,7 @@ class f_currant_plugins(f_app.plugin_base):
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
             phonenumber = phonenumbers.parse(raw_row["phone"])
-            result_row["phone"] = str(phonenumber.national_number)
+            result_row["phone"] = phonenumbers.format_number(phonenumber, phonenumbers.PhoneNumberFormat.NATIONAL).replace(" ", "")
             result_row["country_code"] = phonenumber.country_code
         return result_row
 
