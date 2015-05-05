@@ -8,10 +8,12 @@
 
 #import "FXForms.h"
 #import "CUTETicket.h"
+#import <Bolts/Bolts.h>
 
 @interface CUTERentPriceViewController : FXFormViewController
 
 @property (strong, nonatomic) CUTETicket *ticket;
 
+@property (nonatomic, copy) dispatch_block_t updatePriceCompletion;
 
 @end

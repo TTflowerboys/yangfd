@@ -61,7 +61,6 @@
     [super viewDidLoad];
     self.navigationItem.title = STR(@"房产信息");
 
-
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -69,10 +68,14 @@
 
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([cell isKindOfClass:[CUTEFormImagePickerCell class]]) {
+    FXFormField *field = [self.formController fieldForIndexPath:indexPath];
+    if ([field.key isEqualToString:@"photos"]) {
         CUTEFormImagePickerCell *pickerCell = (CUTEFormImagePickerCell *)cell;
         pickerCell.ticket = self.ticket;
         [pickerCell update];
+    }
+    else if ([field.key isEqualToString:@"rentPrice"]) {
+        cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.ticket.price.value], @"/", STR(@"周"));
     }
 }
 
@@ -124,8 +127,8 @@
               controller.ticket = self.ticket;
               CUTERentPriceForm *form = [CUTERentPriceForm new];
               form.currency = ticket.price.unit;
-              form.depositType = ticket.depositType;
               form.rentPrice = ticket.price.value;
+              form.depositType = ticket.depositType;
               form.containBill = ticket.billCovered;
               form.needSetPeriod = YES;
               form.rentAvailableTime = ticket.rentAvailableTime;
@@ -136,6 +139,12 @@
               controller.formController.form = form;
               controller.navigationItem.title = STR(@"租金");
               _editRentPriceViewController = controller;
+
+              __weak typeof(self)weakSelf = self;
+              _editRentPriceViewController.updatePriceCompletion = ^ {
+                  NSIndexPath *indexPath = [weakSelf.formController indexPathForKey:@"rentPrice"];
+                  [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+              };
           }
             [self.navigationController pushViewController:_editRentPriceViewController animated:YES];
         }
