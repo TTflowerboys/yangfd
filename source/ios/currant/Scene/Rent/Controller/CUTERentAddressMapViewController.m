@@ -170,6 +170,9 @@
                         if (cityIndex != NSNotFound) {
                             [form setCity:[cities objectAtIndex:cityIndex]];
                         }
+                        form.houseName = property.houseName;
+                        form.floor = property.floor;
+                        form.community = property.community;
                         form.street = property.street;
                         form.postcode = property.zipcode;
                         controller.formController.form = form;

@@ -26,6 +26,9 @@
              @"city": @"city",
              @"street": @"street",
              @"zipcode": @"zipcode",
+             @"community": @"community",
+             @"floor": @"floor",
+             @"houseName": @"house_name",
              @"propertyDescription": @"description",
              @"bedroomCount": @"bedroom_count",
              @"livingroomCount": @"living_room_count",
@@ -110,7 +113,17 @@
     if (self.propertyType) {
         [params setValue:self.propertyType.identifier forKey:@"property_type"];
     }
-    if (self.street && self.street) {
+
+    if (self.houseName) {
+        [params setValue:[self toI18nString:self.houseName] forKey:@"house_name"];
+    }
+    if (self.community) {
+        [params setValue:[self toI18nString:self.community] forKey:@"community"];
+    }
+    if (self.floor) {
+        [params setValue:[self toI18nString:self.floor] forKey:@"floor"];
+    }
+    if (self.street) {
         [params setValue:[self toI18nString:self.street] forKey:@"street"];
     }
     if (self.country && self.country.identifier) {
@@ -151,7 +164,10 @@
 }
 
 - (NSString *)address {
-    return [@[NilNullToEmpty(self.street),
+    return [@[NilNullToEmpty(self.houseName),
+              NilNullToEmpty(self.floor),
+              NilNullToEmpty(self.community),
+              NilNullToEmpty(self.street),
               NilNullToEmpty(self.zipcode),
               NilNullToEmpty(self.city.value),
               NilNullToEmpty(self.country.value)]

@@ -53,6 +53,18 @@
     [self updateTicket];
 }
 
+- (void)onHouseNameEdit:(id)sender {
+    [self updateTicket];
+}
+
+- (void)onCommunityEdit:(id)sender {
+    [self updateTicket];
+}
+
+- (void)onFloorEdit:(id)sender {
+    [self updateTicket];
+}
+
 - (void)onPostcodeEdit:(id)sender {
     [self updateTicket];
 }
@@ -61,6 +73,9 @@
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)[self.formController form];
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = [ticket property];
+    property.houseName = form.houseName;
+    property.floor = form.floor;
+    property.community = form.community;
     property.street = form.street;
     property.city = form.city;
     property.zipcode = form.postcode;

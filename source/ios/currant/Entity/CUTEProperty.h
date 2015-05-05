@@ -35,6 +35,12 @@
 
 @property (strong, nonatomic) NSString *zipcode;
 
+@property (strong, nonatomic) NSString *community;
+
+@property (strong, nonatomic) NSString *floor;
+
+@property (strong, nonatomic) NSString *houseName;
+
 @property (readonly, nonatomic) NSString *address;
 
 @property (strong, nonatomic) NSString *propertyDescription;

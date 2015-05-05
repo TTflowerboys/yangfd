@@ -191,6 +191,9 @@
             }
             form.street = property.street;
             form.postcode = property.zipcode;
+            form.community = property.community;
+            form.floor = property.floor;
+            form.houseName = property.houseName;
             controller.formController.form = form;
             controller.navigationItem.title = STR(@"位置");
             [self.navigationController pushViewController:controller animated:YES];

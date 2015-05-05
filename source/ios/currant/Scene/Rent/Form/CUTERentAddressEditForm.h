@@ -14,10 +14,14 @@
 
 @interface CUTERentAddressEditForm : CUTEForm
 
-@property (strong, nonatomic) NSString *street;
+@property (strong, nonatomic) CUTEEnum *country;
 @property (strong, nonatomic) CUTECityEnum *city;
 @property (strong, nonatomic) NSString *postcode;
-@property (strong, nonatomic) CUTEEnum *country;
+@property (strong, nonatomic) NSString *street;
+@property (strong, nonatomic) NSString *community;
+@property (strong, nonatomic) NSString *floor;
+@property (strong, nonatomic) NSString *houseName;
+
 
 - (void)setAllCountries:(NSArray *)allCountries;
 
