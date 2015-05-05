@@ -158,8 +158,8 @@
                                                         NSForegroundColorAttributeName : [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1]
                                                         } forState:UIControlStateNormal];
     [self.window makeKeyAndVisible];
-    CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)([(UINavigationController *)[rootViewController.viewControllers firstObject] topViewController]);
-    [firstWebviewController loadURL:firstWebviewController.url];
+//    CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)([(UINavigationController *)[rootViewController.viewControllers firstObject] topViewController]);
+//    [firstWebviewController loadURL:firstWebviewController.url];
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
 
@@ -211,12 +211,8 @@
 #pragma UITabbarViewControllerDelegate
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UINavigationController *)viewController {
-    if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
-        CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
-        [webViewController loadURL:webViewController.url];
-    }
     //only update when first create, not care the controller push and pop
-    else if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController == nil) {
+    if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController == nil) {
         [self updatePublishRentTicketTabWithController:viewController silent:NO];
     }
 }

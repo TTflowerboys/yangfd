@@ -35,6 +35,7 @@
 #import "CUTERentTickePublisher.h"
 #import "CUTERentAddressEditViewController.h"
 #import "CUTERentAddressEditForm.h"
+#import "CUTENavigationUtil.h"
 
 @interface CUTEPropertyInfoViewController () {
 
@@ -59,7 +60,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = STR(@"房产信息");
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"返回") style:UIBarButtonItemStylePlain target:self action:@selector(onLeftButtonPressed:)];
+
+
+    self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 

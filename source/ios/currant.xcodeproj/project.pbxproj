@@ -185,6 +185,11 @@
 		2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB749111ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
+		2CC3A06E1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
+		2CC3A06F1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
+		2CC3A0701AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
+		2CC3A0711AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
+		2CC3A0721AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
 		2CC6C1CF1AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
 		2CC6C1D01AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
 		2CC6C1D11AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
@@ -498,6 +503,8 @@
 		2CB748F51ADCED09003BC2A5 /* MasonryMake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasonryMake.h; sourceTree = "<group>"; };
 		2CB7490B1ADE4755003BC2A5 /* SVProgressHUD+CUTEAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+CUTEAPI.h"; sourceTree = "<group>"; };
 		2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+CUTEAPI.m"; sourceTree = "<group>"; };
+		2CC3A06C1AF87D74008C9AC8 /* CUTENavigationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTENavigationUtil.h; sourceTree = "<group>"; };
+		2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTENavigationUtil.m; sourceTree = "<group>"; };
 		2CC6C1CD1AEE03D7002758A7 /* UIImageView+Assets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Assets.h"; sourceTree = "<group>"; };
 		2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Assets.m"; sourceTree = "<group>"; };
 		2CC6C1D41AEE2400002758A7 /* AssetsLibraryProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsLibraryProvider.h; sourceTree = "<group>"; };
@@ -730,6 +737,8 @@
 				2C401E261ACB9CE100613093 /* ObjectUtil.h */,
 				2CC6C1D41AEE2400002758A7 /* AssetsLibraryProvider.h */,
 				2CC6C1D51AEE2400002758A7 /* AssetsLibraryProvider.m */,
+				2CC3A06C1AF87D74008C9AC8 /* CUTENavigationUtil.h */,
+				2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1422,6 +1431,7 @@
 				2CF8A6A91AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2C7520451ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA2E6B11AC5487800053965 /* CUTEPropertyListViewController.m in Sources */,
+				2CC3A0701AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
 				2CF8A6891AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2CF8A65B1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CF8A5E31AF0B40E0080DF10 /* CUTEPropertyInfoViewController.m in Sources */,
@@ -1504,6 +1514,7 @@
 				2CF8A6AA1AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2C7520461ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA2E6CA1AC5496700053965 /* CUTEPropertyListViewController.m in Sources */,
+				2CC3A0711AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
 				2CF8A68A1AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2CF8A65C1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CF8A5E41AF0B40E0080DF10 /* CUTEPropertyInfoViewController.m in Sources */,
@@ -1586,6 +1597,7 @@
 				2CF8A6A81AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2C7520441ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA94A9B1ACA42CD00DF7497 /* CUTEPropertyListViewController.m in Sources */,
+				2CC3A06F1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
 				2CF8A6881AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2CF8A65A1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CF8A5E21AF0B40E0080DF10 /* CUTEPropertyInfoViewController.m in Sources */,
@@ -1668,6 +1680,7 @@
 				2CF8A6A71AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */,
+				2CC3A06E1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
 				2CF8A6871AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2CF8A6591AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CF8A5E11AF0B40E0080DF10 /* CUTEPropertyInfoViewController.m in Sources */,
@@ -1754,6 +1767,7 @@
 				2CF8A65D1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CF8A6211AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2CF8A5F41AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
+				2CC3A0721AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
 				2C427E581AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CC6C1D31AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2CF8A63F1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
