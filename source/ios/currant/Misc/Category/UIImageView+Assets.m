@@ -16,7 +16,7 @@
 - (void)setImageWithAssetURL:(NSURL *)url {
     if ([url isAssetURL]) {
         [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:url resultBlock:^(ALAsset *asset) {
-            UIImage *image = [UIImage imageWithCGImage:asset.thumbnail];
+            UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage];
             [self setImage:image];
         } failureBlock:^(NSError *error) {
 

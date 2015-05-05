@@ -11,6 +11,7 @@
 #import <BBTCommonMacro.h>
 #import <UIView+BBT.h>
 #import "UIImageView+Assets.h"
+#import <NSArray+ObjectiveSugar.h>
 
 @implementation BBTScrollImageView
 @synthesize scrollImageDelegate = _scrollImageDelegate;
@@ -31,36 +32,23 @@
 - (void)setImages:(NSArray *)imagesArray {
 
     [self removeAllSubViews];
-    
-    CGFloat curXLoc = 0;
-	if ([imagesArray count] >= 1) {
-		NSUInteger i;
-		for (i = 1; i <= [imagesArray count]; i++) {
-			UIImageView *imageView = [[UIImageView alloc] init];
-			imageView.contentMode = UIViewContentModeScaleAspectFill;
-            imageView.clipsToBounds = YES;
-            NSInteger index = i - 1;
-            NSString *imageItem = [imagesArray objectAtIndex:index];
-            [imageView setImageWithAssetURL:[NSURL URLWithString:imageItem]];
-            
-			CGRect rect = imageView.frame;
-			rect.size = CGSizeMake(self.frame.size.width, self.frame.size.height);
-			rect.origin = CGPointMake(curXLoc, 0);
-			curXLoc += self.frame.size.width;
-			imageView.frame = rect;
-			imageView.tag = index;
-			[self addSubview:imageView];
-            
-            //self.userInteractionEnabled = YES;
-            if (self.imageTapEnabled) {
-                imageView.userInteractionEnabled = YES;
-                UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
-                [imageView addGestureRecognizer:tapped];
-            }
 
-		    [self setContentSize:CGSizeMake([imagesArray count] * self.frame.size.width, [self bounds].size.height)];
+    [imagesArray eachWithIndex:^(NSString *object, NSUInteger index) {
+        UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
+        [imageView setImageWithAssetURL:[NSURL URLWithString:object]];
+        imageView.tag = index;
+        [self addSubview:imageView];
+
+        //self.userInteractionEnabled = YES;
+        if (self.imageTapEnabled) {
+            imageView.userInteractionEnabled = YES;
+            UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
+            [imageView addGestureRecognizer:tapped];
         }
-	}
+
+    }];
 }
 
 - (void)imageTapped:(UITapGestureRecognizer *)sender {
@@ -68,6 +56,15 @@
         UIImageView *view = (UIImageView *)[sender view];
         [_scrollImageDelegate scrollView:self didTapImageAtIndex:view.tag];
     }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    NSArray *subViews = [self subviews];
+    [subViews each:^(UIView *view) {
+        view.frame = CGRectMake(view.tag * self.frame.size.width, 0, self.frame.size.width, self.frame.size.height);
+    }];
+    [self setContentSize:CGSizeMake([subViews count] * self.frame.size.width, [self bounds].size.height)];
 }
 
 /*
