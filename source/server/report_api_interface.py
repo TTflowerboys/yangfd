@@ -237,11 +237,11 @@ def lupdate(user):
 
 
 @f_api('/geonames/search', params=dict(
-    country=str,
+    country=(str, True),
     admin1=str,
     admin2=str,
     admin3=str,
-    feature_code=str,
+    feature_code=(str, True),
     name=str,
     geoip=bool,
 ))
