@@ -236,6 +236,31 @@ def lupdate(user):
     f_app.landregistry.check_update()
 
 
+@f_api('/geonames/search', params=dict(
+    country=str,
+    admin1=str,
+    admin2=str,
+    admin3=str,
+    feature_code=str,
+    name=str,
+))
+def geonames_search(params):
+    """
+    Valid ``feature_code`` are: "ADM1", "ADM2", "ADM3", "PPLX".
+
+    Example usage:
+
+    1. Get all ADM1 for GB: country=GB&feature_code=ADM1
+
+    2. Get all ADM2 in England (ADM1 of GB): country=GB&admin1=ENG&feature_code=ADM2
+
+    3. Get all ADM3 in Greator London (ADM2 of England): country=GB&admin1=ENG&admin2=GLA&feature_code=ADM3
+
+    4. Get all PPLX in Barnet (ADM3 of Greator London): country=GB&admin1=ENG&admin2=GLA&admin3=A2&feature_code=PPLX
+    """
+    return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
+
+
 @f_api('/doogal/districts_and_wards')
 @f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer', 'agency'])
 def doogal_districts_and_wards(user):
