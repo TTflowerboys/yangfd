@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="/static/styles/team/reset.css">
         <link rel="stylesheet" href="/static/vendors/swiper/swiper.min.css">
         <link rel="stylesheet" href="/static/styles/phone/animation.css">
+        <link rel="stylesheet" href="/static/styles/phone/iconFont.css">
         <link rel="stylesheet" href="/static/styles/phone/wechatPoster.css">
         <!--endbuild-->
 
@@ -266,10 +267,12 @@
                             <li class="animate"><i class="washerIcon"></i><span>洗衣机</span></li>
                             <li class="animate"><i class="warmIcon"></i><span>暖气</span></li>-->
                             % for item in rent['property'].get('indoor_facility',[]):
-                            <li class="animate"><i class=""><img width="" src="/static/images/wechat_poster/icon_facility/ico_{{item.get('slug','')}}.png" alt=""/></i><span>{{item.get('value','')}}</span></li>
+                            <!--<li class="animate"><i class=""><img width="" src="/static/images/wechat_poster/icon_facility/ico_{{item.get('slug','')}}.png" alt=""/></i><span>{{item.get('value','')}}</span></li>-->
+                            <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
                             % end
                             % for item in rent['property'].get('community_facility',[]):
-                            <li class="animate"><i class=""><img width="" src="/static/images/wechat_poster/icon_facility/ico_{{item.get('slug','')}}.png" alt=""/></i><span>{{item.get('value','')}}</span></li>
+                            <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
+                            <!--<li class="animate"><i class=""><img width="" src="/static/images/wechat_poster/icon_facility/ico_{{item.get('slug','')}}.png" alt=""/></i><span>{{item.get('value','')}}</span></li>-->
                             %end
                         </ul>
                         <!-- 只有上面的设施条数大于6时展示，js控制-->
@@ -391,7 +394,7 @@
             <!-- 等图标设计完成后再做sprites-->
             <ul class="facilities clearfix">
                 % for item in rent['property'].get('indoor_facility',[]):
-                <li class="animate"><i class=""><img width="" src="/static/images/wechat_poster/icon_facility/ico_{{item.get('slug','')}}.png" alt=""/></i></i><span>{{item.get('value','')}}</span></li>
+                <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
                 % end
                 <!--<li class="animate"><i class="tvIcon"></i><span>电视机</span></li>
                 <li class="animate"><i class="fireIcon"></i><span>天然气</span></li>
@@ -403,7 +406,7 @@
             <h2 class="animate">{{_('社区设施')}}</h2>
             <ul class="facilities clearfix">
                 % for item in rent['property'].get('community_facility',[]):
-                <li class="animate"><i class=""><img width="" src="/static/images/wechat_poster/icon_facility/ico_{{item.get('slug','')}}.png" alt=""/></i><span>{{item.get('value','')}}</span></li>
+                <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
                 %end
             </ul>
             <a class="btn btnCloseModal" id="closeFacilitiesMoreBtn">{{_('收起')}}</a>
