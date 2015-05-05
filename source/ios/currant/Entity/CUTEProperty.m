@@ -166,13 +166,14 @@
 #define AddressPart(part) IsNilNullOrEmpty(part)? @"": CONCAT(part, @" ")
 
 - (NSString *)address {
-    return CONCAT(AddressPart(self.houseName),
+    return [CONCAT(AddressPart(self.houseName),
                   AddressPart(self.floor),
                   AddressPart(self.community),
                   AddressPart(self.street),
                   AddressPart(self.zipcode),
                   AddressPart(self.city.value),
-                  AddressPart(self.country.value));
+                  AddressPart(self.country.value)) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    //trim remove last whitespace
 }
 
 @end
