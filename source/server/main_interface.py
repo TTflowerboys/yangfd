@@ -158,7 +158,7 @@ def wechat_poster(rent_ticket_id):
 def wechat_poster_image(rent_ticket_id):
     from libfelix.f_html2png import html2png
     response.set_header(b"Content-Type", b"image/png")
-    return html2png("http://" + request.host + "/wechat-poster/" + rent_ticket_id, width=480, height=800, url=True)
+    return html2png("://".join(request.urlparts[:2]) + "/wechat-poster/" + rent_ticket_id, width=480, height=800, url=True)
 
 
 @f_get('/admin')
