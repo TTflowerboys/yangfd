@@ -31,9 +31,7 @@
         <script type="text/javascript">
             window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
             window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame
-            window.isOwnLoad = false
-            window.isReady = false
-            window.isTimeOut = false
+            window.isInit = false
             //进度条类
             function Process(conf){
                 var defaultConfig = {
@@ -158,10 +156,7 @@
             process.moveTo(75, 10000, function(){
                 process.moveTo(90, 5000, function(){
                     process.moveTo(95, 5000, function() {
-                        window.isTimeOut = true
-                        if(window.isReady && !window.isOwnLoad) {
-                            $(window).trigger('ownLoadEvent')
-                        }
+                        $(window).trigger('ownLoadEvent')
                     })
                 })
             })
@@ -431,13 +426,11 @@
                     'background-image': 'url(' + baseSrc + ')'
                 })
             }
-            $(function () {
-                initMapSrc({
-                    key: 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43',
-                    width: 600,
-                    centerPoint: '{{rent["property"].get("latitude","")}},{{rent["property"].get("longitude","")}}',
-                    zoomLevel: 12
-                })
+            initMapSrc({
+                key: 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43',
+                width: 600,
+                centerPoint: '{{rent["property"].get("latitude","")}},{{rent["property"].get("longitude","")}}',
+                zoomLevel: 12
             })
         </script>
     </body>

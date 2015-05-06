@@ -81,7 +81,10 @@
     }
     $(window).on('ownLoadEvent', function() {
         //所有资源加载完毕后：
-        window.isOwnLoad = true
+        if(!window.isInit){
+            window.process.finish(loadCallback)
+        }
+        window.isInit = true
         function loadCallback(){
             if(parent && typeof parent.previewLoaded === 'function') {
                 parent.previewLoaded()
@@ -94,20 +97,9 @@
                 $('.swiper-slide').eq(0).find('.animate').removeClass('hide').addClass('animation')
             })
         }
-        setTimeout(function(){
-            window.process.finish(loadCallback)
-        },0)
-    })
-    $(document).ready(function() {
-        window.isReady = true
-        if(!window.isOwnLoad && window.isTimeOut) {
-            $(window).trigger('ownLoadEvent')
-        }
     })
     $(window).load(function(){
-        if(!window.isOwnLoad) {
-            $(window).trigger('ownLoadEvent')
-        }
+        $(window).trigger('ownLoadEvent')
     })
 
     //点击按钮弹出对应的modal层,按钮上加上 .btnModal
@@ -134,6 +126,10 @@
             $btn.hide()
         }
     }
+    function isInPreviewIframe() {
+        return parent.location.href.indexOf('property-to-rent') > 0
+    }
+    isInIframe()
     //根据是否为在微信中打开页面决定某些页面显示与否
     function hidePage(){
         if(window.team.isWeChat()){

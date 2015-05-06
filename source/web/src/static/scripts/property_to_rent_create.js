@@ -136,6 +136,13 @@
             }
             return location
         }
+        function getGeometryFromApiData(data, property) {
+            var location
+            if(data.results.length > 0 && data.results[0].geometry && data.results[0].geometry.location){
+                location = data.results[0].geometry.location[property]
+            }
+            return location
+        }
         var $btn = $(this)
         var address = $('#postcode').val()
         if(address !== ''){
@@ -144,13 +151,16 @@
                 .done(function (data) {
                     $('#country').val(getLocationFromApiData(data, 'country'))
                     $('#city').val(getLocationFromApiData(data, 'locality'))
+                    $('#latitude').val(getGeometryFromApiData(data, 'lat'))
+                    $('#longitude').val(getGeometryFromApiData(data, 'lng'))
                     $btn.prop('disabled', false).text(window.i18n('重新获取'))
                 }).fail(function (err) {
                     $errorMsg.text(err).show()
                     $btn.prop('disabled', false).text(window.i18n('重新获取'))
+                }).always(function() {
+                    $('#address').show()
                 })
         }
-        $('#address').show()
     })
 
     $('#inputAddress').click(function () {
@@ -223,7 +233,7 @@
         })
         if(isUploading){
             validate = false
-            errorMsg = i18n('图片还在上传中，请等待图片上传完成')
+            errorMsg = i18n('图片正在上传中，请稍后再发布')
         }
         if(!validate){
             //window.console.log(errorMsg)
@@ -253,6 +263,8 @@
         var propertyData = $.extend(options, {
             'name': JSON.stringify({'zh_Hans_CN': address}),
             'property_type': $('#propertyType .selected').data('id'),
+            'latitude': $('#latitude').val(),
+            'longitude': $('#longitude').val(),
             //'country': JSON.stringify({'value': {'zh_Hans_CN': $('#country').val()}}), //todo
             //'city': JSON.stringify({'value': {'zh_Hans_CN': $('#city').val()}}), //todo
             'street': JSON.stringify({'zh_Hans_CN': $('#street').val()}), //todo
@@ -271,7 +283,8 @@
             'community_facility': JSON.stringify(communityFacility),
             'real_address': JSON.stringify({'zh_Hans_CN': address}),
             'description': JSON.stringify({'zh_Hans_CN': $('#description').val()}),
-            'zipcode': $('#postcode').val()
+            'zipcode': $('#postcode').val(),
+            'user_generated': true
         })
         if($('#community').val() !== ''){
             propertyData.community = JSON.stringify({'zh_Hans_CN': $('#community').val()})
@@ -290,7 +303,7 @@
 
     //获取出租单模型数据
     function getTicketData(options){
-        var title = $('#title').val() || $('#street').val() + $('#bedroom_count').children('option:selected').val() + window.i18n('居室') + $('#rentalType .selected').text().trim() + window.i18n('出租') //如果用户没有填写title，默认为街区+居室+出租类型，比如“Isle of Dogs三居室单间出租”
+        var title = $('#title').val() || $('#block').val() + ' ' + $('#bedroom_count').children('option:selected').val() + window.i18n('居室') + $('#rentalType .selected').text().trim() + window.i18n('出租') //如果用户没有填写title，默认为街区+居室+出租类型，比如“Isle of Dogs三居室单间出租”
         var ticketData = $.extend(options,{
             'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'), //出租类型
             'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
@@ -300,7 +313,6 @@
             'rent_period': $('#rent_period').find('option:selected').val(), //出租多长时间
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
             'title': title,
-            'user_generated': true
         })
         if($('#description').val() !== ''){
             ticketData.description = $('#description').val()
@@ -375,7 +387,11 @@
         })
 
     $('#load_more .load_more').click(function () {
+        var defaultTitle = $('#block').val() + ' ' + $('#bedroom_count').children('option:selected').val() + window.i18n('居室') + $('#rentalType .selected').text().trim() + window.i18n('出租')
         $('#load_more').hide()
+        if($('#title').val() === ''){
+            $('#title').val(defaultTitle)
+        }
         $('#more_information').show()
     })
     $('#more_region_highlight_handler').click(function () {
@@ -450,7 +466,7 @@
 
         if(window.user){
             $btn.prop('disabled', true).text(window.i18n('发布中...'))
-            $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent','user_generated': true})
+            $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent'})
                 .done(function(val) {
                     location.href = '/property-to-rent/' + window.ticketId + '/publish-success'
                     //window.console.log('发布成功')
@@ -477,11 +493,13 @@
     }
     window.previewLoaded = function() { //Issue #5996:  预览效果这里如果没有加载完成，右边的页面选择就不应该可以调
         $('.infoBox dl.info').find('dt,dd').click(function(){ //点击文案后微信预览页滚动到对应位置
-            var index = Math.floor($(this).index() / 2)
-            if(window.previewIframe && window.previewIframe.window && typeof window.previewIframe.window.wechatSwiperMoveTo === 'function') {
-                window.previewMoveTo(index)
-                window.previewIframe.window.wechatSwiperMoveTo(index)
-                initInfoHeight()
+            if(window.previewIframe && window.previewIframe.window.isInit === true){
+                var index = Math.floor($(this).index() / 2)
+                if(window.previewIframe && window.previewIframe.window && typeof window.previewIframe.window.wechatSwiperMoveTo === 'function') {
+                    window.previewMoveTo(index)
+                    window.previewIframe.window.wechatSwiperMoveTo(index)
+                    initInfoHeight()
+                }
             }
         })
     }
