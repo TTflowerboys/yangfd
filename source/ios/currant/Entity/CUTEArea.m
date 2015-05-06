@@ -23,6 +23,12 @@
     return area;
 }
 
+- (NSString *)unitSymbol {
+    return @{@"meter ** 2": @"m²",
+             @"foot ** 2": @"foot²"
+             }[self.unit];
+}
+
 - (NSDictionary *)toParams {
     return @{
              @"unit":self.unit,

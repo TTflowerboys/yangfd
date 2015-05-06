@@ -84,6 +84,9 @@
     CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
     self.ticket.rentType = form.rentType;
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    if (self.updateRentTypeCompletion) {
+        self.updateRentTypeCompletion();
+    }
 }
 
 @end

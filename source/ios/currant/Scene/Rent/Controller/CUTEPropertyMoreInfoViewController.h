@@ -13,5 +13,8 @@
 
 @property (strong, nonatomic) CUTETicket *ticket;
 
+@property (nonatomic, copy) dispatch_block_t updateMoreInfoCompletion;
+
+
 
 @end

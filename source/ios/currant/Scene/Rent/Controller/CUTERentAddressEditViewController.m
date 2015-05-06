@@ -85,6 +85,10 @@
     if (!IsNilNullOrEmpty(self.ticket.identifier)) {
         [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
     }
+
+    if (self.updateAddressCompletion) {
+        self.updateAddressCompletion();
+    }
 }
 
 @end

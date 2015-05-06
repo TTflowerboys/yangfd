@@ -69,7 +69,7 @@
 }
 
 - (NSString *)titleForDisplay {
-    if (self.title) {
+    if (!IsNilNullOrEmpty(self.title)) {
         return self.title;
     }
     if (self.property && self.property.bedroomCount > 0 && self.rentType)
