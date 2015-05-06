@@ -120,7 +120,8 @@
                                 <input type="hidden" id="longitude"/>
                                 <input placeholder="{{_('国家')}}" id="country" name="country" data-validator="required, trim" data-name="{{_('国家')}}" value="{{rent.get('property',{}).get('country',{}).get('value','')}}">
                                 <input placeholder="{{_('城市')}}" id="city" name="city" data-validator="required, trim" data-name="{{_('城市')}}" value="{{rent.get('property',{}).get('city',{}).get('value','')}}">
-                                <input placeholder="{{_('街区')}}" id="block" data-validator="required, trim">
+                                <!--todo-->
+                                <input placeholder="{{_('街区')}}" id="block" name="block" data-name="{{_('街区')}}" data-validator="required, trim" value="">
                                 <input placeholder="{{_('街道')}}" id="street" name="street" data-name="{{_('街道')}}" value="{{rent.get('property',{}).get('street','')}}">
                                 <input placeholder="{{_('小区')}}" id="community" value="{{rent.get('property',{}).get('community','')}}">
                                 <input placeholder="{{_('楼层')}}" id="floor" value="{{rent.get('property',{}).get('floor','')}}">
@@ -382,7 +383,7 @@
                             </div>
                         </td>
                         <td class="content">
-                            <textarea class="description" id="description" data-validator="maxLength(150)" data-name="{{_('描述')}}">{{rent.get('description','在此填写您对房客的要求，周边交通或者生活设施的优势等等...')}}</textarea>
+                            <textarea class="description" id="description" data-validator="maxLength(150)" data-name="{{_('描述')}}" placeholder="在此填写您对房客的要求，周边交通或者生活设施的优势等等...">{{rent.get('description','')}}</textarea>
                         </td>
                     </tr>
                     <tr class="facilitiesBox">
