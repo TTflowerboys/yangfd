@@ -56,15 +56,13 @@
             return false
         },
         logout: function () {
+            var logoutUrl = '/logout?return_url=%2Fsignin';
             if (window.mobileClient !== undefined) {
-                var base = window.location.href.match(/(.*\/)/)[0]
-                var url = team.resolveRelative('/logout?return_url=%2Fsignin', base)
-                window.alert(url)
-                window.mobileClient.logout(url)
-                window.location.replace('/logout?return_url=%2Fsignin')
+                window.mobileClient.logout(logoutUrl)
+                window.location = logoutUrl
             }
             else {
-                window.location = '/logout?return_url=%2Fsignin';
+                window.location = logoutUrl
             }
         },
         goToUserSettings: function () {
