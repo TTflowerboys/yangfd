@@ -10,7 +10,7 @@
     <h1>{{_('恭喜您')}}</h1>
     <hr/>
     <h2>{{_('您的房产已经发布成功！')}}</h2>
-    <p class="info">{{_('想要查看您到房产，请点击')}}<a href="/property-to-rent/{{rent.get('id','')}}">{{_('XXXXXXXXX')}}</a>{{_('查阅')}}</p>
+    <p class="info">{{_('想要查看您到房产，请点击')}}<a href="/property-to-rent/{{rent.get('id','')}}">{{_('这里')}}</a>{{_('查看')}}</p>
     <hr/>
     <div class="shareBox">
         <div class="leftWrap">
@@ -29,12 +29,12 @@
         </div>
         <div class="qrcodeBox">
             <img src="" alt="分享二维码" width="132" height="132" data-id="{{rent.get('id','')}}">
-            <p>{{_('扫描二维码分享')}}</p>
+            <p>{{_('扫码分享房产移动端主页')}}</p>
         </div>
     </div>
     <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
         <img src="" alt="二维码" width="220" height="220"/>
-        <p>{{_('打开微信，使用 “扫一扫” 即可将移动端主页分享到朋友圈')}}</p>
+        <p>{{_('打开微信，使用 “扫一扫” 即可将出租房生成移动端主页分享到朋友圈')}}</p>
     </div>
 
     <div class="wechatPage_popup" style="display:none;">
