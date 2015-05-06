@@ -51,13 +51,20 @@
 }
 
 - (void)delete {
-    [UIAlertView showWithTitle:STR(@"删除草稿") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"确定")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        if (alertView.cancelButtonIndex != buttonIndex) {
-            [self.navigationController popToRootViewControllerAnimated:NO];
-
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"删除草稿") message:nil delegate:nil cancelButtonTitle:STR(@"确定") otherButtonTitles:STR(@"取消"), nil];
+    alertView.cancelButtonIndex = 1;
+    alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)  {
+        if (buttonIndex != alertView.cancelButtonIndex) {
             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_DELETE object:nil userInfo:@{@"ticket": self.ticket}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:nil];
+
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            });
         }
-    }];
+    };
+    [alertView show];
+
 }
 
 - (void)onTicketTitleEdit:(id)sender {

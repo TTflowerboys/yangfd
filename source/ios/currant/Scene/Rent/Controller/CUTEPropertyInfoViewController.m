@@ -17,6 +17,7 @@
 #import "CUTEConfiguration.h"
 #import <BBTJSON.h>
 #import <NSArray+ObjectiveSugar.h>
+#import <UIAlertView+Blocks.h>
 #import "CUTEEnumManager.h"
 #import "CUTECommonMacro.h"
 #import "CUTERentPriceViewController.h"
@@ -82,8 +83,18 @@
 }
 
 - (void)onLeftButtonPressed:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:nil];
+
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"您确定放弃发布吗？放弃后系统将会将您已填写的信息保存为草稿") message:nil delegate:nil cancelButtonTitle:STR(@"放弃") otherButtonTitles:STR(@"取消"), nil];
+    alertView.cancelButtonIndex = 1;
+    alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)  {
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:nil];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            });
+        }
+    };
+    [alertView show];
 }
 
 - (void)editPropertyType {
