@@ -215,6 +215,7 @@ gulp.task('setupCDN', ['build:html-extend'], function () {
 
             gulp.src(myPaths.dist + 'static/' + time + '/styles/' + '**/*.css')
                 .pipe(replace(/\/static\/images\//g,  argv.cdn + '/' + time + '/images/'))
+                .pipe(replace(/\/static\/fonts\//g, argv.cdn + '/' + time + '/fonts/'))
                 .pipe(gulp.dest(myPaths.dist + 'static/' + time + '/styles/'))
 
             gulp.src(myPaths.dist + 'static/' + time + '/scripts/' + '**/*.js')
