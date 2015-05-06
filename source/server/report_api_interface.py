@@ -243,11 +243,14 @@ def lupdate(user):
     admin3=str,
     feature_code=(str, True),
     name=str,
+    name_index=str,
     geoip=bool,
 ))
 def geonames_search(params):
     """
     Valid ``feature_code`` are: "ADM1", "ADM2", "ADM3", "PPLX".
+
+    ``name`` is for *exact* name match, while ``name_index`` is for searching.
 
     Example usage:
 
