@@ -80,9 +80,9 @@
     "through2": "^0.6.3",
     "underscore": "~1.7.0",
     "wait.for": "^0.6.6",
-    "yargs": "^3.6.0"
+    "yargs": "^3.6.0",
     "bower": "^1.4.1",
-    "gulp-bower": "0.0.10",
+    "gulp-bower": "0.0.10"
   },
   "devDependencies": {
     "bootstrap": "~3.2.0",
