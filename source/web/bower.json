@@ -20,8 +20,10 @@
   ],
   "dependencies": {
     "angular": "1.2.21",
+    "angular-file-upload": "https://github.com/nervgh/angular-file-upload.git",
     "angular-growl": "0.4.0",
     "angular-multi-select": "2.0.1",
+    "angular-permission": "https://github.com/Narzerus/angular-permission.git#0.1.0",
     "blueimp-gallery": "2.11.1",
     "bootstrap": "3.2.0",
     "datetimepicker": "https://github.com/nupykl/datetimepicker.git",
