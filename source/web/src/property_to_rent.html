@@ -442,7 +442,12 @@
                             </td>
                             <td style="text-align:right;">
                                 % title = rent.get('title','')
-                                <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{title}}'}) ">
+                                <button class="flatButton orange" onclick="team.shareToWeibo({
+                                    title:'{{_('房东急租，快来围观') + title}}'
+                                    % if rent['property'].get('reality_images'):
+                                    ,pic:'{{rent['property'].get('reality_images')[0]}}'
+                                    % end
+                                    }) ">
                                     <img src="/static/images/property_details/icon-weibo.png" alt=""/>
                                     {{_('分享到微博')}}
                                 </button>
@@ -486,7 +491,7 @@
 
         <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
             <img src="" alt="二维码" width="220" height="220"/>
-            <p>{{_('打开微信，使用 “扫一扫” 即可将移动端主页分享到朋友圈')}}</p>
+            <p>{{_('打开微信，使用 “扫一扫” 即可将出租房生成移动端主页分享到朋友圈')}}</p>
         </div>
 
         <div class="wechatPage_popup" style="display:none;">
