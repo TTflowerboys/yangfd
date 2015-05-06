@@ -35,7 +35,7 @@
     CUTEProperty *property = ticket.property;
 
     if (ticket && property) {
-        if ([CUTEDataManager sharedInstance].user) {
+        if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
             [SVProgressHUD showWithStatus:STR(@"发布中...")];
             [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {

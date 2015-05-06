@@ -124,7 +124,7 @@
         }];
     }];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        if ([CUTEDataManager sharedInstance].user) {
+        if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
             CUTEEnum *country = [[self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]] value];
             NSString *phone = [[self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]] value];
@@ -161,7 +161,7 @@
 - (void)codeFieldEndEdit {
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
     //after create can validate the code
-    if ([CUTEDataManager sharedInstance].user) {
+    if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
         [SVProgressHUD showWithStatus:STR(@"验证中...")];
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", [CUTEDataManager sharedInstance].user.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             //update verify status

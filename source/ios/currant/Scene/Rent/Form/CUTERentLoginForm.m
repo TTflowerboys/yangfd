@@ -22,7 +22,7 @@
 
 - (NSArray *)fields {
     return @[
-             @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject]},
+             @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
              @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号")},
              @{FXFormFieldKey: @"password", FXFormFieldTitle: STR(@"密码")},
              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"登录并分享到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},

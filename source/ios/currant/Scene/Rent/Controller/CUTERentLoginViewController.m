@@ -27,6 +27,10 @@
     self.navigationItem.title = STR(@"登录");
 }
 
+- (void)optionBack {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)submit {
     if (![self validateFormWithScenario:@""]) {
         return;
