@@ -91,6 +91,8 @@
         $('[data-route=step1]').show()
         $('[data-route=step2]').hide()
     }).when('/publish/:ticketid', function(ticketid){
+        window.previewIframe.window.isInit = false
+        window.previewMoveTo(0)
         $('#previewIframe').attr('src', location.protocol + '//' + location.host + '/wechat-poster/' + ticketid)
         $('[data-route=step1]').hide()
         $('[data-route=step2]').show()
