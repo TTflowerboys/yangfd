@@ -87,9 +87,12 @@
     }
 
     var hashRoute = new HashRoute()
-    hashRoute.when('/', function(){
+    function showRoute1() {
         $('[data-route=step1]').show()
         $('[data-route=step2]').hide()
+    }
+    hashRoute.when('/', function(){
+        showRoute1()
     }).when('/publish/:ticketid', function(ticketid){
         window.previewIframe.window.isInit = false
         window.previewMoveTo(0)
@@ -97,6 +100,32 @@
         $('[data-route=step1]').hide()
         $('[data-route=step2]').show()
         initInfoHeight()
+    }).when('/1', function() {
+        showRoute1()
+        $('#load_more .load_more').trigger('click')
+        $('body,html').stop(true,true).animate({scrollTop: 1870}, 500)
+    }).when('/2', function() {
+        showRoute1()
+        $('body,html').stop(true,true).animate({scrollTop: 657}, 500)
+    }).when('/3', function() {
+        showRoute1()
+        $('#load_more .load_more').trigger('click')
+        $('#description').trigger('focus')
+        $('body,html').stop(true,true).animate({scrollTop: 1870}, 500)
+    }).when('/4', function() {
+        showRoute1()
+        $('#postcode').trigger('focus')
+        $('body,html').stop(true,true).animate({scrollTop: 763}, 500)
+
+    }).when('/5', function() {
+        showRoute1()
+        $('#fileuploader').trigger('hover')
+        $('body,html').stop(true,true).animate({scrollTop: 478}, 500)
+    }).when('/6', function() {
+        showRoute1()
+        $('#inputAddress').trigger('click')
+        $('#block').trigger('focus')
+        $('body,html').stop(true,true).animate({scrollTop: 763}, 500)
     })
 
     //根据用户选择的单间或者整租类型来决定显示房间面积还是房屋面积
@@ -552,10 +581,10 @@
             },
             onLoad:function(obj) {
                 $.each(imageArr, function(i, v){
-                    obj.createProgress(v);
+                    obj.createProgress(v)
                     $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(i).find('.ajax-file-upload-progress').hide()
                 })
             },
-        });
-    });
+        })
+    })
 })()
