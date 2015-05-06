@@ -19,6 +19,7 @@
     "tests"
   ],
   "dependencies": {
+    "angular": "1.2.21",
     "angular-growl": "0.4.0",
     "angular-multi-select": "2.0.1",
     "blueimp-gallery": "2.11.1",
@@ -37,12 +38,17 @@
     "jquery.stickynavbar": "https://github.com/jbutko/stickyNavbar.js.git#1.1.3",
     "jquery-upload-file": "https://github.com/hayageek/jquery-upload-file.git",
     "angular-loading-bar": "0.6.0",
-    "pdfjs": "https://github.com/mozilla/dpdfjs-dist.git",
+    "pdfjs": "https://github.com/joseym/pdfjs-bower.git",
     "responsive_slides": "https://github.com/gaboesquivel/jquery.responsive-slides.js.git",
     "scrolling-tabs": "https://github.com/mikejacobson/angular-bootstrap-scrolling-tabs.git",
     "swiper": "3.0.6",
     "textAngular": "1.3.0",
     "video-js": "https://github.com/videojs/video.js.git#4.10.2",
     "zeroclipboard": "2.2.0"
+  },
+  "resolutions": {
+    "jquery": "2.1.0",
+    "bootstrap": "3.2.0",
+    "angular": "1.2.21"
   }
 }
