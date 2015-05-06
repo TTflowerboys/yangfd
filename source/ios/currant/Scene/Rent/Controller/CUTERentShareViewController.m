@@ -53,7 +53,7 @@
     else if ([field.key isEqualToString:@"qrcode"]) {
         CUTEQrcodeCell *qrcodeCell = (CUTEQrcodeCell *)cell;
         NSURL *originalURL = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
-        NSString *content = [[originalURL absoluteString] stringByURLEncoding];
+        NSString *content = [[originalURL absoluteString] URLEncode];
         NSString *path = CONCAT(@"/qrcode/generate?content=", content);
         NSURL *url = [NSURL URLWithString:path relativeToURL:[CUTEConfiguration hostURL]];
         [qrcodeCell.qrcodeView setImageWithURL:[NSURL URLWithString:url.absoluteString]];

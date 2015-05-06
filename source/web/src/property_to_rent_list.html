@@ -62,7 +62,7 @@
             %end
         </select>
         <span>{{_('找')}}</span>
-        <hr class="separator_phone"/>
+        <hr class="separator_phone hiddenOnMobile"/>
         <select class="ghostSelect hiddenOnMobile" name="propertyType">
             <option value="" selected>{{_('任意类型房产')}}</option>
             %for index, property_type in enumerate(property_type_list):

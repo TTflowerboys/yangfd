@@ -18,6 +18,15 @@
 
 @implementation CUTERentPriceViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+    }
+    return self;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -73,6 +82,9 @@
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    if (self.updatePriceCompletion) {
+        self.updatePriceCompletion();
+    }
 }
 
 @end

@@ -9,6 +9,7 @@
 #import "CUTERentPriceForm.h"
 #import "CUTECommonMacro.h"
 #import "CUTEFormRentPriceTextFieldCell.h"
+#import "CUTECurrency.h"
 
 @interface CUTERentPriceForm () {
 
@@ -24,7 +25,7 @@
 - (NSArray *)fields {
     NSMutableArray *array = [NSMutableArray arrayWithArray:
                              @[
-                               @{FXFormFieldKey: @"currency", FXFormFieldTitle:STR(@"货币"), FXFormFieldOptions: @[@"CNY", @"GBP", @"USD", @"EUR", @"HKD"], FXFormFieldDefaultValue: _currency ? : @"GBP", FXFormFieldHeader: STR(@"租金"), FXFormFieldAction: @"optionBack"},
+                               @{FXFormFieldKey: @"currency", FXFormFieldTitle:STR(@"货币"), FXFormFieldOptions: [CUTECurrency currencyUnitArray], FXFormFieldDefaultValue: _currency ? : [CUTECurrency defaultCurrencyUnit], FXFormFieldHeader: STR(@"租金"), FXFormFieldAction: @"optionBack"},
                                @{FXFormFieldKey: @"depositType", FXFormFieldTitle:STR(@"押金"), FXFormFieldOptions: _allDepositTypes, FXFormFieldDefaultValue: _depositType? : [_allDepositTypes firstObject], FXFormFieldAction: @"optionBack"},
                                @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormRentPriceTextFieldCell class], FXFormFieldDefaultValue: @(_rentPrice), @"textField.keyboardType": @(UIKeyboardTypeDecimalPad), FXFormFieldAction: @"onRentPriceEdit:"},
                                @{FXFormFieldKey: @"containBill", FXFormFieldTitle:STR(@"包Bill"), FXFormFieldHeader: STR(@"其他"), FXFormFieldDefaultValue: @(_containBill), FXFormFieldAction: @"onContainBillSwitch:"},
@@ -38,12 +39,7 @@
 }
 
 - (NSString *)currencySymbol {
-    return @{@"CNY":@"￥",
-             @"GBP":@"£",
-             @"USD":@"$",
-             @"EUR":@"€",
-             @"HKD":@"$"
-             }[self.currency];
+    return [CUTECurrency symbolOfCurrencyUnit:self.currency];
 }
 
 - (void)setAllDepositTypes:(NSArray *)depositTypes {

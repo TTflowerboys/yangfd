@@ -19,4 +19,10 @@
 
 - (NSDictionary *)toParams;
 
++ (NSString *)symbolOfCurrencyUnit:(NSString *)currency;
+
++ (NSArray *)currencyUnitArray;
+
++ (NSString *)defaultCurrencyUnit;
+
 @end

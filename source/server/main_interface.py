@@ -154,6 +154,13 @@ def wechat_poster(rent_ticket_id):
     return currant_util.common_template("wechat_poster", rent=rent_ticket, title=title, description=description, keywords=keywords, weixin=weixin)
 
 
+@f_get('/wechat-poster/<rent_ticket_id:re:[0-9a-fA-F]{24}>/image')
+def wechat_poster_image(rent_ticket_id):
+    from libfelix.f_html2png import html2png
+    response.set_header(b"Content-Type", b"image/png")
+    return html2png("://".join(request.urlparts[:2]) + "/wechat-poster/" + rent_ticket_id, width=480, height=800, url=True)
+
+
 @f_get('/admin')
 @currant_util.check_ip_and_redirect_domain
 def admin():

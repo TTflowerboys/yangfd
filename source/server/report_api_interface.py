@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from libfelix.f_common import f_app
-from libfelix.f_interface import f_api, abort
+from libfelix.f_interface import f_api, abort, request
 
 
 import logging
@@ -234,6 +234,45 @@ def report_police_uk_categories(params):
 @f_app.user.login.check(role=["admin", "jr_admin"])
 def lupdate(user):
     f_app.landregistry.check_update()
+
+
+@f_api('/geonames/search', params=dict(
+    country=(str, True),
+    admin1=str,
+    admin2=str,
+    admin3=str,
+    feature_code=(str, True),
+    name=str,
+    geoip=bool,
+))
+def geonames_search(params):
+    """
+    Valid ``feature_code`` are: "ADM1", "ADM2", "ADM3", "PPLX".
+
+    Example usage:
+
+    1. Get all ADM1 for GB: country=GB&feature_code=ADM1
+
+    2. Get all ADM2 in England (ADM1 of GB): country=GB&admin1=ENG&feature_code=ADM2
+
+    3. Get all ADM3 in Greator London (ADM2 of England): country=GB&admin1=ENG&admin2=GLA&feature_code=ADM3
+
+    4. Get all PPLX in Barnet (ADM3 of Greator London): country=GB&admin1=ENG&admin2=GLA&admin3=A2&feature_code=PPLX
+    """
+    if "geoip" in params and params["geoip"]:
+        # TODO: City?
+        try:
+            remote_ip = request.remote_route[-1]
+        except:
+            remote_ip = None
+
+        try:
+            country = f_app.geoip.get_country(remote_ip)
+            params["country"] = country
+        except:
+            logger.warning("Failed to determine country of ip:", remote_ip)
+
+    return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
 
 
 @f_api('/doogal/districts_and_wards')

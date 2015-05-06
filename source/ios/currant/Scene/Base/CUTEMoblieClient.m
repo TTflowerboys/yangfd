@@ -14,6 +14,10 @@
 #import "CUTEPropertyInfoForm.h"
 #import "CUTEEnumManager.h"
 #import "CUTENotificationKey.h"
+#import "CUTEWebViewController.h"
+#import "NSURL+QueryParser.h"
+#import "NSString+Encoding.h"
+#import "CUTEConfiguration.h"
 
 @implementation CUTEMoblieClient
 
@@ -22,7 +26,7 @@
 
 }
 
-- (void)signIn:(JSValue *)result {
+- (void)signin:(JSValue *)result {
     NSDictionary *dic = [result toDictionary];
     if (dic && [dic isKindOfClass:[NSDictionary class]]) {
         NSError *error = nil;
@@ -32,11 +36,33 @@
             [[CUTEDataManager sharedInstance] saveUser:user];
         }
     }
+
+    if (self.controller && [self.controller isKindOfClass:[CUTEWebViewController class]]) {
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)self.controller;
+        UIView *view = [self.controller view];
+        if (!IsArrayNilOrEmpty(view.subviews) && [[view subviews][0] isKindOfClass:[UIWebView class]]) {
+            UIWebView *webView = (UIWebView *)[view subviews][0];
+            NSURL *url = [[webView request] URL];
+            NSDictionary *queryDictionary = [url queryDictionary];
+            if (queryDictionary && queryDictionary[@"from"]) {
+                NSString *fromURLStr = [queryDictionary[@"from"] URLDecode];
+                [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
+            }
+        }
+    }
 }
 
-- (void)logOut {
+- (void)logout:(JSValue *)result {
     [[CUTEDataManager sharedInstance] cleanAllCookies];
     [[CUTEDataManager sharedInstance] cleanUser];
+    if (self.controller && [self.controller isKindOfClass:[CUTEWebViewController class]]) {
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)self.controller;
+        UIView *view = [self.controller view];
+        NSString * url = [result toString];
+        if (!IsArrayNilOrEmpty(view.subviews) && [[view subviews][0] isKindOfClass:[UIWebView class]]) {
+            [webViewController updateWithURL:[NSURL URLWithString:@"/user" relativeToURL:[CUTEConfiguration hostURL]]];
+        }
+    }
 }
 
 - (void)editRentTicket:(JSValue *)result {

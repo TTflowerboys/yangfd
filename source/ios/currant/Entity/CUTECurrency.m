@@ -30,4 +30,21 @@
              };
 }
 
++ (NSString *)symbolOfCurrencyUnit:(NSString *)currency {
+    return @{@"CNY":@"￥",
+             @"GBP":@"£",
+             @"USD":@"$",
+             @"EUR":@"€",
+             @"HKD":@"$"
+             }[currency];
+}
+
++ (NSArray *)currencyUnitArray {
+    return @[@"CNY", @"GBP", @"USD", @"EUR", @"HKD"];
+}
+
++ (NSString *)defaultCurrencyUnit {
+    return @"GBP";
+}
+
 @end
