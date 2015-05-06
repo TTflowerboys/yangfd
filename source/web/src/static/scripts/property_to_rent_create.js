@@ -215,6 +215,16 @@
             validate = false
             errorMsg = i18n('请至少上传一张实景图')
         }
+        var isUploading = false
+        $('.ajax-file-upload-progress').each(function(i, v){
+            if(v.style.display !== 'none') {
+                isUploading = true
+            }
+        })
+        if(isUploading){
+            validate = false
+            errorMsg = i18n('图片还在上传中，请等待图片上传完成')
+        }
         if(!validate){
             //window.console.log(errorMsg)
             $errorMsg.text(errorMsg).show()
