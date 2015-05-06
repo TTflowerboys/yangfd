@@ -37,6 +37,7 @@
 #import "CUTERentAddressEditViewController.h"
 #import "CUTERentAddressEditForm.h"
 #import "CUTENavigationUtil.h"
+#import "CUTERentTicketPreviewController.h"
 
 @interface CUTEPropertyInfoViewController () {
 
@@ -64,7 +65,7 @@
 
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:self action:@selector(onPreviewButtonPressed:)];
 }
 
 
@@ -95,6 +96,17 @@
         }
     };
     [alertView show];
+}
+
+- (void)onPreviewButtonPressed:(id)sender {
+    if (![self validate]) {
+        return;
+    }
+
+    CUTERentTicketPreviewController *controller = [[CUTERentTicketPreviewController alloc] init];
+    controller.ticket = self.ticket;
+    [controller loadURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)editPropertyType {
