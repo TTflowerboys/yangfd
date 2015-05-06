@@ -126,20 +126,21 @@
             $btn.hide()
         }
     }
-    function isInPreviewIframe() {
-        return parent.location.href.indexOf('property-to-rent') > 0
+    function isInPreview() { //表示在Web或者App发布预览页面中
+        return parent.location.href.indexOf('property-to-rent') > 0 || window.project.isMobileClient()
     }
-    isInIframe()
     //根据是否为在微信中打开页面决定某些页面显示与否
     function hidePage(){
-        if(window.team.isWeChat()){
-            $('.hideInWechat').each(function(){
+        if(!isInPreview()){
+            $('.hideInWechat.swiper-slide').each(function(){
                 mySwiper.removeSlide($(this).index())
             })
+            $('.hideInWechat').hide()
         }else{
-            $('.hideOutsideWechat').each(function(){
+            $('.hideOutsideWechat.swiper-slide').each(function(){
                 mySwiper.removeSlide($(this).index())
             })
+            $('.hideOutsideWechat').hide()
         }
     }
     //详情与设施页只显示6项设施
