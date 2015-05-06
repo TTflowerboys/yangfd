@@ -205,6 +205,10 @@
 		2CC3A0931AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0901AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m */; };
 		2CC3A0941AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0901AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m */; };
 		2CC3A0951AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0901AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m */; };
+		2CC3A0971AFA2279008C9AC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */; };
+		2CC3A0981AFA2280008C9AC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */; };
+		2CC3A0991AFA2286008C9AC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */; };
+		2CC3A09A1AFA228E008C9AC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */; };
 		2CC6C1CF1AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
 		2CC6C1D01AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
 		2CC6C1D11AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
@@ -526,6 +530,7 @@
 		2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentTicketPreviewController.m; sourceTree = "<group>"; };
 		2CC3A08F1AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormCenterTextCell.h; sourceTree = "<group>"; };
 		2CC3A0901AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormCenterTextCell.m; sourceTree = "<group>"; };
+		2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2CC6C1CD1AEE03D7002758A7 /* UIImageView+Assets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Assets.h"; sourceTree = "<group>"; };
 		2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Assets.m"; sourceTree = "<group>"; };
 		2CC6C1D41AEE2400002758A7 /* AssetsLibraryProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsLibraryProvider.h; sourceTree = "<group>"; };
@@ -627,6 +632,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC3A0991AFA2286008C9AC8 /* AVFoundation.framework in Frameworks */,
 				2C96E28B1AE89D9300F3590C /* JavaScriptCore.framework in Frameworks */,
 				2CA2E6B61AC5487800053965 /* AddressBook.framework in Frameworks */,
 				2CA2E6B71AC5487800053965 /* MapKit.framework in Frameworks */,
@@ -638,6 +644,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC3A09A1AFA228E008C9AC8 /* AVFoundation.framework in Frameworks */,
 				2C96E28C1AE89D9B00F3590C /* JavaScriptCore.framework in Frameworks */,
 				2CA2E6CF1AC5496700053965 /* AddressBook.framework in Frameworks */,
 				2CA2E6D01AC5496700053965 /* MapKit.framework in Frameworks */,
@@ -649,6 +656,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC3A0981AFA2280008C9AC8 /* AVFoundation.framework in Frameworks */,
 				2C96E2891AE89D7E00F3590C /* JavaScriptCore.framework in Frameworks */,
 				2CA94AA01ACA42CD00DF7497 /* AddressBook.framework in Frameworks */,
 				2CA94AA11ACA42CD00DF7497 /* MapKit.framework in Frameworks */,
@@ -660,6 +668,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC3A0971AFA2279008C9AC8 /* AVFoundation.framework in Frameworks */,
 				2C96E28A1AE89D8A00F3590C /* JavaScriptCore.framework in Frameworks */,
 				2C1EA76F1AC3DA1900B0FC22 /* AddressBook.framework in Frameworks */,
 				2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */,
@@ -1042,6 +1051,7 @@
 		EE6A7AB7A64BC31EFB1C1CFA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */,
 				2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */,
 				2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */,
 				2C554F891AC2BC3700F51D33 /* MapKit.framework */,

@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
 #import <CTAssetsPickerController.h>
+#import <CTAssetsGroupViewController.h>
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEFormImagePickerPlaceholderView.h"
 #import "MasonryMake.h"
@@ -20,11 +21,13 @@
 #import <NSObject+Attachment.h>
 #import <MWPhotoBrowser.h>
 #import <Bolts.h>
+#import <AVFoundation/AVFoundation.h>
 #import "CUTERentTickePublisher.h"
 #import <Sequencer/Sequencer.h>
 #import <UIImageView+AFNetworking.h>
 #import "UIImageView+Assets.h"
 #import "NSURL+Assets.h"
+#import <UIAlertView+Blocks.h>
 
 @interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate, MWPhotoBrowserDelegate>
 {
@@ -201,13 +204,31 @@
 }
 
 - (void)showCameraFrom:(UIViewController *)controller {
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        picker.delegate = self;
-        [controller presentViewController:picker animated:YES completion:^{
+
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if(authStatus == AVAuthorizationStatusAuthorized) {
+        // do your logic
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.delegate = self;
+            [controller presentViewController:picker animated:YES completion:^{
+
+            }];
+        }
+
+    } else {
+        //use the picker's auth failed page
+//        CTAssetsGroupViewController *notAllowdController = [[CTAssetsGroupViewController alloc] init];
+//        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:notAllowdController];
+//        [controller presentViewController:nav animated:YES completion:^{
+//            [notAllowdController performSelector:@selector(showNotAllowed)];
+//        }];
+
+        [UIAlertView showWithTitle:STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
         }];
+
     }
 }
 
