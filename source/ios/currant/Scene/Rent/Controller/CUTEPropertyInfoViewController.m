@@ -17,6 +17,7 @@
 #import "CUTEConfiguration.h"
 #import <BBTJSON.h>
 #import <NSArray+ObjectiveSugar.h>
+#import <UIAlertView+Blocks.h>
 #import "CUTEEnumManager.h"
 #import "CUTECommonMacro.h"
 #import "CUTERentPriceViewController.h"
@@ -36,6 +37,7 @@
 #import "CUTERentAddressEditViewController.h"
 #import "CUTERentAddressEditForm.h"
 #import "CUTENavigationUtil.h"
+#import "CUTERentTicketPreviewController.h"
 
 @interface CUTEPropertyInfoViewController () {
 
@@ -63,7 +65,7 @@
 
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:self action:@selector(onPreviewButtonPressed:)];
 }
 
 
@@ -82,8 +84,29 @@
 }
 
 - (void)onLeftButtonPressed:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:nil];
+
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"您确定放弃发布吗？放弃后系统将会将您已填写的信息保存为草稿") message:nil delegate:nil cancelButtonTitle:STR(@"放弃") otherButtonTitles:STR(@"取消"), nil];
+    alertView.cancelButtonIndex = 1;
+    alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)  {
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:nil];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            });
+        }
+    };
+    [alertView show];
+}
+
+- (void)onPreviewButtonPressed:(id)sender {
+    if (![self validate]) {
+        return;
+    }
+
+    CUTERentTicketPreviewController *controller = [[CUTERentTicketPreviewController alloc] init];
+    controller.ticket = self.ticket;
+    [controller loadURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)editPropertyType {
@@ -266,7 +289,7 @@
     CUTEProperty *property = ticket.property;
 
     if (ticket && property) {
-        if ([CUTEDataManager sharedInstance].user) {
+        if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
             [SVProgressHUD showWithStatus:STR(@"发布中...")];
             [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {

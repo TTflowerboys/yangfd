@@ -45,11 +45,6 @@
     if ([field.key isEqualToString:@"view"]) {
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     }
-    else if ([field.key isEqualToString:@"copyLink"]) {
-        MakeBegin(cell.textLabel)
-        MakeCenterEqualTo(cell.contentView);
-        MakeEnd
-    }
     else if ([field.key isEqualToString:@"qrcode"]) {
         CUTEQrcodeCell *qrcodeCell = (CUTEQrcodeCell *)cell;
         NSURL *originalURL = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];

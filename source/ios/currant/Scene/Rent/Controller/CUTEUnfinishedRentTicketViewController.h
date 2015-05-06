@@ -10,6 +10,6 @@
 
 @interface CUTEUnfinishedRentTicketViewController : UITableViewController
 
-
+- (void)reloadData;
 
 @end

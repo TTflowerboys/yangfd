@@ -17,6 +17,7 @@
 #import "CUTEPropertyInfoViewController.h"
 #import "CUTEPropertyInfoForm.h"
 #import "CUTEUnfinishedRentTicketCell.h"
+#import "CUTENotificationKey.h"
 
 @interface CUTEUnfinishedRentTicketViewController ()
 
@@ -35,10 +36,16 @@
     self.navigationItem.title = STR(@"出租房草稿");
     self.tableView.backgroundColor = HEXCOLOR(0xeeeeee, 1);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+     [self reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+}
+
+- (void)reloadData {
     self.unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
     [self.tableView reloadData];
     //scroll to the top, the first one is the recent edit one
@@ -108,5 +115,7 @@
         }];
     }
 }
+
+
 
 @end

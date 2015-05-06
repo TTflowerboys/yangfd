@@ -254,7 +254,6 @@
     CUTETicket *ticket = userInfo[@"ticket"];
     [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
     [[CUTERentTickePublisher sharedInstance] deleteTicket:ticket];
-    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }
 
 - (void)onReceiveTicketPublish:(NSNotification *)notif {
@@ -316,7 +315,39 @@
 }
 
 - (void)onReceiveTicketListReload:(NSNotification *)notif {
-    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+    NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
+    UINavigationController *navController = [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
+    if (unfinishedRentTickets.count > 0) {
+        if ([navController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketViewController class]]) {
+            CUTEUnfinishedRentTicketViewController *unfinishedController = (CUTEUnfinishedRentTicketViewController *)navController.topViewController;
+            [unfinishedController reloadData];
+        }
+        else {
+            NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
+            CUTEUnfinishedRentTicketViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketViewController new];
+            [viewControllers insertObject:unfinishedRentTicketController atIndex:0];
+            [navController setViewControllers:viewControllers animated:NO];
+
+        }
+    }
+    else {
+        if (![navController.topViewController isKindOfClass:[CUTERentTypeListViewController class]]) {
+            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+                if (task.result) {
+                    CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+                    [form setRentTypeList:task.result];
+                    CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
+                    controller.formController.form = form;
+                    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
+                    [viewControllers insertObject:controller atIndex:0];
+                    [navController setViewControllers:viewControllers animated:NO];
+
+                }
+                return nil;
+            }];
+
+        }
+    }
 }
 
 @end

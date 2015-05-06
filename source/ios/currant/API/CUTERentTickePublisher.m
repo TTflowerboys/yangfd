@@ -56,6 +56,7 @@
                 [tcs setError:task.error];
             }
             else {
+                ticket.property.identifier = task.result;
                 completion(task.result);
             }
             return nil;
@@ -63,7 +64,9 @@
     }];
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/rent_ticket/add/" parameters:ticket.toParams resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
+        [params setObject:@"true" forKey:@"user_generated"];
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/rent_ticket/add/" parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [tcs setError:task.error];
             }
@@ -79,20 +82,25 @@
 }
 
 - (BFTask *)editTicketExcludeImage:(CUTETicket *)ticket {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
+    [params setObject:@"true" forKey:@"user_generated"];
+
     return [BFTask taskForCompletionOfAllTasks:
             @[
               [self editProperty:ticket.property],
-              [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:ticket.toParams resultClass:nil]
+              [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:nil]
               ]];
 }
 
 - (BFTask*)publishTicket:(CUTETicket *)ticket
 {
     ticket.status = kTicketStatusToRent;
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
+    [params setObject:@"true" forKey:@"user_generated"];
     return [BFTask taskForCompletionOfAllTasks:
             @[
               [self uploadImageAndEditProperty:ticket.property],
-              [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:ticket.toParams resultClass:nil]
+              [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:nil]
               ]];
 }
 
