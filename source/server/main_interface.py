@@ -131,7 +131,7 @@ def rent_ticket_get(rent_ticket_id, user):
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
 def wechat_poster(rent_ticket_id):
-    title = _('微信展示页')
+    title = _('房东急租，快来围观')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
     # if rent_ticket["status"] not in ["draft", "to rent"]:
     # assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
@@ -142,13 +142,11 @@ def wechat_poster(rent_ticket_id):
 
     # if not isinstance(title, six.string_types):
     # title = six.text_type(title)
-    if rent_ticket["property"].get('city', {}) and rent_ticket["property"].get('city', {}).get('value', ''):
-        title += '_' + _(rent_ticket["property"].get('city', {}).get('value', ''))
-    if rent_ticket["property"].get('country', {}) and rent_ticket["property"].get('country', {}).get('value', ''):
-        title += '_' + _(rent_ticket["property"].get('country', {}).get('value', ''))
-    description = rent_ticket.get('description', _('详情'))
+    if rent_ticket["property"].get('title', ''):
+        title += '_' + _(rent_ticket["property"].get('title', ''))
+    description = rent_ticket.get('description', '')
 
-    keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
+    keywords = rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
     return currant_util.common_template("wechat_poster", rent=rent_ticket, title=title, description=description, keywords=keywords, weixin=weixin)

@@ -46,7 +46,10 @@
             NSDictionary *queryDictionary = [url queryDictionary];
             if (queryDictionary && queryDictionary[@"from"]) {
                 NSString *fromURLStr = [queryDictionary[@"from"] URLDecode];
-                [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
+                //http://stackoverflow.com/questions/16073519/nsurlerrordomain-error-code-999-in-ios
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
+                });
             }
         }
     }
@@ -58,9 +61,12 @@
     if (self.controller && [self.controller isKindOfClass:[CUTEWebViewController class]]) {
         CUTEWebViewController *webViewController = (CUTEWebViewController *)self.controller;
         UIView *view = [self.controller view];
-        NSString * url = [result toString];
         if (!IsArrayNilOrEmpty(view.subviews) && [[view subviews][0] isKindOfClass:[UIWebView class]]) {
-            [webViewController updateWithURL:[NSURL URLWithString:@"/user" relativeToURL:[CUTEConfiguration hostURL]]];
+            NSURL *url = [NSURL URLWithString:[result toString] relativeToURL:[CUTEConfiguration hostURL]];
+            NSDictionary *queryDictionary = [url queryDictionary];
+            if (queryDictionary && queryDictionary[@"return_url"]) {
+                [webViewController updateWithURL:[NSURL URLWithString:[queryDictionary[@"return_url"] URLDecode] relativeToURL:[CUTEConfiguration hostURL]]];
+            }
         }
     }
 }

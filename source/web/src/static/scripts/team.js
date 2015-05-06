@@ -260,19 +260,6 @@
                     }
                 }
             }
-        },
-        resolveRelative: function (path, base) {
-            // Upper directory
-            if (path.startsWith('../')) {
-                return team.resolveRelative(path.slice(3), base.replace(/\/[^\/]*$/, ''));
-            }
-            // Relative to the root
-            if (path.startsWith('/')) {
-                var match = base.match(/(\w*:\/\/)?[^\/]*\//) || [base];
-                return match[0] + path.slice(1);
-            }
-            //relative to the current directory
-            return base.replace(/\/[^\/]*$/, '') + '/' + path;
         }
     }
 })
