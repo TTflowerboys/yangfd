@@ -34,6 +34,7 @@ var uglify = require('gulp-uglify');
 var pageSprite = require('gulp-page-sprite')
 var replace = require('gulp-replace')
 var argv = require('yargs').argv;
+var bower = require('gulp-bower');
 
 
 var myPaths = {
@@ -53,6 +54,11 @@ var myPaths = {
     sprite_css: './sprite/static/styles/**/*.css',
     sprite_js: './sprite/static/{,admin/}scripts/**/*.js'
 }
+
+//bower
+gulp.task('bower', function () {
+    return bower();
+})
 
 //Debug
 

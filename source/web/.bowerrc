@@ -1,8 +1,9 @@
 {
-  "directory": "src/static/bower_components/",
+  "directory": "./src/static/bower_components/",
   "analytics": false,
   "timeout": 60000,
   "registry": {
 
-  }
+  },
+  "interactive": false
 }
