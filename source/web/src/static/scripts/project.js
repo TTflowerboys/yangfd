@@ -112,6 +112,10 @@
         },
         formatDate: function (time) {
             return $.format.date(time * 1000, 'yyyy-MM-dd')
-        }
+        },
+        isMobileClient: function () {
+            var ua = navigator.userAgent.toLowerCase()
+            return (/currant/.test(ua)) ? true : false
+        },
     }
 })();

@@ -81,6 +81,26 @@
             cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.ticket.price.value], @"/", STR(@"周"));
         }
     }
+    else if ([field.key isEqualToString:@"area"]) {
+        if (self.ticket.space) {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f %@", self.ticket.space.value, self.ticket.space.unitSymbol];
+        }
+    }
+    else if ([field.key isEqualToString:@"rentType"]) {
+        if (self.ticket.rentType) {
+            cell.detailTextLabel.text = self.ticket.rentType.value;
+        }
+    }
+    else if ([field.key isEqualToString:@"location"]) {
+        if (self.ticket.property) {
+            cell.detailTextLabel.text = self.ticket.property.address;
+        }
+    }
+    else if ([field.key isEqualToString:@"moreInfo"]) {
+        if (self.ticket.property) {
+            cell.detailTextLabel.text = self.ticket.titleForDisplay;
+        }
+    }
 }
 
 - (void)onLeftButtonPressed:(id)sender {
@@ -132,6 +152,12 @@
       form.area = self.ticket.space.value;
       controller.formController.form = form;
       _editAreaViewController = controller;
+
+      __weak typeof(self)weakSelf = self;
+      _editAreaViewController.updateRentAreaCompletion = ^ {
+          NSIndexPath *indexPath = [weakSelf.formController indexPathForKey:@"area"];
+          [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+      };
 
   }
   [self.navigationController pushViewController:_editAreaViewController animated:YES];
@@ -189,6 +215,13 @@
             controller.ticket = self.ticket;
             controller.singleUseForReedit = YES;
             controller.formController.form = form;
+
+            __weak typeof(self)weakSelf = self;
+            controller.updateRentTypeCompletion = ^ {
+                NSIndexPath *indexPath = [weakSelf.formController indexPathForKey:@"rentType"];
+                [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            };
+
             [self.navigationController pushViewController:controller animated:YES];
 
         }
@@ -230,6 +263,13 @@
             form.houseName = property.houseName;
             controller.formController.form = form;
             controller.navigationItem.title = STR(@"位置");
+
+            __weak typeof(self)weakSelf = self;
+            controller.updateAddressCompletion = ^ {
+                NSIndexPath *indexPath = [weakSelf.formController indexPathForKey:@"location"];
+                [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            };
+
             [self.navigationController pushViewController:controller animated:YES];
 
         }
@@ -245,9 +285,15 @@
     CUTEPropertyMoreInfoViewController *controller = [CUTEPropertyMoreInfoViewController new];
     controller.ticket = ticket;
     CUTEPropertyMoreInfoForm *form = [CUTEPropertyMoreInfoForm new];
-    form.ticketTitle = ticket.title;
+    form.ticketTitle = ticket.titleForDisplay;
     form.ticketDescription = ticket.ticketDescription;
     controller.formController.form = form;
+    __weak typeof(self)weakSelf = self;
+    controller.updateMoreInfoCompletion = ^ {
+        NSIndexPath *indexPath = [weakSelf.formController indexPathForKey:@"moreInfo"];
+        [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
+
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -260,14 +306,6 @@
         return NO;
     }
 
-    if (!_editAreaViewController && !self.ticket.space) {
-        [SVProgressHUD showErrorWithStatus:STR(@"请编辑面积")];
-        return NO;
-    }
-    if (fequalzero(self.ticket.space.value)) {
-        [SVProgressHUD showErrorWithStatus:STR(@"面积不能为0")];
-        return NO;
-    }
     if (!_editRentPriceViewController && !self.ticket.price) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑租金")];
         return NO;

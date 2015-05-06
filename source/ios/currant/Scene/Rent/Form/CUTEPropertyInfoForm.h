@@ -24,9 +24,9 @@
 @property (nonatomic, assign) NSUInteger bedroomCount;
 @property (nonatomic, assign) NSUInteger livingroomCount;
 @property (nonatomic, assign) NSUInteger bathroomCount;
-@property (nonatomic, strong) CUTEAreaForm *area;
 @property (strong, nonatomic) CUTERentTypeListForm *rentType;
 @property (strong, nonatomic) CLLocation *location;
+@property (nonatomic, strong) CUTEAreaForm *area;
 @property (nonatomic, strong) CUTEPropertyMoreInfoForm *moreInfo;
 @property (strong, nonatomic) CUTERentContactForm *submit;
 

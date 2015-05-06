@@ -81,6 +81,10 @@
     ticket.title = form.ticketTitle;
     ticket.ticketDescription = form.ticketDescription;
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+
+    if (self.updateMoreInfoCompletion) {
+        self.updateMoreInfoCompletion();
+    }
 }
 
 @end

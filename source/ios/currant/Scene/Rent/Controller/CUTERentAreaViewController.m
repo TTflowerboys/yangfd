@@ -44,6 +44,9 @@
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    if (self.updateRentAreaCompletion) {
+        self.updateRentAreaCompletion();
+    }
 }
 
 @end
