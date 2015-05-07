@@ -24,6 +24,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import <INTULocationManager.h>
 #import <Sequencer.h>
+#import <UIAlertView+Blocks.h>
 #import "CUTERentTickePublisher.h"
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, UITextFieldDelegate>
@@ -118,28 +119,36 @@
 }
 
 - (void)startUpdateLocation {
-    [SVProgressHUD show];
-    [[self requestLocation] continueWithBlock:^id(BFTask *task) {
-        if (task.result) {
-            CLLocation *location = task.result;
-            [self updatePlacemarkWithLocation:location];
-            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
-            [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
-            return [[self updateAddress] continueWithBlock:^id(BFTask *task) {
-                if (task.result) {
-                    [SVProgressHUD dismiss];
-                }
-                else {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                return nil;
-            }];
-        }
-        else {
-            [SVProgressHUD showErrorWithError:task.error];
-        }
-        return nil;
-    }];
+
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted) {
+        [UIAlertView showWithTitle:STR(@"此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        }];
+    }
+    else {
+        [SVProgressHUD show];
+        [[self requestLocation] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                CLLocation *location = task.result;
+                [self updatePlacemarkWithLocation:location];
+                MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
+                [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+                return [[self updateAddress] continueWithBlock:^id(BFTask *task) {
+                    if (task.result) {
+                        [SVProgressHUD dismiss];
+                    }
+                    else {
+                        [SVProgressHUD showErrorWithError:task.error];
+                    }
+                    return nil;
+                }];
+            }
+            else {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            return nil;
+        }];
+    }
 }
 
 - (void)onAddressBeginEditing:(id)sender {
@@ -199,6 +208,11 @@
 }
 
 - (void)onAddressLocationButtonTapped:(id)sender {
+
+    if (IsNilNullOrEmpty(_textField.text)) {
+        [SVProgressHUD showErrorWithStatus:STR(@"地址不能为空，请编辑地址")];
+        return;
+    }
 
     [SVProgressHUD show];
     [_geocoder geocodeAddressString:_textField.text completionHandler:^(NSArray *placemarks, NSError *error) {
