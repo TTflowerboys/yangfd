@@ -1,4 +1,7 @@
 PODS:
+  - AFNetworkActivityLogger (2.0.4):
+    - AFNetworking/NSURLConnection (~> 2.0)
+    - AFNetworking/NSURLSession (~> 2.0)
   - AFNetworking (2.5.3):
     - AFNetworking/NSURLConnection (= 2.5.3)
     - AFNetworking/NSURLSession (= 2.5.3)
@@ -76,6 +79,7 @@ PODS:
     - FMDB (~> 2.0)
 
 DEPENDENCIES:
+  - AFNetworkActivityLogger (~> 2.0.4)
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (~> 1.1.4)
@@ -117,6 +121,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/Fykec/libWeChatSDK.git
 
 SPEC CHECKSUMS:
+  AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
   AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
   BBTRestClient: 25965557c7608407aaaa0b30d1ea07735e971488
   BBTUtility: 034a9709d4b90c986d133a06f0123e4c328f23f2
