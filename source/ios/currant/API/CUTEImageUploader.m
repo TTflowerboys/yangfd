@@ -95,7 +95,7 @@
             }
             UIImage *image = [originalImage resizedImage:imageSize interpolationQuality:kCGInterpolationLow];
             //            NSData *originalImageData = UIImagePNGRepresentation(originalImage);
-            NSData *imageData = UIImageJPEGRepresentation([image fixJPEGRotation], 0.75);
+            NSData *imageData = UIImageJPEGRepresentation([image fixJPEGRotation], 0.5);
             [tcs setResult:imageData];
         } failureBlock:^(NSError *error) {
             [tcs setError:error];

@@ -329,7 +329,9 @@
     if (ticket && property) {
         if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
             [SVProgressHUD showWithStatus:STR(@"发布中...")];
-            [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket] continueWithBlock:^id(BFTask *task) {
+            [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
+                [SVProgressHUD showWithStatus:status];
+            }] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }

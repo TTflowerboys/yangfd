@@ -36,7 +36,7 @@
         return;
     }
 
-    [SVProgressHUD showWithStatus:STR(@"发布中...")];
+    [SVProgressHUD showWithStatus:STR(@"登录中...")];
     CUTETicket *ticket = self.ticket;
     CUTERentLoginForm *form = (CUTERentLoginForm *)self.formController.form;
 
@@ -57,7 +57,9 @@
     }];
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket] continueWithBlock:^id(BFTask *task) {
+        [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
+            [SVProgressHUD showWithStatus:status];
+        }] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
                 return nil;

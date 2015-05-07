@@ -92,16 +92,65 @@
               ]];
 }
 
-- (BFTask*)publishTicket:(CUTETicket *)ticket
+- (BFTask*)publishTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *status))updateStatus
 {
-    ticket.status = kTicketStatusToRent;
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
-    [params setObject:@"true" forKey:@"user_generated"];
-    return [BFTask taskForCompletionOfAllTasks:
-            @[
-              [self uploadImageAndEditProperty:ticket.property],
-              [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:nil]
-              ]];
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    Sequencer *sequencer = [Sequencer new];
+
+    if (!IsArrayNilOrEmpty([ticket.property realityImages])) {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            if (updateStatus) {
+                updateStatus(STR(@"正在上传图片..."));
+            }
+            [[self uploadImages:ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
+                if (task.result) {
+                    ticket.property.realityImages = task.result;
+                    completion(task.result);
+                }
+                else {
+                    [tcs setError:task.error];
+                }
+                return nil;
+            }];
+        }];
+    }
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        if (updateStatus) {
+            updateStatus(STR(@"正在创建房产..."));
+        }
+        [[self editProperty:ticket.property] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [tcs setError:task.error];
+                return nil;
+            } else {
+                ticket.property.identifier = task.result;
+                completion(task.result);
+                return nil;
+            }
+        }];
+    }];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        if (updateStatus) {
+            updateStatus(STR(@"正在创建房产出租单..."));
+        }
+        ticket.status = kTicketStatusToRent;
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
+        [params setObject:@"true" forKey:@"user_generated"];
+        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [tcs setError:task.error];
+            }
+            else {
+                [tcs setResult:task.result];
+            }
+            return nil;
+        }];
+    }];
+
+    [sequencer run];
+    return tcs.task;
 }
 
 - (BFTask *)uploadImages:(NSArray *)images {
