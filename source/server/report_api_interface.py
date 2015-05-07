@@ -278,6 +278,23 @@ def geonames_search(params):
     return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
 
 
+@f_api('/postcode/search', params=dict(
+    country=(str, True),
+    postcode=str,
+    postcode_index=str,
+))
+def postcode_search(params):
+    """
+    ``postcode`` is the well-formatted postcode, e.g. "E14 9AQ".
+
+    ``postcode_index`` is the stripped ``postcode`` that spaces were removed, e.g. "E149AQ".
+
+    Either ``postcode`` or ``postcode_index`` must present.
+    """
+    assert "postcode" in params or "postcode_index" in params, abort(40000, "either postcode or postcode_index must present")
+    return f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
+
+
 @f_api('/doogal/districts_and_wards')
 @f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer', 'agency'])
 def doogal_districts_and_wards(user):
