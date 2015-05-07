@@ -185,6 +185,16 @@
 		2CB66C201AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */; };
 		2CB66C211AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */; };
 		2CB66C221AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */; };
+		2CB66C241AFB66F200C3CDED /* Manchester.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C231AFB66F200C3CDED /* Manchester.gpx */; };
+		2CB66C251AFB66F200C3CDED /* Manchester.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C231AFB66F200C3CDED /* Manchester.gpx */; };
+		2CB66C261AFB66F200C3CDED /* Manchester.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C231AFB66F200C3CDED /* Manchester.gpx */; };
+		2CB66C271AFB66F200C3CDED /* Manchester.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C231AFB66F200C3CDED /* Manchester.gpx */; };
+		2CB66C281AFB66F200C3CDED /* Manchester.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C231AFB66F200C3CDED /* Manchester.gpx */; };
+		2CB66C2A1AFB687200C3CDED /* London.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C291AFB687200C3CDED /* London.gpx */; };
+		2CB66C2B1AFB687200C3CDED /* London.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C291AFB687200C3CDED /* London.gpx */; };
+		2CB66C2C1AFB687200C3CDED /* London.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C291AFB687200C3CDED /* London.gpx */; };
+		2CB66C2D1AFB687200C3CDED /* London.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C291AFB687200C3CDED /* London.gpx */; };
+		2CB66C2E1AFB687200C3CDED /* London.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C291AFB687200C3CDED /* London.gpx */; };
 		2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
@@ -526,6 +536,8 @@
 		2CB43DE91ABD5CE3004DF663 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2CB66C1C1AFB373D00C3CDED /* UIImage+FixJPEGRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixJPEGRotation.h"; sourceTree = "<group>"; };
 		2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixJPEGRotation.m"; sourceTree = "<group>"; };
+		2CB66C231AFB66F200C3CDED /* Manchester.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Manchester.gpx; sourceTree = "<group>"; };
+		2CB66C291AFB687200C3CDED /* London.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = London.gpx; sourceTree = "<group>"; };
 		2CB748F51ADCED09003BC2A5 /* MasonryMake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasonryMake.h; sourceTree = "<group>"; };
 		2CB7490B1ADE4755003BC2A5 /* SVProgressHUD+CUTEAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+CUTEAPI.h"; sourceTree = "<group>"; };
 		2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+CUTEAPI.m"; sourceTree = "<group>"; };
@@ -850,6 +862,8 @@
 				2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */,
 				2CB43DAE1ABC1372004DF663 /* main.m */,
 				2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */,
+				2CB66C231AFB66F200C3CDED /* Manchester.gpx */,
+				2CB66C291AFB687200C3CDED /* London.gpx */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1225,6 +1239,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA2E6BD1AC5487800053965 /* Images.xcassets in Resources */,
+				2CB66C2C1AFB687200C3CDED /* London.gpx in Resources */,
+				2CB66C261AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4161AE242F300E61BBA /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1234,6 +1250,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */,
+				2CB66C2D1AFB687200C3CDED /* London.gpx in Resources */,
+				2CB66C271AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4171AE242F400E61BBA /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1243,6 +1261,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA94AA91ACA42CD00DF7497 /* Images.xcassets in Resources */,
+				2CB66C2B1AFB687200C3CDED /* London.gpx in Resources */,
+				2CB66C251AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4151AE242F200E61BBA /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1252,6 +1272,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */,
+				2CB66C2A1AFB687200C3CDED /* London.gpx in Resources */,
+				2CB66C241AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4141AE242EE00E61BBA /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1261,7 +1283,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA2E6EF1AC54BF200053965 /* currant-test-Info.plist in Resources */,
+				2CB66C2E1AFB687200C3CDED /* London.gpx in Resources */,
 				2C44E4181AE242F400E61BBA /* Localizable.strings in Resources */,
+				2CB66C281AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2CA2E6EA1AC54BF200053965 /* currant-production-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
