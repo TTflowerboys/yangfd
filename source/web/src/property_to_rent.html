@@ -609,18 +609,21 @@
                                     })
 
                                     //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
+                                    % if rent['property'].get('country') and rent['property'].get('country').get('value'):
                                     window.showMapIndicator()
-                                        window.showTransitMap(location, null, true, 14, '{{rent['property'].get('country').get('slug')}}', function () {
+                                    window.showTransitMap(location, null, true, 14, '{{rent['property'].get('country').get('slug')}}', function () {
                                         window.hideMapIndicator()
                                     })
                                     window.showMapIndicator()
-                                        window.showSchoolMap(location, null, true, 14, '{{rent['property'].get('country').get('slug')}}', function () {
+                                    window.showSchoolMap(location, null, true, 14, '{{rent['property'].get('country').get('slug')}}', function () {
                                         window.hideMapIndicator()
                                     })
                                     window.showMapIndicator()
-                                        window.showFacilityMap(location, null, true, 14, '{{rent['property'].get('country').get('slug')}}', function () {
+                                    window.showFacilityMap(location, null, true, 14, '{{rent['property'].get('country').get('slug')}}', function () {
                                         window.hideMapIndicator()
                                     })
+                                    % end
+
                                     window.hideMapIndicator()
                                 }
                                 $('body').append(scriptString)
