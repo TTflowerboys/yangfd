@@ -195,12 +195,19 @@
 }
 
 - (void)showImagePickerFrom:(UIViewController *)controller {
-    [[self getAssetsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
-        [self assetsPickerController].selectedAssets = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
-        [controller presentViewController:[self assetsPickerController] animated:YES completion:^ {
+    if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
+
+        [[self getAssetsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
+            [self assetsPickerController].selectedAssets = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
+            [controller presentViewController:[self assetsPickerController] animated:YES completion:^ {
+            }];
+            return nil;
         }];
-        return nil;
-    }];
+    }
+    else {
+        [UIAlertView showWithTitle:STR(@"此应用程序对您的相册没有访问权，您可以在隐私设置中启用访问权。") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        }];
+    }
 }
 
 - (void)showCameraFrom:(UIViewController *)controller {
@@ -218,17 +225,8 @@
         }
 
     } else {
-        //use the picker's auth failed page
-//        CTAssetsGroupViewController *notAllowdController = [[CTAssetsGroupViewController alloc] init];
-//        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:notAllowdController];
-//        [controller presentViewController:nav animated:YES completion:^{
-//            [notAllowdController performSelector:@selector(showNotAllowed)];
-//        }];
-
         [UIAlertView showWithTitle:STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-
         }];
-
     }
 }
 
