@@ -559,6 +559,8 @@
             statusBarWidth: '140px',
             maxFileCount: 12, //最多上传12张图片
             uploadFolder: '',
+            allowedTypes: 'jpg,jpeg,png,gif',
+            'acceptFiles': 'image/',
             deleteCallback: function(data, pd){
                 var url
                 if($.isArray(data)){
