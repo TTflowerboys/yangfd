@@ -205,7 +205,7 @@
         }];
     }
     else {
-        [UIAlertView showWithTitle:STR(@"此应用程序对您的相册没有访问权，您可以在隐私设置中启用访问权。") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView showWithTitle:STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         }];
     }
 }
