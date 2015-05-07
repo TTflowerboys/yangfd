@@ -308,7 +308,7 @@
                         <div class="photoThumbsBox">
                             <div class="photoThumbs swiper-container">
                                 <ul class="swiper-wrapper thumbList">
-                                                                        % for item in rent['property'].get('reality_images'):
+                                    % for item in rent['property'].get('reality_images'):
                                     <li class="swiper-slide" style="background-image: url('{{item}}')"></li>
                                     %end
                                 </ul>
@@ -320,7 +320,16 @@
                         <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
-                % end
+                % else:
+                <div class="swiper-slide swiper-slide-bg commen hideInWechat" style="">
+                    <div class="page pagePhoto">
+                        <p>{{_('暂无图片，上传您的房屋实景图片能增加30%的阅览')}}</p>
+                    </div>
+                    <div class="bottomBox animate">
+                        <div class="scrollUp">{{_('继续')}}</div>
+                    </div>
+                </div>
+                %end
                 <div class="swiper-slide swiper-slide-bg commen " style="">
                     <div class="page pageRegion">
                         <h2 class="animate">{{_('街区报告：')}}<span>{{rent['property'].get('street','')}}</span></h2>

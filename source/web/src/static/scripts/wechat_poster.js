@@ -21,7 +21,7 @@
          shadowScale: 0.94
          },*/
         onInit: function (swiper, direction) {
-            if($('.pagePhoto').length > 0){
+            if($('.pagePhoto').length > 0 && $('.pagePhoto .photoList').length > 0){
                 createPhotoListSwiper()
             }else{
                 allInitHanddler()

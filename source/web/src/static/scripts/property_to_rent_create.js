@@ -252,10 +252,10 @@
                 }
             })
         })
-        if(imageArr.length === 0){
+        /*if(imageArr.length === 0){
             validate = false
             errorMsg = i18n('请至少上传一张实景图')
-        }
+        }*/
         var isUploading = false
         $('.ajax-file-upload-progress').each(function(i, v){
             if(v.style.display !== 'none') {
@@ -418,7 +418,7 @@
         })
 
     $('#load_more .load_more').click(function () {
-        var defaultTitle = $('#block').val() + ' ' + $('#bedroom_count').children('option:selected').val() + window.i18n('居室') + $('#rentalType .selected').text().trim() + window.i18n('出租')
+        var defaultTitle = $('#block').val() ? $('#block').val() + ' ' : '' + $('#bedroom_count').children('option:selected').val() + window.i18n('居室') + $('#rentalType .selected').text().trim() + window.i18n('出租')
         $('#load_more').hide()
         if($('#title').val() === ''){
             $('#title').val(defaultTitle)
