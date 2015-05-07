@@ -364,7 +364,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
 
-    [SVProgressHUD showWithStatus:STR(@"保存到本地")];
+    [SVProgressHUD showWithStatus:STR(@"保存到本地...")];
     ALAssetsLibrary *library = [self assetsPickerController].assetsLibrary;
     [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
         if (error) {

@@ -100,9 +100,11 @@
     if (!IsArrayNilOrEmpty([ticket.property realityImages])) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             if (updateStatus) {
-                updateStatus(STR(@"正在上传图片..."));
+                updateStatus([NSString stringWithFormat:STR(@"正在上传图片(%d/%d)..."), 0, ticket.property.realityImages.count]);
             }
-            [[self uploadImages:ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
+            [[self uploadImages:ticket.property.realityImages updateStatus:^(NSString *status) {
+                updateStatus(status);
+            }] continueWithBlock:^id(BFTask *task) {
                 if (task.result) {
                     ticket.property.realityImages = task.result;
                     completion(task.result);
@@ -153,15 +155,29 @@
     return tcs.task;
 }
 
-- (BFTask *)uploadImages:(NSArray *)images {
-    return [BFTask taskForCompletionOfAllTasksWithResults:[images map:^id(NSString *object) {
+- (BFTask *)uploadImages:(NSArray *)images updateStatus:(void (^) (NSString *status))updateStatus {
+    NSArray *tasks = [images map:^id(NSString *object) {
         if ([[NSURL URLWithString:object] isAssetURL]) {
             return [[self imageUploader] uploadImageWithAssetURLString:object];
         }
         else {
             return [BFTask taskWithResult:object];
         }
-    }]];
+    }];
+
+    [tasks each:^(BFTask *task) {
+        [task continueWithBlock:^id(BFTask *task) {
+            if (updateStatus) {
+                NSArray *completeTasks = [tasks select:^BOOL(BFTask *task) {
+                    return task.isCompleted;
+                }];
+                updateStatus([NSString stringWithFormat:STR(@"正在上传图片(%d/%d)..."), completeTasks.count, tasks.count]);
+            }
+            return task;
+        }];
+    }];
+
+    return [BFTask taskForCompletionOfAllTasksWithResults:tasks];
 }
 
 - (BFTask *)uploadPropertyImages:(CUTEProperty *)property {
@@ -171,7 +187,7 @@
         Sequencer *sequencer = [Sequencer new];
         if (!IsArrayNilOrEmpty([property realityImages])) {
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[self uploadImages:property.realityImages] continueWithBlock:^id(BFTask *task) {
+                [[self uploadImages:property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
                     if (task.result) {
                         property.realityImages = task.result;
                         completion(task.result);
@@ -199,45 +215,6 @@
                 }];
             }];
         }
-        [sequencer run];
-    }
-
-    return tcs.task;
-}
-
-
-- (BFTask *)uploadImageAndEditProperty:(CUTEProperty *)property {
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    if (property) {
-        Sequencer *sequencer = [Sequencer new];
-        if (!IsArrayNilOrEmpty([property realityImages])) {
-            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[self uploadImages:property.realityImages] continueWithBlock:^id(BFTask *task) {
-                    if (task.result) {
-                        property.realityImages = task.result;
-                        completion(task.result);
-                    }
-                    else {
-                        [tcs setError:task.error];
-                    }
-                    return nil;
-                }];
-            }];
-        }
-
-        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[self editProperty:property] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
-                    [tcs setError:task.error];
-                    return nil;
-                } else {
-                    property.identifier = task.result;
-                    [tcs setResult:task.result];
-                    return nil;
-                }
-            }];
-        }];
-
         [sequencer run];
     }
 
