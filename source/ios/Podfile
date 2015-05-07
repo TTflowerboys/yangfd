@@ -9,6 +9,7 @@ link_with 'currant', 'currant-dev', 'currant-test', 'currant-production', 'curra
 
 pod 'BBTUtility', :git => "git@git.bbtechgroup.com:bbt/ios-bbtutility.git"
 pod 'BBTRestClient', :git => "git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git"
+pod 'AFNetworkActivityLogger', '~> 2.0.4'
 pod 'SMCalloutView', '~> 2.1.1'
 pod 'ngrvalidator', '~> 1.0.0'
 pod 'INTULocationManager', '~> 3.0.1'

@@ -19,11 +19,25 @@
 @interface CUTEImageUploader () {
 
     BBTRestClient *_imageUploader;
+
+    NSMutableDictionary *_requestTaskDictionary;
 }
 
 @end
 
 @implementation CUTEImageUploader
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _imageUploader = [BBTRestClient clientWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]] account:nil];
+        _imageUploader.operationQueue.maxConcurrentOperationCount = 1; // send image one by one by network bindwidth no enough in network
+        _requestTaskDictionary = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+
 
 //http://stackoverflow.com/questions/8042360/nsdata-and-uploading-images-via-post-in-ios
 - (NSURLRequest *)makeUploadRequestWithURL:(NSURL*)url data:(NSData *)imageData {
@@ -61,11 +75,13 @@
 }
 
 - (BFTask *)uploadData:(NSData *)imageData assetURLString:(NSString *)assetURLStr {
+
+    if (_requestTaskDictionary[assetURLStr]) {
+        return [_requestTaskDictionary objectForKey:assetURLStr];
+    }
+
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if (imageData) {
-        if (!_imageUploader) {
-            _imageUploader = [BBTRestClient clientWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]] account:nil];
-        }
         [_imageUploader.operationQueue addOperation: [_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration hostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *responseDic = (NSDictionary *)responseObject;
             if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
@@ -73,6 +89,7 @@
                 [tcs setResult:urlStr];
                 [[CUTEDataManager sharedInstance] saveImageURLString:urlStr forAssetURLString:assetURLStr];
                 [[CUTEDataManager sharedInstance] saveAssetURLString:assetURLStr forImageURLString:urlStr];
+                [_requestTaskDictionary removeObjectForKey:assetURLStr];
             }
             else {
                 [tcs setError:[NSError errorWithDomain:responseDic[@"msg"] code:[[responseDic objectForKey:@"ret"] integerValue] userInfo:responseDic]];
@@ -85,22 +102,9 @@
     else {
         [tcs setResult:nil];
     }
+    [_requestTaskDictionary setObject:[tcs task] forKey:assetURLStr];
     return tcs.task;
 
-}
-
-- (BFTask *)uploadImageAsset:(ALAsset *)asset {
-    NSString *assetURLStr = [[asset valueForProperty:ALAssetPropertyAssetURL] absoluteString];
-    if (!IsNilNullOrEmpty(assetURLStr)) {
-         NSString *urlStr = [[CUTEDataManager sharedInstance] getImageURLStringForAssetURLString:assetURLStr];
-        if (!IsNilNullOrEmpty(urlStr)) {
-            return [BFTask taskWithResult:urlStr];
-        }
-    }
-    //Use png data for orientation http://stackoverflow.com/questions/22308921/fix-ios-picture-orientation-after-upload-php
-    NSData *imageData = UIImagePNGRepresentation([UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]]);
-
-    return [self uploadData:imageData assetURLString:assetURLStr];
 }
 
 - (BFTask *)uploadImageWithAssetURLString:(NSString*)assetURLStr {
@@ -110,6 +114,7 @@
             return [BFTask taskWithResult:urlStr];
         }
     }
+
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
         [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
@@ -118,7 +123,7 @@
             [tcs setError:error];
         }];
     });
-    
+
     return [[tcs task] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             return task;
