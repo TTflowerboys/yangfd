@@ -14,7 +14,8 @@
 #import "CUTEDataManager.h"
 #import "CUTECommonMacro.h"
 #import "AssetsLibraryProvider.h"
-
+#import <UIImage+Resize.h>
+#import "UIImage+FixJPEGRotation.h"
 
 @interface CUTEImageUploader () {
 
@@ -74,40 +75,40 @@
     return request;
 }
 
-- (BFTask *)uploadData:(NSData *)imageData assetURLString:(NSString *)assetURLStr {
+#define KMAX_IMAGE_WIDTH 800
+#define KMAX_IMAGE_HEIGHT 533
 
+-  (BFTask *)getImageDataWithAssetURLString:(NSString *)assetURLStr {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+        [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
+    
+            UIImage *originalImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+            CGSize imageSize = originalImage.size;
+            if (imageSize.width > KMAX_IMAGE_WIDTH) {
+                imageSize.width = KMAX_IMAGE_WIDTH;
+                imageSize.height = imageSize.height * (KMAX_IMAGE_WIDTH / imageSize.width);
+            }
+            if (imageSize.height > KMAX_IMAGE_HEIGHT) {
+                imageSize.height = KMAX_IMAGE_HEIGHT;
+                imageSize.width = imageSize.width * (KMAX_IMAGE_HEIGHT / imageSize.height);
+            }
+            UIImage *image = [originalImage resizedImage:imageSize interpolationQuality:kCGInterpolationLow];
+            //            NSData *originalImageData = UIImagePNGRepresentation(originalImage);
+            NSData *imageData = UIImageJPEGRepresentation([image fixJPEGRotation], 0.75);
+            [tcs setResult:imageData];
+        } failureBlock:^(NSError *error) {
+            [tcs setError:error];
+        }];
+    });
+    return tcs.task;
+}
+
+- (BFTask *)uploadImageWithAssetURLString:(NSString*)assetURLStr {
     if (_requestTaskDictionary[assetURLStr]) {
         return [_requestTaskDictionary objectForKey:assetURLStr];
     }
 
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    if (imageData) {
-        [_imageUploader.operationQueue addOperation: [_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration hostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *responseDic = (NSDictionary *)responseObject;
-            if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
-                NSString *urlStr = responseDic[@"val"][@"url"];
-                [tcs setResult:urlStr];
-                [[CUTEDataManager sharedInstance] saveImageURLString:urlStr forAssetURLString:assetURLStr];
-                [[CUTEDataManager sharedInstance] saveAssetURLString:assetURLStr forImageURLString:urlStr];
-                [_requestTaskDictionary removeObjectForKey:assetURLStr];
-            }
-            else {
-                [tcs setError:[NSError errorWithDomain:responseDic[@"msg"] code:[[responseDic objectForKey:@"ret"] integerValue] userInfo:responseDic]];
-            }
-
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [tcs setError:error];
-        }]];
-    }
-    else {
-        [tcs setResult:nil];
-    }
-    [_requestTaskDictionary setObject:[tcs task] forKey:assetURLStr];
-    return tcs.task;
-
-}
-
-- (BFTask *)uploadImageWithAssetURLString:(NSString*)assetURLStr {
     if (!IsNilNullOrEmpty(assetURLStr)) {
         NSString *urlStr = [[CUTEDataManager sharedInstance] getImageURLStringForAssetURLString:assetURLStr];
         if (!IsNilNullOrEmpty(urlStr)) {
@@ -115,25 +116,41 @@
         }
     }
 
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-        [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
-            [tcs setResult:asset];
-        } failureBlock:^(NSError *error) {
-            [tcs setError:error];
-        }];
-    });
-
-    return [[tcs task] continueWithBlock:^id(BFTask *task) {
-        if (task.error) {
+    BFTask *task = [[self getImageDataWithAssetURLString:assetURLStr] continueWithBlock:^id(BFTask *task) {
+        if (task.error || task.exception || task.isCancelled) {
             return task;
         }
         else {
-            //Use png data for orientation http://stackoverflow.com/questions/22308921/fix-ios-picture-orientation-after-upload-php
-            NSData *imageData = UIImagePNGRepresentation([UIImage imageWithCGImage:[[task.result defaultRepresentation] fullResolutionImage]]);
-            return [self uploadData:imageData assetURLString:assetURLStr];
+            NSData *imageData = task.result;
+            BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+            if (imageData) {
+                [_imageUploader.operationQueue addOperation: [_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration hostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSDictionary *responseDic = (NSDictionary *)responseObject;
+                    if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
+                        NSString *urlStr = responseDic[@"val"][@"url"];
+                        [[CUTEDataManager sharedInstance] saveImageURLString:urlStr forAssetURLString:assetURLStr];
+                        [[CUTEDataManager sharedInstance] saveAssetURLString:assetURLStr forImageURLString:urlStr];
+                        [_requestTaskDictionary removeObjectForKey:assetURLStr];
+                        [tcs setResult:urlStr];
+                    }
+                    else {
+                        [_requestTaskDictionary removeObjectForKey:assetURLStr];
+                        [tcs setError:[NSError errorWithDomain:responseDic[@"msg"] code:[[responseDic objectForKey:@"ret"] integerValue] userInfo:responseDic]];
+                    }
+
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [tcs setError:error];
+                }]];
+            }
+            else {
+                [tcs setResult:nil];
+            }
+            return tcs.task;
         }
     }];
+
+    [_requestTaskDictionary setObject:task forKey:assetURLStr];
+    return task;
 }
 
 
