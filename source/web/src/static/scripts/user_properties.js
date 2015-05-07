@@ -177,19 +177,7 @@ $(function () {
             if (window.mobileClient !== undefined) {
                 window.mobileClient.editRentTicket(_.first(_.where(window.rentArray, {id: ticketId})))
             }else{
-                if (window.confirm(window.i18n('确定删除该出租房吗？注意：此操作不可逆')) === true) {
-
-                    var params = {
-                        'status': 'deleted'
-                    }
-                    $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
-                        .done(function (data) {
-                            location.reload()
-                        })
-                        .fail(function (ret) {
-                            window.alert(window.i18n('失败'))
-                        })
-                }
+                location.href = '/property-to-rent/' + ticketId + '/edit'
             }
         })
     }

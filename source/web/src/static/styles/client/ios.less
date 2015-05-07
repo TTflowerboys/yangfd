@@ -1,5 +1,9 @@
+@import "../project/_imports";
+
 .hiddenInClient {
-    display:none;
+    @media @phone {
+        display:none;
+    }
 }
 
 .floatBar_phone {
