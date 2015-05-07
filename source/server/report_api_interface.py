@@ -278,7 +278,7 @@ def geonames_search(params):
     assert params["feature_code"] in ("ADM1", "ADM2", "ADM3", "PPLA*", "PPLX"), abort(40000, "invalid feature_code")
 
     if params["feature_code"] == "PPLA*":
-        params["feature_code"] = {"$in": ["PPLA", "PPLA2"]}
+        params["feature_code"] = {"$in": ["PPLC", "PPLA", "PPLA2"]}
 
     return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
 
