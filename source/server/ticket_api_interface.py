@@ -642,8 +642,9 @@ def rent_ticket_get(user, ticket_id):
     if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
         fuzzy_user_info = False
     elif ticket.get("creator_user_id"):
-        if ticket.get("creator_user_id") != user["id"]:
-            abort(40399, logger.warning("Permission denied", exc_info=False))
+        if not set(ticket["status"]) <= {"to rent", "rent"}:
+            if not user or ticket.get("creator_user_id") != user["id"]:
+                abort(40399, logger.warning("Permission denied", exc_info=False))
 
     return f_app.ticket.output([ticket_id], fuzzy_user_info=fuzzy_user_info)[0]
 
