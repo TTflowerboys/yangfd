@@ -180,6 +180,11 @@
 		2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DCB1ABC1373004DF663 /* currantTests.m */; };
 		2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
 		2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
+		2CB66C1E1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */; };
+		2CB66C1F1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */; };
+		2CB66C201AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */; };
+		2CB66C211AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */; };
+		2CB66C221AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */; };
 		2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
@@ -519,6 +524,8 @@
 		2CB43DDF1ABD59AE004DF663 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		2CB43DE01ABD59CC004DF663 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.xib"; sourceTree = "<group>"; };
 		2CB43DE91ABD5CE3004DF663 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		2CB66C1C1AFB373D00C3CDED /* UIImage+FixJPEGRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixJPEGRotation.h"; sourceTree = "<group>"; };
+		2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixJPEGRotation.m"; sourceTree = "<group>"; };
 		2CB748F51ADCED09003BC2A5 /* MasonryMake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasonryMake.h; sourceTree = "<group>"; };
 		2CB7490B1ADE4755003BC2A5 /* SVProgressHUD+CUTEAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+CUTEAPI.h"; sourceTree = "<group>"; };
 		2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+CUTEAPI.m"; sourceTree = "<group>"; };
@@ -786,6 +793,8 @@
 				2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */,
 				2CC6C1CD1AEE03D7002758A7 /* UIImageView+Assets.h */,
 				2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */,
+				2CB66C1C1AFB373D00C3CDED /* UIImage+FixJPEGRotation.h */,
+				2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1491,6 +1500,7 @@
 				2C79C2BA1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2C07AB7E1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2CC3A07E1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
+				2CB66C201AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2CF8A67A1AF0B65C0080DF10 /* CUTEForm.m in Sources */,
 				2C07AB8C1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2CF8A60B1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
@@ -1577,6 +1587,7 @@
 				2C79C2BB1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2C07AB7F1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2CC3A07F1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
+				2CB66C211AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2CF8A67B1AF0B65C0080DF10 /* CUTEForm.m in Sources */,
 				2C07AB8D1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2CF8A60C1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
@@ -1663,6 +1674,7 @@
 				2C79C2B91ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2C07AB7D1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2CC3A07D1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
+				2CB66C1F1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2CF8A6791AF0B65C0080DF10 /* CUTEForm.m in Sources */,
 				2C07AB8B1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2CF8A60A1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
@@ -1749,6 +1761,7 @@
 				2C79C2B81ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2C07AB7C1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2CC3A07C1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
+				2CB66C1E1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2CF8A6781AF0B65C0080DF10 /* CUTEForm.m in Sources */,
 				2C07AB8A1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2CF8A6091AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
@@ -1781,6 +1794,7 @@
 				2CF8A6301AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2C427E5F1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2CF8A6171AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m in Sources */,
+				2CB66C221AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2CA5F7741AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2CF8A5EF1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
 				2CF8A67C1AF0B65C0080DF10 /* CUTEForm.m in Sources */,
