@@ -18,7 +18,6 @@
 
 @interface CUTERentTickePublisher () {
 
-    CUTEImageUploader *_imageUploader;
 
 }
 
@@ -37,14 +36,6 @@
     });
 
     return sharedInstance;
-}
-
-- (CUTEImageUploader *)imageUploader {
-    if (!_imageUploader) {
-
-        _imageUploader = [CUTEImageUploader new];
-    }
-    return _imageUploader;
 }
 
 - (BFTask *)createTicket:(CUTETicket *)ticket {
@@ -158,7 +149,7 @@
 - (BFTask *)uploadImages:(NSArray *)images updateStatus:(void (^) (NSString *status))updateStatus {
     NSArray *tasks = [images map:^id(NSString *object) {
         if ([[NSURL URLWithString:object] isAssetURL]) {
-            return [[self imageUploader] uploadImageWithAssetURLString:object];
+            return [[CUTEImageUploader sharedInstance] uploadImageWithAssetURLString:object];
         }
         else {
             return [BFTask taskWithResult:object];

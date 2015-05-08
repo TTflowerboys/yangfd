@@ -12,4 +12,6 @@
 
 + (void)showErrorWithError:(NSError *)error;
 
++ (void)showErrorWithException:(NSException *)exception;
+
 @end

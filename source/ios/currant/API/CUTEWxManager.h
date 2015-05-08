@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WXApi.h"
+#import "CUTETicket.h"
 
 @interface CUTEWxManager : NSObject <WXApiDelegate>
 
@@ -19,6 +20,6 @@
 
 - (void)sendRequst:(BaseReq *)req onResponse:(void (^)(BaseResp *response))onResponse;
 
-- (void)shareToWechatWithTitle:(NSString *)title description:(NSString *)description url: (NSString *)url;
+- (void)shareToWechatWithTicket:(CUTETicket *)ticket;
 
 @end

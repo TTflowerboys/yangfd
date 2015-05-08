@@ -55,7 +55,7 @@
                     }
                     else {
                         CUTETicket *ticket = task.result;
-                        [[CUTEWxManager sharedInstance] shareToWechatWithTitle:ticket.title description:ticket.ticketDescription url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+                        [[CUTEWxManager sharedInstance] shareToWechatWithTicket:ticket];
                         [SVProgressHUD dismiss];
                     }
                     return nil;

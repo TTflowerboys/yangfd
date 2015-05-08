@@ -19,7 +19,6 @@
 
 - (BFTask *)editTicketExcludeImage:(CUTETicket *)ticket;
 
-//upload image take long time, so use this shareInstance is better
 - (BFTask *)uploadPropertyImages:(CUTEProperty *)property;
 
 - (BFTask *)publishTicket:(CUTETicket *)ticket updateStatus:(void (^) (NSString *status))updateStatus;
