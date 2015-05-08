@@ -568,10 +568,11 @@
                         .parent().find('[data-ui=description]').height('auto')
                     $(this).parent().hide()
                         .parent().find('[data-ui=description]').toggleClass("no-after")
-                    ga('send', 'event', 'property_detail', 'click', 'extend-description')
+                    ga('send', 'event', 'property_to_rent_detail', 'click', 'extend-description')
                 });
 
                 window.openWeChatShare = function (rentId) {
+                    ga('send', 'event', 'property_to_rent_detail', 'click', 'open-wechat-share')
                     if (window.team.isWeChat()) {
                         if (window.team.isWeChatiOS()) {
                             $('.wechatPage_popup .buttonHolder').attr('src', '/static/images/property_details/wechat_share/phone/wechat_button_ios.png')
@@ -586,7 +587,7 @@
 
                 $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
                     window.openWeChatShare('{{rent.get('id','')}}')
-                    //ga('send', 'event', 'property_to_rent_detail', 'share', 'open-wechat-mobile')
+                    ga('send', 'event', 'property_to_rent_detail', 'share', 'open-wechat-mobile')
                 });
 
                 //Map Part
