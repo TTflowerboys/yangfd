@@ -203,21 +203,25 @@
                         </p>
                         <p class="line3 animate">{{_('您就可以租到')}}</p>
                         <ul class="itemBox clearfix">
-                            <li class="animate">
+                            %if rent.get('space',{}).get('value'):
+                            <li class="animate size">
                                 <i class="sizeIcon"></i>
-                                %if rent.get('space',{}).get('value'):
                                 {{float("{0:.2f}".format(float(rent.get('space',{}).get('value',0))))}}
                                 {{!format_unit(rent.get('space',{}).get('unit',''))}}
-                                %end
                             </li>
-                            <li class="animate">
+                            %end
+                            <li class="animate rooms"
+                                %if not rent.get('space',{}).get('value'):
+                                style="width:100%;"
+                                %end
+                                >
                                 <i class="roomsIcon"></i>{{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}</span>
                             </li>
-                            <li class="animate"><i class="rentalIcon"></i>{{rent.get('rent_type',{}).get('value', '')}}</li>
-                            <li class="animate"><i class="estateIcon"></i>{{rent['property'].get('city',{}).get('value','')}} {{rent['property'].get('street','')}}</li>
-                            <li class="animate"><i class="streetIcon"></i>{{rent['property'].get('zipcode','')}}</li>
+                            <li class="animate rental"><i class="rentalIcon"></i>{{rent.get('rent_type',{}).get('value', '')}}</li>
+                            <li class="animate estate"><i class="estateIcon"></i>{{rent['property'].get('city',{}).get('value','')}} {{rent['property'].get('street','')}}</li>
+                            <li class="animate street"><i class="streetIcon"></i>{{rent['property'].get('zipcode','')}}</li>
                             % if 'floor' in rent['property'] and rent['property'].get('floor',''):
-                            <li class="animate"><i class="doorIcon"></i>{{rent['property'].get('floor','')}}
+                            <li class="animate door"><i class="doorIcon"></i>{{rent['property'].get('floor','')}}
                             %if 'house_name' in rent.get('property',{}):
                                 -{{rent['property'].get('house_name','')}}
                             %end
