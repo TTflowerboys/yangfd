@@ -8,7 +8,8 @@
 //
 
 #import "FXForms.h"
+#import "CUTEFormTextFieldCell.h"
 
-@interface CUTEFormFixNonBreakingSpaceTextFieldCell : FXFormTextFieldCell
+@interface CUTEFormFixNonBreakingSpaceTextFieldCell : CUTEFormTextFieldCell
 
 @end

@@ -34,6 +34,16 @@
 		2C27F1ED1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
 		2C27F1EE1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
 		2C27F1EF1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
+		2C2FCDBD1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */; };
+		2C2FCDBE1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */; };
+		2C2FCDBF1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */; };
+		2C2FCDC01AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */; };
+		2C2FCDC11AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */; };
+		2C2FCDC41AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDC31AFCC7B1002594D7 /* CUTEFormTextFieldCell.m */; };
+		2C2FCDC51AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDC31AFCC7B1002594D7 /* CUTEFormTextFieldCell.m */; };
+		2C2FCDC61AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDC31AFCC7B1002594D7 /* CUTEFormTextFieldCell.m */; };
+		2C2FCDC71AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDC31AFCC7B1002594D7 /* CUTEFormTextFieldCell.m */; };
+		2C2FCDC81AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDC31AFCC7B1002594D7 /* CUTEFormTextFieldCell.m */; };
 		2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
@@ -470,6 +480,10 @@
 		2C226E691ACBCD9200658132 /* CUTECommonMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECommonMacro.h; sourceTree = "<group>"; };
 		2C27F1E91ACCEA93002BECCF /* FXForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXForms.h; sourceTree = "<group>"; };
 		2C27F1EA1ACCEA93002BECCF /* FXForms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXForms.m; sourceTree = "<group>"; };
+		2C2FCDBB1AFCC689002594D7 /* BBTInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTInputAccessoryView.h; sourceTree = "<group>"; };
+		2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTInputAccessoryView.m; sourceTree = "<group>"; };
+		2C2FCDC21AFCC7B1002594D7 /* CUTEFormTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormTextFieldCell.h; sourceTree = "<group>"; };
+		2C2FCDC31AFCC7B1002594D7 /* CUTEFormTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormTextFieldCell.m; sourceTree = "<group>"; };
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
@@ -711,6 +725,8 @@
 			children = (
 				2CF8A6A51AF0C2620080DF10 /* BBTPickerView.h */,
 				2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */,
+				2C2FCDBB1AFCC689002594D7 /* BBTInputAccessoryView.h */,
+				2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */,
 				2C07AB7A1AE8DB5E00907075 /* BBTScrollImageView.h */,
 				2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */,
 				2C27F1E91ACCEA93002BECCF /* FXForms.h */,
@@ -1023,6 +1039,8 @@
 				2CF8A5D31AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m */,
 				2CF8A5D41AF0B40E0080DF10 /* CUTEMapTextField.h */,
 				2CF8A5D51AF0B40E0080DF10 /* CUTEMapTextField.m */,
+				2C2FCDC21AFCC7B1002594D7 /* CUTEFormTextFieldCell.h */,
+				2C2FCDC31AFCC7B1002594D7 /* CUTEFormTextFieldCell.m */,
 				2CF8A5D61AF0B40E0080DF10 /* CUTEQrcodeCell.h */,
 				2CF8A5D71AF0B40E0080DF10 /* CUTEQrcodeCell.m */,
 				2CF8A5D81AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.h */,
@@ -1468,6 +1486,7 @@
 				2C07AB701AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A6291AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CF8A6981AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
+				2C2FCDBF1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6421AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6061AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */,
@@ -1530,6 +1549,7 @@
 				2CF8A60B1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
 				2C427EA41AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6471AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
+				2C2FCDC61AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2CF8A6011AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E961AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2CF8A5ED1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -1555,6 +1575,7 @@
 				2C07AB711AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A62A1AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CF8A6991AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
+				2C2FCDC01AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6431AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6071AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */,
@@ -1617,6 +1638,7 @@
 				2CF8A60C1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
 				2C427EA51AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6481AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
+				2C2FCDC71AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2CF8A6021AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E971AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2CF8A5EE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -1642,6 +1664,7 @@
 				2C07AB6F1AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A6281AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CF8A6971AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
+				2C2FCDBE1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6411AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6051AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */,
@@ -1704,6 +1727,7 @@
 				2CF8A60A1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
 				2C427EA31AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6461AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
+				2C2FCDC51AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2CF8A6001AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E951AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2CF8A5EC1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -1729,6 +1753,7 @@
 				2C07AB6E1AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A6271AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CF8A6961AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
+				2C2FCDBD1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6401AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6041AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */,
@@ -1791,6 +1816,7 @@
 				2CF8A6091AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
 				2C427EA21AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6451AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
+				2C2FCDC41AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2CF8A5FF1AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E941AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2CF8A5EB1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -1858,6 +1884,8 @@
 				2CC3A0721AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
 				2C427E581AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CC6C1D31AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
+				2C2FCDC11AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
+				2C2FCDC81AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2CF8A63F1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
 				2CF8A6121AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m in Sources */,
 				2C427E9F1AD37D34000378A9 /* CUTETicket.m in Sources */,

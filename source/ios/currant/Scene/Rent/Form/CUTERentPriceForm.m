@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEFormRentPriceTextFieldCell.h"
 #import "CUTECurrency.h"
+#import "CUTEFormTextFieldCell.h"
 
 @interface CUTERentPriceForm () {
 

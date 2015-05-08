@@ -283,7 +283,6 @@
     form.ticketTitle = ticket.titleForDisplay;
     form.ticketDescription = ticket.ticketDescription;
     controller.formController.form = form;
-    __weak typeof(self)weakSelf = self;
 
     [self.navigationController pushViewController:controller animated:YES];
 }
