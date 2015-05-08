@@ -11,13 +11,14 @@
 #import "CUTEPropertyFacilityViewController.h"
 #import "CUTEFormButtonCell.h"
 #import "CUTEFormFixNonBreakingSpaceTextFieldCell.h"
+#import "CUTEFormTextViewCell.h"
 
 @implementation CUTEPropertyMoreInfoForm
 
 - (NSArray *)fields {
     return @[
              @{FXFormFieldKey: @"ticketTitle", FXFormFieldTitle:STR(@"标题"), FXFormFieldHeader:STR(@"其他"), FXFormFieldDefaultValue:_ticketTitle? :@"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction:@"onTicketTitleEdit:"},
-             @{FXFormFieldKey: @"ticketDescription", FXFormFieldTitle:STR(@"详细描述"),FXFormFieldType:FXFormFieldTypeLongText, FXFormFieldDefaultValue:_ticketDescription? : @"", FXFormFieldAction:@"onTicketDescriptionEdit:"},
+             @{FXFormFieldKey: @"ticketDescription", FXFormFieldTitle:STR(@"详细描述"),FXFormFieldType:FXFormFieldTypeLongText, FXFormFieldDefaultValue:_ticketDescription? : @"", FXFormFieldAction:@"onTicketDescriptionEdit:", FXFormFieldCell: [CUTEFormTextViewCell class]},
              @{FXFormFieldKey: @"facility", FXFormFieldTitle:STR(@"房间设施"), FXFormFieldAction:@"editFacilities"},
 //                @{FXFormFieldKey: @"feature", FXFormFieldTitle:STR(@"街区亮点")},
              @{FXFormFieldKey: @"delete", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"删除草稿"), FXFormFieldHeader: @"", FXFormFieldAction: @"delete"},

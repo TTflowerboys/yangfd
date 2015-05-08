@@ -12,6 +12,6 @@
 
 @property (nonatomic, readonly) UIButton *doneButton;
 
-@property (nonatomic, weak) UITextField *textField;
+@property (nonatomic, weak) UIView *inputView;
 
 @end

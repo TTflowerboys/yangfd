@@ -52,14 +52,14 @@
     }];
 }
 
-- (void)setTextField:(UITextField *)textField
+- (void)setInputView:(UIView *)inputView
 {
-    _textField = textField;
-    _doneButton.enabled = textField? YES: NO;
+    _inputView = inputView;
+    _doneButton.enabled = inputView? YES: NO;
 }
 - (void)onDoneButtonPressed:(id)sender
 {
-    [self.textField resignFirstResponder];
+    [self.inputView resignFirstResponder];
 }
 
 

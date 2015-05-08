@@ -44,6 +44,16 @@
 		2C2FCDC61AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDC31AFCC7B1002594D7 /* CUTEFormTextFieldCell.m */; };
 		2C2FCDC71AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDC31AFCC7B1002594D7 /* CUTEFormTextFieldCell.m */; };
 		2C2FCDC81AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDC31AFCC7B1002594D7 /* CUTEFormTextFieldCell.m */; };
+		2C2FCDCB1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDCA1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m */; };
+		2C2FCDCC1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDCA1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m */; };
+		2C2FCDCD1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDCA1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m */; };
+		2C2FCDCE1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDCA1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m */; };
+		2C2FCDCF1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDCA1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m */; };
+		2C2FCDD21AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */; };
+		2C2FCDD31AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */; };
+		2C2FCDD41AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */; };
+		2C2FCDD51AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */; };
+		2C2FCDD61AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */; };
 		2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
@@ -484,6 +494,10 @@
 		2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTInputAccessoryView.m; sourceTree = "<group>"; };
 		2C2FCDC21AFCC7B1002594D7 /* CUTEFormTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormTextFieldCell.h; sourceTree = "<group>"; };
 		2C2FCDC31AFCC7B1002594D7 /* CUTEFormTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormTextFieldCell.m; sourceTree = "<group>"; };
+		2C2FCDC91AFCCD4C002594D7 /* CUTEFormDatePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormDatePickerCell.h; sourceTree = "<group>"; };
+		2C2FCDCA1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormDatePickerCell.m; sourceTree = "<group>"; };
+		2C2FCDD01AFCCE4F002594D7 /* CUTEFormTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormTextViewCell.h; sourceTree = "<group>"; };
+		2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormTextViewCell.m; sourceTree = "<group>"; };
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
@@ -1029,6 +1043,10 @@
 				2CF8A5CB1AF0B40E0080DF10 /* CUTEFormRentTypeCell.m */,
 				2CF8A5CC1AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.h */,
 				2CF8A5CD1AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m */,
+				2C2FCDC91AFCCD4C002594D7 /* CUTEFormDatePickerCell.h */,
+				2C2FCDCA1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m */,
+				2C2FCDD01AFCCE4F002594D7 /* CUTEFormTextViewCell.h */,
+				2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */,
 				2CF8A5CE1AF0B40E0080DF10 /* CUTEFormShareButtonCell.h */,
 				2CF8A5CF1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m */,
 				2CF8A5D01AF0B40E0080DF10 /* CUTEFormTextCell.h */,
@@ -1503,6 +1521,7 @@
 				2C27F1ED1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2CF8A6331AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2CF8A5E81AF0B40E0080DF10 /* CUTEPropertyMoreInfoViewController.m in Sources */,
+				2C2FCDD41AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4E1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2C427E5D1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
@@ -1550,6 +1569,7 @@
 				2C427EA41AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6471AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C2FCDC61AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
+				2C2FCDCD1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6011AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E961AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2CF8A5ED1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -1592,6 +1612,7 @@
 				2C27F1EE1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2CF8A6341AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2CF8A5E91AF0B40E0080DF10 /* CUTEPropertyMoreInfoViewController.m in Sources */,
+				2C2FCDD51AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4F1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85231AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2C427E5E1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
@@ -1639,6 +1660,7 @@
 				2C427EA51AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6481AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C2FCDC71AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
+				2C2FCDCE1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6021AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E971AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2CF8A5EE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -1681,6 +1703,7 @@
 				2C27F1EC1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2CF8A6321AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2CF8A5E71AF0B40E0080DF10 /* CUTEPropertyMoreInfoViewController.m in Sources */,
+				2C2FCDD31AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4D1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2C427E5C1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
@@ -1728,6 +1751,7 @@
 				2C427EA31AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6461AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C2FCDC51AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
+				2C2FCDCC1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6001AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E951AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2CF8A5EC1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -1770,6 +1794,7 @@
 				2C27F1EB1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2CF8A6311AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2CF8A5E61AF0B40E0080DF10 /* CUTEPropertyMoreInfoViewController.m in Sources */,
+				2C2FCDD21AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4C1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85201AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2C427E5B1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
@@ -1817,6 +1842,7 @@
 				2C427EA21AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6451AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
 				2C2FCDC41AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
+				2C2FCDCB1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A5FF1AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E941AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2CF8A5EB1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -1853,6 +1879,7 @@
 				2CF8A6A41AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C401E2B1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2CF8A6771AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
+				2C2FCDD61AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2CF8A6261AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C9AFF741AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2CB749111ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
@@ -1865,6 +1892,7 @@
 				2C5ECC551AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2C9AFF7B1AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2CF8A68B1AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
+				2C2FCDCF1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6441AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A60D1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
 				2CF8A6081AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
