@@ -219,7 +219,11 @@
                             </li>
                             <li class="animate rental"><i class="rentalIcon"></i>{{rent.get('rent_type',{}).get('value', '')}}</li>
                             <li class="animate estate"><i class="estateIcon"></i>{{rent['property'].get('city',{}).get('value','')}} {{rent['property'].get('street','')}}</li>
-                            <li class="animate street"><i class="streetIcon"></i>{{rent['property'].get('zipcode','')}}</li>
+                            <li class="animate street"
+                                %if not rent['property'].get('floor',''):
+                                style="width:100%;"
+                                %end
+                                ><i class="streetIcon"></i>{{rent['property'].get('zipcode','')}}</li>
                             % if 'floor' in rent['property'] and rent['property'].get('floor',''):
                             <li class="animate door"><i class="doorIcon"></i>{{rent['property'].get('floor','')}}
                             %if 'house_name' in rent.get('property',{}):
