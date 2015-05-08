@@ -10,6 +10,8 @@
 #import "CUTECommonMacro.h"
 #import "CUTEFormRentPriceTextFieldCell.h"
 #import "CUTECurrency.h"
+#import "CUTEFormTextFieldCell.h"
+#import "CUTEFormDatePickerCell.h"
 
 @interface CUTERentPriceForm () {
 
@@ -32,7 +34,7 @@
                                @{FXFormFieldKey: @"needSetPeriod", FXFormFieldTitle:STR(@"设置租期"), FXFormFieldHeader: STR(@"租期"), FXFormFieldDefaultValue: @(_needSetPeriod), FXFormFieldAction: @"onRentPeriodSwitch:"},
                                ]];
     if (self.needSetPeriod) {
-        [array addObject:@{FXFormFieldKey: @"rentAvailableTime", FXFormFieldTitle:STR(@"开始日期"), FXFormFieldDefaultValue: _rentAvailableTime? : [NSDate new], FXFormFieldAction: @"onRentAvailableTimeEdit:"}];
+        [array addObject:@{FXFormFieldKey: @"rentAvailableTime", FXFormFieldTitle:STR(@"开始日期"), FXFormFieldDefaultValue: _rentAvailableTime? : [NSDate new], FXFormFieldAction: @"onRentAvailableTimeEdit:", FXFormFieldCell: [CUTEFormDatePickerCell class]}];
         [array addObject:@{FXFormFieldKey: @"rentPeriod", FXFormFieldTitle: @"租期", FXFormFieldOptions: _allRentPeriods, FXFormFieldDefaultValue: _rentPeriod? : [_allRentPeriods firstObject], FXFormFieldAction: @"optionBack"}];
     }
     return array;

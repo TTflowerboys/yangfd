@@ -7,8 +7,9 @@
 //
 
 #import "FXForms.h"
+#import "CUTEFormTextFieldCell.h"
 
-@interface CUTEFormRentPriceTextFieldCell : FXFormTextFieldCell
+@interface CUTEFormRentPriceTextFieldCell : CUTEFormTextFieldCell
 
 @property (strong, nonatomic) NSString *currencySymbol;
 

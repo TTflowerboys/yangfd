@@ -19,6 +19,7 @@
 #import <Sequencer/Sequencer.h>
 #import "CUTEDataManager.h"
 #import "FXFormViewController+CUTEForm.h"
+#import "CUTENotificationKey.h"
 
 @implementation CUTERentLoginViewController
 
@@ -50,6 +51,7 @@
             else {
                 [[CUTEDataManager sharedInstance] saveAllCookies];
                 [[CUTEDataManager sharedInstance] saveUser:task.result];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_PAGE_UPDATE object:nil];
                 completion(task.result);
             }
             return nil;

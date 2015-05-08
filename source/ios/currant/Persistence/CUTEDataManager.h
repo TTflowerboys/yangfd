@@ -14,7 +14,7 @@
 
 + (instancetype)sharedInstance;
 
-@property (strong, nonatomic) CUTEUser *user;
+@property (readonly, nonatomic) CUTEUser *user;
 
 - (BOOL)isUserLoggedIn;
 

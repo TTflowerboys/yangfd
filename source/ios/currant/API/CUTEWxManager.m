@@ -151,12 +151,23 @@
     }
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[CUTEWxManager sharedInstance] shareToWechatWithTitle:ticket.titleForDisplay description:!IsNilNullOrEmpty(ticket.ticketDescription)? ticket.ticketDescription: ticket.property.address thumbData:result url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+        [[CUTEWxManager sharedInstance] shareToWechatWithTitle:[self truncateString:ticket.titleForDisplay length:512] description:[self truncateString:!IsNilNullOrEmpty(ticket.ticketDescription)? ticket.ticketDescription: ticket.property.address  length:1024] thumbData:result url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
     }];
 
     [sequencer run];
+}
 
+//http://stackoverflow.com/questions/2952298/how-can-i-truncate-an-nsstring-to-a-set-length
+- (NSString *)truncateString:(NSString *)str length:(NSInteger)length {
+    // define the range you're interested in
+    NSRange stringRange = {0, MIN([str length], length)};
 
+    // adjust the range to include dependent chars
+    stringRange = [str rangeOfComposedCharacterSequencesForRange:stringRange];
+
+    // Now you can create the short string
+    NSString *shortString = [str substringWithRange:stringRange];
+    return shortString;
 }
 
 #pragma mark -Base Methods

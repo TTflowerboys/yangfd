@@ -9,6 +9,8 @@
 #ifndef currant_CUTENotificationKey_h
 #define currant_CUTENotificationKey_h
 
+#define KNOTIF_USER_PAGE_UPDATE @"KNOTIF_USER_PAGE_UPDATE"
+
 #define KNOTIF_TICKET_PUBLISH @"KNOTIF_TICKET_PUBLISH"
 
 #define KNOTIF_TICKET_DELETE @"KNOTIF_TICKET_DELETE"

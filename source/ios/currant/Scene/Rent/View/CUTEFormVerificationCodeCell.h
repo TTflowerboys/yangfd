@@ -7,8 +7,9 @@
 //
 
 #import "FXForms.h"
+#import "CUTEFormTextFieldCell.h"
 
-@interface CUTEFormVerificationCodeCell : FXFormTextFieldCell
+@interface CUTEFormVerificationCodeCell : CUTEFormTextFieldCell
 
 @property (strong, nonatomic) UIButton *verificationButton;
 

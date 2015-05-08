@@ -11,6 +11,7 @@
 #import "CUTEFormVerificationCodeCell.h"
 #import <NGRValidator.h>
 #import "CUTEFormButtonCell.h"
+#import "CUTEFormTextFieldCell.h"
 
 @interface CUTERentContactForm () {
     NSArray *_allCountries;
@@ -24,10 +25,10 @@
 
 - (NSArray *)fields {
     return @[
-             @{FXFormFieldKey: @"name", FXFormFieldTitle: STR(@"姓名"), FXFormFieldHeader: STR(@"填写联系方式")},
-             @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱")},
+             @{FXFormFieldKey: @"name", FXFormFieldTitle: STR(@"姓名"), FXFormFieldHeader: STR(@"填写联系方式"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+             @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
              @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject]},
-              @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号")},
+              @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
              @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldAction: @"codeFieldEndEdit"},
              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"发布到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
              ];

@@ -121,12 +121,12 @@
 - (void)restoreUser {
     YTKKeyValueItem *item = [_store getYTKKeyValueItemById:KSETTING_USER fromTable:KTABLE_SETTINGS];
     if (item && item.itemObject) {
-        self.user = (CUTEUser *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:item.itemObject modelClass:[CUTEUser class] error:nil] model];
+        _user = (CUTEUser *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:item.itemObject modelClass:[CUTEUser class] error:nil] model];
     }
 }
 
 - (void)saveUser:(CUTEUser *)user {
-    self.user = user;
+    _user = user;
     if (user) {
         [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:user] withId:KSETTING_USER intoTable:KTABLE_SETTINGS];
     }

@@ -146,8 +146,9 @@
                     [SVProgressHUD showErrorWithError:task.error];
                     return nil;
                 } else {
-                    [[CUTEDataManager sharedInstance] setUser:task.result];
+                    [[CUTEDataManager sharedInstance] saveUser:task.result];
                     [[CUTEDataManager sharedInstance] saveAllCookies];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_PAGE_UPDATE object:nil];
                     [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
                     return nil;
                 }

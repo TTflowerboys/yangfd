@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEPropertyInfoForm.h"
 #import <NSArray+ObjectiveSugar.h>
+#import "BBTInputAccessoryView.h"
 
 @implementation CUTEFormRoomsPickerCell
 
@@ -39,6 +40,12 @@
 - (UIView *)inputView
 {
     return self.pickerView;
+}
+
+- (UIView *)inputAccessoryView {
+    BBTInputAccessoryView *inputAccessoryView = [[BBTInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 40)];
+    inputAccessoryView.inputView = self;
+    return inputAccessoryView;
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(__unused UIPickerView *)pickerView

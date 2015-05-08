@@ -248,7 +248,7 @@ def lupdate(user):
 ))
 def geonames_search(params):
     """
-    Valid ``feature_code`` are: "ADM1", "ADM2", "ADM3", "PPLA*", "PPLX".
+    Valid ``feature_code`` are: "ADM1", "ADM2", "ADM3", "city", "PPLX".
 
     ``name`` is for *exact* name match, while ``name_index`` is for searching.
 
@@ -275,16 +275,16 @@ def geonames_search(params):
         except:
             logger.warning("Failed to determine country of ip:", remote_ip)
 
-    assert params["feature_code"] in ("ADM1", "ADM2", "ADM3", "PPLA*", "PPLX"), abort(40000, "invalid feature_code")
+    assert params["feature_code"] in ("ADM1", "ADM2", "ADM3", "city", "PPLX"), abort(40000, "invalid feature_code")
 
-    if params["feature_code"] == "PPLA*":
+    if params["feature_code"] == "city":
         params["feature_code"] = {"$in": ["PPLC", "PPLA", "PPLA2"]}
 
     return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
 
 
 @f_api('/postcode/search', params=dict(
-    country=(str, True),
+    country=str,
     postcode=str,
     postcode_index=str,
 ))
