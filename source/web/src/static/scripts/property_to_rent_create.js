@@ -274,6 +274,9 @@
     }
 
     function getSpace(){
+        if($('#roomSize').val() === '') {
+            return false
+        }
         return JSON.stringify({'unit': $('#spaceUnit').children('option:selected').val(), 'value': $('#roomSize').val()})
     }
 
@@ -326,7 +329,7 @@
         if($('#house_name').val() !== ''){
             propertyData.house_name = JSON.stringify({'zh_Hans_CN': $('#house_name').val()})
         }
-        if($('#rentalType .selected').text().trim() === i18n('整租')){
+        if($('#rentalType .selected').text().trim() === i18n('整租') && getSpace() !== false){
             propertyData.building_area = getSpace()
         }
         return propertyData
@@ -338,7 +341,6 @@
         var ticketData = $.extend(options,{
             'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'), //出租类型
             'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
-            'space': getSpace(), //面积
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
             'bill_covered': $('#billCovered').is(':checked'), //是否包物业水电费
             'rent_period': $('#rent_period').find('option:selected').val(), //出租多长时间
@@ -347,6 +349,9 @@
         })
         if($('#description').val() !== ''){
             ticketData.description = $('#description').val()
+        }
+        if(getSpace() !== false) {
+            ticketData.space = getSpace() //面积
         }
         return ticketData
     }

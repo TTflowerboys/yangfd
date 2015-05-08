@@ -205,8 +205,10 @@
                         <ul class="itemBox clearfix">
                             <li class="animate">
                                 <i class="sizeIcon"></i>
+                                %if rent.get('space',{}).get('value'):
                                 {{float("{0:.2f}".format(float(rent.get('space',{}).get('value',0))))}}
                                 {{!format_unit(rent.get('space',{}).get('unit',''))}}
+                                %end
                             </li>
                             <li class="animate">
                                 <i class="roomsIcon"></i>{{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}</span>
