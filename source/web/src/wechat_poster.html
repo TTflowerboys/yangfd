@@ -238,7 +238,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen
-                % if description in rent and rent.get('description') or 'indoor_facility' in rent['property'] or 'community_facility' in rent['property']:
+                % if description in rent and rent.get('description') or len(rent['property'].get('indoor_facility',[]))>0 or len(rent['property'].get('community_facility',[]))>0:
                 show
                 % else:
                 hideInWechat
