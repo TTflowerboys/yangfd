@@ -71,6 +71,7 @@
 }
 
 #define kEditTabBarIndex 2
+#define kUserTabBarIndex 4
 
 - (UINavigationController *)makeViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
 
@@ -133,6 +134,7 @@
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-55542465-1"];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveUserPageUpdate:) name:KNOTIF_USER_PAGE_UPDATE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketSync:) name:KNOTIF_TICKET_SYNC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketDelete:) name:KNOTIF_TICKET_DELETE object:nil];
@@ -265,6 +267,14 @@
 }
 
 #pragma mark - Push Notification
+
+- (void)onReceiveUserPageUpdate:(NSNotification *)notif {
+    UINavigationController *nav = [[self.tabBarController viewControllers] objectAtIndex:kUserTabBarIndex];
+    CUTEWebViewController *webViewController = (CUTEWebViewController *)nav.topViewController;
+    if (webViewController && [webViewController isKindOfClass:[CUTEWebViewController class]]) {
+        [webViewController updateWithURL:webViewController.url];
+    }
+}
 
 - (void)onReceiveTicketDelete:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
