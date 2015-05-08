@@ -118,8 +118,16 @@
                             <div class="address">
                                 <input type="hidden" id="latitude"/>
                                 <input type="hidden" id="longitude"/>
-                                <input placeholder="{{_('国家')}}" id="country" name="country" data-validator="required, trim" data-name="{{_('国家')}}" value="{{rent.get('property',{}).get('country',{}).get('value','')}}">
-                                <input placeholder="{{_('城市')}}" id="city" name="city" data-validator="required, trim" data-name="{{_('城市')}}" value="{{rent.get('property',{}).get('city',{}).get('value','')}}">
+                                <!--<input type="hidden" id="country" name="country" data-validator="required, trim" data-name="{{_('国家')}}" value="{{rent.get('property',{}).get('country',{}).get('value','')}}"/>-->
+                                <!--todo 这两个字段暂时去掉 required-->
+                                <input type="hidden" id="country" name="country" data-validator="trim" data-name="{{_('国家')}}" value="CN"/>
+                                <input type="hidden" id="city" name="city" data-validator="trim" data-name="{{_('城市')}}" value="{{rent.get('property',{}).get('city',{}).get('value','')}}">
+                                <select id="country-select" data-model="country">
+
+                                </select>
+                                <select id="city-select" data-model="city">
+                                    <option value="">{{_('请选择城市')}}</option>
+                                </select>
                                 <!--todo-->
                                 <!--<input placeholder="{{_('街区')}}" id="block" name="block" data-name="{{_('街区')}}" value="">-->
                                 <input placeholder="{{_('街道')}}" id="street" name="street" data-name="{{_('街道')}}" value="{{rent.get('property',{}).get('street','')}}">

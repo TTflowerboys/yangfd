@@ -155,8 +155,32 @@
         showRoomOrHouse(text.trim())
     })
 
+    /*postcode 和地址部分*/
+    function getCountryList() { //通过JSON文件获取国家列表并填充到下拉列表作为备选项
+        $.betterGet('/static/scripts/country.json')
+            .done(function(data) {
+                $('#country-select').append(
+                    _.reduce(data, function(pre, val, key) {
+                        return pre + '<option value="' + key + '">' + val + '</option>'
+                    }, '<option value="">' + i18n('请选择国家') + '</option>')
+                )
+            })
+    }
+    function bindDataModel() { //将带有data-model的下拉列表与对应的隐藏表单数据简单的绑定
+        $('[data-model]').each(function(index, elem) {
+            //todo 暂时不考虑编辑页的问题
+            //$(elem).find('option[value=' + $('#' + $(elem).data('model')).val() + ']').trigger('select')
+            $(elem).bind('change', function() {
+                $('#' + $(elem).data('model')).val($(elem).val())
+            })
+        })
+    }
+
+    getCountryList()
+    bindDataModel()
+
     $('#findAddress').click(function () {
-        function getLocationFromApiData(data, property){
+        /*function getLocationFromApiData(data, property){
             var location = ''
             if(data.results.length > 0){
                 $.each(data.results[0].address_components, function(index, value){
@@ -190,6 +214,40 @@
                     $btn.prop('disabled', false).text(window.i18n('重新获取'))
                 }).always(function() {
                     $('#address').show()
+                })
+        }*/
+        //使用新的 /api/1/postcode/search API
+        var country = 'GB' //todo 暂时将API要传的country字段写死为英国
+        var $btn = $(this)
+        var postcodeIndex = $('#postcode').val().replace(/\s/g, '')
+        function fillAdress(val) {
+
+            $('#country-select').val(val.country).trigger('change')
+            $('#city-select').html('<option value="' + val.admin1 + '">' + val.admin1_name + '</option>').val(val.admin1).trigger('change')
+            $('#address').show()
+        }
+        if(postcodeIndex !== '') {
+            $btn.prop('disabled', true).text(window.i18n('获取中...'))
+            $.betterPost('/api/1/postcode/search', 'postcode_index=' + postcodeIndex + '&country=' + country)
+                .done(function(val) {
+                    switch(val.length) {
+                        case 0: //postcode没有搜索到结果则需要用户手动选择国家城市
+                            break;
+                        case 1: //搜索到一条结果则直接填充到对应到字段
+                            fillAdress(val[0])
+
+                            break;
+                        default: //搜索到多条结果需要用户选择其中一条
+
+                            break;
+                    }
+                })
+                .fail(function(err) {
+                    $errorMsg.text(err).show()
+                    $('#address').show()
+                })
+                .always(function() {
+                    $btn.prop('disabled', false).text(window.i18n('重新获取'))
                 })
         }
     })
