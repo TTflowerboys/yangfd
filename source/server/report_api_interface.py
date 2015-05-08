@@ -284,7 +284,7 @@ def geonames_search(params):
 
 
 @f_api('/postcode/search', params=dict(
-    country=(str, True),
+    country=str,
     postcode=str,
     postcode_index=str,
 ))
