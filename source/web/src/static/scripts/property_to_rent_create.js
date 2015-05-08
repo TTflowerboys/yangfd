@@ -156,29 +156,74 @@
     })
 
     /*postcode 和地址部分*/
+    $('.select-chosen').chosen({width: '87%'}) //调用chosen插件
     function getCountryList() { //通过JSON文件获取国家列表并填充到下拉列表作为备选项
         $.betterGet('/static/scripts/country.json')
             .done(function(data) {
                 $('#country-select').append(
                     _.reduce(data, function(pre, val, key) {
                         return pre + '<option value="' + key + '">' + val + '</option>'
-                    }, '<option value="">' + i18n('请选择国家') + '</option>')
-                )
+                    }, '')
+                ).trigger('chosen:updated')
+                bindDataModel()
             })
     }
     function bindDataModel() { //将带有data-model的下拉列表与对应的隐藏表单数据简单的绑定
         $('[data-model]').each(function(index, elem) {
             //todo 暂时不考虑编辑页的问题
-            //$(elem).find('option[value=' + $('#' + $(elem).data('model')).val() + ']').trigger('select')
+            var val = $('#' + $(elem).data('model')).val()
+            var text = $('#' + $(elem).data('model')).data('text')
+            if($(elem).attr('id') !== 'country-select' && val !== '') {
+                $(elem).html('<option value="' + val + '">' + text + '</option>')
+            }
+            $(elem).val(val)
             $(elem).bind('change', function() {
                 $('#' + $(elem).data('model')).val($(elem).val())
             })
         })
     }
+    function GeonamesApi () {
+        var url = '/api/1/geonames/search'
+        this.getAdmin = function (config, callback, reject) {
+            $.betterPost(url, config)
+                .done(function (val) {
+                    callback.call(null, val)
+                })
+                .fail(function (ret) {
+                    if(reject && typeof reject === 'function') {
+                        reject(ret)
+                    }
+                })
+        }
+        this.getAdmin1 = function (country, callback, reject) {
+            this.getAdmin({
+                country: country,
+                feature_code: 'ADM1'
+            }, callback, reject)
+        }
+        this.getAdmin2 = function (country, admin1, callback, reject) {
+            this.getAdmin({
+                country: country,
+                admin1: admin1,
+                feature_code: 'ADM2'
+            }, callback, reject)
+        }
+    }
+    var geonamesApi = new GeonamesApi()
+    function getCityListForSelect(country) {
+        geonamesApi.getAdmin1(country, function (val) {
+            $('#city-select').html(
+                _.reduce(val, function(pre, val, key) {
+                    return pre + '<option value="' + val.admin1 + '">' + val.name + '</option>'
+                }, '<option value="">' + i18n('请选择城市') + '</option>')
+            ).trigger('click')
+        })
+    }
 
     getCountryList()
-    bindDataModel()
-
+    $('#country-select').bind('change', function () {
+        getCityListForSelect($('#country-select').val())
+    })
     $('#findAddress').click(function () {
         /*function getLocationFromApiData(data, property){
             var location = ''

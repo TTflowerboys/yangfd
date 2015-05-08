@@ -119,14 +119,15 @@
                                 <input type="hidden" id="latitude"/>
                                 <input type="hidden" id="longitude"/>
                                 <!--<input type="hidden" id="country" name="country" data-validator="required, trim" data-name="{{_('国家')}}" value="{{rent.get('property',{}).get('country',{}).get('value','')}}"/>-->
-                                <!--todo 这两个字段暂时去掉 required-->
-                                <input type="hidden" id="country" name="country" data-validator="trim" data-name="{{_('国家')}}" value="CN"/>
-                                <input type="hidden" id="city" name="city" data-validator="trim" data-name="{{_('城市')}}" value="{{rent.get('property',{}).get('city',{}).get('value','')}}">
-                                <select id="country-select" data-model="country">
-
+                                <!--todo 这两个字段暂时去掉 required -->
+                                <!--todo data-text在编辑页中需要填充用户已经填写过的国家或者城市名称-->
+                                <input type="hidden" id="country" name="country" data-validator="trim" data-name="{{_('国家')}}" value="{{rent.get('property',{}).get('country',{}).get('value','')}}" data-text=""/>
+                                <input type="hidden" id="city" name="city" data-validator="trim" data-name="{{_('城市')}}" value="{{rent.get('property',{}).get('city',{}).get('value','')}}" data-text="">
+                                <select id="country-select" data-model="country" class="select-chosen" data-placeholder="{{_('请选择国家')}}">
+                                    <!--<option value="">' + i18n('请选择国家') + '</option>-->
                                 </select>
-                                <select id="city-select" data-model="city">
-                                    <option value="">{{_('请选择城市')}}</option>
+                                <select id="city-select" data-model="city" class="select-chosen" data-placeholder="{{_('请选择城市')}}">
+                                    <!--<option value="">{{_('请选择城市')}}</option>-->
                                 </select>
                                 <!--todo-->
                                 <!--<input placeholder="{{_('街区')}}" id="block" name="block" data-name="{{_('街区')}}" value="">-->
