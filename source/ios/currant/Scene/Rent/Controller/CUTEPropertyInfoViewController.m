@@ -96,11 +96,6 @@
             cell.detailTextLabel.text = self.ticket.property.address;
         }
     }
-    else if ([field.key isEqualToString:@"moreInfo"]) {
-        if (self.ticket.property) {
-            cell.detailTextLabel.text = self.ticket.titleForDisplay;
-        }
-    }
 }
 
 - (void)onLeftButtonPressed:(id)sender {
@@ -289,10 +284,6 @@
     form.ticketDescription = ticket.ticketDescription;
     controller.formController.form = form;
     __weak typeof(self)weakSelf = self;
-    controller.updateMoreInfoCompletion = ^ {
-        NSIndexPath *indexPath = [weakSelf.formController indexPathForKey:@"moreInfo"];
-        [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    };
 
     [self.navigationController pushViewController:controller animated:YES];
 }
