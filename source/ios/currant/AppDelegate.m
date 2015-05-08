@@ -30,6 +30,7 @@
 #import "CUTEPropertyInfoForm.h"
 #import "CUTEPropertyInfoViewController.h"
 #import "CUTEImageUploader.h"
+#import <GAI.h>
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
@@ -119,6 +120,18 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 
     [CUTEWxManager registerWeixinAPIKey:[CUTEConfiguration weixinAPPId]];
+
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+
+    // Initialize tracker. Replace with your tracking ID.
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-55542465-1"];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketSync:) name:KNOTIF_TICKET_SYNC object:nil];
