@@ -37,7 +37,7 @@
 }
 
 - (void)shareToWechat {
-    [[CUTEWxManager sharedInstance] shareToWechatWithTitle:self.ticket.title description:self.ticket.ticketDescription url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+    [[CUTEWxManager sharedInstance] shareToWechatWithTicket:self.ticket];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath  {

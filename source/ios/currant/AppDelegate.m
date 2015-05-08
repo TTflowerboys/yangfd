@@ -29,6 +29,7 @@
 #import "CUTERentTickePublisher.h"
 #import "CUTEPropertyInfoForm.h"
 #import "CUTEPropertyInfoViewController.h"
+#import "CUTEImageUploader.h"
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
@@ -314,7 +315,7 @@
 - (void)onReceiveTicketWechatShare:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
-    [[CUTEWxManager sharedInstance] shareToWechatWithTitle:ticket.title description:ticket.ticketDescription url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+    [[CUTEWxManager sharedInstance] shareToWechatWithTicket:ticket];
 }
 
 - (void)onReceiveTicketListReload:(NSNotification *)notif {

@@ -9,7 +9,13 @@
 #import "CUTEWxManager.h"
 #import "CUTECommonMacro.h"
 #import <UIAlertView+Blocks.h>
+#import <UIImage+Resize.h>
+#import <UIImage+BBT.h>
+#import <Sequencer/Sequencer.h>
 #import "SVProgressHUD+CUTEAPI.h"
+#import "CUTEImageUploader.h"
+#import "CUTEConfiguration.h"
+
 
 @interface CUTEWxManager () {
 
@@ -42,11 +48,11 @@
 
 #pragma mark - Share Method
 
-- (BaseReq *)makeWechatRequstWithScene:(NSInteger)scene title:(NSString *)title description:(NSString *)description url: (NSString *)url {
+- (BaseReq *)makeWechatRequstWithScene:(NSInteger)scene title:(NSString *)title description:(NSString *)description thumbData:(NSData *)imageData url: (NSString *)url {
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = title;
     message.description = description;
-    [message setThumbImage:[UIImage imageNamed:@"AppIcon"]];
+    message.thumbData = imageData;
     WXWebpageObject *ext = [WXWebpageObject object];
     ext.webpageUrl = url;
     message.mediaObject = ext;
@@ -57,12 +63,12 @@
     return req;
 }
 
-- (void)shareToWechatWithTitle:(NSString *)title description:(NSString *)description url: (NSString *)url  {
+- (void)shareToWechatWithTitle:(NSString *)title description:(NSString *)description thumbData:(NSData *)imageData  url:(NSString *)url {
     [UIAlertView showWithTitle:STR(@"微信分享") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"分享给微信好友"), STR(@"分享到微信朋友圈")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
         if([WXApi isWXAppInstalled]){
             if (buttonIndex != alertView.cancelButtonIndex) {
-                BaseReq *req = [self makeWechatRequstWithScene:buttonIndex == 1? WXSceneSession: WXSceneTimeline title:title description:description url:url];
+                BaseReq *req = [self makeWechatRequstWithScene:buttonIndex == 1? WXSceneSession: WXSceneTimeline title:title description:description thumbData:imageData url:url];
 
                 [[CUTEWxManager sharedInstance] sendRequst:req onResponse:^(BaseResp *resp) {
                     if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
@@ -93,6 +99,65 @@
     }];
 }
 
+#define THNUMBNAIL_SIZE CGSizeMake(100, 100)
+
+- (void)shareToWechatWithTicket:(CUTETicket *)ticket {
+    Sequencer *sequencer = [Sequencer new];
+    NSString *imageURL = IsArrayNilOrEmpty(ticket.property.realityImages)? nil : ticket.property.realityImages.firstObject;
+    if (imageURL) {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [SVProgressHUD show];
+            [[[CUTEImageUploader sharedInstance] getAssetFromURL:imageURL] continueWithBlock:^id(BFTask *task) {
+
+                if (task.error) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                else if (task.exception) {
+                    [SVProgressHUD showErrorWithException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [SVProgressHUD showErrorWithStatus:nil];
+                }
+                else {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+                        UIImage *image = [UIImage imageWithCGImage:[task.result thumbnail]];
+                        if (!image) {
+                            image = [UIImage appIcon];
+                        }
+                        image = [image resizedImage:THNUMBNAIL_SIZE interpolationQuality:kCGInterpolationDefault];
+                        dispatch_async(dispatch_get_main_queue(), ^(void) {
+                            completion(UIImagePNGRepresentation(image));
+                            [SVProgressHUD dismiss];
+                        });
+                    });
+                }
+                return task;
+            }];
+
+        }];
+    }
+    else {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [SVProgressHUD show];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+                UIImage *image = [UIImage appIcon];
+                image = [image resizedImage:THNUMBNAIL_SIZE interpolationQuality:kCGInterpolationDefault];
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    completion(UIImagePNGRepresentation(image));
+                    [SVProgressHUD dismiss];
+                });
+            });
+        }];
+    }
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[CUTEWxManager sharedInstance] shareToWechatWithTitle:ticket.titleForDisplay description:!IsNilNullOrEmpty(ticket.ticketDescription)? ticket.ticketDescription: ticket.property.address thumbData:result url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+    }];
+
+    [sequencer run];
+
+
+}
 
 #pragma mark -Base Methods
 

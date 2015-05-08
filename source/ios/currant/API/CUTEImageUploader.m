@@ -16,6 +16,8 @@
 #import "AssetsLibraryProvider.h"
 #import <UIImage+Resize.h>
 #import "UIImage+FixJPEGRotation.h"
+#import "NSURL+Assets.h"
+#import <NSArray+ObjectiveSugar.h>
 
 @interface CUTEImageUploader () {
 
@@ -27,6 +29,19 @@
 @end
 
 @implementation CUTEImageUploader
+
++ (instancetype)sharedInstance
+{
+    static dispatch_once_t pred;
+    __strong static id sharedInstance = nil;
+
+    dispatch_once(&pred, ^{
+        sharedInstance = [[[self class] alloc] init];
+    });
+
+    return sharedInstance;
+}
+
 
 - (instancetype)init
 {
@@ -153,5 +168,35 @@
     return task;
 }
 
+- (BFTask *)getAssetsFromURLArray:(NSArray *)array {
+    return [BFTask taskForCompletionOfAllTasksWithResults:[array map:^id(NSString *object) {
+        return [self getAssetFromURL:object];
+        }
+    ]];
+}
+
+- (BFTask *)getAssetFromURL:(NSString *)object {
+    NSURL *url = [NSURL URLWithString:object];
+    if (![url isAssetURL]) {
+        NSString *assetString = [[CUTEDataManager sharedInstance] getAssetURLStringForImageURLString:object];
+        url = [NSURL URLWithString:assetString];
+    }
+
+    if ([url isAssetURL]) {
+        BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+            [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:url resultBlock:^(ALAsset *asset) {
+                [tcs setResult:asset];
+            } failureBlock:^(NSError *error) {
+                [tcs setError:error];
+            }];
+        });
+        return tcs.task;
+
+    }
+    else {
+        return [BFTask taskWithError:[NSError errorWithDomain:NSStringFromClass([self class]) code:0 userInfo:@{@"bad url": object}]];
+    }
+}
 
 @end

@@ -23,6 +23,7 @@
 #import <Bolts.h>
 #import <AVFoundation/AVFoundation.h>
 #import "CUTERentTickePublisher.h"
+#import "CUTEImageUploader.h"
 #import <Sequencer/Sequencer.h>
 #import <UIImageView+AFNetworking.h>
 #import "UIImageView+Assets.h"
@@ -82,29 +83,6 @@
 
 
 
-}
-
-- (BFTask *)getAssetsFromURLArray:(NSArray *)array {
-    return [BFTask taskForCompletionOfAllTasksWithResults:[array map:^id(NSString *object) {
-        NSURL *url = [NSURL URLWithString:object];
-        if (![url isAssetURL]) {
-            NSString *assetString = [[CUTEDataManager sharedInstance] getAssetURLStringForImageURLString:object];
-            url = [NSURL URLWithString:assetString];
-        }
-
-        if ([url isAssetURL]) {
-            BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-            [[self assetsPickerController].assetsLibrary assetForURL:url resultBlock:^(ALAsset *asset) {
-                [tcs setResult:asset];
-            } failureBlock:^(NSError *error) {
-                [tcs setError:error];
-            }];
-            return tcs.task;
-        }
-        else {
-            return [BFTask taskWithError:[NSError errorWithDomain:NSStringFromClass([self class]) code:0 userInfo:@{@"bad url": object}]];
-        }
-    }]];
 }
 
 - (void)updateImages:(NSArray *)images {
@@ -197,7 +175,7 @@
 - (void)showImagePickerFrom:(UIViewController *)controller {
     if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
 
-        [[self getAssetsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEImageUploader sharedInstance] getAssetsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
             [self assetsPickerController].selectedAssets = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
             [controller presentViewController:[self assetsPickerController] animated:YES completion:^ {
             }];

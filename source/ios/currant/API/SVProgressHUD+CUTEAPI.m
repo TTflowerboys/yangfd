@@ -57,4 +57,8 @@ static NSDictionary *messageDicionary = nil;
     }
 }
 
++ (void)showErrorWithException:(NSException *)exception {
+    [SVProgressHUD showErrorWithStatus:exception.userInfo[NSLocalizedDescriptionKey]];
+}
+
 @end
