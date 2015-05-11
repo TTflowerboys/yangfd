@@ -197,6 +197,7 @@ main {
                     padding: 6px 10px;
                 }
                 .postcode {
+                    position: relative;
                     input[type=text] {
                         border-radius: 4px;
                         -moz-border-radius: 4px;
@@ -222,6 +223,52 @@ main {
                             color: #e60012;
                         }
                     }
+                    .chosen-drop{
+                        p{
+                            height: 24px;
+                            margin: 0 0 5px;
+                        }
+                        position: absolute;
+                        width: 87%;
+                        top: 63px;
+                        background: #fff;
+                        padding: 12px;
+                        z-index: 100;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                        .arrow{
+                            position: absolute;
+                            width: 22px;
+                            height: 12px;
+                            top: -13px;
+                            left: 30px;
+                            vertical-align: middle;
+                            padding: 0;
+                            line-height: 12px;
+                        }
+                        .chosen-results{
+                            .active-result{
+                                text-overflow: ellipsis;
+                                text-indent: inherit;
+                                height: 24px;
+                                font-size:14px;
+                                word-break: break-all;
+                                word-spacing: normal;
+                                overflow: hidden;
+                                white-space:nowrap;
+                                text-overflow:ellipsis;
+                                &.result-selected{
+                                    background-color: #3875d7;
+                                    background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(20%,#3875d7),color-stop(90%,#2a62bc));
+                                    background-image: -webkit-linear-gradient(#3875d7 20%,#2a62bc 90%);
+                                    background-image: -moz-linear-gradient(#3875d7 20%,#2a62bc 90%);
+                                    background-image: -o-linear-gradient(#3875d7 20%,#2a62bc 90%);
+                                    background-image: linear-gradient(#3875d7 20%,#2a62bc 90%);
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
                 }
                 .address {
                     font-weight: normal;
@@ -241,14 +288,45 @@ main {
                         padding: 10px;
                         height: 50px;
                     }
-                    //.chosen-container{
-                    //    margin-top: 20px;
-                    //    padding: 0;
-                    //    height: 50px;
-                    //    .chosen-single{
-                    //        height: 100%;
-                    //    }
-                    //}
+                    .chosen-container{
+                        font-size: 16px;
+                        .chosen-single{
+                            margin-top: 20px;
+                            padding: 0 12px;
+                            height: 50px;
+                            line-height: 50px;
+                            color: #999;
+                            border-radius: 4px;
+                            background: #fff;
+                            border: 1px solid #cccccc;
+                            div{
+                                b{
+                                    background-position: 0 17px;
+                                }
+                            }
+                        }
+                        &.chosen-with-drop .chosen-single{
+                            border-radius: 4px 4px 0 0;
+                            border-bottom: none;
+                        }
+
+                        .chosen-drop{
+                            font-size: 14px;
+                            border: 1px solid #cccccc;
+                            input{
+                                margin: 0 0 5px 5px;
+                                height: 24px;
+                                line-height: 24px;
+                            }
+                            .chosen-results{
+                                color: #999;
+                            }
+                        }
+                        &.chosen-with-drop .chosen-drop{
+                            border-top: none;
+                        }
+
+                    }
                 }
                 .room_count {
                     overflow: hidden;

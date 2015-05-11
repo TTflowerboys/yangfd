@@ -163,7 +163,7 @@
                 $('#country-select').append(
                     _.reduce(data, function(pre, val, key) {
                         return pre + '<option value="' + key + '">' + val + '</option>'
-                    }, '')
+                    }, '<option value="">' + i18n('请选择国家') + '</option>')
                 ).trigger('chosen:updated')
                 bindDataModel()
             })
@@ -216,12 +216,13 @@
                 _.reduce(val, function(pre, val, key) {
                     return pre + '<option value="' + val.admin1 + '">' + val.name + '</option>'
                 }, '<option value="">' + i18n('请选择城市') + '</option>')
-            ).trigger('click')
+            ).trigger('chosen:updated').trigger('chosen:open')
         })
     }
 
     getCountryList()
     $('#country-select').bind('change', function () {
+        $('#city-select').html('').trigger('chosen:updated')
         getCityListForSelect($('#country-select').val())
     })
     $('#findAddress').click(function () {
@@ -262,28 +263,87 @@
                 })
         }*/
         //使用新的 /api/1/postcode/search API
-        var country = 'GB' //todo 暂时将API要传的country字段写死为英国
+        //var country = 'GB' //todo 暂时将API要传的country字段写死为英国
         var $btn = $(this)
         var postcodeIndex = $('#postcode').val().replace(/\s/g, '')
-        function fillAdress(val) {
-
-            $('#country-select').val(val.country).trigger('change')
-            $('#city-select').html('<option value="' + val.admin1 + '">' + val.admin1_name + '</option>').val(val.admin1).trigger('change')
+        function fillAdress(val) { //使用postcode查询得来得数据中得一条来填充表单项
+            $('#country-select').val(val.country).trigger('chosen:updated')
+            $('#country').val(val.country)
+            $('#city-select').html('<option value="' + val.admin1 + '">' + val.admin1_name + '</option>').val(val.admin1).trigger('chosen:updated')
+            $('#city').val(val.admin1)
+            $('#latitude').val(val.loc[1])
+            $('#longitude').val(val.loc[0])
             $('#address').show()
+        }
+        function chooseOneResultOfPostcodeSearch (val) {
+            $('.chosen-address').show()
+            var $chosenResults = $('.chosen-address .chosen-results')
+            function keydownHanddler (e) {
+                switch(e.keyCode) {
+                    case 38: //上
+                        if($chosenResults.find('li.result-selected').index() > 0) {
+                            $chosenResults.find('li').eq($chosenResults.find('li.result-selected').index() - 1).addClass('result-selected').siblings().removeClass('result-selected')
+                        }
+                        break;
+                    case 40: //下
+                        if($chosenResults.find('li.result-selected').index() < $chosenResults.find('li').length - 1) {
+                            $chosenResults.find('li').eq($chosenResults.find('li.result-selected').index() + 1).addClass('result-selected').siblings().removeClass('result-selected')
+                        }
+                        break;
+                    case 13: //回车
+                        choose(val, $chosenResults.find('li.result-selected').index())
+                        break;
+                }
+            }
+            function choose (val, index) {
+                fillAdress(val[index])
+                $('.chosen-address').hide()
+                $('#address').show()
+                $(window).unbind('keydown', keydownHanddler)
+            }
+            $(window).bind('keydown', keydownHanddler)
+            $chosenResults.html(_.reduce(val, function (pre, v, i) {
+                var addressArr = []
+                if(v.country) {
+                    addressArr.push(v.country)
+                }
+                if(v.admin1_name) {
+                    addressArr.push(v.admin1_name)
+                }
+                if(v.admin2_name) {
+                    addressArr.push(v.admin2_name)
+                }
+                if(v.admin3_name) {
+                    addressArr.push(v.admin3_name)
+                }
+                if(v.place_name) {
+                    addressArr.push(v.place_name)
+                }
+                return pre + '<li class="active-result" data-option-array-index="' + i + '">' + addressArr.join(' ') + '</li>'
+            }, ''))
+                .find('li')
+                .on('mouseover', function () {
+                    $(this).addClass('result-selected').siblings().removeClass('result-selected')
+                })
+                .on('click', function () {
+                    var index = $(this).data('option-array-index')
+                    choose(val, index)
+                })
+                .eq(0).addClass('result-selected')
         }
         if(postcodeIndex !== '') {
             $btn.prop('disabled', true).text(window.i18n('获取中...'))
-            $.betterPost('/api/1/postcode/search', 'postcode_index=' + postcodeIndex + '&country=' + country)
+            $.betterPost('/api/1/postcode/search', 'postcode_index=' + postcodeIndex)
                 .done(function(val) {
                     switch(val.length) {
                         case 0: //postcode没有搜索到结果则需要用户手动选择国家城市
+                            $('#address').show()
                             break;
                         case 1: //搜索到一条结果则直接填充到对应到字段
                             fillAdress(val[0])
-
                             break;
                         default: //搜索到多条结果需要用户选择其中一条
-
+                            chooseOneResultOfPostcodeSearch(val)
                             break;
                     }
                 })
