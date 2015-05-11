@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
 #import "CUTEFormVerificationCodeCell.h"
+#import "CUTEFormCenterTextCell.h"
 #import "CUTEAPIManager.h"
 #import "CUTEEnum.h"
 #import "CUTEUser.h"
@@ -45,28 +46,27 @@
     [super viewDidLoad];
     self.navigationItem.title = STR(@"联系方式");
 
-    TTTAttributedLabel *headerLabel = [[TTTAttributedLabel alloc] init];
-    NSString *str = STR(@"为保证资料真实性，请先填写个人信息再验证手机号。已经有帐号？请登录");
-    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSForegroundColorAttributeName: HEXCOLOR(0x999999, 1.0)}];
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    [style setLineSpacing:8];
-    [attrString addAttribute:NSParagraphStyleAttributeName
-                       value:style
-                       range:NSMakeRange(0, str.length)];
-    headerLabel.attributedText = attrString;
-    headerLabel.font = [UIFont systemFontOfSize:12];
-    NSRange range = [headerLabel.text rangeOfString:STR(@"登录")];
-    [headerLabel addLinkToURL:[NSURL YangfdURLWithString:@"/login"] withRange:range];
-//    headerLabel.linkAttributes = @{NSForegroundColorAttributeName: CUTE_MAIN_COLOR};
-
-    headerLabel.numberOfLines = 0;
-    headerLabel.frame = CGRectMake(RectWidthExclude(self.view.bounds, 240) / 2, 0, 240, 80);
-    UIView *headerView = [UIView new];
-    headerView.frame = CGRectMake(0, 0, ScreenWidth, 80);
-    [headerView addSubview:headerLabel];
-
-    headerLabel.delegate = self;
-    self.tableView.tableHeaderView = headerView;
+//    TTTAttributedLabel *headerLabel = [[TTTAttributedLabel alloc] init];
+//    NSString *str = STR(@"为保证资料真实性，请先填写个人信息再验证手机号。已经有帐号？请登录");
+//    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSForegroundColorAttributeName: HEXCOLOR(0x999999, 1.0)}];
+//    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+//    [style setLineSpacing:8];
+//    [attrString addAttribute:NSParagraphStyleAttributeName
+//                       value:style
+//                       range:NSMakeRange(0, str.length)];
+//    headerLabel.attributedText = attrString;
+//    headerLabel.font = [UIFont systemFontOfSize:12];
+//    NSRange range = [headerLabel.text rangeOfString:STR(@"登录")];
+//    [headerLabel addLinkToURL:[NSURL YangfdURLWithString:@"/login"] withRange:range];
+//
+//    headerLabel.numberOfLines = 0;
+//    headerLabel.frame = CGRectMake(RectWidthExclude(self.view.bounds, 240) / 2, 0, 240, 80);
+//    UIView *headerView = [UIView new];
+//    headerView.frame = CGRectMake(0, 0, ScreenWidth, 80);
+//    [headerView addSubview:headerLabel];
+//
+//    headerLabel.delegate = self;
+//    self.tableView.tableHeaderView = headerView;
 
 //    UILabel * label = [UILabel new];
 //    NSString *str = STR(@"为保证资料真实性，请先填写个人信息再验证手机号");
@@ -90,6 +90,10 @@
     if ([cell isKindOfClass:[CUTEFormVerificationCodeCell class]]) {
         CUTEFormVerificationCodeCell *codeCell = (CUTEFormVerificationCodeCell *)cell;
         [codeCell.verificationButton addTarget:self action:@selector(onVerificationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    else if ([cell isKindOfClass:[CUTEFormCenterTextCell class]]) {
+        CUTEFormCenterTextCell *textCell = (CUTEFormCenterTextCell *)cell;
+        textCell.textColor = CUTE_MAIN_COLOR;
     }
 }
 
@@ -119,7 +123,7 @@
                     completion(nil);
                 }
             }
-            
+
             return nil;
         }];
     }];
@@ -210,30 +214,24 @@
     }];
 }
 
-#pragma mark - TTTAttributedLabelDelegate
 
-- (void)attributedLabel:(TTTAttributedLabel *)label
-   didSelectLinkWithURL:(NSURL *)url {
-    if ([url isYangfdURL]) {
-        if ([url.path isEqualToString:@"/login"]) {
-            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
-                    [SVProgressHUD showErrorWithError:task.error];
-                    return nil;
-                } else {
-                    CUTERentLoginViewController *loginViewController = [CUTERentLoginViewController new];
-                    loginViewController.ticket = self.ticket;
-                    CUTERentLoginForm *form = [CUTERentLoginForm new];
-                    [form setAllCountries:task.result];
-                    //set default country same with the property
-                    form.country = self.ticket.property.country;
-                    loginViewController.formController.form = form;
-                    [self.navigationController pushViewController:loginViewController animated:YES];
-                    return nil;
-                }
-            }];
+- (void)login {
+    [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithBlock:^id(BFTask *task) {
+        if (task.error || task.exception || task.isCancelled) {
+            [SVProgressHUD showErrorWithError:task.error];
+            return nil;
+        } else {
+            CUTERentLoginViewController *loginViewController = [CUTERentLoginViewController new];
+            loginViewController.ticket = self.ticket;
+            CUTERentLoginForm *form = [CUTERentLoginForm new];
+            [form setAllCountries:task.result];
+            //set default country same with the property
+            form.country = self.ticket.property.country;
+            loginViewController.formController.form = form;
+            [self.navigationController pushViewController:loginViewController animated:YES];
+            return nil;
         }
-    }
+    }];
 }
 
 @end

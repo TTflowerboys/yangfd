@@ -10,4 +10,7 @@
 
 @interface CUTEFormCenterTextCell : CUTEFormTextCell
 
+@property (strong, nonatomic) UIColor *textColor;
+
+
 @end
