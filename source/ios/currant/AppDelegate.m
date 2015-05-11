@@ -153,6 +153,7 @@
                                              [self makeViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property_to_rent_list"],
                                              [self makeViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user"],
                                              ] animated:YES];
+
     [self.window setRootViewController:rootViewController];
     self.tabBarController = rootViewController;
     rootViewController.delegate = self;

@@ -17,6 +17,9 @@
 #import "CUTEMoblieClient.h"
 #import "CUTEWebConfiguration.h"
 #import "CUTENavigationUtil.h"
+#import "NSURL+QueryParser.h"
+#import "CUTENotificationKey.h"
+#import "MasonryMake.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -51,8 +54,16 @@
 - (void)updateWebView {
     [_webView removeFromSuperview];
     _webView = nil;
-    _webView = [[UIWebView alloc] initWithFrame:TabBarControllerViewFrame];
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, RectWidth(self.view.bounds), RectHeightExclude(self.view.bounds, (StatusBarHeight + TouchHeightDefault + TabBarHeight)))];
     [self.view addSubview:_webView];
+
+    MakeBegin(_webView)
+    MakeTopEqualTo(self.view.top);
+    MakeBottomEqualTo(self.view.bottom);
+    MakeLeftEqualTo(self.view.left);
+    MakeRighEqualTo(self.view.right);
+    MakeEnd
+
     _webView.delegate = _progressProxy;
     [self setupJSContextWithWebView:_webView];
 }
@@ -112,11 +123,28 @@
 //    return UIStatusBarStyleLightContent;
 //}
 
+- (BOOL)webViewCanGoBack {
+    return [_webView canGoBack];
+}
+
+- (BOOL)viewControllerCanGoBack {
+    return [self.navigationController viewControllers].count >= 2 && self.navigationController.topViewController == self;
+}
+
+- (void)goBack {
+    if ([self webViewCanGoBack]) {
+        [_webView goBack];
+    }
+    else if ([self viewControllerCanGoBack]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 - (void)updateBackButton {
-    BOOL show = [_webView canGoBack];
+    BOOL show = [self webViewCanGoBack] || [self viewControllerCanGoBack];
     if  (show) {
         if (!self.navigationItem.leftBarButtonItem) {
-            self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:_webView action:@selector(goBack)];
+            self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(goBack)];
         }
     }
     else {
@@ -140,6 +168,16 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    NSURL *url = [request URL];
+    NSDictionary *queryDictionary = url.queryDictionary;
+    if (navigationType == UIWebViewNavigationTypeLinkClicked && queryDictionary && queryDictionary[@"mobile_client_target"] && [queryDictionary[@"mobile_client_target"] isEqualToString:@"new_controller"]) {
+        CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
+        [newWebViewController loadURL:url];
+        newWebViewController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:newWebViewController animated:YES];
+        return NO;
+    }
+
     return YES;
 }
 

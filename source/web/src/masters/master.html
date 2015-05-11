@@ -24,8 +24,8 @@
         <link rel="stylesheet" href="/static/styles/project/jquery.buttonLoading.css"/>
         <!--endbuild-->
 
-        % from bottle import request
-        %if "currant" in request.headers.get('User-Agent').lower():
+
+        %if is_mobile_client():
             <!--build:css(dist) /static/styles/client/ios.html.css-->
             <link rel="stylesheet" href="/static/styles/client/ios.css"/>
             <!--endbuild-->

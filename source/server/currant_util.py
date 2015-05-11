@@ -44,6 +44,10 @@ def fetch_image(image, **kwargs):
     return image
 
 
+def is_mobile_client():
+    return "currant" in request.headers.get('User-Agent').lower()
+
+
 def check_ip_and_redirect_domain(func):
     @wraps(func)
     def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
@@ -100,4 +104,5 @@ def common_template(path, **kwargs):
     kwargs.setdefault("format_unit", format_unit)
     kwargs.setdefault("fetch_image", fetch_image)
     kwargs.setdefault("totimestamp", totimestamp)
+    kwargs.setdefault("is_mobile_client", is_mobile_client)
     return template(path, **kwargs)
