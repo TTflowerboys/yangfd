@@ -34,6 +34,7 @@ logger = logging.getLogger(__name__)
     bedroom_count="enum:bedroom_count",
     building_area="enum:building_area",
     user_generated=bool,
+    location_only=bool,
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
@@ -52,6 +53,7 @@ def property_search(user, params):
     """
     params.setdefault("user_generated", {"$ne": True})
     random = params.pop("random", False)
+    location_only = params.pop("location_only", False)
     sort = params.pop("sort", ["mtime", "desc"])
     if "target_property_id" in params:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_property_id")
@@ -183,7 +185,7 @@ def property_search(user, params):
     if random and property_list["content"]:
         import random
         random.shuffle(property_list["content"])
-    property_list['content'] = f_app.property.output(property_list['content'])
+    property_list['content'] = f_app.property.output(property_list['content'], location_only=location_only)
     return property_list
 
 

@@ -1333,28 +1333,42 @@ class f_property(f_app.module_base):
 
         return str(property_id)
 
-    def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, check_permission=True):
+    def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, check_permission=True, location_only=False):
         ignore_sales_comment = True
         user = f_app.user.login.get()
         propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
         if user:
             user_roles = f_app.user.get_role(user["id"])
-            if set(["admin", "jr_admin", "sales", "jr_sales"]) & set(user_roles):
-                ignore_sales_comment = False
+            if not location_only:
+                if set(["admin", "jr_admin", "sales", "jr_sales"]) & set(user_roles):
+                    ignore_sales_comment = False
 
         for property in propertys:
             if isinstance(property, dict):
-                if not user:
-                    if "brochure" in property:
-                        for item in property["brochure"]:
-                            item.pop("url", None)
-                            item["rendered"] = item.get("rendered", [])[:5]
-                if not user or not len(user_roles):
-                    property.pop("real_address", None)
-                if ignore_sales_comment:
-                    property.pop("sales_comment", None)
+                if not location_only:
+                    if not user:
+                        if "brochure" in property:
+                            for item in property["brochure"]:
+                                item.pop("url", None)
+                                item["rendered"] = item.get("rendered", [])[:5]
+                    if not user or not len(user_roles):
+                        property.pop("real_address", None)
+                    if ignore_sales_comment:
+                        property.pop("sales_comment", None)
                 if property["status"] not in ["selling", "sold out", "restricted"] and check_permission:
                     assert property.get("user_generated") or user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+
+        if location_only:
+            new_property_list = []
+            for property in propertys:
+                new_property = {"id": property["id"]}
+                if "latitude" in property:
+                    new_property.update(dict(
+                        latitude=property["latitude"],
+                        longitude=property["longitude"],
+                    ))
+                new_property_list.append(new_property)
+            propertys = new_property_list
 
         if multi_return == list:
             return propertys
