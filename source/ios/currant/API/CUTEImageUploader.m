@@ -108,8 +108,8 @@
                 imageSize.height = KMAX_IMAGE_HEIGHT;
                 imageSize.width = imageSize.width * (KMAX_IMAGE_HEIGHT / imageSize.height);
             }
-            UIImage *image = [originalImage resizedImage:imageSize interpolationQuality:kCGInterpolationLow];
-            NSData *originalImageData = UIImageJPEGRepresentation([originalImage fixJPEGRotation], 1);
+            UIImage *image = [originalImage resizedImage:imageSize interpolationQuality:kCGInterpolationDefault];
+            //NSData *originalImageData = UIImageJPEGRepresentation([originalImage fixJPEGRotation], 1);
             NSData *imageData = UIImageJPEGRepresentation([image fixJPEGRotation], 0.5);
             [tcs setResult:imageData];
         } failureBlock:^(NSError *error) {
