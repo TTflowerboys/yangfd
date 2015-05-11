@@ -258,12 +258,13 @@
                 % end
                 " style="">
                     <div class="page pageDescription">
-                        <h2 class="animate">“</h2>
                         %if description in rent and rent.get('description'):
+                        <h2 class="animate">“</h2>
                         <p class="description animate">
                             {{rent.get('description','')}}
                         </p>
                         %else:
+                        <h2 class="animate hideInWechat">“</h2>
                         <p class="description animate hideInWechat">
                             统计表明填写更多房产的描述和配套设施能缩短出租用时
                         </p>
