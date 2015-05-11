@@ -91,7 +91,7 @@
         }];
     }
     else if ([self isURL:url matchPath:@"\\/property-to-rent-list"] && [CUTEDataManager sharedInstance].isUserLoggedIn) {
-        return [BBTWebBarButtonItem itemWithTitle:STR(@"我的收藏") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
             [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"/user_favorites?type=rent" relativeToURL:[CUTEConfiguration hostURL]]]];
         }];
     }
