@@ -14,6 +14,7 @@
 #import "CUTEAPIManager.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEWxManager.h"
+#import <RegExCategories.h>
 
 @implementation CUTEWebConfiguration
 
@@ -42,8 +43,14 @@
     return url;
 }
 
+- (BOOL)isURL:(NSURL *)url matchPath:(NSString *)path {
+    NSString *urlPath = [[url path] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+//    path = [path stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+    return [urlPath isMatch:RX(path)];
+}
+
 - (BBTWebBarButtonItem *)getRightBarItemFromURL:(NSURL *)url {
-    if ([url.path hasPrefix:@"/property-to-rent"]) {
+    if ([self isURL:url matchPath:@"\\/property-to-rent\\/[0-9a-fA-F]{24}"]) {
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"icon-wechat") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
             NSArray *paths = [url.path componentsSeparatedByString:@"/"];
             if (paths.count >= 3) {
@@ -63,7 +70,7 @@
             }
         }];
     }
-    else if ([url.path hasPrefix:@"/wechat-poster"]) {
+    else if ([self isURL:url matchPath:@"\\/wechat-poster\\/[0-9a-fA-F]{24}"]) {
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"icon-wechat") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
             NSArray *paths = [url.path componentsSeparatedByString:@"/"];
             if (paths.count >= 3) {
@@ -83,6 +90,12 @@
             }
         }];
     }
+    else if ([self isURL:url matchPath:@"\\/property-to-rent-list"] && [CUTEDataManager sharedInstance].isUserLoggedIn) {
+        return [BBTWebBarButtonItem itemWithTitle:STR(@"我的收藏") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+            [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"/user_favorites?type=rent" relativeToURL:[CUTEConfiguration hostURL]]]];
+        }];
+    }
+
 
     return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
         NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",[CUTEConfiguration servicePhone]]];

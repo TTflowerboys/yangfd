@@ -27,6 +27,7 @@ pod 'YTKKeyValueStore'
 pod 'KVOController'
 pod 'TTTAttributedLabel', '~> 1.13.3'
 pod 'JRSwizzle', '~> 1.0'
+pod 'RegExCategories', '~> 1.0'
 
 pod 'GoogleAnalytics-iOS-SDK', '~> 3.11'
 
