@@ -182,6 +182,8 @@
 
 #warning DEBUG_CODE
 #ifdef DEBUG
+
+    [NSClassFromString(@"WebView") performSelector:NSSelectorFromString(@"_enableRemoteInspector")];
     [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
     [[AFNetworkActivityLogger sharedLogger] startLogging];
 //    [[FLEXManager sharedManager] showExplorer];
