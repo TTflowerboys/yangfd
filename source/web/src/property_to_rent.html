@@ -226,38 +226,40 @@
                 </li>
                 % end
             </ul>
+            % if 'street' in rent['property'] and rent.get('property',{}).get('street','') and 'community' in rent['property'] and rent.get('property',{}).get('community','') and 'floor' in rent['property'] and rent.get('property',{}).get('floor','') and 'house_name' in rent['property'] and rent.get('property',{}).get('house_name',''):
             <div class="seperator"></div>
             <ul class="numbersWithoutSeperator">
-                % if 'street' in rent['property']:
+                % if 'street' in rent['property'] and rent.get('property',{}).get('street',''):
                 <li>
-                    {{_('街区')}}
+                    {{_('街道')}}
                     <strong>
                         {{rent['property'].get('street','')}}
                     </strong>
 
                 </li>
                 % end
-                % if 'community' in rent['property']:
+                % if 'community' in rent['property'] and rent.get('property',{}).get('community',''):
                 <li>
                     {{_('小区')}}
                     <strong>{{ rent['property'].get('community','') }}</strong>
                 </li>
                 % end
 
-                % if 'floor' in rent['property']:
+                % if 'floor' in rent['property'] and rent.get('property',{}).get('floor',''):
                 <li>
                     {{_('楼层')}}
                     <strong>{{ rent['property'].get('floor','') }}</strong>
                 </li>
                 % end
 
-                % if 'house_name' in rent['property']:
+                % if 'house_name' in rent['property'] and rent.get('property',{}).get('house_name',''):
                 <li>
                     {{_('房间名')}}
                     <strong>{{ rent['property'].get('house_name','') }}</strong>
                 </li>
                 % end
             </ul>
+            % end
 
             %if rent.get('description'):
             <div class="seperator"></div>
