@@ -151,7 +151,35 @@
             }
         })
     }
+    // 横屏监听
+    function UpdateOrientation(){
+        this.notShow = false
+        this.orientationChange = function () {
+            if((window.orientation.toString() === '-90' || window.orientation.toString() === '90') && this.notShow === false) {
+                this.show()
+            } else {
+                this.close()
+            }
+        }
+        this.init = this.orientationChange
+        window.onorientationchange = this.orientationChange.bind(this)
 
+        this.close = function () {
+            $('.onorientationNotice').removeClass('animation').addClass('hide');
+            //console.log('竖屏状态');
+        }
+        this.show = function () {
+            $('.onorientationNotice').removeClass('hide').addClass('animation');
+            //console.log('为了更好的体验，请将手机/平板竖过来！');
+        }
+        this.userClose = function () {
+            this.close()
+            this.notShow = true
+        }
+        $('.onorientationNotice').find('.closeBtn').bind('click', this.userClose.bind(this))
+    }
+    var updateOrientation = new UpdateOrientation()
+    updateOrientation.init()
     $(function(){
         initModal()
         showBtnOrNot()

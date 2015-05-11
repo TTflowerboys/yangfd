@@ -57,6 +57,39 @@ p{
         background-size:100%;
     }
 }
+.onorientationNotice {
+    padding: 10px 10px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: #fff;
+    text-align: center;
+    font-size: 16px;
+    line-height: 100%;
+    vertical-align: middle;
+    color: rgb(146, 163, 34);
+    border: 1px solid #AEC226;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: #000 2px 2px 8px -7px;
+    .animation(fadeInDown 0.4s linear 0s 1);
+    p{
+        line-height: 1.3em;
+    }
+    .closeBtn{
+        width: 14px;
+        height: 14px;
+        transform: translateY(-50%);
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        background: url("/static/images/crowdfunding/close_popup_btn.png") 50% 50% no-repeat;
+        background-size: contain;
+        border: none;
+    }
+}
 .loadingCover {
     display: none;
     width: 100%;
