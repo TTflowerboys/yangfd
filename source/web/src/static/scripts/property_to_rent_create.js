@@ -712,7 +712,19 @@
         $('.infoBox .info').css('height', $('.infoBox .info dd').last().offset().top - $('.infoBox .info dt').first().offset().top -20 + 'px') //设置说明文案左边的竖线的高度
     }
     $(document).ready(function () {
-        $('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
+        if($('.editRoute').css('display') === 'none') {//防止display:none时chosen插件获取不到select的尺寸
+            $('.editRoute').css({
+                'visibility': 'hidden',
+                'display': 'block'
+            })
+            $('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
+            $('.editRoute').css({
+                'visibility': 'visiable',
+                'display': 'none'
+            })
+        }else {
+            $('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
+        }
         showRoomOrHouse($('#rentalType .property_type.selected').text().trim())
         initInfoHeight()
         $('#fileuploader').uploadFile({
