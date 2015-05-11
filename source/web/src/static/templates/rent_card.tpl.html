@@ -1,10 +1,12 @@
 <script id="rentCard_template" type="text/template">
     <div class="rentCard">
-        %if is_mobile_client():
-        <a href="/property-to-rent/{=rent.id=}?mobile_client_target=new_controller">
-        %else:
-        <a href="/propety-to-rent/{=rent.id=}">
-        %end
+        <a
+            %if is_mobile_client():
+            href="/property-to-rent/{=rent.id=}?mobile_client_target=new_controller"
+            %else:
+            href="/propety-to-rent/{=rent.id=}"
+            %end
+            >
             <div class="imagePart">
                     {_if(rent.property.reality_images && rent.property.reality_images.length) {_}
                         <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>

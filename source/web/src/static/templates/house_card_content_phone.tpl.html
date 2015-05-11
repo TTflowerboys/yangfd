@@ -1,4 +1,10 @@
-<a class="imagePart" href="/property/{=house.id=}">
+<a class="imagePart"
+   %if is_mobile_client():
+   href="/property/{=house.id=}?mobile_client_target=new_controller"
+   %else:
+   href="/property/{=house.id=}"
+   %end
+   >
     {_if (house.cover){_}
     <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
     {_ } else if(house.reality_images && house.reality_images.length) {_}
@@ -55,8 +61,14 @@
     </div>
 </a>
 <div class="textPart" >
-    <a class="textPart_inner" href="/property/{=house.id=}">
-        <table class="textPart_innerTable">
+    <a class="textPart_inner"
+       %if is_mobile_client():
+       href="/property/{=house.id=}?mobile_client_target=new_controller"
+       %else:
+       href="/property/{=house.id=}"
+       %end
+       >
+       <table class="textPart_innerTable">
             <tr>
                 <td class="properties noBorder">
                     <ul >

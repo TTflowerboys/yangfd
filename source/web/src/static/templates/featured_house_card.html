@@ -7,8 +7,14 @@
     </h2>
 
     <div class="houseCard_phone">
-        <a class="imagePart" title="{{property.get('name','')}}" href="/property/{{property.get('id')}}">
-            %if property.get('cover'):
+        <a class="imagePart" title="{{property.get('name','')}}"
+           %if is_mobile_client():
+           href="/property/{{property.get('id')}}?mobile_client_target=new_controller"
+           %else:
+           href="/property/{{property.get('id')}}"
+           %end
+           >
+           %if property.get('cover'):
                 <img alt="{{property.get('name','')}}" src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);"/>
             %elif (property.get('reality_images')):
                 <img alt="{{property.get('name','')}}" src="{{!fetch_image(property.get('reality_images')[0], thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);"/>
@@ -76,7 +82,13 @@
         </a>
 
         <div class="textPart" >
-            <a class="textPart_inner" title="{{property.get('name','')}}" href="/property/{{property.get('id')}}">
+            <a class="textPart_inner" title="{{property.get('name','')}}"
+           %if is_mobile_client():
+           href="/property/{{property.get('id')}}?mobile_client_target=new_controller"
+           %else:
+           href="/property/{{property.get('id')}}"
+           %end
+           >
                 <table class="textPart_innerTable">
                     <tr>
                         <td class=properties>
