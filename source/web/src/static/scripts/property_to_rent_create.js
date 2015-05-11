@@ -156,7 +156,7 @@
     })
 
     /*postcode 和地址部分*/
-    $('.select-chosen').chosen({width: '87%'}) //调用chosen插件
+    $('.select-chosen').chosen({width: '87%', disable_search_threshold: 8 }) //调用chosen插件
     function getCountryList() { //通过JSON文件获取国家列表并填充到下拉列表作为备选项
         $.betterGet('/static/scripts/country.json')
             .done(function(data) {
@@ -712,6 +712,7 @@
         $('.infoBox .info').css('height', $('.infoBox .info dd').last().offset().top - $('.infoBox .info dt').first().offset().top -20 + 'px') //设置说明文案左边的竖线的高度
     }
     $(document).ready(function () {
+        $('select').not('.select-chosen').chosen({disable_search: true})
         showRoomOrHouse($('#rentalType .property_type.selected').text().trim())
         initInfoHeight()
         $('#fileuploader').uploadFile({

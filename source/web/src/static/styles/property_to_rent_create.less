@@ -159,7 +159,7 @@ main {
                     margin-bottom: 140px;
                 }
                 .detail {
-                    overflow: hidden;
+                    //overflow: hidden;
                 }
                 .information {
                     width: 50%;
@@ -271,6 +271,7 @@ main {
                     }
                 }
                 .address {
+                    margin-top: -20px;
                     font-weight: normal;
                     input {
                         border-radius: 4px;
@@ -289,55 +290,14 @@ main {
                         height: 50px;
                     }
                     .chosen-container{
-                        font-size: 16px;
-                        .chosen-single{
-                            margin-top: 20px;
-                            padding: 0 12px;
-                            height: 50px;
-                            line-height: 50px;
-                            color: #999;
-                            border-radius: 4px;
-                            background: #fff;
-                            border: 1px solid #cccccc;
-                            div{
-                                width: 20px;
-                                b{
-                                    width: 12px;
-                                    background-position: 0 17px;
-                                }
-                            }
-                        }
-                        &.chosen-with-drop .chosen-single{
-                            border-radius: 4px 4px 0 0;
-                            border-bottom: none;
-                            div b{
-                                background-position: -17px 17px;
-                            }
-                        }
-
-                        .chosen-drop{
-                            font-size: 14px;
-                            border: 1px solid #cccccc;
-                            input{
-                                margin: 0 0 5px 5px;
-                                height: 24px;
-                                line-height: 24px;
-                            }
-                            .chosen-results{
-                                color: #999;
-                            }
-                        }
-                        &.chosen-with-drop .chosen-drop{
-                            border-top: none;
-                        }
-
+                        margin-top: 20px;
                     }
                 }
                 .room_count {
-                    overflow: hidden;
+                    //overflow: hidden;
                     div {
                         float: left;
-                        height: 50px;
+                        //height: 50px;
                         line-height: 50px;
                         select {
                             vertical-align: middle;
@@ -354,9 +314,21 @@ main {
                             line-height: 40px;
                             margin-right: 8px;
                         }
+                        .chosen-container{
+                            margin-right: 8px;
+                        }
                         span {
                             margin-right: 16px;
                         }
+                    }
+                }
+                .room_size{
+                    select{
+                        width: 140px;
+                        margin-left: 8px;
+                    }
+                    .chosen-container{
+                        margin-left: 8px;
                     }
                 }
                 #load_more{
@@ -365,10 +337,10 @@ main {
                     }
                 }
                 .sales_price {
-                    overflow: hidden;
+                    //overflow: hidden;
                     div {
                         float: left;
-                        height: 50px;
+                        //height: 50px;
                         line-height: 50px;
                         margin-right: 8px;
                         select {
@@ -808,5 +780,49 @@ main {
     }
     input {
         padding: 4px;
+    }
+    .chosen-container{
+        font-size: 16px;
+        .chosen-single{
+            padding: 0 12px;
+            height: 50px;
+            line-height: 50px;
+            color: #999;
+            border-radius: 4px;
+            background: #fff;
+            border: 1px solid #cccccc;
+            div{
+                width: 20px;
+                b{
+                    width: 12px;
+                    background-position: 0 17px;
+                }
+            }
+        }
+        &.chosen-with-drop .chosen-single{
+            border: 1px solid #cccccc;
+            border-radius: 4px 4px 0 0;
+            border-bottom: none;
+            div b{
+                background-position: -17px 17px;
+            }
+        }
+
+        .chosen-drop{
+            font-size: 14px;
+            border: 1px solid #cccccc;
+            input{
+                margin: 0 0 5px 5px !important;
+                height: 24px !important;
+                line-height: 24px !important;
+            }
+            .chosen-results{
+                color: #999;
+            }
+        }
+        &.chosen-with-drop .chosen-drop{
+            border-top: none;
+        }
+
     }
 }

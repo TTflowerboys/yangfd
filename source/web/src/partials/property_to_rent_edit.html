@@ -24,7 +24,7 @@
         <hr/>
 
         <form id="form1">
-            <div class="detail">
+            <div class="detail clearfix">
                 <table class="information">
                     <tr>
                         <th colspan="2" style="text-align: left;font-weight: normal;">
@@ -125,8 +125,8 @@
                         </td>
                         <td>
                             <div class="address">
-                                <input type="hidden" id="latitude"/>
-                                <input type="hidden" id="longitude"/>
+                                <input type="hidden" id="latitude" value="{{rent.get('property',{}).get('latitude','')}}"/>
+                                <input type="hidden" id="longitude" value="{{rent.get('property',{}).get('longitude','')}}"/>
                                 <!--<input type="hidden" id="country" name="country" data-validator="required, trim" data-name="{{_('国家')}}" value="{{rent.get('property',{}).get('country',{}).get('value','')}}"/>-->
                                 <!--todo 这两个字段暂时去掉 required -->
                                 <!--todo data-text在编辑页中需要填充用户已经填写过的国家或者城市名称-->
@@ -287,7 +287,7 @@
                             <!--如果用户选择出租类型为整租：-->
                             <label class="text" data-show="entireHouse" for="roomSize" style="display: none;">{{_('房屋面积')}}</label>
                         </td>
-                        <td>
+                        <td class="room_size">
                             <div>
                                 <input type="text" id="roomSize" name="roomSize" data-validator="trim, decimalNumber" data-name="{{_('面积')}}" value="{{rent.get('space',{}).get('value','')}}"/>
                                 <select id="spaceUnit">
@@ -310,8 +310,8 @@
                             <div class="text">{{_('租期')}}</div>
                         </td>
                         <td class="sales_price">
-                            <div id="rent_period">
-                                <select>
+                            <div>
+                                <select id="rent_period">
                                     %for index, rent_period in enumerate(rent_period_list):
                                     %if rent.get('rent_period',{}).get('id','')==rent_period.get('id'):
                                     <option value="{{rent_period.get('id')}}" selected>{{rent_period.get('value')}}</option>
