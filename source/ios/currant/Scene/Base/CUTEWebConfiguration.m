@@ -50,7 +50,17 @@
 }
 
 - (BBTWebBarButtonItem *)getRightBarItemFromURL:(NSURL *)url {
-    if ([self isURL:url matchPath:@"\\/property-to-rent\\/[0-9a-fA-F]{24}"]) {
+    if ([url.path isEqual:@"/"]) {
+        return [self getPhoneBarButtonItem];
+    }
+    else if ([self isURL:url matchPath:@"\\/property-list"]) {
+        return [self getPhoneBarButtonItem];
+
+    }
+    else if ([self isURL:url matchPath:@"\\/property\\/[0-9a-fA-F]{24}"]) {
+        return [self getPhoneBarButtonItem];
+    }
+    else if ([self isURL:url matchPath:@"\\/property-to-rent\\/[0-9a-fA-F]{24}"]) {
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"icon-wechat") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
             NSArray *paths = [url.path componentsSeparatedByString:@"/"];
             if (paths.count >= 3) {
@@ -96,7 +106,10 @@
         }];
     }
 
+    return nil;
+}
 
+- (BBTWebBarButtonItem *)getPhoneBarButtonItem {
     return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
         NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",[CUTEConfiguration servicePhone]]];
 
