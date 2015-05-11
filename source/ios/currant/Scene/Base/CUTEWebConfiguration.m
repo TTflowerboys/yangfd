@@ -63,6 +63,27 @@
             }
         }];
     }
+    else if ([url.path hasPrefix:@"/wechat-poster"]) {
+        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"icon-wechat") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+            NSArray *paths = [url.path componentsSeparatedByString:@"/"];
+            if (paths.count >= 3) {
+                NSString *ticketId = paths[2];
+                [SVProgressHUD show];
+                [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticketId) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+                    if (task.error || task.exception || task.isCancelled) {
+                        [SVProgressHUD showErrorWithError:task.error];
+                    }
+                    else {
+                        CUTETicket *ticket = task.result;
+                        [[CUTEWxManager sharedInstance] shareToWechatWithTicket:ticket];
+                        [SVProgressHUD dismiss];
+                    }
+                    return nil;
+                }];
+            }
+        }];
+    }
+
     return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
         NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",[CUTEConfiguration servicePhone]]];
 
