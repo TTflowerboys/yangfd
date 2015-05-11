@@ -155,7 +155,7 @@
     function UpdateOrientation(){
         this.notShow = false
         this.orientationChange = function () {
-            if((window.orientation.toString() === '-90' || window.orientation.toString() === '90') && this.notShow === false) {
+            if(window.orientation && (window.orientation.toString() === '-90' || window.orientation.toString() === '90') && this.notShow === false) {
                 this.show()
             } else {
                 this.close()
