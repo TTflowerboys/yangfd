@@ -677,11 +677,13 @@ def rent_ticket_contact_info(user, ticket_id):
     rent_period="enum:rent_period",
     bedroom_count="enum:bedroom_count",
     building_area="enum:building_area",
+    rent_available_time=datetime,
     space=("enum:building_area"),
     property_type=(list, None, "enum:property_type"),
     intention=(list, None, "enum:intention"),
     country='enum:country',
     city='enum:city',
+    location_only=bool,
 ))
 @f_app.user.login.check(check_role=True)
 def rent_ticket_search(user, params):
@@ -708,6 +710,8 @@ def rent_ticket_search(user, params):
     property_params = {"$and": []}
     non_project_params = {"$and": []}
     main_house_types_elem_params = {"$and": []}
+
+    location_only = params.pop("location_only", False)
 
     if "property_type" in params:
         property_params["property_type"] = {"$in": params.pop("property_type")}
@@ -831,7 +835,7 @@ def rent_ticket_search(user, params):
         property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
         params["property_id"] = {"$in": property_id_list}
 
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort, time_field="last_modified_time"), fuzzy_user_info=fuzzy_user_info)
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort, time_field="last_modified_time"), fuzzy_user_info=fuzzy_user_info, location_only=location_only)
 
 
 @f_api('/sale_ticket/add', params=dict(

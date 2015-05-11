@@ -410,53 +410,72 @@ class f_currant_ticket(f_ticket):
         Ticket
         ==================================================================
     """
-    def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False, fuzzy_user_info=False, multi_return=list):
+    def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False, fuzzy_user_info=False, multi_return=list, location_only=False):
         ticket_list = f_app.ticket.get(ticket_id_list)
         user_id_set = set()
         enum_id_set = set()
         property_id_set = set()
         for t in ticket_list:
-            if not enable_custom_fields:
-                t.pop("custom_fields", None)
-            user_id_set.add(t.get("creator_user_id"))
-            user_id_set |= set(t.get("assignee", []))
-            if t.get("budget"):
-                enum_id_set.add(t["budget"]["id"])
             if t.get("property_id"):
                 property_id_set.add(t["property_id"])
 
-        user_id_set = filter(None, user_id_set)
-        user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields)
-        user_dict = {}
-        enum_dict = f_app.enum.get(enum_id_set, multi_return=dict)
+            if not location_only:
+                if not enable_custom_fields:
+                    t.pop("custom_fields", None)
+                user_id_set.add(t.get("creator_user_id"))
+                user_id_set |= set(t.get("assignee", []))
+                if t.get("budget"):
+                    enum_id_set.add(t["budget"]["id"])
+
         property_dict = f_app.property.output(list(property_id_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
 
-        for u in user_list:
-            user_dict[u["id"]] = u
-        for t in ticket_list:
-            creator_user = user_dict.get(t.pop("creator_user_id"))
-            if creator_user:
-                t["creator_user"] = creator_user
+        if not location_only:
+            user_id_set = filter(None, user_id_set)
+            user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields)
+            user_dict = {}
+            enum_dict = f_app.enum.get(enum_id_set, multi_return=dict)
 
-                if fuzzy_user_info:
-                    if "nickname" in t["creator_user"] and t["creator_user"]["nickname"] is not None:
-                        t["creator_user"]["nickname"] = t["creator_user"]["nickname"][:1] + "**"
+            for u in user_list:
+                user_dict[u["id"]] = u
 
-                    if "email" in t["creator_user"] and t["creator_user"]["email"] is not None:
-                        t["creator_user"]["email"] = t["creator_user"]["email"][:3] + "**@**"
+            for t in ticket_list:
+                creator_user = user_dict.get(t.pop("creator_user_id"))
+                if creator_user:
+                    t["creator_user"] = creator_user
 
-                    if "phone" in t["creator_user"] and t["creator_user"]["phone"] is not None:
-                        if len(t["creator_user"]["phone"]) > 6:
-                            t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "*" * (len(t["creator_user"]["phone"]) - 6) + t["creator_user"]["phone"][-3:]
-                        else:
-                            t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "***"
+                    if fuzzy_user_info:
+                        if "nickname" in t["creator_user"] and t["creator_user"]["nickname"] is not None:
+                            t["creator_user"]["nickname"] = t["creator_user"]["nickname"][:1] + "**"
 
-            if isinstance(t.get("assignee"), list):
-                t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
-            if t.get("budget"):
-                t["budget"] = enum_dict.get(str(t["budget"]["id"]))
-            if t.get("property_id"):
-                t["property"] = property_dict.get(str(t.pop("property_id")))
+                        if "email" in t["creator_user"] and t["creator_user"]["email"] is not None:
+                            t["creator_user"]["email"] = t["creator_user"]["email"][:3] + "**@**"
+
+                        if "phone" in t["creator_user"] and t["creator_user"]["phone"] is not None:
+                            if len(t["creator_user"]["phone"]) > 6:
+                                t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "*" * (len(t["creator_user"]["phone"]) - 6) + t["creator_user"]["phone"][-3:]
+                            else:
+                                t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "***"
+
+                if isinstance(t.get("assignee"), list):
+                    t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
+                if t.get("budget"):
+                    t["budget"] = enum_dict.get(t["budget"]["id"])
+                if t.get("property_id"):
+                    t["property"] = property_dict.get(t.pop("property_id"))
+
+        else:
+            new_ticket_list = []
+            for t in ticket_list:
+                new_ticket = {"id": t["id"]}
+                if t.get("property_id"):
+                    t["property"] = property_dict.get(t.pop("property_id"))
+                    if "latitude" in t["property"]:
+                        new_ticket.update(dict(
+                            latitude=t["property"]["latitude"],
+                            longitude=t["property"]["longitude"],
+                        ))
+                new_ticket_list.append(new_ticket)
+            ticket_list = new_ticket_list
 
         if multi_return == list:
             return ticket_list
