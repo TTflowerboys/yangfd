@@ -712,7 +712,7 @@
         $('.infoBox .info').css('height', $('.infoBox .info dd').last().offset().top - $('.infoBox .info dt').first().offset().top -20 + 'px') //设置说明文案左边的竖线的高度
     }
     $(document).ready(function () {
-        $('select').not('.select-chosen').chosen({disable_search: true})
+        $('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
         showRoomOrHouse($('#rentalType .property_type.selected').text().trim())
         initInfoHeight()
         $('#fileuploader').uploadFile({
