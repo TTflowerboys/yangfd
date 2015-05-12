@@ -730,6 +730,7 @@
         $('#fileuploader').uploadFile({
             url: '/api/1/upload_image',
             fileName: 'data',
+            formData: {watermark: true},
             //showProgress: true,
             showPreview: true,
             showDelete: true,
@@ -742,7 +743,7 @@
             maxFileSize: 1024 * 1024, //允许单张图片文件的最大占用空间,暂时设为1M
             uploadFolder: '',
             allowedTypes: 'jpg,jpeg,png,gif',
-            'acceptFiles': 'image/',
+            acceptFiles: 'image/',
             allowDuplicates: false,
             multiDragErrorStr: window.i18n('不允许同时拖拽多个文件上传.'),
             extErrorStr: window.i18n('不允许上传. 允许的文件扩展名: '),
