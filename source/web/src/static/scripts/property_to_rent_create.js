@@ -94,6 +94,7 @@
     hashRoute.when('/', function(){
         showRoute1()
     }).when('/publish/:ticketid', function(ticketid){
+        ga('send', 'pageview', '/property-to-rent/publish/'+ticketid)
         window.previewIframe.window.isInit = false
         window.previewMoveTo(0)
         $('#previewIframe').attr('src', location.protocol + '//' + location.host + '/wechat-poster/' + ticketid)
@@ -680,7 +681,6 @@
             $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent'})
                 .done(function(val) {
                     location.href = '/property-to-rent/' + window.ticketId + '/publish-success'
-                    //window.console.log('发布成功')
                 })
                 .fail(function (ret) {
                     $errorMsg2.empty()
