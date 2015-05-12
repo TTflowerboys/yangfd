@@ -11,7 +11,6 @@
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
 #import "MasonryMake.h"
-#import "UILabel+UILabelDynamicHeight.h"
 
 @implementation CUTEFormTextViewCell
 
@@ -52,7 +51,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    CGSize sizeNeeded = [self.detailTextLabel sizeOfMultiLineLabel];
+    CGSize sizeNeeded = TextSizeOfMultipleLinesLabel(self.detailTextLabel, self.detailTextLabel.frame.size.width);
     self.detailTextLabel.frame = CGRectMake(self.textLabel.frame.origin.x, self.textLabel.frame.origin.y + self.textLabel.frame.size.height + 10, self.detailTextLabel.frame.size.width, ceil(sizeNeeded.height));
 }
 

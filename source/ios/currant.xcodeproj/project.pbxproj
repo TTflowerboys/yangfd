@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C03AB411B020076000F8F2F /* UILabel+UILabelDynamicHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB401B020076000F8F2F /* UILabel+UILabelDynamicHeight.m */; };
-		2C03AB421B020076000F8F2F /* UILabel+UILabelDynamicHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB401B020076000F8F2F /* UILabel+UILabelDynamicHeight.m */; };
-		2C03AB431B020076000F8F2F /* UILabel+UILabelDynamicHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB401B020076000F8F2F /* UILabel+UILabelDynamicHeight.m */; };
-		2C03AB441B020076000F8F2F /* UILabel+UILabelDynamicHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB401B020076000F8F2F /* UILabel+UILabelDynamicHeight.m */; };
-		2C03AB451B020076000F8F2F /* UILabel+UILabelDynamicHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB401B020076000F8F2F /* UILabel+UILabelDynamicHeight.m */; };
 		2C03AB481B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
 		2C03AB491B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
 		2C03AB4A1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
@@ -491,8 +486,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2C03AB3F1B020075000F8F2F /* UILabel+UILabelDynamicHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+UILabelDynamicHeight.h"; sourceTree = "<group>"; };
-		2C03AB401B020076000F8F2F /* UILabel+UILabelDynamicHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+UILabelDynamicHeight.m"; sourceTree = "<group>"; };
 		2C03AB461B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormLimitCharacterCountTextFieldCell.h; sourceTree = "<group>"; };
 		2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormLimitCharacterCountTextFieldCell.m; sourceTree = "<group>"; };
 		2C07AB6C1AE8C5AA00907075 /* CUTEMoblieClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMoblieClient.h; sourceTree = "<group>"; };
@@ -858,8 +851,6 @@
 				2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */,
 				2C2FCDE51B01E521002594D7 /* ALAsset+GetImage.h */,
 				2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */,
-				2C03AB3F1B020075000F8F2F /* UILabel+UILabelDynamicHeight.h */,
-				2C03AB401B020076000F8F2F /* UILabel+UILabelDynamicHeight.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1601,7 +1592,6 @@
 				2C2FCDCD1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6011AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E961AD37D20000378A9 /* CUTEProperty.m in Sources */,
-				2C03AB431B020076000F8F2F /* UILabel+UILabelDynamicHeight.m in Sources */,
 				2CF8A5ED1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
 				2CF8A69D1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68E1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
@@ -1695,7 +1685,6 @@
 				2C2FCDCE1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6021AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E971AD37D20000378A9 /* CUTEProperty.m in Sources */,
-				2C03AB441B020076000F8F2F /* UILabel+UILabelDynamicHeight.m in Sources */,
 				2CF8A5EE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
 				2CF8A69E1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68F1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
@@ -1789,7 +1778,6 @@
 				2C2FCDCC1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6001AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E951AD37D20000378A9 /* CUTEProperty.m in Sources */,
-				2C03AB421B020076000F8F2F /* UILabel+UILabelDynamicHeight.m in Sources */,
 				2CF8A5EC1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
 				2CF8A69C1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68D1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
@@ -1883,7 +1871,6 @@
 				2C2FCDCB1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A5FF1AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C427E941AD37D20000378A9 /* CUTEProperty.m in Sources */,
-				2C03AB411B020076000F8F2F /* UILabel+UILabelDynamicHeight.m in Sources */,
 				2CF8A5EB1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
 				2CF8A69B1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68C1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
@@ -1932,7 +1919,6 @@
 				2C2FCDCF1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6441AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A60D1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
-				2C03AB451B020076000F8F2F /* UILabel+UILabelDynamicHeight.m in Sources */,
 				2C2FCDDD1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2CF8A6081AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2C1E66F61AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
