@@ -60,6 +60,7 @@
     "jquery": "2.1.0",
     "bootstrap": "3.2.0",
     "angular": "1.2.21",
-    "moment": "2.9.0"
+    "moment": "2.9.0",
+    "angular-ui-router": "0.2.10"
   }
 }
