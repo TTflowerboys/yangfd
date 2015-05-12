@@ -18,6 +18,7 @@
 #import "UIImage+FixJPEGRotation.h"
 #import "NSURL+Assets.h"
 #import <NSArray+ObjectiveSugar.h>
+#import "ALAsset+GetImage.h"
 
 @interface CUTEImageUploader () {
 
@@ -97,7 +98,7 @@
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
         [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
-    
+
             UIImage *originalImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
             CGSize imageSize = originalImage.size;
             if (imageSize.width > KMAX_IMAGE_WIDTH) {

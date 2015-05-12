@@ -15,12 +15,18 @@
 
 - (void)setImageWithAssetURL:(NSURL *)url {
     if ([url isAssetURL]) {
-        [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:url resultBlock:^(ALAsset *asset) {
-            UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage];
-            [self setImage:image];
-        } failureBlock:^(NSError *error) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+            [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:url resultBlock:^(ALAsset *asset) {
+                UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage];
+                dispatch_async(dispatch_get_main_queue(), ^(void)
+                               {
+                                   [self setImage:image];
+                               });
+            } failureBlock:^(NSError *error) {
 
-        }];
+            }];
+        });
+
     }
     else {
         [self setImageWithURL:url];

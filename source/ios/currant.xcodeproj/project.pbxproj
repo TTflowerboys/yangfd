@@ -59,6 +59,11 @@
 		2C2FCDE21B01B56E002594D7 /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */; };
 		2C2FCDE31B01B56E002594D7 /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */; };
 		2C2FCDE41B01B56E002594D7 /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */; };
+		2C2FCDE71B01E521002594D7 /* ALAsset+GetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */; };
+		2C2FCDE81B01E521002594D7 /* ALAsset+GetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */; };
+		2C2FCDE91B01E521002594D7 /* ALAsset+GetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */; };
+		2C2FCDEA1B01E521002594D7 /* ALAsset+GetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */; };
+		2C2FCDEB1B01E521002594D7 /* ALAsset+GetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */; };
 		2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
@@ -500,6 +505,8 @@
 		2C2FCDD81B01B0DE002594D7 /* CUTEFormSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormSwitchCell.m; sourceTree = "<group>"; };
 		2C2FCDDE1B01B56E002594D7 /* CUTEFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormViewController.h; sourceTree = "<group>"; };
 		2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormViewController.m; sourceTree = "<group>"; };
+		2C2FCDE51B01E521002594D7 /* ALAsset+GetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+GetImage.h"; sourceTree = "<group>"; };
+		2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+GetImage.m"; sourceTree = "<group>"; };
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
@@ -835,6 +842,8 @@
 				2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */,
 				2CB66C1C1AFB373D00C3CDED /* UIImage+FixJPEGRotation.h */,
 				2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */,
+				2C2FCDE51B01E521002594D7 /* ALAsset+GetImage.h */,
+				2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1500,6 +1509,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
+				2C2FCDE91B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61F1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2C07AB701AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A6291AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
@@ -1591,6 +1601,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9AFF731AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
+				2C2FCDEA1B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A6201AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2C07AB711AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A62A1AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
@@ -1682,6 +1693,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
+				2C2FCDE81B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61E1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2C07AB6F1AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A6281AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
@@ -1773,6 +1785,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
+				2C2FCDE71B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61D1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2C07AB6E1AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CF8A6271AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
@@ -1919,6 +1932,7 @@
 				2C2FCDE41B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2C427E981AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2CC3A0951AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
+				2C2FCDEB1B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A69F1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A69A1AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CF8A6351AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
@@ -1989,7 +2003,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "75e9aa95-6dab-4048-9035-eb7fe858fe46";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1999,15 +2013,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-test-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "6576f389-7617-4ca6-a395-25e8fe983f94";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

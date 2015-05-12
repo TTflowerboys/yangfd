@@ -107,6 +107,7 @@
     [_addButton setHidden:!hidePlaceHolder];
 
     [self updateThumbnails:[self ticket].property.realityImages];
+
     [self setNeedsLayout];
 }
 
