@@ -165,11 +165,11 @@
         window.onorientationchange = this.orientationChange.bind(this)
 
         this.close = function () {
-            $('.onorientationNotice').removeClass('animation').addClass('hide');
+            $('.onorientationNotice').removeClass('animation').hide();
             //console.log('竖屏状态');
         }
         this.show = function () {
-            $('.onorientationNotice').removeClass('hide').addClass('animation');
+            $('.onorientationNotice').show().addClass('animation');
             //console.log('为了更好的体验，请将手机/平板竖过来！');
         }
         this.userClose = function () {
