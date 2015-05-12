@@ -12,7 +12,6 @@
 #import "CUTEDataManager.h"
 #import "CUTEFormRentPriceTextFieldCell.h"
 #import "SVProgressHUD+CUTEAPI.h"
-#import "FXFormViewController+CUTEForm.h"
 #import "CUTERentTickePublisher.h"
 #import "CUTENotificationKey.h"
 
@@ -56,7 +55,7 @@
 }
 
 - (void)onRentPeriodSwitch:(id)sender {
-    [self.formController updateFormSections];
+    [self.formController updateSections];
     [self.tableView reloadData];
     [self upateForm];
 }

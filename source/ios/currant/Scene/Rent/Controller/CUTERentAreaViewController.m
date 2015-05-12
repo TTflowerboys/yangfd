@@ -12,7 +12,6 @@
 #import "CUTEDataManager.h"
 #import "CUTEAreaForm.h"
 #import "SVProgressHUD+CUTEAPI.h"
-#import "FXFormViewController+CUTEForm.h"
 #import "CUTERentTickePublisher.h"
 #import "CUTENotificationKey.h"
 

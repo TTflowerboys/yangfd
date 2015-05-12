@@ -13,6 +13,18 @@
 
 @implementation CUTEFormDatePickerCell
 
++ (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width
+{
+    return CUTE_CELL_DEFAULT_HEIGHT;
+}
+
+
+- (void)update {
+    [super update];
+    self.textLabel.textColor = HEXCOLOR(0x333333, 1.0);
+    self.textLabel.font = [UIFont systemFontOfSize:16];
+}
+
 - (UIView *)inputAccessoryView {
     BBTInputAccessoryView *inputAccessoryView = [[BBTInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 40)];
     inputAccessoryView.inputView = self;

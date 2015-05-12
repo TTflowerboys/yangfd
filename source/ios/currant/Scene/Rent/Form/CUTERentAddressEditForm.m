@@ -12,6 +12,7 @@
 #import "CUTECityEnum.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEFormFixNonBreakingSpaceTextFieldCell.h"
+#import "CUTEFormDefaultCell.h"
 
 
 @interface CUTERentAddressEditForm () {

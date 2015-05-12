@@ -13,6 +13,7 @@
 #import "CUTEFormButtonCell.h"
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEFormCenterTextCell.h"
+#import "CUTEFormDefaultCell.h"
 #import "CUTEUIMacro.h"
 
 @interface CUTERentContactForm () {
@@ -26,8 +27,8 @@
 
 
 - (NSArray *)fields {
-    return @[@{FXFormFieldKey: @"login", FXFormFieldTitle: STR(@"登录"), FXFormFieldHeader: STR(@"有帐号"), FXFormFieldCell: [CUTEFormCenterTextCell class], @"textLabel.textColor": CUTE_MAIN_COLOR, FXFormFieldAction: @"login"},
-             @{FXFormFieldKey: @"name", FXFormFieldTitle: STR(@"姓名"), FXFormFieldHeader: STR(@"无帐号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+    return @[@{FXFormFieldKey: @"login", FXFormFieldTitle: STR(@"登录"), FXFormFieldHeader: STR(@"已有帐号"), FXFormFieldCell: [CUTEFormCenterTextCell class], @"textLabel.textColor": CUTE_MAIN_COLOR, FXFormFieldAction: @"login"},
+             @{FXFormFieldKey: @"name", FXFormFieldTitle: STR(@"姓名"), FXFormFieldHeader: STR(@"还没有帐号？10秒创建"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
              @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
              @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject]},
               @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},

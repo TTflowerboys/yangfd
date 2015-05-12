@@ -9,6 +9,7 @@
 #import "CUTEAreaForm.h"
 #import "CUTECommonMacro.h"
 #import "CUTEFormTextFieldCell.h"
+#import "CUTEFormDefaultCell.h"
 
 @implementation CUTEAreaForm
 

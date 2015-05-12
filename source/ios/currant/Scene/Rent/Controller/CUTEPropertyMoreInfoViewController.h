@@ -8,8 +8,9 @@
 
 #import "FXForms.h"
 #import "CUTETicket.h"
+#import "CUTEFormViewController.h"
 
-@interface CUTEPropertyMoreInfoViewController : FXFormViewController
+@interface CUTEPropertyMoreInfoViewController : CUTEFormViewController
 
 @property (strong, nonatomic) CUTETicket *ticket;
 

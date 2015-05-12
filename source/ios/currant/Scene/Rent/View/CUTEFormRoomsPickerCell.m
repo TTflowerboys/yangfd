@@ -8,11 +8,17 @@
 
 #import "CUTEFormRoomsPickerCell.h"
 #import "CUTECommonMacro.h"
+#import "CUTEUIMacro.h"
 #import "CUTEPropertyInfoForm.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "BBTInputAccessoryView.h"
 
 @implementation CUTEFormRoomsPickerCell
+
++ (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width
+{
+    return CUTE_CELL_DEFAULT_HEIGHT;
+}
 
 - (void)setUp {
     [super setUp];
@@ -20,6 +26,9 @@
 
 - (void)update
 {
+    self.textLabel.textColor = HEXCOLOR(0x333333, 1.0);
+    self.textLabel.font = [UIFont systemFontOfSize:16];
+
     self.textLabel.text = self.field.title;
 
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.field.form;

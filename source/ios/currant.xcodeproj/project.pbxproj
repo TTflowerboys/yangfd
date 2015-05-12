@@ -29,11 +29,6 @@
 		2C1E66F61AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1EA76F1AC3DA1900B0FC22 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
 		2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
-		2C27F1EB1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
-		2C27F1EC1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
-		2C27F1ED1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
-		2C27F1EE1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
-		2C27F1EF1ACCEA93002BECCF /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C27F1EA1ACCEA93002BECCF /* FXForms.m */; };
 		2C2FCDBD1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */; };
 		2C2FCDBE1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */; };
 		2C2FCDBF1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */; };
@@ -54,6 +49,16 @@
 		2C2FCDD41AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */; };
 		2C2FCDD51AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */; };
 		2C2FCDD61AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */; };
+		2C2FCDD91B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD81B01B0DE002594D7 /* CUTEFormSwitchCell.m */; };
+		2C2FCDDA1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD81B01B0DE002594D7 /* CUTEFormSwitchCell.m */; };
+		2C2FCDDB1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD81B01B0DE002594D7 /* CUTEFormSwitchCell.m */; };
+		2C2FCDDC1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD81B01B0DE002594D7 /* CUTEFormSwitchCell.m */; };
+		2C2FCDDD1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDD81B01B0DE002594D7 /* CUTEFormSwitchCell.m */; };
+		2C2FCDE01B01B56E002594D7 /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */; };
+		2C2FCDE11B01B56E002594D7 /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */; };
+		2C2FCDE21B01B56E002594D7 /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */; };
+		2C2FCDE31B01B56E002594D7 /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */; };
+		2C2FCDE41B01B56E002594D7 /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */; };
 		2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
@@ -321,11 +326,6 @@
 		2CF8A6101AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5BC1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m */; };
 		2CF8A6111AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5BC1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m */; };
 		2CF8A6121AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5BC1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m */; };
-		2CF8A6131AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5BE1AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m */; };
-		2CF8A6141AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5BE1AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m */; };
-		2CF8A6151AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5BE1AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m */; };
-		2CF8A6161AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5BE1AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m */; };
-		2CF8A6171AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5BE1AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m */; };
 		2CF8A6181AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5C11AF0B40E0080DF10 /* CUTEFormButtonCell.m */; };
 		2CF8A6191AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5C11AF0B40E0080DF10 /* CUTEFormButtonCell.m */; };
 		2CF8A61A1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5C11AF0B40E0080DF10 /* CUTEFormButtonCell.m */; };
@@ -488,8 +488,6 @@
 		2C1EA7701AC3EED100B0FC22 /* CUTEMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMapView.h; sourceTree = "<group>"; };
 		2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMapView.m; sourceTree = "<group>"; };
 		2C226E691ACBCD9200658132 /* CUTECommonMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECommonMacro.h; sourceTree = "<group>"; };
-		2C27F1E91ACCEA93002BECCF /* FXForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXForms.h; sourceTree = "<group>"; };
-		2C27F1EA1ACCEA93002BECCF /* FXForms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXForms.m; sourceTree = "<group>"; };
 		2C2FCDBB1AFCC689002594D7 /* BBTInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTInputAccessoryView.h; sourceTree = "<group>"; };
 		2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTInputAccessoryView.m; sourceTree = "<group>"; };
 		2C2FCDC21AFCC7B1002594D7 /* CUTEFormTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormTextFieldCell.h; sourceTree = "<group>"; };
@@ -498,6 +496,10 @@
 		2C2FCDCA1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormDatePickerCell.m; sourceTree = "<group>"; };
 		2C2FCDD01AFCCE4F002594D7 /* CUTEFormTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormTextViewCell.h; sourceTree = "<group>"; };
 		2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormTextViewCell.m; sourceTree = "<group>"; };
+		2C2FCDD71B01B0DE002594D7 /* CUTEFormSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormSwitchCell.h; sourceTree = "<group>"; };
+		2C2FCDD81B01B0DE002594D7 /* CUTEFormSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormSwitchCell.m; sourceTree = "<group>"; };
+		2C2FCDDE1B01B56E002594D7 /* CUTEFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormViewController.h; sourceTree = "<group>"; };
+		2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormViewController.m; sourceTree = "<group>"; };
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
@@ -613,8 +615,6 @@
 		2CF8A5BA1AF0B40E0080DF10 /* CUTERentTypeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentTypeListViewController.m; sourceTree = "<group>"; };
 		2CF8A5BB1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUnfinishedRentTicketViewController.h; sourceTree = "<group>"; };
 		2CF8A5BC1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUnfinishedRentTicketViewController.m; sourceTree = "<group>"; };
-		2CF8A5BD1AF0B40E0080DF10 /* FXFormViewController+CUTEForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FXFormViewController+CUTEForm.h"; sourceTree = "<group>"; };
-		2CF8A5BE1AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FXFormViewController+CUTEForm.m"; sourceTree = "<group>"; };
 		2CF8A5C01AF0B40E0080DF10 /* CUTEFormButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormButtonCell.h; sourceTree = "<group>"; };
 		2CF8A5C11AF0B40E0080DF10 /* CUTEFormButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormButtonCell.m; sourceTree = "<group>"; };
 		2CF8A5C21AF0B40E0080DF10 /* CUTEFormDefaultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormDefaultCell.h; sourceTree = "<group>"; };
@@ -743,8 +743,6 @@
 				2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */,
 				2C07AB7A1AE8DB5E00907075 /* BBTScrollImageView.h */,
 				2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */,
-				2C27F1E91ACCEA93002BECCF /* FXForms.h */,
-				2C27F1EA1ACCEA93002BECCF /* FXForms.m */,
 				2C07AB881AE8FF6600907075 /* UIView+Border.h */,
 				2C07AB891AE8FF6600907075 /* UIView+Border.m */,
 				2C9AFF7C1AF2355500E5F0BC /* BBTWebBarButtonItem.h */,
@@ -1018,8 +1016,8 @@
 				2CF8A5BA1AF0B40E0080DF10 /* CUTERentTypeListViewController.m */,
 				2CF8A5BB1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.h */,
 				2CF8A5BC1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m */,
-				2CF8A5BD1AF0B40E0080DF10 /* FXFormViewController+CUTEForm.h */,
-				2CF8A5BE1AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m */,
+				2C2FCDDE1B01B56E002594D7 /* CUTEFormViewController.h */,
+				2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1031,6 +1029,8 @@
 				2CF8A5C11AF0B40E0080DF10 /* CUTEFormButtonCell.m */,
 				2CF8A5C21AF0B40E0080DF10 /* CUTEFormDefaultCell.h */,
 				2CF8A5C31AF0B40E0080DF10 /* CUTEFormDefaultCell.m */,
+				2C2FCDD71B01B0DE002594D7 /* CUTEFormSwitchCell.h */,
+				2C2FCDD81B01B0DE002594D7 /* CUTEFormSwitchCell.m */,
 				2C9AFF6E1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.h */,
 				2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */,
 				2CF8A5C41AF0B40E0080DF10 /* CUTEFormImagePickerCell.h */,
@@ -1518,7 +1518,6 @@
 				2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6101AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m in Sources */,
 				2CA5F7721AE10382001132E0 /* CUTEImageUploader.m in Sources */,
-				2C27F1ED1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2CF8A6331AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2CF8A5E81AF0B40E0080DF10 /* CUTEPropertyMoreInfoViewController.m in Sources */,
 				2C2FCDD41AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
@@ -1528,9 +1527,10 @@
 				2CF8A67F1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9D1AD37D34000378A9 /* CUTETicket.m in Sources */,
-				2CF8A6151AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m in Sources */,
+				2C2FCDDB1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62E1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
+				2C2FCDE21B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CC6C1D11AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
 				2CC3A0851AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */,
@@ -1609,7 +1609,6 @@
 				2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6111AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m in Sources */,
 				2CA5F7731AE10382001132E0 /* CUTEImageUploader.m in Sources */,
-				2C27F1EE1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2CF8A6341AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2CF8A5E91AF0B40E0080DF10 /* CUTEPropertyMoreInfoViewController.m in Sources */,
 				2C2FCDD51AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
@@ -1619,9 +1618,10 @@
 				2CF8A6801AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9E1AD37D34000378A9 /* CUTETicket.m in Sources */,
-				2CF8A6161AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m in Sources */,
+				2C2FCDDC1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F51AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62F1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
+				2C2FCDE31B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CC6C1D21AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
 				2CC3A0861AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */,
@@ -1700,7 +1700,6 @@
 				2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A60F1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m in Sources */,
 				2CA5F7711AE10382001132E0 /* CUTEImageUploader.m in Sources */,
-				2C27F1EC1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2CF8A6321AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2CF8A5E71AF0B40E0080DF10 /* CUTEPropertyMoreInfoViewController.m in Sources */,
 				2C2FCDD31AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
@@ -1710,9 +1709,10 @@
 				2CF8A67E1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9C1AD37D34000378A9 /* CUTETicket.m in Sources */,
-				2CF8A6141AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m in Sources */,
+				2C2FCDDA1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62D1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
+				2C2FCDE11B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CC6C1D01AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
 				2CC3A0841AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */,
@@ -1791,7 +1791,6 @@
 				2C4AEC7F1AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A60E1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m in Sources */,
 				2CA5F7701AE10382001132E0 /* CUTEImageUploader.m in Sources */,
-				2C27F1EB1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2CF8A6311AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2CF8A5E61AF0B40E0080DF10 /* CUTEPropertyMoreInfoViewController.m in Sources */,
 				2C2FCDD21AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
@@ -1801,9 +1800,10 @@
 				2CF8A67D1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9B1AD37D34000378A9 /* CUTETicket.m in Sources */,
-				2CF8A6131AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m in Sources */,
+				2C2FCDD91B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62C1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
+				2C2FCDE01B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CC6C1CF1AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
 				2CC3A0831AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */,
@@ -1869,7 +1869,6 @@
 				2CF8A64E1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6301AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2C427E5F1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
-				2CF8A6171AF0B40E0080DF10 /* FXFormViewController+CUTEForm.m in Sources */,
 				2CB66C221AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2CA5F7741AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2CF8A5EF1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -1886,7 +1885,6 @@
 				2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */,
 				2CF8A63A1AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2C9AFF821AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
-				2C27F1EF1ACCEA93002BECCF /* FXForms.m in Sources */,
 				2C96E2781AE6566300F3590C /* CUTEWxManager.m in Sources */,
 				2CF8A62B1AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2C5ECC551AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
@@ -1895,6 +1893,7 @@
 				2C2FCDCF1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6441AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A60D1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
+				2C2FCDDD1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2CF8A6081AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2C1E66F61AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2C5ECC471AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
@@ -1917,6 +1916,7 @@
 				2CF8A63F1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
 				2CF8A6121AF0B40E0080DF10 /* CUTEUnfinishedRentTicketViewController.m in Sources */,
 				2C427E9F1AD37D34000378A9 /* CUTETicket.m in Sources */,
+				2C2FCDE41B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2C427E981AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2CC3A0951AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2CF8A69F1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,

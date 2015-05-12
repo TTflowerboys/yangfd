@@ -11,6 +11,7 @@
 #import <NGRValidator.h>
 #import "CUTEFormButtonCell.h"
 #import "CUTEFormTextFieldCell.h"
+#import "CUTEFormDefaultCell.h"
 
 @interface CUTERentLoginForm () {
     NSArray *_allCountries;

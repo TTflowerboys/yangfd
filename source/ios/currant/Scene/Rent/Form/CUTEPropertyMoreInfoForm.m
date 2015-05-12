@@ -12,6 +12,7 @@
 #import "CUTEFormButtonCell.h"
 #import "CUTEFormFixNonBreakingSpaceTextFieldCell.h"
 #import "CUTEFormTextViewCell.h"
+#import "CUTEFormDefaultCell.h"
 
 @implementation CUTEPropertyMoreInfoForm
 

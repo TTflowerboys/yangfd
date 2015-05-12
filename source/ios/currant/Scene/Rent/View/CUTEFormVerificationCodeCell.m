@@ -14,8 +14,15 @@
 
 @implementation CUTEFormVerificationCodeCell
 
++ (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width
+{
+    return CUTE_CELL_DEFAULT_HEIGHT;
+}
+
 - (void)setUp {
     [super setUp];
+    self.textLabel.textColor = HEXCOLOR(0x333333, 1.0);
+    self.textLabel.font = [UIFont systemFontOfSize:16];
 
     self.verificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.verificationButton setTitle:STR(@"获取") forState:UIControlStateNormal];

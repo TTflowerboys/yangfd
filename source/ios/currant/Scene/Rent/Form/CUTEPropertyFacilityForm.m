@@ -11,6 +11,7 @@
 #import "CUTEEnum.h"
 #import <NSObject+Attachment.h>
 #import <NSArray+ObjectiveSugar.h>
+#import "CUTEFormSwitchCell.h"
 
 @interface CUTEPropertyFacilityForm ()
 {
@@ -45,10 +46,10 @@
         {
             CUTEEnum *facility = [_allIndoorFacilities objectAtIndex:i];
             if (i == 0) {
-                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value,FXFormFieldHeader: STR(@"常用设施"), FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedIndoorFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:"}];
+                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value,FXFormFieldHeader: STR(@"常用设施"), FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedIndoorFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:", FXFormFieldCell: [CUTEFormSwitchCell class]}];
             }
             else {
-              [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value, FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedIndoorFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:"}];
+              [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value, FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedIndoorFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:" , FXFormFieldCell: [CUTEFormSwitchCell class]}];
             }
         }
     }
@@ -58,10 +59,10 @@
         {
             CUTEEnum *facility = [_allCommunityFacilities objectAtIndex:i];
             if (i == 0) {
-                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value,FXFormFieldHeader: STR(@"小区设施"), FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedCommunityFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:"}];
+                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value,FXFormFieldHeader: STR(@"小区设施"), FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedCommunityFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:", FXFormFieldCell: [CUTEFormSwitchCell class]}];
             }
             else {
-                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value, FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedCommunityFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:"}];
+                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value, FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedCommunityFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:", FXFormFieldCell: [CUTEFormSwitchCell class]}];
             }
         }
     }

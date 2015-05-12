@@ -156,8 +156,11 @@
 
       __weak typeof(self)weakSelf = self;
       _editAreaViewController.updateRentAreaCompletion = ^ {
-          NSIndexPath *indexPath = [weakSelf.formController indexPathForKey:@"area"];
-          [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+          [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+              if ([field.key isEqualToString:@"area"]) {
+                  [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+              }
+          }];
       };
 
   }
@@ -194,8 +197,11 @@
 
               __weak typeof(self)weakSelf = self;
               _editRentPriceViewController.updatePriceCompletion = ^ {
-                  NSIndexPath *indexPath = [weakSelf.formController indexPathForKey:@"rentPrice"];
-                  [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                  [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+                      if ([field.key isEqualToString:@"rentPrice"]) {
+                          [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                      }
+                  }];
               };
           }
             [self.navigationController pushViewController:_editRentPriceViewController animated:YES];
@@ -219,8 +225,11 @@
 
             __weak typeof(self)weakSelf = self;
             controller.updateRentTypeCompletion = ^ {
-                NSIndexPath *indexPath = [weakSelf.formController indexPathForKey:@"rentType"];
-                [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+                    if ([field.key isEqualToString:@"rentType"]) {
+                        [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    }
+                }];
             };
 
             [self.navigationController pushViewController:controller animated:YES];
@@ -267,8 +276,11 @@
 
             __weak typeof(self)weakSelf = self;
             controller.updateAddressCompletion = ^ {
-                NSIndexPath *indexPath = [weakSelf.formController indexPathForKey:@"location"];
-                [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+                    if ([field.key isEqualToString:@"location"]) {
+                        [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    }
+                }];
             };
 
             [self.navigationController pushViewController:controller animated:YES];

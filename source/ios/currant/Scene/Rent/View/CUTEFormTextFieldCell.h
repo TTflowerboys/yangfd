@@ -8,6 +8,6 @@
 
 #import "FXForms.h"
 
-@interface CUTEFormTextFieldCell : FXFormTextFieldCell
+@interface CUTEFormTextFieldCell : FXFormTextFieldCell <UITextFieldDelegate>
 
 @end

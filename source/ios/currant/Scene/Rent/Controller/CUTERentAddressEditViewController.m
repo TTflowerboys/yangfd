@@ -11,7 +11,6 @@
 #import "CUTERentAddressEditForm.h"
 #import "CUTEDataManager.h"
 #import "SVProgressHUD+CUTEAPI.h"
-#import "FXFormViewController+CUTEForm.h"
 #import "CUTEDataManager.h"
 #import "CUTERentTickePublisher.h"
 #import "CUTENotificationKey.h"
@@ -35,13 +34,19 @@
 }
 
 - (void)checkNeedUpdateCityOptions {
-    CUTEEnum *country = [[self.formController fieldForKey:@"country"] value];
-    if (![_lastCountry isEqual:country]) {
-        [(CUTERentAddressEditForm *)self.formController.form setCity:nil];
-        [self.formController updateFormSections];
-        [self.tableView reloadData];
-    }
-    _lastCountry = country;
+
+    [self.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+        if ([field.key isEqualToString:@"country"]) {
+            CUTEEnum *country = field.value;
+            if (![_lastCountry isEqual:country]) {
+                [(CUTERentAddressEditForm *)self.formController.form setCity:nil];
+                [self.formController updateSections];
+                [self.tableView reloadData];
+            }
+            _lastCountry = country;
+
+        }
+    }];
 }
 
 - (void)optionBack {

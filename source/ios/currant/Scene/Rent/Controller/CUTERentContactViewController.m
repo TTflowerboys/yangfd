@@ -18,7 +18,6 @@
 #import <Sequencer.h>
 #import "CUTEDataManager.h"
 #import "SVProgressHUD+CUTEAPI.h"
-#import "FXFormViewController+CUTEForm.h"
 #import "CUTERentShareViewController.h"
 #import "WxApi.h"
 #import "CUTEWxManager.h"
@@ -31,6 +30,7 @@
 #import "CUTERentLoginForm.h"
 #import "CUTERentLoginViewController.h"
 #import "CUTEEnumManager.h"
+#import "MasonryMake.h"
 
 @interface CUTERentContactViewController () <TTTAttributedLabelDelegate> {
 
@@ -45,45 +45,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = STR(@"联系方式");
-
-//    TTTAttributedLabel *headerLabel = [[TTTAttributedLabel alloc] init];
-//    NSString *str = STR(@"为保证资料真实性，请先填写个人信息再验证手机号。已经有帐号？请登录");
-//    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSForegroundColorAttributeName: HEXCOLOR(0x999999, 1.0)}];
-//    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-//    [style setLineSpacing:8];
-//    [attrString addAttribute:NSParagraphStyleAttributeName
-//                       value:style
-//                       range:NSMakeRange(0, str.length)];
-//    headerLabel.attributedText = attrString;
-//    headerLabel.font = [UIFont systemFontOfSize:12];
-//    NSRange range = [headerLabel.text rangeOfString:STR(@"登录")];
-//    [headerLabel addLinkToURL:[NSURL YangfdURLWithString:@"/login"] withRange:range];
-//
-//    headerLabel.numberOfLines = 0;
-//    headerLabel.frame = CGRectMake(RectWidthExclude(self.view.bounds, 240) / 2, 0, 240, 80);
-//    UIView *headerView = [UIView new];
-//    headerView.frame = CGRectMake(0, 0, ScreenWidth, 80);
-//    [headerView addSubview:headerLabel];
-//
-//    headerLabel.delegate = self;
-//    self.tableView.tableHeaderView = headerView;
-
-//    UILabel * label = [UILabel new];
-//    NSString *str = STR(@"为保证资料真实性，请先填写个人信息再验证手机号");
-//    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSForegroundColorAttributeName: HEXCOLOR(0x999999, 1.0)}];
-//    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-//    [style setLineSpacing:8];
-//    [attrString addAttribute:NSParagraphStyleAttributeName
-//                       value:style
-//                       range:NSMakeRange(0, str.length)];
-//    label.attributedText = attrString;
-//    label.font = [UIFont systemFontOfSize:12];
-//    label.numberOfLines = 0;
-//    label.textAlignment = NSTextAlignmentCenter;
-//    label.frame = CGRectMake(RectWidthExclude(self.view.bounds, 240) / 2, 20, 240, 60);
-//    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 100)];
-//    [footerView addSubview:label];
-//    self.tableView.tableFooterView = footerView;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -95,6 +56,47 @@
         CUTEFormCenterTextCell *textCell = (CUTEFormCenterTextCell *)cell;
         textCell.textColor = CUTE_MAIN_COLOR;
     }
+}
+
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    NSString *footer = [[[self.formController sectionAtIndex:section] valueForKey:@"footer"] description];
+    if (!IsNilNullOrEmpty(footer)) {
+        UILabel * label = [UILabel new];
+        NSString *str = footer;
+        NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSForegroundColorAttributeName: HEXCOLOR(0x999999, 1.0)}];
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        [style setLineSpacing:8];
+        [attrString addAttribute:NSParagraphStyleAttributeName
+                           value:style
+                           range:NSMakeRange(0, str.length)];
+        label.attributedText = attrString;
+        label.font = [UIFont systemFontOfSize:12];
+        label.numberOfLines = 0;
+        label.textAlignment = NSTextAlignmentCenter;
+
+        UIView *view = [UIView new];
+        [view addSubview:label];
+
+        MakeBegin(label)
+        MakeTopEqualTo(view.top).offset(15);
+        MakeLeftEqualTo(view.left).offset(40);
+        MakeRighEqualTo(view.right).offset(-40);
+        MakeBottomEqualTo(view.bottom).offset(-8);
+        MakeEnd
+
+        return view;
+
+    }
+    return nil;
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    NSString *footer = [[[self.formController sectionAtIndex:section] valueForKey:@"footer"] description];
+    return IsNilNullOrEmpty(footer)? 0 : 70;
 }
 
 - (void)onVerificationButtonPressed:(id)sender {

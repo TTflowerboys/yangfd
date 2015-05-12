@@ -8,11 +8,19 @@
 
 #import "CUTEFormRentPriceTextFieldCell.h"
 #import "CUTECommonMacro.h"
+#import "CUTEUIMacro.h"
 
 @implementation CUTEFormRentPriceTextFieldCell
 
++ (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width
+{
+    return CUTE_CELL_DEFAULT_HEIGHT;
+}
+
 - (void)update {
     [super update];
+    self.textLabel.textColor = HEXCOLOR(0x333333, 1.0);
+    self.textLabel.font = [UIFont systemFontOfSize:16];
 }
 
 - (void)setField:(FXFormField *)field {

@@ -18,7 +18,6 @@
 #import <Base64.h>
 #import <Sequencer/Sequencer.h>
 #import "CUTEDataManager.h"
-#import "FXFormViewController+CUTEForm.h"
 #import "CUTENotificationKey.h"
 
 @implementation CUTERentLoginViewController

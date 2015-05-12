@@ -1,31 +1,26 @@
 //
-//  CUTEFormTextCell.m
+//  CUTEFormSwitchCell.m
 //  currant
 //
-//  Created by Foster Yin on 4/27/15.
+//  Created by Foster Yin on 5/12/15.
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTEFormTextCell.h"
+#import "CUTEFormSwitchCell.h"
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
 
-@implementation CUTEFormTextCell
+@implementation CUTEFormSwitchCell
 
 + (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width
 {
     return CUTE_CELL_DEFAULT_HEIGHT;
 }
 
-- (void)update {
-    [super update];
-
+- (void)setUp {
+    [super setUp];
+    self.textLabel.textColor = HEXCOLOR(0x333333, 1.0);
     self.textLabel.font = [UIFont systemFontOfSize:16];
-    self.textLabel.textColor = HEXCOLOR(0x555555, 1);
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
 }
 
 @end

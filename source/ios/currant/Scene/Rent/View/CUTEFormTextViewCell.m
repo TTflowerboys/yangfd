@@ -13,6 +13,12 @@
 
 @implementation CUTEFormTextViewCell
 
+- (void)update {
+    [super update];
+    self.textLabel.textColor = HEXCOLOR(0x333333, 1.0);
+    self.textLabel.font = [UIFont systemFontOfSize:16];
+}
+
 - (void)setUp {
     [super setUp];
     BBTInputAccessoryView *inputAccessoryView = [[BBTInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 40)];

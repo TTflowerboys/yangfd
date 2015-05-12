@@ -12,8 +12,17 @@
 
 @implementation CUTEFormCenterTextCell
 
++ (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width
+{
+    return CUTE_CELL_DEFAULT_HEIGHT;
+}
+
 - (void)update {
     [super update];
+
+    if (self.textColor) {
+        self.textLabel.textColor = self.textColor;
+    }
 
 }
 
@@ -23,9 +32,6 @@
     CGSize textSize = TextSizeOfLabel(self.textLabel);
     self.textLabel.frame = CGRectMake(RectWidthExclude(self.bounds, textSize.width) / 2, RectHeightExclude(self.bounds, textSize.height)/ 2, textSize.width, textSize.height);
 
-    if (self.textColor) {
-        self.textLabel.textColor = self.textColor;
-    }
 }
 
 @end

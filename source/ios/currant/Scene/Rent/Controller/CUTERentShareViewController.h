@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "CUTETicket.h"
-#import "FXFormViewController+CUTEForm.h"
+#import "CUTEFormViewController.h"
 
-@interface CUTERentShareViewController : FXFormViewController
+@interface CUTERentShareViewController : CUTEFormViewController
 
 @property (strong, nonatomic) CUTETicket *ticket;
 
