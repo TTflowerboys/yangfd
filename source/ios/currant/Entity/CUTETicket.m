@@ -72,15 +72,22 @@
     if (!IsNilNullOrEmpty(self.title)) {
         return self.title;
     }
+    NSString *altTitle = nil;
     if (self.property && self.property.bedroomCount > 0 && self.rentType)
     {
-        return [NSString stringWithFormat:@"%d居室 %@出租", self.property.bedroomCount, self.rentType.value];
+        altTitle = [NSString stringWithFormat:@"%d居室 %@出租", self.property.bedroomCount, self.rentType.value];
     }
-    if (self.property && self.rentType && self.property.address) {
-        return [NSString stringWithFormat:@"%@ %@出租", self.property.address, self.rentType.value];
+    else if (self.property && self.rentType && self.property.street) {
+        altTitle = [NSString stringWithFormat:@"%@ %@出租", self.property.street, self.rentType.value];
+    }
+    else if (self.property && self.rentType) {
+        altTitle = [NSString stringWithFormat:@"%@出租", self.rentType.value];
     }
 
-    return nil;
+    if (altTitle.length > kTicketTitleMaxCharacterCount) {
+        altTitle = [NSString stringWithFormat:@"%@出租", self.rentType.value];
+    }
+    return altTitle;
 }
 
 - (NSDictionary *)toParams {

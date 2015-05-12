@@ -473,8 +473,8 @@
         var propertyData = $.extend(options, {
             'name': JSON.stringify({'zh_Hans_CN': address}),
             'property_type': $('#propertyType .selected').data('id'),
-            'latitude': $('#latitude').val(),
-            'longitude': $('#longitude').val(),
+            //'latitude': $('#latitude').val(),
+            //'longitude': $('#longitude').val(),
             //'country': JSON.stringify({'value': {'zh_Hans_CN': $('#country').val()}}), //todo
             //'city': JSON.stringify({'value': {'zh_Hans_CN': $('#city').val()}}), //todo
             'street': JSON.stringify({'zh_Hans_CN': $('#street').val()}), //todo
@@ -507,6 +507,12 @@
         }
         if($('#rentalType .selected').text().trim() === i18n('整租') && getSpace() !== false){
             propertyData.building_area = getSpace()
+        }
+        if($('#latitude').val() !== '') {
+            propertyData.latitude = $('#latitude').val()
+        }
+        if($('#longitude').val() !== '') {
+            propertyData.latitude = $('#longitude').val()
         }
         return propertyData
     }

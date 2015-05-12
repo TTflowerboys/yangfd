@@ -2,18 +2,28 @@
 from __future__ import unicode_literals, absolute_import
 import logging
 from app import f_app
-from libfelix.f_interface import f_get, response, template_gettext as _
+from libfelix.f_interface import f_get, response, redirect, abort, template_gettext as _
 import currant_util
 import currant_data_helper
 
 logger = logging.getLogger(__name__)
 
 
-# TODO: make a new interface for new report
 @f_get('/region_report/<zipcode_index:re:[A-Z0-9]{2,3}>', '/region-report/<zipcode_index:re:[A-Z0-9]{2,3}>')
 @currant_util.check_ip_and_redirect_domain
-def region_report(zipcode_index):
-    report = currant_data_helper.get_report(zipcode_index)
+def postcode_area_report(zipcode_index):
+    # Only redirect for now
+    report_id_result = f_app.report.search({"zipcode_index": zipcode_index, "status": "new"})  # TODO: Add ', "country": "GB"' after country migration
+    if len(report_id_result):
+        redirect("/region-report/" + report_id_result[0])
+    else:
+        abort(40400)
+
+
+@f_get('/region-report/<report_id:re:[0-9a-fA-F]{24}>')
+@currant_util.check_ip_and_redirect_domain
+def region_report(report_id):
+    report = currant_data_helper.get_report(report_id)
     report = f_app.i18n.process_i18n(report)
     title = report.get('name') + _('街区分析报告')
     description = report.get('description', _('洋房东街区投资分析报告'))

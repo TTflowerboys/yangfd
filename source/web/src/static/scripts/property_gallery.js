@@ -34,7 +34,7 @@
                     if (data && data.length) {
                         var videoResult = _.template($('#propertyVideo_template').html())({sources: data})
                         $('[data-tab-name=video]').append(videoResult)
-                        $('[data-tab-name=video]').append('<script>videojs.options.flash.swf = "/static/vendors/video-js/video-js.swf";</script>')
+                        $('[data-tab-name=video]').append('<script>videojs.options.flash.swf = "/static/bower_components/video-js/dist/video-js/video-js.swf";</script>')
                         $('#videoLoadIndicator').hide()
                     }
                 })

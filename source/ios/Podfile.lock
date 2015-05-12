@@ -122,7 +122,7 @@ CHECKOUT OPTIONS:
     :commit: 81dc811a97a0b9c750e871de5a6ea3d756691a46
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
   BBTUtility:
-    :commit: 303453fa889a58b88f85feeb9340a65383c3d3be
+    :commit: f5f295b562ceb5097e2a224bf4332f39c2e2779f
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
   libWeChatSDK:
     :commit: f234cfee41631ea0d799d0ac7d630fbb281d66b5
