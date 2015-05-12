@@ -49,17 +49,17 @@ def property_to_rent_list(params):
     if "country" in params and len(params['country']):
         for country in country_list:
             if country.get('id') == str(params['country']):
-                title += country.get('value') + '_'
+                title += country.get('value') + '-'
 
     if "city" in params and len(params['city']):
         for city in city_list:
             if city.get('id') == str(params['city']):
-                title += city.get('value') + '_'
+                title += city.get('value') + '-'
 
     if "rent_type" in params and len(params['rent_type']):
         for rent_type in rent_type_list:
             if rent_type.get('id') == str(params['rent_type']):
-                title += rent_type.get('value') + '_'
+                title += rent_type.get('value') + '-'
 
     title += _('出租列表-洋房东')
 
@@ -97,9 +97,9 @@ def rent_ticket_get(rent_ticket_id, user):
     if not isinstance(title, six.string_types):
         title = six.text_type(title)
     if rent_ticket["property"].get('city', {}) and rent_ticket["property"].get('city', {}).get('value', ''):
-        title += '_' + _(rent_ticket["property"].get('city', {}).get('value', ''))
+        title += '-' + _(rent_ticket["property"].get('city', {}).get('value', ''))
     if rent_ticket["property"].get('country', {}) and rent_ticket["property"].get('country', {}).get('value', ''):
-        title += '_' + _(rent_ticket["property"].get('country', {}).get('value', ''))
+        title += '-' + _(rent_ticket["property"].get('country', {}).get('value', ''))
     description = rent_ticket.get('description', _('详情'))
 
     keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)

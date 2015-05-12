@@ -8,6 +8,7 @@
         }
         var $button = $(this)
         var property_id = $button.attr('data-property-id')
+        ga('send', 'pageview', '/property/'+ property_id +'/add-fav')
 
         $.betterPost('/api/1/user/favorite/add', {
             property_id: property_id,
@@ -17,6 +18,7 @@
                 $button.hide().parent().find('[data-fn=removeFav]').show().attr('data-favorite-id', val)
 
                 ga('send', 'event', 'property_detail', 'click', 'add-fav-success')
+                ga('send', 'pageview', '/property/'+ property_id +'/add-fav-success')
             })
             .fail(function (errorCode) {
                 if (errorCode !== 40100) {

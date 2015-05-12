@@ -45,17 +45,17 @@ def property_list(params):
     if "country" in params and len(params['country']):
         for country in country_list:
             if country.get('id') == str(params['country']):
-                title += country.get('value') + '_'
+                title += country.get('value') + '-'
 
     if "city" in params and len(params['city']):
         for city in city_list:
             if city.get('id') == str(params['city']):
-                title += city.get('value') + '_'
+                title += city.get('value') + '-'
 
     if "property_type" in params and len(params['property_type']):
         for property_type in property_type_list:
             if property_type.get('id') == str(params['property_type']):
-                title += property_type.get('value') + '_'
+                title += property_type.get('value') + '-'
 
     title += _('房产列表-洋房东')
 
