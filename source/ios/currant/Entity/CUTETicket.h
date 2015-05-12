@@ -17,6 +17,9 @@
 #define kTicketStatusDraft @"draft"
 #define kTicketStatusDeleted @"deleted"
 
+
+#define kTicketTitleMaxCharacterCount 30
+
 @interface CUTETicket : MTLModel <MTLJSONSerializing>
 
 @property (strong, nonatomic) NSString *identifier;

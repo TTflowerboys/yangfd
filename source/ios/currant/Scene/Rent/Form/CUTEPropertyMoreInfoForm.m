@@ -11,6 +11,7 @@
 #import "CUTEPropertyFacilityViewController.h"
 #import "CUTEFormButtonCell.h"
 #import "CUTEFormFixNonBreakingSpaceTextFieldCell.h"
+#import "CUTEFormLimitCharacterCountTextFieldCell.h"
 #import "CUTEFormTextViewCell.h"
 #import "CUTEFormDefaultCell.h"
 
@@ -18,8 +19,8 @@
 
 - (NSArray *)fields {
     return @[
-             @{FXFormFieldKey: @"ticketTitle", FXFormFieldTitle:STR(@"标题"), FXFormFieldHeader:STR(@"其他"), FXFormFieldDefaultValue:_ticketTitle? :@"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction:@"onTicketTitleEdit:"},
-             @{FXFormFieldKey: @"ticketDescription", FXFormFieldTitle:STR(@"详细描述"),FXFormFieldType:FXFormFieldTypeLongText, FXFormFieldDefaultValue:_ticketDescription? : @"", FXFormFieldAction:@"onTicketDescriptionEdit:", FXFormFieldCell: [CUTEFormTextViewCell class]},
+             @{FXFormFieldKey: @"ticketTitle", FXFormFieldTitle:STR(@"标题"), FXFormFieldHeader:STR(@"其他"), FXFormFieldDefaultValue:_ticketTitle? :@"", FXFormFieldCell: [CUTEFormLimitCharacterCountTextFieldCell class], FXFormFieldAction:@"onTicketTitleEdit:"},
+             @{FXFormFieldKey: @"ticketDescription", FXFormFieldTitle:STR(@"详细描述"),FXFormFieldType:FXFormFieldTypeLongText, FXFormFieldDefaultValue:_ticketDescription? : @"", FXFormFieldAction:@"onTicketDescriptionEdit:", FXFormFieldCell: [CUTEFormTextViewCell class], FXFormFieldPlaceholder: STR(@"补充您对租客的要求和对房屋特点的描述")},
              @{FXFormFieldKey: @"facility", FXFormFieldTitle:STR(@"房间设施"), FXFormFieldAction:@"editFacilities"},
 //                @{FXFormFieldKey: @"feature", FXFormFieldTitle:STR(@"街区亮点")},
              @{FXFormFieldKey: @"delete", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"删除草稿"), FXFormFieldHeader: @"", FXFormFieldAction: @"delete"},

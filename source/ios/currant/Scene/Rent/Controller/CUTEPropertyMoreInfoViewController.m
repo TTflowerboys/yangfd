@@ -18,11 +18,21 @@
 #import "CUTERentTickePublisher.h"
 #import <UIAlertView+Blocks.h>
 #import "CUTENotificationKey.h"
+#import "SVProgressHUD+CUTEAPI.h"
+#import "CUTEFormLimitCharacterCountTextFieldCell.h"
 
 @implementation CUTEPropertyMoreInfoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    FXFormField *field = [self.formController fieldForIndexPath:indexPath];
+    if ([field.key isEqualToString:@"ticketTitle"]) {
+        CUTEFormLimitCharacterCountTextFieldCell *titleCell = (CUTEFormLimitCharacterCountTextFieldCell *)cell;
+        titleCell.limitCount = kTicketTitleMaxCharacterCount;
+    }
 }
 
 - (void)editFacilities {
@@ -68,6 +78,11 @@
 }
 
 - (void)onTicketTitleEdit:(id)sender {
+//    CUTEPropertyMoreInfoForm *form = (CUTEPropertyMoreInfoForm *)[self.formController form];
+//    if (form.ticketTitle && form.ticketTitle.length > 30) {
+//        [SVProgressHUD showErrorWithStatus:STR(@"标题最长为30个字符")];
+//        return;
+//    }
     [self updateTicket];
 }
 
