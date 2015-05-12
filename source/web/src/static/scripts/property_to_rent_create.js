@@ -217,12 +217,18 @@
     }
     var geonamesApi = new GeonamesApi()
     function getCityListForSelect(country) {
+        var $span = $('#city_select_chosen .chosen-single span')
+        var originContent = $span.html()
+        $span.html(window.i18n('城市列表加载中...'))
         geonamesApi.getCity(country, function (val) {
-            $('#city-select').html(
-                _.reduce(val, function(pre, val, key) {
-                    return pre + '<option value="' + val.dem + '">' + val.name + '</option>'
-                }, '<option value="">' + i18n('请选择城市') + '</option>')
-            ).trigger('chosen:updated').trigger('chosen:open')
+            if(country === $('#country-select').val()) {
+                $span.html(originContent)
+                $('#city-select').html(
+                    _.reduce(val, function(pre, val, key) {
+                        return pre + '<option value="' + val.dem + '">' + val.name + '</option>'
+                    }, '<option value="">' + i18n('请选择城市') + '</option>')
+                ).trigger('chosen:updated').trigger('chosen:open')
+            }
         })
     }
 
