@@ -41,7 +41,7 @@ var myPaths = {
     src: './src/',
     dist: './dist/',
     html: './src/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
-    symlink: './src/static/{themes,fonts,images,scripts,vendors,admin/scripts,admin/templates}',
+    symlink: './src/static/{themes,fonts,images,scripts,vendors,bower_components,admin/scripts,admin/templates}',
     static: './src/static/**/*.*',
     less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
     css: './src/static/styles/**/*.css',
@@ -62,7 +62,7 @@ gulp.task('bower', function () {
 
 //Debug
 
-gulp.task('debug', ['debug:lint', 'symlink', 'less2css', 'html-extend', 'watch'], function () {
+gulp.task('debug', ['bower', 'debug:lint', 'symlink', 'less2css', 'html-extend', 'watch'], function () {
     console.info(chalk.black.bgWhite.bold('You can debug now!'))
 })
 
@@ -75,7 +75,7 @@ gulp.task('debug:lint', function () {
 })
 
 
-gulp.task('symlink', function () {
+gulp.task('symlink', ['bower'], function () {
     return gulp.src(myPaths.symlink)
         .pipe(symlink(function (file) {
             return file.path.replace('/src/', '/dist/')
@@ -128,7 +128,7 @@ gulp.task('clean', function () {
 // 'test': xxx-test.bbtechgroup.com
 // 'production': online production version
 
-gulp.task('build', ['lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend', 'setupCDN'],
+gulp.task('build', ['bower', 'lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend', 'setupCDN'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -163,7 +163,7 @@ gulp.task('build:clean-sprite', function () {
 })
 
 
-gulp.task('build:copy-src-to-sprite', ['build:clean-sprite'], function () {
+gulp.task('build:copy-src-to-sprite', ['build:clean-sprite', 'bower'], function () {
     return gulp.src(myPaths.src + '**/*.*')
         .pipe(gulp.dest(myPaths.sprite))
 })
