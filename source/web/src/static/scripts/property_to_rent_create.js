@@ -195,6 +195,12 @@
                     }
                 })
         }
+        this.getCity = function (country, callback, reject) {
+            this.getAdmin({
+                country: country,
+                feature_code: 'city'
+            }, callback, reject)
+        }
         this.getAdmin1 = function (country, callback, reject) {
             this.getAdmin({
                 country: country,
@@ -211,10 +217,10 @@
     }
     var geonamesApi = new GeonamesApi()
     function getCityListForSelect(country) {
-        geonamesApi.getAdmin1(country, function (val) {
+        geonamesApi.getCity(country, function (val) {
             $('#city-select').html(
                 _.reduce(val, function(pre, val, key) {
-                    return pre + '<option value="' + val.admin1 + '">' + val.name + '</option>'
+                    return pre + '<option value="' + val.dem + '">' + val.name + '</option>'
                 }, '<option value="">' + i18n('请选择城市') + '</option>')
             ).trigger('chosen:updated').trigger('chosen:open')
         })
