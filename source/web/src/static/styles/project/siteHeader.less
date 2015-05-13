@@ -17,10 +17,27 @@
         }
     }
 
-    .country {
+    .left {
         white-space: nowrap;
         float: left;
         height:100%;
+
+        .app  {
+            height:@sup-header-height;
+            line-height:@sup-header-height;
+            color: @mute-color;
+            .clipped(10em);
+            display:inline-block;
+            overflow:hidden;
+            text-align:center;
+            vertical-align:middle;
+            text-decoration:none;
+            padding-right:20px;
+
+            &:hover {
+                color:@light-color;
+            }
+        }
 
         .select-country{
             height:@sup-header-height;

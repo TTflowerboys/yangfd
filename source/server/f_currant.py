@@ -11,7 +11,7 @@ import phonenumbers
 import numpy as np
 from bson.objectid import ObjectId
 from bson.code import Code
-from pymongo import ASCENDING, DESCENDING
+from pymongo import ASCENDING, DESCENDING, GEO2D
 import six
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
@@ -1315,6 +1315,7 @@ class f_property(f_app.module_base):
 
         with f_app.mongo() as m:
             property_id = self.get_database(m).insert(params)
+            self.get_database(m).ensure_index([("loc", GEO2D)])
 
         if params["status"] in ("selling", "hidden", "sold out"):
             f_app.task.put(dict(

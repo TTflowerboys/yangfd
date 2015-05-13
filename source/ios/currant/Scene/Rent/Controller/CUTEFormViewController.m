@@ -12,6 +12,7 @@
 #import "CUTEFormDefaultCell.h"
 #import "CUTECommonMacro.h"
 #import "MasonryMake.h"
+#import "CUTETracker.h"
 
 
 @implementation FXFormController (CUTE)
@@ -25,6 +26,13 @@
 
 
 @implementation CUTEFormViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (!IsNilNullOrEmpty(self.navigationItem.title)) {
+        TrackScreen(self.navigationItem.title);
+    }
+}
 
 - (void)setTableView:(UITableView *)tableView
 {

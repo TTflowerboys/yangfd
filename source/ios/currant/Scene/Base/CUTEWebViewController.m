@@ -20,6 +20,7 @@
 #import "NSURL+QueryParser.h"
 #import "CUTENotificationKey.h"
 #import "MasonryMake.h"
+#import "CUTETracker.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -106,6 +107,9 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
 
+    if (!IsNilNullOrEmpty(self.navigationItem.title)) {
+        TrackScreen(self.navigationItem.title);
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
