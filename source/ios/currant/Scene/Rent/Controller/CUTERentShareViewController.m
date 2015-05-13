@@ -59,7 +59,7 @@
     FXFormField *field = [self.formController fieldForIndexPath:indexPath];
     if ([field.key isEqualToString:@"view"]) {
         CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
-        [controller loadURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]];
+        controller.url = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
         [self.navigationController pushViewController:controller animated:YES];
     }
     else if ([field.key isEqualToString:@"copyLink"]) {
