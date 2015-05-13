@@ -141,6 +141,8 @@
     else if ([self viewControllerCanGoBack]) {
         [self.navigationController popViewControllerAnimated:YES];
     }
+
+    [self updateBackButton];
 }
 
 - (void)updateBackButton {
