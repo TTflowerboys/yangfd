@@ -35,6 +35,9 @@ logger = logging.getLogger(__name__)
     building_area="enum:building_area",
     user_generated=bool,
     location_only=bool,
+    latitude=float,
+    longitude=float,
+    search_range=(int, 5000),
 ))
 @f_app.user.login.check(check_role=True)
 def property_search(user, params):
@@ -50,6 +53,8 @@ def property_search(user, params):
 
     ``time`` should be a unix timestamp in utc.
     ``building_area`` format: ``,40,meter ** 2``, ``40,100,foot ** 2``, ``100,,meter ** 2``
+
+    When searching nearby properties (using ``latitude``, ``longitude`` and optionally ``search_range``), ``per_page`` and ``sort`` are not supported and must not be present.
     """
     params.setdefault("user_generated", {"$ne": True})
     random = params.pop("random", False)
@@ -69,6 +74,13 @@ def property_search(user, params):
     params["$and"] = []
     non_project_params = {"$and": []}
     main_house_types_elem_params = {"$and": []}
+
+    if "latitude" in params:
+        assert "longitude" in params, abort(40000)
+        assert "per_page" not in params, abort(40000)
+        assert "sort" not in params, abort(40000)
+    elif "longitude" in params:
+        abort(40000)
 
     if "budget" in params or "price" in params:
         if "budget" in params:
@@ -179,13 +191,18 @@ def property_search(user, params):
     params["status"] = {"$in": params["status"]}
     per_page = params.pop("per_page", 0)
 
-    # Default to mtime,desc
-    property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort, time_field="mtime")
+    if "latitude" in params:
+        property_list = {"content": f_app.property.get_nearby(params)}
+        property_list["count"] = len(property_list["content"])
+    else:
+        # Default to mtime,desc
+        property_list = f_app.property.search(params, per_page=per_page, count=True, sort=sort, time_field="mtime")
+        property_list['content'] = f_app.property.output(property_list['content'], location_only=location_only)
 
     if random and property_list["content"]:
         import random
         random.shuffle(property_list["content"])
-    property_list['content'] = f_app.property.output(property_list['content'], location_only=location_only)
+
     return property_list
 
 
