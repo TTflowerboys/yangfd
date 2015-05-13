@@ -184,15 +184,17 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    //TODO refine the custom scheme action design and replace all the all js call to custom action
     NSURL *url = [request URL];
-    NSDictionary *queryDictionary = url.queryDictionary;
-    if (navigationType == UIWebViewNavigationTypeLinkClicked && queryDictionary && queryDictionary[@"mobile_client_target"] && [queryDictionary[@"mobile_client_target"] isEqualToString:@"new_controller"]) {
-        CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
-        newWebViewController.url = url;
-        [newWebViewController loadURL:url];
-        newWebViewController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:newWebViewController animated:YES];
-        return NO;
+    if ([url.scheme isEqualToString:[CUTEConfiguration yangfdScheme]]) {
+        if ([url.host isEqualToString:@"openURLInNewController"]) {
+            CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
+            newWebViewController.url = [NSURL URLWithString:url.path relativeToURL:[CUTEConfiguration hostURL]];
+            [newWebViewController loadURL:newWebViewController.url];
+            newWebViewController.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:newWebViewController animated:YES];
+            return NO;
+        }
     }
 
     return YES;

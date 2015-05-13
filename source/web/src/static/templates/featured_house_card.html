@@ -9,7 +9,7 @@
     <div class="houseCard_phone">
         <a class="imagePart" title="{{property.get('name','')}}"
            %if is_mobile_client():
-           href="/property/{{property.get('id')}}?mobile_client_target=new_controller"
+           href="yangfd://openURLInNewController/property/{{property.get('id')}}"
            %else:
            href="/property/{{property.get('id')}}"
            %end
@@ -84,9 +84,9 @@
         <div class="textPart" >
             <a class="textPart_inner" title="{{property.get('name','')}}"
            %if is_mobile_client():
-           href="/property/{{property.get('id')}}?mobile_client_target=new_controller"
+               href="yangfd://openURLInNewController/property/{{property.get('id')}}"
            %else:
-           href="/property/{{property.get('id')}}"
+               href="/property/{{property.get('id')}}"
            %end
            >
                 <table class="textPart_innerTable">

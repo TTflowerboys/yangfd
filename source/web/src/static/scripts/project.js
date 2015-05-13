@@ -117,13 +117,5 @@
             var ua = navigator.userAgent.toLowerCase()
             return (/currant/.test(ua)) ? true : false
         },
-        openPropertyToRent: function (ticketId) {
-            if (window.project.isMobileClient()) {
-                location.href = '/property-to-rent/'+ ticketId + '?mobile_client_target=new_controller'
-            }
-            else {
-                location.href = '/property-to-rent/' + ticketId
-            }
-        }
     }
 })();
