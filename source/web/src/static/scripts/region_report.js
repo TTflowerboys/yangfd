@@ -43,8 +43,8 @@
 
 
     $('#loadIndicator').show()
-    var zipCodeIndexFromURL = _.last(location.pathname.split('/'))
-    $.betterPost('/api/1/property/search', {zipcode_index:zipCodeIndexFromURL})
+    var reportIdFromURL = _.last(location.pathname.split('/'))
+    $.betterPost('/api/1/property/search', {report_id:reportIdFromURL})
         .done(function (val) {
             var array = val.content
 
@@ -85,7 +85,7 @@
 
         var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
         var schoolMapId = 'schoolMapCanvas'
-        var query = zipCodeIndexFromURL + ',' +region
+        var query = reportIdFromURL + ',' +region
         var searchRequest = 'http://dev.virtualearth.net/REST/v1/Locations/' + query + '?output=json&jsonp=searchServiceCallback&key=' + bingMapKey
         var mapscript = document.createElement('script');
         mapscript.type = 'text/javascript';
@@ -125,19 +125,19 @@
                         })
                         //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
                         window.showMapIndicator()
-                        window.getRegion(zipCodeIndexFromURL, function (polygon) {
+                        window.getRegion(reportIdFromURL, function (polygon) {
                             window.showTransitMap(location, polygon,  false, null, null, function () {
                                 window.hideMapIndicator()
                             })
                         })
                         window.showMapIndicator()
-                        window.getRegion(zipCodeIndexFromURL, function (polygon) {
+                        window.getRegion(reportIdFromURL, function (polygon) {
                             window.showSchoolMap(location, polygon, false, null, null, function () {
                                 window.hideMapIndicator()
                             })
                         })
                         window.showMapIndicator()
-                        window.getRegion(zipCodeIndexFromURL, function (polygon) {
+                        window.getRegion(reportIdFromURL, function (polygon) {
                             window.showFacilityMap(location, polygon, false, null, null, function () {
                                 window.hideMapIndicator()
                             })

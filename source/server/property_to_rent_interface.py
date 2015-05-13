@@ -89,9 +89,9 @@ def rent_ticket_get(rent_ticket_id, user):
     favorite_list = f_app.i18n.process_i18n(favorite_list)
 
     publish_time = f_app.util.format_time(rent_ticket.get('time'))
-    # report = None
-    # if rent_ticket.get('zipcode_index') and rent_ticket.get('country').get('slug') == 'GB':
-    #     report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket.get('zipcode_index')))
+    report = None
+    if rent_ticket["property"].get('region_id'):
+        report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket["property"].get('region_id')))
 
     title = rent_ticket.get('title', _('出租房详情'))
     if not isinstance(title, six.string_types):
@@ -105,7 +105,7 @@ def rent_ticket_get(rent_ticket_id, user):
     keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
-    return currant_util.common_template("property_to_rent", rent=rent_ticket, favorite_list=favorite_list, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin)
+    return currant_util.common_template("property_to_rent", rent=rent_ticket, report=report, favorite_list=favorite_list, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin)
 
 
 @f_get('/property-to-rent/create')

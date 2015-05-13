@@ -84,14 +84,14 @@ def property_get(property_id, user):
 
     report = None
 
-    if property.get('report_id') and property.get('country').get('slug') == 'GB':
+    if property.get('report_id'):
         report = f_app.i18n.process_i18n(currant_data_helper.get_report(property.get('report_id')))
 
     title = _(property.get('name', '房产详情'))
     if property.get('city') and property.get('city').get('value'):
-        title += '_' + _(property.get('city').get('value'))
+        title += '-' + _(property.get('city').get('value'))
     if property.get('country') and property.get('country').get('value'):
-        title += '_' + _(property.get('country').get('value'))
+        title += '-' + _(property.get('country').get('value'))
     description = property.get('name', _('房产详情'))
 
     tags = []
