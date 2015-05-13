@@ -503,3 +503,12 @@ def wechat_endpoint():
     response.set_header(b"Content-Type", b"application/xml")
     logger.debug("Responding to wechat:", return_str)
     return return_str
+
+
+@f_get('/app-download')
+@currant_util.check_ip_and_redirect_domain
+@currant_util.check_crowdfunding_ready
+def app_download():
+    title = _('洋房东APP下载页')
+
+    return currant_util.common_template("app_download", title=title)

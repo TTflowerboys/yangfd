@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <!--供不需要页头业尾等组件页面使用-->
+        <title>{{title}}</title>
+        <meta name="Description" content="{{description}}">
+        <meta name="Keywords" content="{{keywords}}">
+        <!--Disable phone dtection on safari-->
+        <meta name="format-detection" content="telephone=no">
+        <!-- @@include = ../partials/meta.html -->
+
+        <!-- @@include =../partials/css_base.html -->
+
+
+        %if is_mobile_client():
+        <!--build:css(dist) /static/styles/client/ios.html.css-->
+        <link rel="stylesheet" href="/static/styles/client/ios.css"/>
+        <!--endbuild-->
+        %else:
+        <!--build:css(dist) /static/styles/client/nonios.html.css-->
+        <link rel="stylesheet" href="/static/styles/client/nonios.css"/>
+        <!--endbuild-->
+        %end
+
+
+        <!-- @@placeholder = head -->
+
+        <!--[if lte IE 8]>
+        <script src="/static/bower_components/html5shiv/dist/html5shiv.min.js"></script>
+        <![endif]-->
+
+        <!-- @@include = ../partials/favicon.html -->
+        <!-- @@include = ../partials/common_js_util.html -->
+    </head>
+    <body>
+
+        <div class="page">
+            <main id="main">
+                <!-- @@placeholder = main -->
+            </main>
+        </div>
+
+
+        <!-- @@include =../partials/js_base.html -->
+
+
+        <!--@@placeholder=scripts-->
+    </body>
+</html>

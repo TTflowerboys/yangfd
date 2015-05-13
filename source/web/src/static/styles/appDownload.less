@@ -1,0 +1,393 @@
+@import "project/_imports";
+
+@screen-lg: ~"(min-width:1901px)";
+@screen-md: ~"(min-width:1360px) and (max-width:1900px)";
+@screen-sm: ~"(min-width:769px) and (max-width:1359px)";
+
+html,body,.page{
+    height: 100%;
+}
+.clearfix:after {
+    content: "\200B";
+    display: block;
+    height: 0;
+    clear: both
+}
+
+.clearfix {
+    *zoom:1
+}
+
+@margin: 60px;
+.page>main{
+    position: relative;
+    min-width: 900px;
+    height: 100%;
+    overflow: hidden;
+    background: url("/static/images/background/ad_app_bg.jpg") 50% 50% no-repeat;
+    background-size: cover;
+    @media @phone {
+        min-width: 0;
+        height: auto;
+        background-size: auto 100%;
+    }
+    @media @screen-lg {
+        min-height: 900px;
+    }
+    @media @screen-md {
+        min-height: 680px;
+    }
+    @media @screen-sm {
+        min-height: 580px;
+    }
+    &:after{
+        position: absolute;
+        z-index: 1;
+        content: '';
+        width: 100%;
+        height: 100%;
+        left: 0;
+        bottom: 0;
+        background: url("/static/images/background/ad_app_quadrangle_bg.png") 50% 50% no-repeat;
+        background-size: 100% 100%;
+        @media @phone{
+            background-image: url("/static/images/background/ad_app_quadrangle_mobile_bg.png");
+        }
+    }
+    .wrap{
+        position: relative;
+        z-index: 10;
+        float: right;
+        @media @phone{
+            float: none;
+        }
+        &.wrapRight{
+            width: 45%;
+            height: 100%;
+            @media @phone{
+                margin-top: 50px;
+                width: 100%;
+                height: auto;
+            }
+            .phone{
+                position: relative;
+                left: 40%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                background: url("/static/images/background/iPhone6.png") 50% 50% no-repeat;
+                background-size: contain;
+                @media @screen-lg{
+                    width:391px;
+                    height: 800px;
+                }
+                @media @screen-md{
+                    width:293px;
+                    height: 600px;
+                }
+                @media @screen-sm{
+                    left: 50%;
+                    width:244px;
+                    height: 500px;
+                }
+                @media @phone {
+                    width:195px;
+                    height: 400px;
+                    top: 0;
+                    left: 50%;
+                    transform: translate(-50%, 0);
+                }
+                .rslides_container{
+                    position: relative;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%,-50%);
+                    @width: 341px;
+                    @height: 606px;
+                    @media @screen-lg{
+
+                        width: @width;
+                        height: @height;
+                    }
+                    @media @screen-md{
+                        width: 0.75 * @width;
+                        height: 0.75 * @height;
+
+                    }
+                    @media @screen-sm{
+                        width: 5/8 * @width;
+                        height: 5/8 * @height;
+                    }
+                    @media @phone {
+                        width: 0.5 * @width;
+                        height: 0.5 * @height;
+                    }
+                    .centered-btns_nav {
+                        z-index: 3;
+                        position: absolute;
+                        -webkit-tap-highlight-color: rgba(0,0,0,0);
+                        top: 50%;
+                        left: 0;
+                        opacity: 0.7;
+                        text-indent: -9999px;
+                        overflow: hidden;
+                        text-decoration: none;
+                        height: 61px;
+                        width: 38px;
+                        background: transparent url("themes.gif") no-repeat left top;
+                        margin-top: -45px;
+                    }
+
+                    .centered-btns_nav:active {
+                        opacity: 1.0;
+                    }
+
+                    .centered-btns_nav.next {
+                        left: auto;
+                        background-position: right top;
+                        right: 0;
+                    }
+
+                    .transparent-btns_nav {
+                        z-index: 3;
+                        position: absolute;
+                        -webkit-tap-highlight-color: rgba(0,0,0,0);
+                        top: 0;
+                        left: 0;
+                        display: block;
+                        background: #fff; /* Fix for IE6-9 */
+                        opacity: 0;
+                        filter: alpha(opacity=1);
+                        width: 48%;
+                        text-indent: -9999px;
+                        overflow: hidden;
+                        height: 91%;
+                    }
+
+                    .transparent-btns_nav.next {
+                        left: auto;
+                        right: 0;
+                    }
+
+                    .large-btns_nav {
+                        z-index: 3;
+                        position: absolute;
+                        -webkit-tap-highlight-color: rgba(0,0,0,0);
+                        opacity: 0.6;
+                        text-indent: -9999px;
+                        overflow: hidden;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        background: #000 url("themes.gif") no-repeat left 50%;
+                        width: 38px;
+                    }
+
+                    .large-btns_nav:active {
+                        opacity: 1.0;
+                    }
+
+                    .large-btns_nav.next {
+                        left: auto;
+                        background-position: right 50%;
+                        right: 0;
+                    }
+
+                    .centered-btns_nav:focus,
+                    .transparent-btns_nav:focus,
+                    .large-btns_nav:focus {
+                        outline: none;
+                    }
+
+                    .centered-btns_tabs,
+                    .transparent-btns_tabs,
+                    .large-btns_tabs {
+                        margin-top: 10px;
+                        text-align: center;
+                    }
+
+                    .centered-btns_tabs li,
+                    .transparent-btns_tabs li,
+                    .large-btns_tabs li {
+                        display: inline;
+                        float: none;
+                        _float: left;
+                        *float: left;
+                        margin-right: 5px;
+                    }
+
+                    .centered-btns_tabs a,
+                    .transparent-btns_tabs a,
+                    .large-btns_tabs a {
+                        text-indent: -9999px;
+                        overflow: hidden;
+                        -webkit-border-radius: 15px;
+                        -moz-border-radius: 15px;
+                        border-radius: 15px;
+                        background: #ccc;
+                        background: rgba(0,0,0, .2);
+                        display: inline-block;
+                        _display: block;
+                        *display: block;
+                        -webkit-box-shadow: inset 0 0 2px 0 rgba(0,0,0,.3);
+                        -moz-box-shadow: inset 0 0 2px 0 rgba(0,0,0,.3);
+                        box-shadow: inset 0 0 2px 0 rgba(0,0,0,.3);
+                        width: 9px;
+                        height: 9px;
+                    }
+
+                    .centered-btns_here a,
+                    .transparent-btns_here a,
+                    .large-btns_here a {
+                        background: #222;
+                        background: rgba(0,0,0, .8);
+                    }
+                }
+            }
+        }
+        &.wrapLeft{
+            width: 55%;
+            height: 100%;
+            text-align: left;
+            @media @phone{
+                width: 100%;
+                margin-top: 30px;
+            }
+            .content{
+                position: relative;
+                left: 70%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                font-weight: lighter;
+                overflow: hidden;
+                @media @screen-lg{
+                    width:800px;
+                    height: 800px;
+                    font-size: 30px;
+                }
+                @media @screen-md{
+                    width:600px;
+                    height: 600px;
+                    font-size: 24px;
+                }
+                @media @screen-sm{
+                    left: 60%;
+                    width:450px;
+                    height: 450px;
+                    font-size: 18px;
+                }
+                @media @phone{
+                    width: 100%;
+                    top: 0;
+                    left: 50%;
+                    transform: translate(-50%, 0);
+                    text-align: center;
+                    font-size: 16px;
+                }
+                .logo{
+                    width: 325px;
+                    background: url("/static/images/logo/logo_app_download.png") 0% 50% no-repeat;
+                    background-size: contain;
+                    @media @screen-lg{
+                        height: 88px;
+                        margin: @margin 0;
+                    }
+                    @media @screen-md{
+                        height: 70px;
+                        margin: 0.75 * @margin 0;
+                    }
+                    @media @screen-sm{
+                        height: 50px;
+                        margin: 0.5 * @margin 0;
+                    }
+                    @media @phone{
+                        height: 45px;
+                        width: 100%;
+                        margin: 10px 0;
+                        background-position: 50% 50%;
+                    }
+                }
+                .text{
+                    color: #fff;
+                    li{
+                        line-height: 1.8em;
+                    }
+                    @media @phone {
+                        margin-top: 40px;
+                    }
+                }
+                .downloadWrap{
+                    width: 80%;
+                    margin-left: 20%;
+                    @media @screen-lg{
+                        margin-top: @margin;
+                    }
+                    @media @screen-md{
+                        margin-top: 0.75 * @margin;
+                    }
+                    @media @screen-sm{
+                        margin-top: 0.5 * @margin;
+                    }
+                    @media @phone {
+                        width: 100%;
+                        margin: 40px 0;
+                    }
+                    .appStore{
+                        display: block;
+                        background: url("/static/images/media/app_store.png") 50% 50% no-repeat;
+                        background-size: 100% 100%;
+                        float: left;
+                        margin-left: 10%;
+                        @width:288px;
+                        @height:100px;
+                        @media @screen-lg {
+                            width: 0.65 * @width;
+                            height: 0.65 * @height;
+                        }
+                        @media @screen-md {
+                            width: 0.56 * @width;
+                            height: 0.56 * @height;
+                        }
+                        @media @screen-sm {
+                            width: 0.5 * @width;
+                            height: 0.5 * @height;
+                        }
+                        @media @phone {
+                            width: 0.9 * @width;
+                            height: 0.9 * @height;
+                            float: none;
+                            margin: 0 auto 40px;
+                        }
+                    }
+                    .qrcode{
+                        background: url("/static/images/media/app_download_qrcode.png") 50% 50% no-repeat;
+                        background-size: 100% 100%;
+                        float: left;
+                        margin-left: 10%;
+                        @width:240px;
+                        @height:240px;
+                        @media @screen-lg {
+                            width: 0.6 * @width;
+                            height: 0.6 * @height;
+                        }
+                        @media @screen-md {
+                            width: 0.52 * @width;
+                            height: 0.52 * @height;
+                        }
+                        @media @screen-sm {
+                            width: 0.45 * @width;
+                            height: 0.45 * @height;
+                        }
+                        @media @phone {
+                            width: 0.85*@width;
+                            height: 0.85*@height;
+                            float: none;
+                            margin: 0 auto 40px;
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+ }
