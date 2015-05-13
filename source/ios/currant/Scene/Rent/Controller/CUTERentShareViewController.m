@@ -60,6 +60,7 @@
     if ([field.key isEqualToString:@"view"]) {
         CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
         controller.url = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
+        [controller loadURL:controller.url];
         [self.navigationController pushViewController:controller animated:YES];
     }
     else if ([field.key isEqualToString:@"copyLink"]) {
