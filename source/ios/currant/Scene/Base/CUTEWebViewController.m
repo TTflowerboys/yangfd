@@ -171,7 +171,7 @@
     NSString *webTitle = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     NSString *urlTitle = [[CUTEWebConfiguration sharedInstance] getTitleFormURL:url];
     if (!IsNilNullOrEmpty(webTitle)) {
-        self.navigationItem.title = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+        self.navigationItem.title = [[_webView stringByEvaluatingJavaScriptFromString:@"document.title"] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
     }
     else if (!IsNilNullOrEmpty(urlTitle)) {
         self.navigationItem.title = urlTitle;
