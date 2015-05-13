@@ -4,6 +4,7 @@
 (function(Swiper){
     window.swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
-        paginationClickable: true
+        paginationClickable: true,
+        autoplay: 4000
     });
 })(window.Swiper)
