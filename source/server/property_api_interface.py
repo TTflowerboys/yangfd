@@ -81,6 +81,8 @@ def property_search(user, params):
         assert "sort" not in params, abort(40000)
     elif "longitude" in params:
         abort(40000)
+    else:
+        params.pop("search_range")
 
     if "budget" in params or "price" in params:
         if "budget" in params:
