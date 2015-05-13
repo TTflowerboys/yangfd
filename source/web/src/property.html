@@ -427,7 +427,7 @@
                                 <td class="value">
                                     {{property.get('street','')}}
                                     %if report:
-                                        <a class="street-link" style="display: none" target="_blank" href="/region_report/{{property.get('zipcode_index')}}">
+                                        <a class="street-link" style="display: none" target="_blank" href="/region-report/{{property.get('report_id')}}">
                                             {{_(' (查看详细街区报告)')}}
                                         </a>
                                     %end
@@ -884,7 +884,7 @@
                                     {{report.get('name')}}
                                 </h1>
                                 <p class="des">{{report.get('description')}}</p>
-                                <a class="ghostButton detail" href="/region_report/{{report.get('zipcode_index')}}" target="_blank">
+                                <a class="ghostButton detail" href="/region-report/{{report.get('id')}}" target="_blank">
                                     {{_('查看详细街区报告')}}
                                 </a>
                             </div>

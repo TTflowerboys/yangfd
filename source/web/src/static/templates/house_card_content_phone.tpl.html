@@ -1,6 +1,6 @@
 <a class="imagePart"
    %if is_mobile_client():
-   href="/property/{=house.id=}?mobile_client_target=new_controller"
+   href="yangfd://openURLInNewController/property/{=house.id=}"
    %else:
    href="/property/{=house.id=}"
    %end
@@ -63,7 +63,7 @@
 <div class="textPart" >
     <a class="textPart_inner"
        %if is_mobile_client():
-       href="/property/{=house.id=}?mobile_client_target=new_controller"
+       href="yangfd://openURLInNewController/property/{=house.id=}"
        %else:
        href="/property/{=house.id=}"
        %end

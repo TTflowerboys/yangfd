@@ -17,4 +17,6 @@
 
 - (BFTask *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
 
+- (BFTask *)downloadImage:(NSString *)URLString;
+
 @end

@@ -7,6 +7,7 @@
         }
         var $button = $(this)
         var rent_id = $button.attr('data-rent-id')
+        ga('send', 'pageview', '/property-to-rent/'+ rent_id +'/add-fav')
 
         $.betterPost('/api/1/user/favorite/add', {
             ticket_id: rent_id,
@@ -16,6 +17,7 @@
                 $button.hide().parent().find('[data-fn=removeFav]').show().attr('data-favorite-id', val)
 
                 ga('send', 'event', 'property_to_rent_detail', 'click', 'add-fav-success')
+                ga('send', 'pageview', '/property-to-rent/'+ rent_id +'/add-fav-success')
             })
             .fail(function (errorCode) {
                 if (errorCode !== 40100) {

@@ -65,7 +65,6 @@
     MakeEnd
 
     _webView.delegate = _progressProxy;
-    [self setupJSContextWithWebView:_webView];
 }
 
 - (void)loadURL:(NSURL *)url {
@@ -75,6 +74,11 @@
         [self updateWebView];
     }
     [_webView loadRequest:urlRequest];
+
+    [self setupJSContextWithWebView:_webView];
+    [self updateBackButton];
+    [self updateRightButtonWithURL:url];
+    [self updateTitleWithURL:url];
 }
 
 - (void)updateWithURL:(NSURL *)url {
@@ -95,7 +99,6 @@
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     _progressView.progressBarView.backgroundColor =  CUTE_MAIN_COLOR;
-    [self loadURL:self.url];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -138,6 +141,8 @@
     else if ([self viewControllerCanGoBack]) {
         [self.navigationController popViewControllerAnimated:YES];
     }
+
+    [self updateBackButton];
 }
 
 - (void)updateBackButton {
@@ -158,24 +163,40 @@
     }
 }
 
-- (void)updateRightButton {
-    BBTWebBarButtonItem *rightBarButtonItem = [[CUTEWebConfiguration sharedInstance] getRightBarItemFromURL:_webView.request.URL];
+- (void)updateRightButtonWithURL:(NSURL *)url {
+    BBTWebBarButtonItem *rightBarButtonItem = [[CUTEWebConfiguration sharedInstance] getRightBarItemFromURL:url];
     rightBarButtonItem.webView = _webView;
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
 }
+
+- (void)updateTitleWithURL:(NSURL *)url {
+    NSString *webTitle = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    NSString *urlTitle = [[CUTEWebConfiguration sharedInstance] getTitleFormURL:url];
+    if (!IsNilNullOrEmpty(webTitle)) {
+        self.navigationItem.title = [[_webView stringByEvaluatingJavaScriptFromString:@"document.title"] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+    }
+    else if (!IsNilNullOrEmpty(urlTitle)) {
+        self.navigationItem.title = urlTitle;
+    }
+}
+
+
 
 #pragma UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    //TODO refine the custom scheme action design and replace all the all js call to custom action
     NSURL *url = [request URL];
-    NSDictionary *queryDictionary = url.queryDictionary;
-    if (navigationType == UIWebViewNavigationTypeLinkClicked && queryDictionary && queryDictionary[@"mobile_client_target"] && [queryDictionary[@"mobile_client_target"] isEqualToString:@"new_controller"]) {
-        CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
-        [newWebViewController loadURL:url];
-        newWebViewController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:newWebViewController animated:YES];
-        return NO;
+    if ([url.scheme isEqualToString:[CUTEConfiguration yangfdScheme]]) {
+        if ([url.host isEqualToString:@"openURLInNewController"]) {
+            CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
+            newWebViewController.url = [NSURL URLWithString:url.path relativeToURL:[CUTEConfiguration hostURL]];
+            [newWebViewController loadURL:newWebViewController.url];
+            newWebViewController.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:newWebViewController animated:YES];
+            return NO;
+        }
     }
 
     return YES;
@@ -183,9 +204,7 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [self setupJSContextWithWebView:webView];
-    [self updateBackButton];
-    [self updateRightButton];
+
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -193,15 +212,15 @@
     //http://stackoverflow.com/questions/21714365/uiwebview-javascript-losing-reference-to-ios-jscontext-namespace-object
     [self setupJSContextWithWebView:webView];
     [self updateBackButton];
-    [self updateRightButton];
-    self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    [self updateRightButtonWithURL:webView.request.URL];
+    [self updateTitleWithURL:webView.request.URL];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self setupJSContextWithWebView:webView];
     [self updateBackButton];
-    [self updateRightButton];
-    self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    [self updateRightButtonWithURL:webView.request.URL];
+    [self updateTitleWithURL:webView.request.URL];
 }
 
 #pragma mark - NJKWebViewProgressDelegate

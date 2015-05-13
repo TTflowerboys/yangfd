@@ -18,4 +18,6 @@
 
 - (BBTWebBarButtonItem *)getRightBarItemFromURL:(NSURL *)url;
 
+- (NSString *)getTitleFormURL:(NSURL *)url;
+
 @end

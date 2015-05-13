@@ -71,9 +71,9 @@
                         [SVProgressHUD showErrorWithError:task.error];
                     }
                     else {
+                        [SVProgressHUD dismiss];
                         CUTETicket *ticket = task.result;
                         [[CUTEWxManager sharedInstance] shareToWechatWithTicket:ticket];
-                        [SVProgressHUD dismiss];
                     }
                     return nil;
                 }];
@@ -91,9 +91,9 @@
                         [SVProgressHUD showErrorWithError:task.error];
                     }
                     else {
+                        [SVProgressHUD dismiss];
                         CUTETicket *ticket = task.result;
                         [[CUTEWxManager sharedInstance] shareToWechatWithTicket:ticket];
-                        [SVProgressHUD dismiss];
                     }
                     return nil;
                 }];
@@ -121,6 +121,23 @@
             [calert show];
         }
     }];
+}
+
+- (NSString *)getTitleFormURL:(NSURL *)url {
+    NSDictionary *titleDictionary = @{@"/": STR(@"洋房东"),
+                                      @"/property-list": STR(@"房产列表-洋房东"),
+                                      @"/property-to-rent-list": STR(@"出租列表-洋房东"),
+                                      @"/property": STR(@"房产详情"),
+                                      @"/property-to-rent": STR(@"出租详情"),
+                                      @"/user": STR(@"用户中心"),
+                                      @"/signin": STR(@"登录"),
+                                      @"/signup": STR(@"注册")
+                                      };
+    NSArray *paths = [url.path componentsSeparatedByString:@"/"];
+    if (paths.count >=2) {
+        return titleDictionary[CONCAT(@"/", [paths[1] stringByReplacingOccurrencesOfString:@"_" withString:@"-"])];
+    }
+    return STR(@"洋房东");
 }
 
 

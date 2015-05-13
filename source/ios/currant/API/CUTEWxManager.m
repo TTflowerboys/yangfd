@@ -15,6 +15,8 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEImageUploader.h"
 #import "CUTEConfiguration.h"
+#import "NSURL+Assets.h"
+#import "CUTEAPIManager.h"
 
 
 @interface CUTEWxManager () {
@@ -104,7 +106,7 @@
 - (void)shareToWechatWithTicket:(CUTETicket *)ticket {
     Sequencer *sequencer = [Sequencer new];
     NSString *imageURL = IsArrayNilOrEmpty(ticket.property.realityImages)? nil : ticket.property.realityImages.firstObject;
-    if (imageURL) {
+    if (imageURL && [NSURL URLWithString:imageURL].isAssetURL) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [SVProgressHUD show];
             [[[CUTEImageUploader sharedInstance] getAssetFromURL:imageURL] continueWithBlock:^id(BFTask *task) {
@@ -134,6 +136,35 @@
                 return task;
             }];
 
+        }];
+    }
+    else if (imageURL && ![NSURL URLWithString:imageURL].isAssetURL) {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [SVProgressHUD show];
+
+            [[[CUTEAPIManager sharedInstance] downloadImage:imageURL] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                else if (task.exception) {
+                    [SVProgressHUD showErrorWithException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [SVProgressHUD showErrorWithStatus:nil];
+                }
+                else {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+                        UIImage *image = task.result;
+                        image = [image resizedImage:THNUMBNAIL_SIZE interpolationQuality:kCGInterpolationDefault];
+                        dispatch_async(dispatch_get_main_queue(), ^(void) {
+                            completion(UIImagePNGRepresentation(image));
+                            [SVProgressHUD dismiss];
+                        });
+                    });
+                }
+
+                return task;
+            }];
         }];
     }
     else {

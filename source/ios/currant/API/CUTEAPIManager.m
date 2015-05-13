@@ -8,12 +8,16 @@
 
 #import "CUTEAPIManager.h"
 #import <BBTRestClient.h>
+#import <UIImageView+AFNetworking.h>
 #import "CUTEConfiguration.h"
 #import "CUTECommonMacro.h"
+
 
 @interface CUTEAPIManager () {
 
     BBTRestClient *_backingManager;
+
+    UIImageView *_imageDownloader;
 }
 
 @end
@@ -41,6 +45,8 @@
         [_backingManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [_backingManager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
         [_backingManager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
+
+        _imageDownloader = [UIImageView new];
     }
     return self;
 }
@@ -71,6 +77,17 @@
          }
      }];
     return tcs.task;
+}
+
+- (BFTask *)downloadImage:(NSString *)URLString {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [_imageDownloader setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [tcs setResult:image];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        [tcs setError:error];
+    }];
+    return tcs.task;
+
 }
 
 

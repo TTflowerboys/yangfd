@@ -26,6 +26,7 @@
                     var res = data.val
                     if (res && res.length > 0) {
                         $scope.zipcode_name = res[0].name
+                        $scope.item.report_id = res[0].id
                     } else {
                         $scope.zipcode_name = i18n('暂无此街区')
                     }
