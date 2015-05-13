@@ -11,6 +11,8 @@
     var $requestSMSCodeBtn = $('#requestSMSCodeBtn')
     window.propertyId = $('#submit').data('propertyid') || 'none'
     window.ticketId = $('#publish').data('ticketid') || location.hash.split('#/publish/')[1]
+    var creatStartTime = new Date()
+    var smsSendTime
 
     //选择房产类型
     $('#propertyType div').click(function () {
@@ -577,6 +579,8 @@
                         }
                         $btn.prop('disabled', false).text(window.i18n('预览并发布'))
 
+                        //
+                        ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'first-step', (new Date() - creatStartTime)/1000)
                     })
                     .fail(function (ret) {
                         $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
@@ -655,6 +659,7 @@
         // Fast register user
         if (valid) {
             $btn.prop('disabled', true).text(window.i18n('发送中...'))
+            smsSendTime = new Date()
 
             var params = $('#form2').serializeObject({
                 noEmptyString: true,
@@ -687,6 +692,9 @@
             $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent'})
                 .done(function(val) {
                     location.href = '/property-to-rent/' + window.ticketId + '/publish-success'
+
+                    ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'sms-receive', (new Date() - smsSendTime)/1000)
+                    ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'finish-publish', (new Date() - creatStartTime)/1000)
                 })
                 .fail(function (ret) {
                     $errorMsg2.empty()
