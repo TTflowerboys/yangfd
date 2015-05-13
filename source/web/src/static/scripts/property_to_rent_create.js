@@ -104,27 +104,39 @@
         $('[data-route=step2]').show()
         initInfoHeight()
     }).when('/1', function() {
+        ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-cover')
+
         showRoute1()
         $('#load_more .load_more').trigger('click')
         $('body,html').stop(true,true).animate({scrollTop: 1870}, 500)
     }).when('/2', function() {
+        ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-property-detail')
+
         showRoute1()
         $('body,html').stop(true,true).animate({scrollTop: 657}, 500)
     }).when('/3', function() {
+        ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-description-facilities')
+
         showRoute1()
         $('#load_more .load_more').trigger('click')
         $('#description').trigger('focus')
         $('body,html').stop(true,true).animate({scrollTop: 1870}, 500)
     }).when('/4', function() {
+        ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-address')
+
         showRoute1()
         $('#postcode').trigger('focus')
         $('body,html').stop(true,true).animate({scrollTop: 763}, 500)
 
     }).when('/5', function() {
+        ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-pics')
+
         showRoute1()
         $('#fileuploader').trigger('hover')
         $('body,html').stop(true,true).animate({scrollTop: 478}, 500)
     }).when('/6', function() {
+        ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-region')
+
         showRoute1()
         $('#inputAddress').trigger('click')
         $('#block').trigger('focus')
@@ -615,6 +627,8 @@
             $('#title').val(defaultTitle)
         }
         $('#more_information').show()
+
+        ga('send', 'event', 'property_to_rent_create', 'click', 'enter_more')
     })
     $('#more_region_highlight_handler').click(function () {
         $('#more_region_highlight_img').show()

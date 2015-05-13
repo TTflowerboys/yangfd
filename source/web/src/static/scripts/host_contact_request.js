@@ -17,6 +17,8 @@ $(function () {
                     var phone = val
                     $($('.hostPhone span')[1]).text(phone)
                     $('.contactRequest').hide()
+
+                    ga('send', 'pageview', '/host-contact-request/'+ rentId + '/contact-show-success')
                 })
             //TODO: issue #6317
             //.fail(function () {})
@@ -24,6 +26,8 @@ $(function () {
         else {
             $('#contactRequestBtn').hide()
             $('.contactRequestForm').show()
+
+            ga('send', 'pageview', '/host-contact-request/'+ rentId)
         }
     })
 
@@ -43,6 +47,8 @@ $(function () {
 
         // Fast register user
         if (valid) {
+            ga('send', 'pageview', '/host-contact-request/'+ rentId + '/request-sms')
+
             $requestSMSCodeBtn.prop('disabled', true)
             $requestSMSCodeBtn.text(window.i18n('发送中...'))
 
@@ -53,7 +59,7 @@ $(function () {
             $.betterPost('/api/1/user/fast-register', params)
                 .done(function (val) {
                     window.user = val
-                    //ga('send', 'event', 'signup', 'result', 'signup-success')
+                    ga('send', 'pageview', '/host-contact-request/'+ rentId + '/user-create-success')
                     //TODO: Count down 1 min to enable resend
                     //$requestSMSCodeBtn.prop('disabled', true)
                 })
@@ -82,6 +88,8 @@ $(function () {
         var api = '/api/1/user/' + window.user.id + '/sms_verification/verify'
         $.betterPost(api, params)
             .done(function () {
+                ga('send', 'pageview', '/host-contact-request/'+ rentId + '/phone-verify-success')
+
                 $feedback.show().text($(this).attr('data-message-success'))
 
                 $requestContactBtn.click()
