@@ -69,6 +69,11 @@
 		2C2FCDE91B01E521002594D7 /* ALAsset+GetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */; };
 		2C2FCDEA1B01E521002594D7 /* ALAsset+GetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */; };
 		2C2FCDEB1B01E521002594D7 /* ALAsset+GetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */; };
+		2C3DE2331B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
+		2C3DE2341B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
+		2C3DE2351B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
+		2C3DE2361B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
+		2C3DE2371B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
 		2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
@@ -514,6 +519,8 @@
 		2C2FCDDF1B01B56E002594D7 /* CUTEFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormViewController.m; sourceTree = "<group>"; };
 		2C2FCDE51B01E521002594D7 /* ALAsset+GetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+GetImage.h"; sourceTree = "<group>"; };
 		2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+GetImage.m"; sourceTree = "<group>"; };
+		2C3DE2311B035719006FF191 /* CUTETracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETracker.h; sourceTree = "<group>"; };
+		2C3DE2321B035719006FF191 /* CUTETracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETracker.m; sourceTree = "<group>"; };
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
@@ -962,6 +969,8 @@
 				2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */,
 				2C96E2721AE6566300F3590C /* CUTEWxManager.h */,
 				2C96E2731AE6566300F3590C /* CUTEWxManager.m */,
+				2C3DE2311B035719006FF191 /* CUTETracker.h */,
+				2C3DE2321B035719006FF191 /* CUTETracker.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1546,6 +1555,7 @@
 				2CF8A67F1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9D1AD37D34000378A9 /* CUTETicket.m in Sources */,
+				2C3DE2351B035719006FF191 /* CUTETracker.m in Sources */,
 				2C2FCDDB1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62E1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -1639,6 +1649,7 @@
 				2CF8A6801AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9E1AD37D34000378A9 /* CUTETicket.m in Sources */,
+				2C3DE2361B035719006FF191 /* CUTETracker.m in Sources */,
 				2C2FCDDC1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F51AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62F1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -1732,6 +1743,7 @@
 				2CF8A67E1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9C1AD37D34000378A9 /* CUTETicket.m in Sources */,
+				2C3DE2341B035719006FF191 /* CUTETracker.m in Sources */,
 				2C2FCDDA1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62D1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -1825,6 +1837,7 @@
 				2CF8A67D1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9B1AD37D34000378A9 /* CUTETicket.m in Sources */,
+				2C3DE2331B035719006FF191 /* CUTETracker.m in Sources */,
 				2C2FCDD91B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62C1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -1936,6 +1949,7 @@
 				2CF8A5F41AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2CC3A0801AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
 				2CC3A0721AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
+				2C3DE2371B035719006FF191 /* CUTETracker.m in Sources */,
 				2C427E581AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CC6C1D31AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2C2FCDC11AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
