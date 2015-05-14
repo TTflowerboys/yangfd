@@ -232,7 +232,7 @@ $(window).resize(window.updateTabSelectorFixed);
         if (propertyType) {
             params.property_type = propertyType
         }
-        var budgetType = getSelectedBudgetType()
+        var budgetType = getSelectedTagFilterDataId('#budgetTag')
         if (budgetType) {
             params.budget = budgetType
         }
@@ -241,11 +241,11 @@ $(window).resize(window.updateTabSelectorFixed);
         if (intention) {
             params.intention = intention
         }
-        var bedroomCount = getSelectedBedroomCount()
+        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
         if (bedroomCount) {
             params.bedroom_count = bedroomCount
         }
-        var buildingArea = getSelectedBuildingArea()
+        var buildingArea = getSelectedTagFilterDataId('#buildingAreaTag')
         if (buildingArea) {
             params.building_area = buildingArea
         }
@@ -329,11 +329,11 @@ $(window).resize(window.updateTabSelectorFixed);
         if (intention) {
             params.intention = intention
         }
-        var bedroomCount = getSelectedBedroomCount()
+        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
         if (bedroomCount) {
             params.bedroom_count = bedroomCount
         }
-        var buildingArea = getSelectedBuildingArea()
+        var buildingArea = getSelectedTagFilterDataId('#buildAreaTag')
         if (buildingArea) {
             params.building_area = buildingArea
         }
@@ -395,7 +395,7 @@ $(window).resize(window.updateTabSelectorFixed);
     }
 
     function isCurrentBudgetLoadFinished() {
-        return isBudgetLoadFinished(getSelectedBudgetType())
+        return isBudgetLoadFinished(getSelectedTagFilterDataId('#budgetTag'))
     }
 
     function getCurrentBelowNotFinishedBudget() {
@@ -449,8 +449,8 @@ $(window).resize(window.updateTabSelectorFixed);
     //     })
     // }
 
-    function getSelectedBudgetType() {
-        var $selectedChild = $('#tags #budgetTag').children('.selected')
+    function getSelectedTagFilterDataId(tag) {
+        var $selectedChild = $('#tags ' + tag).children('.selected')
         if ($selectedChild.length) {
             return $selectedChild.first().attr('data-id')
         }
@@ -517,26 +517,10 @@ $(window).resize(window.updateTabSelectorFixed);
         return ''
     }
 
-    function getSelectedBedroomCount() {
-        var $selectedChild = $('#tags #bedroomCountTag').children('.selected')
-        if ($selectedChild.length) {
-            return $selectedChild.first().attr('data-id')
-        }
-        return ''
-    }
-
     function getSelectedBedroomCountValue() {
         var $selectedChild = $('#tags #bedroomCountTag').children('.selected')
         if ($selectedChild.length) {
             return $selectedChild.first().text()
-        }
-        return ''
-    }
-
-    function getSelectedBuildingArea() {
-        var $selectedChild = $('#tags #buildingAreaTag').children('.selected')
-        if ($selectedChild.length) {
-            return $selectedChild.first().attr('data-id')
         }
         return ''
     }
@@ -597,8 +581,8 @@ $(window).resize(window.updateTabSelectorFixed);
     function updateResultCount(count) {
         var $numberContainer = $('#number_container')
         //var $number = $numberContainer.find('#number')
-        setTotalResultCountByBudget(getSelectedBudgetType(), count)
-        setCurrentResultCountByBudget(getSelectedBudgetType(), getCurrentTotalCount())
+        setTotalResultCountByBudget(getSelectedTagFilterDataId('#budgetTag'), count)
+        setCurrentResultCountByBudget(getSelectedTagFilterDataId('#budgetTag'), getCurrentTotalCount())
         if (count) {
             //$number.text(count)
             $numberContainer.text(window.i18n('共找到下列房产'))
@@ -620,7 +604,7 @@ $(window).resize(window.updateTabSelectorFixed);
         var emptyPlaceHolder = $('.emptyPlaceHolder');
         if (show) {
             window.resetRequirementForm(emptyPlaceHolder)
-            var selectedBudgetId = getSelectedBudgetType()
+            var selectedBudgetId = getSelectedTagFilterDataId('#budgetTag')
             emptyPlaceHolder.find('select[name=budget] option[value=' + selectedBudgetId + ']').attr('selected', true)
             var selectedCountry = $('select[name=propertyCountry]').children('option:selected').text()
             var selectedCity = $('select[name=propertyCity]').children('option:selected').text()
@@ -684,7 +668,7 @@ $(window).resize(window.updateTabSelectorFixed);
     // }
 
     // function updateUserTags() {
-    //     var budgetId = getSelectedBudgetType()
+    //     var budgetId = getSelectedTagFilterDataId('#budgetTag')
     //     var intentionIds = getSelectedIntention()
 
     //     $.betterPost('/api/1/user/edit', {'budget':budgetId, 'intention':intentionIds})
@@ -748,7 +732,7 @@ $(window).resize(window.updateTabSelectorFixed);
         }
 
         ga('send', 'event', 'property_list', 'change', 'change-budget', $item.text())
-        location.href = window.team.setQuery('budget', getSelectedBudgetType())
+        location.href = window.team.setQuery('budget', getSelectedTagFilterDataId('#budgetTag'))
     })
 
     $('#tags #intentionTag').on('click', '.toggleTag', function (event) {
@@ -776,7 +760,7 @@ $(window).resize(window.updateTabSelectorFixed);
         }
 
         ga('send', 'event', 'property_list', 'change', 'change-bedroomCount', $item.text())
-        location.href = window.team.setQuery('bedroom_count', getSelectedBedroomCount())
+        location.href = window.team.setQuery('bedroom_count', getSelectedTagFilterDataId('#bedroomCountTag'))
     })
 
     $('#tags #buildingAreaTag').on('click', '.toggleTag', function (event) {
@@ -790,7 +774,7 @@ $(window).resize(window.updateTabSelectorFixed);
         }
 
         ga('send', 'event', 'property_list', 'change', 'change-buildingArea', $item.text())
-        location.href = window.team.setQuery('building_area', getSelectedBuildingArea())
+        location.href = window.team.setQuery('building_area', getSelectedTagFilterDataId('#buildAreaTag'))
     })
 
     function showTags() {

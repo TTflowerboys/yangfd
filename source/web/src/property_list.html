@@ -205,7 +205,7 @@
 <script id="houseInfobox_template" type="text/template">
     <div class="houseInfobox_wrapper infobox">
         <div class="houseInfobox arrow_box">
-            <a href="/property/{=house.id=}">
+            <a href="/property/{=house.id=}" target="_blank">
                 <div class="imagePart">
                     {_if (house.cover){_}
                     <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);" width=120 height=80/>

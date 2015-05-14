@@ -1,8 +1,6 @@
 (function () {
     var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
 
-
-
     window.mapCache = {}
     window.mapPinCache = {}
     window.mapInfoBoxLayerCache = {}
@@ -15,7 +13,7 @@
     }
 
     function createMapPin(map, layer, mapId, result) {
-        if (result) {
+        if (result && result.latitude && result.longitude) {
             var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
             var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-building.png', width: 30, height: 45});
 
@@ -43,14 +41,24 @@
             infoboxOptions = {offset:new Microsoft.Maps.Point(-160,50) };
         }
         var infobox = new Microsoft.Maps.Infobox(location, infoboxOptions);
-        var houseResult = _.template($('#houseInfobox_template').html())({house: result})
-        infobox.setHtmlContent(houseResult)
+        $.betterPost('/api/1/property/'+result.id)
+            .done(function (val) {
+                if (!_.isEmpty(val)) {
 
-        layer.push(infobox)
-        layer.setOptions({ visible: true });
-        map.entities.push(layer);
-        ajustMapPosition(map, layer.get(0), location)
-        window.mapInfoBoxLayerCache[mapId] = layer
+                    var houseResult = _.template($('#houseInfobox_template').html())({house: val})
+                    infobox.setHtmlContent(houseResult)
+
+                    layer.push(infobox)
+                    layer.setOptions({ visible: true });
+                    map.entities.push(layer);
+                    ajustMapPosition(map, layer.get(0), location)
+                    window.mapInfoBoxLayerCache[mapId] = layer
+                }
+            }).fail(function () {
+
+            }).always(function () {
+
+            })
     }
 
     //http://stackoverflow.com/questions/11148042/bing-maps-invoke-click-event-on-pushpin
@@ -172,12 +180,14 @@
         var mapId = 'mapCanvas'
         var map = window.getMap(mapId)
         map.entities.clear();
-        updateMapResults(map, mapId, window.propertyList)
+        updateMapResults(map, mapId, window.propertyMapList)
 
         var locations = []
-        _.each(window.propertyList, function (property) {
-            var location = new Microsoft.Maps.Location(property.latitude, property.longitude)
-            locations.push(location)
+        _.each(window.propertyMapList, function (property) {
+            if(property.latitude && property.longitude) {
+                var location = new Microsoft.Maps.Location(property.latitude, property.longitude)
+                locations.push(location)
+            }
         })
         map.setView(getBestMapOptions(locations, $('#' + mapId).width(), $('#' + mapId).height()))
         $('html, body').animate({scrollTop: $('#' + mapId).offset().top - 60 }, 'fast')
@@ -192,18 +202,13 @@
                         window.alert(window.i18n('地图加载失败'))
                     }
                     else {
-                        if (window.propertyList) {
-                            updateMap()
-                        }
+                        loadPropertyList()
                     }
                 }
                 $('body').append(scriptString)
             }
             else {
-                //updateMap()
-                if (window.propertyList) {
-                    updateMap()
-                }
+                loadPropertyList()
             }
         }
     })
@@ -233,4 +238,75 @@
             $(this).attr('data-tab', 'list')
         }
     })
+
+    function loadPropertyList() {
+        var params = {'location_only': 1}
+        var country = $('select[name=propertyCountry]').children('option:selected').val()
+        if (country) {
+            params.country = country
+        }
+        var city = $('select[name=propertyCity]').children('option:selected').val()
+        if (city) {
+            params.city = city
+        }
+        var propertyType = $('select[name=propertyType]').children('option:selected').val()
+        if (propertyType) {
+            params.property_type = propertyType
+        }
+        var budgetType = getSelectedTagFilterDataId('#budgetTag')
+        if (budgetType) {
+            params.budget = budgetType
+        }
+
+        var intention = getSelectedIntention()
+        if (intention) {
+            params.intention = intention
+        }
+        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
+        if (bedroomCount) {
+            params.bedroom_count = bedroomCount
+        }
+        var buildingArea = getSelectedTagFilterDataId('#buildingAreaTag')
+        if (buildingArea) {
+            params.building_area = buildingArea
+        }
+
+        $.betterPost('/api/1/property/search', params)
+            .done(function (val) {
+                var array = val.content
+                if (!_.isEmpty(array)) {
+
+                    window.propertyMapList = array
+
+                    updateMap()
+                }
+            })
+            .fail(function () {
+            })
+            .always(function () {
+            })
+    }
+
+    function getSelectedTagFilterDataId(tag) {
+        var $selectedChild = $('#tags ' + tag).children('.selected')
+        if ($selectedChild.length) {
+            return $selectedChild.first().attr('data-id')
+        }
+        return ''
+    }
+
+    function getSelectedIntention() {
+        var $selectedChildren = $('#tags #intentionTag').children('.selected')
+        if ($selectedChildren.length) {
+            var ids = ''
+            _.each($selectedChildren, function (child) {
+                ids += child.getAttribute('data-id')
+                ids += ','
+            })
+
+            return ids.slice(0, -1)
+        }
+        return ''
+    }
+
 })()
