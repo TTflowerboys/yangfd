@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTEPropertyFacilityViewController.h"
+#import "CUTERentPropertyFacilityViewController.h"
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
 #import "CUTEPropertyFacilityForm.h"
@@ -14,7 +14,7 @@
 #import "CUTERentTickePublisher.h"
 #import "CUTENotificationKey.h"
 
-@implementation CUTEPropertyFacilityViewController
+@implementation CUTERentPropertyFacilityViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

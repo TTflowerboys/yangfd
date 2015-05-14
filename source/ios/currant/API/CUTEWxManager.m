@@ -17,6 +17,7 @@
 #import "CUTEConfiguration.h"
 #import "NSURL+Assets.h"
 #import "CUTEAPIManager.h"
+#import "CUTETracker.h"
 
 
 @interface CUTEWxManager () {
@@ -70,6 +71,8 @@
 
         if([WXApi isWXAppInstalled]){
             if (buttonIndex != alertView.cancelButtonIndex) {
+                TrackScreen(@"share-to-wechat");
+
                 BaseReq *req = [self makeWechatRequstWithScene:buttonIndex == 1? WXSceneSession: WXSceneTimeline title:title description:description thumbData:imageData url:url];
 
                 [[CUTEWxManager sharedInstance] sendRequst:req onResponse:^(BaseResp *resp) {

@@ -14,7 +14,7 @@
 #import "CUTEMapTextField.h"
 #import "CUTERentAddressEditForm.h"
 #import "CUTERentAddressEditViewController.h"
-#import "CUTEPropertyInfoViewController.h"
+#import "CUTERentPropertyInfoViewController.h"
 #import "CUTEEnumManager.h"
 #import "CUTEEnum.h"
 #import <NSArray+ObjectiveSugar.h>
@@ -85,8 +85,6 @@
     [_mapView addGestureRecognizer:longPressGesture];
 
     [self startUpdateLocation];
-
-    TrackScreen(@"enter-second-step");
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -99,7 +97,10 @@
     if (property.location) {
         [self updatePlacemarkWithLocation:property.location];
     }
+
+    TrackScreen(GetScreenName(self));
 }
+
 
 - (BFTask *)requestLocation {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
@@ -211,6 +212,7 @@
 }
 
 - (void)onAddressLocationButtonTapped:(id)sender {
+    TrackEvent(GetScreenName(self), kEventActionPress, @"look-up-address", nil);
 
     if (IsNilNullOrEmpty(_textField.text)) {
         [SVProgressHUD showErrorWithStatus:STR(@"地址不能为空，请编辑地址")];
@@ -282,7 +284,7 @@
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
                 if (!IsArrayNilOrEmpty(task.result)) {
-                    CUTEPropertyInfoViewController *controller = [[CUTEPropertyInfoViewController alloc] init];
+                    CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
                     controller.ticket = self.ticket;
                     CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
                     form.propertyType = currentTicket.property.propertyType;
@@ -369,6 +371,9 @@
                 }
                 return task;
             }];
+        }
+        else {
+            TrackEvent(GetScreenName(self), kEventActionRequestReturn, @"non-geocoding-result", nil);
         }
         return task;
     }];

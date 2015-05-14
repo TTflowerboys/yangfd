@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTEUnfinishedRentTicketViewController.h"
+#import "CUTEUnfinishedRentTicketListViewController.h"
 #import "CUTECommonMacro.h"
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentTypeListForm.h"
@@ -14,12 +14,12 @@
 #import "CUTEEnumManager.h"
 #import "CUTETicket.h"
 #import "CUTEDataManager.h"
-#import "CUTEPropertyInfoViewController.h"
+#import "CUTERentPropertyInfoViewController.h"
 #import "CUTEPropertyInfoForm.h"
 #import "CUTEUnfinishedRentTicketCell.h"
 #import "CUTENotificationKey.h"
 
-@interface CUTEUnfinishedRentTicketViewController ()
+@interface CUTEUnfinishedRentTicketListViewController ()
 
 @property (strong, nonatomic) NSArray *unfinishedRentTickets;
 
@@ -27,7 +27,7 @@
 
 
 
-@implementation CUTEUnfinishedRentTicketViewController
+@implementation CUTEUnfinishedRentTicketListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -96,7 +96,7 @@
     if (ticket) {
         [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
             if (!IsArrayNilOrEmpty(task.result)) {
-                CUTEPropertyInfoViewController *controller = [[CUTEPropertyInfoViewController alloc] init];
+                CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
                 controller.ticket = ticket;
                 CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
                 form.propertyType = ticket.property.propertyType;

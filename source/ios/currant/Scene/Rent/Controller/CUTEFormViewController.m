@@ -13,6 +13,7 @@
 #import "CUTECommonMacro.h"
 #import "MasonryMake.h"
 #import "CUTETracker.h"
+#import <NSString+SLRESTfulCoreData.h>
 
 
 @implementation FXFormController (CUTE)
@@ -39,6 +40,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    TrackScreen(GetScreenName(self));
 }
 
 - (void)setTableView:(UITableView *)tableView

@@ -10,7 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
 #import "CUTETicket.h"
-#import "CUTEPropertyInfoViewController.h"
+#import "CUTERentPropertyInfoViewController.h"
 #import "CUTEPropertyInfoForm.h"
 #import "CUTEEnumManager.h"
 #import "CUTENotificationKey.h"

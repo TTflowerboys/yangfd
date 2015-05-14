@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTEPropertyInfoViewController.h"
+#import "CUTERentPropertyInfoViewController.h"
 #import "CUTERentContactViewController.h"
 #import "CUTERentContactForm.h"
 #import "CUTEDataManager.h"
@@ -26,9 +26,9 @@
 #import "CUTEPropertyInfoForm.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEFormImagePickerCell.h"
-#import "CUTEPropertyMoreInfoViewController.h"
+#import "CUTERentPropertyMoreInfoViewController.h"
 #import "CUTERentAreaViewController.h"
-#import "CUTEUnfinishedRentTicketViewController.h"
+#import "CUTEUnfinishedRentTicketListViewController.h"
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentTypeListForm.h"
 #import "CUTERentAddressMapViewController.h"
@@ -40,7 +40,7 @@
 #import "CUTERentTicketPreviewController.h"
 #import "CUTETracker.h"
 
-@interface CUTEPropertyInfoViewController () {
+@interface CUTERentPropertyInfoViewController () {
 
     CUTERentAreaViewController *_editAreaViewController;
 
@@ -50,7 +50,7 @@
 @end
 
 
-@implementation CUTEPropertyInfoViewController
+@implementation CUTERentPropertyInfoViewController
 
 - (instancetype)init
 {
@@ -67,8 +67,6 @@
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:self action:@selector(onPreviewButtonPressed:)];
-
-    TrackScreen(@"enter-third-step");
 }
 
 
@@ -290,8 +288,10 @@
 }
 
 - (void)editMoreInfo {
+
+    TrackEvent(GetScreenName(self), kEventActionPress, @"enter-more", nil);
     CUTETicket *ticket = self.ticket;
-    CUTEPropertyMoreInfoViewController *controller = [CUTEPropertyMoreInfoViewController new];
+    CUTERentPropertyMoreInfoViewController *controller = [CUTERentPropertyMoreInfoViewController new];
     controller.ticket = ticket;
     CUTEPropertyMoreInfoForm *form = [CUTEPropertyMoreInfoForm new];
     form.ticketTitle = ticket.titleForDisplay;
@@ -323,7 +323,7 @@
 
 - (void)submit
 {
-    
+
     if (![self validate]) {
         return;
     }

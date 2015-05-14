@@ -17,6 +17,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTERentContactViewController.h"
 #import "CUTERentContactForm.h"
+#import "CUTETracker.h"
 
 @implementation CUTERentTicketPreviewController
 
@@ -39,10 +40,12 @@
 }
 
 - (void)onLeftButtonPressed:(id)sender {
+    TrackEvent(GetScreenName(self), kEventActionPress, @"return-to-edit", nil);
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)onSubmitButtonPressed:(id)sender {
+    TrackEvent(GetScreenName(self), kEventActionPress, @"publish", nil);
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
 

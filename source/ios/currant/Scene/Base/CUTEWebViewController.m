@@ -107,7 +107,7 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
 
-    [self trackWebScreen];
+    TrackScreen(GetScreenName(self.url));
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -117,16 +117,6 @@
     // Remove progress view
     // because UINavigationBar is shared with other ViewControllers
     [_progressView removeFromSuperview];
-}
-
-- (void)trackWebScreen {
-    if (self.url) {
-        NSArray *paths = [[[self url] path] componentsSeparatedByString:@"/"];
-        if (paths.count >= 2) {
-            NSString *screenName = !IsNilNullOrEmpty(paths[1])? [paths[1] stringByReplacingOccurrencesOfString:@"_" withString:@"-"]: @"index";
-            TrackScreen(screenName);
-        }
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -202,6 +192,8 @@
     NSURL *url = [request URL];
     if ([url.scheme isEqualToString:[CUTEConfiguration yangfdScheme]]) {
         if ([url.host isEqualToString:@"openURLInNewController"]) {
+            TrackEvent(GetScreenName(self.url), kEventActionPress, GetScreenName(url), nil);
+            
             CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
             newWebViewController.url = [NSURL URLWithString:url.path relativeToURL:[CUTEConfiguration hostURL]];
             [newWebViewController loadURL:newWebViewController.url];

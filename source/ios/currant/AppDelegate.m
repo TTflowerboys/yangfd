@@ -25,10 +25,10 @@
 #import "CUTETicket.h"
 #import "CUTERentShareViewController.h"
 #import "CUTERentShareForm.h"
-#import "CUTEUnfinishedRentTicketViewController.h"
+#import "CUTEUnfinishedRentTicketListViewController.h"
 #import "CUTERentTickePublisher.h"
 #import "CUTEPropertyInfoForm.h"
-#import "CUTEPropertyInfoViewController.h"
+#import "CUTERentPropertyInfoViewController.h"
 #import "CUTEImageUploader.h"
 #import "CUTETracker.h"
 #warning DEBUG_CODE
@@ -70,16 +70,20 @@
     return versionBuild;
 }
 
+#define kHomeTabBarIndex 0
+#define kPropertyListTabBarIndex 1
 #define kEditTabBarIndex 2
+#define kRentTicketListTabBarIndex 3
 #define kUserTabBarIndex 4
 
-- (UINavigationController *)makeViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
+- (UINavigationController *)makeViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath index:(NSInteger)index {
 
     CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] init];
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
+    nav.tabBarItem.tag = index;
     controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     [nav setViewControllers:@[controller]];
@@ -93,6 +97,7 @@
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
+    nav.tabBarItem.tag = kPropertyListTabBarIndex;
     controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     [nav setViewControllers:@[controller]];
@@ -133,15 +138,17 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
-    UINavigationController *homeViewController = [self makeViewControllerWithTitle:STR(@"主页") icon:@"tab-home" urlPath:@"/"];
+    UINavigationController *homeViewController = [self makeViewControllerWithTitle:STR(@"主页") icon:@"tab-home" urlPath:@"/" index:kHomeTabBarIndex];
+
     UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit" urlPath:@"/rent_new"];
-    [rootViewController setViewControllers:@[
-                                             homeViewController,
-                                             [self makePropertyListViewControllerWithTitle:STR(@"新房") icon:@"tab-property" urlPath:@"/property_list"],
+    UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:STR(@"新房") icon:@"tab-property" urlPath:@"/property_list"];
+    UINavigationController *rentTicketListViewController = [self makeViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property_to_rent_list" index:kRentTicketListTabBarIndex];
+    UINavigationController *userViewController = [self makeViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user" index: kUserTabBarIndex];
+    [rootViewController setViewControllers:@[homeViewController,
+                                             propertyListViewController,
                                              editViewController,
-                                             [self makeViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property_to_rent_list"],
-                                             [self makeViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user"],
-                                             ] animated:YES];
+                                             rentTicketListViewController,
+                                             userViewController] animated:NO];
 
     [self.window setRootViewController:rootViewController];
     self.tabBarController = rootViewController;
@@ -227,6 +234,10 @@
         [self updatePublishRentTicketTabWithController:viewController silent:NO];
     }
     else {
+        if (viewController.tabBarItem.tag == kRentTicketListTabBarIndex) {
+            TrackEvent(@"tab-bar", kEventActionPress, @"open-rent-ticket-list-tab", nil);
+        }
+
         if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
             CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
             if (!webViewController.webView.request) {
@@ -261,7 +272,7 @@
         }];
     }
     else if (unfinishedRentTickets.count > 0) {
-        CUTEUnfinishedRentTicketViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketViewController new];
+        CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
         [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
     }
 }
@@ -315,7 +326,7 @@
     if (ticket && webController && [webController isKindOfClass:[UIViewController class]] && webController.navigationController) {
         [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
             if (!IsArrayNilOrEmpty(task.result)) {
-                CUTEPropertyInfoViewController *controller = [[CUTEPropertyInfoViewController alloc] init];
+                CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
                 controller.ticket = ticket;
                 CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
                 form.propertyType = ticket.property.propertyType;
@@ -345,13 +356,13 @@
     NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
     UINavigationController *navController = [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
     if (unfinishedRentTickets.count > 0) {
-        if ([navController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketViewController class]]) {
-            CUTEUnfinishedRentTicketViewController *unfinishedController = (CUTEUnfinishedRentTicketViewController *)navController.topViewController;
+        if ([navController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
+            CUTEUnfinishedRentTicketListViewController *unfinishedController = (CUTEUnfinishedRentTicketListViewController *)navController.topViewController;
             [unfinishedController reloadData];
         }
         else {
             NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
-            CUTEUnfinishedRentTicketViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketViewController new];
+            CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
             [viewControllers insertObject:unfinishedRentTicketController atIndex:0];
             [navController setViewControllers:viewControllers animated:NO];
 

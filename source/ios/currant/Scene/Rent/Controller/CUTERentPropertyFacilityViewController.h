@@ -10,7 +10,7 @@
 #import "CUTETicket.h"
 #import "CUTEFormViewController.h"
 
-@interface CUTEPropertyFacilityViewController : CUTEFormViewController
+@interface CUTERentPropertyFacilityViewController : CUTEFormViewController
 
 @property (strong, nonatomic) CUTETicket *ticket;
 

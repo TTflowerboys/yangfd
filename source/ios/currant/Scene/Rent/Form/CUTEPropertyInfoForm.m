@@ -13,7 +13,7 @@
 #import "CUTEFormRoomsPickerCell.h"
 //#import "CUTEFormDefaultCell.h"
 #import "CUTERentContactViewController.h"
-#import "CUTEPropertyMoreInfoViewController.h"
+#import "CUTERentPropertyMoreInfoViewController.h"
 #import <NSArray+ObjectiveSugar.h>
 
 @interface CUTEPropertyInfoForm () {

@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTEPropertyMoreInfoViewController.h"
-#import "CUTEPropertyFacilityViewController.h"
+#import "CUTERentPropertyMoreInfoViewController.h"
+#import "CUTERentPropertyFacilityViewController.h"
 #import "CUTEPropertyFacilityForm.h"
 #import "CUTEEnumManager.h"
 #import <NSArray+ObjectiveSugar.h>
@@ -21,7 +21,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEFormLimitCharacterCountTextFieldCell.h"
 
-@implementation CUTEPropertyMoreInfoViewController
+@implementation CUTERentPropertyMoreInfoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,7 +44,7 @@
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
             CUTETicket *ticket = self.ticket;
             CUTEProperty *property = [ticket property];
-            CUTEPropertyFacilityViewController *controller = [[CUTEPropertyFacilityViewController alloc] init];
+            CUTERentPropertyFacilityViewController *controller = [[CUTERentPropertyFacilityViewController alloc] init];
             controller.ticket = self.ticket;
             CUTEPropertyFacilityForm *form = [CUTEPropertyFacilityForm new];
             [form setAllIndoorFacilities:task.result[0]];

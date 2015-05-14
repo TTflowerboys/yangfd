@@ -15,6 +15,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEWxManager.h"
 #import <RegExCategories.h>
+#import "CUTETracker.h"
 
 @implementation CUTEWebConfiguration
 
@@ -51,17 +52,24 @@
 
 - (BBTWebBarButtonItem *)getRightBarItemFromURL:(NSURL *)url {
     if ([url.path isEqual:@"/"]) {
-        return [self getPhoneBarButtonItem];
+        return [self getPhoneBarButtonItemWithCompletion:^{
+            TrackEvent(GetScreenName(url), kEventActionPress, @"call-yangfd", nil);
+        }];
     }
     else if ([self isURL:url matchPath:@"\\/property-list"]) {
-        return [self getPhoneBarButtonItem];
+        return [self getPhoneBarButtonItemWithCompletion:^ {
+
+        }];
 
     }
     else if ([self isURL:url matchPath:@"\\/property\\/[0-9a-fA-F]{24}"]) {
-        return [self getPhoneBarButtonItem];
+        return [self getPhoneBarButtonItemWithCompletion:^{
+            TrackEvent(GetScreenName(url), kEventActionPress, @"call-yangfd", nil);
+        }];
     }
     else if ([self isURL:url matchPath:@"\\/property-to-rent\\/[0-9a-fA-F]{24}"]) {
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"icon-wechat") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+            TrackEvent(@"property-to-rent", kEventActionPress, @"share-to-wechat", nil);
             NSArray *paths = [url.path componentsSeparatedByString:@"/"];
             if (paths.count >= 3) {
                 NSString *ticketId = paths[2];
@@ -102,6 +110,7 @@
     }
     else if ([self isURL:url matchPath:@"\\/property-to-rent-list"] && [CUTEDataManager sharedInstance].isUserLoggedIn) {
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+            TrackEvent(@"property-to-rent-list", kEventActionPress, @"open-fav-list", nil);
             [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"/user_favorites?type=rent" relativeToURL:[CUTEConfiguration hostURL]]]];
         }];
     }
@@ -109,7 +118,7 @@
     return nil;
 }
 
-- (BBTWebBarButtonItem *)getPhoneBarButtonItem {
+- (BBTWebBarButtonItem *)getPhoneBarButtonItemWithCompletion:(dispatch_block_t)completion {
     return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
         NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",[CUTEConfiguration servicePhone]]];
 
@@ -120,6 +129,7 @@
             UIAlertView *calert = [[UIAlertView alloc]initWithTitle:STR(@"电话不可用") message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil, nil];
             [calert show];
         }
+        completion();
     }];
 }
 

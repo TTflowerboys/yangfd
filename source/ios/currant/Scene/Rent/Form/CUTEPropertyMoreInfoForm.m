@@ -8,7 +8,7 @@
 
 #import "CUTEPropertyMoreInfoForm.h"
 #import "CUTECommonMacro.h"
-#import "CUTEPropertyFacilityViewController.h"
+#import "CUTERentPropertyFacilityViewController.h"
 #import "CUTEFormButtonCell.h"
 #import "CUTEFormFixNonBreakingSpaceTextFieldCell.h"
 #import "CUTEFormLimitCharacterCountTextFieldCell.h"

@@ -12,6 +12,8 @@
 #import <GAITracker.h>
 #import <GAIFields.h>
 #import "CUTEDataManager.h"
+#import "NSString+SLRESTfulCoreData.h"
+#import "CUTECommonMacro.h"
 
 @interface CUTETracker ()
 {
@@ -62,6 +64,42 @@
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createEventWithCategory:category action:action label:label value:value];
     [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
     [_tracker send:[builder build]];
+}
+
+- (NSString *)getScreenNameFromObject:(id)object {
+
+    if ([object isKindOfClass:[UIViewController class]]) {
+        return [self getScreenNameFromViewController:object];
+    }
+    else if ([object isKindOfClass:[NSURL class]]) {
+        return [self getScreenNameFromURL:object];
+    }
+    return [object description];
+}
+
+- (NSString *)getScreenNameFromViewController:(UIViewController *)controller {
+    NSString *screenName = NSStringFromClass([controller class]);
+    if ([screenName hasPrefix:@"CUTE"]) {
+        screenName = [screenName substringFromIndex:4];
+    }
+    if ([screenName hasSuffix:@"ViewController"]) {
+        screenName = [screenName substringToIndex:screenName.length - @"ViewController".length];
+    }
+
+    screenName = [[screenName stringByUnderscoringString] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+    return screenName;
+
+}
+
+- (NSString *)getScreenNameFromURL:(NSURL *)url {
+    if (url) {
+        NSArray *paths = [[url path] componentsSeparatedByString:@"/"];
+        if (paths.count >= 2) {
+            NSString *screenName = !IsNilNullOrEmpty(paths[1])? [paths[1] stringByReplacingOccurrencesOfString:@"_" withString:@"-"]: @"index";
+            return screenName;
+        }
+    }
+    return nil;
 }
 
 @end

@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #define kEventActionPress @"press"
+#define kEventActionRequestReturn @"request-return"
 
 #define TrackScreen(screenName) [[CUTETracker sharedInstance] trackScreen:screenName]
-#define TrackEvent(category, action, label, value) [[CUTETracker sharedInstance] trackEventWithCategory:category action:action label:label value:value]
+#define TrackEvent(oneCategory, oneAction, oneLabel, oneValue)  [[CUTETracker sharedInstance] trackEventWithCategory:oneCategory action:oneAction label:oneLabel value:oneValue]
+
+#define GetScreenName(object) [[CUTETracker sharedInstance] getScreenNameFromObject:object]
 
 @interface CUTETracker : NSObject
 
@@ -22,5 +26,9 @@
 - (void)trackScreen:(NSString *)screenName;
 
 - (void)trackEventWithCategory:(NSString *)category action:(NSString *)action label:(NSString *)label value:(NSNumber *)value;
+
+#pragma Util
+
+- (NSString *)getScreenNameFromObject:(id)object;
 
 @end

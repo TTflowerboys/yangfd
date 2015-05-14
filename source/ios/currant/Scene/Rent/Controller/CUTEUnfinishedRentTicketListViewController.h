@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CUTEUnfinishedRentTicketViewController : UITableViewController
+@interface CUTEUnfinishedRentTicketListViewController : UITableViewController
 
 - (void)reloadData;
 
