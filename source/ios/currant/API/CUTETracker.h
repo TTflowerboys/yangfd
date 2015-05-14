@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define kEventActionPress @"press"
+
 #define TrackScreen(screenName) [[CUTETracker sharedInstance] trackScreen:screenName]
 #define TrackEvent(category, action, label, value) [[CUTETracker sharedInstance] trackEventWithCategory:category action:action label:label value:value]
 

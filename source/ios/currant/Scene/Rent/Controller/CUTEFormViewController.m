@@ -29,9 +29,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (!IsNilNullOrEmpty(self.navigationItem.title)) {
-        TrackScreen(self.navigationItem.title);
-    }
 }
 
 - (void)setTableView:(UITableView *)tableView
