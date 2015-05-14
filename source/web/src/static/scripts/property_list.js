@@ -69,6 +69,7 @@ $(window).resize(window.updateTabSelectorFixed);
     var budgetTotalResultCountDic = {}
     var budgetCurrentResultCountDic = {}
     var isLoading = false
+    var lastItemTime
     var viewMode = 'list'
 
     function getLastItemTimeByBudget(id) {
