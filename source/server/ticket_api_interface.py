@@ -684,9 +684,15 @@ def rent_ticket_contact_info(user, ticket_id):
     country='enum:country',
     city='enum:city',
     location_only=bool,
+    latitude=float,
+    longitude=float,
+    search_range=(int, 5000),
 ))
 @f_app.user.login.check(check_role=True)
 def rent_ticket_search(user, params):
+    """
+    When searching nearby properties (using ``latitude``, ``longitude`` and optionally ``search_range``), ``per_page`` and ``sort`` are not supported and must not be present.
+    """
     params.setdefault("type", "rent")
     sort = params.pop("sort")
     per_page = params.pop("per_page", 0)
@@ -712,6 +718,18 @@ def rent_ticket_search(user, params):
     main_house_types_elem_params = {"$and": []}
 
     location_only = params.pop("location_only", False)
+
+    if "latitude" in params:
+        assert "longitude" in params, abort(40000)
+        assert "per_page" not in params, abort(40000)
+        assert "sort" not in params, abort(40000)
+        property_params["latitude"] = params.pop("latitude")
+        property_params["longitude"] = params.pop("longitude")
+        property_params["search_range"] = params.pop("search_range")
+    elif "longitude" in params:
+        abort(40000)
+    else:
+        params.pop("search_range")
 
     if "property_type" in params:
         property_params["property_type"] = {"$in": params.pop("property_type")}
@@ -831,8 +849,11 @@ def rent_ticket_search(user, params):
     if len(property_params):
         # property_params.setdefault("status", ["for sale", "sold out"])
         property_params.setdefault("user_generated", True)
-        logger.debug(property_params)
-        property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
+        if "latitude" in property_params:
+            # TODO: make distance available in ticket output
+            property_id_list = map(ObjectId, f_app.property.get_nearby(property_params, output=False))
+        else:
+            property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
         params["property_id"] = {"$in": property_id_list}
 
     return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort, time_field="last_modified_time"), fuzzy_user_info=fuzzy_user_info, location_only=location_only)

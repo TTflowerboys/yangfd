@@ -1445,7 +1445,7 @@ class f_property(f_app.module_base):
             self.remove(child_property_id)
         self.update_set(property_id, {"status": "deleted"})
 
-    def get_nearby(self, params):
+    def get_nearby(self, params, output=True):
         latitude = params.pop("latitude")
         longitude = params.pop("longitude")
         search_range = params.pop("search_range")
@@ -1466,6 +1466,10 @@ class f_property(f_app.module_base):
         self.logger.debug(tmp_result)
         result = []
         property_id_list = map(lambda item: str(item["obj"]["_id"]), tmp_result)
+
+        if not output:
+            return property_id_list
+
         property_dict = self.output(property_id_list, multi_return=dict)
 
         for tmp_property in tmp_result:
