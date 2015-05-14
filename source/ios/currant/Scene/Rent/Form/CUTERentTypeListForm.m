@@ -35,7 +35,7 @@
         return [NSMutableDictionary dictionaryWithDictionary:@{FXFormFieldKey: [self formKeyFromTitle:object.value], FXFormFieldTitle:object.value, FXFormFieldCell: [CUTEFormRentTypeCell class], FXFormFieldDefaultValue:object}];
     }];
     if (!IsArrayNilOrEmpty(array)) {
-        [array[0] setObject:STR(@"房产类型") forKey:FXFormFieldHeader];
+        [array[0] setObject:STR(@"出租类型") forKey:FXFormFieldHeader];
     }
     return array;
 }

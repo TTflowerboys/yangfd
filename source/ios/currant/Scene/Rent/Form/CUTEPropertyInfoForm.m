@@ -29,7 +29,7 @@
     return @[
              @{FXFormFieldKey: @"photos", FXFormFieldTitle:STR(@"添加照片"), FXFormFieldHeader: STR(@"房间照片"), FXFormFieldCell: [CUTEFormImagePickerCell class], FXFormFieldType:FXFormFieldTypeImage},
              @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldAction: @"editRentPrice", FXFormFieldHeader: STR(@"基本信息")},
-                @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"房产类型"),FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: [self defaultPropertyType], FXFormFieldAction: @"editPropertyType"},
+                @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"出租类型"),FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: [self defaultPropertyType], FXFormFieldAction: @"editPropertyType"},
              @{FXFormFieldKey: @"rooms", FXFormFieldTitle:STR(@"房间"), FXFormFieldCell: [CUTEFormRoomsPickerCell class], @"style": @(1), FXFormFieldAction: @"editRooms:"},
              @{FXFormFieldKey: @"rentType", FXFormFieldTitle:STR(@"出租类型"), FXFormFieldAction: @"editRentType"},
              @{FXFormFieldKey: @"location", FXFormFieldTitle:STR(@"位置"), FXFormFieldAction: @"editLocation"},
@@ -47,7 +47,7 @@
     CUTEEnum *apartment = [_allPropertyTypes find:^BOOL(CUTEEnum *object) {
         return object.slug && [object.slug isEqualToString:@"apartment"];
     }];
-    
+
     if (apartment) {
         return apartment;
     }

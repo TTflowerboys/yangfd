@@ -39,7 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"房产类型");
+    self.navigationItem.title = STR(@"出租类型");
     if (!self.ticket) {
         CUTETicket *ticket = [CUTETicket new];
         CUTEProperty *property = [CUTEProperty new];
