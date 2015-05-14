@@ -144,18 +144,18 @@
     })
 
     //根据用户选择的单间或者整租类型来决定显示房间面积还是房屋面积
-    function showRoomOrHouse(text){
-        if(text === i18n('单间')){
+    function showRoomOrHouse(id){
+        if(id === '552396b54d159c0feb6c640c'){
             $('[data-show=singleRoom]').show().siblings().hide()
-        }else if(text === i18n('整租')){
+        }else if(id === '552396c24d159c0feb6c640e'){
             $('[data-show=entireHouse]').show().siblings().hide()
         }
     }
 
     $('#rentalType div').click(function () {
-        var text = $(this).text()
+        var id = $(this).data('id')
         $.each($('#rentalType div'), function (i, val) {
-            if ($(this).text() === text) {
+            if ($(this).data('id') === id) {
                 if ($(this).hasClass('selected')) {
                     return
                 } else {
@@ -167,7 +167,7 @@
                 }
             }
         })
-        showRoomOrHouse(text.trim())
+        showRoomOrHouse(id)
     })
 
     /*postcode 和地址部分*/
@@ -765,7 +765,7 @@
         }else {
             $('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
         }
-        showRoomOrHouse($('#rentalType .property_type.selected').text().trim())
+        showRoomOrHouse($('#rentalType .property_type.selected').data('id'))
         initInfoHeight()
         $('#fileuploader').uploadFile({
             url: '/api/1/upload_image',
