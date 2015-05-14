@@ -1,8 +1,6 @@
 (function () {
     var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
 
-
-
     window.mapCache = {}
     window.mapPinCache = {}
     window.mapInfoBoxLayerCache = {}
@@ -15,8 +13,8 @@
     }
 
     function createMapPin(map, layer, mapId, result) {
-        if (result) {
-            var location = new Microsoft.Maps.Location(result.property.latitude, result.property.longitude);
+        if (result && result.latitude && result.longitude) {
+            var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
             var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-building.png', width: 30, height: 45});
 
             layer.push(pin)
@@ -33,7 +31,7 @@
         if (window.mapInfoBoxLayerCache[mapId]) {
             map.entities.remove(window.mapInfoBoxLayerCache[mapId]);
         }
-        var location = new Microsoft.Maps.Location(result.property.latitude, result.property.longitude);
+        var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
         var layer = new Microsoft.Maps.EntityCollection()
         var infoboxOptions = null
         if (window.team.isPhone()) {
@@ -43,14 +41,24 @@
             infoboxOptions = {offset:new Microsoft.Maps.Point(-160,50) };
         }
         var infobox = new Microsoft.Maps.Infobox(location, infoboxOptions);
-        var houseResult = _.template($('#houseInfobox_template').html())({rent: result})
-        infobox.setHtmlContent(houseResult)
+        $.betterPost('/api/1/rent_ticket/'+result.id)
+            .done(function (val) {
+                if (!_.isEmpty(val)) {
 
-        layer.push(infobox)
-        layer.setOptions({ visible: true });
-        map.entities.push(layer);
-        ajustMapPosition(map, layer.get(0), location)
-        window.mapInfoBoxLayerCache[mapId] = layer
+                    var houseResult = _.template($('#houseInfobox_template').html())({rent: val})
+                    infobox.setHtmlContent(houseResult)
+
+                    layer.push(infobox)
+                    layer.setOptions({ visible: true });
+                    map.entities.push(layer);
+                    ajustMapPosition(map, layer.get(0), location)
+                    window.mapInfoBoxLayerCache[mapId] = layer
+                }
+            }).fail(function () {
+
+            }).always(function () {
+
+            })
     }
 
     //http://stackoverflow.com/questions/11148042/bing-maps-invoke-click-event-on-pushpin
@@ -172,12 +180,14 @@
         var mapId = 'mapCanvas'
         var map = window.getMap(mapId)
         map.entities.clear();
-        updateMapResults(map, mapId, window.rentList)
+        updateMapResults(map, mapId, window.rentMapList)
 
         var locations = []
-        _.each(window.rentList, function (rent) {
-            var location = new Microsoft.Maps.Location(rent.property.latitude, rent.property.longitude)
-            locations.push(location)
+        _.each(window.rentMapList, function (rent) {
+            if(rent.latitude && rent.longitude){
+                var location = new Microsoft.Maps.Location(rent.latitude, rent.longitude)
+                locations.push(location)
+            }
         })
         map.setView(getBestMapOptions(locations, $('#' + mapId).width(), $('#' + mapId).height()))
         $('html, body').animate({scrollTop: $('#' + mapId).offset().top - 60 }, 'fast')
@@ -190,20 +200,16 @@
                 window.onBingMapScriptLoad = function () {
                     if (typeof Microsoft === 'undefined') {
                         window.alert(window.i18n('地图加载失败'))
-                    }
-                    else {
-                        if (window.rentList) {
-                            updateMap()
-                        }
+                    }else{
+                        loadRentList()
                     }
                 }
                 $('body').append(scriptString)
+            }else{
+                loadRentList()
             }
-            else {
-                if (window.rentList) {
-                    updateMap()
-                }
-            }
+
+
         }
     })
 
@@ -232,4 +238,66 @@
             $(this).attr('data-tab', 'list')
         }
     })
+
+
+    function loadRentList() {
+        var params = {'location_only': 1}
+        var country = $('select[name=propertyCountry]').children('option:selected').val()
+        if (country) {
+            params.country = country
+        }
+        var city = $('select[name=propertyCity]').children('option:selected').val()
+        if (city) {
+            params.city = city
+        }
+        var propertyType = $('select[name=propertyType]').children('option:selected').val()
+        if (propertyType) {
+            params.property_type = propertyType
+        }
+        var rentType = $('select[name=rentType]').children('option:selected').val()
+        if (rentType) {
+            params.rent_type = rentType
+        }
+
+        var rentBudgetType = getSelectedTagFilterDataId('#rentBudgetTag')
+        if (rentBudgetType) {
+            params.rent_budget = rentBudgetType
+        }
+
+        var rentPeriod = getSelectedTagFilterDataId('#rentPeriodTag')
+        if (rentPeriod) {
+            params.rent_period = rentPeriod
+        }
+        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
+        if (bedroomCount) {
+            params.bedroom_count = bedroomCount
+        }
+        var space = getSelectedTagFilterDataId('#spaceTag')
+        if (space) {
+            params.space = space
+        }
+
+        $.betterPost('/api/1/rent_ticket/search', params)
+            .done(function (val) {
+                var array = val
+                if (!_.isEmpty(array)) {
+                    
+                    window.rentMapList = array
+
+                    updateMap()
+                }
+            }).fail(function () {
+
+            }).always(function () {
+
+            })
+    }
+
+    function getSelectedTagFilterDataId(tag) {
+        var $selectedChild = $('#tags ' + tag).children('.selected')
+        if ($selectedChild.length) {
+            return $selectedChild.first().attr('data-id')
+        }
+        return ''
+    }
 })()
