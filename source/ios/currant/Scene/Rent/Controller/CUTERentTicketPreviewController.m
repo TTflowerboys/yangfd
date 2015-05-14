@@ -20,10 +20,22 @@
 
 @implementation CUTERentTicketPreviewController
 
-- (void)viewDidLoad {
-    self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"发布") style:UIBarButtonItemStylePlain target:self action:@selector(onSubmitButtonPressed:)];
-    self.navigationItem.title = STR(@"预览");
+- (void)updateTitleWithURL:(NSURL *)url {
+    if (!self.navigationItem.title) {
+        self.navigationItem.title = STR(@"预览");
+    }
+}
+
+- (void)updateBackButton {
+    if (!self.navigationItem.leftBarButtonItem) {
+        self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
+    }
+}
+
+- (void)updateRightButtonWithURL:(NSURL *)url {
+    if (!self.navigationItem.rightBarButtonItem) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"发布") style:UIBarButtonItemStylePlain target:self action:@selector(onSubmitButtonPressed:)];
+    }
 }
 
 - (void)onLeftButtonPressed:(id)sender {
