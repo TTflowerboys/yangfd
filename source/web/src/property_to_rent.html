@@ -444,6 +444,7 @@
                             </td>
                             <td style="text-align:right;">
                                 % title = rent.get('title','')
+                                % print type(title), type(_('房东急租，快来围观'))
                                 <button class="flatButton orange" onclick="team.shareToWeibo({
                                     title:'{{_('房东急租，快来围观') + title}}'
                                     % if rent['property'].get('reality_images'):
