@@ -17,6 +17,10 @@
 
 - (void)updateWithURL:(NSURL *)url;
 
+- (void)updateTitleWithURL:(NSURL *)url;
+
+- (void)updateRightButtonWithURL:(NSURL *)url;
+
 - (void)updateBackButton;
 
 - (void)clearBackButton;
