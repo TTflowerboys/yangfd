@@ -14,6 +14,8 @@
 
 - (void)updateSections;
 
+- (FXFormField *)fieldForKey:(NSString *)key;
+
 @end
 
 @interface CUTEFormViewController : FXFormViewController

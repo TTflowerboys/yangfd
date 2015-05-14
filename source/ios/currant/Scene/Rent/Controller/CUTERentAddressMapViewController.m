@@ -26,6 +26,7 @@
 #import <Sequencer.h>
 #import <UIAlertView+Blocks.h>
 #import "CUTERentTickePublisher.h"
+#import "CUTETracker.h"
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, UITextFieldDelegate>
 {
@@ -84,6 +85,8 @@
     [_mapView addGestureRecognizer:longPressGesture];
 
     [self startUpdateLocation];
+
+    TrackScreen(@"enter-second-step");
 }
 
 -(void)viewDidAppear:(BOOL)animated {

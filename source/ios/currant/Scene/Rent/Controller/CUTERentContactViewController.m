@@ -100,7 +100,7 @@
 }
 
 - (void)onVerificationButtonPressed:(id)sender {
-    if (![self validateFormWithScenario:@"register"]) {
+    if (![self validateFormWithScenario:@"fetchCode"]) {
         return;
     }
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
@@ -111,6 +111,7 @@
     user.phone = form.phone;
 
 
+    [SVProgressHUD showWithStatus:STR(@"获取中...")];
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"country":user.country.identifier, @"phone": user.phone} resultClass:nil] continueWithBlock:^id(BFTask *task) {
@@ -119,6 +120,7 @@
             }
             else {
                 if ([task.result boolValue]) {
+                    [SVProgressHUD dismiss];
                     [[[UIAlertView alloc] initWithTitle:STR(@"用户已存在，请登录或者修改密码") message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil] show];
                 }
                 else {
@@ -132,8 +134,8 @@
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
-            CUTEEnum *country = [[self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]] value];
-            NSString *phone = [[self.formController fieldForIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]] value];
+            CUTEEnum *country = [[self.formController fieldForKey:@"country"] value];
+            NSString *phone = [[self.formController fieldForKey:@"phone"] value];
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":phone, @"country":country.identifier} resultClass:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
@@ -145,7 +147,8 @@
             }];
         }
         else {
-
+            //TODO check this interface can send sms?
+            //no user just creat one
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/fast-register" parameters:[user toParams] resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
@@ -159,6 +162,7 @@
                     return nil;
                 }
             }];
+
         }
     }];
 
@@ -173,20 +177,37 @@
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", [CUTEDataManager sharedInstance].user.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             //update verify status
             if (task.result) {
+                _userVerified = YES;
                 [SVProgressHUD showSuccessWithStatus:STR(@"验证成功")];
-                self.navigationItem.rightBarButtonItem.enabled = YES;
             }
             else {
                 [SVProgressHUD showErrorWithStatus:STR(@"验证失败")];
-                self.navigationItem.rightBarButtonItem.enabled = NO;
             }
             return nil;
         }];
     }
 }
 
+- (BOOL)validate {
+    BOOL formValidation = [self validateFormWithScenario:@"submit"];
+    if (!formValidation) {
+        return NO;
+    }
+    if (_userVerified) {
+        [SVProgressHUD showErrorWithStatus:STR(@"手机未验证成功，请重发验证码")];
+        return NO;
+    }
+
+    return YES;
+}
+
+
 
 - (void)submit {
+
+    if (![self validate]) {
+        return;
+    }
 
     [SVProgressHUD showWithStatus:STR(@"发布中...")];
 

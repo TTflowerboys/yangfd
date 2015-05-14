@@ -43,12 +43,24 @@
 
 - (NSError *)validateFormWithScenario:(NSString *)scenario {
     NSError *error = nil;
-    [NGRValidator validateModel:self error:&error delegate:nil rules:^NSArray *{
-        return @[NGRValidate(@"name").required(),
-                 NGRValidate(@"email").required().syntax(NGRSyntaxEmail),
-                 NGRValidate(@"phone").required()
-                 ];
-    }];
+    if ([scenario isEqualToString:@"fetchCode"]) {
+        [NGRValidator validateModel:self error:&error delegate:nil rules:^NSArray *{
+            return @[NGRValidate(@"name").required(),
+                     NGRValidate(@"email").required().syntax(NGRSyntaxEmail),
+                     NGRValidate(@"phone").required(),
+                     ];
+        }];
+    }
+    else {
+        [NGRValidator validateModel:self error:&error delegate:nil rules:^NSArray *{
+            return @[NGRValidate(@"name").required(),
+                     NGRValidate(@"email").required().syntax(NGRSyntaxEmail),
+                     NGRValidate(@"phone").required(),
+                     NGRValidate(@"code").required()
+                     ];
+        }];
+    }
+
     return error;
 }
 

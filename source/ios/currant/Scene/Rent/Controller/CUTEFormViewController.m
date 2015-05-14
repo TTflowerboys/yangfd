@@ -22,6 +22,16 @@
     self.form = self.form;
 }
 
+- (FXFormField *)fieldForKey:(NSString *)key {
+    __block FXFormField *retField = nil;
+    [self enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+        if ([field.key isEqualToString:key]) {
+            retField = field;
+        }
+    }];
+    return retField;
+}
+
 @end
 
 

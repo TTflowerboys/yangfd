@@ -17,6 +17,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEFormRentTypeCell.h"
 #import "CUTENotificationKey.h"
+#import "CUTETracker.h"
 
 @interface CUTERentTypeListViewController ()
 {
@@ -48,6 +49,8 @@
         ticket.price = [CUTECurrency currencyWithValue:100.0 unit:[CUTECurrency defaultCurrencyUnit]];//default price
         ticket.property = property;
         self.ticket = ticket;
+
+        TrackScreen(@"enter-first-step");
     }
 }
 
