@@ -195,6 +195,7 @@
 
     $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
         if (tabName === 'map') {
+
             if (typeof Microsoft === 'undefined'){
                 var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
                 window.onBingMapScriptLoad = function () {
