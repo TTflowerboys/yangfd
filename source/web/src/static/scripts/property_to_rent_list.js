@@ -594,6 +594,8 @@
         zoomLevel = Math.round((zoom1 < zoom2) ? zoom1 : zoom2);
         if (zoomLevel > 0) {
             zoomLevel = zoomLevel - 1; //left more around margin
+        }else {
+            zoomLevel = 13 //Default zoom level is 10
         }
         return {zoom:zoomLevel , center:center}
 
