@@ -409,9 +409,15 @@
     })
 
     var $rentPeriodStartDate = $('[name=rentPeriodStartDate]')
-    if(window.team.isPhone()) {
-        $rentPeriodStartDate.get(0).type = 'date'
+    function resetDateInputType () {
+        if(window.team.isPhone()) {
+            $rentPeriodStartDate.get(0).type = 'date'
+        }else{
+            $rentPeriodStartDate.get(0).type = 'text'
+        }
     }
+    resetDateInputType()
+    $(window).resize(resetDateInputType)
     //$rentPeriodStartDate.attr('placeholder',$.format.date(new Date(), 'yyyy-MM-dd'))
     $rentPeriodStartDate.dateRangePicker({
             autoClose: true,
