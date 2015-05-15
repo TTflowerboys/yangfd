@@ -160,6 +160,8 @@
 
         if(reload){
             $('#result_list').empty()
+            lastItemTime = null
+            params.last_modified_time = null
         }
         $('#result_list_container').show()
         $('.emptyPlaceHolder').hide();
