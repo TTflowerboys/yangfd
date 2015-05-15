@@ -2,6 +2,8 @@
 <!--@@block=head -->
 
 <!--build:css(dist) /static/styles/property_to_rent_list.html.css-->
+<link rel="stylesheet" href="/static/bower_components/jquery.daterangepicker/daterangepicker.css"/>
+<link rel="stylesheet" href="/static/styles/dateRangePickerOverwirte.css"/>
 <link rel="stylesheet" href="/static/styles/project/rentCard.css"/>
 <link rel="stylesheet" href="/static/styles/property_to_rent_list.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseInfobox.css"/>
@@ -157,6 +159,22 @@
                 </div>
             %end
 
+            <div class="calendar">
+                <img class="calendar_icon" alt="" src="/static/images/property_list/calendar-tag.png"/>
+                <h4 class="calendar_title">{{_('起租日期')}}</h4>
+                <div class="inner">
+                    <span>{{_('自')}}</span>
+                    <input type="text" id="rentPeriodStartDate" value=""/>
+                    <span>{{_('起')}}</span>
+                </div>
+            </div>
+
+            <div class="contactUs">
+                <img class="contactUs_icon" alt="" src="/static/images/property_list/phone-tag.png"/>
+                <h4 class="contactUs_title">{{_('联系我们')}}</h4>
+                <a class="inner phone" href="tel:4000926433">400-092-6433</a>
+            </div>
+
         </div>
         <button id="showTags"  class="showTags textButton" data-state="closed">
             <label>{{_('更多选择')}}</label>
@@ -227,6 +245,8 @@
 
 <!--@@block=scripts -->
 <!--build:js /static/scripts/property_to_rent_list.html.js-->
+<script src="/static/bower_components/moment/moment.js"></script>
+<script src="/static/bower_components/jquery.daterangepicker/jquery.daterangepicker.js"></script>
 <script src="/static/scripts/property_to_rent_list.js"></script>
 <!--endbuild-->
 <!--@@close-->
