@@ -24,4 +24,6 @@
 
 + (NSString *)weixinAPPId;
 
++ (NSString *)gaTrackingId;
+
 @end
