@@ -374,20 +374,32 @@
     })
 
     var $rentPeriodStartDate = $('#rentPeriodStartDate')
-    $rentPeriodStartDate.attr('placeholder',$.format.date(new Date(), 'yyyy-MM-dd'))
+    //$rentPeriodStartDate.attr('placeholder',$.format.date(new Date(), 'yyyy-MM-dd'))
     $rentPeriodStartDate.dateRangePicker({
             autoClose: true,
             singleDate: true,
             showShortcuts: false,
             lookBehind: true,
+            getValue: function() {
+                //return this.value || $.format.date(new Date(), 'yyyy-MM-dd');
+            }
         })
         .bind('datepicker-change', function (event, obj) {
             $rentPeriodStartDate.val($.format.date(new Date(obj.date1), 'yyyy-MM-dd')).trigger('change')
         })
         .bind('change', function () {
-            ga('send', 'event', 'rent_list', 'change', 'change-space', $rentPeriodStartDate.val())
+            var val = $(this).val()
+            if(val !== '') {
+                $(this).next('.clear').show()
+            } else{
+                $(this).next('.clear').hide()
+            }
+            ga('send', 'event', 'rent_list', 'change', 'change-space', val)
             loadRentListByView()
         })
+    $('.calendar .clear').bind('click', function(event){
+        $(this).prev('input').val('').trigger('change').attr('placeholder', i18n('请选择起租日期'))
+    })
 
     // Show or Hide tag filters on mobile
     function showTagsOnMobile() {

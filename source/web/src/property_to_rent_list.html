@@ -164,7 +164,10 @@
                 <h4 class="calendar_title">{{_('起租日期')}}</h4>
                 <div class="inner">
                     <span>{{_('自')}}</span>
-                    <input type="text" id="rentPeriodStartDate" value=""/>
+                    <div class="date">
+                        <input type="text" id="rentPeriodStartDate" value="" placeholder="{{_('请选择起租日期')}}"/>
+                        <i class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
+                    </div>
                     <span>{{_('起')}}</span>
                 </div>
             </div>
