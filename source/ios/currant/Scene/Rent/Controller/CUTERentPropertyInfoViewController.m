@@ -327,12 +327,30 @@
         return;
     }
 
-    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-
-    CUTERentTicketPreviewViewController *controller = [[CUTERentTicketPreviewViewController alloc] init];
-    controller.ticket = self.ticket;
-    [controller loadURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]];
-    [self.navigationController pushViewController:controller animated:YES];
+    [SVProgressHUD show];
+    [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:^(NSString *status) {
+        [SVProgressHUD showWithStatus:status];
+    }] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
+            [SVProgressHUD dismiss];
+            
+            TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+            CUTERentTicketPreviewViewController *controller = [[CUTERentTicketPreviewViewController alloc] init];
+            controller.ticket = self.ticket;
+            [controller loadURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+        return task;
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

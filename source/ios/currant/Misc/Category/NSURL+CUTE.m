@@ -23,4 +23,8 @@
     return [[self scheme] isEqualToString:[CUTEConfiguration yangfdScheme]];
 }
 
+- (BOOL)isHttpOrHttpsURL {
+    return [[self scheme] isEqualToString:@"http"] || [[self scheme] isEqualToString:@"https"];
+}
+
 @end

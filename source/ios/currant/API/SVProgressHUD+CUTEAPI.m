@@ -61,4 +61,8 @@ static NSDictionary *messageDicionary = nil;
     [SVProgressHUD showErrorWithStatus:exception.userInfo[NSLocalizedDescriptionKey]];
 }
 
++ (void)showErrorWithCancellation {
+    [SVProgressHUD showErrorWithStatus:STR(@"请求被取消")];
+}
+
 @end

@@ -249,7 +249,7 @@
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 
     [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-    [[[CUTERentTickePublisher sharedInstance] uploadPropertyImages:self.ticket.property] continueWithBlock:^id(BFTask *task) {
+    [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:nil] continueWithBlock:^id(BFTask *task) {
         if (task.error || task.exception || task.isCancelled) {
             [SVProgressHUD showErrorWithError:task.error];
         }
@@ -355,7 +355,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             [SVProgressHUD dismiss];
 
             [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
-            [[[CUTERentTickePublisher sharedInstance] uploadPropertyImages:self.ticket.property]  continueWithBlock:^id(BFTask *task) {
+            [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:nil]  continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }

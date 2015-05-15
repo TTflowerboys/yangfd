@@ -19,7 +19,7 @@
 
 - (BFTask *)editTicketExcludeImage:(CUTETicket *)ticket;
 
-- (BFTask *)uploadPropertyImages:(CUTEProperty *)property;
+- (BFTask *)editTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *))updateStatus;
 
 - (BFTask *)publishTicket:(CUTETicket *)ticket updateStatus:(void (^) (NSString *status))updateStatus;
 

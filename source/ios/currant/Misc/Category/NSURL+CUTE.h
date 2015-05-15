@@ -16,4 +16,6 @@
 
 - (BOOL)isYangfdURL;
 
+- (BOOL)isHttpOrHttpsURL;
+
 @end

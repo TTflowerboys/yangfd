@@ -14,4 +14,6 @@
 
 + (void)showErrorWithException:(NSException *)exception;
 
++ (void)showErrorWithCancellation;
+
 @end

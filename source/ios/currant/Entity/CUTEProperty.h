@@ -62,6 +62,4 @@
 
 - (NSDictionary *)toParams;
 
-- (NSDictionary *)toRealityImagesParams;
-
 @end

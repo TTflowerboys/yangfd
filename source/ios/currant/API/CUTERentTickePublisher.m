@@ -110,7 +110,7 @@
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if (updateStatus) {
-            updateStatus(STR(@"正在创建房产..."));
+            updateStatus(STR(@"正在发布房产..."));
         }
         [[self editProperty:ticket.property] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
@@ -126,7 +126,7 @@
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if (updateStatus) {
-            updateStatus(STR(@"正在创建房产出租单..."));
+            updateStatus(STR(@"正在发布房产出租单..."));
         }
         ticket.status = kTicketStatusToRent;
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
@@ -171,14 +171,15 @@
     return [BFTask taskForCompletionOfAllTasksWithResults:tasks];
 }
 
-- (BFTask *)uploadPropertyImages:(CUTEProperty *)property {
+- (BFTask *)editTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *))updateStatus {
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    CUTEProperty *property = ticket.property;
     if (property) {
         Sequencer *sequencer = [Sequencer new];
         if (!IsArrayNilOrEmpty([property realityImages])) {
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[self uploadImages:property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+                [[self uploadImages:property.realityImages updateStatus:updateStatus] continueWithBlock:^id(BFTask *task) {
                     if (task.result) {
                         property.realityImages = task.result;
                         completion(task.result);
@@ -193,7 +194,10 @@
 
         if (property && property.identifier) {
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toRealityImagesParams];
+                if (updateStatus) {
+                    updateStatus(STR(@"正在更新房产..."));
+                }
+                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
                 [params setObject:@"true" forKey:@"user_generated"];
                 [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:nil]  continueWithBlock:^id(BFTask *task) {
                     if (task.error || task.exception || task.isCancelled) {
@@ -206,6 +210,25 @@
                 }];
             }];
         }
+
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            if (updateStatus) {
+                updateStatus(STR(@"正在更新房产出租单..."));
+            }
+            ticket.status = kTicketStatusToRent;
+            NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
+            [params setObject:@"true" forKey:@"user_generated"];
+            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
+                if (task.error || task.exception || task.isCancelled) {
+                    [tcs setError:task.error];
+                }
+                else {
+                    [tcs setResult:task.result];
+                }
+                return nil;
+            }];
+        }];
+
         [sequencer run];
     }
 
