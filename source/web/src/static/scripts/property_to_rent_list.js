@@ -145,7 +145,7 @@
         }
 
         var rentAvailableTime
-        if($('#rentPeriodStartDate').val()) {
+        if($('[name=rentPeriodStartDate]').val()) {
             rentAvailableTime = new Date($('#rentPeriodStartDate').val()).getTime() / 1000
             if(rentAvailableTime) {
                 params.rent_available_time = rentAvailableTime
@@ -381,7 +381,10 @@
         loadRentListByView()
     })
 
-    var $rentPeriodStartDate = $('#rentPeriodStartDate')
+    var $rentPeriodStartDate = $('[name=rentPeriodStartDate]')
+    if(window.team.isPhone()) {
+        $rentPeriodStartDate.get(0).type = 'date'
+    }
     //$rentPeriodStartDate.attr('placeholder',$.format.date(new Date(), 'yyyy-MM-dd'))
     $rentPeriodStartDate.dateRangePicker({
             autoClose: true,
@@ -759,7 +762,7 @@
         }
 
         var rentAvailableTime
-        if($('#rentPeriodStartDate').val()){
+        if($('[name=rentPeriodStartDate]').val()){
             rentAvailableTime = new Date($('#rentPeriodStartDate').val()).getTime() / 1000
             params.rent_available_time = rentAvailableTime
         }
