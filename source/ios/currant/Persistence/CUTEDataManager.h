@@ -42,4 +42,8 @@
 
 - (NSString *)getAssetURLStringForImageURLString:(NSString *)imageURLStr;
 
+- (void)saveScreen:(NSString *)screenName lastVisitTime:(NSTimeInterval)lastVisitTime;
+
+- (NSTimeInterval)getScreenLastVistiTime:(NSString *)screenName;
+
 @end

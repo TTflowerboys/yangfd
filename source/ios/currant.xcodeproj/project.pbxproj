@@ -260,11 +260,11 @@
 		2CC3A07E1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A07B1AF8D90E008C9AC8 /* NSURL+QueryParser.m */; };
 		2CC3A07F1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A07B1AF8D90E008C9AC8 /* NSURL+QueryParser.m */; };
 		2CC3A0801AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A07B1AF8D90E008C9AC8 /* NSURL+QueryParser.m */; };
-		2CC3A0831AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewController.m */; };
-		2CC3A0841AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewController.m */; };
-		2CC3A0851AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewController.m */; };
-		2CC3A0861AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewController.m */; };
-		2CC3A0871AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewController.m */; };
+		2CC3A0831AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m */; };
+		2CC3A0841AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m */; };
+		2CC3A0851AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m */; };
+		2CC3A0861AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m */; };
+		2CC3A0871AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m */; };
 		2CC3A0911AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0901AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m */; };
 		2CC3A0921AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0901AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m */; };
 		2CC3A0931AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A0901AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m */; };
@@ -533,6 +533,7 @@
 		2C3DE2321B035719006FF191 /* CUTETracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETracker.m; sourceTree = "<group>"; };
 		2C3DE2391B05CCDC006FF191 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		2C3DE2481B05F219006FF191 /* CUTETrackParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETrackParams.h; sourceTree = "<group>"; };
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
@@ -608,8 +609,8 @@
 		2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTENavigationUtil.m; sourceTree = "<group>"; };
 		2CC3A07A1AF8D90E008C9AC8 /* NSURL+QueryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParser.h"; sourceTree = "<group>"; };
 		2CC3A07B1AF8D90E008C9AC8 /* NSURL+QueryParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+QueryParser.m"; sourceTree = "<group>"; };
-		2CC3A0811AFA0663008C9AC8 /* CUTERentTicketPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentTicketPreviewController.h; sourceTree = "<group>"; };
-		2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentTicketPreviewController.m; sourceTree = "<group>"; };
+		2CC3A0811AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentTicketPreviewViewController.h; sourceTree = "<group>"; };
+		2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentTicketPreviewViewController.m; sourceTree = "<group>"; };
 		2CC3A08F1AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormCenterTextCell.h; sourceTree = "<group>"; };
 		2CC3A0901AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormCenterTextCell.m; sourceTree = "<group>"; };
 		2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -995,6 +996,7 @@
 				2C96E2731AE6566300F3590C /* CUTEWxManager.m */,
 				2C3DE2311B035719006FF191 /* CUTETracker.h */,
 				2C3DE2321B035719006FF191 /* CUTETracker.m */,
+				2C3DE2481B05F219006FF191 /* CUTETrackParams.h */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1045,8 +1047,8 @@
 				2CF8A5AA1AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.m */,
 				2CF8A5AB1AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.h */,
 				2CF8A5AC1AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m */,
-				2CC3A0811AFA0663008C9AC8 /* CUTERentTicketPreviewController.h */,
-				2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewController.m */,
+				2CC3A0811AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.h */,
+				2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m */,
 				2CF8A5AD1AF0B40E0080DF10 /* CUTERentAddressEditViewController.h */,
 				2CF8A5AE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m */,
 				2CF8A5AF1AF0B40E0080DF10 /* CUTERentAddressMapViewController.h */,
@@ -1642,7 +1644,7 @@
 				2C2FCDE21B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CC6C1D11AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
-				2CC3A0851AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */,
+				2CC3A0851AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2C9AFF801AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */,
 				2C427E561AD25110000378A9 /* CUTEEnum.m in Sources */,
@@ -1736,7 +1738,7 @@
 				2C2FCDE31B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CC6C1D21AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
-				2CC3A0861AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */,
+				2CC3A0861AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2C9AFF811AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */,
 				2C427E571AD25110000378A9 /* CUTEEnum.m in Sources */,
@@ -1830,7 +1832,7 @@
 				2C2FCDE11B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CC6C1D01AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
-				2CC3A0841AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */,
+				2CC3A0841AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2C9AFF7F1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */,
 				2C427E551AD25110000378A9 /* CUTEEnum.m in Sources */,
@@ -1924,7 +1926,7 @@
 				2C2FCDE01B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CC6C1CF1AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
-				2CC3A0831AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */,
+				2CC3A0831AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2C9AFF7E1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
 				2C427E541AD25110000378A9 /* CUTEEnum.m in Sources */,
@@ -2047,7 +2049,7 @@
 				2C427EA61AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2C07AB721AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */,
 				2CC6C1E11AEE255A002758A7 /* NSURL+Assets.m in Sources */,
-				2CC3A0871AFA0663008C9AC8 /* CUTERentTicketPreviewController.m in Sources */,
+				2CC3A0871AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2C7520471ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C427E501AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CF8A5EA1AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,

@@ -260,6 +260,7 @@
     if (![self validateForm]) {
         return;
     }
+
     CUTETicket *currentTicket = self.ticket;
     if (currentTicket) {
         [SVProgressHUD show];
@@ -284,6 +285,8 @@
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
                 if (!IsArrayNilOrEmpty(task.result)) {
+                    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
                     CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
                     controller.ticket = self.ticket;
                     CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];

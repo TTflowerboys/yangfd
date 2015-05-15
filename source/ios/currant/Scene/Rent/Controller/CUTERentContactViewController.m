@@ -31,6 +31,11 @@
 #import "CUTERentLoginViewController.h"
 #import "CUTEEnumManager.h"
 #import "MasonryMake.h"
+#import "CUTETracker.h"
+#import "CUTERentTypeListViewController.h"
+#import "CUTERentAddressMapViewController.h"
+#import "CUTERentPropertyInfoViewController.h"
+#import "CUTERentTicketPreviewViewController.h"
 
 @interface CUTERentContactViewController () <TTTAttributedLabelDelegate> {
 
@@ -209,6 +214,7 @@
         return;
     }
 
+
     [SVProgressHUD showWithStatus:STR(@"发布中...")];
 
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
@@ -226,6 +232,15 @@
             [SVProgressHUD showErrorWithError:task.error];
             return nil;
         } else {
+            TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
+            NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
+                                    GetScreenNameFromClass([CUTERentAddressMapViewController class]),
+                                    GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
+                                    GetScreenNameFromClass([CUTERentTicketPreviewViewController class]),
+                                    GetScreenNameFromClass([CUTERentContactViewController class])];
+            TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
+
             [SVProgressHUD dismiss];
             [self.navigationController popToRootViewControllerAnimated:NO];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -239,11 +254,13 @@
 
 
 - (void)login {
+
     [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithBlock:^id(BFTask *task) {
         if (task.error || task.exception || task.isCancelled) {
             [SVProgressHUD showErrorWithError:task.error];
             return nil;
         } else {
+            TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             CUTERentLoginViewController *loginViewController = [CUTERentLoginViewController new];
             loginViewController.ticket = self.ticket;
             CUTERentLoginForm *form = [CUTERentLoginForm new];

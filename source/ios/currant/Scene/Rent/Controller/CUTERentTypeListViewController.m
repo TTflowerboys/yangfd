@@ -65,6 +65,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
     CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
     form.rentType = [form rentTypeAtIndex:indexPath.row];
     self.ticket.rentType = [form rentTypeAtIndex:indexPath.row];

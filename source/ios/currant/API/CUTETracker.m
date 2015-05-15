@@ -14,6 +14,8 @@
 #import "CUTEDataManager.h"
 #import "NSString+SLRESTfulCoreData.h"
 #import "CUTECommonMacro.h"
+#import "CUTEDataManager.h"
+#import <NSArray+ObjectiveSugar.h>
 
 @interface CUTETracker ()
 {
@@ -56,7 +58,36 @@
     [builder set:screenName forKey:kGAIScreenName];
     [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
     [_tracker send:[builder build]];
+    [self updateScreenLastVisitTime:screenName];
+}
 
+- (void)updateScreenLastVisitTime:(NSString *)screenName {
+    [[CUTEDataManager sharedInstance] saveScreen:screenName lastVisitTime:[NSDate date].timeIntervalSince1970];
+}
+
+- (void)trackStayDurationWithCategory:(NSString *)category screenName:(NSString *)screenName {
+    NSTimeInterval startTime = [[CUTEDataManager sharedInstance] getScreenLastVistiTime:screenName];
+    NSTimeInterval endTime = [NSDate date].timeIntervalSince1970;
+
+    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:[NSNumber numberWithDouble:endTime - startTime] name:kEventActionStay label:screenName];
+    [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    [_tracker send:builder.build];
+}
+
+- (void)trackStayDurationWithCategory:(NSString *)category screenNames:(NSArray *)screenNames {
+    __block NSTimeInterval totalTime = 0;
+    NSMutableString *label = [NSMutableString stringWithString:@"total"];
+    [screenNames each:^(NSString* screenName) {
+        NSTimeInterval startTime = [[CUTEDataManager sharedInstance] getScreenLastVistiTime:screenName];
+        NSTimeInterval endTime = [NSDate date].timeIntervalSince1970;
+        totalTime += (endTime - startTime);
+        [label appendString:@":"];
+        [label appendString:screenName];
+    }];
+
+    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:[NSNumber numberWithDouble:totalTime] name:kEventActionStay label:label];
+    [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    [_tracker send:builder.build];
 }
 
 
@@ -82,8 +113,8 @@
     return [object description];
 }
 
-- (NSString *)getScreenNameFromViewController:(UIViewController *)controller {
-    NSString *screenName = NSStringFromClass([controller class]);
+- (NSString *)getScreenNameFromClass:(Class)class {
+    NSString *screenName = NSStringFromClass(class);
     if ([screenName hasPrefix:@"CUTE"]) {
         screenName = [screenName substringFromIndex:4];
     }
@@ -93,6 +124,10 @@
 
     screenName = [[screenName stringByUnderscoringString] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
     return screenName;
+}
+
+- (NSString *)getScreenNameFromViewController:(UIViewController *)controller {
+    return [self getScreenNameFromClass:[controller class]];
 
 }
 

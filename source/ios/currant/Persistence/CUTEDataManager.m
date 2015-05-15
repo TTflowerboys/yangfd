@@ -47,6 +47,7 @@
 #define KTABLE_UNFINISHE_RENT_TICKETS @"cute_unfinished_rent_tickets"
 #define KTABLE_URL_ASSET @"url_asset"
 #define KTABLE_ASSET_URL @"asset_url"
+#define KTABLE_SCREEN_LAST_VISIT_TIME @"screen_last_visit_time"
 
 
 #pragma mark - Keys
@@ -60,7 +61,8 @@
     [@[KTABLE_SETTINGS,
        KTABLE_UNFINISHE_RENT_TICKETS,
        KTABLE_ASSET_URL,
-       KTABLE_URL_ASSET] each:^(id object) {
+       KTABLE_URL_ASSET,
+       KTABLE_SCREEN_LAST_VISIT_TIME] each:^(id object) {
            [_store createTableWithName:object];
        }];
 }
@@ -161,6 +163,8 @@
     [_store deleteObjectById:ticket.identifier fromTable:KTABLE_UNFINISHE_RENT_TICKETS];
 }
 
+#pragma mark - Image URL Cache
+
 - (void)saveImageURLString:(NSString *)imageURLStr forAssetURLString:(NSString *)urlStr {
     [_store putString:imageURLStr withId:urlStr intoTable:KTABLE_ASSET_URL];
 }
@@ -177,5 +181,14 @@
     return [_store getStringById:imageURLStr fromTable:KTABLE_URL_ASSET];
 }
 
+#pragma mark - Screen Last visit time
+
+- (void)saveScreen:(NSString *)screenName lastVisitTime:(NSTimeInterval)lastVisitTime {
+    [_store putNumber:[NSNumber numberWithDouble:lastVisitTime] withId:screenName intoTable:KTABLE_SCREEN_LAST_VISIT_TIME];
+}
+
+- (NSTimeInterval)getScreenLastVistiTime:(NSString *)screenName {
+    return [[_store getNumberById:screenName fromTable:KTABLE_SCREEN_LAST_VISIT_TIME] doubleValue];
+}
 
 @end

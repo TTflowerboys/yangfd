@@ -8,15 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "CUTETrackParams.h"
 
-#define kEventActionPress @"press"
-#define kEventActionRequestReturn @"request-return"
-
-#define TrackScreen(screenName) [[CUTETracker sharedInstance] trackScreen:screenName]
-#define TrackEvent(oneCategory, oneAction, oneLabel, oneValue)  [[CUTETracker sharedInstance] trackEventWithCategory:oneCategory action:oneAction label:oneLabel value:oneValue]
-#define TrackException(exception) [[CUTETracker sharedInstance] trackException:exception]
-
-#define GetScreenName(object) [[CUTETracker sharedInstance] getScreenNameFromObject:object]
 
 @interface CUTETracker : NSObject
 
@@ -26,12 +19,34 @@
 
 - (void)trackScreen:(NSString *)screenName;
 
+- (void)trackStayDurationWithCategory:(NSString *)category screenName:(NSString *)screenName;
+
+- (void)trackStayDurationWithCategory:(NSString *)category screenNames:(NSArray *)screenNames;
+
 - (void)trackEventWithCategory:(NSString *)category action:(NSString *)action label:(NSString *)label value:(NSNumber *)value;
 
 - (void)trackException:(NSException *)exception;
 
-#pragma Util
+#pragma -mark Util
 
 - (NSString *)getScreenNameFromObject:(id)object;
+
+- (NSString *)getScreenNameFromClass:(Class)oneClass;
+
+#pragma -mark Macro
+
+#define TrackScreen(screenName) [[CUTETracker sharedInstance] trackScreen:screenName]
+
+#define TrackScreenStayDuration(category, oneScreenName) [[CUTETracker sharedInstance] trackStayDurationWithCategory:category screenName:oneScreenName]
+
+#define TrackScreensStayDuration(category, oneScreenNames) [[CUTETracker sharedInstance] trackStayDurationWithCategory:category screenNames:oneScreenNames]
+
+#define TrackEvent(oneCategory, oneAction, oneLabel, oneValue)  [[CUTETracker sharedInstance] trackEventWithCategory:oneCategory action:oneAction label:oneLabel value:oneValue]
+
+#define TrackException(exception) [[CUTETracker sharedInstance] trackException:exception]
+
+#define GetScreenName(object) [[CUTETracker sharedInstance] getScreenNameFromObject:object]
+
+#define GetScreenNameFromClass(oneClass) [[CUTETracker sharedInstance] getScreenNameFromClass:oneClass]
 
 @end
