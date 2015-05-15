@@ -1,0 +1,193 @@
+@import "_imports";
+
+.houseInfobox_wrapper {
+    overflow:hidden;
+    width:320px;
+    height:90px;
+
+    @media @phone {
+        width:180px;
+        height:80px;
+    }
+
+    .arrow_box {
+        position: relative;
+        background: #fff;
+        border: 1px solid #ccc;
+        //border-radius:8px;
+    }
+    .arrow_box:after, .arrow_box:before {
+                          top: 100%;
+                          left: 50%;
+                          border: solid transparent;
+                          content: " ";
+                          height: 0;
+                          width: 0;
+                          position: absolute;
+                          pointer-events: none;
+                      }
+
+    .arrow_box:after {
+        border-color: rgba(255, 255, 255, 0);
+        border-top-color: #fff;
+        border-width: 10px;
+        margin-left: -10px;
+    }
+    .arrow_box:before {
+        border-color: rgba(204, 204, 204, 0);
+        border-top-color: #ccc;
+        border-width: 11px;
+        margin-left: -11px;
+    }
+}
+
+.houseInfobox {
+    width:320px;
+    height:82px;
+
+    @media @phone {
+        width:180px;
+        height:70px;
+        padding:10px;
+    }
+
+    .imagePart {
+        float:left;
+        height:80px;
+        position:relative;
+
+        @media @phone {
+            display:none;
+        }
+
+        .labels {
+            position: absolute;
+            right: 0;
+            top:10px;
+            height:30px;
+            width:100%;
+            z-index:@house_card-image-text-z-index;
+            label {
+                position:static;
+                float:right;
+                color:white;
+                font-size:14px;
+                line-height:30px;
+                padding:0 8px;
+
+                &.type {
+                    background:#333;
+                }
+                &.rent {
+                    background:#e60012;
+                }
+
+            }
+        }
+    }
+
+    .description {
+        float:left;
+        width:198px;
+        padding:8px;
+        cursor:pointer;
+
+        @media @phone {
+            width:130px;
+            padding:0px;
+        }
+
+        .name {
+            font-size:16px;
+            font-weight:bold;
+            margin-bottom:8px;
+            cursor:pointer;
+            text-decoration:none;
+            color:#666;
+            .limitedLines(@lines:1; @line-height: 16px;@bg: white);
+            @media @phone {
+                font-size:13px;
+                .limitedLines(@lines:1; @line-height: 13px;@bg: white);
+            }
+            .country {
+                @media @phone {
+                    display:none;
+                }
+            }
+
+            @media @phone {
+                margin-bottom:8px;
+            }
+        }
+
+        .intentions {
+            float:left;
+            font-size:14px;
+            display:block;
+            width: 100%;
+            @media @phone {
+                display:none;
+            }
+            img {
+                vertical-align:middle;
+                display: inline-block;
+                float: left;
+                margin-top:3px;
+                cursor:pointer;
+            }
+
+            label {
+                display: inline-block;
+                float: right;
+                width: 88%;
+                color:#999;
+                cursor:pointer;
+            }
+        }
+
+        .type {
+            display:none;
+
+            @media @phone {
+                display:block;
+                font-size:11px;
+                color:#999;
+                cursor:pointer;
+                text-decoration:none;
+                float:left;
+            }
+        }
+
+
+        .price {
+            display:block;
+            font-size:14px;
+            color:@red;
+            float:left;
+            cursor:pointer;
+            text-decoration:none;
+            @media @phone {
+                display:inline-block;
+                float:right;
+                font-size:11px;
+            }
+
+            strong {
+                font-size:18px;
+                @media @phone {
+                    font-size:11px;
+                }
+            }
+        }
+    }
+
+    .enter_phone {
+        display:none;
+
+        @media @phone {
+            display:block;
+            float:right;
+            margin-top:7px;
+        }
+    }
+}
