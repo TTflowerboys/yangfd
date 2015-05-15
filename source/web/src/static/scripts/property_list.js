@@ -274,8 +274,10 @@ $(window).resize(window.updateTabSelectorFixed);
 
         $('#result_list_container').show()
         showEmptyPlaceHolder(false)
-        $('#number_container').text(window.i18n('加载中'))
-        $('#number_container').show()
+        if(!team.isPhone()){
+            $('#number_container').text(window.i18n('加载中'))
+            $('#number_container').show()
+        }
 
         $('#loadIndicator').show()
         isLoading = true
@@ -600,8 +602,11 @@ $(window).resize(window.updateTabSelectorFixed);
         setCurrentResultCountByBudget(getSelectedTagFilterDataId('#budgetTag'), getCurrentTotalCount())
         if (count) {
             //$number.text(count)
-            $numberContainer.text(window.i18n('共找到下列房产'))
-            $numberContainer.show()
+            if(!team.isPhone()){
+                $numberContainer.text(window.i18n('共找到下列房产'))
+                $numberContainer.show()
+            }
+
             $('#result_list_container').show()
             showEmptyPlaceHolder(false)
         }

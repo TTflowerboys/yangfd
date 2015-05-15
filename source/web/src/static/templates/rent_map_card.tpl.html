@@ -18,30 +18,12 @@
                     {_if(rent.title) {_}
                     <h1 class=name>{=rent.title=}</h1>
                     {_}_}
-                    <div class="intentions">
-                        <img src="/static/images/property_details/tag-icon.png"/>
-                        <label>
-                            <!--Rent type-->
-                            {_if(rent.rent_type) {_}
-                                {=rent.rent_type.value + ' '=}
-                            {_}_}
-                            <!--Space-->
-                            {_if(rent.space) {_}
-                            {= parseFloat(rent.space.value).toFixed(2)=}
-                            {_if (rent.space.unit === 'foot ** 2'){_}
-                            foot <sup>2</sup>
-                            {_} else if(rent.space.unit === 'acre'){_}
-                            acre
-                            {_} else if (rent.space.unit === 'meter ** 2') {_}
-                            m <sup>2</sup>
-                            {_} else if (rent.space.unit === 'kilometer ** 2') {_}
-                            km <sup>2</sup>
-                            {_} else {_}
-                            {=rent.space.unit=}
-                            {_}_}
-                            {_}_}
-                        </label>
-                    </div>
+                    <label class="type">
+                        <!--Rent type-->
+                        {_if(rent.rent_type) {_}
+                        {=rent.rent_type.value + ' '=}
+                        {_}_}
+                    </label>
                     {_if(rent.price) {_}
                         <label class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value))!}</strong>{=window.i18n('/周')=}</label>
                     {_}_}

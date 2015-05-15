@@ -74,6 +74,16 @@
 		2C3DE2351B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
 		2C3DE2361B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
 		2C3DE2371B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
+		2C3DE23B1B05CCDC006FF191 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE2391B05CCDC006FF191 /* Fabric.framework */; };
+		2C3DE23C1B05CCDC006FF191 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE2391B05CCDC006FF191 /* Fabric.framework */; };
+		2C3DE23D1B05CCDC006FF191 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE2391B05CCDC006FF191 /* Fabric.framework */; };
+		2C3DE23E1B05CCDC006FF191 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE2391B05CCDC006FF191 /* Fabric.framework */; };
+		2C3DE23F1B05CCDD006FF191 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE2391B05CCDC006FF191 /* Fabric.framework */; };
+		2C3DE2401B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
+		2C3DE2411B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
+		2C3DE2421B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
+		2C3DE2431B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
+		2C3DE2441B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
 		2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
@@ -521,6 +531,8 @@
 		2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+GetImage.m"; sourceTree = "<group>"; };
 		2C3DE2311B035719006FF191 /* CUTETracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETracker.h; sourceTree = "<group>"; };
 		2C3DE2321B035719006FF191 /* CUTETracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETracker.m; sourceTree = "<group>"; };
+		2C3DE2391B05CCDC006FF191 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
@@ -705,6 +717,8 @@
 				2CA2E6B61AC5487800053965 /* AddressBook.framework in Frameworks */,
 				2CA2E6B71AC5487800053965 /* MapKit.framework in Frameworks */,
 				2CA2E6B81AC5487800053965 /* libPods.a in Frameworks */,
+				2C3DE23D1B05CCDC006FF191 /* Fabric.framework in Frameworks */,
+				2C3DE2421B05CCDD006FF191 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -717,6 +731,8 @@
 				2CA2E6CF1AC5496700053965 /* AddressBook.framework in Frameworks */,
 				2CA2E6D01AC5496700053965 /* MapKit.framework in Frameworks */,
 				2CA2E6D11AC5496700053965 /* libPods.a in Frameworks */,
+				2C3DE23E1B05CCDC006FF191 /* Fabric.framework in Frameworks */,
+				2C3DE2431B05CCDD006FF191 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +745,8 @@
 				2CA94AA01ACA42CD00DF7497 /* AddressBook.framework in Frameworks */,
 				2CA94AA11ACA42CD00DF7497 /* MapKit.framework in Frameworks */,
 				2CA94AA21ACA42CD00DF7497 /* libPods.a in Frameworks */,
+				2C3DE23C1B05CCDC006FF191 /* Fabric.framework in Frameworks */,
+				2C3DE2411B05CCDD006FF191 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,6 +759,8 @@
 				2C1EA76F1AC3DA1900B0FC22 /* AddressBook.framework in Frameworks */,
 				2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */,
 				C4A0594E53CF2777C29B6FC8 /* libPods.a in Frameworks */,
+				2C3DE23B1B05CCDC006FF191 /* Fabric.framework in Frameworks */,
+				2C3DE2401B05CCDD006FF191 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +769,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				82037DC2E4CBE6EBA4114331 /* libPods.a in Frameworks */,
+				2C3DE2441B05CCDD006FF191 /* Crashlytics.framework in Frameworks */,
+				2C3DE23F1B05CCDD006FF191 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -758,6 +780,8 @@
 		2C27F1E81ACCEA6C002BECCF /* Library3rd */ = {
 			isa = PBXGroup;
 			children = (
+				2C3DE2391B05CCDC006FF191 /* Fabric.framework */,
+				2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */,
 				2CF8A6A51AF0C2620080DF10 /* BBTPickerView.h */,
 				2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */,
 				2C2FCDBB1AFCC689002594D7 /* BBTInputAccessoryView.h */,
@@ -1158,6 +1182,7 @@
 				2CA2E6B51AC5487800053965 /* Frameworks */,
 				2CA2E6B91AC5487800053965 /* Resources */,
 				2CA2E6BE1AC5487800053965 /* Copy Pods Resources */,
+				2C3DE2381B05CC18006FF191 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1177,6 +1202,7 @@
 				2CA2E6CE1AC5496700053965 /* Frameworks */,
 				2CA2E6D21AC5496700053965 /* Resources */,
 				2CA2E6D71AC5496700053965 /* Copy Pods Resources */,
+				2C3DE2471B05CEFC006FF191 /* ShellScript */,
 				2C9B687E1ACE93160081E68B /* ShellScript */,
 			);
 			buildRules = (
@@ -1197,6 +1223,7 @@
 				2CA94A9F1ACA42CD00DF7497 /* Frameworks */,
 				2CA94AA31ACA42CD00DF7497 /* Resources */,
 				2CA94AAA1ACA42CD00DF7497 /* Copy Pods Resources */,
+				2C3DE2461B05CEE1006FF191 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1216,6 +1243,7 @@
 				2CB43DA61ABC1372004DF663 /* Frameworks */,
 				2CB43DA71ABC1372004DF663 /* Resources */,
 				A02E954989AD2505AB628CB7 /* Copy Pods Resources */,
+				2C3DE2451B05CEC8006FF191 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1370,6 +1398,58 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		2C3DE2381B05CC18006FF191 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./currant/Library3rd/Fabric.framework/run 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
+		};
+		2C3DE2451B05CEC8006FF191 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./currant/Library3rd/Fabric.framework/run 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
+		};
+		2C3DE2461B05CEE1006FF191 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./currant/Library3rd/Fabric.framework/run 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
+		};
+		2C3DE2471B05CEFC006FF191 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./currant/Library3rd/Fabric.framework/run 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
 		};
 		2C9B687E1ACE93160081E68B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2025,6 +2105,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/currant/Library3rd",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-test-Info.plist";
@@ -2043,6 +2127,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/currant/Library3rd",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-test-Info.plist";
@@ -2061,6 +2149,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/currant/Library3rd",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-production-Info.plist";
@@ -2079,6 +2171,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/currant/Library3rd",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-production-Info.plist";
@@ -2096,6 +2192,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/currant/Library3rd",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-dev-Info.plist";
@@ -2114,6 +2214,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/currant/Library3rd",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-dev-Info.plist";
@@ -2211,6 +2315,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/currant/Library3rd",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = currant/Info.plist;
@@ -2229,6 +2337,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/currant/Library3rd",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = currant/Info.plist;
@@ -2247,6 +2359,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/currant/Library3rd",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2267,6 +2380,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/currant/Library3rd",
 				);
 				INFOPLIST_FILE = currantTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

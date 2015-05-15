@@ -36,6 +36,20 @@
 	<string>1</string>
 	<key>CurrantHost</key>
 	<string>currant-test.bbtechgroup.com</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>9ecb350494322a70f91f3ad1df714df4ac8e93c5</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
