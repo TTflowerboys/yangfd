@@ -66,6 +66,11 @@
     [_tracker send:[builder build]];
 }
 
+- (void)trackException:(NSException *)exception {
+    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createExceptionWithDescription:exception.description withFatal:@(0)];
+    [_tracker send:builder.build];
+}
+
 - (NSString *)getScreenNameFromObject:(id)object {
 
     if ([object isKindOfClass:[UIViewController class]]) {

@@ -14,6 +14,7 @@
 
 #define TrackScreen(screenName) [[CUTETracker sharedInstance] trackScreen:screenName]
 #define TrackEvent(oneCategory, oneAction, oneLabel, oneValue)  [[CUTETracker sharedInstance] trackEventWithCategory:oneCategory action:oneAction label:oneLabel value:oneValue]
+#define TrackException(exception) [[CUTETracker sharedInstance] trackException:exception]
 
 #define GetScreenName(object) [[CUTETracker sharedInstance] getScreenNameFromObject:object]
 
@@ -26,6 +27,8 @@
 - (void)trackScreen:(NSString *)screenName;
 
 - (void)trackEventWithCategory:(NSString *)category action:(NSString *)action label:(NSString *)label value:(NSNumber *)value;
+
+- (void)trackException:(NSException *)exception;
 
 #pragma Util
 

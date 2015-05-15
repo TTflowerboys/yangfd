@@ -31,6 +31,8 @@
 #import "CUTERentPropertyInfoViewController.h"
 #import "CUTEImageUploader.h"
 #import "CUTETracker.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
@@ -180,6 +182,7 @@
 #warning DEBUG_CODE
 #ifdef DEBUG
 
+//    [CrashlyticsKit crash];
     [NSClassFromString(@"WebView") performSelector:NSSelectorFromString(@"_enableRemoteInspector")];
     [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
     [[AFNetworkActivityLogger sharedLogger] startLogging];
@@ -195,6 +198,8 @@
 //        [self.tabBarController presentViewController:nc animated:NO completion:nil];
 //    });
 #endif
+
+    [Fabric with:@[CrashlyticsKit]];
     return YES;
 }
 
