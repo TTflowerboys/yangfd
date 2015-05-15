@@ -224,15 +224,32 @@ main {
                     @media @phone {
                         margin-top:46px;
                     }
-                    input{
-                        width:120px;
-                        height:30px;
-                        border: 2px solid #aaa;
-                        margin:0 5px 12px;
-                        color: #999;
-                        font-size: 12px;
-                        text-align: center;
-                        background: none;
+                    .date{
+                        position: relative;
+                        display: inline-block;
+                        height: 30px;
+                        input{
+                            width:120px;
+                            height:30px;
+                            border: 2px solid #aaa;
+                            margin:0 5px 12px;
+                            color: #999;
+                            font-size: 12px;
+                            text-align: center;
+                            background: none;
+                        }
+                        i{
+                            position: absolute;
+                            width: 16px;
+                            height: 16px;
+                            top: 7px;
+                            right: 13px;
+                            cursor: pointer;
+                            opacity: 0.4;
+                            &:hover{
+                                opacity: 0.8;
+                            }
+                        }
                     }
                     span{
                         font-size: 12px;
