@@ -37,7 +37,7 @@
 #import "CUTERentAddressEditViewController.h"
 #import "CUTERentAddressEditForm.h"
 #import "CUTENavigationUtil.h"
-#import "CUTERentTicketPreviewController.h"
+#import "CUTERentTicketPreviewViewController.h"
 #import "CUTETracker.h"
 
 @interface CUTERentPropertyInfoViewController () {
@@ -323,64 +323,16 @@
 
 - (void)submit
 {
-
     if (![self validate]) {
         return;
     }
 
-    CUTERentTicketPreviewController *controller = [[CUTERentTicketPreviewController alloc] init];
+    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
+    CUTERentTicketPreviewViewController *controller = [[CUTERentTicketPreviewViewController alloc] init];
     controller.ticket = self.ticket;
     [controller loadURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]];
     [self.navigationController pushViewController:controller animated:YES];
-
-//    if (![self validate]) {
-//        return;
-//    }
-//
-//    CUTETicket *ticket = self.ticket;
-//    CUTEProperty *property = ticket.property;
-//
-//    if (ticket && property) {
-//        if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
-//            [SVProgressHUD showWithStatus:STR(@"发布中...")];
-//            [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
-//                [SVProgressHUD showWithStatus:status];
-//            }] continueWithBlock:^id(BFTask *task) {
-//                if (task.error || task.exception || task.isCancelled) {
-//                    [SVProgressHUD showErrorWithError:task.error];
-//                }
-//                else {
-//                    [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
-//                    [self.navigationController popToRootViewControllerAnimated:NO];
-//
-//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
-//                    });
-//                }
-//                return nil;
-//            }];
-//        }
-//        else {
-//            [SVProgressHUD show];
-//            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithBlock:^id(BFTask *task) {
-//                if (task.error || task.exception || task.isCancelled) {
-//                    [SVProgressHUD showErrorWithError:task.error];
-//                    return nil;
-//                } else {
-//                    CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
-//                    contactViewController.ticket = self.ticket;
-//                    CUTERentContactForm *form = [CUTERentContactForm new];
-//                    [form setAllCountries:task.result];
-//                    //set default country same with the property
-//                    form.country = property.country;
-//                    contactViewController.formController.form = form;
-//                    [self.navigationController pushViewController:contactViewController animated:YES];
-//                    [SVProgressHUD dismiss];
-//                    return nil;
-//                }
-//            }];
-//        }
-//    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTERentTicketPreviewController.h"
+#import "CUTERentTicketPreviewViewController.h"
 #import "CUTENavigationUtil.h"
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
@@ -18,8 +18,11 @@
 #import "CUTERentContactViewController.h"
 #import "CUTERentContactForm.h"
 #import "CUTETracker.h"
+#import "CUTERentTypeListViewController.h"
+#import "CUTERentAddressMapViewController.h"
+#import "CUTERentPropertyInfoViewController.h"
 
-@implementation CUTERentTicketPreviewController
+@implementation CUTERentTicketPreviewViewController
 
 - (void)updateTitleWithURL:(NSURL *)url {
     if (!self.navigationItem.title) {
@@ -59,6 +62,13 @@
                     [SVProgressHUD showErrorWithError:task.error];
                 }
                 else {
+                    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
+                    NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
+                                            GetScreenNameFromClass([CUTERentAddressMapViewController class]),
+                                            GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
+                                            GetScreenNameFromClass([CUTERentTicketPreviewViewController class])];
+                    TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
                     [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
                     [self.navigationController popToRootViewControllerAnimated:NO];
 

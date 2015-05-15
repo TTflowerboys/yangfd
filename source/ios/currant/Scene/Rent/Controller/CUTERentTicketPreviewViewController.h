@@ -9,7 +9,7 @@
 #import "CUTEWebViewController.h"
 #import "CUTETicket.h"
 
-@interface CUTERentTicketPreviewController : CUTEWebViewController
+@interface CUTERentTicketPreviewViewController : CUTEWebViewController
 
 @property (strong, nonatomic) CUTETicket *ticket;
 

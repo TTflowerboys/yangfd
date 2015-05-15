@@ -19,6 +19,12 @@
 #import <Sequencer/Sequencer.h>
 #import "CUTEDataManager.h"
 #import "CUTENotificationKey.h"
+#import "CUTETracker.h"
+#import "CUTERentTypeListViewController.h"
+#import "CUTERentAddressMapViewController.h"
+#import "CUTERentPropertyInfoViewController.h"
+#import "CUTERentContactViewController.h"
+#import "CUTERentTicketPreviewViewController.h"
 
 @implementation CUTERentLoginViewController
 
@@ -65,6 +71,15 @@
                 [SVProgressHUD showErrorWithError:task.error];
                 return nil;
             } else {
+                TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
+                NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
+                                        GetScreenNameFromClass([CUTERentAddressMapViewController class]),
+                                        GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
+                                        GetScreenNameFromClass([CUTERentTicketPreviewViewController class]),
+                                        GetScreenNameFromClass([CUTERentContactViewController class]),
+                                        GetScreenNameFromClass([CUTERentLoginViewController class])];
+                TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
                 [SVProgressHUD dismiss];
                 [self.navigationController popToRootViewControllerAnimated:NO];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
