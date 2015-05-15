@@ -270,6 +270,8 @@ $(window).resize(window.updateTabSelectorFixed);
 
         if(reload){
             $('#result_list').empty()
+            lastItemTime = null
+            params.mtime = null
         }
 
         $('#result_list_container').show()
