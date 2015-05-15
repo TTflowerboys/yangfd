@@ -144,6 +144,14 @@
             params.space = space
         }
 
+        var rentAvailableTime
+        if($('#rentPeriodStartDate').val()) {
+            rentAvailableTime = new Date($('#rentPeriodStartDate').val()).getTime() / 1000
+            if(rentAvailableTime) {
+                params.rent_available_time = rentAvailableTime
+            }
+        }
+
         if (lastItemTime) {
             params.last_modified_time = lastItemTime
             //Load more triggered
@@ -370,6 +378,22 @@
         ga('send', 'event', 'rent_list', 'change', 'change-space', $item.text())
         loadRentListByView()
     })
+
+    var $rentPeriodStartDate = $('#rentPeriodStartDate')
+    $rentPeriodStartDate.attr('placeholder',$.format.date(new Date(), 'yyyy-MM-dd'))
+    $rentPeriodStartDate.dateRangePicker({
+            autoClose: true,
+            singleDate: true,
+            showShortcuts: false,
+            lookBehind: true,
+        })
+        .bind('datepicker-change', function (event, obj) {
+            $rentPeriodStartDate.val($.format.date(new Date(obj.date1), 'yyyy-MM-dd')).trigger('change')
+        })
+        .bind('change', function () {
+            ga('send', 'event', 'rent_list', 'change', 'change-space', $rentPeriodStartDate.val())
+            loadRentListByView()
+        })
 
     // Show or Hide tag filters on mobile
     function showTagsOnMobile() {
@@ -718,6 +742,12 @@
         var space = getSelectedTagFilterDataId('#spaceTag')
         if (space) {
             params.space = space
+        }
+
+        var rentAvailableTime
+        if($('#rentPeriodStartDate').val()){
+            rentAvailableTime = new Date($('#rentPeriodStartDate').val()).getTime() / 1000
+            params.rent_available_time = rentAvailableTime
         }
 
         //Empty map list

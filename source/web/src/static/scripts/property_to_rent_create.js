@@ -539,7 +539,7 @@
             'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
             'bill_covered': $('#billCovered').is(':checked'), //是否包物业水电费
-            'rent_period': $('#rent_period').find('option:selected').val(), //出租多长时间
+            'rent_period': $('#rent_period').val(), //出租多长时间
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
             'title': title,
         })

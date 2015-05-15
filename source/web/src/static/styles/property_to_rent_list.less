@@ -176,7 +176,7 @@ main {
 
             }
 
-            .propertyType, .rentalBudget, .rentPeriod, .bedroomCount, .space {
+            .propertyType, .rentalBudget, .rentPeriod, .bedroomCount, .space, .calendar, .contactUs {
                 margin: 0;
                 border-top: 1px solid #ccc;
                 display:block;
@@ -223,6 +223,27 @@ main {
 
                     @media @phone {
                         margin-top:46px;
+                    }
+                    input{
+                        width:120px;
+                        height:30px;
+                        border: 2px solid #aaa;
+                        margin:0 5px 12px;
+                        color: #999;
+                        font-size: 12px;
+                        text-align: center;
+                        background: none;
+                    }
+                    span{
+                        font-size: 12px;
+                        color: #999;
+                    }
+                    &.phone{
+                        display: block;
+                        text-decoration: none;
+                        color: #e60012;
+                        text-align: center;
+                        font-size: 22px;
                     }
 
                 }

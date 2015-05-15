@@ -374,7 +374,25 @@ main {
                         label{
                             vertical-align:middle;
                         }
-                        .date {
+
+                    }
+                    .lease,.billCovered {
+                        margin-top: 20px;
+                        line-height: 50px;
+                        vertical-align: middle;
+                    }
+                }
+                .rent_period{
+                    div{
+                        float: left;
+                        line-height: 50px;
+                        #rent_period{
+                            width: 90px;
+                        }
+                        span{
+                            margin: 0 8px;
+                        }
+                        &.date {
                             position: relative;
 
                             input {
@@ -393,11 +411,6 @@ main {
                                 background: url('/static/images/common/calendar_icon.png');
                             }
                         }
-                    }
-                    .lease,.billCovered {
-                        margin-top: 20px;
-                        line-height: 50px;
-                        vertical-align: middle;
                     }
                 }
                 .image_panel {
