@@ -1,69 +1,3 @@
-window.resizeCategory = function () {
-    var $categoryWrapper = $('.category_wrapper')
-    var $category = $categoryWrapper.find('.category')
-
-    if (window.team.isPhone()) {
-        $categoryWrapper.css({'height': 'auto'});
-        $category.css('margin-top', '0')
-        $categoryWrapper.show()
-    }
-    else {
-        var availHeight = window.screen.availHeight
-        var wrapperHeight = availHeight / 8.0 > 100 ? availHeight / 8.0 : 100
-        var categoryHeight = 40
-        $categoryWrapper.css({'height': wrapperHeight + 'px'});
-        $category.css('margin-top', (wrapperHeight - categoryHeight) / 2 + 'px')
-        $categoryWrapper.show()
-    }
-};
-
-$(window.resizeCategory);
-
-$(window).on('resize', window.resizeCategory);
-
-window.updateTabSelectorFixed = function () {
-    if (!window.team.isPhone()) {
-        var scrollOffset = $(window).scrollTop()
-        var $list = $('.tabContent').width() > 0 ? $('#result_list') : $('#emptyPlaceHolder')
-        var listTop = $list.offset().top
-        var listHeight = $list.height()
-        var $tabSelector = $('.tabSelector')
-        var tabLeft = $list.offset().left - 60
-        if (scrollOffset > listTop + listHeight - 20) {
-            $tabSelector.css({'position': 'static', 'top': '0', left: '0', 'margin-top': '0x'})
-        }
-        else if (scrollOffset > listTop - 20) {
-            $tabSelector.css({'position': 'fixed', 'top': '20px', left: tabLeft, 'margin-top': '0'})
-        }
-        else {
-            $tabSelector.css({'position': 'static', 'top': '0', left: '0', 'margin-top': '0x'})
-        }
-    }
-}
-
-$(window).scroll(window.updateTabSelectorFixed);
-$(window).resize(window.updateTabSelectorFixed);
-
-// window.updateTagsFixed = function () {
-//     if (!window.team.isPhone()) {
-//         var scrollOffset = $(window).scrollTop()
-//         var $list = $('#result_list').width() > 0 ? $('#result_list'): $('#emptyPlaceHolder')
-//         var listTop = $list.offset().top
-//         var $tags = $('#tags')
-//         var listWidth = $list.width()
-//         var tagsLeft = $list.offset().left + listWidth + 60
-//         if (scrollOffset > listTop - 20) {
-//             $tags.css({'position':'fixed', 'top':'20px', left:tagsLeft, 'margin-top':'0'})
-//         }
-//         else {
-//             $tags.css({'position':'static', 'top':'0', left:'0', 'margin-top': '140px'})
-//         }
-//     }
-// }
-
-// $(window).scroll(window.updateTagsFixed);
-// $(window).resize(window.updateTagsFixed);
-
 (function () {
     var lastItemTimeDic = {}
     var budgetTotalResultCountDic = {}
@@ -72,6 +6,43 @@ $(window).resize(window.updateTabSelectorFixed);
     var lastItemTime
     var viewMode = 'list'
 
+    window.countryData = getData('countryData')
+    window.cityData = getData('cityData')
+    window.propertyCountryData = getData('propertyCountryData')
+    window.propertyCityData = getData('propertyCityData')
+    window.propertyTypeData = getData('propertyTypeData')
+    window.intentionData = getData('intentionData')
+    window.budgetData = getData('budgetData')
+    window.bedroomCountData = getData('bedroomCountData')
+    window.buildingAreaData = getData('buildingAreaData')
+
+    var $countrySelect = $('select[name=propertyCountry]')
+    $countrySelect.change(function () {
+        ga('send', 'event', 'property_list', 'change', 'select-country',
+            $('select[name=propertyCountry]').children('option:selected').text())
+        loadPropertyListByView()
+        updateCityByCountry($('select[name=propertyCountry]').children('option:selected').val())
+    })
+
+    var $citySelect = $('select[name=propertyCity]')
+    $citySelect.change(function () {
+        ga('send', 'event', 'property_list', 'change', 'select-city',
+            $('select[name=propertyCity]').children('option:selected').text())
+        loadPropertyListByView()
+
+    })
+
+    var $propertyTypeSelect = $('select[name=propertyType]')
+    $propertyTypeSelect.change(function () {
+        ga('send', 'event', 'property_list', 'change', 'select-proprty-type',
+            $('select[name=propertyType]').children('option:selected').text())
+        loadPropertyListByView()
+    })
+
+
+    /*
+    * Load Data from server
+    * */
     function getLastItemTimeByBudget(id) {
         if (id) {
             return lastItemTimeDic[id]
@@ -218,6 +189,32 @@ $(window).resize(window.updateTabSelectorFixed);
             }
         })
         return array
+    }
+
+    function updateCityByCountry(countryId) {
+        var params = {'country': countryId}
+
+        //Empty city select
+        $('select[name=propertyCity]').empty()
+        $('select[name=propertyCity]').append($('<option>', {
+            text: window.i18n('任意城市'),
+            value:''
+        }))
+
+        //Load city data
+        $.betterPost('/api/1/enum/search', params)
+            .done(function (val) {
+                if (!_.isEmpty(val)) {
+                    _.each(val, function (city) {
+                        $('select[name=propertyCity]').append($('<option>', {
+                            value: city.id,
+                            text: city.value
+                        }))
+                    })
+                }
+            })
+            .fail(function(){
+            })
     }
 
     function loadPropertyListByView() {
@@ -680,64 +677,6 @@ $(window).resize(window.updateTabSelectorFixed);
             emptyPlaceHolder.hide()
         }
     }
-
-    // function updateBrowserTitle(){
-    //     var updatedTitle = $('select[name=propertyCountry]').children('option:selected').text() + ' ' +
-    //         $('select[name=propertyCity]').children('option:selected').text() + ' ' +
-    //         $('select[name=propertyType]').children('option:selected').text() + ' ' + window.i18n('房产列表 洋房东')
-
-    //     $(document).prop('title', updatedTitle)
-    // }
-
-    // function updateUserTags() {
-    //     var budgetId = getSelectedTagFilterDataId('#budgetTag')
-    //     var intentionIds = getSelectedIntention()
-
-    //     $.betterPost('/api/1/user/edit', {'budget':budgetId, 'intention':intentionIds})
-    //         .done(function (data) {
-    //             window.user= data
-    //         })
-    //         .fail(function (ret) {
-    //         })
-    //         .always(function () {
-
-    //         })
-    // }
-
-    $(function () {
-        window.countryData = getData('countryData')
-        window.cityData = getData('cityData')
-        window.propertyCountryData = getData('propertyCountryData')
-        window.propertyCityData = getData('propertyCityData')
-        window.propertyTypeData = getData('propertyTypeData')
-        window.intentionData = getData('intentionData')
-        window.budgetData = getData('budgetData')
-        window.bedroomCountData = getData('bedroomCountData')
-        window.buildingAreaData = getData('buildingAreaData')
-
-        var $countrySelect = $('select[name=propertyCountry]')
-        $countrySelect.change(function () {
-            ga('send', 'event', 'property_list', 'change', 'select-country',
-                $('select[name=propertyCountry]').children('option:selected').text())
-            loadPropertyListByView()
-        })
-
-        var $citySelect = $('select[name=propertyCity]')
-        $citySelect.change(function () {
-            ga('send', 'event', 'property_list', 'change', 'select-city',
-                $('select[name=propertyCity]').children('option:selected').text())
-            loadPropertyListByView()
-
-        })
-
-        var $propertyTypeSelect = $('select[name=propertyType]')
-        $propertyTypeSelect.change(function () {
-            ga('send', 'event', 'property_list', 'change', 'select-proprty-type',
-                $('select[name=propertyType]').children('option:selected').text())
-            loadPropertyListByView()
-        })
-    })
-
 
     $('#tags #budgetTag').on('click', '.toggleTag', function (event) {
 
@@ -1241,3 +1180,49 @@ $(window).resize(window.updateTabSelectorFixed);
             })
     }
  })()
+
+window.resizeCategory = function () {
+    var $categoryWrapper = $('.category_wrapper')
+    var $category = $categoryWrapper.find('.category')
+
+    if (window.team.isPhone()) {
+        $categoryWrapper.css({'height': 'auto'});
+        $category.css('margin-top', '0')
+        $categoryWrapper.show()
+    }
+    else {
+        var availHeight = window.screen.availHeight
+        var wrapperHeight = availHeight / 8.0 > 100 ? availHeight / 8.0 : 100
+        var categoryHeight = 40
+        $categoryWrapper.css({'height': wrapperHeight + 'px'});
+        $category.css('margin-top', (wrapperHeight - categoryHeight) / 2 + 'px')
+        $categoryWrapper.show()
+    }
+};
+
+$(window.resizeCategory);
+
+$(window).on('resize', window.resizeCategory);
+
+window.updateTabSelectorFixed = function () {
+    if (!window.team.isPhone()) {
+        var scrollOffset = $(window).scrollTop()
+        var $list = $('.tabContent').width() > 0 ? $('#result_list') : $('#emptyPlaceHolder')
+        var listTop = $list.offset().top
+        var listHeight = $list.height()
+        var $tabSelector = $('.tabSelector')
+        var tabLeft = $list.offset().left - 60
+        if (scrollOffset > listTop + listHeight - 20) {
+            $tabSelector.css({'position': 'static', 'top': '0', left: '0', 'margin-top': '0x'})
+        }
+        else if (scrollOffset > listTop - 20) {
+            $tabSelector.css({'position': 'fixed', 'top': '20px', left: tabLeft, 'margin-top': '0'})
+        }
+        else {
+            $tabSelector.css({'position': 'static', 'top': '0', left: '0', 'margin-top': '0x'})
+        }
+    }
+}
+
+$(window).scroll(window.updateTabSelectorFixed);
+$(window).resize(window.updateTabSelectorFixed);

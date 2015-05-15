@@ -107,6 +107,32 @@
         return $('#result_list').children('.rentCard').length
     }
 
+    function updateCityByCountry(countryId){
+        var params = {'country': countryId}
+
+        //Empty city select
+        $('select[name=propertyCity]').empty()
+        $('select[name=propertyCity]').append($('<option>', {
+            text: window.i18n('任意城市'),
+            value:''
+        }))
+
+        //Load city data
+        $.betterPost('/api/1/enum/search', params)
+            .done(function (val) {
+                if (!_.isEmpty(val)) {
+                    _.each(val, function (city) {
+                        $('select[name=propertyCity]').append($('<option>', {
+                            value: city.id,
+                            text: city.value
+                        }))
+                    })
+                }
+            })
+            .fail(function(){
+            })
+    }
+
     function loadRentList(reload) {
         var params = {'per_page': itemsPerPage}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
@@ -251,6 +277,7 @@
         ga('send', 'event', 'rent_list', 'change', 'select-country',
             $('select[name=propertyCountry]').children('option:selected').text())
         loadRentListByView()
+        updateCityByCountry($('select[name=propertyCountry]').children('option:selected').val())
     })
 
     var $citySelect = $('select[name=propertyCity]')
