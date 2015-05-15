@@ -398,15 +398,15 @@
         .bind('change', function () {
             var val = $(this).val()
             if(val !== '') {
-                $(this).next('.clear').show()
+                $(this).siblings('.clear').show()
             } else{
-                $(this).next('.clear').hide()
+                $(this).siblings('.clear').hide()
             }
             ga('send', 'event', 'rent_list', 'change', 'change-space', val)
             loadRentListByView()
         })
     $('.calendar .clear').bind('click', function(event){
-        $(this).prev('input').val('').trigger('change').attr('placeholder', i18n('请选择起租日期'))
+        $(this).siblings('input').val('').trigger('change').attr('placeholder', i18n('请选择起租日期'))
     })
 
     // Show or Hide tag filters on mobile

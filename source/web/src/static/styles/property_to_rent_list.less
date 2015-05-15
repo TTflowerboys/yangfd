@@ -3,6 +3,18 @@
 * {
     box-sizing: border-box;
 }
+.howItWorks {
+    display: block;
+    @media @phone {
+        display: none;
+    }
+}
+.howItWorks_phone {
+    display: none ;
+    @media @phone {
+        display: block;
+    }
+}
 
 body{
     -webkit-touch-callout: none;
