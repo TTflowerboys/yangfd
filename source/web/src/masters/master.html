@@ -70,9 +70,12 @@
                     </div>
 
                     <div class="left">
-                        <a class="app" href="/app-download">
+                        <!-- @if ENV!='production' -->
+                        <a class="app" href="/app-download" target="_blank">
                             {{_('下载应用')}}
                         </a>
+                        <!-- @endif -->
+
                         <a class="select-country">
                             <img alt="" src="/static/images/common/header/flag-uk.png" />
                             <span>{{_('英国')}}</span>

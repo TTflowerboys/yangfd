@@ -13,16 +13,20 @@
     <div class="contentHeader">
         <h1>{{_('我的房产')}}</h1>
         <div class="buttons">
+            <!-- @if ENV!='production' -->
             <button id="showRentBtn" class="rent button red">{{_('出租房产')}}</button>
+            <!-- @endif -->
             <button id="showOwnBtn" class="own ghostButton red">{{_('自有房产')}}</button>
             <!--<button id="showRead" class="read ghostButton red">{{_('出售')}}</button>-->
         </div>
     </div>
     <div class="tabs ui-tabs ui-widget">
         <ul class="ui-tabs-nav">
+            <!-- @if ENV!='production' -->
             <li id="showRentTab" class="ui-tabs-selected rent">
                 <a>{{_('出租房产')}}</a>
             </li>
+            <!-- @endif -->
             <li id="showOwnTab" class="own">
                 <a>{{_('自有房产')}}</a>
             </li>

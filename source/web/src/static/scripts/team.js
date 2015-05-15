@@ -208,6 +208,13 @@
             var ua = navigator.userAgent.toLowerCase()
             return (/currant/.test(ua)) ? true : false
         },
+        isProduction: function(){
+            if(window.location.host === 'yangfd.com' || window.location.host === 'youngfunding.co.uk' || window.location.host === 'yangfd.cn'){
+                return true
+            }else {
+                return false
+            }
+        },
         /**
          * convert to https link
          * @param {object} {link:'',property_id:'',news_id:''}

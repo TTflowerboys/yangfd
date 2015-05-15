@@ -6,7 +6,13 @@ $(function () {
     var isLoading = false
 
     //Init page with rent
-    loadRentProperty()
+    //TODO: do this for now
+    if(team.isProduction()){
+        switchTypeTab('own')
+        loadOwnProperty()
+    }else {
+        loadRentProperty()
+    }
 
     function loadOwnProperty() {
         $placeholder.hide()
