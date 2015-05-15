@@ -44,4 +44,8 @@ static NSString *host = nil;
     return @"wxa8e7919a58064daa";
 }
 
++ (NSString *)gaTrackingId {
+    return @"UA-55542465-2";
+}
+
 @end

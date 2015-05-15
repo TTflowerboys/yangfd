@@ -16,6 +16,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
 #import <NSArray+ObjectiveSugar.h>
+#import "CUTEConfiguration.h"
 
 @interface CUTETracker ()
 {
@@ -49,7 +50,7 @@
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
 
     // Initialize tracker. Replace with your tracking ID.
-    _tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-55542465-2"];
+    _tracker = [[GAI sharedInstance] trackerWithTrackingId:[CUTEConfiguration gaTrackingId]];
 
 }
 
