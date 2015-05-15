@@ -135,6 +135,19 @@
                 </div>
             %end
 
+            <div class="calendar">
+                <img class="calendar_icon" alt="" src="/static/images/property_list/calendar-tag.png"/>
+                <h4 class="calendar_title">{{_('起租日期')}}</h4>
+                <div class="inner">
+                    <span>{{_('自')}}</span>
+                    <div class="date">
+                        <input type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" value="" placeholder="{{_('请选择起租日期')}}"/>
+                        <i class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
+                    </div>
+                    <span>{{_('起')}}</span>
+                </div>
+            </div>
+
             %if bedroom_count_list:
                 <div class="bedroomCount">
                     <img class="bedroomCount_icon" alt="" src="/static/images/property_list/bedroom-tag.png"/>
@@ -159,18 +172,6 @@
                 </div>
             %end
 
-            <div class="calendar">
-                <img class="calendar_icon" alt="" src="/static/images/property_list/calendar-tag.png"/>
-                <h4 class="calendar_title">{{_('起租日期')}}</h4>
-                <div class="inner">
-                    <span>{{_('自')}}</span>
-                    <div class="date">
-                        <input type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" value="" placeholder="{{_('请选择起租日期')}}"/>
-                        <i class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
-                    </div>
-                    <span>{{_('起')}}</span>
-                </div>
-            </div>
 
 
         </div>
