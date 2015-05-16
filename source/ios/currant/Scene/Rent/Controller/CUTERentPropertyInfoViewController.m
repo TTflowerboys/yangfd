@@ -342,7 +342,7 @@
         }
         else {
             [SVProgressHUD dismiss];
-            
+
             TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             CUTERentTicketPreviewViewController *controller = [[CUTERentTicketPreviewViewController alloc] init];
             controller.ticket = self.ticket;

@@ -79,6 +79,7 @@
     else  {
         CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
         mapController.ticket = self.ticket;
+        mapController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:mapController animated:YES];
     }
 }
