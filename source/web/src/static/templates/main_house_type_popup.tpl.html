@@ -64,7 +64,7 @@
                 <div class="space">
                     <span class="name">{=window.i18n('面积')=}</span>
                     <span class="value">
-                        {_if(houseType.building_area_min.value === houseType.building_area_max.value) {_}
+                        {_if(houseType.building_area_min && houseType.building_area_max && houseType.building_area_min.value === houseType.building_area_max.value) {_}
                             {_if(houseType.building_area_min) {_}
                             {= parseFloat(houseType.building_area_min.value).toFixed(2)=}
                             {_if (houseType.building_area_min.unit === 'foot ** 2'){_}
