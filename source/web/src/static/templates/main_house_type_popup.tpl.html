@@ -115,7 +115,7 @@
                 <div class="price">
                     <span class="name">{=window.i18n('参考售价')=}</span>
                     <span class="value">
-                        {_if(houseType.total_price_min.value === houseType.total_price_max.value) {_}
+                        {_if(houseType.building_area_min && houseType.building_area_max && houseType.total_price_min.value === houseType.total_price_max.value) {_}
                             {=houseType.total_price_min.unit_symbol=}
                             {!team.formatCurrency(parseInt(houseType.total_price_min.value))!}
                         {_} else {_}
