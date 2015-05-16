@@ -4,7 +4,7 @@
             <a href="/property-to-rent/{=rent.id=}" target="_blank">
                 <div class="imagePart">
                     {_if(rent.property.reality_images && rent.property.reality_images.length) {_}
-                    <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);" width=120 height=80/>
+                    <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
                     {_ }else { _}
                     <img class="withPlaceholder" width=120 height=80/>
                     {_ } _}
