@@ -10,4 +10,7 @@
 
 @interface CUTEMapTextField : UITextField
 
+@property (nonatomic, readonly) UIActivityIndicatorView  *indicatorView;
+
+
 @end

@@ -22,12 +22,14 @@
 #import <BBTRestClient.h>
 #import "CUTEConfiguration.h"
 #import "SVProgressHUD+CUTEAPI.h"
+#import <AddressBook/AddressBook.h>
 #import <INTULocationManager.h>
 #import <Sequencer.h>
 #import <UIAlertView+Blocks.h>
 #import "CUTERentTickePublisher.h"
 #import "CUTETracker.h"
 #import "MasonryMake.h"
+
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, UITextFieldDelegate>
 {
@@ -137,24 +139,17 @@
         [[self requestLocation] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CLLocation *location = task.result;
-                [self updatePlacemarkWithLocation:location];
                 MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
                 [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
-                return [[self updateAddress] continueWithBlock:^id(BFTask *task) {
-                    if (task.result) {
-                        [SVProgressHUD dismiss];
-                    }
-                    else {
-                        [SVProgressHUD showErrorWithError:task.error];
-                    }
-                    return nil;
-                }];
+                [SVProgressHUD dismiss];
             }
             else {
                 [SVProgressHUD showErrorWithError:task.error];
             }
             return nil;
         }];
+
+
     }
 }
 
@@ -223,10 +218,15 @@
     }
 
     [SVProgressHUD show];
-    [_geocoder geocodeAddressString:_textField.text completionHandler:^(NSArray *placemarks, NSError *error) {
+    NSDictionary *locationDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        NilNullToEmpty(self.ticket.property.city.value), kABPersonAddressCityKey,
+                                        NilNullToEmpty(self.ticket.property.country.value), kABPersonAddressCountryKey,
+                                        [@[NilNullToEmpty(self.ticket.property.community), NilNullToEmpty(self.ticket.property.street)] componentsJoinedByString:@" "], kABPersonAddressStreetKey,
+                                        NilNullToEmpty(self.ticket.property.zipcode), kABPersonAddressZIPKey,
+                                        nil];
+    [_geocoder geocodeAddressDictionary:locationDictionary completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!IsArrayNilOrEmpty(placemarks)) {
             CLPlacemark *placemark = [placemarks firstObject];
-            [self updatePlacemarkWithLocation:placemark.location];
             MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 800, 800);
             [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
             [SVProgressHUD dismiss];
@@ -289,7 +289,6 @@
             [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
                 if (!IsArrayNilOrEmpty(task.result)) {
                     TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-
                     CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
                     controller.ticket = self.ticket;
                     CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
@@ -301,7 +300,6 @@
                     controller.formController.form = form;
                     [self.navigationController pushViewController:controller animated:YES];
                     [SVProgressHUD dismiss];
-
                 }
                 else {
                     [SVProgressHUD showErrorWithError:task.error];
@@ -331,60 +329,76 @@
 - (BFTask *)updateAddress {
 
     CUTEProperty *property = self.ticket.property;
-    return [[self reverseGeocodeLocation:property.location] continueWithBlock:^id(BFTask *task) {
-        if (task.result) {
-            CLPlacemark *placemark = task.result;
-            NSArray *requiredEnums = @[@"country", @"city"];
-            [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
-                return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
-            }]] continueWithSuccessBlock:^id(BFTask *task) {
-                if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
-                    NSArray *coutries = [(NSArray *)task.result[0] select:^BOOL(CUTEEnum *object) {
-                        return [[object slug] isEqualToString:placemark.ISOcountryCode];
-                    }];
+    BFTaskCompletionSource *tcs  = [BFTaskCompletionSource taskCompletionSource];
 
-                    NSArray *cities = [(NSArray *)task.result[1] select:^BOOL(CUTECityEnum *object) {
-                        return [[object.country slug] isEqualToString:placemark.ISOcountryCode] && [[[placemark locality] lowercaseString] hasPrefix:[[object value] lowercaseString]];
-                    }];
-                    property.street = [@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "];
-                    property.zipcode = placemark.postalCode;
-                    property.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
-                    property.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
-                    property.street = placemark.thoroughfare;
-                    property.community = placemark.subThoroughfare;
-                    _textField.text = property.address;
-                }
-                return task;
-            }];
-        }
-        else {
-            TrackEvent(GetScreenName(self), kEventActionRequestReturn, @"non-geocoding-result", nil);
-        }
-        return task;
+    Sequencer *sequencer = [Sequencer new];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[self reverseGeocodeLocation:property.location] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                completion(task.result);
+            }
+            else {
+                TrackEvent(GetScreenName(self), kEventActionRequestReturn, @"non-geocoding-result", nil);
+                [tcs setError:task.error];
+            }
+            return task;
+        }];
+
     }];
-}
 
-- (void)updatePlacemarkWithLocation:(CLLocation *)location {
-    if (location && [location isKindOfClass:[CLLocation class]]) {
-        CUTEProperty *property = self.ticket.property;
-        property.location = location;
-    }
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        CLPlacemark *placemark = result;
+
+        NSArray *requiredEnums = @[@"country", @"city"];
+        [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
+            return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+        }]] continueWithBlock:^id(BFTask *task) {
+
+            if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
+                NSArray *coutries = [(NSArray *)task.result[0] select:^BOOL(CUTEEnum *object) {
+                    return [[object slug] isEqualToString:placemark.ISOcountryCode];
+                }];
+
+                NSArray *cities = [(NSArray *)task.result[1] select:^BOOL(CUTECityEnum *object) {
+                    return [[object.country slug] isEqualToString:placemark.ISOcountryCode] && [[[placemark locality] lowercaseString] hasPrefix:[[object value] lowercaseString]];
+                }];
+                property.street = [@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "];
+                property.zipcode = placemark.postalCode;
+                property.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
+                property.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
+                property.street = placemark.thoroughfare;
+                property.community = placemark.subThoroughfare;
+                _textField.text = property.address;
+
+                [tcs setResult:_textField.text];
+            }
+            else {
+                [tcs setError:task.error];
+            }
+            return task;
+        }];
+    }];
+
+    [sequencer run];
+
+    return tcs.task;
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(__unused BOOL)animated
 {
     //update field value
-    self.field.value = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                   longitude:mapView.centerCoordinate.longitude];
-
-    [self updatePlacemarkWithLocation:self.field.value];
-    [SVProgressHUD show];
+    CUTEProperty *property = self.ticket.property;
+    property.location = location;
+    [_textField.indicatorView startAnimating];
     [[self updateAddress] continueWithBlock:^id(BFTask *task) {
+        [_textField.indicatorView stopAnimating];
         if (task.error || task.exception || task.isCancelled) {
             [SVProgressHUD showErrorWithError:task.error];
             return nil;
         } else {
-            [SVProgressHUD dismiss];
             return nil;
         }
     }];

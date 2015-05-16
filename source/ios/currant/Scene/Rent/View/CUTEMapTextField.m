@@ -7,8 +7,27 @@
 //
 
 #import "CUTEMapTextField.h"
+#import "MasonryMake.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTEMapTextField
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [self addSubview:_indicatorView];
+    }
+    return self;
+}
+
+#define kIndicatorSideLength 20
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _indicatorView.frame = CGRectMake(RectWidthExclude(self.bounds, kIndicatorSideLength) / 2, RectHeightExclude(self.bounds, kIndicatorSideLength) / 2, kIndicatorSideLength, kIndicatorSideLength);
+}
 
 - (CGRect)textRectForBounds:(CGRect)bounds
 {
