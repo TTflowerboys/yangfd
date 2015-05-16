@@ -266,6 +266,7 @@
                 [form setRentTypeList:task.result];
                 CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
                 controller.formController.form = form;
+                controller.hidesBottomBarWhenPushed = NO;
                 [viewController setViewControllers:@[controller] animated:NO];
                 if (!silent) {
                     [SVProgressHUD dismiss];
@@ -279,6 +280,7 @@
     }
     else if (unfinishedRentTickets.count > 0) {
         CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
+        unfinishedRentTicketController.hidesBottomBarWhenPushed = NO;
         [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
     }
 }
@@ -306,11 +308,14 @@
     [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 
-    CUTERentShareViewController *shareController = [CUTERentShareViewController new];
-    shareController.formController.form = [CUTERentShareForm new];
-    shareController.ticket = ticket;
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
-    [self.tabBarController presentViewController:nc animated:NO completion:nil];
+    //wait the bottom bar show animation, then present new controller
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CUTERentShareViewController *shareController = [CUTERentShareViewController new];
+        shareController.formController.form = [CUTERentShareForm new];
+        shareController.ticket = ticket;
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
+        [self.tabBarController presentViewController:nc animated:NO completion:nil];
+    });
 }
 
 - (void)onReceiveTicketSync:(NSNotification *)notif {

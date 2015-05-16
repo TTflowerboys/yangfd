@@ -60,6 +60,7 @@
             [form setRentTypeList:task.result];
             CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
             controller.formController.form = form;
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
             [SVProgressHUD dismiss];
         }
@@ -105,6 +106,7 @@
                 form.bathroomCount = ticket.property.bathroomCount;
                 [form setAllPropertyTypes:task.result];
                 controller.formController.form = form;
+                controller.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:controller animated:YES];
             }
             else {
