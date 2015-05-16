@@ -54,6 +54,7 @@
     .imagePart {
         float:left;
         height:80px;
+        width: 120px;
         position:relative;
 
         @media @phone {
@@ -155,6 +156,7 @@
                 cursor:pointer;
                 text-decoration:none;
                 float:left;
+                margin-right: 8px;
             }
         }
 
@@ -168,7 +170,7 @@
             text-decoration:none;
             @media @phone {
                 display:inline-block;
-                float:right;
+                float:left;
                 font-size:11px;
             }
 
@@ -177,6 +179,10 @@
                 @media @phone {
                     font-size:11px;
                 }
+            }
+
+            span {
+                display: inline!important;
             }
         }
     }
