@@ -12,27 +12,27 @@
 <div class="content">
     <div class="contentHeader">
         <h1>{{_('我的房产')}}</h1>
+        <!-- @if ENV!='test' -->
         <div class="buttons">
-            <!-- @if ENV!='test' -->
             <button id="showRentBtn" class="rent button red">{{_('出租房产')}}</button>
-            <!-- @endif -->
             <button id="showOwnBtn" class="own ghostButton red">{{_('自有房产')}}</button>
-            <!--<button id="showRead" class="read ghostButton red">{{_('出售')}}</button>-->
         </div>
+        <!-- @endif -->
     </div>
+    <!-- @if ENV!='test' -->
     <div class="tabs ui-tabs ui-widget">
         <ul class="ui-tabs-nav">
-            <!-- @if ENV!='test' -->
             <li id="showRentTab" class="ui-tabs-selected rent">
                 <a>{{_('出租房产')}}</a>
             </li>
-            <!-- @endif -->
+
             <li id="showOwnTab" class="own">
                 <a>{{_('自有房产')}}</a>
             </li>
         </ul>
     </div>
-
+    <!-- @endif -->
+    
     <div class="list_wrapper">
         <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
         <div id="list" class="list"></div>
