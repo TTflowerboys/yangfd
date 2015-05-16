@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
 import logging
 import phonenumbers
@@ -711,6 +711,9 @@ def rent_ticket_search(user, params):
 
     if "user_id" in params:
         params["creator_user_id"] = params.pop("user_id")
+
+    if "rent_available_time" in params:
+        params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "lte": params["rent_available_time"] + timedelta(days=1)}
 
     params["$and"] = []
     property_params = {"$and": []}
