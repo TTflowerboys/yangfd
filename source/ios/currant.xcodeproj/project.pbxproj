@@ -84,6 +84,21 @@
 		2C3DE2421B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
 		2C3DE2431B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
 		2C3DE2441B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
+		2C3DE24B1B074247006FF191 /* CUTESplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE24A1B074247006FF191 /* CUTESplashViewController.m */; };
+		2C3DE24C1B074247006FF191 /* CUTESplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE24A1B074247006FF191 /* CUTESplashViewController.m */; };
+		2C3DE24D1B074247006FF191 /* CUTESplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE24A1B074247006FF191 /* CUTESplashViewController.m */; };
+		2C3DE24E1B074247006FF191 /* CUTESplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE24A1B074247006FF191 /* CUTESplashViewController.m */; };
+		2C3DE24F1B074247006FF191 /* CUTESplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE24A1B074247006FF191 /* CUTESplashViewController.m */; };
+		2C3DE2591B07448F006FF191 /* BBTPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2581B07448F006FF191 /* BBTPagingView.m */; };
+		2C3DE25A1B07448F006FF191 /* BBTPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2581B07448F006FF191 /* BBTPagingView.m */; };
+		2C3DE25B1B07448F006FF191 /* BBTPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2581B07448F006FF191 /* BBTPagingView.m */; };
+		2C3DE25C1B07448F006FF191 /* BBTPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2581B07448F006FF191 /* BBTPagingView.m */; };
+		2C3DE25D1B07448F006FF191 /* BBTPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2581B07448F006FF191 /* BBTPagingView.m */; };
+		2C3DE2601B074FA5006FF191 /* BBTCenterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE25F1B074FA5006FF191 /* BBTCenterImageView.m */; };
+		2C3DE2611B074FA5006FF191 /* BBTCenterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE25F1B074FA5006FF191 /* BBTCenterImageView.m */; };
+		2C3DE2621B074FA5006FF191 /* BBTCenterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE25F1B074FA5006FF191 /* BBTCenterImageView.m */; };
+		2C3DE2631B074FA5006FF191 /* BBTCenterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE25F1B074FA5006FF191 /* BBTCenterImageView.m */; };
+		2C3DE2641B074FA5006FF191 /* BBTCenterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE25F1B074FA5006FF191 /* BBTCenterImageView.m */; };
 		2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
@@ -534,6 +549,12 @@
 		2C3DE2391B05CCDC006FF191 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2C3DE2481B05F219006FF191 /* CUTETrackParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETrackParams.h; sourceTree = "<group>"; };
+		2C3DE2491B074247006FF191 /* CUTESplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTESplashViewController.h; sourceTree = "<group>"; };
+		2C3DE24A1B074247006FF191 /* CUTESplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESplashViewController.m; sourceTree = "<group>"; };
+		2C3DE2571B07448F006FF191 /* BBTPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTPagingView.h; sourceTree = "<group>"; };
+		2C3DE2581B07448F006FF191 /* BBTPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTPagingView.m; sourceTree = "<group>"; };
+		2C3DE25E1B074FA5006FF191 /* BBTCenterImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTCenterImageView.h; sourceTree = "<group>"; };
+		2C3DE25F1B074FA5006FF191 /* BBTCenterImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTCenterImageView.m; sourceTree = "<group>"; };
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
@@ -789,6 +810,10 @@
 				2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */,
 				2C07AB7A1AE8DB5E00907075 /* BBTScrollImageView.h */,
 				2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */,
+				2C3DE2571B07448F006FF191 /* BBTPagingView.h */,
+				2C3DE2581B07448F006FF191 /* BBTPagingView.m */,
+				2C3DE25E1B074FA5006FF191 /* BBTCenterImageView.h */,
+				2C3DE25F1B074FA5006FF191 /* BBTCenterImageView.m */,
 				2C07AB881AE8FF6600907075 /* UIView+Border.h */,
 				2C07AB891AE8FF6600907075 /* UIView+Border.m */,
 				2C9AFF7C1AF2355500E5F0BC /* BBTWebBarButtonItem.h */,
@@ -975,6 +1000,8 @@
 				2C7520391ACA75810008B42A /* Rent */,
 				2C554F8B1AC2BCCD00F51D33 /* PropertyList */,
 				2CB43DDA1ABD493C004DF663 /* Base */,
+				2C3DE2491B074247006FF191 /* CUTESplashViewController.h */,
+				2C3DE24A1B074247006FF191 /* CUTESplashViewController.m */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -1624,6 +1651,7 @@
 				2C5ECC531AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2CF8A6561AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
+				2C3DE24D1B074247006FF191 /* CUTESplashViewController.m in Sources */,
 				2CC6C1ED1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
 				2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6101AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
@@ -1634,6 +1662,7 @@
 				2C427E4E1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2C427E5D1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
+				2C3DE25B1B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A67F1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9D1AD37D34000378A9 /* CUTETicket.m in Sources */,
@@ -1658,6 +1687,7 @@
 				2CF8A5E31AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.m in Sources */,
 				2CA2E6B21AC5487800053965 /* CUTEDataManager.m in Sources */,
 				2CF8A61A1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
+				2C3DE2621B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2C5ECC451AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
 				2CF8A5F71AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6841AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
@@ -1718,6 +1748,7 @@
 				2C5ECC541AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2CF8A6571AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
+				2C3DE24E1B074247006FF191 /* CUTESplashViewController.m in Sources */,
 				2CC6C1EE1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
 				2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6111AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
@@ -1728,6 +1759,7 @@
 				2C427E4F1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85231AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2C427E5E1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
+				2C3DE25C1B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A6801AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9E1AD37D34000378A9 /* CUTETicket.m in Sources */,
@@ -1752,6 +1784,7 @@
 				2CF8A5E41AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.m in Sources */,
 				2CA2E6CB1AC5496700053965 /* CUTEDataManager.m in Sources */,
 				2CF8A61B1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
+				2C3DE2631B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2C5ECC461AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
 				2CF8A5F81AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6851AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
@@ -1812,6 +1845,7 @@
 				2C5ECC521AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2CF8A6551AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
+				2C3DE24C1B074247006FF191 /* CUTESplashViewController.m in Sources */,
 				2CC6C1EC1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
 				2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A60F1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
@@ -1822,6 +1856,7 @@
 				2C427E4D1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2C427E5C1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
+				2C3DE25A1B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A67E1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9C1AD37D34000378A9 /* CUTETicket.m in Sources */,
@@ -1846,6 +1881,7 @@
 				2CF8A5E21AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.m in Sources */,
 				2CA94A9C1ACA42CD00DF7497 /* CUTEDataManager.m in Sources */,
 				2CF8A6191AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
+				2C3DE2611B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2C5ECC441AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
 				2CF8A5F61AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6831AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
@@ -1906,6 +1942,7 @@
 				2C5ECC511AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2CF8A6541AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
+				2C3DE24B1B074247006FF191 /* CUTESplashViewController.m in Sources */,
 				2CC6C1EB1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
 				2C4AEC7F1AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A60E1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
@@ -1916,6 +1953,7 @@
 				2C427E4C1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85201AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2C427E5B1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
+				2C3DE2591B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A67D1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9B1AD37D34000378A9 /* CUTETicket.m in Sources */,
@@ -1940,6 +1978,7 @@
 				2CF8A5E11AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.m in Sources */,
 				2CDBB2FA1AC146790024E225 /* CUTEDataManager.m in Sources */,
 				2CF8A6181AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
+				2C3DE2601B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2C5ECC431AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
 				2CF8A5F51AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6821AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
@@ -1994,6 +2033,7 @@
 				2CA5F7741AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2CF8A5EF1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
 				2CF8A67C1AF0B65C0080DF10 /* CUTEForm.m in Sources */,
+				2C3DE2641B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2C427EAD1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A5E51AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.m in Sources */,
 				2CF8A6A41AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
@@ -2014,6 +2054,7 @@
 				2C2FCDCF1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6441AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A60D1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
+				2C3DE25D1B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2C2FCDDD1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2CF8A6081AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2C1E66F61AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
@@ -2056,6 +2097,7 @@
 				2CF8A6B21AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6811AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CF8A5FE1AF0B40E0080DF10 /* CUTERentContactViewController.m in Sources */,
+				2C3DE24F1B074247006FF191 /* CUTESplashViewController.m in Sources */,
 				2CF8A5E01AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
 				2CF8A6031AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C07AB8E1AE8FF6600907075 /* UIView+Border.m in Sources */,

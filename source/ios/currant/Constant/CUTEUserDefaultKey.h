@@ -9,6 +9,6 @@
 #ifndef currant_CUTEUserDefaultKey_h
 #define currant_CUTEUserDefaultKey_h
 
-#define CUTE_USER_DEFAULT_COOKIES_KEY @"com.bbtechgroup.currant.cookies"
+#define CUTE_USER_DEFAULT_SPLASH_DISPLAYED  @"com.bbtechgroup.currant.splash.displayed"
 
 #endif

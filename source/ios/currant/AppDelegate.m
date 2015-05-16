@@ -33,10 +33,13 @@
 #import "CUTETracker.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import "CUTESplashViewController.h"
+
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
 #import <FLEXManager.h>
+#import "CUTEUserDefaultKey.h"
 #endif
 
 @interface AppDelegate () <UITabBarControllerDelegate>
@@ -178,6 +181,13 @@
     [firstWebviewController loadURL:firstWebviewController.url];
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
+
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED]) {
+        CUTESplashViewController *spalshViewController = [CUTESplashViewController new];
+        [rootViewController presentViewController:spalshViewController animated:NO completion:nil];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 
 #warning DEBUG_CODE
 #ifdef DEBUG
