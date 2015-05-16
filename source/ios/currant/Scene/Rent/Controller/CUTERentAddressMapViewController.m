@@ -27,6 +27,7 @@
 #import <UIAlertView+Blocks.h>
 #import "CUTERentTickePublisher.h"
 #import "CUTETracker.h"
+#import "MasonryMake.h"
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, UITextFieldDelegate>
 {
@@ -66,6 +67,16 @@
     _mapView.delegate = self;
     [self.view addSubview:_mapView];
 
+    UIImageView *annotationView =  [[UIImageView alloc] init];
+    annotationView.image = IMAGE(@"icon-location-building");
+    [self.view addSubview:annotationView];
+
+    CGSize imageSize = annotationView.image.size;
+    MakeBegin(annotationView)
+    MakeCenterXEqualTo(_mapView);
+    MakeCenterYEqualTo(_mapView).offset(- imageSize.height / 2);
+    MakeEnd
+
     _textField = [[CUTEMapTextField alloc] initWithFrame:CGRectMake(16, 30 + TouchHeightDefault + StatusBarHeight, ScreenWidth - 32, 60)];
     _textField.rightView = [[UIImageView alloc] initWithImage:IMAGE(@"map-address-location")];
     _textField.rightViewMode = UITextFieldViewModeAlways;
@@ -80,10 +91,6 @@
     [self.view addSubview:_userLocationButton];
     [_userLocationButton addTarget:self action:@selector(onUserLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onMapLongPressed:)];
-    [longPressGesture setMinimumPressDuration:1.0];
-    [_mapView addGestureRecognizer:longPressGesture];
-
     [self startUpdateLocation];
 }
 
@@ -93,10 +100,6 @@
     //update address after edit user's address
     CUTEProperty *property = self.ticket.property;
     _textField.text = property.address;
-
-    if (property.location) {
-        [self updatePlacemarkWithLocation:property.location];
-    }
 
     TrackScreen(GetScreenName(self));
 }
@@ -312,29 +315,6 @@
     }
 }
 
-- (void)onMapLongPressed:(UIGestureRecognizer *)sender {
-    if (sender.state  == UIGestureRecognizerStateBegan) {
-        CGPoint touchPoint = [sender locationInView:_mapView];
-        CUTEProperty *property = self.ticket.property;
-        CLLocationCoordinate2D touchMapCoordinate = [_mapView convertPoint:touchPoint toCoordinateFromView:_mapView];
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:touchMapCoordinate.latitude longitude:touchMapCoordinate.longitude];
-          if (!property.location || [location distanceFromLocation:property.location] > 10) {
-              [sender cancelsTouchesInView];
-              [self updatePlacemarkWithLocation:location];
-              [SVProgressHUD show];
-              [[self updateAddress] continueWithBlock:^id(BFTask *task) {
-                  if (task.error || task.exception || task.isCancelled) {
-                      [SVProgressHUD showErrorWithError:task.error];
-                      return nil;
-                  } else {
-                      [SVProgressHUD dismiss];
-                      return nil;
-                  }
-              }];
-          }
-    }
-}
-
 - (BFTask *)reverseGeocodeLocation:(CLLocation *)location {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -370,6 +350,8 @@
                     property.zipcode = placemark.postalCode;
                     property.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
                     property.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
+                    property.street = placemark.thoroughfare;
+                    property.community = placemark.subThoroughfare;
                     _textField.text = property.address;
                 }
                 return task;
@@ -386,9 +368,6 @@
     if (location && [location isKindOfClass:[CLLocation class]]) {
         CUTEProperty *property = self.ticket.property;
         property.location = location;
-        [_mapView removeAnnotations:_mapView.annotations];
-        MKPlacemark *annotation = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
-        [_mapView addAnnotation:annotation];
     }
 }
 
@@ -397,19 +376,33 @@
     //update field value
     self.field.value = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                   longitude:mapView.centerCoordinate.longitude];
+
+    [self updatePlacemarkWithLocation:self.field.value];
+    [SVProgressHUD show];
+    [[self updateAddress] continueWithBlock:^id(BFTask *task) {
+        if (task.error || task.exception || task.isCancelled) {
+            [SVProgressHUD showErrorWithError:task.error];
+            return nil;
+        } else {
+            [SVProgressHUD dismiss];
+            return nil;
+        }
+    }];
+
+
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
-{
-    MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:@"annotation"];
-    if (!view) {
-        view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotation"];
-        //view.canShowCallout = YES;
-    }
-    view.annotation = annotation;
-    view.image = IMAGE(@"icon-location-building");
-    return view;
-}
+//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+//{
+//    MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:@"annotation"];
+//    if (!view) {
+//        view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotation"];
+//        //view.canShowCallout = YES;
+//    }
+//    view.annotation = annotation;
+//    view.image = IMAGE(@"icon-location-building");
+//    return view;
+//}
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 
