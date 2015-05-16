@@ -526,7 +526,7 @@
             propertyData.latitude = $('#latitude').val()
         }
         if($('#longitude').val() !== '') {
-            propertyData.latitude = $('#longitude').val()
+            propertyData.longitude = $('#longitude').val()
         }
         return propertyData
     }
