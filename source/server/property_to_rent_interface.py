@@ -21,6 +21,7 @@ logger = logging.getLogger(__name__)
     building_area=str
 ))
 @currant_util.check_ip_and_redirect_domain
+@currant_util.check_crowdfunding_ready
 def property_to_rent_list(params):
     city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
@@ -79,6 +80,7 @@ def property_to_rent_list(params):
 
 @f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
 @currant_util.check_ip_and_redirect_domain
+@currant_util.check_crowdfunding_ready
 @f_app.user.login.check(check_role=True)
 def rent_ticket_get(rent_ticket_id, user):
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])

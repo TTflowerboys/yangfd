@@ -7,7 +7,7 @@ $(function () {
     var isLoading = false
 
     //Init page with rent
-    //TODO: do this for now
+    //TODO: do this for for production sync
     if(team.isProduction()){
         switchTypeTab('own')
         loadOwnProperty()
@@ -28,7 +28,8 @@ $(function () {
         $.betterPost('/api/1/user/favorite', params)
             .done(function(val){
                 //Check if tab is still rent
-                if($('.buttons .own').hasClass('button')){
+                //TODO: do this for for production sync
+                //if($('.buttons .own').hasClass('button')){
                     var array = val
                     if(array && array.length > 0){
                         var realCount = 0
@@ -53,7 +54,7 @@ $(function () {
                     }else{
                         $ownPlaceholder.show()
                     }
-                }
+                //}
             }).fail(function(){
                 $ownPlaceholder.show()
             }).always(function () {
