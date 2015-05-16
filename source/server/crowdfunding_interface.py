@@ -108,9 +108,8 @@ def user_finish_investment():
 @f_get('/crowdfunding-introduce')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
-def crowdfunding_introduce():    
+def crowdfunding_introduce():
     title = _('众筹模式介绍页面')
     description = ""
     keywords = ""
     return currant_util.common_template("crowfunding_introduce", title=title, description=description, keywords=keywords)
-    
