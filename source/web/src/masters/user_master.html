@@ -24,7 +24,7 @@
         <ul class="rmm-center-menu" style="display:none;">
             <li><a href="/user_settings">{{_('账户管理')}}</a></li>
             <li><a href="/user_favorites">{{_('我的收藏')}}</a></li>
-            <!-- @if ENV!='test' -->
+            <!-- @if ENV!='production' -->
             <li><a href="/user_crowdfunding">{{_('海外众筹')}}</a></li>
             <!-- @endif -->
             <li><a href="/user_intentions">{{_('投资意向单')}}</a></li>
@@ -93,7 +93,7 @@
                     </a>
                     {{_('我的收藏')}}
                 </li>
-                <!-- @if ENV!='test' -->
+                <!-- @if ENV!='production' -->
                 <li>
                     <a href="/user_crowdfunding">
                         <img id="icon-user_crowdfunding" src="/static/images/user/crowdfunding.png"/>
