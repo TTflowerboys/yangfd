@@ -713,7 +713,7 @@ def rent_ticket_search(user, params):
         params["creator_user_id"] = params.pop("user_id")
 
     if "rent_available_time" in params:
-        params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "lte": params["rent_available_time"] + timedelta(days=1)}
+        params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}
 
     params["$and"] = []
     property_params = {"$and": []}
