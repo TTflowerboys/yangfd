@@ -155,58 +155,51 @@
 
 - (void)onAddressBeginEditing:(id)sender {
 
-    Sequencer *sequencer = [Sequencer new];
     if (!_rentAddressEditViewController) {
-        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            NSArray *requiredEnums = @[@"country", @"city"];
-            CUTEProperty *property = self.ticket.property;
-            [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
-                return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
-            }]] continueWithBlock:^id(BFTask *task) {
-                if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
-                    if (!_rentAddressEditViewController) {
-                        CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
-                        controller.ticket = self.ticket;
-                        CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
-                        NSArray *countries = [task.result objectAtIndex:0];
-                        NSArray *cities = [task.result objectAtIndex:1];
-                        [form setAllCountries:countries];
-                        NSInteger countryIndex = [countries indexOfObject:property.country];
-                        if (countryIndex != NSNotFound) {
-                            [form setCountry:[countries objectAtIndex:countryIndex]];
-                            controller.lastCountry = form.country;
-                        }
-                        [form setAllCities:cities];
-                        NSInteger cityIndex = [cities indexOfObject:property.city];
-                        if (cityIndex != NSNotFound) {
-                            [form setCity:[cities objectAtIndex:cityIndex]];
-                        }
-                        form.houseName = property.houseName;
-                        form.floor = property.floor;
-                        form.community = property.community;
-                        form.street = property.street;
-                        form.postcode = property.zipcode;
-                        controller.formController.form = form;
-                        controller.navigationItem.title = STR(@"位置");
-                        _rentAddressEditViewController = controller;
-                    }
-                    completion(_rentAddressEditViewController);
-                }
-                else {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                return nil;
-            }];
-        }];
+        if (!_rentAddressEditViewController) {
+            CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
+            controller.navigationItem.title = STR(@"位置");
+            _rentAddressEditViewController = controller;
+        }
     }
 
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+    NSArray *requiredEnums = @[@"country", @"city"];
+    [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
+        return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+    }]] continueWithBlock:^id(BFTask *task) {
+        if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
 
-        [self.navigationController pushViewController:_rentAddressEditViewController animated:YES];
+            CUTEProperty *property = self.ticket.property;
+            _rentAddressEditViewController.ticket = self.ticket;
+            CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
+            NSArray *countries = [task.result objectAtIndex:0];
+            NSArray *cities = [task.result objectAtIndex:1];
+            [form setAllCountries:countries];
+            NSInteger countryIndex = [countries indexOfObject:property.country];
+            if (countryIndex != NSNotFound) {
+                [form setCountry:[countries objectAtIndex:countryIndex]];
+                _rentAddressEditViewController.lastCountry = form.country;
+            }
+            [form setAllCities:cities];
+            NSInteger cityIndex = [cities indexOfObject:property.city];
+            if (cityIndex != NSNotFound) {
+                [form setCity:[cities objectAtIndex:cityIndex]];
+            }
+            form.houseName = property.houseName;
+            form.floor = property.floor;
+            form.community = property.community;
+            form.street = property.street;
+            form.postcode = property.zipcode;
+            _rentAddressEditViewController.formController.form = form;
+            [_rentAddressEditViewController.tableView reloadData];
 
+            [self.navigationController pushViewController:_rentAddressEditViewController animated:YES];
+        }
+        else {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        return nil;
     }];
-
-    [sequencer run];
 }
 
 - (void)onAddressLocationButtonTapped:(id)sender {
@@ -369,6 +362,9 @@
                 property.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
                 property.street = placemark.thoroughfare;
                 property.community = placemark.subThoroughfare;
+                property.floor = nil;
+                property.houseName = nil;
+
                 _textField.text = property.address;
 
                 [tcs setResult:_textField.text];
