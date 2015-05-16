@@ -42,10 +42,15 @@
         <script src="/static/bower_components/html5shiv/dist/html5shiv.min.js"></script>
         <![endif]-->
 
+        <!--[if lt IE 7]>
+        <link rel="stylesheet" href="/static/styles/ie6_shield.css"/>
+        <![endif]-->
+
         <!-- @@include = ../partials/favicon.html -->
         <!-- @@include = ../partials/common_js_util.html -->
     </head>
     <body>
+        <!-- @@include =../partials/ie6_shield.html -->
         <img alt="logo for wechat" style="display: none" src="/static/images/logo/logo_wechat.jpg"/>
         <!-- @@include =../partials/user_data.html -->
         <div class="page">
