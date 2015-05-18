@@ -249,7 +249,7 @@
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UINavigationController *)viewController {
     //only update when first create, not care the controller push and pop
     if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController == nil) {
-        [CrashlyticsKit crash];
+//        [CrashlyticsKit crash];
         [self updatePublishRentTicketTabWithController:viewController silent:NO];
     }
     else {
