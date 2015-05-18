@@ -57,10 +57,9 @@
         }];
     }
     else if ([self isURL:url matchPath:@"\\/property-list"]) {
-        return [self getPhoneBarButtonItemWithCompletion:^ {
-
+        return [BBTWebBarButtonItem itemWithBarButtonSystemItem:UIBarButtonSystemItemRefresh actionBlock:^(UIWebView *webView) {
+            [webView reload];
         }];
-
     }
     else if ([self isURL:url matchPath:@"\\/property\\/[0-9a-fA-F]{24}"]) {
         return [self getPhoneBarButtonItemWithCompletion:^{
@@ -108,10 +107,9 @@
             }
         }];
     }
-    else if ([self isURL:url matchPath:@"\\/property-to-rent-list"] && [CUTEDataManager sharedInstance].isUserLoggedIn) {
-        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
-            TrackEvent(@"property-to-rent-list", kEventActionPress, @"open-fav-list", nil);
-            [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"/user_favorites?type=rent" relativeToURL:[CUTEConfiguration hostURL]]]];
+    else if ([self isURL:url matchPath:@"\\/property-to-rent-list"]) {
+        return [BBTWebBarButtonItem itemWithBarButtonSystemItem:UIBarButtonSystemItemRefresh actionBlock:^(UIWebView *webView) {
+            [webView reload];
         }];
     }
 
