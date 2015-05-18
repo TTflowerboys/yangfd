@@ -251,25 +251,25 @@
                     </div>
                 </div>
                 <div class="swiper-slide swiper-slide-bg commen
-                % if description in rent and rent.get('description') or len(rent['property'].get('indoor_facility',[]))>0 or len(rent['property'].get('community_facility',[]))>0:
+                % if 'description' in rent and rent.get('description') or len(rent['property'].get('indoor_facility',[]))>0 or len(rent['property'].get('community_facility',[]))>0:
                 show
                 % else:
                 hideInWechat
                 % end
                 " style="">
                     <div class="page pageDescription">
-                        %if description in rent and rent.get('description'):
+                        %if 'description' in rent and rent.get('description'):
                         <h2 class="animate">“</h2>
                         <p class="description animate">
                             {{rent.get('description','')}}
                         </p>
                         %else:
-                        <h2 class="animate hideInWechat">“</h2>
+                        <h2 class="animate hideInWechat">&nbsp;</h2>
                         <p class="description animate hideInWechat">
-                            统计表明填写更多房产的描述和配套设施能缩短出租用时
+                            {{_('统计表明填写更多房产的描述和配套设施能缩短出租用时')}}
                         </p>
                         %end
-                        %if description in rent and rent.get('description'):
+                        %if 'description' in rent and rent.get('description'):
                         <a class="btn btnModal animate viewMoreBtn" id="viewMoreBtn">{{_('查看更多')}}</a>
                         % end
                         <!--% if 'indoor_facility' in rent['property'] or 'community_facility' in rent['property']:-->
