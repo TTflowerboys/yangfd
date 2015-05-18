@@ -236,16 +236,32 @@
 
 - (BOOL)validateForm {
     CUTEProperty *property = [self.ticket property];
+
     if (!property.country) {
-        [SVProgressHUD showErrorWithStatus:STR(@"请填写国家")];
+        if (!_rentAddressEditViewController) {
+            [SVProgressHUD showErrorWithStatus:STR(@"请编辑地址")];
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:STR(@"请填写国家")];
+        }
         return NO;
     }
     if (!property.city) {
-        [SVProgressHUD showErrorWithStatus:STR(@"请填写城市")];
+        if (!_rentAddressEditViewController) {
+            [SVProgressHUD showErrorWithStatus:STR(@"请编辑地址")];
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:STR(@"请填写城市")];
+        }
         return NO;
     }
     if (!property.zipcode) {
-        [SVProgressHUD showErrorWithStatus:STR(@"请填写Postcode")];
+        if (!_rentAddressEditViewController) {
+            [SVProgressHUD showErrorWithStatus:STR(@"请编辑地址")];
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:STR(@"请填写Postcode")];
+        }
         return NO;
     }
 
