@@ -31,8 +31,13 @@
         }
     }
 
-    function getBudgetCurrentTotalCount(budgetId) {
-        return $('#addtionalResultList').children('[data-budget-id=' + budgetId + ']').length
+   function getBudgetCurrentTotalCount(budgetId) {
+        if (getSelectedTagFilterDataId('#budgetTag') === budgetId) {
+            return getCurrentTotalCount()
+        }
+        else {
+            return $('#addtionalResultList').children('[data-budget-id=' + budgetId + ']').length
+        }
     }
 
     window.updateTabSelectorVisibility = function (visible) {
@@ -286,9 +291,8 @@
         if(reload){
             params.mtime = null
             additionalReload = false
-            lastItemTimeDic = {}
-            budgetTotalResultCountDic = {}
-            budgetCurrentResultCountDic = {}
+            clearCurrentBelowBudgetDic()
+
         }
 
         $.betterPost('/api/1/property/search', params)
@@ -380,11 +384,42 @@
         }
     }
 
+    function clearCurrentBelowBudgetDic() {
+        var selectedBudgetId = getSelectedTagFilterDataId('#budgetTag')
+        var dic = {}
+        if (lastItemTimeDic[selectedBudgetId]) {
+            dic = {}
+            dic[selectedBudgetId] = lastItemTimeDic[selectedBudgetId]
+            lastItemTimeDic = dic
+        }
+        else {
+            lastItemTimeDic = {}
+        }
+
+         if (budgetTotalResultCountDic[selectedBudgetId]) {
+            dic = {}
+            dic[selectedBudgetId] = budgetTotalResultCountDic[selectedBudgetId]
+            budgetTotalResultCountDic = dic
+        }
+        else {
+            budgetTotalResultCountDic = {}
+        }
+
+         if (budgetCurrentResultCountDic[selectedBudgetId]) {
+            dic = {}
+            dic[selectedBudgetId] = budgetCurrentResultCountDic[selectedBudgetId]
+            budgetCurrentResultCountDic = dic
+        }
+        else {
+            budgetCurrentResultCountDic = {}
+        }
+    }
+
     function isBudgetLoadFinished(id) {
         var totalCount = getTotalResultCountByBudget(id)
-        var currentCount = getCurrentTotalCount(id)
+        var currentCount = getCurrentResultCountByBudget(id)
         if (totalCount && currentCount) {
-            return getTotalResultCountByBudget(id) === getCurrentResultCountByBudget(id)
+            return totalCount === currentCount
         }
         else {
             //here these two count is undefined.
