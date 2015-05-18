@@ -30,6 +30,8 @@
 #import "CUTETracker.h"
 #import "MasonryMake.h"
 
+#define kRegionDistance 800
+
 
 @interface CUTERentAddressMapViewController () <MKMapViewDelegate, UITextFieldDelegate>
 {
@@ -128,7 +130,6 @@
 }
 
 - (void)startUpdateLocation {
-
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted) {
         [UIAlertView showWithTitle:STR(@"此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -139,8 +140,11 @@
         [[self requestLocation] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CLLocation *location = task.result;
-                MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 800, 800);
-                [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+                CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
+                if ([location distanceFromLocation:centerLocation] > 10) {
+                    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
+                    [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+                }
                 [SVProgressHUD dismiss];
             }
             else {
@@ -148,8 +152,6 @@
             }
             return nil;
         }];
-
-
     }
 }
 
@@ -220,7 +222,7 @@
     [_geocoder geocodeAddressDictionary:locationDictionary completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!IsArrayNilOrEmpty(placemarks)) {
             CLPlacemark *placemark = [placemarks firstObject];
-            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, 800, 800);
+            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, kRegionDistance, kRegionDistance);
             [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
             [SVProgressHUD dismiss];
         }
