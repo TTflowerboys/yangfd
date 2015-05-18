@@ -1,0 +1,81 @@
+<!--@@master = ../../masters/email_new.html-->
+<!--@@block=content-->
+<style type="text/css">
+    a{color: #e60012; text-decoration: none;font-weight: bold;}
+    a:hover{color: #d00010;}
+    h1{padding: 60px 20px; border-bottom: 5px solid #e60012; margin: 0 20px}
+    .box{padding: 60px 20px; border-bottom: 1px solid #ccc; margin:  0 20px}
+    .box p,.box a{line-height: 2em;font-size: 18px;}
+    .box .title{font-size: 22px;}
+    .box .btn{display:inline-block;margin:25px auto 15px;padding: 22px 36px; background: #e60012; color: #fff; font-size: 24px; text-decoration: none;border-radius: 8px;}
+    .box .btn:hover{background: #d00010;}
+    .ways{margin: 20px 0;list-style: none;overflow: hidden;}
+    .ways li{
+        margin-top: 80px;
+    }
+    .ways li .icon{
+        float: left;
+        width: 160px;
+        height: 160px;
+        margin-right: 60px;
+    }
+    .ways li .wrap{
+        text-align: left;
+        overflow: hidden;
+    }
+    .ways li .wrap h2{
+        margin: 0 0 15px;
+        color: #333;
+        font-size: 26px;
+    }
+    .ways li .wrap p{
+        margin: 0;
+        line-height: 1.6em;
+        font-size: 15px;
+    }
+</style>
+<h1>{{_('你好，')}}<br> {{nickname}}</h1>
+<div class="box">
+    <p>{{_('您')}}{{formated_date}}{{_('在洋房东上发布的出租房')}}</p>
+    <a href="{{rent_url}}" class="title">{{rent_title}}</a>
+    <p>{{_('已经在洋房东平台上收到了不少的关注,如果改房产已经成功出租')}}</p>
+    <p>{{_('为避免您收到其他租客的询问，您可以点击下面的“我已成功出租”')}}</p>
+    <p>{{_('让您的联系方式将不再暴露给其他租客。')}}</p>
+    <a href="{{has_rented_url}}" class="btn">{{_('我已成功出租')}}</a>
+</div>
+<div class="box">
+    <p>{{_('如果您还未出租出去，我们建议您尝试下面的方法，帮您尽快将房产租出去：')}}</p>
+    <ul class="ways">
+        <li class="clearfix">
+            <a href="{{refresh_url}}" class="icon">
+                <img src="/static/images/icon/email_ways_icon_1.gif" alt=""/>
+            </a>
+            <div class="wrap">
+                <h2>{{_('去平台上刷新您的房源')}}</h2>
+                <p>
+                    {{_('洋房东每天都有大量新房源出租，刷新将为您赢得排名提升，让平台的租客更容易找到您的房产。同时，洋房东会将当天的新房源和刷新房源帮您同步到全英各大媒体和论坛，为您尽可能的曝光您的房源。')}}
+                    <a href="{{refresh_url}}">{{_('现在就去')}}></a>
+                </p>
+            </div>
+        </li>
+        <li class="clearfix">
+            <a href="{{edit_url}}" class="icon">
+                <img src="/static/images/icon/email_ways_icon_2.gif" alt=""/>
+            </a>
+            <div class="wrap">
+                <h2>{{_('优化您的房源资料')}}</h2>
+                <p>{{_('平台的统计数据表明详细的房源描述，优质的房源图片能提升您房源的访问量。')}}<a href="{{edit_url}}">{{_('现在就去>')}}</a></p>
+            </div>
+        </li>
+        <li class="clearfix">
+            <a href="" class="icon">
+                <img src="/static/images/icon/email_ways_icon_3.gif" alt=""/>
+            </a>
+            <div class="wrap">
+                <h2>{{_('分享您的房源资料')}}</h2>
+                <p>{{_('洋房东为您的房源制作了高大上的移动主页，扫描')}}<a href="">{{_('二维码')}}</a>{{_('，将移动主页分享到您的朋友圈，发动您的好友们帮您找靠谱租客吧。')}}</p>
+            </div>
+        </li>
+    </ul>
+</div>
+<!--@@close-->
