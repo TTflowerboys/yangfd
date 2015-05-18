@@ -673,6 +673,9 @@
 
     var $countrySelect = $('select[name=propertyCountry]')
     $countrySelect.change(function () {
+        if(isLoading){
+            return
+        }
         ga('send', 'event', 'property_list', 'change', 'select-country',
             $('select[name=propertyCountry]').children('option:selected').text())
         loadPropertyListByView()
@@ -681,6 +684,9 @@
 
     var $citySelect = $('select[name=propertyCity]')
     $citySelect.change(function () {
+        if(isLoading){
+            return
+        }
         ga('send', 'event', 'property_list', 'change', 'select-city',
             $('select[name=propertyCity]').children('option:selected').text())
         loadPropertyListByView()
@@ -689,6 +695,9 @@
 
     var $propertyTypeSelect = $('select[name=propertyType]')
     $propertyTypeSelect.change(function () {
+        if(isLoading){
+            return
+        }
         ga('send', 'event', 'property_list', 'change', 'select-proprty-type',
             $('select[name=propertyType]').children('option:selected').text())
         loadPropertyListByView()
@@ -696,6 +705,9 @@
 
 
     $('#tags #budgetTag').on('click', '.toggleTag', function (event) {
+        if(isLoading){
+            return
+        }
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -710,7 +722,9 @@
     })
 
     $('#tags #intentionTag').on('click', '.toggleTag', function (event) {
-
+        if(isLoading){
+            return
+        }
         var $item = $(event.target)
         if ($item.hasClass('selected')) {
             $item.removeClass('selected')
@@ -724,6 +738,9 @@
     })
 
     $('#tags #bedroomCountTag').on('click', '.toggleTag', function (event) {
+        if(isLoading){
+            return
+        }
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -738,6 +755,9 @@
     })
 
     $('#tags #buildingAreaTag').on('click', '.toggleTag', function (event) {
+        if(isLoading){
+            return
+        }
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)

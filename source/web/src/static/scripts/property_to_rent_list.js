@@ -274,6 +274,9 @@
      * */
     var $countrySelect = $('select[name=propertyCountry]')
     $countrySelect.change(function () {
+        if(isLoading){
+            return
+        }
         ga('send', 'event', 'rent_list', 'change', 'select-country',
             $('select[name=propertyCountry]').children('option:selected').text())
         loadRentListByView()
@@ -282,6 +285,9 @@
 
     var $citySelect = $('select[name=propertyCity]')
     $citySelect.change(function () {
+        if(isLoading){
+            return
+        }
         ga('send', 'event', 'rent_list', 'change', 'select-city',
             $('select[name=propertyCity]').children('option:selected').text())
         loadRentListByView()
@@ -289,6 +295,9 @@
 
     var $propertyTypeSelect = $('select[name=propertyType]')
     $propertyTypeSelect.change(function () {
+        if(isLoading){
+            return
+        }
         ga('send', 'event', 'rent_list', 'change', 'select-proprty-type',
             $('select[name=propertyType]').children('option:selected').text())
         loadRentListByView()
@@ -296,6 +305,9 @@
 
     var $rentTypeSelect = $('select[name=rentType]')
     $rentTypeSelect.change(function () {
+        if(isLoading){
+            return
+        }
         ga('send', 'event', 'rent_list', 'change', 'select-rent-type',
             $('select[name=rentType]').children('option:selected').text())
         loadRentListByView()
@@ -339,6 +351,9 @@
     }
 
     $('#tags #propertyTypeTag').on('click', '.toggleTag', function (event) {
+        if(isLoading){
+            return
+        }
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -353,6 +368,9 @@
     })
 
     $('#tags #rentBudgetTag').on('click', '.toggleTag', function (event) {
+        if(isLoading){
+            return
+        }
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -367,6 +385,9 @@
     })
 
     $('#tags #rentPeriodTag').on('click', '.toggleTag', function (event) {
+        if(isLoading){
+            return
+        }
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -381,6 +402,9 @@
     })
 
     $('#tags #bedroomCountTag').on('click', '.toggleTag', function (event) {
+        if(isLoading){
+            return
+        }
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -395,6 +419,9 @@
     })
 
     $('#tags #spaceTag').on('click', '.toggleTag', function (event) {
+        if(isLoading){
+            return
+        }
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -429,6 +456,9 @@
             }
         })
         .bind('datepicker-change', function (event, obj) {
+            if(isLoading){
+                return
+            }
             $rentPeriodStartDate.val($.format.date(new Date(obj.date1), 'yyyy-MM-dd')).trigger('change')
         })
         .bind('change', function () {
@@ -442,6 +472,9 @@
             loadRentListByView()
         })
     $('.calendar .clear').bind('click', function(event){
+        if(isLoading){
+            return
+        }
         $(this).siblings('input').val('').trigger('change').attr('placeholder', i18n('请选择起租日期'))
     })
 
