@@ -12,6 +12,8 @@
 #import "CUTEFormButtonCell.h"
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEFormDefaultCell.h"
+#import "CUTEFormCenterTextCell.h"
+#import "CUTEUIMacro.h"
 
 @interface CUTERentLoginForm () {
     NSArray *_allCountries;
@@ -28,6 +30,7 @@
              @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
              @{FXFormFieldKey: @"password", FXFormFieldTitle: STR(@"密码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"登录并分享到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
+             @{FXFormFieldKey: @"resetPassword", FXFormFieldTitle: STR(@"重置密码"), FXFormFieldHeader: STR(@"忘记密码？"), FXFormFieldCell: [CUTEFormCenterTextCell class], @"textLabel.textColor": CUTE_MAIN_COLOR, FXFormFieldAction: @"resetPassword"},
              ];
 }
 

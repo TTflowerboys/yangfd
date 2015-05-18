@@ -23,6 +23,10 @@
 
 "Email has invalid syntax." = "邮箱格式不正确";
 
+//Reset Password
+
+"ConfirmPassword is is not repeatly exactly." = "确认新密码和新密码不一致";
+
 //edit area
 "Area is too small." = "面积不能为0";
 

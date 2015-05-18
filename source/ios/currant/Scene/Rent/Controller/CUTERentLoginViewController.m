@@ -25,6 +25,9 @@
 #import "CUTERentPropertyInfoViewController.h"
 #import "CUTERentContactViewController.h"
 #import "CUTERentTicketPreviewViewController.h"
+#import "CUTERentPasswordViewController.h"
+#import "CUTERentPasswordForm.h"
+#import "CUTEEnumManager.h"
 
 @implementation CUTERentLoginViewController
 
@@ -35,6 +38,29 @@
 
 - (void)optionBack {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)resetPassword {
+    [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithBlock:^id(BFTask *task) {
+        if (task.error || task.exception || task.isCancelled) {
+            [SVProgressHUD showErrorWithError:task.error];
+            return nil;
+        } else {
+            TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+            CUTERentPasswordViewController *controller = [CUTERentPasswordViewController new];
+            CUTERentPasswordForm *form = [CUTERentPasswordForm new];
+            [form setAllCountries:task.result];
+            //set default country same with the property
+            form.country = self.ticket.property.country;
+            controller.formController.form = form;
+            controller.navigationItem.title = STR(@"重置密码");
+            [self.navigationController pushViewController:controller animated:YES];
+            return nil;
+        }
+    }];
+
+
+
 }
 
 - (void)submit {
