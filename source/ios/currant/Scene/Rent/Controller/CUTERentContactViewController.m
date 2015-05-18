@@ -126,7 +126,7 @@
             else {
                 if ([task.result boolValue]) {
                     [SVProgressHUD dismiss];
-                    [[[UIAlertView alloc] initWithTitle:STR(@"用户已存在，请登录或者修改密码") message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil] show];
+                    [[[UIAlertView alloc] initWithTitle:CONCAT(STR(@"电话已被使用！请登录或者修改密码，如该用户不是您，请联系洋房东"), @" ", [CUTEConfiguration servicePhone]) message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil] show];
                 }
                 else {
                     completion(nil);
