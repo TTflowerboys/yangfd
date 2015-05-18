@@ -2,25 +2,25 @@ PODS:
   - AFNetworkActivityLogger (2.0.4):
     - AFNetworking/NSURLConnection (~> 2.0)
     - AFNetworking/NSURLSession (~> 2.0)
-  - AFNetworking (2.5.3):
-    - AFNetworking/NSURLConnection (= 2.5.3)
-    - AFNetworking/NSURLSession (= 2.5.3)
-    - AFNetworking/Reachability (= 2.5.3)
-    - AFNetworking/Security (= 2.5.3)
-    - AFNetworking/Serialization (= 2.5.3)
-    - AFNetworking/UIKit (= 2.5.3)
-  - AFNetworking/NSURLConnection (2.5.3):
+  - AFNetworking (2.5.4):
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
+  - AFNetworking/NSURLConnection (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.3):
+  - AFNetworking/NSURLSession (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.3)
-  - AFNetworking/Security (2.5.3)
-  - AFNetworking/Serialization (2.5.3)
-  - AFNetworking/UIKit (2.5.3):
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - BBTRestClient (0.0.1):
@@ -33,6 +33,7 @@ PODS:
   - Bolts/AppLinks (1.1.5):
     - Bolts/Tasks
   - Bolts/Tasks (1.1.5)
+  - CrittercismSDK (5.2.0)
   - CTAssetsPickerController (2.9.3)
   - DACircularProgress (2.3.1)
   - FLEX (2.0.2)
@@ -88,6 +89,7 @@ DEPENDENCIES:
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (~> 1.1.4)
+  - CrittercismSDK (~> 5.2.0)
   - CTAssetsPickerController (~> 2.9.3)
   - FLEX (~> 2.0)
   - FXForms (~> 1.2.12)
@@ -130,10 +132,11 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
-  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   BBTRestClient: 25965557c7608407aaaa0b30d1ea07735e971488
   BBTUtility: 034a9709d4b90c986d133a06f0123e4c328f23f2
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
+  CrittercismSDK: a8f09d8f1d9fea3bc0714a954a079062c5c9d914
   CTAssetsPickerController: 56a4a228dcb48a9375ab8d4922e82ac74af74aa1
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FLEX: 321e6150cbababb76aaadde355dfce2ee1cac2d8

@@ -33,6 +33,7 @@
 #import "CUTETracker.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import <Crittercism.h>
 #import "CUTESplashViewController.h"
 #import "CUTEUserDefaultKey.h"
 
@@ -209,6 +210,7 @@
 //    });
 #endif
 
+    [Crittercism enableWithAppID:@"55596173b60a7d3e63908c50"];
     //TODO setup use user id in track and crash report
     [Fabric with:@[CrashlyticsKit]];
     return YES;
