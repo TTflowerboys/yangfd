@@ -5,6 +5,7 @@
     var isLoading = false
     var lastItemTime
     var viewMode = 'list'
+    var additionalReload = false
 
     window.countryData = getData('countryData')
     window.cityData = getData('cityData')
@@ -16,88 +17,11 @@
     window.bedroomCountData = getData('bedroomCountData')
     window.buildingAreaData = getData('buildingAreaData')
 
-    var $countrySelect = $('select[name=propertyCountry]')
-    $countrySelect.change(function () {
-        ga('send', 'event', 'property_list', 'change', 'select-country',
-            $('select[name=propertyCountry]').children('option:selected').text())
-        loadPropertyListByView()
-        updateCityByCountry($('select[name=propertyCountry]').children('option:selected').val())
-    })
-
-    var $citySelect = $('select[name=propertyCity]')
-    $citySelect.change(function () {
-        ga('send', 'event', 'property_list', 'change', 'select-city',
-            $('select[name=propertyCity]').children('option:selected').text())
-        loadPropertyListByView()
-
-    })
-
-    var $propertyTypeSelect = $('select[name=propertyType]')
-    $propertyTypeSelect.change(function () {
-        ga('send', 'event', 'property_list', 'change', 'select-proprty-type',
-            $('select[name=propertyType]').children('option:selected').text())
-        loadPropertyListByView()
-    })
-
+    loadPropertyList(true)
 
     /*
     * Load Data from server
     * */
-    function getLastItemTimeByBudget(id) {
-        if (id) {
-            return lastItemTimeDic[id]
-        }
-        else {
-            return lastItemTimeDic.all
-        }
-    }
-
-    function getTotalResultCountByBudget(id) {
-        if (id) {
-            return budgetTotalResultCountDic[id]
-        }
-        else {
-            return budgetTotalResultCountDic.all
-        }
-    }
-
-    function getCurrentResultCountByBudget(id) {
-        if (id) {
-            return budgetCurrentResultCountDic[id]
-        }
-        else {
-            return budgetCurrentResultCountDic.all
-        }
-    }
-
-    function setLastItemTimeBudget(id, time) {
-        if (id) {
-            lastItemTimeDic[id] = time
-        }
-        else {
-            lastItemTimeDic.all = time
-        }
-    }
-
-    function setTotalResultCountByBudget(id, count) {
-        if (id) {
-            budgetTotalResultCountDic[id] = count
-        }
-        else {
-            budgetTotalResultCountDic.all = count
-        }
-    }
-
-    function setCurrentResultCountByBudget(id, count) {
-        if (id) {
-            budgetCurrentResultCountDic[id] = count
-        }
-        else {
-            budgetCurrentResultCountDic.all = count
-        }
-    }
-
-
     function getCurrentTotalCount() {
         if (window.team.isPhone()) {
             return $('#result_list').children('.houseCard_phone').length
@@ -109,17 +33,6 @@
 
     function getBudgetCurrentTotalCount(budgetId) {
         return $('#addtionalResultList').children('[data-budget-id=' + budgetId + ']').length
-    }
-
-
-    function updatePropertyCardMouseEnter() {
-        $('.houseCard').mouseenter(function (event) {
-            $(event.delegateTarget).find('button.openRequirement').show()
-        });
-
-        $('.houseCard').mouseleave(function (event) {
-            $(event.delegateTarget).find('button.openRequirement').hide()
-        });
     }
 
     window.updateTabSelectorVisibility = function (visible) {
@@ -266,9 +179,16 @@
         }
 
         if(reload){
+            //Clean up property list
             $('#result_list').empty()
             lastItemTime = null
             params.mtime = null
+
+            //Clean up additional property list
+            $('#addtionalResultList_wrapper').hide()
+            $('#addtionalResultList').empty()
+            //Set additional list to reload
+            additionalReload = true
         }
 
         $('#result_list_container').show()
@@ -309,8 +229,6 @@
                     setCurrentResultCountByBudget(budgetType, getCurrentTotalCount())
 
                     updatePropertyCardMouseEnter()
-
-
                 }
 
             })
@@ -326,8 +244,11 @@
             })
     }
 
-    function loadAddtionalPropertyList(budgetType) {
-        var params = {'per_page': '5', 'budget': budgetType}
+    /*
+     * Load Addtional Property Data
+     * */
+    function loadAddtionalPropertyList(budgetType,reload) {
+        var params = {'per_page': '6', 'budget': budgetType}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
         if (country) {
             params.country = country
@@ -361,6 +282,14 @@
 
         $('#loadIndicator').show()
         isLoading = true
+
+        if(reload){
+            params.mtime = null
+            additionalReload = false
+            lastItemTimeDic = {}
+            budgetTotalResultCountDic = {}
+            budgetCurrentResultCountDic = {}
+        }
 
         $.betterPost('/api/1/property/search', params)
             .done(function (val) {
@@ -397,6 +326,59 @@
             })
     }
 
+    function getLastItemTimeByBudget(id) {
+        if (id) {
+            return lastItemTimeDic[id]
+        }
+        else {
+            return lastItemTimeDic.all
+        }
+    }
+
+    function getTotalResultCountByBudget(id) {
+        if (id) {
+            return budgetTotalResultCountDic[id]
+        }
+        else {
+            return budgetTotalResultCountDic.all
+        }
+    }
+
+    function getCurrentResultCountByBudget(id) {
+        if (id) {
+            return budgetCurrentResultCountDic[id]
+        }
+        else {
+            return budgetCurrentResultCountDic.all
+        }
+    }
+
+    function setLastItemTimeBudget(id, time) {
+        if (id) {
+            lastItemTimeDic[id] = time
+        }
+        else {
+            lastItemTimeDic.all = time
+        }
+    }
+
+    function setTotalResultCountByBudget(id, count) {
+        if (id) {
+            budgetTotalResultCountDic[id] = count
+        }
+        else {
+            budgetTotalResultCountDic.all = count
+        }
+    }
+
+    function setCurrentResultCountByBudget(id, count) {
+        if (id) {
+            budgetCurrentResultCountDic[id] = count
+        }
+        else {
+            budgetCurrentResultCountDic.all = count
+        }
+    }
 
     function isBudgetLoadFinished(id) {
         var totalCount = getTotalResultCountByBudget(id)
@@ -678,8 +660,42 @@
         }
     }
 
-    $('#tags #budgetTag').on('click', '.toggleTag', function (event) {
+    function updatePropertyCardMouseEnter() {
+        $('.houseCard').mouseenter(function (event) {
+            $(event.delegateTarget).find('button.openRequirement').show()
+        });
 
+        $('.houseCard').mouseleave(function (event) {
+            $(event.delegateTarget).find('button.openRequirement').hide()
+        });
+    }
+
+
+    var $countrySelect = $('select[name=propertyCountry]')
+    $countrySelect.change(function () {
+        ga('send', 'event', 'property_list', 'change', 'select-country',
+            $('select[name=propertyCountry]').children('option:selected').text())
+        loadPropertyListByView()
+        updateCityByCountry($('select[name=propertyCountry]').children('option:selected').val())
+    })
+
+    var $citySelect = $('select[name=propertyCity]')
+    $citySelect.change(function () {
+        ga('send', 'event', 'property_list', 'change', 'select-city',
+            $('select[name=propertyCity]').children('option:selected').text())
+        loadPropertyListByView()
+
+    })
+
+    var $propertyTypeSelect = $('select[name=propertyType]')
+    $propertyTypeSelect.change(function () {
+        ga('send', 'event', 'property_list', 'change', 'select-proprty-type',
+            $('select[name=propertyType]').children('option:selected').text())
+        loadPropertyListByView()
+    })
+
+
+    $('#tags #budgetTag').on('click', '.toggleTag', function (event) {
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -834,9 +850,6 @@
         }
     }
 
-    loadPropertyList()
-
-
     $(window).scroll(function () {
 
         if ($('[data-tab-name=list]').is(':visible')) {
@@ -856,7 +869,7 @@
                             if (!window.team.isPhone()) {
                                 var budget = getCurrentBelowNotFinishedBudget()
                                 if (budget) {
-                                    loadAddtionalPropertyList(budget)
+                                    loadAddtionalPropertyList(budget,additionalReload)
                                 }
                             }
                         }
