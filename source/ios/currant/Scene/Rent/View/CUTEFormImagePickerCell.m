@@ -169,31 +169,49 @@
     return _assetsPickerController;
 }
 
-- (ALAssetsLibrary *)assetLibrary {
-    return [self assetsPickerController].assetsLibrary;
-}
-
 - (void)showImagePickerFrom:(UIViewController *)controller {
-    if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
 
+    dispatch_block_t showControllerBlock = ^ {
         [[[CUTEImageUploader sharedInstance] getAssetsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
             [self assetsPickerController].selectedAssets = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
             [controller presentViewController:[self assetsPickerController] animated:YES completion:^ {
             }];
             return nil;
         }];
-    }
-    else {
+
+    };
+
+    dispatch_block_t showErrorAlertBlock = ^ {
         [UIAlertView showWithTitle:STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        }];
+    };
+
+
+    if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
+        showControllerBlock();
+    }
+    else if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusDenied) {
+        showErrorAlertBlock();
+    }
+    else if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusRestricted) {
+        showErrorAlertBlock();
+    }
+    else if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusNotDetermined) {
+        [[self assetsPickerController].assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            showControllerBlock();
+        } failureBlock:^(NSError *error) {
+            if (error.code == ALAssetsLibraryAccessUserDeniedError) {
+                showErrorAlertBlock();
+            }else{
+                [SVProgressHUD showErrorWithError:error];
+            }
         }];
     }
 }
 
+//http://stackoverflow.com/questions/25803217/presenting-camera-permission-dialog-in-ios-8
 - (void)showCameraFrom:(UIViewController *)controller {
-
-    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if(authStatus == AVAuthorizationStatusAuthorized) {
-        // do your logic
+    dispatch_block_t showControllerBlock = ^ {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -203,8 +221,36 @@
             }];
         }
 
-    } else {
+    };
+
+    dispatch_block_t showErrorAlertBlock = ^ {
         [UIAlertView showWithTitle:STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        }];
+    };
+
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+
+    if(status == AVAuthorizationStatusAuthorized) { // authorized
+        showControllerBlock();
+    }
+    else if(status == AVAuthorizationStatusDenied){ // denied
+        showErrorAlertBlock();
+    }
+    else if(status == AVAuthorizationStatusRestricted){ // restricted
+        showErrorAlertBlock();
+    }
+    else if(status == AVAuthorizationStatusNotDetermined){ // not determined
+
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+            if(granted){ // Access has been granted ..do something
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    showControllerBlock();
+                });
+            } else { // Access denied ..do something
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    showErrorAlertBlock();
+                });
+            }
         }];
     }
 }
