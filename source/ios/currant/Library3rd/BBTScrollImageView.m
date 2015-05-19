@@ -13,6 +13,7 @@
 #import "UIImageView+Assets.h"
 #import <NSArray+ObjectiveSugar.h>
 
+
 @implementation BBTScrollImageView
 @synthesize scrollImageDelegate = _scrollImageDelegate;
 
@@ -37,7 +38,8 @@
         UIImageView *imageView = [[UIImageView alloc] init];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
-        [imageView setImageWithAssetURL:[NSURL URLWithString:object]];
+        [imageView setImageWithAssetURL:[NSURL URLWithString:object] thumbnail:NO];
+
         imageView.tag = index;
         [self addSubview:imageView];
 

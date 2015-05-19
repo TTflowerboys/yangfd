@@ -7,15 +7,18 @@
 //
 
 #import "CUTEUnfinishedRentTicketCell.h"
-#import "BBTScrollImageView.h"
 #import "CUTEUnfinishedRentTicketPlaceholderImageView.h"
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
 #import "MasonryMake.h"
+#import "BBTPagingView.h"
+#import "NSURL+Assets.h"
+#import "UIImageView+Assets.h"
+#import "NSObject+Attachment.h"
 
-@interface CUTEUnfinishedRentTicketCell () {
+@interface CUTEUnfinishedRentTicketCell () <BBTPagingViewViewDataSource, BBTPagingViewViewDelegate> {
 
-    BBTScrollImageView *_scrollImageView;
+    BBTPagingView *_scrollImageView;
 
     CUTEUnfinishedRentTicketPlaceholderImageView *_placeholderView;
 
@@ -27,6 +30,8 @@
 
     UIButton *_editButton;
 }
+
+@property (nonatomic, retain) CUTETicket *ticket;
 
 @end
 
@@ -48,8 +53,10 @@
         _placeholderView = [[CUTEUnfinishedRentTicketPlaceholderImageView alloc] initWithFrame:self.contentView.bounds];
         [self.contentView addSubview:_placeholderView];
 
-        _scrollImageView = [[BBTScrollImageView alloc] init];
+        _scrollImageView = [[BBTPagingView alloc] init];
         [self.contentView addSubview:_scrollImageView];
+        _scrollImageView.delegate = self;
+        _scrollImageView.dateSource = self;
         //http://stackoverflow.com/questions/6636844/uiscrollview-inside-uitableviewcell-touch-detect
         //make scrollview can pass touch to tableviewcell and responsable for pan
         [_scrollImageView setUserInteractionEnabled:NO];
@@ -140,18 +147,48 @@
 
 
 - (void)updateWithTicket:(CUTETicket *)ticket {
+
+    [_scrollImageView updateFrame:CGRectMake(0, 0, self.bounds.size.width, IMAGE_VIEW_HEIGHT)];
+    self.ticket = ticket;
+
     if (IsArrayNilOrEmpty(ticket.property.realityImages)) {
-        [_scrollImageView setImages:nil];
+        [_scrollImageView reloadWithPageCount:0];
         [_scrollImageView setHidden:YES];
         [_placeholderView setHidden:NO];
     }
     else {
-        [_scrollImageView setImages:ticket.property.realityImages];
+        [_scrollImageView reloadWithPageCount:ticket.property.realityImages.count];
         [_scrollImageView setHidden:NO];
         [_placeholderView setHidden:YES];
     }
     [_nameLabel setText:ticket.titleForDisplay];
     [_typeLabel setText:ticket.rentType.value];
+
+
+}
+
+#pragma mark - BBTPagingView
+
+
+- (UIView *)pageViewAtIndex:(NSInteger)index {
+    NSString *identifier = [self.ticket.property.realityImages objectAtIndex:index];
+    UIImageView *imageView = [_scrollImageView dequeueReusablePageViewWithReuseIdentifier:identifier];
+    if (!imageView) {
+        imageView = [[UIImageView alloc] init];
+        imageView.frame = _scrollImageView.bounds;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
+    }
+    
+    [imageView setImage:nil];
+    [imageView setImageWithAssetURL:[NSURL URLWithString:identifier] thumbnailWidth:imageView.frame.size.width];
+    imageView.attachment = identifier;
+
+    return imageView;
+}
+
+- (void)onPagingViewScrollToIndex:(NSInteger)index {
+
 }
 
 @end
