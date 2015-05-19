@@ -285,7 +285,7 @@ def geonames_search(params):
         params["feature_code"] = {"$in": ["PPLC", "PPLA", "PPLA2"]}
 
     if "latitude" in params:
-        return f_app.geonames.get_nearby(params)
+        return f_app.geonames.gazetteer.get_nearby(params)
     else:
         return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
 
