@@ -188,6 +188,7 @@
             $('#result_list').empty()
             lastItemTime = null
             params.mtime = null
+            clearAllBudgetDic()
 
             //Clean up additional property list
             $('#addtionalResultList_wrapper').hide()
@@ -291,7 +292,7 @@
         if(reload){
             params.mtime = null
             additionalReload = false
-            clearCurrentBelowBudgetDic()
+            //clearCurrentBelowBudgetDic()
 
         }
 
@@ -384,36 +385,42 @@
         }
     }
 
-    function clearCurrentBelowBudgetDic() {
-        var selectedBudgetId = getSelectedTagFilterDataId('#budgetTag')
-        var dic = {}
-        if (lastItemTimeDic[selectedBudgetId]) {
-            dic = {}
-            dic[selectedBudgetId] = lastItemTimeDic[selectedBudgetId]
-            lastItemTimeDic = dic
-        }
-        else {
-            lastItemTimeDic = {}
-        }
-
-         if (budgetTotalResultCountDic[selectedBudgetId]) {
-            dic = {}
-            dic[selectedBudgetId] = budgetTotalResultCountDic[selectedBudgetId]
-            budgetTotalResultCountDic = dic
-        }
-        else {
-            budgetTotalResultCountDic = {}
-        }
-
-         if (budgetCurrentResultCountDic[selectedBudgetId]) {
-            dic = {}
-            dic[selectedBudgetId] = budgetCurrentResultCountDic[selectedBudgetId]
-            budgetCurrentResultCountDic = dic
-        }
-        else {
-            budgetCurrentResultCountDic = {}
-        }
+    function clearAllBudgetDic() {
+        lastItemTimeDic = {}
+        budgetTotalResultCountDic = {}
+        budgetCurrentResultCountDic = {}
     }
+
+    // function clearCurrentBelowBudgetDic() {
+    //     var selectedBudgetId = getSelectedTagFilterDataId('#budgetTag')
+    //     var dic = {}
+    //     if (lastItemTimeDic[selectedBudgetId]) {
+    //         dic = {}
+    //         dic[selectedBudgetId] = lastItemTimeDic[selectedBudgetId]
+    //         lastItemTimeDic = dic
+    //     }
+    //     else {
+    //         lastItemTimeDic = {}
+    //     }
+
+    //      if (budgetTotalResultCountDic[selectedBudgetId]) {
+    //         dic = {}
+    //         dic[selectedBudgetId] = budgetTotalResultCountDic[selectedBudgetId]
+    //         budgetTotalResultCountDic = dic
+    //     }
+    //     else {
+    //         budgetTotalResultCountDic = {}
+    //     }
+
+    //      if (budgetCurrentResultCountDic[selectedBudgetId]) {
+    //         dic = {}
+    //         dic[selectedBudgetId] = budgetCurrentResultCountDic[selectedBudgetId]
+    //         budgetCurrentResultCountDic = dic
+    //     }
+    //     else {
+    //         budgetCurrentResultCountDic = {}
+    //     }
+    // }
 
     function isBudgetLoadFinished(id) {
         var totalCount = getTotalResultCountByBudget(id)
