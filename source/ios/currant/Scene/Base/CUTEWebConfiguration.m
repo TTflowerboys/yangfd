@@ -51,6 +51,17 @@
     return [urlPath isMatch:RX(path)];
 }
 
+- (BBTWebBarButtonItem *)getLeftBarItemFromURL:(NSURL *)url {
+    if ([self isURL:url matchPath:@"\\/property-to-rent-list"] && [CUTEDataManager sharedInstance].isUserLoggedIn) {
+        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+            TrackEvent(@"property-to-rent-list", kEventActionPress, @"open-fav-list", nil);
+            [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"/user_favorites?type=rent" relativeToURL:[CUTEConfiguration hostURL]]]];
+        }];
+    }
+
+    return nil;
+}
+
 - (BBTWebBarButtonItem *)getRightBarItemFromURL:(NSURL *)url {
     if ([url.path isEqual:@"/"]) {
         return [self getPhoneBarButtonItemWithCompletion:^{
