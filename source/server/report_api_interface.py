@@ -289,15 +289,17 @@ def postcode_search(params):
 
     ``postcode_index`` is the stripped ``postcode`` that spaces were removed, e.g. "E149AQ".
 
-    Either ``postcode`` or ``postcode_index`` must present.
-
     To get all postcode area in GB: country=GB&postcode_area=1
+
+    For other uses, either ``postcode`` or ``postcode_index`` must present.
     """
     if "postcode_area" in params and params["postcode_area"]:
         params["accuracy"] = {"$in": [3, 4]}
         params.pop("postcode_area")
 
-    assert "postcode" in params or "postcode_index" in params, abort(40000, "either postcode or postcode_index must present")
+    else:
+        assert "postcode" in params or "postcode_index" in params, abort(40000, "either postcode or postcode_index must present")
+
     return f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
 
 
