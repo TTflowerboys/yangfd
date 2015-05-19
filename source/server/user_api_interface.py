@@ -192,6 +192,7 @@ def user_register(params):
     phone=(str, True),
     country=("enum:country", True),
     locales=(list, None, str),
+    occupation=str,
 ))
 @rate_limit("register", ip=5)
 def user_fast_register(params):
@@ -210,6 +211,9 @@ def user_fast_register(params):
         abort(40325)
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
+
+    if "occupation" in params:
+        assert params["occupation"] in ("student", "professional"), abort(40000)
 
     password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
     params["password"] = password
