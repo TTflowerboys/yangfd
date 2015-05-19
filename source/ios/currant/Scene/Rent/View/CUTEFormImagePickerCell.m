@@ -119,7 +119,9 @@
         CGFloat margin = 10;
         [items eachWithIndex:^(id obj, NSUInteger idx) {
             UIImageView *imageView = [[UIImageView alloc] init];
-            [imageView setImageWithAssetURL:[NSURL URLWithString:obj] thumbnail:YES];
+            [imageView setImageWithAssetURL:[NSURL URLWithString:obj] thumbnail:YES failureBlock:^(NSError *error) {
+                [SVProgressHUD showErrorWithError:error];
+            }];
             [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onImageTapped:)]];
             imageView.userInteractionEnabled = YES;
             imageView.attachment = [NSNumber numberWithInteger:idx];
@@ -288,6 +290,7 @@
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
+    //TODO check why read image from 我的照片流 而不是相机胶卷就失败
     [self updateImages:[assets map:^id(ALAsset *object) {
         return [[object valueForProperty:ALAssetPropertyAssetURL] absoluteString];
     }]];

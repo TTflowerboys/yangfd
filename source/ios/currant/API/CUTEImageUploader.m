@@ -107,22 +107,31 @@
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
         [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
-            UIImage *originalImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-            CGSize imageSize = originalImage.size;
-            if (imageSize.width > KMAX_IMAGE_WIDTH) {
-                imageSize.width = KMAX_IMAGE_WIDTH;
-                imageSize.height = imageSize.height * (KMAX_IMAGE_WIDTH / imageSize.width);
-            }
-            if (imageSize.height > KMAX_IMAGE_HEIGHT) {
-                imageSize.height = KMAX_IMAGE_HEIGHT;
-                imageSize.width = imageSize.width * (KMAX_IMAGE_HEIGHT / imageSize.height);
-            }
-            UIImage *image = [originalImage resizedImage:imageSize interpolationQuality:kCGInterpolationDefault];
-            //NSData *originalImageData = UIImageJPEGRepresentation([originalImage fixJPEGRotation], 1);
-            NSData *imageData = UIImageJPEGRepresentation([image fixJPEGRotation], 0.5);
-            [tcs setResult:imageData];
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                if (asset) {
+                    UIImage *originalImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+                    CGSize imageSize = originalImage.size;
+                    if (imageSize.width > KMAX_IMAGE_WIDTH) {
+                        imageSize.width = KMAX_IMAGE_WIDTH;
+                        imageSize.height = imageSize.height * (KMAX_IMAGE_WIDTH / imageSize.width);
+                    }
+                    if (imageSize.height > KMAX_IMAGE_HEIGHT) {
+                        imageSize.height = KMAX_IMAGE_HEIGHT;
+                        imageSize.width = imageSize.width * (KMAX_IMAGE_HEIGHT / imageSize.height);
+                    }
+                    UIImage *image = [originalImage resizedImage:imageSize interpolationQuality:kCGInterpolationDefault];
+                    //NSData *originalImageData = UIImageJPEGRepresentation([originalImage fixJPEGRotation], 1);
+                    NSData *imageData = UIImageJPEGRepresentation([image fixJPEGRotation], 0.5);
+                    [tcs setResult:imageData];
+                }
+                else {
+                    [tcs setError:[NSError errorWithDomain:@"CUTE" code:-1 userInfo:@{NSLocalizedDescriptionKey: STR(@"图片读取失败")}]];
+                }
+            });
         } failureBlock:^(NSError *error) {
-            [tcs setError:error];
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [tcs setError:error];
+            });
         }];
     });
     return tcs.task;
