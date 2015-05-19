@@ -294,14 +294,7 @@ def postcode_search(params):
     For other uses, either ``postcode`` or ``postcode_index`` must present.
     """
     if "postcode_area" in params and params["postcode_area"]:
-        params["accuracy"] = {"$in": [3, 4]}
-        params.pop("postcode_area")
-
-        postcode_areas = set()
-        for result in f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1)):
-            postcode_areas.add(result["postcode"])
-
-        return list(postcode_areas)
+        return f_app.geonames.postcode.get_postcode_areas(params["country"])
 
     else:
         assert "postcode" in params or "postcode_index" in params, abort(40000, "either postcode or postcode_index must present")
