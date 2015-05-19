@@ -237,7 +237,7 @@ def lupdate(user):
 
 
 @f_api('/geonames/search', params=dict(
-    country=(str, True),
+    country=str,
     admin1=str,
     admin2=str,
     admin3=str,
