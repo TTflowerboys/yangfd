@@ -6,7 +6,8 @@
             nav: true,
             pause: true,
             prevText: '<',
-            nextText: '>'
+            nextText: '>',
+            pauseControls: true,
         })
     }
 
@@ -83,7 +84,48 @@
         }
 
         ga('send', 'event', 'property_detail', 'click', 'change-tab',tabName)
-    })
+    });
 
-
+    //点击相册查看大图的功能
+    (function () {
+        var timer
+        $('.rslides .fancybox').fancybox({
+            openEffect	: 'elastic',
+            closeEffect	: 'elastic',
+            type: 'image',
+            groupAttr: 'rel',
+            autoSize: false,
+            helpers	: {
+                overlay: {
+                    locked: false
+                },
+                title	: {
+                    type: 'outside'
+                },
+                thumbs	: {
+                    width	: 50,
+                    height	: 50
+                }
+            },
+            beforeShow: function () {
+                clearInterval(timer)
+                timer = setInterval(function () { //周期性的触发mouseenter事件，以阻止slide（只能通过这样的方式）
+                    $('a.rslides_nav.rslides1_nav.next').trigger('mouseenter')
+                },500)
+            },
+            afterClose: function () {
+                clearInterval(timer)
+                $('a.rslides_nav.rslides1_nav.next').trigger('mouseleave')
+            }
+        })
+    })()
+    /*$('.rslides .img').bind('click', function(){
+        //var url = $(this).data('url')
+        var url = $(this).attr('data-url')
+        $.fancybox({
+            href: url,
+            title : 'Custom Title',
+            type: 'image'
+        });
+    })*/
 })()
