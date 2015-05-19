@@ -77,8 +77,8 @@
         var location = new Microsoft.Maps.Location(result.Latitude, result.Longitude);
         var decription = [];
         var layer = new Microsoft.Maps.EntityCollection()
+        decription.push(window.i18n('距离') + ':' + result.Hint + '<br/>');
         decription.push(window.i18n('地址') + ':' + result.AddressLine + '<br/>');
-        decription.push(window.i18n('电话') + ':' + result.Phone + '<br/>');
         decription.push(window.i18n('类型') + ':' + result.Type + '<br/>');
         var infobox = new Microsoft.Maps.Infobox(location, { title: result.DisplayName, description: decription.join(' '), showPointer: true});
         layer.push(infobox)

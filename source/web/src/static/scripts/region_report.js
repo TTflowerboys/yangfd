@@ -113,6 +113,8 @@
 
             $('#mapImg, #showMap').click(function (e) {
                 if (!$('#mapLoadIndicator').is(':visible')) {
+                    ga('send', 'event', 'region_report', 'click', 'view-map')
+
                     window.showMapIndicator()
                     var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
                     window.onBingMapScriptLoad = function () {
