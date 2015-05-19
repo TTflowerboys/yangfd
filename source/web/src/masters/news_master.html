@@ -24,20 +24,20 @@
         </div>
         <ul class="rmm-menu" style="display:none;">
             <li><a href="/">{{_('首页')}}</a></li>
-            <li><a href="/property_list">{{_('海外房产')}}</a></li>
+            <li><a href="/property-list">{{_('海外房产')}}</a></li>
             <!-- @if ENV!='production' -->
             <li><a href="/crowdfunding-introduce">{{_('海外众筹')}}</a></li>
             <!-- @endif -->
             <!-- @if ENV!='production' -->
-            <li><a href="/property_to_rent_list">{{_('海外租房')}}</a></li>
+            <li><a href="/property-to-rent-list">{{_('海外租房')}}</a></li>
             <!-- @endif -->
-            <li><a href="/news_list">{{_('投资资讯')}}</a></li>
+            <li><a href="/news-list">{{_('投资资讯')}}</a></li>
         </ul>
         <ul class="rmm-center-menu" style="display:none;">
-        <li><a href="/notice_list">{{_('网站公告')}}</a></li>
+        <li><a href="/notice-list">{{_('网站公告')}}</a></li>
         <li><a href="/guides">{{_('购房指南')}}</a></li>
         <li><a href="/laws">{{_('法律法规')}}</a></li>
-        <li><a href="/news_list">{{_('房产资讯')}}</a></li>
+        <li><a href="/news-list">{{_('房产资讯')}}</a></li>
     </ul>
     </div>
 </div>
@@ -53,9 +53,9 @@
     <div class="category">
         <h2 class="title">{{_('资讯类别')}}</h2>
         <ul>
-            <li><a href="/notice_list">
-                <img id="icon-notice_list" alt="" src="/static/images/news/notice.png"/>
-                <img id="icon-notice_list-active" style="display:none" alt="" src="/static/images/news/notice-active.png"/>
+            <li><a href="/notice-list">
+                <img id="icon-notice-list" alt="" src="/static/images/news/notice.png"/>
+                <img id="icon-notice-list-active" style="display:none" alt="" src="/static/images/news/notice-active.png"/>
                 <h3 for="">{{_('网站公告')}}</h3>
             </a></li>
             <li><a href="/guides">
@@ -68,9 +68,9 @@
                 <img id="icon-laws-active" style="display:none" alt="" src="/static/images/news/law-active.png"/>
                 <h3>{{_('法律法规')}}</h3>
             </a></li>
-            <li><a href="/news_list">
-                <img id="icon-news_list" alt="" src="/static/images/news/news.png"/>
-                <img id="icon-news_list-active"  style="display:none" alt="" src="/static/images/news/news-active.png"/>
+            <li><a href="/news-list">
+                <img id="icon-news-list" alt="" src="/static/images/news/news.png"/>
+                <img id="icon-news-list-active"  style="display:none" alt="" src="/static/images/news/news-active.png"/>
                 <h3>{{_('房产资讯')}}</h3>
             </a></li>
         </ul>
@@ -84,7 +84,7 @@
      document.getElementById('icon-' + urlPath + '-active').style.display = 'inline'
 
      var newsHeaderTitle = document.getElementById('newsHeader_title')
-     if (urlPath === 'notice_list') {
+     if (urlPath === 'notice_list' || urlPath === 'notice-list') {
          newsHeaderTitle.innerHTML = "{{_('网站公告')}}"
      }
      else if (urlPath === 'guides') {
@@ -93,7 +93,7 @@
      else if (urlPath === 'laws') {
          newsHeaderTitle.innerHTML = "{{_('法律法规')}}"
      }
-     else if (urlPath === 'news_list') {
+     else if (urlPath === 'news_list' || urlPath === 'news-list') {
          newsHeaderTitle.innerHTML = "{{_('房产资讯')}}"
      }
 

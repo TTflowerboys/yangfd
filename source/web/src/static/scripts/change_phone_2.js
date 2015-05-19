@@ -40,7 +40,7 @@ $('form[name=changePhone2]').submit(function (e) {
             window.user = data
             resultArea.text(window.i18n('验证成功'))
             resultArea.show()
-            location.href = '/user_settings'
+            location.href = '/user-settings'
         })
 	.fail(function (ret) {
             resultArea.text(window.i18n('验证失败'))

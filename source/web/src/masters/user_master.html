@@ -22,14 +22,14 @@
         </div>
 
         <ul class="rmm-center-menu" style="display:none;">
-            <li><a href="/user_settings">{{_('账户管理')}}</a></li>
-            <li><a href="/user_favorites">{{_('我的收藏')}}</a></li>
+            <li><a href="/user-settings">{{_('账户管理')}}</a></li>
+            <li><a href="/user-favorites">{{_('我的收藏')}}</a></li>
             <!-- @if ENV!='production' -->
-            <li><a href="/user_crowdfunding">{{_('海外众筹')}}</a></li>
+            <li><a href="/user-crowdfunding">{{_('海外众筹')}}</a></li>
             <!-- @endif -->
-            <li><a href="/user_intentions">{{_('投资意向单')}}</a></li>
-            <li><a href="/user_properties">{{_('我的房产')}}</a></li>
-            <li><a href="/user_messages">{{_('消息')}}</a></li>
+            <li><a href="/user-intentions">{{_('投资意向单')}}</a></li>
+            <li><a href="/user-properties">{{_('我的房产')}}</a></li>
+            <li><a href="/user-messages">{{_('消息')}}</a></li>
         </ul>
     </div>
 </div>
@@ -49,29 +49,29 @@
                 %end
             </p>
             %if user.get('phone_verified'):
-            <a class="verificationStatus" href="/user_change_phone_1">
+            <a class="verificationStatus" href="/user-change-phone-1">
                 <i><img src="/static/images/user/user-phone.png" style="margin-top:2px;"/></i>
                 {{_('手机已验证')}}
             </a>
             %else:
-            <a class="verificationStatus red" href="/user_verify_phone_1">
+            <a class="verificationStatus red" href="/user-verify-phone-1">
                 <i><img src="/static/images/user/user-phone.png" style="margin-top:2px;"/></i>
                 {{_('手机未验证')}}
                 %end
             </a>
 
             %if user.get('email') and user.get('email_verified'):
-            <a class="verificationStatus" href="/user_change_email">
+            <a class="verificationStatus" href="/user-change-email">
                 <i><img src="/static/images/user/user-email.png" style="margin-top: 3px;"/></i>
                 {{_('邮箱已验证')}}
             </a>
             %elif user.get('email') and (not user.get('email_verified')):
-            <a class="verificationStatus red" href="/user_verify_email">
+            <a class="verificationStatus red" href="/user-verify-email">
                 <i><img src="/static/images/user/user-email.png" style="margin-top: 3px;"/></i>
                 {{_('邮箱未验证')}}
             </a>
             %else:
-            <a class="verificationStatus red" href="/user_change_email">
+            <a class="verificationStatus red" href="/user-change-email">
                 <i><img src="/static/images/user/user-email.png" style="margin-top: 3px;"/></i>
                 {{_('邮箱未设置')}}
             </a>
@@ -80,46 +80,46 @@
         <div class="settings">
             <ul>
                 <li>
-                    <a href="/user_settings">
-                        <img id="icon-user_settings" src="/static/images/user/gear.png"/>
-                        <img id="icon-user_settings-active" style="display:none" src="/static/images/user/gear-active.png"/>
+                    <a href="/user-settings">
+                        <img id="icon-user-settings" src="/static/images/user/gear.png"/>
+                        <img id="icon-user-settings-active" style="display:none" src="/static/images/user/gear-active.png"/>
                     </a>
                     {{_('账户管理')}}
                 </li>
                 <li>
-                    <a href="/user_favorites">
-                        <img id="icon-user_favorites" src="/static/images/user/star.png"/>
-                        <img id="icon-user_favorites-active" style="display:none" src="/static/images/user/star-active.png"/>
+                    <a href="/user-favorites">
+                        <img id="icon-user-favorites" src="/static/images/user/star.png"/>
+                        <img id="icon-user-favorites-active" style="display:none" src="/static/images/user/star-active.png"/>
                     </a>
                     {{_('我的收藏')}}
                 </li>
                 <!-- @if ENV!='production' -->
                 <li>
-                    <a href="/user_crowdfunding">
-                        <img id="icon-user_crowdfunding" src="/static/images/user/crowdfunding.png"/>
-                        <img id="icon-user_crowdfunding-active" style="display:none" src="/static/images/user/crowdfunding-active.png"/>
+                    <a href="/user-crowdfunding">
+                        <img id="icon-user-crowdfunding" src="/static/images/user/crowdfunding.png"/>
+                        <img id="icon-user-crowdfunding-active" style="display:none" src="/static/images/user/crowdfunding-active.png"/>
                     </a>
                     {{_('海外众筹')}}
                 </li>
                 <!-- @endif -->
                 <li>
-                    <a href="/user_intentions">
-                        <img id="icon-user_intentions" src="/static/images/user/sheet.png"/>
-                        <img id="icon-user_intentions-active" style="display:none" src="/static/images/user/sheet-active.png"/>
+                    <a href="/user-intentions">
+                        <img id="icon-user-intentions" src="/static/images/user/sheet.png"/>
+                        <img id="icon-user-intentions-active" style="display:none" src="/static/images/user/sheet-active.png"/>
                     </a>
                     {{_('投资意向单')}}
                 </li>
                 <li>
-                    <a href="/user_properties">
-                        <img id="icon-user_properties" src="/static/images/user/house.png"/>
-                        <img id="icon-user_properties-active" style="display:none" src="/static/images/user/house-active.png"/>
+                    <a href="/user-properties">
+                        <img id="icon-user-properties" src="/static/images/user/house.png"/>
+                        <img id="icon-user-properties-active" style="display:none" src="/static/images/user/house-active.png"/>
                     </a>
                     {{_('我的房产')}}
                 </li>
                 <li>
-                    <a href="/user_messages">
-                        <img id="icon-user_messages" src="/static/images/user/email.png"/>
-                        <img id="icon-user_messages-active" style="display:none" src="/static/images/user/email-active.png"/>
+                    <a href="/user-messages">
+                        <img id="icon-user-messages" src="/static/images/user/email.png"/>
+                        <img id="icon-user-messages-active" style="display:none" src="/static/images/user/email-active.png"/>
                     </a>
                     {{_('消息')}}
                 </li>
@@ -138,22 +138,22 @@
         document.getElementById('icon-' + urlPath + '-active').style.display = 'inline'
 
         var userPageHeaderTitle = document.getElementById('userPageHeader_title')
-        if (urlPath === 'user_settings') {
+        if (urlPath === 'user_settings' || urlPath === 'user-settings') {
             userPageHeaderTitle.innerHTML = "{{_('账户管理')}}"
         }
-        else if (urlPath === 'user_favorites') {
+        else if (urlPath === 'user_favorites' || urlPath === 'user-favorites') {
             userPageHeaderTitle.innerHTML = "{{_('我的收藏')}}"
         }
-        else if (urlPath === 'user_crowdfunding') {
+        else if (urlPath === 'user_crowdfunding' || urlPath === 'user-crowdfunding') {
             userPageHeaderTitle.innerHTML = "{{_('海外众筹')}}"
         }
-        else if (urlPath === 'user_intentions') {
+        else if (urlPath === 'user_intentions' || urlPath === 'user-intentions') {
             userPageHeaderTitle.innerHTML = "{{_('投资意向单')}}"
         }
-        else if (urlPath === 'user_properties') {
+        else if (urlPath === 'user_properties' || urlPath === 'user-properties') {
             userPageHeaderTitle.innerHTML = "{{_('我的房产')}}"
         }
-        else if (urlPath === 'user_messages') {
+        else if (urlPath === 'user_messages' || urlPath === 'user-messages') {
             userPageHeaderTitle.innerHTML = "{{_('消息')}}"
         }
 

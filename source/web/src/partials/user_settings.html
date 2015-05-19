@@ -27,11 +27,11 @@
                 </td>
                 <td class="action">
                     %if user.get('phone_verified'):
-                    <a class="ghostButton red" href="/user_change_phone_1">
+                    <a class="ghostButton red" href="/user-change-phone-1">
                         {{_('修改')}}
                     </a>
                     %else:
-                    <a class="ghostButton red" href="/user_verify_phone_1">
+                    <a class="ghostButton red" href="/user-verify-phone-1">
                         {{_('认证')}}
                     </a>
                     %end
@@ -58,15 +58,15 @@
                 </td>
                 <td class="action">
                     %if user.get('email') and user.get('email_verified'):
-                    <a class="ghostButton red" href="/user_change_email">
+                    <a class="ghostButton red" href="/user-change-email">
                         {{_('修改')}}
                     </a>
                     %elif user.get('email') and (not user.get('email_verified')):
-                    <a class="ghostButton red" href="/user_verify_email">
+                    <a class="ghostButton red" href="/user-verify-email">
                         {{_('认证')}}
                     </a>
                     %else:
-                    <a class="ghostButton red" href="/user_change_email">
+                    <a class="ghostButton red" href="/user-change-email">
                         {{_('设置')}}
                     </a>
                     %end
