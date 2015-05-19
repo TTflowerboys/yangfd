@@ -28,6 +28,7 @@
 #import "CUTERentPasswordViewController.h"
 #import "CUTERentPasswordForm.h"
 #import "CUTEEnumManager.h"
+#import "CUTEFormTextFieldCell.h"
 
 @implementation CUTERentLoginViewController
 
@@ -61,6 +62,13 @@
 
 
 
+}
+
+- (void)onPasswordEdit:(CUTEFormTextFieldCell *)cell {
+    //if has password input, we think the user want to login
+    if (!IsNilNullOrEmpty(cell.textField.text)) {
+        [self submit];
+    }
 }
 
 - (void)submit {
