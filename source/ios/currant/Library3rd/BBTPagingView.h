@@ -27,6 +27,8 @@
 
 @property (nonatomic, weak) id<BBTPagingViewViewDelegate> delegate;
 
+@property(nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
+
 - (void)reloadWithPageCount:(NSInteger)pageCount;
 
 - (void)gotoPageAtIndex:(NSInteger)index animated:(BOOL)animated;
@@ -36,5 +38,7 @@
 - (void)setScrollEnabled:(BOOL)enable;
 
 - (void)updateFrame:(CGRect)frame;
+
+- (id)dequeueReusablePageViewWithReuseIdentifier:(NSString *)identifier;
 
 @end

@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface UIImageView (Assets)
 
-- (void)setImageWithAssetURL:(NSURL *)url;
+//- (void)setImageWithAssetURL:(NSURL *)url;
+
+- (void)setImageWithAssetURL:(NSURL *)url thumbnail:(BOOL)thumbnail failureBlock:(ALAssetsLibraryAccessFailureBlock)failureBlock ;
+
+- (void)setImageWithAssetURL:(NSURL *)url thumbnailSize:(CGSize)thumbnailSize;
+
+- (void)setImageWithAssetURL:(NSURL *)url thumbnailWidth:(CGFloat)thumbnailWidth;
 
 @end
 

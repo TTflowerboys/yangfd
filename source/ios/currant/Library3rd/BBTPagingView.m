@@ -8,6 +8,7 @@
 
 #import "BBTPagingView.h"
 #import <BBTCommonMacro.h>
+#import "NSObject+Attachment.h"
 
 
 static NSString *kNameKey = @"nameKey";
@@ -18,6 +19,8 @@ static NSString *kImageKey = @"imageKey";
 @property (nonatomic, strong) UIScrollView *scrollView;
 //@property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) NSMutableArray *pageViews;
+
+@property (nonatomic, strong) NSMutableArray *resuabelePageViews;
 
 @property (nonatomic) NSInteger currentPage;
 //@property (nonatomic, strong) NSMutableArray *viewControllers;
@@ -32,7 +35,7 @@ static NSString *kImageKey = @"imageKey";
     self = [super initWithFrame:frame];
     if (self)
     {
-        
+
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 //        self.scrollView.translatesAutoresizingMaskIntoConstraints = NO; //disable autlayout for scrollview
@@ -53,12 +56,17 @@ static NSString *kImageKey = @"imageKey";
 - (void)updateFrame:(CGRect)frame
 {
     self.frame = frame;
+    self.scrollView.frame = self.bounds;
     for (UIView *pageView in [self pageViews]) {
         if ([pageView isKindOfClass:[UIView class]])
         {
             pageView.frame = CGRectMake(pageView.frame.origin.x, pageView.frame.origin.y, frame.size.width, frame.size.height);
         }
     }
+}
+
+- (UIPanGestureRecognizer *)panGestureRecognizer {
+    return self.scrollView.panGestureRecognizer;
 }
 
 - (void)reloadWithPageCount:(NSInteger)pageCount
@@ -73,6 +81,7 @@ static NSString *kImageKey = @"imageKey";
         [pageViews addObject:[NSNull null]];
     }
 
+    self.resuabelePageViews = [NSMutableArray array];
     self.pageViews = pageViews;
     [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.frame) * numberPages, CGRectGetHeight(self.scrollView.frame));
@@ -82,6 +91,8 @@ static NSString *kImageKey = @"imageKey";
     // load the visible page
     // load the page on either side to avoid flashes when the user starts scrolling
     //
+
+    [self markResuablePageViewsAvailableExclude:@[@(0), @(1)]];
     [self loadScrollViewWithPage:0];
     [self loadScrollViewWithPage:1];
 }
@@ -98,20 +109,57 @@ static NSString *kImageKey = @"imageKey";
     if ((NSNull *)pageView == [NSNull null])
     {
         pageView = [self.dateSource pageViewAtIndex:page];
+
+        if ([self.resuabelePageViews containsObject:pageView]) {
+            [self.resuabelePageViews removeObject:pageView];
+            NSInteger pageOldIndex = [[self pageViews] indexOfObject:pageView];
+            if (pageOldIndex != NSNotFound) {
+                [pageView removeFromSuperview];
+                [[self pageViews] replaceObjectAtIndex:pageOldIndex withObject:[NSNull null]];
+            }
+        }
         [[self pageViews] replaceObjectAtIndex:page withObject:pageView];
+        [self.resuabelePageViews addObject:pageView];
     }
 
     // add the controller's view to the scroll view
     if (pageView.superview == nil)
     {
-        CGRect frame = self.scrollView.frame;
-        frame.origin.x = CGRectGetWidth(frame) * page;
-        frame.origin.y = 0;
-        pageView.frame = frame;
-
         [self.scrollView addSubview:pageView];
     }
+
+    CGRect frame = self.scrollView.frame;
+    frame.origin.x = CGRectGetWidth(frame) * page;
+    frame.origin.y = 0;
+    pageView.frame = frame;
 }
+
+
+- (void)markResuablePageViewsAvailableExclude:(NSArray *)excludeArray {
+    int count = self.pageViews.count;
+    for (int i = 0; i < count; i++)
+    {
+        UIView *pageView = [self.pageViews objectAtIndex:i];
+        if ([pageView isKindOfClass:[UIView class]] && ![excludeArray containsObject:[NSNumber numberWithUnsignedInteger:i]]) {
+            pageView.attachment = nil;
+        }
+    }
+}
+
+- (id)dequeueReusablePageViewWithReuseIdentifier:(NSString *)identifier {
+    for (UIView *pageView in self.resuabelePageViews) {
+        if (pageView.attachment && [pageView.attachment isEqualToString:identifier]) {
+            return pageView;
+        }
+    }
+    for (UIView *pageView in self.resuabelePageViews) {
+        if (!pageView.attachment) {
+            return pageView;
+        }
+    }
+    return nil;
+}
+
 
 // at the end of scroll animation, reset the boolean used when scrolls originate from the UIPageControl
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -122,6 +170,7 @@ static NSString *kImageKey = @"imageKey";
     self.currentPage = page;
     [[self delegate] onPagingViewScrollToIndex:page];
 
+    [self markResuablePageViewsAvailableExclude:@[@(page -1), @(page), @(page + 1)]];
     // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
     [self loadScrollViewWithPage:page - 1];
     [self loadScrollViewWithPage:page];
@@ -136,6 +185,7 @@ static NSString *kImageKey = @"imageKey";
 
     NSInteger page = self.currentPage;
 
+    [self markResuablePageViewsAvailableExclude:@[@(page -1), @(page), @(page + 1)]];
     // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
     [self loadScrollViewWithPage:page - 1];
     [self loadScrollViewWithPage:page];

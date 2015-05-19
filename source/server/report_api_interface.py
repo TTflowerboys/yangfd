@@ -237,7 +237,7 @@ def lupdate(user):
 
 
 @f_api('/geonames/search', params=dict(
-    country=(str, True),
+    country=str,
     admin1=str,
     admin2=str,
     admin3=str,
@@ -245,6 +245,9 @@ def lupdate(user):
     name=str,
     name_index=str,
     geoip=bool,
+    latitude=float,
+    longitude=float,
+    search_range=(int, 5000),
 ))
 def geonames_search(params):
     """
@@ -254,14 +257,15 @@ def geonames_search(params):
 
     Example usage:
 
-    1. Get all ADM1 for GB: country=GB&feature_code=ADM1
-
-    2. Get all ADM2 in England (ADM1 of GB): country=GB&admin1=ENG&feature_code=ADM2
-
-    3. Get all ADM3 in Greator London (ADM2 of England): country=GB&admin1=ENG&admin2=GLA&feature_code=ADM3
-
-    4. Get all PPLX in Barnet (ADM3 of Greator London): country=GB&admin1=ENG&admin2=GLA&admin3=A2&feature_code=PPLX
+    1. Get all city for GB: country=GB&feature_code=city
     """
+    if "latitude" in params:
+        assert "longitude" in params, abort(40000)
+    elif "longitude" in params:
+        abort(40000)
+    else:
+        params.pop("search_range")
+
     if "geoip" in params and params["geoip"]:
         # TODO: City?
         try:
@@ -280,13 +284,17 @@ def geonames_search(params):
     if params["feature_code"] == "city":
         params["feature_code"] = {"$in": ["PPLC", "PPLA", "PPLA2"]}
 
-    return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
+    if "latitude" in params:
+        return f_app.geonames.gazetteer.get_nearby(params)
+    else:
+        return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
 
 
 @f_api('/postcode/search', params=dict(
     country=str,
     postcode=str,
     postcode_index=str,
+    postcode_area=bool,
 ))
 def postcode_search(params):
     """
@@ -294,10 +302,17 @@ def postcode_search(params):
 
     ``postcode_index`` is the stripped ``postcode`` that spaces were removed, e.g. "E149AQ".
 
-    Either ``postcode`` or ``postcode_index`` must present.
+    To get all postcode area in GB: country=GB&postcode_area=1
+
+    For other uses, either ``postcode`` or ``postcode_index`` must present.
     """
-    assert "postcode" in params or "postcode_index" in params, abort(40000, "either postcode or postcode_index must present")
-    return f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
+    if "postcode_area" in params and params["postcode_area"]:
+        assert "country" in params, abort(40000, "country must present to query postcode area")
+        return f_app.geonames.postcode.get_postcode_areas(params["country"])
+
+    else:
+        assert "postcode" in params or "postcode_index" in params, abort(40000, "either postcode or postcode_index must present")
+        return f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
 
 
 @f_api('/doogal/districts_and_wards')

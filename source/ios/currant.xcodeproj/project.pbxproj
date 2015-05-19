@@ -17,11 +17,6 @@
 		2C07AB701AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB6D1AE8C5AA00907075 /* CUTEMoblieClient.m */; };
 		2C07AB711AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB6D1AE8C5AA00907075 /* CUTEMoblieClient.m */; };
 		2C07AB721AE8C5AA00907075 /* CUTEMoblieClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB6D1AE8C5AA00907075 /* CUTEMoblieClient.m */; };
-		2C07AB7C1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */; };
-		2C07AB7D1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */; };
-		2C07AB7E1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */; };
-		2C07AB7F1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */; };
-		2C07AB801AE8DB5E00907075 /* BBTScrollImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */; };
 		2C07AB8A1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
 		2C07AB8B1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
 		2C07AB8C1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
@@ -530,8 +525,6 @@
 		2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormLimitCharacterCountTextFieldCell.m; sourceTree = "<group>"; };
 		2C07AB6C1AE8C5AA00907075 /* CUTEMoblieClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMoblieClient.h; sourceTree = "<group>"; };
 		2C07AB6D1AE8C5AA00907075 /* CUTEMoblieClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMoblieClient.m; sourceTree = "<group>"; };
-		2C07AB7A1AE8DB5E00907075 /* BBTScrollImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTScrollImageView.h; sourceTree = "<group>"; };
-		2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTScrollImageView.m; sourceTree = "<group>"; };
 		2C07AB881AE8FF6600907075 /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
 		2C07AB891AE8FF6600907075 /* UIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
@@ -822,8 +815,6 @@
 				2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */,
 				2C2FCDBB1AFCC689002594D7 /* BBTInputAccessoryView.h */,
 				2C2FCDBC1AFCC689002594D7 /* BBTInputAccessoryView.m */,
-				2C07AB7A1AE8DB5E00907075 /* BBTScrollImageView.h */,
-				2C07AB7B1AE8DB5E00907075 /* BBTScrollImageView.m */,
 				2C3DE2571B07448F006FF191 /* BBTPagingView.h */,
 				2C3DE2581B07448F006FF191 /* BBTPagingView.m */,
 				2C3DE25E1B074FA5006FF191 /* BBTCenterImageView.h */,
@@ -1721,7 +1712,6 @@
 				2CF8A64C1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6511AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
 				2C79C2BA1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
-				2C07AB7E1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2CC3A07E1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
 				2CB66C201AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2CF8A67A1AF0B65C0080DF10 /* CUTEForm.m in Sources */,
@@ -1820,7 +1810,6 @@
 				2CF8A64D1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6521AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
 				2C79C2BB1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
-				2C07AB7F1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2CC3A07F1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
 				2CB66C211AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2CF8A67B1AF0B65C0080DF10 /* CUTEForm.m in Sources */,
@@ -1919,7 +1908,6 @@
 				2CF8A64B1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6501AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
 				2C79C2B91ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
-				2C07AB7D1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2CC3A07D1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
 				2CB66C1F1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2CF8A6791AF0B65C0080DF10 /* CUTEForm.m in Sources */,
@@ -2018,7 +2006,6 @@
 				2CF8A64A1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A64F1AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
 				2C79C2B81ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
-				2C07AB7C1AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2CC3A07C1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
 				2CB66C1E1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2CF8A6781AF0B65C0080DF10 /* CUTEForm.m in Sources */,
@@ -2085,7 +2072,6 @@
 				2CF8A6081AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2C1E66F61AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2C5ECC471AD5084D00163E9E /* CUTEPlacemark.m in Sources */,
-				2C07AB801AE8DB5E00907075 /* BBTScrollImageView.m in Sources */,
 				2CF8A6901AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2C4AEC831AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2C03AB4C1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
@@ -2209,7 +2195,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "7f904995-9a05-4de0-bc26-925111d41389";
+				PROVISIONING_PROFILE = "75e9aa95-6dab-4048-9035-eb7fe858fe46";
 			};
 			name = Release;
 		};

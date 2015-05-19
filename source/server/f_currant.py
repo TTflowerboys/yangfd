@@ -1449,7 +1449,6 @@ class f_property(f_app.module_base):
         latitude = params.pop("latitude")
         longitude = params.pop("longitude")
         search_range = params.pop("search_range")
-        self.logger.debug(latitude, longitude, search_range, params)
 
         search_command = SON([
             ('geoNear', self.property_database),
