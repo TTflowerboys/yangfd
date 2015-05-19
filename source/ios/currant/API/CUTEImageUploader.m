@@ -107,8 +107,7 @@
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
         [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
-
-            UIImage *originalImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+            UIImage *originalImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
             CGSize imageSize = originalImage.size;
             if (imageSize.width > KMAX_IMAGE_WIDTH) {
                 imageSize.width = KMAX_IMAGE_WIDTH;
