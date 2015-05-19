@@ -245,6 +245,9 @@ def lupdate(user):
     name=str,
     name_index=str,
     geoip=bool,
+    latitude=float,
+    longitude=float,
+    search_range=(int, 5000),
 ))
 def geonames_search(params):
     """
@@ -256,6 +259,13 @@ def geonames_search(params):
 
     1. Get all city for GB: country=GB&feature_code=city
     """
+    if "latitude" in params:
+        assert "longitude" in params, abort(40000)
+    elif "longitude" in params:
+        abort(40000)
+    else:
+        params.pop("search_range")
+
     if "geoip" in params and params["geoip"]:
         # TODO: City?
         try:
@@ -274,7 +284,10 @@ def geonames_search(params):
     if params["feature_code"] == "city":
         params["feature_code"] = {"$in": ["PPLC", "PPLA", "PPLA2"]}
 
-    return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
+    if "latitude" in params:
+        return f_app.geonames.get_nearby(params)
+    else:
+        return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
 
 
 @f_api('/postcode/search', params=dict(
