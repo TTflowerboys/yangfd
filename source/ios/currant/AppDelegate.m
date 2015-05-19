@@ -36,11 +36,13 @@
 #import <Crittercism.h>
 #import "CUTESplashViewController.h"
 #import "CUTEUserDefaultKey.h"
+#import "MemoryReporter.h"
 
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
 #import <FLEXManager.h>
+
 #endif
 
 @interface AppDelegate () <UITabBarControllerDelegate>
@@ -213,6 +215,7 @@
     [Crittercism enableWithAppID:@"55596173b60a7d3e63908c50"];
     //TODO setup use user id in track and crash report
     [Fabric with:@[CrashlyticsKit]];
+
     return YES;
 }
 
@@ -242,6 +245,10 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [[CUTEWxManager sharedInstance] handleOpenURL:url];
+}
+
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+    [[CUTETracker sharedInstance] trackMemoryWarning];
 }
 
 #pragma UITabbarViewControllerDelegate

@@ -17,6 +17,7 @@
 #import "CUTEDataManager.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEConfiguration.h"
+#import "MemoryReporter.h"
 
 @interface CUTETracker ()
 {
@@ -103,6 +104,15 @@
     [_tracker send:builder.build];
 }
 
+- (void)trackError:(NSError *)error {
+    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createExceptionWithDescription:error.description withFatal:@(0)];
+    [_tracker send:builder.build];
+}
+
+- (void)trackMemoryWarning {
+    [self trackEventWithCategory:KEventCategorySystem action:kEventActionMemoryWarning label:GetMemUsage() value:@(0)];
+}
+
 - (NSString *)getScreenNameFromObject:(id)object {
 
     if ([object isKindOfClass:[UIViewController class]]) {
@@ -142,5 +152,7 @@
     }
     return nil;
 }
+
+
 
 @end

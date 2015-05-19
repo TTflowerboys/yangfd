@@ -14,8 +14,11 @@
 #define kEventActionPress @"press"
 #define kEventActionRequestReturn @"request-return"
 #define kEventActionStay @"stay"
+#define kEventActionMemoryWarning @"memory-warning"
 
 #pragma -mark Specific
+
+#define KEventCategorySystem @"system"
 
 #define KEventCategoryPostRentTicket @"post-rent-ticket"
 
