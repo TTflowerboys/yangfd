@@ -297,10 +297,15 @@ def postcode_search(params):
         params["accuracy"] = {"$in": [3, 4]}
         params.pop("postcode_area")
 
+        postcode_areas = set()
+        for result in f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1)):
+            postcode_areas.add(result["postcode"])
+
+        return list(postcode_areas)
+
     else:
         assert "postcode" in params or "postcode_index" in params, abort(40000, "either postcode or postcode_index must present")
-
-    return f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
+        return f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
 
 
 @f_api('/doogal/districts_and_wards')
