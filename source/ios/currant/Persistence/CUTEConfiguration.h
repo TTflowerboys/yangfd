@@ -16,6 +16,8 @@
 
 + (NSString *)yangfdScheme;
 
++ (NSString *)ukServicePhone;
+
 + (NSString *)servicePhone;
 
 + (NSString *)apiEndpoint;

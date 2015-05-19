@@ -16,6 +16,7 @@
 #import "CUTEWxManager.h"
 #import <RegExCategories.h>
 #import "CUTETracker.h"
+#import "UIAlertView+Blocks.h"
 
 @implementation CUTEWebConfiguration
 
@@ -121,7 +122,16 @@
         NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",[CUTEConfiguration servicePhone]]];
 
         if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
-            [[UIApplication sharedApplication] openURL:phoneUrl];
+
+            [UIAlertView showWithTitle:STR(@"联系洋房东") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"英国 02030402258"), STR(@"中国 4000926433")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString  stringWithFormat:@"tel:%@",[CUTEConfiguration ukServicePhone]]]];
+                }
+                else if (buttonIndex == 2) {
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString  stringWithFormat:@"tel:%@",[CUTEConfiguration servicePhone]]]];
+                }
+            }];
+
         } else
         {
             UIAlertView *calert = [[UIAlertView alloc]initWithTitle:STR(@"电话不可用") message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil, nil];

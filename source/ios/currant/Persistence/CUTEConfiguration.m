@@ -27,6 +27,9 @@ static NSString *host = nil;
     return @"yangfd";
 }
 
++ (NSString *)ukServicePhone {
+    return @"02030402258";
+}
 
 + (NSString *)servicePhone {
     return @"4000926433";
