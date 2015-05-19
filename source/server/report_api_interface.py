@@ -254,13 +254,7 @@ def geonames_search(params):
 
     Example usage:
 
-    1. Get all ADM1 for GB: country=GB&feature_code=ADM1
-
-    2. Get all ADM2 in England (ADM1 of GB): country=GB&admin1=ENG&feature_code=ADM2
-
-    3. Get all ADM3 in Greator London (ADM2 of England): country=GB&admin1=ENG&admin2=GLA&feature_code=ADM3
-
-    4. Get all PPLX in Barnet (ADM3 of Greator London): country=GB&admin1=ENG&admin2=GLA&admin3=A2&feature_code=PPLX
+    1. Get all city for GB: country=GB&feature_code=city
     """
     if "geoip" in params and params["geoip"]:
         # TODO: City?
@@ -287,6 +281,7 @@ def geonames_search(params):
     country=str,
     postcode=str,
     postcode_index=str,
+    postcode_area=bool,
 ))
 def postcode_search(params):
     """
@@ -295,7 +290,13 @@ def postcode_search(params):
     ``postcode_index`` is the stripped ``postcode`` that spaces were removed, e.g. "E149AQ".
 
     Either ``postcode`` or ``postcode_index`` must present.
+
+    To get all postcode area in GB: country=GB&postcode_area=1
     """
+    if "postcode_area" in params and params["postcode_area"]:
+        params["accuracy"] = {"$in": [3, 4]}
+        params.pop("postcode_area")
+
     assert "postcode" in params or "postcode_index" in params, abort(40000, "either postcode or postcode_index must present")
     return f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
 
