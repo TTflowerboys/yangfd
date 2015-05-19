@@ -150,12 +150,13 @@
 - (void)updateBackButton {
     BOOL show = [self webViewCanGoBack] || [self viewControllerCanGoBack];
     if  (show) {
-        if (!self.navigationItem.leftBarButtonItem) {
-            self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(goBack)];
-        }
+        self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(goBack)];
     }
     else {
         [self clearBackButton];
+        BBTWebBarButtonItem *leftBarButtonItem = [[CUTEWebConfiguration sharedInstance] getLeftBarItemFromURL:self.url];
+        leftBarButtonItem.webView = _webView;
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     }
 }
 
