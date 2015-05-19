@@ -294,6 +294,7 @@ def postcode_search(params):
     For other uses, either ``postcode`` or ``postcode_index`` must present.
     """
     if "postcode_area" in params and params["postcode_area"]:
+        assert "country" in params, abort(40000, "country must present to query postcode area")
         return f_app.geonames.postcode.get_postcode_areas(params["country"])
 
     else:
