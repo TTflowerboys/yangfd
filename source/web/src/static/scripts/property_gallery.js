@@ -89,35 +89,37 @@
     //点击相册查看大图的功能
     (function () {
         var timer
-        $('.rslides .fancybox').fancybox({
-            openEffect	: 'elastic',
-            closeEffect	: 'elastic',
-            type: 'image',
-            groupAttr: 'rel',
-            autoSize: false,
-            helpers	: {
-                overlay: {
-                    locked: false
+        if($('.rslides .fancybox').length > 0) {
+            $('.rslides .fancybox').fancybox({
+                openEffect	: 'elastic',
+                closeEffect	: 'elastic',
+                type: 'image',
+                groupAttr: 'rel',
+                autoSize: false,
+                helpers	: {
+                    overlay: {
+                        locked: false
+                    },
+                    title	: {
+                        type: 'outside'
+                    },
+                    thumbs	: {
+                        width	: 50,
+                        height	: 50
+                    }
                 },
-                title	: {
-                    type: 'outside'
+                beforeShow: function () {
+                    clearInterval(timer)
+                    timer = setInterval(function () { //周期性的触发mouseenter事件，以阻止slide（只能通过这样的方式）
+                        $('a.rslides_nav.rslides1_nav.next').trigger('mouseenter')
+                    },500)
                 },
-                thumbs	: {
-                    width	: 50,
-                    height	: 50
+                afterClose: function () {
+                    clearInterval(timer)
+                    $('a.rslides_nav.rslides1_nav.next').trigger('mouseleave')
                 }
-            },
-            beforeShow: function () {
-                clearInterval(timer)
-                timer = setInterval(function () { //周期性的触发mouseenter事件，以阻止slide（只能通过这样的方式）
-                    $('a.rslides_nav.rslides1_nav.next').trigger('mouseenter')
-                },500)
-            },
-            afterClose: function () {
-                clearInterval(timer)
-                $('a.rslides_nav.rslides1_nav.next').trigger('mouseleave')
-            }
-        })
+            })
+        }
     })()
     /*$('.rslides .img').bind('click', function(){
         //var url = $(this).data('url')
