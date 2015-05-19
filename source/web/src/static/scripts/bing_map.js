@@ -237,7 +237,17 @@
         //trafficManager.show()
         // }});
 
-        findNearByLocations(map, mapId, location, country, ['4013', '4170','4482', '4493', '4580', '4581', '9511', '9520', '9707', '9708', '9989'], function (searchResults) {
+        /*
+        * POI Entity Types
+        * 4013 - Train Station
+        * 4170 - Bus Station
+        * 4100 - Commuter Rail Station
+        * 4482 - Ferry Terminal
+        * 4580 - Public Sports Airport
+        * 4581 - Airport
+        * 4493 - Marina
+        * */
+        findNearByLocations(map, mapId, location, country, ['4013', '4100', '4170', '4482', '4493', '4580', '4581', '9511', '9520', '9707', '9708', '9989'], function (searchResults) {
             if (searchResults&&searchResults.length > 0) {
                 updateMapResults(map, mapId, $list, searchResults)
                 $list.ioslist()
