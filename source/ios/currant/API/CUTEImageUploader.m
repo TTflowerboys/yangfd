@@ -204,9 +204,13 @@
         BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
             [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:url resultBlock:^(ALAsset *asset) {
-                [tcs setResult:asset];
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    [tcs setResult:asset];
+                });
             } failureBlock:^(NSError *error) {
-                [tcs setError:error];
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    [tcs setError:error];
+                });
             }];
         });
         return tcs.task;
