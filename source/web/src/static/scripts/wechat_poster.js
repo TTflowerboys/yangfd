@@ -1,4 +1,6 @@
 (function($, Swiper){
+
+
     var mySwiper,
         photoSwiper,
         photoThumbsSwiper
@@ -27,6 +29,17 @@
                 allInitHanddler()
             }
         },
+        onSlideChangeStart: function(swiper){
+
+            // Record which pages user visits
+            // TODO: need to record every step
+            /*
+            var index = parseInt(swiper.activeIndex)
+            if(!isInPreview()){
+                ga('send', 'pageview', '/wechat-poster/' + getCurrentRentId() + '/'+ (index+1))
+                ga('send', 'event', 'wechat_poster', 'time-consuming', 'page'+index, (new Date() - window.viewStartTime)/1000)
+            }*/
+        },
         onTransitionEnd: function (swiper, direction) {
             //console.log(new Date + ': onSlideChangeEnd!')
             var index = swiper.activeIndex
@@ -37,6 +50,8 @@
             if(index < 6 && parent && parent.previewMoveTo){ //如果在发布预览页的iframe中展示，那么调用父窗口的方法改变父窗口对应的说明文字状态
                 parent.previewMoveTo(index)
             }
+
+
         }
     });
     window.wechatSwiperMoveTo = function(num, speed, callback) {
@@ -96,6 +111,8 @@
                 $('body').removeClass('loading')
                 $('.swiper-slide').eq(0).find('.animate').removeClass('hide').addClass('animation')
             })
+
+            ga('send', 'event', 'wechat_poster', 'time-consuming', 'load-time', (new Date() - window.viewStartTime)/1000)
         }
     })
     $(window).load(function(){
@@ -110,6 +127,12 @@
             modal.find('.animate').removeClass('hide').addClass('animation')
             modal.removeClass('hide').addClass('animation')
 
+            //Record when user view more
+            if(triggerId === 'viewMoreBtn'){
+                ga('send', 'event', 'wechat_poster', 'click', 'view-description')
+            }else if(triggerId === 'morefacilitiesBtn'){
+                ga('send', 'event', 'wechat_poster', 'click', 'view-facilities')
+            }
         })
         $('.btnCloseModal').on('click', function(){
             var modal = $(this).parents('.modal')
@@ -151,6 +174,15 @@
             }
         })
     }
+    // Get current rent ticket id
+    /*function getCurrentRentId(){
+        var urlpaths = window.location.pathname.split('/')
+        if(urlpaths.length>0){
+            return urlpaths[urlpaths.length-1]
+        }else{
+            return null
+        }
+    }*/
     // 横屏监听
     function UpdateOrientation(){
         this.notShow = false

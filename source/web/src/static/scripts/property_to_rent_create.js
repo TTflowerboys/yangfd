@@ -11,7 +11,7 @@
     var $requestSMSCodeBtn = $('#requestSMSCodeBtn')
     window.propertyId = $('#submit').data('propertyid') || 'none'
     window.ticketId = $('#publish').data('ticketid') || location.hash.split('#/publish/')[1]
-    var creatStartTime = new Date()
+    var createStartTime = new Date()
     var smsSendTime
 
     //选择房产类型
@@ -592,7 +592,7 @@
                         $btn.prop('disabled', false).text(window.i18n('预览并发布'))
 
                         //
-                        ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'first-step', (new Date() - creatStartTime)/1000)
+                        ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'first-step', (new Date() - createStartTime)/1000)
                     })
                     .fail(function (ret) {
                         $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
@@ -708,7 +708,7 @@
                     location.href = '/property-to-rent/' + window.ticketId + '/publish-success'
 
                     ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'sms-receive', (new Date() - smsSendTime)/1000)
-                    ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'finish-publish', (new Date() - creatStartTime)/1000)
+                    ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'finish-publish', (new Date() - createStartTime)/1000)
                 })
                 .fail(function (ret) {
                     $errorMsg2.empty()
