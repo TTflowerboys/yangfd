@@ -89,13 +89,22 @@
     //点击相册查看大图的功能
     (function () {
         var timer
+        var winWidth = $(window).width()
+        var fitToView = true
+        if(winWidth < 759) {
+            fitToView = false
+        }
+        var maxWidth = winWidth * 1.5
         if($('.rslides .fancybox').length > 0) {
             $('.rslides .fancybox').fancybox({
                 openEffect	: 'elastic',
                 closeEffect	: 'elastic',
                 type: 'image',
                 groupAttr: 'rel',
+                fitToView: fitToView,
                 autoSize: false,
+                aspectRatio: true,
+                maxWidth: maxWidth,
                 helpers	: {
                     overlay: {
                         locked: false
