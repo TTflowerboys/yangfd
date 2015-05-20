@@ -185,7 +185,10 @@
     }
     else if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusNotDetermined) {
         [[self assetsPickerController].assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            [tcs setResult:@(ALAuthorizationStatusAuthorized)];
+            //enumerate will call multiple times
+            if (!tcs.task.isCompleted) {
+                [tcs setResult:@(ALAuthorizationStatusAuthorized)];
+            }
         } failureBlock:^(NSError *error) {
             if (error.code == ALAssetsLibraryAccessUserDeniedError) {
                 [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
