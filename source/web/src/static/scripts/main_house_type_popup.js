@@ -8,6 +8,7 @@
 
         if(houseTypes.length > 0){
             for(var i = 0;i<houseTypes.length;i++){
+                console.log(houseTypes[i])
                 var houseTypeTpl = _.template($('#main_house_type_popup_template').html())({houseType: houseTypes[i],index:i})
                 $('#main_house_type_popup').append(houseTypeTpl)
 
