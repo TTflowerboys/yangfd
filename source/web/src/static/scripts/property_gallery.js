@@ -87,8 +87,40 @@
     });
 
     //点击相册查看大图的功能
-    (function () {
-        var total = $('.rslides').find('li[href]').length, //需要加载图片总数
+    $('.rslides').each(function (index, elem) {
+        function initPhotoSwipe() {
+            $(elem).attr('data-pswp-uid', index)
+                .delegate('li', 'click', function(e){
+                    var $gallery = $(this).parent('.rslides')
+                    openPhotoSwipe($(this).index(), $gallery)
+                })
+
+            function parseThumbnailElements (elem) {
+                return _.map($.makeArray(elem.find('li')), function(el, i) {
+                    var src = $(el).attr('href')
+                    var item = {
+                        src: src,
+                        el: el,
+                        w: $(el).attr('data-width'),
+                        h: $(el).attr('data-height')
+                    }
+                    return item
+                })
+            }
+            function openPhotoSwipe (index, galleryElement) {
+                var pswpElement = $('.pswp')[0],
+                    gallery,
+                    options,
+                    items = parseThumbnailElements(galleryElement)
+                options = {
+                    index: index,
+                    galleryUID: galleryElement.attr('data-pswp-uid'),
+                }
+                gallery = new window.PhotoSwipe(pswpElement, window.PhotoSwipeUI_Default, items, options)
+                gallery.init();
+            }
+        }
+        var total = $(elem).find('li[href]').length, //需要加载图片总数
             current,
             timer
         function checkImageLoaded(src) {
@@ -107,7 +139,7 @@
         }
         function checkAllNeadImageLoaded (){
             current = 0
-            $('.rslides').find('li[href]').each(function (index, elem) {
+            $(elem).find('li[href]').each(function (index, elem) {
                 if($(elem).attr('data-width')) {
                     current++
                 } else if(checkImageLoaded($(elem).attr('href'))) {
@@ -130,41 +162,7 @@
                 }, 500)
             }
         }
-        function initPhotoSwipe() {
-            $('.rslides').each(function (index, elem) {
-                $(elem).attr('data-pswp-uid', index)
-                    .delegate('li', 'click', function(e){
-                        var $gallery = $(this).parent('.rslides')
-                        openPhotoSwipe($(this).index(), $gallery)
-                    })
 
-                function parseThumbnailElements (elem) {
-                    return _.map($.makeArray(elem.find('li')), function(el, i) {
-                        var src = $(el).attr('href')
-                        var item = {
-                            src: src,
-                            el: el,
-                            w: $(el).attr('data-width'),
-                            h: $(el).attr('data-height')
-                        }
-                        return item
-                    })
-                }
-                function openPhotoSwipe (index, galleryElement) {
-                    var pswpElement = $('.pswp')[0],
-                        gallery,
-                        options,
-                        items = parseThumbnailElements(galleryElement)
-                    options = {
-                        index: index,
-                        galleryUID: galleryElement.attr('data-pswp-uid'),
-                    }
-                    gallery = new window.PhotoSwipe(pswpElement, window.PhotoSwipeUI_Default, items, options)
-                    gallery.init();
-                }
-            })
-        }
         initPhotoSwipeWhenReady()
-    })()
-
+    })
 })()
