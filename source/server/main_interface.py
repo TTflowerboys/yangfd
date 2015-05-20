@@ -14,6 +14,7 @@ from app import f_app
 from libfelix.f_interface import f_get, f_post, static_file, template, request, response, redirect, html_redirect, error, abort, template_gettext as _
 import currant_util
 import currant_data_helper
+from urllib import quote
 
 logger = logging.getLogger(__name__)
 f_app.dependency_register("qrcode", race="python")
@@ -162,10 +163,10 @@ def admin():
     return template("admin")
 
 
-@f_get('/401')
 @error(401)
-def error_401(error=None):
-    return html_redirect('/signin?error_code=40100')
+@f_app.user.login.check()
+def error401_redirect(error, user):
+    return html_redirect("/signin?error_code=40100&from=" + quote(request.url))
 
 
 @f_get('/403')

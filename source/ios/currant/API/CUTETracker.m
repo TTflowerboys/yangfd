@@ -110,7 +110,9 @@
 }
 
 - (void)trackMemoryWarning {
-    [self trackEventWithCategory:KEventCategorySystem action:kEventActionMemoryWarning label:GetMemUsage() value:@(0)];
+    long usedMemory = 0;
+    NSString *label = GetMemUsage(&usedMemory);
+    [self trackEventWithCategory:KEventCategorySystem action:kEventActionMemoryWarning label:label value:@(usedMemory)];
 }
 
 - (NSString *)getScreenNameFromObject:(id)object {

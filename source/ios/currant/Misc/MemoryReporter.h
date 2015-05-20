@@ -10,6 +10,6 @@
 #define currant_MemoryReporter_h
 #import <Foundation/Foundation.h>
 
-NSString* GetMemUsage(void);
+NSString* GetMemUsage(long *usedMemory);
 
 #endif
