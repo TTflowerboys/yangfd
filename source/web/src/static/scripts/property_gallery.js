@@ -89,6 +89,7 @@
     //点击相册查看大图的功能
     $('.rslides').each(function (index, elem) {
         function initPhotoSwipe() {
+            $(elem).find('li').css('cursor', 'zoom-in')
             $(elem).attr('data-pswp-uid', index)
                 .delegate('li', 'click', function(e){
                     var $gallery = $(this).parent('.rslides')
