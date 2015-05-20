@@ -34,17 +34,16 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Crittercism.h>
-#import "CUTESplashViewController.h"
-#import "CUTEUserDefaultKey.h"
-#import "MemoryReporter.h"
-
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
 #import <FLEXManager.h>
+#endif
+#import "CUTESplashViewController.h"
+#import "CUTEUserDefaultKey.h"
+#import "MemoryReporter.h"
 #import "UITabBarController+HideTabBar.h"
 
-#endif
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
