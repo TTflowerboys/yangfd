@@ -313,7 +313,7 @@
             geonamesApi.getCityByLocation(val.country, val.loc[1], val.loc[0], function (val) {
                 $('#city-select').html(
                     _.reduce(val, function(pre, val, key) {
-                        return pre + '<option value="' + val.id + '"' + (key === 0 ? 'selected' : '') + '>' + val.name + (country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
+                        return pre + '<option value="' + val.id + '"' + (key === 0 ? 'selected' : '') + '>' + val.name + (val.country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                     }, '<option value="">' + i18n('请选择城市') + '</option>')
                 ).trigger('chosen:updated').trigger('change')
             })
