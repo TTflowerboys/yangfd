@@ -137,7 +137,7 @@
             img = null;
             return false
         }
-        function checkAllNeadImageLoaded (){
+        function checkAllNeedImageLoaded (){
             current = 0
             $(elem).find('li[href]').each(function (index, elem) {
                 if($(elem).attr('data-width')) {
@@ -153,7 +153,7 @@
             return current === total
         }
         function initPhotoSwipeWhenReady() {
-            if(checkAllNeadImageLoaded()) {
+            if(checkAllNeedImageLoaded()) {
                 clearTimeout(timer)
                 initPhotoSwipe()
             } else {
