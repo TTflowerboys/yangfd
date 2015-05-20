@@ -234,6 +234,11 @@
 		2CA81F711B0B5621006E993C /* MemoryReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F6E1B0B5621006E993C /* MemoryReporter.m */; };
 		2CA81F721B0B5621006E993C /* MemoryReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F6E1B0B5621006E993C /* MemoryReporter.m */; };
 		2CA81F731B0B5621006E993C /* MemoryReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F6E1B0B5621006E993C /* MemoryReporter.m */; };
+		2CA81F771B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F761B0C73EB006E993C /* UITabBarController+HideTabBar.m */; };
+		2CA81F781B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F761B0C73EB006E993C /* UITabBarController+HideTabBar.m */; };
+		2CA81F791B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F761B0C73EB006E993C /* UITabBarController+HideTabBar.m */; };
+		2CA81F7A1B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F761B0C73EB006E993C /* UITabBarController+HideTabBar.m */; };
+		2CA81F7B1B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F761B0C73EB006E993C /* UITabBarController+HideTabBar.m */; };
 		2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -615,6 +620,8 @@
 		2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEImageUploader.m; sourceTree = "<group>"; };
 		2CA81F6E1B0B5621006E993C /* MemoryReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryReporter.m; sourceTree = "<group>"; };
 		2CA81F741B0B563B006E993C /* MemoryReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryReporter.h; sourceTree = "<group>"; };
+		2CA81F751B0C73EB006E993C /* UITabBarController+HideTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+HideTabBar.h"; sourceTree = "<group>"; };
+		2CA81F761B0C73EB006E993C /* UITabBarController+HideTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+HideTabBar.m"; sourceTree = "<group>"; };
 		2CA94AAE1ACA42CD00DF7497 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-dev-Info.plist"; sourceTree = "<group>"; };
 		2CAA851E1AEA65CC00432BF1 /* NSString+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoding.h"; sourceTree = "<group>"; };
@@ -830,6 +837,8 @@
 				2C07AB891AE8FF6600907075 /* UIView+Border.m */,
 				2C9AFF7C1AF2355500E5F0BC /* BBTWebBarButtonItem.h */,
 				2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */,
+				2CA81F751B0C73EB006E993C /* UITabBarController+HideTabBar.h */,
+				2CA81F761B0C73EB006E993C /* UITabBarController+HideTabBar.m */,
 			);
 			path = Library3rd;
 			sourceTree = "<group>";
@@ -1721,6 +1730,7 @@
 				2CA2E6B41AC5487800053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64C1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6511AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
+				2CA81F791B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2BA1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07E1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
 				2CB66C201AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
@@ -1820,6 +1830,7 @@
 				2CA2E6CD1AC5496700053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64D1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6521AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
+				2CA81F7A1B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2BB1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07F1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
 				2CB66C211AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
@@ -1919,6 +1930,7 @@
 				2CA94A9E1ACA42CD00DF7497 /* CUTEConfiguration.m in Sources */,
 				2CF8A64B1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6501AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
+				2CA81F781B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2B91ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07D1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
 				2CB66C1F1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
@@ -2018,6 +2030,7 @@
 				2CDBB2FD1AC1472E0024E225 /* CUTEConfiguration.m in Sources */,
 				2CF8A64A1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A64F1AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
+				2CA81F771B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2B81ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07C1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
 				2CB66C1E1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
@@ -2054,6 +2067,7 @@
 				2CC6C1DA1AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CF8A64E1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6301AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
+				2CA81F7B1B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C427E5F1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2CB66C221AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2CA5F7741AE10382001132E0 /* CUTEImageUploader.m in Sources */,

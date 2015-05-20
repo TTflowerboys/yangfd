@@ -82,6 +82,16 @@
     [self updateTitleWithURL:url];
 }
 
+- (void)loadURLInNewController:(NSURL *)url {
+    TrackEvent(GetScreenName(self.url), kEventActionPress, GetScreenName(url), nil);
+    CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
+    newWebViewController.url = url;
+    [newWebViewController loadURL:newWebViewController.url];
+    newWebViewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:newWebViewController animated:YES];
+}
+
+
 - (void)updateWithURL:(NSURL *)url {
     [self updateWebView];
     [self loadURL:url];
@@ -193,13 +203,7 @@
     NSURL *url = [request URL];
     if ([url.scheme isEqualToString:[CUTEConfiguration yangfdScheme]]) {
         if ([url.host isEqualToString:@"openURLInNewController"]) {
-            TrackEvent(GetScreenName(self.url), kEventActionPress, GetScreenName(url), nil);
-            
-            CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
-            newWebViewController.url = [NSURL URLWithString:url.path relativeToURL:[CUTEConfiguration hostURL]];
-            [newWebViewController loadURL:newWebViewController.url];
-            newWebViewController.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:newWebViewController animated:YES];
+            [self loadURLInNewController:[NSURL URLWithString:url.path relativeToURL:[CUTEConfiguration hostURL]]];
             return NO;
         }
     }

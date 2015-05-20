@@ -17,6 +17,9 @@
 #import "CUTEConfiguration.h"
 #import "NSURL+CUTE.h"
 #import "CUTECommonMacro.h"
+#import "CUTETracker.h"
+#import "MasonryMake.h"
+#import "CUTENotificationKey.h"
 
 @interface CUTEPropertyListViewController () <MKMapViewDelegate, SMCalloutViewDelegate>
 {
@@ -32,51 +35,115 @@
 
 @implementation CUTEPropertyListViewController
 
-- (void)loadURL:(NSURL *)url {
-    [super loadURL:url];
 
-    if (!_mapButton) {
-        _mapButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_mapButton setImage:IMAGE(@"button-selector-map") forState:UIControlStateNormal];
-        _mapButton.frame = CGRectMake(ScreenWidth - 50, ScreenHeight - 50 - 50, 40, 40);
-        _mapButton.attachment = @"ShowMap";
-        [_mapButton addTarget:self action:@selector(onMapButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_mapButton];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    //TODO check process of view
+    //back from other controller, need update the constraints
+    [self updateCustomViewConstraints];
+}
+
+- (void)updateCustomViewConstraints {
+
+    if ([_mapButton.attachment isEqualToString:@"ShowList"]) {
+
+        if ([self.view isDescendantOfView:self.navigationController.view]) {
+            UpdateBegin(self.view)
+            MakeEdgesEqualTo(self.navigationController.view);
+            UpdateEnd
+        }
+
+        if ([_mapView isDescendantOfView:self.view]) {
+            UpdateBegin(_mapView)
+            MakeEdgesEqualTo(self.view);
+            UpdateEnd
+        }
+
+
+        UpdateBegin(_mapButton)
+        MakeRighEqualTo(self.view.right).offset(-12);
+        MakeBottomEqualTo(self.view.bottom).offset(-40 - TabBarHeight);
+        UpdateEnd
+
     }
-    [self.view bringSubviewToFront:_mapButton];
+    else {
+
+        if ([self.view isDescendantOfView:self.navigationController.view]) {
+            UpdateBegin(self.view)
+            MakeTopEqualTo(self.navigationController.view.top).offset(TouchHeightDefault + StatusBarHeight);
+            MakeLeftEqualTo(self.navigationController.view.left);
+            MakeRighEqualTo(self.navigationController.view.right);
+            MakeBottomEqualTo(self.navigationController.view.bottom).offset(- TabBarHeight);
+            UpdateEnd
+        }
+
+        if ([self.webView isDescendantOfView:self.view]) {
+            UpdateBegin(self.webView)
+            MakeEdgesEqualTo(self.view);
+            UpdateEnd
+        }
+
+        UpdateBegin(_mapButton)
+        MakeRighEqualTo(self.view.right).offset(-12);
+        MakeBottomEqualTo(self.view.bottom).offset(-40);
+        UpdateEnd
+
+
+    }
 }
 
 - (void)flipMapViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion  {
-    CGFloat duration = animated? 0.2: 0;
+    CGFloat duration = animated? 0.3: 0;
     if ([_mapButton.attachment isEqualToString:@"ShowMap"]) {
         if (!_mapView) {
-            _mapView = [[CUTEMapView alloc] initWithFrame:TabBarControllerViewFrame];
+            _mapView = [[CUTEMapView alloc] initWithFrame:self.view.bounds];
             _mapView.delegate = self;
+
             SMCalloutView *calloutView = [[SMCalloutView alloc] init];
             calloutView.delegate = self;
             _mapView.calloutView = calloutView;
         }
-        [UIView transitionFromView:self.webView toView:_mapView duration:duration options:UIViewAnimationOptionTransitionFlipFromRight
+        [[self navigationController] setNavigationBarHidden:YES animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_HIDE_ROOT_TAB_BAR object:nil];
+
+        [UIView transitionWithView:self.view
+                          duration:duration
+                           options:UIViewAnimationOptionTransitionFlipFromRight
+                        animations:^{
+                            [self.webView removeFromSuperview];
+                            [self.view addSubview:_mapView];
+                        }
                         completion:^(BOOL finished) {
-                            self.webView.hidden = YES;
-                            _mapView.hidden = NO;
+
                             [self clearBackButton];
                             [_mapButton setImage:IMAGE(@"button-selector-list") forState:UIControlStateNormal];
                             _mapButton.attachment = @"ShowList";
+                            [self updateCustomViewConstraints];
                             [self loadMapData];
                             if (completion) {
                                 completion(finished);
                             }
+
                         }];
+
     }
     else {
-        [UIView transitionFromView:_mapView toView:self.webView duration:duration options:UIViewAnimationOptionTransitionFlipFromLeft
+        [[self navigationController] setNavigationBarHidden:NO animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_SHOW_ROOT_TAB_BAR object:nil];
+
+        [UIView transitionWithView:self.view
+                          duration:duration
+                           options:UIViewAnimationOptionTransitionFlipFromLeft
+                        animations:^{
+                            [_mapView removeFromSuperview];
+                            [self.view addSubview:self.webView];
+                        }
                         completion:^(BOOL finished) {
-                            self.webView.hidden = NO;
-                            _mapView.hidden = YES;
                             [self updateBackButton];
                             [_mapButton setImage:IMAGE(@"button-selector-map") forState:UIControlStateNormal];
                             _mapButton.attachment = @"ShowMap";
+                            [self updateCustomViewConstraints];
                             if (completion) {
                                 completion(finished);
                             }
@@ -112,7 +179,21 @@
 }
 
 - (void)updateMapButtonWithURL:(NSURL *)url {
-    if ([_mapButton.attachment isEqualToString:@"ShowMap"] && [url.path hasPrefix:self.url.path]) {
+    if ([url.path hasPrefix:self.url.path]) {
+
+        if (!_mapButton) {
+            _mapButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [_mapButton setImage:IMAGE(@"button-selector-map") forState:UIControlStateNormal];
+            _mapButton.attachment = @"ShowMap";
+            [_mapButton addTarget:self action:@selector(onMapButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:_mapButton];
+            MakeBegin(_mapButton)
+            MakeRighEqualTo(self.view.right).offset(-12);
+            MakeBottomEqualTo(self.view.bottom).offset(-40);
+            MakeEnd
+        }
+
+        [self.view bringSubviewToFront:_mapButton];
         [_mapButton setHidden:NO];
     }
     else {
@@ -162,8 +243,13 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    [self updateMapButtonWithURL:request.URL];
+    [self updateMapButtonWithURL:webView.request.URL];
     return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [super webViewDidFinishLoad:webView];
+    [self updateMapButtonWithURL:webView.request.URL];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
@@ -205,10 +291,9 @@
 }
 
 - (void)calloutViewClicked:(SMCalloutView *)calloutView {
-    [self flipMapViewAnimated:YES completion:^(BOOL finished) {
-        NSDictionary *property = calloutView.attachment;
-        [self loadURL:[NSURL WebURLWithString:CONCAT(@"/property/", property[@"id"])]];
-    }];
+    NSDictionary *property = calloutView.attachment;
+    NSURL *url = [NSURL WebURLWithString:CONCAT(@"/property/", property[@"id"])];
+    [self loadURLInNewController:url];
 }
 
 @end

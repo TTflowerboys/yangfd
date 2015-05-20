@@ -15,6 +15,8 @@
 
 - (void)loadURL:(NSURL *)url;
 
+- (void)loadURLInNewController:(NSURL*)url;
+
 - (void)updateWithURL:(NSURL *)url;
 
 - (void)updateTitleWithURL:(NSURL *)url;
