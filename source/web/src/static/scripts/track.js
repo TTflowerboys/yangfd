@@ -15,7 +15,6 @@
     m.parentNode.insertBefore(a, m)
 })(window, document, 'script', 'http://www.google-analytics.com/analytics.js', 'ga');
 if(document.domain==='currant-dev.bbtechgroup.com'||document.domain==='localhost'||document.domain==='0.0.0.0'){
-    console.log(document.domain)
     ga('create', 'UA-58294435-1', 'auto');
     //Enable Google User-ID feature if is existing user
     if (window.user) {

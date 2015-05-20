@@ -64,50 +64,53 @@
                 <div class="space">
                     <span class="name">{=window.i18n('面积')=}</span>
                     <span class="value">
-                        {_if(houseType.building_area_min && houseType.building_area_max && houseType.building_area_min.value === houseType.building_area_max.value) {_}
-                            {_if(houseType.building_area_min) {_}
-                            {= parseFloat(houseType.building_area_min.value).toFixed(2)=}
-                            {_if (houseType.building_area_min.unit === 'foot ** 2'){_}
-                            foot <sup>2</sup>
-                            {_} else if(houseType.building_area_min.unit === 'acre'){_}
-                            acre
-                            {_} else if (houseType.building_area_min.unit === 'meter ** 2') {_}
-                            m <sup>2</sup>
-                            {_} else if (houseType.building_area_min.unit === 'kilometer ** 2') {_}
-                            km <sup>2</sup>
+
+                        {_if(houseType.building_area_min && houseType.building_area_max) {_}
+                            {_if(houseType.building_area_min.value === houseType.building_area_max.value) {_}
+                                {_if(houseType.building_area_min) {_}
+                                {= parseFloat(houseType.building_area_min.value).toFixed(2)=}
+                                {_if (houseType.building_area_min.unit === 'foot ** 2'){_}
+                                foot <sup>2</sup>
+                                {_} else if(houseType.building_area_min.unit === 'acre'){_}
+                                acre
+                                {_} else if (houseType.building_area_min.unit === 'meter ** 2') {_}
+                                m <sup>2</sup>
+                                {_} else if (houseType.building_area_min.unit === 'kilometer ** 2') {_}
+                                km <sup>2</sup>
+                                {_} else {_}
+                                {=houseType.building_area_min.unit=}
+                                {_}_}
+                                {_}_}
                             {_} else {_}
-                            {=houseType.building_area_min.unit=}
-                            {_}_}
-                            {_}_}
-                        {_} else {_}
-                            {_if(houseType.building_area_min) {_}
-                            {= parseFloat(houseType.building_area_min.value).toFixed(2)=}
-                            {_if (houseType.building_area_min.unit === 'foot ** 2'){_}
-                            foot <sup>2</sup>
-                            {_} else if(houseType.building_area_min.unit === 'acre'){_}
-                            acre
-                            {_} else if (houseType.building_area_min.unit === 'meter ** 2') {_}
-                            m <sup>2</sup>
-                            {_} else if (houseType.building_area_min.unit === 'kilometer ** 2') {_}
-                            km <sup>2</sup>
-                            {_} else {_}
-                            {=houseType.building_area_min.unit=}
-                            {_}_}
-                            {_}_}
-                            <span>~</span>
-                            {_if(houseType.building_area_max) {_}
-                            {= parseFloat(houseType.building_area_max.value).toFixed(2)=}
-                            {_if (houseType.building_area_max.unit === 'foot ** 2'){_}
-                            foot <sup>2</sup>
-                            {_} else if(houseType.building_area_max.unit === 'acre'){_}
-                            acre
-                            {_} else if (houseType.building_area_max.unit === 'meter ** 2') {_}
-                            m <sup>2</sup>
-                            {_} else if (houseType.building_area_max.unit === 'kilometer ** 2') {_}
-                            km <sup>2</sup>
-                            {_} else {_}
-                            {=houseType.building_area_max.unit=}
-                            {_}_}
+                                {_if(houseType.building_area_min) {_}
+                                {= parseFloat(houseType.building_area_min.value).toFixed(2)=}
+                                {_if (houseType.building_area_min.unit === 'foot ** 2'){_}
+                                foot <sup>2</sup>
+                                {_} else if(houseType.building_area_min.unit === 'acre'){_}
+                                acre
+                                {_} else if (houseType.building_area_min.unit === 'meter ** 2') {_}
+                                m <sup>2</sup>
+                                {_} else if (houseType.building_area_min.unit === 'kilometer ** 2') {_}
+                                km <sup>2</sup>
+                                {_} else {_}
+                                {=houseType.building_area_min.unit=}
+                                {_}_}
+                                {_}_}
+                                <span>~</span>
+                                {_if(houseType.building_area_max) {_}
+                                {= parseFloat(houseType.building_area_max.value).toFixed(2)=}
+                                {_if (houseType.building_area_max.unit === 'foot ** 2'){_}
+                                foot <sup>2</sup>
+                                {_} else if(houseType.building_area_max.unit === 'acre'){_}
+                                acre
+                                {_} else if (houseType.building_area_max.unit === 'meter ** 2') {_}
+                                m <sup>2</sup>
+                                {_} else if (houseType.building_area_max.unit === 'kilometer ** 2') {_}
+                                km <sup>2</sup>
+                                {_} else {_}
+                                {=houseType.building_area_max.unit=}
+                                {_}_}
+                                {_}_}
                             {_}_}
                         {_}_}
                     </span>
@@ -115,20 +118,24 @@
                 <div class="price">
                     <span class="name">{=window.i18n('参考售价')=}</span>
                     <span class="value">
-                        {_if(houseType.total_price_min && houseType.total_price_max && houseType.total_price_min.value === houseType.total_price_max.value) {_}
-                            {=houseType.total_price_min.unit_symbol=}
-                            {!team.formatCurrency(parseInt(houseType.total_price_min.value))!}
-                        {_} else {_}
-                            {=houseType.total_price_min.unit_symbol=}
-                            {!team.formatCurrency(parseInt(houseType.total_price_min.value))!}
-                            <span>~</span>
-                            {=houseType.total_price_max.unit_symbol=}
-                            {!team.formatCurrency(parseInt(houseType.total_price_max.value))!}</span>
+                        {_if(houseType.total_price_min && houseType.total_price_max) {_}
+                            {_if(houseType.total_price_min.value === houseType.total_price_max.value) {_}
+                                {=houseType.total_price_min.unit_symbol=}
+                                {!team.formatCurrency(parseInt(houseType.total_price_min.value))!}
+                            {_} else {_}
+                                {=houseType.total_price_min.unit_symbol=}
+                                {!team.formatCurrency(parseInt(houseType.total_price_min.value))!}
+                                <span>~</span>
+                                {=houseType.total_price_max.unit_symbol=}
+                                {!team.formatCurrency(parseInt(houseType.total_price_max.value))!}</span>
+                            {_}_}
                         {_}_}
                 </div>
                 <div class="housetype_description">
                     <span class="name">{=window.i18n('户型解析')=}</span>
-                    <span class="value">{=houseType.description=}</span>
+                    {_if(houseType.description) {_}
+                        <span class="value">{=houseType.description=}</span>
+                    {_}_}
                 </div>
             </div>
         </div>
