@@ -34,16 +34,16 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Crittercism.h>
-#import "CUTESplashViewController.h"
-#import "CUTEUserDefaultKey.h"
-#import "MemoryReporter.h"
-
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
 #import <FLEXManager.h>
-
 #endif
+#import "CUTESplashViewController.h"
+#import "CUTEUserDefaultKey.h"
+#import "MemoryReporter.h"
+#import "UITabBarController+HideTabBar.h"
+
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -143,6 +143,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketEdit:) name:KNOTIF_TICKET_EDIT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketWechatShare:) name:KNOTIF_TICKET_WECHAT_SHARE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketListReload:) name:KNOTIF_TICKET_LIST_RELOAD object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveHideRootTabBar:) name:KNOTIF_HIDE_ROOT_TAB_BAR object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowRootTabBar:) name:KNOTIF_SHOW_ROOT_TAB_BAR object:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
@@ -417,6 +419,14 @@
 
         }
     }
+}
+
+- (void)onReceiveHideRootTabBar:(NSNotification *)notif {
+    [self.tabBarController setTabBarHidden:YES animated:YES];
+}
+
+- (void)onReceiveShowRootTabBar:(NSNotification *)notif {
+    [self.tabBarController setTabBarHidden:NO animated:YES];
 }
 
 @end

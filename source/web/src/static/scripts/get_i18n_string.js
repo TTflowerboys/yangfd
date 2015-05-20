@@ -35,6 +35,7 @@ window.getErrorMessageFromErrorCode = function (errorCode, api) {
         40325: i18n('邮箱已被使用！'),
         40351: i18n('电话已被使用！请<a href="#" onclick="project.goToSignIn()">“登陆”</a>或者<a href="#" onclick="project.goToResetPassword()">“找回密码”</a>'),
         '40351/api/1/intention_ticket/add':i18n('电话已被使用！请<a href="#" onclick="project.showSignInModal()">“登陆”</a>'),
+        40352: i18n('请求太频繁，请稍后再试'),
         40357: i18n('验证失败。'),
         40399: i18n('权限错误。'),
         40400: i18n('对不起，没有找到您要的资源。'),
