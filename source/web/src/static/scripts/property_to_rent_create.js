@@ -303,6 +303,16 @@
         //var country = 'GB' //todo 暂时将API要传的country字段写死为英国
         var $btn = $(this)
         var postcodeIndex = $('#postcode').val().replace(/\s/g, '')
+        function clearLocationData () {
+            $('#city-select').find('option').eq(0).attr('selected',true)
+            $('#city-select').trigger('chosen:updated')
+            $('#city').val('')
+            $('#country-select').find('option').eq(0).attr('selected',true)
+            $('#country-select').trigger('chosen:updated')
+            $('#country').val('')
+            $('#latitude').val('')
+            $('#longitude').val('')
+        }
         function fillAdress(val) { //使用postcode查询得来得数据中得一条来填充表单项
             $('#country-select').val(val.country).trigger('chosen:updated')
             $('#country').val(val.country)
@@ -381,6 +391,7 @@
                 .done(function(val) {
                     switch(val.length) {
                         case 0: //postcode没有搜索到结果则需要用户手动选择国家城市
+                            clearLocationData()
                             $('#address').show()
                             break;
                         case 1: //搜索到一条结果则直接填充到对应到字段
