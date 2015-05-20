@@ -111,12 +111,12 @@
                 beforeShow: function () {
                     clearInterval(timer)
                     timer = setInterval(function () { //周期性的触发mouseenter事件，以阻止slide（只能通过这样的方式）
-                        $('a.rslides_nav.rslides1_nav.next').trigger('mouseenter')
+                        $('a.rslides_nav.next').trigger('mouseenter')
                     },500)
                 },
                 afterClose: function () {
                     clearInterval(timer)
-                    $('a.rslides_nav.rslides1_nav.next').trigger('mouseleave')
+                    $('a.rslides_nav.next').trigger('mouseleave')
                 }
             })
         }

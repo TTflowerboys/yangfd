@@ -51,8 +51,9 @@
     <!--build:css(dist) /static/vendors/video-js/video-js.css-->
     <link rel="stylesheet" href="/static/bower_components/video-js/dist/video-js/video-js.css">
     <!--endbuild-->
-
+    <link rel="stylesheet" href="/static/bower_components/fancyBox/source/jquery.fancybox.css"/>
     <!--build:css(dist) /static/styles/property.html.css-->
+    <link rel="stylesheet" href="/static/bower_components/fancyBox/source/helpers/jquery.fancybox-thumbs.css"/>
     <link rel="stylesheet" href="/static/bower_components/jquery.stickynavbar/animate.min.css"/>
     <link rel="stylesheet" href="/static/vendors/iOSList/jquery.ioslist.css"/>
     <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
@@ -146,7 +147,7 @@
                                 <div class="rslides_wrapper">
                                     <ul class="rslides" data-init="false">
                                         % for image in property.get(name):
-                                            <li>
+                                            <li rel="gallery-{{name}}" class="fancybox" href="{{!fetch_image(image, property_id=property.get('id'))}}">
                                                 <div class="img" data-style="background:url('<url>') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');" data-url="{{!fetch_image(image, property_id=property.get('id'))}}">
                                                 </div>
                                             </li>
@@ -1286,6 +1287,8 @@
 
     <script src="/static/bower_components/Chart.js/Chart.min.js"></script>
     <!--build:js /static/scripts/property.html.js-->
+    <script src="/static/bower_components/fancyBox/source/jquery.fancybox.js"></script>
+    <script src="/static/bower_components/fancyBox/source/helpers/jquery.fancybox-thumbs.js"></script>
     <script src="/static/bower_components/jquery.easing/js/jquery.easing.min.js"></script>
     <script src="/static/vendors/jquery.stickynavbar/jquery.stickyNavbar.modified.js"></script>
     <script src="/static/vendors/iOSList/jquery.ioslist.js"></script>
