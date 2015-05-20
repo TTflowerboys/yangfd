@@ -20,6 +20,12 @@
 #import "CUTETracker.h"
 #import "MasonryMake.h"
 #import "CUTENotificationKey.h"
+#import "CUTEAPIManager.h"
+#import "CUTEProperty.h"
+#import "SVProgressHUD+CUTEAPI.h"
+#import "NSObject+Attachment.h"
+#import "NSArray+ObjectiveSugar.h"
+#import "CUTEHouseType.h"
 
 @interface CUTEPropertyListViewController () <MKMapViewDelegate, SMCalloutViewDelegate>
 {
@@ -162,21 +168,41 @@
         [_mapView removeAnnotations:_mapView.annotations];
     }
 
-    NSString *rawPropertyList = [self.webView stringByEvaluatingJavaScriptFromString:@"JSON.stringify(propertyList)"];
-    NSArray *propertyList = [rawPropertyList JSONObject];
+    NSString *rawParams = [self.webView stringByEvaluatingJavaScriptFromString:@"JSON.stringify(window.getBaseRequestParams())"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[rawParams JSONObject]];
+    [params setObject:@(1) forKey:@"location_only"];
 
-    NSMutableArray *locations = [NSMutableArray arrayWithCapacity:propertyList.count];
-    NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:propertyList.count];
-    for (NSDictionary *property in propertyList) {
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:[property[@"latitude"] doubleValue] longitude:[property[@"longitude"] doubleValue]];
-        [locations addObject:location];
-        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake([property[@"latitude"] doubleValue], [property[@"longitude"] doubleValue]) addressDictionary:nil];
-        placemark.attachment = property;
-        [annotations addObject:placemark];
-    }
-    [_mapView addAnnotations:annotations];
-    [_mapView zoomToFitMapLocationsInsideArray:locations];
-}
+    [[[CUTEAPIManager sharedInstance] POST:@"/api/1/property/search" parameters:params resultClass:[CUTEProperty class] resultKeyPath:@"val.content"] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
+            NSArray *propertyList = task.result;
+            NSMutableArray *locations = [NSMutableArray arrayWithCapacity:propertyList.count];
+            NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:propertyList.count];
+            for (CUTEProperty *property in propertyList) {
+                CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude longitude:property.longitude];
+                [locations addObject:location];
+                MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(property.latitude, property.longitude) addressDictionary:nil];
+                placemark.attachment = property;
+                [annotations addObject:placemark];
+            }
+            [_mapView addAnnotations:annotations];
+            [_mapView zoomToFitMapLocationsInsideArray:locations];
+
+        }
+
+        return task;
+    }];
+
+
+   }
 
 - (void)updateMapButtonWithURL:(NSURL *)url {
     if ([url.path hasPrefix:self.url.path]) {
@@ -220,25 +246,13 @@
     return CONCAT([numberFormatter stringFromNumber:c], suffix);
 }
 
-- (NSString *)getPriceFromProperty:(NSDictionary *)property {
-    if (property[@"property_type"] && ([property[@"property_type"][@"slug"] isEqualToString:@"new_property"] || [property[@"property_type"][@"slug"] isEqualToString:@"student_housing"])) {
-        CGFloat minPrice = [(NSString *)(property[@"main_house_types"][0][@"total_price_min"][@"value"]) floatValue];
-        for (NSDictionary *houseType in property[@"main_house_types"]) {
-            CGFloat price = [(NSString *)(houseType[@"total_price_min"][@"value"]) floatValue];
-            if (minPrice > price) {
-                minPrice = price;
-            }
-        }
+- (NSString *)getPriceFromProperty:(CUTEProperty *)property {
+    if (property.propertyType && [@[@"new_property", @"student_housing"] containsObject:property.propertyType.slug]) {
+        CUTEHouseType *houseType = [[property.mainHouseTypes  sortBy:@"totalPriceMin.value"] firstObject];
+        return CONCAT([self formatPrice:houseType.totalPriceMin.value symbol:houseType.totalPriceMin.symbol], STR(@"起"));
+    }
 
-        return CONCAT([self formatPrice:minPrice symbol:property[@"main_house_types"][0][@"total_price_min"][@"unit_symbol"]], STR(@"起"));
-
-    }
-    else if (property[@"unit_price"]){
-        return CONCAT([self formatPrice:[property[@"unit_price"][@"value"] floatValue] symbol:property[@"unit_price"][@"unit_symbol"]], @"/", property[@"unit_price"][@"unit"][@"unit"]);
-    }
-    else {
-        return CONCAT([self formatPrice:[property[@"total_price"][@"value"] floatValue] symbol:property[@"total_price"][@"unit_symbol"]]);
-    }
+    return @"";
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -264,35 +278,62 @@
     return view;
 }
 
+- (void)showCalloutView:(CUTEProperty *)property inView:(UIView *)view {
+    _mapView.calloutView.title = property.name;
+    UILabel *subtitleLabel = [[UILabel alloc] init];
+    subtitleLabel.opaque = NO;
+    subtitleLabel.backgroundColor = [UIColor clearColor];
+    subtitleLabel.font = [UIFont systemFontOfSize:12];
+    subtitleLabel.textColor = [UIColor blackColor];
+    subtitleLabel.frame = CGRectMake(0, 28, 140, 15);
+    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:property.propertyType.value];
+    [attriString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]]; // add space before price
+    [attriString appendAttributedString:[[NSAttributedString alloc] initWithString:[self getPriceFromProperty:property] attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xe60012, 1)}]];
+    subtitleLabel.attributedText = attriString;
+    _mapView.calloutView.subtitleView = subtitleLabel;
+    _mapView.calloutView.rightAccessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-accessory"]];
+    _mapView.calloutView.attachment = property;
+    [_mapView.calloutView presentCalloutFromRect:view.bounds inView:view constrainedToView:_mapView animated:YES];
+
+}
+
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     if (_mapView.calloutView.window) {
         [_mapView.calloutView dismissCalloutAnimated:NO];
     }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if ([view.annotation isKindOfClass:[MKPlacemark class]]) {
-            NSDictionary *property = [(MKPlacemark *)view.annotation attachment];
-            _mapView.calloutView.title = property[@"name"];
-            UILabel *subtitleLabel = [[UILabel alloc] init];
-            subtitleLabel.opaque = NO;
-            subtitleLabel.backgroundColor = [UIColor clearColor];
-            subtitleLabel.font = [UIFont systemFontOfSize:12];
-            subtitleLabel.textColor = [UIColor blackColor];
-            subtitleLabel.frame = CGRectMake(0, 28, 140, 15);
-            NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:property[@"property_type"][@"value"]];
-            [attriString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]]; // add space before price
-            [attriString appendAttributedString:[[NSAttributedString alloc] initWithString:[self getPriceFromProperty:property] attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xe60012, 1)}]];
-            subtitleLabel.attributedText = attriString;
-            _mapView.calloutView.subtitleView = subtitleLabel;
-            _mapView.calloutView.rightAccessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-accessory"]];
-            _mapView.calloutView.attachment = property;
-            [_mapView.calloutView presentCalloutFromRect:view.bounds inView:view constrainedToView:_mapView animated:YES];
+
+    if ([view.annotation isKindOfClass:[MKPlacemark class]]) {
+
+        CUTEProperty *property = [(MKPlacemark *)view.annotation attachment];
+        if (!IsNilNullOrEmpty(property.name) && property.propertyType) {
+            [self showCalloutView:property inView:view];
         }
-    });
+        else {
+            [[[CUTEAPIManager sharedInstance] GET:CONCAT(@"/api/1/property/", property.identifier) parameters:nil resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                else if (task.exception) {
+                    [SVProgressHUD showErrorWithException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [SVProgressHUD showErrorWithCancellation];
+                }
+                else {
+                    [(MKPlacemark *)view.annotation setAttachment:task.result];
+                    [self showCalloutView:task.result inView:view];
+                }
+                return task;
+            }];
+        }
+    }
 }
 
 - (void)calloutViewClicked:(SMCalloutView *)calloutView {
-    NSDictionary *property = calloutView.attachment;
-    NSURL *url = [NSURL WebURLWithString:CONCAT(@"/property/", property[@"id"])];
+    CUTEProperty *property = calloutView.attachment;
+    NSURL *url = [NSURL WebURLWithString:CONCAT(@"/property/", property.identifier)];
+
+    [[self navigationController] setNavigationBarHidden:NO animated:NO];
     [self loadURLInNewController:url];
 }
 

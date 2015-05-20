@@ -198,7 +198,8 @@
         })
     }
     function GeonamesApi () {
-        var url = '/api/1/geonames/search'
+        //暂时使用production上的API
+        var url = 'http://yangfd.com/api/1/geonames/search'
         this.getAdmin = function (config, callback, reject) {
             $.betterPost(url, config)
                 .done(function (val) {
@@ -229,6 +230,15 @@
                 feature_code: 'ADM2'
             }, callback, reject)
         }
+        this.getCityByLocation = function (country, latitude, longitude, callback, reject) {
+            this.getAdmin({
+                search_range: 50000,
+                country: country,
+                latitude: latitude,
+                longitude: longitude,
+                feature_code: 'city'
+            }, callback, reject)
+        }
     }
     var geonamesApi = new GeonamesApi()
     function getCityListForSelect(country) {
@@ -240,7 +250,7 @@
                 $span.html(originContent)
                 $('#city-select').html(
                     _.reduce(val, function(pre, val, key) {
-                        return pre + '<option value="' + val.dem + '">' + val.name + '</option>'
+                        return pre + '<option value="' + val.id + '">' + val.name + (country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                     }, '<option value="">' + i18n('请选择城市') + '</option>')
                 ).trigger('chosen:updated').trigger('chosen:open')
             }
@@ -296,10 +306,17 @@
         function fillAdress(val) { //使用postcode查询得来得数据中得一条来填充表单项
             $('#country-select').val(val.country).trigger('chosen:updated')
             $('#country').val(val.country)
-            $('#city-select').html('<option value="' + val.admin1 + '">' + val.admin1_name + '</option>').val(val.admin1).trigger('chosen:updated')
-            $('#city').val(val.admin1)
+            //$('#city-select').html('<option value="' + val.admin1 + '">' + val.admin1_name + '</option>').val(val.admin1).trigger('chosen:updated')
+            //$('#city').val(val.admin1)
             $('#latitude').val(val.loc[1])
             $('#longitude').val(val.loc[0])
+            geonamesApi.getCityByLocation(val.country, val.loc[1], val.loc[0], function (val) {
+                $('#city-select').html(
+                    _.reduce(val, function(pre, val, key) {
+                        return pre + '<option value="' + val.id + '"' + (key === 0 ? 'selected' : '') + '>' + val.name + (val.country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
+                    }, '<option value="">' + i18n('请选择城市') + '</option>')
+                ).trigger('chosen:updated').trigger('change')
+            })
             $('#address').show()
         }
         function chooseOneResultOfPostcodeSearch (val) {
@@ -360,7 +377,7 @@
         }
         if(postcodeIndex !== '') {
             $btn.prop('disabled', true).text(window.i18n('获取中...'))
-            $.betterPost('/api/1/postcode/search', 'postcode_index=' + postcodeIndex)
+            $.betterPost('http://yangfd.com/api/1/postcode/search', 'postcode_index=' + postcodeIndex)
                 .done(function(val) {
                     switch(val.length) {
                         case 0: //postcode没有搜索到结果则需要用户手动选择国家城市
