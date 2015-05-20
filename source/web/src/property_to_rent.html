@@ -38,9 +38,8 @@
 <!--@@block = head-->
 % from bottle import request
 
-<link rel="stylesheet" href="/static/bower_components/fancyBox/source/jquery.fancybox.css"/>
 <!--build:css(dist) /static/styles/propertyToRent.html.css-->
-<link rel="stylesheet" href="/static/bower_components/fancyBox/source/helpers/jquery.fancybox-thumbs.css"/>
+<link rel="stylesheet" href="/static/bower_components/photoswipe/dist/photoswipe.css"/>
 <link rel="stylesheet" href="/static/bower_components/jquery.stickynavbar/animate.min.css"/>
 <link rel="stylesheet" href="/static/vendors/iOSList/jquery.ioslist.css"/>
 <link rel="stylesheet" href="/static/styles/rentDetails.css"/>
@@ -51,6 +50,7 @@
 <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
 <link rel="stylesheet" href="/static/styles/hostContactRequest.css"/>
 <!--endbuild-->
+<link rel="stylesheet" href="/static/bower_components/photoswipe/dist/default-skin/default-skin.css"/>
 
 <!-- minor change from original repo https://github.com/Fykec/excanvas, detail can check change log -->
 <!--[if lte IE 8]>
@@ -510,7 +510,7 @@
 
         <!-- @@include=/static/templates/place_item.tpl.html-->
 
-
+        <!--@@include=partials/photoswipe.html-->
         <!--@@close-->
 
         <!--@@block = scripts-->
@@ -537,8 +537,8 @@
         </script>
 
         <!--build:js /static/scripts/property-to-rent.html.js-->
-        <script src="/static/bower_components/fancyBox/source/jquery.fancybox.js"></script>
-        <script src="/static/bower_components/fancyBox/source/helpers/jquery.fancybox-thumbs.js"></script>
+        <script src="/static/bower_components/photoswipe/dist/photoswipe.js"></script>
+        <script src="/static/bower_components/photoswipe/dist/photoswipe-ui-default.js"></script>
         <script src="/static/bower_components/jquery.easing/js/jquery.easing.min.js"></script>
         <script src="/static/vendors/jquery.stickynavbar/jquery.stickyNavbar.modified.js"></script>
         <script src="/static/vendors/iOSList/jquery.ioslist.js"></script>
