@@ -171,90 +171,156 @@
     return _assetsPickerController;
 }
 
-- (void)showImagePickerFrom:(UIViewController *)controller {
-
-    dispatch_block_t showControllerBlock = ^ {
-        [[[CUTEImageUploader sharedInstance] getAssetsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
-            [self assetsPickerController].selectedAssets = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
-            [controller presentViewController:[self assetsPickerController] animated:YES completion:^ {
-            }];
-            return nil;
-        }];
-
-    };
-
-    dispatch_block_t showErrorAlertBlock = ^ {
-        [UIAlertView showWithTitle:STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        }];
-    };
-
+- (BFTask *)getAssetsLibraryAuthorizationStatus {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
     if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
-        showControllerBlock();
+        [tcs setResult:@(ALAuthorizationStatusAuthorized)];
     }
     else if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusDenied) {
-        showErrorAlertBlock();
+        [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
     }
     else if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusRestricted) {
-        showErrorAlertBlock();
+        [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
     }
     else if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusNotDetermined) {
         [[self assetsPickerController].assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            showControllerBlock();
+            [tcs setResult:@(ALAuthorizationStatusAuthorized)];
         } failureBlock:^(NSError *error) {
             if (error.code == ALAssetsLibraryAccessUserDeniedError) {
-                showErrorAlertBlock();
+                [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
             }else{
-                [SVProgressHUD showErrorWithError:error];
+                [tcs setError:error];
             }
         }];
     }
+
+    return [tcs task];
 }
 
-//http://stackoverflow.com/questions/25803217/presenting-camera-permission-dialog-in-ios-8
-- (void)showCameraFrom:(UIViewController *)controller {
-    dispatch_block_t showControllerBlock = ^ {
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            picker.delegate = self;
-            [controller presentViewController:picker animated:YES completion:^{
-
-            }];
-        }
-
-    };
-
-    dispatch_block_t showErrorAlertBlock = ^ {
-        [UIAlertView showWithTitle:STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        }];
-    };
+- (BFTask *)getCameraAuthorizationStatus {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
 
     if(status == AVAuthorizationStatusAuthorized) { // authorized
-        showControllerBlock();
+        [tcs setResult:@(AVAuthorizationStatusAuthorized)];
     }
     else if(status == AVAuthorizationStatusDenied){ // denied
-        showErrorAlertBlock();
+        [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
     }
     else if(status == AVAuthorizationStatusRestricted){ // restricted
-        showErrorAlertBlock();
+        [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
     }
     else if(status == AVAuthorizationStatusNotDetermined){ // not determined
 
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
             if(granted){ // Access has been granted ..do something
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    showControllerBlock();
+                    [tcs setResult:@(AVAuthorizationStatusAuthorized)];
                 });
             } else { // Access denied ..do something
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    showErrorAlertBlock();
+                    [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
                 });
             }
         }];
     }
+
+    return [tcs task];
+
+}
+
+- (void)showImagePickerFrom:(UIViewController *)controller {
+
+    [[self getAssetsLibraryAuthorizationStatus] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            if ([[task.error domain] isEqualToString:ALAssetsLibraryErrorDomain] && task.error.code == ALAssetsLibraryAccessUserDeniedError) {
+                [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                }];
+            }
+            else {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
+            [[[CUTEImageUploader sharedInstance] getAssetsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
+                [self assetsPickerController].selectedAssets = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
+                [controller presentViewController:[self assetsPickerController] animated:YES completion:^ {
+                }];
+                return nil;
+            }];
+
+        }
+        return task;
+    }];
+}
+
+//http://stackoverflow.com/questions/25803217/presenting-camera-permission-dialog-in-ios-8
+- (void)showCameraFrom:(UIViewController *)controller {
+    Sequencer *sequencer = [Sequencer new];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+
+        [[self getAssetsLibraryAuthorizationStatus] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                if ([[task.error domain] isEqualToString:ALAssetsLibraryErrorDomain] && task.error.code == ALAssetsLibraryAccessUserDeniedError) {
+                    [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    }];
+                }
+                else {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                completion(task.result);
+            }
+            return task;
+        }];
+
+    }];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[self getCameraAuthorizationStatus] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                }];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                    picker.delegate = self;
+                    [controller presentViewController:picker animated:YES completion:^{
+
+                    }];
+                }
+            }
+
+            return task;
+        }];
+    }];
+
+    [sequencer run];
+
 }
 
 - (void)showActionSheet {

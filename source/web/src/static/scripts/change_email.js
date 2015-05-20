@@ -25,7 +25,7 @@ $('form[name=changeEmail]').submit(function (e) {
         window.user = data
         resultArea.empty()
         resultArea.text(window.i18n('修改邮箱成功'))
-        location.href = '/user_settings'
+        location.href = '/user-settings'
     }).fail(function (errorCode) {
         resultArea.empty()
         resultArea.append(window.getErrorMessageFromErrorCode(errorCode))

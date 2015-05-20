@@ -16,7 +16,7 @@ $('form[name=changePassword]').submit(function (e) {
     $.betterPost('/api/1/user/edit', theParams).done(function (data) {
         window.user = data
         resultArea.text(window.i18n('修改成功'))
-        location.href = '/user_settings'
+        location.href = '/user-settings'
     }).fail(function (data) {
         resultArea.text(window.i18n('修改失败'))
         resultArea.show()

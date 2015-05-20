@@ -27,6 +27,11 @@
 
 - (void)trackException:(NSException *)exception;
 
+- (void)trackError:(NSError *)error;
+
+- (void)trackMemoryWarning;
+
+
 #pragma -mark Util
 
 - (NSString *)getScreenNameFromObject:(id)object;
@@ -42,8 +47,6 @@
 #define TrackScreensStayDuration(category, oneScreenNames) [[CUTETracker sharedInstance] trackStayDurationWithCategory:category screenNames:oneScreenNames]
 
 #define TrackEvent(oneCategory, oneAction, oneLabel, oneValue)  [[CUTETracker sharedInstance] trackEventWithCategory:oneCategory action:oneAction label:oneLabel value:oneValue]
-
-#define TrackException(exception) [[CUTETracker sharedInstance] trackException:exception]
 
 #define GetScreenName(object) [[CUTETracker sharedInstance] getScreenNameFromObject:object]
 

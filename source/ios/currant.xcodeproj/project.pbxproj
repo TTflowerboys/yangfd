@@ -229,6 +229,11 @@
 		2CA5F7721AE10382001132E0 /* CUTEImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */; };
 		2CA5F7731AE10382001132E0 /* CUTEImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */; };
 		2CA5F7741AE10382001132E0 /* CUTEImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */; };
+		2CA81F6F1B0B5621006E993C /* MemoryReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F6E1B0B5621006E993C /* MemoryReporter.m */; };
+		2CA81F701B0B5621006E993C /* MemoryReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F6E1B0B5621006E993C /* MemoryReporter.m */; };
+		2CA81F711B0B5621006E993C /* MemoryReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F6E1B0B5621006E993C /* MemoryReporter.m */; };
+		2CA81F721B0B5621006E993C /* MemoryReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F6E1B0B5621006E993C /* MemoryReporter.m */; };
+		2CA81F731B0B5621006E993C /* MemoryReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F6E1B0B5621006E993C /* MemoryReporter.m */; };
 		2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -608,6 +613,8 @@
 		2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-test-Info.plist"; sourceTree = "<group>"; };
 		2CA5F76E1AE10382001132E0 /* CUTEImageUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEImageUploader.h; sourceTree = "<group>"; };
 		2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEImageUploader.m; sourceTree = "<group>"; };
+		2CA81F6E1B0B5621006E993C /* MemoryReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryReporter.m; sourceTree = "<group>"; };
+		2CA81F741B0B563B006E993C /* MemoryReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryReporter.h; sourceTree = "<group>"; };
 		2CA94AAE1ACA42CD00DF7497 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-dev-Info.plist"; sourceTree = "<group>"; };
 		2CAA851E1AEA65CC00432BF1 /* NSString+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoding.h"; sourceTree = "<group>"; };
@@ -888,6 +895,8 @@
 				2C79C2B41ACA570C000E7F67 /* Category */,
 				2C401E251ACB9CE100613093 /* ObjectUtil.c */,
 				2C401E261ACB9CE100613093 /* ObjectUtil.h */,
+				2CA81F741B0B563B006E993C /* MemoryReporter.h */,
+				2CA81F6E1B0B5621006E993C /* MemoryReporter.m */,
 				2CC6C1D41AEE2400002758A7 /* AssetsLibraryProvider.h */,
 				2CC6C1D51AEE2400002758A7 /* AssetsLibraryProvider.m */,
 				2CC3A06C1AF87D74008C9AC8 /* CUTENavigationUtil.h */,
@@ -1671,6 +1680,7 @@
 				2C2FCDD41AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4E1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
+				2CA81F711B0B5621006E993C /* MemoryReporter.m in Sources */,
 				2C427E5D1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2C3DE25B1B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A67F1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
@@ -1769,6 +1779,7 @@
 				2C2FCDD51AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4F1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85231AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
+				2CA81F721B0B5621006E993C /* MemoryReporter.m in Sources */,
 				2C427E5E1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2C3DE25C1B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A6801AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
@@ -1867,6 +1878,7 @@
 				2C2FCDD31AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4D1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
+				2CA81F701B0B5621006E993C /* MemoryReporter.m in Sources */,
 				2C427E5C1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2C3DE25A1B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A67E1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
@@ -1965,6 +1977,7 @@
 				2C2FCDD21AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4C1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85201AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
+				2CA81F6F1B0B5621006E993C /* MemoryReporter.m in Sources */,
 				2C427E5B1AD28A74000378A9 /* CUTECityEnum.m in Sources */,
 				2C3DE2591B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A67D1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
@@ -2051,6 +2064,7 @@
 				2CF8A5E51AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.m in Sources */,
 				2CF8A6A41AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C401E2B1ACB9CE100613093 /* ObjectUtil.c in Sources */,
+				2CA81F731B0B5621006E993C /* MemoryReporter.m in Sources */,
 				2CF8A6771AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
 				2C2FCDD61AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2CF8A6261AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,

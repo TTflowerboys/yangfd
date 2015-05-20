@@ -54,34 +54,34 @@
                 </ul>
                 <div class="details">
                     <div class="left">
-                        {_if(rent.property.bedroom_count || rent.property.living_room_count) {_}
+                        {_if(fav.ticket.property.bedroom_count || fav.ticket.property.living_room_count) {_}
                         <div class="room">
                             <p class="label">{=window.i18n('居室')=}</p>
                             <p class="value">
-                                {_if(rent.property.bedroom_count) {_}
-                                {=rent.property.bedroom_count + window.i18n('室') =}
+                                {_if(fav.ticket.property.bedroom_count) {_}
+                                {=fav.ticket.property.bedroom_count + window.i18n('室') =}
                                 {_}_}
-                                {_if(rent.property.living_room_count) {_}
-                                {=rent.property.living_room_count + window.i18n('厅')=}
+                                {_if(fav.ticket.property.living_room_count) {_}
+                                {=fav.ticket.property.living_room_count + window.i18n('厅')=}
                                 {_}_}
                             </p>
                         </div>
                         {_}_}
-                        {_if(rent.space) {_}
+                        {_if(fav.ticket.space) {_}
                         <div class="size">
                             <p class="label">{=window.i18n('面积')=}</p>
                             <p class="value">
-                                {= parseFloat(rent.space.value).toFixed(2)=}
-                                {_if (rent.space.unit === 'foot ** 2'){_}
+                                {= parseFloat(fav.ticket.space.value).toFixed(2)=}
+                                {_if (fav.ticket.space.unit === 'foot ** 2'){_}
                                 foot <sup>2</sup>
-                                {_} else if(rent.space.unit === 'acre'){_}
+                                {_} else if(fav.ticket.space.unit === 'acre'){_}
                                 acre
-                                {_} else if (rent.space.unit === 'meter ** 2') {_}
+                                {_} else if (fav.ticket.space.unit === 'meter ** 2') {_}
                                 m <sup>2</sup>
-                                {_} else if (rent.space.unit === 'kilometer ** 2') {_}
+                                {_} else if (fav.ticket.space.unit === 'kilometer ** 2') {_}
                                 km <sup>2</sup>
                                 {_} else {_}
-                                {=rent.space.unit=}
+                                {=fav.ticket.space.unit=}
                                 {_}_}
                             </p>
                         </div>
