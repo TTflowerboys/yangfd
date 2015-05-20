@@ -121,7 +121,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   BBTRestClient:
-    :commit: 81dc811a97a0b9c750e871de5a6ea3d756691a46
+    :commit: 07bd8338bac2c99fbf383655740896fe8e5cc10e
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
   BBTUtility:
     :commit: f5f295b562ceb5097e2a224bf4332f39c2e2779f

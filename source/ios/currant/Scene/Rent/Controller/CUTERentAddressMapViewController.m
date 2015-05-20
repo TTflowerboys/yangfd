@@ -345,7 +345,8 @@
     Sequencer *sequencer = [Sequencer new];
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[self reverseGeocodeLocation:property.location] continueWithBlock:^id(BFTask *task) {
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude longitude:property.longitude];
+        [[self reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 completion(task.result);
             }
@@ -405,7 +406,8 @@
     CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                   longitude:mapView.centerCoordinate.longitude];
     CUTEProperty *property = self.ticket.property;
-    property.location = location;
+    property.latitude = location.coordinate.latitude;
+    property.longitude = location.coordinate.longitude;
     [_textField.indicatorView startAnimating];
     [[self updateAddress] continueWithBlock:^id(BFTask *task) {
         [_textField.indicatorView stopAnimating];

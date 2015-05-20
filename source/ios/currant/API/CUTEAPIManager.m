@@ -65,9 +65,37 @@
     return tcs.task;
 }
 
+- (BFTask *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [_backingManager GET:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath completion:
+     ^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
+         if (error) {
+             [tcs setError:error];
+         }
+         else {
+             [tcs setResult:responseObject];
+         }
+     }];
+    return tcs.task;
+}
+
 - (BFTask *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass  {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     [_backingManager POST:URLString parameters:parameters resultClass:resultClass completion:
+     ^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
+         if (error) {
+             [tcs setError:error];
+         }
+         else {
+             [tcs setResult:responseObject];
+         }
+     }];
+    return tcs.task;
+}
+
+- (BFTask *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [_backingManager POST:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath completion:
      ^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
          if (error) {
              [tcs setError:error];

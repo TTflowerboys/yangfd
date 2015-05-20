@@ -15,6 +15,8 @@
 
 @property (nonatomic) float value;
 
+@property (nonatomic, readonly) NSString *symbol;
+
 + (CUTECurrency *)currencyWithValue:(float)value unit:(NSString *)unit;
 
 - (NSDictionary *)toParams;

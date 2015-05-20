@@ -16,6 +16,39 @@
     window.budgetData = getData('budgetData')
     window.bedroomCountData = getData('bedroomCountData')
     window.buildingAreaData = getData('buildingAreaData')
+    window.getBaseRequestParams = function () {
+        var params = {}
+        var country = $('select[name=propertyCountry]').children('option:selected').val()
+        if (country) {
+            params.country = country
+        }
+        var city = $('select[name=propertyCity]').children('option:selected').val()
+        if (city) {
+            params.city = city
+        }
+        var propertyType = $('select[name=propertyType]').children('option:selected').val()
+        if (propertyType) {
+            params.property_type = propertyType
+        }
+        var budgetType = getSelectedTagFilterDataId('#budgetTag')
+        if (budgetType) {
+            params.budget = budgetType
+        }
+
+        var intention = getSelectedIntention()
+        if (intention) {
+            params.intention = intention
+        }
+        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
+        if (bedroomCount) {
+            params.bedroom_count = bedroomCount
+        }
+        var buildingArea = getSelectedTagFilterDataId('#buildingAreaTag')
+        if (buildingArea) {
+            params.building_area = buildingArea
+        }
+        return params;
+    }
 
     loadPropertyList(true)
 
@@ -145,37 +178,9 @@
     }
 
     function loadPropertyList(reload) {
-        var params = {'per_page': '5'}
-        var country = $('select[name=propertyCountry]').children('option:selected').val()
-        if (country) {
-            params.country = country
-        }
-        var city = $('select[name=propertyCity]').children('option:selected').val()
-        if (city) {
-            params.city = city
-        }
-        var propertyType = $('select[name=propertyType]').children('option:selected').val()
-        if (propertyType) {
-            params.property_type = propertyType
-        }
-        var budgetType = getSelectedTagFilterDataId('#budgetTag')
-        if (budgetType) {
-            params.budget = budgetType
-        }
-
-        var intention = getSelectedIntention()
-        if (intention) {
-            params.intention = intention
-        }
-        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
-        if (bedroomCount) {
-            params.bedroom_count = bedroomCount
-        }
-        var buildingArea = getSelectedTagFilterDataId('#buildingAreaTag')
-        if (buildingArea) {
-            params.building_area = buildingArea
-        }
-        var lastItemTime = getLastItemTimeByBudget(budgetType)
+        var params = window.getBaseRequestParams()
+        params.per_page = 5
+        var lastItemTime = getLastItemTimeByBudget(params.budget)
         if (lastItemTime) {
             params.mtime = lastItemTime
 
@@ -212,7 +217,7 @@
             .done(function (val) {
                 var array = val.content
                 totalResultCount = val.count
-                array = filterPropertyHouseTypes(array, budgetType, bedroomCount, buildingArea)
+                array = filterPropertyHouseTypes(array, params.budget, params.bedroom_count, params.building_area)
                 if (!_.isEmpty(array)) {
                     lastItemTime = _.last(array).mtime
 
@@ -230,9 +235,9 @@
                         }
                     })
 
-                    setLastItemTimeBudget(budgetType, lastItemTime)
-                    setTotalResultCountByBudget(budgetType, totalResultCount)
-                    setCurrentResultCountByBudget(budgetType, getCurrentTotalCount())
+                    setLastItemTimeBudget(params.budget, lastItemTime)
+                    setTotalResultCountByBudget(params.budget, totalResultCount)
+                    setCurrentResultCountByBudget(params.budget, getCurrentTotalCount())
 
                     updatePropertyCardMouseEnter()
                 }
@@ -254,32 +259,9 @@
      * Load Addtional Property Data
      * */
     function loadAddtionalPropertyList(budgetType,reload) {
-        var params = {'per_page': '6', 'budget': budgetType}
-        var country = $('select[name=propertyCountry]').children('option:selected').val()
-        if (country) {
-            params.country = country
-        }
-        var city = $('select[name=propertyCity]').children('option:selected').val()
-        if (city) {
-            params.city = city
-        }
-        var propertyType = $('select[name=propertyType]').children('option:selected').val()
-        if (propertyType) {
-            params.property_type = propertyType
-        }
-
-        var intention = getSelectedIntention()
-        if (intention) {
-            params.intention = intention
-        }
-        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
-        if (bedroomCount) {
-            params.bedroom_count = bedroomCount
-        }
-        var buildingArea = getSelectedTagFilterDataId('#buildAreaTag')
-        if (buildingArea) {
-            params.building_area = buildingArea
-        }
+        var params = window.getBaseRequestParams()
+        params.per_page = 6
+        params.budget = budgetType
 
         var lastItemTime = getLastItemTimeByBudget(budgetType)
         if (lastItemTime) {
@@ -293,14 +275,13 @@
             params.mtime = null
             additionalReload = false
             //clearCurrentBelowBudgetDic()
-
         }
 
         $.betterPost('/api/1/property/search', params)
             .done(function (val) {
                 var array = val.content
                 var totalResultCount = val.count
-                array = filterPropertyHouseTypes(array, budgetType, bedroomCount, buildingArea)
+                array = filterPropertyHouseTypes(array, budgetType, params.bedroom_count, params.building_area)
                 if (!_.isEmpty(array)) {
 
                     lastItemTime = _.last(array).mtime
@@ -1204,36 +1185,8 @@
     })
 
     function loadPropertyMapList() {
-        var params = {'location_only': 1}
-        var country = $('select[name=propertyCountry]').children('option:selected').val()
-        if (country) {
-            params.country = country
-        }
-        var city = $('select[name=propertyCity]').children('option:selected').val()
-        if (city) {
-            params.city = city
-        }
-        var propertyType = $('select[name=propertyType]').children('option:selected').val()
-        if (propertyType) {
-            params.property_type = propertyType
-        }
-        var budgetType = getSelectedTagFilterDataId('#budgetTag')
-        if (budgetType) {
-            params.budget = budgetType
-        }
-
-        var intention = getSelectedIntention()
-        if (intention) {
-            params.intention = intention
-        }
-        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
-        if (bedroomCount) {
-            params.bedroom_count = bedroomCount
-        }
-        var buildingArea = getSelectedTagFilterDataId('#buildingAreaTag')
-        if (buildingArea) {
-            params.building_area = buildingArea
-        }
+        var params = window.getBaseRequestParams()
+        params.location_only = 1
 
         //Empty map list
         emptyMapPins()
