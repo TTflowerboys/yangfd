@@ -11,6 +11,8 @@
 #import "CUTEArea.h"
 #import "CUTEArea.h"
 #import <CoreLocation/CoreLocation.h>
+#import "CUTECurrency.h"
+#import "CUTEHouseType.h"
 
 #define kPropertyStatusDraft @"draft"
 #define kPropertyStatusDeleted @"deleted"
@@ -25,7 +27,9 @@
 
 @property (strong, nonatomic) NSString *name;
 
-@property (strong, nonatomic) CLLocation *location;
+@property (nonatomic) CLLocationDegrees latitude;
+
+@property (nonatomic) CLLocationDegrees longitude;
 
 @property (strong, nonatomic) CUTEEnum *country;
 
@@ -54,6 +58,8 @@
 @property (strong, nonatomic) CUTEArea *space;
 
 @property (strong, nonatomic) NSString *status;
+
+@property (strong, nonatomic) NSArray *mainHouseTypes;
 
 @property (strong, nonatomic) NSArray *indoorFacilities;
 

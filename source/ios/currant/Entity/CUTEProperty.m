@@ -13,6 +13,7 @@
 #import <NSArray+ObjectiveSugar.h>
 #import <MapKit/MapKit.h>
 #import "NSURL+CUTE.h"
+#import "CUTEHouseType.h"
 
 @implementation CUTEProperty
 
@@ -30,12 +31,15 @@
              @"community": @"community",
              @"floor": @"floor",
              @"houseName": @"house_name",
+             @"latitude": @"latitude",
+             @"longitude": @"longitude",
              @"propertyDescription": @"description",
              @"bedroomCount": @"bedroom_count",
              @"livingroomCount": @"living_room_count",
              @"bathroomCount": @"bathroom_count",
              @"space": @"space",
              @"status": @"status",
+             @"mainHouseTypes": @"main_house_types",
              @"indoorFacilities": @"indoor_facility",
              @"communityFacilities": @"community_facility"
              };
@@ -56,32 +60,14 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECityEnum class]];
 }
 
-+ (NSValueTransformer *)locationJSONTransformer
-{
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSDictionary *locationDict) {
-        if (locationDict && [locationDict isKindOfClass:[NSDictionary class]] && [locationDict objectForKey:@"latitude"] && [locationDict objectForKey:@"longitude"]) {
-
-            CLLocationDegrees latitude = [locationDict[@"latitude"] doubleValue];
-            CLLocationDegrees longitude = [locationDict[@"longitude"] doubleValue];
-
-            return [NSValue valueWithMKCoordinate:CLLocationCoordinate2DMake(latitude, longitude)];
-        }
-        else {
-            return [NSValue new];
-        }
-    } reverseBlock:^(CLLocation *location) {
-        if (location && [location isKindOfClass:[CLLocation class]]) {
-            return @{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude)};
-        }
-        else {
-            return @{};
-        }
-    }];
-}
-
 + (NSValueTransformer *)spaceJSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEArea class]];
+}
+
++ (NSValueTransformer *)mainHouseTypesJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEHouseType class]];
 }
 
 + (NSValueTransformer *)indoorFacilitiesJSONTransformer
@@ -173,9 +159,9 @@
         [unsetFields addObject:@"reality_images"];
     }
 
-    if (self.location && [self.location isKindOfClass:[CLLocation class]]) {
-        [params setValue:@(self.location.coordinate.latitude) forKey:@"latitude"];
-        [params setValue:@(self.location.coordinate.longitude) forKey:@"longitude"];
+    if (!fequalzero(self.latitude) || !fequalzero(self.longitude)) {
+        [params setValue:@(self.latitude) forKey:@"latitude"];
+        [params setValue:@(self.longitude) forKey:@"longitude"];
     }
     else {
         [unsetFields addObject:@"latitude"];

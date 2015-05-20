@@ -30,6 +30,10 @@
              };
 }
 
+- (NSString *)symbol {
+    return [CUTECurrency symbolOfCurrencyUnit:self.unit];
+}
+
 + (NSString *)symbolOfCurrencyUnit:(NSString *)currency {
     return @{@"CNY":@"￥",
              @"GBP":@"£",

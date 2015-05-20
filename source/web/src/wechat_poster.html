@@ -29,6 +29,7 @@
             <p class="logo"></p>
         </div>
         <script type="text/javascript">
+            window.viewStartTime = new Date()
             window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
             window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame
             window.isInit = false
@@ -430,6 +431,7 @@
         <!--更多设施弹出层 end-->
 
         <!--build:js /static/scripts/wechat_poster.html.js-->
+        <script type="text/javascript" src="/static/scripts/track.js"></script>
         <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
         <script type="text/javascript" src="/static/scripts/team.js"></script>
