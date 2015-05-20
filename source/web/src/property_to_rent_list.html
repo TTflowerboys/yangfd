@@ -52,7 +52,11 @@
         <select class="ghostSelect" name="propertyCountry">
             <option value="" selected>{{_('任意国家/地区')}}</option>
             %for index, country in enumerate(property_country_list):
-                <option value="{{country.get('id')}}">{{country.get('value')}}</option>
+                <option value="{{country.get('id')}}"
+                    %if country.get('id') == '541c09286b8099496db84f56':
+                    selected
+                    %end
+                    >{{country.get('value')}}</option>
             %end
         </select>
         <span>{{_('的')}}</span>

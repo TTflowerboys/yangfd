@@ -39,12 +39,14 @@ def property_to_rent_list(params):
             property_country_id_list.append(country.get('id'))
 
     property_city_list = []
-    if ("country" in params and len(params['country'])):
-        for index, city in enumerate(city_list):
-            if city.get('country').get('id') in property_country_id_list:
-                if str(params['country']) == city.get('country').get('id'):
-                    property_city_list.append(city)
-
+    # if ("country" in params and len(params['country'])):
+    #     for index, city in enumerate(city_list):
+    #         if city.get('country').get('id') in property_country_id_list:
+    #             if str(params['country']) == city.get('country').get('id'):
+    #                 property_city_list.append(city)
+    for index, city in enumerate(city_list):
+        if city.get('country').get('id') == '541c09286b8099496db84f56':
+            property_city_list.append(city)
     title = ''
 
     if "country" in params and len(params['country']):
