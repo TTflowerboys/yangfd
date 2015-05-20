@@ -76,7 +76,7 @@ $(function () {
                     var sec = 60
                     var countdown = setInterval(function(){
                         $requestSMSCodeBtn.text(sec + 's')
-                        if(sec == 0){
+                        if(sec === 0){
                             //Stop interval
                             clearInterval(countdown)
 
@@ -97,7 +97,7 @@ $(function () {
                                     var sec = 60
                                     var countdown = setInterval(function(){
                                         $requestSMSCodeBtn.text(sec + 's')
-                                        if(sec == 0){
+                                        if(sec === 0){
                                             //Stop interval
                                             clearInterval(countdown)
 
