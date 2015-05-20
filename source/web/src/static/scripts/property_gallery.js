@@ -88,55 +88,83 @@
 
     //点击相册查看大图的功能
     (function () {
-        var timer
-        var winWidth = $(window).width()
-        var fitToView = true
-        if(winWidth < 759) {
-            fitToView = false
+        var total = $('.rslides').find('li[href]').length, //需要加载图片总数
+            current,
+            timer
+        function checkImageLoaded(src) {
+            var img = new Image();
+            img.src = src;
+            if(img.complete) {
+                var size = {
+                    w: img.width,
+                    h: img.height
+                }
+                img = null;
+                return size
+            }
+            img = null;
+            return false
         }
-        var maxWidth = winWidth * 1.5
-        if($('.rslides .fancybox').length > 0) {
-            $('.rslides .fancybox').fancybox({
-                openEffect	: 'elastic',
-                closeEffect	: 'elastic',
-                type: 'image',
-                groupAttr: 'rel',
-                fitToView: fitToView,
-                autoSize: false,
-                aspectRatio: true,
-                maxWidth: maxWidth,
-                helpers	: {
-                    overlay: {
-                        locked: false
-                    },
-                    title	: {
-                        type: 'outside'
-                    },
-                    thumbs	: {
-                        width	: 50,
-                        height	: 50
+        function checkAllNeadImageLoaded (){
+            current = 0
+            $('.rslides').find('li[href]').each(function (index, elem) {
+                if($(elem).attr('data-width')) {
+                    current++
+                } else if(checkImageLoaded($(elem).attr('href'))) {
+                    var size = checkImageLoaded($(elem).attr('href'))
+                    $(elem).attr('data-width', size.w).attr('data-height', size.h)
+                    current++
+                } else {
+                    return false
+                }
+            })
+            return current === total
+        }
+        function initPhotoSwipeWhenReady() {
+            if(checkAllNeadImageLoaded()) {
+                clearTimeout(timer)
+                initPhotoSwipe()
+            } else {
+                timer = setTimeout(function () {
+                    initPhotoSwipeWhenReady()
+                }, 500)
+            }
+        }
+        function initPhotoSwipe() {
+            $('.rslides').each(function (index, elem) {
+                $(elem).attr('data-pswp-uid', index)
+                    .delegate('li', 'click', function(e){
+                        var $gallery = $(this).parent('.rslides')
+                        openPhotoSwipe($(this).index(), $gallery)
+                    })
+
+                function parseThumbnailElements (elem) {
+                    return _.map($.makeArray(elem.find('li')), function(el, i) {
+                        var src = $(el).attr('href')
+                        var item = {
+                            src: src,
+                            el: el,
+                            w: $(el).attr('data-width'),
+                            h: $(el).attr('data-height')
+                        }
+                        return item
+                    })
+                }
+                function openPhotoSwipe (index, galleryElement) {
+                    var pswpElement = $('.pswp')[0],
+                        gallery,
+                        options,
+                        items = parseThumbnailElements(galleryElement)
+                    options = {
+                        index: index,
+                        galleryUID: galleryElement.attr('data-pswp-uid'),
                     }
-                },
-                beforeShow: function () {
-                    clearInterval(timer)
-                    timer = setInterval(function () { //周期性的触发mouseenter事件，以阻止slide（只能通过这样的方式）
-                        $('a.rslides_nav.next').trigger('mouseenter')
-                    },500)
-                },
-                afterClose: function () {
-                    clearInterval(timer)
-                    $('a.rslides_nav.next').trigger('mouseleave')
+                    gallery = new window.PhotoSwipe(pswpElement, window.PhotoSwipeUI_Default, items, options)
+                    gallery.init();
                 }
             })
         }
+        initPhotoSwipeWhenReady()
     })()
-    /*$('.rslides .img').bind('click', function(){
-        //var url = $(this).data('url')
-        var url = $(this).attr('data-url')
-        $.fancybox({
-            href: url,
-            title : 'Custom Title',
-            type: 'image'
-        });
-    })*/
+
 })()

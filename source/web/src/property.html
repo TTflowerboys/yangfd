@@ -51,10 +51,8 @@
     <!--build:css(dist) /static/vendors/video-js/video-js.css-->
     <link rel="stylesheet" href="/static/bower_components/video-js/dist/video-js/video-js.css">
     <!--endbuild-->
-    <link rel="stylesheet" href="/static/bower_components/fancyBox/source/jquery.fancybox.css"/>
     <!--build:css(dist) /static/styles/property.html.css-->
-    <link rel="stylesheet" href="/static/bower_components/fancyBox/source/helpers/jquery.fancybox-thumbs.css"/>
-    <link rel="stylesheet" href="/static/styles/fancyboxOverwrite.css"/>
+    <link rel="stylesheet" href="/static/bower_components/photoswipe/dist/photoswipe.css"/>
     <link rel="stylesheet" href="/static/bower_components/jquery.stickynavbar/animate.min.css"/>
     <link rel="stylesheet" href="/static/vendors/iOSList/jquery.ioslist.css"/>
     <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
@@ -65,6 +63,7 @@
     <link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
     <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
     <!--endbuild-->
+    <link rel="stylesheet" href="/static/bower_components/photoswipe/dist/default-skin/default-skin.css"/>
 
     <!-- minor change from original repo https://github.com/Fykec/excanvas, detail can check change log -->
     <!--[if lte IE 8]>
@@ -1244,7 +1243,6 @@
 
     <!-- @@include=/static/templates/place_item.tpl.html-->
     <!-- @@include=/static/templates/property_video.tpl.html-->
-
     <textarea id="pythonProperty" style="display: none;">
         {{json_dumps(property)}}
     </textarea>
@@ -1260,7 +1258,7 @@
         </script>
     % end
 
-
+    <!--@@include=partials/photoswipe.html-->
     <!--@@close-->
 
     <!--@@block = scripts-->
@@ -1288,8 +1286,8 @@
 
     <script src="/static/bower_components/Chart.js/Chart.min.js"></script>
     <!--build:js /static/scripts/property.html.js-->
-    <script src="/static/bower_components/fancyBox/source/jquery.fancybox.js"></script>
-    <script src="/static/bower_components/fancyBox/source/helpers/jquery.fancybox-thumbs.js"></script>
+    <script src="/static/bower_components/photoswipe/dist/photoswipe.js"></script>
+    <script src="/static/bower_components/photoswipe/dist/photoswipe-ui-default.js"></script>
     <script src="/static/bower_components/jquery.easing/js/jquery.easing.min.js"></script>
     <script src="/static/vendors/jquery.stickynavbar/jquery.stickyNavbar.modified.js"></script>
     <script src="/static/vendors/iOSList/jquery.ioslist.js"></script>
