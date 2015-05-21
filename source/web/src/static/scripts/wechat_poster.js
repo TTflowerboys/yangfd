@@ -31,18 +31,18 @@
         },
         onSlideChangeStart: function(swiper){
 
-            // Record which pages user visits
+            // Record which pages user visits(only calculate first time visit)
             // TODO: deal with user swipe back to previous pages
             var index = parseInt(swiper.activeIndex)
-            if(!isInPreview()){
-                // calculate last page time cosuming
-                if(index>0){
-                    var preTotalTime = 0
-                    for(var i = 1; i <= index; i++){
-                        preTotalTime += window.durationArray[i-1]
-                    }
-                    window.durationArray[index] = (new Date() - window.viewStartTime)/1000 - preTotalTime
+            var prevIndex = parseInt(swiper.previousIndex)
+            if(!isInPreview()&& index>0 && index>prevIndex && window.durationArray[index] === undefined){
+                // calculate last page time consuming
+                var preTotalTime = 0
+                for(var i = 1; i <= index; i++){
+                    preTotalTime += window.durationArray[i-1]
                 }
+                window.durationArray[index] = (new Date() - window.viewStartTime)/1000 - preTotalTime
+
                 ga('send', 'event', 'wechat_poster', 'time-consuming', 'page'+index, window.durationArray[index])
                 ga('send', 'pageview', '/wechat-poster/' + getCurrentRentId() + '/'+ (index+1))
             }
