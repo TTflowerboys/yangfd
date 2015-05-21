@@ -38,14 +38,14 @@ def fetch_image(image, **kwargs):
     # if request.ssl:
     #     image.replace("http://", "https://")
 
-    if "MicroMessenger" in request.get_header('User-Agent'):
+    if b"MicroMessenger" in request.get_header('User-Agent'):
         image = image.replace("bbt-currant.s3.amazonaws.com/", "yangfd.cn/s3_raw/")
 
     return image
 
 
 def is_mobile_client():
-    return "currant" in request.headers.get('User-Agent').lower()
+    return b"currant" in request.headers.get('User-Agent').lower()
 
 
 def check_ip_and_redirect_domain(func):
@@ -60,7 +60,7 @@ def check_ip_and_redirect_domain(func):
                 # Special hack to remove "beta."
                 request_url = request.url
 
-                if country == "CN" or "MicroMessenger" in request.get_header('User-Agent'):
+                if country == "CN" or b"MicroMessenger" in request.get_header('User-Agent'):
                     target_url = request_url.replace("youngfunding.co.uk", "yangfd.com")
                     logger.debug("Visitor country detected:", country, "redirecting to yangfd.com if not already. Host:", host, "target_url:", target_url)
                     assert host.endswith(("yangfd.com", "yangfd.cn")), redirect(target_url)
@@ -99,6 +99,8 @@ def common_template(path, **kwargs):
         kwargs['country_list'] = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
     if 'budget_list' not in kwargs:
         kwargs['budget_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('budget'))
+    if 'occupation_list' not in kwargs:
+        kwargs['occupation_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('occupation'))
 
     # setup page utils
     kwargs.setdefault("format_unit", format_unit)

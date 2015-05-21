@@ -429,6 +429,11 @@ def wechat_endpoint():
         return __common_root_replace_func
 
     @common_root
+    def text_reply(text, root):
+        etree.SubElement(root, "MsgType").text = etree.CDATA("text")
+        etree.SubElement(root, "Content").text = etree.CDATA(text)
+
+    @common_root
     def transfer_customer_service(root):
         etree.SubElement(root, "MsgType").text = etree.CDATA("transfer_customer_service")
 
@@ -489,6 +494,16 @@ def wechat_endpoint():
             if message["Event"] == "CLICK":
                 if message["EventKey"].startswith("property_by_country/"):
                     return_str = build_property_list_by_country(message["EventKey"][len("property_by_country/"):])
+
+            elif message["Event"] == "subscribe":
+                return_str = text_reply(
+                    "感谢您关注洋房东微信号\n"
+                    "我们将为你带来：\n"
+                    "最实时的英国房产资讯\n"
+                    "最有趣的房产新闻\n"
+                    "最专业的房产解读\n"
+                    "记得每天点开洋房东的消息看一看哦！"
+                )
 
         elif message["MsgType"] == "text":
             return_str = transfer_customer_service()

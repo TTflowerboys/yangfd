@@ -129,3 +129,49 @@
         }
     }
 }
+
+.app-floatbar {
+    display: none;
+    @media @phone {
+        overflow: hidden;
+        position: fixed;
+        z-index: @float_bar_phone-z-index;
+        bottom: 0;
+        width: 100%;
+        background: #333;
+        opacity: 0.9;
+        padding: @standard-margin*2;
+    }
+
+    &-icon{
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    &-content{
+        color: white;
+        position: absolute;
+        max-width: 120px;
+        left: 70px;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    &-close{
+        float: right;
+        position: fixed;
+        right: @standard-margin;
+        bottom: @standard-margin*3;
+    }
+    
+    &-download{
+        float: right;
+        margin-right: @standard-margin*3;
+    }
+
+}

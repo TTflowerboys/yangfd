@@ -21,7 +21,8 @@ angular.module('app')
         { name: i18n('小区设施'), value: 'community_facility' },
         { name: i18n('街区亮点'), value: 'region_highlight' },
         { name: i18n('出租类型'), value: 'rent_type' },
-        { name: i18n('租期类型'), value: 'rent_period' }
+        { name: i18n('租期类型'), value: 'rent_period' },
+        { name: i18n('职业'), value: 'occupation' }
     ]).run(function ($rootScope, enumTypes) {
         $rootScope.enumTypes = enumTypes
     })

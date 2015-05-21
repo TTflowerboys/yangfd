@@ -21,6 +21,19 @@
             <div class="row">
                 <input name="nickname" type="text" placeholder="{{_('您的姓名(必填)')}}" data-validator="trim, required"/>
             </div>
+            <div class="row phone">
+                <select name="occupation">
+                    % for occupation in occupation_list:
+                    <option value="{{occupation.get('id')}}"
+                    % if occupation.get('slug') == 'student':
+                    selected
+                    %end
+                    >
+                    {{occupation.get('value')}}
+                    </option>
+                    %end
+                </select>
+            </div>
             <div class="row">
                 <input name="email" type="text" placeholder="{{_('您的邮箱(必填)')}}" data-validator="trim, required, email"/>
             </div>
