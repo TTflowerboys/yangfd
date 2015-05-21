@@ -32,13 +32,20 @@
         onSlideChangeStart: function(swiper){
 
             // Record which pages user visits
-            // TODO: need to record every step
-            /*
+            // TODO: deal with user swipe back to previous pages
             var index = parseInt(swiper.activeIndex)
             if(!isInPreview()){
+                // calculate last page time cosuming
+                if(index>0){
+                    var preTotalTime = 0
+                    for(var i = 1; i <= index; i++){
+                        preTotalTime += window.durationArray[i-1]
+                    }
+                    window.durationArray[index] = (new Date() - window.viewStartTime)/1000 - preTotalTime
+                }
+                ga('send', 'event', 'wechat_poster', 'time-consuming', 'page'+index, window.durationArray[index])
                 ga('send', 'pageview', '/wechat-poster/' + getCurrentRentId() + '/'+ (index+1))
-                ga('send', 'event', 'wechat_poster', 'time-consuming', 'page'+index, (new Date() - window.viewStartTime)/1000)
-            }*/
+            }
         },
         onTransitionEnd: function (swiper, direction) {
             //console.log(new Date + ': onSlideChangeEnd!')
@@ -50,8 +57,9 @@
             if(index < 6 && parent && parent.previewMoveTo){ //如果在发布预览页的iframe中展示，那么调用父窗口的方法改变父窗口对应的说明文字状态
                 parent.previewMoveTo(index)
             }
-
-
+        },
+        onReachEnd: function (swiper){
+            ga('send', 'event', 'wechat_poster', 'time-consuming', 'total-time', (new Date() - window.viewStartTime)/1000)
         }
     });
     window.wechatSwiperMoveTo = function(num, speed, callback) {
@@ -112,7 +120,9 @@
                 $('.swiper-slide').eq(0).find('.animate').removeClass('hide').addClass('animation')
             })
 
-            ga('send', 'event', 'wechat_poster', 'time-consuming', 'load-time', (new Date() - window.viewStartTime)/1000)
+            // Get and send poster load time, aka from user open poster to user see first page
+            window.durationArray[0] = (new Date() - window.viewStartTime)/1000
+            ga('send', 'event', 'wechat_poster', 'time-consuming', 'load-time', window.durationArray[0])
         }
     })
     $(window).load(function(){
@@ -175,14 +185,14 @@
         })
     }
     // Get current rent ticket id
-    /*function getCurrentRentId(){
+    function getCurrentRentId(){
         var urlpaths = window.location.pathname.split('/')
         if(urlpaths.length>0){
             return urlpaths[urlpaths.length-1]
         }else{
             return null
         }
-    }*/
+    }
     // 横屏监听
     function UpdateOrientation(){
         this.notShow = false
