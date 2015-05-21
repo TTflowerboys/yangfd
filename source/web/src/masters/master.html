@@ -146,6 +146,17 @@
                 <!-- @@placeholder = main -->
             </main>
 
+            <!-- @if ENV!='production' -->
+            <div class="app-floatbar hiddenInClient">
+                <img class="app-floatbar-icon" src="/static/images/icon/app_icon.png"></img>
+                <div class="app-floatbar-content">
+                    <label>{{_('朋友圈里的极速出租工具')}}</label>
+                </div>
+                <a class='app-floatbar-download button red'>{{_('下载发布')}}</a>
+                <img class="app-floatbar-close" src="/static/images/icon/close_circular.png"></img>
+            </div>
+            <!-- @endif -->
+
             <div id="footer" class="siteFooter_wrapper hiddenInClient">
                 <footer class="siteFooter">
                     <div class="contact">
