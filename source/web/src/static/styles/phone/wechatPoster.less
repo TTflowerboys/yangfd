@@ -246,43 +246,54 @@ p{
 
     }
     .coverBackBottom{
-        height: 16vh;
+        height: 26vh;
         bottom: -4vh;
         background-image: url("/static/images/wechat_poster/copyright_background.png");
-        .poweredBy{
-            height: 2vh;
-            font-size: 2vh;
-            margin: 2vh auto 2vh;
-            color: #afc327;
-            font-weight: bold;
-        }
-        .logoBox{
-            float: left;
-            width: 50%;
-            .logo{
-                height: 4vh;
-                background-image: url("/static/images/wechat_poster/logo_cover_back.png");
-                background-repeat: no-repeat;
-                background-size: contain;
-                background-position: 50% 50%;
-            }
-        }
-        .siteLinkBox{
-            float: right;
-            width: 40%;
+        .linkWrap{
+            margin: 4.2vh 5vw;
             .siteLink{
-                height: 4vh;
                 display: inline-block;
-                padding: 1vh 2vh;
-                border-radius: 1.2vh;
+                padding: 1.4vh 7vw;
+                border-radius: 5px;
                 border: 1px solid #fff;
                 cursor: pointer;
-                font-size: 2vh;
+                font-size: 2.5vh;
                 line-height: 1em;
                 text-decoration: none;
                 color: #fff;
             }
+            .siteLinkBox{
+                float: left;
+                width: 50%;
+                text-align: center;
+            }
         }
+        .copyright{
+            margin: 3.8vh 3vw;
+            border-top: 1px solid #535353;
+            padding: 2vh 0;
+            .poweredBy{
+                width: 40%;
+                float: left;
+                height: 4.5vh;
+                line-height: 4vh;
+                font-size: 2.2vh;
+                color: #afc327;
+                font-weight: bold;
+            }
+            .logoBox{
+                float: left;
+                width: 60%;
+                .logo{
+                    height: 4.5vh;
+                    background-image: url("/static/images/wechat_poster/logo_cover_back.png");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    background-position: 50% 50%;
+                }
+            }
+        }
+
 
     }
 }
