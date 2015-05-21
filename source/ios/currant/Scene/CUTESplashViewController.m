@@ -17,6 +17,7 @@
 #define kPageIndicatorHeight 14
 #define kPageIndicatorBottomMargin 22
 #define kButtonHeight 50
+#define kButtonTopMargin 28
 #define kButtonHorizontalMargin 50
 #define kButtonBottomMargin 40
 
@@ -69,12 +70,13 @@
 }
 
 
+#define kContentHeight 342
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [_pagingView updateFrame:self.view.bounds];
-    _pageIndicator.frame = CGRectMake(0, RectHeightExclude(self.view.bounds, (kButtonHeight + kButtonBottomMargin + kPageIndicatorBottomMargin)), RectWidth(self.view.bounds), kPageIndicatorHeight);
-    _enterButton.frame = CGRectMake(kButtonHorizontalMargin, RectHeightExclude(self.view.bounds, (kButtonHeight + kButtonBottomMargin)), RectWidthExclude(self.view.bounds, kButtonHorizontalMargin * 2), kButtonHeight);
+    _pageIndicator.frame = CGRectMake(0, RectHeightExclude(self.view.bounds, kContentHeight) / 2 + kContentHeight, RectWidth(self.view.bounds), kPageIndicatorHeight);
+    _enterButton.frame = CGRectMake(kButtonHorizontalMargin, _pageIndicator.frame.origin.y + kButtonTopMargin, RectWidthExclude(self.view.bounds, kButtonHorizontalMargin * 2), kButtonHeight);
 }
 
 - (void)onEnterButtonPressed:(id)sender {
@@ -85,18 +87,58 @@
 
 - (UIView *)pageViewAtIndex:(NSInteger)index {
 
-    BBTCenterImageView *imageView = [[BBTCenterImageView alloc] initWithFrame:_pagingView.bounds];
-    imageView.backgroundColor = HEXCOLOR(0xf0e8d4, 1);
+    UIView *view = [[UIView alloc] initWithFrame:_pagingView.bounds];
+    view.backgroundColor = HEXCOLOR(0xf0e8d4, 1);
+    UIImageView *imageView = [[UIImageView alloc] init];
     NSString *imageName = [NSString stringWithFormat:@"img-splash-%d", (index + 1)];
-    imageView.imageView.image = IMAGE(imageName);
-    return imageView;
+    imageView.image = IMAGE(imageName);
+    [view addSubview:imageView];
+    CGSize imageSize = imageView.image.size;
+    imageView.frame = CGRectMake(RectWidthExclude(view.bounds, imageSize.width) / 2 , RectHeightExclude(_pagingView.bounds, kContentHeight) / 2, imageSize.width, imageSize.height);
+
+    UILabel *label = [UILabel new];
+    label.textColor = CUTE_MAIN_COLOR;
+    label.font = [UIFont boldSystemFontOfSize:20];
+    label.textAlignment = NSTextAlignmentCenter;
+    [view addSubview:label];
+    label.frame = CGRectMake(10, imageView.frame.origin.y + imageView.frame.size.height + 14, RectWidthExclude(_pagingView.bounds, 20), 20);
+    label.text = @[STR(@"房东直租工具"),
+                   STR(@"杂志般的房产展示"),
+                   STR(@"一次发布，传遍全英")][index];
+
+    UILabel *detailLabel = [UILabel new];
+    detailLabel.textColor = HEXCOLOR(0x666666, 1);
+    detailLabel.font = [UIFont systemFontOfSize:14];
+    detailLabel.textAlignment = NSTextAlignmentCenter;
+    [view addSubview:detailLabel];
+    detailLabel.frame = CGRectMake(10, label.frame.origin.y + label.frame.size.height + 10, RectWidthExclude(_pagingView.bounds, 20), 20);
+    detailLabel.text = @[STR(@"三步发布出租房，不用费力思考"),
+                         STR(@"分享至朋友圈，高大上的阅读体验"),
+                         STR(@"全国各大平台均可看到你的房产信息")][index];
+
+    return view;
 }
 
 #pragma mark - BBTPagingViewDelegate
 
 - (void)onPagingViewScrollToIndex:(NSInteger)index {
     [_pageIndicator setCurrentPage:index];
-    [_enterButton setHidden:kPageCount - 1 != index];
+
+    if (kPageCount - 1 != index) {
+        [UIView animateWithDuration:0.2 animations:^{
+            _enterButton.alpha = 0;
+        } completion:^(BOOL finished) {
+            [_enterButton setHidden:YES];
+        }];
+    }
+    else {
+        [_enterButton setHidden:NO];
+        [UIView animateWithDuration:0.2 animations:^{
+            _enterButton.alpha = 1;
+        } completion:^(BOOL finished) {
+        }];
+    }
+
 }
 
 @end

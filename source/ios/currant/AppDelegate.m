@@ -187,7 +187,8 @@
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED]) {
+//    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED])
+    {
         CUTESplashViewController *spalshViewController = [CUTESplashViewController new];
         [rootViewController presentViewController:spalshViewController animated:NO completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED];
