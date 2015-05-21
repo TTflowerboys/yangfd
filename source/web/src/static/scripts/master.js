@@ -22,7 +22,7 @@ $(function () {
     if($.cookie('show-app-floatbar') === 'false'){
         $('.app-floatbar').hide()
     }else{
-        if (window.team.isPhone()) {
+        if (window.team.isPhone() && !window.project.isMobileClient()) {
             $('.app-floatbar').show()
         }
     }
