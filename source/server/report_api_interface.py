@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 @f_api('/report/add', params=dict(
     name=("i18n", None, str),
-    country='enum:country',
+    country='country',
     zipcode_index=(str, True),
     ward=str,
     district=str,
@@ -97,7 +97,7 @@ def report_get(report_id):
     zipcode_index=(str, None),
     ward=str,
     district=str,
-    country=('enum:country', None),
+    country=('country', None),
     description=("i18n", None, str),
     villa_price=("i18n:currency", None),
     villa_rental=("i18n:currency", None),
@@ -171,7 +171,7 @@ def report_remove(report_id):
     time=datetime,
     status=str,
     zipcode_index=str,
-    country='enum:country',
+    country='country',
 ))
 def report_search(params):
     per_page = params.pop("per_page", 0)
@@ -237,7 +237,7 @@ def lupdate(user):
 
 
 @f_api('/geonames/search', params=dict(
-    country=str,
+    country="country",
     admin1=str,
     admin2=str,
     admin3=str,
@@ -284,6 +284,9 @@ def geonames_search(params):
     if params["feature_code"] == "city":
         params["feature_code"] = {"$in": ["PPLC", "PPLA", "PPLA2"]}
 
+    if "country" in params:
+        params["country"] = params["country"]["code"]
+
     if "latitude" in params:
         return f_app.geonames.gazetteer.get_nearby(params)
     else:
@@ -291,7 +294,7 @@ def geonames_search(params):
 
 
 @f_api('/postcode/search', params=dict(
-    country=str,
+    country="country",
     postcode=str,
     postcode_index=str,
     postcode_area=bool,
@@ -306,6 +309,10 @@ def postcode_search(params):
 
     For other uses, either ``postcode`` or ``postcode_index`` must present.
     """
+
+    if "country" in params:
+        params["country"] = params["country"]["code"]
+
     if "postcode_area" in params and params["postcode_area"]:
         assert "country" in params, abort(40000, "country must present to query postcode area")
         return f_app.geonames.postcode.get_postcode_areas(params["country"])

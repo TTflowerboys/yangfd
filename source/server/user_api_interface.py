@@ -119,7 +119,7 @@ def current_user_favorite_get(user, favorite_id):
 @f_api('/user/login', force_ssl=True, params=dict(
     nolog="password",
     phone=(str, True),
-    country="enum:country",
+    country="country",
     password=(str, True, "notrim", "base64"),
 ))
 @rate_limit("login", ip=20)
@@ -140,7 +140,7 @@ def user_login(params):
     nickname=(str, True),
     password=(str, True, "notrim", "base64"),
     phone=(str, True),
-    country=("enum:country", True),
+    country=("country", True),
     occupation="enum:occupation",
     email=str,
     solution=(str, True),
@@ -156,8 +156,6 @@ def user_register(params):
     Basic user register
 
     ``password`` must be base64 encoded.
-
-    ``country`` should be enum type.
 
     ``solution``  the solution user enters  in ``recaptcha_response_field``
 
@@ -187,7 +185,7 @@ def user_register(params):
     email=(str, True),
     nickname=(str, True),
     phone=(str, True),
-    country=("enum:country", True),
+    country=("country", True),
     locales=(list, None, str),
     occupation="enum:occupation",
 ))
@@ -252,25 +250,25 @@ def user_fast_register(params):
 
 @f_api('/user/edit', force_ssl=True, params=dict(
     nolog=("password", "old_password"),
-    nickname=(str, None),
-    first_name=(str, None),
-    last_name=(str, None),
-    phone=(str, None),
-    city=("enum:city", None),
+    nickname=str,
+    first_name=str,
+    last_name=str,
+    phone=str,
+    city="geonames_gazetteer:city",
     state=("enum:state", None),
-    country=("enum:country", None),
-    address1=(str, None),
-    address2=(str, None),
-    zipcode=(str, None),
-    email=(str, None),
+    country=("country", None),
+    address1=str,
+    address2=str,
+    zipcode=str,
+    email=str,
     password=(str, None, "notrim", "base64"),
     old_password=(str, None, "notrim", "base64"),
-    gender=(str, None),
+    gender=str,
     date_of_birth=datetime,
     intention=(list, None, "enum:intention"),
     locales=(list, None, str),
     currency=(list, None, str),
-    wechat_id=(str, None),
+    wechat_id=None,
     budget=("enum:budget", None),
     system_message_type=(list, None, str),
     email_message_type=(list, None, str),
@@ -340,7 +338,7 @@ def current_user_edit(user, params):
     register_time=datetime,
     role=str,
     phone=str,
-    country="enum:country",
+    country="country",
     has_role=bool,
     has_intention_ticket=bool,
     has_register_time=bool,
@@ -413,7 +411,7 @@ def admin_user_search(user, params):
     nickname=(str, True),
     phone=(str, True),
     role=(list, True, str),
-    country=("enum:country", True),
+    country=("country", True),
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_add(user, params):
@@ -649,7 +647,7 @@ def admin_user_unset_role(user, user_id, params):
 
 @f_api("/user/check_exist", force_ssl=True, params=dict(
     phone=(str, True),
-    country="enum:country",
+    country="country",
 ))
 def user_check_exist(params):
     params["phone"] = f_app.util.parse_phone(params)
@@ -658,18 +656,15 @@ def user_check_exist(params):
 
 @f_api('/user/phone_test', force_ssl=True, params=dict(
     phone=(str, True),
-    country="enum:country",
+    country="country",
 ))
 def user_phone_test(params):
-    """
-    Parse "user" to ``country`` to try to append current user's country code to the phone (only applicable to valid login)
-    """
     return f_app.util.parse_phone(params)
 
 
 @f_api('/user/sms_verification/send', force_ssl=True, params=dict(
     phone=(str, True),
-    country="enum:country",
+    country="country",
 ))
 @rate_limit("sms_verification", ip=10)
 def user_sms_verification_send(params):
@@ -782,7 +777,7 @@ def email_verify(user_id, params):
 
 @f_api('/user/get_by_phone', force_ssl=True, params=dict(
     phone=(str, True),
-    country="enum:country",
+    country="country",
 ))
 @f_app.user.login.check(force=True)
 def user_get_id_by_phone(user, params):

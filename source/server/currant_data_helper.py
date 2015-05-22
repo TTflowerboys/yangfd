@@ -66,7 +66,7 @@ def get_property_or_target_property(property_id):
 def get_related_property_list(property):
     if property.get('country'):
         raw_related_property_list = f_app.property.output(f_app.property.search({
-            "country._id": ObjectId(property.get('country').get('id')),
+            "country.code": property.get('country').get('code'),
             "status": {"$in": ["selling", "sold out"]},
         }, per_page=20, time_field="mtime"))
 

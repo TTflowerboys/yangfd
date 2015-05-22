@@ -100,6 +100,78 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 self.logger.debug("updating report_id", str(report_zipcode_index_map[item["zipcode_index"]]), "for item", str(item["_id"]))
                 item_db.update({"_id": item["_id"]}, {"$set": {"report_id": report_zipcode_index_map[property["zipcode_index"]]}, "$unset": {"zipcode_index": ""}})
 
+    def v7(self, m):
+        all_country = f_app.enum.get_all("country")
+        country_dict = {country["id"]: country for country in all_country}
+
+        def migrate_country(db):
+            for item in db.find({"country": {"$ne": None}}, {"country": 1}):
+                if item["country"] and "_id" in item["country"]:
+                    if str(item["country"]["_id"]) in country_dict:
+                        self.logger.debug("updating country", country_dict[str(item["country"]["_id"])]["slug"], "for item", str(item["_id"]))
+                        db.update({"_id": item["_id"]}, {"$set": {"country": {"_country": True, "code": country_dict[str(item["country"]["_id"])]["slug"]}}})
+                    else:
+                        self.logger.warning("unknown country enum:", str(item["country"]["_id"]))
+
+        self.logger.debug("Migrating property.country")
+        migrate_country(f_app.property.get_database(m))
+        self.logger.debug("Migrating enum.country")
+        migrate_country(f_app.enum.get_database(m))
+        self.logger.debug("Migrating blog.post.country")
+        migrate_country(f_app.blog.post.get_database(m))
+        self.logger.debug("Migrating report.country")
+        migrate_country(f_app.report.get_database(m))
+        self.logger.debug("Migrating shop.item.country")
+        migrate_country(f_app.shop.item.get_database(m))
+        self.logger.debug("Migrating ticket.country")
+        migrate_country(f_app.ticket.get_database(m))
+        self.logger.debug("Migrating user.country")
+        migrate_country(f_app.user.get_database(m))
+
+        all_city = f_app.enum.get_all("city")
+        city_dict = {city["id"]: city for city in all_city}
+        city_map = {
+            "武汉": "1791247",
+            "伦敦": "2643743",
+            "伯明翰": "2655603",
+            "布里斯托尔": "2654675",
+            "利物浦": "2644210",
+            "曼彻斯特": "2643123",
+            "切斯特": "2653228",
+            "泰恩河畔纽卡斯尔": "2641673",
+            "利兹": "2644688",
+            "谢菲尔德": "2638077",
+            "北京": "1816670",
+            "纽卡斯尔": "2641673",
+            "好莱坞": "5368361",
+            "迈阿密": "4164138",
+            "佛罗里达": "4164138",
+            "米德尔塞克斯": "2643743",
+            "格拉斯哥": "2648579",
+            "肯特": "2643179",
+            "西萨塞克斯": "2653192",
+        }
+
+        def migrate_city(db):
+            for item in db.find({"city": {"$ne": None}}, {"city": 1}):
+                if item["city"] and "_id" in item["city"]:
+                    if str(item["city"]["_id"]) in city_dict:
+                        city_id = f_app.geonames.gazetteer.get_by_geoname_id(city_map[city_dict[str(item["city"]["_id"])]["name"]["zh_Hans_CN"]])
+                        self.logger.debug("updating city", city_id, "for item", str(item["_id"]))
+                        db.update({"_id": item["_id"]}, {"$set": {"city": {"_geonames_gazetteer": "city", "_id": ObjectId(city_id)}}})
+                    else:
+                        self.logger.warning("unknown city enum:", str(item["city"]["_id"]))
+
+        self.logger.debug("Migrating property.city")
+        migrate_city(f_app.property.get_database(m))
+        self.logger.debug("Migrating blog.post.city")
+        migrate_city(f_app.blog.post.get_database(m))
+        self.logger.debug("Migrating shop.item.city")
+        migrate_city(f_app.shop.item.get_database(m))
+        self.logger.debug("Migrating ticket.city")
+        migrate_city(f_app.ticket.get_database(m))
+        self.logger.debug("Migrating user.city")
+        migrate_city(f_app.user.get_database(m))
 
 currant_mongo_upgrade()
 
@@ -712,8 +784,8 @@ class f_currant_plugins(f_app.plugin_base):
                 list_page_property_links = list_page_dom_root("div#cntrlPropertySearch_map_pnlResults a.propAdd")
                 for link in list_page_property_links:
                     params = {
-                        "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
-                        "city": ObjectId(f_app.enum.get_by_slug('london')['id'])
+                        "country": "GB",
+                        "city": f_app.geonames.gazetteer.get_by_geoname_id("2643743")
                     }
                     property_url = "%s%s" % (search_url_prefix, link.attrib['href'])
                     property_site_id = urllib.parse.urlparse(link.attrib['href']).path.split('/')[-1]
@@ -785,7 +857,7 @@ class f_currant_plugins(f_app.plugin_base):
             list_links = list_page_dom_root('h2.projects-accordion__heading--current').siblings('div.projects-accordion__content').children().children()
             for link in list_links:
                 params = {
-                    "country": ObjectId(f_app.enum.get_by_slug('GB')['id'])
+                    "country": "GB"
                 }
                 property_page_link_url = link.attrib['href']
                 property_page = f_app.request.get(property_page_link_url)
@@ -832,7 +904,7 @@ class f_currant_plugins(f_app.plugin_base):
                     if img_overlay.get("src", None) == "http://static.kkicdn.com/img/overlay-soldout.png":
                         continue
                     params = {
-                        "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
+                        "country": "GB"
                     }
                     property_url = "%s%s" % (search_url_prefix, link.attrib['href'])
                     logger.debug("property_url", property_url)
@@ -1039,7 +1111,7 @@ class f_currant_plugins(f_app.plugin_base):
                         crawling_pages = [(page["pageId"], page["urls"][2]) for page in pages if page["pageId"] in page_ids]
                         for crawling_page in crawling_pages:
                             params = {
-                                "country": ObjectId(f_app.enum.get_by_slug('GB')['id']),
+                                "country": "GB"
                             }
                             self.logger.debug("Start crawling abacusinvestor page id %s, page url %s" % crawling_page)
                             params["property_crawler_id"] = crawling_page[1]
@@ -1125,7 +1197,7 @@ class f_currant_plugins(f_app.plugin_base):
                 plot_params = {}
                 property_name, plot_name = [x.strip() for x in q(row[0]).text().rsplit(' ', 1)]
                 plot_params["name"] = {"en_GB": q(row[0]).text().strip()}
-                plot_params["country"] = ObjectId(f_app.enum.get_by_slug('GB')['id']),
+                plot_params["country"] = "GB"
                 plot_params["plot_crawler_id"] = q(row[0]).text()
 
                 if property_name == "Vita Student Westgate":
@@ -2023,7 +2095,7 @@ class f_doogal(f_app.module_base):
                         continue
 
                     params = {
-                        "currant_country": "UK",  # Hardcoded
+                        "currant_country": "GB",  # Hardcoded
                         "zipcode": r[0],
                         "latitude": float(r[1]),
                         "longitude": float(r[2]),

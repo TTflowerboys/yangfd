@@ -121,7 +121,7 @@ def rent_ticket_get(rent_ticket_id, user):
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 
     # report = None
-    # if rent_ticket.get('zipcode_index') and rent_ticket.get('country').get('slug') == 'GB':
+    # if rent_ticket.get('zipcode_index') and rent_ticket.get('country').get('code') == 'GB':
     #     report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket.get('zipcode_index')))
 
     title = _('房东联系方式')

@@ -15,9 +15,9 @@ logger = logging.getLogger(__name__)
     phone=(str, True),
     email=(str, True),
     budget="enum:budget",
-    country=("enum:country", True),
+    country=("country", True),
     description=str,
-    city="enum:city",
+    city="geonames_gazetteer:city",
     block=str,
     equity_type='enum:equity_type',
     intention=(list, None, 'enum:intention'),
@@ -285,10 +285,10 @@ def intention_ticket_assign(user, ticket_id, user_id):
 
 
 @f_api('/intention_ticket/<ticket_id>/edit', params=dict(
-    country=("enum:country", None),
-    description=(str, None),
-    city=("enum:city", None),
-    block=(str, None),
+    country="country",
+    description=str,
+    city="geonames_gazetteer:city",
+    block=str,
     equity_type=("enum:equity_type", None),
     budget=("enum:budget", None),
     custom_fields=(list, None, dict(
@@ -333,7 +333,7 @@ def intention_ticket_edit(user, ticket_id, params):
     sort=(list, ["time", 'desc'], str),
     budget="enum:budget",
     phone=str,
-    country="enum:country",
+    country="country",
     user_id=ObjectId,
 ))
 @f_app.user.login.check(force=True)
@@ -371,7 +371,7 @@ def intention_ticket_search(user, params):
     nickname=(str, True),
     phone=(str, True),
     email=(str, True),
-    country="enum:country",
+    country="country",
     description=str,
     custom_fields=(list, None, dict(
         key=(str, True),
@@ -478,7 +478,7 @@ def support_ticket_assign(user, ticket_id, user_id):
 
 
 @f_api('/support_ticket/<ticket_id>/edit', params=dict(
-    country=("enum:country", None),
+    country=("country", None),
     description=(str, None),
     custom_fields=(list, None, dict(
         key=str,
@@ -519,7 +519,7 @@ def support_ticket_edit(user, ticket_id, params):
     time=datetime,
     sort=(list, ["time", 'desc'], str),
     phone=str,
-    country="enum:country",
+    country="country",
     user_id=ObjectId,
 ))
 @f_app.user.login.check(force=True)
@@ -681,8 +681,8 @@ def rent_ticket_contact_info(user, ticket_id):
     space=("enum:building_area"),
     property_type=(list, None, "enum:property_type"),
     intention=(list, None, "enum:intention"),
-    country='enum:country',
-    city='enum:city',
+    country='country',
+    city='geonames_gazetteer:city',
     location_only=bool,
     latitude=float,
     longitude=float,
@@ -955,8 +955,8 @@ def sale_ticket_get(user, ticket_id):
     building_area="enum:building_area",
     property_type=(list, None, "enum:property_type"),
     intention=(list, None, "enum:intention"),
-    country='enum:country',
-    city='enum:city',
+    country='country',
+    city='geonames_gazetteer:city',
 ))
 @f_app.user.login.check(check_role=True)
 def sale_ticket_search(user, params):
@@ -1087,7 +1087,7 @@ def sale_ticket_search(user, params):
 
 @f_api('/crowdfunding_reservation_ticket/add', params=dict(
     email=(str, True),
-    country=("enum:country", True),
+    country=("country", True),
     estimated_investment_amount="i18n:currency",
 ))
 def crowdfunding_reservation_ticket_add(params):
@@ -1113,7 +1113,7 @@ def crowdfunding_reservation_ticket_get(user, ticket_id):
     time=datetime,
     sort=(list, ["time", 'desc'], str),
     email=str,
-    country="enum:country",
+    country="country",
     creator_user_id=ObjectId,
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])

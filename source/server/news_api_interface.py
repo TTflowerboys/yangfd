@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
     time=datetime,
     category=(list, None, "enum:news_category"),
     category_slugs=(list, None, str),
-    country='enum:country',
+    country='country',
 ))
 def news_list(params):
     per_page = params.pop("per_page", 0)
@@ -42,8 +42,8 @@ def news_list(params):
     title=('i18n', None, str),
     content=('i18n', None, str),
     category=(list, True, "enum:news_category"),
-    country="enum:country",
-    city="enum:city",
+    country="country",
+    city="geonames_gazetteer:city",
     street=('i18n', None, str),
     summary=('i18n', None, str),
     images=(list, None, str, None, "replaces"),
@@ -68,8 +68,8 @@ def news_get(news_id):
     title=('i18n', None, str),
     content=('i18n', None, str),
     category=(list, None, "enum:news_category"),
-    country=("enum:country", None),
-    city=("enum:city", None),
+    country=("country", None),
+    city=("geonames_gazetteer:city", None),
     street=('i18n', None, str),
     images=(list, None, str, None, "replaces"),
     link=(str, None),

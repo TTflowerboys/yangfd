@@ -26,7 +26,7 @@ def enum_list(params):
     type=(str, True),
     value=("i18n", True, str),
     # Field for message_api_interface
-    country="enum:country",
+    country="country",
     state="enum:state",
     currency=str,
     slug=str,
@@ -39,14 +39,11 @@ def enum_add(user, params):
     """
     ``slug`` is the unique key to get the enum data.
 
-    ``enum:country`` data model::
+    Old Data:
+
+    ``country`` data model::
 
         {
-            "type": "country",
-            "value": {
-                "zh_Hans_CN": "中国",
-                "en_GB": "China"
-            },
             "slug": "CN"
         }
 
@@ -72,10 +69,10 @@ def enum_add(user, params):
 @f_api('/enum/<enum_id>/edit', params=dict(
     type=str,
     value=("i18n", None, str),
-    country=("enum:country", None),
-    state=("enum:state", None),
-    currency=(str, None),
-    slug=(str, None),
+    country="country",
+    state="enum:state",
+    currency=str,
+    slug=str,
     description=('i18n', None, str),
     image=(str, None, "replaces"),
 ))
@@ -89,8 +86,8 @@ def enum_edit(user, enum_id, params):
 
 
 @f_api('/enum/search', params=dict(
-    country="enum:country",
-    state="enum:country",
+    country="country",
+    state="enum:state",
     per_page=int,
     time=datetime,
     currency=str,
@@ -108,8 +105,6 @@ def enum_check(enum_id):
     property_list = f_app.property.search({"$or": [
         {"property_type._id": enum_id},
         {"property_price_type._id": enum_id},
-        {"country._id": enum_id},
-        {"city._id": enum_id},
         {"investment_type._id": enum_id},
         {"intention._id": enum_id},
         {"equity_type._id": enum_id},
@@ -118,20 +113,14 @@ def enum_check(enum_id):
         {"facing_direction._id": enum_id},
     ]}, per_page=0)
     item_list = f_app.shop.item_custom_search({"$or": [
-        {"country._id": enum_id},
-        {"city._id": enum_id},
         {"investment_type._id": enum_id},
     ]}, per_page=0)
     ticket_list = f_app.ticket.search({"$or": [
-        {"country._id": enum_id},
-        {"city._id": enum_id},
         {"budget._id": enum_id},
         {"equity_type._id": enum_id},
         {"intention._id": enum_id},
     ]}, per_page=0)
     user_list = f_app.user.custom_search({"$or": [
-        {"country._id": enum_id},
-        {"city._id": enum_id},
         {"budget._id": enum_id},
     ]}, per_page=0)
     return {
@@ -166,8 +155,6 @@ def enum_remove(user, enum_id, params):
         property_list = f_app.property.search({"$or": [
             {"property_type._id": enum_id},
             {"property_price_type._id": enum_id},
-            {"country._id": enum_id},
-            {"city._id": enum_id},
             {"investment_type._id": enum_id},
             {"intention._id": enum_id},
             {"equity_type._id": enum_id},
@@ -176,19 +163,13 @@ def enum_remove(user, enum_id, params):
             {"facing_direction._id": enum_id},
         ]}, per_page=0)
         item_list = f_app.shop.item_custom_search({"$or": [
-            {"country._id": enum_id},
-            {"city._id": enum_id},
             {"investment_type._id": enum_id},
         ]}, per_page=0)
         user_list = f_app.user.custom_search({"$or": [
-            {"country._id": enum_id},
-            {"city._id": enum_id},
             {"budget._id": enum_id},
             {"intention._id": enum_id}
         ]}, per_page=0)
         ticket_list = f_app.ticket.search({"$or": [
-            {"country._id": enum_id},
-            {"city._id": enum_id},
             {"budget._id": enum_id},
             {"equity_type._id": enum_id},
             {"intention._id": enum_id},
@@ -223,7 +204,7 @@ def enum_remove(user, enum_id, params):
             if len(investment_types) != len(investment_types_modified):
                 update_fields["investment_type"] = investment_types_modified
 
-            for i in ["property_type, property_price_type", "country", "city", "equity_type", "decorative_style", "facing_direction"]:
+            for i in ["property_type, property_price_type", "equity_type", "decorative_style", "facing_direction"]:
                 if isinstance(property.get(i), dict) and property[i].get("id") == enum_id:
                     unset_fields.append(i)
             if update_fields:
@@ -233,7 +214,7 @@ def enum_remove(user, enum_id, params):
 
         for item in f_app.shop.item_get(item_list):
             unset_fields = []
-            for i in ["country", "city", "investment_type"]:
+            for i in ["investment_type"]:
                 if isinstance(item.get(i), dict) and item[i].get("id") == enum_id:
                     unset_fields.append(i)
             if unset_fields:
@@ -248,7 +229,7 @@ def enum_remove(user, enum_id, params):
             if len(intentions) != len(intentions_modified):
                 update_fields["intention"] = intentions_modified
 
-            for i in ["country", "city", "budget"]:
+            for i in ["budget"]:
                 if isinstance(user.get(i), dict) and user[i].get("id") == enum_id:
                     unset_fields.append(i)
             if update_fields:
@@ -265,7 +246,7 @@ def enum_remove(user, enum_id, params):
             if len(intentions) != len(intentions_modified):
                 update_fields["intention"] = intentions_modified
 
-            for i in ["country", "city", "budget", "equity_type"]:
+            for i in ["budget", "equity_type"]:
                 if isinstance(ticket.get(i), dict) and ticket[i].get("id") == enum_id:
                     unset_fields.append(i)
 
