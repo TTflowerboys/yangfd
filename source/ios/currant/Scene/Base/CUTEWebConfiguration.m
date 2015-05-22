@@ -17,6 +17,7 @@
 #import <RegExCategories.h>
 #import "CUTETracker.h"
 #import "UIAlertView+Blocks.h"
+#import "CUTENotificationKey.h"
 
 @implementation CUTEWebConfiguration
 
@@ -33,7 +34,7 @@
 }
 
 - (NSArray *)loginRequiredURLPathArray {
-    return @[@"/user"];
+    return @[@"/user", @"/user_favorites?type=rent"];
 }
 
 - (NSURL *)getRedirectToLoginURLFromURL:(NSURL *)url {
@@ -52,10 +53,10 @@
 }
 
 - (BBTWebBarButtonItem *)getLeftBarItemFromURL:(NSURL *)url {
-    if ([self isURL:url matchPath:@"\\/property-to-rent-list"] && [CUTEDataManager sharedInstance].isUserLoggedIn) {
+    if ([self isURL:url matchPath:@"\\/property-to-rent-list"]) {
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
             TrackEvent(@"property-to-rent-list", kEventActionPress, @"open-fav-list", nil);
-            [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"/user_favorites?type=rent" relativeToURL:[CUTEConfiguration hostURL]]]];
+            [NotificationCenter postNotificationName:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:nil];
         }];
     }
 

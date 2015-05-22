@@ -145,14 +145,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketListReload:) name:KNOTIF_TICKET_LIST_RELOAD object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveHideRootTabBar:) name:KNOTIF_HIDE_ROOT_TAB_BAR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowRootTabBar:) name:KNOTIF_SHOW_ROOT_TAB_BAR object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowFavoriteRentTicketList:) name:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
     UINavigationController *homeViewController = [self makeViewControllerWithTitle:STR(@"主页") icon:@"tab-home" urlPath:@"/" index:kHomeTabBarIndex];
 
     UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit" urlPath:@"/rent_new"];
-    UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:STR(@"新房") icon:@"tab-property" urlPath:@"/property_list"];
-    UINavigationController *rentTicketListViewController = [self makeViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property_to_rent_list" index:kRentTicketListTabBarIndex];
+    UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:STR(@"新房") icon:@"tab-property" urlPath:@"/property-list"];
+    UINavigationController *rentTicketListViewController = [self makeViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property-to-rent-list" index:kRentTicketListTabBarIndex];
     UINavigationController *userViewController = [self makeViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user" index: kUserTabBarIndex];
     [rootViewController setViewControllers:@[homeViewController,
                                              propertyListViewController,
@@ -427,6 +428,17 @@
 
 - (void)onReceiveShowRootTabBar:(NSNotification *)notif {
     [self.tabBarController setTabBarHidden:NO animated:YES];
+}
+
+
+- (void)onReceiveShowFavoriteRentTicketList:(NSNotification *)notif {
+    [self.tabBarController setSelectedIndex:kRentTicketListTabBarIndex];
+    
+    UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:kRentTicketListTabBarIndex];
+    if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
+        [webViewController loadURLInNewController:[NSURL URLWithString:@"/user_favorites?type=rent" relativeToURL:[CUTEConfiguration hostURL]]];
+    }
 }
 
 @end
