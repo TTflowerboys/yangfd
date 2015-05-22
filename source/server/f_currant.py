@@ -152,11 +152,14 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "西萨塞克斯": "2653192",
         }
 
+        for city in city_map:
+            city_map[city] = f_app.geonames.gazetteer.get_database(m).find_one({"geoname_id": city_map[city]})["_id"]
+
         def migrate_city(db):
             for item in db.find({"city": {"$ne": None}}, {"city": 1}):
                 if item["city"] and "_geonames_gazetteer" not in item["city"] and "_id" in item["city"]:
                     if str(item["city"]["_id"]) in city_dict:
-                        city_id = f_app.geonames.gazetteer.get_database(m).find_one({"geoname_id": city_map[city_dict[str(item["city"]["_id"])]["value"]["zh_Hans_CN"]]})["_id"]
+                        city_id = city_map[city_dict[str(item["city"]["_id"])]["value"]["zh_Hans_CN"]]
                         self.logger.debug("updating city", city_id, "for item", str(item["_id"]))
                         db.update({"_id": item["_id"]}, {"$set": {"city": {"_geonames_gazetteer": "city", "_id": ObjectId(city_id)}}})
                     else:
