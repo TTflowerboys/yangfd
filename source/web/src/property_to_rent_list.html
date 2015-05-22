@@ -72,7 +72,9 @@
         <select class="ghostSelect hiddenOnMobile" name="propertyType">
             <option value="" selected>{{_('任意类型房产')}}</option>
             %for index, property_type in enumerate(property_type_list):
-            <option value="{{property_type.get('id')}}">{{property_type.get('value')}}</option>
+                % if property_type.get('slug') != 'new_property':
+                    <option value="{{property_type.get('id')}}">{{property_type.get('value')}}</option>
+                % end
             %end
         </select>
         <span>{{_('的')}}</span>
@@ -100,8 +102,9 @@
                     <h4 class="propertyType_title">{{_('房产类型')}}</h4>
                     <div id="propertyTypeTag" class="inner">
                         %for index, property_type in enumerate(property_type_list):
-                        <div class="toggleTag" data-id="{{property_type.get('id')}}">{{property_type.get('value')}}
-                        </div>
+                            % if property_type.get('slug') != 'new_property':
+                                <div class="toggleTag" data-id="{{property_type.get('id')}}">{{property_type.get('value')}}</div>
+                            %end
                         %end
                     </div>
                 </div>
