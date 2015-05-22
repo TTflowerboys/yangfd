@@ -153,10 +153,10 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         }
 
         for city in city_map:
-            city = f_app.geonames.gazetteer.get_database(m).find_one({"geoname_id": city_map[city]})
-            if city is None:
+            _city = f_app.geonames.gazetteer.get_database(m).find_one({"geoname_id": city_map[city]})
+            if _city is None:
                 self.logger.error("city", city, "was not imported into gazetteer db, aborting migration")
-            city_map[city] = city["_id"]
+            city_map[city] = _city["_id"]
 
         def migrate_city(db):
             for item in db.find({"city": {"$ne": None}}, {"city": 1}):
