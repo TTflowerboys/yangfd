@@ -26,6 +26,7 @@
 #import "NSObject+Attachment.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTEHouseType.h"
+#import "UIAlertView+Blocks.h"
 
 @interface CUTEPropertyListViewController () <MKMapViewDelegate, SMCalloutViewDelegate>
 {
@@ -184,18 +185,24 @@
         }
         else {
             NSArray *propertyList = task.result;
-            NSMutableArray *locations = [NSMutableArray arrayWithCapacity:propertyList.count];
-            NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:propertyList.count];
-            for (CUTEProperty *property in propertyList) {
-                CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude longitude:property.longitude];
-                [locations addObject:location];
-                MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(property.latitude, property.longitude) addressDictionary:nil];
-                placemark.attachment = property;
-                [annotations addObject:placemark];
-            }
-            [_mapView addAnnotations:annotations];
-            [_mapView zoomToFitMapLocationsInsideArray:locations];
 
+            if (IsArrayNilOrEmpty(propertyList)) {
+                [SVProgressHUD showErrorWithStatus:STR(@"暂无结果")];
+            }
+            else {
+                NSMutableArray *locations = [NSMutableArray arrayWithCapacity:propertyList.count];
+                NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:propertyList.count];
+                for (CUTEProperty *property in propertyList) {
+                    CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude longitude:property.longitude];
+                    [locations addObject:location];
+                    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(property.latitude, property.longitude) addressDictionary:nil];
+                    placemark.attachment = property;
+                    [annotations addObject:placemark];
+                }
+                [_mapView addAnnotations:annotations];
+                [_mapView zoomToFitMapLocationsInsideArray:locations];
+
+            }
         }
 
         return task;
