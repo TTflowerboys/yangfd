@@ -96,7 +96,11 @@
 
 - (void)updateWithURL:(NSURL *)url {
     [self updateWebView];
-    [self loadURL:url];
+
+    //http://stackoverflow.com/questions/16073519/nsurlerrordomain-error-code-999-in-ios
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self loadURL:url];
+    });
 }
 
 - (void)viewDidLoad

@@ -46,10 +46,7 @@
             NSDictionary *queryDictionary = [url queryDictionary];
             if (queryDictionary && queryDictionary[@"from"]) {
                 NSString *fromURLStr = [queryDictionary[@"from"] URLDecode];
-                //http://stackoverflow.com/questions/16073519/nsurlerrordomain-error-code-999-in-ios
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
-                });
+                [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
             }
         }
     }
