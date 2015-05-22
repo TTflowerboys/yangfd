@@ -71,14 +71,14 @@
     <!--@@block = main-->
     <div class="propertyDetails">
         <div class="breadcrumb">
-            % if property.get('country').get('value'):
-                <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}" target="_blank">{{property.get('country',{}).get('value','')}}</a> /
+            % if property.get('country,{}').get('code'):
+                <a class="parent" href="/property_list?country={{property.get('country',{}).get('code')}}" target="_blank">get_country_name_by_code(property.get('country',{}).get('code'))</a> /
             % end
-            % if property.get('city').get('value'):
-                <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}&city={{property.get('city',{}).get('id')}}" target="_blank">{{property.get('city',{}).get('value','')}}</a> /
+            % if property.get('city',{}).get('name'):
+                <a class="parent" href="/property_list?country={{property.get('country',{}).get('code')}}&city={{property.get('city',{}).get('id')}}" target="_blank">{{property.get('city',{}).get('name')}}</a> /
             % end
             % if property.get('property_type') and property.get('property_type').get('value'):
-                <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}&city={{property.get('city',{}).get('id')}}&property_type={{property.get('property_type').get('id')}}" target="_blank">{{property.get('property_type',{}).get('value','')}}</a> /
+                <a class="parent" href="/property_list?country={{property.get('country',{}).get('code')}}&city={{property.get('city',{}).get('id')}}&property_type={{property.get('property_type').get('id')}}" target="_blank">{{property.get('property_type',{}).get('value','')}}</a> /
             %end
             <span class="current">{{property.get('name','')}}</span>
         </div>
@@ -163,8 +163,8 @@
                             </div>
                         % end
                         % if 'country' in property or 'city' in property:
-                            % country = property.get('country',{}).get('value')
-                            % city = property.get('city',{}).get('value')
+                            % country = get_country_name_by_code(property.get('country',{}).get('code'))
+                            % city = property.get('city',{}).get('name')
                             % city_string = ', '.join([x for x in [country,city] if x])
                             <div class="tag">
                                 <img src="/static/images/property_details/phone/location-icon-phone.png" height=12 alt=""/>
@@ -651,8 +651,8 @@
                     </div>
                 % end
                 % if 'country' in property or 'city' in property:
-                    % country = property.get('country',{}).get('value')
-                    % city = property.get('city',{}).get('value')
+                    % country = get_country_name_by_code(property.get('country',{}).get('code'))
+                    % city = property.get('city',{}).get('name')
                     % city_string = ', '.join([x for x in [country,city] if x])
                     <div class="tag">
                         <img src="/static/images/property_details/location-icon.png" alt=""/>

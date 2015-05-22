@@ -24,9 +24,9 @@
                 </label>
                 <select name="country" class="country ghostSelect" style="color:#4d4d4d;">
                     %for index, country  in enumerate(country_list):
-                        %if country.get('slug') in ['CN', 'GB', 'US']:
-                            <option value="{{country.get('id')}}" data-slug="{{country.get('slug')}}">
-                                {{country.get('value')}}
+                        %if country.get('code') in ['CN', 'GB', 'US']:
+                            <option value="{{country.get('code')}}" data-slug="{{country.get('code')}}">
+                                {{get_country_name_by_code(country.get('code'))}}
                             </option>
                         %end
                     %end

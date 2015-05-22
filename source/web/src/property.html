@@ -77,7 +77,7 @@
                 <li class="menuItem">
                     <a href="#propertyDetails_description">{{_('房产详情')}}</a>
                 </li >
-                %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
+                %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('code') in ['US', 'GB']:
                     <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
                 %end
                 % if property.get('main_house_types'):
@@ -109,14 +109,14 @@
 
     <div class="propertyDetails">
         <div class="breadcrumb">
-            % if property.get('country').get('value'):
-                <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}" target="_blank">{{property.get('country',{}).get('value','')}}</a> /
+            % if get_country_name_by_code(property.get('country',{}).get('code')):
+                <a class="parent" href="/property_list?country={{property.get('country',{}).get('code')}}" target="_blank">{{get_country_name_by_code(property.get('country',{}).get('code'))}}</a> /
             % end
-            % if property.get('city').get('value'):
-                <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}&city={{property.get('city',{}).get('id')}}" target="_blank">{{property.get('city',{}).get('value','')}}</a> /
+            % if property.get('city').get('name'):
+                <a class="parent" href="/property_list?country={{property.get('country',{}).get('code')}}&city={{property.get('city',{}).get('id')}}" target="_blank">{{property.get('city',{}).get('name','')}}</a> /
             % end
             % if property.get('property_type') and property.get('property_type').get('value'):
-                <a class="parent" href="/property_list?country={{property.get('country',{}).get('id')}}&city={{property.get('city',{}).get('id')}}&property_type={{property.get('property_type').get('id')}}" target="_blank">{{property.get('property_type',{}).get('value','')}}</a> /
+                <a class="parent" href="/property_list?country={{property.get('country',{}).get('code')}}&city={{property.get('city',{}).get('id')}}&property_type={{property.get('property_type').get('id')}}" target="_blank">{{property.get('property_type',{}).get('value','')}}</a> /
             %end
             <span class="current">{{property.get('name','')}}</span>
         </div>
@@ -250,8 +250,8 @@
                             </div>
                         % end
                         % if 'country' in property or 'city' in property:
-                            % country = property.get('country',{}).get('value')
-                            % city = property.get('city',{}).get('value')
+                            % country = get_country_name_by_code(property.get('country',{}).get('code'))
+                            % city = property.get('city',{}).get('name')
                             % city_string = ', '.join([x for x in [country,city] if x])
                             <div class="tag">
                                 <img src="/static/images/property_details/phone/location-icon-phone.png" height=12 alt=""/>
@@ -491,7 +491,7 @@
                 %end
             </div>
 
-            %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
+            %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('code') in ['US', 'GB']:
                 <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
                     <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('周边配套')}}</h3>
@@ -906,8 +906,8 @@
                     </div>
                 % end
                 % if 'country' in property or 'city' in property:
-                    % country = property.get('country',{}).get('value')
-                    % city = property.get('city',{}).get('value')
+                    % country = get_country_name_by_code(property.get('country',{}).get('code'))
+                    % city = property.get('city',{}).get('name')
                     % city_string = ', '.join([x for x in [country,city] if x])
                     <div class="tag">
                         <img src="/static/images/property_details/location-icon.png" alt=""/>
@@ -1026,33 +1026,33 @@
                 <div class="row">
                     <select name="country">
                         % for country in country_list:
-                            % if country.get('slug') == 'GB':
-                                <option value="{{country.get('id')}}"
-                                    % if country.get('id') == user.get('country',{}).get('id') if user and user.get('country') else None:
+                            % if country.get('code') == 'GB':
+                                <option value="{{country.get('code')}}"
+                                    % if country.get('code') == user.get('country',{}).get('code') if user and user.get('country') else None:
                                     selected
                                     %end
                                     >
-                                    (+44) {{country.get('value')}}
+                                    (+44) {{get_country_name_by_code(country.get('code'))}}
                                 </option>
                                 % country_list.remove(country)
                             %end
                         %end
                         %for index, country in enumerate(country_list):
-                            <option value="{{country.get('id')}}"
-                                    % if country.get('id') == user.get('country',{}).get('id') if user and user.get('country') else None:
+                            <option value="{{country.get('code')}}"
+                                    % if country.get('code') == user.get('country',{}).get('code') if user and user.get('country') else None:
                                     selected
                                     %end
                                     >
-                                    %if (country.get('slug') == 'CN'):
+                                    %if (country.get('code') == 'CN'):
                                         (+86)
-                                    %elif (country.get('slug') == 'GB') :
+                                    %elif (country.get('code') == 'GB') :
                                         (+44)
-                                    %elif (country.get('slug') == 'US') :
+                                    %elif (country.get('code') == 'US') :
                                         (+1)
-                                    %elif (country.get('slug') == 'HK') :
+                                    %elif (country.get('code') == 'HK') :
                                         (+852)
                                     %end
-                                    {{country.get('value')}}
+                                    {{get_country_name_by_code(country.get('code'))}}
                             </option>
                         %end
                     </select>
@@ -1192,7 +1192,7 @@
                 <li class="menuItem">
                     <a href="#propertyDetails_description">{{_('房产详情')}}</a>
                 </li >
-                %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('slug') in ['US', 'GB']:
+                %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('code') in ['US', 'GB']:
                     <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
                 %end
                 % if property.get('main_house_types'):
@@ -1393,13 +1393,13 @@
 
                 window.wx.ready(function(){
                     var propertyTitle = property.name
-                    if (property.country && property.country.value) {
+                    if (property.country && property.country.code) {
                         propertyTitle += ' '
-                        propertyTitle += property.country.value
+                        propertyTitle += window.team.countryMap[property.country.code]
                     }
-                    if (property.city && property.city.value) {
+                    if (property.city && property.city.name) {
                         propertyTitle += ' '
-                        propertyTitle += property.city.value
+                        propertyTitle += property.city.name
                     }
 
                     var propertyImage = null
