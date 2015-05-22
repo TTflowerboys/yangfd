@@ -124,6 +124,7 @@
                     imageSize = CGSizeMake((int)imageSize.width, (int)imageSize.height);
                     UIImage *image = [originalImage resizedImage:imageSize interpolationQuality:kCGInterpolationDefault];
 //                    NSUInteger fileSize2 = image.calculatedSize / 1024;
+                    //TODO dynamic choose compressionQuality base image file size
                     NSData *imageData = UIImageJPEGRepresentation(image, 0.75);
 //                    NSUInteger fileSize3 = imageData.length / 1024;
                     [tcs setResult:imageData];
