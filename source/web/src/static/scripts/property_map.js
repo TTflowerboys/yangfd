@@ -21,15 +21,15 @@
 
                         //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
                         window.showMapIndicator()
-                        window.showTransitMap(location, null, true, 14, property.country.slug, function () {
+                        window.showTransitMap(location, null, true, 14, property.country.code, function () {
                                 window.hideMapIndicator()
                         })
                         window.showMapIndicator()
-                        window.showSchoolMap(location, null, true, 14, property.country.slug, function () {
+                        window.showSchoolMap(location, null, true, 14, property.country.code, function () {
                             window.hideMapIndicator()
                         })
                         window.showMapIndicator()
-                        window.showFacilityMap(location, null, true, 14, property.country.slug, function () {
+                        window.showFacilityMap(location, null, true, 14, property.country.code, function () {
                                 window.hideMapIndicator()
                         })
                         window.hideMapIndicator()

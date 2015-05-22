@@ -23,7 +23,7 @@ $('form[name=verifyPhone1]').submit(function (e) {
     }
 
 
-    if (window.user.phone && window.user.phone === params.phone && window.user.country && window.user.country.id === params.country) {
+    if (window.user.phone && window.user.phone === params.phone && window.user.country && window.user.country.code === params.country) {
         location.href='/user_verify_phone_2'
     }
     else {

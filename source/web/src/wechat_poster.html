@@ -174,7 +174,7 @@
                 <div class="swiper-slide swiper-slide-bg commen" style="">
                     <div class="page pageCover">
                         <div class="topTitleNav animate">
-                            <p class="location animate">{{rent['property'].get('country',{}).get('value','')}} {{rent['property'].get('city',{}).get('value','')}} {{rent['property'].get('street','')}}</p>
+                            <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}} {{rent['property'].get('city',{}).get('name','')}} {{rent['property'].get('street','')}}</p>
                             <p class="title animate">{{rent.get('title','')}}</p>
                             <p class="titleEn animate">Letting!</p>
                         </div>
@@ -229,7 +229,7 @@
                                 <i class="roomsIcon"></i>{{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}</span>
                             </li>
                             <li class="animate rental"><i class="rentalIcon"></i>{{rent.get('rent_type',{}).get('value', '')}}</li>
-                            <li class="animate estate"><i class="estateIcon"></i>{{rent['property'].get('city',{}).get('value','')}} {{rent['property'].get('street','')}}</li>
+                            <li class="animate estate"><i class="estateIcon"></i>{{rent['property'].get('city',{}).get('name','')}} {{rent['property'].get('street','')}}</li>
                             <li class="animate street"
                                 %if not rent['property'].get('floor',''):
                                 style="width:100%;"
@@ -307,7 +307,7 @@
                         <div class="location">
                             <h2>{{_('地址')}}</h2>
                             <p>
-                                {{rent['property'].get('city',{}).get('value','')}}{{_('市')}}{{rent['property'].get('street','')}}<br>
+                                {{rent['property'].get('city',{}).get('name','')}}{{_('市')}}{{rent['property'].get('street','')}}<br>
                                 {{rent['property'].get('address','')}}
                             </p>
                             <!--<p>湖北省武汉市光谷大道<br>国际企业中心</p>-->
@@ -381,7 +381,7 @@
                 <div class="swiper-slide swiper-slide-bg commen hideOutsideWechat" style="">
                     <div class="page pageCoverBack">
                         <div class="topTitleNav animate">
-                            <p class="location animate">{{rent['property'].get('country',{}).get('value','')}} {{rent['property'].get('city',{}).get('value','')}} {{rent['property'].get('street','')}}</p>
+                            <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}} {{rent['property'].get('city',{}).get('name','')}} {{rent['property'].get('street','')}}</p>
                             <p class="title animate">{{rent.get('title','')}}</p>
                             <p class="contact animate">
                                 <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" class="btn">{{_('获取房东联系方式')}}</a>

@@ -22,9 +22,9 @@
                 <div class="form_row">
                     <select name="country" class="country ghostSelect" style="color:#4d4d4d;" placeholder="{{_('国家')}}">
                         %for index, country  in enumerate(country_list):
-                        <option value="{{country.get('id')}}">
+                        <option value="{{country.get('code')}}">
 
-                            {{country.get('value')}}
+                            {{get_country_name_by_code(country.get('code'))}}
                         </option>
                         %end
                     </select>

@@ -34,10 +34,10 @@
         <div class="left">
             <p class=name>
                 {_if (house.country){_}
-                {=house.country.value=}
+                {=window.team.countryMap[house.country.code]=}
                 {_}_}
                 {_if (house.city){_}
-                {=house.city.value=}
+                {=house.city.name=}
                 {_}_}
                 {=house.name=}
             </p>

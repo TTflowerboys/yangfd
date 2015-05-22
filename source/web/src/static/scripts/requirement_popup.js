@@ -17,7 +17,7 @@
             }
 
             if (window.user.country) {
-                container.find('select[name=country]').val(window.user.country.id)
+                container.find('select[name=country]').val(window.user.country.code)
             }
 
             if (window.user.email) {

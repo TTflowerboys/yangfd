@@ -1,26 +1,26 @@
 %if country_list:
 <select name="country" class="country ghostSelect" style="color:#4d4d4d;">
     % for country in country_list:
-        % if country.get('slug') == 'GB':
-        <option value="{{country.get('id')}}">
-            (+44) {{country.get('value')}}
+        % if country.get('code') == 'GB':
+        <option value="{{country.get('code')}}">
+            (+44) {{get_country_name_by_code(country.get('code'))}}
         </option>
         % country_list.remove(country)
         %end
     %end
 
     %for index, country  in enumerate(country_list):
-    <option value="{{country.get('id')}}">
-        %if country.get('slug') == 'GB' :
+    <option value="{{country.get('code')}}">
+        %if country.get('code') == 'GB' :
         (+44)
-        %elif country.get('slug') == 'CN':
+        %elif country.get('code') == 'CN':
         (+86)
-        %elif country.get('slug') == 'US' :
+        %elif country.get('code') == 'US' :
         (+1)
-        %elif country.get('slug') == 'HK' :
+        %elif country.get('code') == 'HK' :
         (+852)
         %end
-        {{country.get('value')}}
+        {{get_country_name_by_code(country.get('code'))}}
     </option>
     %end
 </select>

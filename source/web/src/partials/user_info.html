@@ -28,7 +28,7 @@
                 <td>{{_('国家')}}</td>
                 <td>
                     %if user.get('country'):
-                    {{user.get('country').get('value')}}
+                    {{get_country_name_by_code(user.get('country').get('code'))}}
                     %end
                 </td>
             </tr>
@@ -84,12 +84,12 @@
                         </option>
                         %end
                         %for index, country in enumerate(country_list):
-                        <option value="{{country.get('id')}}"
-                            %if user.get('country') and user.get('country').get('id') == country.get('id'):
+                        <option value="{{country.get('code')}}"
+                            %if user.get('country') and user.get('country').get('code') == country.get('code'):
                         selected
                         %end
                         >
-                        {{country.get('value')}}
+                        {{get_country_name_by_code(country.get('code'))}}
                         </option>
                         %end
                     </select>
