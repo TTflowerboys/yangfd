@@ -86,6 +86,22 @@ def check_crowdfunding_ready(func):
     return __check_crowdfunding_ready_replace_func
 
 
+def get_country_name_by_code(code):
+    countryMap = {
+                   "CN": "中国",
+                   "GB": "英国",
+                   "US": "美国",
+                   "IN": "印度",
+                   "RU": "俄罗斯",
+                   "JP": "日本",
+                   "DE": "德国",
+                   "FR": "法国",
+                   "IT": "意大利",
+                   "ES": "西班牙"
+                 }
+    return countryMap[code]
+
+
 def common_template(path, **kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = _('洋房东')
@@ -107,4 +123,5 @@ def common_template(path, **kwargs):
     kwargs.setdefault("fetch_image", fetch_image)
     kwargs.setdefault("totimestamp", totimestamp)
     kwargs.setdefault("is_mobile_client", is_mobile_client)
+    kwargs.setdefault("get_country_name_by_code", get_country_name_by_code)
     return template(path, **kwargs)
