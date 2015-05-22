@@ -845,6 +845,64 @@ body {
             }
         }
 
+        .maps {
+            height: 480px;
+
+            >.map {
+                width:522px;
+                height:480px;
+                @media @phone {
+                    width:100%;
+                }
+
+            }
+
+            >.tabs {
+                width:278px;
+
+                @media @phone {
+                    width:100%;
+                }
+
+                .category {
+                    //padding:0 10px;
+                    li {
+                        font-size:14px;
+                    }
+                }
+
+                .list {
+                    ul {
+                        li[data-type=placeItem] {
+                            height:60px;
+
+                            .content {
+                                .left {
+                                    width:150px;
+
+                                    .title {
+                                        font-size:16px;
+                                        line-height:25px;
+                                        height:25px;
+                                    }
+
+                                    .subtitle {
+                                        display:block;
+                                        line-height:20px;
+                                    }
+                                }
+
+                                .right {
+                                    .hint {
+                                        width:60px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .incoming {
