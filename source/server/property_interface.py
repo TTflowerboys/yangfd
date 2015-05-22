@@ -20,19 +20,22 @@ logger = logging.getLogger(__name__)
 ))
 @currant_util.check_ip_and_redirect_domain
 def property_list(params):
+    # todo city_list更改数据结构
     city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+    # todo country_list更改数据结构
     country_list = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
     bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
     building_area_list = f_app.i18n.process_i18n(f_app.enum.get_all("building_area"))
     property_country_list = []
     property_country_id_list = []
     for index, country in enumerate(country_list):
-        if country.get('slug') == 'US' or country.get('slug') == 'GB':
+        if country.get('code') == 'US' or country.get('code') == 'GB':
             property_country_list.append(country)
-            property_country_id_list.append(country.get('id'))
+            property_country_id_list.append(country.get('code'))
 
+    # todo property_city_list的获取方法需要更改
     property_city_list = []
     if ("country" in params and len(params['country'])):
         for index, city in enumerate(city_list):
@@ -42,15 +45,16 @@ def property_list(params):
 
     title = ''
 
+    # todo 暂时改为country.get('code')
     if "country" in params and len(params['country']):
         for country in country_list:
             if country.get('id') == str(params['country']):
-                title += country.get('value') + '-'
+                title += country.get('code') + '-'
 
     if "city" in params and len(params['city']):
         for city in city_list:
             if city.get('id') == str(params['city']):
-                title += city.get('value') + '-'
+                title += city.get('name') + '-'
 
     if "property_type" in params and len(params['property_type']):
         for property_type in property_type_list:
@@ -90,15 +94,17 @@ def property_get(property_id, user):
     title = _(property.get('name', '房产详情'))
     if property.get('city') and property.get('city').get('value'):
         title += '-' + _(property.get('city').get('value'))
-    if property.get('country') and property.get('country').get('value'):
-        title += '-' + _(property.get('country').get('value'))
+    # todo 暂时将value改为code，等能直接获取country名字后再更改
+    if property.get('country') and property.get('country').get('code'):
+        title += '-' + _(property.get('country').get('code'))
     description = property.get('name', _('房产详情'))
 
     tags = []
     if 'intention' in property and property.get('intention'):
         tags = [item['value'] for item in property['intention'] if 'value' in item]
 
-    keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
+    #todo 暂时将value改为code，等能直接获取country名字后再更改
+    keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('code', '') + ',' + property.get('city', {}).get('name', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
     return currant_util.common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin=weixin)

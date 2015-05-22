@@ -27,6 +27,7 @@ def property_to_rent_list(params):
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     rent_budget_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
+    # todo country_list数据结构要换成新的结构
     country_list = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
     rent_period_list = f_app.i18n.process_i18n(f_app.enum.get_all("rent_period"))
     bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
@@ -34,9 +35,9 @@ def property_to_rent_list(params):
     property_country_list = []
     property_country_id_list = []
     for index, country in enumerate(country_list):
-        if country.get('slug') == 'US' or country.get('slug') == 'GB':
+        if country.get('code') == 'US' or country.get('code') == 'GB':
             property_country_list.append(country)
-            property_country_id_list.append(country.get('id'))
+            property_country_id_list.append(country.get('code'))
 
     property_city_list = []
     # if ("country" in params and len(params['country'])):
@@ -44,6 +45,8 @@ def property_to_rent_list(params):
     #         if city.get('country').get('id') in property_country_id_list:
     #             if str(params['country']) == city.get('country').get('id'):
     #                 property_city_list.append(city)
+
+    # todo city中现在取不到国家了
     for index, city in enumerate(city_list):
         if city.get('country').get('id') == '541c09286b8099496db84f56':
             property_city_list.append(city)
@@ -51,8 +54,9 @@ def property_to_rent_list(params):
 
     if "country" in params and len(params['country']):
         for country in country_list:
-            if country.get('id') == str(params['country']):
-                title += country.get('value') + '-'
+            if country.get('code') == str(params['country']):
+                # todo
+                title += country.get('code') + '-'
 
     if "city" in params and len(params['city']):
         for city in city_list:
@@ -102,11 +106,13 @@ def rent_ticket_get(rent_ticket_id, user):
         title = six.text_type(title)
     if rent_ticket["property"].get('city', {}) and rent_ticket["property"].get('city', {}).get('value', ''):
         title += '-' + _(rent_ticket["property"].get('city', {}).get('value', ''))
-    if rent_ticket["property"].get('country', {}) and rent_ticket["property"].get('country', {}).get('value', ''):
-        title += '-' + _(rent_ticket["property"].get('country', {}).get('value', ''))
+    if rent_ticket["property"].get('country', {}) and rent_ticket["property"].get('country', {}).get('code', ''):
+        # todo 暂时改为code
+        title += '-' + _(rent_ticket["property"].get('country', {}).get('code', ''))
     description = rent_ticket.get('description', _('详情'))
 
-    keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
+    # todo 暂时改为code
+    keywords = title + ',' + rent_ticket.get('country', {}).get('code', '') + ',' + rent_ticket.get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
     return currant_util.common_template("property_to_rent", rent=rent_ticket, report=report, favorite_list=favorite_list, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin)
@@ -135,7 +141,8 @@ def property_to_rent_create():
 def property_to_rent_edit(rent_ticket_id):
     title = _('出租房源编辑')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
-    keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
+    # todo 暂时改为code
+    keywords = title + ',' + rent_ticket.get('country', {}).get('code', '') + ',' + rent_ticket.get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     region_highlight_list = f_app.i18n.process_i18n(f_app.enum.get_all('region_highlight'))
     indoor_facility_list = f_app.i18n.process_i18n(f_app.enum.get_all('indoor_facility'))
     community_facility_list = f_app.i18n.process_i18n(f_app.enum.get_all('community_facility'))
@@ -153,5 +160,6 @@ def property_to_rent_edit(rent_ticket_id):
 def property_to_rent_publish_success(rent_ticket_id):
     title = _('房源发布成功')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
-    keywords = title + ',' + rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
+    # todo 暂时改为code
+    keywords = title + ',' + rent_ticket.get('country', {}).get('code', '') + ',' + rent_ticket.get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     return currant_util.common_template("property_to_rent_publish_success", title=title, keywords=keywords, rent=rent_ticket)
