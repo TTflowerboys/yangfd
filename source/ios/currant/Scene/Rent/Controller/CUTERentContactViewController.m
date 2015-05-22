@@ -162,7 +162,7 @@
                 } else {
                     [[CUTEDataManager sharedInstance] saveUser:task.result];
                     [[CUTEDataManager sharedInstance] saveAllCookies];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_PAGE_UPDATE object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
                     [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
                     return nil;
                 }

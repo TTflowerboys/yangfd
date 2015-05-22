@@ -37,11 +37,13 @@
     return @[@"/user", @"/user_favorites?type=rent"];
 }
 
+- (BOOL)isURLLoginRequired:(NSURL *)url {
+    return [[self loginRequiredURLPathArray] containsObject:url.path];
+}
+
 - (NSURL *)getRedirectToLoginURLFromURL:(NSURL *)url {
-    if ([[self loginRequiredURLPathArray] containsObject:url.path] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
-        NSURL *originalURL = url;
-        return [NSURL WebURLWithString:CONCAT(@"/signin?from=", [originalURL.absoluteString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding])];
-    }
+    NSURL *originalURL = url;
+    return [NSURL WebURLWithString:CONCAT(@"/signin?from=", [originalURL.absoluteString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding])];
 
     return url;
 }

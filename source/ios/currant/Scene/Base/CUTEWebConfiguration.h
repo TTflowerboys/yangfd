@@ -14,6 +14,8 @@
 
 + (instancetype)sharedInstance;
 
+- (BOOL)isURLLoginRequired:(NSURL *)url;
+
 - (NSURL *)getRedirectToLoginURLFromURL:(NSURL *)url;
 
 - (BBTWebBarButtonItem *)getRightBarItemFromURL:(NSURL *)url;

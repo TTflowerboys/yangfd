@@ -90,7 +90,7 @@
             else {
                 [[CUTEDataManager sharedInstance] saveAllCookies];
                 [[CUTEDataManager sharedInstance] saveUser:task.result];
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_PAGE_UPDATE object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
                 completion(task.result);
             }
             return nil;

@@ -21,6 +21,7 @@
 #import "CUTENotificationKey.h"
 #import "MasonryMake.h"
 #import "CUTETracker.h"
+#import "CUTEDataManager.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -29,6 +30,8 @@
     NJKWebViewProgressView *_progressView;
 
     NJKWebViewProgress *_progressProxy;
+
+    BOOL _needReloadURL;
 }
 
 @end
@@ -69,7 +72,10 @@
 }
 
 - (void)loadURL:(NSURL *)url {
-    url = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
+    if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:url] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
+        url =  [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
+    }
+
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
     if (!_webView) {
         [self updateWebView];
@@ -96,7 +102,6 @@
 
 - (void)updateWithURL:(NSURL *)url {
     [self updateWebView];
-
     //http://stackoverflow.com/questions/16073519/nsurlerrordomain-error-code-999-in-ios
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self loadURL:url];
@@ -116,6 +121,13 @@
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     _progressView.progressBarView.backgroundColor =  CUTE_MAIN_COLOR;
+
+    [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
+}
+
+- (void)dealloc {
+    [NotificationCenter removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -124,6 +136,10 @@
     [self.navigationController.navigationBar addSubview:_progressView];
 
     TrackScreen(GetScreenName(self.url));
+
+    if (_needReloadURL) {
+        [self updateWithURL:self.url];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -242,6 +258,25 @@
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
 {
     [_progressView setProgress:progress animated:YES];
+}
+
+#pragma mark - Notification
+
+- (void)onReceiveUserDidLogin:(NSNotification *)notif {
+    if ([self.url.path isEqualToString:@"/user"]) {
+        NSString * s = @"";
+    }
+    if (notif.object != self && [[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
+        if (_webView.request.URL && [_webView.request.URL.absoluteString isEqualToString:[[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:self.url].absoluteString]) {
+            _needReloadURL = YES;
+        }
+    }
+}
+
+- (void)onReceiveUserDidLogout:(NSNotification *)notif {
+    if (notif.object != self && [[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
+        _needReloadURL = YES;
+    }
 }
 
 @end
