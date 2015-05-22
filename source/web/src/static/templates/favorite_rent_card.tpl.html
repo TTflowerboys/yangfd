@@ -34,11 +34,12 @@
                 <ul class="properties">
                     <li>
                         <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
-                        {_if(fav.ticket.property.city && fav.ticket.property.city.country && fav.ticket.property.city.country.value) {_}
-                        {= fav.ticket.property.city.country.value + " " =}
+                        <!-- todo 国家城市数据结构更改后city中就没有country属性了，我把这儿更改后不知道会不会有问题，需要测试 --by levy-->
+                        {_if(fav.ticket.property.country && fav.ticket.property.country.code) {_}
+                        {= window.team.countryMap[fav.ticket.property.country.code] + " " =}
                         {_}_}
-                        {_if(fav.ticket.property.city && fav.ticket.property.city.value) {_}
-                        {= fav.ticket.property.city.value + " " =}
+                        {_if(fav.ticket.property.city && fav.ticket.property.city.name) {_}
+                        {= fav.ticket.property.city.name + " " =}
                         {_}_}
                         {_if(fav.ticket.property.street) {_}
                         {= fav.ticket.property.street =}

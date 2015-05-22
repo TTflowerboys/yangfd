@@ -49,10 +49,10 @@
                 <div class="left">
                     <p class=name>
                         %if property.get('country'):
-                            {{property.get('country').get('value')}}
+                            {{get_country_name_by_code(property.get('country').get('code'))}}
                         %end
-                        %if property.get('city') and property.get('city').get('value'):
-                            {{property.get('city').get('value')}}
+                        %if property.get('city') and property.get('city').get('name'):
+                            {{property.get('city').get('name')}}
                         %end
                         %if property.get('name'):
                             {{property.get('name')}}
@@ -184,10 +184,10 @@
                 <h1 class=name>
                     <a title="{{property.get('name','')}}" href="/property/{{property.get('id')}}">
                         %if property.get('country'):
-                            {{property.get('country').get('value')}}
+                            {{get_country_name_by_code(property.get('country').get('code'))}}
                         %end
-                        %if property.get('city') and property.get('city').get('value'):
-                            {{property.get('city').get('value')}}
+                        %if property.get('city') and property.get('city').get('name'):
+                            {{property.get('city').get('name')}}
                         %end
                         %if property.get('name'):
                             {{property.get('name')}}
