@@ -43,9 +43,9 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - FXForms (1.2.12)
-  - GoogleAnalytics-iOS-SDK (3.11):
-    - GoogleAnalytics-iOS-SDK/Core (= 3.11)
-  - GoogleAnalytics-iOS-SDK/Core (3.11)
+  - GoogleAnalytics-iOS-SDK (3.12):
+    - GoogleAnalytics-iOS-SDK/Core (= 3.12)
+  - GoogleAnalytics-iOS-SDK/Core (3.12)
   - INTULocationManager (3.0.1)
   - JRSwizzle (1.0)
   - KVOController (1.0.3)
@@ -142,7 +142,7 @@ SPEC CHECKSUMS:
   FLEX: 321e6150cbababb76aaadde355dfce2ee1cac2d8
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FXForms: b6a78bac9f6b597ce704e34ac7c1ce9ff628b1d5
-  GoogleAnalytics-iOS-SDK: fb15cc7e3d01d06d531653f37443fda90274d53d
+  GoogleAnalytics-iOS-SDK: 0a3327a993b8ed2b8fe1c6c4a8dcf5b76d2237a8
   INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
   JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
