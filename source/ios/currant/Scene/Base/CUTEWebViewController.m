@@ -263,9 +263,6 @@
 #pragma mark - Notification
 
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
-    if ([self.url.path isEqualToString:@"/user"]) {
-        NSString * s = @"";
-    }
     if (notif.object != self && [[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
         if (_webView.request.URL && [_webView.request.URL.absoluteString isEqualToString:[[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:self.url].absoluteString]) {
             _needReloadURL = YES;

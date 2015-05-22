@@ -19,6 +19,7 @@
 #import "NSURL+Assets.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "ALAsset+GetImage.h"
+#import "UIImage+CalculatedSize.h"
 
 @interface CUTEImageUploader () {
 
@@ -110,6 +111,7 @@
             dispatch_async(dispatch_get_main_queue(), ^(void) {
                 if (asset) {
                     UIImage *originalImage = [[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]] fixJPEGRotation];
+//                    NSUInteger fileSize1 = originalImage.calculatedSize / 1024;
                     CGSize imageSize = originalImage.size;
                     if (imageSize.width > KMAX_IMAGE_WIDTH) {
                         imageSize.height = imageSize.height * (KMAX_IMAGE_WIDTH / imageSize.width);
@@ -121,7 +123,9 @@
                     }
                     imageSize = CGSizeMake((int)imageSize.width, (int)imageSize.height);
                     UIImage *image = [originalImage resizedImage:imageSize interpolationQuality:kCGInterpolationDefault];
-                    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+//                    NSUInteger fileSize2 = image.calculatedSize / 1024;
+                    NSData *imageData = UIImageJPEGRepresentation(image, 0.75);
+//                    NSUInteger fileSize3 = imageData.length / 1024;
                     [tcs setResult:imageData];
                 }
                 else {

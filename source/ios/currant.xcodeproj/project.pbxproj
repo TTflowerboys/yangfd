@@ -244,6 +244,11 @@
 		2CA81F801B0CA543006E993C /* CUTEHouseType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F7D1B0CA543006E993C /* CUTEHouseType.m */; };
 		2CA81F811B0CA543006E993C /* CUTEHouseType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F7D1B0CA543006E993C /* CUTEHouseType.m */; };
 		2CA81F821B0CA543006E993C /* CUTEHouseType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F7D1B0CA543006E993C /* CUTEHouseType.m */; };
+		2CA81F9A1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F991B0F244F006E993C /* UIImage+CalculatedSize.m */; };
+		2CA81F9B1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F991B0F244F006E993C /* UIImage+CalculatedSize.m */; };
+		2CA81F9C1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F991B0F244F006E993C /* UIImage+CalculatedSize.m */; };
+		2CA81F9D1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F991B0F244F006E993C /* UIImage+CalculatedSize.m */; };
+		2CA81F9E1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F991B0F244F006E993C /* UIImage+CalculatedSize.m */; };
 		2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -629,6 +634,8 @@
 		2CA81F761B0C73EB006E993C /* UITabBarController+HideTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+HideTabBar.m"; sourceTree = "<group>"; };
 		2CA81F7C1B0CA543006E993C /* CUTEHouseType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEHouseType.h; sourceTree = "<group>"; };
 		2CA81F7D1B0CA543006E993C /* CUTEHouseType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEHouseType.m; sourceTree = "<group>"; };
+		2CA81F981B0F244F006E993C /* UIImage+CalculatedSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CalculatedSize.h"; sourceTree = "<group>"; };
+		2CA81F991B0F244F006E993C /* UIImage+CalculatedSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CalculatedSize.m"; sourceTree = "<group>"; };
 		2CA94AAE1ACA42CD00DF7497 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-dev-Info.plist"; sourceTree = "<group>"; };
 		2CAA851E1AEA65CC00432BF1 /* NSString+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoding.h"; sourceTree = "<group>"; };
@@ -938,6 +945,8 @@
 				2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */,
 				2CB66C1C1AFB373D00C3CDED /* UIImage+FixJPEGRotation.h */,
 				2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */,
+				2CA81F981B0F244F006E993C /* UIImage+CalculatedSize.h */,
+				2CA81F991B0F244F006E993C /* UIImage+CalculatedSize.m */,
 				2C2FCDE51B01E521002594D7 /* ALAsset+GetImage.h */,
 				2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */,
 			);
@@ -1714,6 +1723,7 @@
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
 				2CC3A0851AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2C9AFF801AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
+				2CA81F9C1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */,
 				2C427E561AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CF8A6A91AF0C2620080DF10 /* BBTPickerView.m in Sources */,
@@ -1815,6 +1825,7 @@
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
 				2CC3A0861AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2C9AFF811AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
+				2CA81F9D1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */,
 				2C427E571AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CF8A6AA1AF0C2620080DF10 /* BBTPickerView.m in Sources */,
@@ -1916,6 +1927,7 @@
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
 				2CC3A0841AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2C9AFF7F1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
+				2CA81F9B1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */,
 				2C427E551AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CF8A6A81AF0C2620080DF10 /* BBTPickerView.m in Sources */,
@@ -2017,6 +2029,7 @@
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
 				2CC3A0831AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2C9AFF7E1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
+				2CA81F9A1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
 				2C427E541AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CF8A6A71AF0C2620080DF10 /* BBTPickerView.m in Sources */,
@@ -2095,6 +2108,7 @@
 				2CF8A6771AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
 				2C2FCDD61AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2CF8A6261AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
+				2CA81F9E1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2C9AFF741AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2CB749111ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */,
