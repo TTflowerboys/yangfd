@@ -213,7 +213,11 @@
                             %if rent.get('space',{}).get('value'):
                             <li class="animate size">
                                 <i class="sizeIcon"></i>
-                                {{float("{0:.2f}".format(float(rent.get('space',{}).get('value',0))))}}
+                                %if float(rent.get('space',{}).get('value',0)) < 1000:
+                                {{"{0:.2f}".format(float(rent.get('space',{}).get('value',0)))}}
+                                %else:
+                                {{"{0:.0f}".format(float(rent.get('space',{}).get('value',0)))}}
+                                %end
                                 {{!format_unit(rent.get('space',{}).get('unit',''))}}
                             </li>
                             %end
