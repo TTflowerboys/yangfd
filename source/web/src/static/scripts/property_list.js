@@ -142,27 +142,23 @@
         return array
     }
 
-    function updateCityByCountry(countryId) {
-        var params = {'country': countryId}
+    function updateCityByCountry(countryCode) {
+        var params = {
+            'country': countryCode,
+            'feature_code': 'city'
+        }
 
         //Empty city select
         $('select[name=propertyCity]').empty()
-        $('select[name=propertyCity]').append($('<option>', {
-            text: window.i18n('任意城市'),
-            value:''
-        }))
 
         //Load city data
-        $.betterPost('/api/1/enum/search', params)
+        $.betterPost('/api/1/geonames/search', params)
             .done(function (val) {
-                if (!_.isEmpty(val)) {
-                    _.each(val, function (city) {
-                        $('select[name=propertyCity]').append($('<option>', {
-                            value: city.id,
-                            text: city.value
-                        }))
-                    })
-                }
+                $('select[name=propertyCity]').html(
+                    _.reduce(val, function(pre, val, key) {
+                        return pre + '<option value="' + val.id + '">' + val.name + (countryCode === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
+                    }, '<option value="">' + i18n('任意城市') + '</option>')
+                )
             })
             .fail(function(){
             })
@@ -464,7 +460,7 @@
     //     $citySelect.append('<option value=>' + window.i18n('任意城市') + '</option>')
     //     _.each(window.propertyCityData, function (city) {
     //         if (!selectedCountryId || city.country.id === selectedCountryId) {
-    //             var item = '<option value=' + city.id + '>' + city.value + '</option>'
+    //             var item = '<option value=' + city.id + '>' + city.name + '</option>'
     //             $citySelect.append(item)
     //         }
     //     })
@@ -586,8 +582,8 @@
         $item.addClass('selected')
     }
 
-    function selectCountry(id) {
-        $('select[name=propertyCountry]').find('option[value=' + id + ']').prop('selected', true)
+    function selectCountry(code) {
+        $('select[name=propertyCountry]').find('option[value=' + code + ']').prop('selected', true)
     }
 
     function selectCity(id) {

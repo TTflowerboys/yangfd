@@ -172,16 +172,13 @@
 
     /*postcode 和地址部分*/
     $('.select-chosen').chosen({width: '87%', disable_search_threshold: 8 }) //调用chosen插件
-    function getCountryList() { //通过JSON文件获取国家列表并填充到下拉列表作为备选项
-        $.betterGet('/static/scripts/country.json')
-            .done(function(data) {
-                $('#country-select').append(
-                    _.reduce(data, function(pre, val, key) {
-                        return pre + '<option value="' + key + '">' + val + '</option>'
-                    }, '<option value="">' + i18n('请选择国家') + '</option>')
-                ).trigger('chosen:updated')
-                bindDataModel()
-            })
+    function getCountryList() { //通过window.team.countryMap来获取国家列表
+        $('#country-select').append(
+            _.reduce(window.team.countryMap, function(pre, val, key) {
+                return pre + '<option value="' + key + '">' + val + '</option>'
+            }, '<option value="">' + i18n('请选择国家') + '</option>')
+        ).trigger('chosen:updated')
+        bindDataModel()
     }
     function bindDataModel() { //将带有data-model的下拉列表与对应的隐藏表单数据简单的绑定
         $('[data-model]').each(function(index, elem) {
@@ -198,8 +195,7 @@
         })
     }
     function GeonamesApi () {
-        //暂时使用production上的API
-        var url = 'http://yangfd.com/api/1/geonames/search'
+        var url = '/api/1/geonames/search'
         this.getAdmin = function (config, callback, reject) {
             $.betterPost(url, config)
                 .done(function (val) {
@@ -515,14 +511,9 @@
         var propertyData = $.extend(options, {
             'name': JSON.stringify({'zh_Hans_CN': address}),
             'property_type': $('#propertyType .selected').data('id'),
-            //'latitude': $('#latitude').val(),
-            //'longitude': $('#longitude').val(),
-            //'country': JSON.stringify({'value': {'zh_Hans_CN': $('#country').val()}}), //todo
-            //'city': JSON.stringify({'value': {'zh_Hans_CN': $('#city').val()}}), //todo
+            'country': JSON.stringify({'zh_Hans_CN': $('#country').val()}), //todo
+            'city': JSON.stringify({'zh_Hans_CN': $('#city').val()}), //todo
             'street': JSON.stringify({'zh_Hans_CN': $('#street').val()}), //todo
-            //'community': JSON.stringify({'zh_Hans_CN': $('#community').val()}),
-            //'floor': JSON.stringify({'zh_Hans_CN': $('#floor').val()}),
-            //'house_name': JSON.stringify({'zh_Hans_CN': $('#house_name').val()}),
             'address': JSON.stringify({'zh_Hans_CN': address}),
             'highlight': JSON.stringify({'zh_Hans_CN': []}), //todo?
             'reality_images': JSON.stringify({'zh_Hans_CN': imageArr}),

@@ -89,7 +89,7 @@ $(function () {
                                 ga('send', 'event', 'request_host_contact', 'sms-verify', 're-send')
                                 $.betterPost('/api/1/user/sms_verification/send', {
                                     phone:window.user.phone,
-                                    country:window.user.country.id
+                                    country:window.user.country.code
                                 }).done(function (val) {
                                     //Disable re-send sms for re-send
                                     $requestSMSCodeBtn.prop('disabled', true)

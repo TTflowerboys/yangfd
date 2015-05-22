@@ -80,7 +80,7 @@
     {
         var region = 'GB'
         if (window.report.country) {
-            region = window.report.country.slug
+            region = window.report.country.code
         }
 
         var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'

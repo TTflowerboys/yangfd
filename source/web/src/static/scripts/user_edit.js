@@ -13,7 +13,7 @@ $('#cvView').find('button[name=edit]').on('click', function () {
         $editView.find('input[name=gender]').removeAttr('checked')
     }
     if (window.user.country) {
-        $editView.find('[name=country] option[value=' + window.user.country.id + ']').attr('selected', 'selected')
+        $editView.find('[name=country] option[value=' + window.user.country.code + ']').attr('selected', 'selected')
     }
     else {
         $editView.find('[name=country] option').removeAttr('selected')

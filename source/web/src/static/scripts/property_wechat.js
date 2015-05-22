@@ -30,13 +30,13 @@
 
         window.wx.ready(function(){
             var propertyTitle = property.name
-            if (property.country && property.country.value) {
+            if (property.country && property.country.code) {
                 propertyTitle += ' '
-                propertyTitle += property.country.value
+                propertyTitle += window.team.countryMap[property.country.code]
             }
-            if (property.city && property.city.value) {
+            if (property.city && property.city.name) {
                 propertyTitle += ' '
-                propertyTitle += property.city.value
+                propertyTitle += property.city.name
             }
 
             var propertyImage = null
