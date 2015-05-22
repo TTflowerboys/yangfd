@@ -109,19 +109,19 @@
         [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
             dispatch_async(dispatch_get_main_queue(), ^(void) {
                 if (asset) {
-                    UIImage *originalImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+                    UIImage *originalImage = [[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]] fixJPEGRotation];
                     CGSize imageSize = originalImage.size;
                     if (imageSize.width > KMAX_IMAGE_WIDTH) {
-                        imageSize.width = KMAX_IMAGE_WIDTH;
                         imageSize.height = imageSize.height * (KMAX_IMAGE_WIDTH / imageSize.width);
+                        imageSize.width = KMAX_IMAGE_WIDTH;
                     }
                     if (imageSize.height > KMAX_IMAGE_HEIGHT) {
-                        imageSize.height = KMAX_IMAGE_HEIGHT;
                         imageSize.width = imageSize.width * (KMAX_IMAGE_HEIGHT / imageSize.height);
+                        imageSize.height = KMAX_IMAGE_HEIGHT;
                     }
+                    imageSize = CGSizeMake((int)imageSize.width, (int)imageSize.height);
                     UIImage *image = [originalImage resizedImage:imageSize interpolationQuality:kCGInterpolationDefault];
-                    //NSData *originalImageData = UIImageJPEGRepresentation([originalImage fixJPEGRotation], 1);
-                    NSData *imageData = UIImageJPEGRepresentation([image fixJPEGRotation], 0.5);
+                    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
                     [tcs setResult:imageData];
                 }
                 else {
