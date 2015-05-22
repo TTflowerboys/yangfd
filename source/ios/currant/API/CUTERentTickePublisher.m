@@ -73,14 +73,39 @@
 }
 
 - (BFTask *)editTicketExcludeImage:(CUTETicket *)ticket {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
-    [params setObject:@"true" forKey:@"user_generated"];
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    Sequencer *sequencer = [Sequencer new];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[self editProperty:ticket.property] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [tcs setError:task.error];
+            }
+            else {
+                completion(task.result);
+            }
 
-    return [BFTask taskForCompletionOfAllTasks:
-            @[
-              [self editProperty:ticket.property],
-              [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:nil]
-              ]];
+            return task;
+        }];
+    }];
+
+    //TODO need update property to ticket
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
+        [params setObject:@"true" forKey:@"user_generated"];
+        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [tcs setError:task.error];
+            }
+            else {
+                [tcs setResult:task.result];
+            }
+            return nil;
+        }];
+    }];
+
+    [sequencer run];
+    return tcs.task;
 }
 
 - (BFTask*)publishTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *status))updateStatus

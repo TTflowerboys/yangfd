@@ -372,7 +372,7 @@
             [SVProgressHUD showErrorWithError:task.error];
         }
         else {
-            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:task.result];
         }
         return nil;
     }];
@@ -478,7 +478,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
                     [SVProgressHUD showErrorWithError:task.error];
                 }
                 else {
-                    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+                    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:task.result];
                 }
                 return nil;
             }];

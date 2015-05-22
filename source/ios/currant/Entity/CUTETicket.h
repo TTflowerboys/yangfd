@@ -44,6 +44,8 @@
 
 @property (strong, nonatomic) NSDate *rentAvailableTime;
 
+@property (nonatomic) NSTimeInterval lastModifiedTime;
+
 @property (strong, nonatomic) CUTEProperty *property;
 
 - (NSString *)titleForDisplay;

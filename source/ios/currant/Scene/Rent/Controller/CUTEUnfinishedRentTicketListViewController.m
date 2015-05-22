@@ -18,10 +18,14 @@
 #import "CUTEPropertyInfoForm.h"
 #import "CUTEUnfinishedRentTicketCell.h"
 #import "CUTENotificationKey.h"
+#import "CUTEAPIManager.h"
+#import "NSArray+ObjectiveSugar.h"
 
 @interface CUTEUnfinishedRentTicketListViewController ()
 
 @property (strong, nonatomic) NSArray *unfinishedRentTickets;
+
+
 
 @end
 
@@ -36,20 +40,73 @@
     self.navigationItem.title = STR(@"出租房草稿");
     self.tableView.backgroundColor = HEXCOLOR(0xeeeeee, 1);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-     [self reloadData];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    [self refreshTable];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
 }
 
-- (void)reloadData {
-    self.unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
-    [self.tableView reloadData];
+- (void)refreshTable {
+    if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
+        [self.refreshControl beginRefreshing];
+        [[[CUTEAPIManager sharedInstance] GET:@"/api/1/rent_ticket/search" parameters:@{@"status": kTicketStatusDraft, @"sort": @"last_modified_time,desc"} resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [self.refreshControl endRefreshing];
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [self.refreshControl endRefreshing];
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [self.refreshControl endRefreshing];
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+
+                    NSArray *localTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
+                    NSArray *remoteTickets = task.result;
+                    [remoteTickets each:^(CUTETicket *object) {
+                        if ([object isKindOfClass:[CUTETicket class]]) {
+                            CUTETicket *localTicket = [localTickets find:^BOOL(CUTETicket *localObject) {
+                                return localObject.identifier == object.identifier;
+                            }];
+                            if (localTicket) {
+                                if (!fequal(object.lastModifiedTime, localTicket.lastModifiedTime)) {
+                                    //merge
+                                    [object mergeValuesForKeysFromModel:localTicket];
+                                    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:object];
+                                }
+                            }
+                            else {
+                                [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:object];
+                            }
+                        }
+                    }];
+                    self.unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
+                    dispatch_async(dispatch_get_main_queue(), ^(void) {
+                        [self.refreshControl endRefreshing];
+                        [self.tableView reloadData];
+                    });
+                });
+            }
+
+            return task;
+        }];
+    }
+    else {
+        [self.refreshControl beginRefreshing];
+        self.unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
+        [self.refreshControl endRefreshing];
+        [self.tableView reloadData];
+    }
+
     //scroll to the top, the first one is the recent edit one
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+//    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 - (void)onAddButtonPressed:(id)sender {

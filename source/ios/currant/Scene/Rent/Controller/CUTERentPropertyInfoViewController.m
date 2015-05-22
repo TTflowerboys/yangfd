@@ -342,6 +342,7 @@
         }
         else {
             [SVProgressHUD dismiss];
+            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:task.result];
 
             TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             CUTERentTicketPreviewViewController *controller = [[CUTERentTicketPreviewViewController alloc] init];

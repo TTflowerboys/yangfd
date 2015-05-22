@@ -22,6 +22,7 @@
              @"price": @"price",
              @"billCovered": @"bill_covered",
              @"rentAvailableTime": @"rent_available_time",
+             @"lastModifiedTime": @"last_modified_time",
              @"rentType": @"rent_type"
              };
 }

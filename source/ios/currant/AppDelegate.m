@@ -268,7 +268,7 @@
 
         if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
             CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
-            if (!webViewController.webView.request) {
+            if (!webViewController.webView.request) {// web page not load, so load it
                 [webViewController loadURL:webViewController.url];
             }
         }
@@ -339,7 +339,24 @@
         if ([ticket.status isEqualToString:kTicketStatusDraft]) {
             [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:ticket];
         }
-        [[CUTERentTickePublisher sharedInstance] editTicketExcludeImage:ticket];
+        [[[CUTERentTickePublisher sharedInstance] editTicketExcludeImage:ticket] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                if ([ticket.status isEqualToString:kTicketStatusDraft]) {
+                    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:task.result];
+                }
+            }
+
+            return task;
+        }];
     }
 }
 
@@ -380,10 +397,12 @@
 - (void)onReceiveTicketListReload:(NSNotification *)notif {
     NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
     UINavigationController *navController = [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
+
+    UIViewController *bottomViewController = [navController.viewControllers firstObject];
     if (unfinishedRentTickets.count > 0) {
-        if ([navController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
-            CUTEUnfinishedRentTicketListViewController *unfinishedController = (CUTEUnfinishedRentTicketListViewController *)navController.topViewController;
-            [unfinishedController reloadData];
+        if ([bottomViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
+            CUTEUnfinishedRentTicketListViewController *unfinishedController = (CUTEUnfinishedRentTicketListViewController *)bottomViewController;
+            [unfinishedController refreshTable];
         }
         else {
             NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
@@ -394,7 +413,7 @@
         }
     }
     else {
-        if (![navController.topViewController isKindOfClass:[CUTERentTypeListViewController class]]) {
+        if (![bottomViewController isKindOfClass:[CUTERentTypeListViewController class]]) {
             [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
                 if (task.result) {
                     CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
