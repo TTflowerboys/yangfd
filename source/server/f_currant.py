@@ -106,7 +106,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
         def migrate_country(db):
             for item in db.find({"country": {"$ne": None}}, {"country": 1}):
-                if item["country"] and "_id" in item["country"]:
+                if item["country"] and "_country" not in item["country"] and "_id" in item["country"]:
                     if str(item["country"]["_id"]) in country_dict:
                         self.logger.debug("updating country", country_dict[str(item["country"]["_id"])]["slug"], "for item", str(item["_id"]))
                         db.update({"_id": item["_id"]}, {"$set": {"country": {"_country": True, "code": country_dict[str(item["country"]["_id"])]["slug"]}}})
@@ -154,9 +154,9 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
         def migrate_city(db):
             for item in db.find({"city": {"$ne": None}}, {"city": 1}):
-                if item["city"] and "_id" in item["city"]:
+                if item["city"] and "_geonames_gazetteer" not in item["city"] and "_id" in item["city"]:
                     if str(item["city"]["_id"]) in city_dict:
-                        city_id = f_app.geonames.gazetteer.get_by_geoname_id(city_map[city_dict[str(item["city"]["_id"])]["name"]["zh_Hans_CN"]])
+                        city_id = f_app.geonames.gazetteer.get_by_geoname_id(city_map[city_dict[str(item["city"]["_id"])]["value"]["zh_Hans_CN"]])
                         self.logger.debug("updating city", city_id, "for item", str(item["_id"]))
                         db.update({"_id": item["_id"]}, {"$set": {"city": {"_geonames_gazetteer": "city", "_id": ObjectId(city_id)}}})
                     else:
