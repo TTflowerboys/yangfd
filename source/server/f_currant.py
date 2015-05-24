@@ -101,7 +101,12 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 item_db.update({"_id": item["_id"]}, {"$set": {"report_id": report_zipcode_index_map[property["zipcode_index"]]}, "$unset": {"zipcode_index": ""}})
 
     def v7(self, m):
-        all_country = f_app.enum.get_all("country")
+        all_country = f_app.util.process_objectid(list(f_app.enum.get_database(m).find({
+            "type": "country",
+            "status": {
+                "$ne": "deleted",
+            }
+        })))
         country_dict = {country["id"]: country for country in all_country}
 
         def migrate_country(db):
@@ -128,7 +133,12 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         self.logger.debug("Migrating user.country")
         migrate_country(f_app.user.get_database(m))
 
-        all_city = f_app.enum.get_all("city")
+        all_city = f_app.util.process_objectid(list(f_app.enum.get_database(m).find({
+            "type": "city",
+            "status": {
+                "$ne": "deleted",
+            }
+        })))
         city_dict = {city["id"]: city for city in all_city}
         city_map = {
             "武汉": "1791247",
