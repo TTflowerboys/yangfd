@@ -103,9 +103,6 @@ class currant_mongo_upgrade(f_mongo_upgrade):
     def v7(self, m):
         all_country = f_app.util.process_objectid(list(f_app.enum.get_database(m).find({
             "type": "country",
-            "status": {
-                "$ne": "deleted",
-            }
         })))
         country_dict = {country["id"]: country for country in all_country}
 
@@ -135,9 +132,6 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
         all_city = f_app.util.process_objectid(list(f_app.enum.get_database(m).find({
             "type": "city",
-            "status": {
-                "$ne": "deleted",
-            }
         })))
         city_dict = {city["id"]: city for city in all_city}
         city_map = {
