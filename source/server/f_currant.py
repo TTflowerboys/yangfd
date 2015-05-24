@@ -177,7 +177,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                             self.logger.debug("updating city", city_id, "for item", str(item["_id"]))
                             db.update({"_id": item["_id"]}, {"$set": {"city": {"_geonames_gazetteer": "city", "_id": ObjectId(city_id)}}})
                     else:
-                        self.logger.warning("unknown city enum:", str(item["city"]["_id"]), exc_info=False)
+                        self.logger.warning("unknown city enum:", str(item["city"]["_id"]), "for item", str(item["_id"]), exc_info=False)
 
         self.logger.debug("Migrating property.city")
         migrate_city(f_app.property.get_database(m))
