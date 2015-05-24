@@ -154,6 +154,8 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "格拉斯哥": "2648579",
             "肯特": "2643179",
             "西萨塞克斯": "2653192",
+            "旺角": "1819609",
+            "九龙": "1819609",
         }
 
         for city in city_map:
@@ -167,11 +169,15 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             for item in db.find({"city": {"$ne": None}}, {"city": 1}):
                 if item["city"] and "_geonames_gazetteer" not in item["city"] and "_id" in item["city"]:
                     if str(item["city"]["_id"]) in city_dict:
-                        city_id = city_map[city_dict[str(item["city"]["_id"])]["value"]["zh_Hans_CN"]]
-                        self.logger.debug("updating city", city_id, "for item", str(item["_id"]))
-                        db.update({"_id": item["_id"]}, {"$set": {"city": {"_geonames_gazetteer": "city", "_id": ObjectId(city_id)}}})
+                        try:
+                            city_id = city_map[city_dict[str(item["city"]["_id"])]["value"]["zh_Hans_CN"]]
+                        except:
+                            self.logger.warning("failed to fetch city_id for", str(item["_id"]), "maybe a corrupted enum?")
+                        else:
+                            self.logger.debug("updating city", city_id, "for item", str(item["_id"]))
+                            db.update({"_id": item["_id"]}, {"$set": {"city": {"_geonames_gazetteer": "city", "_id": ObjectId(city_id)}}})
                     else:
-                        self.logger.warning("unknown city enum:", str(item["city"]["_id"]))
+                        self.logger.warning("unknown city enum:", str(item["city"]["_id"]), exc_info=False)
 
         self.logger.debug("Migrating property.city")
         migrate_city(f_app.property.get_database(m))
