@@ -156,6 +156,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             _city = f_app.geonames.gazetteer.get_database(m).find_one({"geoname_id": city_map[city]})
             if _city is None:
                 self.logger.error("city", city, "was not imported into gazetteer db, aborting migration")
+            self.logger.debug("gazetteer", _city["_id"], "found for city", city)
             city_map[city] = _city["_id"]
 
         def migrate_city(db):
