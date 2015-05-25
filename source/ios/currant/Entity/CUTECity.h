@@ -7,6 +7,7 @@
 //
 
 #import <Mantle.h>
+#import "CUTECountry.h"
 
 @interface CUTECity : MTLModel <MTLJSONSerializing>
 
@@ -15,6 +16,9 @@
 @property (strong, nonatomic) NSString  *identifier;
 
 @property (strong, nonatomic) NSString *name;
+
+@property (strong, nonatomic) NSString *admin1;
+
 
 
 @end

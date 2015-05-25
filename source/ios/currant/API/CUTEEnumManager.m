@@ -98,7 +98,7 @@
             }
             else {
                 NSArray *cities = task.result;
-                cities = [cities sortBy:@"name"];
+                cities = [cities sortBy:@"fieldDescription"];
                 [_cityCache setObject:cities forKey:country.code];
                 [tcs setResult:cities];
             }
