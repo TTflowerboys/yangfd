@@ -705,8 +705,8 @@
         }
         ga('send', 'event', 'property_list', 'change', 'select-country',
             $('select[name=propertyCountry]').children('option:selected').text())
-        loadPropertyListByView()
         updateCityByCountry($('select[name=propertyCountry]').children('option:selected').val())
+        loadPropertyListByView()
     })
 
     var $citySelect = $('select[name=propertyCity]')

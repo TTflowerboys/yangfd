@@ -283,8 +283,8 @@
         }
         ga('send', 'event', 'rent_list', 'change', 'select-country',
             $('select[name=propertyCountry]').children('option:selected').text())
-        loadRentListByView()
         updateCityByCountry($('select[name=propertyCountry]').children('option:selected').val())
+        loadRentListByView()
     })
 
     var $citySelect = $('select[name=propertyCity]')
