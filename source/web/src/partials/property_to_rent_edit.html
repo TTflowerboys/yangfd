@@ -1,4 +1,7 @@
 <!--在Web上新建出租房信息和编辑出租房信息都共用这个模板-->
+<textarea id="countryData" style="display: none">
+    {{json_dumps(country_list)}}
+</textarea>
 <div class="route editRoute" data-route="step1" style="display: none">
     <div class="mainTitle">{{_('房屋出租')}}</div>
     <div class="content">

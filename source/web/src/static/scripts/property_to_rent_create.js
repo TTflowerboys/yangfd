@@ -172,27 +172,18 @@
 
     /*postcode 和地址部分*/
     $('.select-chosen').chosen({width: '87%', disable_search_threshold: 8 }) //调用chosen插件
+    $('#country-select').bind('change', function () {
+        $('#city-select').html('').trigger('chosen:updated')
+        getCityListForSelect($('#country-select').val())
+    })
     function getCountryList() { //通过window.team.countryMap来获取国家列表
+
         $('#country-select').append(
-            _.reduce(window.team.countryMap, function(pre, val, key) {
-                return pre + '<option value="' + key + '">' + val + '</option>'
+            _.reduce(JSON.parse($('#countryData').text()), function(pre, val, key) {
+                return pre + '<option value="' + val.code + '">' + window.team.countryMap[val.code] + '</option>'
             }, '<option value="">' + i18n('请选择国家') + '</option>')
         ).trigger('chosen:updated')
         bindDataModel()
-    }
-    function bindDataModel() { //将带有data-model的下拉列表与对应的隐藏表单数据简单的绑定
-        $('[data-model]').each(function(index, elem) {
-            //todo 暂时不考虑编辑页的问题
-            var val = $('#' + $(elem).data('model')).val()
-            var text = $('#' + $(elem).data('model')).data('text')
-            if($(elem).attr('id') !== 'country-select' && val !== '') {
-                $(elem).html('<option value="' + val + '">' + text + '</option>')
-            }
-            $(elem).val(val)
-            $(elem).bind('change', function() {
-                $('#' + $(elem).data('model')).val($(elem).val())
-            })
-        })
     }
     function GeonamesApi () {
         var url = '/api/1/geonames/search'
@@ -237,7 +228,27 @@
         }
     }
     var geonamesApi = new GeonamesApi()
+    getCountryList()
+
+    function bindDataModel() { //将带有data-model的下拉列表与对应的隐藏表单数据简单的绑定
+        $('[data-model]').each(function(index, elem) {
+            //todo 暂时不考虑编辑页的问题
+            var val = $('#' + $(elem).attr('data-model')).val()
+            var text = $('#' + $(elem).attr('data-model')).data('text')
+            if($(elem).attr('id') !== 'country-select' && val !== '') {
+                $(elem).html('<option value="">' + i18n('请选择城市') + '</option>' + '<option value="' + val + '">' + text + '</option>')
+            }
+            $(elem).val(val).trigger('change').trigger('chosen:updated')
+            $(elem).bind('change', function() {
+                $('#' + $(elem).data('model')).val($(elem).val())
+            })
+        })
+    }
+
     function getCityListForSelect(country) {
+        if(!country){
+            return
+        }
         var $span = $('#city_select_chosen .chosen-single span')
         var originContent = $span.html()
         $span.html(window.i18n('城市列表加载中...'))
@@ -248,16 +259,17 @@
                     _.reduce(val, function(pre, val, key) {
                         return pre + '<option value="' + val.id + '">' + val.name + (country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                     }, '<option value="">' + i18n('请选择城市') + '</option>')
-                ).trigger('chosen:updated').trigger('chosen:open')
+                ).trigger('chosen:updated')
+                if($('#city').val()) {
+                    $('#city-select').val($('#city').val()).trigger('chosen:updated')
+                }else {
+                    $('#city-select').trigger('chosen:open')
+                }
             }
         })
     }
 
-    getCountryList()
-    $('#country-select').bind('change', function () {
-        $('#city-select').html('').trigger('chosen:updated')
-        getCityListForSelect($('#country-select').val())
-    })
+
     $('#findAddress').click(function () {
         /*function getLocationFromApiData(data, property){
             var location = ''
