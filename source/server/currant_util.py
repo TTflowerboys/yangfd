@@ -86,19 +86,23 @@ def check_crowdfunding_ready(func):
     return __check_crowdfunding_ready_replace_func
 
 
+def get_country_list():
+    return map(lambda country: {"_country": True, "code": country}, f_app.common.country_list)
+
+
 def get_country_name_by_code(code):
     countryMap = {
-                   "CN": "中国",
-                   "GB": "英国",
-                   "US": "美国",
-                   "IN": "印度",
-                   "RU": "俄罗斯",
-                   "JP": "日本",
-                   "DE": "德国",
-                   "FR": "法国",
-                   "IT": "意大利",
-                   "ES": "西班牙"
-                 }
+        "CN": "中国",
+        "GB": "英国",
+        "US": "美国",
+        "IN": "印度",
+        "RU": "俄罗斯",
+        "JP": "日本",
+        "DE": "德国",
+        "FR": "法国",
+        "IT": "意大利",
+        "ES": "西班牙"
+    }
     if code:
         return countryMap[code]
     else:
