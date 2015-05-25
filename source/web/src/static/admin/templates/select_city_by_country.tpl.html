@@ -1,6 +1,6 @@
 <span>
     <select class="form-control" ng-model="selectedCityId">
         <option value="">-- {%enumOption?enumOption:$root.i18n('选择')%} --</option>
-        <option ng-repeat="city in cityList" value="{{city.id}}">{{ city.name }}</option>
+        <option ng-repeat="city in cityList" value="{{city.id}}" ng-selected="{{ city.id === selectedCityId }}">{{ city.name }}</option>
     </select>
 </span>

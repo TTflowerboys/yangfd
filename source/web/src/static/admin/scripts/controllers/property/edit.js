@@ -138,7 +138,7 @@
                 editItem.facing_direction = editItem.facing_direction.id
             }
             if (!_.isEmpty(editItem.country)) {
-                editItem.country = editItem.country.id
+                editItem.country = editItem.country.code
             }
             if (!_.isEmpty(editItem.city)) {
                 editItem.city = editItem.city.id
@@ -185,7 +185,7 @@
                 editTargetItem.facing_direction = editTargetItem.facing_direction.id
             }
             if (!_.isEmpty(editTargetItem.country)) {
-                editTargetItem.country = editTargetItem.country.id
+                editTargetItem.country = editTargetItem.country.code
             }
             if (!_.isEmpty(editTargetItem.city)) {
                 editTargetItem.city = editTargetItem.city.id
