@@ -395,7 +395,7 @@
         }
         if(postcodeIndex !== '') {
             $btn.prop('disabled', true).text(window.i18n('获取中...'))
-            $.betterPost('http://yangfd.com/api/1/postcode/search', 'postcode_index=' + postcodeIndex)
+            $.betterPost('/api/1/postcode/search', 'postcode_index=' + postcodeIndex)
                 .done(function(val) {
                     switch(val.length) {
                         case 0: //postcode没有搜索到结果则需要用户手动选择国家城市
