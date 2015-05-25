@@ -323,7 +323,7 @@
     }
 
     function selectCity(id) {
-        $('select[name=propertyCity]').find('option[value=' + id + ']').prop('selected', true)
+        $('select[name=propertyCity]').find('option[value=' + id + ']').prop('selected', true).trigger('chosen:updated')
     }
 
     function selectPropertyType(id) {
