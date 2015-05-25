@@ -71,7 +71,7 @@
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     NSArray *rawArray = @[@{@"name": STR(@"英国"), @"code": @"GB"},
                           @{@"name": STR(@"中国"), @"code": @"CN"},
-                          @{@"name": STR(@"香港"), @"code": @"HK"},
+//                          @{@"name": STR(@"香港"), @"code": @"HK"},
                           @{@"name": STR(@"美国"), @"code": @"US"}];
     [tcs setResult:[rawArray map:^id(id object) {
         return [CUTECountry modelWithDictionary:object error:nil];
