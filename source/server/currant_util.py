@@ -101,7 +101,8 @@ def get_country_name_by_code(code):
         "DE": "德国",
         "FR": "法国",
         "IT": "意大利",
-        "ES": "西班牙"
+        "ES": "西班牙",
+        "HK": "香港"
     }
     if code:
         return countryMap[code]
