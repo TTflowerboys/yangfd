@@ -30,7 +30,6 @@
                     <div class="row" ng-if="item.property_type">
                         <div class="form-group  col-sm-3">
                             <label class="control-label">{%$root.i18n('房产类型')%}</label>
-
                             <div class="controls">
                                 <div show-i18n="item.property_type.value"></div>
                             </div>
@@ -41,14 +40,14 @@
                             <label class="control-label">{%$root.i18n('国家')%}</label>
 
                             <div class="controls">
-                                <div show-i18n="item.country.value"></div>
+                                <div display-country-name="item.country.code"></div>
                             </div>
                         </div>
                         <div class="form-group  col-sm-3" ng-if="item.city">
                             <label class="control-label">{%$root.i18n('城市')%}</label>
 
                             <div class="controls">
-                                <div show-i18n="item.city.value"></div>
+                                <div><span>{% item.city.name %}</span></div>
                             </div>
                         </div>
                     </div>
