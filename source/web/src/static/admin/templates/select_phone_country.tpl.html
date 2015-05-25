@@ -1,6 +1,6 @@
 <span>
-    <select class="form-control" ng-model="enumId"
-        ng-options="p.id as getCodeBySlug(p.value[$root.userLanguage.value] ,p.slug) for p in enumList">
+    <select class="form-control" ng-model="selectedCountry">
         <option value="">-- {%enumOption?enumOption:$root.i18n('选择')%} --</option>
+        <option ng-repeat="country in supportedCountries" value="{{country.value}}">{{ getDisplayNameBycode(country.name,country.value)}}</option>
     </select>
 </span>

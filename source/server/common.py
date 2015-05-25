@@ -70,7 +70,7 @@ class common(f_common):
         "en": "en_GB",
     }
     i18n_sitemap_enable_locales = False
-    country_list = ["GB", "CN", "US"]
+    country_list = ["GB", "CN", "HK", "US"]
 
     sitemap_domain = "www.yangfd.com"
 

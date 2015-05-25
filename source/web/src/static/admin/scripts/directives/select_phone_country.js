@@ -8,27 +8,24 @@ angular.module('app')
             templateUrl: '/static/admin/templates/select_phone_country.tpl.html',
             replace: true,
             scope: {
-                enumId: '=ngModel',
+                selectedCountry: '=ngModel',
                 enumOption: '@text'
             },
             link: function (scope) {
-                scope.getCodeBySlug = function (country, slug) {
-                    if (slug === 'CN') {
+                scope.supportedCountries = $rootScope.supportedCountries
+
+                scope.getDisplayNameBycode = function (country, code) {
+                    if (code === 'CN') {
                         return '(+86) ' + country
-                    } else if (slug === 'GB') {
+                    } else if (code === 'GB') {
                         return '(+44) ' + country
-                    } else if (slug === 'US') {
+                    } else if (code === 'US') {
                         return '(+1) ' + country
-                    } else if (slug === 'HK') {
+                    } else if (code === 'HK') {
                         return '(+852) ' + country
                     }
                     return country
                 }
-                enumApi.getEnumsByType('country')
-                    .success(function (data) {
-                        scope.enumList = data.val
-                    })
-
             }
         }
     })
