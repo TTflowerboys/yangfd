@@ -144,7 +144,7 @@ def wechat_poster(rent_ticket_id):
         title += '_' + _(rent_ticket["property"].get('title', ''))
     description = rent_ticket.get('description', '')
 
-    keywords = rent_ticket.get('country', {}).get('code', '') + ',' + rent_ticket.get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
+    keywords = currant_util.get_country_name_by_code(rent_ticket.get('country', {}).get('code', '')) + ',' + rent_ticket.get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
     return currant_util.common_template("wechat_poster", rent=rent_ticket, title=title, description=description, keywords=keywords, weixin=weixin)

@@ -26,11 +26,10 @@ def crowdfunding_get(property_id):
     if property.get('city') and property.get('city').get('value'):
         title += ' ' + _(property.get('city').get('value'))
     if property.get('country') and property.get('country').get('code'):
-    #todo title中的国家名暂时改为code
-        title += ' ' + _(property.get('country').get('code'))
+        title += ' ' + _(currant_util.get_country_name_by_code(property.get('country').get('code')))
     description = property.get('name', _('房产详情'))
 
-    # keywords = property.get('name', _('房产详情')) + ',' + property.get('code', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
+    # keywords = property.get('name', _('房产详情')) + ',' + currant_util.get_country_name_by_code(property.get('country',{}).get('code')) + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
     keywords = ""
     return currant_util.common_template("crowdfunding", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
 

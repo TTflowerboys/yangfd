@@ -24,35 +24,30 @@ def property_list(params):
     city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    # todo country_list更改数据结构
-    country_list = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
+    country_list = currant_util.get_country_list()
     bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
     building_area_list = f_app.i18n.process_i18n(f_app.enum.get_all("building_area"))
     property_country_list = []
     property_country_id_list = []
-    for index, country in enumerate(country_list):
-        if country.get('code') == 'US' or country.get('code') == 'GB':
-            property_country_list.append(country)
-            property_country_id_list.append(country.get('code'))
+    property_country_list = currant_util.get_country_list()
 
-    # todo property_city_list的获取方法需要更改
     property_city_list = []
     if ("country" in params and len(params['country'])):
-        for index, city in enumerate(city_list):
-            if city.get('country').get('id') in property_country_id_list:
-                if str(params['country']) == city.get('country').get('id'):
-                    property_city_list.append(city)
+        geonames_params = dict({
+            "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
+            "country": params['country']
+        })
+        property_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1))
 
     title = ''
 
-    # todo 暂时改为country.get('code')
     if "country" in params and len(params['country']):
         for country in country_list:
-            if country.get('id') == str(params['country']):
-                title += country.get('code') + '-'
+            if country.get('code') == str(params['country']):
+                title += currant_util.get_country_name_by_code(country.get('code')) + '-'
 
     if "city" in params and len(params['city']):
-        for city in city_list:
+        for city in property_city_list:
             if city.get('id') == str(params['city']):
                 title += city.get('name') + '-'
 
@@ -94,8 +89,7 @@ def property_get(property_id, user):
     title = _(property.get('name', '房产详情'))
     if property.get('city') and property.get('city').get('value'):
         title += '-' + _(property.get('city').get('value'))
-    # todo 暂时将value改为code，等能直接获取country名字后再更改
-    if property.get('country') and property.get('country').get('code'):
+    if property.get('country') and currant_util.get_country_name_by_code(property.get('country').get('code')):
         title += '-' + _(property.get('country').get('code'))
     description = property.get('name', _('房产详情'))
 
@@ -103,8 +97,7 @@ def property_get(property_id, user):
     if 'intention' in property and property.get('intention'):
         tags = [item['value'] for item in property['intention'] if 'value' in item]
 
-    #todo 暂时将value改为code，等能直接获取country名字后再更改
-    keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('code', '') + ',' + property.get('city', {}).get('name', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
+    keywords = property.get('name', _('房产详情')) + ',' + currant_util.get_country_name_by_code(property.get('country', {}).get('code', '')) + ',' + property.get('city', {}).get('name', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
     return currant_util.common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin=weixin)

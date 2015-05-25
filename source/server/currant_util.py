@@ -118,9 +118,8 @@ def common_template(path, **kwargs):
         kwargs['keywords'] = ",".join(BASE_KEYWORDS_ARRAY)
     if 'user' not in kwargs:
         kwargs['user'] = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields())
-    # todo country_list 需要改变为新的数据结构
     if 'country_list' not in kwargs:
-        kwargs['country_list'] = f_app.i18n.process_i18n(f_app.enum.get_all("country"))
+        kwargs['country_list'] = get_country_list()
     if 'budget_list' not in kwargs:
         kwargs['budget_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('budget'))
     if 'occupation_list' not in kwargs:
