@@ -99,7 +99,10 @@ def get_country_name_by_code(code):
                    "IT": "意大利",
                    "ES": "西班牙"
                  }
-    return countryMap[code]
+    if code:
+        return countryMap[code]
+    else:
+        return ""
 
 
 def common_template(path, **kwargs):

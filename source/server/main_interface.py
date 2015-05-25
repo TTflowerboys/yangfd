@@ -144,7 +144,7 @@ def wechat_poster(rent_ticket_id):
         title += '_' + _(rent_ticket["property"].get('title', ''))
     description = rent_ticket.get('description', '')
 
-    keywords = rent_ticket.get('country', {}).get('value', '') + ',' + rent_ticket.get('city', {}).get('value', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
+    keywords = rent_ticket.get('country', {}).get('code', '') + ',' + rent_ticket.get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
     return currant_util.common_template("wechat_poster", rent=rent_ticket, title=title, description=description, keywords=keywords, weixin=weixin)
@@ -338,6 +338,7 @@ def sitemap():
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/about" % domain
 
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list" % domain
+    #todo country需要改为code
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list?country=541bf6616b809946e81c2bd3" % domain
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list?country=541c09286b8099496db84f56" % domain
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list?country=541d32eb6b80992a1f209045" % domain
@@ -438,6 +439,7 @@ def wechat_endpoint():
         etree.SubElement(root, "MsgType").text = etree.CDATA("transfer_customer_service")
 
     @common_root
+    #todo country._id需要改变
     def build_property_list_by_country(country_id, root):
         properties = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
             "country._id": ObjectId(country_id),

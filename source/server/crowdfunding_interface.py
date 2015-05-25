@@ -19,17 +19,18 @@ def crowdfunding_get(property_id):
 
     report = None
 
-    if property.get('report_id') and property.get('country').get('slug') == 'GB':
+    if property.get('report_id') and property.get('country').get('code') == 'GB':
         report = f_app.i18n.process_i18n(currant_data_helper.get_report(property.get('report_id')))
 
     title = _(property.get('name', '房产详情'))
     if property.get('city') and property.get('city').get('value'):
         title += ' ' + _(property.get('city').get('value'))
-    if property.get('country') and property.get('country').get('value'):
-        title += ' ' + _(property.get('country').get('value'))
+    if property.get('country') and property.get('country').get('code'):
+    #todo title中的国家名暂时改为code
+        title += ' ' + _(property.get('country').get('code'))
     description = property.get('name', _('房产详情'))
 
-    # keywords = property.get('name', _('房产详情')) + ',' + property.get('country', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
+    # keywords = property.get('name', _('房产详情')) + ',' + property.get('code', {}).get('value', '') + ',' + property.get('city', {}).get('value', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
     keywords = ""
     return currant_util.common_template("crowdfunding", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords)
 
