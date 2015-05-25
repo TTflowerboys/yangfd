@@ -335,6 +335,9 @@
             }];
         }
         else if (unfinishedRentTickets.count > 0) {
+            if (!silent) {
+                [SVProgressHUD dismiss];
+            }
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
             unfinishedRentTicketController.hidesBottomBarWhenPushed = NO;
             [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
