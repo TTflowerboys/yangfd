@@ -396,7 +396,7 @@
                             </div>
                             <div class="siteLinkBox">
                                 <!--todo 等城市API确定后，这里查看更多房源的链接改为查看对应城市的房源-->
-                                <a href="/property-to-rent-list" class="btn siteLink">{{_('查看更多房源')}}</a>
+                                <a href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code','')}}&city={{rent['property'].get('city',{}).get('id','')}}" class="btn siteLink">{{_('查看更多房源')}}</a>
                             </div>
                         </div>
                         <div class="copyright clearfix">
