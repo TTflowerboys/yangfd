@@ -511,8 +511,8 @@
         var propertyData = $.extend(options, {
             'name': JSON.stringify({'zh_Hans_CN': address}),
             'property_type': $('#propertyType .selected').data('id'),
-            'country': JSON.stringify({'zh_Hans_CN': $('#country').val()}), //todo
-            'city': JSON.stringify({'zh_Hans_CN': $('#city').val()}), //todo
+            'country': $('#country').val(), //todo
+            'city': $('#city').val(), //todo
             'street': JSON.stringify({'zh_Hans_CN': $('#street').val()}), //todo
             'address': JSON.stringify({'zh_Hans_CN': address}),
             'highlight': JSON.stringify({'zh_Hans_CN': []}), //todo?
