@@ -26,8 +26,6 @@ angular.module('app')
                     geonamesApi.getAll(config)
                         .success(function (data) {
                             scope.cityList = data.val
-                            angular.forEach()
-                            console.log(scope.selectedCityId)
                         })
                 })
 
