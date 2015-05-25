@@ -30,6 +30,8 @@
 #import "CUTETracker.h"
 #import "MasonryMake.h"
 #import "CUTECity.h"
+#import "CUTEAPIManager.h"
+#import "CUTEPlacemark.h"
 
 #define kRegionDistance 800
 
@@ -166,42 +168,56 @@
         }
     }
 
-    NSArray *requiredEnums = @[@"country", @"city"];
-    [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
-        return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
-    }]] continueWithBlock:^id(BFTask *task) {
-        if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
-
+    [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
             CUTEProperty *property = self.ticket.property;
             _rentAddressEditViewController.ticket = self.ticket;
             CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
-            NSArray *countries = [task.result objectAtIndex:0];
-            NSArray *cities = [task.result objectAtIndex:1];
+            NSArray *countries = task.result;
             [form setAllCountries:countries];
             NSInteger countryIndex = [countries indexOfObject:property.country];
             if (countryIndex != NSNotFound) {
                 [form setCountry:[countries objectAtIndex:countryIndex]];
                 _rentAddressEditViewController.lastCountry = form.country;
             }
-            [form setAllCities:cities];
-            NSInteger cityIndex = [cities indexOfObject:property.city];
-            if (cityIndex != NSNotFound) {
-                [form setCity:[cities objectAtIndex:cityIndex]];
-            }
-            form.houseName = property.houseName;
-            form.floor = property.floor;
-            form.community = property.community;
-            form.street = property.street;
-            form.postcode = property.zipcode;
-            _rentAddressEditViewController.formController.form = form;
-            [_rentAddressEditViewController.tableView reloadData];
 
-            [self.navigationController pushViewController:_rentAddressEditViewController animated:YES];
+            CUTECountry *country = [countries objectAtIndex:countryIndex];
+            [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+                NSArray *cities = task.result;
+                if (!IsArrayNilOrEmpty(cities)) {
+
+                    [form setAllCities:cities];
+                    NSInteger cityIndex = [cities indexOfObject:property.city];
+                    if (cityIndex != NSNotFound) {
+                        [form setCity:[cities objectAtIndex:cityIndex]];
+                    }
+                    form.houseName = property.houseName;
+                    form.floor = property.floor;
+                    form.community = property.community;
+                    form.street = property.street;
+                    form.postcode = property.zipcode;
+                    _rentAddressEditViewController.formController.form = form;
+                    [_rentAddressEditViewController.tableView reloadData];
+
+                    [self.navigationController pushViewController:_rentAddressEditViewController animated:YES];
+                }
+                else {
+                }
+
+                return task;
+            }];
         }
-        else {
-            [SVProgressHUD showErrorWithError:task.error];
-        }
-        return nil;
+
+        return task;
     }];
 }
 
@@ -216,7 +232,7 @@
     [SVProgressHUD show];
     NSDictionary *locationDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                         NilNullToEmpty(self.ticket.property.city.name), kABPersonAddressCityKey,
-                                        NilNullToEmpty(self.ticket.property.country), kABPersonAddressCountryKey,
+                                        NilNullToEmpty(self.ticket.property.country.name), kABPersonAddressCountryKey,
                                         [@[NilNullToEmpty(self.ticket.property.community), NilNullToEmpty(self.ticket.property.street)] componentsJoinedByString:@" "], kABPersonAddressStreetKey,
                                         NilNullToEmpty(self.ticket.property.zipcode), kABPersonAddressZIPKey,
                                         nil];
@@ -326,16 +342,36 @@
 }
 
 - (BFTask *)reverseGeocodeLocation:(CLLocation *)location {
+//    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+//    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+//        if (!IsArrayNilOrEmpty(placemarks)) {
+//            [tcs setResult:placemarks.firstObject];
+//        }
+//        else {
+//            [tcs setError:error];
+//        }
+//    }];
+//    return [tcs task];
+
+
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (!IsArrayNilOrEmpty(placemarks)) {
-            [tcs setResult:placemarks.firstObject];
+    NSString *geocoderURLString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?latlng=%lf,%lf&key=%@&language=en", location.coordinate.latitude, location.coordinate.longitude, [CUTEConfiguration googleAPIKey]];
+
+    [[[CUTEAPIManager sharedInstance] POST:geocoderURLString parameters:nil resultClass:nil resultKeyPath:@"results"] continueWithBlock:^id(BFTask *task) {
+        if (!IsArrayNilOrEmpty(task.result)) {
+             [tcs setResult:[CUTEPlacemark placeMarkWithGoogleResult:task.result[0]]];
         }
         else {
-            [tcs setError:error];
+            [tcs setError:task.error];
         }
+        return nil;
     }];
-    return [tcs task];
+
+//    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/geonames/search" parameters:@{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude), @"feature_code": @"city", @"search_range": @(100000)} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+//        [tcs setResult:task.result];
+//        return nil;
+//    }];
+    return tcs.task;
 }
 
 - (BFTask *)updateAddress {
@@ -361,39 +397,50 @@
     }];
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        CLPlacemark *placemark = result;
+        CUTEPlacemark *placemark = result;
 
-        NSArray *requiredEnums = @[@"country", @"city"];
-        [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
-            return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
-        }]] continueWithBlock:^id(BFTask *task) {
-
-            if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
-                NSArray *coutries = [(NSArray *)task.result[0] select:^BOOL(CUTEEnum *object) {
-                    return [[object slug] isEqualToString:placemark.ISOcountryCode];
+        [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
+            if (!IsArrayNilOrEmpty(task.result)) {
+                NSArray *coutries = [(NSArray *)task.result select:^BOOL(CUTECountry *object) {
+                    return [[object code] isEqualToString:placemark.country.code];
                 }];
+                CUTECountry *country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
+                [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+                    NSArray *cities = task.result;
+                    if (!IsArrayNilOrEmpty(cities)) {
+                        CUTECity *city = [cities find:^BOOL(CUTECity *object) {
+                            return [[[placemark city].name lowercaseString] hasPrefix:[[object name] lowercaseString]];
+                        }];
+                        property.street = [@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "];
+                        property.zipcode = placemark.postalCode;
+                        property.country = country;
+                        property.city = city? : [cities firstObject];
+                        property.street = placemark.thoroughfare;
+                        property.community = placemark.subThoroughfare;
+                        property.floor = nil;
+                        property.houseName = nil;
 
-                NSArray *cities = [(NSArray *)task.result[1] select:^BOOL(CUTECity *object) {
-                    return [object.country isEqualToString:placemark.ISOcountryCode] && [[[placemark locality] lowercaseString] hasPrefix:[[object name] lowercaseString]];
+                        _textField.text = property.address;
+
+                        [tcs setResult:_textField.text];
+
+                    }
+                    else {
+                        [tcs setError:task.error];
+                    }
+
+                    return task;
                 }];
-                property.street = [@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "];
-                property.zipcode = placemark.postalCode;
-                property.country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
-                property.city = IsArrayNilOrEmpty(cities)? nil: [cities firstObject];
-                property.street = placemark.thoroughfare;
-                property.community = placemark.subThoroughfare;
-                property.floor = nil;
-                property.houseName = nil;
-
-                _textField.text = property.address;
-
-                [tcs setResult:_textField.text];
             }
             else {
                 [tcs setError:task.error];
             }
+
+
             return task;
         }];
+
+
     }];
 
     [sequencer run];

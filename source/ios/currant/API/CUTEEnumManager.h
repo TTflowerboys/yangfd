@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <BBTRestClient.h>
 #import <Bolts.h>
+#import "CUTECountry.h"
 
 @interface CUTEEnumManager : NSObject
 

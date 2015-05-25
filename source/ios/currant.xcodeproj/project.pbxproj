@@ -249,6 +249,11 @@
 		2CA81FAA1B12CDF0006E993C /* CUTECountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FA71B12CDF0006E993C /* CUTECountry.m */; };
 		2CA81FAB1B12CDF0006E993C /* CUTECountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FA71B12CDF0006E993C /* CUTECountry.m */; };
 		2CA81FAC1B12CDF0006E993C /* CUTECountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FA71B12CDF0006E993C /* CUTECountry.m */; };
+		2CA81FB61B1303BC006E993C /* CUTEPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FB51B1303BC006E993C /* CUTEPlacemark.m */; };
+		2CA81FB71B1303BC006E993C /* CUTEPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FB51B1303BC006E993C /* CUTEPlacemark.m */; };
+		2CA81FB81B1303BC006E993C /* CUTEPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FB51B1303BC006E993C /* CUTEPlacemark.m */; };
+		2CA81FB91B1303BC006E993C /* CUTEPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FB51B1303BC006E993C /* CUTEPlacemark.m */; };
+		2CA81FBA1B1303BC006E993C /* CUTEPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FB51B1303BC006E993C /* CUTEPlacemark.m */; };
 		2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -636,6 +641,8 @@
 		2CA81FA01B12CB18006E993C /* CUTECity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECity.m; sourceTree = "<group>"; };
 		2CA81FA61B12CDF0006E993C /* CUTECountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECountry.h; sourceTree = "<group>"; };
 		2CA81FA71B12CDF0006E993C /* CUTECountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECountry.m; sourceTree = "<group>"; };
+		2CA81FB41B1303BC006E993C /* CUTEPlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPlacemark.h; sourceTree = "<group>"; };
+		2CA81FB51B1303BC006E993C /* CUTEPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPlacemark.m; sourceTree = "<group>"; };
 		2CA94AAE1ACA42CD00DF7497 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-dev-Info.plist"; sourceTree = "<group>"; };
 		2CAA851E1AEA65CC00432BF1 /* NSString+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoding.h"; sourceTree = "<group>"; };
@@ -924,6 +931,8 @@
 				2CA81F6E1B0B5621006E993C /* MemoryReporter.m */,
 				2CC6C1D41AEE2400002758A7 /* AssetsLibraryProvider.h */,
 				2CC6C1D51AEE2400002758A7 /* AssetsLibraryProvider.m */,
+				2CA81FB41B1303BC006E993C /* CUTEPlacemark.h */,
+				2CA81FB51B1303BC006E993C /* CUTEPlacemark.m */,
 				2CC3A06C1AF87D74008C9AC8 /* CUTENavigationUtil.h */,
 				2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */,
 			);
@@ -1723,6 +1732,7 @@
 				2CC6C1D11AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
 				2CC3A0851AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
+				2CA81FB81B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2C9AFF801AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9C1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */,
@@ -1825,6 +1835,7 @@
 				2CC6C1D21AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
 				2CC3A0861AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
+				2CA81FB91B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2C9AFF811AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9D1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */,
@@ -1927,6 +1938,7 @@
 				2CC6C1D01AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
 				2CC3A0841AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
+				2CA81FB71B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2C9AFF7F1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9B1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */,
@@ -2029,6 +2041,7 @@
 				2CC6C1CF1AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
 				2CC3A0831AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
+				2CA81FB61B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2C9AFF7E1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9A1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
@@ -2167,6 +2180,7 @@
 				2CF8A6811AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CF8A5FE1AF0B40E0080DF10 /* CUTERentContactViewController.m in Sources */,
 				2C3DE24F1B074247006FF191 /* CUTESplashViewController.m in Sources */,
+				2CA81FBA1B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2CF8A5E01AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
 				2CF8A6031AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
 				2C07AB8E1AE8FF6600907075 /* UIView+Border.m in Sources */,

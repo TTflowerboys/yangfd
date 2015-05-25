@@ -49,6 +49,11 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
++ (NSValueTransformer *)countryJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECountry class]];
+}
+
 + (NSValueTransformer *)cityJSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECity class]];
@@ -115,8 +120,8 @@
         [params setValue:[self toI18nString:self.street] forKey:@"street"];
     }
 
-    if (self.country) {
-        [params setValue:self.country forKey:@"country"];
+    if (self.country.code) {
+        [params setValue:self.country.code forKey:@"country"];
     }
 
     if (self.city && self.city.identifier) {
@@ -178,7 +183,7 @@
                   AddressPart(self.street),
                   AddressPart(self.zipcode),
                   AddressPart(self.city.name),
-                  AddressPart(self.country)) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                  AddressPart(self.country.name)) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     //trim remove last whitespace
 }
 
