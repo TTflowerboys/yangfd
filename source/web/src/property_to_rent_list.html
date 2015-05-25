@@ -2,11 +2,13 @@
 <!--@@block=head -->
 
 <!--build:css(dist) /static/styles/property_to_rent_list.html.css-->
+<link rel="stylesheet" href="/static/bower_components/chosen/chosen.min.css"/>
 <link rel="stylesheet" href="/static/bower_components/jquery.daterangepicker/daterangepicker.css"/>
 <link rel="stylesheet" href="/static/styles/dateRangePickerOverwirte.css"/>
 <link rel="stylesheet" href="/static/styles/project/rentCard.css"/>
 <link rel="stylesheet" href="/static/styles/property_to_rent_list.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseInfobox.css"/>
+<link rel="stylesheet" href="/static/styles/selectCity.css"/>
 <!--endbuild-->
 
 <!--@@close-->
@@ -61,12 +63,14 @@
         </select>
         <span>{{_('的')}}</span>
         <hr class="separator_phone"/>
-        <select class="ghostSelect" name="propertyCity">
-            <option value="" selected>{{_('任意城市')}}</option>
-            %for index, city in enumerate(property_city_list):
-                <option value="{{city.get('id')}}">{{city.get('name')}}</option>
-            %end
-        </select>
+        <div class="selectCityWrap">
+            <select class="ghostSelect" name="propertyCity">
+                <option value="" selected>{{_('任意城市')}}</option>
+                %for index, city in enumerate(property_city_list):
+                    <option value="{{city.get('id')}}">{{city.get('name')}}</option>
+                %end
+            </select>
+        </div>
         <span>{{_('找')}}</span>
         <hr class="separator_phone hiddenOnMobile"/>
         <select class="ghostSelect hiddenOnMobile" name="propertyType">
@@ -248,6 +252,7 @@
 
 <!--@@block=scripts -->
 <!--build:js /static/scripts/property_to_rent_list.html.js-->
+<script src="/static/bower_components/chosen/chosen.jquery.min.js"></script>
 <script src="/static/bower_components/moment/moment.js"></script>
 <script src="/static/bower_components/jquery.daterangepicker/jquery.daterangepicker.js"></script>
 <script src="/static/scripts/property_to_rent_list.js"></script>
