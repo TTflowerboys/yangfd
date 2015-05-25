@@ -39,6 +39,7 @@
 #import "CUTENavigationUtil.h"
 #import "CUTERentTicketPreviewViewController.h"
 #import "CUTETracker.h"
+#import "Sequencer.h"
 
 @interface CUTERentPropertyInfoViewController () {
 
@@ -250,57 +251,70 @@
             [SVProgressHUD showErrorWithCancellation];
         }
         else {
+
+            CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
+            controller.ticket = self.ticket;
             CUTEProperty *property = self.ticket.property;
             CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
             NSArray *countries = task.result;
             [form setAllCountries:countries];
+
+            Sequencer *sequencer = [Sequencer new];
             NSInteger countryIndex = [countries indexOfObject:property.country];
-
-            CUTECountry *country = [countries objectAtIndex:countryIndex];
-            [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
-                NSArray *cities = task.result;
-                if (!IsArrayNilOrEmpty(cities)) {
-
-                    CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
-                    controller.ticket = self.ticket;
-                    NSArray *cities = task.result;
-                    if (countryIndex != NSNotFound) {
-                        [form setCountry:[countries objectAtIndex:countryIndex]];
-                        controller.lastCountry = form.country;
-                    }
-                    [form setAllCities:cities];
-                    NSInteger cityIndex = [cities indexOfObject:property.city];
-                    if (cityIndex != NSNotFound) {
-                        [form setCity:[cities objectAtIndex:cityIndex]];
-                    }
-                    form.street = property.street;
-                    form.postcode = property.zipcode;
-                    form.community = property.community;
-                    form.floor = property.floor;
-                    form.houseName = property.houseName;
-                    controller.formController.form = form;
-                    controller.navigationItem.title = STR(@"位置");
-
-                    __weak typeof(self)weakSelf = self;
-                    controller.updateAddressCompletion = ^ {
-                        [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
-                            if ([field.key isEqualToString:@"location"]) {
-                                [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            if (countryIndex != NSNotFound) {
+                CUTECountry *country = [countries objectAtIndex:countryIndex];
+                [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                    [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+                        NSArray *cities = task.result;
+                        if (!IsArrayNilOrEmpty(cities)) {
+                            NSArray *cities = task.result;
+                            if (countryIndex != NSNotFound) {
+                                [form setCountry:[countries objectAtIndex:countryIndex]];
+                                controller.lastCountry = form.country;
                             }
-                        }];
-                    };
-                    
-                    [self.navigationController pushViewController:controller animated:YES];
+                            [form setAllCities:cities];
+                            NSInteger cityIndex = [cities indexOfObject:property.city];
+                            if (cityIndex != NSNotFound) {
+                                [form setCity:[cities objectAtIndex:cityIndex]];
+                            }
+                            completion(cities);
 
-                }
-                else {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
+                        }
+                        else {
+                            [SVProgressHUD showErrorWithError:task.error];
+                        }
 
-                return task;
+                        return task;
+                    }];
+
+                }];
+            }
+
+            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                form.street = property.street;
+                form.postcode = property.zipcode;
+                form.community = property.community;
+                form.floor = property.floor;
+                form.houseName = property.houseName;
+                controller.formController.form = form;
+                controller.navigationItem.title = STR(@"位置");
+
+                __weak typeof(self)weakSelf = self;
+                controller.updateAddressCompletion = ^ {
+                    [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+                        if ([field.key isEqualToString:@"location"]) {
+                            [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        }
+                    }];
+                };
+
+                [self.navigationController pushViewController:controller animated:YES];
+
             }];
+
+            [sequencer run];
         }
-        
+
         return task;
     }];
 }
