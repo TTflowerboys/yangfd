@@ -4,7 +4,7 @@
         <div class="btn-group form-inline">
             <div>
                 <div class="btn-group form-inline">
-                    <div select-enum name="country" ng-model="selected.country" text="{%i18n('国家')%}"></div>
+                    <div select-supported-country name="country" ng-model="selected.country" text="{%i18n('国家')%}"></div>
                 </div>
                 <div class="btn-group form-inline">
                     <div select-city-by-country country="selected.country" ng-model="selected.city" text="{%i18n('城市')%}"></div>
