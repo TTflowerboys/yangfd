@@ -11,10 +11,14 @@
 #import <BBTCommonMacro.h>
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEAPIManager.h"
+#import "CUTECity.h"
+#import "CUTECountry.h"
 
 @interface CUTEEnumManager () {
 
     NSMutableDictionary *_enumCache;
+
+    NSMutableDictionary *_cityCache;
 }
 
 @end
@@ -38,6 +42,7 @@
     self = [super init];
     if (self) {
         _enumCache = [NSMutableDictionary dictionary];
+        _cityCache = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -62,11 +67,51 @@
     return tcs.task;
 }
 
+- (BFTask *)getCountries {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    NSArray *rawArray = @[@{@"name": STR(@"英国"), @"code": @"GB"},
+                          @{@"name": STR(@"中国"), @"code": @"CN"},
+//                          @{@"name": STR(@"香港"), @"code": @"HK"},
+                          @{@"name": STR(@"美国"), @"code": @"US"}];
+    [tcs setResult:[rawArray map:^id(id object) {
+        return [CUTECountry modelWithDictionary:object error:nil];
+    }]];
+    return tcs.task;
+}
+
+- (BFTask *)getCitiesByCountry:(CUTECountry *)country {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    if ([_cityCache objectForKey:country.code]) {
+        [tcs setResult:[_cityCache objectForKey:country.code]];
+    }
+    else {
+        [[[CUTEAPIManager sharedInstance] GET:@"/api/1/geonames/search" parameters:@{@"country": country.code, @"feature_code": @"city"} resultClass:[CUTECity class]] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setError:task.error];
+            }
+            else if (task.isCancelled) {
+                [tcs setError:task.error];
+            }
+            else {
+                NSArray *cities = task.result;
+                cities = [cities sortBy:@"fieldDescription"];
+                [_cityCache setObject:cities forKey:country.code];
+                [tcs setResult:cities];
+            }
+
+            return task;
+        }];
+    }
+    return tcs.task;
+}
+
 - (BFTask *)startLoadAllEnums {
-    return [BFTask taskForCompletionOfAllTasks:
-            [@[@"country",
-               @"city",
-               @"property_type",
+    BFTask *enumTask = [BFTask taskForCompletionOfAllTasks:
+            [@[@"property_type",
                @"deposit_type",
                @"indoor_facility",
                @"region_highlight",
@@ -76,6 +121,14 @@
              map:^id(id object) {
                  return [self getEnumsByType:object];
              }]];
+
+    BFTask *cityTask = [[self getCountries] continueWithBlock:^id(BFTask *task) {
+        return [BFTask taskForCompletionOfAllTasks:[task.result map:^id(CUTECountry *object) {
+            return [self getCitiesByCountry:object];
+        }]];
+    }];
+
+    return [BFTask taskForCompletionOfAllTasks:@[enumTask, cityTask]];
 }
 
 @end

@@ -119,7 +119,7 @@
     [SVProgressHUD showWithStatus:STR(@"获取中...")];
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"country":user.country.identifier, @"phone": user.phone} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"country":user.country.code, @"phone": user.phone} resultClass:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
             }

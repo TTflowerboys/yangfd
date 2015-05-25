@@ -23,7 +23,7 @@ angular.module('app')
                         'country':newValue,
                         'feature_code':'city'
                     }
-                    geonamesApi.get(config)
+                    geonamesApi.getAll(config)
                         .success(function (data) {
                             scope.cityList = data.val
                         })

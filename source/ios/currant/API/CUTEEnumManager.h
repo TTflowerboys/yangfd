@@ -9,12 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <BBTRestClient.h>
 #import <Bolts.h>
+#import "CUTECountry.h"
 
 @interface CUTEEnumManager : NSObject
 
 + (instancetype)sharedInstance;
 
 - (BFTask *)getEnumsByType:(NSString *)type;
+
+- (BFTask *)getCountries;
+
+- (BFTask *)getCitiesByCountry:(CUTECountry *)country;
 
 - (BFTask *)startLoadAllEnums;
 

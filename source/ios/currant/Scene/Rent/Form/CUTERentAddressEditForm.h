@@ -10,12 +10,13 @@
 #import "CUTEForm.h"
 #import "CUTEPropertyInfoForm.h"
 #import "CUTEEnum.h"
-#import "CUTECityEnum.h"
+#import "CUTECity.h"
+#import "CUTECountry.h"
 
 @interface CUTERentAddressEditForm : CUTEForm
 
-@property (strong, nonatomic) CUTEEnum *country;
-@property (strong, nonatomic) CUTECityEnum *city;
+@property (strong, nonatomic) CUTECountry *country;
+@property (strong, nonatomic) CUTECity *city;
 @property (strong, nonatomic) NSString *postcode;
 @property (strong, nonatomic) NSString *street;
 @property (strong, nonatomic) NSString *community;

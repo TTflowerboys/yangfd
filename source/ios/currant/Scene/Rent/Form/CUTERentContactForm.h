@@ -8,6 +8,7 @@
 
 #import "CUTEForm.h"
 #import "CUTEEnum.h"
+#import "CUTECountry.h"
 
 @interface CUTERentContactForm : CUTEForm
 
@@ -15,7 +16,7 @@
 
 @property (strong, nonatomic) NSString *email;
 
-@property (strong, nonatomic) CUTEEnum *country;
+@property (strong, nonatomic) CUTECountry *country;
 
 @property (strong, nonatomic) NSString *phone;
 

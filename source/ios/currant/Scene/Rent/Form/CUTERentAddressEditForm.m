@@ -9,10 +9,10 @@
 #import "CUTERentAddressEditForm.h"
 #import "CUTECommonMacro.h"
 #import "CUTEEnum.h"
-#import "CUTECityEnum.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEFormFixNonBreakingSpaceTextFieldCell.h"
 #import "CUTEFormDefaultCell.h"
+#import "CUTECity.h"
 
 
 @interface CUTERentAddressEditForm () {
@@ -42,11 +42,11 @@
         [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldAction: @"optionBack", FXFormFieldHeader:STR(@"位置"), FXFormFieldHeader:STR(@"位置")} atIndex:0];
     }
     if (_city) {
-        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: [self citiesOfCountry:_country], FXFormFieldDefaultValue: _city, FXFormFieldAction: @"optionBack"} atIndex:1];
+        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: _allCities, FXFormFieldDefaultValue: _city, FXFormFieldAction: @"optionBack"} atIndex:1];
     }
     else {
-        if (!IsArrayNilOrEmpty([self citiesOfCountry:_country])) {
-             [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: [self citiesOfCountry:_country], FXFormFieldAction: @"optionBack"} atIndex:1];
+        if (!IsArrayNilOrEmpty(_allCities)) {
+             [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions:_allCities, FXFormFieldAction: @"optionBack"} atIndex:1];
         }
     }
 
@@ -59,15 +59,6 @@
 
 - (void)setAllCities:(NSArray *)allCities {
     _allCities = allCities;
-}
-
-- (NSArray *)citiesOfCountry:(CUTEEnum *)country {
-    if (country) {
-        return [_allCities select:^BOOL(CUTECityEnum *object) {
-            return [object.country.identifier isEqualToString:country.identifier] && !IsNilNullOrEmpty(object.value);
-        }];
-    }
-    return nil;
 }
 
 - (NSError *)validateFormWithScenario:(NSString *)scenario {

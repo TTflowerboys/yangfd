@@ -13,6 +13,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "CUTECurrency.h"
 #import "CUTEHouseType.h"
+#import "CUTECity.h"
+#import "CUTECountry.h"
 
 #define kPropertyStatusDraft @"draft"
 #define kPropertyStatusDeleted @"deleted"
@@ -31,9 +33,9 @@
 
 @property (nonatomic) CLLocationDegrees longitude;
 
-@property (strong, nonatomic) CUTEEnum *country;
+@property (strong, nonatomic) CUTECountry *country;
 
-@property (strong, nonatomic) CUTEEnum *city;
+@property (strong, nonatomic) CUTECity *city;
 
 @property (strong, nonatomic) NSString *street;
 

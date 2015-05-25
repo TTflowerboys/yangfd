@@ -13,8 +13,7 @@
 @interface CUTEPlacemark ()
 
 @property (nonatomic, copy) NSString *name; // eg. Apple Inc.
-@property (nonatomic, copy) NSString *thoroughfare; // street address, eg. 1 Infinite Loop
-@property (nonatomic, copy) NSString *subThoroughfare; // eg. 1
+
 @property (nonatomic, copy) NSString *subLocality; // neighborhood, common name, eg. Mission District
 @property (nonatomic, copy) NSString *administrativeArea; // state, eg. CA
 @property (nonatomic, copy) NSString *subAdministrativeArea; // county, eg. Santa Clara
@@ -36,7 +35,7 @@
     retPlacemark.subLocality = placemark.subLocality;
     retPlacemark.administrativeArea = placemark.administrativeArea;
     retPlacemark.subAdministrativeArea = placemark.subAdministrativeArea;
-    retPlacemark.zipcode = placemark.postalCode;
+    retPlacemark.postalCode = placemark.postalCode;
     retPlacemark.ISOcountryCode = placemark.ISOcountryCode;
     retPlacemark.inlandWater = placemark.inlandWater;
     retPlacemark.ocean = placemark.ocean;
@@ -72,22 +71,22 @@
     placemark.subThoroughfare = [CUTEPlacemark getComponentByType:@"street_number" fromCompnents:components];
     placemark.thoroughfare = [CUTEPlacemark getComponentByType:@"route" fromCompnents:components];
     placemark.subLocality = [CUTEPlacemark getComponentByType:@"sublocality" fromCompnents:components];
-    placemark.city = [CUTECityEnum cityWithValue:[CUTEPlacemark getComponentByType:@"locality" fromCompnents:components]];
+    CUTECountry *country = [CUTECountry new];
+    country.code = [CUTEPlacemark getISOCountryCodefromCompnents:components];
+    CUTECity *city = [CUTECity new];
+    city.name = [CUTEPlacemark getComponentByType:@"locality" fromCompnents:components];
+    placemark.city = city;
     placemark.administrativeArea = [CUTEPlacemark getComponentByType:@"administrative_area_level_1" fromCompnents:components];
-    CUTEEnum *country = [CUTEEnum new];
-    country.type = @"country";
-    country.slug = [CUTEPlacemark getISOCountryCodefromCompnents:components];
-    country.value = [CUTEPlacemark getComponentByType:@"country" fromCompnents:components];
     placemark.country = country;
-    placemark.zipcode = [CUTEPlacemark getComponentByType:@"postal_code" fromCompnents:components];
+    placemark.postalCode = [CUTEPlacemark getComponentByType:@"postal_code" fromCompnents:components];
     return placemark;
 }
 
 - (NSString *)address {
     return [@[NilNullToEmpty(self.street),
-              NilNullToEmpty(self.zipcode),
-              NilNullToEmpty(self.city.value),
-              NilNullToEmpty(self.country.value)]
+              NilNullToEmpty(self.postalCode),
+              NilNullToEmpty(self.city.name),
+              NilNullToEmpty(self.country.name)]
             componentsJoinedByString:@" "];
 }
 

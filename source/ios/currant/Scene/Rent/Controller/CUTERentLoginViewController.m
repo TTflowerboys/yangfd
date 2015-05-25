@@ -83,7 +83,7 @@
     Sequencer *sequencer = [Sequencer new];
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"country":form.country.identifier, @"phone": form.phone, @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"country":form.country.code, @"phone": form.phone, @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
             }

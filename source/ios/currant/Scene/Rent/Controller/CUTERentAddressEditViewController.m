@@ -14,9 +14,11 @@
 #import "CUTEDataManager.h"
 #import "CUTERentTickePublisher.h"
 #import "CUTENotificationKey.h"
+#import "CUTEAPIManager.h"
+#import "CUTEEnumManager.h"
 
 @interface CUTERentAddressEditViewController () {
-    CUTEEnum *_lastCountry;
+    CUTECountry *_lastCountry;
 }
 
 @end
@@ -37,14 +39,19 @@
 
     [self.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
         if ([field.key isEqualToString:@"country"]) {
-            CUTEEnum *country = field.value;
+            CUTECountry *country = field.value;
             if (![_lastCountry isEqual:country]) {
-                [(CUTERentAddressEditForm *)self.formController.form setCity:nil];
-                [self.formController updateSections];
-                [self.tableView reloadData];
+                [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+                    if (task.result) {
+                        [(CUTERentAddressEditForm *)self.formController.form setCity:nil];
+                        [(CUTERentAddressEditForm *)self.formController.form setAllCities:task.result];
+                        [self.formController updateSections];
+                        [self.tableView reloadData];
+                    }
+                    return task;
+                }];
             }
             _lastCountry = country;
-
         }
     }];
 }

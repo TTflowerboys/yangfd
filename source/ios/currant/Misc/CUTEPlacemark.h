@@ -8,15 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "CUTEEnum.h"
-#import "CUTECityEnum.h"
+#import "CUTECountry.h"
+#import "CUTECity.h"
 
 @interface CUTEPlacemark : NSObject
 
 @property (nonatomic, copy) NSString *street;
-@property (nonatomic, copy) NSString *zipcode; // zip code, eg. 95014
-@property (nonatomic, strong) CUTECityEnum *city; // city, eg. Cupertino
-@property (nonatomic, strong) CUTEEnum *country; // eg. United States
+@property (nonatomic, copy) NSString *thoroughfare; // street address, eg. 1 Infinite Loop
+@property (nonatomic, copy) NSString *subThoroughfare; // eg. 1
+@property (nonatomic, copy) NSString *postalCode; // zip code, eg. 95014
+@property (nonatomic, strong) CUTECity *city; // city, eg. Cupertino
+@property (nonatomic, strong) CUTECountry *country; // eg. United States
 
 + (CUTEPlacemark *)placeMarkWithCLPlaceMark:(CLPlacemark *)placemark;
 

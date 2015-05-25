@@ -27,11 +27,12 @@
                     </li>
                     <li>
                         <div><i class="fa fa-building-o"></i> {%$root.i18n('国家')%}</div>
-                        <span data-ng-bind="item.country.value"></span>
+                        <!-- TODO: find out why display_country_name not working here-->
+                        <span data-ng-bind="item.country.code"></span>
                     </li>
                     <li>
                         <div><i class="fa fa-building-o"></i> {%$root.i18n('城市')%}</div>
-                        <span data-ng-bind="item.city.value"></span>
+                        <span data-ng-bind="item.city.name"></span>
                     </li>
                 </ul>
 
