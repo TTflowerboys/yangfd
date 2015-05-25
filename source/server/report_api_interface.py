@@ -236,6 +236,11 @@ def lupdate(user):
     f_app.landregistry.check_update()
 
 
+@f_api('/geonames/<_id>')
+def geonames_get(_id):
+    return f_app.geonames.gazetteer.get(_id)
+
+
 @f_api('/geonames/search', params=dict(
     country="country",
     admin1=str,
