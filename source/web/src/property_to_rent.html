@@ -64,7 +64,7 @@
             <li class="menuItem">
                 <a href="#rentDetails_description">{{_('出租房详情')}}</a>
             </li >
-            %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country') and rent['property'].get('country').get('slug') in ['US', 'GB']:
+            %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country') and rent['property'].get('country').get('code') in ['US', 'GB']:
             <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
             %end
             % if rent['property'].get('community_facility', []) and len(rent['property'].get('community_facility', [])):
