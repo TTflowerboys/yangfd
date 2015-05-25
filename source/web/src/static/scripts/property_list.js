@@ -52,6 +52,14 @@
 
     loadPropertyList(true)
 
+    //在城市选择上使用chosen插件
+    function initChosen () {
+        $('[name=propertyCity]').chosen({
+            width: '100%',
+            disable_search_threshold: 8
+        })
+    }
+    initChosen()
     /*
     * Load Data from server
     * */
@@ -149,7 +157,7 @@
         }
 
         //Empty city select
-        $('select[name=propertyCity]').empty()
+        $('select[name=propertyCity]').html('<option value="">' + i18n('城市列表加载中...') + '</option>').trigger('chosen:updated')
 
         //Load city data
         $.betterPost('/api/1/geonames/search', params)
@@ -158,7 +166,7 @@
                     _.reduce(val, function(pre, val, key) {
                         return pre + '<option value="' + val.id + '">' + val.name + (countryCode === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                     }, '<option value="">' + i18n('任意城市') + '</option>')
-                )
+                ).trigger('chosen:updated')
             })
             .fail(function(){
             })

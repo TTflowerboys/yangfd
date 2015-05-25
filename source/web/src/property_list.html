@@ -2,6 +2,7 @@
 <!--@@block=head -->
 
 <!--build:css(dist) /static/styles/property_list.html.css-->
+<link rel="stylesheet" href="/static/bower_components/chosen/chosen.min.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/addtionalHouseCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseInfobox.css"/>
@@ -53,12 +54,14 @@
         </select>
         <span>{{_('的')}}</span>
         <hr class="separator_phone"/>
-        <select class="ghostSelect" name="propertyCity">
-            <option value="" selected>{{_('任意城市')}}</option>
-            %for index, city in enumerate(property_city_list):
+        <div class="selectCityWrap">
+            <select class="ghostSelect" name="propertyCity">
+                <option value="" selected>{{_('任意城市')}}</option>
+                %for index, city in enumerate(property_city_list):
                 <option value="{{city.get('id')}}">{{city.get('name')}}</option>
-            %end
-        </select>
+                %end
+            </select>
+        </div>
         <span>{{_('投资')}}</span>
         <hr class="separator_phone"/>
         <select class="ghostSelect" name="propertyType">
@@ -262,6 +265,7 @@
 
 <!--@@block=scripts -->
 <!--build:js /static/scripts/property_list.html.js-->
+<script src="/static/bower_components/chosen/chosen.jquery.min.js"></script>
 <script src="/static/scripts/property_list.js"></script>
 <!--endbuild-->
 <!--@@close-->
