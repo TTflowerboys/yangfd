@@ -81,11 +81,17 @@
         }
         else {
             [SVProgressHUD show];
-            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
+            [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
-                    return nil;
-                } else {
+                }
+                else if (task.exception) {
+                    [SVProgressHUD showErrorWithException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [SVProgressHUD showErrorWithCancellation];
+                }
+                else {
                     CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
                     contactViewController.ticket = self.ticket;
                     CUTERentContactForm *form = [CUTERentContactForm new];
@@ -95,8 +101,9 @@
                     contactViewController.formController.form = form;
                     [self.navigationController pushViewController:contactViewController animated:YES];
                     [SVProgressHUD dismiss];
-                    return nil;
                 }
+
+                return task;
             }];
         }
     }

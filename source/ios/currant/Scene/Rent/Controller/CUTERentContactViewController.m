@@ -115,7 +115,6 @@
     user.country = form.country;
     user.phone = form.phone;
 
-
     [SVProgressHUD showWithStatus:STR(@"获取中...")];
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
@@ -139,9 +138,7 @@
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
-            CUTEEnum *country = [[self.formController fieldForKey:@"country"] value];
-            NSString *phone = [[self.formController fieldForKey:@"phone"] value];
-            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":phone, @"country":country.identifier} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":user.phone, @"country":user.country.code} resultClass:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
@@ -152,6 +149,7 @@
             }];
         }
         else {
+            //TODO  如果是默认注册的用户，这次没有完成，下次再用同样的号码注册，将会拥有账户，需要提醒用户
             //TODO check this interface can send sms?
             //no user just creat one
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
@@ -255,11 +253,17 @@
 
 - (void)login {
 
-    [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithBlock:^id(BFTask *task) {
-        if (task.error || task.exception || task.isCancelled) {
+    [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
-            return nil;
-        } else {
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
             TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             CUTERentLoginViewController *loginViewController = [CUTERentLoginViewController new];
             loginViewController.ticket = self.ticket;
@@ -269,8 +273,9 @@
             form.country = self.ticket.property.country;
             loginViewController.formController.form = form;
             [self.navigationController pushViewController:loginViewController animated:YES];
-            return nil;
         }
+
+        return task;
     }];
 }
 
