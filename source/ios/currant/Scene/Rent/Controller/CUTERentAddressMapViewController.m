@@ -161,12 +161,11 @@
 - (void)onAddressBeginEditing:(id)sender {
 
     if (!_rentAddressEditViewController) {
-        if (!_rentAddressEditViewController) {
-            CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
-            controller.navigationItem.title = STR(@"位置");
-            _rentAddressEditViewController = controller;
-        }
+        CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
+        controller.navigationItem.title = STR(@"位置");
+        _rentAddressEditViewController = controller;
     }
+
 
     [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
@@ -184,37 +183,47 @@
             CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
             NSArray *countries = task.result;
             [form setAllCountries:countries];
+
+            Sequencer *sequencer = [Sequencer new];
             NSInteger countryIndex = [countries indexOfObject:property.country];
             if (countryIndex != NSNotFound) {
                 [form setCountry:[countries objectAtIndex:countryIndex]];
                 _rentAddressEditViewController.lastCountry = form.country;
+                [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+
+                    CUTECountry *country = [countries objectAtIndex:countryIndex];
+                    [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+                        NSArray *cities = task.result;
+                        if (!IsArrayNilOrEmpty(cities)) {
+                            [form setAllCities:cities];
+                            NSInteger cityIndex = [cities indexOfObject:property.city];
+                            if (cityIndex != NSNotFound) {
+                                [form setCity:[cities objectAtIndex:cityIndex]];
+                            }
+                            completion(cities);
+                        }
+                        else {
+                            [SVProgressHUD showErrorWithError:task.error];
+                        }
+                        return task;
+                    }];
+
+                }];
             }
 
-            CUTECountry *country = [countries objectAtIndex:countryIndex];
-            [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
-                NSArray *cities = task.result;
-                if (!IsArrayNilOrEmpty(cities)) {
+            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                form.houseName = property.houseName;
+                form.floor = property.floor;
+                form.community = property.community;
+                form.street = property.street;
+                form.postcode = property.zipcode;
+                _rentAddressEditViewController.formController.form = form;
+                [_rentAddressEditViewController.tableView reloadData];
 
-                    [form setAllCities:cities];
-                    NSInteger cityIndex = [cities indexOfObject:property.city];
-                    if (cityIndex != NSNotFound) {
-                        [form setCity:[cities objectAtIndex:cityIndex]];
-                    }
-                    form.houseName = property.houseName;
-                    form.floor = property.floor;
-                    form.community = property.community;
-                    form.street = property.street;
-                    form.postcode = property.zipcode;
-                    _rentAddressEditViewController.formController.form = form;
-                    [_rentAddressEditViewController.tableView reloadData];
-
-                    [self.navigationController pushViewController:_rentAddressEditViewController animated:YES];
-                }
-                else {
-                }
-
-                return task;
+                [self.navigationController pushViewController:_rentAddressEditViewController animated:YES];
             }];
+
+            [sequencer run];
         }
 
         return task;

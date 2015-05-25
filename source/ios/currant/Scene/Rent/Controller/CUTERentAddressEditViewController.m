@@ -40,7 +40,7 @@
     [self.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
         if ([field.key isEqualToString:@"country"]) {
             CUTECountry *country = field.value;
-            if (![_lastCountry isEqual:country]) {
+            if ((_lastCountry || country) && ![_lastCountry isEqual:country]) {
                 [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
                     if (task.result) {
                         [(CUTERentAddressEditForm *)self.formController.form setCity:nil];
