@@ -16,6 +16,10 @@
 
 - (BFTask *)getEnumsByType:(NSString *)type;
 
+- (BFTask *)getCountries;
+
+- (BFTask *)getCitiesByCountry:(CUTECountry *)country;
+
 - (BFTask *)startLoadAllEnums;
 
 @end

@@ -9,7 +9,6 @@
 #import "CUTEProperty.h"
 #import "CUTECommonMacro.h"
 #import "CUTEEnum.h"
-#import "CUTECityEnum.h"
 #import <NSArray+ObjectiveSugar.h>
 #import <MapKit/MapKit.h>
 #import "NSURL+CUTE.h"
@@ -50,14 +49,9 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
-+ (NSValueTransformer *)countryJSONTransformer
-{
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
-}
-
 + (NSValueTransformer *)cityJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECityEnum class]];
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECity class]];
 }
 
 + (NSValueTransformer *)spaceJSONTransformer
@@ -121,8 +115,8 @@
         [params setValue:[self toI18nString:self.street] forKey:@"street"];
     }
 
-    if (self.country && self.country.identifier) {
-        [params setValue:self.country.identifier forKey:@"country"];
+    if (self.country) {
+        [params setValue:self.country forKey:@"country"];
     }
 
     if (self.city && self.city.identifier) {
@@ -183,8 +177,8 @@
                   AddressPart(self.community),
                   AddressPart(self.street),
                   AddressPart(self.zipcode),
-                  AddressPart(self.city.value),
-                  AddressPart(self.country.value)) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                  AddressPart(self.city.name),
+                  AddressPart(self.country)) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     //trim remove last whitespace
 }
 

@@ -29,6 +29,7 @@
 #import "CUTERentTickePublisher.h"
 #import "CUTETracker.h"
 #import "MasonryMake.h"
+#import "CUTECity.h"
 
 #define kRegionDistance 800
 
@@ -214,8 +215,8 @@
 
     [SVProgressHUD show];
     NSDictionary *locationDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        NilNullToEmpty(self.ticket.property.city.value), kABPersonAddressCityKey,
-                                        NilNullToEmpty(self.ticket.property.country.value), kABPersonAddressCountryKey,
+                                        NilNullToEmpty(self.ticket.property.city.name), kABPersonAddressCityKey,
+                                        NilNullToEmpty(self.ticket.property.country), kABPersonAddressCountryKey,
                                         [@[NilNullToEmpty(self.ticket.property.community), NilNullToEmpty(self.ticket.property.street)] componentsJoinedByString:@" "], kABPersonAddressStreetKey,
                                         NilNullToEmpty(self.ticket.property.zipcode), kABPersonAddressZIPKey,
                                         nil];
@@ -372,8 +373,8 @@
                     return [[object slug] isEqualToString:placemark.ISOcountryCode];
                 }];
 
-                NSArray *cities = [(NSArray *)task.result[1] select:^BOOL(CUTECityEnum *object) {
-                    return [[object.country slug] isEqualToString:placemark.ISOcountryCode] && [[[placemark locality] lowercaseString] hasPrefix:[[object value] lowercaseString]];
+                NSArray *cities = [(NSArray *)task.result[1] select:^BOOL(CUTECity *object) {
+                    return [object.country isEqualToString:placemark.ISOcountryCode] && [[[placemark locality] lowercaseString] hasPrefix:[[object name] lowercaseString]];
                 }];
                 property.street = [@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "];
                 property.zipcode = placemark.postalCode;

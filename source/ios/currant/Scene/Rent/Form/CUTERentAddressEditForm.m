@@ -9,10 +9,10 @@
 #import "CUTERentAddressEditForm.h"
 #import "CUTECommonMacro.h"
 #import "CUTEEnum.h"
-#import "CUTECityEnum.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEFormFixNonBreakingSpaceTextFieldCell.h"
 #import "CUTEFormDefaultCell.h"
+#import "CUTECity.h"
 
 
 @interface CUTERentAddressEditForm () {
@@ -61,10 +61,10 @@
     _allCities = allCities;
 }
 
-- (NSArray *)citiesOfCountry:(CUTEEnum *)country {
+- (NSArray *)citiesOfCountry:(CUTECountry *)country {
     if (country) {
-        return [_allCities select:^BOOL(CUTECityEnum *object) {
-            return [object.country.identifier isEqualToString:country.identifier] && !IsNilNullOrEmpty(object.value);
+        return [_allCities select:^BOOL(CUTECity *object) {
+            return [object.country isEqualToString:country.code] && !IsNilNullOrEmpty(object.name);
         }];
     }
     return nil;

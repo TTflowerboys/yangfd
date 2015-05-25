@@ -7,7 +7,6 @@
 //
 
 #import "CUTEEnum.h"
-#import "CUTECityEnum.h"
 #import "CUTECommonMacro.h"
 #import "CUTERentPeriod.h"
 
@@ -27,11 +26,7 @@
 {
     if (JSONDictionary && [JSONDictionary count] > 0)
     {
-        if ([[JSONDictionary objectForKey:@"type"] isEqualToString:@"city"])
-        {
-            return [CUTECityEnum class];
-        }
-        else if ([[JSONDictionary objectForKey:@"type"] isEqualToString:@"rent_period"]) {
+        if ([[JSONDictionary objectForKey:@"type"] isEqualToString:@"rent_period"]) {
             return [CUTERentPeriod class];
         }
     }

@@ -13,7 +13,7 @@
 
 @interface CUTERentAddressEditViewController : CUTEFormViewController
 
-@property (strong, nonatomic) CUTEEnum *lastCountry;
+@property (strong, nonatomic) CUTECountry *lastCountry;
 
 @property (strong, nonatomic) CUTETicket *ticket;
 

@@ -30,7 +30,7 @@
 - (NSDictionary *)toParams {
     return @{
              @"nickname":self.nickname,
-             @"country":self.country.identifier,
+             @"country":self.country.code,
              @"phone":self.phone,
              @"email":self.email,
              };

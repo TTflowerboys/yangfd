@@ -62,6 +62,16 @@
     return tcs.task;
 }
 
+- (BFTask *)getCountries {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [tcs setResult:@[
+                     @{@"name": STR(@"英国"), @"code": @"GB"},
+                     @{@"name": STR(@"中国"), @"code": @"CN"},
+                     @{@"name": STR(@"香港"), @"code": @"HK"},
+                     @{@"name": STR(@"美国"), @"code": @"US"}]];
+    return tcs.task;
+}
+
 - (BFTask *)startLoadAllEnums {
     return [BFTask taskForCompletionOfAllTasks:
             [@[@"country",

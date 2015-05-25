@@ -16,7 +16,7 @@
 #import "CUTENotificationKey.h"
 
 @interface CUTERentAddressEditViewController () {
-    CUTEEnum *_lastCountry;
+    CUTECountry *_lastCountry;
 }
 
 @end
@@ -37,7 +37,7 @@
 
     [self.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
         if ([field.key isEqualToString:@"country"]) {
-            CUTEEnum *country = field.value;
+            CUTECountry *country = field.value;
             if (![_lastCountry isEqual:country]) {
                 [(CUTERentAddressEditForm *)self.formController.form setCity:nil];
                 [self.formController updateSections];

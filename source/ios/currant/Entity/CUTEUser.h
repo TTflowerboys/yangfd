@@ -9,6 +9,7 @@
 #import "MTLModel.h"
 #import <MTLJSONAdapter.h>
 #import "CUTEEnum.h"
+#import "CUTECountry.h"
 
 @interface CUTEUser : MTLModel <MTLJSONSerializing>
 
@@ -16,7 +17,7 @@
 
 @property (strong, nonatomic) NSString *nickname;
 
-@property (strong, nonatomic) CUTEEnum *country;
+@property (strong, nonatomic) CUTECountry *country;
 
 @property (strong, nonatomic) NSString *countryCode;
 
