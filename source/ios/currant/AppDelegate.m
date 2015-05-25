@@ -43,6 +43,7 @@
 #import "CUTEUserDefaultKey.h"
 #import "MemoryReporter.h"
 #import "UITabBarController+HideTabBar.h"
+#import "Sequencer.h"
 
 
 @interface AppDelegate () <UITabBarControllerDelegate>
@@ -145,6 +146,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveHideRootTabBar:) name:KNOTIF_HIDE_ROOT_TAB_BAR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowRootTabBar:) name:KNOTIF_SHOW_ROOT_TAB_BAR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowFavoriteRentTicketList:) name:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
@@ -276,35 +279,70 @@
 }
 
 - (void)updatePublishRentTicketTabWithController:(UINavigationController *)viewController silent:(BOOL)silent {
-    NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
 
-    if (unfinishedRentTickets.count == 0) {
-        if (!silent) {
-            [SVProgressHUD show];
-        }
-        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
-            if (task.result) {
-                CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
-                [form setRentTypeList:task.result];
-                CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
-                controller.formController.form = form;
-                controller.hidesBottomBarWhenPushed = NO;
-                [viewController setViewControllers:@[controller] animated:NO];
-                if (!silent) {
-                    [SVProgressHUD dismiss];
+    Sequencer *sequencer = [Sequencer new];
+
+    if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            if (!silent) {
+                [SVProgressHUD show];
+            }
+            [[[CUTERentTickePublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [SVProgressHUD showErrorWithError:task.error];
                 }
-            }
-            else {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            return nil;
+                else if (task.exception) {
+                    [SVProgressHUD showErrorWithException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [SVProgressHUD showErrorWithCancellation];
+                }
+                else {
+                    completion(task.result);
+                }
+                return task;
+            }];
         }];
     }
-    else if (unfinishedRentTickets.count > 0) {
-        CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
-        unfinishedRentTicketController.hidesBottomBarWhenPushed = NO;
-        [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
+    else {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            completion([[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets]);
+        }];
     }
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        NSArray *unfinishedRentTickets = result;
+        if (unfinishedRentTickets.count == 0) {
+            if (!silent) {
+                [SVProgressHUD show];
+            }
+            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+                if (task.result) {
+                    CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+                    [form setRentTypeList:task.result];
+                    CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
+                    controller.formController.form = form;
+                    controller.hidesBottomBarWhenPushed = NO;
+                    [viewController setViewControllers:@[controller] animated:NO];
+                    if (!silent) {
+                        [SVProgressHUD dismiss];
+                    }
+                }
+                else {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                return nil;
+            }];
+        }
+        else if (unfinishedRentTickets.count > 0) {
+            CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
+            unfinishedRentTicketController.hidesBottomBarWhenPushed = NO;
+            [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
+        }
+
+    }];
+
+    [sequencer run];
 }
 
 #pragma mark - Push Notification
@@ -449,6 +487,16 @@
         CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
         [webViewController loadURLInNewController:[NSURL URLWithString:@"/user_favorites?type=rent" relativeToURL:[CUTEConfiguration hostURL]]];
     }
+}
+
+
+- (void)onReceiveUserDidLogin:(NSNotification *)notif {
+    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+}
+
+- (void)onReceiveUserDidLogout:(NSNotification *)notif {
+    [[CUTEDataManager sharedInstance] deleteAllUnfinishedRentTickets];
+    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }
 
 @end

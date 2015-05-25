@@ -163,6 +163,11 @@
     [_store deleteObjectById:ticket.identifier fromTable:KTABLE_UNFINISHE_RENT_TICKETS];
 }
 
+- (void)deleteAllUnfinishedRentTickets
+{
+    [_store clearTable:KTABLE_UNFINISHE_RENT_TICKETS];
+}
+
 #pragma mark - Image URL Cache
 
 - (void)saveImageURLString:(NSString *)imageURLStr forAssetURLString:(NSString *)urlStr {

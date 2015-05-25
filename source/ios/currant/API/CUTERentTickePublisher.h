@@ -25,4 +25,6 @@
 
 - (BFTask *)deleteTicket:(CUTETicket *)ticket;
 
+- (BFTask *)syncTickets;
+
 @end

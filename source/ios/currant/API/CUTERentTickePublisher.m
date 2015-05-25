@@ -15,6 +15,7 @@
 #import "CUTEImageUploader.h"
 #import "CUTEAPIManager.h"
 #import "NSURL+Assets.h"
+#import "CUTEDataManager.h"
 
 @interface CUTERentTickePublisher () {
 
@@ -260,7 +261,6 @@
             if (updateStatus) {
                 updateStatus(STR(@"正在更新房产出租单..."));
             }
-            ticket.status = kTicketStatusToRent;
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
             [params setObject:@"true" forKey:@"user_generated"];
             [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
@@ -321,6 +321,53 @@
             return task;
         }
     }];
+}
+
+- (BFTask *)syncTickets {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/rent_ticket/search" parameters:@{@"status": kTicketStatusDraft, @"sort": @"last_modified_time,desc"} resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [tcs setError:task.error];
+        }
+        else if (task.exception) {
+            [tcs setException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [tcs cancel];
+        }
+        else {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+
+                NSArray *localTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
+                NSArray *remoteTickets = task.result;
+                [remoteTickets each:^(CUTETicket *object) {
+                    if ([object isKindOfClass:[CUTETicket class]]) {
+                        CUTETicket *localTicket = [localTickets find:^BOOL(CUTETicket *localObject) {
+                            return localObject.identifier == object.identifier;
+                        }];
+                        if (localTicket) {
+                            if (!fequal(object.lastModifiedTime, localTicket.lastModifiedTime)) {
+                                //merge
+                                [object mergeValuesForKeysFromModel:localTicket];
+                                [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:object];
+                            }
+                        }
+                        else {
+                            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:object];
+                        }
+                    }
+                }];
+                NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    [tcs setResult:unfinishedRentTickets];
+                });
+            });
+        }
+
+        return task;
+    }];
+
+    return tcs.task;
 }
 
 @end
