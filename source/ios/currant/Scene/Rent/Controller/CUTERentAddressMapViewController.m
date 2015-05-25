@@ -303,9 +303,10 @@
                         [SVProgressHUD showErrorWithError:task.error];
                     }
                     else {
-                        currentTicket.identifier = task.result[@"ticket_id"];
-                        currentTicket.property.identifier = task.result[@"property_id"];
-                        [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:currentTicket];
+                        CUTETicket *newTicket = task.result;
+                        currentTicket.identifier = newTicket.identifier;
+                        currentTicket.property.identifier = newTicket.property.identifier;
+                        [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:newTicket];
                         completion(currentTicket);
                     }
                     return nil;

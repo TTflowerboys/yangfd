@@ -303,21 +303,6 @@
         
         return task;
     }];
-
-
-    NSArray *requiredEnums = @[@"country", @"city"];
-    CUTEProperty *property = self.ticket.property;
-    [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
-        return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
-    }]] continueWithBlock:^id(BFTask *task) {
-        if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
-
-        }
-        else {
-            [SVProgressHUD showErrorWithError:task.error];
-        }
-        return nil;
-    }];
 }
 
 - (void)editMoreInfo {

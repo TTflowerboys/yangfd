@@ -42,11 +42,17 @@
 }
 
 - (void)resetPassword {
-    [[[CUTEEnumManager sharedInstance] getEnumsByType:@"country"] continueWithBlock:^id(BFTask *task) {
-        if (task.error || task.exception || task.isCancelled) {
+    [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
-            return nil;
-        } else {
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
             TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             CUTERentPasswordViewController *controller = [CUTERentPasswordViewController new];
             CUTERentPasswordForm *form = [CUTERentPasswordForm new];
@@ -56,12 +62,11 @@
             controller.formController.form = form;
             controller.navigationItem.title = STR(@"重置密码");
             [self.navigationController pushViewController:controller animated:YES];
-            return nil;
+
         }
+
+        return task;
     }];
-
-
-
 }
 
 - (void)onPasswordEdit:(CUTEFormTextFieldCell *)cell {
