@@ -2,26 +2,30 @@
  * Created by Michael on 14/9/24.
  */
 angular.module('app')
-    .directive('selectCityByCountry', function ($rootScope, enumApi) {
+    .directive('selectCityByCountry', function ($rootScope, geonamesApi) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/select_enum.tpl.html',
+            templateUrl: '/static/admin/templates/select_city_by_country.tpl.html',
             scope: {
-                enumId: '=ngModel',
+                selectedCityId: '=ngModel',
                 enumOption: '@text',
                 country: '=country'
             },
             link: function (scope) {
-                scope.userLanguage = $rootScope.userLanguage
                 scope.$watch('country', function (newValue) {
                     if (_.isEmpty(newValue)) {
-                        scope.enumList = []
-                        scope.enumId = undefined
+                        scope.cityList = []
+                        scope.selectedCityId = undefined
                         return
                     }
-                    enumApi.searchCityByCountryId(newValue)
+                    var config = {}
+                    config.params = {
+                        'country':newValue,
+                        'feature_code':'city'
+                    }
+                    geonamesApi.get(config)
                         .success(function (data) {
-                            scope.enumList = data.val
+                            scope.cityList = data.val
                         })
                 })
 
