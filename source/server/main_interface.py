@@ -443,7 +443,7 @@ def wechat_endpoint():
             country = f_app.enum.get(country).get("slug")
 
         properties = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
-            "country": country,
+            "country.code": country,
             "status": {"$in": ["selling", "sold out"]},
         }, per_page=9, time_field="mtime")))
 
