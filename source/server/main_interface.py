@@ -489,7 +489,7 @@ def wechat_endpoint():
         if len(properties):
             more = etree.SubElement(articles, "item")
 
-            etree.SubElement(more, "Title").text = etree.CDATA("更多%s房产..." % (property["country"]["value"], ))
+            etree.SubElement(more, "Title").text = etree.CDATA("更多%s房产..." % (currant_util.get_country_name_by_code(property["country"]["code"]), ))
             etree.SubElement(more, "Url").text = schema + request.urlparts[1] + "/property_list?country=" + country
 
     if "MsgType" in message:
