@@ -70,7 +70,7 @@
 }
 
 - (NSString *)titleForDisplay {
-    if (!IsNilNullOrEmpty(self.title)) {
+    if ([self.title isKindOfClass:[NSString class]] && !IsNilNullOrEmpty(self.title)) {
         return self.title;
     }
     NSString *altTitle = nil;
