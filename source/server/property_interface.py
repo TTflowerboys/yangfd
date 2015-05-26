@@ -90,7 +90,7 @@ def property_get(property_id, user):
     if property.get('city') and property.get('city').get('value'):
         title += '-' + _(property.get('city').get('value'))
     if property.get('country') and currant_util.get_country_name_by_code(property.get('country').get('code')):
-        title += '-' + _(property.get('country').get('code'))
+        title += '-' + _(currant_util.get_country_name_by_code(property.get('country').get('code')))
     description = property.get('name', _('房产详情'))
 
     tags = []
