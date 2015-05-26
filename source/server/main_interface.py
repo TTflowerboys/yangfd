@@ -114,7 +114,7 @@ def property_for_sale_publish():
 @f_get('/host-contact-request/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
-@f_app.user.login.check(check_role=True)
+@f_app.user.login.check(role=["jr_admin", "operation", "jr_operation", "beta_renting"])
 def rent_ticket_get(rent_ticket_id, user):
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
     if rent_ticket["status"] not in ["draft", "to rent"]:
@@ -132,7 +132,8 @@ def rent_ticket_get(rent_ticket_id, user):
 @f_get('/wechat-poster/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
-def wechat_poster(rent_ticket_id):
+@f_app.user.login.check(role=["jr_admin", "operation", "jr_operation", "beta_renting"])
+def wechat_poster(rent_ticket_id, user):
     title = _('房东急租，快来围观')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
     # if rent_ticket["status"] not in ["draft", "to rent"]:
@@ -523,7 +524,8 @@ def wechat_endpoint():
 @f_get('/app-download')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
-def app_download():
+@f_app.user.login.check(role=["jr_admin", "operation", "jr_operation", "beta_renting"])
+def app_download(user):
     title = _('洋房东APP下载页')
 
     return currant_util.common_template("app_download", title=title)

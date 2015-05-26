@@ -149,6 +149,7 @@ def user_login(params):
     currency=(list, None, str),
     budget="enum:budget",
     is_vip=bool,
+    invitation_code=str,
 ))
 @rate_limit("register", ip=10)
 def user_register(params):
@@ -171,6 +172,10 @@ def user_register(params):
 
     f_app.captcha.validate(params["solution"], params["challenge"])
 
+    if "invitation_code" in params:
+        if params["invitation_code"].upper() == "ZUFANG":
+            params["role"] = ["beta_renting"]
+
     user_id = f_app.user.add(params, retain_country=True)
 
     f_app.user.login.success(user_id)
@@ -188,6 +193,7 @@ def user_register(params):
     country=("country", True),
     locales=(list, None, str),
     occupation="enum:occupation",
+    invitation_code=str,
 ))
 @rate_limit("register", ip=5)
 def user_fast_register(params):
@@ -209,6 +215,10 @@ def user_fast_register(params):
 
     password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
     params["password"] = password
+
+    if "invitation_code" in params:
+        if params["invitation_code"].upper() == "ZUFANG":
+            params["role"] = ["beta_renting"]
 
     user_id = f_app.user.add(params, retain_country=True)
     f_app.log.add("add", user_id=user_id)
