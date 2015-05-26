@@ -2,7 +2,11 @@
 <select name="country" class="country ghostSelect" style="color:#4d4d4d;">
 
     %for index, country  in enumerate(country_list):
-    <option value="{{country.get('code')}}">
+    <option value="{{country.get('code')}}"
+    %if user and user.get('country', {}).get('code') and user.get('country', {}).get('code') == country.get('code'):
+    selected
+    %end
+    ">
         %if country.get('code') == 'GB' :
         (+44)
         %elif country.get('code') == 'CN':
