@@ -59,6 +59,10 @@
                                                           ]];
     }
 
+    if (_isInvitationCodeRequired) {
+        [validateFields addObject:NGRValidate(@"invitationCode").required()];
+    }
+
     [NGRValidator validateModel:self error:&error delegate:nil rules:^NSArray *{
         return validateFields;
     }];
