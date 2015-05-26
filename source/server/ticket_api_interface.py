@@ -850,7 +850,7 @@ def rent_ticket_search(user, params):
         params.pop("$and")
 
     if len(property_params):
-        # property_params.setdefault("status", ["for sale", "sold out"])
+        property_params.setdefault("status", {"$exists": True})
         property_params.setdefault("user_generated", True)
         if "latitude" in property_params:
             # TODO: make distance available in ticket output
