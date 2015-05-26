@@ -10,6 +10,8 @@
 
 @interface CUTEUnfinishedRentTicketListViewController : UITableViewController
 
+@property (strong, nonatomic) NSArray *unfinishedRentTickets;
+
 - (void)refreshTable;
 
 @end

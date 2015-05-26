@@ -60,8 +60,14 @@
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
         [params setObject:@"true" forKey:@"user_generated"];
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/rent_ticket/add/" parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
+            if (task.error) {
                 [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
             }
             else {
                 completion(task.result);
@@ -72,8 +78,14 @@
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", result) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
+            if (task.error) {
                 [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
             }
             else {
                 [tcs setResult:task.result];
@@ -91,8 +103,14 @@
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         [[self editProperty:ticket.property] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
+            if (task.error) {
                 [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
             }
             else {
                 CUTEProperty *property = task.result;
@@ -108,8 +126,14 @@
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
         [params setObject:@"true" forKey:@"user_generated"];
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
+            if (task.error) {
                 [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
             }
             else {
                 CUTETicket *ticket = task.result;
@@ -154,15 +178,21 @@
             updateStatus(STR(@"正在发布房产..."));
         }
         [[self editProperty:ticket.property] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
+            if (task.error) {
                 [tcs setError:task.error];
-                return nil;
-            } else {
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
+            }
+            else {
                 CUTEProperty *property = task.result;
                 ticket.property.identifier = property.identifier;
                 completion(property);
-                return nil;
             }
+            return nil;
         }];
     }];
 
@@ -174,8 +204,14 @@
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
         [params setObject:@"true" forKey:@"user_generated"];
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
+            if (task.error) {
                 [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
             }
             else {
                 CUTETicket *ticket = task.result;
@@ -244,15 +280,21 @@
                 NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
                 [params setObject:@"true" forKey:@"user_generated"];
                 [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:[CUTEProperty class]]  continueWithBlock:^id(BFTask *task) {
-                    if (task.error || task.exception || task.isCancelled) {
+                    if (task.error) {
                         [tcs setError:task.error];
-                        return nil;
-                    } else {
+                    }
+                    else if (task.exception) {
+                        [tcs setException:task.exception];
+                    }
+                    else if (task.isCancelled) {
+                        [tcs cancel];
+                    }
+                    else {
                         CUTEProperty *property = task.result;
                         ticket.property.identifier = property.identifier;
                         completion(property);
-                        return nil;
                     }
+                      return nil;
                 }];
             }];
         }
@@ -264,8 +306,14 @@
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
             [params setObject:@"true" forKey:@"user_generated"];
             [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
+                if (task.error) {
                     [tcs setError:task.error];
+                }
+                else if (task.exception) {
+                    [tcs setException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [tcs cancel];
                 }
                 else {
                     CUTETicket *ticket = task.result;
@@ -297,7 +345,8 @@
     return [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", @"none", @"/edit") parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
         if (task.error || task.exception || task.isCancelled) {
             return task;
-        } else {
+        }
+        else {
             if ([task.result isKindOfClass:[NSString class]]) {
                 CUTEProperty *property = [CUTEProperty new];
                 property.identifier = task.result;
@@ -311,16 +360,7 @@
 - (BFTask *)editProperty:(CUTEProperty *)property {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
     [params setObject:@"true" forKey:@"user_generated"];
-    return [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
-        if (task.error || task.exception || task.isCancelled) {
-            return task;
-        } else {
-            if ([task.result isKindOfClass:[NSDictionary class]]) {
-                return [BFTask taskWithResult:[CUTEProperty modelWithDictionary:task.result error:nil]];
-            }
-            return task;
-        }
-    }];
+    return [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:[CUTEProperty class]];
 }
 
 - (BFTask *)syncTickets {
