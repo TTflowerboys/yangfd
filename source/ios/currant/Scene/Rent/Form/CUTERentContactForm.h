@@ -22,6 +22,12 @@
 
 @property (strong, nonatomic) NSString *code;
 
+@property (strong, nonatomic) NSString *invitationCode;
+
+@property (nonatomic) BOOL isOnlyRegister;
+
+
+
 - (void)setAllCountries:(NSArray *)allCountries;
 
 - (NSError *)validateFormWithScenario:(NSString *)scenario;

@@ -29,6 +29,8 @@
 #import "CUTERentPasswordForm.h"
 #import "CUTEEnumManager.h"
 #import "CUTEFormTextFieldCell.h"
+#import "CUTEApplyBetaRentingViewController.h"
+#import "CUTEUserDefaultKey.h"
 
 @implementation CUTERentLoginViewController
 
@@ -81,57 +83,87 @@
         return;
     }
 
-    [SVProgressHUD showWithStatus:STR(@"登录中...")];
-    CUTETicket *ticket = self.ticket;
     CUTERentLoginForm *form = (CUTERentLoginForm *)self.formController.form;
-
-    Sequencer *sequencer = [Sequencer new];
-
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+    if (form.isOnlyRegister) {
+        [SVProgressHUD showWithStatus:STR(@"登录中...")];
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"country":form.country.code, @"phone": form.phone, @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
             else {
-                [[CUTEDataManager sharedInstance] saveAllCookies];
-                [[CUTEDataManager sharedInstance] saveUser:task.result];
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
-                completion(task.result);
-            }
-            return nil;
-        }];
-    }];
-
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
-            [SVProgressHUD showWithStatus:status];
-        }] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
-                [SVProgressHUD showErrorWithError:task.error];
-                return nil;
-            } else {
-                TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-
-                NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
-                                        GetScreenNameFromClass([CUTERentAddressMapViewController class]),
-                                        GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
-                                        GetScreenNameFromClass([CUTERentTicketPreviewViewController class]),
-                                        GetScreenNameFromClass([CUTERentContactViewController class]),
-                                        GetScreenNameFromClass([CUTERentLoginViewController class])];
-                TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
                 [SVProgressHUD dismiss];
-                [self.navigationController popToRootViewControllerAnimated:NO];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
-                });
-                return nil;
+                CUTEUser *user = task.result;
+                if ([user hasRole:kUserRoleBetaRenting]) {
+                    [[CUTEDataManager sharedInstance] saveAllCookies];
+                    [[CUTEDataManager sharedInstance] saveUser:task.result];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+                    
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    [self dismissViewControllerAnimated:YES completion:^{
+
+                    }];
+                }
+                else {
+                    CUTEApplyBetaRentingViewController *controller = [CUTEApplyBetaRentingViewController new];
+                }
             }
             return nil;
         }];
 
-    }];
+    }
+    else {
+        [SVProgressHUD showWithStatus:STR(@"登录中...")];
+        CUTETicket *ticket = self.ticket;
 
-    [sequencer run];
+        Sequencer *sequencer = [Sequencer new];
+
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"country":form.country.code, @"phone": form.phone, @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                else {
+                    [[CUTEDataManager sharedInstance] saveAllCookies];
+                    [[CUTEDataManager sharedInstance] saveUser:task.result];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+                    completion(task.result);
+                }
+                return nil;
+            }];
+        }];
+
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
+                [SVProgressHUD showWithStatus:status];
+            }] continueWithBlock:^id(BFTask *task) {
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                    return nil;
+                } else {
+                    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
+                    NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
+                                            GetScreenNameFromClass([CUTERentAddressMapViewController class]),
+                                            GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
+                                            GetScreenNameFromClass([CUTERentTicketPreviewViewController class]),
+                                            GetScreenNameFromClass([CUTERentContactViewController class]),
+                                            GetScreenNameFromClass([CUTERentLoginViewController class])];
+                    TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
+                    [SVProgressHUD dismiss];
+                    [self.navigationController popToRootViewControllerAnimated:NO];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
+                    });
+                    return nil;
+                }
+                return nil;
+            }];
+
+        }];
+
+        [sequencer run];
+    }
 }
 
 

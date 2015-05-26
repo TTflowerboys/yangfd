@@ -44,6 +44,7 @@
 #import "MemoryReporter.h"
 #import "UITabBarController+HideTabBar.h"
 #import "Sequencer.h"
+#import "CUTERentContactViewController.h"
 
 
 @interface AppDelegate () <UITabBarControllerDelegate>
@@ -192,18 +193,25 @@
 
     if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED]) {
         CUTESplashViewController *spalshViewController = [CUTESplashViewController new];
+        spalshViewController.completion = ^ {
+            [self checkNeedShowBetaUserRegister];
+        };
         [rootViewController presentViewController:spalshViewController animated:NO completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    else {
+        [self checkNeedShowBetaUserRegister];
+    }
 
-#warning DEBUG_CODE
-#ifdef DEBUG
+
+//#warning DEBUG_CODE
+//#ifdef DEBUG
 
 //    [CrashlyticsKit crash];
-    [NSClassFromString(@"WebView") performSelector:NSSelectorFromString(@"_enableRemoteInspector")];
-    [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
-    [[AFNetworkActivityLogger sharedLogger] startLogging];
+//    [NSClassFromString(@"WebView") performSelector:NSSelectorFromString(@"_enableRemoteInspector")];
+//    [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
+//    [[AFNetworkActivityLogger sharedLogger] startLogging];
 //    [[FLEXManager sharedManager] showExplorer];
 
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -215,7 +223,7 @@
 //        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
 //        [self.tabBarController presentViewController:nc animated:NO completion:nil];
 //    });
-#endif
+//#endif
 
     [Crittercism enableWithAppID:@"55596173b60a7d3e63908c50"];
     //TODO setup use user id in track and crash report
@@ -254,6 +262,38 @@
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     [[CUTETracker sharedInstance] trackMemoryWarning];
+}
+
+- (void)checkNeedShowBetaUserRegister {
+
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED]) {
+        [SVProgressHUD show];
+        [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
+                CUTERentContactForm *form = [CUTERentContactForm new];
+                form.isOnlyRegister = YES;
+                [form setAllCountries:task.result];
+                contactViewController.formController.form = form;
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:contactViewController];
+                [self.tabBarController presentViewController:nav animated:NO completion:^{
+
+                }];
+                [SVProgressHUD dismiss];
+            }
+
+            return task;
+        }];
+    }
 }
 
 #pragma UITabbarViewControllerDelegate

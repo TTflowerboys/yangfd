@@ -14,10 +14,11 @@
 {
     return @{@"identifier": @"id",
              @"nickname": @"nickname",
-             @"countryCode":@"country_code",
-             @"country":@"country",
+             @"countryCode": @"country_code",
+             @"country": @"country",
              @"phone": @"phone",
              @"email": @"email",
+             @"roles": @"role",
              };
 }
 
@@ -26,6 +27,10 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECountry class]];
 }
 
+
+- (BOOL)hasRole:(NSString *)role {
+    return [self.roles containsObject:role];
+}
 
 - (NSDictionary *)toParams {
     return @{

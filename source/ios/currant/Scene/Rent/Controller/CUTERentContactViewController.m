@@ -36,10 +36,14 @@
 #import "CUTERentAddressMapViewController.h"
 #import "CUTERentPropertyInfoViewController.h"
 #import "CUTERentTicketPreviewViewController.h"
+#import "CUTEUserDefaultKey.h"
+#import "CUTEApplyBetaRentingViewController.h"
 
 @interface CUTERentContactViewController () <TTTAttributedLabelDelegate> {
 
     BOOL _userVerified;
+
+    CUTEUser *_user;
 }
 
 @end
@@ -49,7 +53,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"联系方式");
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED]) {
+        self.navigationItem.title = STR(@"Beta用户注册");
+    }
+    else {
+        self.navigationItem.title = STR(@"联系方式");
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -104,6 +113,10 @@
     return IsNilNullOrEmpty(footer)? 0 : 70;
 }
 
+- (void)optionBack {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)onVerificationButtonPressed:(id)sender {
     if (![self validateFormWithScenario:@"fetchCode"]) {
         return;
@@ -136,7 +149,7 @@
         }];
     }];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
+        if (_user) {
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":user.phone, @"country":user.country.code} resultClass:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
@@ -153,14 +166,16 @@
             //TODO check this interface can send sms?
             //no user just creat one
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
-            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/fast-register" parameters:[user toParams] resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+            NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:user.toParams];
+            if (!IsNilNullOrEmpty(form.invitationCode)) {
+                [params setObject:form.invitationCode forKey:@"invitation_code"];
+            }
+            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/fast-register" parameters:params resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                     return nil;
                 } else {
-                    [[CUTEDataManager sharedInstance] saveUser:task.result];
-                    [[CUTEDataManager sharedInstance] saveAllCookies];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+                    _user = task.result;
                     [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
                     return nil;
                 }
@@ -175,9 +190,9 @@
 - (void)codeFieldEndEdit {
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
     //after create can validate the code
-    if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
+    if (_user) {
         [SVProgressHUD showWithStatus:STR(@"验证中...")];
-        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", [CUTEDataManager sharedInstance].user.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", _user.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             //update verify status
             if (task.result) {
                 _userVerified = YES;
@@ -196,7 +211,7 @@
     if (!formValidation) {
         return NO;
     }
-    if (_userVerified) {
+    if (_user && _userVerified) {
         [SVProgressHUD showErrorWithStatus:STR(@"手机未验证成功，请重发验证码")];
         return NO;
     }
@@ -212,42 +227,65 @@
         return;
     }
 
-
-    [SVProgressHUD showWithStatus:STR(@"发布中...")];
-
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
-    CUTEUser *user = [CUTEUser new];
-    user.nickname = form.name;
-    user.email = form.email;
-    user.country = form.country;
-    user.phone = form.phone;
-    CUTETicket *ticket = self.ticket;
+    CUTEUser *user = _user;
 
-    [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
-        [SVProgressHUD showWithStatus:status];
-    }] continueWithBlock:^id(BFTask *task) {
-        if (task.error || task.exception || task.isCancelled) {
-            [SVProgressHUD showErrorWithError:task.error];
-            return nil;
-        } else {
-            TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+    if (form.isOnlyRegister) {
+        if ([user hasRole:kUserRoleBetaRenting]) {
+            [[CUTEDataManager sharedInstance] saveUser:user];
+            [[CUTEDataManager sharedInstance] saveAllCookies];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
 
-            NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
-                                    GetScreenNameFromClass([CUTERentAddressMapViewController class]),
-                                    GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
-                                    GetScreenNameFromClass([CUTERentTicketPreviewViewController class]),
-                                    GetScreenNameFromClass([CUTERentContactViewController class])];
-            TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self dismissViewControllerAnimated:YES completion:^{
 
-            [SVProgressHUD dismiss];
-            [self.navigationController popToRootViewControllerAnimated:NO];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
-            });
-            return nil;
+            }];
         }
-        return nil;
-    }];
+        else {
+            CUTEApplyBetaRentingViewController *controller = [CUTEApplyBetaRentingViewController new];
+        }
+    }
+    else {
+        [[CUTEDataManager sharedInstance] saveUser:user];
+        [[CUTEDataManager sharedInstance] saveAllCookies];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+
+        [SVProgressHUD showWithStatus:STR(@"发布中...")];
+
+        CUTEUser *user = [CUTEUser new];
+        user.nickname = form.name;
+        user.email = form.email;
+        user.country = form.country;
+        user.phone = form.phone;
+        CUTETicket *ticket = self.ticket;
+
+        [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
+            [SVProgressHUD showWithStatus:status];
+        }] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [SVProgressHUD showErrorWithError:task.error];
+                return nil;
+            } else {
+                TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
+                NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
+                                        GetScreenNameFromClass([CUTERentAddressMapViewController class]),
+                                        GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
+                                        GetScreenNameFromClass([CUTERentTicketPreviewViewController class]),
+                                        GetScreenNameFromClass([CUTERentContactViewController class])];
+                TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
+
+                [SVProgressHUD dismiss];
+                [self.navigationController popToRootViewControllerAnimated:NO];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
+                });
+                return nil;
+            }
+            return nil;
+        }];
+    }
 }
 
 
@@ -268,6 +306,7 @@
             CUTERentLoginViewController *loginViewController = [CUTERentLoginViewController new];
             loginViewController.ticket = self.ticket;
             CUTERentLoginForm *form = [CUTERentLoginForm new];
+            form.isOnlyRegister = ((CUTERentContactForm *)self.formController.form).isOnlyRegister;
             [form setAllCountries:task.result];
             //set default country same with the property
             form.country = self.ticket.property.country;

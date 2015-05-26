@@ -10,4 +10,7 @@
 
 @interface CUTESplashViewController : CUTEViewController
 
+@property (nonatomic, copy) dispatch_block_t completion;
+
+
 @end

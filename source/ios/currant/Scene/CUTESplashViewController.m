@@ -80,7 +80,11 @@
 }
 
 - (void)onEnterButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:NO completion:^{}];
+    [self dismissViewControllerAnimated:NO completion:^{
+        if (self.completion) {
+            self.completion();
+        }
+    }];
 }
 
 #pragma mark - BBTPagingViewDataSource
