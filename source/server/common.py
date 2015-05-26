@@ -100,10 +100,14 @@ class common(f_common):
     wechat_appid = "wx123992a4d173037b"
     wechat_appsecret = "ddee09f4132e2d04c7cbdd6b3d684ae8"
 
-    sms_default_method = "clickatell"
+    # sms_default_method = "clickatell"
+    sms_default_method = "nexmo"
     clickatell_api_id = 3425954
     clickatell_user = "marco388"
     clickatell_password = "EaSeURGSXGXNbM"
+    nexmo_api_key = "069872f2"
+    nexmo_api_secret = "9c4d83a4"
+    nexmo_default_sender = "19786745650"
 
     recaptcha_public_key = "6LdOPfwSAAAAALlc4POi3YiUJmKe_rUw6-xO6NsN"
     recaptcha_private_key = "6LdOPfwSAAAAACd2X9w4fbI8L4afGWXC-gV3QuDr"
