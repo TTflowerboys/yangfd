@@ -171,7 +171,7 @@
           if (!_editRentPriceViewController) {
               CUTETicket *ticket = self.ticket;
               if (!ticket.rentAvailableTime) {
-                  ticket.rentAvailableTime = [NSDate date];
+                  ticket.rentAvailableTime = [[NSDate date] timeIntervalSince1970];
               }
               if (!ticket.rentPeriod) {
                   CUTERentPeriod *defaultRentPeriod = [CUTERentPeriod negotiableRentPeriod];
@@ -186,7 +186,7 @@
               form.depositType = ticket.depositType;
               form.containBill = ticket.billCovered;
               form.needSetPeriod = YES;
-              form.rentAvailableTime = ticket.rentAvailableTime;
+              form.rentAvailableTime = [NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime];
               form.rentPeriod = ticket.rentPeriod;
 
               [form setAllDepositTypes:[task.result objectAtIndex:0]];

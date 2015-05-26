@@ -58,18 +58,6 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
 }
 
-+ (NSValueTransformer *)rentAvailableTimeJSONTransformer
-{
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:
-            ^id(NSNumber *number)
-            {
-                NSTimeInterval secs = [number doubleValue];
-                return [NSDate dateWithTimeIntervalSince1970:secs];
-            } reverseBlock:^id(NSDate *d) {
-                return @([d timeIntervalSince1970]);
-            }];
-}
-
 - (NSString *)titleForDisplay {
     if ([self.title isKindOfClass:[NSString class]] && !IsNilNullOrEmpty(self.title)) {
         return self.title;
@@ -116,7 +104,7 @@
         [dic setValue:self.rentType.identifier forKey:@"rent_type"];
     }
     if (self.rentAvailableTime) {
-        [dic setValue:[NSNumber numberWithLong:[self.rentAvailableTime timeIntervalSince1970]] forKey:@"rent_available_time"];
+        [dic setValue:[NSNumber numberWithLong:self.rentAvailableTime] forKey:@"rent_available_time"];
     }
 
     if (self.rentPeriod && ![self.rentPeriod isEqual:[CUTERentPeriod negotiableRentPeriod]]) {
