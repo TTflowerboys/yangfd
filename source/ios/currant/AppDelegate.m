@@ -37,7 +37,6 @@
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
-#import <FLEXManager.h>
 #endif
 #import "CUTESplashViewController.h"
 #import "CUTEUserDefaultKey.h"
@@ -211,8 +210,7 @@
 //    [CrashlyticsKit crash];
 //    [NSClassFromString(@"WebView") performSelector:NSSelectorFromString(@"_enableRemoteInspector")];
 //    [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
-//    [[AFNetworkActivityLogger sharedLogger] startLogging];
-//    [[FLEXManager sharedManager] showExplorer];
+//    [[AFNetworkActivityLogger sharedLogger] startLogging];   
 
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        CUTETicket *ticket = [CUTETicket new];

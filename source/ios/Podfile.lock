@@ -36,7 +36,6 @@ PODS:
   - CrittercismSDK (5.2.0)
   - CTAssetsPickerController (2.9.3)
   - DACircularProgress (2.3.1)
-  - FLEX (2.0.2)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
   - FMDB/common (2.5)
@@ -91,7 +90,6 @@ DEPENDENCIES:
   - Bolts (~> 1.1.4)
   - CrittercismSDK (~> 5.2.0)
   - CTAssetsPickerController (~> 2.9.3)
-  - FLEX (~> 2.0)
   - FXForms (~> 1.2.12)
   - GoogleAnalytics-iOS-SDK (~> 3.11)
   - INTULocationManager (~> 3.0.1)
@@ -139,7 +137,6 @@ SPEC CHECKSUMS:
   CrittercismSDK: a8f09d8f1d9fea3bc0714a954a079062c5c9d914
   CTAssetsPickerController: 56a4a228dcb48a9375ab8d4922e82ac74af74aa1
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
-  FLEX: 321e6150cbababb76aaadde355dfce2ee1cac2d8
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FXForms: b6a78bac9f6b597ce704e34ac7c1ce9ff628b1d5
   GoogleAnalytics-iOS-SDK: 0a3327a993b8ed2b8fe1c6c4a8dcf5b76d2237a8

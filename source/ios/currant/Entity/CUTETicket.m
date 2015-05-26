@@ -23,7 +23,8 @@
              @"billCovered": @"bill_covered",
              @"rentAvailableTime": @"rent_available_time",
              @"lastModifiedTime": @"last_modified_time",
-             @"rentType": @"rent_type"
+             @"rentType": @"rent_type",
+             @"ticketDescription": @"description"
              };
 }
 

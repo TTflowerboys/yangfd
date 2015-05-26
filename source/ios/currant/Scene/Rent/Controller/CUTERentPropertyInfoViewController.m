@@ -170,9 +170,14 @@
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
           if (!_editRentPriceViewController) {
               CUTETicket *ticket = self.ticket;
-              ticket.rentAvailableTime = [NSDate date];
-              CUTERentPeriod *defaultRentPeriod = [CUTERentPeriod negotiableRentPeriod];
-              ticket.rentPeriod = defaultRentPeriod;
+              if (!ticket.rentAvailableTime) {
+                  ticket.rentAvailableTime = [NSDate date];
+              }
+              if (!ticket.rentPeriod) {
+                  CUTERentPeriod *defaultRentPeriod = [CUTERentPeriod negotiableRentPeriod];
+                  ticket.rentPeriod = defaultRentPeriod;
+              }
+
               CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
               controller.ticket = self.ticket;
               CUTERentPriceForm *form = [CUTERentPriceForm new];
@@ -185,7 +190,7 @@
               form.rentPeriod = ticket.rentPeriod;
 
               [form setAllDepositTypes:[task.result objectAtIndex:0]];
-              [form setAllRentPeriods:[[task.result objectAtIndex:1] arrayByAddingObject:defaultRentPeriod]];
+              [form setAllRentPeriods:[[task.result objectAtIndex:1] arrayByAddingObject:ticket.rentPeriod]];
               controller.formController.form = form;
               controller.navigationItem.title = STR(@"租金");
               _editRentPriceViewController = controller;
