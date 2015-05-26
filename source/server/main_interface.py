@@ -438,10 +438,12 @@ def wechat_endpoint():
         etree.SubElement(root, "MsgType").text = etree.CDATA("transfer_customer_service")
 
     @common_root
-    #todo country._id需要改变
-    def build_property_list_by_country(country_id, root):
+    def build_property_list_by_country(country, root):
+        if len(country) == 24:
+            country = f_app.enum.get(country).get("slug")
+
         properties = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
-            "country._id": ObjectId(country_id),
+            "country": country,
             "status": {"$in": ["selling", "sold out"]},
         }, per_page=9, time_field="mtime")))
 
@@ -488,7 +490,7 @@ def wechat_endpoint():
             more = etree.SubElement(articles, "item")
 
             etree.SubElement(more, "Title").text = etree.CDATA("更多%s房产..." % (property["country"]["value"], ))
-            etree.SubElement(more, "Url").text = schema + request.urlparts[1] + "/property_list?country=" + country_id
+            etree.SubElement(more, "Url").text = schema + request.urlparts[1] + "/property_list?country=" + country
 
     if "MsgType" in message:
         if message["MsgType"] == "event":
