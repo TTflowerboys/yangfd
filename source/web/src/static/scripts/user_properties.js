@@ -55,7 +55,7 @@ $(function () {
         isLoading = true
 
         var params = {
-            //'user_id': window.user.id,
+            'user_id': window.user.id,
             'per_page': -1,
             'status': ['draft', 'to rent', 'rent']
         }
