@@ -54,7 +54,12 @@
 - (UIView *)inputAccessoryView {
     BBTInputAccessoryView *inputAccessoryView = [[BBTInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 40)];
     inputAccessoryView.inputView = self;
+    [inputAccessoryView.doneButton addTarget:self action:@selector(onDoneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     return inputAccessoryView;
+}
+
+- (void)onDoneButtonPressed:(id)sender {
+    if (self.field.action) self.field.action(self);
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(__unused UIPickerView *)pickerView
@@ -74,11 +79,9 @@
 
 - (void)pickerView:(__unused UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(__unused NSInteger)component
 {
-
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.field.form;
     [form setValue:@(row) forKey:@[@"bedroomCount", @"livingroomCount", @"bathroomCount"][component]];
     self.detailTextLabel.text = [NSString stringWithFormat:@"%d室%d厅%d卫", form.bedroomCount, form.livingroomCount, form.bathroomCount];
-    if (self.field.action) self.field.action(self);
 }
 
 
