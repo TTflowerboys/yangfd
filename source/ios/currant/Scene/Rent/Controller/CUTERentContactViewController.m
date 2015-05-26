@@ -38,6 +38,7 @@
 #import "CUTERentTicketPreviewViewController.h"
 #import "CUTEUserDefaultKey.h"
 #import "CUTEApplyBetaRentingViewController.h"
+#import "CUTEApplyBetaRentingForm.h"
 
 @interface CUTERentContactViewController () <TTTAttributedLabelDelegate> {
 
@@ -243,7 +244,10 @@
             }];
         }
         else {
+            [SVProgressHUD showSuccessWithStatus:STR(@"您已注册成功，请申请测试邀请码。")];
             CUTEApplyBetaRentingViewController *controller = [CUTEApplyBetaRentingViewController new];
+            controller.formController.form = [CUTEApplyBetaRentingForm new];
+            [self.navigationController pushViewController:controller animated:YES];
         }
     }
     else {

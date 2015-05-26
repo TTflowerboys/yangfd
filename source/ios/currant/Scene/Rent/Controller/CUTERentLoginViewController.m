@@ -31,6 +31,7 @@
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEApplyBetaRentingViewController.h"
 #import "CUTEUserDefaultKey.h"
+#import "CUTEApplyBetaRentingForm.h"
 
 @implementation CUTERentLoginViewController
 
@@ -91,13 +92,13 @@
                 [SVProgressHUD showErrorWithError:task.error];
             }
             else {
-                [SVProgressHUD dismiss];
                 CUTEUser *user = task.result;
                 if ([user hasRole:kUserRoleBetaRenting]) {
+                    [SVProgressHUD dismiss];
                     [[CUTEDataManager sharedInstance] saveAllCookies];
                     [[CUTEDataManager sharedInstance] saveUser:task.result];
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
-                    
+
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     [self dismissViewControllerAnimated:YES completion:^{
@@ -105,7 +106,10 @@
                     }];
                 }
                 else {
+                    [SVProgressHUD showSuccessWithStatus:STR(@"您还没有内测权限，请申请测试邀请码")];
                     CUTEApplyBetaRentingViewController *controller = [CUTEApplyBetaRentingViewController new];
+                    controller.formController.form = [CUTEApplyBetaRentingForm new];
+                    [self.navigationController pushViewController:controller animated:YES];
                 }
             }
             return nil;

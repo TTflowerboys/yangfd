@@ -72,7 +72,7 @@
         headerLabel.text = header;
         headerLabel.textColor = HEXCOLOR(0x666666, 1.0);
         headerLabel.font = [UIFont systemFontOfSize:14];
-        headerLabel.frame = CGRectMake(16, 30, 200, 14);
+        headerLabel.frame = CGRectMake(16, 30, 300, 14);
         UIView *view = [[UIView alloc] init];
         [view addSubview:headerLabel];
         return view;
