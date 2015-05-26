@@ -53,13 +53,22 @@
     loadPropertyList(true)
 
     //在城市选择上使用chosen插件
-    function initChosen () {
-        $('[name=propertyCity]').chosen({
-            width: '100%',
-            disable_search_threshold: 8
+    function initChosen (elem) {
+        if(!window.team.isPhone()) {
+            elem.chosen({
+                width: '100%',
+                disable_search_threshold: 8
+            })
+        }
+        $(window).bind('resize', function () {
+            if(window.team.isPhone()) {
+                elem.show().siblings('.chosen-container').hide()
+            }else {
+                elem.hide().siblings('.chosen-container').show()
+            }
         })
     }
-    initChosen()
+    initChosen($('[name=propertyCity]'))
     /*
     * Load Data from server
     * */
