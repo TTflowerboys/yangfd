@@ -205,7 +205,7 @@
             //Clean up property list
             $('#result_list').empty()
             lastItemTime = null
-            params.mtime = null
+            delete params.mtime
             clearAllBudgetDic()
 
             //Clean up additional property list
