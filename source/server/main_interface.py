@@ -130,8 +130,7 @@ def rent_ticket_get(rent_ticket_id, user):
 
 @f_get('/wechat-poster/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
 @currant_util.check_ip_and_redirect_domain
-@f_app.user.login.check(role=["jr_admin", "operation", "jr_operation", "beta_renting"])
-def wechat_poster(rent_ticket_id, user):
+def wechat_poster(rent_ticket_id):
     title = _('房东急租，快来围观')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
     # if rent_ticket["status"] not in ["draft", "to rent"]:
