@@ -54,7 +54,7 @@
                 editItem.investment_type = temp1
             }
             if (!_.isEmpty(editItem.country)) {
-                editItem.country = editItem.country.id
+                editItem.country = editItem.country.code
             }
             if (!_.isEmpty(editItem.city)) {
                 editItem.city = editItem.city.id
@@ -83,7 +83,7 @@
                 editTargetItem.investment_type = temp1
             }
             if (!_.isEmpty(editTargetItem.country)) {
-                editTargetItem.country = editTargetItem.country.id
+                editTargetItem.country = editTargetItem.country.code
             }
             if (!_.isEmpty(editTargetItem.city)) {
                 editTargetItem.city = editTargetItem.city.id

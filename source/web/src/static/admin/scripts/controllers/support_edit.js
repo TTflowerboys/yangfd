@@ -25,7 +25,7 @@
             var editItem = angular.copy(item)
 
             if (!_.isEmpty(editItem.country)) {
-                editItem.country = editItem.country.id
+                editItem.country = editItem.country.code
             }
             $scope.itemOrigin = editItem
             $scope.item = angular.copy($scope.itemOrigin)

@@ -48,7 +48,7 @@
                 editItem.facilities = temp1
             }
             if (!_.isEmpty(editItem.country)) {
-                editItem.country = editItem.country.id
+                editItem.country = editItem.country.code
             }
             if (!_.isEmpty(editItem.city)) {
                 editItem.city = editItem.city.id
