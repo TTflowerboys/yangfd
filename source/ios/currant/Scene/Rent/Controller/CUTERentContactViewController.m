@@ -55,7 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED]) {
-        self.navigationItem.title = STR(@"Beta用户注册");
+        self.navigationItem.title = STR(@"用户注册");
     }
     else {
         self.navigationItem.title = STR(@"联系方式");
@@ -163,8 +163,6 @@
             }];
         }
         else {
-            //TODO  如果是默认注册的用户，这次没有完成，下次再用同样的号码注册，将会拥有账户，需要提醒用户
-            //TODO check this interface can send sms?
             //no user just creat one
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:user.toParams];
@@ -177,7 +175,10 @@
                     return nil;
                 } else {
                     _user = task.result;
-                    [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
+                    [SVProgressHUD dismiss];
+                    [UIAlertView showWithTitle:STR(@"已成功为您创建帐号，密码已发至您的邮箱。验证码发送成功，请验证手机号") message:nil cancelButtonTitle:STR(@"确定") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+
+                    }];
                     return nil;
                 }
             }];
@@ -212,7 +213,7 @@
     if (!formValidation) {
         return NO;
     }
-    if (_user && _userVerified) {
+    if (!_user || !_userVerified) {
         [SVProgressHUD showErrorWithStatus:STR(@"手机未验证成功，请重发验证码")];
         return NO;
     }

@@ -34,6 +34,10 @@
     }
 }
 
+- (void)optionBack {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)onVerificationButtonPressed:(id)sender {
     if (![self validateFormWithScenario:@"fetchCode"]) {
         return;
@@ -90,6 +94,7 @@
         }
         else {
             [SVProgressHUD showSuccessWithStatus:STR(@"修改成功")];
+            [self.navigationController popViewControllerAnimated:YES];
         }
 
         return task;
