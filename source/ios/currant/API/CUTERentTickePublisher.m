@@ -311,16 +311,7 @@
 - (BFTask *)editProperty:(CUTEProperty *)property {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
     [params setObject:@"true" forKey:@"user_generated"];
-    return [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
-        if (task.error || task.exception || task.isCancelled) {
-            return task;
-        } else {
-            if ([task.result isKindOfClass:[NSDictionary class]]) {
-                return [BFTask taskWithResult:[CUTEProperty modelWithDictionary:task.result error:nil]];
-            }
-            return task;
-        }
-    }];
+    return [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:[CUTEProperty class]];
 }
 
 - (BFTask *)syncTickets {
