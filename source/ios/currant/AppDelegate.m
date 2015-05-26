@@ -282,6 +282,7 @@
                 CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
                 CUTERentContactForm *form = [CUTERentContactForm new];
                 form.isOnlyRegister = YES;
+                form.isInvitationCodeRequired = YES;
                 [form setAllCountries:task.result];
                 contactViewController.formController.form = form;
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:contactViewController];
