@@ -26,7 +26,7 @@
 
 @property (nonatomic) BOOL isOnlyRegister;
 
-
+@property (nonatomic) BOOL isInvitationCodeRequired;
 
 - (void)setAllCountries:(NSArray *)allCountries;
 
