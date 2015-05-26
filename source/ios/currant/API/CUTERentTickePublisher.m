@@ -381,7 +381,7 @@
                 NSArray *localTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
                 NSArray *remoteTickets = task.result;
                 [remoteTickets each:^(CUTETicket *object) {
-                    if ([object isKindOfClass:[CUTETicket class]]) {
+                    if ([object isKindOfClass:[CUTETicket class]] && object.property) {
                         CUTETicket *localTicket = [localTickets find:^BOOL(CUTETicket *localObject) {
                             return localObject.identifier == object.identifier;
                         }];
