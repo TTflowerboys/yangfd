@@ -192,7 +192,6 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
     def v8(self, m):
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
-            f_app.user.get_database(m).update({"_id": user["_id"]}, {"$pull": {"role": ["beta_renting"]}})
             f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"role": "beta_renting"}})
 
 currant_mongo_upgrade()
