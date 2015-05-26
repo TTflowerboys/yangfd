@@ -380,9 +380,9 @@
                 [SVProgressHUD dismiss];
             }
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
-            unfinishedRentTicketController.unfinishedRentTickets = unfinishedRentTickets;
             unfinishedRentTicketController.hidesBottomBarWhenPushed = NO;
             [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
+            [unfinishedRentTicketController reloadWithTickets:unfinishedRentTickets];
         }
 
     }];
@@ -485,16 +485,14 @@
     if (unfinishedRentTickets.count > 0) {
         if ([bottomViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
             CUTEUnfinishedRentTicketListViewController *unfinishedController = (CUTEUnfinishedRentTicketListViewController *)bottomViewController;
-            unfinishedController.unfinishedRentTickets = unfinishedRentTickets;
-            [unfinishedController refreshTable];
+            [unfinishedController reloadWithTickets:unfinishedRentTickets];
         }
         else {
             NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
-            unfinishedRentTicketController.unfinishedRentTickets = unfinishedRentTickets;
             [viewControllers insertObject:unfinishedRentTicketController atIndex:0];
             [navController setViewControllers:viewControllers animated:NO];
-
+            [unfinishedRentTicketController reloadWithTickets:unfinishedRentTickets];
         }
     }
     else {

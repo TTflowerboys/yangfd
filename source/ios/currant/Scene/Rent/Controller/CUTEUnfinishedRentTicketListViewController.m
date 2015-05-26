@@ -24,6 +24,8 @@
 
 @interface CUTEUnfinishedRentTicketListViewController ()
 
+@property (strong, nonatomic) NSArray *unfinishedRentTickets;
+
 @end
 
 
@@ -39,48 +41,47 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
-    [self refreshTable];
+//    [self refreshTable];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
 
+- (void)reloadWithTickets:(NSArray *)tickets {
+    self.unfinishedRentTickets = tickets;
+    [self.tableView reloadData];
+}
+
 - (void)refreshTable {
-    if (!IsArrayNilOrEmpty(self.unfinishedRentTickets)) {
-        [self.tableView reloadData];
+    if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
+        [self.refreshControl beginRefreshing];
+        [[[CUTERentTickePublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [self.refreshControl endRefreshing];
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [self.refreshControl endRefreshing];
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [self.refreshControl endRefreshing];
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                self.unfinishedRentTickets = task.result;
+                [self.refreshControl endRefreshing];
+                [self.tableView reloadData];
+            }
+            return task;
+        }];
     }
     else {
-        if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
-            [self.refreshControl beginRefreshing];
-            [[[CUTERentTickePublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
-                if (task.error) {
-                    [self.refreshControl endRefreshing];
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                else if (task.exception) {
-                    [self.refreshControl endRefreshing];
-                    [SVProgressHUD showErrorWithException:task.exception];
-                }
-                else if (task.isCancelled) {
-                    [self.refreshControl endRefreshing];
-                    [SVProgressHUD showErrorWithCancellation];
-                }
-                else {
-                    self.unfinishedRentTickets = task.result;
-                    [self.refreshControl endRefreshing];
-                    [self.tableView reloadData];
-                }
-                return task;
-            }];
-        }
-        else {
-            [self.refreshControl beginRefreshing];
-            self.unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
-            [self.refreshControl endRefreshing];
-            [self.tableView reloadData];
-        }
-
+        [self.refreshControl beginRefreshing];
+        self.unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
+        [self.refreshControl endRefreshing];
+        [self.tableView reloadData];
     }
 
     //scroll to the top, the first one is the recent edit one
