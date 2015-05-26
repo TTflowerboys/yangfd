@@ -213,7 +213,7 @@ def user_fast_register(params):
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
 
-    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
+    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)]).lower()
     params["password"] = password
 
     if "invitation_code" in params:
