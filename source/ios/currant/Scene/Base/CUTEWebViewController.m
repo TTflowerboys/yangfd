@@ -12,9 +12,6 @@
 #import <NJKWebViewProgress.h>
 #import "CUTEUIMacro.h"
 #import "CUTECommonMacro.h"
-#import <JavaScriptCore/JavaScriptCore.h>
-#import <JavaScriptCore/JSValue.h>
-#import "CUTEMoblieClient.h"
 #import "CUTEWebConfiguration.h"
 #import "CUTENavigationUtil.h"
 #import "NSURL+QueryParser.h"
@@ -22,6 +19,8 @@
 #import "MasonryMake.h"
 #import "CUTETracker.h"
 #import "CUTEDataManager.h"
+#import "WebViewJavascriptBridge.h"
+#import "NSString+Encoding.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -33,6 +32,8 @@
 
     BOOL _needReloadURL;
 }
+
+@property (nonatomic, strong) WebViewJavascriptBridge *bridge;
 
 @end
 
@@ -46,13 +47,6 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     return self;
-}
-
-- (void)setupJSContextWithWebView:(UIWebView *)webView {
-    JSContext *jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    CUTEMoblieClient *mobileClient = [CUTEMoblieClient new];
-    mobileClient.controller = self;
-    jsContext[@"window"][@"mobileClient"] = mobileClient;
 }
 
 - (void)updateWebView {
@@ -69,6 +63,83 @@
     MakeEnd
 
     _webView.delegate = _progressProxy;
+
+
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:_webView webViewDelegate:_progressProxy handler:^(id data, WVJBResponseCallback responseCallback) {
+
+    }];
+    [self.bridge registerHandler:@"handshake" handler:^(id data, WVJBResponseCallback responseCallback) {
+        TrackEvent(KEventCategorySystem, @"handshake", _webView.request.URL.absoluteString, nil);
+    }];
+
+    [self.bridge registerHandler:@"login" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSDictionary *dic = data;
+        if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+            NSError *error = nil;
+            CUTEUser *user = (CUTEUser *)[MTLJSONAdapter modelOfClass:[CUTEUser class] fromJSONDictionary:dic error:&error];
+            if (!error && user) {
+                [[CUTEDataManager sharedInstance] saveAllCookies];
+                [[CUTEDataManager sharedInstance] saveUser:user];
+            }
+        }
+
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)self;
+        UIView *view = [self view];
+        if (!IsArrayNilOrEmpty(view.subviews) && [[view subviews][0] isKindOfClass:[UIWebView class]]) {
+            UIWebView *webView = (UIWebView *)[view subviews][0];
+            NSURL *url = [[webView request] URL];
+            NSDictionary *queryDictionary = [url queryDictionary];
+            if (queryDictionary && queryDictionary[@"from"]) {
+                NSString *fromURLStr = [queryDictionary[@"from"] URLDecode];
+                [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
+                [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:webViewController];
+                responseCallback(nil);
+            }
+        }
+    }];
+
+    [self.bridge registerHandler:@"logout" handler:^(id data, WVJBResponseCallback responseCallback) {
+
+        [[CUTEDataManager sharedInstance] cleanAllCookies];
+        [[CUTEDataManager sharedInstance] cleanUser];
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)self;
+        UIView *view = [self view];
+        if (!IsArrayNilOrEmpty(view.subviews) && [[view subviews][0] isKindOfClass:[UIWebView class]]) {
+            NSURL *url = [NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]];
+            NSDictionary *queryDictionary = [url queryDictionary];
+            if (queryDictionary && queryDictionary[@"return_url"]) {
+                [webViewController updateWithURL:[NSURL URLWithString:CONCAT([queryDictionary[@"return_url"] URLDecode], @"?from=", [webViewController.url.absoluteString URLEncode]? : @"/") relativeToURL:[CUTEConfiguration hostURL]]];
+                [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGOUT object:webViewController];
+            }
+        }
+    }];
+
+    [self.bridge registerHandler:@"editRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
+
+        NSDictionary *dic = data;
+        if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+            NSError *error = nil;
+            CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];
+            if (!error && ticket) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_EDIT object:self userInfo:@{@"ticket": ticket}];
+            }
+        }
+    }];
+
+    [self.bridge registerHandler:@"wechatShareRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSDictionary *dic = data;
+        if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+            NSError *error = nil;
+            CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];
+            if (!error && ticket) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_WECHAT_SHARE object:self userInfo:@{@"ticket": ticket}];
+            }
+        }
+    }];
+
+    [self.bridge registerHandler:@"openURLInNewController" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [self loadURLInNewController:[NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]]];
+    }];
 }
 
 - (void)loadURL:(NSURL *)url {
@@ -82,7 +153,6 @@
     }
     [_webView loadRequest:urlRequest];
 
-    [self setupJSContextWithWebView:_webView];
     [self updateBackButton];
     [self updateRightButtonWithURL:url];
     [self updateTitleWithURL:url];
@@ -221,15 +291,6 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    //TODO refine the custom scheme action design and replace all the all js call to custom action
-    NSURL *url = [request URL];
-    if ([url.scheme isEqualToString:[CUTEConfiguration yangfdScheme]]) {
-        if ([url.host isEqualToString:@"openURLInNewController"]) {
-            [self loadURLInNewController:[NSURL URLWithString:url.path relativeToURL:[CUTEConfiguration hostURL]]];
-            return NO;
-        }
-    }
-
     return YES;
 }
 
@@ -240,15 +301,12 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    //http://stackoverflow.com/questions/21714365/uiwebview-javascript-losing-reference-to-ios-jscontext-namespace-object
-    [self setupJSContextWithWebView:webView];
     [self updateBackButton];
     [self updateRightButtonWithURL:webView.request.URL];
     [self updateTitleWithURL:webView.request.URL];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [self setupJSContextWithWebView:webView];
     [self updateBackButton];
     [self updateRightButtonWithURL:webView.request.URL];
     [self updateTitleWithURL:webView.request.URL];

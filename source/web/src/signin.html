@@ -40,10 +40,8 @@
         $.betterPost("/api/1/user/login", params)
             .done(function (result) {
                 ga('send', 'event', 'signin', 'result', 'signin-success')
-
-                if (window.mobileClient !== undefined) {
-                    window.mobileClient.signin(result)
-                    project.goBackFromURL()
+                if (window.bridge !== undefined) {
+                    window.bridge.callHandler("login", result);
                 }
                 else {
                     project.goBackFromURL()

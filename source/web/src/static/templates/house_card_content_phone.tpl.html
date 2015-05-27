@@ -1,6 +1,6 @@
 <a class="imagePart"
    %if is_mobile_client():
-   href="yangfd://openURLInNewController/property/{=house.id=}"
+   href="#" onclick="window.bridge(openURLInNewController, '/property/{=house.id=}');return false;"
    %else:
    href="/property/{=house.id=}"
    %end
@@ -63,7 +63,7 @@
 <div class="textPart" >
     <a class="textPart_inner"
        %if is_mobile_client():
-       href="yangfd://openURLInNewController/property/{=house.id=}"
+       href="#" onclick="window.bridge(openURLInNewController, '/property/{=house.id=}');return false;"
        %else:
        href="/property/{=house.id=}"
        %end

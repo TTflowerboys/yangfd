@@ -63,8 +63,8 @@ $(function () {
         $.betterPost('/api/1/user/register', params)
             .done(function (result) {
                 ga('send', 'event', 'signup', 'result', 'signup-success')
-                if (window.mobileClient !== undefined) {
-                    window.mobileClient.signIn(result)
+                if (window.bridge !== undefined) {
+                    window.bridge.callHandler('login', result);
                 }
                 window.project.goToIntention()
             }).fail(function (ret) {

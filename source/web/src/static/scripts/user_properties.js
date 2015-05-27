@@ -127,8 +127,8 @@ $(function () {
         $('.actions #wechatShare').click(function (e) {
             var ticketId = $(this).attr('data-id')
 
-            if (window.mobileClient !== undefined) {
-                window.mobileClient.wechatShareRentTicket(_.first(_.where(window.rentArray, {id: ticketId})))
+            if (window.bridge !== undefined) {
+                window.bridge.callHandler('wechatShareRentTicket', _.first(_.where(window.rentArray, {id: ticketId})));
             }else{
                 $('#popupShareToWeChat')
                     .find('img').prop('src',
@@ -181,8 +181,8 @@ $(function () {
         $('.imgAction_wrapper #edit').on('click', function (e) {
             var ticketId = $(e.target).attr('data-id')
 
-            if (window.mobileClient !== undefined) {
-                window.mobileClient.editRentTicket(_.first(_.where(window.rentArray, {id: ticketId})))
+            if (window.bridge !== undefined) {
+                window.bridge.callHandler('editRentTicket',  _.first(_.where(window.rentArray, {id: ticketId})))
             }else{
                 location.href = '/property-to-rent/' + ticketId + '/edit'
             }

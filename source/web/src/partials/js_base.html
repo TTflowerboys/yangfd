@@ -53,6 +53,11 @@
 
 <!--endbuild-->
 
+%if is_mobile_client():
+    <!--build:js /static/scripts/wvjsBridge.js-->
+    <script src="/static/scripts/wvjsBridge.js"></script>
+    <!--endbuild-->
+%end
 
 <script>
  $(function () {

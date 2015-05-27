@@ -57,9 +57,8 @@
         },
         logout: function () {
             var logoutUrl = '/logout?return_url=%2Fsignin';
-            if (window.mobileClient !== undefined) {
-                window.mobileClient.logout(logoutUrl)
-                window.location = logoutUrl
+            if (window.bridge !== undefined) {
+                window.bridge.callHandler('logout', logoutUrl);
             }
             else {
                 window.location = logoutUrl

@@ -2,7 +2,7 @@
     <div class="rentCard">
         <a
             %if is_mobile_client():
-            href="yangfd://openURLInNewController/property-to-rent/{=rent.id=}"
+                href="#" onclick="window.bridge(openURLInNewController, '/property-to-rent/{=rent.id=}');return false;"
             %else:
             href="/property-to-rent/{=rent.id=}"
             %end
