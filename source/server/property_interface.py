@@ -27,8 +27,6 @@ def property_list(params):
     country_list = currant_util.get_country_list()
     bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
     building_area_list = f_app.i18n.process_i18n(f_app.enum.get_all("building_area"))
-    property_country_list = []
-    property_country_id_list = []
     property_country_list = currant_util.get_country_list()
 
     property_city_list = []

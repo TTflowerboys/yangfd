@@ -52,7 +52,7 @@ def check_ip_and_redirect_domain(func):
     @wraps(func)
     def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
         try:
-            country = f_app.geoip.get_country(request.remote_route[0])
+            country = request.ip_country
             host = request.urlparts[1]
 
             # Don't redirect dev & test

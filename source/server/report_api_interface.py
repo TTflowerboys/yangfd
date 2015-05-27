@@ -279,8 +279,7 @@ def geonames_search(params):
             remote_ip = None
 
         try:
-            country = f_app.geoip.get_country(remote_ip)
-            params["country"] = country
+            params["country"] = request.ip_country
         except:
             logger.warning("Failed to determine country of ip:", remote_ip)
 
