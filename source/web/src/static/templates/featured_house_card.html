@@ -9,7 +9,7 @@
     <div class="houseCard_phone">
         <a class="imagePart" title="{{property.get('name','')}}"
            %if is_mobile_client():
-           href="#" onclick="window.bridge.callHandler(openURLInNewController, &quot;/property/{{property.get('id')}}&quot;);return false;"
+           href="#" onclick="window.bridge.callHandler(&quot;openURLInNewController&quot;, &quot;/property/{{property.get('id')}}&quot;);return false;"
            %else:
            href="/property/{{property.get('id')}}"
            %end
@@ -84,7 +84,7 @@
         <div class="textPart" >
             <a class="textPart_inner" title="{{property.get('name','')}}"
            %if is_mobile_client():
-               href="#" onclick="window.bridge.callHandler(openURLInNewController, &quot;/property/{{property.get('id')}}&quot;);return false;"
+               href="#" onclick="window.bridge.callHandler(&quot;"openURLInNewController&quot;, &quot;/property/{{property.get('id')}}&quot;);return false;"
            %else:
                href="/property/{{property.get('id')}}"
            %end
