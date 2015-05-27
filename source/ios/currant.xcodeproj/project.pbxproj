@@ -259,6 +259,11 @@
 		2CA81FC61B144CF6006E993C /* CUTEApplyBetaRentingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FC31B144CF6006E993C /* CUTEApplyBetaRentingForm.m */; };
 		2CA81FC71B144CF6006E993C /* CUTEApplyBetaRentingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FC31B144CF6006E993C /* CUTEApplyBetaRentingForm.m */; };
 		2CA81FC81B144CF6006E993C /* CUTEApplyBetaRentingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FC31B144CF6006E993C /* CUTEApplyBetaRentingForm.m */; };
+		2CA81FCB1B15CA51006E993C /* CUTEMapBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FCA1B15CA50006E993C /* CUTEMapBackView.m */; };
+		2CA81FCC1B15CA51006E993C /* CUTEMapBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FCA1B15CA50006E993C /* CUTEMapBackView.m */; };
+		2CA81FCD1B15CA51006E993C /* CUTEMapBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FCA1B15CA50006E993C /* CUTEMapBackView.m */; };
+		2CA81FCE1B15CA51006E993C /* CUTEMapBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FCA1B15CA50006E993C /* CUTEMapBackView.m */; };
+		2CA81FCF1B15CA51006E993C /* CUTEMapBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81FCA1B15CA50006E993C /* CUTEMapBackView.m */; };
 		2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -650,6 +655,8 @@
 		2CA81FBC1B1425D1006E993C /* CUTEApplyBetaRentingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEApplyBetaRentingViewController.m; sourceTree = "<group>"; };
 		2CA81FC21B144CF6006E993C /* CUTEApplyBetaRentingForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEApplyBetaRentingForm.h; sourceTree = "<group>"; };
 		2CA81FC31B144CF6006E993C /* CUTEApplyBetaRentingForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEApplyBetaRentingForm.m; sourceTree = "<group>"; };
+		2CA81FC91B15CA50006E993C /* CUTEMapBackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMapBackView.h; sourceTree = "<group>"; };
+		2CA81FCA1B15CA50006E993C /* CUTEMapBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMapBackView.m; sourceTree = "<group>"; };
 		2CA94AAE1ACA42CD00DF7497 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-dev-Info.plist"; sourceTree = "<group>"; };
 		2CAA851E1AEA65CC00432BF1 /* NSString+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoding.h"; sourceTree = "<group>"; };
@@ -1196,6 +1203,8 @@
 				2CF8A5D71AF0B40E0080DF10 /* CUTEQrcodeCell.m */,
 				2CF8A5D41AF0B40E0080DF10 /* CUTEMapTextField.h */,
 				2CF8A5D51AF0B40E0080DF10 /* CUTEMapTextField.m */,
+				2CA81FC91B15CA50006E993C /* CUTEMapBackView.h */,
+				2CA81FCA1B15CA50006E993C /* CUTEMapBackView.m */,
 				2C2FCDC91AFCCD4C002594D7 /* CUTEFormDatePickerCell.h */,
 				2C2FCDCA1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m */,
 				2CF8A5CC1AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.h */,
@@ -1747,6 +1756,7 @@
 				2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */,
 				2C427E561AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CF8A6A91AF0C2620080DF10 /* BBTPickerView.m in Sources */,
+				2CA81FCD1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C7520451ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA2E6B11AC5487800053965 /* CUTEPropertyListViewController.m in Sources */,
 				2CC3A0701AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
@@ -1851,6 +1861,7 @@
 				2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */,
 				2C427E571AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CF8A6AA1AF0C2620080DF10 /* BBTPickerView.m in Sources */,
+				2CA81FCE1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C7520461ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA2E6CA1AC5496700053965 /* CUTEPropertyListViewController.m in Sources */,
 				2CC3A0711AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
@@ -1955,6 +1966,7 @@
 				2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */,
 				2C427E551AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CF8A6A81AF0C2620080DF10 /* BBTPickerView.m in Sources */,
+				2CA81FCC1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C7520441ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA94A9B1ACA42CD00DF7497 /* CUTEPropertyListViewController.m in Sources */,
 				2CC3A06F1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
@@ -2059,6 +2071,7 @@
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
 				2C427E541AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CF8A6A71AF0C2620080DF10 /* BBTPickerView.m in Sources */,
+				2CA81FCB1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */,
 				2CC3A06E1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
@@ -2165,6 +2178,7 @@
 				2CF8A65D1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CF8A6211AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2C3099C81B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
+				2CA81FCF1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C3099C11B09CF6D004BA7F9 /* CUTERentPasswordForm.m in Sources */,
 				2CF8A5F41AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2CC3A0801AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
