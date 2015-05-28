@@ -1,5 +1,11 @@
 $(function () {
 
+    //Pre-enter invation code if url contains
+    var invitationCode = window.team.getQuery('invitation_code', location.href)
+    if(invitationCode !== ''){
+        $('form[name=register]').find('input[name=invitation_code]').val(invitationCode)
+    }
+
     function showRecaptcha(containerId) {
 
         $.betterPost('/api/1/captcha/generate', {})
@@ -53,8 +59,6 @@ $(function () {
             errorArea.show()
             return
         }
-
-
 
         var params = $(this).serializeObject()
         params.password = Base64.encode(params.password)
