@@ -702,6 +702,29 @@ angular.module('app')
                 }
             })
         /**
+         * 邀请码
+         * */
+            .state('dashboard.invitation', {
+                url: '/invitation',
+                templateUrl: '/static/admin/templates/dashboard.invitation.tpl.html',
+                controller: 'ctrlInvitationList',
+                resolve: {
+                    api: function (invitationApi) {
+                        return invitationApi
+                    }
+                }
+            })
+/*            .state('dashboard.invitation.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.invitation.create.tpl.html',
+                controller: 'ctrlInvitation',
+                resolve: {
+                    api: function (invitationApi) {
+                        return invitationApi
+                    }
+                }
+            })*/
+        /**
          * others
          */
             .state('noPermission', {
