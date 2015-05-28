@@ -389,11 +389,11 @@
                             if (!fequal(object.lastModifiedTime, localTicket.lastModifiedTime)) {
                                 //merge
                                 [object mergeValuesForKeysFromModel:localTicket];
-                                [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:object];
+                                [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:object];
                             }
                         }
                         else {
-                            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:object];
+                            [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:object];
                         }
                     }
                 }];
