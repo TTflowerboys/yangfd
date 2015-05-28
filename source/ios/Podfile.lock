@@ -34,7 +34,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.1.5)
   - CrittercismSDK (5.2.0)
-  - CTAssetsPickerController (2.9.3)
+  - CTAssetsPickerController (2.9.4)
   - DACircularProgress (2.3.1)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
@@ -137,7 +137,7 @@ SPEC CHECKSUMS:
   BBTUtility: 034a9709d4b90c986d133a06f0123e4c328f23f2
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
   CrittercismSDK: a8f09d8f1d9fea3bc0714a954a079062c5c9d914
-  CTAssetsPickerController: 56a4a228dcb48a9375ab8d4922e82ac74af74aa1
+  CTAssetsPickerController: 3030dc60f5d1a3c4e5b1c0aa9f069220d5bf7008
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FXForms: b6a78bac9f6b597ce704e34ac7c1ce9ff628b1d5
