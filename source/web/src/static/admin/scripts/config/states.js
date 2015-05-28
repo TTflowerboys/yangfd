@@ -20,6 +20,12 @@ angular.module('app')
             }
         }
 
+        var rentResolve = {
+            api: function (rentApi) {
+                return rentApi
+            }
+        }
+
         var intentionResolve = {
             api: function (intentionApi) {
                 return intentionApi
@@ -301,6 +307,16 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.property.edit.tpl.html',
                 controller: 'ctrlPropertyEdit',
                 resolve: propertyResolve
+            })
+
+        /**
+         * 出租房数据管理
+         */
+            .state('dashboard.rent', {
+                url: '/rent',
+                templateUrl: '/static/admin/templates/dashboard.rent.tpl.html',
+                controller: 'ctrlRentList',
+                resolve: rentResolve
             })
 
         /**
