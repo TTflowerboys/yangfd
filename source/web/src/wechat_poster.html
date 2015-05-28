@@ -174,7 +174,7 @@
                 <div class="swiper-slide swiper-slide-bg commen" style="">
                     <div class="page pageCover">
                         <div class="topTitleNav animate">
-                            <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}} {{rent['property'].get('city',{}).get('name','')}} {{rent['property'].get('street','')}}</p>
+                            <p class="location animate">{{rent['property'].get('street','')}} {{rent['property'].get('city',{}).get('name','')}} {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}</p>
                             <p class="title animate">{{rent.get('title','')}}</p>
                             <p class="titleEn animate">Letting!</p>
                         </div>
@@ -242,10 +242,12 @@
                             % if 'floor' in rent['property'] and rent['property'].get('floor',''):
                             <li class="animate door">
                                 <div>
-                                    <i class="doorIcon"></i>{{rent['property'].get('floor','')}}
-                                    %if 'house_name' in rent.get('property',{}):
-                                    -{{rent['property'].get('house_name','')}}
-                                    %end
+                                    <i class="doorIcon"></i>
+                                    {{rent['property'].get('floor','')}}
+                                    % if 'house_name' in rent.get('property',{}) and 'floor' in rent.get('property',{}):
+                                    {{'-'}}
+                                    % end
+                                    {{rent['property'].get('house_name','')}}
                                 </div>
                             </li>
                             % end
@@ -317,8 +319,18 @@
                         <div class="location">
                             <h2>{{_('地址')}}</h2>
                             <p>
-                                {{rent['property'].get('city',{}).get('name','')}}{{_('市')}}{{rent['property'].get('street','')}}<br>
-                                {{rent['property'].get('address','')}}
+                                {{rent['property'].get('floor','')}}
+                                % if 'house_name' in rent.get('property',{}) and 'floor' in rent.get('property',{}):
+                                -
+                                % end
+                                {{rent['property'].get('house_name','')}}
+                                % if 'house_name' in rent.get('property',{}) or 'floor' in rent.get('property',{}):
+                                ,
+                                %end
+                                {{rent['property'].get('community','')}},
+                                {{rent['property'].get('street','')}},
+                                {{rent['property'].get('city',{}).get('name','')}},
+                                {{rent['property'].get('zipcode','')}}
                             </p>
                             <!--<p>湖北省武汉市光谷大道<br>国际企业中心</p>-->
                         </div>
@@ -391,7 +403,7 @@
                 <div class="swiper-slide swiper-slide-bg commen hideOutsideWechat" style="">
                     <div class="page pageCoverBack">
                         <div class="topTitleNav animate">
-                            <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}} {{rent['property'].get('city',{}).get('name','')}} {{rent['property'].get('street','')}}</p>
+                            <p class="location animate">{{rent['property'].get('street','')}} {{rent['property'].get('city',{}).get('name','')}} {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}</p>
                             <p class="title animate">{{rent.get('title','')}}</p>
                             <p class="contact animate">
                                 <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" class="btn">{{_('获取房东联系方式')}}</a>
