@@ -1,0 +1,94 @@
+<div ui-view>
+
+    <div get-news-category-list></div>
+
+    <div class="buttons">
+
+
+        <div class="btn-group form-inline" ng-controller="ctrlHasPermission">
+            <select class="form-control" ng-if="hasPermission('admin,jr_admin,operation,jr_operation')" ng-options="p.value as p.name for p in rentStatus" ng-model="selected.status"></select>
+        </div>
+        <div class="btn-group form-inline">
+            <div select-supported-country name="country" ng-model="selected.country" text="{%i18n('国家')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+            <div select-city-by-country country="selected.country" ng-model="selected.city" text="{%i18n('城市')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+            <div select-enum name="property_type" ng-model="selected.property_type" text="{%i18n('房产类型')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+            <input type="text" class="form-control" ng-model="selected.developer" placeholder="{%i18n('开发商')%}"/>
+        </div>
+        <div class="btn-group form-inline">
+            <button class="btn btn-primary" ng-click="searchRent()">{%$root.i18n('搜索')%}</button>
+        </div>
+        <span class="btn-group pull-right" style="margin-left: 10px">
+            <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+            <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+        </span>
+        <div class="btn-group form-inline pull-right">
+            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped table-condensed" ng-controller="ctrlHasEditPropertyPermission">
+        <colgroup>
+            <col class="name">
+            <col class="status">
+            <col class="changeStatus">
+            <col class="actions">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>{%$root.i18n('标题')%}</th>
+                <th>{%$root.i18n('出租类型')%}</th>
+                <th>{%$root.i18n('postcode')%}</th>
+                <th>{%$root.i18n('地址')%}</th>
+                <th>{%$root.i18n('租金')%}</th>
+                <th>{%$root.i18n('发布时间')%}</th>
+                <th>{%$root.i18n('管理')%}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in list">
+                <td>
+                    <div show-i18n="item.title"></div>
+                </td>
+                <td>
+                    <div show-i18n="item.rent_type.value"></div>
+                </td>
+                <td>
+                    <div ng-bind="item.property.zipcode"></div>
+                </td>
+                <td>
+                    <div ng-bind=""></div>
+                </td>
+                <td>
+                    <div ng-bind="item.price.value | currency : currencyTypes[item.price.unit] : 2"></div>
+                </td>
+                <td>
+                    <div ng-bind="item.time * 1000 | date : 'yyyy-MM-dd H:mm'"></div>
+                </td>
+                <td style="text-align:center;">
+                    <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
+                        <i class="fa fa-search-plus "></i>
+                    </a>
+                    <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
+                        <i class="fa fa-trash-o"></i>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+    <div class="buttons">
+
+        <span class="btn-group pull-right" style="margin-right: 10px">
+            <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+            <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+        </span>
+
+    </div>
+
+</div>
