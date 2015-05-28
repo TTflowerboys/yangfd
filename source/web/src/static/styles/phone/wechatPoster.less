@@ -429,11 +429,20 @@ p{
             display: block;
             height: 7vh;
             margin-bottom: 3.2vh;
-            border: 1px solid #fff;
-            font-size: 3.1vh;
+            font-size: 3vh;
             text-align: left;
             line-height: 7vh;
+            overflow: hidden;
             .animation(tada1 0.2s linear 0s 1);
+            >div{
+                width: 99%;
+                height: 99%;
+                box-sizing: border-box;
+                border: 1px solid #fff;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
             >span{
                 position: relative;
                 font-size: 2.4vh;
@@ -441,11 +450,11 @@ p{
                 top: 0.5vh;
                 vertical-align: bottom;
             }
-            &.size, &.rental, &.street, &.time{
+            &.size, &.rental, &.estate, &.time{
                 float: left;
                 margin-right: 3.2vh;
             }
-            &.rooms, &.estate, &.door{
+            &.rooms, &.street, &.door{
                 overflow: hidden;
             }
             &.size{
@@ -459,11 +468,11 @@ p{
                 width: 30%;
                 animation-delay: 0.8s;
             }
-            &.estate{
+            &.street{
                 animation-delay: 0.9s;
             }
-            &.street{
-                width: 55%;
+            &.estate{
+                width: 60%;
                 animation-delay: 1.0s;
             }
             &.door{

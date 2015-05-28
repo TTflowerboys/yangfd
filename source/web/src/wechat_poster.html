@@ -212,13 +212,15 @@
                         <ul class="itemBox clearfix">
                             %if rent.get('space',{}).get('value'):
                             <li class="animate size">
-                                <i class="sizeIcon"></i>
-                                %if float(rent.get('space',{}).get('value',0)) < 1000:
-                                {{"{0:.2f}".format(float(rent.get('space',{}).get('value',0)))}}
-                                %else:
-                                {{"{0:.0f}".format(float(rent.get('space',{}).get('value',0)))}}
-                                %end
-                                {{!format_unit(rent.get('space',{}).get('unit',''))}}
+                                <div>
+                                    <i class="sizeIcon"></i>
+                                    %if float(rent.get('space',{}).get('value',0)) < 1000:
+                                    {{"{0:.2f}".format(float(rent.get('space',{}).get('value',0)))}}
+                                    %else:
+                                    {{"{0:.0f}".format(float(rent.get('space',{}).get('value',0)))}}
+                                    %end
+                                    {{!format_unit(rent.get('space',{}).get('unit',''))}}
+                                </div>
                             </li>
                             %end
                             <li class="animate rooms"
@@ -226,30 +228,38 @@
                                 style="width:100%;"
                                 %end
                                 >
-                                <i class="roomsIcon"></i>{{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}</span>
+                                <div>
+                                    <i class="roomsIcon"></i>{{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}</span>
+                                </div>
                             </li>
-                            <li class="animate rental"><i class="rentalIcon"></i>{{rent.get('rent_type',{}).get('value', '')}}</li>
-                            <li class="animate estate"><i class="estateIcon"></i>{{rent['property'].get('city',{}).get('name','')}} {{rent['property'].get('street','')}}</li>
-                            <li class="animate street"
+                            <li class="animate rental"><div><i class="rentalIcon"></i>{{rent.get('rent_type',{}).get('value', '')}}</div></li>
+                            <li class="animate street"><div><i class="streetIcon"></i>{{rent['property'].get('zipcode','')}}</div></li>
+                            <li class="animate estate"
                                 %if not rent['property'].get('floor',''):
                                 style="width:100%;"
                                 %end
-                                ><i class="streetIcon"></i>{{rent['property'].get('zipcode','')}}</li>
+                                ><div><i class="estateIcon"></i>{{rent['property'].get('community','')}} {{rent['property'].get('street','')}}</div></li>
                             % if 'floor' in rent['property'] and rent['property'].get('floor',''):
-                            <li class="animate door"><i class="doorIcon"></i>{{rent['property'].get('floor','')}}
-                            %if 'house_name' in rent.get('property',{}):
-                                -{{rent['property'].get('house_name','')}}
-                            %end
+                            <li class="animate door">
+                                <div>
+                                    <i class="doorIcon"></i>{{rent['property'].get('floor','')}}
+                                    %if 'house_name' in rent.get('property',{}):
+                                    -{{rent['property'].get('house_name','')}}
+                                    %end
+                                </div>
                             </li>
                             % end
-                            <li class="animate time"><i class="timeIcon"></i>
-                                % if 'rent_period' in rent and rent.get('rent_period',{}).get('value',''):
+                            <li class="animate time">
+                                <div>
+                                    <i class="timeIcon"></i>
+                                    % if 'rent_period' in rent and rent.get('rent_period',{}).get('value',''):
                                     {{rent.get('rent_period',{}).get('value','')}}，
-                                % end
-                                % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
+                                    % end
+                                    % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
                                     {{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}{{_('起')}}
-                                % end
-                                </li>
+                                    % end
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <div class="bottomBox animate">
