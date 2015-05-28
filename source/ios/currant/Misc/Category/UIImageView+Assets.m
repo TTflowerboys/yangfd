@@ -13,6 +13,7 @@
 #import <UIImage+Resize.h>
 #import <UIImage+BBT.h>
 #import "CUTECommonMacro.h"
+#import "ALAsset+GetImage.h"
 
 @implementation UIImageView (Assets)
 
@@ -20,7 +21,7 @@
     if ([url isAssetURL]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
             [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:url resultBlock:^(ALAsset *asset) {
-                UIImage *image = [UIImage imageWithCGImage:thumbnail? asset.thumbnail: asset.defaultRepresentation.fullScreenImage];
+                UIImage *image = thumbnail? [UIImage imageWithCGImage:asset.thumbnail]: [asset getImage];
 
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     if (image) {
@@ -51,7 +52,7 @@
     if ([url isAssetURL]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
             [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:url resultBlock:^(ALAsset *asset) {
-                UIImage *image = [[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage] resizedImage:thumbnailSize interpolationQuality:kCGInterpolationDefault];
+                UIImage *image = [[asset getImage] resizedImage:thumbnailSize interpolationQuality:kCGInterpolationDefault];
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     [self setImage:image];
                 });
@@ -71,7 +72,7 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
             [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:url resultBlock:^(ALAsset *asset) {
 
-                UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+                UIImage *image = [asset getImage];
                 CGSize imageSize = image.size;
                 if (imageSize.width > 0) {
                     image = [image resizedImage:CGSizeMake(thumbnailWidth, (thumbnailWidth / imageSize.width) * imageSize.height) interpolationQuality:kCGInterpolationDefault];

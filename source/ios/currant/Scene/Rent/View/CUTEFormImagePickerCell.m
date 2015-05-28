@@ -359,7 +359,6 @@
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
-    //TODO check why read image from 我的照片流 而不是相机胶卷就失败
     [self updateImages:[assets map:^id(ALAsset *object) {
         return [[object valueForProperty:ALAssetPropertyAssetURL] absoluteString];
     }]];

@@ -107,11 +107,10 @@
 -  (BFTask *)getImageDataWithAssetURLString:(NSString *)assetURLStr {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-        [[[AssetsLibraryProvider sharedInstance] assetsLibrary] assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
+        [[AssetsLibraryProvider sharedInstance].assetsLibrary assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
             dispatch_async(dispatch_get_main_queue(), ^(void) {
-                if (asset) {
-                    UIImage *originalImage = [[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]] fixJPEGRotation];
-//                    NSUInteger fileSize1 = originalImage.calculatedSize / 1024;
+                UIImage *originalImage = [asset getImage];
+                if (originalImage) {
                     CGSize imageSize = originalImage.size;
                     if (imageSize.width > KMAX_IMAGE_WIDTH) {
                         imageSize.height = imageSize.height * (KMAX_IMAGE_WIDTH / imageSize.width);
@@ -123,10 +122,8 @@
                     }
                     imageSize = CGSizeMake((int)imageSize.width, (int)imageSize.height);
                     UIImage *image = [originalImage resizedImage:imageSize interpolationQuality:kCGInterpolationDefault];
-//                    NSUInteger fileSize2 = image.calculatedSize / 1024;
                     //TODO dynamic choose compressionQuality base image file size
                     NSData *imageData = UIImageJPEGRepresentation(image, 0.75);
-//                    NSUInteger fileSize3 = imageData.length / 1024;
                     [tcs setResult:imageData];
                 }
                 else {

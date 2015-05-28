@@ -14,4 +14,6 @@
 
 - (UIImage *)thumbnailForWithMaxPixelSize:(NSUInteger)size;
 
+- (UIImage *)getImage;
+
 @end

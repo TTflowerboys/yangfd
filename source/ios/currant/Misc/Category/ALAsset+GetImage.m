@@ -9,6 +9,7 @@
 #import "ALAsset+GetImage.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <ImageIO/ImageIO.h>
+#import "UIImage+FixJPEGRotation.h"
 
 @implementation ALAsset (GetImage)
 
@@ -70,6 +71,20 @@ static void releaseAssetCallback(void *info) {
     CFRelease(imageRef);
     
     return toReturn;
+}
+
+- (UIImage *)getImage {
+    UIImage *originalImage = nil;
+    if (self) {
+        originalImage = [UIImage imageWithCGImage:[[self defaultRepresentation] fullScreenImage]];
+        if (originalImage == nil) {
+            originalImage = [UIImage imageWithCGImage:[self thumbnail]];
+        }
+        if (originalImage) {
+            originalImage = [originalImage fixJPEGRotation];
+        }
+    }
+    return originalImage;
 }
 
 @end
