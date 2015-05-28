@@ -24,7 +24,7 @@
             params.status = $scope.selected.status
             params.country = $scope.selected.country
             params.city = $scope.selected.city
-            params.property_type = $scope.selected.property_type
+            params.rent_type = $scope.selected.rent_type
             params.mtime = undefined
         }
 
