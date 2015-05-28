@@ -15,13 +15,12 @@
             status: $scope.selected.status,
             country: $scope.selected.country,
             city: $scope.selected.city,
-            property_type: $scope.selected.property_type,
+            rent_type: $scope.selected.rent_type,
             per_page: $scope.perPage,
-            sort: 'mtime,desc'
+            sort: 'last_modified_time,desc'
         }
 
         function updateParams() {
-            params.developer = $scope.selected.developer
             params.status = $scope.selected.status
             params.country = $scope.selected.country
             params.city = $scope.selected.city
@@ -83,16 +82,8 @@
                 if (lastItem.last_modified_time) {
                     params.last_modified_time = lastItem.last_modified_time
                 }
-                if (lastItem.register_time) {
-                    params.register_time = lastItem.register_time
-                }
-                if (lastItem.insert_time) {
-                    params.insert_time = lastItem.insert_time
-                }
             } else {
-                delete params.mtime
-                delete params.register_time
-                delete params.insert_time
+                delete params.last_modified_time
             }
 
             api.getAll({params: params, errorMessage: true})

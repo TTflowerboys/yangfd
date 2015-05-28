@@ -15,10 +15,7 @@
             <div select-city-by-country country="selected.country" ng-model="selected.city" text="{%i18n('城市')%}"></div>
         </div>
         <div class="btn-group form-inline">
-            <div select-enum name="property_type" ng-model="selected.property_type" text="{%i18n('房产类型')%}"></div>
-        </div>
-        <div class="btn-group form-inline">
-            <input type="text" class="form-control" ng-model="selected.developer" placeholder="{%i18n('开发商')%}"/>
+            <div select-enum name="rent_type" ng-model="selected.rent_type" text="{%i18n('出租类型')%}"></div>
         </div>
         <div class="btn-group form-inline">
             <button class="btn btn-primary" ng-click="searchRent()">{%$root.i18n('搜索')%}</button>
@@ -41,19 +38,19 @@
         </colgroup>
         <thead>
             <tr>
-                <th>{%$root.i18n('标题')%}</th>
-                <th>{%$root.i18n('出租类型')%}</th>
-                <th>{%$root.i18n('postcode')%}</th>
-                <th>{%$root.i18n('地址')%}</th>
-                <th>{%$root.i18n('租金')%}</th>
-                <th>{%$root.i18n('发布时间')%}</th>
-                <th>{%$root.i18n('管理')%}</th>
+                <th style="width: 20%;">{%$root.i18n('标题')%}</th>
+                <th style="width: 10%;">{%$root.i18n('出租类型')%}</th>
+                <th style="width: 10%;">{%$root.i18n('postcode')%}</th>
+                <th style="width: 20%;">{%$root.i18n('地址')%}</th>
+                <th style="width: 10%;">{%$root.i18n('租金')%}</th>
+                <th style="width: 20%;">{%$root.i18n('发布时间')%}</th>
+                <th style="width: 10%;">{%$root.i18n('管理')%}</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="item in list">
                 <td>
-                    <div show-i18n="item.title"></div>
+                    <div ng-bind="item.title"></div>
                 </td>
                 <td>
                     <div show-i18n="item.rent_type.value"></div>
@@ -62,7 +59,7 @@
                     <div ng-bind="item.property.zipcode"></div>
                 </td>
                 <td>
-                    <div ng-bind=""></div>
+                    <div ng-bind="item.property | propertyAddress"></div>
                 </td>
                 <td>
                     <div ng-bind="item.price.value | currency : currencyTypes[item.price.unit] : 2"></div>
