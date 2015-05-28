@@ -172,10 +172,6 @@ def user_register(params):
 
     f_app.captcha.validate(params["solution"], params["challenge"])
 
-    if "invitation_code" in params:
-        if params["invitation_code"].upper() == "ZUFANG":
-            params["role"] = ["beta_renting"]
-
     user_id = f_app.user.add(params, retain_country=True)
 
     f_app.user.login.success(user_id)
@@ -215,10 +211,6 @@ def user_fast_register(params):
 
     password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)]).lower()
     params["password"] = password
-
-    if "invitation_code" in params:
-        if params["invitation_code"].upper() == "ZUFANG":
-            params["role"] = ["beta_renting"]
 
     user_id = f_app.user.add(params, retain_country=True)
     f_app.log.add("add", user_id=user_id)
@@ -603,6 +595,24 @@ def admin_user_get_logs(user, user_id, params):
     params["log_type"] = {"$in": f_app.common.user_action_types}
 
     return f_app.log.output(f_app.log.search(params, per_page=per_page))
+
+
+@f_api("/user/admin/invite", params=dict(
+    email=(str, True),
+))
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
+def user_admin_invite(user, params):
+    code = f_app.user.invitation.add({"role": "beta_renting"})
+    logger.debug("Generated invitation code:", code)
+    f_app.email.schedule(
+        target=params["email"],
+        subject="Invitation to YoungFunding",
+        text=template(
+            "views/static/emails/invitation.html",
+            code=code
+        ),
+        display="html",
+    )
 
 
 @f_api("/user/admin/<user_id>/set_role", params=dict(
