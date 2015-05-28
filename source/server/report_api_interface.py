@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 @f_api('/report/add', params=dict(
     name=("i18n", None, str),
     country='country',
+    city='geonames_gazetteer:city',
     zipcode_index=(str, True),
     ward=str,
     district=str,
@@ -94,10 +95,11 @@ def report_get(report_id):
 
 @f_api('/report/<report_id>/edit', params=dict(
     name=("i18n", None, str),
-    zipcode_index=(str, None),
+    zipcode_index=str,
     ward=str,
     district=str,
-    country=('country', None),
+    country='country',
+    city='geonames_gazetteer:city',
     description=("i18n", None, str),
     villa_price=("i18n:currency", None),
     villa_rental=("i18n:currency", None),
@@ -107,34 +109,34 @@ def report_get(report_id):
         name=("i18n", None, str),
         type="enum:school_type",
         grade="enum:school_grade",
-        ranking=(int, None),
+        ranking=int,
     )),
-    walk_score=(float, None),
+    walk_score=float,
     facilities=(list, None, dict(
         name=("i18n", None, str),
         type="enum:facilities",
         address=("i18n", None, str),
         distance=("i18n:distance", None, "meter, foot"),
     )),
-    transit_score=(float, None),
+    transit_score=float,
     railway_lines=(list, None, dict(
         name=(str, None),
         distance=("i18n:distance", None, "meter, foot"),
     )),
     bus_lines=(list, None, dict(
-        name=(str, None),
+        name=str,
         distance=("i18n:distance", None, "meter, foot"),
     )),
     car_rental_location=(list, None, dict(
-        place=(str, None),
+        place=str,
         distance=("i18n:distance", None, "meter, foot"),
     )),
     bicycle_rental_location=(list, None, dict(
-        place=(str, None),
+        place=str,
         distance=("i18n:distance", None, "meter, foot"),
     )),
-    population=(int, None),
-    population_description=(str, None),
+    population=int,
+    population_description=str,
     age_distribution=(dict(
     ), None),
     consumption_ability_distribution=(dict(
@@ -143,19 +145,19 @@ def report_get(report_id):
     planning_news=(list, None, dict(
         title=("i18n", None, str),
         summary=("i18n", None, str),
-        link=(str, None),
+        link=str,
     )),
     supplement_news=(list, None, dict(
         title=("i18n", None, str),
         summary=("i18n", None, str),
-        link=(str, None),
+        link=str,
     )),
     job_news=(list, None, dict(
         title=("i18n", None, str),
         summary=("i18n", None, str),
-        link=(str, None),
+        link=str,
     )),
-    image=(str, None),
+    image=str,
 ))
 def report_edit(report_id, params):
     return f_app.report.update_set(report_id, params)
@@ -172,6 +174,7 @@ def report_remove(report_id):
     status=str,
     zipcode_index=str,
     country='country',
+    city='geonames_gazetteer:city',
 ))
 def report_search(params):
     per_page = params.pop("per_page", 0)
