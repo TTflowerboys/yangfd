@@ -276,6 +276,104 @@ html,body,.page{
                     }
 
                 }
+                .emailWrap{
+                    @width: 600px;
+                    @height: 60px;
+                    @media @screen-lg{
+                        width: @width;
+                        height: @height;
+                        margin-top: @margin;
+                    }
+                    @media @screen-md{
+                        width: 0.8 * @width;
+                        height: 0.8 * @height;
+                        margin-top: 0.8 * @margin;
+                    }
+                    @media @screen-sm{
+                        width: 0.6 * @width;
+                        height: 0.6 * @height;
+                        margin-top: 0.6 * @margin;
+                    }
+                    @media @phone {
+                        text-align: center;
+                        width: 100%;
+                        height: 40px;
+                        margin: 40px 0 250px;
+                    }
+                    ::-webkit-input-placeholder { /* WebKit browsers */
+                        color:    #fff;
+                    }
+                    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+                        color:    #fff;
+                        opacity:  1;
+                    }
+                    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+                        color:    #fff;
+                        opacity:  1;
+                    }
+                    :-ms-input-placeholder { /* Internet Explorer 10+ */
+                        color:    #fff;
+                    }
+                    input{
+                        float: left;
+                        display: block;
+                        height: 100%;
+                        padding: 0 15px;
+                        color: #fff;
+                        border:1px solid #fff;
+                        background: none;
+                        border-radius:5px 0 0 5px;
+                        @media @screen-lg {
+                            font-size: 21px;
+                            width: 0.6 * @width;
+                        }
+                        @media @screen-md {
+                            font-size: 17px;
+                            width: 0.4 * @width;
+                        }
+                        @media @screen-sm {
+                            font-size: 14px;
+                            width: 0.3 * @width;
+                        }
+                        @media @phone {
+                            text-align: center;
+                            float: none;
+                            width: 200px;
+                            margin: 0 auto;
+                            border-radius: 5px 5px 0 0;
+                            font-size: 16px;
+                        }
+                    }
+                    button{
+                        float: left;
+                        border:none;
+                        height: 100%;
+                        display: inline-block;
+                        padding: 0 30px;
+                        background: #fff;
+                        color: #b72a34;
+                        border-radius: 0 5px 5px 0;
+                        @media @screen-lg {
+                            font-size: 28px;
+                        }
+                        @media @screen-md {
+                            font-size: 24px;
+                        }
+                        @media @screen-sm {
+                            font-size: 19px;
+                        }
+                        @media @phone {
+                            width: 200px;
+                            float: none;
+                            margin: 0 auto 40px;
+                            border-radius: 0 0 5px 5px;
+                            font-size: 18px;
+                        }
+                    }
+                }
+                .info{
+                    color: #fff;
+                }
             }
         }
 
