@@ -23,15 +23,24 @@ def subscription_get(user, subscription_id):
     return f_app.feedback.output([subscription_id])[0]
 
 
+@f_api('/subscription/<subscription_id>/edit', params=dict(
+    status=str,
+))
+@f_app.user.login.check(force=True, role=["admin", "jr_admin"])
+def subscription_edit(user, subscription_id, params):
+    return f_app.feedback.update_set(subscription_id, params)
+
+
 @f_api('/subscription/<subscription_id>/remove')
 @f_app.user.login.check(force=True, role=["admin", "jr_admin"])
 def subscription_remove(user, subscription_id):
-    f_app.feedback.remove(subscription_id)
+    return f_app.feedback.remove(subscription_id)
 
 
 @f_api('/subscription/search', params=dict(
     time=datetime,
     email=str,
+    status=str,
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin"])
 def subscription_search(user, params):
