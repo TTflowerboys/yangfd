@@ -301,7 +301,7 @@ class f_currant_user(f_user):
         User
         ==================================================================
     """
-    nested_attr = ("_hash", "admin", "email", "sms", "vip", "credit", "referral", "tag", "career", "education", "login", "favorite")
+    nested_attr = ("_hash", "admin", "email", "sms", "vip", "credit", "referral", "tag", "career", "education", "login", "invitation", "favorite")
 
     favorite_database = "favorites"
 
