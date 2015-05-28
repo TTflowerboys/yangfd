@@ -417,9 +417,8 @@
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
     if (ticket && ticket.identifier) {
-        if ([ticket.status isEqualToString:kTicketStatusDraft]) {
-            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:ticket];
-        }
+
+        [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:ticket];
         [[[CUTERentTickePublisher sharedInstance] editTicketExcludeImage:ticket] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
@@ -431,9 +430,7 @@
                 [SVProgressHUD showErrorWithCancellation];
             }
             else {
-                if ([ticket.status isEqualToString:kTicketStatusDraft]) {
-                    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:task.result];
-                }
+                [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:ticket];
             }
 
             return task;

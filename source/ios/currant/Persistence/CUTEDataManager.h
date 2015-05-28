@@ -28,7 +28,7 @@
 
 - (void)cleanUser;
 
-- (void)saveRentTicketToUnfinised:(CUTETicket *)ticket;
+- (void)checkStatusAndSaveRentTicketToUnfinised:(CUTETicket *)ticket;
 
 - (NSArray *)getAllUnfinishedRentTickets;
 

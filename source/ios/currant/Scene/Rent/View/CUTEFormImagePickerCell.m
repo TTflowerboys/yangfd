@@ -366,13 +366,13 @@
     [self update];
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 
-    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+    [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
     [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:nil] continueWithBlock:^id(BFTask *task) {
         if (task.error || task.exception || task.isCancelled) {
             [SVProgressHUD showErrorWithError:task.error];
         }
         else {
-            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:task.result];
+            [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:task.result];
         }
         return nil;
     }];
@@ -472,13 +472,13 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             [picker dismissViewControllerAnimated:YES completion:NULL];
             [SVProgressHUD dismiss];
 
-            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:self.ticket];
+            [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
             [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:nil]  continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
                 else {
-                    [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:task.result];
+                    [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:task.result];
                 }
                 return nil;
             }];

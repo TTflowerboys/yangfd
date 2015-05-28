@@ -143,6 +143,12 @@
 
 #pragma Rent Property
 
+- (void)checkStatusAndSaveRentTicketToUnfinised:(CUTETicket *)ticket {
+    if ([ticket.status isEqualToString:kTicketStatusDraft]) {
+        [self saveRentTicketToUnfinised:ticket];
+    }
+}
+
 - (void)saveRentTicketToUnfinised:(CUTETicket *)ticket {
     DebugLog(@"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,ticket.identifier);
 

@@ -365,7 +365,7 @@
 
 - (BFTask *)syncTickets {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/rent_ticket/search" parameters:@{@"status": kTicketStatusDraft, @"sort": @"last_modified_time,desc"} resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/rent_ticket/search" parameters:@{@"status": kTicketStatusDraft, @"sort": @"last_modified_time,desc", @"user_id":[CUTEDataManager sharedInstance].user.identifier} resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [tcs setError:task.error];
         }
@@ -389,11 +389,11 @@
                             if (!fequal(object.lastModifiedTime, localTicket.lastModifiedTime)) {
                                 //merge
                                 [object mergeValuesForKeysFromModel:localTicket];
-                                [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:object];
+                                [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:object];
                             }
                         }
                         else {
-                            [[CUTEDataManager sharedInstance] saveRentTicketToUnfinised:object];
+                            [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:object];
                         }
                     }
                 }];
