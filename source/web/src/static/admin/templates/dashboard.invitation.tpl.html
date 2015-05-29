@@ -1,0 +1,56 @@
+<div ui-view>
+    <div class="buttons">
+        <span class="btn-group">
+            <button class="btn" ui-sref=".create">
+                <span class="fa fa-plus-circle"></span>{%$root.i18n('创建邀请码')%}
+            </button>
+        </span>
+
+        <span class="btn-group pull-right">
+            <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+            <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+        </span>
+    </div>
+    <table class="table table-bordered table-striped table-condensed" style="margin-bottom:30px">
+        <colgroup>
+            <col style="width: 200px;">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>{%$root.i18n('邮箱')%}</th>
+                <th>{%$root.i18n('时间')%}</th>
+                <th>{%$root.i18n('状态')%}</th>
+                <th>{%$root.i18n('发送邀请码')%}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in list">
+                <td>
+                    <div ng-bind="item.email"></div>
+                </td>
+                <td>
+                    <div ng-bind="item.time"></div>
+                </td>
+                <td>
+                    <div ng-bind="item.status"></div>
+                </td>
+                <td style="text-align:center;">
+                    <span has-permission="admin,jr_admin" class="btn btn-success" ng-click="onSend(item,$index)" title="{%$root.i18n('发送')%}">
+                        <i class="fa fa-envelope-o"></i>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+    <div class="buttons">
+
+        <span class="btn-group pull-right" style="margin-right: 10px">
+            <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+            <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+        </span>
+
+    </div>
+
+</div>

@@ -17,8 +17,8 @@
 
 - (BFTask *)uploadImageWithAssetURLString:(NSString*)assetURLStr;
 
-- (BFTask *)getAssetsFromURLArray:(NSArray *)array;
+- (BFTask *)getAssetsOrNullsFromURLArray:(NSArray *)array;
 
-- (BFTask *)getAssetFromURL:(NSString *)object;
+- (BFTask *)getAssetOrNullFromURL:(NSString *)object;
 
 @end

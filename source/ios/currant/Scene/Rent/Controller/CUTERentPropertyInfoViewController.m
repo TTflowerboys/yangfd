@@ -259,6 +259,7 @@
         else {
 
             CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
+            controller.singleUseForReedit = YES;
             controller.ticket = self.ticket;
             CUTEProperty *property = self.ticket.property;
             CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];

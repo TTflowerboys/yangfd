@@ -15,4 +15,6 @@
 @property (strong, nonatomic) CUTETicket *ticket;
 
 
+
+
 @end

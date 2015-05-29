@@ -16,6 +16,11 @@
 #import "CUTENotificationKey.h"
 #import "CUTEAPIManager.h"
 #import "CUTEEnumManager.h"
+#import <Sequencer.h>
+#import "CUTERentPropertyInfoViewController.h"
+#import "CUTETracker.h"
+#import "CUTEAPIManager.h"
+#import <UIAlertView+Blocks.h>
 
 @interface CUTERentAddressEditViewController () {
     CUTECountry *_lastCountry;
@@ -28,6 +33,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    if (!self.singleUseForReedit) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"下一步") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -102,5 +111,117 @@
         self.updateAddressCompletion();
     }
 }
+
+- (BOOL)validateForm {
+    CUTEProperty *property = [self.ticket property];
+
+    if (!property.country) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请填写国家")];
+        return NO;
+    }
+    if (!property.city) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请填写城市")];
+        return NO;
+    }
+    if (!property.zipcode) {
+        [SVProgressHUD showErrorWithStatus:STR(@"请填写Postcode")];
+        return NO;
+    }
+
+    return YES;
+}
+
+- (void)createTicket {
+    CUTETicket *currentTicket = self.ticket;
+    if (currentTicket) {
+        [SVProgressHUD show];
+        Sequencer *sequencer = [Sequencer new];
+        if (IsNilNullOrEmpty(currentTicket.identifier)) {
+            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                [[[CUTERentTickePublisher sharedInstance] createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
+                    if (task.error || task.exception || task.isCancelled) {
+                        [SVProgressHUD showErrorWithError:task.error];
+                    }
+                    else {
+                        CUTETicket *newTicket = task.result;
+                        currentTicket.identifier = newTicket.identifier;
+                        currentTicket.property.identifier = newTicket.property.identifier;
+                        [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:newTicket];
+                        completion(currentTicket);
+                    }
+                    return nil;
+                }];
+            }];
+        }
+
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
+                if (!IsArrayNilOrEmpty(task.result)) {
+                    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+                    CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
+                    controller.ticket = self.ticket;
+                    CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
+                    form.propertyType = currentTicket.property.propertyType;
+                    form.bedroomCount = currentTicket.property.bedroomCount;
+                    form.livingroomCount = currentTicket.property.livingroomCount;
+                    form.bathroomCount = currentTicket.property.bathroomCount;
+                    [form setAllPropertyTypes:task.result];
+                    controller.formController.form = form;
+                    [self.navigationController pushViewController:controller animated:YES];
+                    [SVProgressHUD dismiss];
+                }
+                else {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+
+                return nil;
+            }];
+        }];
+
+        [sequencer run];
+    }
+
+}
+
+- (void)onContinueButtonPressed:(id)sender {
+    if (![self validateForm]) {
+        return;
+    }
+
+    [self createTicket];
+
+//    if (!IsNilNullOrEmpty(self.ticket.property.zipcode)  && ![self.lastPostcode isEqualToString:self.ticket.property.zipcode]) {
+//        [UIAlertView showWithTitle:STR(@"是否按新postcode重新定位再继续？") message:nil cancelButtonTitle:STR(@"不用") otherButtonTitles:@[STR(@"好的")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+//            if (buttonIndex == alertView.cancelButtonIndex) {
+//                [self createTicket];
+//            }
+//            else {
+//                [SVProgressHUD show];
+//                NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
+//                [[[CUTEAPIManager sharedInstance] POST:STR(@"/api/1/postcode/search") parameters:@{@"country": self.ticket.property.country.code, @"postcode_index": postCodeIndex} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+//                    if (task.error) {
+//                        [SVProgressHUD showErrorWithError:task.error];
+//                    }
+//                    else if (task.exception) {
+//                        [SVProgressHUD showErrorWithException:task.exception];
+//                    }
+//                    else if (task.isCancelled) {
+//                        [SVProgressHUD showErrorWithCancellation];
+//                    }
+//                    else {
+//
+//                        self.lastPostcode = self.ticket.property.zipcode;
+//                    }
+//                    
+//                    return task;
+//                }];
+//            }
+//        }];
+//    }
+//    else {
+//        [self createTicket];
+//    }
+}
+
 
 @end
