@@ -133,6 +133,11 @@ def rent_ticket_get(rent_ticket_id, user):
 def wechat_poster(rent_ticket_id):
     title = _('房东急租，快来围观')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
+
+    report = None
+    if rent_ticket["property"].get('report_id'):
+        report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket["property"].get('report_id')))
+
     # if rent_ticket["status"] not in ["draft", "to rent"]:
     # assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 
@@ -145,7 +150,7 @@ def wechat_poster(rent_ticket_id):
     keywords = currant_util.get_country_name_by_code(rent_ticket.get('country', {}).get('code', '')) + ',' + rent_ticket.get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
-    return currant_util.common_template("wechat_poster", rent=rent_ticket, title=title, description=description, keywords=keywords, weixin=weixin)
+    return currant_util.common_template("wechat_poster", rent=rent_ticket, title=title, description=description, keywords=keywords, weixin=weixin, report=report)
 
 
 @f_get('/wechat-poster/<rent_ticket_id:re:[0-9a-fA-F]{24}>/image')

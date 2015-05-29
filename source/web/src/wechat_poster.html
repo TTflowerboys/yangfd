@@ -374,10 +374,12 @@
                     </div>
                 </div>
                 %end
+                % if report:
                 <div class="swiper-slide swiper-slide-bg commen " style="">
                     <div class="page pageRegion">
-                        <h2 class="animate">{{_('街区报告：')}}<span>{{rent['property'].get('street','')}}</span></h2>
+                        <h2 class="animate">{{_('街区报告：')}}<span>{{report.get('name','')}}</span></h2>
                         <p class="description animate">
+                            {{report.get('description','')}}
                             <!--todo-->
                             <!--伦敦最具潜力区域之一<br>-->
                             <!--全球一流科技，金融机构环绕<br>-->
@@ -387,7 +389,6 @@
                             <!--圣凯瑟琳岛<br>-->
                             <!--使得阿尔德盖特成为一个<br>-->
                             <!--独一无二的地区<br>-->
-                            暂无内容
                         </p>
                         <a class="btn animate viewMoreBtn" id="">{{_('查看更多')}}</a>
                         <p class="tag animate">
@@ -400,6 +401,7 @@
                         <div class="scrollUp">{{_('继续')}}</div>
                     </div>
                 </div>
+                % end
                 <div class="swiper-slide swiper-slide-bg commen hideOutsideWechat" style="">
                     <div class="page pageCoverBack">
                         <div class="topTitleNav animate">
