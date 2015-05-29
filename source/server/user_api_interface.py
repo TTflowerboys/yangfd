@@ -602,7 +602,7 @@ def admin_user_get_logs(user, user_id, params):
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def user_admin_invite(user, params):
-    code = f_app.user.invitation.add({"role": "beta_renting", "email": params["email"]})
+    code = f_app.user.invitation.add({"role": "beta_renting"})  # , "email": params["email"]})
     logger.debug("Generated invitation code:", code)
     f_app.email.schedule(
         target=params["email"],
