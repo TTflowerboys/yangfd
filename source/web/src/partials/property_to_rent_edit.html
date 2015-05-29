@@ -52,15 +52,9 @@
                                         </div>
                                         %end
                                     %else:
-                                        %if (index==0):
-                                        <div class="property_type selected" data-id="{{property_type.get('id')}}">
-                                            {{property_type.get('value')}}
-                                        </div>
-                                        %else:
                                         <div class="property_type" data-id="{{property_type.get('id')}}">
                                             {{property_type.get('value')}}
                                         </div>
-                                        %end
                                     %end
                                 %end
                             %end

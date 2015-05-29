@@ -31,7 +31,9 @@
             }
         })
     })
-
+    if($('#propertyType .selected').length === 0) {
+        $('#propertyType div').eq(0).addClass('selected')
+    }
     //一个简单的通过hash控制页面类容展示的机制
     function HashRoute(){
         var _ = this
@@ -144,15 +146,16 @@
     })
 
     //根据用户选择的单间或者整租类型来决定显示房间面积还是房屋面积
-    function showRoomOrHouse(id){
-        if(id === '552396b54d159c0feb6c640c'){
+    function showRoomOrHouse(index){
+        if(index === 0){
             $('[data-show=singleRoom]').show().siblings().hide()
-        }else if(id === '552396c24d159c0feb6c640e'){
+        }else if(index === 1){
             $('[data-show=entireHouse]').show().siblings().hide()
         }
     }
 
     $('#rentalType div').click(function () {
+        var index = $(this).index()
         var id = $(this).data('id')
         $.each($('#rentalType div'), function (i, val) {
             if ($(this).data('id') === id) {
@@ -167,7 +170,7 @@
                 }
             }
         })
-        showRoomOrHouse(id)
+        showRoomOrHouse(index)
     })
 
     /*postcode 和地址部分*/
@@ -550,8 +553,8 @@
         if($('#house_name').val() !== ''){
             propertyData.house_name = JSON.stringify({'zh_Hans_CN': $('#house_name').val()})
         }
-        if($('#rentalType .selected').text().trim() === i18n('整租') && getSpace() !== false){
-            propertyData.building_area = getSpace()
+        if($('#rentalType .selected').index() === 1 && getSpace() !== false){
+            propertyData.space = getSpace()
         }
         if($('#latitude').val() !== '') {
             propertyData.latitude = $('#latitude').val()
@@ -796,7 +799,7 @@
         }else {
             $('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
         }
-        showRoomOrHouse($('#rentalType .property_type.selected').data('id'))
+        showRoomOrHouse($('#rentalType .property_type.selected').index())
         initInfoHeight()
         $('#fileuploader').uploadFile({
             url: '/api/1/upload_image',
