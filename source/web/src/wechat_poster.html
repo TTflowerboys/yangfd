@@ -320,15 +320,19 @@
                             <h2>{{_('地址')}}</h2>
                             <p>
                                 {{rent['property'].get('floor','')}}
-                                % if 'house_name' in rent.get('property',{}) and 'floor' in rent.get('property',{}):
+                                % if rent.get('property',{}).get('house_name') and rent.get('property',{}).get('floor'):
                                 -
                                 % end
                                 {{rent['property'].get('house_name','')}}
-                                % if 'house_name' in rent.get('property',{}) or 'floor' in rent.get('property',{}):
+                                % if rent.get('property',{}).get('house_name') or rent.get('property',{}).get('floor'):
                                 ,
                                 %end
+                                % if rent['property'].get('community',''):
                                 {{rent['property'].get('community','')}},
+                                % end
+                                % if rent['property'].get('street',''):
                                 {{rent['property'].get('street','')}},
+                                % end
                                 {{rent['property'].get('city',{}).get('name','')}},
                                 {{rent['property'].get('zipcode','')}}
                             </p>
