@@ -480,7 +480,7 @@
     NSArray *editedAssets = [[self ticket].property.realityImages select:^BOOL(NSString *asset) {
         return asset.attachment == nil || [asset.attachment boolValue];
     }];
-    [self updateImages:editedAssets];
+    self.ticket.property.realityImages = [NSMutableArray arrayWithArray:IsArrayNilOrEmpty(editedAssets)? @[]: editedAssets];
     [self update];
     [[self tableViewController] dismissViewControllerAnimated:YES completion:nil];
 }
