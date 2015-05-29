@@ -25,7 +25,7 @@
             params.country = $scope.selected.country
             params.city = $scope.selected.city
             params.rent_type = $scope.selected.rent_type
-            params.mtime = undefined
+            params.last_modified_time = undefined
         }
 
         $scope.searchRent = function () {

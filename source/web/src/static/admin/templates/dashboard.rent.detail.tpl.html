@@ -1,0 +1,265 @@
+<div ui-view>
+    <div class="buttons">
+
+        <span class="btn-group">
+            <button class="btn btnGoBack" ng-click="onBackClick()">
+                <span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+            </button>
+        </span>
+        <div class="btn-group form-inline pull-right">
+            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+        </div>
+
+    </div>
+    <form>
+        <div ng-controller="ctrlHasPermission">
+            <tabset justified="true" style="margin: 16px 0;">
+                <tab heading="{%$root.i18n('房产信息')%}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">{%$root.i18n('概览')%}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group  col-sm-6"  ng-if="item.title">
+                                            <label class="control-label">{%$root.i18n('名称')%}</label>
+
+                                            <div class="controls">
+                                                <div ng-bind="item.title"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.property_type">
+                                            <label class="control-label">{%$root.i18n('房产类型')%}</label>
+                                            <div class="controls">
+                                                <div show-i18n="item.property.property_type.value"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-12" ng-if="item.property.description">
+                                            <label class="control-label">{%$root.i18n('详情')%}</label>
+
+                                            <div class="controls">
+                                                <div show-i18n="item.property.description"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">{%$root.i18n('房屋信息')%}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group  col-sm-6" ng-if="item.property.bedroom_count !== undefined">
+                                            <label class="control-label">{%$root.i18n('居室数')%}</label>
+
+                                            <div class="controls">
+                                                <span class="input-xlarge uneditable-input">{%item.property.bedroom_count%}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.living_room_count !== undefined">
+                                            <label class="control-label">{%$root.i18n('客厅数')%}</label>
+
+                                            <div class="controls">
+                                                <span class="input-xlarge uneditable-input">{%item.property.living_room_count%}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.bathroom_count !== undefined">
+                                            <label class="control-label">{%$root.i18n('卫生间数')%}</label>
+
+                                            <div class="controls">
+                                                <span class="input-xlarge uneditable-input">{%item.property.bathroom_count%}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.kitchen_count !== undefined">
+                                            <label class="control-label">{%$root.i18n('厨房数')%}</label>
+
+                                            <div class="controls">
+                                                <span class="input-xlarge uneditable-input">{%item.property.kitchen_count%}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.facing_direction">
+                                            <label class="control-label">{%$root.i18n('朝向')%}</label>
+
+                                            <div class="controls">
+                                                <div show-i18n="item.property.facing_direction.value"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.space">
+                                            <label class="control-label">{%$root.i18n('面积')%}</label>
+
+                                            <div class="controls">
+                                                <span class="input-xlarge uneditable-input">{%item.property.space.value | number : 2%} {%item.property.space.unit %}</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">{%$root.i18n('位置信息')%}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group  col-sm-6" ng-if="item.property.country">
+                                            <label class="control-label">{%$root.i18n('国家')%}</label>
+
+                                            <div class="controls">
+                                                <div display-country-name="item.property.country.code"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.city">
+                                            <label class="control-label">{%$root.i18n('城市')%}</label>
+
+                                            <div class="controls">
+                                                <div><span>{% item.property.city.name %}</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.street">
+                                            <label class="control-label">{%$root.i18n('街区')%}</label>
+
+                                            <div class="controls">
+                                                <div show-i18n="item.property.street"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.zipcode">
+                                            <label class="control-label">{%$root.i18n('邮编')%}</label>
+
+                                            <div class="controls">
+                                                <span class="input-xlarge uneditable-input">{%item.property.zipcode%}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.zipcode_index">
+                                            <label class="control-label">{%$root.i18n('Postal Area')%}</label>
+
+                                            <div class="controls">
+                                                <span class="input-xlarge uneditable-input">{%item.property.zipcode_index%}</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-12"  ng-if="item.property.address">
+                                            <label class="control-label">{%$root.i18n('地址详情')%}</label>
+
+                                            <div class="controls">
+                                                <div show-i18n="item.property.address"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.real_address">
+                                            <label class="control-label">{%$root.i18n('真实地址')%}</label>
+
+                                            <div class="controls">
+                                                <div show-i18n="item.property.real_address"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-12" ng-if="item.property.latitude||item.property.longitude">
+                                            <label class="control-label">{%$root.i18n('地图位置')%}</label>
+
+                                            <div class="form-inline">
+
+                                                <span class="input-xlarge uneditable-input">{%$root.i18n('维度:')%}</span>
+                                                <span class="input-xlarge uneditable-input">{%item.property.latitude%}</span>
+                                                <span class="input-xlarge uneditable-input">{%$root.i18n('经度:')%}</span>
+                                                <span class="input-xlarge uneditable-input">{%item.property.longitude%}</span>
+                                                <span class="input-xlarge uneditable-input">
+                                                    <a ng-href="http://bing.com/maps/default.aspx?cp={%item.property.latitude%}~{%item.property.longitude%}&lvl=15&style=r&sp=point.{%item.property.latitude%}_{%item.property.longitude%}_House%20position">{%$root.i18n('[查看Bing地图]')%}</a>
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default" ng-if="item.property.indoor_facility.length || item.property.community_facility.length">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">{%$root.i18n('设施')%}</h3>
+                                    </div>
+                                    <style>
+                                        .label{display: inline-block;margin: 5px;}
+                                    </style>
+                                    <ul class="list-group">
+                                        <li class="list-group-item" ng-if="item.property.indoor_facility.length">
+                                            {%$root.i18n('居家设施：')%}
+                                            <span class="label label-default" ng-repeat="f in item.property.indoor_facility" show-i18n="f.value"></span>
+                                        </li>
+                                        <li class="list-group-item" ng-if="item.property.community_facility.length">
+                                            {%$root.i18n('社区设施：')%}
+                                            <span class="label label-default" ng-repeat="f in item.property.community_facility" show-i18n="f.value"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="panel panel-default" ng-if="item.property.highlight && item.property.highlight[userLanguage.value].length > 0">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">{%$root.i18n('亮点')%}</h3>
+                                    </div>
+                                    <ul class="list-group" ng-repeat="point in item.property.highlight[userLanguage.value] track by $index">
+                                        <li class="list-group-item">{%point%}</li>
+                                    </ul>
+                                </div>
+                                <div class="panel panel-default" ng-if="item.property.floor_plan">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">{%$root.i18n('户型图')%}</h3>
+                                    </div>
+                                    <div class="pannel-body">
+                                        <div class="controls">
+                                            <img class="img-thumbnail" ng-repeat="img in item.property.floor_plan[userLanguage.value]"
+                                                ng-src="{%img%} ">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default" ng-if="item.property.reality_images">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">{%$root.i18n('实景图')%}</h3>
+                                    </div>
+                                    <div class="pannel-body">
+                                        <div class="controls">
+                                            <img class="img-thumbnail" ng-repeat="img in item.property.reality_images[userLanguage.value]"
+                                                ng-src="{%img%} ">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{%$root.i18n('出租信息')%}">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{%$root.i18n('出租信息')%}</h3>
+                                </div>
+                                <ul class="list-group">
+                                    <li class="list-group-item clearfix">
+                                        <div class="col-sm-6">
+                                            {%$root.i18n('出租类型:')%}
+                                            <span class="input-xlarge uneditable-input" ng-bind="item.rent_type.value[userLanguage.value]"></span>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            {%$root.i18n('面积:')%}
+                                            <span class="input-xlarge uneditable-input">{%item.property.space.value | number : 2%} {%item.property.space.unit %}</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item clearfix">
+                                        <div class="col-sm-6">
+                                            {%$root.i18n('租金:')%}
+                                            <span class="input-xlarge uneditable-input" ng-bind="item.price.value | currency : currencyTypes[item.price.unit] : 2"></span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {%$root.i18n('支付方式:')%}
+                                            <span class="input-xlarge uneditable-input" ng-bind="item.deposit_type.value[userLanguage.value]"></span>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+
+        </div>
+    </form>
+</div>

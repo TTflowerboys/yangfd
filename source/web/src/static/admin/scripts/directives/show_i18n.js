@@ -11,7 +11,7 @@ angular.module('app')
             scope: {
                 model: '=showI18n'
             },
-            link: function (scope) {
+            link: function (scope, elem) {
                 if (scope.model) {
                     scope.userLanguage = $rootScope.userLanguage.value
                     for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
