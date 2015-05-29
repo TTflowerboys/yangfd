@@ -224,36 +224,55 @@
                     </div>
                 </tab>
                 <tab heading="{%$root.i18n('出租信息')%}">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">{%$root.i18n('出租信息')%}</h3>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">{%$root.i18n('出租信息')%}</h3>
+                                    </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item clearfix">
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                {%$root.i18n('出租类型:')%}
+                                                <span class="input-xlarge uneditable-input" ng-bind="item.rent_type.value[userLanguage.value]"></span>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                {%$root.i18n('面积:')%}
+                                                <span class="input-xlarge uneditable-input">{%item.property.space.value | number : 2%} {%item.property.space.unit %}</span>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item clearfix">
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                {%$root.i18n('租金(每周):')%}
+                                                <span class="input-xlarge uneditable-input" ng-bind="item.price.value | currency : currencyTypes[item.price.unit] : 2"></span>
+                                                <span class="input-xlarge uneditable-input" ng-if="item.bill_covered">{%$root.i18n('(包Bill)')%}</span>
+
+                                            </div>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                {%$root.i18n('支付方式:')%}
+                                                <span class="input-xlarge uneditable-input" ng-bind="item.deposit_type.value[userLanguage.value]"></span>
+                                            </div>
+
+                                        </li>
+                                        <li class="list-group-item clearfix">
+
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                {%$root.i18n('租期')%}
+                                                <!-- todo -->
+                                            </div>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                {%$root.i18n('开始时间:')%}
+                                                <span class="input-xlarge uneditable-input" ng-bind="item.rent_available_time * 1000 | date : 'yyyy-MM-dd H:mm'"></span>
+                                            </div>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                {%$root.i18n('结束时间:')%}
+                                                <!-- todo -->
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <ul class="list-group">
-                                    <li class="list-group-item clearfix">
-                                        <div class="col-sm-6">
-                                            {%$root.i18n('出租类型:')%}
-                                            <span class="input-xlarge uneditable-input" ng-bind="item.rent_type.value[userLanguage.value]"></span>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            {%$root.i18n('面积:')%}
-                                            <span class="input-xlarge uneditable-input">{%item.property.space.value | number : 2%} {%item.property.space.unit %}</span>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item clearfix">
-                                        <div class="col-sm-6">
-                                            {%$root.i18n('租金:')%}
-                                            <span class="input-xlarge uneditable-input" ng-bind="item.price.value | currency : currencyTypes[item.price.unit] : 2"></span>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            {%$root.i18n('支付方式:')%}
-                                            <span class="input-xlarge uneditable-input" ng-bind="item.deposit_type.value[userLanguage.value]"></span>
-                                        </div>
-
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </div>

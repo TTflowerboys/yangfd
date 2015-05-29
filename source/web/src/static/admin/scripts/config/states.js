@@ -322,16 +322,7 @@ angular.module('app')
                 url: '/:id',
                 templateUrl: '/static/admin/templates/dashboard.rent.detail.tpl.html',
                 controller: 'ctrlRentDetail',
-                resolve: {
-                    item: function (rentApi, $stateParams, $q) {
-                        var defer = $q.defer()
-                        rentApi.getOne($stateParams.id, {errorMessage: true})
-                            .success(function (data) {
-                                defer.resolve(data.val)
-                            })
-                        return defer.promise
-                    }
-                }
+                resolve: rentResolve
             })
 
         /**
