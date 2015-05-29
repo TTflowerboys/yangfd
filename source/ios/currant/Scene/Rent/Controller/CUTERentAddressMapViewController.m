@@ -189,6 +189,7 @@
             if (countryIndex != NSNotFound) {
                 [form setCountry:[countries objectAtIndex:countryIndex]];
                 _rentAddressEditViewController.lastCountry = form.country;
+                _rentAddressEditViewController.lastPostcode = property.zipcode;
                 [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
 
                     CUTECountry *country = [countries objectAtIndex:countryIndex];
