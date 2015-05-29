@@ -112,7 +112,7 @@
     if (imageURL && [NSURL URLWithString:imageURL].isAssetURL) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [SVProgressHUD show];
-            [[[CUTEImageUploader sharedInstance] getAssetFromURL:imageURL] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEImageUploader sharedInstance] getAssetOrNullFromURL:imageURL] continueWithBlock:^id(BFTask *task) {
 
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
@@ -124,17 +124,22 @@
                     [SVProgressHUD showErrorWithCancellation];
                 }
                 else {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
-                        UIImage *image = [UIImage imageWithCGImage:[task.result thumbnail]];
-                        if (!image) {
-                            image = [UIImage appIcon];
-                        }
-                        image = [image resizedImage:THNUMBNAIL_SIZE interpolationQuality:kCGInterpolationDefault];
-                        dispatch_async(dispatch_get_main_queue(), ^(void) {
-                            completion(UIImagePNGRepresentation(image));
-                            [SVProgressHUD dismiss];
+                    if (IsNilOrNull(task.result)) {
+                        [SVProgressHUD showErrorWithStatus:STR(@"图片读取失败")];
+                    }
+                    else {
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+                            UIImage *image = [UIImage imageWithCGImage:[task.result thumbnail]];
+                            if (!image) {
+                                image = [UIImage appIcon];
+                            }
+                            image = [image resizedImage:THNUMBNAIL_SIZE interpolationQuality:kCGInterpolationDefault];
+                            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                completion(UIImagePNGRepresentation(image));
+                                [SVProgressHUD dismiss];
+                            });
                         });
-                    });
+                    }
                 }
                 return task;
             }];

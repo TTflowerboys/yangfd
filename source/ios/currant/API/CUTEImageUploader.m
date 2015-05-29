@@ -188,14 +188,14 @@
     return task;
 }
 
-- (BFTask *)getAssetsFromURLArray:(NSArray *)array {
+- (BFTask *)getAssetsOrNullsFromURLArray:(NSArray *)array {
     return [BFTask taskForCompletionOfAllTasksWithResults:[array map:^id(NSString *object) {
-        return [self getAssetFromURL:object];
+        return [self getAssetOrNullFromURL:object];
         }
     ]];
 }
 
-- (BFTask *)getAssetFromURL:(NSString *)object {
+- (BFTask *)getAssetOrNullFromURL:(NSString *)object {
     NSURL *url = [NSURL URLWithString:object];
     if (![url isAssetURL]) {
         NSString *assetString = [[CUTEDataManager sharedInstance] getAssetURLStringForImageURLString:object];
@@ -219,7 +219,7 @@
 
     }
     else {
-        return [BFTask taskWithError:[NSError errorWithDomain:NSStringFromClass([self class]) code:0 userInfo:@{@"bad url": object}]];
+        return [BFTask taskWithResult:[NSNull null]];
     }
 }
 
