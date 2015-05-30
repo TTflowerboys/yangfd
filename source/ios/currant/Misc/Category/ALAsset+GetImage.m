@@ -43,6 +43,8 @@ static void releaseAssetCallback(void *info) {
 
     ALAssetRepresentation *rep = [self defaultRepresentation];
 
+
+
     CGDataProviderDirectCallbacks callbacks = {
         .version = 0,
         .getBytePointer = NULL,
@@ -63,10 +65,10 @@ static void releaseAssetCallback(void *info) {
     CFRelease(provider);
 
     if (!imageRef) {
-        return nil;
+        return [[UIImage imageWithCGImage:[self thumbnail]] fixJPEGRotation];
     }
     
-    UIImage *toReturn = [UIImage imageWithCGImage:imageRef];
+    UIImage *toReturn = [[UIImage imageWithCGImage:imageRef] fixJPEGRotation];
     
     CFRelease(imageRef);
     
@@ -76,7 +78,7 @@ static void releaseAssetCallback(void *info) {
 - (UIImage *)getImage {
     UIImage *originalImage = nil;
     if (self) {
-        originalImage = [UIImage imageWithCGImage:[[self defaultRepresentation] fullScreenImage]];
+        originalImage = [UIImage imageWithCGImage:[[self defaultRepresentation] fullResolutionImage]];
         if (originalImage == nil) {
             originalImage = [UIImage imageWithCGImage:[self thumbnail]];
         }

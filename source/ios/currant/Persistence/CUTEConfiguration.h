@@ -14,6 +14,8 @@
 
 + (NSURL *)hostURL;
 
++ (NSURL *)uploadHostURL;
+
 + (NSString *)yangfdScheme;
 
 + (NSString *)ukServicePhone;

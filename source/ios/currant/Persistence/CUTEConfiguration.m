@@ -23,6 +23,10 @@ static NSString *host = nil;
     return [NSURL URLWithString:CONCAT(@"http://", [self host])];
 }
 
++ (NSURL *)uploadHostURL {
+    return [NSURL URLWithString:CONCAT(@"http://", [self host], @":8286")];
+}
+
 + (NSString *)yangfdScheme {
     return @"yangfd";
 }

@@ -101,29 +101,17 @@
     return request;
 }
 
-#define KMAX_IMAGE_WIDTH 800
-#define KMAX_IMAGE_HEIGHT 533
+#define MAX_IMAGE_PIXEL 2048
 
 -  (BFTask *)getImageDataWithAssetURLString:(NSString *)assetURLStr {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
         [[AssetsLibraryProvider sharedInstance].assetsLibrary assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
             dispatch_async(dispatch_get_main_queue(), ^(void) {
-                UIImage *originalImage = [asset getImage];
-                if (originalImage) {
-                    CGSize imageSize = originalImage.size;
-                    if (imageSize.width > KMAX_IMAGE_WIDTH) {
-                        imageSize.height = imageSize.height * (KMAX_IMAGE_WIDTH / imageSize.width);
-                        imageSize.width = KMAX_IMAGE_WIDTH;
-                    }
-                    if (imageSize.height > KMAX_IMAGE_HEIGHT) {
-                        imageSize.width = imageSize.width * (KMAX_IMAGE_HEIGHT / imageSize.height);
-                        imageSize.height = KMAX_IMAGE_HEIGHT;
-                    }
-                    imageSize = CGSizeMake((int)imageSize.width, (int)imageSize.height);
-                    UIImage *image = [originalImage resizedImage:imageSize interpolationQuality:kCGInterpolationDefault];
+                UIImage *image = [asset thumbnailForWithMaxPixelSize:MAX_IMAGE_PIXEL];
+                if (image) {
                     //TODO dynamic choose compressionQuality base image file size
-                    NSData *imageData = UIImageJPEGRepresentation(image, 0.75);
+                    NSData *imageData = UIImageJPEGRepresentation(image, 1);
                     [tcs setResult:imageData];
                 }
                 else {
@@ -159,7 +147,7 @@
             NSData *imageData = task.result;
             BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
             if (imageData) {
-                [_imageUploader.operationQueue addOperation: [_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration hostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [_imageUploader.operationQueue addOperation: [_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration uploadHostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSDictionary *responseDic = (NSDictionary *)responseObject;
                     if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
                         NSString *urlStr = responseDic[@"val"][@"url"];
