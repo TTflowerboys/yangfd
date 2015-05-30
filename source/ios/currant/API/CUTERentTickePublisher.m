@@ -383,8 +383,26 @@
                 [remoteTickets each:^(CUTETicket *object) {
                     if ([object isKindOfClass:[CUTETicket class]] && object.property) {
                         CUTETicket *localTicket = [localTickets find:^BOOL(CUTETicket *localObject) {
-                            return localObject.identifier == object.identifier;
+                            return [localObject.identifier isEqualToString:object.identifier];
                         }];
+
+                        //if have image upload just merge it to new object
+                        if (localTicket) {
+                            NSArray *images = [[[localTicket.property.realityImages map:^id(NSString *object) {
+                                return [NSURL URLWithString:object];
+                            }] select:^BOOL(NSURL *object) {
+                                return [object isAssetURL];
+                            }] map:^id(NSURL *object) {
+                                return [object absoluteString];
+                            }];
+                            if (!IsArrayNilOrEmpty(images) && !object.property.realityImages) {
+                                NSMutableArray *array = [NSMutableArray array];
+                                [array addObjectsFromArray:object.property.realityImages];
+                                [array addObjectsFromArray:images];
+                                object.property.realityImages = array;
+                            }
+                        }
+
                         if (localTicket) {
                             if (!fequal(object.lastModifiedTime, localTicket.lastModifiedTime)) {
                                 //merge
