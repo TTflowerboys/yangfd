@@ -20,13 +20,13 @@ $(function () {
 
     }
 
-    function getRecaptchaChallenge() {
-        return $('form[name=register]').find('input[name=challenge]').val()
-    }
+    // function getRecaptchaChallenge() {
+    //     return $('form[name=register]').find('input[name=challenge]').val()
+    // }
 
-    function getRecaptchaResponse() {
-        return $('form[name=register]').find('input[name=code]').val()
-    }
+    // function getRecaptchaResponse() {
+    //     return $('form[name=register]').find('input[name=code]').val()
+    // }
 
 
     showRecaptcha('captcha_div')
@@ -61,8 +61,8 @@ $(function () {
 
         var params = $(this).serializeObject()
         params.password = Base64.encode(params.password)
-        params.challenge = getRecaptchaChallenge()
-        params.solution = getRecaptchaResponse()
+        //params.challenge = getRecaptchaChallenge()
+        //params.solution = getRecaptchaResponse()
         params.is_vip = true
         $.betterPost('/api/1/user/register', params)
             .done(function () {

@@ -23,13 +23,13 @@ $(function () {
 
     }
 
-    function getRecaptchaChallenge() {
-        return $('form[name=register]').find('input[name=challenge]').val()
-    }
+    //function  getRecaptchaChallenge() {
+    //     return $('form[name=register]').find('input[name=challenge]').val()
+    // }
 
-    function getRecaptchaResponse() {
-        return $('form[name=register]').find('input[name=code]').val()
-    }
+    // function getRecaptchaResponse() {
+    //     return $('form[name=register]').find('input[name=code]').val()
+    // }
 
 
     showRecaptcha('captcha_div')
@@ -66,8 +66,8 @@ $(function () {
             delete params.invitation_code
         }
         params.password = Base64.encode(params.password)
-        params.challenge = getRecaptchaChallenge()
-        params.solution = getRecaptchaResponse()
+//        params.challenge = getRecaptchaChallenge()
+  //      params.solution = getRecaptchaResponse()
         $.betterPost('/api/1/user/register', params)
             .done(function (result) {
                 ga('send', 'event', 'signup', 'result', 'signup-success')
