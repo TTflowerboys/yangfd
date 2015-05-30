@@ -61,6 +61,10 @@ $(function () {
         }
 
         var params = $(this).serializeObject()
+
+        if(params.invitation_code == ''){
+            delete params.invitation_code
+        }
         params.password = Base64.encode(params.password)
         params.challenge = getRecaptchaChallenge()
         params.solution = getRecaptchaResponse()
