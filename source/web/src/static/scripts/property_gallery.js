@@ -1,27 +1,15 @@
 (function () {
-    function updateResponsiveSlides($slide, auto) {
-        $slide.responsiveSlides({
-            pager: true,
-            auto: auto,
-            nav: true,
-            pause: true,
-            prevText: '<',
-            nextText: '>',
-            pauseControls: true,
-        })
-    }
+    $('.pictures .swiper-container').each(function (index, item) {
 
-    updateResponsiveSlides($('.pictures .rslides'), true)
+    })
 
-    $('.rslides_wrapper .leftPressArea').click(function (event) {
-        $(event.target).parent().find('a.prev').click()
-
+    $('.swiper-container .leftPressArea').click(function (event) {
+        window.swiperInstance[$(event.target).parents('.swiper-container').attr('data-swiper')].slidePrev()
         ga('send', 'event', 'property_detail', 'click', 'prev-image',$(event.target).parent().parent().attr('data-tab-name'))
     })
 
-    $('.rslides_wrapper .rightPressArea').click(function (event) {
-        $(event.target).parent().find('a.next').click()
-
+    $('.swiper-container .rightPressArea').click(function (event) {
+        window.swiperInstance[$(event.target).parents('.swiper-container').attr('data-swiper')].slideNext()
         ga('send', 'event', 'property_detail', 'click', 'next-image',$(event.target).parent().parent().attr('data-tab-name'))
     })
 
@@ -78,21 +66,38 @@
         }else{
             pauseVideo()
             var $tabContent = $('.pictures [data-tab-name=' + tabName + ']')
-            var $slides = $tabContent.find('.rslides')
+            var index = $tabContent.index()
+            var $container = $tabContent.find('.swiper-container')
+            var $slides = $tabContent.find('.swiper-wrapper')
             window.initSlidesImages($slides)
             $('.content .pictures .labels').show()
+            if(!$container.attr('data-swiper')){
+                initSwiper($container, index)
+            }
         }
 
         ga('send', 'event', 'property_detail', 'click', 'change-tab',tabName)
     });
-
+    function initSwiper ($container, index) {
+        var className = 'swiper-container' + index
+        window.swiperInstance = window.swiperInstance || {}
+        $container.addClass(className).attr('data-swiper', className)
+        window.swiperInstance[className] = new window.Swiper('.' + className, {
+            pagination: '.swiper-pagination',
+            paginationClickable: '.swiper-pagination',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            autoplay: 4000
+        })
+    }
+    initSwiper($('.swiper-container').eq(0), 0)
     //点击相册查看大图的功能
-    $('.rslides').each(function (index, elem) {
+    $('.swiper-wrapper').each(function (index, elem) {
         function initPhotoSwipe() {
             $(elem).find('li').css('cursor', 'zoom-in')
             $(elem).attr('data-pswp-uid', index)
                 .delegate('li', 'click', function(e){
-                    var $gallery = $(this).parent('.rslides')
+                    var $gallery = $(this).parent('.swiper-wrapper')
                     openPhotoSwipe($(this).index(), $gallery)
                 })
 
