@@ -211,4 +211,28 @@
     }
 }
 
+- (BFTask *)getAssetURLsOrNullsFromURLArray:(NSArray *)array {
+    return [BFTask taskForCompletionOfAllTasksWithResults:[array map:^id(NSString *object) {
+        return [self getAssetURLOrNullFromURL:object];
+    }]];
+}
+
+- (BFTask *)getAssetURLOrNullFromURL:(NSString *)object {
+    NSURL *url = [NSURL URLWithString:object];
+    if (![url isAssetURL]) {
+        NSString *assetString = [[CUTEDataManager sharedInstance] getAssetURLStringForImageURLString:object];
+        url = [NSURL URLWithString:assetString];
+    }
+
+    if ([url isAssetURL]) {
+        return [BFTask taskWithResult:url];
+    }
+    else {
+        return [BFTask taskWithResult:[NSNull null]];
+    }
+}
+
+
+
+
 @end

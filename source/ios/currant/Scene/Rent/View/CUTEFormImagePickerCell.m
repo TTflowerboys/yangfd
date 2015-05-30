@@ -39,8 +39,6 @@
     UIButton *_addButton;
 
     CTAssetsPickerController *_assetsPickerController;
-
-    NSArray *_urlHasAssetOrNullArrray;
 }
 @end
 
@@ -87,32 +85,39 @@
 
 }
 
-- (void)updateImagesFromAssets:(NSArray *)assets {
-    NSArray *assetURLs  = [assets map:^id(ALAsset *object) {
-        return [[object valueForProperty:ALAssetPropertyAssetURL] absoluteString];
-    }];
+- (BFTask *)updateImagesFromAssets:(NSArray *)assets {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [[[CUTEImageUploader sharedInstance] getAssetURLsOrNullsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
+        NSArray *urlHasAssetOrNullArrray = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
+        NSArray *assetURLs  = [assets map:^id(ALAsset *object) {
+            return [[object valueForProperty:ALAssetPropertyAssetURL] absoluteString];
+        }];
 
-    NSArray *newAddImages = [assetURLs select:^BOOL(id object) {
-        return ![_urlHasAssetOrNullArrray containsObject:object];
-    }];
+        NSArray *newAddImages = [assetURLs select:^BOOL(id object) {
+            return ![urlHasAssetOrNullArrray containsObject:object];
+        }];
 
-    NSMutableArray *deletedImages = [NSMutableArray array];
-    if (!IsArrayNilOrEmpty(self.ticket.property.realityImages) && _urlHasAssetOrNullArrray.count == self.ticket.property.realityImages.count) {
-        int count = _urlHasAssetOrNullArrray.count;
-        for (int i = 0; i < count; i++)
-        {
-            NSString *object = [_urlHasAssetOrNullArrray objectAtIndex:i];
-            if (!IsNilOrNull(object) && ![assetURLs containsObject:object]) {
-                [deletedImages addObject:[self.ticket.property.realityImages objectAtIndex:i]];
+        NSMutableArray *deletedImages = [NSMutableArray array];
+        if (!IsArrayNilOrEmpty(self.ticket.property.realityImages) && urlHasAssetOrNullArrray.count == self.ticket.property.realityImages.count) {
+            int count = urlHasAssetOrNullArrray.count;
+            for (int i = 0; i < count; i++)
+            {
+                NSString *object = [urlHasAssetOrNullArrray objectAtIndex:i];
+                if (!IsNilOrNull(object) && ![assetURLs containsObject:object]) {
+                    [deletedImages addObject:[self.ticket.property.realityImages objectAtIndex:i]];
+                }
             }
         }
-    }
 
-    NSMutableArray *newImages = [NSMutableArray arrayWithArray:self.ticket.property.realityImages? : @[]];
-    [newImages removeObjectsInArray:deletedImages];
-    [newImages addObjectsFromArray:newAddImages];
+        NSMutableArray *newImages = [NSMutableArray arrayWithArray:self.ticket.property.realityImages? : @[]];
+        [newImages removeObjectsInArray:deletedImages];
+        [newImages addObjectsFromArray:newAddImages];
+        self.ticket.property.realityImages = [NSMutableArray arrayWithArray:IsArrayNilOrEmpty(newImages)? @[]: newImages];
+        [tcs setResult:self.ticket.property.realityImages];
+        return nil;
+    }];
 
-    self.ticket.property.realityImages = [NSMutableArray arrayWithArray:IsArrayNilOrEmpty(newImages)? @[]: newImages];
+    return tcs.task;
 }
 
 - (void)addImage:(NSString *)imageURLStr {
@@ -281,14 +286,6 @@
         else {
             [[[CUTEImageUploader sharedInstance] getAssetsOrNullsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
                 NSArray *assets = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
-                _urlHasAssetOrNullArrray = [assets map:^id(ALAsset *object) {
-                    if ([object isKindOfClass:[ALAsset class]]) {
-                        return [[object valueForProperty:ALAssetPropertyAssetURL] absoluteString];
-                    }
-                    else {
-                        return object;
-                    }
-                }];
                 [self assetsPickerController].selectedAssets = [NSMutableArray arrayWithArray:[assets select:^BOOL(id object) {
                     return !IsNilOrNull(object);
                 }]];
@@ -397,18 +394,21 @@
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
 
-    [self updateImagesFromAssets:assets];
-    [self update];
-    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [[self updateImagesFromAssets:assets] continueWithSuccessBlock:^id(BFTask *task) {
+        [self update];
 
-    [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
-    [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:nil] continueWithBlock:^id(BFTask *task) {
-        if (task.error || task.exception || task.isCancelled) {
-            [SVProgressHUD showErrorWithError:task.error];
-        }
-        else {
-            [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:task.result];
-        }
+        [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
+        [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else {
+                [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:task.result];
+            }
+            return nil;
+        }];
+
         return nil;
     }];
 }

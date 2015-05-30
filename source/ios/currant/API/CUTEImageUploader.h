@@ -21,4 +21,6 @@
 
 - (BFTask *)getAssetOrNullFromURL:(NSString *)object;
 
+- (BFTask *)getAssetURLsOrNullsFromURLArray:(NSArray *)array;
+
 @end
