@@ -150,11 +150,11 @@ class common(f_common):
         },
         "INTRANET":
         {
-            "method": "recaptcha",
+            "method": "opencaptcha",
         },
         "default":
         {
-            "method": "recaptcha",
+            "method": "opencaptcha",
         }
     }
 
