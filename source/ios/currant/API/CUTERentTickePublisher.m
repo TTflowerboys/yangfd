@@ -259,6 +259,9 @@
         Sequencer *sequencer = [Sequencer new];
         if (!IsArrayNilOrEmpty([property realityImages])) {
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                if (updateStatus) {
+                    updateStatus([NSString stringWithFormat:STR(@"正在上传图片(%d/%d)..."), 0, ticket.property.realityImages.count]);
+                }
                 [[self uploadImages:property.realityImages updateStatus:updateStatus] continueWithBlock:^id(BFTask *task) {
                     if (task.result) {
                         property.realityImages = task.result;

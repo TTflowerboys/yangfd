@@ -111,7 +111,7 @@
     NSString *imageURL = IsArrayNilOrEmpty(ticket.property.realityImages)? nil : ticket.property.realityImages.firstObject;
     if (imageURL && [NSURL URLWithString:imageURL].isAssetURL) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [SVProgressHUD show];
+            [SVProgressHUD showWithStatus:STR(@"获取房产中...")];
             [[[CUTEImageUploader sharedInstance] getAssetOrNullFromURL:imageURL] continueWithBlock:^id(BFTask *task) {
 
                 if (task.error) {
@@ -148,7 +148,7 @@
     }
     else if (imageURL && ![NSURL URLWithString:imageURL].isAssetURL) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [SVProgressHUD show];
+            [SVProgressHUD showWithStatus:STR(@"获取房产中...")];
 
             [[[CUTEAPIManager sharedInstance] downloadImage:imageURL] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
