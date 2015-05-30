@@ -78,7 +78,11 @@
 
             height:64px;//left space for captcha, no need dyanmic update height of container, may trigger iphone overlay bug
         }
-
+        &.recaptchaWrap {
+            @media @phone{
+                height: 78px;
+            }
+        }
         > a  > img {
             display: inline-block;
             vertical-align: middle;
