@@ -3,8 +3,10 @@
         <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"></img>
         <label class="hostName">{{rent.get('creator_user',{}).get('nickname','')}}</label>
         <div class="hostPhone">
-            <img class="phoneIco" src="/static/images/property_details/ico_phone.png"></img>
-            <span>+{{rent.get('creator_user',{}).get('country_code','') }}</span> <span>{{rent.get('creator_user',{}).get('phone','')}}</span>
+            <a href="tel:+{{rent.get('creator_user',{}).get('country_code','') }}{{rent.get('creator_user',{}).get('phone','')}}">
+                <img class="phoneIco" src="/static/images/property_details/ico_phone.png"></img>
+                <span>+{{rent.get('creator_user',{}).get('country_code','') }}</span> <span>{{rent.get('creator_user',{}).get('phone','')}}</span>
+            </a>
         </div>
     </div>
     <div class="contactRequest" id="contactRequest">
