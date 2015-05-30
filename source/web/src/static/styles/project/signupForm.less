@@ -76,12 +76,8 @@
         @media @phone {
             max-width:100%;
 
-            height:64px;//left space for captcha, no need dyanmic update height of container, may trigger iphone overlay bug
-        }
-        &.recaptchaWrap {
-            @media @phone{
-                height: 78px;
-            }
+            min-height:64px;//left space for captcha, no need dyanmic update height of container, may trigger iphone overlay bug
+            //修复使用g-recaptcha后在手机最下面部分被裁掉的问题
         }
         > a  > img {
             display: inline-block;
