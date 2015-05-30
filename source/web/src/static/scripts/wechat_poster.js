@@ -162,6 +162,13 @@
     function isInPreview() { //表示在Web或者App发布预览页面中
         return parent.location.href.indexOf('property-to-rent') > 0 || window.project.isMobileClient()
     }
+    function isInPC(){
+        return (!isInPreview()) && (!window.team.isPhone()) && (!window.team.isWeChat())
+    }
+    if(isInPC()) {
+        var ticket_id = location.href.match(/wechat-poster\/(\w{24})/)[1]
+        location.href = '/property-to-rent/' + ticket_id
+    }
     //根据是否为在微信中打开页面决定某些页面显示与否
     function hidePage(){
         if(!isInPreview()){
