@@ -4,7 +4,6 @@ import logging
 import calendar
 from datetime import datetime
 from hashlib import sha1
-from bson.objectid import ObjectId
 from lxml import etree
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
@@ -341,7 +340,7 @@ def sitemap():
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/about" % domain
 
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list" % domain
-    #todo country需要改为code
+    # todo country需要改为code
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list?country=541bf6616b809946e81c2bd3" % domain
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list?country=541c09286b8099496db84f56" % domain
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list?country=541d32eb6b80992a1f209045" % domain
@@ -531,3 +530,9 @@ def app_download():
     title = _('洋房东APP下载页')
 
     return currant_util.common_template("app_download", title=title)
+
+
+@f_get("/beta-app-download")
+@currant_util.check_ip_and_redirect_domain
+def beta_app_download():
+    redirect('fir.im/currant')
