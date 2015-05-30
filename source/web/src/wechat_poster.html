@@ -334,6 +334,7 @@
                                 {{rent['property'].get('street','')}},
                                 % end
                                 {{rent['property'].get('city',{}).get('name','')}},
+                                {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}},
                                 {{rent['property'].get('zipcode','')}}
                             </p>
                             <!--<p>湖北省武汉市光谷大道<br>国际企业中心</p>-->
