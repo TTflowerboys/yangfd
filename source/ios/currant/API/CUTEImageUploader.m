@@ -113,6 +113,7 @@
         [[AssetsLibraryProvider sharedInstance].assetsLibrary assetForURL:[NSURL URLWithString:assetURLStr] resultBlock:^(ALAsset *asset) {
             dispatch_async(dispatch_get_main_queue(), ^(void) {
                 UIImage *image = [asset thumbnailForWithMaxPixelSize:MAX_IMAGE_PIXEL];
+                image = [image fixJPEGRotation];
                 if (image) {
                     //TODO dynamic choose compressionQuality base image file size
                     NSData *imageData = UIImageJPEGRepresentation(image, 1);

@@ -150,9 +150,7 @@
         CGFloat margin = 10;
         [items eachWithIndex:^(id obj, NSUInteger idx) {
             UIImageView *imageView = [[UIImageView alloc] init];
-            [imageView setImageWithAssetURL:[NSURL URLWithString:obj] thumbnail:YES failureBlock:^(NSError *error) {
-                [SVProgressHUD showErrorWithError:error];
-            }];
+            [imageView setImageWithAssetURL:[NSURL URLWithString:obj] thumbnailWidth:sideWidth];
             [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onImageTapped:)]];
             imageView.userInteractionEnabled = YES;
             imageView.attachment = [NSNumber numberWithInteger:idx];
