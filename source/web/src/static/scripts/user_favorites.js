@@ -6,11 +6,23 @@ $(function () {
     var $rentPlaceholder = $('#rentPlaceHolder')
     var isLoading = false
 
+    var $headerButtons = $('.contentHeader .buttons')
+    var $headerTabs = $('.tabs')
+
     //Init page with rent
     //TODO: do this for for production sync
     if(team.isProduction()){
-        switchTypeTab('own')
-        loadOwnProperty()
+
+        // Display header buttons and tabs based on whether user have beta_renting role or not
+        if(!_.isEmpty(window.user.role) && _.indexOf(window.user.role,'beta_renting') !== -1){
+            loadRentProperty()
+        }else{
+            $headerButtons.hide()
+            $headerTabs.hide()
+            switchTypeTab('own')
+            loadOwnProperty()
+        }
+
     }else {
         loadRentProperty()
     }
@@ -28,8 +40,7 @@ $(function () {
         $.betterPost('/api/1/user/favorite', params)
             .done(function(val){
                 //Check if tab is still rent
-                //TODO: do this for for production sync
-                //if($('.buttons .own').hasClass('button')){
+                if($('.buttons .own').hasClass('button')){
                     var array = val
                     if(array && array.length > 0){
                         var realCount = 0
@@ -54,7 +65,7 @@ $(function () {
                     }else{
                         $ownPlaceholder.show()
                     }
-                //}
+                }
             }).fail(function(){
                 $ownPlaceholder.show()
             }).always(function () {
