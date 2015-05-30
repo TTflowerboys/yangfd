@@ -27,4 +27,9 @@
             $('.emailWrap').find('button').text(i18n('申请内测')).data('disabled', false)
         })
     })
+    $('[name=email]').keyup(function (e) {
+        if(e.keyCode === 13) {
+            $('#submitBtn').trigger('click')
+        }
+    })
 })(window.Swiper)
