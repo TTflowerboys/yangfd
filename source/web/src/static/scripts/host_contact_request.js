@@ -16,6 +16,7 @@ $(function () {
                 .done(function (val) {
                     var phone = val
                     $($('.hostPhone span')[1]).text(phone)
+                    $($('.hostPhone a')).attr('href',$('.hostPhone span')[0] + phone)
                     $('.contactRequest').hide()
 
                     ga('send', 'pageview', '/host-contact-request/'+ rentId + '/contact-show-success')
