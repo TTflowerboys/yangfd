@@ -73,6 +73,8 @@
             $('.content .pictures .labels').show()
             if(!$container.attr('data-swiper')){
                 initSwiper($container, index)
+            }else {
+                window.swiperInstance['swiper-container' + index].update()
             }
         }
 
