@@ -12,6 +12,12 @@
                 }
                 return $http.post('/api/1/user/admin/invite', data, config)
             },
+            create: function(email, config) {
+                var data = {
+                    email:email
+                }
+                return $http.post('/api/1/subscription/add', data, config)
+            },
             getAll: function (data, config) {
                 return $http.get('/api/1/subscription/search', data, config)
             },

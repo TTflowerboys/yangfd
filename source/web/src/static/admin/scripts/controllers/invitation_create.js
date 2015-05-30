@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlCreate($scope, $state, api) {
+    function ctrlInvitationCreate($scope, $state, api) {
 
         $scope.api = api
 
@@ -16,23 +16,9 @@
                 return
             }
             $scope.loading = true
-            api.create($scope.item, {
-                successMessage: 'Update successfully',
-                errorMessage: 'Update failed'
-            }).success(function () {
-                if ($scope.$parent.currentPageNumber === 1) {
-                    $scope.$parent.refreshList()
-                }
-                $state.go('^')
-            })['finally'](function () {
-                $scope.loading = false
-            })
-        }
-
-        $scope.updateExisting = function () {
-            api.addRole($scope.item.id, $scope.item.role, {
-                successMessage: 'Update successfully',
-                errorMessage: 'Update failed'
+            api.create($scope.item.email, {
+                successMessage: 'Invite successfully',
+                errorMessage: 'Invite failed'
             }).success(function () {
                 if ($scope.$parent.currentPageNumber === 1) {
                     $scope.$parent.refreshList()
@@ -44,7 +30,7 @@
         }
     }
 
-    angular.module('app').controller('ctrlCreate', ctrlCreate)
+    angular.module('app').controller('ctrlInvitationCreate', ctrlInvitationCreate)
 
 })()
 

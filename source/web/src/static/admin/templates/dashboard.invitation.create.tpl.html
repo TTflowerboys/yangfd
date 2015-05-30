@@ -7,60 +7,18 @@
     style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,partnerCreateForm)"
     novalidate>
 
-    <div get-existing-admin></div>
-    <div class="form-group">
-        <label class="control-label">{%$root.i18n('手机号码')%} *</label>
-        <div class="controls form-inline">
-            <div select-phone-country ng-model="item.country"></div>
-
-            <input class="form-control col-sm6" ng-model="item.phone" type="text" size="15"/>
-            <span ng-show="isCheckingPhone">{%$root.i18n('正在查询')%}...</span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label">{%$root.i18n('姓名')%} *</label>
-
-        <div class="controls">
-            <input ng-disabled="existingItem.id" class="form-control" ng-model="item.nickname" type="text"
-                style="width: 20em"/>
-        </div>
-    </div>
-
     <div class="form-group">
         <label class="control-label">{%$root.i18n('邮箱')%} *</label>
 
         <div class="controls">
-            <input ng-disabled="existingItem.id" class="form-control" ng-model="item.email" type="email"
+            <input class="form-control" ng-model="item.email" type="email"
                 style="width: 30em"/>
-        </div>
-    </div>
-
-    <div class="form-group" ng-show="existingItem.role && existingItem.role.length>0">
-        <label class="control-label">{%$root.i18n('已有权限')%} *</label>
-
-        <div class="controls">
-            <div ng-repeat="role in existingItem.role">
-                {%role | permissionName %}
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label">{%$root.i18n('权限')%} *</label>
-
-        <div class="controls">
-            <select class="form-control" ng-model="item.role" style="width: 185px;"
-                ng-options="p.value as p.name for p in item.role | permissionCanAdd">
-                <option value="">-- {%$root.i18n('选择')%} --</option>
-            </select>
         </div>
     </div>
 
 
     <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" ng-hide="existingItem" value="{%$root.i18n('提交')%}">
-        <input type="button" class="btn btn-primary" ng-show="existingItem" value="{%$root.i18n('更新')%}" ng-click="updateExisting()">
-        <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
+        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
     </div>
     <div class="help-block">* {%$root.i18n('必填')%}</div>
 </form>

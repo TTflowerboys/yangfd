@@ -736,16 +736,16 @@ angular.module('app')
                     }
                 }
             })
-/*            .state('dashboard.invitation.create', {
+            .state('dashboard.invitation.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.invitation.create.tpl.html',
-                controller: 'ctrlInvitation',
+                controller: 'ctrlInvitationCreate',
                 resolve: {
                     api: function (invitationApi) {
                         return invitationApi
                     }
                 }
-            })*/
+            })
         /**
          * others
          */
