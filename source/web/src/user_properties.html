@@ -12,14 +12,11 @@
 <div class="content">
     <div class="contentHeader">
         <h1>{{_('我的房产')}}</h1>
-        <!-- @if ENV!='production' -->
         <div class="buttons">
             <button id="showRentBtn" class="rent button red">{{_('出租房产')}}</button>
             <button id="showOwnBtn" class="own ghostButton red">{{_('自有房产')}}</button>
         </div>
-        <!-- @endif -->
     </div>
-    <!-- @if ENV!='production' -->
     <div class="tabs ui-tabs ui-widget">
         <ul class="ui-tabs-nav">
             <li id="showRentTab" class="ui-tabs-selected rent">
@@ -31,7 +28,6 @@
             </li>
         </ul>
     </div>
-    <!-- @endif -->
 
     <div class="list_wrapper">
         <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
