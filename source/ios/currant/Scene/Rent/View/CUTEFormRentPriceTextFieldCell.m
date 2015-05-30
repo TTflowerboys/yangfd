@@ -47,20 +47,20 @@
     [super textFieldDidBeginEditing:textField];
 }
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    if (IsNilNullOrEmpty(textField.text)) {
-        [SVProgressHUD showErrorWithStatus:STR(@"租金不能为空")];
-    }
-    return !IsNilNullOrEmpty(textField.text);
-}
-
 - (void)textFieldDidEndEditing:(__unused UITextField *)textField
 {
     [super textFieldDidEndEditing:textField];
 
-    NSRange slashRange = [textField.text rangeOfString:@"/"];
-    if (slashRange.location == NSNotFound) {
-        textField.text = CONCAT(self.currencySymbol, textField.text, @"/", STR(@"周"));
+    if (IsNilNullOrEmpty(textField.text)) {
+        [SVProgressHUD showErrorWithStatus:STR(@"租金不能为空")];
+         textField.text = CONCAT(self.currencySymbol, @"0", @"/", STR(@"周"));
+    }
+    else {
+
+        NSRange slashRange = [textField.text rangeOfString:@"/"];
+        if (slashRange.location == NSNotFound) {
+            textField.text = CONCAT(self.currencySymbol, textField.text, @"/", STR(@"周"));
+        }
     }
 }
 
