@@ -535,4 +535,4 @@ def app_download():
 @f_get("/beta-app-download")
 @currant_util.check_ip_and_redirect_domain
 def beta_app_download():
-    redirect('fir.im/currant')
+    redirect('http://fir.im/currant')
