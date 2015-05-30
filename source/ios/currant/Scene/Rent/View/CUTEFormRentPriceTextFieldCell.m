@@ -9,6 +9,7 @@
 #import "CUTEFormRentPriceTextFieldCell.h"
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
+#import "SVProgressHUD+CUTEAPI.h"
 
 @implementation CUTEFormRentPriceTextFieldCell
 
@@ -26,6 +27,7 @@
 - (void)setField:(FXFormField *)field {
     [super setField:field];
 }
+
 
 - (void)setCurrencySymbol:(NSString *)currencySymbol {
     _currencySymbol = currencySymbol;
@@ -49,9 +51,16 @@
 {
     [super textFieldDidEndEditing:textField];
 
-    NSRange slashRange = [textField.text rangeOfString:@"/"];
-    if (slashRange.location == NSNotFound) {
-        textField.text = CONCAT(self.currencySymbol, textField.text, @"/", STR(@"周"));
+    if (IsNilNullOrEmpty(textField.text)) {
+        [SVProgressHUD showErrorWithStatus:STR(@"租金不能为空")];
+         textField.text = CONCAT(self.currencySymbol, @"0", @"/", STR(@"周"));
+    }
+    else {
+
+        NSRange slashRange = [textField.text rangeOfString:@"/"];
+        if (slashRange.location == NSNotFound) {
+            textField.text = CONCAT(self.currencySymbol, textField.text, @"/", STR(@"周"));
+        }
     }
 }
 
