@@ -6,11 +6,15 @@
 (function () {
     function ctrlInvitationList($scope, fctModal, api) {
         $scope.list = []
-        $scope.perPage = 12
+        $scope.perPage = 10
         $scope.currentPageNumber = 1
         $scope.pages = []
         $scope.api = api
         $scope.fetched = false
+
+        //Work around angular can not watch primitive type
+        $scope.selected = {}
+        $scope.selected.status = {}
 
         var params = {
             per_page: $scope.perPage
@@ -29,6 +33,17 @@
                 })
             })
         }
+
+        $scope.$watch('selected.status', function (newValue, oldValue) {
+            // Ignore initial setup.
+            if (newValue === oldValue) {
+                return
+            }
+
+            delete params.time
+            params.status = $scope.selected.status
+            $scope.refreshList()
+        }, true)
 
         $scope.nextPage = function () {
             var lastItem = $scope.list[$scope.list.length - 1]

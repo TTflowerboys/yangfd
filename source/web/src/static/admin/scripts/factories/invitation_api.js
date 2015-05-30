@@ -15,11 +15,11 @@
             getAll: function (data, config) {
                 return $http.get('/api/1/subscription/search', data, config)
             },
-            update: function (id,status, config) {
+            update: function (id, status, config) {
                 var data = {
                     status:status
                 }
-                return $http.get('/api/1/subscription/'+id+'/edit', data, config)
+                return $http.post('/api/1/subscription/'+id+'/edit', data, config)
             }
         }
 
