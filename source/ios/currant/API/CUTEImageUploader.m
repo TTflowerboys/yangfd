@@ -20,10 +20,13 @@
 #import <NSArray+ObjectiveSugar.h>
 #import "ALAsset+GetImage.h"
 #import "UIImage+CalculatedSize.h"
+#import "CUTEAPIManager.h"
 
 @interface CUTEImageUploader () {
 
     BBTRestClient *_imageUploader;
+
+    NSOperationQueue *_uploadQueue;
 
     NSMutableDictionary *_requestTaskDictionary;
 }
@@ -50,7 +53,8 @@
     self = [super init];
     if (self) {
         _imageUploader = [BBTRestClient clientWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]] account:nil];
-        _imageUploader.operationQueue.maxConcurrentOperationCount = 1; // send image one by one by network bindwidth no enough in network
+        _uploadQueue = [NSOperationQueue new];
+        _uploadQueue.maxConcurrentOperationCount = 1;
         _requestTaskDictionary = [NSMutableDictionary dictionary];
     }
     return self;
@@ -139,15 +143,12 @@
         }
     }
 
-    BFTask *task = [[self getImageDataWithAssetURLString:assetURLStr] continueWithBlock:^id(BFTask *task) {
-        if (task.error || task.exception || task.isCancelled) {
-            return task;
-        }
-        else {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [_uploadQueue addOperationWithBlock:^{
+        [[self getImageDataWithAssetURLString:assetURLStr] continueWithBlock:^id(BFTask *task) {
             NSData *imageData = task.result;
-            BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
             if (imageData) {
-                [_imageUploader.operationQueue addOperation: [_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration uploadHostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [[_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration uploadHostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSDictionary *responseDic = (NSDictionary *)responseObject;
                     if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
                         NSString *urlStr = responseDic[@"val"][@"url"];
@@ -162,18 +163,21 @@
                     }
 
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [_requestTaskDictionary removeObjectForKey:assetURLStr];
                     [tcs setError:error];
-                }]];
+                }] start];
             }
             else {
-                [tcs setResult:nil];
+                [_requestTaskDictionary removeObjectForKey:assetURLStr];
+                [tcs setError:task.error];
             }
-            return tcs.task;
-        }
+            
+            return nil;
+        }];
     }];
 
-    [_requestTaskDictionary setObject:task forKey:assetURLStr];
-    return task;
+    [_requestTaskDictionary setObject:tcs.task forKey:assetURLStr];
+    return tcs.task;
 }
 
 - (BFTask *)getAssetsOrNullsFromURLArray:(NSArray *)array {
