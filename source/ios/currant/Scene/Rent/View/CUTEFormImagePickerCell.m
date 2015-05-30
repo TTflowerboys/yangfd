@@ -413,36 +413,36 @@
     }];
 }
 
-//TODO need image count limit?
+#define kImageMaxCount 12
 
-//- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
-//{
-//    if (picker.selectedAssets.count >= 10)
-//    {
-//        UIAlertView *alertView =
-//        [[UIAlertView alloc] initWithTitle:@"Attention"
-//                                   message:@"Please select not more than 10 assets"
-//                                  delegate:nil
-//                         cancelButtonTitle:nil
-//                         otherButtonTitles:@"OK", nil];
-//
-//        [alertView show];
-//    }
-//
-//    if (!asset.defaultRepresentation)
-//    {
-//        UIAlertView *alertView =
-//        [[UIAlertView alloc] initWithTitle:@"Attention"
-//                                   message:@"Your asset has not yet been downloaded to your device"
-//                                  delegate:nil
-//                         cancelButtonTitle:nil
-//                         otherButtonTitles:@"OK", nil];
-//
-//        [alertView show];
-//    }
-//
-//    return (picker.selectedAssets.count < 10 && asset.defaultRepresentation != nil);
-//}
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
+{
+    if (picker.selectedAssets.count >= kImageMaxCount)
+    {
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:STR(@"您好，最多只能上传%d张图片"), kImageMaxCount]
+                                   message:nil
+                                  delegate:nil
+                         cancelButtonTitle:nil
+                         otherButtonTitles:STR(@"OK"), nil];
+
+        [alertView show];
+    }
+
+    if (!asset.defaultRepresentation)
+    {
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:STR(@"您的图片没有下载到设备上，或者已经被删除")
+                                   message:nil
+                                  delegate:nil
+                         cancelButtonTitle:nil
+                         otherButtonTitles:STR(@"OK"), nil];
+
+        [alertView show];
+    }
+
+    return (picker.selectedAssets.count < kImageMaxCount && asset.defaultRepresentation != nil);
+}
 
 #pragma mark - MWPhotoBrowserDelegate
 
