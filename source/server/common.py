@@ -114,7 +114,7 @@ class common(f_common):
 
     opencaptcha_width = 100
     opencaptcha_height = 48
-    opencaptcha_html = "<input type='hidden' name='challenge' value='%(challenge)s'><a href='#' onclick='refreshCaptcha()'><img src='http://www.opencaptcha.com/img/%(challenge)s'  height='%(height)s' alt='captcha' width='%(width)s' border='0'/></a><input name='code' size=10 type=text data-validator='required, trim'>"
+    opencaptcha_html = "<input type='hidden' name='challenge' value='%(challenge)s'><a href='#' onclick='refreshCaptcha()'><img src='http://www.opencaptcha.com/img/%(challenge)s'  height='%(height)s' alt='captcha' width='%(width)s' border='0'/></a><input name='solution' size=10 type=text data-validator='required, trim'>"
 
     touclick_public_key = "031024af-e0a6-4f38-a189-8f51378be624"
     touclick_private_key = "89fbafb1-083c-41f1-a580-86396121bb16"
