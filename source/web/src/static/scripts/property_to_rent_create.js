@@ -313,7 +313,7 @@
         //使用新的 /api/1/postcode/search API
         //var country = 'GB' //todo 暂时将API要传的country字段写死为英国
         var $btn = $(this)
-        var postcodeIndex = $('#postcode').val().replace(/\s/g, '')
+        var postcodeIndex = $('#postcode').val().replace(/\s/g, '').toUpperCase()
         function clearLocationData () {
             $('#city-select').find('option').eq(0).attr('selected',true)
             $('#city-select').trigger('chosen:updated')
