@@ -145,10 +145,10 @@
                         % 'indoor_sample_room_picture','planning_map']:
                         <div class="item" data-tab-name="{{name}}">
                             % if property.get(name):
-                                <div class="swiper-container" style="height: 533px;">
+                                <div class="swiper-container">
                                     <ul class="swiper-wrapper" data-init="false">
                                         % for image in property.get(name):
-                                            <li class="swiper-slide" href="{{!fetch_image(image, property_id=property.get('id'))}}" class="swiper-slide" data-style="background-image: url('<url>');background-size: cover;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');background-repeat: no-repeat;">
+                                            <li class="swiper-slide img" href="{{!fetch_image(image, property_id=property.get('id'))}}" class="swiper-slide" data-style="background-image: url('<url>');background-size: cover;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');background-repeat: no-repeat;">
                                             </li>
                                         % end
                                     </ul>

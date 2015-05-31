@@ -107,10 +107,10 @@
             <div class="big">
                 <div class="item" data-tab-name="reality_images">
                     % if rent['property'].get('reality_images'):
-                    <div class="swiper-container" style="height: 533px;">
+                    <div class="swiper-container">
                         <ul class="swiper-wrapper" data-init="false">
                             % for image in rent['property'].get('reality_images'):
-                            <li href="{{!fetch_image(image, property_id=rent['property'].get('id'))}}" class="swiper-slide" data-style="background-image: url('<url>');background-size: cover;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');background-repeat: no-repeat;width:100%;">
+                            <li href="{{!fetch_image(image, property_id=rent['property'].get('id'))}}" class="swiper-slide img" data-style="background-image: url('<url>');background-size: cover;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');background-repeat: no-repeat;width:100%;">
                             </li>
                             % end
                         </ul>
