@@ -25,13 +25,25 @@
              }[code];
 }
 
++ (NSString *)countryCodeAndNameOfCode:(NSString *)code {
+    return @{@"GB": STR(@"（+44）英国"),
+             @"CN": STR(@"（+86）中国"),
+             @"US": STR(@"（+1）美国"),
+             @"HK": STR(@"（+851）香港"),
+             }[code];
+}
+
 - (NSString *)name {
     return _name?: [CUTECountry nameOfCode:self.code];
 }
 
+- (NSString *)countryCodeAndName {
+    return [CUTECountry countryCodeAndNameOfCode:self.code];
+}
+
 //FXForm use this to display
 - (NSString *)fieldDescription {
-    return self.name;
+    return self.showCountryCode? self.countryCodeAndName: self.name;
 }
 
 - (BOOL)isEqual:(id)object {

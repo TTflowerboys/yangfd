@@ -26,6 +26,7 @@
 #import "CUTENotificationKey.h"
 #import "CUTERentTickePublisher.h"
 #import <TTTAttributedLabel.h>
+#import <NSArray+ObjectiveSugar.h>
 #import "NSURL+CUTE.h"
 #import "CUTERentLoginForm.h"
 #import "CUTERentLoginViewController.h"
@@ -296,7 +297,7 @@
 
 - (void)login {
 
-    [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
@@ -314,7 +315,12 @@
             form.isOnlyRegister = ((CUTERentContactForm *)self.formController.form).isOnlyRegister;
             [form setAllCountries:task.result];
             //set default country same with the property
-            form.country = self.ticket.property.country;
+            if (self.ticket.property.country) {
+                form.country = [task.result find:^BOOL(CUTECountry *object) {
+                    return [object.code isEqualToString:self.ticket.property.country.code];
+                }];
+            }
+
             loginViewController.formController.form = form;
             [self.navigationController pushViewController:loginViewController animated:YES];
         }

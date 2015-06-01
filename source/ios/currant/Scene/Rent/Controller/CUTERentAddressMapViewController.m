@@ -167,7 +167,7 @@
     }
 
 
-    [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
@@ -410,7 +410,7 @@
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         CUTEPlacemark *placemark = result;
 
-        [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
             if (!IsArrayNilOrEmpty(task.result)) {
                 NSArray *coutries = [(NSArray *)task.result select:^BOOL(CUTECountry *object) {
                     return [[object code] isEqualToString:placemark.country.code];

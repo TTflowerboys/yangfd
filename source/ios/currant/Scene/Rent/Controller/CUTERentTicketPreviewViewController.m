@@ -21,6 +21,7 @@
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentAddressMapViewController.h"
 #import "CUTERentPropertyInfoViewController.h"
+#import <NSArray+ObjectiveSugar.h>
 
 @implementation CUTERentTicketPreviewViewController
 
@@ -81,7 +82,7 @@
         }
         else {
             [SVProgressHUD show];
-            [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
@@ -97,7 +98,11 @@
                     CUTERentContactForm *form = [CUTERentContactForm new];
                     [form setAllCountries:task.result];
                     //set default country same with the property
-                    form.country = property.country;
+                    if (property.country) {
+                        form.country = [task.result find:^BOOL(CUTECountry *object) {
+                            return [object.code isEqualToString:property.country.code];
+                        }];
+                    }
                     contactViewController.formController.form = form;
                     [self.navigationController pushViewController:contactViewController animated:YES];
                     [SVProgressHUD dismiss];
