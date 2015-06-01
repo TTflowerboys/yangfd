@@ -229,11 +229,43 @@
     }
     var updateOrientation = new UpdateOrientation()
     updateOrientation.init()
+
+    function fixFontSize () {
+        $('.fixFontSize').each(function (index, elem) {
+            var $elem = $(elem)
+            var height = $elem.height()
+            $elem.css({
+                height: 'auto',
+                overflow: 'visiable',
+                lineHeight: '1.4em'
+            })
+
+            changeFontSize($elem, height)
+        })
+        function changeFontSize ($elem, height) {
+            if($elem.height() === 0) {
+                return setTimeout(function () {
+                    changeFontSize($elem, height)
+                },50)
+            }
+            if($elem.height() - height > 10) {
+                var newFontSize = parseInt($elem.css('fontSize')) - 1
+                $elem.css({
+                    fontSize: newFontSize + 'px'
+                })
+                setTimeout(function () {
+                    changeFontSize($elem, height)
+                })
+            }
+            return
+        }
+    }
     $(function(){
         initModal()
         showBtnOrNot()
         hidePage()
         showSixFacilitiesOnly()
+        fixFontSize()
     })
 
 })(jQuery, window.Swiper)
