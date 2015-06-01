@@ -23,7 +23,9 @@
     NSString *rawParams = [self.webView stringByEvaluatingJavaScriptFromString:@"JSON.stringify(window.getBaseRequestParams())"];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[rawParams JSONObject]];
     [params setObject:@(1) forKey:@"location_only"];
+    NSString *backTitle = [self.webView stringByEvaluatingJavaScriptFromString:@"window.getSummaryTitle()"];
     CUTERentMapListViewController *controller = [CUTERentMapListViewController new];
+    controller.backView.label.text = backTitle;
     [self.navigationController pushViewController:controller animated:YES];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [controller loadMapDataWithParams:params];

@@ -16,6 +16,8 @@
     window.rentPeriodData = getData('rentPeriodData')
     window.bedroomCountData = getData('bedroomCountData')
     window.spaceData = getData('spaceData')
+    //used in mobile client
+
     window.getBaseRequestParams = function () {
         var params = {}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
@@ -62,6 +64,53 @@
         }
         return params;
     }
+
+     //used in mobile client
+    window.getSummaryTitle = function () {
+        function getSelectedTagValueWithTagName(tagName) {
+            var $selectedChild = $('#tags #' + tagName).children('.selected')
+            if ($selectedChild.length) {
+                return $selectedChild.first().text()
+            }
+            return ''
+        }
+
+        var selectedCountry = $('select[name=propertyCountry]').children('option:selected').text()
+        var selectedCity = $('select[name=propertyCity]').children('option:selected').text()
+        var selectedRentType = $('select[name=rentType]').children('option:selected').text()
+        var selectedPropertyType = getSelectedTagValueWithTagName('propertyTypeTag')
+        var selectedRentalBudget = getSelectedTagValueWithTagName('rentalBudgetTag')
+        var selectedRentPeriod = getSelectedTagValueWithTagName('rentPeriodTag')
+        var selectedBedroomCount = getSelectedTagValueWithTagName('bedroomCountTag')
+        var selectedSpaceCount = getSelectedTagValueWithTagName('spaceTag')
+
+        //TODO get rent start date
+
+        var description = ''
+        function add (item) {
+            if (item && item.length > 0) {
+                if (description.length > 0) {
+                    description = description + ', ' + item;
+                }
+                else {
+                    description = item;
+                }
+            }
+        }
+
+        add(selectedCountry)
+        add(selectedCity)
+        add(selectedRentType)
+        add(selectedPropertyType)
+        add(selectedRentalBudget)
+        add(selectedRentPeriod)
+        add(selectedBedroomCount)
+        add(selectedSpaceCount)
+        return description
+    }
+
+
+
 
 
 
