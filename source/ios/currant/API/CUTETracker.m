@@ -58,7 +58,9 @@
 - (void)trackScreen:(NSString *)screenName {
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createScreenView];
     [builder set:screenName forKey:kGAIScreenName];
-    [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
+        [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    }
     [_tracker send:[builder build]];
     [self updateScreenLastVisitTime:screenName];
 }
@@ -72,7 +74,9 @@
     NSTimeInterval endTime = [NSDate date].timeIntervalSince1970;
 
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:[NSNumber numberWithDouble:endTime - startTime] name:kEventActionStay label:screenName];
-    [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
+        [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    }
     [_tracker send:builder.build];
 }
 
@@ -88,24 +92,34 @@
     }];
 
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:[NSNumber numberWithDouble:totalTime] name:kEventActionStay label:label];
-    [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
+        [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    }
     [_tracker send:builder.build];
 }
 
 
 - (void)trackEventWithCategory:(NSString *)category action:(NSString *)action label:(NSString *)label value:(NSNumber *)value {
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createEventWithCategory:category action:action label:label value:value];
-    [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
+        [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    }
     [_tracker send:[builder build]];
 }
 
 - (void)trackException:(NSException *)exception {
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createExceptionWithDescription:exception.description withFatal:@(0)];
+    if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
+        [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    }
     [_tracker send:builder.build];
 }
 
 - (void)trackError:(NSError *)error {
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createExceptionWithDescription:error.description withFatal:@(0)];
+    if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
+        [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
+    }
     [_tracker send:builder.build];
 }
 
