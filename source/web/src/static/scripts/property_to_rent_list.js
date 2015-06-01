@@ -183,6 +183,7 @@
             params.space = space
         }
 
+        //todo 要等后端提供结束时间的支持
         var rentAvailableTime
         if($('[name=rentPeriodStartDate]').val()) {
             rentAvailableTime = new Date($('#rentPeriodStartDate').val()).getTime() / 1000
@@ -448,18 +449,19 @@
         loadRentListByView()
     })
 
-    var $rentPeriodStartDate = $('[name=rentPeriodStartDate]')
+    var $dateInput = $('.date input')
     function resetDateInputType () {
         if(window.team.isPhone()) {
-            $rentPeriodStartDate.get(0).type = 'date'
+            $dateInput.get(0).type = 'date'
         }else{
-            $rentPeriodStartDate.get(0).type = 'text'
+            $dateInput.get(0).type = 'text'
         }
     }
     resetDateInputType()
     $(window).resize(resetDateInputType)
     //$rentPeriodStartDate.attr('placeholder',$.format.date(new Date(), 'yyyy-MM-dd'))
-    $rentPeriodStartDate.dateRangePicker({
+    $dateInput.each(function (index, elem) {
+        $(elem).dateRangePicker({
             autoClose: true,
             singleDate: true,
             showShortcuts: false,
@@ -468,29 +470,30 @@
                 //return this.value || $.format.date(new Date(), 'yyyy-MM-dd');
             }
         })
-        .bind('datepicker-change', function (event, obj) {
-            if(isLoading){
-                return
-            }
-            $rentPeriodStartDate.val($.format.date(new Date(obj.date1), 'yyyy-MM-dd')).trigger('change')
-        })
-        .bind('change', function () {
-            var val = $(this).val()
-            if(val !== '') {
-                $(this).siblings('.clear').show()
-            } else{
-                $(this).siblings('.clear').hide()
-            }
-            ga('send', 'event', 'rent_list', 'change', 'change-space', val)
-            loadRentListByView()
-        })
+            .bind('datepicker-change', function (event, obj) {
+                $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd')).trigger('change')
+
+            })
+            .bind('change', function () {
+                var val = $(this).val()
+                if(val !== '') {
+                    $(this).siblings('.clear').show()
+                } else{
+                    $(this).siblings('.clear').hide()
+                }
+                ga('send', 'event', 'rent_list', 'change', 'change-space', val)
+            })
+    })
+
     $('.calendar .clear').bind('click', function(event){
+        $(this).siblings('input').val('').trigger('change').attr('placeholder', i18n('请选择起租日期'))
+    })
+    $('.confirmDate').click(function () {
         if(isLoading){
             return
         }
-        $(this).siblings('input').val('').trigger('change').attr('placeholder', i18n('请选择起租日期'))
+        loadRentListByView()
     })
-
     // Show or Hide tag filters on mobile
     function showTagsOnMobile() {
         var $button = $('#showTags')
