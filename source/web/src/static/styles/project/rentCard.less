@@ -22,6 +22,12 @@
         background-color: @light-orange;
         border-top: @border-width solid @border-hover-color;
         cursor: pointer;
+
+        @media @phone {
+            background-color: inherit;
+            border-top: inherit;
+            cursor: inherit;
+        }
     }
 
     @media @phone {
