@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "CUTEWebViewController.h"
 #import "CUTEPropertyListViewController.h"
+#import "CUTERentListViewController.h"
 #import "CUTERentTypeListViewController.h"
 #import "CUTEDataManager.h"
 #import "CUTEConfiguration.h"
@@ -113,6 +114,21 @@
     return nav;
 }
 
+- (UINavigationController *)makeRentListViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
+
+    CUTERentListViewController *controller = [[CUTERentListViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] init];
+    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    controller.url = [NSURL WebURLWithString:urlPath];
+    nav.tabBarItem = tabItem;
+    nav.tabBarItem.tag = kRentTicketListTabBarIndex;
+    controller.navigationItem.title = STR(@"洋房东");
+    [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
+    [nav setViewControllers:@[controller]];
+    return nav;
+}
+
+
 - (UINavigationController *)makeEditViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
     UINavigationController *nav = [[UINavigationController alloc] init];
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:nil];
@@ -155,7 +171,7 @@
 
     UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit" urlPath:@"/rent_new"];
     UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:STR(@"新房") icon:@"tab-property" urlPath:@"/property-list"];
-    UINavigationController *rentTicketListViewController = [self makeViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property-to-rent-list" index:kRentTicketListTabBarIndex];
+    UINavigationController *rentTicketListViewController = [self makeRentListViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property-to-rent-list"];
     UINavigationController *userViewController = [self makeViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user" index: kUserTabBarIndex];
     [rootViewController setViewControllers:@[homeViewController,
                                              propertyListViewController,

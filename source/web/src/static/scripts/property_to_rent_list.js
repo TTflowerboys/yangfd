@@ -16,6 +16,54 @@
     window.rentPeriodData = getData('rentPeriodData')
     window.bedroomCountData = getData('bedroomCountData')
     window.spaceData = getData('spaceData')
+    window.getBaseRequestParams = function () {
+        var params = {}
+        var country = $('select[name=propertyCountry]').children('option:selected').val()
+        if (country) {
+            params.country = country
+        }
+        var city = $('select[name=propertyCity]').children('option:selected').val()
+        if (city) {
+            params.city = city
+        }
+        var propertyType = $('select[name=propertyType]').children('option:selected').val()
+        if (propertyType) {
+            params.property_type = propertyType
+        }
+        var rentType = $('select[name=rentType]').children('option:selected').val()
+        if (rentType) {
+            params.rent_type = rentType
+        }
+
+        var rentBudgetType = getSelectedTagFilterDataId('#rentBudgetTag')
+        if (rentBudgetType) {
+            params.rent_budget = rentBudgetType
+        }
+
+        var rentPeriod = getSelectedTagFilterDataId('#rentPeriodTag')
+        if (rentPeriod) {
+            params.rent_period = rentPeriod
+        }
+        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
+        if (bedroomCount) {
+            params.bedroom_count = bedroomCount
+        }
+        var space = getSelectedTagFilterDataId('#spaceTag')
+        if (space) {
+            params.space = space
+        }
+
+        var rentAvailableTime
+        if($('[name=rentPeriodStartDate]').val()) {
+            rentAvailableTime = new Date($('#rentPeriodStartDate').val()).getTime() / 1000
+            if(rentAvailableTime) {
+                params.rent_available_time = rentAvailableTime
+            }
+        }
+        return params;
+    }
+
+
 
     //在城市选择上使用chosen插件
     function initChosen (elem) {
@@ -147,50 +195,9 @@
     }
 
     function loadRentList(reload) {
-        var params = {'per_page': itemsPerPage}
-        var country = $('select[name=propertyCountry]').children('option:selected').val()
-        if (country) {
-            params.country = country
-        }
-        var city = $('select[name=propertyCity]').children('option:selected').val()
-        if (city) {
-            params.city = city
-        }
-        var propertyType = $('select[name=propertyType]').children('option:selected').val()
-        if (propertyType) {
-            params.property_type = propertyType
-        }
-        var rentType = $('select[name=rentType]').children('option:selected').val()
-        if (rentType) {
-            params.rent_type = rentType
-        }
 
-        var rentBudgetType = getSelectedTagFilterDataId('#rentBudgetTag')
-        if (rentBudgetType) {
-            params.rent_budget = rentBudgetType
-        }
-
-        var rentPeriod = getSelectedTagFilterDataId('#rentPeriodTag')
-        if (rentPeriod) {
-            params.rent_period = rentPeriod
-        }
-        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
-        if (bedroomCount) {
-            params.bedroom_count = bedroomCount
-        }
-        var space = getSelectedTagFilterDataId('#spaceTag')
-        if (space) {
-            params.space = space
-        }
-
-        //todo 要等后端提供结束时间的支持
-        var rentAvailableTime
-        if($('[name=rentPeriodStartDate]').val()) {
-            rentAvailableTime = new Date($('#rentPeriodStartDate').val()).getTime() / 1000
-            if(rentAvailableTime) {
-                params.rent_available_time = rentAvailableTime
-            }
-        }
+        var params = window.getBaseRequestParams()
+        params.per_page = itemsPerPage
 
         if (lastItemTime) {
             params.last_modified_time = lastItemTime

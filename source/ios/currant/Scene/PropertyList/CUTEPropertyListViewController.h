@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTEWebViewController.h"
+#import "CUTEListViewController.h"
 
-@interface CUTEPropertyListViewController : CUTEWebViewController
+@interface CUTEPropertyListViewController : CUTEListViewController
 
 @end
