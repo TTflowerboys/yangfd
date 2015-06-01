@@ -126,6 +126,10 @@
         }
     }];
 
+    [self.bridge registerHandler:@"createRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_CREATE object:self userInfo:nil];
+    }];
+
     [self.bridge registerHandler:@"wechatShareRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dic = data;
         if (dic && [dic isKindOfClass:[NSDictionary class]]) {
