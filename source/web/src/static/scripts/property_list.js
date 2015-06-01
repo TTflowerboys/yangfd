@@ -16,6 +16,8 @@
     window.budgetData = getData('budgetData')
     window.bedroomCountData = getData('bedroomCountData')
     window.buildingAreaData = getData('buildingAreaData')
+
+    //used in mobile client
     window.getBaseRequestParams = function () {
         var params = {}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
@@ -48,6 +50,41 @@
             params.building_area = buildingArea
         }
         return params;
+    }
+
+    //used in mobile client
+    window.getSummaryTitle = function () {
+        var selectedCountry = $('select[name=propertyCountry]').children('option:selected').text()
+        var selectedCity = $('select[name=propertyCity]').children('option:selected').text()
+        var selectedType = $('select[name=propertyType]').children('option:selected').text()
+        var selectedBudget = getSelectedBudgetTypeValue()
+        var selectedIntention = getSelectedIntentionValue()
+        var selectedBedroomCount = getSelectedBedroomCountValue()
+        var selectedBuildingArea = getSelectedBuildingAreaValue()
+
+        if (_.last(selectedIntention) === ',') {
+            selectedIntention = selectedIntention.substring(0, selectedIntention.length - 1)
+        }
+        var description = ''
+        function add (item) {
+            if (item && item.length > 0) {
+                if (description.length > 0) {
+                    description = description + ', ' + item;
+                }
+                else {
+                    description = item;
+                }
+            }
+        }
+
+        add(selectedCountry)
+        add(selectedCity)
+        add(selectedType)
+        add(selectedBudget)
+        add(selectedIntention)
+        add(selectedBedroomCount)
+        add(selectedBuildingArea)
+        return description
     }
 
     loadPropertyList(true)

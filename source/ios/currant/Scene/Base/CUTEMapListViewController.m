@@ -35,6 +35,13 @@
     [self updateCustomViewConstraints];
 }
 
+- (CUTEMapBackView *)backView {
+    if (!_backView) {
+        _backView = [CUTEMapBackView new];
+    }
+    return _backView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _mapView = [[CUTEMapView alloc] initWithFrame:self.view.bounds];
@@ -44,6 +51,9 @@
     calloutView.delegate = self;
     _mapView.calloutView = calloutView;
     [self.view addSubview:_mapView];
+
+    [self.view addSubview:self.backView];
+    [self.backView.button addTarget:self action:@selector(onBackButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)updateCustomViewConstraints {
@@ -59,6 +69,21 @@
         MakeEdgesEqualTo(self.view);
         UpdateEnd
     }
+
+    if ([_backView isDescendantOfView:self.view]) {
+        MakeBegin(_backView);
+        MakeTopEqualTo(self.view.top).offset(28);
+        MakeLeftEqualTo(self.view.left).offset(20);
+        MakeRighEqualTo(self.view.right).offset(-20);
+        MakeBottomEqualTo(self.view.top).offset(28 + 40);
+        MakeEnd
+    }
+}
+
+- (void)onBackButtonPressed:(id)sender {
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_SHOW_ROOT_TAB_BAR object:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation

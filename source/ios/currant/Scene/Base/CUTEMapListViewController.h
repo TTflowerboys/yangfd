@@ -10,10 +10,13 @@
 #import <MapKit/MapKit.h>
 #import <SMCalloutView.h>
 #import "CUTEMapView.h"
+#import "CUTEMapBackView.h"
 
 @interface CUTEMapListViewController : CUTEViewController <MKMapViewDelegate, SMCalloutViewDelegate>
 
 @property (nonatomic, readonly) CUTEMapView *mapView;
+
+@property (nonatomic, retain) CUTEMapBackView *backView;
 
 @end
 

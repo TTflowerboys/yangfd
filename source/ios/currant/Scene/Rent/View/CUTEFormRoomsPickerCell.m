@@ -46,6 +46,12 @@
     return YES;
 }
 
+- (BOOL)resignFirstResponder {
+    BOOL result = [super resignFirstResponder];
+    if (self.field.action) self.field.action(self);
+    return result;
+}
+
 - (UIView *)inputView
 {
     return self.pickerView;

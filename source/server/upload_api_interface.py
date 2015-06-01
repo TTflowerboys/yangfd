@@ -31,9 +31,9 @@ def upload_image(params):
         abort(40074, logger.warning("Invalid params: Unknown image type.", exc_info=False))
 
     im = f_app.storage.image_opacification(im)
-    im = f_app.storage.image_limit(im, params.pop("ratio"), params.pop("width_limit"))
+    im = f_app.storage.image_limit(im, params.get("ratio"), params.get("width_limit"))
 
-    if params.pop("watermark"):
+    if params.get("watermark"):
         im = f_app.storage.image_watermark(im, "../web/src/static/images/logo/logo-watermark.png")
 
     f = StringIO()
@@ -136,9 +136,9 @@ def upload_from_url(params):
     f = StringIO(im_request.content)
 
     im = f_app.storage.image_opacification(im)
-    im = f_app.storage.image_limit(im, params.pop("ratio"), params.pop("width_limit"))
+    im = f_app.storage.image_limit(im, params.get("ratio"), params.get("width_limit"))
 
-    if params.pop("watermark"):
+    if params.get("watermark"):
         im = f_app.storage.image_watermark(im, "../web/src/static/images/logo/logo-watermark.png")
 
     f = StringIO()
