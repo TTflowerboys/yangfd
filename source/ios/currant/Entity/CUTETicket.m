@@ -58,26 +58,33 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
 }
 
+- (void)appendPart:(NSString *)part forString:(NSMutableString *)string {
+    if (!IsNilNullOrEmpty(part)) {
+        if (string.length > 0) {
+            [string appendString:@" "];
+            [string appendString:part];
+        }
+        else {
+            [string appendString:part];
+        }
+    }
+}
+
 - (NSString *)titleForDisplay {
     if ([self.title isKindOfClass:[NSString class]] && !IsNilNullOrEmpty(self.title)) {
         return self.title;
     }
-    NSString *altTitle = nil;
-    if (self.property && self.property.bedroomCount > 0 && self.rentType)
-    {
-        altTitle = [NSString stringWithFormat:@"%d居室 %@出租", self.property.bedroomCount, self.rentType.value];
-    }
-    else if (self.property && self.rentType && self.property.street) {
-        altTitle = [NSString stringWithFormat:@"%@ %@出租", self.property.street, self.rentType.value];
-    }
-    else if (self.property && self.rentType) {
-        altTitle = [NSString stringWithFormat:@"%@出租", self.rentType.value];
-    }
+    NSMutableString *altTitle = [NSMutableString string];
+    [self appendPart:self.property.community?: self.property.street forString:altTitle];
+    [self appendPart:(self.property && self.property.bedroomCount)? [NSString stringWithFormat:@"%d居室", self.property.bedroomCount]: nil forString:altTitle];
+    [self appendPart:self.rentType.value? [NSString stringWithFormat:@"%@出租", self.rentType.value]: nil forString:altTitle];
 
     if (altTitle.length > kTicketTitleMaxCharacterCount) {
-        altTitle = [NSString stringWithFormat:@"%@出租", self.rentType.value];
+        return [NSString stringWithFormat:@"%@出租", self.rentType.value];
     }
-    return altTitle;
+    else {
+        return altTitle;
+    }
 }
 
 - (NSDictionary *)toParams {
