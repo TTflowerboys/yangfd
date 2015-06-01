@@ -17,6 +17,7 @@
 #import "CUTENotificationKey.h"
 #import <Base64.h>
 #import <Sequencer/Sequencer.h>
+#import <NSArray+ObjectiveSugar.h>
 #import "CUTEDataManager.h"
 #import "CUTENotificationKey.h"
 #import "CUTETracker.h"
@@ -45,7 +46,7 @@
 }
 
 - (void)resetPassword {
-    [[[CUTEEnumManager sharedInstance] getCountries] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
@@ -61,7 +62,11 @@
             CUTERentPasswordForm *form = [CUTERentPasswordForm new];
             [form setAllCountries:task.result];
             //set default country same with the property
-            form.country = self.ticket.property.country;
+            if (self.ticket.property.country) {
+                form.country = [task.result find:^BOOL(CUTECountry *object) {
+                    return [object.code isEqualToString:self.ticket.property.country.code];
+                }];
+            }
             controller.formController.form = form;
             controller.navigationItem.title = STR(@"重置密码");
             [self.navigationController pushViewController:controller animated:YES];

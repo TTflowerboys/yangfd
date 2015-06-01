@@ -67,14 +67,16 @@
     return tcs.task;
 }
 
-- (BFTask *)getCountries {
+- (BFTask *)getCountriesWithCountryCode:(BOOL)showCountryCode {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    NSArray *rawArray = @[@{@"name": STR(@"英国"), @"code": @"GB"},
-                          @{@"name": STR(@"中国"), @"code": @"CN"},
-//                          @{@"name": STR(@"香港"), @"code": @"HK"},
-                          @{@"name": STR(@"美国"), @"code": @"US"}];
+    NSArray *rawArray = @[@{@"code": @"GB"},
+                          @{@"code": @"CN"},
+//                          @{@"code": @"HK"},
+                          @{@"code": @"US"}];
     [tcs setResult:[rawArray map:^id(id object) {
-        return [CUTECountry modelWithDictionary:object error:nil];
+        CUTECountry *country = [CUTECountry modelWithDictionary:object error:nil];
+        country.showCountryCode =showCountryCode;
+        return country;
     }]];
     return tcs.task;
 }
@@ -122,7 +124,7 @@
                  return [self getEnumsByType:object];
              }]];
 
-    BFTask *cityTask = [[self getCountries] continueWithBlock:^id(BFTask *task) {
+    BFTask *cityTask = [[self getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
         return [BFTask taskForCompletionOfAllTasks:[task.result map:^id(CUTECountry *object) {
             return [self getCitiesByCountry:object];
         }]];

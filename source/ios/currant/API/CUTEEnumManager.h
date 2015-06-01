@@ -17,7 +17,7 @@
 
 - (BFTask *)getEnumsByType:(NSString *)type;
 
-- (BFTask *)getCountries;
+- (BFTask *)getCountriesWithCountryCode:(BOOL)showCountryCode;
 
 - (BFTask *)getCitiesByCountry:(CUTECountry *)country;
 
