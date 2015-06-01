@@ -64,7 +64,7 @@
                         <td class="title">
                             <div class="text">{{_('出租类型')}}</div>
                         </td>
-                        <td id="rentalType">
+                        <td id="rentalType" data-trigger="updateTitle">
                             %for index, rent_type in enumerate(rent_type_list):
                                 %if rent.get('rent_type'):
                                     %if (rent.get('rent_type',{}).get('id')==rent_type.get('id')):
@@ -136,9 +136,9 @@
                                     <!--<option value="">{{_('请选择城市')}}</option>-->
                                 </select>
                                 <!--todo-->
-                                <!--<input placeholder="{{_('街区')}}" id="block" name="block" data-name="{{_('街区')}}" value="">-->
-                                <input placeholder="{{_('街道')}}" id="street" name="street" data-name="{{_('街道')}}" value="{{rent.get('property',{}).get('street','')}}">
-                                <input placeholder="{{_('小区')}}" id="community" value="{{rent.get('property',{}).get('community','')}}">
+                                <!--<input placeholder="{{_('街区')}}" id="region" name="region" data-name="{{_('街区')}}" value="" data-trigger="updateTitle">-->
+                                <input placeholder="{{_('街道')}}" id="street" name="street" data-name="{{_('街道')}}" value="{{rent.get('property',{}).get('street','')}}" data-trigger="updateTitle">
+                                <input placeholder="{{_('小区')}}" id="community" value="{{rent.get('property',{}).get('community','')}}" data-trigger="updateTitle">
                                 <input placeholder="{{_('楼层')}}" id="floor" value="{{rent.get('property',{}).get('floor','')}}">
                                 <input placeholder="{{_('房间号')}}" id="house_name" value="{{rent.get('property',{}).get('house_name','')}}">
 
@@ -228,7 +228,7 @@
                         </td>
                         <td class="room_count">
                             <div>
-                                <select id="bedroom_count">
+                                <select id="bedroom_count" data-trigger="updateTitle">
                                     %for index,value in enumerate([0,1,2,3,4,5]):
                                     %if rent.get('property',{}).get('bedroom_count',0) == value:
                                     <option value="{{value}}" selected>{{value}}</option>
@@ -394,7 +394,7 @@
                             </div>
                         </td>
                         <td class="content">
-                            <input class="headline" id="title" value="{{rent.get('title','')}}" data-validator="maxLength(30)" data-name="{{_('标题')}}">
+                            <input class="headline" id="title" value="{{rent.get('title','')}}" placeholder="{{rent.get('title','')}}" data-validator="maxLength(30)" data-name="{{_('标题')}}">
                         </td>
                     </tr>
                     <tr>

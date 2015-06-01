@@ -170,6 +170,7 @@
                 }
             }
         })
+        $('#rentalType').trigger('change')
         showRoomOrHouse(index)
     })
 
@@ -508,7 +509,23 @@
         }
         return JSON.stringify({'unit': $('#spaceUnit').children('option:selected').val(), 'value': $('#roomSize').val()})
     }
-
+    function updateTitle() {
+        var defaultTitle = ($('#community').val() || $('#region').val() || $('#street').val()) + ' ' + $('#bedroom_count').children('option:selected').val() + window.i18n('居室') + $('#rentalType .selected').text().trim() + window.i18n('出租')
+        $('#title').attr('placeholder', defaultTitle)
+    }
+    updateTitle()
+    $('#title').on('focus', function () {
+        if(!$(this).val()) {
+            $(this).val($(this).attr('placeholder'))
+        }
+    }).on('blur', function () {
+        if($(this).val() === $(this).attr('placeholder')) {
+            $(this).val('')
+        }
+    })
+    $('[data-trigger=updateTitle]').on('change', function () {
+        updateTitle()
+    })
     //获取房产模型数据
     function getPropertyData(options){
         /*var address = $('#country')[0].value + $('#city')[0].value + $('#street')[0].value +
@@ -567,7 +584,7 @@
 
     //获取出租单模型数据
     function getTicketData(options){
-        var title = $('#title').val() || $('#block').val() + ' ' + $('#bedroom_count').children('option:selected').val() + window.i18n('居室') + $('#rentalType .selected').text().trim() + window.i18n('出租') //如果用户没有填写title，默认为街区+居室+出租类型，比如“Isle of Dogs三居室单间出租”
+        var title = $('#title').val() || $('#title').attr('placeholder') //如果用户没有填写title，默认为街区+居室+出租类型，比如“Isle of Dogs三居室单间出租”
         var ticketData = $.extend(options,{
             'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'), //出租类型
             'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
@@ -655,11 +672,7 @@
         })
 
     $('#load_more .load_more').click(function () {
-        var defaultTitle = $('#block').val() ? $('#block').val() + ' ' : '' + $('#bedroom_count').children('option:selected').val() + window.i18n('居室') + $('#rentalType .selected').text().trim() + window.i18n('出租')
         $('#load_more').hide()
-        if($('#title').val() === ''){
-            $('#title').val(defaultTitle)
-        }
         $('#more_information').show()
 
         ga('send', 'event', 'property_to_rent_create', 'click', 'enter_more')
