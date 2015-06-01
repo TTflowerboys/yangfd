@@ -426,8 +426,7 @@
                         property.zipcode = placemark.postalCode;
                         property.country = country;
                         property.city = city? : [cities firstObject];
-                        property.street = placemark.thoroughfare;
-                        property.community = placemark.subThoroughfare;
+                        property.community = nil;
                         property.floor = nil;
                         property.houseName = nil;
 
