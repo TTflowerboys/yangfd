@@ -11,17 +11,15 @@
 #import <SMCalloutView.h>
 #import "CUTEMapView.h"
 
-@interface CUTEMapListViewController : CUTEWebViewController <MKMapViewDelegate, SMCalloutViewDelegate>
+@interface CUTEMapListViewController : CUTEViewController <MKMapViewDelegate, SMCalloutViewDelegate>
 
 @property (nonatomic, readonly) CUTEMapView *mapView;
-
-@property (nonatomic, readonly) UIButton *mapButton;
 
 @end
 
 @interface CUTEMapListViewController (Subclass)
 
-- (void)loadMapData;
+- (void)loadMapDataWithParams:(NSDictionary *)params;
 
 - (void)showCalloutViewWithObject:(id)object inView:(UIView *)view;
 

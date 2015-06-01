@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTEMapListViewController.h"
+#import "CUTEListViewController.h"
 
-@interface CUTEPropertyListViewController : CUTEMapListViewController
+@interface CUTEPropertyListViewController : CUTEListViewController
 
 @end
