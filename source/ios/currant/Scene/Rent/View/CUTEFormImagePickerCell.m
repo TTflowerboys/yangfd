@@ -397,6 +397,7 @@
 
         [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
+        //TODO why here slow down the performance
         [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
@@ -406,7 +407,6 @@
             }
             return nil;
         }];
-
         return nil;
     }];
 }

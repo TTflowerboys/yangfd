@@ -93,11 +93,47 @@ def current_user_favorites_add(user, params):
     return f_app.user.favorite_add(params)
 
 
+@f_api('/user/favorite/remove', params=dict(
+    property_id=ObjectId,
+    item_id=ObjectId,
+    ticket_id=ObjectId,
+    type=(str, True),
+))
+@f_app.user.login.check(force=True)
+def current_user_favorite_remove(user, params):
+    """
+    Remove a favorited item by their own id
+
+    Please specify ``type`` when calling this API. Possible values: ``property``, ``item``, ``rent_ticket``, ``sale_ticket``.
+    """
+    assert params["type"] in ("property", "item", "rent_ticket", "sale_ticket"), abort(40000, logger.warning("Invalid params: invalid favorite type", exc_info=False))
+    if params["type"] == "property" and "property_id" in params:
+        property = f_app.property.get(params["property_id"])
+        assert property["status"] in ["selling", "sold out"], abort(40398, logger.warning("Permission denied: not a valid property_id", exc_info=False))
+    elif params["type"] == "item" and "item_id" in params:
+        item = f_app.shop.item.get(params["item_id"])
+        assert item["status"] in ["new", "sold out"], abort(40398, logger.warning("Permission denied: not a valid item_id", exc_info=False))
+    elif params["type"] in ("rent_ticket", "sale_ticket") and "ticket_id" in params:
+        ticket = f_app.ticket.get(params["ticket_id"])
+        assert ticket["type"] == params["type"][:-7] and ticket["status"] in ("for sale", "to rent", "sold", "rent"), abort(40398, logger.warning("Permission denied: not a valid ticket_id", exc_info=False))
+    else:
+        abort(40000, logger.warning("Invalid operation: params not correct", exc_info=False))
+
+    params["user_id"] = ObjectId(user["id"])
+    result = f_app.user.favorite_search(params)
+    if not result:
+        abort(40400)
+    elif len(result) > 1:
+        logger.error("WTF?")
+
+    return f_app.user.favorite_remove(result[0])
+
+
 @f_api('/user/favorite/<favorite_id>/remove')
 @f_app.user.login.check(force=True)
-def current_user_favorite_remove(user, favorite_id):
+def current_user_favorite_remove_by_favorite_id(user, favorite_id):
     """
-    Delete a favorited item
+    Remove a favorited item by favorite id
     """
     assert str(f_app.user.favorite_get(favorite_id)["user_id"]) == user["id"], abort(40399)
     return f_app.user.favorite.remove(favorite_id)
