@@ -30,6 +30,17 @@
     return sharedInstance;
 }
 
++ (NSString *)buildComponentsWithDictionary:(NSDictionary *)dictionary {
+    if (dictionary && dictionary.count) {
+        NSMutableArray *array = [NSMutableArray array];
+        [dictionary enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSString* obj, BOOL *stop) {
+            [array addObject:CONCAT(key, @":", obj)];
+        }];
+        return [array componentsJoinedByString:@"|"];
+    }
+    return nil;
+}
+
 
 - (BFTask *)reverseGeocodeLocation:(CLLocation *)location {
 
@@ -80,9 +91,12 @@
     return tcs.task;
 }
 
-- (BFTask *)geocodeWithComponents:(NSString *)components {
+- (BFTask *)geocodeWithAddress:(NSString *)address components:(NSString *)components {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     NSString *geocoderURLString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?key=%@&language=en&components=%@", [CUTEConfiguration googleAPIKey], [components URLEncode]];
+    if (!IsNilNullOrEmpty(address)) {
+        geocoderURLString = CONCAT(geocoderURLString, @"&", @"address=", [address URLEncode]);
+    }
 
     [[[CUTEAPIManager sharedInstance] POST:geocoderURLString parameters:nil resultClass:nil resultKeyPath:@"results"] continueWithBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result)) {

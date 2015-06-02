@@ -47,8 +47,6 @@
 
     UIButton *_userLocationButton;
 
-    CLGeocoder *_geocoder;
-
     BFTask *_updateAddressTask;
 
     BOOL _mapShowCurrentRegion;
@@ -71,8 +69,6 @@
     [super viewDidLoad];
     self.navigationItem.title = STR(@"地址");
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
-
-    _geocoder = [[CLGeocoder alloc] init];
 
     _mapView = [[MKMapView alloc] init];
     _mapView.frame = self.view.bounds;
@@ -250,23 +246,33 @@
         return;
     }
 
-    [SVProgressHUD show];
-    NSDictionary *locationDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        NilNullToEmpty(self.ticket.property.city.name), kABPersonAddressCityKey,
-                                        NilNullToEmpty(self.ticket.property.country.name), kABPersonAddressCountryKey,
-                                        [@[NilNullToEmpty(self.ticket.property.community), NilNullToEmpty(self.ticket.property.street)] componentsJoinedByString:@" "], kABPersonAddressStreetKey,
-                                        NilNullToEmpty(self.ticket.property.zipcode), kABPersonAddressZIPKey,
-                                        nil];
-    [_geocoder geocodeAddressDictionary:locationDictionary completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (!IsArrayNilOrEmpty(placemarks)) {
-            CLPlacemark *placemark = [placemarks firstObject];
-            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, kRegionDistance, kRegionDistance);
-            [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
-            [SVProgressHUD dismiss];
+    [_textField.indicatorView startAnimating];
+    
+    NSString *street = CONCAT(AddressPart(self.ticket.property.community), AddressPart(self.ticket.property.street));
+    NSString *components = [CUTEGeoManager buildComponentsWithDictionary:@{@"country": self.ticket.property.country.code, @"locality": self.ticket.property.city.name}];
+    [[[CUTEGeoManager sharedInstance] geocodeWithAddress:street components:components] continueWithBlock:^id(BFTask *task) {
+        [_textField.indicatorView stopAnimating];
+        if (task.error) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
         }
         else {
-            [SVProgressHUD showErrorWithError:error];
+            if (task.result) {
+                CUTEPlacemark *placemark = task.result;
+                MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(placemark.location.coordinate, kRegionDistance, kRegionDistance);
+                [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:STR(@"重新定位失败")];
+            }
         }
+
+        return task;
     }];
 }
 

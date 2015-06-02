@@ -174,8 +174,6 @@
     return params;
 }
 
-#define AddressPart(part) IsNilNullOrEmpty(part)? @"": CONCAT(part, @" ")
-
 - (NSString *)address {
     return [CONCAT(AddressPart(self.houseName),
                    AddressPart(self.floor),

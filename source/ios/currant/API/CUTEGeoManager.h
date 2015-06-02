@@ -14,8 +14,10 @@
 
 + (instancetype)sharedInstance;
 
++ (NSString *)buildComponentsWithDictionary:(NSDictionary *)dictionary;
+
 - (BFTask *)reverseGeocodeLocation:(CLLocation *)location;
 
-- (BFTask *)geocodeWithComponents:(NSString *)components;
+- (BFTask *)geocodeWithAddress:(NSString *)address components:(NSString *)components;
 
 @end

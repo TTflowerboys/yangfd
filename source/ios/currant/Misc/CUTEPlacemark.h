@@ -19,6 +19,7 @@
 @property (nonatomic, copy) NSString *postalCode; // zip code, eg. 95014
 @property (nonatomic, strong) CUTECity *city; // city, eg. Cupertino
 @property (nonatomic, strong) CUTECountry *country; // eg. United States
+@property (strong, nonatomic) CLLocation *location;
 
 + (CUTEPlacemark *)placeMarkWithCLPlaceMark:(CLPlacemark *)placemark;
 

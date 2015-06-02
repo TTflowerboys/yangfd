@@ -199,14 +199,8 @@
 
                 [SVProgressHUD show];
                 NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
-                NSMutableString *components = [NSMutableString stringWithString:CONCAT(@"postal_code:", postCodeIndex)];
-                if (self.ticket.property.country) {
-                    [components appendString:CONCAT(@"|", @"country:", self.ticket.property.country.code)];
-                }
-                if (self.ticket.property.city) {
-                    [components appendString:CONCAT(@"|", @"locality:", self.ticket.property.city.name)];
-                }
-                [[[CUTEGeoManager sharedInstance] geocodeWithComponents:components] continueWithBlock:^id(BFTask *task) {
+                NSString *components = [CUTEGeoManager buildComponentsWithDictionary:@{@"postal_code": postCodeIndex, @"country": self.ticket.property.country.code, @"locality": self.ticket.property.city.name}];
+                [[[CUTEGeoManager sharedInstance] geocodeWithAddress:nil components:components] continueWithBlock:^id(BFTask *task) {
                     if (task.error) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }
