@@ -435,7 +435,7 @@ class f_currant_user(f_user):
             if user:
                 user_id = user['id']
             else:
-                abort(40100)
+                return False
 
         return target_id in self.favorite_output(self.favorite_get_by_user(user_id, fav_type), ignore_nonexist=True, id_only=True)
 
