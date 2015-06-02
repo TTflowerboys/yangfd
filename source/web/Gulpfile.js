@@ -208,27 +208,30 @@ gulp.task('build:html-extend', ['build:less2css'], function () {
 
 gulp.task('setupCDN', ['build:html-extend'], function () {
     if (argv.cdn) {
-        var relaceRev =  function () {
+        var time = new Date().getTime()
+        var onRenameFinished =  function () {
             //html should only in root folder
             gulp.src(myPaths.dist + '*.html')
-                .pipe(replace(/\/static\/images\//g, argv.cdn + '/images/'))
-                .pipe(replace(/\/static\/sprite\//g, argv.cdn + '/sprite/'))
-                .pipe(replace(/\/static\/styles\//g, argv.cdn + '/styles/'))
-                .pipe(replace(/\/static\/vendors\//g, argv.cdn + '/vendors/'))
-                .pipe(replace(/\/static\/fonts\//g, argv.cdn + '/fonts/'))
+                .pipe(replace(/\/static\/images\//g, argv.cdn + '/' + time + '/images/'))
+                .pipe(replace(/\/static\/sprite\//g, argv.cdn + '/' + time + '/sprite/'))
+                .pipe(replace(/\/static\/styles\//g, argv.cdn + '/' + time + '/styles/'))
+                .pipe(replace(/\/static\/vendors\//g, argv.cdn + '/' + time + '/vendors/'))
+                .pipe(replace(/\/static\/fonts\//g, argv.cdn + '/' + time + '/fonts/'))
                 .pipe(gulp.dest(myPaths.dist))
 
-            gulp.src(myPaths.dist + 'static/styles/' + '**/*.css')
-                .pipe(replace(/\/static\/images\//g,  argv.cdn + '/images/'))
-                .pipe(replace(/\/static\/fonts\//g, argv.cdn + '/fonts/'))
-                .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
+            gulp.src(myPaths.dist + 'static/' + time + '/styles/' + '**/*.css')
+                .pipe(replace(/\/static\/images\//g,  argv.cdn + '/' + time + '/images/'))
+                .pipe(replace(/\/static\/fonts\//g, argv.cdn + '/' + time + '/fonts/'))
+                .pipe(gulp.dest(myPaths.dist + 'static/' + time + '/styles/'))
 
-            gulp.src(myPaths.dist + 'static/scripts/' + '**/*.js')
-                .pipe(replace(/\/static\/images\//g,  argv.cdn + '/images/'))
-                .pipe(gulp.dest(myPaths.dist + 'static/scripts/'))
+            gulp.src(myPaths.dist + 'static/' + time + '/scripts/' + '**/*.js')
+                .pipe(replace(/\/static\/images\//g,  argv.cdn + '/' + time + '/images/'))
+                .pipe(gulp.dest(myPaths.dist + 'static/' + time + '/scripts/'))
         }
-        relaceRev()
 
+        gulp.src(myPaths.dist + '/static/**')
+            .pipe(gulp.dest(myPaths.dist + 'static/' + time))
+            .on('end', onRenameFinished);         
     }
 })
 
