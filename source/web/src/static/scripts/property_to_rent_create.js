@@ -827,7 +827,7 @@
             showQueueDiv: 'uploadProgress',
             statusBarWidth: '140px',
             maxFileCount: 12, //最多上传12张图片
-            maxFileSize: 1024 * 1024, //允许单张图片文件的最大占用空间,暂时设为1M
+            maxFileSize: 2 * 1024 * 1024, //允许单张图片文件的最大占用空间为2M
             uploadFolder: '',
             allowedTypes: 'jpg,jpeg,png,gif',
             acceptFiles: 'image/',
