@@ -134,7 +134,7 @@ gulp.task('revAll', ['build:html-extend'], function () {
 
 gulp.task('fingerprint', ['revAll'], function () {
     var manifest = require(myPaths.dist + 'rev-manifest');
-
+    console.log(manifest)
     var options = {
         verbose: true
     };
