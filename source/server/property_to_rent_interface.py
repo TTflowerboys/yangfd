@@ -85,8 +85,7 @@ def rent_ticket_get(rent_ticket_id, user):
     if rent_ticket["status"] not in ["draft", "to rent"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 
-    favorite_list = currant_data_helper.get_favorite_list('rent_ticket')
-    favorite_list = f_app.i18n.process_i18n(favorite_list)
+    is_favorited = f_app.user.favorite.is_favorited(rent_ticket_id, 'rent_ticket', user["id"])
 
     publish_time = f_app.util.format_time(rent_ticket.get('time'))
     report = None
@@ -105,7 +104,7 @@ def rent_ticket_get(rent_ticket_id, user):
     keywords = title + ',' + currant_util.get_country_name_by_code(rent_ticket["property"].get('country', {}).get('code', '')) + ',' + rent_ticket["property"].get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
-    return currant_util.common_template("property_to_rent", rent=rent_ticket, report=report, favorite_list=favorite_list, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin)
+    return currant_util.common_template("property_to_rent", rent=rent_ticket, report=report, is_favorited=is_favorited, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin)
 
 
 @f_get('/property-to-rent/create')

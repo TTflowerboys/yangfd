@@ -27,6 +27,11 @@
     [super viewDidLoad];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self checkNeedUpdateTicketTitle];
+}
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     FXFormField *field = [self.formController fieldForIndexPath:indexPath];
     if ([field.key isEqualToString:@"ticketTitle"]) {
@@ -90,6 +95,13 @@
     [self updateTicket];
 }
 
+- (void)checkNeedUpdateTicketTitle {
+    if (!self.ticket.title) {
+        self.ticket.title = self.ticket.titleForDisplay;
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    }
+}
+
 - (void)updateTicket {
     CUTEPropertyMoreInfoForm *form = (CUTEPropertyMoreInfoForm *)[self.formController form];
     CUTETicket *ticket = self.ticket;
@@ -97,9 +109,6 @@
     ticket.ticketDescription = form.ticketDescription;
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 
-    if (self.updateMoreInfoCompletion) {
-        self.updateMoreInfoCompletion();
-    }
 }
 
 @end
