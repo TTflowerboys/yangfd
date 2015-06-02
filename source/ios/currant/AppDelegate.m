@@ -34,7 +34,6 @@
 #import "CUTETracker.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import <Crittercism.h>
 #import <ATConnect.h>
 #warning DEBUG_CODE
 #ifdef DEBUG
@@ -234,7 +233,6 @@
 //    });
 //#endif
 
-    [Crittercism enableWithAppID:@"55596173b60a7d3e63908c50"];
     //TODO setup use user id in track and crash report
     [Fabric with:@[CrashlyticsKit]];
 
