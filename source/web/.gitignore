@@ -30,6 +30,7 @@ npm-debug.log.*
 
 # Ignore sprite folder
 sprite
+tmp
 
 # Users Environment Variables
 .lock-wscript
