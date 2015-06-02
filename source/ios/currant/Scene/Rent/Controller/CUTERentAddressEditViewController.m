@@ -216,7 +216,10 @@
                             CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)[self.formController form];
                             form.street = placemark.street;
                             [self.tableView reloadData];
+                            self.ticket.property.latitude = placemark.location.coordinate.latitude;
+                            self.ticket.property.longitude = placemark.location.coordinate.longitude;
                             [self updateTicket];
+                            self.lastPostcode = self.ticket.property.zipcode;
                             [SVProgressHUD dismiss];
                         }
                         else {
