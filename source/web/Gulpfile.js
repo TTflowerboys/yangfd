@@ -34,7 +34,6 @@ var uglify = require('gulp-uglify');
 var pageSprite = require('gulp-page-sprite')
 var replace = require('gulp-replace')
 var bower = require('gulp-bower')
-var RevAll = require('gulp-rev-all')
 var fingerprint = require('gulp-fingerprint')
 
 var argv = require('yargs').argv
@@ -127,13 +126,12 @@ gulp.task('clean', function () {
 })
 
 gulp.task('revAll', ['build:html-extend'], function () {
-    var revAll = new RevAll();
-    return gulp.src(myPaths.tmp)
-        .pipe(gulp.dest(myPaths.dist))
-        .pipe(revAll.revision())
-        .pipe(gulp.dest(myPaths.dist))
-        .pipe(revAll.manifestFile())
-        .pipe(gulp.dest(myPaths.dist));
+    return gulp.src(['tmp/static/**/*'], {base: 'tmp'})
+        .pipe(gulp.dest(myPaths.dist))  // copy original assets to build dir
+        .pipe(rev())
+        .pipe(gulp.dest(myPaths.dist))  // write rev'd assets to build dir
+        .pipe(rev.manifest())
+        .pipe(gulp.dest(myPaths.dist)); // write manifest to build dir
 })
 
 gulp.task('fingerprint', ['revAll'], function () {
