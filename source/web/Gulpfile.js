@@ -136,7 +136,8 @@ gulp.task('fingerprint', ['revAll'], function () {
     var manifest = require(myPaths.dist + 'rev-manifest');
     console.log(manifest)
     var options = {
-        verbose: true
+        verbose: true,
+        mode: 'replace'
     };
 
     return gulp.src(myPaths.tmp + '**/*')
