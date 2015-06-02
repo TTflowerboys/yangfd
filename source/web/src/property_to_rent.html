@@ -480,27 +480,31 @@
     <li class="favorite"
         data-fn="removeFav"
         style="{{ 'display:none' if not is_favorited else ''}}"
-        % if is_favorited:
-            data-favorite-id="{{rent.get('id','')}}"
-        % end
+    % if is_favorited:
+    data-favorite-id="{{rent.get('id','')}}"
+    % end
     ><img src="/static/images/property_details/phone/favorite.png"></img>
     </li>
 </ul>
 
-        <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
-            <img src="" alt="二维码" width="220" height="220"/>
-            <p>{{_('打开微信，使用 “扫一扫” 即可将出租房生成移动端主页分享到朋友圈')}}</p>
-        </div>
+<div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
+    <img src="" alt="二维码" width="220" height="220"/>
+    <p>{{_('打开微信，使用 “扫一扫” 即可将出租房生成移动端主页分享到朋友圈')}}</p>
+</div>
 
-        <div class="wechatPage_popup" style="display:none;">
-            <h1 class="tip"> {{!_('点击右上角')}}</h1>
-            <img class="buttonHolder"  alt="" src="/static/images/property_details/wechat_share/phone/wechat_button.png"/>
-            <h1 class="tip"> {{!_('分享链接给微信好友')}}</h1>
-            <div class="guide">
-                <img  alt="" src="/static/images/property_details/wechat_share/phone/wechat_guide.png"/>
-            </div>
-            <a class="gotIt" href ="#close-modal" rel="modal:close">{{_('我知道了')}}</a>
-        </div>
+<div class="wechatPage_popup" style="display:none;">
+    <h1 class="tip"> {{!_('点击右上角')}}</h1>
+    <img class="buttonHolder"  alt="" src="/static/images/property_details/wechat_share/phone/wechat_button.png"/>
+    <h1 class="tip"> {{!_('分享链接给微信好友')}}</h1>
+    <div class="guide">
+        <img  alt="" src="/static/images/property_details/wechat_share/phone/wechat_guide.png"/>
+    </div>
+    <a class="gotIt" href ="#close-modal" rel="modal:close">{{_('我知道了')}}</a>
+</div>
+
+<textarea id="pythonWeixin" style="display: none;">
+    {{json_dumps(weixin)}}
+</textarea>
 
         <!-- @@include=/static/templates/place_item.tpl.html-->
 
@@ -572,25 +576,6 @@
                     ga('send', 'event', 'property_to_rent_detail', 'click', 'extend-description')
                 });
 
-                window.openWeChatShare = function (rentId) {
-                    ga('send', 'event', 'property_to_rent_detail', 'click', 'open-wechat-share')
-                    if (window.team.isWeChat()) {
-                        if (window.team.isWeChatiOS()) {
-                            $('.wechatPage_popup .buttonHolder').attr('src', '/static/images/property_details/wechat_share/phone/wechat_button_ios.png')
-                        }
-                        $('.wechatPage_popup').modal()
-                        $('.wechatPage_popup').find('.close-modal').hide()
-                    }
-                    else {
-                        location.href = '/wechat-poster/' + rentId
-                    }
-                }
-
-                $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
-                    window.openWeChatShare('{{rent.get('id','')}}')
-                    ga('send', 'event', 'property_to_rent_detail', 'share', 'open-wechat-mobile')
-                });
-
                 //Map Part
                 %if rent['property'].get('latitude') and rent['property'].get('longitude'):
                 if ($('.maps_wrapper')) {
@@ -636,6 +621,72 @@
                     })
                 }
                 %end
+
+                /*
+                 * Weixin share sdk
+                 * */
+                var weixin = JSON.parse($('#pythonWeixin').text())
+
+                window.openWeChatShare = function (rentId) {
+                    ga('send', 'event', 'property_to_rent_detail', 'click', 'open-wechat-share')
+                    if (window.team.isWeChat()) {
+                        if (window.team.isWeChatiOS()) {
+                            $('.wechatPage_popup .buttonHolder').attr('src', '/static/images/property_details/wechat_share/phone/wechat_button_ios.png')
+                        }
+                        $('.wechatPage_popup').modal()
+                        $('.wechatPage_popup').find('.close-modal').hide()
+                    }
+                    else {
+                        location.href = '/wechat-poster/' + rentId
+                    }
+                }
+
+                $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
+                    window.openWeChatShare('{{rent.get('id','')}}')
+                    ga('send', 'event', 'property_to_rent_detail', 'share', 'open-wechat-mobile')
+                });
+
+
+                if (typeof window.wx !== 'undefined') {
+                    window.wx.config({
+                        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                        appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
+                        timestamp: weixin.timestamp, // 必填，生成签名的时间戳
+                        nonceStr: weixin.nonceStr, // 必填，生成签名的随机串
+                        signature: weixin.signature,// 必填，签名，见附录1
+                        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                    })
+
+                    window.wx.ready(function(){
+                        var wechatShareData = {
+                            title: '{{rent.get('title','')}}',
+                            link:location.href,
+                            success:function(){
+                                ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-success')
+                            },
+                            cancel:function(){
+                                ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-cancel')
+                            }
+                        }
+                        % if rent['property'].get('reality_images'):
+                            wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}'
+                        %end
+
+                        var description = null
+                        % if rent.get('description'):
+                            wechatShareData.desc = '{{rent.get('description','')}}'
+                        %end
+
+                        window.wx.onMenuShareTimeline(wechatShareData);
+                        window.wx.onMenuShareAppMessage(wechatShareData);
+                        window.wx.onMenuShareQQ(wechatShareData);
+                    })
+
+                    window.wx.error(function(res){
+                        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+                        alert(res)
+                    })
+                }
             })
         </script>
 

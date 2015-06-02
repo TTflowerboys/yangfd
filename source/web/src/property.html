@@ -1398,8 +1398,7 @@
                     var propertyImage = null
                     if (property.cover) {
                         propertyImage = property.cover
-                    }
-                    else if (property.reality_images && property.reality_images.length) {
+                    }else if (property.reality_images && property.reality_images.length) {
                         propertyImage = property.reality_images[0]
                     }
                     var wechatShareData = {
@@ -1407,10 +1406,11 @@
                         link:location.href,
                         imgUrl:propertyImage,
                     }
-                    window.wx.onMenuShareTimeline(wechatShareData);
                     if (property.decription) {
                         wechatShareData.desc = property.description
                     }
+
+                    window.wx.onMenuShareTimeline(wechatShareData);
                     window.wx.onMenuShareAppMessage(wechatShareData);
                     window.wx.onMenuShareQQ(wechatShareData);
                 });
