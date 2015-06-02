@@ -38,8 +38,6 @@ var fingerprint = require('gulp-fingerprint')
 
 var argv = require('yargs').argv
 
-require('events').EventEmitter.prototype._maxListeners = 1000000;
-
 var myPaths = {
     src: './src/',
     tmp: './tmp/',
@@ -138,7 +136,6 @@ gulp.task('fingerprint', ['revAll'], function () {
     var manifest = require(myPaths.dist + 'rev-manifest');
 
     var options = {
-        base: './tmp/',
         verbose: true
     };
 
