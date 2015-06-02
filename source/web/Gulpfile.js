@@ -124,6 +124,7 @@ gulp.task('clean', function () {
 
 gulp.task('revAll', ['build:html-extend'], function () {
     return gulp.src(['dist/static/admin/templates/**/*.html', 'dist/static/fonts/**/*', 'dist/static/images/**/*', 'dist/static/scripts/**/*', 'dist/static/styles/**/*', 'dist/static/templates/**/*', 'dist/static/vendors/**/*'], {base: 'dist'})
+        .pipe(gulp.dest(myPaths.dist))
         .pipe(rev())
         .pipe(gulp.dest(myPaths.dist))  // write rev'd assets to build dir
         .pipe(rev.manifest())
@@ -132,9 +133,8 @@ gulp.task('revAll', ['build:html-extend'], function () {
 
 gulp.task('fingerprint', ['revAll'], function () {
     var manifest = require(myPaths.dist + 'rev-manifest');
-    console.log(manifest)
     var options = {
-        verbose: true,
+        verbose: false,
         mode: 'replace'
     };
 
