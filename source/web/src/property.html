@@ -1405,6 +1405,12 @@
                         title:property.name,
                         link: window.location.href,
                         imgUrl:propertyImage,
+                        success:function(){
+                            ga('send', 'event', 'property_detail', 'share', 'share-to-wechat-success')
+                        },
+                        cancel:function(){
+                            ga('send', 'event', 'property_detail', 'share', 'share-to-wechat-cancel')
+                        }
                     }
                     if (property.decription) {
                         wechatShareData.desc = property.description
@@ -1413,7 +1419,11 @@
                     window.wx.onMenuShareTimeline(wechatShareData);
                     window.wx.onMenuShareAppMessage(wechatShareData);
                     window.wx.onMenuShareQQ(wechatShareData);
-                });
+                })
+
+                window.wx.error(function(res){
+                    ga('send', 'event', 'property_detail', 'share', 'share-to-wechat-config-error', res.errMsg)
+                })
             }
         })
 
