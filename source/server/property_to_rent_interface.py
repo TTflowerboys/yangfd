@@ -85,7 +85,7 @@ def rent_ticket_get(rent_ticket_id, user):
     if rent_ticket["status"] not in ["draft", "to rent"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 
-    is_favorited = f_app.user.favorite.is_favorited(rent_ticket_id, 'rent_ticket', user["id"])
+    is_favorited = f_app.user.favorite.is_favorited(rent_ticket_id, 'rent_ticket', user["id"] if user else None)
 
     publish_time = f_app.util.format_time(rent_ticket.get('time'))
     report = None

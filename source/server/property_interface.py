@@ -76,7 +76,7 @@ def property_get(property_id, user):
     if property["status"] not in ["selling", "sold out", "restricted"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
 
-    is_favorited = f_app.user.favorite.is_favorited(property_id, 'property', user["id"])
+    is_favorited = f_app.user.favorite.is_favorited(property_id, 'property', user["id"] if user else None)
 
     related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
 
