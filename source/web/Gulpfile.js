@@ -40,7 +40,6 @@ var argv = require('yargs').argv
 
 var myPaths = {
     src: './src/',
-    tmp: './tmp/',
     dist: './dist/',
     html: './src/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,bower_components,admin/scripts,admin/templates}',
@@ -50,7 +49,7 @@ var myPaths = {
     js: './src/static/{,admin/}scripts/**/*.js',
     sprite: './sprite/',
     sprite_html: './sprite/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
-    sprite_dist: './tmp/static/sprite/',
+    sprite_dist: './dist/static/sprite/',
     sprite_static: './sprite/static/**/*.*',
     sprite_less: ['./sprite/static/styles/**/*.less', '!**/flycheck_*.*'],
     sprite_css: './sprite/static/styles/**/*.css',
@@ -80,7 +79,7 @@ gulp.task('debug:lint', function () {
 gulp.task('symlink', ['bower'], function () {
     return gulp.src(myPaths.symlink)
         .pipe(symlink(function (file) {
-            return file.path.replace('/src/', '/tmp/')
+            return file.path.replace('/src/', '/dist/')
         }))
 })
 
@@ -88,13 +87,13 @@ gulp.task('symlink', ['bower'], function () {
 gulp.task('less2css', function (done) {
     gulp.src(myPaths.css)
         .pipe(prefix('last 2 version', 'Firefox >= 20', 'ie 8'))
-        .pipe(gulp.dest(myPaths.tmp + 'static/styles/'))
+        .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     gulp.src(myPaths.less)
         .pipe(less().on('error', function (error) {
             console.info(chalk.white.bgRed(error.message))
         }))
         .pipe(prefix('last 2 version', 'Firefox >= 20', 'ie 8'))
-        .pipe(gulp.dest(myPaths.tmp + 'static/styles/'))
+        .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     done()
 })
 
@@ -113,19 +112,18 @@ gulp.task('html-extend', function () {
     return gulp.src(myPaths.html)
         .pipe(extender({verbose:false}))
         .pipe(preprocess({context: {ENV: 'debug'}}))
-        .pipe(gulp.dest(myPaths.tmp))
+        .pipe(gulp.dest(myPaths.dist))
 })
 
 
 
 gulp.task('clean', function () {
-    return gulp.src([myPaths.tmp, myPaths.dist, myPaths.sprite], {read: false})
+    return gulp.src([myPaths.dist, myPaths.sprite], {read: false})
         .pipe(rimraf({force: true, verbose: true}))
 })
 
 gulp.task('revAll', ['build:html-extend'], function () {
-    return gulp.src(['tmp/static/admin/templates/**/*.html', 'tmp/static/fonts/**/*', 'tmp/static/images/**/*', 'tmp/static/scripts/**/*', 'tmp/static/styles/**/*', 'tmp/static/templates/**/*', 'tmp/static/vendors/**/*'], {base: 'tmp'})
-        .pipe(gulp.dest(myPaths.dist))  // copy original assets to build dir
+    return gulp.src(['dist/static/admin/templates/**/*.html', 'dist/static/fonts/**/*', 'dist/static/images/**/*', 'dist/static/scripts/**/*', 'dist/static/styles/**/*', 'dist/static/templates/**/*', 'dist/static/vendors/**/*'], {base: 'dist'})
         .pipe(rev())
         .pipe(gulp.dest(myPaths.dist))  // write rev'd assets to build dir
         .pipe(rev.manifest())
@@ -139,7 +137,7 @@ gulp.task('fingerprint', ['revAll'], function () {
         mode: 'replace'
     };
 
-    return gulp.src([myPaths.tmp + '**/*.html', myPaths.tmp + 'static/**/*.css', myPaths.tmp + 'static/admin/scripts/config/states.js', myPaths.tmp + 'static/admin/scripts/directives/**/*', myPaths.tmp + 'static/scripts/**/*', myPaths.tmp + 'static/styles/**/*'], {base: 'tmp'})
+    return gulp.src([myPaths.dist + '**/*.html', myPaths.dist + 'static/**/*.css', myPaths.dist + 'static/admin/scripts/config/states.js', myPaths.dist + 'static/admin/scripts/directives/**/*', myPaths.dist + 'static/scripts/**/*', myPaths.dist + 'static/styles/**/*'], {base: 'dist'})
         .pipe(fingerprint(manifest, options))
         .pipe(gulp.dest(myPaths.dist));
 });
@@ -167,14 +165,14 @@ gulp.task('lint', function () {
 gulp.task('build:copy-sprite-static', ['clean', 'sprite'], function () {
     return gulp.src(myPaths.sprite_static)
         .pipe(imagemin())
-        .pipe(gulp.dest(myPaths.tmp + 'static/'))
+        .pipe(gulp.dest(myPaths.dist + 'static/'))
 })
 
 
 gulp.task('build:ngAnnotate', ['build:copy-sprite-static'], function () {
     return gulp.src(myPaths.src + '/static/{,admin/}scripts/**/*.js')
         .pipe(ngAnnotate())
-        .pipe(gulp.dest(myPaths.tmp + 'static/'));
+        .pipe(gulp.dest(myPaths.dist + 'static/'));
 })
 
 
@@ -195,12 +193,12 @@ gulp.task('build:less2css', ['build:copy-sprite-static'], function (done) {
     gulp.src(myPaths.sprite_css)
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(minifyCss({keepSpecialComments: 0}))
-        .pipe(gulp.dest(myPaths.tmp + 'static/styles/'))
+        .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     return gulp.src(myPaths.sprite_less)
         .pipe(less())
         .pipe(prefix('last 2 version', '> 1%', 'ie 8'))
         .pipe(minifyCss({keepSpecialComments: 0}))
-        .pipe(gulp.dest(myPaths.tmp + 'static/styles/'))
+        .pipe(gulp.dest(myPaths.dist + 'static/styles/'))
     done()
 })
 
@@ -218,8 +216,6 @@ gulp.task('build:html-extend', ['build:less2css'], function () {
         .pipe(extender({verbose: false}))
         .pipe(preprocess({context: {ENV: argv.env}}))
         .pipe(publicHtmlFilter)
-        .pipe(replace(/build:css\(dist\)/g, 'build:css(tmp)'))
-        .pipe(replace(/build:js\(dist\)/g, 'build:js(tmp)'))
         .pipe(usemin({
             //TODO: Rev images
             css: ['concat', rev()],
@@ -227,7 +223,7 @@ gulp.task('build:html-extend', ['build:less2css'], function () {
         }))
         .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
-        .pipe(gulp.dest(myPaths.tmp))
+        .pipe(gulp.dest(myPaths.dist))
 })
 
 gulp.task('setupCDN', ['build:html-extend', 'fingerprint', 'revAll'], function () {
