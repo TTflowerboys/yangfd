@@ -23,6 +23,9 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - apptentive-ios (1.7.3):
+    - apptentive-ios/arc-files (= 1.7.3)
+  - apptentive-ios/arc-files (1.7.3)
   - BBTRestClient (0.0.1):
     - Overcoat (~> 1.2)
   - BBTUtility (0.0.1):
@@ -86,6 +89,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworkActivityLogger (~> 2.0.4)
+  - apptentive-ios (~> 1.7.3)
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (~> 1.1.4)
@@ -133,6 +137,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  apptentive-ios: be0b8dbc17b443eb624b3a015017f521b096f003
   BBTRestClient: 25965557c7608407aaaa0b30d1ea07735e971488
   BBTUtility: 034a9709d4b90c986d133a06f0123e4c328f23f2
   Bolts: aac24961496d504aa56fc267cde95162a71bac39

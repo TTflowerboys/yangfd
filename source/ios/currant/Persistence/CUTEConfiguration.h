@@ -30,4 +30,8 @@
 
 + (NSString *)gaTrackingId;
 
++ (NSString *) appVersion;
+
++ (NSString *) versionBuild;
+
 @end
