@@ -128,6 +128,7 @@ gulp.task('revAll', ['build:html-extend'], function () {
         .pipe(rev())
         .pipe(gulp.dest(myPaths.dist))  // write rev'd assets to build dir
         .pipe(rev.manifest())
+        .pipe(replace(/"static/g,'"/static'))
         .pipe(gulp.dest(myPaths.dist)); // write manifest to build dir
 })
 
