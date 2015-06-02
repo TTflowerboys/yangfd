@@ -174,7 +174,7 @@
                 <div class="swiper-slide swiper-slide-bg commen" style="">
                     <div class="page pageCover">
                         <div class="topTitleNav animate">
-                            <p class="location animate">{{rent['property'].get('street','')}} {{rent['property'].get('city',{}).get('name','')}} {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}</p>
+                            <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}} {{rent['property'].get('city',{}).get('name','')}} {{rent['property'].get('street','')}}</p>
                             <p class="title animate fixFontSize">{{rent.get('title','')}}</p>
                             <p class="titleEn animate">Letting!</p>
                         </div>
