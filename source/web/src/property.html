@@ -1386,13 +1386,8 @@
 
                 window.wx.ready(function(){
                     var propertyTitle = property.name
-                    if (property.country && property.country.code) {
-                        propertyTitle += ' '
-                        propertyTitle += window.team.countryMap[property.country.code]
-                    }
                     if (property.city && property.city.name) {
-                        propertyTitle += ' '
-                        propertyTitle += property.city.name
+                        propertyTitle += ', ' + property.city.name
                     }
 
                     var propertyImage = null
@@ -1412,7 +1407,7 @@
                             ga('send', 'event', 'property_detail', 'share', 'share-to-wechat-cancel')
                         }
                     }
-                    if (property.decription) {
+                    if (property.description) {
                         wechatShareData.desc = property.description
                     }
 
