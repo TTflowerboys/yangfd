@@ -333,13 +333,27 @@
             $('#latitude').val(val.loc[1])
             $('#longitude').val(val.loc[0])
             geonamesApi.getCityByLocation(val.country, val.loc[1], val.loc[0], function (val) {
+                $.betterPost('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $('#latitude').val() + ',' + $('#longitude').val() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU')
+                    .done(function (data) {
+                        var streetArr = [],
+                            filter = ['street_number', 'route', 'neighborhood', 'locality']
+                        if(data && data.results && data.results.length > 0 && data.results[0] && data.results[0].address_components) {
+                            _.each(data.results[0].address_components, function (v, i) {
+                                if(_.intersection(filter, v.types).length > 0) {
+                                    streetArr.push(v.short_name)
+                                }
+                            })
+                        }
+                        $('#street').val(streetArr.join(','))
+                        $('#address').show()
+                    })
                 $('#city-select').html(
                     _.reduce(val, function(pre, val, key) {
                         return pre + '<option value="' + val.id + '"' + (key === 0 ? 'selected' : '') + '>' + val.name + (val.country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                     }, '<option value="">' + i18n('请选择城市') + '</option>')
                 ).trigger('chosen:updated').trigger('change')
             })
-            $('#address').show()
+
         }
         function chooseOneResultOfPostcodeSearch (val) {
             $('.chosen-address').show()
@@ -558,7 +572,7 @@
             'community_facility': JSON.stringify(communityFacility),
             'real_address': JSON.stringify({'zh_Hans_CN': address}),
             'description': JSON.stringify({'zh_Hans_CN': $('#description').val()}),
-            'zipcode': $('#postcode').val(),
+            'zipcode': $('#postcode').val().trim().toUpperCase(),
             'user_generated': true
         })
         if($('#community').val() !== ''){
