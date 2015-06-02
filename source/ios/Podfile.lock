@@ -23,6 +23,9 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - apptentive-ios (1.7.3):
+    - apptentive-ios/arc-files (= 1.7.3)
+  - apptentive-ios/arc-files (1.7.3)
   - BBTRestClient (0.0.1):
     - Overcoat (~> 1.2)
   - BBTUtility (0.0.1):
@@ -33,7 +36,6 @@ PODS:
   - Bolts/AppLinks (1.1.5):
     - Bolts/Tasks
   - Bolts/Tasks (1.1.5)
-  - CrittercismSDK (5.2.0)
   - CTAssetsPickerController (2.9.4)
   - DACircularProgress (2.3.1)
   - FMDB (2.5):
@@ -86,10 +88,10 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworkActivityLogger (~> 2.0.4)
+  - apptentive-ios (~> 1.7.3)
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (~> 1.1.4)
-  - CrittercismSDK (~> 5.2.0)
   - CTAssetsPickerController (~> 2.9.3)
   - FXForms (~> 1.2.12)
   - GoogleAnalytics-iOS-SDK (~> 3.11)
@@ -133,10 +135,10 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  apptentive-ios: be0b8dbc17b443eb624b3a015017f521b096f003
   BBTRestClient: 25965557c7608407aaaa0b30d1ea07735e971488
   BBTUtility: 034a9709d4b90c986d133a06f0123e4c328f23f2
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
-  CrittercismSDK: a8f09d8f1d9fea3bc0714a954a079062c5c9d914
   CTAssetsPickerController: 3030dc60f5d1a3c4e5b1c0aa9f069220d5bf7008
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52

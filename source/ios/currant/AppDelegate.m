@@ -34,7 +34,7 @@
 #import "CUTETracker.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import <Crittercism.h>
+#import <ATConnect.h>
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
@@ -45,6 +45,7 @@
 #import "UITabBarController+HideTabBar.h"
 #import "Sequencer.h"
 #import "CUTERentContactViewController.h"
+#import "CUTEUserViewController.h"
 
 
 @interface AppDelegate () <UITabBarControllerDelegate>
@@ -55,30 +56,6 @@
 
 @implementation AppDelegate
 
-//http://stackoverflow.com/questions/7608632/how-do-i-get-the-current-version-of-my-ios-project-in-code
-+ (NSString *) appVersion
-{
-    return [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
-}
-
-+ (NSString *) build
-{
-    return [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
-}
-
-+ (NSString *) versionBuild
-{
-    NSString * version = [self appVersion];
-    NSString * build = [self build];
-
-    NSString * versionBuild = [NSString stringWithFormat: @"v%@", version];
-
-    if (![version isEqualToString: build]) {
-        versionBuild = [NSString stringWithFormat: @"%@(%@)", versionBuild, build];
-    }
-
-    return versionBuild;
-}
 
 #define kHomeTabBarIndex 0
 #define kPropertyListTabBarIndex 1
@@ -143,15 +120,30 @@
 }
 
 
+- (UINavigationController *)makeUserViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath index:(NSInteger)index {
+
+    CUTEUserViewController *controller = [[CUTEUserViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] init];
+    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    controller.url = [NSURL WebURLWithString:urlPath];
+    nav.tabBarItem = tabItem;
+    nav.tabBarItem.tag = index;
+    controller.navigationItem.title = STR(@"洋房东");
+    [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
+    [nav setViewControllers:@[controller]];
+    return nav;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-    NSArray *userAgentComponents =  @[[[NSBundle mainBundle] bundleIdentifier], [AppDelegate versionBuild]];
+    NSArray *userAgentComponents =  @[[[NSBundle mainBundle] bundleIdentifier], [CUTEConfiguration versionBuild]];
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[userAgentComponents componentsJoinedByString:@"/"], @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 
     [CUTEWxManager registerWeixinAPIKey:[CUTEConfiguration weixinAPPId]];
     [[CUTETracker sharedInstance] setup];
+    [ATConnect sharedConnection].apiKey = @"870539ce7c8666f4ba6440cae368b8aea448aa2220dc3af73bc254f0ab2f0a0b";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketSync:) name:KNOTIF_TICKET_SYNC object:nil];
@@ -174,7 +166,7 @@
     UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit" urlPath:@"/rent_new"];
     UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:STR(@"新房") icon:@"tab-property" urlPath:@"/property-list"];
     UINavigationController *rentTicketListViewController = [self makeRentListViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property-to-rent-list"];
-    UINavigationController *userViewController = [self makeViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user" index: kUserTabBarIndex];
+    UINavigationController *userViewController = [self makeUserViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user" index: kUserTabBarIndex];
     [rootViewController setViewControllers:@[homeViewController,
                                              propertyListViewController,
                                              editViewController,
@@ -228,7 +220,7 @@
 //    [CrashlyticsKit crash];
 //    [NSClassFromString(@"WebView") performSelector:NSSelectorFromString(@"_enableRemoteInspector")];
 //    [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
-//    [[AFNetworkActivityLogger sharedLogger] startLogging];   
+//    [[AFNetworkActivityLogger sharedLogger] startLogging];
 
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        CUTETicket *ticket = [CUTETicket new];
@@ -241,7 +233,6 @@
 //    });
 //#endif
 
-    [Crittercism enableWithAppID:@"55596173b60a7d3e63908c50"];
     //TODO setup use user id in track and crash report
     [Fabric with:@[CrashlyticsKit]];
 

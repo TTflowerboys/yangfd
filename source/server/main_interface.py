@@ -130,7 +130,7 @@ def rent_ticket_get(rent_ticket_id, user):
 @f_get('/wechat-poster/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
 @currant_util.check_ip_and_redirect_domain
 def wechat_poster(rent_ticket_id):
-    title = _('房东急租，快来围观')
+    title = _('快来围观')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
 
     report = None
@@ -140,10 +140,8 @@ def wechat_poster(rent_ticket_id):
     # if rent_ticket["status"] not in ["draft", "to rent"]:
     # assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 
-    # if not isinstance(title, six.string_types):
-    # title = six.text_type(title)
-    if rent_ticket["property"].get('title', ''):
-        title += '_' + _(rent_ticket["property"].get('title', ''))
+    if rent_ticket.get('title'):
+        title = _(rent_ticket.get('title', '')) + ', ' + title
     description = rent_ticket.get('description', '')
 
     keywords = currant_util.get_country_name_by_code(rent_ticket.get('country', {}).get('code', '')) + ',' + rent_ticket.get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)

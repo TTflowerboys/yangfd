@@ -27,4 +27,8 @@
 
 - (void)clearBackButton;
 
+- (BOOL)webViewCanGoBack;
+
+- (BOOL)viewControllerCanGoBack;
+
 @end

@@ -33,7 +33,7 @@
                                               @{FXFormFieldKey: @"street", FXFormFieldTitle: STR(@"街道（选填）"), FXFormFieldDefaultValue: _street? _street: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onStreetEdit:"},
                                               @{FXFormFieldKey: @"community", FXFormFieldTitle: STR(@"小区（选填）"), FXFormFieldDefaultValue: _community? _community: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onCommunityEdit:"},
                                               @{FXFormFieldKey: @"floor", FXFormFieldTitle: STR(@"楼层（选填）"), FXFormFieldDefaultValue: _floor? _floor: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onFloorEdit:"},
-                                              @{FXFormFieldKey: @"houseName", FXFormFieldTitle: STR(@"门牌号（选填）"), FXFormFieldDefaultValue: _houseName? _houseName: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onHouseNameEdit:"},
+                                              @{FXFormFieldKey: @"houseName", FXFormFieldTitle: STR(@"房间号（选填）"), FXFormFieldDefaultValue: _houseName? _houseName: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onHouseNameEdit:"},
                                               ]];
     if (_country) {
         [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country, FXFormFieldAction: @"optionBack", FXFormFieldHeader:STR(@"位置")} atIndex:0];

@@ -17,6 +17,18 @@
 		2C07AB8C1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
 		2C07AB8D1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
 		2C07AB8E1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
+		2C0AE0FB1B1D906100A73BE6 /* CUTEUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE0FA1B1D906100A73BE6 /* CUTEUserViewController.m */; };
+		2C0AE0FC1B1D906100A73BE6 /* CUTEUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE0FA1B1D906100A73BE6 /* CUTEUserViewController.m */; };
+		2C0AE0FD1B1D906100A73BE6 /* CUTEUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE0FA1B1D906100A73BE6 /* CUTEUserViewController.m */; };
+		2C0AE0FE1B1D906100A73BE6 /* CUTEUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE0FA1B1D906100A73BE6 /* CUTEUserViewController.m */; };
+		2C0AE1011B1D907800A73BE6 /* CUTESettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1001B1D907800A73BE6 /* CUTESettingViewController.m */; };
+		2C0AE1021B1D907800A73BE6 /* CUTESettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1001B1D907800A73BE6 /* CUTESettingViewController.m */; };
+		2C0AE1031B1D907800A73BE6 /* CUTESettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1001B1D907800A73BE6 /* CUTESettingViewController.m */; };
+		2C0AE1041B1D907800A73BE6 /* CUTESettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1001B1D907800A73BE6 /* CUTESettingViewController.m */; };
+		2C0AE1071B1D924D00A73BE6 /* CUTESettingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1061B1D924D00A73BE6 /* CUTESettingForm.m */; };
+		2C0AE1081B1D924D00A73BE6 /* CUTESettingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1061B1D924D00A73BE6 /* CUTESettingForm.m */; };
+		2C0AE1091B1D924D00A73BE6 /* CUTESettingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1061B1D924D00A73BE6 /* CUTESettingForm.m */; };
+		2C0AE10A1B1D924D00A73BE6 /* CUTESettingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1061B1D924D00A73BE6 /* CUTESettingForm.m */; };
 		2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
@@ -585,6 +597,12 @@
 		2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormLimitCharacterCountTextFieldCell.m; sourceTree = "<group>"; };
 		2C07AB881AE8FF6600907075 /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
 		2C07AB891AE8FF6600907075 /* UIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
+		2C0AE0F91B1D906100A73BE6 /* CUTEUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUserViewController.h; sourceTree = "<group>"; };
+		2C0AE0FA1B1D906100A73BE6 /* CUTEUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUserViewController.m; sourceTree = "<group>"; };
+		2C0AE0FF1B1D907800A73BE6 /* CUTESettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTESettingViewController.h; sourceTree = "<group>"; };
+		2C0AE1001B1D907800A73BE6 /* CUTESettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESettingViewController.m; sourceTree = "<group>"; };
+		2C0AE1051B1D924D00A73BE6 /* CUTESettingForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTESettingForm.h; sourceTree = "<group>"; };
+		2C0AE1061B1D924D00A73BE6 /* CUTESettingForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESettingForm.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
 		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -890,6 +908,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C0AE0F81B1D904100A73BE6 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				2C0AE0F91B1D906100A73BE6 /* CUTEUserViewController.h */,
+				2C0AE0FA1B1D906100A73BE6 /* CUTEUserViewController.m */,
+				2C0AE0FF1B1D907800A73BE6 /* CUTESettingViewController.h */,
+				2C0AE1001B1D907800A73BE6 /* CUTESettingViewController.m */,
+				2C0AE1051B1D924D00A73BE6 /* CUTESettingForm.h */,
+				2C0AE1061B1D924D00A73BE6 /* CUTESettingForm.m */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		2C27F1E81ACCEA6C002BECCF /* Library3rd */ = {
 			isa = PBXGroup;
 			children = (
@@ -1098,6 +1129,7 @@
 		2CB43DD61ABC2662004DF663 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				2C0AE0F81B1D904100A73BE6 /* User */,
 				2C7520391ACA75810008B42A /* Rent */,
 				2CCE67F11B1C0F7C00351DED /* RentList */,
 				2C554F8B1AC2BCCD00F51D33 /* PropertyList */,
@@ -1770,6 +1802,7 @@
 				2CA81FAA1B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C2FCDBF1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6421AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
+				2C0AE1091B1D924D00A73BE6 /* CUTESettingForm.m in Sources */,
 				2CF8A6061AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */,
 				2CC6C1D81AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
@@ -1794,6 +1827,7 @@
 				2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F801B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F711B0B5621006E993C /* MemoryReporter.m in Sources */,
+				2C0AE1031B1D907800A73BE6 /* CUTESettingViewController.m in Sources */,
 				2C3DE25B1B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A67F1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */,
@@ -1819,6 +1853,7 @@
 				2C7520451ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA2E6B11AC5487800053965 /* CUTEPropertyListViewController.m in Sources */,
 				2CC3A0701AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
+				2C0AE0FD1B1D906100A73BE6 /* CUTEUserViewController.m in Sources */,
 				2CA81FC61B144CF6006E993C /* CUTEApplyBetaRentingForm.m in Sources */,
 				2CF8A6891AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C03AB4A1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
@@ -1880,6 +1915,7 @@
 				2CA81FAB1B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C2FCDC01AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6431AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
+				2C0AE10A1B1D924D00A73BE6 /* CUTESettingForm.m in Sources */,
 				2CF8A6071AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */,
 				2CC6C1D91AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
@@ -1904,6 +1940,7 @@
 				2CAA85231AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F811B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F721B0B5621006E993C /* MemoryReporter.m in Sources */,
+				2C0AE1041B1D907800A73BE6 /* CUTESettingViewController.m in Sources */,
 				2C3DE25C1B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A6801AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */,
@@ -1929,6 +1966,7 @@
 				2C7520461ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA2E6CA1AC5496700053965 /* CUTEPropertyListViewController.m in Sources */,
 				2CC3A0711AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
+				2C0AE0FE1B1D906100A73BE6 /* CUTEUserViewController.m in Sources */,
 				2CA81FC71B144CF6006E993C /* CUTEApplyBetaRentingForm.m in Sources */,
 				2CF8A68A1AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C03AB4B1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
@@ -1990,6 +2028,7 @@
 				2CA81FA91B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C2FCDBE1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6411AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
+				2C0AE1081B1D924D00A73BE6 /* CUTESettingForm.m in Sources */,
 				2CF8A6051AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */,
 				2CC6C1D71AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
@@ -2014,6 +2053,7 @@
 				2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F7F1B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F701B0B5621006E993C /* MemoryReporter.m in Sources */,
+				2C0AE1021B1D907800A73BE6 /* CUTESettingViewController.m in Sources */,
 				2C3DE25A1B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A67E1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */,
@@ -2039,6 +2079,7 @@
 				2C7520441ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2CA94A9B1ACA42CD00DF7497 /* CUTEPropertyListViewController.m in Sources */,
 				2CC3A06F1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
+				2C0AE0FC1B1D906100A73BE6 /* CUTEUserViewController.m in Sources */,
 				2CA81FC51B144CF6006E993C /* CUTEApplyBetaRentingForm.m in Sources */,
 				2CF8A6881AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C03AB491B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
@@ -2100,6 +2141,7 @@
 				2CA81FA81B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C2FCDBD1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6401AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
+				2C0AE1071B1D924D00A73BE6 /* CUTESettingForm.m in Sources */,
 				2CF8A6041AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */,
 				2CC6C1D61AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
@@ -2124,6 +2166,7 @@
 				2CAA85201AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F7E1B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F6F1B0B5621006E993C /* MemoryReporter.m in Sources */,
+				2C0AE1011B1D907800A73BE6 /* CUTESettingViewController.m in Sources */,
 				2C3DE2591B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A67D1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */,
@@ -2149,6 +2192,7 @@
 				2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */,
 				2CC3A06E1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
+				2C0AE0FB1B1D906100A73BE6 /* CUTEUserViewController.m in Sources */,
 				2CA81FC41B144CF6006E993C /* CUTEApplyBetaRentingForm.m in Sources */,
 				2CF8A6871AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C03AB481B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
