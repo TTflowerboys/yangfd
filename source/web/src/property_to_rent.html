@@ -416,19 +416,19 @@
                             <td style="text-align:left;">
                                 <button data-fn="addFav" data-rent-id="{{rent.get('id','')}}"
                                     class="flatButton ajaxButton"
-                                    style="{{ 'display:none' if isFavorite else ''}}"
+                                    style="{{ 'display:none' if is_favorited else ''}}"
                                     data-message-40090="{{_('已经收藏过了')}}">
                                     <img src="/static/images/property_details/icon-star.png" alt=""/>
                                     <span class="text"> {{_('收藏')}} </span>
                                 </button>
                                 <button data-fn="removeFav"
                                     class="flatButton ajaxButton"
-                                    style="{{ 'display:none' if not isFavorite else ''}}"
+                                    style="{{ 'display:none' if not is_favorited else ''}}"
                                     % if is_favorited:
-                                        data-favorite-id="{{favId}}"
+                                        data-favorite-id="{{rent.get('id','')}}"
                                     % end
                                     >
-                                <img src="/static/images/property_details/icon-star.png" alt=""/>
+                                <img src="/static/images/property_details/icon-star-active.png" alt=""/>
                                 <span class="text"> {{_('取消收藏') }} </span>
                                 </button>
                             </td>
@@ -473,17 +473,17 @@
     <li class="favorite"
         data-fn="addFav"
         data-rent-id="{{rent.get('id','')}}"
-        style="{{ 'display:none' if isFavorite else ''}}"
+        style="{{ 'display:none' if is_favorited else ''}}"
         data-message-40090="{{_('已经收藏过了')}}"
-        ><img src="/static/images/property_details/phone/favorite.png"></img>
+        ><img src="/static/images/property_details/phone/unfavorite.png"></img>
     </li>
     <li class="favorite"
         data-fn="removeFav"
-        style="{{ 'display:none' if not isFavorite else ''}}"
-        % if isFavorite:
-            data-favorite-id="{{favId}}"
+        style="{{ 'display:none' if not is_favorited else ''}}"
+        % if is_favorited:
+            data-favorite-id="{{rent.get('id','')}}"
         % end
-    ><img src="/static/images/property_details/icon-star.png"></img>
+    ><img src="/static/images/property_details/phone/favorite.png"></img>
     </li>
 </ul>
 

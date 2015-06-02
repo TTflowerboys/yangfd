@@ -14,7 +14,7 @@
             type: 'rent_ticket'
         })
             .done(function (val) {
-                $button.hide().parent().find('[data-fn=removeFav]').show().attr('data-favorite-id', val)
+                $button.hide().parent().find('[data-fn=removeFav]').show()
 
                 ga('send', 'event', 'property_to_rent_detail', 'click', 'add-fav-success')
                 ga('send', 'pageview', '/property-to-rent/'+ rent_id +'/add-fav-success')
@@ -36,8 +36,11 @@
             return
         }
         var $button = $(this)
-        var favorite_id = $button.attr('data-favorite-id')
-        $.betterPost('/api/1/user/favorite/' + favorite_id + '/remove')
+        var rent_id = $button.attr('data-favorite-id')
+        $.betterPost('/api/1/user/favorite/remove', {
+            ticket_id: rent_id,
+            type: 'rent_ticket'
+        })
             .done(function () {
                 $button.hide().parent().find('[data-fn=addFav]').show()
                 ga('send', 'event', 'property_to_rent_detail', 'click', 'remove-fav-success')

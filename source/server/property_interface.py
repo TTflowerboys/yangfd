@@ -75,8 +75,9 @@ def property_get(property_id, user):
     property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
     if property["status"] not in ["selling", "sold out", "restricted"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
-    favorite_list = currant_data_helper.get_favorite_list('property')
-    favorite_list = f_app.i18n.process_i18n(favorite_list)
+
+    is_favorited = f_app.user.favorite.is_favorited(property_id, 'property', user["id"])
+
     related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
 
     report = None
@@ -98,7 +99,7 @@ def property_get(property_id, user):
     keywords = property.get('name', _('房产详情')) + ',' + currant_util.get_country_name_by_code(property.get('country', {}).get('code', '')) + ',' + property.get('city', {}).get('name', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
-    return currant_util.common_template("property", property=property, favorite_list=favorite_list, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin=weixin)
+    return currant_util.common_template("property", property=property, is_favorited=is_favorited, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin=weixin)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>', params=dict(
