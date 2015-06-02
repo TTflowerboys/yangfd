@@ -29,6 +29,11 @@
 		2C0AE1081B1D924D00A73BE6 /* CUTESettingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1061B1D924D00A73BE6 /* CUTESettingForm.m */; };
 		2C0AE1091B1D924D00A73BE6 /* CUTESettingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1061B1D924D00A73BE6 /* CUTESettingForm.m */; };
 		2C0AE10A1B1D924D00A73BE6 /* CUTESettingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1061B1D924D00A73BE6 /* CUTESettingForm.m */; };
+		2C0AE10E1B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
+		2C0AE10F1B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
+		2C0AE1101B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
+		2C0AE1111B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
+		2C0AE1121B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
 		2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
@@ -603,6 +608,8 @@
 		2C0AE1001B1D907800A73BE6 /* CUTESettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESettingViewController.m; sourceTree = "<group>"; };
 		2C0AE1051B1D924D00A73BE6 /* CUTESettingForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTESettingForm.h; sourceTree = "<group>"; };
 		2C0AE1061B1D924D00A73BE6 /* CUTESettingForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESettingForm.m; sourceTree = "<group>"; };
+		2C0AE10C1B1DAFB100A73BE6 /* CUTEGeoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEGeoManager.h; sourceTree = "<group>"; };
+		2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEGeoManager.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
 		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -1147,6 +1154,8 @@
 				2C427E4B1AD2414D000378A9 /* CUTEEnumManager.m */,
 				2C5ECC4F1AD525AC00163E9E /* CUTEAPIManager.h */,
 				2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */,
+				2C0AE10C1B1DAFB100A73BE6 /* CUTEGeoManager.h */,
+				2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */,
 				2CA5F76E1AE10382001132E0 /* CUTEImageUploader.h */,
 				2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */,
 				2CC6C1E91AEE2E59002758A7 /* CUTERentTickePublisher.h */,
@@ -1835,6 +1844,7 @@
 				2CCE67FD1B1C397E00351DED /* CUTEListViewController.m in Sources */,
 				2C3DE2351B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EE1B1C085300351DED /* CUTEMapListViewController.m in Sources */,
+				2C0AE1101B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */,
 				2C2FCDDB1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62E1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -1948,6 +1958,7 @@
 				2CCE67FE1B1C397E00351DED /* CUTEListViewController.m in Sources */,
 				2C3DE2361B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EF1B1C085400351DED /* CUTEMapListViewController.m in Sources */,
+				2C0AE1111B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */,
 				2C2FCDDC1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F51AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62F1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -2061,6 +2072,7 @@
 				2CCE67FC1B1C397E00351DED /* CUTEListViewController.m in Sources */,
 				2C3DE2341B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67ED1B1C085300351DED /* CUTEMapListViewController.m in Sources */,
+				2C0AE10F1B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */,
 				2C2FCDDA1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62D1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -2174,6 +2186,7 @@
 				2CCE67FB1B1C397E00351DED /* CUTEListViewController.m in Sources */,
 				2C3DE2331B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EC1B1C084A00351DED /* CUTEMapListViewController.m in Sources */,
+				2C0AE10E1B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */,
 				2C2FCDD91B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62C1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -2291,6 +2304,7 @@
 				2C03AB4C1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
 				2C79C2BC1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CF8A6B91AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
+				2C0AE1121B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */,
 				2CF8A6AB1AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2CA81FA51B12CB18006E993C /* CUTECity.m in Sources */,
 				2CAA85241AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,

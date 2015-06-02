@@ -21,6 +21,8 @@
 #import "CUTETracker.h"
 #import "CUTEAPIManager.h"
 #import <UIAlertView+Blocks.h>
+#import "CUTEGeoManager.h"
+#import "CUTEPlacemark.h"
 
 @interface CUTERentAddressEditViewController () {
     CUTECountry *_lastCountry;
@@ -188,39 +190,54 @@
         return;
     }
 
-    [self createTicket];
+    if (!IsNilNullOrEmpty(self.ticket.property.zipcode)  && ![self.lastPostcode isEqualToString:self.ticket.property.zipcode]) {
+        [UIAlertView showWithTitle:STR(@"是否按新postcode重新定位再继续？") message:nil cancelButtonTitle:STR(@"不用") otherButtonTitles:@[STR(@"好的")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == alertView.cancelButtonIndex) {
+                [self createTicket];
+            }
+            else {
 
-//    if (!IsNilNullOrEmpty(self.ticket.property.zipcode)  && ![self.lastPostcode isEqualToString:self.ticket.property.zipcode]) {
-//        [UIAlertView showWithTitle:STR(@"是否按新postcode重新定位再继续？") message:nil cancelButtonTitle:STR(@"不用") otherButtonTitles:@[STR(@"好的")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-//            if (buttonIndex == alertView.cancelButtonIndex) {
-//                [self createTicket];
-//            }
-//            else {
-//                [SVProgressHUD show];
-//                NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
-//                [[[CUTEAPIManager sharedInstance] POST:STR(@"/api/1/postcode/search") parameters:@{@"country": self.ticket.property.country.code, @"postcode_index": postCodeIndex} resultClass:nil] continueWithBlock:^id(BFTask *task) {
-//                    if (task.error) {
-//                        [SVProgressHUD showErrorWithError:task.error];
-//                    }
-//                    else if (task.exception) {
-//                        [SVProgressHUD showErrorWithException:task.exception];
-//                    }
-//                    else if (task.isCancelled) {
-//                        [SVProgressHUD showErrorWithCancellation];
-//                    }
-//                    else {
-//
-//                        self.lastPostcode = self.ticket.property.zipcode;
-//                    }
-//                    
-//                    return task;
-//                }];
-//            }
-//        }];
-//    }
-//    else {
-//        [self createTicket];
-//    }
+                [SVProgressHUD show];
+                NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
+                NSMutableString *components = [NSMutableString stringWithString:CONCAT(@"postal_code:", postCodeIndex)];
+                if (self.ticket.property.country) {
+                    [components appendString:CONCAT(@"|", @"country:", self.ticket.property.country.code)];
+                }
+                if (self.ticket.property.city) {
+                    [components appendString:CONCAT(@"|", @"locality:", self.ticket.property.city.name)];
+                }
+                [[[CUTEGeoManager sharedInstance] geocodeWithComponents:components] continueWithBlock:^id(BFTask *task) {
+                    if (task.error) {
+                        [SVProgressHUD showErrorWithError:task.error];
+                    }
+                    else if (task.exception) {
+                        [SVProgressHUD showErrorWithException:task.exception];
+                    }
+                    else if (task.isCancelled) {
+                        [SVProgressHUD showErrorWithCancellation];
+                    }
+                    else {
+                        if (task.result) {
+                            CUTEPlacemark *placemark = task.result;
+                            CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)[self.formController form];
+                            form.street = placemark.street;
+                            [self.tableView reloadData];
+                            [self updateTicket];
+                            [SVProgressHUD dismiss];
+                        }
+                        else {
+                            [SVProgressHUD showErrorWithStatus:STR(@"重新定位失败")];
+                        }
+                    }
+                    
+                    return task;
+                }];
+            }
+        }];
+    }
+    else {
+        [self createTicket];
+    }
 }
 
 

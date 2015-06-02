@@ -32,6 +32,7 @@
 #import "CUTECity.h"
 #import "CUTEAPIManager.h"
 #import "CUTEPlacemark.h"
+#import "CUTEGeoManager.h"
 
 #define kRegionDistance 800
 
@@ -47,6 +48,8 @@
     UIButton *_userLocationButton;
 
     CLGeocoder *_geocoder;
+
+    BFTask *_updateAddressTask;
 
 }
 @end
@@ -148,6 +151,11 @@
                     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
                     [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
                 }
+
+                self.ticket.property.latitude = location.coordinate.latitude;
+                self.ticket.property.longitude = location.coordinate.longitude;
+                [self checkNeedUpdateAddress];
+
                 [SVProgressHUD dismiss];
             }
             else {
@@ -352,108 +360,38 @@
     }
 }
 
-- (BFTask *)reverseGeocodeLocation:(CLLocation *)location {
-//    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-//    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-//        if (!IsArrayNilOrEmpty(placemarks)) {
-//            [tcs setResult:placemarks.firstObject];
-//        }
-//        else {
-//            [tcs setError:error];
-//        }
-//    }];
-//    return [tcs task];
+- (BFTask *)checkNeedUpdateAddress {
+    if (!_updateAddressTask || _updateAddressTask.isCompleted) {
+        _updateAddressTask = [self updateAddress];
+    }
 
-
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    NSString *geocoderURLString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?latlng=%lf,%lf&key=%@&language=en", location.coordinate.latitude, location.coordinate.longitude, [CUTEConfiguration googleAPIKey]];
-
-    [[[CUTEAPIManager sharedInstance] POST:geocoderURLString parameters:nil resultClass:nil resultKeyPath:@"results"] continueWithBlock:^id(BFTask *task) {
-        if (!IsArrayNilOrEmpty(task.result)) {
-             [tcs setResult:[CUTEPlacemark placeMarkWithGoogleResult:task.result[0]]];
-        }
-        else {
-            [tcs setError:task.error];
-        }
-        return nil;
-    }];
-
-//    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/geonames/search" parameters:@{@"latitude": @(location.coordinate.latitude), @"longitude": @(location.coordinate.longitude), @"feature_code": @"city", @"search_range": @(100000)} resultClass:nil] continueWithBlock:^id(BFTask *task) {
-//        [tcs setResult:task.result];
-//        return nil;
-//    }];
-    return tcs.task;
+    return _updateAddressTask;
 }
 
 - (BFTask *)updateAddress {
-
     CUTEProperty *property = self.ticket.property;
     BFTaskCompletionSource *tcs  = [BFTaskCompletionSource taskCompletionSource];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude longitude:property.longitude];
+    [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
+        if (task.result) {
+            CUTEPlacemark *placemark = task.result;
+            property.street = placemark.street;
+            property.zipcode = placemark.postalCode;
+            property.country = placemark.country;
+            property.city = placemark.city;
+            property.community = nil;
+            property.floor = nil;
+            property.houseName = nil;
+            _textField.text = property.address;
 
-    Sequencer *sequencer = [Sequencer new];
-
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude longitude:property.longitude];
-        [[self reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
-            if (task.result) {
-                completion(task.result);
-            }
-            else {
-                TrackEvent(GetScreenName(self), kEventActionRequestReturn, @"non-geocoding-result", nil);
-                [tcs setError:task.error];
-            }
-            return task;
-        }];
-
+            [tcs setResult:_textField.text];
+        }
+        else {
+            TrackEvent(GetScreenName(self), kEventActionRequestReturn, @"non-geocoding-result", nil);
+            [tcs setError:task.error];
+        }
+        return task;
     }];
-
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        CUTEPlacemark *placemark = result;
-
-        [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
-            if (!IsArrayNilOrEmpty(task.result)) {
-                NSArray *coutries = [(NSArray *)task.result select:^BOOL(CUTECountry *object) {
-                    return [[object code] isEqualToString:placemark.country.code];
-                }];
-                CUTECountry *country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
-                [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
-                    NSArray *cities = task.result;
-                    if (!IsArrayNilOrEmpty(cities)) {
-                        CUTECity *city = [cities find:^BOOL(CUTECity *object) {
-                            return [[[placemark city].name lowercaseString] hasPrefix:[[object name] lowercaseString]];
-                        }];
-                        property.street = [@[NilNullToEmpty(placemark.subThoroughfare), NilNullToEmpty(placemark.thoroughfare)] componentsJoinedByString:@" "];
-                        property.zipcode = placemark.postalCode;
-                        property.country = country;
-                        property.city = city? : [cities firstObject];
-                        property.community = nil;
-                        property.floor = nil;
-                        property.houseName = nil;
-
-                        _textField.text = property.address;
-
-                        [tcs setResult:_textField.text];
-
-                    }
-                    else {
-                        [tcs setError:task.error];
-                    }
-
-                    return task;
-                }];
-            }
-            else {
-                [tcs setError:task.error];
-            }
-
-
-            return task;
-        }];
-
-
-    }];
-
-    [sequencer run];
 
     return tcs.task;
 }
@@ -467,7 +405,7 @@
     property.latitude = location.coordinate.latitude;
     property.longitude = location.coordinate.longitude;
     [_textField.indicatorView startAnimating];
-    [[self updateAddress] continueWithBlock:^id(BFTask *task) {
+    [[self checkNeedUpdateAddress] continueWithBlock:^id(BFTask *task) {
         [_textField.indicatorView stopAnimating];
         if (task.error || task.exception || task.isCancelled) {
             [SVProgressHUD showErrorWithError:task.error];
@@ -476,21 +414,7 @@
             return nil;
         }
     }];
-
-
 }
-
-//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
-//{
-//    MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:@"annotation"];
-//    if (!view) {
-//        view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotation"];
-//        //view.canShowCallout = YES;
-//    }
-//    view.annotation = annotation;
-//    view.image = IMAGE(@"icon-location-building");
-//    return view;
-//}
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 

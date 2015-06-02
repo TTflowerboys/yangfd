@@ -10,6 +10,8 @@
 #import "CUTECommonMacro.h"
 #import <NSArray+ObjectiveSugar.h>
 
+#define AddressPart(part) IsNilNullOrEmpty(part)? @"": CONCAT(part, @" ")
+
 @interface CUTEPlacemark ()
 
 @property (nonatomic, copy) NSString *name; // eg. Apple Inc.
@@ -78,16 +80,17 @@
     placemark.city = city;
     placemark.administrativeArea = [CUTEPlacemark getComponentByType:@"administrative_area_level_1" fromCompnents:components];
     placemark.country = country;
+    placemark.street = CONCAT(AddressPart([CUTEPlacemark getComponentByType:@"street_number" fromCompnents:components]), AddressPart([CUTEPlacemark getComponentByType:@"route" fromCompnents:components]), AddressPart([CUTEPlacemark getComponentByType:@"neighborhood" fromCompnents:components]));
     placemark.postalCode = [CUTEPlacemark getComponentByType:@"postal_code" fromCompnents:components];
     return placemark;
 }
 
+
 - (NSString *)address {
-    return [@[NilNullToEmpty(self.street),
-              NilNullToEmpty(self.postalCode),
-              NilNullToEmpty(self.city.name),
-              NilNullToEmpty(self.country.name)]
-            componentsJoinedByString:@" "];
+    return CONCAT(AddressPart(self.street),
+                  AddressPart(self.city.name),
+                  AddressPart(self.postalCode),
+                  AddressPart(self.country.name));
 }
 
 
