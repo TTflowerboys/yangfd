@@ -51,6 +51,8 @@
 
     BFTask *_updateAddressTask;
 
+    BOOL _mapShowCurrentRegion;
+
 }
 @end
 
@@ -150,6 +152,7 @@
                 if ([location distanceFromLocation:centerLocation] > 10) {
                     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
                     [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+                    _mapShowCurrentRegion = YES;
                 }
 
                 self.ticket.property.latitude = location.coordinate.latitude;
@@ -398,22 +401,24 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(__unused BOOL)animated
 {
-    //update field value
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
-                                                  longitude:mapView.centerCoordinate.longitude];
-    CUTEProperty *property = self.ticket.property;
-    property.latitude = location.coordinate.latitude;
-    property.longitude = location.coordinate.longitude;
-    [_textField.indicatorView startAnimating];
-    [[self checkNeedUpdateAddress] continueWithBlock:^id(BFTask *task) {
-        [_textField.indicatorView stopAnimating];
-        if (task.error || task.exception || task.isCancelled) {
-            [SVProgressHUD showErrorWithError:task.error];
-            return nil;
-        } else {
-            return nil;
-        }
-    }];
+    if (_mapShowCurrentRegion) {
+        //update field value
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
+                                                          longitude:mapView.centerCoordinate.longitude];
+        CUTEProperty *property = self.ticket.property;
+        property.latitude = location.coordinate.latitude;
+        property.longitude = location.coordinate.longitude;
+        [_textField.indicatorView startAnimating];
+        [[self checkNeedUpdateAddress] continueWithBlock:^id(BFTask *task) {
+            [_textField.indicatorView stopAnimating];
+            if (task.error || task.exception || task.isCancelled) {
+                [SVProgressHUD showErrorWithError:task.error];
+                return nil;
+            } else {
+                return nil;
+            }
+        }];
+    }
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
