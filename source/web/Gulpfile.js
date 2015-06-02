@@ -124,7 +124,7 @@ gulp.task('clean', function () {
 })
 
 gulp.task('revAll', ['build:html-extend'], function () {
-    return gulp.src(['tmp/static/**/*'], {base: 'tmp'})
+    return gulp.src(['tmp/static/admin/templates/**/*.html', 'tmp/static/fonts/**/*', 'tmp/static/images/**/*', 'tmp/static/scripts/**/*', 'tmp/static/styles/**/*', 'tmp/static/templates/**/*', 'tmp/static/vendors/**/*'], {base: 'tmp'})
         .pipe(gulp.dest(myPaths.dist))  // copy original assets to build dir
         .pipe(rev())
         .pipe(gulp.dest(myPaths.dist))  // write rev'd assets to build dir
@@ -134,13 +134,12 @@ gulp.task('revAll', ['build:html-extend'], function () {
 
 gulp.task('fingerprint', ['revAll'], function () {
     var manifest = require(myPaths.dist + 'rev-manifest');
-    console.log(manifest)
     var options = {
-        verbose: true,
+        verbose: false,
         mode: 'replace'
     };
 
-    return gulp.src(myPaths.tmp + '**/*')
+    return gulp.src([myPaths.tmp + '**/*.html', myPaths.tmp + 'static/**/*.css', myPaths.tmp + 'static/admin/scripts/config/states.js', myPaths.tmp + 'static/admin/scripts/directives/**/*', myPaths.tmp + 'static/scripts/**/*', myPaths.tmp + 'static/styles/**/*'], {base: 'tmp'})
         .pipe(fingerprint(manifest, options))
         .pipe(gulp.dest(myPaths.dist));
 });
