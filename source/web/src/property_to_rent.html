@@ -661,6 +661,7 @@
                         var wechatShareData = {
                             title: '{{rent.get('title','')}}',
                             link: window.location.host + '/wechat-poster/' + '{{rent.get('id','')}}',
+                            imgUrl: '/static/images/logo/logo_wechat.jpg',
                             success:function(){
                                 ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-success')
                             },

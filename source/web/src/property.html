@@ -1395,6 +1395,8 @@
                         propertyImage = property.cover
                     }else if (property.reality_images && property.reality_images.length) {
                         propertyImage = property.reality_images[0]
+                    }else {
+                        propertyImage = '/static/images/logo/logo_wechat.jpg'
                     }
                     var wechatShareData = {
                         title:property.name,
