@@ -104,15 +104,53 @@
     }
     initSwiper($('.swiper-container').eq(0), 0)
     //点击相册查看大图的功能
+    function LoadingGallery () {
+        var _ = this
+        this.$elem = $('.loadingGallery')
+        this.$closeBtn = this.$elem.find('.closeBtn')
+        this.show = function () {
+            this.$elem.show()
+        }
+        this.hide = function () {
+            if(this.$target) {
+                this.$target.trigger('click')
+            }
+            this.close()
+        }
+        this.close = function () {
+            _.$elem.hide()
+        }
+        this.$closeBtn.bind('click', function () {
+            _.close()
+        })
+        $(window).keyup(function (e) {
+            if(e.keyCode === 27) {
+                _.close()
+            }
+        })
+    }
+    var loadingGallery = new LoadingGallery()
+
     $('.swiper-wrapper').each(function (index, elem) {
-        function initPhotoSwipe() {
-            $(elem).find('li').css('cursor', 'zoom-in')
+        function loadingHandler (e) {
+            loadingGallery.show()
+            loadingGallery.$target = $(e.target)
+            loadingGallery.index = loadingGallery.$target.parents('.item').index()
+        }
+        if(!$(elem).data('loaded')) {
+            $(elem).delegate('li', 'click', loadingHandler)
+        }
+
+        function initPhotoSwipe(index) {
+            $(elem).data('loaded', true).undelegate('li', 'click', loadingHandler).find('li').css('cursor', 'zoom-in')
             $(elem).attr('data-pswp-uid', index)
                 .delegate('li', 'click', function(e){
                     var $gallery = $(this).parent('.swiper-wrapper')
                     openPhotoSwipe($(this).index(), $gallery)
                 })
-
+            if(loadingGallery.index === index) {
+                loadingGallery.hide()
+            }
             function parseThumbnailElements (elem) {
                 return _.map($.makeArray(elem.find('li')), function(el, i) {
                     var src = $(el).attr('href')
@@ -170,17 +208,17 @@
             })
             return current === total
         }
-        function initPhotoSwipeWhenReady() {
+        function initPhotoSwipeWhenReady(index) {
             if(checkAllNeedImageLoaded()) {
                 clearTimeout(timer)
-                initPhotoSwipe()
+                initPhotoSwipe(index)
             } else {
                 timer = setTimeout(function () {
-                    initPhotoSwipeWhenReady()
+                    initPhotoSwipeWhenReady(index)
                 }, 500)
             }
         }
 
-        initPhotoSwipeWhenReady()
+        initPhotoSwipeWhenReady(index)
     })
 })()

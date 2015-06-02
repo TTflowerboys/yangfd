@@ -1,4 +1,39 @@
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<style>
+    .loadingGallery{
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        top: 0;
+        background: url("/static/images/common/ajax-loader.gif") no-repeat 50% 50% #000;
+    }
+    .loadingGallery .closeBtn{
+        background: url("/static/bower_components/photoswipe/dist/default-skin/default-skin.png") 0 0 no-repeat;
+        background-position: 0 -44px;
+        background-size: 264px 88px;
+        width: 44px;
+        height: 44px;
+        cursor: pointer;
+        overflow: visible;
+        -webkit-appearance: none;
+        display: block;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        float: right;
+        opacity: 0.75;
+        transition: opacity 0.3s ease-in 0s;
+    }
+    .loadingGallery .closeBtn:hover{
+        opacity: 1;
+        transition: opacity 0.3s ease-in 0s;
+    }
+</style>
+<div class="loadingGallery">
+    <div class="closeBtn"></div>
+</div>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
     <!-- Background of PhotoSwipe. 
