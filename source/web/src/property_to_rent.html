@@ -414,14 +414,6 @@
                     <table class="actions">
                         <tr>
                             <td style="text-align:left;">
-                                % isFavorite = False
-                                % favId = None
-                                % for item in favorite_list:
-                                    %if item.get('ticket') and item.get('ticket').get('id') == rent.get('id'):
-                                        % isFavorite = True
-                                        % favId = item.get('id')
-                                    %end
-                                % end
                                 <button data-fn="addFav" data-rent-id="{{rent.get('id','')}}"
                                     class="flatButton ajaxButton"
                                     style="{{ 'display:none' if isFavorite else ''}}"
@@ -432,7 +424,7 @@
                                 <button data-fn="removeFav"
                                     class="flatButton ajaxButton"
                                     style="{{ 'display:none' if not isFavorite else ''}}"
-                                    % if isFavorite:
+                                    % if is_favorited:
                                         data-favorite-id="{{favId}}"
                                     % end
                                     >
