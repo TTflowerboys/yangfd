@@ -40,6 +40,7 @@
 #import "CUTERentTicketPreviewViewController.h"
 #import "CUTETracker.h"
 #import "Sequencer.h"
+#import <NSDate-Extensions/NSDate-Utilities.h>
 
 @interface CUTERentPropertyInfoViewController () {
 
@@ -175,7 +176,10 @@
               }
 
               if (!ticket.rentDeadlineTime) {
-                  ticket.rentDeadlineTime = [[NSDate date] timeIntervalSince1970];
+                  ticket.rentDeadlineTime = [[[NSDate dateWithTimeIntervalSince1970:[ticket rentAvailableTime]] dateByAddingDays:1] timeIntervalSince1970];
+              }
+              if (!ticket.minimumRentPeriod) {
+                  ticket.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
               }
 
               CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
