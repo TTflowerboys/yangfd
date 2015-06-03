@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CUTEForm.h"
 #import "CUTEEnum.h"
-#import "CUTERentPeriod.h"
+#import "CUTETimePeriod.h"
 
 @interface CUTERentPriceForm : CUTEForm
 
@@ -19,13 +19,11 @@
 @property (nonatomic) BOOL containBill;
 @property (nonatomic) BOOL needSetPeriod;
 @property (strong, nonatomic) NSDate *rentAvailableTime;
-@property (strong, nonatomic) CUTERentPeriod *rentPeriod;
-
+@property (strong, nonatomic) NSDate *rentDeadlineTime;
+@property (strong, nonatomic) CUTETimePeriod *minimumRentPeriod;
 
 - (NSString *)currencySymbol;
 
 - (void)setAllDepositTypes:(NSArray *)depositTypes;
-
-- (void)setAllRentPeriods:(NSArray *)rentPeriods;
 
 @end

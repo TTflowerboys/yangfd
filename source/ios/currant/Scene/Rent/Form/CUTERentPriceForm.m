@@ -37,7 +37,9 @@
                                ]];
     if (self.needSetPeriod) {
         [array addObject:@{FXFormFieldKey: @"rentAvailableTime", FXFormFieldTitle:STR(@"开始日期"), FXFormFieldDefaultValue: _rentAvailableTime? : [NSDate new], FXFormFieldAction: @"onRentAvailableTimeEdit:", FXFormFieldCell: [CUTEFormDatePickerCell class]}];
-        [array addObject:@{FXFormFieldKey: @"rentPeriod", FXFormFieldTitle: @"租期", FXFormFieldOptions: _allRentPeriods, FXFormFieldDefaultValue: _rentPeriod? : [_allRentPeriods firstObject], FXFormFieldAction: @"optionBack"}];
+        [array addObject:@{FXFormFieldKey: @"rentDeadlineTime", FXFormFieldTitle:STR(@"结束日期"), FXFormFieldDefaultValue: _rentDeadlineTime? : [NSDate new], FXFormFieldAction: @"onRentDeadlineTimeEdit:", FXFormFieldCell: [CUTEFormDatePickerCell class]}];
+
+//        [array addObject:@{FXFormFieldKey: @"rentPeriod", FXFormFieldTitle: @"租期", FXFormFieldOptions: _allRentPeriods, FXFormFieldDefaultValue: _rentPeriod? : [_allRentPeriods firstObject], FXFormFieldAction: @"optionBack"}];
     }
     return array;
 }
@@ -48,10 +50,6 @@
 
 - (void)setAllDepositTypes:(NSArray *)depositTypes {
     _allDepositTypes = depositTypes;
-}
-
-- (void)setAllRentPeriods:(NSArray *)rentPeriods {
-    _allRentPeriods = rentPeriods;
 }
 
 - (NSError *)validateFormWithScenario:(NSString *)scenario {

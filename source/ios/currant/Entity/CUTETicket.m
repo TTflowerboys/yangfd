@@ -15,13 +15,14 @@
 {
     return @{@"identifier": @"id",
              @"status": @"status",
-             @"rentPeriod": @"rent_period",
              @"rentType": @"rent_type",
              @"depositType": @"deposit_type",
              @"space": @"space",
              @"price": @"price",
              @"billCovered": @"bill_covered",
              @"rentAvailableTime": @"rent_available_time",
+             @"rentDeadlineTime": @"rent_deadline_time",
+             @"minimumRentPeriod": @"minimum_rent_period",
              @"lastModifiedTime": @"last_modified_time",
              @"rentType": @"rent_type",
              @"ticketDescription": @"description"
@@ -38,9 +39,9 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
-+ (NSValueTransformer *)rentPeriodJSONTransformer
++ (NSValueTransformer *)minimumRentPeriodJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTERentPeriod class]];
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTETimePeriod class]];
 }
 
 + (NSValueTransformer *)depositTypeJSONTransformer
@@ -113,9 +114,11 @@
     if (self.rentAvailableTime) {
         [dic setValue:[NSNumber numberWithLong:self.rentAvailableTime] forKey:@"rent_available_time"];
     }
-
-    if (self.rentPeriod && ![self.rentPeriod isEqual:[CUTERentPeriod negotiableRentPeriod]]) {
-        [dic setValue:self.rentPeriod.identifier forKey:@"rent_period"];
+    if (self.rentDeadlineTime) {
+        [dic setValue:[NSNumber numberWithLong:self.rentDeadlineTime] forKey:@"rent_deadline_time"];
+    }
+    if (self.minimumRentPeriod) {
+        [dic setValue:[self minimumRentPeriod].toParams forKey:@"minimum_rent_period"];
     }
 
     NSString *title = self.titleForDisplay;
