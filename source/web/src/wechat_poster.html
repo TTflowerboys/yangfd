@@ -260,6 +260,8 @@
                                     % end
                                     % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
                                     {{'至 ' + rent.get('rent_deadline_time').strftime("%Y-%m-%d")}},
+                                    % else :
+                                    {{_('起')}}
                                     % end
                                 </div>
                             </li>
@@ -268,10 +270,11 @@
                             <li class="animate time">
                                 <div>
                                     <i class="timeIcon"></i>
-                                    最短租期
+                                    {{_('最短租期')}}
                                     <!--@@include=partials/get_rent_min_period.html  -->
                                 </div>
                             </li>
+                            % end
                         </ul>
                     </div>
                     <div class="bottomBox animate">
