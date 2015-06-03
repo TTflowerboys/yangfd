@@ -219,8 +219,10 @@ gulp.task('build:html-extend', ['build:less2css'], function () {
         .pipe(preprocess({context: {ENV: argv.env}}))
         .pipe(publicHtmlFilter)
         .pipe(usemin({
-            css: ['concat'],
-            js: [ footer(';;;'), 'concat', uglify({mangle: false})]
+            css: [minifyCss(), 'concat'],
+            js: [ footer(';;;'), 'concat', uglify({mangle: false})],
+            inlinejs: [uglify({mangle: false})],
+            inlinecss: [minifyCss(), 'concat']
         }))
         .pipe(publicHtmlFilter.restore())
         .pipe(gulp.dest(myPaths.dist))
