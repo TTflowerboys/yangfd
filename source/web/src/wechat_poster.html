@@ -251,15 +251,25 @@
                                 </div>
                             </li>
                             % end
+                            % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
                             <li class="animate time">
                                 <div>
                                     <i class="timeIcon"></i>
-                                    % if 'rent_period' in rent and rent.get('rent_period',{}).get('value',''):
-                                    {{rent.get('rent_period',{}).get('value','')}}，
-                                    % end
                                     % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
-                                    {{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}{{_('起')}}
+                                    {{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}
                                     % end
+                                    % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
+                                    {{'至 ' + rent.get('rent_deadline_time').strftime("%Y-%m-%d")}},
+                                    % end
+                                </div>
+                            </li>
+                            % end
+                            % if 'minimum_rent_period' in rent:
+                            <li class="animate time">
+                                <div>
+                                    <i class="timeIcon"></i>
+                                    最短租期
+                                    <!--@@include=partials/get_rent_min_period.html  -->
                                 </div>
                             </li>
                         </ul>

@@ -1,0 +1,12 @@
+%if rent.get('minimum_rent_period',{}).get('value') and rent.get('minimum_rent_period',{}).get('unit'):
+    {{rent.get('minimum_rent_period',{}).get('value')}}
+    %if rent.get('minimum_rent_period',{}).get('unit') == 'day':
+        {{_('天')}}
+    %elif rent.get('minimum_rent_period',{}).get('unit') == 'week':
+        {{_('周')}}
+    %elif rent.get('minimum_rent_period',{}).get('unit') == 'month':
+        {{_('月')}}
+    %else:
+        {{property.get('space').get('unit')}}
+    %end
+%end
