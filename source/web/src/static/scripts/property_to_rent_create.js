@@ -615,7 +615,7 @@
             ticketData.space = getSpace() //面积
         }
         if($('#rentPeriodEndDate').val()){
-            ticketData['rent_deadline_time'] = new Date($('#rentPeriodEndDate').val()).getTime() / 1000
+            ticketData.rent_deadline_time = new Date($('#rentPeriodEndDate').val()).getTime() / 1000
         }
         return ticketData
     }
