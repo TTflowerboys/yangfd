@@ -211,7 +211,9 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         ticket_database = f_app.ticket.get_database(m)
         for ticket in ticket_database.find({"rent_available_time": {"$exists": True}}):
             if "rent_period" in ticket:
-                if str(ticket["rent_period"]["_id"]) in rent_period_dict:
+                if not isinstance(ticket["rent_period"], dict):
+                    self.logger.warning("invalid rent_period:", ticket["rent_period"], "for ticket", str(ticket["_id"]), exc_info=False)
+                elif str(ticket["rent_period"]["_id"]) in rent_period_dict:
                     rent_period = rent_period_dict[str(ticket["rent_period"]["_id"])]["slug"].split(":")[-1]
                     rent_deadline_time = f_app.shop.recurring.generate_next_billing_time(period=rent_period, start=ticket["rent_available_time"])
                     self.logger.debug("updating rent_deadline_time", rent_deadline_time, "for ticket", str(ticket["_id"]))
