@@ -1,5 +1,29 @@
 <!--@@master = masters/master.html-->
 
+<!--@@block = head-->
+<!--build:css(dist) /static/styles/propertyToRent.html.css-->
+<link rel="stylesheet" href="/static/bower_components/swiper/dist/css/swiper.min.css">
+<link rel="stylesheet" href="/static/bower_components/photoswipe/dist/photoswipe.css"/>
+<link rel="stylesheet" href="/static/bower_components/jquery.stickynavbar/animate.min.css"/>
+<link rel="stylesheet" href="/static/vendors/iOSList/jquery.ioslist.css"/>
+<link rel="stylesheet" href="/static/styles/rentDetails.css"/>
+<link rel="stylesheet" href="/static/styles/iconFont.css">
+<link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
+<link rel="stylesheet" href="/static/styles/bingMap.css"/>
+<link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
+<link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
+<link rel="stylesheet" href="/static/styles/hostContactRequest.css"/>
+<!--endbuild-->
+<link rel="stylesheet" href="/static/bower_components/photoswipe/dist/default-skin/default-skin.css"/>
+
+<!-- minor change from original repo https://github.com/Fykec/excanvas, detail can check change log -->
+<!--[if lte IE 8]>
+<script type="text/javascript" src="/static/vendors/excanvas.min.js"></script>
+<![endif]-->
+<!--@@close-->
+
+%if rent:
+% from bottle import request
 <!--@@block = custom_header-->
 <div class="propertyHeader_phone  rmm" >
     <div class="rmm-toggled rmm-closed rmm-center-closed">
@@ -32,32 +56,6 @@
     </div>
 </div>
 
-<!--@@close-->
-
-%if rent:
-<!--@@block = head-->
-% from bottle import request
-
-<!--build:css(dist) /static/styles/propertyToRent.html.css-->
-<link rel="stylesheet" href="/static/bower_components/swiper/dist/css/swiper.min.css">
-<link rel="stylesheet" href="/static/bower_components/photoswipe/dist/photoswipe.css"/>
-<link rel="stylesheet" href="/static/bower_components/jquery.stickynavbar/animate.min.css"/>
-<link rel="stylesheet" href="/static/vendors/iOSList/jquery.ioslist.css"/>
-<link rel="stylesheet" href="/static/styles/rentDetails.css"/>
-<link rel="stylesheet" href="/static/styles/iconFont.css">
-<link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
-<link rel="stylesheet" href="/static/styles/bingMap.css"/>
-<link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
-<link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
-<link rel="stylesheet" href="/static/styles/hostContactRequest.css"/>
-<!--endbuild-->
-<link rel="stylesheet" href="/static/bower_components/photoswipe/dist/default-skin/default-skin.css"/>
-
-<!-- minor change from original repo https://github.com/Fykec/excanvas, detail can check change log -->
-<!--[if lte IE 8]>
-<script type="text/javascript" src="/static/vendors/excanvas.min.js"></script>
-<![endif]-->
-
 
 <div id="stickyNavbar" class="stickyNavbar unsticky">
     <nav id="nav">
@@ -78,6 +76,8 @@
     </nav>
 </div>
 <!--@@close-->
+
+
 
 <!--@@block = main-->
 <div class="propertyDetails">
