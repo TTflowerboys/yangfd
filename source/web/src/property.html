@@ -1,5 +1,33 @@
 <!--@@master = masters/master.html-->
 
+<!--@@block = head-->
+
+<!-- cause video-js.css has related path font resource, so package in the same dir-->
+<!--build:css(dist) /static/bower_components/video-js/dist/video-js/video-js.css-->
+<link rel="stylesheet" href="/static/bower_components/video-js/dist/video-js/video-js.css">
+<!--endbuild-->
+<!--build:css(dist) /static/styles/property.html.css-->
+<link rel="stylesheet" href="/static/bower_components/swiper/dist/css/swiper.min.css">
+<link rel="stylesheet" href="/static/bower_components/photoswipe/dist/photoswipe.css"/>
+<link rel="stylesheet" href="/static/bower_components/jquery.stickynavbar/animate.min.css"/>
+<link rel="stylesheet" href="/static/vendors/iOSList/jquery.ioslist.css"/>
+<link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
+<link rel="stylesheet" href="/static/styles/propertyCard.css"/>
+<link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
+<link rel="stylesheet" href="/static/styles/bingMap.css"/>
+<link rel="stylesheet" href="/static/styles/mainHouseTypePopup.css"/>
+<link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
+<link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
+<!--endbuild-->
+<link rel="stylesheet" href="/static/bower_components/photoswipe/dist/default-skin/default-skin.css"/>
+
+<!-- minor change from original repo https://github.com/Fykec/excanvas, detail can check change log -->
+<!--[if lte IE 8]>
+<script type="text/javascript" src="/static/vendors/excanvas.min.js"></script>
+<![endif]-->
+
+<!--@@close-->
+
 <!--@@block = custom_header-->
 <div class="propertyHeader_phone  rmm" >
     <div class="rmm-toggled rmm-closed rmm-center-closed">
@@ -31,81 +59,56 @@
         </ul>
     </div>
 </div>
+%if property:
+% property_type_slug = property.get('property_type',{}).get('slug')
 
+% tags = []
+% if 'intention' in property and property.get('intention'):
+% tags = [item['value'] for item in property['intention'] if 'value' in item]
+% end
+% tagString = ', '.join(tags)
+
+% from bottle import request
+
+
+
+
+<div id="stickyNavbar" class="stickyNavbar unsticky">
+    <nav id="nav">
+        <ul class="nav navbar-nav">
+            <li class="menuItem">
+                <a href="#propertyDetails_description">{{_('房产详情')}}</a>
+            </li >
+            %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('code') in ['US', 'GB']:
+            <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
+            %end
+            % if property.get('main_house_types'):
+            <li class="menuItem"><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
+            % end
+            % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
+            <li class="menuItem"><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
+            %end
+            % if property.get('historical_price') :
+            <li class="menuItem"><a href="#propertyDetails_price">{{_('价格趋势')}}</a></li>
+            % end
+            % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
+            <li class="menuItem"><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
+            % end
+            % if property.get('brochure') and len(property.get('brochure')) > 0:
+            <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
+            % end
+            % if report :
+            <li class="menuItem"><a href="#regionReport">{{_('街区报告')}}</a></li>
+            % end
+        </ul>
+        <a class="contact" href="tel:4000926433">
+            {{!_('拨打 <strong>400-0926-433</strong>')}}
+        </a>
+    </nav>
+</div>
 <!--@@close-->
 
-%if property:
-    <!--@@block = head-->
-    % property_type_slug = property.get('property_type',{}).get('slug')
 
-    % tags = []
-    % if 'intention' in property and property.get('intention'):
-        % tags = [item['value'] for item in property['intention'] if 'value' in item]
-    % end
-    % tagString = ', '.join(tags)
-
-    % from bottle import request
-
-
-    <!-- cause video-js.css has related path font resource, so package in the same dir-->
-    <!--build:css(dist) /static/bower_components/video-js/dist/video-js/video-js.css-->
-    <link rel="stylesheet" href="/static/bower_components/video-js/dist/video-js/video-js.css">
-    <!--endbuild-->
-    <!--build:css(dist) /static/styles/property.html.css-->
-    <link rel="stylesheet" href="/static/bower_components/swiper/dist/css/swiper.min.css">
-    <link rel="stylesheet" href="/static/bower_components/photoswipe/dist/photoswipe.css"/>
-    <link rel="stylesheet" href="/static/bower_components/jquery.stickynavbar/animate.min.css"/>
-    <link rel="stylesheet" href="/static/vendors/iOSList/jquery.ioslist.css"/>
-    <link rel="stylesheet" href="/static/styles/propertyDetails.css"/>
-    <link rel="stylesheet" href="/static/styles/propertyCard.css"/>
-    <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
-    <link rel="stylesheet" href="/static/styles/bingMap.css"/>
-    <link rel="stylesheet" href="/static/styles/mainHouseTypePopup.css"/>
-    <link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
-    <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
-    <!--endbuild-->
-    <link rel="stylesheet" href="/static/bower_components/photoswipe/dist/default-skin/default-skin.css"/>
-
-    <!-- minor change from original repo https://github.com/Fykec/excanvas, detail can check change log -->
-    <!--[if lte IE 8]>
-    <script type="text/javascript" src="/static/vendors/excanvas.min.js"></script>
-    <![endif]-->
-
-
-    <div id="stickyNavbar" class="stickyNavbar unsticky">
-        <nav id="nav">
-            <ul class="nav navbar-nav">
-                <li class="menuItem">
-                    <a href="#propertyDetails_description">{{_('房产详情')}}</a>
-                </li >
-                %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('code') in ['US', 'GB']:
-                    <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
-                %end
-                % if property.get('main_house_types'):
-                    <li class="menuItem"><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
-                % end
-                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
-                    <li class="menuItem"><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
-                %end
-                % if property.get('historical_price') :
-                    <li class="menuItem"><a href="#propertyDetails_price">{{_('价格趋势')}}</a></li>
-                % end
-                % if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
-                    <li class="menuItem"><a href="#propertyDetails_incoming">{{_('月收支分析')}}</a></li>
-                % end
-                 % if property.get('brochure') and len(property.get('brochure')) > 0:
-                    <li class="menuItem"><a href="#propertyDetails_brochure">{{_('相关资料')}}</a></li>
-                % end
-                % if report :
-                    <li class="menuItem"><a href="#regionReport">{{_('街区报告')}}</a></li>
-                % end
-            </ul>
-            <a class="contact" href="tel:4000926433">
-                 {{!_('拨打 <strong>400-0926-433</strong>')}}
-            </a>
-        </nav>
-    </div>
-    <!--@@close-->
     <!--@@block = main-->
 
     <div class="propertyDetails">
