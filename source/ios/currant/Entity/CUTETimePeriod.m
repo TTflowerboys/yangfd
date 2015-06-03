@@ -36,7 +36,7 @@
 - (NSDictionary *)toParams {
     return @{
              @"unit":self.unit,
-             @"value":[NSString stringWithFormat:@"%lf", self.value]
+             @"value":[NSString stringWithFormat:@"%d", (int)self.value]
              };
 }
 

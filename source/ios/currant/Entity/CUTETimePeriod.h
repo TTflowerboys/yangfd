@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) NSString *unit;
 
-@property (nonatomic) float value;
+@property (nonatomic) int value;
 
 @property (nonatomic, readonly) NSString *unitForDisplay;
 
