@@ -604,7 +604,6 @@
             'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
             'bill_covered': $('#billCovered').is(':checked'), //是否包物业水电费
-            'minimum_rent_period': JSON.stringify({unit: $('#minimumRentPeriod').val(), value: '1'}),
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
             'title': title,
         })
@@ -616,6 +615,9 @@
         }
         if($('#rentPeriodEndDate').val()){
             ticketData.rent_deadline_time = new Date($('#rentPeriodEndDate').val()).getTime() / 1000
+        }
+        if($('#minimumRentPeriod').val()) {
+            ticketData.minimum_rent_period = JSON.stringify({unit: $('#minimumRentPeriod').val().split(',')[1], value: $('#minimumRentPeriod').val().split(',')[0]})
         }
         return ticketData
     }
