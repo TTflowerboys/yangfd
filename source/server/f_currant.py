@@ -29,6 +29,7 @@ from libfelix.f_interface import abort, request, template
 from libfelix.f_cache import f_cache
 from libfelix.f_util import f_util
 from libfelix.f_shop import f_shop
+from libfelix.f_shop.f_recurring_bm import f_recurring_billing_model
 from libfelix.f_order import f_order
 from libfelix.f_mongo import f_mongo_upgrade
 
@@ -2717,6 +2718,8 @@ class f_currant_shop(f_shop):
         f_app.shop.item_update_set(item.get('shop_id'), item_id, {"funding_available": funding_available})
 
 f_currant_shop()
+# Fix submodule
+f_recurring_billing_model()
 
 
 class f_comment(f_app.module_base):
