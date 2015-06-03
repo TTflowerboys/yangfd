@@ -194,6 +194,35 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
             f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"role": "beta_renting"}})
 
+    def v9(self, m):
+        all_rent_period = f_app.util.process_objectid(list(f_app.enum.get_database(m).find({
+            "type": "rent_period",
+        })))
+        rent_period_dict = {rent_period["id"]: rent_period for rent_period in all_rent_period}
+
+        default_minimum_rent_period = dict(
+            unit="week",
+            value="1",
+            value_float=1.0,
+            type="time_period",
+            _i18n_unit=True,
+        )
+
+        ticket_database = f_app.ticket.get_database(m)
+        for ticket in ticket_database.find({"rent_available_time": {"$exists": True}}):
+            if "rent_period" in ticket:
+                if str(ticket["rent_period"]["_id"]) in rent_period_dict:
+                    rent_period = rent_period_dict[str(ticket["rent_period"]["_id"])]["slug"].split(":")[-1]
+                    rent_deadline_time = f_app.shop.recurring.generate_next_billing_time(period=rent_period, start=ticket["rent_available_time"])
+                    self.logger.debug("updating rent_deadline_time", rent_deadline_time, "for ticket", str(ticket["_id"]))
+                    ticket_database.update({"_id": ticket["_id"]}, {"$set": {"rent_deadline_time": rent_deadline_time}, "$unset": {"rent_period": True}})
+
+                else:
+                    self.logger.warning("unknown rent_period enum:", str(ticket["city"]["_id"]), "for ticket", str(ticket["_id"]), exc_info=False)
+
+            self.logger.debug("setting default minimum_rent_period for ticket", str(ticket["_id"]))
+            ticket_database.update({"_id": ticket["_id"]}, {"$set": {"minimum_rent_period": default_minimum_rent_period}})
+
 currant_mongo_upgrade()
 
 
