@@ -7,6 +7,7 @@
 //
 
 #import "CUTETimePeriod.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTETimePeriod
 
@@ -21,6 +22,15 @@
     period.unit = unit;
     period.value = value;
     return period;
+}
+
++ (NSString *)getDisplayUnitWithUnit:(NSString *)unit
+{
+    return @{@"day": STR(@"天"), @"week": STR(@"周"), @"month": STR(@"月")}[unit];
+}
+
+- (NSString *)unitForDisplay {
+    return [CUTETimePeriod getDisplayUnitWithUnit:self.unit];
 }
 
 - (NSDictionary *)toParams {

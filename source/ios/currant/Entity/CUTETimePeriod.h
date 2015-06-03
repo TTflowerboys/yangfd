@@ -7,14 +7,19 @@
 //
 
 #import "MTLModel.h"
+#import "MTLJSONAdapter.h"
 
-@interface CUTETimePeriod : MTLModel
+@interface CUTETimePeriod : MTLModel <MTLJSONSerializing>
 
 @property (strong, nonatomic) NSString *unit;
 
 @property (nonatomic) float value;
 
+@property (nonatomic, readonly) NSString *unitForDisplay;
+
 + (CUTETimePeriod *)timePeriodWithValue:(float)value unit:(NSString *)unit;
+
++ (NSString *)getDisplayUnitWithUnit:(NSString *)unit;
 
 - (NSDictionary *)toParams;
 

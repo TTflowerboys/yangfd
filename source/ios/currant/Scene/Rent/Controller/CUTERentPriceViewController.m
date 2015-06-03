@@ -68,6 +68,10 @@
     [self updateForm];
 }
 
+- (void)onMinimumRentPeriodEdit:(id)sender {
+    [self updateForm];
+}
+
 - (void)optionBack {
     [self.navigationController popViewControllerAnimated:YES];
     [self updateForm];
