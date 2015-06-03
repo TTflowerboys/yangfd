@@ -366,7 +366,11 @@
                             <div class="arrowButton nextButton" data-action="Next"></div>
                         </div>
 
-                        <div class="scrollUp">{{_('继续')}}</div>
+                        <div class="scrollUp
+                        % if not report:
+                        hideOutsideWechat
+                        %end
+                        ">{{_('继续')}}</div>
                     </div>
                 </div>
                 % else:
