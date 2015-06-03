@@ -34,6 +34,16 @@
 		2C0AE1101B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
 		2C0AE1111B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
 		2C0AE1121B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
+		2C0AE1151B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */; };
+		2C0AE1161B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */; };
+		2C0AE1171B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */; };
+		2C0AE1181B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */; };
+		2C0AE1191B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */; };
+		2C0AE11C1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */; };
+		2C0AE11D1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */; };
+		2C0AE11E1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */; };
+		2C0AE11F1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */; };
+		2C0AE1201B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */; };
 		2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
@@ -610,6 +620,10 @@
 		2C0AE1061B1D924D00A73BE6 /* CUTESettingForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESettingForm.m; sourceTree = "<group>"; };
 		2C0AE10C1B1DAFB100A73BE6 /* CUTEGeoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEGeoManager.h; sourceTree = "<group>"; };
 		2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEGeoManager.m; sourceTree = "<group>"; };
+		2C0AE1131B1EC72B00A73BE6 /* CUTETimePeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETimePeriod.h; sourceTree = "<group>"; };
+		2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETimePeriod.m; sourceTree = "<group>"; };
+		2C0AE11A1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormRentPeriodPickerCell.h; sourceTree = "<group>"; };
+		2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormRentPeriodPickerCell.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
 		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -976,6 +990,8 @@
 				2C427EA11AD3802A000378A9 /* CUTEArea.m */,
 				2C427EA71AD3803B000378A9 /* CUTECurrency.h */,
 				2C427EA81AD3803B000378A9 /* CUTECurrency.m */,
+				2C0AE1131B1EC72B00A73BE6 /* CUTETimePeriod.h */,
+				2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */,
 				2C427E921AD37D20000378A9 /* CUTEProperty.h */,
 				2C427E931AD37D20000378A9 /* CUTEProperty.m */,
 				2CA81F7C1B0CA543006E993C /* CUTEHouseType.h */,
@@ -1304,6 +1320,8 @@
 				2C2FCDCA1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m */,
 				2CF8A5CC1AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.h */,
 				2CF8A5CD1AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m */,
+				2C0AE11A1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.h */,
+				2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */,
 				2CF8A5D81AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.h */,
 				2CF8A5D91AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m */,
 				2CF8A5DA1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.h */,
@@ -1823,6 +1841,7 @@
 				2CA81FA31B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C3DE24D1B074247006FF191 /* CUTESplashViewController.m in Sources */,
+				2C0AE11E1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
 				2CC6C1ED1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
 				2CA81FBF1B1425D1006E993C /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */,
@@ -1872,6 +1891,7 @@
 				2CA2E6B21AC5487800053965 /* CUTEDataManager.m in Sources */,
 				2CF8A61A1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2621B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
+				2C0AE1171B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F71AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6841AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
 				2CF8A63D1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
@@ -1937,6 +1957,7 @@
 				2CA81FA41B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C3DE24E1B074247006FF191 /* CUTESplashViewController.m in Sources */,
+				2C0AE11F1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
 				2CC6C1EE1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
 				2CA81FC01B1425D1006E993C /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */,
@@ -1986,6 +2007,7 @@
 				2CA2E6CB1AC5496700053965 /* CUTEDataManager.m in Sources */,
 				2CF8A61B1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2631B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
+				2C0AE1181B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F81AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6851AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
 				2CF8A63E1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
@@ -2051,6 +2073,7 @@
 				2CA81FA21B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C3DE24C1B074247006FF191 /* CUTESplashViewController.m in Sources */,
+				2C0AE11D1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
 				2CC6C1EC1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
 				2CA81FBE1B1425D1006E993C /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */,
@@ -2100,6 +2123,7 @@
 				2CA94A9C1ACA42CD00DF7497 /* CUTEDataManager.m in Sources */,
 				2CF8A6191AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2611B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
+				2C0AE1161B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F61AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6831AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
 				2CF8A63C1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
@@ -2165,6 +2189,7 @@
 				2CA81FA11B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C3DE24B1B074247006FF191 /* CUTESplashViewController.m in Sources */,
+				2C0AE11C1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
 				2CC6C1EB1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
 				2CA81FBD1B1425D1006E993C /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2C4AEC7F1AD6466A004DEE23 /* CUTEUser.m in Sources */,
@@ -2214,6 +2239,7 @@
 				2CDBB2FA1AC146790024E225 /* CUTEDataManager.m in Sources */,
 				2CF8A6181AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2601B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
+				2C0AE1151B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F51AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6821AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
 				2CF8A63B1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
@@ -2302,6 +2328,7 @@
 				2CF8A6901AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2C4AEC831AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2C03AB4C1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
+				2C0AE1201B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
 				2C79C2BC1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CF8A6B91AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
 				2C0AE1121B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */,
@@ -2328,6 +2355,7 @@
 				2C2FCDE41B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2C427E981AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2CC3A0951AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
+				2C0AE1191B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2C2FCDEB1B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A69F1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A69A1AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,

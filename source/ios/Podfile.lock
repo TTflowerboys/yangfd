@@ -67,6 +67,7 @@ PODS:
     - NJKWebViewProgress/ProgressView (= 0.2.3)
   - NJKWebViewProgress/Core (0.2.3)
   - NJKWebViewProgress/ProgressView (0.2.3)
+  - NSDate-Extensions (0.0.1)
   - ObjectiveSugar (1.1.0)
   - Overcoat (1.2.1):
     - AFNetworking (~> 2.0)
@@ -103,6 +104,7 @@ DEPENDENCIES:
   - MWPhotoBrowser (~> 1.4.1)
   - ngrvalidator (~> 1.0.0)
   - NJKWebViewProgress (~> 0.2.3)
+  - NSDate-Extensions
   - RegExCategories (~> 1.0)
   - Sequencer (~> 1.0.1)
   - SMCalloutView (~> 2.1.1)
@@ -154,6 +156,7 @@ SPEC CHECKSUMS:
   MWPhotoBrowser: 2531e682860d62b8a7ba8659de02eb9040e431e5
   ngrvalidator: 3d9f8402b2b3bbc070945e7defe1af0b5cc72e58
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
+  NSDate-Extensions: cbd68ecf5cf8a150644e184b4521d7734fea5ace
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
   Overcoat: 45e4d20eafc02c8d7fcde3cb89d35f0630a9fa80
   PSTCollectionView: 6749df92885353521f55279a7ce2b293762e2be4

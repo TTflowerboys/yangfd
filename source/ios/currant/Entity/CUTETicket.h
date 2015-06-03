@@ -11,7 +11,7 @@
 #import "CUTEArea.h"
 #import "CUTECurrency.h"
 #import "CUTEProperty.h"
-#import "CUTERentPeriod.h"
+#import "CUTETimePeriod.h"
 
 #define kTicketStatusToRent @"to rent"
 #define kTicketStatusDraft @"draft"
@@ -32,8 +32,6 @@
 
 @property (strong, nonatomic) CUTEEnum *rentType;
 
-@property (strong, nonatomic) CUTERentPeriod *rentPeriod;
-
 @property (strong, nonatomic) CUTEEnum *depositType;
 
 @property (strong, nonatomic) CUTEArea *space;
@@ -43,6 +41,10 @@
 @property (strong, nonatomic) CUTECurrency *price;
 
 @property (nonatomic) NSTimeInterval rentAvailableTime;
+
+@property (nonatomic) NSTimeInterval rentDeadlineTime;
+
+@property (strong, nonatomic) CUTETimePeriod *minimumRentPeriod;
 
 @property (nonatomic) NSTimeInterval lastModifiedTime;
 

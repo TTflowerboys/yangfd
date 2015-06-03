@@ -8,7 +8,6 @@
 
 #import "CUTEEnum.h"
 #import "CUTECommonMacro.h"
-#import "CUTERentPeriod.h"
 
 @implementation CUTEEnum
 
@@ -24,12 +23,6 @@
 
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary
 {
-    if (JSONDictionary && [JSONDictionary count] > 0)
-    {
-        if ([[JSONDictionary objectForKey:@"type"] isEqualToString:@"rent_period"]) {
-            return [CUTERentPeriod class];
-        }
-    }
     return [self class];
 }
 

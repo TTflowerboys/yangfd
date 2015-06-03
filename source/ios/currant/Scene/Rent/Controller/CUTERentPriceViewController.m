@@ -47,29 +47,37 @@
 }
 
 - (void)onRentPriceEdit:(id)sender {
-    [self upateForm];
+    [self updateForm];
 }
 
 - (void)onContainBillSwitch:(id)sender {
-    [self upateForm];
+    [self updateForm];
 }
 
 - (void)onRentPeriodSwitch:(id)sender {
     [self.formController updateSections];
     [self.tableView reloadData];
-    [self upateForm];
+    [self updateForm];
 }
 
 - (void)onRentAvailableTimeEdit:(id)sender {
-    [self upateForm];
+    [self updateForm];
+}
+
+- (void)onRentDeadlineTimeEdit:(id)sender {
+    [self updateForm];
+}
+
+- (void)onMinimumRentPeriodEdit:(id)sender {
+    [self updateForm];
 }
 
 - (void)optionBack {
     [self.navigationController popViewControllerAnimated:YES];
-    [self upateForm];
+    [self updateForm];
 }
 
-- (void)upateForm {
+- (void)updateForm {
     CUTERentPriceForm *form = (CUTERentPriceForm *)[[self formController] form];
     CUTETicket *ticket = self.ticket;
     ticket.depositType = form.depositType;
@@ -77,7 +85,8 @@
     ticket.billCovered = form.containBill;
     if (form.needSetPeriod) {
         ticket.rentAvailableTime = [[form rentAvailableTime] timeIntervalSince1970];
-        ticket.rentPeriod = [form rentPeriod];
+        ticket.rentDeadlineTime = [[form rentDeadlineTime] timeIntervalSince1970];
+        ticket.minimumRentPeriod = [form minimumRentPeriod];
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
