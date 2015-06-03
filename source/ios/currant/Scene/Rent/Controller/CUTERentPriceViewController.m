@@ -83,10 +83,17 @@
     ticket.depositType = form.depositType;
     ticket.price = [CUTECurrency currencyWithValue:form.rentPrice unit:form.currency];
     ticket.billCovered = form.containBill;
+
+    //TODO if user close the flag, need reset this ticket
     if (form.needSetPeriod) {
         ticket.rentAvailableTime = [[form rentAvailableTime] timeIntervalSince1970];
         ticket.rentDeadlineTime = [[form rentDeadlineTime] timeIntervalSince1970];
         ticket.minimumRentPeriod = [form minimumRentPeriod];
+    }
+    else {
+        ticket.rentAvailableTime = 0;
+        ticket.rentDeadlineTime = 0;
+        ticket.minimumRentPeriod = nil;
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
